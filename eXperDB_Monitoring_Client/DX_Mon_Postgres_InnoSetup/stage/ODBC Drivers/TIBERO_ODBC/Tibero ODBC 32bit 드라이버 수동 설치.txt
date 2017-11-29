@@ -1,0 +1,10 @@
+티베로 ODBC 32bit 수동 설치 시 (관리자 권한으로 CMD 실행)
+
+C:\Users\Notebook>cd C:\Users\Notebook\Desktop\tibero\win32\bin
+
+C:\Users\Notebook\Desktop\tibero\win32\bin>tbodbc_driver_installer_5_32.exe -i C:\Users\Notebook\Desktop\tibero\win32\lib
+TiberoODBC Driver is being installed to [ C:\Users\Notebook\Desktop\tibero\win32\lib\ ]
+<Caution!!> If you changed the driver path, you should remove all Tibero DSNs an
+d add them again.
+
+Success to INSTALL Tibero 5 ODBC Driver

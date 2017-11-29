@@ -1,0 +1,1637 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app">
+
+<!-- ********************************************************** -->
+<!-- RscCollect START -->
+<!-- ********************************************************** -->
+	<select id="TB_RSC_COLLECT_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		select max(reg_date) as max_reg_date, TO_CHAR(NOW(), 'YYYYMMDD') as reg_date from tb_rsc_collect_info;
+	</select>
+
+	<select id="SEQ_SETVAL_RSC" parameterType="hashmap" resultType="hashmap">
+		select setval('rsc_reg_seq',1);
+	</select>
+
+	<insert id="TB_RSC_COLLECT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_RSC_COLLECT_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			NEXTVAL('RSC_REG_SEQ'),
+			#{instance_id},
+			#{is_collect_ok},
+			#{failed_collect_type},
+			NOW()
+		)
+	</insert>	
+
+
+
+	<select id="BT_MEMORY_STAT_001" parameterType="hashmap" resultType="hashmap">
+		SELECT /* EXPERDBMABT_MEMORY_STAT_001 24e9ab7301ff1966da4fb30dc1538882 */
+		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+		          --? AS RSC_REG_SEQ, -- @NEXTVAL('RSC_REG_SEQ'),
+		          MEM_TOTAL_KB AS MEM_TOTAL_KB,
+		          MEM_USED_KB AS MEM_USED_KB,
+		          MEM_FREE_KB AS MEM_FREE_KB,
+		          MEM_BUFFER_KB AS MEM_BUFFERED_KB,
+		          MEM_CACHED_KB AS MEM_CACHED_KB,
+		          SWP_TOTAL_KB AS SWP_TOTAL_KB,
+		          SWP_USED_KB AS SWP_USED_KB,
+		          SWP_CACHED_KB AS SWP_CACHED_KB,
+		          SWP_FREE_KB AS SWP_FREE_KB,
+		          SHM_KB AS SHM_KB,
+		          0 AS PGSQL_USAGE_KB,
+		          NOW() AS COLLECT_DT
+		  FROM GET_STAT_MEM()
+	</select>	
+
+	<insert id="TB_MEMORY_STAT_I001" parameterType="hashmap" >
+		INSERT INTO TB_MEMORY_STAT	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('RSC_REG_SEQ'),
+			#{mem_total_kb},
+			#{mem_used_kb},
+			#{mem_free_kb},
+			#{mem_buffered_kb},
+			#{mem_cached_kb},
+			#{swp_total_kb},
+			#{swp_used_kb},
+			#{swp_cached_kb},
+			#{swp_free_kb},
+			#{shm_kb},
+			#{pgsql_usage_kb},
+			#{collect_dt}
+		)
+	</insert>
+
+
+
+	<select id="BT_CPU_STAT_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		SELECT /* EXPERDBMABT_CPU_STAT_DETAIL_001 24e9ab7301ff1966da4fb30dc1538882 */
+		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+		          --? AS RSC_REG_SEQ, -- @NEXTVAL('RSC_REG_SEQ'),
+		          SEQ AS CPU_LOGICAL_ID,
+		          AGG_USER_UTIL,
+		          AGG_NICE_UTIL,
+		          AGG_SYS_UTIL,
+		          AGG_IDLE_UTIL,
+		          AGG_WAIT_UTIL,
+		          NOW() AS COLLECT_DT
+		  FROM (SELECT SEQ,
+		                    CPU_AGG_USER AS AGG_USER_UTIL,
+		                    CPU_AGG_NICE AS AGG_NICE_UTIL,
+		                    CPU_AGG_SYS AS AGG_SYS_UTIL,
+		                    CPU_AGG_IDLE AS AGG_IDLE_UTIL,
+		                    CPU_AGG_WAIT AS AGG_WAIT_UTIL
+		            FROM GET_STAT_CPU_CORES()) AS A
+	</select>
+
+	<insert id="TB_CPU_STAT_MASTER_I001" parameterType="hashmap" >
+		INSERT INTO TB_CPU_STAT_MASTER
+		VALUES
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('RSC_REG_SEQ'),
+			#{agg_user_util},
+			#{agg_nice_util},
+			#{agg_sys_util},
+			#{agg_idle_util},
+			#{agg_wait_util},
+			#{current_user_util},
+			#{current_nice_util},
+			#{current_sys_util},
+			#{current_idle_util},
+			#{current_wait_util},
+			#{user_util_rate},
+			#{nice_util_rate},
+			#{sys_util_rate},
+			#{idle_util_rate},
+			#{wait_util_rate},
+			#{dt_now}
+		)
+	</insert>	
+
+	<insert id="TB_CPU_STAT_DETAIL_I001" parameterType="hashmap" >
+		INSERT INTO TB_CPU_STAT_DETAIL
+		VALUES
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('RSC_REG_SEQ'),
+			#{cpu_logical_id},
+			#{agg_user_util},
+			#{agg_nice_util},
+			#{agg_sys_util},
+			#{agg_idle_util},
+			#{agg_wait_util},
+			#{current_user_util},
+			#{current_nice_util},
+			#{current_sys_util},
+			#{current_idle_util},
+			#{current_wait_util},
+			#{user_util_rate},
+			#{nice_util_rate},
+			#{sys_util_rate},
+			#{idle_util_rate},
+			#{wait_util_rate}
+		)
+	</insert>
+
+
+
+	<select id="BT_DISK_IO_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		SELECT /* EXPERDBMABT_DISK_IO_001 24e9ab7301ff1966da4fb30dc1538882 */
+				  DISK_NAME
+		         ,RD_AGG_SECTORS AS AGG_READ_KB
+		         ,WR_AGG_SECTORS AS AGG_WRITE_KB
+		         ,IO_AGG_MILLISEC AS AGG_IO_MSEC
+		         ,SEC_FROM_EPOCH 
+		         ,NOW() AS COLLECT_DT
+		         --,EXTRACT(EPOCH FROM DATE_TRUNC('MILLISECONDS', NOW())) * 1000 - EXTRACT(EPOCH FROM DATE_TRUNC('MILLISECONDS', ?::TIMESTAMP)) * 1000)::NUMERIC AS MIL_SEC_DIFF
+		   FROM GET_STAT_DISK_IO
+	</select>
+
+
+	<insert id="TB_DISK_IO_I001" parameterType="hashmap" >
+		INSERT INTO TB_DISK_IO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('RSC_REG_SEQ'),
+			#{disk_name},
+			#{agg_read_kb},
+			#{current_read_kb},
+			#{read_busy_rate},
+			#{agg_write_kb},
+			#{current_write_kb},
+			#{write_busy_rate},
+			#{agg_io_msec},
+			#{current_io_msec},
+			#{collect_dt},
+			#{delta_time}
+		)
+	</insert>
+
+
+<!--
+	<select id="BT_DISK_USAGE_001" parameterType="hashmap" resultType="hashmap">
+		SELECT /* EXPERDBMABT_DISK_USAGE_001 24e9ab7301ff1966da4fb30dc1538882 */
+		          DEV_NAME AS DEVICE_NAME,
+		          TOT_KB AS TOTAL_KB,
+		          USED_KB AS USED_KB,
+		          AVAIL_KB AS AVAIL_KB,
+		          MT_DIR AS MOUNT_POINT_DIR,
+		          NOW() AS COLLECT_DT
+		  FROM GET_STAT_DISK_USGE();
+	</select>
+	-->
+		<select id="BT_DISK_USAGE_001" parameterType="hashmap" resultType="hashmap">
+		SELECT /* EXPERDBMABT_DISK_USAGE_001 24e9ab7301ff1966da4fb30dc1538882 */
+		          max(DEV_NAME) AS DEVICE_NAME,
+		          max(TOT_KB) AS TOTAL_KB,
+		          max(USED_KB) AS USED_KB,
+		          max(AVAIL_KB) AS AVAIL_KB,
+		          MT_DIR AS MOUNT_POINT_DIR,
+		          NOW() AS COLLECT_DT
+		  FROM GET_STAT_DISK_USGE()
+		  group by MT_DIR;
+	</select>
+	<insert id="TB_DISK_USAGE_I001" parameterType="hashmap" >
+		INSERT INTO TB_DISK_USAGE	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('RSC_REG_SEQ'),
+			#{device_name},
+			#{total_kb},
+			#{used_kb},
+			#{avail_kb},
+			#{mount_point_dir},
+			#{collect_dt}
+		)
+	</insert>	
+<!-- ********************************************************** -->
+<!-- RscCollect END -->
+<!-- ********************************************************** -->
+	
+
+
+<!-- ********************************************************** -->
+<!-- ObjtCollect START -->
+<!-- ********************************************************** -->
+	<select id="TB_OBJT_COLLECT_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		select max(reg_date) as max_reg_date, TO_CHAR(NOW(), 'YYYYMMDD') as reg_date from TB_OBJT_COLLECT_INFO;
+	</select>
+
+	<select id="SEQ_SETVAL_OBJT" parameterType="hashmap" resultType="hashmap">
+		select setval('objt_reg_seq',1);
+	</select>
+	
+	<insert id="TB_OBJT_COLLECT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_OBJT_COLLECT_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			NEXTVAL('OBJT_REG_SEQ'),
+			#{instance_id},
+			#{is_collect_ok},			
+			#{failed_collect_type},
+			NOW()
+		)
+	</insert>
+
+
+	<select id="BT_TABLESPACE_INFO_001" parameterType="hashmap" resultType="hashmap">
+		<choose>
+			<when test="instance_db_version.equals('9.0')">
+				SELECT /* EXPERDBMABT_TABLESPACE_INFO_001 (9.0) 24e9ab7301ff1966da4fb30dc1538882 */
+				          --? AS REG_DATE, --@ TO_CHAR(NOW(), 'YYYYMMDD'),
+				          --? AS OBJT_REG_SEQ, --@NEXTVAL('OBJT_REG_SEQ'),
+				          SPCNAME AS TABLESPACE_NAME,
+				          SPCLOCATION AS LOCATION,
+				          PG_TABLESPACE_SIZE(SPCNAME)/1024 AS SIZE_KB,
+				          GET_TBSDISK_TOTAL(CASE WHEN SPCNAME='pg_default' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 WHEN SPCNAME='pg_global' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+							         ELSE SPCLOCATION END) AS TOTAL_DISK_KB,
+				          GET_TBSDISK_AVAIL(CASE WHEN SPCNAME='pg_default' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 WHEN SPCNAME='pg_global' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 ELSE SPCLOCATION END) AS AVAIL_DISK_KB,
+				          NULL AS FS_NAME, --예비
+				          NULL AS DEVICE_NAME, -- 예비
+				          NOW() AS COLLECT_DT
+				  FROM PG_TABLESPACE			
+			</when>		
+			<when test="instance_db_version.equals('9.1')">
+				SELECT /* EXPERDBMABT_TABLESPACE_INFO_001 (9.1) 24e9ab7301ff1966da4fb30dc1538882 */
+				          --? AS REG_DATE, --@ TO_CHAR(NOW(), 'YYYYMMDD'),
+				          --? AS OBJT_REG_SEQ, --@NEXTVAL('OBJT_REG_SEQ'),
+				          SPCNAME AS TABLESPACE_NAME,
+				          SPCLOCATION AS LOCATION,
+				          PG_TABLESPACE_SIZE(SPCNAME)/1024 AS SIZE_KB,
+				          GET_TBSDISK_TOTAL(CASE WHEN SPCNAME='pg_default' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 WHEN SPCNAME='pg_global' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+							         ELSE SPCLOCATION END) AS TOTAL_DISK_KB,
+				          GET_TBSDISK_AVAIL(CASE WHEN SPCNAME='pg_default' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 WHEN SPCNAME='pg_global' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 ELSE SPCLOCATION END) AS AVAIL_DISK_KB,
+				          NULL AS FS_NAME, --예비
+				          NULL AS DEVICE_NAME, -- 예비
+				          NOW() AS COLLECT_DT
+				  FROM PG_TABLESPACE			
+			</when>
+			<when test="instance_db_version >= '9.2'">
+				SELECT /* EXPERDBMABT_TABLESPACE_INFO_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
+				         -- ? AS REG_DATE, --@ TO_CHAR(NOW(), 'YYYYMMDD'),
+				         -- ? AS OBJT_REG_SEQ, --@NEXTVAL('OBJT_REG_SEQ'),
+				          SPCNAME AS TABLESPACE_NAME,
+				          PG_TABLESPACE_LOCATION(OID) AS LOCATION,
+				          PG_TABLESPACE_SIZE(SPCNAME)/1024 AS SIZE_KB,
+				          GET_TBSDISK_TOTAL(CASE WHEN SPCNAME='pg_default' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 WHEN SPCNAME='pg_global' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+							         ELSE PG_TABLESPACE_LOCATION(OID) END) AS TOTAL_DISK_KB,
+				          GET_TBSDISK_AVAIL(CASE WHEN SPCNAME='pg_default' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 WHEN SPCNAME='pg_global' THEN CURRENT_SETTING('DATA_DIRECTORY') 
+				          			 ELSE PG_TABLESPACE_LOCATION(OID) END) AS AVAIL_DISK_KB,
+				          NULL AS FS_NAME, --예비
+				          NULL AS DEVICE_NAME, -- 예비
+				          NOW() AS COLLECT_DT
+				  FROM PG_TABLESPACE;
+			</when>
+			<otherwise>
+				SELECT ERROR
+			</otherwise>
+		</choose>	
+	</select>
+	
+	<insert id="TB_TABLESPACE_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_TABLESPACE_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('OBJT_REG_SEQ'),
+			#{tablespace_name},
+			#{location},
+			#{size_kb},
+			#{total_disk_kb},
+			#{avail_disk_kb},
+			#{fs_name},
+			#{device_name},
+			#{collect_dt}
+		)
+	</insert>
+	
+	
+	<select id="BT_TABLE_INFO_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		<![CDATA[
+		SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
+		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+		          --? AS OBJT_REG_SEQ, -- @NEXTVAL('OBJT_REG_SEQ'),
+		          B.SCHEMANAME AS SCHEMA_NAME,
+		          A.RELNAME AS TABLE_NAME,
+		          PG_RELATION_SIZE(A.RELID) AS TABLE_SIZE_KB,
+		          COALESCE(A.TOT_IDX_SIZE, 0) AS TOT_INDEX_SIZE_KB,
+		          A.IDX_CNT AS INDEX_CNT,
+		          (SELECT CASE WHEN RELTOASTRELID=0 THEN 'N' ELSE 'Y' END FROM PG_CLASS PGC WHERE PGC.OID = A.RELID) AS TOAST_YN,
+		          B.SEQ_SCAN AS AGG_SEQ_SCAN_CNT,
+		          B.SEQ_TUP_READ AS AGG_SEQ_TUPLES,
+		          COALESCE(B.IDX_SCAN, 0) AS AGG_INDEX_SCAN_CNT,
+		          COALESCE(B.IDX_TUP_FETCH, 0) AS AGG_INDEX_TUPLES,
+		          --B.SEQ_SCAN - ? AS CURRENT_SEQ_SCAN_CNT, --@이전값
+		          --B.SEQ_TUP_READ - ? AS CURRENT_SEQ_TUPLES, --@이전값
+		          --B.IDX_SCAN - ? AS CURRENT_INDEX_SCAN_CNT, --@이전값
+		          --B.IDX_TUP_FETCH - ? AS CURRENT_INDEX_TUPLES, --@이전값
+		          B.N_LIVE_TUP AS LIVE_TUPLE_CNT,
+		          --CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN NULL
+		          CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN '1000-01-01 00:00:00'::TIMESTAMP 
+		               WHEN LAST_VACUUM IS NULL THEN LAST_AUTOVACUUM 
+     		               WHEN LAST_AUTOVACUUM IS NULL THEN LAST_VACUUM 
+		               WHEN LAST_VACUUM>LAST_AUTOVACUUM THEN LAST_VACUUM 
+		               ELSE LAST_AUTOVACUUM END AS LAST_VACUUM,
+		          --CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN NULL
+		          CASE WHEN LAST_ANALYZE IS NULL AND LAST_AUTOANALYZE IS NULL THEN '1000-01-01 00:00:00'::TIMESTAMP 
+		               WHEN LAST_ANALYZE IS NULL THEN LAST_AUTOANALYZE 
+		               WHEN LAST_AUTOANALYZE IS NULL THEN LAST_ANALYZE 
+ 		               WHEN LAST_ANALYZE>LAST_AUTOANALYZE THEN LAST_ANALYZE 
+		               ELSE LAST_AUTOANALYZE END AS LAST_ANALYZE,
+		          NOW() AS COLLECT_DT
+		  FROM (SELECT UTB.RELNAME,
+		                    UTB.SCHEMANAME,
+		                    UTB.RELID,
+		                    SUM(PG_RELATION_SIZE(UDX.INDEXRELID)) AS TOT_IDX_SIZE,
+		                    COUNT(UDX.INDEXRELID) AS IDX_CNT 
+		            FROM PG_STAT_USER_TABLES UTB LEFT OUTER JOIN PG_STAT_USER_INDEXES UDX ON UTB.RELNAME=UDX.RELNAME
+           		   WHERE UTB.RELID NOT IN (SELECT RELATION FROM PG_LOCKS WHERE MODE='AccessExclusiveLock')
+		          GROUP BY UTB.SCHEMANAME, UTB.RELNAME, UTB.RELID) A,
+		          PG_STAT_USER_TABLES B
+		 WHERE A.SCHEMANAME = B.SCHEMANAME
+		    AND A.RELNAME=B.RELNAME
+		]]>
+	</select>
+		
+	<insert id="TB_TABLE_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_TABLE_INFO
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('OBJT_REG_SEQ'),
+			#{db_name},
+			#{schema_name},
+			#{table_name},
+			#{table_size_kb},
+			#{tot_index_size_kb},
+			#{index_cnt},
+			#{toast_yn},
+			#{agg_seq_scan_cnt},
+			#{agg_seq_tuples},
+			#{agg_index_scan_cnt},
+			#{agg_index_tuples},
+			#{current_seq_scan_cnt},
+			#{current_seq_tuples},
+			#{current_index_scan_cnt},
+			#{current_index_tuples},			
+			#{live_tuple_cnt},
+			#{last_vacuum},
+			#{last_analyze},
+			#{collect_dt}
+		)
+	</insert>
+	
+	<delete id="TB_TABLE_INFO_D001" parameterType="hashmap" >
+		<![CDATA[
+		/* TB_TABLE_INFO_D001 */
+		DELETE  
+		FROM 
+			TB_TABLE_INFO        
+		WHERE 
+			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
+			AND DB_NAME = #{db_name}
+			AND SCHEMA_NAME = #{schema_name}
+			AND TABLE_NAME = #{table_name}
+		]]>	
+	</delete>
+
+	<select id="BT_INDEX_INFO_001" parameterType="hashmap" resultType="hashmap">
+		SELECT /* EXPERDBMABT_INDEX_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
+		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+		          --? AS OBJT_REG_SEQ, -- @NEXTVAL('OBJT_REG_SEQ'),
+		          #{db_name} AS DB_NAME, -- @DATNAME
+		          SCHEMANAME AS SCHEMA_NAME,
+		          INDEXRELNAME AS INDEX_NAME,
+		          RELNAME AS TABLE_NAME,
+		          PG_RELATION_SIZE(INDEXRELID) AS INDEX_SIZE_KB,
+		          (SELECT ARRAY_LENGTH(INDKEY,1) FROM PG_INDEX PDX WHERE PDX.INDEXRELID = A.INDEXRELID) AS COLUMNS_CNT,
+		          IDX_SCAN AS AGG_INDEX_SCAN_CNT,
+		          IDX_TUP_READ AS AGG_INDEX_SCAN_TUPLES,
+		          IDX_TUP_FETCH AS AGG_INDEX_SCAN_FETCH_TUPLES,
+		          NOW() AS COLLECT_DT
+		 FROM  PG_STAT_USER_INDEXES A
+	</select>
+	
+	
+	<delete id="TB_INDEX_INFO_D001" parameterType="hashmap" >
+		<![CDATA[
+		/* TB_INDEX_INFO_D001 */
+		DELETE  
+		FROM 
+			TB_INDEX_INFO        
+		WHERE 
+			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
+			AND DB_NAME = #{db_name}
+			AND SCHEMA_NAME = #{schema_name}
+			AND INDEX_NAME = #{index_name}
+		]]>	
+	</delete>
+	
+	<insert id="TB_INDEX_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_INDEX_INFO
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('OBJT_REG_SEQ'),
+			#{db_name},
+			#{schema_name},
+			#{index_name},
+			#{table_name},
+			#{index_size_kb},
+			#{columns_cnt},
+			#{agg_index_scan_cnt},
+			#{agg_index_scan_tuples},
+			#{agg_index_scan_fetch_tuples},
+			#{collect_dt}
+		)
+	</insert>	
+<!-- ********************************************************** -->
+<!-- ObjtCollect END -->
+<!-- ********************************************************** -->
+
+
+
+<!-- ********************************************************** -->
+<!-- ActvCollect START -->
+<!-- ********************************************************** -->
+	<select id="TB_ACTV_COLLECT_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		select max(reg_date) as max_reg_date, TO_CHAR(NOW(), 'YYYYMMDD') as reg_date from TB_ACTV_COLLECT_INFO;
+	</select>
+
+	<select id="SEQ_SETVAL_ACTV" parameterType="hashmap" resultType="hashmap">
+		select setval('actv_reg_seq',1);
+	</select>
+
+	<insert id="TB_ACTV_COLLECT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_ACTV_COLLECT_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			NEXTVAL('ACTV_REG_SEQ'),
+			#{instance_id},
+			#{is_collect_ok},
+			#{failed_collect_type},
+			NOW()
+		)
+	</insert>
+	
+	
+	
+	<select id="BT_GET_CPU_CLOCKS_001" parameterType="hashmap" resultType="hashmap">
+		SELECT /* EXPERDBMABT_GET_CPU_CLOCKS_001 24e9ab7301ff1966da4fb30dc1538882 */
+			   GET_CPU_CLOCKS()	
+	</select>	
+
+	
+	
+	<select id="BT_CURR_LOCK_001" parameterType="hashmap" resultType="hashmap">
+		<choose>
+			<when test="instance_db_version.equals('9.0')">
+			<![CDATA[
+			WITH TEMP AS ( /* EXPERDBMABT_CURRENT_LOCK_001 (9.0) 24e9ab7301ff1966da4fb30dc1538882 */
+			          SELECT DB,
+			                   MAX(LOCKING_USER) AS LOCKING_USER,
+			                   LOCKING_PID,
+			                   LOCKING_QUERY,
+			                   MAX(BLOCKED_USER) AS BLOCKED_USER,
+			                   BLOCKED_PID,
+			                   BLOCKED_QUERY,
+			                   MAX(BLOCKED_DURATION) AS BLOCKED_DURATION,
+			                   MAX(BLOCKED_MODE) AS BLOCKED_MODE,
+			                   MAX(BLOCKING_MODE) AS BLOCKING_MODE,
+			                   MAX(BLOCKED_QUERY_START) AS BLOCKED_QUERY_START,
+			                   MAX(BLOCKED_XACT_START) AS BLOCKED_XACT_START,
+			                   MAX(BLOCKING_QUERY_START) AS BLOCKING_QUERY_START,
+			                   MAX(BLOCKING_XACT_START) AS BLOCKING_XACT_START
+			           FROM (
+			                   SELECT OTHER.PID                  AS LOCKING_PID,
+			                          OTHER_STM.CURRENT_QUERY    AS LOCKING_QUERY,
+			                          OTHER_STM.DATNAME          AS DB,
+			                          OTHER_STM.USENAME          AS LOCKING_USER,
+			                          WAITING.LOCKTYPE           AS WAITING_LOCKTYPE,
+			                          WAITING.RELATION::REGCLASS AS WAITING_TABLE,
+			                          WAITING_STM.CURRENT_QUERY  AS BLOCKED_QUERY,
+			                          WAITING.MODE               AS BLOCKED_MODE,
+			                          WAITING.PID                AS BLOCKED_PID,
+			                          WAITING_STM.USENAME        AS BLOCKED_USER,
+			                          WAITING_STM.QUERY_START    AS BLOCKED_QUERY_START,
+			                          WAITING_STM.XACT_START     AS BLOCKED_XACT_START, 
+			                          OTHER.LOCKTYPE             AS OTHER_LOCKTYPE,
+			                          OTHER.RELATION::REGCLASS   AS OTHER_TABLE,
+			                          OTHER.MODE                 AS BLOCKING_MODE,
+			                          OTHER.GRANTED              AS OTHER_GRANTED,
+			                          OTHER_STM.QUERY_START      AS BLOCKING_QUERY_START,
+			                          OTHER_STM.XACT_START       AS BLOCKING_XACT_START,
+			                          NOW()-WAITING_STM.QUERY_START  AS BLOCKED_DURATION
+			                  FROM PG_CATALOG.PG_LOCKS AS WAITING JOIN PG_CATALOG.PG_STAT_ACTIVITY AS WAITING_STM ON ( WAITING_STM.PROCPID = WAITING.PID  )
+			                                                                        JOIN PG_CATALOG.PG_LOCKS AS OTHER ON ( ( WAITING.DATABASE = OTHER.DATABASE AND WAITING.RELATION  = OTHER.RELATION  ) OR WAITING.TRANSACTIONID = OTHER.TRANSACTIONID  )
+			                                                                        JOIN PG_CATALOG.PG_STAT_ACTIVITY AS OTHER_STM ON ( OTHER_STM.PROCPID = OTHER.PID )
+			                WHERE NOT WAITING.GRANTED
+			                   AND WAITING.PID <> OTHER.PID ) AS A
+			             GROUP BY DB,LOCKING_PID, LOCKING_QUERY, BLOCKED_PID, BLOCKED_QUERY
+			             ORDER BY DB,LOCKING_PID , BLOCKED_PID
+			)
+			SELECT DB AS DB_NAME,
+			         LOCKING_USER AS BLOCKING_USER,
+			         LOCKING_PID AS LOCKING_PID, 
+			         LOCKING_QUERY AS LOCKING_QUERY,
+			         BLOCKED_USER AS BLOCKED_USER,
+			         BLOCKED_PID AS BLOCKED_PID, 
+			         BLOCKED_QUERY AS BLOCKED_QUERY,
+			         BLOCKED_DURATION AS BLOCKED_DURATION,
+			         LOCK_MODE AS LOCK_MODE,
+			         QUERY_START AS QUERY_START,
+			         XACT_START AS XACT_START,
+			         ROW_NUMBER() OVER (ORDER BY LOCKING_PID, BLOCKED_DURATION DESC NULLS FIRST) AS ORDER_NO,
+			         NOW() AS COLLECT_DT
+			 FROM (
+			         SELECT DB,
+			                  LOCKING_USER,
+			                  LOCKING_PID, 
+			                  LOCKING_QUERY,
+			                  BLOCKED_USER,
+			                  BLOCKED_PID, 
+			                  BLOCKED_QUERY,
+			                  BLOCKED_DURATION,
+			                  BLOCKED_MODE AS LOCK_MODE,
+			                  BLOCKED_QUERY_START AS QUERY_START,
+			                  BLOCKED_XACT_START AS XACT_START
+			          FROM TEMP 
+			         WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP)
+			         UNION ALL
+			         SELECT DB,
+			                  LOCKING_USER,
+			                  LOCKING_PID, 
+			                  LOCKING_QUERY, 
+			                  NULL,
+			                  NULL, 
+			                  NULL, 
+			                  NULL,
+			                  MAX(BLOCKING_MODE) AS LOCK_MODE,
+			                  MAX(BLOCKING_QUERY_START) AS QUERY_START,
+			                  MAX(BLOCKING_XACT_START) AS XACT_START
+			          FROM TEMP 
+			         WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
+			         GROUP BY DB,LOCKING_USER,LOCKING_PID, LOCKING_QUERY
+			) AS A;
+			]]>
+			</when>		
+			<when test="instance_db_version.equals('9.1')">
+			<![CDATA[
+			WITH TEMP AS ( /* EXPERDBMABT_CURRENT_LOCK_001 (9.1) 24e9ab7301ff1966da4fb30dc1538882 */
+			          SELECT DB,
+			                   MAX(LOCKING_USER) AS LOCKING_USER,
+			                   LOCKING_PID,
+			                   LOCKING_QUERY,
+			                   MAX(BLOCKED_USER) AS BLOCKED_USER,
+			                   BLOCKED_PID,
+			                   BLOCKED_QUERY,
+			                   MAX(BLOCKED_DURATION) AS BLOCKED_DURATION,
+			                   MAX(BLOCKED_MODE) AS BLOCKED_MODE,
+			                   MAX(BLOCKING_MODE) AS BLOCKING_MODE,
+			                   MAX(BLOCKED_QUERY_START) AS BLOCKED_QUERY_START,
+			                   MAX(BLOCKED_XACT_START) AS BLOCKED_XACT_START,
+			                   MAX(BLOCKING_QUERY_START) AS BLOCKING_QUERY_START,
+			                   MAX(BLOCKING_XACT_START) AS BLOCKING_XACT_START
+			           FROM (
+			                   SELECT OTHER.PID                  AS LOCKING_PID,
+			                          OTHER_STM.CURRENT_QUERY    AS LOCKING_QUERY,
+			                          OTHER_STM.DATNAME          AS DB,
+			                          OTHER_STM.USENAME          AS LOCKING_USER,
+			                          WAITING.LOCKTYPE           AS WAITING_LOCKTYPE,
+			                          WAITING.RELATION::REGCLASS AS WAITING_TABLE,
+			                          WAITING_STM.CURRENT_QUERY  AS BLOCKED_QUERY,
+			                          WAITING.MODE               AS BLOCKED_MODE,
+			                          WAITING.PID                AS BLOCKED_PID,
+			                          WAITING_STM.USENAME        AS BLOCKED_USER,
+			                          WAITING_STM.QUERY_START    AS BLOCKED_QUERY_START,
+			                          WAITING_STM.XACT_START     AS BLOCKED_XACT_START, 
+			                          OTHER.LOCKTYPE             AS OTHER_LOCKTYPE,
+			                          OTHER.RELATION::REGCLASS   AS OTHER_TABLE,
+			                          OTHER.MODE                 AS BLOCKING_MODE,
+			                          OTHER.GRANTED              AS OTHER_GRANTED,
+			                          OTHER_STM.QUERY_START      AS BLOCKING_QUERY_START,
+			                          OTHER_STM.XACT_START       AS BLOCKING_XACT_START,
+			                          NOW()-WAITING_STM.QUERY_START  AS BLOCKED_DURATION
+			                  FROM PG_CATALOG.PG_LOCKS AS WAITING JOIN PG_CATALOG.PG_STAT_ACTIVITY AS WAITING_STM ON ( WAITING_STM.PROCPID = WAITING.PID  )
+			                                                                        JOIN PG_CATALOG.PG_LOCKS AS OTHER ON ( ( WAITING.DATABASE = OTHER.DATABASE AND WAITING.RELATION  = OTHER.RELATION  ) OR WAITING.TRANSACTIONID = OTHER.TRANSACTIONID  )
+			                                                                        JOIN PG_CATALOG.PG_STAT_ACTIVITY AS OTHER_STM ON ( OTHER_STM.PROCPID = OTHER.PID )
+			                WHERE NOT WAITING.GRANTED
+			                   AND WAITING.PID <> OTHER.PID ) AS A
+			             GROUP BY DB,LOCKING_PID, LOCKING_QUERY, BLOCKED_PID, BLOCKED_QUERY
+			             ORDER BY DB,LOCKING_PID , BLOCKED_PID
+			)
+			SELECT DB AS DB_NAME,
+			         LOCKING_USER AS BLOCKING_USER,
+			         LOCKING_PID AS LOCKING_PID, 
+			         LOCKING_QUERY AS LOCKING_QUERY,
+			         BLOCKED_USER AS BLOCKED_USER,
+			         BLOCKED_PID AS BLOCKED_PID, 
+			         BLOCKED_QUERY AS BLOCKED_QUERY,
+			         BLOCKED_DURATION AS BLOCKED_DURATION,
+			         LOCK_MODE AS LOCK_MODE,
+			         QUERY_START AS QUERY_START,
+			         XACT_START AS XACT_START,
+			         ROW_NUMBER() OVER (ORDER BY LOCKING_PID, BLOCKED_DURATION DESC NULLS FIRST) AS ORDER_NO,
+			         NOW() AS COLLECT_DT
+			 FROM (
+			         SELECT DB,
+			                  LOCKING_USER,
+			                  LOCKING_PID, 
+			                  LOCKING_QUERY,
+			                  BLOCKED_USER,
+			                  BLOCKED_PID, 
+			                  BLOCKED_QUERY,
+			                  BLOCKED_DURATION,
+			                  BLOCKED_MODE AS LOCK_MODE,
+			                  BLOCKED_QUERY_START AS QUERY_START,
+			                  BLOCKED_XACT_START AS XACT_START
+			          FROM TEMP 
+			         WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP)
+			         UNION ALL
+			         SELECT DB,
+			                  LOCKING_USER,
+			                  LOCKING_PID, 
+			                  LOCKING_QUERY, 
+			                  NULL,
+			                  NULL, 
+			                  NULL, 
+			                  NULL,
+			                  MAX(BLOCKING_MODE) AS LOCK_MODE,
+			                  MAX(BLOCKING_QUERY_START) AS QUERY_START,
+			                  MAX(BLOCKING_XACT_START) AS XACT_START
+			          FROM TEMP 
+			         WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
+			         GROUP BY DB,LOCKING_USER,LOCKING_PID, LOCKING_QUERY
+			) AS A;
+			]]>
+			</when>
+			<when test="instance_db_version >= '9.2'">
+			<![CDATA[
+			WITH TEMP AS (   /* EXPERDBMABT_CURRENT_LOCK_001 24e9ab7301ff1966da4fb30dc1538882 */
+			             SELECT DB,
+			                      MAX(LOCKING_USER) AS LOCKING_USER,
+			                      LOCKING_PID, 
+			                      LOCKING_QUERY,
+			                      MAX(BLOCKED_USER) AS BLOCKED_USER,
+			                      BLOCKED_PID, 
+			                      BLOCKED_QUERY, 
+			                      MAX(BLOCKED_DURATION) AS BLOCKED_DURATION, 
+			                      MAX(BLOCKED_MODE) AS BLOCKED_MODE, 
+			                      MAX(BLOCKING_MODE) AS BLOCKING_MODE,
+			                      MAX(BLOCKED_QUERY_START) AS BLOCKED_QUERY_START,
+			                      MAX(BLOCKED_XACT_START) AS BLOCKED_XACT_START,
+			                      MAX(BLOCKING_QUERY_START) AS BLOCKING_QUERY_START,
+			                      MAX(BLOCKING_XACT_START) AS BLOCKING_XACT_START
+			              FROM (
+			                     SELECT OTHER.PID                    AS LOCKING_PID,
+			                              OTHER_STM.QUERY            AS LOCKING_QUERY,
+			                              OTHER_STM.DATNAME          AS DB,
+			                              OTHER_STM.USENAME          AS LOCKING_USER,
+			                              WAITING.LOCKTYPE           AS WAITING_LOCKTYPE,
+			                              WAITING.RELATION::REGCLASS AS WAITING_TABLE,
+			                              WAITING_STM.QUERY          AS BLOCKED_QUERY,
+			                              WAITING.MODE               AS BLOCKED_MODE,
+			                              WAITING.PID                AS BLOCKED_PID,
+			                              WAITING_STM.USENAME        AS BLOCKED_USER,
+			                              WAITING_STM.QUERY_START    AS BLOCKED_QUERY_START,
+			                              WAITING_STM.XACT_START     AS BLOCKED_XACT_START, 
+			                              OTHER.LOCKTYPE             AS OTHER_LOCKTYPE,
+			                              OTHER.RELATION::REGCLASS   AS OTHER_TABLE,
+			                              OTHER.MODE                 AS BLOCKING_MODE,
+			                              OTHER.GRANTED              AS OTHER_GRANTED,
+			                              OTHER_STM.QUERY_START      AS BLOCKING_QUERY_START,
+			                              OTHER_STM.XACT_START       AS BLOCKING_XACT_START,
+			                              NOW()-WAITING_STM.QUERY_START  AS BLOCKED_DURATION
+			                      FROM PG_CATALOG.PG_LOCKS AS WAITING JOIN PG_CATALOG.PG_STAT_ACTIVITY AS WAITING_STM ON (WAITING_STM.PID = WAITING.PID)
+			                                                                            JOIN PG_CATALOG.PG_LOCKS AS OTHER ON (  (WAITING.DATABASE = OTHER.DATABASE AND WAITING.RELATION  = OTHER.RELATION ) OR WAITING.TRANSACTIONID = OTHER.TRANSACTIONID  )
+			                                                                            JOIN PG_CATALOG.PG_STAT_ACTIVITY AS OTHER_STM ON (  OTHER_STM.PID = OTHER.PID )
+			                    WHERE NOT WAITING.GRANTED
+			                       AND WAITING.PID <> OTHER.PID) AS A
+			             GROUP BY DB,LOCKING_PID, LOCKING_QUERY, BLOCKED_PID, BLOCKED_QUERY
+			             ORDER BY DB,LOCKING_PID , BLOCKED_PID
+			)
+			SELECT DB AS DB_NAME,
+			          LOCKING_USER AS BLOCKING_USER,
+			          LOCKING_PID AS BLOCKING_PID, 
+			          LOCKING_QUERY AS BLOCKING_QUERY,
+			          BLOCKED_USER AS BLOCKED_USER,
+			          BLOCKED_PID AS BLOCKED_PID, 
+			          BLOCKED_QUERY AS BLOCKED_QUERY,
+			          BLOCKED_DURATION AS BLOCKED_DURATION,
+			          LOCK_MODE AS LOCK_MODE, 
+			          QUERY_START AS QUERY_START,
+			          XACT_START AS XACT_START,
+			          ROW_NUMBER() OVER (ORDER BY LOCKING_PID, BLOCKED_DURATION DESC NULLS FIRST) AS ORDER_NO,
+			          NOW() AS COLLECT_DT
+			  FROM (
+			          SELECT DB,
+			                   LOCKING_USER,
+			                   LOCKING_PID, 
+			                   LOCKING_QUERY,
+			                   BLOCKED_USER,
+			                   BLOCKED_PID, 
+			                   BLOCKED_QUERY,
+			                   BLOCKED_DURATION,
+			                   BLOCKED_MODE AS LOCK_MODE,
+			                   BLOCKED_QUERY_START AS QUERY_START,
+			                   BLOCKED_XACT_START AS XACT_START
+			           FROM TEMP 
+			          WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP)
+			          UNION ALL
+			          SELECT DB,
+			                   LOCKING_USER,
+			                   LOCKING_PID, 
+			                   LOCKING_QUERY, 
+			                   NULL,
+			                   NULL, 
+			                   NULL, 
+			                   NULL,
+			                   MAX(BLOCKING_MODE) AS LOCK_MODE,
+			                   MAX(BLOCKING_QUERY_START) AS QUERY_START,
+			                   MAX(BLOCKING_XACT_START) AS XACT_START
+			           FROM TEMP WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
+			          GROUP BY DB,LOCKING_USER,LOCKING_PID, LOCKING_QUERY
+			) AS A;
+			]]>
+			</when>
+			<otherwise>
+				SELECT ERROR
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="TB_CURRENT_LOCK_I001" parameterType="hashmap" >
+		INSERT INTO TB_CURRENT_LOCK	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('ACTV_REG_SEQ'),
+			#{db_name},
+			#{blocking_user},
+			#{blocking_pid},
+			#{blocking_query},
+			#{blocked_user},
+			#{blocked_pid},
+			#{blocked_query},
+			#{blocked_duration},
+			#{lock_mode},
+			#{query_start},
+			#{xact_start},
+			#{order_no},
+			#{collect_dt}
+		)
+	</insert>
+	
+	
+
+	<select id="BT_BACKEND_RSC_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		<choose>
+			<when test="instance_db_version.equals('9.0')">
+				<![CDATA[	
+				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.0) 24e9ab7301ff1966da4fb30dc1538882 */
+				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+				          --? AS ACTV_REG_SEQ, -- @NEXTVAL('ACTV_REG_SEQ'),
+				          A.PROC_ID AS PROCESS_ID,
+				          B.DATNAME AS DB_NAME,
+		          		  HOST(B.CLIENT_ADDR) AS CLIENT_ADDR, -- 2014-04-28 추가
+		          		  B.USENAME AS USER_NAME,-- 2014-04-28 추가
+		          		  B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가		          
+				          A.CPU_UTIME AS AGG_PROC_UTIME,
+				          A.CPU_STIME AS AGG_PROC_STIME,
+				          --CPU_UTIME - ? AS CURRENT_PROC_UTIME, --@이전값
+				          --CPU_STIME - ? AS CURRENT_PROC_STIME, --@이전값
+				          --ROUND( ((CPU_UTIME-?)+(CPU_STIME-?)) / CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 * 100, 2) AS PROC_CPU_UTIL, --@이전값 , --@이전값, --@이전값
+				          ---- (CPU_UTIME-?)+(CPU_STIME-?) > CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 이면 CPU_CLOCK 연산
+				          A.DISK_READ AS AGG_PROC_READ_KB,
+				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
+				          --DISK_READ - ? AS CURRENT_PROC_READ_KB,--@이전값
+				          --DISK_WRITE - ? AS CURRENT_PROC_WRITE_KB,--@이전값
+				          CASE WHEN B.CURRENT_QUERY='<IDLE>' THEN B.BACKEND_START WHEN B.CURRENT_QUERY='<IDLE> in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
+				          --CASE WHEN NOW()-B.QUERY_START< INTERVAL '0' THEN -(NOW()-B.QUERY_START) ELSE NOW()-B.QUERY_START END AS ELAPSED_TIME,
+				        CASE WHEN B.CURRENT_QUERY LIKE '%IDLE%' THEN EXTRACT(EPOCH FROM NOW()-NOW())::NUMERIC ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
+				          B.CURRENT_QUERY AS SQL,
+				          --CASE WHEN B.CURRENT_QUERY IS NULL THEN 'BACKGROUND PROC' ELSE B.CURRENT_QUERY END AS SQL,
+				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+				          NOW() AS COLLECT_DT
+				  --FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
+		  		  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
+		  		 WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+				]]>
+			</when>		
+			<when test="instance_db_version.equals('9.1')">
+				<![CDATA[	
+				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.1) 24e9ab7301ff1966da4fb30dc1538882 */
+				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+				          --? AS ACTV_REG_SEQ, -- @NEXTVAL('ACTV_REG_SEQ'),
+				          A.PROC_ID AS PROCESS_ID,
+				          B.DATNAME AS DB_NAME,
+		          		  HOST(B.CLIENT_ADDR) AS CLIENT_ADDR, -- 2014-04-28 추가
+		          		  B.USENAME AS USER_NAME,-- 2014-04-28 추가
+		          		  B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가		          
+				          A.CPU_UTIME AS AGG_PROC_UTIME,
+				          A.CPU_STIME AS AGG_PROC_STIME,
+				          --CPU_UTIME - ? AS CURRENT_PROC_UTIME, --@이전값
+				          --CPU_STIME - ? AS CURRENT_PROC_STIME, --@이전값
+				          --ROUND( ((CPU_UTIME-?)+(CPU_STIME-?)) / CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 * 100, 2) AS PROC_CPU_UTIL, --@이전값 , --@이전값, --@이전값
+				          ---- (CPU_UTIME-?)+(CPU_STIME-?) > CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 이면 CPU_CLOCK 연산
+				          A.DISK_READ AS AGG_PROC_READ_KB,
+				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
+				          --DISK_READ - ? AS CURRENT_PROC_READ_KB,--@이전값
+				          --DISK_WRITE - ? AS CURRENT_PROC_WRITE_KB,--@이전값
+				          CASE WHEN B.CURRENT_QUERY='<IDLE>' THEN B.BACKEND_START WHEN B.CURRENT_QUERY='<IDLE> in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
+				          --CASE WHEN NOW()-B.QUERY_START< INTERVAL '0' THEN -(NOW()-B.QUERY_START) ELSE NOW()-B.QUERY_START END AS ELAPSED_TIME,
+				        CASE WHEN B.CURRENT_QUERY LIKE '%IDLE%' THEN EXTRACT(EPOCH FROM NOW()-NOW())::NUMERIC ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
+				          B.CURRENT_QUERY AS SQL,
+				          --CASE WHEN B.CURRENT_QUERY IS NULL THEN 'BACKGROUND PROC' ELSE B.CURRENT_QUERY END AS SQL,
+				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+				          NOW() AS COLLECT_DT
+				  --FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
+		  		  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID 
+           WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  		  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리
+				]]>
+			</when>
+			<when test="instance_db_version >= '9.2'">
+				<![CDATA[
+				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
+				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
+				          --? AS ACTV_REG_SEQ, -- @NEXTVAL('ACTV_REG_SEQ'),
+				          A.PROC_ID AS PROCESS_ID,
+				          B.DATNAME AS DB_NAME,
+				          HOST(B.CLIENT_ADDR) AS CLIENT_ADDR, -- 2014-04-28 추가
+				          B.USENAME AS USER_NAME,-- 2014-04-28 추가
+				          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가
+				          A.CPU_UTIME AS AGG_PROC_UTIME,
+				          A.CPU_STIME AS AGG_PROC_STIME,
+				          --CPU_UTIME - ? AS CURRENT_PROC_UTIME, --@이전값
+				          --CPU_STIME - ? AS CURRENT_PROC_STIME, --@이전값
+				          --ROUND( ((CPU_UTIME-?)+(CPU_STIME-?)) / CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 * 100, 2) AS PROC_CPU_UTIL, --@이전값 , --@이전값, --@이전값
+				          ---- (CPU_UTIME-?)+(CPU_STIME-?) > CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 이면 CPU_CLOCK 연산
+				          A.DISK_READ AS AGG_PROC_READ_KB,
+				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
+				          --DISK_READ - ? AS CURRENT_PROC_READ_KB,--@이전값
+				          --DISK_WRITE - ? AS CURRENT_PROC_WRITE_KB,--@이전값
+				          CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
+				          --CASE WHEN NOW()-B.QUERY_START< INTERVAL '0' THEN -(NOW()-B.QUERY_START) ELSE NOW()-B.QUERY_START END AS ELAPSED_TIME,
+				          --CASE WHEN B.STATE LIKE '%IDLE%' THEN 0 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
+				          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
+				          CASE WHEN B.STATE = 'idle' THEN '<IDLE>' WHEN B.STATE LIKE 'idle in transaction%' THEN '<IDLE> in transaction' ELSE B.QUERY END AS SQL,
+				          --CASE WHEN B.CURRENT_QUERY IS NULL THEN 'BACKGROUND PROC' ELSE B.CURRENT_QUERY END AS SQL,
+				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+				          NOW() AS COLLECT_DT
+				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
+				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
+				  WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
+				]]>
+			</when>
+			<otherwise>
+				SELECT ERROR
+			</otherwise>
+		</choose>	
+	
+	
+	
+    		
+	</select>
+	
+	<insert id="TB_BACKEND_RSC_I001" parameterType="hashmap" >
+		INSERT INTO TB_BACKEND_RSC	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('ACTV_REG_SEQ'),
+			#{process_id},
+			#{db_name},
+			#{client_addr},
+			#{user_name},
+			#{application_name},
+			#{agg_proc_utime},
+			#{agg_proc_stime},
+			#{current_proc_utime},
+			#{current_proc_stime},
+			#{proc_cpu_util},
+			#{agg_proc_read_kb},
+			#{agg_proc_write_kb},
+			#{current_proc_read_kb},
+			#{current_proc_write_kb},
+			#{query_start},
+			#{elapsed_time},
+			#{sql},
+			#{collect_dt}
+		)
+	</insert>
+	
+	
+	
+	<select id="PG_STAT_DATABASE_INFO_001" parameterType="hashmap" resultType="hashmap">
+		SELECT /* EXPERDBMABT_PG_STAT_DATABASE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
+			   DATID, DATNAME AS DB_NAME 
+		  FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1');--WHERE DATNAME NOT IN ('template0','template1','postgres')
+	</select>
+	
+	
+	<select id="BT_ACCESS_INFO_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		<![CDATA[
+		 SELECT /* EXPERDBMABT_ACCESS_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */                                                                                                                                                                              
+		        --? AS REG_DATE, --@ TO_CHAR(NOW(), 'YYYYMMDD')                                                                                                                                                           
+		        --? AS OBJT_REG_SEQ, --@NEXTVAL('OBJT_REG_SEQ')                                                                                                                                                           
+		        #{db_name} AS DB_NAME, -- @DATNAME                                                                                                                                                                        
+		        PG_DATABASE_SIZE(#{datid})/1024 AS DB_SIZE_KB, -- @DATID                                                                                                                                                  
+		        COUNT(A.RELID) AS TABLE_CNT,                                                                                                                                                                              
+		        (SELECT COUNT(INDEXRELID) FROM PG_STAT_USER_INDEXES) AS INDEX_CNT,                                                                                                                                         
+		        COALESCE(SUM(A.HEAP_BLKS_READ), 0) AS AGG_HEAP_BLKS_READ_KB,                                                                                                                                                           
+		        COALESCE(SUM(A.HEAP_BLKS_HIT), 0) AS AGG_HEAP_BLKS_HIT_KB,                                                                                                                                                             
+		        COALESCE(SUM(B.SEQ_TUP_READ), 0) AS AGG_SEQ_READ_TUPLES,                                                                                                                                                               
+		        COALESCE(SUM(B.IDX_TUP_FETCH), 0) AS AGG_IDX_FETCH_TUPLES,
+	          	COALESCE(SUM(B.n_tup_ins), 0) AS AGG_INSERT_TUPLES,-- insert
+	          	COALESCE(SUM(B.n_tup_upd), 0) AS AGG_UPDATE_TUPLES,-- update
+	          	COALESCE(SUM(B.n_tup_del), 0) AS AGG_DELETE_TUPLES,-- delete
+		        COALESCE(SUM(B.SEQ_SCAN), 0) AS AGG_SEQ_SCAN_CNT,
+		        COALESCE(SUM(B.IDX_SCAN), 0) AS AGG_IDX_SCAN_CNT,	          	
+	          	(SELECT XACT_COMMIT FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) AS AGG_COMMIT,
+	          	(SELECT XACT_ROLLBACK FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) AS AGG_ROLLBACK,		        
+		        COALESCE(SUM(HEAP_BLKS_READ), 0) - #{agg_heap_blks_read_kb} AS CURRENT_HEAP_BLKS_READ_KB, -- @이전값                                                                                                               
+		        COALESCE(SUM(HEAP_BLKS_HIT), 0) - #{agg_heap_blks_hit_kb} AS CURRENT_HEAP_BLKS_HIT_KB, -- @이전값                                                                                                                  
+		        COALESCE(SUM(B.SEQ_TUP_READ), 0) - #{agg_seq_read_tuples} AS CURRENT_SEQ_READ_TUPLES, -- @이전값 (AGG_SEQ_READ_TUPLES 의 current value)                                                                            
+		        COALESCE(SUM(B.IDX_TUP_FETCH), 0) - #{agg_idx_fetch_tuples} AS CURRENT_IDX_FETCH_TUPLES, -- @이전값 (AGG_IDX_FETCH_TUPLES의 current value)
+   	            COALESCE(SUM(B.n_tup_ins), 0) - #{agg_insert_tuples} AS CURRENT_INSERT_TUPLES,-- insert
+	            COALESCE(SUM(B.n_tup_upd), 0) - #{agg_update_tuples} AS CURRENT_UPDATE_TUPLES,-- update
+	            COALESCE(SUM(B.n_tup_del), 0) - #{agg_delete_tuples} AS CURRENT_DELETE_TUPLES,-- delete
+        		COALESCE(SUM(B.SEQ_SCAN), 0) - #{agg_seq_scan_cnt} AS CURRENT_SEQ_SCAN_CNT,
+          		COALESCE(SUM(B.IDX_SCAN), 0) - #{agg_idx_scan_cnt} AS CURRENT_IDX_SCAN_CNT,
+	            (SELECT XACT_COMMIT FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) - #{agg_commit} as CURRENT_COMMIT,
+	            (SELECT XACT_ROLLBACK FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) - #{agg_rollback} as CURRENT_ROLLBACK,		        
+		        CASE WHEN SUM(A.HEAP_BLKS_HIT)<>0 AND SUM(A.HEAP_BLKS_HIT) > SUM(A.HEAP_BLKS_READ) THEN ROUND((SUM(A.HEAP_BLKS_HIT) - SUM(A.HEAP_BLKS_READ)) / SUM(A.HEAP_BLKS_HIT)*100,2) ELSE 0 END AS BUFFER_HIT_RATIO,
+		        --(SELECT ROUND(TOTAL_TIME::NUMERIC/CALLS,5) FROM PG_STAT_STATEMENTS ORDER BY TOTAL_TIME/CALLS DESC LIMIT 1) AS MAX_SQL_ELAPSED_SEC, --NOTICE!! V9.2 : MILLI SEC                                          
+		        --(SELECT ROUND(SUM(TOTAL_TIME::NUMERIC)/SUM(CALLS),5) FROM PG_STAT_STATEMENTS) AS AVG_SQL_ELAPSED_SEC, --NOTICE!! V9.2 : MILLI SEC                                                                       
+		        NOW() AS COLLECT_DT,
+		        EXTRACT(EPOCH FROM NOW()-#{collect_dt})::NUMERIC(10,3) AS DELTA_TIME
+		FROM PG_STATIO_USER_TABLES A, PG_STAT_USER_TABLES B WHERE A.RELNAME=B.RELNAME
+		]]>
+	</select>
+	
+	<insert id="TB_ACCESS_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_ACCESS_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('ACTV_REG_SEQ'),
+			#{db_name},
+			#{db_size_kb},
+			#{table_cnt},
+			#{index_cnt},
+			#{agg_heap_blks_read_kb},
+			#{agg_heap_blks_hit_kb},
+			#{agg_seq_read_tuples},
+			#{agg_idx_fetch_tuples},
+			#{agg_insert_tuples},
+			#{agg_update_tuples},
+			#{agg_delete_tuples},
+			#{agg_seq_scan_cnt},
+			#{agg_idx_scan_cnt},
+			#{agg_commit},
+			#{agg_rollback},
+			#{current_heap_blks_read_kb},
+			#{current_heap_blks_hit_kb},
+			#{current_seq_read_tuples},
+			#{current_idx_fetch_tuples},
+			#{current_insert_tuples},
+			#{current_update_tuples},
+			#{current_delete_tuples},
+			#{current_seq_scan_cnt},
+			#{current_idx_scan_cnt},			
+			#{current_commit},
+			#{current_rollback},
+			#{buffer_hit_ratio},
+			#{collect_dt},
+			#{delta_time}
+		)
+	</insert>
+<!-- ********************************************************** -->
+<!-- ActvCollect END -->
+<!-- ********************************************************** -->
+
+
+
+<!-- ********************************************************** -->
+<!-- HchkCollect START -->
+<!-- ********************************************************** -->
+	<select id="TB_HCHK_COLLECT_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		select max(reg_date) as max_reg_date, TO_CHAR(NOW(), 'YYYYMMDD') as reg_date from TB_HCHK_COLLECT_INFO;
+	</select>
+
+	<select id="SEQ_SETVAL_HCHK" parameterType="hashmap" resultType="hashmap">
+		select setval('hchk_reg_seq',1);
+	</select>
+
+	<select id="HCHK_REG_SEQ_001" parameterType="hashmap" resultType="hashmap">
+		SELECT NEXTVAL('HCHK_REG_SEQ');
+	</select>
+	
+	<insert id="TB_HCHK_COLLECT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_HCHK_COLLECT_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('HCHK_REG_SEQ'),
+			#{instance_id},
+			#{hchk_name},
+			#{value},
+			#{collect_group},
+			#{collect_reg_date},
+			#{collect_reg_seq},
+			#{reg_time}
+		)
+	</insert>
+
+
+	<select id="EXPERDBMA_BT_HCHK_BUFFERHITRATIO_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[		
+SELECT /* EXPERDBMA_BT_HCHK_BUFFERHITRATIO_001 */
+         OCM.INSTANCE_ID,
+         ROUND(AVG(BUFFER_HIT_RATIO),2) AS BUFFERHITRATIO,
+         --CASE WHEN SUM(ACS.CURRENT_COMMIT)=0 THEN 0 ELSE ROUND(SUM(ACS.CURRENT_COMMIT) / (SUM(ACS.CURRENT_COMMIT) + SUM(ACS.CURRENT_ROLLBACK)) * 100, 2) END AS COMMITRATIO,
+         CASE WHEN SUM(ACS.CURRENT_COMMIT)=0 AND SUM(ACS.CURRENT_ROLLBACK)=0 THEN 100.00 ELSE ROUND(SUM(ACS.CURRENT_COMMIT) / (SUM(ACS.CURRENT_COMMIT) + SUM(ACS.CURRENT_ROLLBACK)) * 100, 2) END AS COMMITRATIO,
+         '1' AS COLLECT_GROUP,
+         ACS.REG_DATE AS COLLECT_REG_DATE,
+         ACS.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         MAX(OCM.REG_TIME) AS REG_TIME
+         --'BUFFERHITRATIO,COMMITRATIO' AS ITEM
+  FROM TB_ACTV_COLLECT_INFO AS OCM,
+          TB_INSTANCE_INFO IST,
+          TB_ACCESS_INFO ACS
+WHERE ACS.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND ACS.REG_DATE = OCM.REG_DATE
+   AND ACS.ACTV_REG_SEQ = (SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND ACS.ACTV_REG_SEQ = OCM.ACTV_REG_SEQ
+   AND IST.INSTANCE_ID = OCM.INSTANCE_ID
+	AND IST.COLLECT_YN = 'Y'
+   AND IST.DELETE_YN='N'
+   AND BUFFER_HIT_RATIO != 0 -- except buffer ratio zero 
+GROUP BY ACS.REG_DATE,ACS.ACTV_REG_SEQ,OCM.INSTANCE_ID;  
+		]]>
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_LOCKCNT_001" parameterType="hashmap" resultType="hashmap">
+ SELECT /* EXPERDBMA_BT_HCHK_LOCKCNT_001 */
+         ACM.INSTANCE_ID,
+         SUM(1) AS LOCKCNT,
+         '2' AS COLLECT_GROUP,
+         LCK.REG_DATE AS COLLECT_REG_DATE,
+         LCK.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         MAX(ACM.REG_TIME) AS REG_TIME 
+  FROM TB_ACTV_COLLECT_INFO AS ACM,
+          TB_CURRENT_LOCK AS LCK,
+          TB_INSTANCE_INFO AS IST
+WHERE LCK.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND LCK.REG_DATE = ACM.REG_DATE
+   AND LCK.ACTV_REG_SEQ = (SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND LCK.ACTV_REG_SEQ = ACM.ACTV_REG_SEQ  
+   AND IST.INSTANCE_ID = ACM.INSTANCE_ID   
+   AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N'
+   AND LCK.BLOCKED_PID IS NOT NULL 
+GROUP BY LCK.REG_DATE,LCK.ACTV_REG_SEQ,ACM.INSTANCE_ID;
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_CONNECTION_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+SELECT /* EXPERDBMA_BT_HCHK_CONNECTION_001 */
+         ACM.INSTANCE_ID,
+         --ROUND(SUM(CASE WHEN BAK.SQL <> '<IDLE>' THEN 0 ELSE 1 END)::NUMERIC/MAX(IST.MAX_CONN_CNT) * 100, 2) AS ACTIVECONNECTION,
+         ROUND(SUM(1)::NUMERIC/MAX(IST.MAX_CONN_CNT) * 100, 2) AS ACTIVECONNECTION,
+         SUM(CASE WHEN SQL = '<IDLE> in transaction' THEN 1 ELSE 0 END)  AS TRAXIDLECNT,
+         MAX(ELAPSED_TIME) AS LONGRUNSQL,
+         '2' AS COLLECT_GROUP,
+         BAK.REG_DATE AS COLLECT_REG_DATE,
+         BAK.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME
+         --'ACTIVECONNECTION,TRAXIDLECNT,LONGRUNSQL' AS ITEM
+ FROM TB_ACTV_COLLECT_INFO AS ACM,
+         TB_INSTANCE_INFO AS IST,
+         TB_BACKEND_RSC AS BAK
+WHERE BAK.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND BAK.REG_DATE = ACM.REG_DATE
+   AND BAK.ACTV_REG_SEQ = (SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND BAK.ACTV_REG_SEQ = ACM.ACTV_REG_SEQ
+   AND IST.INSTANCE_ID = ACM.INSTANCE_ID
+	AND IST.COLLECT_YN = 'Y'
+   AND IST.DELETE_YN='N'
+GROUP BY BAK.REG_DATE,BAK.ACTV_REG_SEQ,ACM.INSTANCE_ID;
+		]]>
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_CONNECTIONFAIL_001" parameterType="hashmap" resultType="hashmap">
+SELECT  /* EXPERDBMA_BT_HCHK_CONNECTIONFAIL_001 */
+         INSTANCE_ID,
+         SUM(CASE WHEN IS_COLLECT_OK='N' THEN 1 ELSE 0 END) AS CONNECTIONFAIL,
+         MAX('0') COLLECT_GROUP,
+         REG_DATE AS COLLECT_REG_DATE,
+         STRING_AGG(REG_SEQ::VARCHAR, ',') AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+ FROM (
+         SELECT A.REG_DATE,A.OBJT_REG_SEQ AS REG_SEQ, A.INSTANCE_ID, A.IS_COLLECT_OK
+                    FROM TB_OBJT_COLLECT_INFO A,
+                            TB_INSTANCE_INFO B
+                   WHERE REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') 
+                    	AND OBJT_REG_SEQ=(SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=B.INSTANCE_ID )
+                    	AND B.COLLECT_YN='Y'
+                    	AND B.DELETE_YN='N'
+         UNION ALL
+         SELECT A.REG_DATE,A.ACTV_REG_SEQ AS REG_SEQ, A.INSTANCE_ID, A.IS_COLLECT_OK
+                    FROM TB_ACTV_COLLECT_INFO A,
+                            TB_INSTANCE_INFO B
+                   WHERE REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') 
+                    	AND ACTV_REG_SEQ=(SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=B.INSTANCE_ID )
+                    	AND B.COLLECT_YN='Y'
+                    	AND B.DELETE_YN='N'
+         UNION ALL
+         SELECT A.REG_DATE,A.RSC_REG_SEQ AS REG_SEQ, A.INSTANCE_ID, A.IS_COLLECT_OK
+                    FROM TB_RSC_COLLECT_INFO A,
+                            TB_INSTANCE_INFO B
+                   WHERE REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') 
+                    	AND RSC_REG_SEQ=(SELECT MAX(X.RSC_REG_SEQ) FROM TB_RSC_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=B.INSTANCE_ID )
+                    	AND B.COLLECT_YN='Y'
+                    	AND B.DELETE_YN='N') AS T
+GROUP BY INSTANCE_ID,REG_DATE,CURRENT_TIME;
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_UNUSEDINDEX_001" parameterType="hashmap" resultType="hashmap">
+SELECT /* EXPERDBMA_BT_HCHK_UNUSEDINDEX_001 */
+         OCM.INSTANCE_ID,
+         SUM(CASE WHEN AGG_INDEX_SCAN_CNT = 0 THEN 1 ELSE 0 END)  AS UNUSEDINDEX,
+         --IDX.AGG_INDEX_SCAN_CNT AS VALUE,
+         '1' AS COLLECT_GROUP,
+         IDX.REG_DATE AS COLLECT_REG_DATE,
+         IDX.OBJT_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_OBJT_COLLECT_INFO AS OCM,
+          TB_INSTANCE_INFO AS IST,
+          TB_INDEX_INFO IDX
+WHERE IDX.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND IDX.REG_DATE = OCM.REG_DATE
+   AND IDX.OBJT_REG_SEQ = (SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND IDX.OBJT_REG_SEQ = OCM.OBJT_REG_SEQ  
+   AND IST.INSTANCE_ID = OCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N' 
+GROUP BY IDX.REG_DATE,IDX.OBJT_REG_SEQ,OCM.INSTANCE_ID;
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_LASTANALYZE_001" parameterType="hashmap" resultType="hashmap">
+SELECT /* EXPERDBMA_BT_HCHK_LASTANALYZE_001 */
+         OCM.INSTANCE_ID,
+         CASE WHEN MAX(NOW()::DATE - LAST_ANALYZE::DATE) >= 99999 THEN 99999 ELSE MAX(NOW()::DATE - LAST_ANALYZE::DATE) END AS LASTANALYZE,
+		 -- CASE WHEN EXTRACT(DAY FROM MAX(NOW()::DATE - LAST_ANALYZE::DATE)) >= 99999 THEN 99999 ELSE EXTRACT(DAY FROM MAX(NOW()::DATE - LAST_ANALYZE::DATE)) END AS LASTANALYZE, --DAUM 적용쿼리         
+         CASE WHEN MAX(NOW()::DATE - LAST_VACUUM::DATE) >= 99999 THEN 99999 ELSE MAX(NOW()::DATE - LAST_VACUUM::DATE) END AS LASTVACUUM,
+         -- CASE WHEN EXTRACT(DAY FROM MAX(NOW()::DATE - LAST_VACUUM::DATE)) >= 99999 THEN 99999 ELSE EXTRACT(DAY FROM MAX(NOW()::DATE - LAST_VACUUM::DATE)) END AS LASTVACUUM, --DAUM 적용쿼리
+         '1' AS COLLECT_GROUP,
+         TBS.REG_DATE AS COLLECT_REG_DATE,
+         TBS.OBJT_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_OBJT_COLLECT_INFO AS OCM,
+         TB_INSTANCE_INFO AS IST,
+          TB_TABLE_INFO TBS
+WHERE TBS.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND TBS.REG_DATE = OCM.REG_DATE
+   AND TBS.OBJT_REG_SEQ = (SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND TBS.OBJT_REG_SEQ = OCM.OBJT_REG_SEQ  
+   AND IST.INSTANCE_ID = OCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N' 
+GROUP BY TBS.REG_DATE,TBS.OBJT_REG_SEQ,OCM.INSTANCE_ID;
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_DISKUSAGE_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+SELECT /* EXPERDBMA_BT_HCHK_DISKUSAGE_001 */
+         RCM.INSTANCE_ID,
+         MAX(ROUND(100 - (avail_KB / TOTAL_KB * 100), 2)) AS DISKUSAGE,
+         '3' AS COLLECT_GROUP,
+         DUS.REG_DATE AS COLLECT_REG_DATE,
+         DUS.RSC_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_RSC_COLLECT_INFO AS RCM,
+          TB_INSTANCE_INFO AS IST,
+          TB_DISK_USAGE DUS
+WHERE DUS.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND DUS.REG_DATE = RCM.REG_DATE
+   AND DUS.RSC_REG_SEQ = (SELECT MAX(X.RSC_REG_SEQ) FROM TB_RSC_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND DUS.RSC_REG_SEQ = RCM.RSC_REG_SEQ  
+   AND IST.INSTANCE_ID = RCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N' 
+GROUP BY DUS.REG_DATE,DUS.RSC_REG_SEQ,RCM.INSTANCE_ID;
+		]]>
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_CPUWAIT_001" parameterType="hashmap" resultType="hashmap">
+SELECT /* EXPERDBMA_BT_HCHK_CPUWAIT_001 */
+         RCM.INSTANCE_ID,
+         WAIT_UTIL_RATE AS CPUWAIT,
+         '3' AS COLLECT_GROUP,
+         CPU.REG_DATE AS COLLECT_REG_DATE,
+         CPU.RSC_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_RSC_COLLECT_INFO AS RCM,
+          TB_INSTANCE_INFO  AS IST,
+          TB_CPU_STAT_MASTER CPU
+WHERE CPU.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND CPU.REG_DATE = RCM.REG_DATE
+   AND CPU.RSC_REG_SEQ = (SELECT MAX(X.RSC_REG_SEQ) FROM TB_RSC_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND CPU.RSC_REG_SEQ = RCM.RSC_REG_SEQ  
+   AND IST.INSTANCE_ID = RCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N';
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_SWAPUSAGE_001" parameterType="hashmap" resultType="hashmap">
+   SELECT /* EXPERDBMA_BT_HCHK_SWAPUSAGE_001 */
+         RCM.INSTANCE_ID,
+         ROUND((MEM.SWP_USED_KB - MEM.SWP_CACHED_KB) / SWP_TOTAL_KB * 100, 2) AS SWAPUSAGE,
+         '3' AS COLLECT_GROUP,
+         MEM.REG_DATE AS COLLECT_REG_DATE,
+         MEM.RSC_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_RSC_COLLECT_INFO AS RCM,
+          TB_INSTANCE_INFO  AS IST,
+          TB_MEMORY_STAT MEM
+WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND MEM.REG_DATE = RCM.REG_DATE
+   AND MEM.RSC_REG_SEQ = (SELECT MAX(X.RSC_REG_SEQ) FROM TB_RSC_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND MEM.RSC_REG_SEQ = RCM.RSC_REG_SEQ  
+   AND IST.INSTANCE_ID = RCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N';
+	</select>
+<!-- ********************************************************** -->
+<!-- HchkCollect END -->
+<!-- ********************************************************** -->
+
+
+
+<!-- ********************************************************** -->
+<!-- StartCollect START -->
+<!-- ********************************************************** -->
+	<select id="EXPERDBMA_BT_UPTIME_MAXCONN_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+		 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 */
+		        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
+		        SETTING AS MAX_CONN_CNT, 
+		        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
+		        GET_HOSTNAME() AS HOST_NAME,
+		        VERSION() AS PG_VERSION 
+		  FROM PG_SETTINGS 
+		  WHERE NAME='max_connections'
+	</select>
+
+	<update id="TB_INSTANCE_INFO_U001" parameterType="hashmap" >
+		UPDATE TB_INSTANCE_INFO 
+		   SET INSTANCE_UPTIME = #{instance_uptime}, 
+			   MAX_CONN_CNT = #{max_conn_cnt},
+			   CPU_CLOCKS = #{cpu_clocks},
+			   HOST_NAME = #{host_name},
+			   PG_VERSION = #{pg_version}  
+		 WHERE INSTANCE_ID=#{instance_id}
+	</update>
+<!-- ********************************************************** -->
+<!-- StartCollect END -->
+<!-- ********************************************************** -->
+
+
+
+<!-- ********************************************************** -->
+<!-- DailyBatchTask START -->
+<!-- ********************************************************** -->
+	<insert id="TB_SYS_LOG_I001" parameterType="hashmap">
+		INSERT INTO TB_SYS_LOG (REG_DATE, TASK_CD, START_DT, STATUS)
+		VALUES 
+		(
+			#{reg_date},
+			'2',
+			NOW(),
+			'1'
+		);
+	</insert>
+
+	<update id="TB_SYS_LOG_U001" parameterType="hashmap">
+		UPDATE TB_SYS_LOG 
+		   SET STATUS = #{status}, 
+			   END_DT = NOW(),
+			   COMMENTS = #{comments}
+		 WHERE REG_DATE=#{reg_date}
+		   AND TASK_CD='2';
+	</update>
+
+
+
+	<delete id="PGMONBT_BATCH_ACTV_COLLECT_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_ACTV_COLLECT_INFO_001 */ FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_ACTV_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_CURRENT_LOCK_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_CURRENT_LOCK_001 */ FROM TB_CURRENT_LOCK      WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_ACTV_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_BACKEND_RSC_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_BACKEND_RSC_001 */ FROM TB_BACKEND_RSC       WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_ACTV_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_ACCESS_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_ACCESS_INFO_001 */ FROM TB_ACCESS_INFO       WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_ACTV_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+		
+	<delete id="PGMONBT_BATCH_OBJT_COLLECT_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_OBJT_COLLECT_INFO_001 */ FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_OBJT_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_TABLESPACE_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TABLESPACE_INFO_001 */ FROM TB_TABLESPACE_INFO   WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_OBJT_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_TABLE_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TABLE_INFO_001 */ FROM TB_TABLE_INFO        WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_OBJT_COLLECT_INFO) - 1, 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_TABLE_INFO_001_ORG" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TABLE_INFO_001 */ FROM TB_TABLE_INFO        WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_OBJT_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_INDEX_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_INDEX_INFO_001 */ FROM TB_INDEX_INFO        WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_OBJT_COLLECT_INFO) - 1, 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_INDEX_INFO_001_ORG" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_INDEX_INFO_001 */ FROM TB_INDEX_INFO        WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_OBJT_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	
+	<delete id="PGMONBT_BATCH_RSC_COLLECT_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_RSC_COLLECT_INFO_001 */ FROM TB_RSC_COLLECT_INFO  WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_MEMORY_STAT_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_MEMORY_STAT_001 */ FROM TB_MEMORY_STAT       WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_CPU_STAT_MASTER_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_CPU_STAT_MASTER_001 */ FROM TB_CPU_STAT_MASTER   WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_CPU_STAT_DETAIL_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_CPU_STAT_DETAIL_001 */ FROM TB_CPU_STAT_DETAIL   WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - 1, 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_CPU_STAT_DETAIL_001_ORG" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_CPU_STAT_DETAIL_001 */ FROM TB_CPU_STAT_DETAIL   WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_DISK_IO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_DISK_IO_001 */ FROM TB_DISK_IO           WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_DISK_USAGE_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_DISK_USAGE_001 */ FROM TB_DISK_USAGE        WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - 1, 'YYYYMMDD');
+		]]>	
+	</delete>
+	<delete id="PGMONBT_BATCH_DISK_USAGE_001_ORG" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_DISK_USAGE_001 */ FROM TB_DISK_USAGE        WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_RSC_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	
+	<delete id="PGMONBT_BATCH_HCHK_COLLECT_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_HCHK_COLLECT_INFO_001 */ FROM TB_HCHK_COLLECT_INFO WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_HCHK_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+
+
+
+	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
+		vacuum analyze TB_INSTANCE_INFO    ;
+	</update>
+	<update id="VACUUM_ANALYZE_U002" parameterType="hashmap" >	
+		vacuum analyze TB_ACTV_COLLECT_INFO;
+	</update>
+	<update id="VACUUM_ANALYZE_U003" parameterType="hashmap" >		
+		vacuum analyze TB_CURRENT_LOCK     ;
+	</update>
+	<update id="VACUUM_ANALYZE_U006" parameterType="hashmap" >		
+		vacuum analyze TB_BACKEND_RSC      ;
+	</update>
+	<update id="VACUUM_ANALYZE_U007" parameterType="hashmap" >		
+		vacuum analyze TB_OBJT_COLLECT_INFO;
+	</update>
+	<update id="VACUUM_ANALYZE_U008" parameterType="hashmap" >		
+		vacuum analyze TB_ACCESS_INFO      ;
+	</update>
+	<update id="VACUUM_ANALYZE_U009" parameterType="hashmap" >		
+		vacuum analyze TB_TABLESPACE_INFO  ;
+	</update>
+	<update id="VACUUM_ANALYZE_U010" parameterType="hashmap" >		
+		vacuum analyze TB_TABLE_INFO       ;
+	</update>
+	<update id="VACUUM_ANALYZE_U011" parameterType="hashmap" >		
+		vacuum analyze TB_INDEX_INFO       ;
+	</update>
+	<update id="VACUUM_ANALYZE_U012" parameterType="hashmap" >		
+		vacuum analyze TB_RSC_COLLECT_INFO ;
+	</update>
+	<update id="VACUUM_ANALYZE_U013" parameterType="hashmap" >		
+		vacuum analyze TB_MEMORY_STAT      ;
+	</update>
+	<update id="VACUUM_ANALYZE_U014" parameterType="hashmap" >		
+		vacuum analyze TB_CPU_STAT_MASTER  ;
+	</update>
+	<update id="VACUUM_ANALYZE_U015" parameterType="hashmap" >		
+		vacuum analyze TB_CPU_STAT_DETAIL  ;
+	</update>
+	<update id="VACUUM_ANALYZE_U016" parameterType="hashmap" >		
+		vacuum analyze TB_DISK_IO          ;
+	</update>
+	<update id="VACUUM_ANALYZE_U017" parameterType="hashmap" >		
+		vacuum analyze TB_DISK_USAGE       ;
+	</update>
+	<update id="VACUUM_ANALYZE_U018" parameterType="hashmap" >		
+		vacuum analyze TB_HCHK_COLLECT_INFO;
+	</update>
+	<update id="VACUUM_ANALYZE_U019" parameterType="hashmap" >		
+		vacuum analyze TB_HCHK_THRD_LIST   ;
+	</update>
+	<update id="VACUUM_ANALYZE_U020" parameterType="hashmap" >		
+		vacuum analyze TB_CONFIG           ;
+	</update>
+	<update id="VACUUM_ANALYZE_U021" parameterType="hashmap" >		
+		vacuum analyze TB_SYS_LOG          ;
+	</update>
+<!-- ********************************************************** -->
+<!-- DailyBatchTask END -->
+<!-- ********************************************************** -->
+
+
+
+<!-- ********************************************************** -->
+<!-- SocketTask START -->
+<!-- ********************************************************** -->
+	<select id="DX004_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		SELECT DATID, DATNAME FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1');--WHERE DATNAME NOT IN ('template0','template1','postgres');
+	</select>
+	
+	<select id="DX004_002" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		<![CDATA[
+		select nspname from pg_namespace where nspname not like 'pg_%' and nspname<>'information_schema';
+		]]>
+	</select>
+	
+	<select id="DX001_001" parameterType="hashmap" resultType="hashmap">
+		select INSTANCE_ID, 
+		       SERVER_IP, 
+		       SERVICE_PORT, 
+		       CONN_USER_ID, 
+		       convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') as CONN_USER_PWD, 
+		       COLLECT_PERIOD_SEC, 
+		       CONN_DB_NAME, 
+		       LAST_MOD_DT
+		  from TB_INSTANCE_INFO
+		 where INSTANCE_ID IN 
+				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+	</select>
+	
+	<select id="DX005_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		<![CDATA[
+		${query}
+		]]>
+	</select>
+<!-- ********************************************************** -->
+<!-- SocketTask END -->
+<!-- ********************************************************** -->
+
+	<select id="LICENSE_001" parameterType="hashmap" resultType="hashmap">
+		SELECT TO_CHAR(NOW(), 'YYYYMMDD') AS TODAY
+	</select>
+
+	<insert id="LICENSE_I001" parameterType="hashmap">
+		INSERT INTO TB_SYS_LOG (REG_DATE, TASK_CD, START_DT, STATUS, END_DT, COMMENTS)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			'3',
+			NOW(),
+			#{status},
+			NOW(),
+			#{comments}
+		); 
+	</insert>
+	
+	<select id="RSC_NOW" parameterType="hashmap" resultType="hashmap">
+		SELECT NOW() AS DT_NOW
+	</select>
+	
+<!-- ********************************************************** -->
+<!-- for log -->
+<!-- ********************************************************** -->
+	
+	<select id="PG_CHECK_EXTENSION_001" parameterType="hashmap" resultType="hashmap">
+		SELECT 1 AS INS FROM PG_AVAILABLE_EXTENSIONS WHERE NAME='adminpack'
+	</select>
+	<select id="PG_CHECK_EXTENSION_002" parameterType="hashmap" resultType="hashmap">
+		SELECT 1 from pg_extension WHERE extname = 'adminpack'
+	</select>	
+	<update id="PG_CREATE_EXTENSION_001" parameterType="hashmap">
+		CREATE EXTENSION adminpack
+	</update>
+	<select id="PG_SHOW_LOGLINE_001" parameterType="hashmap" resultType="hashmap">
+		SELECT setting FROM pg_settings WHERE name = 'log_line_prefix'
+	</select>
+	
+	<select id="PG_SHOW_DIRECTORY_001" parameterType="hashmap" resultType="hashmap">
+		SELECT setting FROM pg_settings WHERE  name = 'log_directory'
+	</select>
+	
+	<select id="PG_LOG_DESTINATION_001" parameterType="hashmap" resultType="String">
+		SELECT setting FROM pg_settings WHERE  name = 'log_destination'
+	</select>
+	
+	<select id="PG_GET_LOGFILES_001" parameterType="hashmap" resultType="hashmap">
+		SELECT filename, filetime::text, pg_file_length(filename) AS len
+		FROM pg_logdir_ls() AS A (filetime timestamp, filename text)
+		ORDER BY filetime DESC
+	</select>
+	
+	<select id="PG_GET_LOGFILES_002" parameterType="hashmap" resultType="String">
+		SELECT pg_file_length(filename) AS len
+		FROM pg_logdir_ls() AS A(filetime timestamp, filename text)
+		WHERE filename = #{filename}
+	</select>
+		
+	<select id="PG_GET_LOGFILES_003" parameterType="hashmap" resultType="hashmap">
+		SELECT PGCSV.filename AS filename, PGLOG.filetime, pg_file_length(PGCSV.filename) AS len 
+		FROM
+		(SELECT filename, filetime::text FROM pg_logdir_ls() AS A (filetime timestamp, filename text)) AS PGLOG
+		JOIN 
+		(SELECT (SELECT setting || '/' FROM pg_settings WHERE  name = 'log_directory') ||filename AS filename 
+		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) as filename 
+		 WHERE filename like '%.csv') AS PGCSV
+		ON replace(PGLOG.filename, '.log', '') = replace(PGCSV.filename, '.csv', '')
+		ORDER BY PGLOG.filetime
+	</select>
+	
+	<select id="PG_GET_LOGFILES_004" parameterType="hashmap" resultType="String">
+		SELECT pg_file_length(PGCSV.filename) AS len 
+		FROM
+		(SELECT filename FROM pg_logdir_ls() AS A(filetime timestamp, filename text)) AS PGLOG
+		JOIN
+		(SELECT (SELECT setting || '/' FROM pg_settings WHERE  name = 'log_directory')||filename AS filename 
+		 FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) as filename 
+		 WHERE filename = replace(#{filename},'pg_log/','')) AS PGCSV
+		ON replace(PGLOG.filename, '.log', '') = replace(PGCSV.filename, '.csv', '')
+	</select>
+
+	<select id="PG_READ_LOGFILE_001" parameterType="hashmap" resultType="String">
+		SELECT * from pg_file_read(#{filename}, #{logoffset}, #{length})
+	</select>	
+	
+</mapper>

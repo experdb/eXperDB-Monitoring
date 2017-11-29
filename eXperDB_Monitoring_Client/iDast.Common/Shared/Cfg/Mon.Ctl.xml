@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <public>
+    <appender name="mon_tot">
+      <GettingTime value="3" />
+      <GrpGettingTime value="4" />
+      <ConAlamCheck value="1" />
+      <LogDataSaveTime value="7" />
+      <LogDataWriteInterval1 value="3" />
+      <LogMatrixCheck value="0" />
+      <LogSgaStatCheck value="0" />
+      <LogSharedPoolCheck value="0" />
+    </appender>
+    <appender name="mon_ash">
+      <AshGettingTimeLevel1 value="3" />
+      <AshGettingTimeLevel2 value="10" />
+      <GrpGettingTime value="4" />
+      <ConAlamCheck value="1" />
+      <LogDataSaveTime value="7" />      
+      <LogDataWriteInterval1 value="3" />
+      <LogDataWriteInterval2 value="30" />
+      <LogResourceCheck value="0" />
+      <LogWaitClassCheck value="0" />
+      <LogWaitClassDetailCheck value="0" />
+      <LogWaitEventCheck value="0" />
+      <LogStorageCheck value="0" />
+      <LogLockCheck value="0" />
+      <CapSqlExplainType value="BASIC" />
+      <CapSqlAvgTime value="0.5" />
+      <CapSqlGettingTime value="3" />
+      <CapSqlTagetSchemaExclude value="1" />
+      <CapSqlTagetSchema value="" />
+      <CapSqlTargetProgramExclude value="1" />      
+      <CapSqlTargetProgram value="" />      
+    </appender>
+    <appender name="mon_mts">
+      <GettingTime value="3" />
+      <GrpGettingTime value="4" />
+      <ConAlamCheck value="1" />
+      <LogDataSaveTime value="7" />     
+      <LogDataWriteInterval1 value="3" /> 
+      <LogSharedServerCheck value="0" />
+      <LogDispatcherCheck value="0" />
+      <LogSessionListCheck value="0" />      
+      <LogSharedServerStatusCheck value="0" />
+      <LogDisSharWaitTimeCheck value="0" />      
+    </appender>
+    <appender name="threshold">
+    	<CpuRatio value="80" />
+    	<CpuWaitRatio value="80" />
+    	<BufferCache value="80" />
+    	<JavaPool value="80" />
+    	<LargePool value="80" />
+    	<SharedPoolLibCache value="80" />
+    	<SharedPoolMemSorts value="80" />
+    	<SharedPoolDicCache value="80" />
+    	<SharedPoolLatch value="80" />
+    	<ServerProceses value="90" />
+    	<ServerSessions value="90" />
+    	<DeadLock value="YES" />
+    	<TableSpace value="90" />
+    </appender>
+    <appender name="visual">
+      <Process value="70,90" />
+      <Session value="70,90" />
+      <Disk value="80,95" />
+      <Cpu value="60,90" />
+      <Wait value="60,90" />
+      <Cache value="80,95" />
+      <PhysicalReadsPerSec value="500,1000,1500,2000" />
+      <DbBlockGetsPerSec value="500,1000,1500,2000" />
+      <DbBlockChangePerSec value="500,1000,1500,2000" />
+      <RedoGeneratedPerSec value="100,200,300,400" />
+      <ExecutionsPerSec value="250,500,750,1000" />
+      <PhysicalWritesPerSec value="375,750,1125,1500" />
+      <RedoWritesPerSec value="100,200,300,400" />
+      <BytesArchivedPerSec value="100,200,300,400" />      
+    </appender>
+  </public>
+</configuration>

@@ -1,0 +1,2260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ROWS>
+  <ROW ID="ACTIVECONNECTION" PARAMS="0">
+    <DESC>Checks the current number of connections.</DESC>
+    <DATA><![CDATA[Backend PROC]]></DATA>
+    <COMMENTS>max_connections,work_mem,superuser_reserved_connections</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;BACKEND|BACKEND|NUMBER|N0|100;IDLE_RATE|IDLE RATE|NUMBER|P2|100;ACTIVE_RATE|ACTIVE RATE|NUMBER|P2|100;TOTAL_RATE|TOTAL|NUMBER|P2|50</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="BUFFERHITRATIO" PARAMS="0">
+    <DESC>Checks the hit ratio of all databases.</DESC>
+    <DATA><![CDATA[Buffer Hit Ratio]]></DATA>
+    <COMMENTS>shared_buffers</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;DB_SIZE_KB|SIZE|DATASIZE|N2|100;TABLE_CNT|TABLES|NUMBER|N0|100;INDEX_CNT|INDEXES|NUMBER|N0|100;BUFFER_HIT_RATIO|BUFFER HIT|NUMBER|P|100</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="COMMITRATIO" PARAMS="0">
+    <DESC>Checks the commit ratio of all databases.</DESC>
+    <DATA><![CDATA[TRANX Success]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;CURRENT_TRANX|TRANSACTION|NUMBER|N0|100;CURRENT_COMMIT_RATE|COMMIT RATE|NUMBER|P2|100;AGG_COMMIT_RATE|Accumulated COMMIT RATE|NUMBER|P2|100</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="CONNECTIONFAIL" PARAMS="0">
+    <DESC>Issues 'SELECT 1' and checks\nthe connection.</DESC>
+    <DATA><![CDATA[Connection Fail]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>IS_OK|RESULT|TEXT||100;REG_TIME|CHECK TIME|TEXT||100;LAST_OK_DT|LAST CONNECT DATETIME|TEXT||200</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="CPUWAIT" PARAMS="0">
+    <DESC>Checks CPU rate of I/O wait.</DESC>
+    <DATA><![CDATA[CPU Wait]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="DISKUSAGE" PARAMS="0">
+    <DESC>Checks Disk usage.</DESC>
+    <DATA><![CDATA[Disk Usage]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DEVICE_NAME|DISK NAME|TEXT||200;MOUNT_POINT_DIR|MOUNTED|TEXT||200;TOTAL_KB|TOTAL SIZE|DATASIZE|N2|100;USED|USED|DATASIZE|N2|100;USED_RATE|USED RATE|NUMBER|P2|100</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F001" PARAMS="0">
+    <DESC>수집서버설정 표시내용</DESC>
+    <DATA><![CDATA[Agent Server Information]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F002" PARAMS="0">
+    <DESC>테스트</DESC>
+    <DATA><![CDATA[Test]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F003" PARAMS="0">
+    <DESC>저장</DESC>
+    <DATA><![CDATA[Save]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F004" PARAMS="0">
+    <DESC>관리자 비밀번호</DESC>
+    <DATA><![CDATA[Administrator Password]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F005" PARAMS="0">
+    <DESC>확인</DESC>
+    <DATA><![CDATA[OK]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F006" PARAMS="0">
+    <DESC>아이피</DESC>
+    <DATA><![CDATA[Server IP]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F007" PARAMS="0">
+    <DESC>포트</DESC>
+    <DATA><![CDATA[Port]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F008" PARAMS="0">
+    <DESC>사용자</DESC>
+    <DATA><![CDATA[User]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F009" PARAMS="0">
+    <DESC>비밀번호</DESC>
+    <DATA><![CDATA[Password]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F010" PARAMS="0">
+    <DESC>테이터베이스</DESC>
+    <DATA><![CDATA[Database]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F011" PARAMS="0">
+    <DESC>수집주기</DESC>
+    <DATA><![CDATA[Collect Period(Sec)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F012" PARAMS="0">
+    <DESC>수집로그보관</DESC>
+    <DATA><![CDATA[Log Keep Day]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F013" PARAMS="0">
+    <DESC>서버 리스트 문구</DESC>
+    <DATA><![CDATA[Monitoring Server List]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F014" PARAMS="0">
+    <DESC>적용</DESC>
+    <DATA><![CDATA[Apply]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F015" PARAMS="0">
+    <DESC>삭제</DESC>
+    <DATA><![CDATA[Delete]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F016" PARAMS="0">
+    <DESC>추가</DESC>
+    <DATA><![CDATA[Add]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F017" PARAMS="0">
+    <DESC>선택</DESC>
+    <DATA><![CDATA[SEL]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F018" PARAMS="0">
+    <DESC>모니터링여부</DESC>
+    <DATA><![CDATA[View]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F019" PARAMS="0">
+    <DESC>서버 별칭</DESC>
+    <DATA><![CDATA[Alias Name]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F020" PARAMS="0">
+    <DESC>최종IP</DESC>
+    <DATA><![CDATA[Last Access IP]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F021" PARAMS="0">
+    <DESC>닫기</DESC>
+    <DATA><![CDATA[Close]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F022" PARAMS="0">
+    <DESC>환경설정</DESC>
+    <DATA><![CDATA[Configuration Setting]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F023" PARAMS="0">
+    <DESC>언어선택</DESC>
+    <DATA><![CDATA[Language]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F024" PARAMS="0">
+    <DESC>환경설정:일반</DESC>
+    <DATA><![CDATA[General]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F025" PARAMS="0">
+    <DESC>그룹관리</DESC>
+    <DATA><![CDATA[Monitoring Group]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F026" PARAMS="0">
+    <DESC>그룹명칭</DESC>
+    <DATA><![CDATA[Group]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F027" PARAMS="0">
+    <DESC>시작</DESC>
+    <DATA><![CDATA[Start]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F028" PARAMS="0">
+    <DESC>장애 요약 정보</DESC>
+    <DATA />
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F029" PARAMS="0">
+    <DESC>NORMAL</DESC>
+    <DATA><![CDATA[Normal]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F030" PARAMS="0">
+    <DESC>WARNING</DESC>
+    <DATA><![CDATA[Warning]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F031" PARAMS="0">
+    <DESC>CRITICAL</DESC>
+    <DATA><![CDATA[Critical]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F032" PARAMS="0">
+    <DESC>인스턴스 요약 정보</DESC>
+    <DATA><![CDATA[Cluster Status]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F033" PARAMS="0">
+    <DESC>SERVER NAME</DESC>
+    <DATA><![CDATA[Server]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F034" PARAMS="0">
+    <DESC>사용량</DESC>
+    <DATA><![CDATA[Usage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F035" PARAMS="0">
+    <DESC>CPU</DESC>
+    <DATA><![CDATA[CPU]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F036" PARAMS="0">
+    <DESC>MEMORY</DESC>
+    <DATA><![CDATA[Memory]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F037" PARAMS="0">
+    <DESC>RAIDER STYLE</DESC>
+    <DATA><![CDATA[Raider Style]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F038" PARAMS="0">
+    <DESC>스타일</DESC>
+    <DATA><![CDATA[Style]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F039" PARAMS="0">
+    <DESC>아이템 방향</DESC>
+    <DATA><![CDATA[The Small value , Outside of the circle]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F040" PARAMS="0">
+    <DESC>Request Information</DESC>
+    <DATA><![CDATA[Logical I/O]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F041" PARAMS="0">
+    <DESC>DISK ACCESS</DESC>
+    <DATA><![CDATA[Disk Access]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F042" PARAMS="0">
+    <DESC>READ/WRITE</DESC>
+    <DATA><![CDATA[R/W]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F043" PARAMS="0">
+    <DESC>DISK BUSY</DESC>
+    <DATA><![CDATA[Busy]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F044" PARAMS="0">
+    <DESC>DISK USAGE</DESC>
+    <DATA><![CDATA[Disk Usage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F045" PARAMS="0">
+    <DESC>TOTAL</DESC>
+    <DATA><![CDATA[Total]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F046" PARAMS="0">
+    <DESC>USAGE</DESC>
+    <DATA><![CDATA[Usage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F047" PARAMS="0">
+    <DESC>SESSION INFORMATION</DESC>
+    <DATA><![CDATA[Session]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F048" PARAMS="0">
+    <DESC>DISK READ</DESC>
+    <DATA><![CDATA[Disk Read]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F049" PARAMS="0">
+    <DESC>CPU USAGE</DESC>
+    <DATA><![CDATA[CPU]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F050" PARAMS="0">
+    <DESC>QUERY START TIME</DESC>
+    <DATA><![CDATA[Query Start]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F051" PARAMS="0">
+    <DESC>ELAPSED TIME</DESC>
+    <DATA><![CDATA[Elapsed Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F052" PARAMS="0">
+    <DESC>SQL</DESC>
+    <DATA><![CDATA[SQL]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F053" PARAMS="0">
+    <DESC>INSERT TUPLES</DESC>
+    <DATA><![CDATA[Insert\nTuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F054" PARAMS="0">
+    <DESC>READ TUPLES</DESC>
+    <DATA><![CDATA[Read\nTuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F055" PARAMS="0">
+    <DESC>UPDATE TUPLES</DESC>
+    <DATA><![CDATA[Update\nTuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F056" PARAMS="0">
+    <DESC>DELETE TUPLES</DESC>
+    <DATA><![CDATA[Delete\nTuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F057" PARAMS="0">
+    <DESC>COMMIT TRANX</DESC>
+    <DATA><![CDATA[Commit\nTransaction]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F058" PARAMS="0">
+    <DESC>ROLLBACK TRANX</DESC>
+    <DATA><![CDATA[Rollback\nTtansaction]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F059" PARAMS="0">
+    <DESC>ITEM</DESC>
+    <DATA><![CDATA[Item]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F060" PARAMS="0">
+    <DESC>VALUE</DESC>
+    <DATA><![CDATA[Value]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F061" PARAMS="0">
+    <DESC>UNIT</DESC>
+    <DATA><![CDATA[Unit]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F062" PARAMS="0">
+    <DESC>STATUS</DESC>
+    <DATA><![CDATA[Status]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F063" PARAMS="0">
+    <DESC>사용량</DESC>
+    <DATA><![CDATA[Usage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F064" PARAMS="0">
+    <DESC>CPU USAGE</DESC>
+    <DATA><![CDATA[CPU]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F065" PARAMS="0">
+    <DESC>MEMERY TOTAL</DESC>
+    <DATA><![CDATA[Total]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F066" PARAMS="0">
+    <DESC>MEMORY USED</DESC>
+    <DATA><![CDATA[Used]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F067" PARAMS="0">
+    <DESC>MEMORY FREE</DESC>
+    <DATA><![CDATA[Free]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F068" PARAMS="0">
+    <DESC>MEMORY SHARED</DESC>
+    <DATA><![CDATA[Shared]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F069" PARAMS="0">
+    <DESC>MEMORY BUFFERS</DESC>
+    <DATA><![CDATA[Buffers]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F070" PARAMS="0">
+    <DESC>MEMORY CACHED</DESC>
+    <DATA><![CDATA[Cached]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F071" PARAMS="0">
+    <DESC>MEMORY SWAP TOTAL</DESC>
+    <DATA><![CDATA[Swap Total]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F072" PARAMS="0">
+    <DESC>MEMORY SWAP USED</DESC>
+    <DATA><![CDATA[Swap Used]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F073" PARAMS="0">
+    <DESC>MEMORY SWAP FREE</DESC>
+    <DATA><![CDATA[Swap Free]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F074" PARAMS="0">
+    <DESC>SCHEMA</DESC>
+    <DATA><![CDATA[Schema]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F075" PARAMS="0">
+    <DESC>DATABASE ACTIVITY INFORMATION</DESC>
+    <DATA><![CDATA[Object/Lock]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F076" PARAMS="0">
+    <DESC>CURRENT ACTIVITY</DESC>
+    <DATA><![CDATA[Current Activity]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F077" PARAMS="0">
+    <DESC>LOCK INFORMATION</DESC>
+    <DATA><![CDATA[Current Lock]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F078" PARAMS="1">
+    <DESC>DATABASE INFORMATION</DESC>
+    <DATA><![CDATA[Database(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F079" PARAMS="1">
+    <DESC>TABLESPACE INFORMATION</DESC>
+    <DATA><![CDATA[Tablespace(COUNT : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F080" PARAMS="1">
+    <DESC>TABLE INFORMATION</DESC>
+    <DATA><![CDATA[Table(COUNT : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F081" PARAMS="1">
+    <DESC>INDEX INFORMATION</DESC>
+    <DATA><![CDATA[Index(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F082" PARAMS="0">
+    <DESC>PROCESS ID</DESC>
+    <DATA><![CDATA[PID]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F083" PARAMS="0">
+    <DESC>XACT_START</DESC>
+    <DATA><![CDATA[XACT_Start]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F084" PARAMS="0">
+    <DESC>QUERY</DESC>
+    <DATA><![CDATA[Query]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F085" PARAMS="0">
+    <DESC>DISK NAME</DESC>
+    <DATA><![CDATA[Disk]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F086" PARAMS="0">
+    <DESC>DISK I/O</DESC>
+    <DATA><![CDATA[Disk I/O]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F087" PARAMS="0">
+    <DESC>READ/s</DESC>
+    <DATA><![CDATA[Read/s]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F088" PARAMS="0">
+    <DESC>WRITE/s</DESC>
+    <DATA><![CDATA[Write/s]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F089" PARAMS="0">
+    <DESC>RESOURCE UTIL PER BACKEND PROCESS</DESC>
+    <DATA><![CDATA[Backend Process]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F090" PARAMS="0">
+    <DESC>DB</DESC>
+    <DATA><![CDATA[DB]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F091" PARAMS="0">
+    <DESC>PHYSICAL R/W</DESC>
+    <DATA><![CDATA[Physical R/W]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F092" PARAMS="0">
+    <DESC>CPU USAGE</DESC>
+    <DATA><![CDATA[CPU]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F093" PARAMS="0">
+    <DESC>VIEW PLAN</DESC>
+    <DATA><![CDATA[View Plan]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F094" PARAMS="0">
+    <DESC>EVENT LOG</DESC>
+    <DATA><![CDATA[Event Log]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F095" PARAMS="0">
+    <DESC>ISSUE TIME</DESC>
+    <DATA><![CDATA[Issue Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F096" PARAMS="0">
+    <DESC>CATEGORY</DESC>
+    <DATA><![CDATA[Category]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F097" PARAMS="0">
+    <DESC>VALUE/UNIT</DESC>
+    <DATA><![CDATA[Value/Unit]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F098" PARAMS="0">
+    <DESC>SERVERITY</DESC>
+    <DATA><![CDATA[Serverity]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F099" PARAMS="0">
+    <DESC>COMMENT</DESC>
+    <DATA><![CDATA[Comment]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F100" PARAMS="0">
+    <DESC>PHYSICAL I/O</DESC>
+    <DATA><![CDATA[Physical I/O]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F101" PARAMS="0">
+    <DESC>Logical I/O</DESC>
+    <DATA><![CDATA[Logical I/O]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F102" PARAMS="0">
+    <DESC>OBJECT</DESC>
+    <DATA><![CDATA[Object Access]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F103" PARAMS="0">
+    <DESC>SQL RESPONSE TIME</DESC>
+    <DATA><![CDATA[SQL Response Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F104" PARAMS="0">
+    <DESC>DB</DESC>
+    <DATA><![CDATA[DB]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F105" PARAMS="0">
+    <DESC>SIZE</DESC>
+    <DATA><![CDATA[Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F106" PARAMS="0">
+    <DESC>TABLE COUNT</DESC>
+    <DATA><![CDATA[Table Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F107" PARAMS="0">
+    <DESC>INDEX COUNT</DESC>
+    <DATA><![CDATA[Index Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F108" PARAMS="0">
+    <DESC>DISK READ</DESC>
+    <DATA><![CDATA[Disk Read]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F109" PARAMS="0">
+    <DESC>BUFFER READ</DESC>
+    <DATA><![CDATA[Buffer Read]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F110" PARAMS="0">
+    <DESC>HIT RATIO</DESC>
+    <DATA><![CDATA[Hit Ratio]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F111" PARAMS="0">
+    <DESC>TABLESPACE</DESC>
+    <DATA><![CDATA[Tablespace]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F112" PARAMS="0">
+    <DESC>SIZE</DESC>
+    <DATA><![CDATA[Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F113" PARAMS="0">
+    <DESC>LOCATION</DESC>
+    <DATA><![CDATA[Location]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F114" PARAMS="0">
+    <DESC>DISK SIZE</DESC>
+    <DATA><![CDATA[Disk Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F115" PARAMS="0">
+    <DESC>DISK USED</DESC>
+    <DATA><![CDATA[Disk Used]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F116" PARAMS="0">
+    <DESC>DB</DESC>
+    <DATA><![CDATA[DB]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F117" PARAMS="0">
+    <DESC>TABLE</DESC>
+    <DATA><![CDATA[Table]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F118" PARAMS="0">
+    <DESC>TABLE SIZE</DESC>
+    <DATA><![CDATA[Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F119" PARAMS="0">
+    <DESC>INDEX SIZE</DESC>
+    <DATA><![CDATA[Index Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F120" PARAMS="0">
+    <DESC>INDEX CNT</DESC>
+    <DATA><![CDATA[Index CNT]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F121" PARAMS="0">
+    <DESC>IS_TOAST</DESC>
+    <DATA><![CDATA[IS_TOAST]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F122" PARAMS="0">
+    <DESC>SEQ SCAN COUNT</DESC>
+    <DATA><![CDATA[SEQ Scan Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F123" PARAMS="0">
+    <DESC>INDEX SCAN COUNT</DESC>
+    <DATA><![CDATA[Index Scan Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F124" PARAMS="0">
+    <DESC>LIVE TUPLES</DESC>
+    <DATA><![CDATA[Live Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F125" PARAMS="0">
+    <DESC>LAST VACUUM</DESC>
+    <DATA><![CDATA[Last Vacuum]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F126" PARAMS="0">
+    <DESC>DB</DESC>
+    <DATA><![CDATA[DB]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F127" PARAMS="0">
+    <DESC>INDEX</DESC>
+    <DATA><![CDATA[Index]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F128" PARAMS="0">
+    <DESC>TABLE</DESC>
+    <DATA><![CDATA[Table]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F129" PARAMS="0">
+    <DESC>INDEX SIZE</DESC>
+    <DATA><![CDATA[Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F130" PARAMS="0">
+    <DESC>INDEX SCAN COUNT</DESC>
+    <DATA><![CDATA[Index Scan Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F131" PARAMS="0">
+    <DESC>INDEX FETCHED TUPLES</DESC>
+    <DATA><![CDATA[Index Fetched Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F132" PARAMS="0">
+    <DESC>UPDATED TUPLES</DESC>
+    <DATA><![CDATA[Updated Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F133" PARAMS="0">
+    <DESC>DELETED TUPLES</DESC>
+    <DATA><![CDATA[Deleted Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F134" PARAMS="0">
+    <DESC>USER</DESC>
+    <DATA><![CDATA[Blocking User]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F135" PARAMS="0">
+    <DESC>ELASPED TIME</DESC>
+    <DATA><![CDATA[Elasped Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F136" PARAMS="0">
+    <DESC>DISK WRITE</DESC>
+    <DATA><![CDATA[Disk Write]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F137" PARAMS="0">
+    <DESC>REFRESH</DESC>
+    <DATA><![CDATA[Refresh]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F138" PARAMS="0">
+    <DESC>Object Information</DESC>
+    <DATA><![CDATA[Object Information]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F139" PARAMS="0">
+    <DESC>Resource Util</DESC>
+    <DATA><![CDATA[Resource]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F140" PARAMS="0">
+    <DESC>Server Add</DESC>
+    <DATA><![CDATA[Create]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F141" PARAMS="0">
+    <DESC>Server modify</DESC>
+    <DATA><![CDATA[Modify]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F142" PARAMS="0">
+    <DESC>Excel</DESC>
+    <DATA><![CDATA[Excel]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F143" PARAMS="0">
+    <DESC>로그삭제예약시간</DESC>
+    <DATA><![CDATA[Log Del Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F144" PARAMS="0">
+    <DESC>시간</DESC>
+    <DATA><![CDATA[H]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F145" PARAMS="0">
+    <DESC>분</DESC>
+    <DATA><![CDATA[M]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F146" PARAMS="0">
+    <DESC>HOST NAME</DESC>
+    <DATA><![CDATA[Server]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F147" PARAMS="0">
+    <DESC>USER</DESC>
+    <DATA><![CDATA[User(%)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F148" PARAMS="0">
+    <DESC>SYS</DESC>
+    <DATA><![CDATA[SYS(%)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F149" PARAMS="0">
+    <DESC>WAIT</DESC>
+    <DATA><![CDATA[Wait(%)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F150" PARAMS="0">
+    <DESC>IDLE</DESC>
+    <DATA><![CDATA[Idle(%)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F151" PARAMS="0">
+    <DESC>SEARCH</DESC>
+    <DATA><![CDATA[Search]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F152" PARAMS="0">
+    <DESC>MEMORY SWAP CACHED</DESC>
+    <DATA><![CDATA[Swap Cached]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F153" PARAMS="0">
+    <DESC>READ/WRITE</DESC>
+    <DATA><![CDATA[Read/Write]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F154" PARAMS="0">
+    <DESC>READ/WRITE BUSY</DESC>
+    <DATA><![CDATA[Read/Write Busy]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F155" PARAMS="0">
+    <DESC>TIME LINE VIEW</DESC>
+    <DATA><![CDATA[Time Line View]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F156" PARAMS="0">
+    <DESC>Object Access</DESC>
+    <DATA><![CDATA[Object Access Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F157" PARAMS="0">
+    <DESC>조회일시</DESC>
+    <DATA><![CDATA[Snapshot Range]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F158" PARAMS="0">
+    <DESC>OBJECT ACCESS RATE</DESC>
+    <DATA><![CDATA[Object Access Rate]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F159" PARAMS="0">
+    <DESC>BUFFER HIT RATIO</DESC>
+    <DATA><![CDATA[Buffer Hit Ratio]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F160" PARAMS="0">
+    <DESC>BUFFER_READ_KB</DESC>
+    <DATA><![CDATA[Buffer Read KB]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F161" PARAMS="0">
+    <DESC>HIT RATIO</DESC>
+    <DATA><![CDATA[Hit Ratio]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F162" PARAMS="0">
+    <DESC>INSERT TUPLES PER SEC</DESC>
+    <DATA><![CDATA[Insert Tuples Per Sec]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F163" PARAMS="0">
+    <DESC>UPDATE TUPLES PER SEC</DESC>
+    <DATA><![CDATA[Update Tuples Per Sec]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F164" PARAMS="0">
+    <DESC>CPU 정보</DESC>
+    <DATA><![CDATA[CPU]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F165" PARAMS="0">
+    <DESC>DISK 정보</DESC>
+    <DATA><![CDATA[Disk]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F166" PARAMS="0">
+    <DESC>Logical I/O</DESC>
+    <DATA><![CDATA[Logical I/O]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F167" PARAMS="0">
+    <DESC>SESSION 정보</DESC>
+    <DATA><![CDATA[Session]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F168" PARAMS="0">
+    <DESC>OBJECT ACCESS</DESC>
+    <DATA><![CDATA[Object Access]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F169" PARAMS="0">
+    <DESC>BUFFER HIT</DESC>
+    <DATA><![CDATA[Buffer Hit]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F170" PARAMS="0">
+    <DESC>IDLE in Transaction</DESC>
+    <DATA><![CDATA[Idle In Transcation(%)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F171" PARAMS="0">
+    <DESC>인쇄</DESC>
+    <DATA><![CDATA[Print]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F172" PARAMS="0">
+    <DESC>DB NAME</DESC>
+    <DATA><![CDATA[DB Name]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F173" PARAMS="0">
+    <DESC>DELETE TUPLES PER SEC</DESC>
+    <DATA><![CDATA[Delete Tuples Per SEC]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F174" PARAMS="0">
+    <DESC>READ TUPLES PER SEC</DESC>
+    <DATA><![CDATA[Read Tuples Per Sec]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F175" PARAMS="0">
+    <DESC>SEQ TUPLES</DESC>
+    <DATA><![CDATA[SEQ Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F176" PARAMS="0">
+    <DESC>INDEX TUPLES</DESC>
+    <DATA><![CDATA[Index Tuples]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F177" PARAMS="0">
+    <DESC>SEQ SCAN</DESC>
+    <DATA><![CDATA[SEQ Scan]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F178" PARAMS="0">
+    <DESC>INDEX SCAN</DESC>
+    <DATA><![CDATA[Index Scan]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F179" PARAMS="0">
+    <DESC />
+    <DATA />
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F180" PARAMS="0">
+    <DESC />
+    <DATA />
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F181" PARAMS="0">
+    <DESC>MAX CPU USAGE</DESC>
+    <DATA><![CDATA[Max CPU Usage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F182" PARAMS="0">
+    <DESC>Client Address</DESC>
+    <DATA><![CDATA[Client Address]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F183" PARAMS="0">
+    <DESC>SUM ELAPSED TIME</DESC>
+    <DATA><![CDATA[Elapsed Time(Sec)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F184" PARAMS="0">
+    <DESC>USER NAME</DESC>
+    <DATA><![CDATA[User Name]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F185" PARAMS="0">
+    <DESC>SQL</DESC>
+    <DATA><![CDATA[SQL]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F186" PARAMS="0">
+    <DESC>SQL INFORMATION</DESC>
+    <DATA><![CDATA[SQL Information]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F188" PARAMS="0">
+    <DESC>NICE</DESC>
+    <DATA><![CDATA[Nice(%)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F189" PARAMS="0">
+    <DESC>SHOW LOG</DESC>
+    <DATA><![CDATA[Show Log]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F190" PARAMS="0">
+    <DESC>갱신주기</DESC>
+    <DATA><![CDATA[Collect Period]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F191" PARAMS="0">
+    <DESC>Font</DESC>
+    <DATA><![CDATA[Font]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F192" PARAMS="0">
+    <DESC>HEALTH LIST</DESC>
+    <DATA><![CDATA[30 s|30;1 m|60;10 m|600;30 m|1800;1 h|3600;6 h|21600;12 h|43200]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F193" PARAMS="0">
+    <DESC>디렉토리</DESC>
+    <DATA><![CDATA[Directory]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F194" PARAMS="0">
+    <DESC>상세_MEM파이챠트</DESC>
+    <DATA><![CDATA[MEM]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F195" PARAMS="0">
+    <DESC>Blocked Process ID</DESC>
+    <DATA><![CDATA[Blocked PID]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F196" PARAMS="0">
+    <DESC>Blocked user</DESC>
+    <DATA><![CDATA[Blocked User]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F197" PARAMS="0">
+    <DESC>Blocking Process ID</DESC>
+    <DATA><![CDATA[Blocking PID]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F198" PARAMS="0">
+    <DESC>Blocking Process User</DESC>
+    <DATA><![CDATA[Blocking User]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F199" PARAMS="0">
+    <DESC>알람 임계치 설정</DESC>
+    <DATA><![CDATA[Alert Configuration Setting]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F200" PARAMS="0">
+    <DESC>헬스체크주기</DESC>
+    <DATA><![CDATA[Health check time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F201" PARAMS="1">
+    <DESC>HEALTH DETAIL 항목명</DESC>
+    <DATA><![CDATA[● Item Name : {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F202" PARAMS="1">
+    <DESC>HEALTH DETAIL DESCRIPTION</DESC>
+    <DATA><![CDATA[● Description : {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F203" PARAMS="1">
+    <DESC>HEALTH DETAIL CHECK RESULT</DESC>
+    <DATA><![CDATA[● Result : {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F204" PARAMS="0">
+    <DESC>HEALTH DETAIL INFO</DESC>
+    <DATA><![CDATA[● Detail]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F205" PARAMS="1">
+    <DESC>HEALTH DETAIL PARAMETERS</DESC>
+    <DATA><![CDATA[● Related Parameter : {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F206" PARAMS="1">
+    <DESC>기준시간</DESC>
+    <DATA><![CDATA[( Check Time : {0} )]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F207" PARAMS="0">
+    <DESC>수집여부</DESC>
+    <DATA><![CDATA[Collect]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F208" PARAMS="0">
+    <DESC>SQL</DESC>
+    <DATA><![CDATA[SQL]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F209" PARAMS="0">
+    <DESC>바인딩 패턴</DESC>
+    <DATA><![CDATA[Variable Pattern]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F210" PARAMS="0">
+    <DESC>BACKCOLOR</DESC>
+    <DATA><![CDATA[Backcolor]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F211" PARAMS="0">
+    <DESC>COMMENTS</DESC>
+    <DATA><![CDATA[Comments]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F212" PARAMS="0">
+    <DESC>Functions</DESC>
+    <DATA><![CDATA[Functions]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F213" PARAMS="0">
+    <DESC>Keywords</DESC>
+    <DATA><![CDATA[Keywords]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F214" PARAMS="0">
+    <DESC>Numbers</DESC>
+    <DATA><![CDATA[Numbers]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F215" PARAMS="0">
+    <DESC>Statements</DESC>
+    <DATA><![CDATA[Statements]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F216" PARAMS="0">
+    <DESC>Types</DESC>
+    <DATA><![CDATA[Types]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F217" PARAMS="0">
+    <DESC>Variables</DESC>
+    <DATA><![CDATA[Variables]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F218" PARAMS="0">
+    <DESC>String</DESC>
+    <DATA><![CDATA[Strings]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F219" PARAMS="0">
+    <DESC>Bindings</DESC>
+    <DATA><![CDATA[Bindings]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F220" PARAMS="0">
+    <DESC>Normal Text</DESC>
+    <DATA><![CDATA[Normal]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F221" PARAMS="0">
+    <DESC>BLOCKED QUERY</DESC>
+    <DATA><![CDATA[Blocked Query]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F222" PARAMS="0">
+    <DESC>LOCK MODE</DESC>
+    <DATA><![CDATA[Lock Mode]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F223" PARAMS="0">
+    <DESC>QUERY START</DESC>
+    <DATA><![CDATA[Query Start]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F224" PARAMS="0">
+    <DESC>TRANX START</DESC>
+    <DATA><![CDATA[TRANX Start]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F225" PARAMS="0">
+    <DESC>BLOCKING QUERY</DESC>
+    <DATA><![CDATA[Blocking Query]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F226" PARAMS="0">
+    <DESC>Query Color 초기화</DESC>
+    <DATA><![CDATA[Initialize]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F227" PARAMS="0">
+    <DESC>IDLE</DESC>
+    <DATA><![CDATA[IDLE]]></DATA>
+    <COMMENTS>&lt;Idle&gt;</COMMENTS>
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F228" PARAMS="0">
+    <DESC>Show Host Name</DESC>
+    <DATA><![CDATA[Show SVR Name]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F229" PARAMS="0">
+    <DESC>HOST NAME</DESC>
+    <DATA><![CDATA[Host Name]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F230" PARAMS="0">
+    <DESC>ALIAS NAME</DESC>
+    <DATA><![CDATA[Alias Name]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F231" PARAMS="0">
+    <DESC>OCCUPIED_TIME</DESC>
+    <DATA><![CDATA[Occupied CPU Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F232" PARAMS="0">
+    <DESC>SQL_COUNT</DESC>
+    <DATA><![CDATA[SQL Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F233" PARAMS="0">
+    <DESC>DATABASE LOG VIEWER</DESC>
+    <DATA><![CDATA[Log View]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F234" PARAMS="0">
+    <DESC>Log Viewer</DESC>
+    <DATA><![CDATA[]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F235" PARAMS="1">
+    <DESC>LOG FILE LIST</DESC>
+    <DATA><![CDATA[File List]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F236" PARAMS="1">
+    <DESC>LOG FILE</DESC>
+    <DATA><![CDATA[]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F237" PARAMS="1">
+    <DESC>Log File Nmae</DESC>
+    <DATA><![CDATA[Log File]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F238" PARAMS="1">
+    <DESC>FILE SIZE</DESC>
+    <DATA><![CDATA[Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F239" PARAMS="1">
+    <DESC>LOG</DESC>
+    <DATA><![CDATA[]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F240" PARAMS="1">
+    <DESC>GET MORE LOG</DESC>
+    <DATA><![CDATA[Get More Log]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F241" PARAMS="1">
+    <DESC>GET MORE LOG</DESC>
+    <DATA><![CDATA[Collect Unit]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F242" PARAMS="1">
+    <DESC>GET LOG FILES</DESC>
+    <DATA><![CDATA[Get Log Files]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F243" PARAMS="0">
+    <DESC>Group rotate period</DESC>
+    <DATA><![CDATA[Group rotate period]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F300" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Configuration]]></DATA>
+  </ROW>
+  <ROW ID="F301" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Minimize]]></DATA>
+  </ROW>
+  <ROW ID="F302" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Maximize]]></DATA>
+  </ROW>
+  <ROW ID="F303" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Switch Monitor]]></DATA>
+  </ROW>
+  <ROW ID="F304" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Close]]></DATA>
+  </ROW>
+  <ROW ID="F305" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Lock Cluster Monitoring]]></DATA>
+  </ROW>
+  <ROW ID="F306" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Alert]]></DATA>
+  </ROW>
+  <ROW ID="F307" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Rotation Group]]></DATA>
+  </ROW>
+  <ROW ID="F308" PARAMS="0">
+    <DESC>Control ConfigBox</DESC>
+    <DATA><![CDATA[Stop/Start Monitoring]]></DATA>
+  </ROW>
+  <ROW ID="F309" PARAMS="0">
+    <DESC>Connecting Test</DESC>
+    <DATA><![CDATA[Connect]]></DATA>
+  </ROW>
+  <ROW ID="LASTANALYZE" PARAMS="0">
+    <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
+    <DATA><![CDATA[Last Analyze]]></DATA>
+    <COMMENTS>autovacuum,autovacuum_analyze_threshold</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;SCHEMA_NAME|SCHEMA|TEXT||200;TABLE_NAME|TABLE|TEXT||200;TABLE_SIZE_KB|TABLE SIZE|DATASIZE|N2|100;LIVE_TUPLE_CNT|TUPLES|NUMBER|N0|100;LAST_ANALYZE|LAST ANALYZE|TEXT|yyyy-MM-dd HH:mm:ss|200;DAYS|DAYS|TEXT||100</COLUMNS>
+    <VALUECAST>99999|Unanalyzed</VALUECAST>
+  </ROW>
+  <ROW ID="LASTVACUUM" PARAMS="0">
+    <DESC>Checks how long it has been since analyze was last run on each table.</DESC>
+    <DATA><![CDATA[Last Vacuum]]></DATA>
+    <COMMENTS>autovacuum,autovacuum_vacuum_threshold</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;SCHEMA_NAME|SCHEMA|TEXT||200;TABLE_NAME|TABLE|TEXT||200;TABLE_SIZE_KB|TABLE SIZE|DATASIZE|N2|100;LIVE_TUPLE_CNT|TUPLES|NUMBER|N0|100;LAST_VACUUM|LAST VACUUM|TEXT|yyyy-MM-dd HH:mm:ss|200;DAYS|DAYS|TEXT||100</COLUMNS>
+    <VALUECAST>99999|Unvacuumed</VALUECAST>
+  </ROW>
+  <ROW ID="LOCKCNT" PARAMS="0">
+    <DESC>Check the total number of locks.</DESC>
+    <DATA><![CDATA[Lock]]></DATA>
+    <COMMENTS>log_lock_waits</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;BLOCKED_PID|BLOCKED PID|NUMBER|N0|100;BLOCKED_USER|BLOCKED USER|TEXT||100;BLOCKED_STATEMENT|BLOCKED STATEMENT|TEXT||200;BLOCKED_DURATION|BLOCKED DURATION|TIMESTAMP|T|100;BLOCKING_PID|BLOCKING PID|NUMBER|N0|100;BLOCKING_USER|BLOCKING USER|TEXT||100;BLOCKING_STATEMENT|BLOCKING STATEMENT|TEXT||200;BLOCKING_DURATION|BLOCKING DURATION|TIMESTAMP|T|100</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="LONGRUNSQL" PARAMS="0">
+    <DESC>Give a warning if any query has been running longer than specified seconds.</DESC>
+    <DATA><![CDATA[Long Run SQL]]></DATA>
+    <COMMENTS>log_min_duration_statement</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>PROCESS_ID|PROCESS ID|NUMBER|N0|100;DB_NAME|DATEBASE|TEXT||200;CLIENT_ADDR|CLIENT IP|TEXT||100;USER_NAME|USER NAME|TEXT||100;QUERY_START|QUERY START|TEXT|yyyy-MM-dd HH:mm:ss|200;SQL|SQL|TEXT||300;PROC_CPU_UTIL|CPU UTIL(PEAK)|NUMBER|P2|100;ELAPSED_TIME|ELAPSED TIME|TIMESTAMP|T|100</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M001" PARAMS="1">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA><![CDATA[Cannot find {0} value]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M002" PARAMS="0">
+    <DESC>입력한 IP가 형식이 다를경우</DESC>
+    <DATA><![CDATA[Inbvalid IP]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M003" PARAMS="0">
+    <DESC>DB 접속 성공</DESC>
+    <DATA><![CDATA[Database connected successsfully.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M004" PARAMS="0">
+    <DESC>DB 접속 실패</DESC>
+    <DATA><![CDATA[Database connection failed!]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M005" PARAMS="0">
+    <DESC>비밀번호불일치</DESC>
+    <DATA><![CDATA[Incorrect password.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M006" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[Do you want to save changes?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M007" PARAMS="1">
+    <DESC>그룹선택여부</DESC>
+    <DATA><![CDATA[{0} group is empty.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M008" PARAMS="0">
+    <DESC>그룹당 제한 개수</DESC>
+    <DATA><![CDATA[Each Group can contains under 16 instances.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M009" PARAMS="0">
+    <DESC>대상서버없음</DESC>
+    <DATA><![CDATA[Cannot find the server.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M010" PARAMS="0">
+    <DESC>서버에 접속 되지 않았습니다. </DESC>
+    <DATA><![CDATA[Cannot connect to agent.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M011" PARAMS="0">
+    <DESC>서버가 이미 등록되어있습니다.</DESC>
+    <DATA><![CDATA[The cluster info already exists. ]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M012" PARAMS="0">
+    <DESC>CRITIAL 잠금 해제 메시지</DESC>
+    <DATA><![CDATA[This disables ALERT sreen. In order to enable this, click enable button on the top of the window.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M013" PARAMS="0">
+    <DESC>저장 파일 열어보시겠습니까?</DESC>
+    <DATA><![CDATA[Do you want to open the file? ]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M014" PARAMS="0">
+    <DESC>Report Check</DESC>
+    <DATA><![CDATA[Invalid time range.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M015" PARAMS="0">
+    <DESC>Report Chect</DESC>
+    <DATA><![CDATA[Can not search over 2 hours. ]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M016" PARAMS="0">
+    <DESC>Server Agent Configuration Fail</DESC>
+    <DATA><![CDATA[Server Agent Configuration Failed.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M017" PARAMS="0">
+    <DESC>그룹당 제한은 8개로 됩니다.</DESC>
+    <DATA><![CDATA[Can not be over than eight per each group]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M018" PARAMS="0">
+    <DESC>라이선스체크</DESC>
+    <DATA><![CDATA[License is not valid.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="SWAPUSAGE" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[Swap Usage]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="TRAXIDLECNT" PARAMS="0">
+    <DESC>Checks the number of [idle in transaction] connection.</DESC>
+    <DATA><![CDATA[Idle in TRANX]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;PROCESS_ID|PROCESS ID|NUMBER|N0|100;CLIENT_ADDR|CLIENT IP|TEXT||100;USER_NAME|USER NAME|TEXT||100;QUERY_START|TRANX START|TEXT|yyyy-MM-dd HH:mm:ss|200</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="UNUSEDINDEX" PARAMS="0">
+    <DESC>Checks the number of unused indexes.</DESC>
+    <DATA><![CDATA[Unused Index]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;SCHEMA_NAME|SCHEMA|TEXT||200;INDEX_NAME|INDEX|TEXT||200;TABLE_NAME|TABLE|TEXT||200;INDEX_SIZE_KB|INDEX SIZE|DATASIZE|N2|100;COLUMNS_CNT|COLUMNS COUNT|NUMBER|N0|100</COLUMNS>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M019" PARAMS="1">
+    <DESC>라이선스 만료일 체크</DESC>
+    <DATA><![CDATA[License period is {0} days left.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M020" PARAMS="0">
+    <DESC>라이선스 만료 관련</DESC>
+    <DATA><![CDATA[License not found]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M021" PARAMS="0">
+    <DESC>DB 접속 정보 저장</DESC>
+    <DATA><![CDATA[Saved successfully database infomation.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M022" PARAMS="0">
+    <DESC>DB 접속 정보 실패</DESC>
+    <DATA><![CDATA[Failed to Save database infomation.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>    
+  <ROW />
+</ROWS>

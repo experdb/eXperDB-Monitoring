@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{621EA082-BF79-4029-898F-7DC8903F4DDB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>eXperDB.Common</RootNamespace>
+    <AssemblyName>eXperDB.Common</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Empty</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <TargetFrameworkProfile />
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clsAes.vb" />
+    <Compile Include="clsConfigureCtl.vb" />
+    <Compile Include="clsCrypt.vb" />
+    <Compile Include="clsDataSetHelper.vb" />
+    <Compile Include="clsLicenseVali.vb" />
+    <Compile Include="ClsLog.vb" />
+    <Compile Include="clsLog4jCtl.vb" />
+    <Compile Include="clsLoggMig.vb" />
+    <Compile Include="clsMetaDbCtl.vb" />
+    <Compile Include="clsObjectCtl.vb" />
+    <Compile Include="ClsRegCtl.vb" />
+    <Compile Include="clsSecurity.vb" />
+    <Compile Include="clsSocket.vb" />
+    <Compile Include="clsValidationCerti.vb" />
+    <Compile Include="ClsValueDescription.vb" />
+    <Compile Include="Common.vb" />
+    <Compile Include="Forms\frmAboutBox.Designer.vb">
+      <DependentUpon>frmAboutBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAboutBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDummy.Designer.vb">
+      <DependentUpon>frmDummy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDummy.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmFindForNtPad.Designer.vb">
+      <DependentUpon>frmFindForNtPad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmFindForNtPad.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLicense.Designer.vb">
+      <DependentUpon>frmLicense.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLicense.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMsgBox.Designer.vb">
+      <DependentUpon>frmMsgBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMsgBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPubDataGridView.Designer.vb">
+      <DependentUpon>frmPubDataGridView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPubDataGridView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPubRichTextBoxView.Designer.vb">
+      <DependentUpon>frmPubRichTextBoxView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPubRichTextBoxView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPubWebBrowserView.Designer.vb">
+      <DependentUpon>frmPubWebBrowserView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPubWebBrowserView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="iDastList.vb" />
+    <Compile Include="IniFile.vb" />
+    <Compile Include="LimitedConcurrencyLevelTaskScheduler.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="structSVRLicense.vb" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="FastColoredTextBox">
+      <HintPath>..\IDAST\bin\Debug\FastColoredTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="gudusoft.gsqlparser">
+      <HintPath>..\IDAST\Shared\lib\gudusoft.gsqlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IDAST\Shared\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\Program Files (x86)\Microsoft Visual Studio 11.0\Visual Studio Tools for Office\PIA\Office14\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iDast.Resources\eXperDB.Resources.vbproj">
+      <Project>{ae6992f9-1f54-45c4-be7a-ccf6a9a1409b}</Project>
+      <Name>eXperDB.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TreeGridView\ExpandableGridView.csproj">
+      <Project>{2efe526f-79b3-49bc-9575-a7b258c59bb5}</Project>
+      <Name>ExpandableGridView</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\frmAboutBox.resx">
+      <DependentUpon>frmAboutBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmFindForNtPad.resx">
+      <DependentUpon>frmFindForNtPad.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLicense.resx">
+      <DependentUpon>frmLicense.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMsgBox.resx">
+      <DependentUpon>frmMsgBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPubDataGridView.resx">
+      <DependentUpon>frmPubDataGridView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPubRichTextBoxView.resx">
+      <DependentUpon>frmPubRichTextBoxView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPubWebBrowserView.resx">
+      <DependentUpon>frmPubWebBrowserView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Shared\Cfg\Meta.Ctl.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shared\Cfg\Mig.Log.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shared\Cfg\Mon.Asbl.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shared\Cfg\Mon.Ctl.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shared\Cfg\Mon.Tib.Asbl.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shared\Cfg\Mon.Tib.Ctl.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

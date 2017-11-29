@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE6992F9-1F54-45C4-BE7A-CCF6A9A1409B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>eXperDB</RootNamespace>
+    <AssemblyName>eXperDB.Resources</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Empty</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Img\add.ico" />
+    <EmbeddedResource Include="Img\alarm_close.bmp" />
+    <EmbeddedResource Include="Img\Alram.bmp" />
+    <EmbeddedResource Include="Img\application.ico" />
+    <EmbeddedResource Include="Img\application_edit.ico" />
+    <EmbeddedResource Include="Img\arrow_down.ico" />
+    <EmbeddedResource Include="Img\arrow_left.ico" />
+    <EmbeddedResource Include="Img\arrow_right.ico" />
+    <EmbeddedResource Include="Img\arrow_up.ico" />
+    <EmbeddedResource Include="Img\calculation.ico" />
+    <EmbeddedResource Include="Img\cancel.ico" />
+    <EmbeddedResource Include="Img\Chart.png" />
+    <EmbeddedResource Include="Img\check.ico" />
+    <EmbeddedResource Include="Img\Color.png" />
+    <EmbeddedResource Include="Img\column.ico" />
+    <EmbeddedResource Include="Img\comment.ico" />
+    <EmbeddedResource Include="Img\completion.ico" />
+    <EmbeddedResource Include="Img\connection.ico" />
+    <EmbeddedResource Include="Img\connection_close.ico" />
+    <EmbeddedResource Include="Img\cut.ico" />
+    <EmbeddedResource Include="Img\db_play.ico" />
+    <EmbeddedResource Include="Shared\Img\default_step.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Img\document.ico" />
+    <EmbeddedResource Include="Img\don_flag.ico" />
+    <EmbeddedResource Include="Img\down.ico" />
+    <EmbeddedResource Include="Img\err_flag.ico" />
+    <EmbeddedResource Include="Img\folder_add.ico" />
+    <EmbeddedResource Include="Img\folder_close.ico" />
+    <EmbeddedResource Include="Img\folder_documents.ico" />
+    <EmbeddedResource Include="Img\folder_open.ico" />
+    <EmbeddedResource Include="Img\folder_open_documents.ico" />
+    <EmbeddedResource Include="Img\hide.ico" />
+    <EmbeddedResource Include="Img\idas_exec.ico" />
+    <EmbeddedResource Include="Img\inital.ico" />
+    <EmbeddedResource Include="Img\key_login.ico" />
+    <EmbeddedResource Include="Img\Legend.png" />
+    <EmbeddedResource Include="Shared\Img\LtoR049_step1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\LtoR049_step2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\LtoR049_step3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\LtoR049_step4.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\LtoR049_step5.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Img\Main_ia.png" />
+    <EmbeddedResource Include="Img\Main_Monitoring.png" />
+    <EmbeddedResource Include="Img\Main_Operation.png" />
+    <EmbeddedResource Include="Img\Main_Standard.png" />
+    <EmbeddedResource Include="Img\Math.png" />
+    <EmbeddedResource Include="Img\menu_prefix.ico" />
+    <EmbeddedResource Include="Img\ModelView.ico" />
+    <EmbeddedResource Include="Img\monitor2_basic.ico" />
+    <EmbeddedResource Include="Img\monitor3_basic.ico" />
+    <EmbeddedResource Include="Img\monitor_basic.ico" />
+    <EmbeddedResource Include="Img\mp1of1.ico" />
+    <EmbeddedResource Include="Img\NumValue.png" />
+    <EmbeddedResource Include="Img\odelete.ico" />
+    <EmbeddedResource Include="Img\options_basic.ico" />
+    <EmbeddedResource Include="Img\partition.ico" />
+    <EmbeddedResource Include="Img\pause.ico" />
+    <EmbeddedResource Include="Img\pause.png" />
+    <EmbeddedResource Include="Img\play.ico" />
+    <EmbeddedResource Include="Img\play_round.ico" />
+    <EmbeddedResource Include="Img\print.ico" />
+    <EmbeddedResource Include="Img\Print.png" />
+    <EmbeddedResource Include="Img\proc_stop.ico" />
+    <EmbeddedResource Include="Img\programs.ico" />
+    <EmbeddedResource Include="Shared\Img\progress.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Img\ptable.ico" />
+    <EmbeddedResource Include="Img\ready_flag.ico" />
+    <EmbeddedResource Include="Img\refresh.ico" />
+    <EmbeddedResource Include="Img\refresh.png" />
+    <EmbeddedResource Include="Shared\Img\RtoL049_step1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL049_step2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL049_step3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL049_step4.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL049_step5.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL295_step1.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL295_step2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL295_step3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL295_step4.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\RtoL295_step5.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Img\Sample_RealChart.png" />
+    <EmbeddedResource Include="Img\save.ico" />
+    <EmbeddedResource Include="Img\save_excel.ico" />
+    <EmbeddedResource Include="Img\Search.ico" />
+    <EmbeddedResource Include="Img\Start.png" />
+    <EmbeddedResource Include="Shared\Img\status_error.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\status_ready.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shared\Img\status_run.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Img\stop_round.ico" />
+    <EmbeddedResource Include="Img\table_key.ico" />
+    <EmbeddedResource Include="Img\tab_app.ico" />
+    <EmbeddedResource Include="Img\template.ico" />
+    <EmbeddedResource Include="Img\tools.ico" />
+    <EmbeddedResource Include="Img\up.ico" />
+    <EmbeddedResource Include="Img\user.ico" />
+    <EmbeddedResource Include="Img\View.png" />
+    <EmbeddedResource Include="Img\Watching.ico" />
+    <EmbeddedResource Include="Img\wizard.ico" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Img\Add.png" />
+    <Content Include="Img\check.png" />
+    <Content Include="Img\delete.png" />
+    <Content Include="Img\star.png" />
+    <Content Include="Img\tool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="iResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>iResources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="iResources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

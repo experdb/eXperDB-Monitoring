@@ -1,0 +1,1341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ROWS>
+  <ROW ID="CHECKPASSWORD" PARAMS="2">
+    <DESC>Check User Password</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT COUNT(*) FROM TB_CONFIG WHERE ADMIN_USER_ID = '{0}' AND ADMIN_PASSWORD = '{1}'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="GETDATABASELIST" PARAMS="0">
+    <DESC>Get Database List</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT DATNAME FROM PG_DATABASE
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="GETSCHEMALIST" PARAMS="0">
+    <DESC>Get Database Schema List</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT NSPNAME FROM PG_NAMESPACE
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="UPDATECONFIG" PARAMS="4">
+    <DESC>Server Batch Log Keep Days</DESC>
+    <DATA>
+      <![CDATA[
+        UPDATE TB_CONFIG 
+          SET LOG_KEEP_DAYS = {0} 
+            , LAST_MOD_IP = '{1}' 
+            , LAST_MOD_DT = NOW() 
+            , DAILY_BATCH_START_TIME = '{2}'
+            , HCHK_PERIOD_SEC = '{3}'
+        WHERE ADMIN_USER_ID='ADMIN'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTCONFIG" PARAMS="0">
+    <DESC>Server Batch Log Keep Days</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT COALESCE(LOG_KEEP_DAYS,-1) AS LOG_KEEP_DAYS
+           ,DAILY_BATCH_START_TIME 
+           ,AGENT_IP
+           ,AGENT_PORT
+           ,HCHK_PERIOD_SEC
+        FROM TB_CONFIG 
+        WHERE ADMIN_USER_ID='ADMIN'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="NEXTVAL" PARAMS="1">
+    <DESC>SEQUENCE NEXT</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT NEXTVAL('{0}')
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="CURRVAL" PARAMS="1">
+    <DESC>SEQUENCE CURRENT</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT CURRVAL('{0}')
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SETVAL" PARAMS="2">
+    <DESC>SEQUENCE SET</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT SETVAL('{0}',{1})
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTSERVERLIST" PARAMS="12">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_INSTANCE_INFO 
+      (INSTANCE_ID
+      ,SERVER_IP
+      ,SERVICE_PORT
+      ,DBMS_TYPE
+      ,CONN_USER_ID
+      ,CONN_USER_PWD
+      ,COLLECT_YN
+      ,COLLECT_PERIOD_SEC
+      ,CONN_DB_NAME
+      ,CONN_NAME
+      ,LAST_MOD_IP
+      ,LAST_MOD_DT
+      ,CONN_SCHEMA_NAME
+      ,DELETE_YN)
+      VALUES
+      ('{0}'   
+      ,'{1}'
+      ,'{2}'
+      ,'{3}'
+      ,'{4}'
+      ,encode('{5}'::bytea,'base64')
+      ,'{6}'
+      ,'{7}'
+      ,'{8}'
+      ,'{9}'
+      ,'{10}'
+      ,NOW()
+      ,'{11}'
+      ,'N')
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTSERVERLIST" PARAMS="0">
+    <DESC>서버 목록을 가져온다.</DESC>
+    <DATA>
+      <![CDATA[ 
+      SELECT
+         INSTANCE_ID
+        ,SERVER_IP
+        ,SERVICE_PORT
+        ,DBMS_TYPE
+        ,CONN_USER_ID
+        ,convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') AS CONN_USER_PWD
+        ,COLLECT_YN
+        ,COLLECT_PERIOD_SEC
+        ,CONN_DB_NAME
+        ,CONN_NAME
+        ,LAST_MOD_IP
+        ,LAST_MOD_DT
+        ,CONN_SCHEMA_NAME
+        ,HOST_NAME
+        ,INSTANCE_UPTIME::TIMESTAMP(0) AS INSTANCE_UPTIME
+      FROM TB_INSTANCE_INFO 
+      WHERE DELETE_YN = 'N' AND COLLECT_YN = 'Y'
+   ORDER BY INSTANCE_ID
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+	<ROW ID="SELECTSERVERLISTADMIN" PARAMS="0">
+		<DESC>서버 목록을 가져온다.</DESC>
+		<DATA>
+			<![CDATA[ 
+      SELECT
+         INSTANCE_ID
+        ,SERVER_IP
+        ,SERVICE_PORT
+        ,DBMS_TYPE
+        ,CONN_USER_ID
+        ,convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') AS CONN_USER_PWD
+        ,COLLECT_YN
+        ,COLLECT_PERIOD_SEC
+        ,CONN_DB_NAME
+        ,CONN_NAME
+        ,LAST_MOD_IP
+        ,LAST_MOD_DT
+        ,CONN_SCHEMA_NAME
+        ,HOST_NAME
+        ,INSTANCE_UPTIME::TIMESTAMP(0) AS INSTANCE_UPTIME
+      FROM TB_INSTANCE_INFO 
+      WHERE DELETE_YN = 'N' 
+   ORDER BY INSTANCE_ID
+    ]]>
+		</DATA>
+		<COMMENTS />
+	</ROW>
+  <ROW ID="UPDATESERVERLIST" PARAMS="12">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      UPDATE TB_INSTANCE_INFO 
+      SET SERVER_IP = '{1}' 
+        ,SERVICE_PORT = '{2}' 
+        ,DBMS_TYPE = '{3}' 
+        ,CONN_USER_ID = '{4}' 
+        ,CONN_USER_PWD = encode('{5}'::bytea,'base64')  
+        ,COLLECT_YN = '{6}' 
+        ,COLLECT_PERIOD_SEC = '{7}' 
+        ,CONN_DB_NAME = '{8}' 
+        ,CONN_NAME = '{9}' 
+        ,LAST_MOD_IP = '{10}' 
+        ,LAST_MOD_DT = NOW()
+        ,CONN_SCHEMA_NAME = '{11}'
+        ,DELETE_YN='N'
+      WHERE INSTANCE_ID = {0}
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="DELETESERVERLIST" PARAMS="12">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      UPDATE TB_INSTANCE_INFO 
+      SET  DELETE_YN ='Y'
+        ,LAST_MOD_IP = '{1}' 
+        ,LAST_MOD_DT = NOW()
+      WHERE INSTANCE_ID = {0}
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTCPUMEMINFO" PARAMS="0">
+    <DESC>PT_03_03_001 (cpu/mem정보)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT /* SELECTCPUMEMINFO */ A.INSTANCE_ID
+        , C.COLLECT_DT AS REG_DATE
+        , CASE WHEN C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE > 100 THEN 100 ELSE C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE END AS CPU_MAIN                                          --PT_03_03_001, PT_04_02_001(AVG)
+        , D.CPU_LOGICAL_ID                                                                                                                --PT_04_02_001
+        , CASE WHEN D.USER_UTIL_RATE + D.NICE_UTIL_RATE + D.SYS_UTIL_RATE + D.WAIT_UTIL_RATE > 100 THEN 100 ELSE D.USER_UTIL_RATE + D.NICE_UTIL_RATE + D.SYS_UTIL_RATE + D.WAIT_UTIL_RATE END AS CORE_CPU_RATE                                     --PT_04_02_001
+        --, (SELECT SUM(PROC_CPU_UTIL) FROM TB_BACKEND_RSC RSC WHERE RSC.REG_DATE = B.REG_DATE AND RSC.RSC_REG_SEQ = B.RSC_REG_SEQ) AS PGSQL_UTIL_RATE   --PT_04_05_001(CPU_PG)
+        , C.WAIT_UTIL_RATE                                                                                                                --PT_04_05_001(CPU_WAIT)
+        , CASE WHEN E.MEM_TOTAL_KB != 0 THEN (((E.MEM_TOTAL_KB - (E.MEM_FREE_KB +E.MEM_BUFFERED_KB + E.MEM_CACHED_KB)) / E.MEM_TOTAL_KB ) * 100)::int ELSE E.MEM_TOTAL_KB END AS MEM_USED_RATE       --PT_03_03_001, PT_04_02_001(MEM_AVG)
+        , CASE WHEN E.SWP_TOTAL_KB != 0 THEN (((E.SWP_TOTAL_KB - (E.SWP_FREE_KB + E.SWP_CACHED_KB)) / E.SWP_TOTAL_KB) * 100)::int ELSE E.SWP_TOTAL_KB END AS SWP_USED_RATE                         --PT_03_03_001(MEM SWAP_RATE), PT_04_05_001(PG_MEMORY)
+        , (E.MEM_TOTAL_KB / 1024)::int AS MEM_TOTAL_MB                                                                                    --PT_04_05_001(TOTAL MEM)
+        , (E.MEM_USED_KB / 1024)::int AS MEM_USED_MB                                                                                      --PT_04_05_001(USED MEM)
+        , (E.MEM_FREE_KB / 1024)::int AS MEM_FREE_MB                                                                                      --PT_04_05_001(FREE MEM)
+        , (E.SHM_KB / 1024)::int  AS SHM_MB                                                                                               --PT_04_05_001(SHARED MEM)
+        , (E.MEM_BUFFERED_KB / 1024)::int AS MEM_BUFFERED_MB                                                                              --PT_04_05_001(BUFFERS MEM)
+        , (E.MEM_CACHED_KB / 1024)::int AS MEM_CACHED_MB                                                                                  --PT_04_05_001(CACHED MEM)
+        , (E.SWP_TOTAL_KB / 1024)::int AS SWP_TOTAL_MB                                                                                    --PT_04_05_001(SWAP_TOTAL MEM)
+        , (E.SWP_USED_KB / 1024)::int AS SWP_USED_MB                                                                                      --PT_04_05_001(SWAP_USED MEM)
+        , (E.SWP_FREE_KB / 1024)::int AS SWP_FREE_MB                                                                                      --PT_04_05_001(SWAP_FREE MEM)
+		, (E.SWP_CACHED_KB / 1024)::int AS SWP_CACHED_MB                                                                                      --PT_04_05_001(SWAP_CACHED MEM)  
+          , (((E.MEM_TOTAL_KB - (E.MEM_FREE_KB )) / E.MEM_TOTAL_KB ) * 100)::int AS BUFFER_RATE                                           --PT_03_03_001, PT_04_02_001(MEM_AVG)
+          , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+        FROM TB_INSTANCE_INFO A
+          , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(REG_TIME) AS REG_TIME, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B
+        , TB_CPU_STAT_MASTER C, TB_CPU_STAT_DETAIL D, TB_MEMORY_STAT E
+        WHERE A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'  
+          AND A.INSTANCE_ID IN ({0})
+          AND B.REG_DATE = C.REG_DATE
+          AND C.REG_DATE = D.REG_DATE
+          AND D.REG_DATE = E.REG_DATE        
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+          AND C.RSC_REG_SEQ = D.RSC_REG_SEQ
+          AND D.RSC_REG_SEQ = E.RSC_REG_SEQ
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTLOCKINFO" PARAMS="0">
+    <DESC>PT_05_02_001 (Lock Info)</DESC>
+    <DATA>
+      <![CDATA[
+       
+        SELECT /* SELECTLOCKINFO */ A.INSTANCE_ID
+	        ,C.COLLECT_DT AS REG_DATE
+	        ,DB_NAME          
+           ,BLOCKING_USER    
+           ,BLOCKING_PID     
+           ,BLOCKING_QUERY   
+           ,BLOCKED_USER     
+           ,BLOCKED_PID      
+           ,BLOCKED_QUERY    
+           ,BLOCKED_DURATION 
+           ,LOCK_MODE        
+           ,QUERY_START      
+           ,XACT_START     
+           ,ORDER_NO
+        FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_CURRENT_LOCK C
+        WHERE B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+          AND B.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = A.INSTANCE_ID  )
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND A.INSTANCE_ID IN ({0})
+          AND B.REG_DATE = C.REG_DATE
+          AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+          AND A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'
+       ORDER BY ORDER_NO; 
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTDISKINFO" PARAMS="2">
+    <DESC>PT_03_04_001(인스턴스별 DISK IO/USAGE 정보)</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT /* SELECTDISKINFO */ A.INSTANCE_ID
+            , C.COLLECT_DT AS REG_DATE
+            , C.DISK_NAME                                                                  --PT_03_04_001
+            , (C.READ_BUSY_RATE + C.WRITE_BUSY_RATE) AS BUSY_RATE                          --PT_03_04_001, PT_04_03_001(DISK IO BUSY)
+            , C.CURRENT_READ_KB/DELTA_TIME AS READ_KB_PER_SEC                              --PT_04_03_001(DISK IO READ_KB)
+            , C.CURRENT_WRITE_KB/DELTA_TIME AS WRITE_KB_PER_SEC                            --PT_04_03_001(DISK IO WRITE_KB)
+            , '-' AS DEVICE_NAME                                                           --PT_03_05_001(DISK USAGE)
+            , 0 AS TOTAL_KB                                                                --PT_03_05_001(DISK USAGE TOTAL)
+            , 0 AS DISK_USAGE_PER                                                          --PT_03_05_001(DISK USAGE PER)
+            --, A.CONN_NAME 
+            , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+          FROM TB_INSTANCE_INFO A
+          , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B
+          , TB_DISK_IO C
+          WHERE B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+            AND A.INSTANCE_ID = B.INSTANCE_ID
+            AND B.REG_DATE = C.REG_DATE
+            AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+            AND A.INSTANCE_ID IN ({0})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+          UNION ALL
+          SELECT A.INSTANCE_ID
+            , D.COLLECT_DT AS REG_DATE
+            , '-' AS DISK_NAME                                                            --PT_03_04_001
+            , 0 AS BUSY_RATE                                                              --PT_03_04_001, PT_04_03_001(DISK IO BUSY)
+            , 0 AS CURRENT_READ_KB                                                        --PT_04_03_001(DISK IO READ_KB)
+            , 0 AS CURRENT_WRITE_KB                                                       --PT_04_03_001(DISK IO WRITE_KB)
+            , D.MOUNT_POINT_DIR                                                           --PT_03_05_001(DISK USAGE)
+            , D.TOTAL_KB                                                                  --PT_03_05_001(DISK USAGE TOTAL)
+            , ROUND((((D.TOTAL_KB-D.avail_kb)/D.TOTAL_KB) * 100),2) AS DISK_USAGE_PER     --PT_03_05_001(DISK USAGE PER)
+            --, A.CONN_NAME 
+            ,CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+          FROM TB_INSTANCE_INFO A
+          , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B          
+          , TB_DISK_USAGE D
+          WHERE A.INSTANCE_ID = B.INSTANCE_ID
+            AND B.REG_DATE = D.REG_DATE
+            AND B.RSC_REG_SEQ = D.RSC_REG_SEQ
+            AND A.INSTANCE_ID IN ({0})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+          --ORDER BY A.INSTANCE_ID, C.READ_BUSY_RATE + C.WRITE_BUSY_RATE DESC;          
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+
+  <ROW ID="SELECTSQLRESPTIME" PARAMS="0">
+    <DESC>PT_04_10_001(SQL RESPONSE TIME)</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT	/* SELECTSQLRESPTIME */ A.INSTANCE_ID
+        	        , MAX(C.COLLECT_DT) AS REG_DATE
+        	        , MAX(CASE WHEN C.ELAPSED_TIME < 0 THEN 0 ELSE C.ELAPSED_TIME END) AS MAX_SQL_ELAPSED_SEC
+        	        , AVG(CASE WHEN C.ELAPSED_TIME < 0 THEN 0 ELSE C.ELAPSED_TIME END) AS AVG_SQL_ELAPSED_SEC
+          FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C
+         WHERE B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+           AND B.ACTV_REG_SEQ = (SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=A.INSTANCE_ID )
+           AND A.INSTANCE_ID = B.INSTANCE_ID       
+           --AND A.INSTANCE_ID IN ({0})
+           AND A.COLLECT_YN = 'Y'
+           AND A.DELETE_YN = 'N'
+           AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+           AND B.REG_DATE = C.REG_DATE
+           GROUP BY A.INSTANCE_ID ;           
+     ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTDBINFO" PARAMS="0">
+    <DESC>PT_05_03_001(DB INFO)</DESC>
+    <DATA>
+      <![CDATA[
+           SELECT	/* SELECTDBINFO */ A.INSTANCE_ID
+	          , C.DB_NAME AS DB                                      --PT_05_03_001(DB INFO : DB) 
+	          , C.DB_SIZE_KB AS SIZE                                  --PT_05_03_001(DB INFO : SIZE) 
+	          , C.TABLE_CNT AS "TABLE COUNT"                                    --PT_05_03_001(DB INFO : TABLE CNT) 
+	          , C.INDEX_CNT AS "INDEX COUNT"                                    --PT_05_03_001(DB INFO : INDEX CNT) 
+	          , C.AGG_HEAP_BLKS_READ_KB AS "DISK READ"  --PT_05_03_001(DB INFO : DISK READ(KB)) 
+	          , C.AGG_HEAP_BLKS_HIT_KB AS "BUFFER READ" --PT_05_03_001(DB INFO : BUFFER READ(KB)) 
+	          , C.buffer_hit_ratio AS "HIT RATIO"              --PT_05_03_001(DB INFO : HIT RATIO) 
+          FROM TB_INSTANCE_INFO A
+          	, (SELECT MAX(REG_DATE) AS REG_DATE, MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ, INSTANCE_ID FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B
+          	, TB_ACCESS_INFO C
+          WHERE A.INSTANCE_ID = B.INSTANCE_ID
+          AND B.REG_DATE = C.REG_DATE
+          AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+          AND A.INSTANCE_ID IN ({0})
+          AND A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N';  
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTTBSPACEINFO" PARAMS="0">
+    <DESC>PT_05_04_001(TABLESPACE INFO)</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT /* SELECTTBSPACEINFO */ A.INSTANCE_ID
+	          , C.TABLESPACE_NAME AS TABLESPACE
+	          , C.SIZE_KB AS SIZE
+	          , C.LOCATION
+	          , C.total_disk_kb AS "DISK SIZE"
+	          , CASE WHEN C.total_disk_kb = 0 THEN 0 
+			          ELSE   (C.total_disk_kb - C.aval_disk_kb) / C.total_disk_kb  END AS "DISK USED"
+          FROM TB_INSTANCE_INFO A
+          	, (SELECT MAX(REG_DATE) AS REG_DATE, MAX(OBJT_REG_SEQ) AS OBJT_REG_SEQ, INSTANCE_ID FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B
+          	, TB_TABLESPACE_INFO C
+          WHERE A.INSTANCE_ID = B.INSTANCE_ID
+          AND B.REG_DATE = C.REG_DATE
+          AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+          AND A.INSTANCE_ID IN ({0})
+          AND A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N';  
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTTBINFO" PARAMS="0">
+    <DESC>PT_05_05_001(TABLE INFO)   </DESC>
+    <DATA>
+      <![CDATA[
+ 						SELECT /* SELECTTBINFO */	A.INSTANCE_ID
+	            , C.DB_NAME AS DB                         --PT_05_05_001(TABLE INFO : DB), PT_05_06_001(INDEX_INFO : DB)
+	            , C.TABLE_NAME AS TABLE                       --PT_05_05_001(TABLE INFO : TABLE), PT_05_06_001(INDEX_INFO : TABLE)
+	            , ROUND(C.table_size_kb / 1024, 0) AS SIZE                    --PT_05_05_001(TABLE INFO : TABLE SIZE KB)
+	            , ROUND(C.tot_index_size_kb / 1024, 0) AS "INDEX SIZE"                --PT_05_05_001(TABLE INFO : TOTAL INDEX SIZE KB)
+	            , C.INDEX_CNT AS "INDEX CNT"                        --PT_05_05_001(TABLE INFO : INDEX COUNT)
+	            , C.TOAST_YN AS IS_TOAST              --PT_05_05_001(TABLE INFO : IS TOAST YESNO)
+	            , C.agg_seq_scan_cnt AS "SEQ SCAN COUNT"      --PT_05_05_001(TABLE INFO : SEQ SCAN COUNT)
+	            , C.agg_index_scan_cnt AS "INDEX SCAN COUNT"  --PT_05_05_001(TABLE INFO : INDEX SCAN COUNT)
+	            , C.LIVE_TUPLE_CNT AS "LIVE TUPLES"                    --PT_05_05_001(TABLE INFO : LIVE_TUPLE_COUNT)
+	            , CASE WHEN C.last_vacuum::DATE = '10000101'::DATE THEN NULL ELSE C.last_vacuum END AS "LAST VACUUM"                      --PT_05_05_001(TABLE INFO : LAST VACUUM DAYS)
+            FROM (SELECT INSTANCE_ID FROM TB_INSTANCE_INFO WHERE DELETE_YN='N' AND COLLECT_YN='Y' AND INSTANCE_ID IN ({0})) A,
+               (SELECT MAX(REG_DATE) AS REG_DATE, MAX(OBJT_REG_SEQ) AS OBJT_REG_SEQ, INSTANCE_ID FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B,
+               TB_TABLE_INFO C
+            WHERE B.REG_DATE = C.REG_DATE
+               AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+               AND A.INSTANCE_ID = B.INSTANCE_ID
+            --ORDER BY A.INSTANCE_ID, C.DB_NAME, C.TABLE_NAME;
+
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTINDEXINFO" PARAMS="0">
+    <DESC>PT_05_06_001(INDEX INFO)   </DESC>
+    <DATA>
+      <![CDATA[
+            SELECT /* SELECTINDEXINFO */ A.INSTANCE_ID
+	            , C.DB_NAME AS DB
+	            , C.INDEX_NAME AS INDEX
+              , C.TABLE_NAME AS TABLE
+	            , ROUND(C.INDEX_SIZE_KB / 1024, 0) AS SIZE
+	            , C.AGG_INDEX_SCAN_CNT AS "INDEX SCAN COUNT"
+	            , C.AGG_INDEX_SCAN_FETCH_TUPLES AS "INDEX FETCHED TUPLES"
+	            , D.AGG_SEQ_SCAN_CNT AS "UPDATED TUPLES"
+	            , D.AGG_SEQ_TUPLES AS "DELETED TUPLES"
+	            , D.LIVE_TUPLE_CNT AS "LIVE TUPLES"
+           FROM (SELECT INSTANCE_ID FROM TB_INSTANCE_INFO WHERE DELETE_YN='N' AND COLLECT_YN='Y' AND INSTANCE_ID IN ({0})) A,
+                (SELECT MAX(REG_DATE) AS REG_DATE, MAX(OBJT_REG_SEQ) AS OBJT_REG_SEQ, INSTANCE_ID FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B,
+                TB_INDEX_INFO C,
+                TB_TABLE_INFO D
+            WHERE B.REG_DATE = C.REG_DATE
+               AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+               AND B.REG_DATE = D.REG_DATE
+               AND B.OBJT_REG_SEQ = D.OBJT_REG_SEQ
+               AND C.DB_NAME = D.DB_NAME
+               AND C.SCHEMA_NAME = D.SCHEMA_NAME
+               AND C.TABLE_NAME = D.TABLE_NAME
+               AND A.INSTANCE_ID = B.INSTANCE_ID
+            --ORDER BY A.INSTANCE_ID, C.DB_NAME, C.TABLE_NAME;
+             
+            
+      ]]>
+    </DATA>
+  </ROW>
+
+
+
+  <ROW ID="SELECTBACKEND" PARAMS="0">
+    <DESC>PT_04_09_001(OBJECT 정보)</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT /* SELECTBACKEND */ BACKEND.* 
+        FROM 
+          (SELECT  A.INSTANCE_ID
+          , E.COLLECT_DT AS REG_DATE
+          , ROW_NUMBER() OVER (PARTITION BY A.INSTANCE_ID ORDER BY E.ELAPSED_TIME DESC, E.PROC_CPU_UTIL  DESC) AS RNUM
+          , E.DB_NAME                                     --PT_04_04_001(RESRCUTILPERBACK : DB)
+		  , E.USER_NAME
+		  , E.CLIENT_ADDR
+		  , E.CLIENT_APP
+          , E.PROCESS_ID                                  --PT_04_04_001(RESRCUTILPERBACK : PID)
+          , E.CURRENT_PROC_READ_KB                        --PT_03_06_001(BACKEND PROCS : MEM USEAGE READ KB)
+          , E.CURRENT_PROC_WRITE_KB                       --PT_04_04_001(RESRCUTILPERBACK : MEM USAGE WRITE KB)
+          , ROUND(E.PROC_CPU_UTIL / 100,2) AS "CPU_USAGE"          --PT_03_06_001(BACKEND PROCS : CPU_USAGE PER), PT_04_04_001(RESRCUTILPERBACK : CPU_USAGE PER)
+          , E.QUERY_START AS "START_TIME"                 --PT_03_06_001(BACKEND PROCS : QUERY_START)
+          , CASE WHEN (E.SQL <>'<IDLE>' AND  E.ELAPSED_TIME >= 0 ) THEN E.ELAPSED_TIME ELSE '0' END AS "ELAPSED_TIME"              --PT_03_06_001(BACKEND PROCS : ) 
+          , E.SQL AS SQL                                  --PT_03_06_001(BACKEND PROCS : SQL), PT_04_04_001(RESRCUTILPERBACK : SQL)
+		      , E.ELAPSED_TIME
+          --, A.CONN_NAME
+          , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+          , E.CURRENT_PROC_READ_KB + E.CURRENT_PROC_WRITE_KB AS "MEM_USAGE_KB"
+         FROM TB_INSTANCE_INFO A,
+         (SELECT MAX(REG_DATE) AS REG_DATE, MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID) B,
+          TB_BACKEND_RSC E
+          WHERE B.REG_DATE = E.REG_DATE
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND B.ACTV_REG_SEQ = E.ACTV_REG_SEQ
+          AND A.INSTANCE_ID IN ({0})
+          AND A.COLLECT_YN = 'Y' 
+          AND A.DELETE_YN = 'N'
+          AND E.SQL != 'BACKGROUND PROC'
+          AND E.SQL NOT LIKE 'SELECT /* DXMABT%'
+          AND E.SQL IS NOT NULL
+          ORDER BY E.ELAPSED_TIME DESC, E.PROC_CPU_UTIL DESC)  BACKEND
+        WHERE BACKEND.RNUM <= 30   
+		  AND ELAPSED_TIME >= 0;     
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTPHYSICALIO" PARAMS="0">
+    <DESC>PT_04_07_001(PHYSICAL IO : PHY_READ, PHY_WRITE)</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT /* SELECTPHYSICALIO */ A.INSTANCE_ID
+            , E.COLLECT_DT AS "REG_DATE"
+            , DISK_NAME
+ 	          , READ_BUSY_RATE AS "PHY_READ"          --PT_04_07_001(PHYSICAL IO : PHY_READ)
+	          , WRITE_BUSY_RATE AS "PHY_WRITE"        --PT_04_07_001(PHYSICAL IO : PHY_WRITE)
+          FROM TB_INSTANCE_INFO A,
+          	(SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID) B,
+          	TB_DISK_IO E
+          WHERE B.REG_DATE = E.REG_DATE
+          AND B.RSC_REG_SEQ = E.RSC_REG_SEQ
+          AND B.INSTANCE_ID = A.INSTANCE_ID
+          AND A.INSTANCE_ID IN ({0})
+          AND A.COLLECT_YN = 'Y' 
+          AND A.DELETE_YN = 'N';       
+      ]]>
+    </DATA>
+  </ROW>
+
+
+  <ROW ID="UPDATEHEALTHLIMITED " PARAMS="7">
+    <DESC>헬스체크 임계정보</DESC>
+    <DATA>
+      <![CDATA[
+     UPDATE TB_HCHK_THRD_LIST
+     SET 
+        WARNING_THRESHOLD= {2}
+       , CRITICAL_THRESHOLD= {3}
+       , FIXED_THRESHOLD = '{4}'
+       , LAST_MOD_IP='{5}'
+       , LAST_MOD_DT= NOW()
+      WHERE 
+          INSTANCE_ID = {0}
+      AND HCHK_NAME = '{1}'
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+
+
+
+
+  <ROW ID="INSERTHEALTHLIMITED " PARAMS="8">
+    <DESC>헬스체크 임계정보</DESC>
+    <DATA>
+      <![CDATA[
+     INSERT INTO TB_HCHK_THRD_LIST
+     ( INSTANCE_ID
+     , HCHK_NAME
+     , UNIT
+     , WARNING_THRESHOLD
+     , CRITICAL_THRESHOLD
+     , FIXED_THRESHOLD
+     , LAST_MOD_IP
+     , LAST_MOD_DT)
+     VALUES 
+     ( '{0}'   
+      ,'{1}'
+      ,'{2}'
+      ,'{3}'
+      ,'{4}'
+      ,'{5}'
+      , {6}
+      ,'{7}'
+      , NOW()
+      )  
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+
+
+
+  <ROW ID="SELECTHEALTHLIMITED " PARAMS="1">
+    <DESC>헬스체크 임계정보</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT HCHK_NAME
+      , IS_HIGHER
+      , WARNING_THRESHOLD
+      , CRITICAL_THRESHOLD
+      , FIXED_THRESHOLD
+      FROM TB_HCHK_THRD_LIST
+      WHERE INSTANCE_ID = {0}
+      ORDER BY HCHK_NAME
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+
+  <ROW ID="EXISTSSERVER" PARAMS="2">
+    <DESC>기존에 DB 가 있는지 확인</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT INSTANCE_ID
+        FROM TB_INSTANCE_INFO
+        WHERE SERVER_IP ='{0}'
+          AND SERVICE_PORT = '{1}'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTHEALTHLIMITEDLIST" PARAMS="2">
+    <DESC>기존에 DB 가 있는지 확인</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_HCHK_THRD_LIST
+        ( INSTANCE_ID 
+          ,HCHK_NAME 
+          ,UNIT 
+          ,IS_HIGHER
+          ,WARNING_THRESHOLD 
+          ,CRITICAL_THRESHOLD 
+          ,FIXED_THRESHOLD 
+          ,LAST_MOD_IP 
+          ,LAST_MOD_DT )
+        ( SELECT {0} 
+          , HCHK_NAME 
+          , UNIT 
+          , IS_HIGHER
+          
+          , WARNING_THRESHOLD 
+          , CRITICAL_THRESHOLD 
+          , FIXED_THRESHOLD 
+          , '{1}' 
+          , NOW()
+          FROM TB_HCHK_THRD_LIST
+          WHERE INSTANCE_ID = -1
+            AND HCHK_NAME NOT IN ( SELECT HCHK_NAME FROM TB_HCHK_THRD_LIST WHERE INSTANCE_ID = {0}) 
+        )
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTHEALTH" PARAMS="2">
+    <DESC>health Check</DESC>
+    <DATA>
+      <![CDATA[
+     SELECT C.INSTANCE_ID                --PT_03_01_001
+      --, A.CONN_NAME
+      , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+      --, ((B.REG_DATE)::TIMESTAMP(0) + B.REG_TIME)::TIMESTAMP(0) AS REG_DATE 
+      --, NOW() AS REG_DATE 
+      , COLLECT_REG_DATE AS REG_DATE 
+      , B.COLLECT_REG_SEQ AS REG_SEQ      
+      , A.SERVER_IP AS SERVER_IP          --PT_03_08_001(ip)
+      , A.SERVICE_PORT AS SERVICE_PORT    --PT_03_08_001(port)
+      , C.HCHK_NAME AS HCHK_NAME    
+      , CASE WHEN B.VALUE IS NULL THEN 0 ELSE ROUND(B.VALUE,2) END AS VALUE
+      , C.UNIT AS UNIT
+      , (CASE /* FIXED_THRESHOLD ='0' CRITICAL -> 300 WARNING -> 200 NORMAL -> 100 */
+             WHEN (B.VALUE >= CRITICAL_THRESHOLD AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='0') THEN 300 
+             WHEN (B.VALUE >= WARNING_THRESHOLD  AND B.VALUE < CRITICAL_THRESHOLD AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='0') THEN 200
+             WHEN (B.VALUE <  WARNING_THRESHOLD  AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='0') THEN 100 
+             WHEN (B.VALUE >= WARNING_THRESHOLD  AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='0') THEN 100 
+             WHEN (B.VALUE >= CRITICAL_THRESHOLD AND B.VALUE < WARNING_THRESHOLD  AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='0') THEN 200
+             WHEN (B.VALUE <  CRITICAL_THRESHOLD AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='0') THEN 300 
+      /* FIXED_THRESHOLD ='1' CRITICAL -> 300 WARNING -> 200 NORMAL -> 100 */
+             WHEN (B.VALUE >= WARNING_THRESHOLD  AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='1') THEN 200 
+             WHEN (B.VALUE <  WARNING_THRESHOLD  AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='1') THEN 100 
+             WHEN (B.VALUE >= WARNING_THRESHOLD  AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='1') THEN 100 
+             WHEN (B.VALUE <  WARNING_THRESHOLD  AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='1') THEN 200 
+      /* FIXED_THRESHOLD ='2' CRITICAL -> 300 WARNING -> 200 NORMAL -> 100 */
+             WHEN (B.VALUE >= CRITICAL_THRESHOLD AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='2') THEN 300 
+             WHEN (B.VALUE <  CRITICAL_THRESHOLD AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='2') THEN 100 
+             WHEN (B.VALUE >= CRITICAL_THRESHOLD AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='2') THEN 100 
+             WHEN (B.VALUE <  CRITICAL_THRESHOLD AND IS_HIGHER ='1' AND FIXED_THRESHOLD ='2') THEN 300 
+      /* FIXED_THRESHOLD ='3' NORMAL -> 100 */
+             WHEN (FIXED_THRESHOLD ='9') THEN 100                    
+      /* DATA-NULL(LOCKCNT, TRAXIDLECNT) = NORMAL : 100 */
+             WHEN B.VALUE IS NULL THEN 100
+             ELSE 999      
+         END) HCHK_VALUE    
+               , '' AS COMMENTS
+               , NOW() AS COLLECT_TIME
+      FROM TB_INSTANCE_INFO A, TB_HCHK_COLLECT_INFO B
+      RIGHT OUTER JOIN TB_HCHK_THRD_LIST  C  
+	      ON B.INSTANCE_ID = C.INSTANCE_ID
+        AND B.HCHK_NAME = C.HCHK_NAME
+        AND B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+        --AND B.HCHK_REG_SEQ = (SELECT DISTINCT(MAX(X.HCHK_REG_SEQ)) FROM TB_HCHK_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY X.INSTANCE_ID)
+		AND B.HCHK_REG_SEQ = (SELECT MAX(X.HCHK_REG_SEQ) FROM TB_HCHK_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))
+      WHERE A.COLLECT_YN = 'Y' 
+      AND A.DELETE_YN = 'N'      
+      AND A.INSTANCE_ID = C.INSTANCE_ID;      
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTOBJECT" PARAMS="0">
+    <DESC>Object Information</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT /* SELECTOBJECT */ IST.INSTANCE_ID
+        , MAX(ACS.COLLECT_DT) AS COLLECT_DT
+        --, IST.CONN_NAME
+        ,  CASE WHEN {1}=0 THEN IST.HOST_NAME ELSE IST.CONN_NAME END AS HOST_NAME
+        , ROUND(SUM(ACS.CURRENT_SEQ_READ_TUPLES)/SUM(DELTA_TIME), 2) AS SEQ_SCAN_TUPLES_PER_SEC    --PT_04_09_001(Object : SEQ_SCAN_CNT)
+        , ROUND(SUM(ACS.CURRENT_IDX_FETCH_TUPLES)/SUM(DELTA_TIME), 2) AS INDEX_SCAN_TUPLES_PER_SEC     --PT_04_09_001(Object : INDEX_SCAN_CNT)
+        , ROUND(SUM(ACS.CURRENT_INSERT_TUPLES)/SUM(DELTA_TIME), 2) AS INSERT_TUPLES_PER_SEC          --PT_04_09_001(Object : INSERT_TUPLES)
+        , ROUND(SUM(ACS.CURRENT_UPDATE_TUPLES)/SUM(DELTA_TIME), 2) AS UPDATE_TUPLES_PER_SEC          --PT_04_09_001(Object : UPDATE_TUPLES)
+        , ROUND(SUM(ACS.CURRENT_DELETE_TUPLES)/SUM(DELTA_TIME), 2) AS DELETE_TUPLES_PER_SEC          --PT_04_09_001(Object : DELETE_TUPLES)
+        , ROUND((SUM(ACS.CURRENT_SEQ_READ_TUPLES) + SUM(ACS.CURRENT_IDX_FETCH_TUPLES) - SUM(ACS.CURRENT_UPDATE_TUPLES) - SUM(ACS.CURRENT_DELETE_TUPLES)) / SUM(DELTA_TIME), 2) AS SELECT_TUPLES_PER_SEC  --PT_04_09_001(Object : READ_TUPLES)
+        , ROUND(SUM(ACS.CURRENT_COMMIT)/SUM(DELTA_TIME), 2) AS COMMIT_TUPLES_PER_SEC                 --PT_04_09_001(Object : COMMIT)
+        , ROUND(SUM(ACS.CURRENT_ROLLBACK)/SUM(DELTA_TIME), 2) AS ROLLBACK_TUPLES_PER_SEC             --PT_04_09_001(Object : ROLLBACK)
+        FROM TB_INSTANCE_INFO IST, 
+             TB_ACCESS_INFO ACS
+        WHERE ACS.REG_DATE = TO_CHAR(NOW(),'YYYYMMDD')
+        AND IST.INSTANCE_ID IN ({0})
+        AND ACS.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') AND INSTANCE_ID = IST.INSTANCE_ID)
+        AND IST.COLLECT_YN = 'Y'
+        AND IST.DELETE_YN = 'N'
+        --GROUP BY IST.INSTANCE_ID , IST.CONN_NAME
+        GROUP BY IST.INSTANCE_ID ,  CASE WHEN {1}=0 THEN IST.HOST_NAME ELSE IST.CONN_NAME END
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTSESSIONINFO" PARAMS="0">
+    <DESC>SESSEIONINFO</DESC>
+    <DATA>
+      <![CDATA[
+         SELECT /* SELECTSESSIONINFO */ 
+             INSTANCE_ID
+             , MAX(BAK.COLLECT_DT) AS COLLECT_DT
+	           , ROUND(SUM(CASE WHEN (BAK.SQL <> '<IDLE>') THEN 1 ELSE 0 END)::numeric / MAX(IST.MAX_CONN_CNT) * 100, 2) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
+	           , ROUND((COUNT(BAK.SQL)::numeric / MAX(IST.MAX_CONN_CNT)) * 100,2) AS TOT_BACKEND_CNT 
+         FROM TB_INSTANCE_INFO IST
+             , TB_BACKEND_RSC BAK
+         WHERE BAK.REG_DATE=TO_CHAR(NOW(),'YYYYMMDD')
+         AND IST.INSTANCE_ID IN ({0})
+	       AND BAK.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') AND INSTANCE_ID=IST.INSTANCE_ID)
+	       AND IST.COLLECT_YN = 'Y'
+	       AND IST.DELETE_YN = 'N'
+	       GROUP BY IST.INSTANCE_ID;
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="AGENTSVRSTATE" PARAMS="0">
+    <DESC>AGENTSVRSTATE</DESC>
+    <DATA>
+      <![CDATA[
+     SELECT NOW(),CASE WHEN AGE(NOW(),REG_DATE::DATE+REG_TIME::TIME) < '1 MIN' THEN 1 ELSE 0 END AS STATUS 
+      FROM TB_RSC_COLLECT_INFO 
+     WHERE (REG_DATE, RSC_REG_SEQ) IN (SELECT REG_DATE, RSC_REG_SEQ FROM TB_CPU_STAT_MASTER WHERE COLLECT_DT = (SELECT MAX(COLLECT_DT) FROM TB_CPU_STAT_MASTER))
+      ]]>
+    </DATA>
+  </ROW>
+   
+  
+    <ROW ID="SELECTREPORTCPU" PARAMS="4">
+      <DESC>SELECTREPORTCPU</DESC>
+      <DATA>
+        <![CDATA[
+        --Report (cpu info info)         
+        SELECT /* SELECTCPUMEMINFO */ 
+	         A.INSTANCE_ID
+          , CASE WHEN {4}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+	        , MAX(C.COLLECT_DT) AS COLLECT_DT
+          , ROUND(AVG(C.USER_UTIL_RATE)/100,4) AS USER_UTIL_RATE
+          , ROUND(AVG(C.NICE_UTIL_RATE)/100,4) AS NICE_UTIL_RATE
+          , ROUND(AVG(C.SYS_UTIL_RATE)/100,4) AS SYS_UTIL_RATE
+          , ROUND(AVG(C.WAIT_UTIL_RATE)/100,4) AS WAIT_UTIL_RATE  
+          , ROUND(AVG(C.IDLE_UTIL_RATE)/100,4) AS IDLE_UTIL_RATE      
+        FROM TB_INSTANCE_INFO A
+          , TB_RSC_COLLECT_INFO B
+          , TB_CPU_STAT_MASTER C
+        WHERE A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'     
+          AND A.INSTANCE_ID ={0}
+          AND B.REG_DATE = C.REG_DATE
+          AND B.REG_DATE {1}   -- Dynamic('IN' or '=' )
+ 	        AND C.COLLECT_DT BETWEEN '{2}' AND '{3}'
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+          GROUP BY A.INSTANCE_ID;
+      ]]>
+      </DATA>
+    </ROW>
+      <ROW ID="SELECTREPORTCPUCHART" PARAMS="4">
+        <DESC>SELECTREPORTCPUCHART</DESC>
+        <DATA>
+          <![CDATA[
+        --Report (cpu info chart)         
+        SELECT /* SELECTCPUMEMINFO */ 
+	        A.INSTANCE_ID
+	        , C.COLLECT_DT
+          , CASE WHEN C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE > 100 THEN 100.00 ELSE ROUND((C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE),2) END AS USED_UTIL_RATE
+          , ROUND((C.WAIT_UTIL_RATE),2) AS WAIT_UTIL_RATE                                           
+        FROM TB_INSTANCE_INFO A
+          , TB_RSC_COLLECT_INFO B
+          , TB_CPU_STAT_MASTER C
+        WHERE A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'     
+          AND A.INSTANCE_ID = {0}
+          AND B.REG_DATE = C.REG_DATE
+          AND B.REG_DATE {1}   -- Dynamic('IN' or '=' )
+	        AND C.COLLECT_DT BETWEEN '{2}' AND '{3}'
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+          ORDER BY A.INSTANCE_ID, B.RSC_REG_SEQ ASC;      
+      ]]>
+        </DATA>
+      </ROW>
+      <ROW ID="SELECTREPORTDISK" PARAMS="4">
+        <DESC>SELECTREPORTCPUCHART</DESC>
+        <DATA>
+          <![CDATA[
+    
+      SELECT /* SELECTDISKINFO */ 
+	      A.INSTANCE_ID
+        , C.DISK_NAME           --PT_06_04(Report disk info:DISK_NAME)
+      FROM TB_INSTANCE_INFO A
+        , TB_RSC_COLLECT_INFO B
+        , TB_DISK_IO C
+      WHERE A.INSTANCE_ID =  {0}
+        AND ((B.REG_DATE = '{1}' AND C.COLLECT_DT BETWEEN '{2}' AND '{2}'::timestamp + interval '6 minutes' )
+              OR (B.REG_DATE = '{3}' AND C.COLLECT_DT BETWEEN '{4}'::timestamp - interval '6 minutes' AND '{4}'))
+        AND A.COLLECT_YN = 'Y'
+        AND A.DELETE_YN = 'N'
+        AND A.INSTANCE_ID = B.INSTANCE_ID
+        AND B.REG_DATE = C.REG_DATE
+        AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+      GROUP BY A.INSTANCE_ID, C.DISK_NAME;
+      
+      
+      
+      ]]>
+        </DATA>
+      </ROW>
+      <ROW ID="SELECTREPORTDISKCHART" PARAMS="5">
+        <DESC>SELECTREPORTCPUCHART</DESC>
+        <DATA>
+          <![CDATA[
+         --Report (disk info chart)
+          SELECT /* SELECTDISKINFO */ A.INSTANCE_ID
+            , C.COLLECT_DT AS COLLECT_DT
+            , C.DISK_NAME                                           --PT_06_04(Report disk info:DISK_NAME)
+            , ROUND(C.READ_BUSY_RATE,2) AS READ_BUSY_RATE           --PT_06_04(Report disk info:READ_BUSY_RATE)
+            , ROUND(C.WRITE_BUSY_RATE,2) AS WRITE_BUSY_RATE         --PT_06_04(Report disk info:WRITE_BUSY_RATE)
+            , ROUND(C.CURRENT_READ_KB / DELTA_TIME,2) AS READ_KB_PER_SEC            --PT_04_03_001(DISK IO READ_KB)
+            , ROUND(C.CURRENT_WRITE_KB / DELTA_TIME,2) AS WRITE_KB_PER_SEC          --PT_04_03_001(DISK IO WRITE_KB)
+            , A.CONN_NAME AS CONN_NAME
+          FROM TB_INSTANCE_INFO A
+            , TB_RSC_COLLECT_INFO B
+            , TB_DISK_IO C
+          WHERE A.INSTANCE_ID = {0}
+            AND B.REG_DATE {1}   -- Dynamic('IN' or '=' )
+            AND C.COLLECT_DT BETWEEN  '{2}' AND '{3}'
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+            AND A.INSTANCE_ID = B.INSTANCE_ID
+            AND C.DISK_NAME = '{4}'
+            AND B.REG_DATE = C.REG_DATE
+            AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+          ORDER BY A.INSTANCE_ID, B.RSC_REG_SEQ DESC
+      ]]>
+        </DATA>
+      </ROW>
+    
+  <ROW ID="SELECTREPORTTBACCESS" PARAMS="4">
+    <DESC>SELECTREPORTTBACCESS</DESC>
+    <DATA>
+      <![CDATA[
+           SELECT /* SELECTTBACESINFO */ 
+	             A.INSTANCE_ID
+               , C.COLLECT_DT AS COLLECT_DT
+               ,  CASE WHEN {4}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+               , C.DB_NAME AS DB_NAME --PT_05_03_001(DB INFO : DB) 
+               -- BUFFER HIT1 ST 
+               , ROUND((C.CURRENT_HEAP_BLKS_READ_KB),2) AS "DISK_READ_KB" --PT_05_03_001(DB INFO : DISK READ(KB)) 
+               , ROUND((C.CURRENT_HEAP_BLKS_HIT_KB),2) AS "BUFFER_READ_KB" --PT_05_03_001(DB INFO : BUFFER READ(KB)) 
+               -- BUFFER HIT1 ED
+               -- BUFFER HIT2 ST
+               --, ROUND((C.BUFFER_HIT_RATIO),4) AS "HIT_RATIO" --PT_05_03_001(DB INFO : HIT RATIO) 
+               , ROUND( C.current_heap_blks_hit_kb::numeric / (case when ((C.current_heap_blks_hit_kb)+(C.current_heap_blks_read_kb)) = 0 then 1 else ((C.current_heap_blks_hit_kb)+(C.current_heap_blks_read_kb)) end),4)*100 AS "HIT_RATIO" --PT_05_03_001(DB INFO : HIT RATIO)  
+               -- BUFFER HIT2 ST
+               -- Logical IO ST
+               , ROUND((C.CURRENT_INSERT_TUPLES), 2) AS INSERT_TUPLES_PER_SEC --PT_04_09_001(Object : INSERT_TUPLES)
+               , ROUND((C.CURRENT_UPDATE_TUPLES), 2) AS UPDATE_TUPLES_PER_SEC --PT_04_09_001(Object : UPDATE_TUPLES)
+               , ROUND((C.CURRENT_DELETE_TUPLES), 2) AS DELETE_TUPLES_PER_SEC --PT_04_09_001(Object : DELETE_TUPLES)
+               , ROUND(((C.CURRENT_SEQ_READ_TUPLES) + (C.CURRENT_IDX_FETCH_TUPLES) - (C.CURRENT_UPDATE_TUPLES) - (C.CURRENT_DELETE_TUPLES)) , 2) AS SELECT_TUPLES_PER_SEC --PT_04_09_001(Object : READ_TUPLES)
+               -- Logical IO ED
+               -- Object TUPLE ST
+               , ROUND((C.current_seq_read_tuples)::numeric, 2) AS SEQ_TUPLES --PT_06_06(TABLE ACCESS INFO : SEQ_TUPLES COUNT)
+               , ROUND((C.current_idx_fetch_tuples)::numeric, 2) AS INDEX_TUPLES --PT_06_06(TABLE ACCESS INFO : INDEX_TUPLES COUNT) 
+               -- Object TUPLE ED
+               -- Object RATE ST
+               , ROUND((C.current_seq_read_tuples)::numeric / (case when ((C.current_seq_read_tuples)+(C.current_idx_fetch_tuples)) = 0 then 1 else ((C.current_seq_read_tuples)+(C.current_idx_fetch_tuples)) end)*100 ,2) AS SEQ_SCAN --PT_06_06(TABLE ACCESS INFO : SEQ_SCAN COUNT)
+               , ROUND((C.current_idx_fetch_tuples)::numeric / (case when ((C.current_seq_read_tuples)+(C.current_idx_fetch_tuples)) = 0 then 1 else ((C.current_seq_read_tuples)+(C.current_idx_fetch_tuples)) end)*100 ,2) AS INDEX_SCAN --PT_06_06(TABLE ACCESS INFO : INDEX_SCAN COUNT) 
+               -- Object RATE ED
+           FROM TB_INSTANCE_INFO A
+               , TB_ACTV_COLLECT_INFO B
+               , TB_ACCESS_INFO C
+           WHERE A.INSTANCE_ID =  {0}
+           AND B.REG_DATE {1}  -- Dynamic('IN' or '=' )
+           AND C.COLLECT_DT  BETWEEN '{2}' AND '{3}'
+           AND A.INSTANCE_ID = B.INSTANCE_ID
+           AND B.REG_DATE = C.REG_DATE
+           AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+           AND A.COLLECT_YN = 'Y'
+           AND A.DELETE_YN = 'N'
+           --AND C.current_seq_scan_cnt > 0 /* 순차탐색이 1건 이상인것만 */ 
+           --AND C.current_seq_tuples > 0 /* 순차탐색튜플이 1건 이상인것만 */
+           --AND C.current_index_tuples > 0 /* 인덱스탐색튜플이 1건 이상인것만 */
+           --ORDER BY A.INSTANCE_ID, A.HOST_NAME, C.DB_NAME, C.COLLECT_DT ;
+        ]]>
+    </DATA>
+  </ROW>
+  
+  <ROW ID="SELECTREPORTSESSIONCHART" PARAMS="4">
+    <DESC>SELECTREPORTSESSIONCHART</DESC>
+    <DATA>
+      <![CDATA[
+        --Report (session info chart)
+         SELECT /* SELECTSESSIONINFO */ 
+             MAX(IST.INSTANCE_ID)
+           , MAX(BAK.COLLECT_DT) AS COLLECT_DT
+           , BAK.ACTV_REG_SEQ 
+           --, MAX(IST.MAX_CONN_CNT)
+           , SUM(CASE WHEN (BAK.SQL <> '<IDLE>' AND BAK.SQL <> '<IDLE> in transaction') THEN 1 ELSE 0 END) AS CUR_ACTV_BACKEND_CNT 
+           , SUM(CASE WHEN (BAK.SQL = '<IDLE>') THEN 1 ELSE 0 END) AS IDLE_BACKEND_CNT 
+           , SUM(CASE WHEN (BAK.SQL = '<IDLE> in transaction') THEN 1 ELSE 0 END) AS IDLE_IN_TRC_BACKEND_CNT 
+           , DB_NAME 
+         FROM TB_INSTANCE_INFO IST
+           , TB_BACKEND_RSC BAK
+           , TB_ACTV_COLLECT_INFO ACT
+         WHERE IST.INSTANCE_ID =  {0}
+        AND BAK.REG_DATE {1}  -- Dynamic('IN' or '=' )
+        AND BAK.COLLECT_DT BETWEEN '{2}' AND '{3}'
+         AND BAK.REG_DATE = ACT.REG_DATE
+         AND ACT.ACTV_REG_SEQ = BAK.ACTV_REG_SEQ
+         AND IST.COLLECT_YN = 'Y'
+         AND IST.DELETE_YN = 'N'
+         AND IST.INSTANCE_ID = ACT.INSTANCE_ID
+         GROUP BY BAK.ACTV_REG_SEQ , DB_NAME ;
+       
+  
+
+        ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTREPORTSQL" PARAMS="4">
+    <DESC>SELECTREPORTSQL</DESC>
+    <DATA>
+      <![CDATA[
+			SELECT 
+          S.DB_NAME
+				--, MAX(MAX_CPU_USAGE) AS MAX_CPU_USAGE
+				--, SUM(MAX_ELAPSED_TIME) AS ELAPSED_TIME
+        , (CASE WHEN SUM(MAX_ELAPSED_TIME) <= 1 THEN 1 ELSE SUM(MAX_ELAPSED_TIME) END) AS ELAPSED_TIME
+				, SUM(OCCUPIED_TIME) OCCUPIED_TIME
+				, S.SQL 
+        , COUNT(S.SQL) SQL_COUNT
+			FROM(
+					SELECT
+				      --A.INSTANCE_ID
+				      E.DB_NAME                                            --PT_06_07(Report (sql info): DB)     
+				      , ROUND(SUM(E.CURRENT_PROC_UTIME + E.CURRENT_PROC_STIME)/100, 2) OCCUPIED_TIME
+				      , MAX(E.CLIENT_ADDR) AS CLIENT_ADDR
+				      , MAX(E.USER_NAME) AS USER_NAME
+				      , MAX(E.COLLECT_DT) AS COLLECT_DT		      
+				      , TRUNC(MAX(E.PROC_CPU_UTIL) / 100, 4) AS MAX_CPU_USAGE   --PT_06_07(Report (sql info): MAX_CPU_USAGE
+				      , E.QUERY_START 
+				      , ROUND(CASE WHEN MAX(E.ELAPSED_TIME) < 0  THEN 0 ELSE MAX(E.ELAPSED_TIME) END,2) AS MAX_ELAPSED_TIME  --PT_06_07(Report (sql info): MAX_ELAPSED_TIME)
+				      , MAX(E.SQL) AS SQL                                      --PT_06_07(Report (sql info):  SQL
+          FROM TB_INSTANCE_INFO A
+              , TB_ACTV_COLLECT_INFO B
+              , TB_BACKEND_RSC E
+              WHERE A.INSTANCE_ID = {0}
+              AND B.REG_DATE {1}  -- Dynamic('IN' or '=' )
+              AND E.COLLECT_DT BETWEEN '{2}' AND '{3}'
+              AND B.REG_DATE = E.REG_DATE
+              AND A.INSTANCE_ID = B.INSTANCE_ID
+              AND B.ACTV_REG_SEQ = E.ACTV_REG_SEQ
+              AND A.COLLECT_YN = 'Y' 
+              AND A.DELETE_YN = 'N'
+              AND E.ELAPSED_TIME >  0
+              AND E.PROC_CPU_UTIL > 0
+              AND E.SQL != 'BACKGROUND PROC'
+              AND E.SQL != 'COMMIT'
+              AND E.SQL NOT LIKE 'SELECT /* DXMABT%'  
+             GROUP BY E.DB_NAME, E.QUERY_START, E.PROCESS_ID ORDER BY MAX_CPU_USAGE DESC) S
+			GROUP BY S.DB_NAME, S.SQL
+			ORDER BY ELAPSED_TIME DESC
+        ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTREPORTSQL_ORG" PARAMS="4">
+    <DESC>SELECTREPORTSQL_ORG</DESC>
+    <DATA>
+      <![CDATA[
+    
+    SELECT  
+		      A.INSTANCE_ID
+		      , E.DB_NAME                                            --PT_06_07(Report (sql info): DB)     
+		      , MAX(E.CLIENT_ADDR) AS CLIENT_ADDR
+		      , MAX(E.USER_NAME) AS USER_NAME
+		      , MAX(E.COLLECT_DT) AS COLLECT_DT
+		      , ROUND(MAX(E.PROC_CPU_UTIL) / 100 /100,4) AS MAX_CPU_USAGE   --PT_06_07(Report (sql info): MAX_CPU_USAGE
+		      --, ROUND(AVG(E.PROC_CPU_UTIL) / 100 /100,4) AS AVG_CPU_USAGE   --PT_06_07(Report (sql info): AVG_CPU_USAGE)
+		      , E.QUERY_START 
+		      , ROUND(CASE WHEN MAX(E.ELAPSED_TIME) < 0  THEN 0 ELSE MAX(E.ELAPSED_TIME) END,6) AS MAX_ELAPSED_TIME  --PT_06_07(Report (sql info): MAX_ELAPSED_TIME)
+		      --, ROUND(CASE WHEN AVG(E.ELAPSED_TIME) < 0  THEN 0 ELSE AVG(E.ELAPSED_TIME) END,6) AS AVG_ELAPSED_TIME  --PT_06_07(Report (sql info): AVG_ELAPSED_TIME)
+		      , MAX(E.SQL) AS SQL                                      --PT_06_07(Report (sql info):  SQL
+             FROM TB_INSTANCE_INFO A
+               , TB_ACTV_COLLECT_INFO B
+               , TB_BACKEND_RSC E
+              WHERE A.INSTANCE_ID = {0}
+              AND B.REG_DATE {1}  -- Dynamic('IN' or '=' )
+              AND E.COLLECT_DT BETWEEN '{2}' AND '{3}'
+              AND B.REG_DATE = E.REG_DATE
+              AND A.INSTANCE_ID = B.INSTANCE_ID
+              AND B.ACTV_REG_SEQ = E.ACTV_REG_SEQ
+              AND A.COLLECT_YN = 'Y' 
+              AND A.DELETE_YN = 'N'
+              AND E.ELAPSED_TIME >  0
+              AND E.PROC_CPU_UTIL > 0
+              AND E.SQL != 'BACKGROUND PROC'
+              AND E.SQL != 'COMMIT'
+              AND E.SQL NOT LIKE 'SELECT /* DXMABT%'           
+              GROUP BY A.INSTANCE_ID, E.DB_NAME, MD5(E.SQL), E.QUERY_START
+        ]]>
+    </DATA>
+  </ROW>
+
+
+  <ROW ID="SELECTINIFIXEDTHRESHOLD" PARAMS="0">
+    <DESC>헬스체크 고정값 가져오기</DESC>
+    <DATA>
+      <![CDATA[
+            SELECT HCHK_NAME, FIXED_THRESHOLD 
+            FROM TB_HCHK_THRD_LIST 
+            WHERE INSTANCE_ID = -1
+            AND HCHK_NAME IN ('UNUSEDINDEX','TRAXIDLECNT','LOCKCNT','CONNECTIONFAIL','LASTANALYZE','LASTVACUUM','LONGRUNSQL')
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="BUFFERHITRATIO" PARAMS="3">
+  <DESC>HEALTH CHECK BUFFER HIT RATIO</DESC>
+  <DATA>
+    <![CDATA[
+           SELECT DB_NAME,
+                 DB_SIZE_KB,
+                 TABLE_CNT,
+                 INDEX_CNT,
+                 ROUND(BUFFER_HIT_RATIO/100, 2) AS BUFFER_HIT_RATIO,
+                 COLLECT_DT 
+            FROM TB_ACCESS_INFO 
+           WHERE REG_DATE='{1}'
+		     AND ACTV_REG_SEQ = {2}
+    ]]>
+  </DATA>
+  <COMMENTS />
+  </ROW>
+  <ROW ID="ACTIVECONNECTION" PARAMS="2">
+    <DESC>HEALTH CHECK ACTIVE CONNECTION</DESC>
+    <DATA>
+      <![CDATA[
+         SELECT DB_NAME,
+                 IDLE_CNT + ACTIVE_CNT AS BACKEND,
+                 IDLE_CNT / MAX_CONN_CNT  AS IDLE_RATE,
+                 ACTIVE_CNT / MAX_CONN_CNT  AS ACTIVE_RATE,
+                 (IDLE_CNT + ACTIVE_CNT) / MAX_CONN_CNT  AS TOTAL_RATE,
+                 COLLECT_DT
+          FROM (         
+            SELECT DB_NAME,
+                      SUM(CASE WHEN SQL     LIKE '%IDLE%' THEN 1 ELSE 0 END) AS IDLE_CNT,
+                      SUM(CASE WHEN SQL NOT LIKE '%IDLE%' THEN 1 ELSE 0 END) AS ACTIVE_CNT,
+                      SUM(1) AS TOTAL_CNT,
+                      (SELECT MAX_CONN_CNT FROM TB_INSTANCE_INFO WHERE INSTANCE_ID=(SELECT INSTANCE_ID FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE='{0}' AND ACTV_REG_SEQ IN ({1}))) AS MAX_CONN_CNT,
+                      MAX(COLLECT_DT) AS COLLECT_DT
+              FROM TB_BACKEND_RSC 
+             WHERE REG_DATE='{0}' 
+                AND ACTV_REG_SEQ = {1}
+             GROUP BY DB_NAME
+         ) AS A;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="COMMITRATIO" PARAMS="2">
+    <DESC>HEALTH CHECK COMMIT RATIO</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT DB_NAME, 
+          CURRENT_COMMIT+CURRENT_ROLLBACK AS CURRENT_TRANX, 
+          CURRENT_COMMIT/(CURRENT_COMMIT+CURRENT_ROLLBACK) AS CURRENT_COMMIT_RATE,  
+          CURRENT_ROLLBACK/(CURRENT_COMMIT+CURRENT_ROLLBACK) AS CURRENT_ROLLBACK_RATE, 
+          AGG_COMMIT/(AGG_COMMIT+AGG_ROLLBACK) AS AGG_COMMIT_RATE, 
+          COLLECT_DT 
+        FROM TB_ACCESS_INFO 
+        WHERE REG_DATE='{0}' 
+          AND ACTV_REG_SEQ = {1};
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="CONNECTIONFAIL" PARAMS="5">
+    <DESC>HEALTH CHECK CONNECTION FAIL</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT CASE WHEN IS_COLLECT_OK='Y' THEN 'OK' ELSE 'FAIL' END AS IS_OK, REG_TIME::TIME(0),  LAST_OK_DT, COLLECT_DT FROM (
+        SELECT IS_COLLECT_OK, 
+                 REG_TIME,
+                 CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
+                                                                   FROM TB_OBJT_COLLECT_INFO 
+                                                                 WHERE (REG_DATE = '{1}' AND OBJT_REG_SEQ < {2})  --(A,B,C) 중 A
+                                                                      OR REG_DATE < '{1}' 
+                                                                    AND IS_COLLECT_OK = 'Y' 
+                                                                 ORDER BY REG_DATE DESC, OBJT_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
+         FROM TB_OBJT_COLLECT_INFO 
+        WHERE REG_DATE='{1}'
+           AND OBJT_REG_SEQ={2}
+           AND INSTANCE_ID={0}
+        UNION ALL
+        SELECT IS_COLLECT_OK, 
+                 REG_TIME,
+                 CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
+                                                                   FROM TB_ACTV_COLLECT_INFO 
+                                                                 WHERE (REG_DATE = '{1}' AND ACTV_REG_SEQ < {3} ) --(A,B,C) 중 B
+                                                                      OR REG_DATE < '{1}' 
+                                                                    AND IS_COLLECT_OK = 'Y' 
+                                                                 ORDER BY REG_DATE DESC, ACTV_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
+         FROM TB_ACTV_COLLECT_INFO 
+        WHERE REG_DATE='{1}'
+           AND ACTV_REG_SEQ={3} 
+           AND INSTANCE_ID={0}
+        UNION ALL
+        SELECT IS_COLLECT_OK, 
+                 REG_TIME,
+                 CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
+                                                                   FROM TB_RSC_COLLECT_INFO 
+                                                                  WHERE (REG_DATE = '{1}' AND RSC_REG_SEQ < {4}) --(A,B,C) 중 C
+                                                                       OR REG_DATE < '{1}' 
+                                                                     AND IS_COLLECT_OK = 'Y' 
+                                                                  ORDER BY REG_DATE DESC, RSC_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
+         FROM TB_RSC_COLLECT_INFO   
+        WHERE REG_DATE='{1}' 
+           AND RSC_REG_SEQ={4}
+           AND INSTANCE_ID={0}) AS A
+        ORDER BY IS_COLLECT_OK, REG_TIME DESC LIMIT 1;
+
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="DISKUSAGE" PARAMS="2">
+    <DESC>HEALTH CHECK Disk Usage</DESC>
+    <DATA>
+      <![CDATA[
+    SELECT DEVICE_NAME,
+             MOUNT_POINT_DIR,
+             TOTAL_KB,
+             TOTAL_KB - AVAIL_KB AS USED,
+             1 - (avail_KB / TOTAL_KB) AS USED_RATE, 
+             COLLECT_DT 
+     FROM TB_DISK_USAGE
+    WHERE REG_DATE='{0}'
+      AND RSC_REG_SEQ={1}
+	ORDER BY USED_RATE DESC;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="LOCKCNT" PARAMS="2">
+    <DESC>HEALTH CHECK LOCKCNT</DESC>
+    <DATA>
+      <![CDATA[
+        
+             
+              SELECT DB_NAME          
+                ,BLOCKING_USER    
+                ,BLOCKING_PID     
+                ,BLOCKING_QUERY   
+                ,BLOCKED_USER     
+                ,BLOCKED_PID      
+                ,BLOCKED_QUERY    
+                ,BLOCKED_DURATION 
+                ,LOCK_MODE  
+				        ,COLLECT_DT
+           FROM TB_CURRENT_LOCK 
+          WHERE REG_DATE='{0}'
+             AND ACTV_REG_SEQ={1}
+          ORDER BY ORDER_NO;                        
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="LASTANALYZE" PARAMS="3">
+    <DESC>HEALTH CHECK LASTANALYZE</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT DB_NAME,
+                 SCHEMA_NAME,
+                 TABLE_NAME,
+                 TABLE_SIZE_KB,
+                 LIVE_TUPLE_CNT,
+                 --LAST_ANALYZE,
+                 CASE WHEN LAST_ANALYZE::DATE = '10000101'::DATE THEN NULL ELSE LAST_ANALYZE END AS LAST_ANALYZE,
+                 --CASE WHEN LAST_ANALYZE IS NULL THEN 'UnAnalyzed' ELSE EXTRACT (DAY FROM COLLECT_DT) - EXTRACT (DAY FROM LAST_ANALYZE)||' DAY' END AS DAYS,
+                 CASE WHEN LAST_ANALYZE::DATE = '10000101'::DATE THEN 'UnAnalyzed' ELSE COLLECT_DT::DATE - LAST_ANALYZE::DATE||' DAY' END AS DAYS,
+                 COLLECT_DT
+         FROM TB_TABLE_INFO 
+        WHERE REG_DATE='{1}'
+           AND OBJT_REG_SEQ={2}
+           --AND (LAST_ANALYZE IS NULL OR EXTRACT (DAY FROM COLLECT_DT) - EXTRACT (DAY FROM LAST_ANALYZE) > (SELECT CASE WHEN FIXED_THRESHOLD='9' THEN 99999999 ELSE WARNING_THRESHOLD END FROM TB_HCHK_THRD_LIST WHERE HCHK_NAME='LASTANALYZE' AND INSTANCE_ID={0}))
+		   AND COLLECT_DT::DATE - LAST_ANALYZE::DATE > (SELECT CASE WHEN FIXED_THRESHOLD='9' THEN 99999999 ELSE WARNING_THRESHOLD END FROM TB_HCHK_THRD_LIST WHERE HCHK_NAME='LASTANALYZE' AND INSTANCE_ID={0})
+        ORDER BY DB_NAME, SCHEMA_NAME, TABLE_NAME
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="LASTVACUUM" PARAMS="3">
+    <DESC>HEALTH CHECK LASTVACUUM</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT DB_NAME,
+             SCHEMA_NAME,
+             TABLE_NAME,
+             TABLE_SIZE_KB,
+             LIVE_TUPLE_CNT,
+             --LAST_VACUUM,
+             CASE WHEN LAST_VACUUM::DATE = '10000101'::DATE THEN NULL ELSE LAST_VACUUM END AS LAST_VACUUM,
+             --CASE WHEN LAST_VACUUM IS NULL THEN 'Not Running' ELSE EXTRACT (DAY FROM COLLECT_DT) - EXTRACT (DAY FROM LAST_VACUUM)||' DAY' END AS DAYS,
+             CASE WHEN LAST_VACUUM::DATE = '10000101'::DATE THEN 'UnVacuumed' ELSE COLLECT_DT::DATE - LAST_VACUUM::DATE||' DAY' END AS DAYS,
+             COLLECT_DT
+     FROM TB_TABLE_INFO 
+    WHERE REG_DATE='{1}'
+       AND OBJT_REG_SEQ={2}
+       --AND (LAST_VACUUM IS NULL OR EXTRACT (DAY FROM COLLECT_DT) - EXTRACT (DAY FROM LAST_VACUUM) > (SELECT WARNING_THRESHOLD FROM TB_HCHK_THRD_LIST WHERE HCHK_NAME='LASTANALYZE' AND INSTANCE_ID='{0}'))
+	   AND COLLECT_DT::DATE - LAST_VACUUM::DATE > (SELECT CASE WHEN FIXED_THRESHOLD='9' THEN 99999999 ELSE WARNING_THRESHOLD END FROM TB_HCHK_THRD_LIST WHERE HCHK_NAME='LASTVACUUM' AND INSTANCE_ID='{0}')
+    ORDER BY DB_NAME, SCHEMA_NAME, TABLE_NAME;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="LONGRUNSQL" PARAMS="3">
+    <DESC>HEALTH CHECK Long Run Sql</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT PROCESS_ID,
+         DB_NAME,
+         CLIENT_ADDR,
+         USER_NAME,
+         QUERY_START,
+         SQL,
+         PROC_CPU_UTIL,
+         ELAPSED_TIME,
+         COLLECT_DT
+       FROM (
+              SELECT MAX(PROCESS_ID) AS PROCESS_ID,
+                       MAX(DB_NAME) AS DB_NAME,
+                       MAX(CLIENT_ADDR) AS CLIENT_ADDR,
+                       MAX(USER_NAME) AS USER_NAME,
+                       QUERY_START,
+                       SQL,
+                       ROUND(MAX(PROC_CPU_UTIL)/100, 2) AS PROC_CPU_UTIL,
+                       MAX(ELAPSED_TIME) AS ELAPSED_TIME ,
+                       MAX(COLLECT_DT) AS COLLECT_DT
+               FROM TB_BACKEND_RSC 
+              WHERE REG_DATE='{1}'
+               AND ACTV_REG_SEQ={2}
+              GROUP BY SQL, QUERY_START) AS A
+      WHERE ELAPSED_TIME > (SELECT WARNING_THRESHOLD FROM TB_HCHK_THRD_LIST WHERE INSTANCE_ID={0} AND HCHK_NAME='LONGRUNSQL')
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="TRAXIDLECNT" PARAMS="2">
+    <DESC>HEALTH CHECK Trax IDLE Count</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT DB_NAME,
+         PROCESS_ID,
+         CLIENT_ADDR,
+         USER_NAME, 
+         QUERY_START AS TRANX_START,
+		 COLLECT_DT
+       FROM (
+                SELECT DB_NAME,
+                          PROCESS_ID,
+                          CLIENT_ADDR,
+                          USER_NAME, 
+                          CASE WHEN SQL NOT LIKE '%IDLE%' THEN 'ACTIVE' WHEN SQL='<IDLE>' THEN 'IDLE' WHEN SQL='<IDLE> in transaction' THEN 'IDLE_TRANX' END AS STATUS,
+                          QUERY_START,
+						  COLLECT_DT
+                 FROM TB_BACKEND_RSC 
+                WHERE REG_DATE='{0}'
+                   AND ACTV_REG_SEQ={1}) AS A
+       WHERE STATUS='IDLE_TRANX';
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="UNUSEDINDEX" PARAMS="2">
+    <DESC>HEALTH CHECK Unused Index</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT DB_NAME,
+         SCHEMA_NAME,
+         INDEX_NAME,
+         TABLE_NAME,
+         INDEX_SIZE_KB,
+         COLUMNS_CNT,
+		 COLLECT_DT
+       FROM TB_INDEX_INFO 
+      WHERE REG_DATE='{0}' 
+         AND OBJT_REG_SEQ={1}
+         AND AGG_INDEX_SCAN_CNT=0;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTSERIALKEY" PARAMS="0">
+    <DESC>SELECT SERIAL KEY</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT SERIAL_KEY AS LICDATA
+        , NOW()  AS CURDATETIME
+      FROM TB_CONFIG;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+
+  <ROW ID="SELECTLICENSE" PARAMS="0">
+    <DESC>SELECT LICENSE STATUS </DESC>
+    <DATA>
+      <![CDATA[
+      SELECT STATUS FROM TB_SYS_LOG WHERE REG_DATE = TO_CHAR((NOW() - INTERVAL '1 DAY'), 'YYYYMMDD') AND TASK_CD='3' ORDER BY START_DT DESC LIMIT 1;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+</ROWS>

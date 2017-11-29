@@ -1,0 +1,27 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <SERVER>
+    <CHECK>True</CHECK>
+    <CONN_TEST>테스트</CONN_TEST>
+    <SERVER_NAME>SVR</SERVER_NAME>
+    <SERVER_IP>172.20.20.227</SERVER_IP>
+    <SCHEMA>sys</SCHEMA>
+    <PASSWD>tibero</PASSWD>
+    <SID>tibero</SID>
+    <PORT>8629</PORT>
+    <USEYN>Y</USEYN>
+    <DETAIL />
+  </SERVER>
+  <SERVER>
+    <CHECK>True</CHECK>
+    <CONN_TEST>테스트</CONN_TEST>
+    <SERVER_NAME>ttt</SERVER_NAME>
+    <SERVER_IP>172.20.20.208</SERVER_IP>
+    <SCHEMA>sys</SCHEMA>
+    <PASSWD>tibero</PASSWD>
+    <SID>tibero</SID>
+    <PORT>8629</PORT>
+    <USEYN>Y</USEYN>
+    <DETAIL>asdf</DETAIL>
+  </SERVER>
+</DocumentElement>

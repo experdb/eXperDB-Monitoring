@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <log4net>
+    <appender name="iDastApp" type="log4net.Appender.RollingFileAppender ">
+      <file value="iDastApp.log"/>
+      <appendToFile value="true" />
+      <rollingStyle value="Size" />
+      <maxSizeRollBackups value="3" />
+      <maximumFileSize value="100KB" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %-5level %logger [%C-%M] - %message%newline" />
+      </layout>
+    </appender> 
+                    
+    <logger name="Log1">
+      <level value="ALL" />
+      <appender-ref ref="iDastApp" />
+    </logger>
+                        
+  </log4net>
+</configuration>

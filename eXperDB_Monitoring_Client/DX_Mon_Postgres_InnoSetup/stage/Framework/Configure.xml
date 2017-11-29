@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<public>
+		<appender name="cfgAppender">
+			<TnsFullPath value=""/>
+			<TempPath value=""/>
+			<UserPath value=""/>
+			<LogPath value=""/>
+			<BackupPath value="" />
+			<Certification value=""/>
+		</appender>
+		<appender name="UpdateServer">
+			<IpAddress value="172.20.50.48"/>
+			<Port value="80"/>
+			<UsingSSL value="N"/>
+		</appender>
+	</public>
+</configuration>

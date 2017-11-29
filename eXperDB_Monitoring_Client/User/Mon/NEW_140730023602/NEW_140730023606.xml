@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<MAIN>
+  <PUBLIC>
+    <ID>UserID</ID>
+    <VALUE>SYSTEM</VALUE>
+  </PUBLIC>
+  <PUBLIC>
+    <ID>UserPW</ID>
+    <VALUE>1awB4eEswqkOLq3brhUO4w==</VALUE>
+  </PUBLIC>
+  <PUBLIC>
+    <ID>ConnType</ID>
+    <VALUE />
+  </PUBLIC>
+  <PUBLIC>
+    <ID>TnsName</ID>
+    <VALUE>선택</VALUE>
+  </PUBLIC>
+  <PUBLIC>
+    <ID>HostName</ID>
+    <VALUE />
+  </PUBLIC>
+  <PUBLIC>
+    <ID>HostPort</ID>
+    <VALUE />
+  </PUBLIC>
+  <PUBLIC>
+    <ID>HostSid</ID>
+    <VALUE />
+  </PUBLIC>
+  <LineChart1>
+    <ID>GraphSelect</ID>
+    <VALUE>LINE</VALUE>
+  </LineChart1>
+  <LineChart1>
+    <ID>UdfSqlLine</ID>
+    <VALUE>select 1 as c1 from dual</VALUE>
+  </LineChart1>
+  <LineChart1>
+    <ID>DataSaveTime</ID>
+    <VALUE>1200</VALUE>
+  </LineChart1>
+  <LineChart1>
+    <ID>GraphTitle</ID>
+    <VALUE>그래프 타이틀 입니다</VALUE>
+  </LineChart1>
+  <LineChart1>
+    <ID>YTitle</ID>
+    <VALUE>Y좌표 타이틀입니다</VALUE>
+  </LineChart1>
+  <LineChart1>
+    <ID>DataRefreshTime</ID>
+    <VALUE>3000</VALUE>
+  </LineChart1>
+  <LineChart1>
+    <ID>GraphRefreshTime</ID>
+    <VALUE>4000</VALUE>
+  </LineChart1>
+</MAIN>
