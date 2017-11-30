@@ -561,6 +561,7 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_DT
 ,LAST_MOD_IP
 ,SERIAL_KEY
+,VERSION
 ) VALUES ('23:30:00', 30, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', 'EXPERDB_VERSION');
 
 /* repository agent_port is a port of agent_manager	 
