@@ -21,6 +21,7 @@ Partial Class frmMonMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim Edges8 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim Areaitem5 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
@@ -87,7 +88,6 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Me.grpStausSuminfo = New eXperDB.BaseControls.GroupBox()
         Me.tlpHealth = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgtNumC = New eXperDB.Controls.DigitalNumber()
@@ -179,6 +179,7 @@ Partial Class frmMonMain
         Me.logEvents = New eXperDB.Controls.LogBox()
         Me.tlpGroup = New eXperDB.BaseControls.TableLayoutPanel()
         Me.tlpStatus = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.tlpAgentSvrState = New System.Windows.Forms.TableLayoutPanel()
         Me.lblAgentSvrState = New eXperDB.BaseControls.Label()
         Me.Label1 = New eXperDB.BaseControls.Label()
@@ -216,6 +217,7 @@ Partial Class frmMonMain
         CType(Me.dgvHealth, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpGroup.SuspendLayout()
         Me.tlpStatus.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.tlpAgentSvrState.SuspendLayout()
         Me.tlpMain.SuspendLayout()
         Me.tlpBase.SuspendLayout()
@@ -236,14 +238,14 @@ Partial Class frmMonMain
         Me.grpStausSuminfo.FillColor = System.Drawing.Color.Black
         Me.grpStausSuminfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpStausSuminfo.LineWidth = 1
-        Me.grpStausSuminfo.Location = New System.Drawing.Point(3, 150)
+        Me.grpStausSuminfo.Location = New System.Drawing.Point(3, 63)
         Me.grpStausSuminfo.Name = "grpStausSuminfo"
-        Me.grpStausSuminfo.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpStausSuminfo.Size = New System.Drawing.Size(236, 179)
+        Me.grpStausSuminfo.Padding = New System.Windows.Forms.Padding(3, 1, 3, 3)
+        Me.grpStausSuminfo.Size = New System.Drawing.Size(219, 132)
         Me.grpStausSuminfo.TabIndex = 5
         Me.grpStausSuminfo.TabStop = False
         Me.grpStausSuminfo.Text = "F028"
-        Me.grpStausSuminfo.TitleFont = New System.Drawing.Font("Gulim", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.grpStausSuminfo.TitleFont = New System.Drawing.Font("Gulim", 1.0!, System.Drawing.FontStyle.Bold)
         Me.grpStausSuminfo.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpStausSuminfo.UseGraColor = True
         Me.grpStausSuminfo.UseRound = True
@@ -263,13 +265,13 @@ Partial Class frmMonMain
         Me.tlpHealth.Controls.Add(Me.lblWarning, 1, 0)
         Me.tlpHealth.Controls.Add(Me.lblCritical, 2, 0)
         Me.tlpHealth.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpHealth.Location = New System.Drawing.Point(3, 32)
+        Me.tlpHealth.Location = New System.Drawing.Point(3, 19)
         Me.tlpHealth.Name = "tlpHealth"
         Me.tlpHealth.RowCount = 2
         Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
         Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.0!))
         Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHealth.Size = New System.Drawing.Size(230, 144)
+        Me.tlpHealth.Size = New System.Drawing.Size(213, 110)
         Me.tlpHealth.TabIndex = 13
         '
         'dgtNumC
@@ -278,9 +280,9 @@ Partial Class frmMonMain
         Me.dgtNumC.DigitBlankOpacity = 30
         Me.dgtNumC.DigitColor = System.Drawing.Color.Red
         Me.dgtNumC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumC.Location = New System.Drawing.Point(155, 24)
+        Me.dgtNumC.Location = New System.Drawing.Point(144, 19)
         Me.dgtNumC.Name = "dgtNumC"
-        Me.dgtNumC.Size = New System.Drawing.Size(72, 117)
+        Me.dgtNumC.Size = New System.Drawing.Size(66, 88)
         Me.dgtNumC.TabIndex = 8
         Me.dgtNumC.Value = "00"
         '
@@ -290,9 +292,9 @@ Partial Class frmMonMain
         Me.dgtNumW.DigitBlankOpacity = 30
         Me.dgtNumW.DigitColor = System.Drawing.Color.Orange
         Me.dgtNumW.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumW.Location = New System.Drawing.Point(79, 24)
+        Me.dgtNumW.Location = New System.Drawing.Point(73, 19)
         Me.dgtNumW.Name = "dgtNumW"
-        Me.dgtNumW.Size = New System.Drawing.Size(70, 117)
+        Me.dgtNumW.Size = New System.Drawing.Size(65, 88)
         Me.dgtNumW.TabIndex = 8
         Me.dgtNumW.Value = "00"
         '
@@ -302,9 +304,9 @@ Partial Class frmMonMain
         Me.dgtNumN.DigitBlankOpacity = 30
         Me.dgtNumN.DigitColor = System.Drawing.Color.Lime
         Me.dgtNumN.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumN.Location = New System.Drawing.Point(3, 24)
+        Me.dgtNumN.Location = New System.Drawing.Point(3, 19)
         Me.dgtNumN.Name = "dgtNumN"
-        Me.dgtNumN.Size = New System.Drawing.Size(70, 117)
+        Me.dgtNumN.Size = New System.Drawing.Size(64, 88)
         Me.dgtNumN.TabIndex = 7
         Me.dgtNumN.Value = "00"
         '
@@ -318,7 +320,7 @@ Partial Class frmMonMain
         Me.lblNormal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblNormal.Location = New System.Drawing.Point(3, 0)
         Me.lblNormal.Name = "lblNormal"
-        Me.lblNormal.Size = New System.Drawing.Size(70, 21)
+        Me.lblNormal.Size = New System.Drawing.Size(64, 16)
         Me.lblNormal.TabIndex = 5
         Me.lblNormal.Text = "F029"
         Me.lblNormal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -331,9 +333,9 @@ Partial Class frmMonMain
         Me.lblWarning.FixedWidth = False
         Me.lblWarning.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblWarning.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblWarning.Location = New System.Drawing.Point(79, 0)
+        Me.lblWarning.Location = New System.Drawing.Point(73, 0)
         Me.lblWarning.Name = "lblWarning"
-        Me.lblWarning.Size = New System.Drawing.Size(70, 21)
+        Me.lblWarning.Size = New System.Drawing.Size(65, 16)
         Me.lblWarning.TabIndex = 8
         Me.lblWarning.Text = "F030"
         Me.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -346,9 +348,9 @@ Partial Class frmMonMain
         Me.lblCritical.FixedWidth = False
         Me.lblCritical.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblCritical.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblCritical.Location = New System.Drawing.Point(155, 0)
+        Me.lblCritical.Location = New System.Drawing.Point(144, 0)
         Me.lblCritical.Name = "lblCritical"
-        Me.lblCritical.Size = New System.Drawing.Size(72, 21)
+        Me.lblCritical.Size = New System.Drawing.Size(66, 16)
         Me.lblCritical.TabIndex = 9
         Me.lblCritical.Text = "F031"
         Me.lblCritical.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -359,9 +361,9 @@ Partial Class frmMonMain
         Me.tmDigitalClock.DigitBlankOpacity = 30
         Me.tmDigitalClock.DigitColor = System.Drawing.Color.Lime
         Me.tmDigitalClock.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tmDigitalClock.Location = New System.Drawing.Point(3, 63)
+        Me.tmDigitalClock.Location = New System.Drawing.Point(52, 3)
         Me.tmDigitalClock.Name = "tmDigitalClock"
-        Me.tmDigitalClock.Size = New System.Drawing.Size(236, 81)
+        Me.tmDigitalClock.Size = New System.Drawing.Size(164, 48)
         Me.tmDigitalClock.TabIndex = 5
         Me.tmDigitalClock.Text = "DigitalClock1"
         '
@@ -369,10 +371,10 @@ Partial Class frmMonMain
         '
         Me.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.picLogo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.picLogo.Image = Global.eXperDB.Monitoring.My.Resources.Resources.eXperDBMonitoring
+        Me.picLogo.Image = CType(resources.GetObject("picLogo.Image"), System.Drawing.Image)
         Me.picLogo.Location = New System.Drawing.Point(3, 3)
         Me.picLogo.Name = "picLogo"
-        Me.picLogo.Size = New System.Drawing.Size(236, 54)
+        Me.picLogo.Size = New System.Drawing.Size(43, 48)
         Me.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.picLogo.TabIndex = 6
         Me.picLogo.TabStop = False
@@ -392,10 +394,10 @@ Partial Class frmMonMain
         Me.grpInstSumInfo.FillColor = System.Drawing.Color.Black
         Me.grpInstSumInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpInstSumInfo.LineWidth = 1
-        Me.grpInstSumInfo.Location = New System.Drawing.Point(3, 335)
+        Me.grpInstSumInfo.Location = New System.Drawing.Point(3, 201)
         Me.grpInstSumInfo.Name = "grpInstSumInfo"
         Me.grpInstSumInfo.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpInstSumInfo.Size = New System.Drawing.Size(236, 669)
+        Me.grpInstSumInfo.Size = New System.Drawing.Size(219, 788)
         Me.grpInstSumInfo.TabIndex = 5
         Me.grpInstSumInfo.TabStop = False
         Me.grpInstSumInfo.Text = "F032"
@@ -412,7 +414,7 @@ Partial Class frmMonMain
         Me.flpInstance.Location = New System.Drawing.Point(3, 32)
         Me.flpInstance.Margin = New System.Windows.Forms.Padding(0)
         Me.flpInstance.Name = "flpInstance"
-        Me.flpInstance.Size = New System.Drawing.Size(230, 634)
+        Me.flpInstance.Size = New System.Drawing.Size(213, 753)
         Me.flpInstance.TabIndex = 0
         '
         'rbGrp1
@@ -427,7 +429,7 @@ Partial Class frmMonMain
         Me.rbGrp1.Name = "rbGrp1"
         Me.rbGrp1.Padding = New System.Windows.Forms.Padding(3)
         Me.rbGrp1.Radius = 10
-        Me.rbGrp1.Size = New System.Drawing.Size(339, 53)
+        Me.rbGrp1.Size = New System.Drawing.Size(343, 1)
         Me.rbGrp1.TabIndex = 4
         Me.rbGrp1.Text = "GROUP1"
         Me.rbGrp1.UnCheckFillColor = System.Drawing.Color.Black
@@ -444,10 +446,10 @@ Partial Class frmMonMain
         Me.rbGrp2.Font = New System.Drawing.Font("Gulim", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.rbGrp2.ForeColor = System.Drawing.Color.White
         Me.rbGrp2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.rbGrp2.Location = New System.Drawing.Point(348, 3)
+        Me.rbGrp2.Location = New System.Drawing.Point(352, 3)
         Me.rbGrp2.Name = "rbGrp2"
         Me.rbGrp2.Radius = 10
-        Me.rbGrp2.Size = New System.Drawing.Size(339, 53)
+        Me.rbGrp2.Size = New System.Drawing.Size(343, 1)
         Me.rbGrp2.TabIndex = 4
         Me.rbGrp2.Text = "GROUP2"
         Me.rbGrp2.UnCheckFillColor = System.Drawing.Color.Black
@@ -464,10 +466,10 @@ Partial Class frmMonMain
         Me.rbGrp3.Font = New System.Drawing.Font("Gulim", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.rbGrp3.ForeColor = System.Drawing.Color.White
         Me.rbGrp3.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.rbGrp3.Location = New System.Drawing.Point(693, 3)
+        Me.rbGrp3.Location = New System.Drawing.Point(701, 3)
         Me.rbGrp3.Name = "rbGrp3"
         Me.rbGrp3.Radius = 10
-        Me.rbGrp3.Size = New System.Drawing.Size(339, 53)
+        Me.rbGrp3.Size = New System.Drawing.Size(343, 1)
         Me.rbGrp3.TabIndex = 4
         Me.rbGrp3.Text = "GROUP3"
         Me.rbGrp3.UnCheckFillColor = System.Drawing.Color.Black
@@ -484,10 +486,10 @@ Partial Class frmMonMain
         Me.rbGrp4.Font = New System.Drawing.Font("Gulim", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.rbGrp4.ForeColor = System.Drawing.Color.White
         Me.rbGrp4.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.rbGrp4.Location = New System.Drawing.Point(1038, 3)
+        Me.rbGrp4.Location = New System.Drawing.Point(1050, 3)
         Me.rbGrp4.Name = "rbGrp4"
         Me.rbGrp4.Radius = 10
-        Me.rbGrp4.Size = New System.Drawing.Size(340, 53)
+        Me.rbGrp4.Size = New System.Drawing.Size(345, 1)
         Me.rbGrp4.TabIndex = 4
         Me.rbGrp4.Text = "GROUP4"
         Me.rbGrp4.UnCheckFillColor = System.Drawing.Color.Black
@@ -515,7 +517,7 @@ Partial Class frmMonMain
         Me.grpCPU.Location = New System.Drawing.Point(3, 3)
         Me.grpCPU.Name = "grpCPU"
         Me.grpCPU.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpCPU.Size = New System.Drawing.Size(684, 484)
+        Me.grpCPU.Size = New System.Drawing.Size(692, 505)
         Me.grpCPU.TabIndex = 1
         Me.grpCPU.TabStop = False
         Me.grpCPU.Text = "F035"
@@ -538,7 +540,7 @@ Partial Class frmMonMain
         Me.tlpCPU.Name = "tlpCPU"
         Me.tlpCPU.RowCount = 1
         Me.tlpCPU.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpCPU.Size = New System.Drawing.Size(678, 449)
+        Me.tlpCPU.Size = New System.Drawing.Size(686, 470)
         Me.tlpCPU.TabIndex = 7
         '
         'radCpu
@@ -627,7 +629,7 @@ Partial Class frmMonMain
         Me.radCpu.Ranges.Add(RaiderRangeitem4)
         Me.radCpu.Ranges.Add(RaiderRangeitem5)
         Me.radCpu.Ranges.Add(RaiderRangeitem6)
-        Me.radCpu.Size = New System.Drawing.Size(366, 443)
+        Me.radCpu.Size = New System.Drawing.Size(371, 464)
         Me.radCpu.SpinIncreageDegree = 3.6!
         Me.radCpu.Spininterval = 3000
         Me.radCpu.Style = eXperDB.Controls.Raider.RaiderStyle.CircleChart
@@ -670,14 +672,14 @@ Partial Class frmMonMain
         Me.dgvGrpCpuSvrLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvGrpCpuSvrLst.EnableHeadersVisualStyles = False
         Me.dgvGrpCpuSvrLst.GridColor = System.Drawing.Color.Black
-        Me.dgvGrpCpuSvrLst.Location = New System.Drawing.Point(375, 3)
+        Me.dgvGrpCpuSvrLst.Location = New System.Drawing.Point(380, 3)
         Me.dgvGrpCpuSvrLst.MultiSelect = False
         Me.dgvGrpCpuSvrLst.Name = "dgvGrpCpuSvrLst"
         Me.dgvGrpCpuSvrLst.RowHeadersVisible = False
         Me.dgvGrpCpuSvrLst.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvGrpCpuSvrLst.RowTemplate.Height = 43
         Me.dgvGrpCpuSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpCpuSvrLst.Size = New System.Drawing.Size(300, 443)
+        Me.dgvGrpCpuSvrLst.Size = New System.Drawing.Size(303, 464)
         Me.dgvGrpCpuSvrLst.TabIndex = 6
         Me.dgvGrpCpuSvrLst.TabStop = False
         Me.dgvGrpCpuSvrLst.TagValueMatchColor = System.Drawing.Color.Red
@@ -730,10 +732,10 @@ Partial Class frmMonMain
         Me.grpMem.FillColor = System.Drawing.Color.Black
         Me.grpMem.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpMem.LineWidth = 1
-        Me.grpMem.Location = New System.Drawing.Point(693, 3)
+        Me.grpMem.Location = New System.Drawing.Point(701, 3)
         Me.grpMem.Name = "grpMem"
         Me.grpMem.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpMem.Size = New System.Drawing.Size(685, 484)
+        Me.grpMem.Size = New System.Drawing.Size(694, 505)
         Me.grpMem.TabIndex = 2
         Me.grpMem.TabStop = False
         Me.grpMem.Text = "F036"
@@ -756,8 +758,8 @@ Partial Class frmMonMain
         Me.tlpMem.Name = "tlpMem"
         Me.tlpMem.RowCount = 1
         Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 449.0!))
-        Me.tlpMem.Size = New System.Drawing.Size(679, 449)
+        Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 445.0!))
+        Me.tlpMem.Size = New System.Drawing.Size(688, 470)
         Me.tlpMem.TabIndex = 7
         '
         'radMem
@@ -846,7 +848,7 @@ Partial Class frmMonMain
         Me.radMem.Ranges.Add(RaiderRangeitem1)
         Me.radMem.Ranges.Add(RaiderRangeitem2)
         Me.radMem.Ranges.Add(RaiderRangeitem3)
-        Me.radMem.Size = New System.Drawing.Size(367, 443)
+        Me.radMem.Size = New System.Drawing.Size(372, 464)
         Me.radMem.SpinIncreageDegree = 3.6!
         Me.radMem.Spininterval = 3000
         Me.radMem.Style = eXperDB.Controls.Raider.RaiderStyle.CirclePoint
@@ -890,13 +892,13 @@ Partial Class frmMonMain
         Me.dgvGrpMemSvrLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvGrpMemSvrLst.EnableHeadersVisualStyles = False
         Me.dgvGrpMemSvrLst.GridColor = System.Drawing.Color.Black
-        Me.dgvGrpMemSvrLst.Location = New System.Drawing.Point(376, 3)
+        Me.dgvGrpMemSvrLst.Location = New System.Drawing.Point(381, 3)
         Me.dgvGrpMemSvrLst.MultiSelect = False
         Me.dgvGrpMemSvrLst.Name = "dgvGrpMemSvrLst"
         Me.dgvGrpMemSvrLst.RowHeadersVisible = False
         Me.dgvGrpMemSvrLst.RowTemplate.Height = 23
         Me.dgvGrpMemSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpMemSvrLst.Size = New System.Drawing.Size(300, 443)
+        Me.dgvGrpMemSvrLst.Size = New System.Drawing.Size(304, 464)
         Me.dgvGrpMemSvrLst.TabIndex = 5
         Me.dgvGrpMemSvrLst.TabStop = False
         Me.dgvGrpMemSvrLst.TagValueMatchColor = System.Drawing.Color.Red
@@ -948,10 +950,10 @@ Partial Class frmMonMain
         Me.grpDiskAccess.FillColor = System.Drawing.Color.Black
         Me.grpDiskAccess.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpDiskAccess.LineWidth = 1
-        Me.grpDiskAccess.Location = New System.Drawing.Point(3, 493)
+        Me.grpDiskAccess.Location = New System.Drawing.Point(3, 514)
         Me.grpDiskAccess.Name = "grpDiskAccess"
         Me.grpDiskAccess.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpDiskAccess.Size = New System.Drawing.Size(339, 239)
+        Me.grpDiskAccess.Size = New System.Drawing.Size(343, 249)
         Me.grpDiskAccess.TabIndex = 2
         Me.grpDiskAccess.TabStop = False
         Me.grpDiskAccess.Text = "F041"
@@ -997,7 +999,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.RowHeadersVisible = False
         Me.dgvGrpDiskAccess.RowTemplate.Height = 23
         Me.dgvGrpDiskAccess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpDiskAccess.Size = New System.Drawing.Size(333, 204)
+        Me.dgvGrpDiskAccess.Size = New System.Drawing.Size(337, 214)
         Me.dgvGrpDiskAccess.TabIndex = 6
         Me.dgvGrpDiskAccess.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpDiskAccess.UseTagValueMatchColor = False
@@ -1059,10 +1061,10 @@ Partial Class frmMonMain
         Me.grpDiskUsage.FillColor = System.Drawing.Color.Black
         Me.grpDiskUsage.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpDiskUsage.LineWidth = 1
-        Me.grpDiskUsage.Location = New System.Drawing.Point(348, 493)
+        Me.grpDiskUsage.Location = New System.Drawing.Point(352, 514)
         Me.grpDiskUsage.Name = "grpDiskUsage"
         Me.grpDiskUsage.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpDiskUsage.Size = New System.Drawing.Size(339, 239)
+        Me.grpDiskUsage.Size = New System.Drawing.Size(343, 249)
         Me.grpDiskUsage.TabIndex = 1
         Me.grpDiskUsage.TabStop = False
         Me.grpDiskUsage.Text = "F044"
@@ -1109,7 +1111,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.RowHeadersVisible = False
         Me.dgvGrpDiskUsage.RowTemplate.Height = 23
         Me.dgvGrpDiskUsage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpDiskUsage.Size = New System.Drawing.Size(333, 204)
+        Me.dgvGrpDiskUsage.Size = New System.Drawing.Size(337, 214)
         Me.dgvGrpDiskUsage.TabIndex = 7
         Me.dgvGrpDiskUsage.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpDiskUsage.UseTagValueMatchColor = False
@@ -1189,10 +1191,10 @@ Partial Class frmMonMain
         Me.grpSessionInfo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpSessionInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpSessionInfo.LineWidth = 1
-        Me.grpSessionInfo.Location = New System.Drawing.Point(3, 738)
+        Me.grpSessionInfo.Location = New System.Drawing.Point(3, 769)
         Me.grpSessionInfo.Name = "grpSessionInfo"
         Me.grpSessionInfo.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpSessionInfo.Size = New System.Drawing.Size(684, 239)
+        Me.grpSessionInfo.Size = New System.Drawing.Size(692, 251)
         Me.grpSessionInfo.TabIndex = 6
         Me.grpSessionInfo.TabStop = False
         Me.grpSessionInfo.Text = "F089"
@@ -1209,7 +1211,7 @@ Partial Class frmMonMain
         Me.chkIDLE.BackColor = System.Drawing.Color.Transparent
         Me.chkIDLE.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkIDLE.LineColor = System.Drawing.Color.Gray
-        Me.chkIDLE.Location = New System.Drawing.Point(530, 8)
+        Me.chkIDLE.Location = New System.Drawing.Point(538, 8)
         Me.chkIDLE.Name = "chkIDLE"
         Me.chkIDLE.Radius = 10
         Me.chkIDLE.Size = New System.Drawing.Size(61, 19)
@@ -1227,7 +1229,7 @@ Partial Class frmMonMain
         Me.nudBackendcnt.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
         Me.nudBackendcnt.FixedWidth = False
         Me.nudBackendcnt.Font = New System.Drawing.Font("Batang", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.nudBackendcnt.Location = New System.Drawing.Point(627, 5)
+        Me.nudBackendcnt.Location = New System.Drawing.Point(635, 5)
         Me.nudBackendcnt.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.nudBackendcnt.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.nudBackendcnt.Name = "nudBackendcnt"
@@ -1274,7 +1276,7 @@ Partial Class frmMonMain
         Me.dgvSessionInfo.RowHeadersVisible = False
         Me.dgvSessionInfo.RowTemplate.Height = 23
         Me.dgvSessionInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionInfo.Size = New System.Drawing.Size(678, 204)
+        Me.dgvSessionInfo.Size = New System.Drawing.Size(686, 216)
         Me.dgvSessionInfo.TabIndex = 5
         Me.dgvSessionInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSessionInfo.UseTagValueMatchColor = False
@@ -1407,11 +1409,11 @@ Partial Class frmMonMain
         Me.grpReqInfo.FillColor = System.Drawing.Color.Black
         Me.grpReqInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpReqInfo.LineWidth = 1
-        Me.grpReqInfo.Location = New System.Drawing.Point(693, 493)
+        Me.grpReqInfo.Location = New System.Drawing.Point(701, 514)
         Me.grpReqInfo.Name = "grpReqInfo"
         Me.grpReqInfo.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
         Me.tlpMain.SetRowSpan(Me.grpReqInfo, 2)
-        Me.grpReqInfo.Size = New System.Drawing.Size(685, 484)
+        Me.grpReqInfo.Size = New System.Drawing.Size(694, 506)
         Me.grpReqInfo.TabIndex = 0
         Me.grpReqInfo.TabStop = False
         Me.grpReqInfo.Text = "F040"
@@ -1433,7 +1435,7 @@ Partial Class frmMonMain
         Me.tlpRequest.RowCount = 2
         Me.tlpRequest.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.0!))
         Me.tlpRequest.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
-        Me.tlpRequest.Size = New System.Drawing.Size(679, 449)
+        Me.tlpRequest.Size = New System.Drawing.Size(688, 471)
         Me.tlpRequest.TabIndex = 1
         '
         'dgvReqInfo
@@ -1467,13 +1469,13 @@ Partial Class frmMonMain
         Me.dgvReqInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvReqInfo.EnableHeadersVisualStyles = False
         Me.dgvReqInfo.GridColor = System.Drawing.Color.Black
-        Me.dgvReqInfo.Location = New System.Drawing.Point(3, 272)
+        Me.dgvReqInfo.Location = New System.Drawing.Point(3, 285)
         Me.dgvReqInfo.MultiSelect = False
         Me.dgvReqInfo.Name = "dgvReqInfo"
         Me.dgvReqInfo.RowHeadersVisible = False
         Me.dgvReqInfo.RowTemplate.Height = 23
         Me.dgvReqInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvReqInfo.Size = New System.Drawing.Size(673, 174)
+        Me.dgvReqInfo.Size = New System.Drawing.Size(682, 183)
         Me.dgvReqInfo.TabIndex = 6
         Me.dgvReqInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvReqInfo.UseTagValueMatchColor = False
@@ -1684,7 +1686,7 @@ Partial Class frmMonMain
         Me.chrReqInfo.Series.Add(Series2)
         Me.chrReqInfo.Series.Add(Series3)
         Me.chrReqInfo.Series.Add(Series4)
-        Me.chrReqInfo.Size = New System.Drawing.Size(673, 263)
+        Me.chrReqInfo.Size = New System.Drawing.Size(682, 276)
         Me.chrReqInfo.TabIndex = 0
         Me.chrReqInfo.Text = "Chart1"
         '
@@ -1693,33 +1695,33 @@ Partial Class frmMonMain
         Me.mnuPopup.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.mnuPopup.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuConfig, Me.mnuAlertConfig, Me.mnuReports})
         Me.mnuPopup.Name = "mnuPopup"
-        Me.mnuPopup.Size = New System.Drawing.Size(217, 82)
+        Me.mnuPopup.Size = New System.Drawing.Size(211, 76)
         '
         'mnuConfig
         '
         Me.mnuConfig.Name = "mnuConfig"
-        Me.mnuConfig.Size = New System.Drawing.Size(216, 26)
+        Me.mnuConfig.Size = New System.Drawing.Size(210, 24)
         Me.mnuConfig.Text = "Configuration"
         '
         'mnuAlertConfig
         '
         Me.mnuAlertConfig.Name = "mnuAlertConfig"
-        Me.mnuAlertConfig.Size = New System.Drawing.Size(216, 26)
+        Me.mnuAlertConfig.Size = New System.Drawing.Size(210, 24)
         Me.mnuAlertConfig.Text = "Alert Configuration"
         '
         'mnuReports
         '
         Me.mnuReports.Name = "mnuReports"
-        Me.mnuReports.Size = New System.Drawing.Size(216, 26)
+        Me.mnuReports.Size = New System.Drawing.Size(210, 24)
         Me.mnuReports.Text = "Reports"
         '
         'pnlRibon
         '
         Me.pnlRibon.Controls.Add(Me.spnlRibon)
         Me.pnlRibon.Dock = System.Windows.Forms.DockStyle.Right
-        Me.pnlRibon.Location = New System.Drawing.Point(1638, 33)
+        Me.pnlRibon.Location = New System.Drawing.Point(1638, 42)
         Me.pnlRibon.Name = "pnlRibon"
-        Me.pnlRibon.Size = New System.Drawing.Size(278, 1043)
+        Me.pnlRibon.Size = New System.Drawing.Size(278, 1034)
         Me.pnlRibon.TabIndex = 10
         '
         'spnlRibon
@@ -1737,8 +1739,8 @@ Partial Class frmMonMain
         'spnlRibon.Panel2
         '
         Me.spnlRibon.Panel2.Controls.Add(Me.logEvents)
-        Me.spnlRibon.Size = New System.Drawing.Size(278, 1043)
-        Me.spnlRibon.SplitterDistance = 435
+        Me.spnlRibon.Size = New System.Drawing.Size(278, 1034)
+        Me.spnlRibon.SplitterDistance = 431
         Me.spnlRibon.TabIndex = 0
         '
         'dgvHealth
@@ -1786,7 +1788,7 @@ Partial Class frmMonMain
         Me.dgvHealth.RowsDefaultCellStyle = DataGridViewCellStyle38
         Me.dgvHealth.RowTemplate.Height = 23
         Me.dgvHealth.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvHealth.Size = New System.Drawing.Size(278, 435)
+        Me.dgvHealth.Size = New System.Drawing.Size(278, 431)
         Me.dgvHealth.TabIndex = 6
         Me.dgvHealth.TabStop = False
         Me.dgvHealth.TagValueMatchColor = System.Drawing.Color.Red
@@ -1845,7 +1847,7 @@ Partial Class frmMonMain
         Me.logEvents.LimitLineCount = 1000
         Me.logEvents.Location = New System.Drawing.Point(0, 0)
         Me.logEvents.Name = "logEvents"
-        Me.logEvents.Size = New System.Drawing.Size(278, 604)
+        Me.logEvents.Size = New System.Drawing.Size(278, 599)
         Me.logEvents.TabIndex = 0
         Me.logEvents.Text = ""
         '
@@ -1860,23 +1862,22 @@ Partial Class frmMonMain
         Me.tlpGroup.Controls.Add(Me.rbGrp3, 2, 0)
         Me.tlpGroup.Controls.Add(Me.rbGrp2, 1, 0)
         Me.tlpGroup.Controls.Add(Me.rbGrp1, 0, 0)
-        Me.tlpGroup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpGroup.Location = New System.Drawing.Point(245, 1)
+        Me.tlpGroup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tlpGroup.Location = New System.Drawing.Point(228, 1)
         Me.tlpGroup.Margin = New System.Windows.Forms.Padding(1)
         Me.tlpGroup.Name = "tlpGroup"
         Me.tlpGroup.RowCount = 1
         Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpGroup.Size = New System.Drawing.Size(1381, 59)
+        Me.tlpGroup.Size = New System.Drawing.Size(1398, 7)
         Me.tlpGroup.TabIndex = 11
         '
         'tlpStatus
         '
         Me.tlpStatus.ColumnCount = 1
         Me.tlpStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpStatus.Controls.Add(Me.TableLayoutPanel1, 0, 0)
         Me.tlpStatus.Controls.Add(Me.grpInstSumInfo, 0, 3)
         Me.tlpStatus.Controls.Add(Me.grpStausSuminfo, 0, 2)
-        Me.tlpStatus.Controls.Add(Me.tmDigitalClock, 0, 1)
-        Me.tlpStatus.Controls.Add(Me.picLogo, 0, 0)
         Me.tlpStatus.Controls.Add(Me.tlpAgentSvrState, 0, 4)
         Me.tlpStatus.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpStatus.Location = New System.Drawing.Point(1, 1)
@@ -1885,12 +1886,28 @@ Partial Class frmMonMain
         Me.tlpStatus.RowCount = 5
         Me.tlpBase.SetRowSpan(Me.tlpStatus, 2)
         Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60.0!))
-        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.888889!))
-        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.88889!))
-        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 68.88889!))
-        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.333333!))
-        Me.tlpStatus.Size = New System.Drawing.Size(242, 1041)
+        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0.0!))
+        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2729!))
+        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.77046!))
+        Me.tlpStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.956635!))
+        Me.tlpStatus.Size = New System.Drawing.Size(225, 1032)
         Me.tlpStatus.TabIndex = 12
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.44898!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.55102!))
+        Me.TableLayoutPanel1.Controls.Add(Me.tmDigitalClock, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.picLogo, 0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(219, 54)
+        Me.TableLayoutPanel1.TabIndex = 14
         '
         'tlpAgentSvrState
         '
@@ -1900,11 +1917,11 @@ Partial Class frmMonMain
         Me.tlpAgentSvrState.Controls.Add(Me.lblAgentSvrState, 0, 0)
         Me.tlpAgentSvrState.Controls.Add(Me.Label1, 0, 0)
         Me.tlpAgentSvrState.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpAgentSvrState.Location = New System.Drawing.Point(3, 1010)
+        Me.tlpAgentSvrState.Location = New System.Drawing.Point(3, 995)
         Me.tlpAgentSvrState.Name = "tlpAgentSvrState"
         Me.tlpAgentSvrState.RowCount = 1
         Me.tlpAgentSvrState.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpAgentSvrState.Size = New System.Drawing.Size(236, 28)
+        Me.tlpAgentSvrState.Size = New System.Drawing.Size(219, 34)
         Me.tlpAgentSvrState.TabIndex = 7
         '
         'lblAgentSvrState
@@ -1915,9 +1932,9 @@ Partial Class frmMonMain
         Me.lblAgentSvrState.FixedWidth = False
         Me.lblAgentSvrState.Font = New System.Drawing.Font("Gulim", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAgentSvrState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblAgentSvrState.Location = New System.Drawing.Point(109, 0)
+        Me.lblAgentSvrState.Location = New System.Drawing.Point(101, 0)
         Me.lblAgentSvrState.Name = "lblAgentSvrState"
-        Me.lblAgentSvrState.Size = New System.Drawing.Size(124, 28)
+        Me.lblAgentSvrState.Size = New System.Drawing.Size(115, 34)
         Me.lblAgentSvrState.TabIndex = 7
         Me.lblAgentSvrState.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -1931,7 +1948,7 @@ Partial Class frmMonMain
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(100, 28)
+        Me.Label1.Size = New System.Drawing.Size(92, 34)
         Me.Label1.TabIndex = 6
         Me.Label1.Text = "Agent server"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1950,32 +1967,32 @@ Partial Class frmMonMain
         Me.tlpMain.Controls.Add(Me.grpMem, 2, 0)
         Me.tlpMain.Controls.Add(Me.grpDiskAccess, 0, 1)
         Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMain.Location = New System.Drawing.Point(245, 62)
+        Me.tlpMain.Location = New System.Drawing.Point(228, 10)
         Me.tlpMain.Margin = New System.Windows.Forms.Padding(1)
         Me.tlpMain.Name = "tlpMain"
         Me.tlpMain.RowCount = 3
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.tlpMain.Size = New System.Drawing.Size(1381, 980)
+        Me.tlpMain.Size = New System.Drawing.Size(1398, 1023)
         Me.tlpMain.TabIndex = 1
         '
         'tlpBase
         '
         Me.tlpBase.ColumnCount = 2
-        Me.tlpBase.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
-        Me.tlpBase.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.0!))
+        Me.tlpBase.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.0!))
+        Me.tlpBase.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 86.0!))
         Me.tlpBase.Controls.Add(Me.tlpStatus, 0, 0)
         Me.tlpBase.Controls.Add(Me.tlpMain, 1, 1)
         Me.tlpBase.Controls.Add(Me.tlpGroup, 1, 0)
         Me.tlpBase.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpBase.Location = New System.Drawing.Point(2, 33)
+        Me.tlpBase.Location = New System.Drawing.Point(2, 42)
         Me.tlpBase.Margin = New System.Windows.Forms.Padding(1)
         Me.tlpBase.Name = "tlpBase"
         Me.tlpBase.RowCount = 2
-        Me.tlpBase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.940594!))
-        Me.tlpBase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.0594!))
-        Me.tlpBase.Size = New System.Drawing.Size(1627, 1043)
+        Me.tlpBase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0.8704062!))
+        Me.tlpBase.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 99.12959!))
+        Me.tlpBase.Size = New System.Drawing.Size(1627, 1034)
         Me.tlpBase.TabIndex = 13
         '
         'EspRight
@@ -1983,13 +2000,15 @@ Partial Class frmMonMain
         Me.EspRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.EspRight.CollapseImage = CType(resources.GetObject("EspRight.CollapseImage"), System.Drawing.Image)
         Me.EspRight.Dock = System.Windows.Forms.DockStyle.Right
+        Me.EspRight.Enabled = False
         Me.EspRight.Expand = True
         Me.EspRight.ExpandImage = CType(resources.GetObject("EspRight.ExpandImage"), System.Drawing.Image)
-        Me.EspRight.Location = New System.Drawing.Point(1629, 33)
+        Me.EspRight.Location = New System.Drawing.Point(1629, 42)
         Me.EspRight.Name = "EspRight"
-        Me.EspRight.Size = New System.Drawing.Size(9, 1043)
+        Me.EspRight.Size = New System.Drawing.Size(9, 1034)
         Me.EspRight.TabIndex = 9
         Me.EspRight.TabStop = False
+        Me.EspRight.Visible = False
         '
         'frmMonMain
         '
@@ -2038,6 +2057,7 @@ Partial Class frmMonMain
         CType(Me.dgvHealth, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlpGroup.ResumeLayout(False)
         Me.tlpStatus.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.tlpAgentSvrState.ResumeLayout(False)
         Me.tlpMain.ResumeLayout(False)
         Me.tlpBase.ResumeLayout(False)
@@ -2142,5 +2162,6 @@ Partial Class frmMonMain
     Friend WithEvents colDgvReqInfoRead As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvReqInfoCommit As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvReqInfoRollback As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
 
 End Class

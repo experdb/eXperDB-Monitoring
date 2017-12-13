@@ -59,20 +59,22 @@ Partial Class frmAdmin
         Me.colPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
         Me.colLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pnlSvtLst = New eXperDB.BaseControls.Panel()
+        Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.btnDelete = New eXperDB.BaseControls.Button()
+        Me.btnCreate = New eXperDB.BaseControls.Button()
+        Me.btnApply = New eXperDB.BaseControls.Button()
         Me.lblLogBatchM = New eXperDB.BaseControls.Label()
-        Me.lblLogBatchH = New eXperDB.BaseControls.Label()
-        Me.cmbLogBatchM = New eXperDB.BaseControls.ComboBox()
+        Me.btnModify = New eXperDB.BaseControls.Button()
+        Me.lblHealthTime = New eXperDB.BaseControls.Label()
         Me.cmbHealthTime = New eXperDB.BaseControls.ComboBox()
+        Me.cmbLogBatchM = New eXperDB.BaseControls.ComboBox()
+        Me.lblLogSaveDly = New eXperDB.BaseControls.Label()
+        Me.lblLogBatchH = New eXperDB.BaseControls.Label()
+        Me.nudLogSaveDly = New eXperDB.BaseControls.NumericUpDown()
         Me.cmbLogBatchH = New eXperDB.BaseControls.ComboBox()
         Me.lblLogBatch = New eXperDB.BaseControls.Label()
-        Me.btnModify = New eXperDB.BaseControls.Button()
-        Me.btnCreate = New eXperDB.BaseControls.Button()
-        Me.nudLogSaveDly = New eXperDB.BaseControls.NumericUpDown()
-        Me.btnDelete = New eXperDB.BaseControls.Button()
-        Me.btnApply = New eXperDB.BaseControls.Button()
-        Me.lblHealthTime = New eXperDB.BaseControls.Label()
-        Me.lblLogSaveDly = New eXperDB.BaseControls.Label()
         Me.pnlB = New eXperDB.BaseControls.Panel()
+        Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.FormMovePanel2 = New eXperDB.Controls.FormMovePanel()
         Me.FormControlBox2 = New eXperDB.Controls.FormControlBox()
@@ -87,8 +89,10 @@ Partial Class frmAdmin
         Me.pnlSvr.SuspendLayout()
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlSvtLst.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.nudLogSaveDly, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlB.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.FormMovePanel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -131,7 +135,7 @@ Partial Class frmAdmin
         Me.pnlSvr.Location = New System.Drawing.Point(3, 30)
         Me.pnlSvr.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlSvr.Name = "pnlSvr"
-        Me.pnlSvr.Size = New System.Drawing.Size(1246, 657)
+        Me.pnlSvr.Size = New System.Drawing.Size(1246, 652)
         Me.pnlSvr.TabIndex = 8
         '
         'dgvSvrLst
@@ -169,7 +173,7 @@ Partial Class frmAdmin
         Me.dgvSvrLst.RowHeadersVisible = False
         Me.dgvSvrLst.RowTemplate.Height = 23
         Me.dgvSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSvrLst.Size = New System.Drawing.Size(1244, 606)
+        Me.dgvSvrLst.Size = New System.Drawing.Size(1244, 595)
         Me.dgvSvrLst.TabIndex = 8
         Me.dgvSvrLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSvrLst.UseTagValueMatchColor = True
@@ -203,7 +207,7 @@ Partial Class frmAdmin
         Me.colCollectYN.HeaderText = "F207"
         Me.colCollectYN.Name = "colCollectYN"
         Me.colCollectYN.TrueValue = "Y"
-        Me.colCollectYN.Visible = False
+        Me.colCollectYN.Width = 44
         '
         'colAliasNm
         '
@@ -315,96 +319,268 @@ Partial Class frmAdmin
         '
         'pnlSvtLst
         '
-        Me.pnlSvtLst.Controls.Add(Me.lblLogBatchM)
-        Me.pnlSvtLst.Controls.Add(Me.lblLogBatchH)
-        Me.pnlSvtLst.Controls.Add(Me.cmbLogBatchM)
-        Me.pnlSvtLst.Controls.Add(Me.cmbHealthTime)
-        Me.pnlSvtLst.Controls.Add(Me.cmbLogBatchH)
-        Me.pnlSvtLst.Controls.Add(Me.lblLogBatch)
-        Me.pnlSvtLst.Controls.Add(Me.btnModify)
-        Me.pnlSvtLst.Controls.Add(Me.btnCreate)
-        Me.pnlSvtLst.Controls.Add(Me.nudLogSaveDly)
-        Me.pnlSvtLst.Controls.Add(Me.btnDelete)
-        Me.pnlSvtLst.Controls.Add(Me.btnApply)
-        Me.pnlSvtLst.Controls.Add(Me.lblHealthTime)
-        Me.pnlSvtLst.Controls.Add(Me.lblLogSaveDly)
+        Me.pnlSvtLst.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlSvtLst.Controls.Add(Me.TableLayoutPanel1)
         Me.pnlSvtLst.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlSvtLst.Location = New System.Drawing.Point(0, 606)
+        Me.pnlSvtLst.Location = New System.Drawing.Point(0, 595)
         Me.pnlSvtLst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlSvtLst.Name = "pnlSvtLst"
-        Me.pnlSvtLst.Size = New System.Drawing.Size(1244, 49)
+        Me.pnlSvtLst.Size = New System.Drawing.Size(1244, 55)
         Me.pnlSvtLst.TabIndex = 2
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 18
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 12.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 12.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 12.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnDelete, 16, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnCreate, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnApply, 15, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblLogBatchM, 13, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnModify, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblHealthTime, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbHealthTime, 4, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbLogBatchM, 12, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblLogSaveDly, 6, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblLogBatchH, 11, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.nudLogSaveDly, 7, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmbLogBatchH, 10, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblLogBatch, 9, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1242, 53)
+        Me.TableLayoutPanel1.TabIndex = 0
+        '
+        'btnDelete
+        '
+        Me.btnDelete.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnDelete.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnDelete.FixedHeight = False
+        Me.btnDelete.FixedWidth = False
+        Me.btnDelete.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnDelete.ForeColor = System.Drawing.Color.LightGray
+        Me.btnDelete.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnDelete.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnDelete.Location = New System.Drawing.Point(1145, 4)
+        Me.btnDelete.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Radius = 10
+        Me.btnDelete.Size = New System.Drawing.Size(84, 32)
+        Me.btnDelete.TabIndex = 1
+        Me.btnDelete.Text = "F015"
+        Me.btnDelete.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnDelete.UseRound = True
+        Me.btnDelete.UseVisualStyleBackColor = True
+        '
+        'btnCreate
+        '
+        Me.btnCreate.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnCreate.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnCreate.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnCreate.FixedHeight = False
+        Me.btnCreate.FixedWidth = False
+        Me.btnCreate.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnCreate.ForeColor = System.Drawing.Color.LightGray
+        Me.btnCreate.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnCreate.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnCreate.Location = New System.Drawing.Point(3, 4)
+        Me.btnCreate.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnCreate.Name = "btnCreate"
+        Me.btnCreate.Radius = 10
+        Me.btnCreate.Size = New System.Drawing.Size(84, 32)
+        Me.btnCreate.TabIndex = 10
+        Me.btnCreate.Text = "F140"
+        Me.btnCreate.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnCreate.UseRound = True
+        Me.btnCreate.UseVisualStyleBackColor = True
+        '
+        'btnApply
+        '
+        Me.btnApply.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnApply.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnApply.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnApply.FixedHeight = False
+        Me.btnApply.FixedWidth = False
+        Me.btnApply.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnApply.ForeColor = System.Drawing.Color.LightGray
+        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnApply.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnApply.Location = New System.Drawing.Point(1055, 4)
+        Me.btnApply.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnApply.Name = "btnApply"
+        Me.btnApply.Radius = 10
+        Me.btnApply.Size = New System.Drawing.Size(84, 32)
+        Me.btnApply.TabIndex = 0
+        Me.btnApply.Text = "F014"
+        Me.btnApply.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnApply.UseRound = True
+        Me.btnApply.UseVisualStyleBackColor = True
         '
         'lblLogBatchM
         '
         Me.lblLogBatchM.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
+        Me.lblLogBatchM.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblLogBatchM.FixedHeight = False
         Me.lblLogBatchM.FixedWidth = False
         Me.lblLogBatchM.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLogBatchM.ForeColor = System.Drawing.Color.Gray
-        Me.lblLogBatchM.Location = New System.Drawing.Point(1022, 12)
+        Me.lblLogBatchM.Location = New System.Drawing.Point(1004, 0)
         Me.lblLogBatchM.Name = "lblLogBatchM"
-        Me.lblLogBatchM.Size = New System.Drawing.Size(38, 26)
+        Me.lblLogBatchM.Size = New System.Drawing.Size(29, 40)
         Me.lblLogBatchM.TabIndex = 14
         Me.lblLogBatchM.Text = "F145"
         Me.lblLogBatchM.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'lblLogBatchH
+        'btnModify
         '
-        Me.lblLogBatchH.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
-        Me.lblLogBatchH.FixedHeight = False
-        Me.lblLogBatchH.FixedWidth = False
-        Me.lblLogBatchH.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblLogBatchH.ForeColor = System.Drawing.Color.Gray
-        Me.lblLogBatchH.Location = New System.Drawing.Point(920, 12)
-        Me.lblLogBatchH.Name = "lblLogBatchH"
-        Me.lblLogBatchH.Size = New System.Drawing.Size(38, 26)
-        Me.lblLogBatchH.TabIndex = 14
-        Me.lblLogBatchH.Text = "F144"
-        Me.lblLogBatchH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnModify.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnModify.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnModify.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnModify.FixedHeight = False
+        Me.btnModify.FixedWidth = False
+        Me.btnModify.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnModify.ForeColor = System.Drawing.Color.LightGray
+        Me.btnModify.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnModify.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnModify.Location = New System.Drawing.Point(93, 4)
+        Me.btnModify.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnModify.Name = "btnModify"
+        Me.btnModify.Radius = 10
+        Me.btnModify.Size = New System.Drawing.Size(84, 32)
+        Me.btnModify.TabIndex = 11
+        Me.btnModify.Text = "F141"
+        Me.btnModify.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnModify.UseRound = True
+        Me.btnModify.UseVisualStyleBackColor = True
         '
-        'cmbLogBatchM
+        'lblHealthTime
         '
-        Me.cmbLogBatchM.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbLogBatchM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbLogBatchM.FixedWidth = False
-        Me.cmbLogBatchM.FormattingEnabled = True
-        Me.cmbLogBatchM.Location = New System.Drawing.Point(965, 12)
-        Me.cmbLogBatchM.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbLogBatchM.Name = "cmbLogBatchM"
-        Me.cmbLogBatchM.Necessary = False
-        Me.cmbLogBatchM.Size = New System.Drawing.Size(50, 23)
-        Me.cmbLogBatchM.StatusTip = ""
-        Me.cmbLogBatchM.TabIndex = 13
-        Me.cmbLogBatchM.ValueText = ""
+        Me.lblHealthTime.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblHealthTime.FixedHeight = False
+        Me.lblHealthTime.FixedWidth = False
+        Me.lblHealthTime.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHealthTime.ForeColor = System.Drawing.Color.Gray
+        Me.lblHealthTime.Location = New System.Drawing.Point(195, 0)
+        Me.lblHealthTime.Name = "lblHealthTime"
+        Me.lblHealthTime.Size = New System.Drawing.Size(144, 40)
+        Me.lblHealthTime.TabIndex = 2
+        Me.lblHealthTime.Text = "F200"
+        Me.lblHealthTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbHealthTime
         '
         Me.cmbHealthTime.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbHealthTime.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbHealthTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbHealthTime.FixedWidth = False
         Me.cmbHealthTime.FormattingEnabled = True
         Me.cmbHealthTime.Items.AddRange(New Object() {"30"})
-        Me.cmbHealthTime.Location = New System.Drawing.Point(313, 11)
+        Me.cmbHealthTime.Location = New System.Drawing.Point(345, 13)
         Me.cmbHealthTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbHealthTime.Name = "cmbHealthTime"
         Me.cmbHealthTime.Necessary = False
-        Me.cmbHealthTime.Size = New System.Drawing.Size(102, 23)
+        Me.cmbHealthTime.Size = New System.Drawing.Size(94, 23)
         Me.cmbHealthTime.StatusTip = ""
         Me.cmbHealthTime.TabIndex = 13
         Me.cmbHealthTime.ValueText = ""
         '
+        'cmbLogBatchM
+        '
+        Me.cmbLogBatchM.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLogBatchM.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbLogBatchM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbLogBatchM.FixedWidth = False
+        Me.cmbLogBatchM.FormattingEnabled = True
+        Me.cmbLogBatchM.Location = New System.Drawing.Point(954, 13)
+        Me.cmbLogBatchM.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbLogBatchM.Name = "cmbLogBatchM"
+        Me.cmbLogBatchM.Necessary = False
+        Me.cmbLogBatchM.Size = New System.Drawing.Size(44, 23)
+        Me.cmbLogBatchM.StatusTip = ""
+        Me.cmbLogBatchM.TabIndex = 13
+        Me.cmbLogBatchM.ValueText = ""
+        '
+        'lblLogSaveDly
+        '
+        Me.lblLogSaveDly.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblLogSaveDly.FixedHeight = False
+        Me.lblLogSaveDly.FixedWidth = False
+        Me.lblLogSaveDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogSaveDly.ForeColor = System.Drawing.Color.Gray
+        Me.lblLogSaveDly.Location = New System.Drawing.Point(457, 0)
+        Me.lblLogSaveDly.Name = "lblLogSaveDly"
+        Me.lblLogSaveDly.Size = New System.Drawing.Size(144, 40)
+        Me.lblLogSaveDly.TabIndex = 2
+        Me.lblLogSaveDly.Text = "F012"
+        Me.lblLogSaveDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblLogBatchH
+        '
+        Me.lblLogBatchH.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
+        Me.lblLogBatchH.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblLogBatchH.FixedHeight = False
+        Me.lblLogBatchH.FixedWidth = False
+        Me.lblLogBatchH.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogBatchH.ForeColor = System.Drawing.Color.Gray
+        Me.lblLogBatchH.Location = New System.Drawing.Point(919, 0)
+        Me.lblLogBatchH.Name = "lblLogBatchH"
+        Me.lblLogBatchH.Size = New System.Drawing.Size(29, 40)
+        Me.lblLogBatchH.TabIndex = 14
+        Me.lblLogBatchH.Text = "F144"
+        Me.lblLogBatchH.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'nudLogSaveDly
+        '
+        Me.nudLogSaveDly.BackColor = System.Drawing.SystemColors.Window
+        Me.nudLogSaveDly.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
+        Me.nudLogSaveDly.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.nudLogSaveDly.FixedWidth = False
+        Me.nudLogSaveDly.Location = New System.Drawing.Point(607, 11)
+        Me.nudLogSaveDly.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.nudLogSaveDly.Maximum = New Decimal(New Integer() {7, 0, 0, 0})
+        Me.nudLogSaveDly.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudLogSaveDly.Name = "nudLogSaveDly"
+        Me.nudLogSaveDly.Necessary = False
+        Me.nudLogSaveDly.Size = New System.Drawing.Size(94, 25)
+        Me.nudLogSaveDly.StatusTip = ""
+        Me.nudLogSaveDly.TabIndex = 9
+        Me.nudLogSaveDly.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.nudLogSaveDly.ThousandsSeparator = True
+        Me.nudLogSaveDly.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
         'cmbLogBatchH
         '
         Me.cmbLogBatchH.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLogBatchH.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbLogBatchH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLogBatchH.FixedWidth = False
         Me.cmbLogBatchH.FormattingEnabled = True
-        Me.cmbLogBatchH.Location = New System.Drawing.Point(863, 12)
+        Me.cmbLogBatchH.Location = New System.Drawing.Point(869, 13)
         Me.cmbLogBatchH.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLogBatchH.Name = "cmbLogBatchH"
         Me.cmbLogBatchH.Necessary = False
-        Me.cmbLogBatchH.Size = New System.Drawing.Size(50, 23)
+        Me.cmbLogBatchH.Size = New System.Drawing.Size(44, 23)
         Me.cmbLogBatchH.StatusTip = ""
         Me.cmbLogBatchH.TabIndex = 13
         Me.cmbLogBatchH.ValueText = ""
@@ -412,160 +588,59 @@ Partial Class frmAdmin
         'lblLogBatch
         '
         Me.lblLogBatch.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
+        Me.lblLogBatch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblLogBatch.FixedHeight = False
         Me.lblLogBatch.FixedWidth = False
         Me.lblLogBatch.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLogBatch.ForeColor = System.Drawing.Color.Gray
-        Me.lblLogBatch.Location = New System.Drawing.Point(714, 12)
+        Me.lblLogBatch.Location = New System.Drawing.Point(719, 0)
         Me.lblLogBatch.Name = "lblLogBatch"
-        Me.lblLogBatch.Size = New System.Drawing.Size(149, 21)
+        Me.lblLogBatch.Size = New System.Drawing.Size(144, 40)
         Me.lblLogBatch.TabIndex = 12
         Me.lblLogBatch.Text = "F143"
-        Me.lblLogBatch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'btnModify
-        '
-        Me.btnModify.FixedWidth = False
-        Me.btnModify.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnModify.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
-        Me.btnModify.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnModify.ForeColor = System.Drawing.Color.LightGray
-        Me.btnModify.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnModify.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnModify.Location = New System.Drawing.Point(93, 9)
-        Me.btnModify.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnModify.Name = "btnModify"
-        Me.btnModify.Radius = 10
-        Me.btnModify.Size = New System.Drawing.Size(85, 27)
-        Me.btnModify.TabIndex = 11
-        Me.btnModify.Text = "F141"
-        Me.btnModify.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnModify.UseRound = True
-        Me.btnModify.UseVisualStyleBackColor = True
-        '
-        'btnCreate
-        '
-        Me.btnCreate.FixedWidth = False
-        Me.btnCreate.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnCreate.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
-        Me.btnCreate.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnCreate.ForeColor = System.Drawing.Color.LightGray
-        Me.btnCreate.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnCreate.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnCreate.Location = New System.Drawing.Point(6, 9)
-        Me.btnCreate.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnCreate.Name = "btnCreate"
-        Me.btnCreate.Radius = 10
-        Me.btnCreate.Size = New System.Drawing.Size(85, 27)
-        Me.btnCreate.TabIndex = 10
-        Me.btnCreate.Text = "F140"
-        Me.btnCreate.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnCreate.UseRound = True
-        Me.btnCreate.UseVisualStyleBackColor = True
-        '
-        'nudLogSaveDly
-        '
-        Me.nudLogSaveDly.BackColor = System.Drawing.SystemColors.Window
-        Me.nudLogSaveDly.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
-        Me.nudLogSaveDly.Location = New System.Drawing.Point(587, 12)
-        Me.nudLogSaveDly.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.nudLogSaveDly.Maximum = New Decimal(New Integer() {7, 0, 0, 0})
-        Me.nudLogSaveDly.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudLogSaveDly.Name = "nudLogSaveDly"
-        Me.nudLogSaveDly.Necessary = False
-        Me.nudLogSaveDly.Size = New System.Drawing.Size(100, 25)
-        Me.nudLogSaveDly.StatusTip = ""
-        Me.nudLogSaveDly.TabIndex = 9
-        Me.nudLogSaveDly.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.nudLogSaveDly.ThousandsSeparator = True
-        Me.nudLogSaveDly.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'btnDelete
-        '
-        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelete.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnDelete.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
-        Me.btnDelete.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnDelete.ForeColor = System.Drawing.Color.LightGray
-        Me.btnDelete.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnDelete.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnDelete.Location = New System.Drawing.Point(1156, 9)
-        Me.btnDelete.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Radius = 10
-        Me.btnDelete.Size = New System.Drawing.Size(70, 27)
-        Me.btnDelete.TabIndex = 1
-        Me.btnDelete.Text = "F015"
-        Me.btnDelete.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnDelete.UseRound = True
-        Me.btnDelete.UseVisualStyleBackColor = True
-        '
-        'btnApply
-        '
-        Me.btnApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnApply.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnApply.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
-        Me.btnApply.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnApply.ForeColor = System.Drawing.Color.LightGray
-        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnApply.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnApply.Location = New System.Drawing.Point(1069, 9)
-        Me.btnApply.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnApply.Name = "btnApply"
-        Me.btnApply.Radius = 10
-        Me.btnApply.Size = New System.Drawing.Size(70, 27)
-        Me.btnApply.TabIndex = 0
-        Me.btnApply.Text = "F014"
-        Me.btnApply.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnApply.UseRound = True
-        Me.btnApply.UseVisualStyleBackColor = True
-        '
-        'lblHealthTime
-        '
-        Me.lblHealthTime.FixedWidth = False
-        Me.lblHealthTime.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblHealthTime.ForeColor = System.Drawing.Color.Gray
-        Me.lblHealthTime.Location = New System.Drawing.Point(187, 12)
-        Me.lblHealthTime.Name = "lblHealthTime"
-        Me.lblHealthTime.Size = New System.Drawing.Size(120, 21)
-        Me.lblHealthTime.TabIndex = 2
-        Me.lblHealthTime.Text = "F200"
-        Me.lblHealthTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblLogSaveDly
-        '
-        Me.lblLogSaveDly.FixedWidth = False
-        Me.lblLogSaveDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblLogSaveDly.ForeColor = System.Drawing.Color.Gray
-        Me.lblLogSaveDly.Location = New System.Drawing.Point(445, 12)
-        Me.lblLogSaveDly.Name = "lblLogSaveDly"
-        Me.lblLogSaveDly.Size = New System.Drawing.Size(143, 21)
-        Me.lblLogSaveDly.TabIndex = 2
-        Me.lblLogSaveDly.Text = "F012"
-        Me.lblLogSaveDly.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblLogBatch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlB
         '
-        Me.pnlB.Controls.Add(Me.btnClose)
+        Me.pnlB.Controls.Add(Me.TableLayoutPanel2)
         Me.pnlB.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlB.Location = New System.Drawing.Point(3, 687)
+        Me.pnlB.Location = New System.Drawing.Point(3, 682)
         Me.pnlB.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlB.Name = "pnlB"
-        Me.pnlB.Size = New System.Drawing.Size(1246, 45)
+        Me.pnlB.Size = New System.Drawing.Size(1246, 50)
         Me.pnlB.TabIndex = 7
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 3
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnClose, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 2
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1246, 50)
+        Me.TableLayoutPanel2.TabIndex = 0
         '
         'btnClose
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClose.FixedHeight = False
+        Me.btnClose.FixedWidth = False
         Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.LightGray
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(1122, 6)
+        Me.btnClose.Location = New System.Drawing.Point(1119, 4)
         Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(100, 27)
+        Me.btnClose.Size = New System.Drawing.Size(114, 32)
         Me.btnClose.TabIndex = 0
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -590,15 +665,25 @@ Partial Class frmAdmin
         'FormControlBox2
         '
         Me.FormControlBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.FormControlBox2.CloseBox = New System.Drawing.Rectangle(1, 1, 20, 20)
+        Me.FormControlBox2.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox2.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FormControlBox2.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FormControlBox2.isCritical = True
         Me.FormControlBox2.isLock = False
         Me.FormControlBox2.isPower = True
+        Me.FormControlBox2.isRotation = True
         Me.FormControlBox2.LEDColor = System.Drawing.Color.Lime
         Me.FormControlBox2.Location = New System.Drawing.Point(1227, 0)
+        Me.FormControlBox2.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.FormControlBox2.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox2.MinBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.Name = "FormControlBox2"
+        Me.FormControlBox2.PowerBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox2.RotationBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
         Me.FormControlBox2.ShowRectCnt = 1
         Me.FormControlBox2.Size = New System.Drawing.Size(23, 22)
         Me.FormControlBox2.TabIndex = 1
@@ -610,6 +695,7 @@ Partial Class frmAdmin
         Me.FormControlBox2.UseMaxBox = False
         Me.FormControlBox2.UseMinBox = False
         Me.FormControlBox2.UsePowerBox = False
+        Me.FormControlBox2.UseRotationBox = True
         '
         'DataGridViewTextBoxColumn1
         '
@@ -711,8 +797,10 @@ Partial Class frmAdmin
         Me.pnlSvr.ResumeLayout(False)
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlSvtLst.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.nudLogSaveDly, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlB.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
         Me.FormMovePanel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -756,4 +844,6 @@ Partial Class frmAdmin
     Friend WithEvents colUser As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPW As eXperDB.Controls.DataGridViewPasswordTextBoxColumn
     Friend WithEvents colLstIP As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents TableLayoutPanel2 As eXperDB.BaseControls.TableLayoutPanel
 End Class

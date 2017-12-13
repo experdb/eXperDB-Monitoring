@@ -86,12 +86,18 @@ public class MonitoringInfoManager {
 					
 					HashMap<String, Object> select = new HashMap<String, Object>();
 					
-					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");
+					/* add to update ha info by robin 201712*/
+					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");
+					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002");
 					
 					select.put("instance_id", map.get("instance_id"));
 					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
+					select.put("ha_role", select.get("ha_role"));
+					select.put("ha_host", select.get("ha_host"));
+					select.put("ha_port", select.get("ha_port"));
 					
-					session.update("app.TB_INSTANCE_INFO_U001", select);
+					session.update("app.TB_INSTANCE_INFO_U002", select);
+				    /* add to update ha info by robin 201712 end*/
 					
 					session.commit();
 				} catch (Exception e) {

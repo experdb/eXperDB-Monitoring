@@ -74,8 +74,9 @@ Public Class GroupInfo
     ''' </summary>
     ''' <remarks></remarks>
     Public Class ServerInfo
-
-        Public Sub New(ByVal intInstanceID As Integer, ByVal strIP As String, ByVal strID As String, ByVal intPort As Integer, ByVal strDBName As String, ByVal AliasName As String, ByVal HostName As String, ByVal stTime As DateTime)
+	   'Robin-Start add HA info 
+        'Public Sub New(ByVal intInstanceID As Integer, ByVal strIP As String, ByVal strID As String, ByVal intPort As Integer, ByVal strDBName As String, ByVal AliasName As String, ByVal HostName As String, ByVal stTime As DateTime)
+        Public Sub New(ByVal intInstanceID As Integer, ByVal strIP As String, ByVal strID As String, ByVal intPort As Integer, ByVal strDBName As String, ByVal AliasName As String, ByVal HostName As String, ByVal stTime As DateTime, ByVal strHARole As String, ByVal strHAHost As String, ByVal strHAPort As String)
             _InstanceID = intInstanceID
             _IP = strIP
             _ID = strID
@@ -84,6 +85,11 @@ Public Class GroupInfo
             _AliasNm = AliasName
             _HostNm = HostName
             _StartTime = stTime
+	   'Robin-Start add HA info 
+            _HARole = strHARole
+            _HAHost = strHAHost
+            _HAPort = strHAPort
+    	   'Robin-End add HA info end
         End Sub
 
         Private _InstanceID As Integer = -1
@@ -203,6 +209,44 @@ Public Class GroupInfo
                 End If
             End Get
         End Property
+   'Robin-Start add HA info 
+        Private _HARole As String = ""
+        ''' <summary>
+        ''' HA Host Name
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        ReadOnly Property HARole As String
+            Get
+                Return _HARole
+            End Get
+        End Property
+        Private _HAHost As String = ""
+        ''' <summary>
+        ''' Host Name
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        ReadOnly Property HAHost As String
+            Get
+                Return _HAHost
+            End Get
+        End Property
+        Private _HAPort As String = ""
+        ''' <summary>
+        ''' Host Name
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        ReadOnly Property HAPort As String
+            Get
+                Return _HAPort
+            End Get
+        End Property
+   'Robin-end add HA info end
     End Class
 
 

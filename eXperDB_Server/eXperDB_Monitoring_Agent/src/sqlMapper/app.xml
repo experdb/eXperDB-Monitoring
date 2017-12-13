@@ -1297,7 +1297,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!-- StartCollect START -->
 <!-- ********************************************************** -->
 	<select id="EXPERDBMA_BT_UPTIME_MAXCONN_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
-		 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 */
+		 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 24e9ab7301ff1966da4fb30dc1538882 */
 		        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
 		        SETTING AS MAX_CONN_CNT, 
 		        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
@@ -1306,7 +1306,48 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		  FROM PG_SETTINGS 
 		  WHERE NAME='max_connections'
 	</select>
-
+<!--	add to update ha_info by robin 201712  -->
+	<select id="EXPERDBMA_BT_UPTIME_MAXCONN_002" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+		<choose>
+			<when test="instance_db_version >= '9.6'">
+					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 24e9ab7301ff1966da4fb30dc1538882 */
+					        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
+					        SETTING AS MAX_CONN_CNT, 
+					        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
+					        GET_HOSTNAME() AS HOST_NAME,
+					        VERSION() AS PG_VERSION,
+					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE 'M' END AS HA_ROLE, 
+					        CASE WHEN pg_is_in_recovery() THEN 
+								(SELECT trim(ARR_COL, 'host=') FROM 
+									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
+								   	   FROM pg_stat_wal_receiver) ARR 
+							  	  WHERE ARR_COL LIKE 'host=%' 
+							  	  ORDER BY arr_col) ELSE '-' END AS HA_HOST, 
+					        CASE WHEN pg_is_in_recovery() THEN 
+								(SELECT trim(ARR_COL, 'port=') FROM 
+									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
+								   		FROM pg_stat_wal_receiver) ARR2 
+							  	  WHERE ARR_COL LIKE 'port=%' 
+							  	  ORDER BY arr_col) ELSE '-' END AS HA_PORT
+					  FROM PG_SETTINGS 
+					 WHERE NAME='max_connections'
+			</when>
+			<otherwise>
+					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 24e9ab7301ff1966da4fb30dc1538882 */
+					        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
+					        SETTING AS MAX_CONN_CNT, 
+					        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
+					        GET_HOSTNAME() AS HOST_NAME,
+					        VERSION() AS PG_VERSION,
+					  		CASE WHEN pg_is_in_recovery() THEN 'A' ELSE 'M' END AS HA_ROLE, 
+		       				CASE WHEN pg_is_in_recovery() THEN '-' ELSE '-' END AS HA_HOST, 
+		       				CASE WHEN pg_is_in_recovery() THEN '-' ELSE '-' END AS HA_PORT       
+					   FROM PG_SETTINGS 
+					   WHERE NAME='max_connections'
+			</otherwise>
+		</choose>
+	</select>
+<!--	add to update ha_info by robin 201712  end -->
 	<update id="TB_INSTANCE_INFO_U001" parameterType="hashmap" >
 		UPDATE TB_INSTANCE_INFO 
 		   SET INSTANCE_UPTIME = #{instance_uptime}, 
@@ -1316,6 +1357,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   PG_VERSION = #{pg_version}  
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
+<!--	add to update ha_info by robin 201712  -->
+	<update id="TB_INSTANCE_INFO_U002" parameterType="hashmap" >
+		UPDATE TB_INSTANCE_INFO 
+		   SET INSTANCE_UPTIME = #{instance_uptime}, 
+			   MAX_CONN_CNT = #{max_conn_cnt},
+			   CPU_CLOCKS = #{cpu_clocks},
+			   HOST_NAME = #{host_name},
+			   PG_VERSION = #{pg_version},
+			   HA_ROLE = #{ha_role},
+			   HA_HOST = #{ha_host},
+			   HA_PORT = #{ha_port}
+		 WHERE INSTANCE_ID=#{instance_id}
+	</update>
+<!--	add to update ha_info by robin 201712  end -->
 <!-- ********************************************************** -->
 <!-- StartCollect END -->
 <!-- ********************************************************** -->

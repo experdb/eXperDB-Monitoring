@@ -46,10 +46,12 @@ Partial Class frmConnection
         Me.btnTest = New eXperDB.BaseControls.Button()
         Me.lblAlias = New eXperDB.BaseControls.Label()
         Me.txtAlias = New eXperDB.BaseControls.TextBox()
+        Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.FormMovePanel1.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
         CType(Me.nudCollectSecond, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlSvrTestAct.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FormMovePanel1
@@ -87,8 +89,8 @@ Partial Class frmConnection
         Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
         Me.FormControlBox1.Name = "FormControlBox1"
-        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(-43, 1, 20, 20)
-        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
+        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.ShowRectCnt = 3
         Me.FormControlBox1.Size = New System.Drawing.Size(67, 22)
         Me.FormControlBox1.TabIndex = 1
@@ -375,9 +377,7 @@ Partial Class frmConnection
         '
         'pnlSvrTestAct
         '
-        Me.pnlSvrTestAct.Controls.Add(Me.btnAct)
-        Me.pnlSvrTestAct.Controls.Add(Me.btnClose)
-        Me.pnlSvrTestAct.Controls.Add(Me.btnTest)
+        Me.pnlSvrTestAct.Controls.Add(Me.TableLayoutPanel1)
         Me.pnlSvrTestAct.Location = New System.Drawing.Point(3, 452)
         Me.pnlSvrTestAct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlSvrTestAct.Name = "pnlSvrTestAct"
@@ -386,18 +386,20 @@ Partial Class frmConnection
         '
         'btnAct
         '
-        Me.btnAct.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAct.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnAct.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnAct.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnAct.FixedHeight = False
+        Me.btnAct.FixedWidth = False
         Me.btnAct.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAct.ForeColor = System.Drawing.Color.LightGray
         Me.btnAct.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAct.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnAct.Location = New System.Drawing.Point(346, 5)
+        Me.btnAct.Location = New System.Drawing.Point(340, 4)
         Me.btnAct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnAct.Name = "btnAct"
         Me.btnAct.Radius = 10
-        Me.btnAct.Size = New System.Drawing.Size(70, 27)
+        Me.btnAct.Size = New System.Drawing.Size(84, 33)
         Me.btnAct.TabIndex = 2
         Me.btnAct.Text = "F140/F141"
         Me.btnAct.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -406,18 +408,20 @@ Partial Class frmConnection
         '
         'btnClose
         '
-        Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnClose.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClose.FixedHeight = False
+        Me.btnClose.FixedWidth = False
         Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.LightGray
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(433, 5)
+        Me.btnClose.Location = New System.Drawing.Point(430, 4)
         Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(70, 27)
+        Me.btnClose.Size = New System.Drawing.Size(84, 33)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -426,18 +430,20 @@ Partial Class frmConnection
         '
         'btnTest
         '
-        Me.btnTest.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnTest.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnTest.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
+        Me.btnTest.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnTest.FixedHeight = False
+        Me.btnTest.FixedWidth = False
         Me.btnTest.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnTest.ForeColor = System.Drawing.Color.LightGray
         Me.btnTest.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnTest.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnTest.Location = New System.Drawing.Point(3, 5)
+        Me.btnTest.Location = New System.Drawing.Point(3, 4)
         Me.btnTest.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnTest.Name = "btnTest"
         Me.btnTest.Radius = 10
-        Me.btnTest.Size = New System.Drawing.Size(70, 27)
+        Me.btnTest.Size = New System.Drawing.Size(84, 33)
         Me.btnTest.TabIndex = 1
         Me.btnTest.Text = "F002"
         Me.btnTest.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -477,6 +483,24 @@ Partial Class frmConnection
         Me.txtAlias.TabIndex = 15
         Me.txtAlias.Value = ""
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 4
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnTest, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnAct, 2, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(517, 41)
+        Me.TableLayoutPanel1.TabIndex = 0
+        '
         'frmConnection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
@@ -496,6 +520,7 @@ Partial Class frmConnection
         Me.tlpSvrChk.PerformLayout()
         CType(Me.nudCollectSecond, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlSvrTestAct.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -522,4 +547,5 @@ Partial Class frmConnection
     Friend WithEvents btnAct As eXperDB.BaseControls.Button
     Friend WithEvents lblAlias As eXperDB.BaseControls.Label
     Friend WithEvents txtAlias As eXperDB.BaseControls.TextBox
+    Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
 End Class

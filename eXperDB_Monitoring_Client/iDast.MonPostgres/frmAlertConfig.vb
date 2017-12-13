@@ -10,9 +10,11 @@ Public Class frmAlertConfig
 
         btnSave.Text = p_clsMsgData.fn_GetData("F014")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
+        btnHealthInit.Text = p_clsMsgData.fn_GetData("F226")
 
         ' 일반설정 탭 
         grpMain.Text = p_clsMsgData.fn_GetData("F199")
+        pnlAlertConfig.Text = p_clsMsgData.fn_GetData("F199")
 
         ' Me.tbMain.TabPages.Clear()
 

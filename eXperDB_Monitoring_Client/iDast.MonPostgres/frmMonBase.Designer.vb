@@ -73,7 +73,7 @@ Partial Class frmMonBase
         Me.FormControlBox1.UseMaxBox = True
         Me.FormControlBox1.UseMinBox = True
         Me.FormControlBox1.UsePowerBox = True
-        Me.FormControlBox1.UseRotationBox = True
+        Me.FormControlBox1.UseRotationBox = False
         '
         'frmMonBase
         '

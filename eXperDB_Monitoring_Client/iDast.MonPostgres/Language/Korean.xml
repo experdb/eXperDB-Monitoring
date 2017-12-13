@@ -1954,7 +1954,7 @@
   </ROW>
   <ROW ID="F240" PARAMS="1">
     <DESC>GET MORE LOG</DESC>
-    <DATA><![CDATA[Get More Log]]></DATA>
+    <DATA><![CDATA[More]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1979,6 +1979,14 @@
   <ROW ID="F243" PARAMS="0">
     <DESC>그룹순환주기</DESC>
     <DATA><![CDATA[그룹순환주기]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F244" PARAMS="0">
+    <DESC>Get Log files</DESC>
+    <DATA><![CDATA[로그파일리스트]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2023,6 +2031,18 @@
   <ROW ID="F309" PARAMS="0">
     <DESC>연결테스트</DESC>
     <DATA><![CDATA[연결]]></DATA>
+  </ROW>
+  <ROW ID="F310" PARAMS="0">
+    <DESC>그룹명</DESC>
+    <DATA><![CDATA[그룹명]]></DATA>
+  </ROW>
+  <ROW ID="F311" PARAMS="0">
+    <DESC>모니터링 서버 리스트 문구</DESC>
+    <DATA><![CDATA[모리터링 리스트]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
   </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다.\n지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 \nAUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
@@ -2146,7 +2166,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
+    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n\n다시 다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2255,6 +2275,46 @@
     <CATEGORY />
     <COLUMNS />
     <VALUECAST />
-  </ROW>  
+  </ROW>
+  <ROW ID="M023" PARAMS="0">
+    <DESC>모니터링 그룹 정보 저장</DESC>
+    <DATA><![CDATA[모니터링 그룹 정보가 저장되었습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M024" PARAMS="0">
+    <DESC>DB 접속 정보 실패</DESC>
+    <DATA><![CDATA[모니터링 그룹 정보의 저장을 실패했습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M025" PARAMS="0">
+    <DESC>모니터링서버리스트적용메시지</DESC>
+    <DATA><![CDATA[모니터링 서비 리스트 변경사항을 적용하시겠습니까?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M026" PARAMS="0">
+    <DESC>마스터 인스턴스</DESC>
+    <DATA><![CDATA[마스터 인스턴스부터 추가해주십시오.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M027" PARAMS="0">
+    <DESC>모니터링서버리스트</DESC>
+    <DATA><![CDATA[모니터링 서버 추가 후 실행하십시오.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW />
 </ROWS>

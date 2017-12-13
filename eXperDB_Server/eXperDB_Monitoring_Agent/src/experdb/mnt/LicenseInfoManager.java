@@ -30,7 +30,8 @@ public class LicenseInfoManager {
 /* Test Code*/
  	public static void main(String... args) {
 		try {
-			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000005201711070000000008:00:27:d8:14:d7");
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000005201711070000000008:00:27:d8:14:d7");
+			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000005201711070000000098:83:89:1D:DF:55");
 			String serialKey = LicenseInfoManager.decrypt(encSerialKey);
 			System.out.println(encSerialKey); 
 			System.out.println(serialKey);
@@ -43,8 +44,7 @@ public class LicenseInfoManager {
 			System.out.println(serialKey.substring(57, 62));; //INSTANCE 개수(00000)       
 			System.out.println(serialKey.substring(62, 70));; //라이선스 생성일자(00000000)
 			System.out.println(serialKey.substring(70, 78));; //라이선스 만료일자(00000000) 
-			System.out.println(serialKey.substring(78, 95)); //AGENT MAC (--:--:--:--:--:--) 
-			
+			System.out.println(serialKey.substring(78, 95)); //AGENT MAC (--:--:--:--:--:--)
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

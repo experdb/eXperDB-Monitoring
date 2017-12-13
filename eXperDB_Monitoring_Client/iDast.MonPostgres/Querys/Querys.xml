@@ -75,6 +75,14 @@
       SELECT SETVAL('{0}',{1})
     ]]>
     </DATA>
+  </ROW>  
+  <ROW ID="SELECTGROUPNAME" PARAMS="2">
+    <DESC>SELECTGROUPNAME</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT GROUP_NAME FROM TB_GROUP_INFO WHERE GROUP_ID = {0} ORDER BY GROUP_ID
+    ]]>
+    </DATA>
   </ROW>
   <ROW ID="INSERTSERVERLIST" PARAMS="12">
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
@@ -141,6 +149,37 @@
     </DATA>
     <COMMENTS />
   </ROW>
+  <ROW ID="SELECTSERVERLISTBYGROUP" PARAMS="0">
+    <DESC>서버 목록을 가져온다.</DESC>
+    <DATA>
+      <![CDATA[ 
+      SELECT
+         INSTANCE_ID
+        ,SERVER_IP
+        ,SERVICE_PORT
+        ,DBMS_TYPE
+        ,CONN_USER_ID
+        ,convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') AS CONN_USER_PWD
+        ,COLLECT_YN
+        ,MON_GROUP
+        ,COLLECT_PERIOD_SEC
+        ,CONN_DB_NAME
+        ,CONN_NAME
+        ,LAST_MOD_IP
+        ,LAST_MOD_DT
+        ,CONN_SCHEMA_NAME
+        ,HOST_NAME
+        ,INSTANCE_UPTIME::TIMESTAMP(0) AS INSTANCE_UPTIME
+        ,HA_ROLE
+        ,HA_HOST
+        ,HA_PORT
+      FROM TB_INSTANCE_INFO 
+      WHERE DELETE_YN = 'N' AND COLLECT_YN = 'Y'
+   ORDER BY INSTANCE_ID
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
 	<ROW ID="SELECTSERVERLISTADMIN" PARAMS="0">
 		<DESC>서버 목록을 가져온다.</DESC>
 		<DATA>
@@ -191,7 +230,32 @@
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="DELETESERVERLIST" PARAMS="12">
+  <ROW ID="UPDATEMONGROUP" PARAMS="12">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      UPDATE TB_INSTANCE_INFO 
+      SET MON_GROUP = {1} 
+        ,LAST_MOD_IP = '{2}' 
+        ,LAST_MOD_DT = NOW()
+      WHERE INSTANCE_ID = {0}
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="UPDATEGROUP" PARAMS="12">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      UPDATE TB_GROUP_INFO 
+      SET GROUP_NAME = '{1}' 
+        ,LAST_MOD_IP = '{2}' 
+        ,LAST_MOD_DT = NOW()
+      WHERE GROUP_ID = '{0}' 
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>  <ROW ID="DELETESERVERLIST" PARAMS="12">
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
@@ -654,6 +718,9 @@
       , C.HCHK_NAME AS HCHK_NAME    
       , CASE WHEN B.VALUE IS NULL THEN 0 ELSE ROUND(B.VALUE,2) END AS VALUE
       , C.UNIT AS UNIT
+      , A.HA_ROLE AS HA_ROLE
+      , A.HA_HOST AS HA_HOST              
+      , A.HA_PORT AS HA_PORT
       , (CASE /* FIXED_THRESHOLD ='0' CRITICAL -> 300 WARNING -> 200 NORMAL -> 100 */
              WHEN (B.VALUE >= CRITICAL_THRESHOLD AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='0') THEN 300 
              WHEN (B.VALUE >= WARNING_THRESHOLD  AND B.VALUE < CRITICAL_THRESHOLD AND IS_HIGHER ='0' AND FIXED_THRESHOLD ='0') THEN 200

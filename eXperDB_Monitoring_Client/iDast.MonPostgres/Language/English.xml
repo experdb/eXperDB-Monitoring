@@ -146,7 +146,7 @@
   </ROW>
   <ROW ID="F013" PARAMS="0">
     <DESC>서버 리스트 문구</DESC>
-    <DATA><![CDATA[Monitoring Server List]]></DATA>
+    <DATA><![CDATA[Server List]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1954,7 +1954,7 @@
   </ROW>
   <ROW ID="F240" PARAMS="1">
     <DESC>GET MORE LOG</DESC>
-    <DATA><![CDATA[Get More Log]]></DATA>
+    <DATA><![CDATA[More]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1979,6 +1979,14 @@
   <ROW ID="F243" PARAMS="0">
     <DESC>Group rotate period</DESC>
     <DATA><![CDATA[Group rotate period]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F244" PARAMS="0">
+    <DESC>Get Log files</DESC>
+    <DATA><![CDATA[Log files]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2023,6 +2031,18 @@
   <ROW ID="F309" PARAMS="0">
     <DESC>Connecting Test</DESC>
     <DATA><![CDATA[Connect]]></DATA>
+  </ROW>
+  <ROW ID="F310" PARAMS="0">
+    <DESC>Group name</DESC>
+    <DATA><![CDATA[Group Name]]></DATA>
+  </ROW>
+  <ROW ID="F311" PARAMS="0">
+    <DESC>모니터링 서버 리스트 문구</DESC>
+    <DATA><![CDATA[Monitoring List]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
   </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
@@ -2146,7 +2166,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[This disables ALERT sreen. In order to enable this, click enable button on the top of the window.]]></DATA>
+    <DATA><![CDATA[This disables ALERT sreen. In order to enable this,\n\n click enable button on the top of the window.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2255,6 +2275,46 @@
     <CATEGORY />
     <COLUMNS />
     <VALUECAST />
-  </ROW>    
+  </ROW>
+  <ROW ID="M023" PARAMS="0">
+    <DESC>모니터링 그룹 정보 저장</DESC>
+    <DATA><![CDATA[Saved successfully monitorin group infomation.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M024" PARAMS="0">
+    <DESC>DB 접속 정보 실패</DESC>
+    <DATA><![CDATA[Failed to Save monitoring group information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M025" PARAMS="0">
+    <DESC>모니터링서버리스트적용메시지</DESC>
+    <DATA><![CDATA[do you want to apply changes for monitorin list?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M026" PARAMS="0">
+    <DESC>마스터 인스턴스</DESC>
+    <DATA><![CDATA[This instance is slave. Please add master instance first.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M027" PARAMS="0">
+    <DESC>모니터링서버리스트</DESC>
+    <DATA><![CDATA[Pleae start after adding monitoring server]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW />
 </ROWS>

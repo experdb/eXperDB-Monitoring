@@ -121,7 +121,7 @@ Public Class RadioButton
     Private _WOpacity As Integer = 30
     Private Sub Tm_Tick(sender As Object, e As EventArgs) Handles Tm.Tick
         _WOpacity += 30
-        If _WOpacity > 255 Then
+        If _WOpacity > 150 Then
             _WOpacity = 30
         End If
 

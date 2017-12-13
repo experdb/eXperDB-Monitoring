@@ -173,10 +173,12 @@
         InitForm()
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         sb_SetRbGrp(_GrpList)
+        FormMovePanel1.Text += " [" + _GrpList.Item(0).GroupName + "]"
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
-
+	' 그룹 라디오 감추고 그룹명을 타이틀에 초기화는 form load에서 
+        sb_InitControl()
 
 
     End Sub
@@ -312,7 +314,7 @@
             Dim tmpCtl As BaseControls.RadioButton = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
             tmpCtl.Text = grpLst.Item(i).GroupName
             tmpCtl.ForeColor = System.Drawing.Color.Gray
-            tmpCtl.Visible = True
+            tmpCtl.Visible = False '라디오버튼 일시 감춤
             ' tag 에 그룹에 속한 서버 리스트를 저장한다. 
             ' 버튼 선택시 자신의 Tag 에서 해당 리스트 목록을 가져오기 위함. 
             tmpCtl.Tag = GrpList.Item(i)
@@ -360,11 +362,26 @@
             ' 인스턴스에 따른 인스턴스 컨트롤 변경 종료 
         End If
     End Sub
+    ' 그룹 라디오 감추고 그룹명을 타이틀에 초기화는 form load에서 
+    Private Sub sb_InitControl()
 
+        ' 컨트롤의 Tag에서 인스턴스 정보를 가져온다 
+        Dim grpInfo As GroupInfo = _GrpList.Item(0)
+        ' 인스턴스에 따른 인스턴스 컨트롤 변경 시작 
+        ' 인스턴스 상태 정보를 변경한다. 
+        sb_SetInstanceStatus(grpInfo.Items)
+        ' CPU 관련 목록을 변경한다. 
+        sb_SetGrpCPU(grpInfo.Items)
+        ' 메모리 관련 목록을 변경한다. 
+        sb_SetGrpMem(grpInfo.Items)
+        ' Disk Access , Disk Usage
+        sb_setGrpDiskInfos()
+        ' Request Info 
+        sb_SetGrpReqinfo(grpInfo.Items)
 
-
-
-
+        '서버 Alert ServerInfo
+        _GrpListServerinfo = grpInfo.Items
+    End Sub
     Private Sub sb_SetGrpReqinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
             tmpSeries.Points.Clear()
@@ -488,12 +505,15 @@
         flpInstance.Controls.Clear()
 
 
-
         ' 인스턴스 수 만큼 화면에 보여준다. 
         For i As Integer = 0 To svrLst.Count - 1
             Dim tmpCtl As Progress3D = CreateProgress3D("prog3Dinst" & i + 1)
-
-            tmpCtl.Text = svrLst.Item(i).ShowNm
+	    ' 인스턴스 정보 문자 출력
+            tmpCtl.HeadText = svrLst.Item(i).HARole
+            tmpCtl.Text = " "
+            tmpCtl.Text += svrLst.Item(i).ShowNm
+            tmpCtl.SubText = "IP :" & svrLst.Item(i).IP
+            tmpCtl.SubText2 = "Port :" & svrLst.Item(i).Port
             tmpCtl.Tag = svrLst.Item(i)
             flpInstance.Controls.Add(tmpCtl)
             AddHandler tmpCtl.SelectedChanged, AddressOf prog3Dinst1_SelectedChanged
@@ -549,7 +569,7 @@
         tmpCtl.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         tmpCtl.isSelected = False
         tmpCtl.Text = "Server #8"
-        tmpCtl.UseAnimation = True
+        tmpCtl.UseAnimation = False
         tmpCtl.UseSelected = True
         tmpCtl.UseTitle = True
         tmpCtl.Value = 0
@@ -723,7 +743,7 @@
 
 
             tmCollect.Stop()
-
+            tmCollect.Dispose()
 
 
 
@@ -770,6 +790,8 @@
     Private Sub tmRotateGroup_Tick(sender As Object, e As EventArgs) Handles tmRotateGroup.Tick
 
         Try
+            tmCollect.Stop()
+            tmCollect.Dispose()
             tmRotateGroup.Stop()
             tmRotateGroup.Dispose()
             
@@ -798,6 +820,7 @@
             GC.Collect()
         Finally
             tmRotateGroup.Start()
+            tmCollect.Start()
         End Try
 
     End Sub
@@ -834,16 +857,20 @@
 
         Dim strSvrIDInQuery As String = ""
 
-        For Each tmpCtl As Control In tlpGroup.Controls
-            If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing _
-                AndAlso tmpCtl.Visible = True _
-                AndAlso tmpCtl.Tag IsNot Nothing _
-                AndAlso DirectCast(tmpCtl, BaseControls.RadioButton).Checked = True Then
+        'For Each tmpCtl As Control In tlpGroup.Controls
+        '    If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing _
+        '        AndAlso tmpCtl.Visible = True _
+        '        AndAlso tmpCtl.Tag IsNot Nothing _
+        '        AndAlso DirectCast(tmpCtl, BaseControls.RadioButton).Checked = True Then
 
-                Dim tmpGrp As GroupInfo = DirectCast(tmpCtl.Tag, GroupInfo)
-                strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
-            End If
-        Next
+        '        Dim tmpGrp As GroupInfo = DirectCast(tmpCtl.Tag, GroupInfo)
+        '        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
+        '    End If
+        'Next
+	' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
+        Dim tmpGrp As GroupInfo = _GrpList.Item(0)
+        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
+
         Dim subQuery As String = ""
         If chkIDLE.Checked = False Then
             Dim tmpStr As String = chkIDLE.Tag
@@ -1335,13 +1362,19 @@
                 Function(r) New With {Key .InstanceID = r.Field(Of Integer)("INSTANCE_ID"), _
                               Key .IP = r.Field(Of String)("SERVER_IP"), _
                               Key .Port = r.Field(Of String)("SERVICE_PORT"), _
-                              Key .Name = r.Field(Of String)("HOST_NAME")} _
+                              Key .Name = r.Field(Of String)("HOST_NAME"), _
+                              Key .HARole = r.Field(Of String)("HA_ROLE"), _
+                              Key .HAHost = r.Field(Of String)("HA_HOST"), _
+                              Key .HAPort = r.Field(Of String)("HA_PORT")} _
                          ).[Select]( _
                          Function(grp) _
                              New With {Key .InstanceID = grp.Key.InstanceID, _
                                        Key .IP = grp.Key.IP, _
                                        Key .Port = grp.Key.Port, _
                                        Key .Name = grp.Key.Name, _
+                                       Key .HARole = grp.Key.HARole, _
+                                       Key .HAHost = grp.Key.HAHost, _
+                                       Key .HAPort = grp.Key.HAPort, _
                                        Key .MaxVal = grp.Max(Function(e) e.Field(Of Integer)("HCHK_VALUE"))} _
                                    )
 
@@ -1359,23 +1392,33 @@
         Dim arrSvrIds As New SortedList
 
         If InstanceMaxVals.Count > 0 Then
-            For Each tmpCtl As Control In tlpGroup.Controls
-                If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing AndAlso tmpCtl.Visible = True AndAlso tmpCtl.Tag IsNot Nothing Then
-                    Dim tmpGrp As GroupInfo = DirectCast(tmpCtl.Tag, GroupInfo)
-                    For Each tmpSvrInfo As GroupInfo.ServerInfo In tmpGrp.Items
-                        Dim tmpInstance = InstanceMaxVals.AsEnumerable.Where(Function(e) e.InstanceID = tmpSvrInfo.InstanceID)
-                        If tmpInstance.Count > 0 Then
-                            Select Case tmpInstance(0).MaxVal / 100
-                                Case 1 : CntNormal += 1
-                                Case 2 : CntWarning += 1
-                                Case 3 : CntCritical += 1 : arrSvrIds.Add(tmpInstance(0).InstanceID, tmpInstance(0).Name)
-                            End Select
-                        End If
-                    Next
+            'For Each tmpCtl As Control In tlpGroup.Controls
+            '    If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing AndAlso tmpCtl.Visible = True AndAlso tmpCtl.Tag IsNot Nothing Then
+            '        Dim tmpGrp As GroupInfo = DirectCast(tmpCtl.Tag, GroupInfo)
+            '        For Each tmpSvrInfo As GroupInfo.ServerInfo In tmpGrp.Items
+            '            Dim tmpInstance = InstanceMaxVals.AsEnumerable.Where(Function(e) e.InstanceID = tmpSvrInfo.InstanceID)
+            '            If tmpInstance.Count > 0 Then
+            '                Select Case tmpInstance(0).MaxVal / 100
+            '                    Case 1 : CntNormal += 1
+            '                    Case 2 : CntWarning += 1
+            '                    Case 3 : CntCritical += 1 : arrSvrIds.Add(tmpInstance(0).InstanceID, tmpInstance(0).Name)
+            '                End Select
+            '            End If
+            '        Next
+            '    End If
+            'Next
+		' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
+            Dim tmpGrp As GroupInfo = _GrpList.Item(0)
+            For Each tmpSvrInfo As GroupInfo.ServerInfo In tmpGrp.Items
+                Dim tmpInstance = InstanceMaxVals.AsEnumerable.Where(Function(e) e.InstanceID = tmpSvrInfo.InstanceID)
+                If tmpInstance.Count > 0 Then
+                    Select Case tmpInstance(0).MaxVal / 100
+                        Case 1 : CntNormal += 1
+                        Case 2 : CntWarning += 1
+                        Case 3 : CntCritical += 1 : arrSvrIds.Add(tmpInstance(0).InstanceID, tmpInstance(0).Name)
+                    End Select
                 End If
             Next
-
-
 
             ' Instance 컨트롤에 Tag에 InstanceID 를 넣어 둫었음.]
             For Each tmpCtl As Control In flpInstance.Controls
@@ -1383,7 +1426,10 @@
                     Dim intInstID As Integer = DirectCast(tmpCtl.Tag, GroupInfo.ServerInfo).InstanceID
                     If InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID).Count > 0 Then
                         DirectCast(tmpCtl, Progress3D).Value = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100
-                        tmpCtl.Text = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Name
+                        ' HA 롤 구분 문자 출력 M or S
+			DirectCast(tmpCtl, Progress3D).HeadText = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARole
+                        tmpCtl.Text = " "
+                        tmpCtl.Text += InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Name
                     End If
                 End If
 
@@ -1414,25 +1460,25 @@
             Dim intInstID As Integer = InstanceMaxVal.InstanceID
             Dim strStatus As String = fn_GetHealthName(InstanceMaxVal.MaxVal)
 
+            ' remove instance info : robin
+            'Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
+            '    If dgvHealthRow Is Nothing Then
+            '        Dim intIDx As Integer = dgvHealth.Rows.Add
 
-            Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
-                If dgvHealthRow Is Nothing Then
-                    Dim intIDx As Integer = dgvHealth.Rows.Add
-
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
 
 
-                Else
-                    dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-                    dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
-                End If
+            '    Else
+            '        dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+            '        dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+            '    End If
 
-            End Using
+            'End Using
 
 
 
@@ -1485,29 +1531,29 @@
 
         Try
 
-
-            For Each tmpRow As DataRow In dtTable.Rows
-
-                Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
-                Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
-                Dim strHost As String = tmpRow.Item("HOST_NAME")
-                Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
-                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
-                Dim strValueUnit As String = tmpRow.Item("UNIT")
-                Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
-                Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
-                strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
-
-
-
-                If intHchkVal = 100 AndAlso _ShowHchkNormal Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
-                ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
-                ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
-                End If
-            Next
+            ' remove logevent : robin
+            'For Each tmpRow As DataRow In dtTable.Rows
+            '
+            '    Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
+            '    Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
+            '    Dim strHost As String = tmpRow.Item("HOST_NAME")
+            '    Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+            '    Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+            '    Dim strValueUnit As String = tmpRow.Item("UNIT")
+            '    Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
+            '    Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
+            '    strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
+            '
+            '
+            '
+            'If intHchkVal = 100 AndAlso _ShowHchkNormal Then
+            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
+            'ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
+            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
+            'ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
+            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
+            'End If
+            'Next
 
         Catch ex As Exception
             Debug.Print(ex.ToString)
@@ -1681,8 +1727,8 @@
 
     Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
         Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
-        Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0)) / 2
-        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 4)) / 4
+        Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
+        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 10)) / 10
 
         For Each tmpCtl As Progress3D In BaseCTl.Controls
             tmpCtl.Width = ctlWidth
@@ -1783,7 +1829,7 @@
     Private Const WM_LBUTTONDOWN As Long = &H201
 
     Private Sub dgvGrpCpuSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpCpuSvrLst.CellContentClick
-        If e.RowIndex >= 0 And e.RowIndex < 6 Then
+        If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
             For Each tmpCtl As Progress3D In flpInstance.Controls
                 If dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
                     SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)
@@ -1825,7 +1871,7 @@
     End Sub
 
     Private Sub dgvGrpMemSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpMemSvrLst.CellContentClick
-        If e.RowIndex >= 0 And e.RowIndex < 6 Then
+        If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
             For Each tmpCtl As Progress3D In flpInstance.Controls
                 If dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
                     SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)

@@ -142,6 +142,52 @@
             Return Nothing
         End Try
     End Function
+    'Robin-Start SELECTSERVERLISTfor Monitoring group
+    ''' <summary>
+    ''' 수집서버 목록 
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function SelectServerListByGroup() As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+
+            Dim strQuery = p_clsQueryData.fn_GetData("SELECTSERVERLISTBYGROUP")
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+    ''' <summary>
+    ''' 수집서버 목록 
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function SelectGroupName(ByVal groupID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+
+            Dim strQuery = p_clsQueryData.fn_GetData("SELECTGROUPNAME")
+            strQuery = String.Format(strQuery, IIf(groupID, groupID, "0 or 1=1"))
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+    'Robin-End
+
 
     ''' <summary>
     ''' 수집서버 목록 
@@ -181,6 +227,36 @@
         End Try
 
     End Function
+    'Robin-Start UpdateMonGroup Monitoring group
+    Public Function UpdateMonGroup(ByVal InstanceID As Integer, ByVal MonGroup_1 As Integer, ByVal LstIp As String) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEMONGROUP")
+            strQuery = String.Format(strQuery, InstanceID, MonGroup_1, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+
+    End Function
+    Public Function UpdateGroup(ByVal groupID As Integer, ByVal groupName As String, ByVal LstIp As String) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEGROUP")
+            strQuery = String.Format(strQuery, groupID, groupName, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+
+    End Function
+     'Robin-end 
 
     Public Function DeleteServerList(ByVal InstanceID As Integer, ByVal LocIP As String) As Boolean
         Try

@@ -10,6 +10,11 @@ Public Class Progress3D
 
     Private _Items As New Progress3DItemCollection(Me)
 
+    Private _HeadText As String = ""
+
+    Private _SubText As String = ""
+
+    Private _SubText2 As String = ""
 
     Private _isSelected As Boolean = False
     Property isSelected As Boolean
@@ -21,6 +26,30 @@ Public Class Progress3D
                 _isSelected = value
                 Me.Invalidate()
             End If
+        End Set
+    End Property
+    Public Property HeadText() As String
+        Get
+            Return _HeadText
+        End Get
+        Set(value As String)
+            _HeadText = value
+        End Set
+    End Property
+    Public Property SubText() As String
+        Get
+            Return _SubText
+        End Get
+        Set(value As String)
+            _SubText = value
+        End Set
+    End Property
+    Public Property SubText2() As String
+        Get
+            Return _SubText2
+        End Get
+        Set(value As String)
+            _SubText2 = value
         End Set
     End Property
 
@@ -255,8 +284,11 @@ Public Class Progress3D
 
         If _UseTitle Then
             szf = pGr.MeasureString(MyBase.Text, MyBase.Font)
-            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius, BaseRect.Y + 3), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddLine(New Point(BaseRect.X + _Radius, BaseRect.Y + szf.Height), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + szf.Height))
+            grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + 2), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 20, BaseRect.Y + 2), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + szf.Height - 5), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + szf.Height - 5))
+            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + szf.Height + 2), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + szf.Height * 2 - 6), System.Drawing.StringFormat.GenericDefault)
 
         End If
 
@@ -269,7 +301,8 @@ Public Class Progress3D
         End If
 
 
-        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + szf.Height + 1, BaseRect.Width - 2, BaseRect.Height - szf.Height - 2)
+        '        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + szf.Height + 1, BaseRect.Width - 2, BaseRect.Height - szf.Height - 2)
+        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + 20 + _Radius, BaseRect.Width - 2, BaseRect.Height - 2 - _Radius - 20)
 
     End Function
 
@@ -297,16 +330,11 @@ Public Class Progress3D
         BaseRect.Inflate(-5, -5)
         If BaseRect.Width < 5 Or BaseRect.Height < 5 Then Return
 
-        Dim LvHeight As Integer = (BaseRect.Height - (_Spacing * _Items.Count)) / (_Items.Count + 1)
+        'Dim LvHeight As Integer = (BaseRect.Height - (_Spacing * _Items.Count)) / (_Items.Count + 1)
+        Dim LvHeight As Integer = (BaseRect.Height) / (_Items.Count) + 2
 
-
-
-
-
-
-        Dim BaseElRect As New Rectangle(BaseRect.Left, BaseRect.Top + BaseRect.Height - LvHeight, BaseRect.Width, LvHeight)
-
-
+        'Dim BaseElRect As New Rectangle(BaseRect.Left, BaseRect.Top + BaseRect.Height - LvHeight, BaseRect.Width / 4, LvHeight)
+        Dim BaseElRect As New Rectangle(BaseRect.Left, BaseRect.Top + BaseRect.Height - LvHeight, BaseRect.Width / 4, LvHeight)
 
         Dim El1 As Rectangle = BaseElRect
         Dim El2 As Rectangle = El1 : El2.Offset(0, -1 * LvHeight)
@@ -339,8 +367,13 @@ Public Class Progress3D
                     End If
                 Else
                     Gr.FillPath(New SolidBrush(Color.FromArgb(tmpItm.FillOpacity, tmpItm.FillColor)), FillPath)
+                    Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
+                    Dim intDiameter As Integer = _Radius * 2
+                    initRect.Inflate(-2, -2)
+                    Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
+                    grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 2), System.Drawing.StringFormat.GenericDefault)
+                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "M", Color.FromArgb(255, 60, 60, 255), Color.FromArgb(255, 255, 255, 0)))), grPath)
                 End If
-
 
                 Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, tmpItm.LineColor)), LinePath)
             Else

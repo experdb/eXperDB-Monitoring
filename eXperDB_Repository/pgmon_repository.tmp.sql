@@ -226,9 +226,21 @@ CREATE TABLE tb_instance_info (
     log_keep_days integer,
     home_dir character varying(100),
     pg_version character varying(1000),
+    mon_group integer,
+    ha_role character varying(1),
+    ha_host character varying(100),
+    ha_port character varying(10),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
+
+CREATE TABLE tb_group_info (
+    group_id integer NOT NULL,
+    group_name character varying(30),
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
+);
+
 
 CREATE UNLOGGED TABLE tb_memory_stat (
     reg_date character varying(8) NOT NULL,
@@ -361,6 +373,8 @@ ALTER TABLE ONLY tb_index_info
 ALTER TABLE ONLY tb_instance_info
     ADD CONSTRAINT pk_instance_info PRIMARY KEY (instance_id);
 
+ALTER TABLE ONLY tb_group_info
+    ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id);
 
 ALTER TABLE ONLY tb_memory_stat
     ADD CONSTRAINT pk_memory_stat PRIMARY KEY (reg_date,rsc_reg_seq);
@@ -561,7 +575,13 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_DT
 ,LAST_MOD_IP
 ,SERIAL_KEY
+,VERSION
 ) VALUES ('23:30:00', 30, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', 'EXPERDB_VERSION');
+
+INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (1, 'Group1', now(), '127.0.0.1');
+INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (2, 'Group2', now(), '127.0.0.1');
+INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (3, 'Group3', now(), '127.0.0.1');
+INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (4, 'Group4', now(), '127.0.0.1');
 
 /* repository agent_port is a port of agent_manager	 
    

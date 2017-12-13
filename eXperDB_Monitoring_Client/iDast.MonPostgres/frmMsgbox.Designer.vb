@@ -47,7 +47,7 @@ Partial Class frmMsgbox
         Me.lblMessage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMessage.FixedHeight = False
         Me.lblMessage.FixedWidth = False
-        Me.lblMessage.Font = New System.Drawing.Font("Gulim", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblMessage.Font = New System.Drawing.Font("Gulim", 13.0!)
         Me.lblMessage.ForeColor = System.Drawing.Color.Gray
         Me.lblMessage.Location = New System.Drawing.Point(0, 31)
         Me.lblMessage.Name = "lblMessage"
@@ -55,6 +55,7 @@ Partial Class frmMsgbox
         Me.lblMessage.Size = New System.Drawing.Size(619, 170)
         Me.lblMessage.TabIndex = 8
         Me.lblMessage.Text = "Message"
+        Me.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Panel4
         '
@@ -80,19 +81,17 @@ Partial Class frmMsgbox
         '
         'btn1
         '
-        Me.btn1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btn1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn1.FixedHeight = False
         Me.btn1.FixedWidth = False
         Me.btn1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btn1.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btn1.Location = New System.Drawing.Point(2, 2)
+        Me.btn1.Location = New System.Drawing.Point(0, 0)
         Me.btn1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btn1.Name = "btn1"
         Me.btn1.Radius = 10
-        Me.btn1.Size = New System.Drawing.Size(100, 27)
+        Me.btn1.Size = New System.Drawing.Size(102, 35)
         Me.btn1.TabIndex = 0
         Me.btn1.Text = "btn1"
         Me.btn1.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -111,19 +110,17 @@ Partial Class frmMsgbox
         '
         'btn2
         '
-        Me.btn2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btn2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn2.FixedHeight = False
         Me.btn2.FixedWidth = False
         Me.btn2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btn2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btn2.Location = New System.Drawing.Point(2, 2)
+        Me.btn2.Location = New System.Drawing.Point(0, 0)
         Me.btn2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btn2.Name = "btn2"
         Me.btn2.Radius = 10
-        Me.btn2.Size = New System.Drawing.Size(100, 27)
+        Me.btn2.Size = New System.Drawing.Size(102, 35)
         Me.btn2.TabIndex = 1
         Me.btn2.Text = "btn2"
         Me.btn2.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -142,19 +139,17 @@ Partial Class frmMsgbox
         '
         'btn3
         '
-        Me.btn3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btn3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btn3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn3.FixedHeight = False
         Me.btn3.FixedWidth = False
         Me.btn3.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btn3.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btn3.Location = New System.Drawing.Point(2, 2)
+        Me.btn3.Location = New System.Drawing.Point(0, 0)
         Me.btn3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btn3.Name = "btn3"
         Me.btn3.Radius = 10
-        Me.btn3.Size = New System.Drawing.Size(100, 27)
+        Me.btn3.Size = New System.Drawing.Size(102, 35)
         Me.btn3.TabIndex = 2
         Me.btn3.Text = "btn3"
         Me.btn3.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
