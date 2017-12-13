@@ -175,7 +175,6 @@ Partial Class frmConfig
         Me.nudGrpRotate.Size = New System.Drawing.Size(150, 25)
         Me.nudGrpRotate.StatusTip = ""
         Me.nudGrpRotate.TabIndex = 2
-<<<<<<< HEAD
         Me.nudGrpRotate.Value = New Decimal(New Integer() {30, 0, 0, 0})
         Me.nudGrpRotate.Visible = False
         '

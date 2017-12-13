@@ -482,6 +482,7 @@
         Try
             If sb_SaveGrpMonLst() = True Then
                 MsgBox(p_clsMsgData.fn_GetData("M023"))
+                sb_ReloadcmbGrp()
             Else
                 MsgBox(p_clsMsgData.fn_GetData("M024"))
             End If
@@ -657,6 +658,20 @@
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
     End Function
+    Private Function sb_ReloadcmbGrp() As Boolean
+        Dim conODBC As eXperDB.ODBC.DXODBC = btnConTest.Tag
+        Dim ClsQuery As New clsQuerys(conODBC)
+        Dim groupIndex As Integer = cmbGrp.SelectedIndex
+        cmbGrp.Items.Clear()
+        '그룹명 
+        Dim dtTable As DataTable = ClsQuery.SelectGroupName(0)
+        If dtTable IsNot Nothing Then
+            For Each tmpRow As DataRow In dtTable.Rows
+                cmbGrp.Items.Add(tmpRow.Item("GROUP_NAME"))
+            Next
+        End If
+        cmbGrp.SelectedIndex = groupIndex
+    End Function
     ''' <summary>
     ''' 시작 버튼 클릭 
     ''' </summary>
@@ -677,6 +692,8 @@
             MsgBox(p_clsMsgData.fn_GetData("M027"))
             Return
         End If
+        'Reload combo
+        sb_ReloadcmbGrp()
 
         '서버 매핑 목록 저장 
         sb_SaveGrpSvrLst()
@@ -836,16 +853,7 @@
     ' R-End
 
     Private Sub cmbGrp_Click(sender As Object, e As EventArgs) Handles cmbGrp.Click
-        Dim conODBC As eXperDB.ODBC.DXODBC = btnConTest.Tag
-        Dim ClsQuery As New clsQuerys(conODBC)
-        cmbGrp.Items.Clear()
-        '그룹명 
-        Dim dtTable As DataTable = ClsQuery.SelectGroupName(0)
-        If dtTable IsNot Nothing Then
-            For Each tmpRow As DataRow In dtTable.Rows
-                cmbGrp.Items.Add(tmpRow.Item("GROUP_NAME"))
-            Next
-        End If
+        sb_ReloadcmbGrp()
     End Sub
 
     Private Sub cmbGrp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrp.SelectedIndexChanged
