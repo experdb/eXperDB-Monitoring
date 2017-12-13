@@ -462,7 +462,7 @@
 
         Dim clsConfig As New Common.IniFile(p_AppConfigIni)
         Dim tmpElapseInterval As Integer = clsConfig.ReadValue("General", "ELAPSE", 3000)
-        Dim tmpGroupRatateInterval As Integer = clsConfig.ReadValue("General", "GRPROTATE", 30000)
+        Dim tmpGroupRatateInterval As Integer = clsConfig.ReadValue("General", "GRPROTATE", 120000)
         ' Server Configuration  Start 
         Dim clsQuery As New clsQuerys(AgentCn)
         Dim dtTable As DataTable = clsQuery.SelectConfig

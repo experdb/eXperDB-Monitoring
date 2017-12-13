@@ -40,7 +40,8 @@
     Private _ShowHchkCritical As Boolean = True
 
     Private _ElapseInterval As Integer = 3000
-    Private _GroupRotateinterval As Integer = 30000
+    Private _GroupRotateinterval As Integer = 120000
+    Private _IsCollectRunning As Boolean = False
 
 
 
@@ -398,7 +399,9 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub sb_setGrpDiskInfos()
+        dgvGrpDiskAccess.DataSource = Nothing
         dgvGrpDiskAccess.Rows.Clear()
+        dgvGrpDiskUsage.DataSource = Nothing
         dgvGrpDiskUsage.Rows.Clear()
     End Sub
 
@@ -416,6 +419,7 @@
         ' 레이더 보이는 아이템을 모두 삭제한다. 
         radCpu.items.Clear()
         ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpCpuSvrLst.DataSource = Nothing
         dgvGrpCpuSvrLst.Rows.Clear()
 
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
@@ -441,6 +445,7 @@
         ' 레이더 보이는 아이템을 모두 삭제한다. 
         radMem.items.Clear()
         ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpMemSvrLst.DataSource = Nothing
         dgvGrpMemSvrLst.Rows.Clear()
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
@@ -549,7 +554,7 @@
         tmpCtl.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         tmpCtl.isSelected = False
         tmpCtl.Text = "Server #8"
-        tmpCtl.UseAnimation = True
+        tmpCtl.UseAnimation = False
         tmpCtl.UseSelected = True
         tmpCtl.UseTitle = True
         tmpCtl.Value = 0
@@ -719,11 +724,11 @@
     Private Sub tmCollect_Tick(sender As Object, e As EventArgs) Handles tmCollect.Tick
 
         Try
-
+            _IsCollectRunning = True
 
 
             tmCollect.Stop()
-
+            tmCollect.Dispose()
 
 
 
@@ -763,6 +768,7 @@
         Finally
 
             tmCollect.Start()
+            _IsCollectRunning = False
         End Try
 
     End Sub
@@ -770,6 +776,15 @@
     Private Sub tmRotateGroup_Tick(sender As Object, e As EventArgs) Handles tmRotateGroup.Tick
 
         Try
+            If _IsCollectRunning = True Then
+                tmRotateGroup.Stop()
+                tmRotateGroup.Dispose()
+                tmRotateGroup.Interval = 1000
+                tmRotateGroup.Start()
+                Return
+            End If
+            tmCollect.Stop()
+            tmCollect.Dispose()
             tmRotateGroup.Stop()
             tmRotateGroup.Dispose()
             
@@ -783,9 +798,9 @@
                 tmpCtl = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
                 If tmpCtl.Checked Then
                     CurrentCheckedIndex = i
+                    Exit For
                 End If
             Next
-            tmpCtl = tlpGroup.Controls.Find("rbGrp" & CurrentCheckedIndex + 1, True)(0)
             CurrentCheckedIndex = CurrentCheckedIndex + 1
             If CurrentCheckedIndex > _GrpList.Count - 1 Then
                 CurrentCheckedIndex = 0
@@ -797,7 +812,10 @@
         Catch ex As Exception
             GC.Collect()
         Finally
+            GC.Collect()
+            tmRotateGroup.Interval = _GroupRotateinterval
             tmRotateGroup.Start()
+            tmCollect.Start()
         End Try
 
     End Sub
@@ -1414,25 +1432,25 @@
             Dim intInstID As Integer = InstanceMaxVal.InstanceID
             Dim strStatus As String = fn_GetHealthName(InstanceMaxVal.MaxVal)
 
+            ' remove instance info : robin
+            'Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
+            '    If dgvHealthRow Is Nothing Then
+            '        Dim intIDx As Integer = dgvHealth.Rows.Add
 
-            Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
-                If dgvHealthRow Is Nothing Then
-                    Dim intIDx As Integer = dgvHealth.Rows.Add
-
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
 
 
-                Else
-                    dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-                    dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
-                End If
+            '    Else
+            '        dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+            '        dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+            '    End If
 
-            End Using
+            'End Using
 
 
 
@@ -1485,29 +1503,29 @@
 
         Try
 
-
-            For Each tmpRow As DataRow In dtTable.Rows
-
-                Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
-                Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
-                Dim strHost As String = tmpRow.Item("HOST_NAME")
-                Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
-                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
-                Dim strValueUnit As String = tmpRow.Item("UNIT")
-                Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
-                Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
-                strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
-
-
-
-                If intHchkVal = 100 AndAlso _ShowHchkNormal Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
-                ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
-                ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
-                End If
-            Next
+            ' remove logevent : robin
+            'For Each tmpRow As DataRow In dtTable.Rows
+            '
+            '    Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
+            '    Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
+            '    Dim strHost As String = tmpRow.Item("HOST_NAME")
+            '    Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+            '    Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+            '    Dim strValueUnit As String = tmpRow.Item("UNIT")
+            '    Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
+            '    Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
+            '    strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
+            '
+            '
+            '
+            'If intHchkVal = 100 AndAlso _ShowHchkNormal Then
+            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
+            'ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
+            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
+            'ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
+            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
+            'End If
+            'Next
 
         Catch ex As Exception
             Debug.Print(ex.ToString)
@@ -1606,10 +1624,25 @@
                     tmpCtl.Value = 0
                 Next
                 ' GRID CLEAR 
+                While (dgvGrpDiskAccess.Rows.Count > 1)
+                    dgvGrpDiskAccess.Rows.RemoveAt(0)
+                End While
                 dgvGrpDiskAccess.Rows.Clear()
+                While (dgvGrpDiskUsage.Rows.Count > 1)
+                    dgvGrpDiskUsage.Rows.RemoveAt(0)
+                End While
                 dgvGrpDiskUsage.Rows.Clear()
+                While (dgvSessionInfo.Rows.Count > 1)
+                    dgvSessionInfo.Rows.RemoveAt(0)
+                End While
                 dgvSessionInfo.DataSource = Nothing
+                While (dgvReqInfo.Rows.Count > 1)
+                    dgvReqInfo.Rows.RemoveAt(0)
+                End While
                 dgvReqInfo.Rows.Clear()
+                While (dgvHealth.Rows.Count > 1)
+                    dgvHealth.Rows.RemoveAt(0)
+                End While
                 dgvHealth.Rows.Clear()
 
                 ' CHART CLEAR 
@@ -1783,7 +1816,7 @@
     Private Const WM_LBUTTONDOWN As Long = &H201
 
     Private Sub dgvGrpCpuSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpCpuSvrLst.CellContentClick
-        If e.RowIndex >= 0 And e.RowIndex < 6 Then
+        If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
             For Each tmpCtl As Progress3D In flpInstance.Controls
                 If dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
                     SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)
@@ -1825,7 +1858,7 @@
     End Sub
 
     Private Sub dgvGrpMemSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpMemSvrLst.CellContentClick
-        If e.RowIndex >= 0 And e.RowIndex < 6 Then
+        If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
             For Each tmpCtl As Progress3D In flpInstance.Controls
                 If dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
                     SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)

@@ -36,7 +36,7 @@
             nudCollect.Value = tmpVal / 1000
         End If
 
-        tmpVal = clsIni.ReadValue("General", "GRPROTATE", 30000)
+        tmpVal = clsIni.ReadValue("General", "GRPROTATE", 120000)
         If tmpVal / 1000 < Me.nudGrpRotate.Minimum Then
             nudGrpRotate.Value = nudGrpRotate.Minimum
         Else

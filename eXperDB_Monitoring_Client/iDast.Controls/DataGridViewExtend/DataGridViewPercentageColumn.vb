@@ -248,7 +248,7 @@ Public Class DataGridViewPercentageCell
         ''Tm_Animation.Enabled = False
         ''Tm_Animation.Dispose()
         ''Tm_Animation = Nothing
-        GC.Collect()
+        'GC.Collect() 'robin remove GC
 
 
         MyBase.Finalize()
