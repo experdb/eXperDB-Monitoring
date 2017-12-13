@@ -40,7 +40,8 @@
     Private _ShowHchkCritical As Boolean = True
 
     Private _ElapseInterval As Integer = 3000
-    Private _GroupRotateinterval As Integer = 30000
+    Private _GroupRotateinterval As Integer = 120000
+    Private _IsCollectRunning As Boolean = False
 
 
 
@@ -415,7 +416,9 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub sb_setGrpDiskInfos()
+        dgvGrpDiskAccess.DataSource = Nothing
         dgvGrpDiskAccess.Rows.Clear()
+        dgvGrpDiskUsage.DataSource = Nothing
         dgvGrpDiskUsage.Rows.Clear()
     End Sub
 
@@ -433,6 +436,7 @@
         ' 레이더 보이는 아이템을 모두 삭제한다. 
         radCpu.items.Clear()
         ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpCpuSvrLst.DataSource = Nothing
         dgvGrpCpuSvrLst.Rows.Clear()
 
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
@@ -458,6 +462,7 @@
         ' 레이더 보이는 아이템을 모두 삭제한다. 
         radMem.items.Clear()
         ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpMemSvrLst.DataSource = Nothing
         dgvGrpMemSvrLst.Rows.Clear()
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
@@ -739,7 +744,7 @@
     Private Sub tmCollect_Tick(sender As Object, e As EventArgs) Handles tmCollect.Tick
 
         Try
-
+            _IsCollectRunning = True
 
 
             tmCollect.Stop()
@@ -783,6 +788,7 @@
         Finally
 
             tmCollect.Start()
+            _IsCollectRunning = False
         End Try
 
     End Sub
@@ -790,6 +796,13 @@
     Private Sub tmRotateGroup_Tick(sender As Object, e As EventArgs) Handles tmRotateGroup.Tick
 
         Try
+            If _IsCollectRunning = True Then
+                tmRotateGroup.Stop()
+                tmRotateGroup.Dispose()
+                tmRotateGroup.Interval = 1000
+                tmRotateGroup.Start()
+                Return
+            End If
             tmCollect.Stop()
             tmCollect.Dispose()
             tmRotateGroup.Stop()
@@ -805,9 +818,9 @@
                 tmpCtl = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
                 If tmpCtl.Checked Then
                     CurrentCheckedIndex = i
+                    Exit For
                 End If
             Next
-            tmpCtl = tlpGroup.Controls.Find("rbGrp" & CurrentCheckedIndex + 1, True)(0)
             CurrentCheckedIndex = CurrentCheckedIndex + 1
             If CurrentCheckedIndex > _GrpList.Count - 1 Then
                 CurrentCheckedIndex = 0
@@ -819,6 +832,8 @@
         Catch ex As Exception
             GC.Collect()
         Finally
+            GC.Collect()
+            tmRotateGroup.Interval = _GroupRotateinterval
             tmRotateGroup.Start()
             tmCollect.Start()
         End Try
@@ -1652,10 +1667,25 @@
                     tmpCtl.Value = 0
                 Next
                 ' GRID CLEAR 
+                While (dgvGrpDiskAccess.Rows.Count > 1)
+                    dgvGrpDiskAccess.Rows.RemoveAt(0)
+                End While
                 dgvGrpDiskAccess.Rows.Clear()
+                While (dgvGrpDiskUsage.Rows.Count > 1)
+                    dgvGrpDiskUsage.Rows.RemoveAt(0)
+                End While
                 dgvGrpDiskUsage.Rows.Clear()
+                While (dgvSessionInfo.Rows.Count > 1)
+                    dgvSessionInfo.Rows.RemoveAt(0)
+                End While
                 dgvSessionInfo.DataSource = Nothing
+                While (dgvReqInfo.Rows.Count > 1)
+                    dgvReqInfo.Rows.RemoveAt(0)
+                End While
                 dgvReqInfo.Rows.Clear()
+                While (dgvHealth.Rows.Count > 1)
+                    dgvHealth.Rows.RemoveAt(0)
+                End While
                 dgvHealth.Rows.Clear()
 
                 ' CHART CLEAR 

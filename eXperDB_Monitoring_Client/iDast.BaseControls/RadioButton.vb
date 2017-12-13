@@ -124,7 +124,6 @@ Public Class RadioButton
         If _WOpacity > 150 Then
             _WOpacity = 30
         End If
-
         Me.Invalidate()
 
     End Sub

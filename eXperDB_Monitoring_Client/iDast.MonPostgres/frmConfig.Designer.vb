@@ -168,12 +168,14 @@ Partial Class frmConfig
         Me.nudGrpRotate.BackColor = System.Drawing.SystemColors.Window
         Me.nudGrpRotate.Location = New System.Drawing.Point(130, 300)
         Me.nudGrpRotate.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.nudGrpRotate.Maximum = New Decimal(New Integer() {1200, 0, 0, 0})
         Me.nudGrpRotate.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudGrpRotate.Name = "nudGrpRotate"
         Me.nudGrpRotate.Necessary = False
         Me.nudGrpRotate.Size = New System.Drawing.Size(150, 25)
         Me.nudGrpRotate.StatusTip = ""
         Me.nudGrpRotate.TabIndex = 2
+<<<<<<< HEAD
         Me.nudGrpRotate.Value = New Decimal(New Integer() {30, 0, 0, 0})
         Me.nudGrpRotate.Visible = False
         '
@@ -195,6 +197,7 @@ Partial Class frmConfig
         Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnSave.UseRound = True
         Me.btnSave.UseVisualStyleBackColor = True
+        Me.nudGrpRotate.Value = New Decimal(New Integer() {120, 0, 0, 0})
         '
         'lbGrpRatate
         '
