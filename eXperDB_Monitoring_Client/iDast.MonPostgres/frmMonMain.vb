@@ -578,8 +578,7 @@
         tmpCtl.UseSelected = True
         tmpCtl.UseTitle = True
         tmpCtl.Value = 0
-        tmpCtl.Margin = New Padding(0)
-
+        tmpCtl.Margin = New Padding(0, 2, 0, 2)
 
 
         Return tmpCtl
@@ -1758,7 +1757,7 @@
     Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
         Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
         Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
-        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 10)) / 10
+        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 2 'add vertical margin
 
         For Each tmpCtl As Progress3D In BaseCTl.Controls
             tmpCtl.Width = ctlWidth

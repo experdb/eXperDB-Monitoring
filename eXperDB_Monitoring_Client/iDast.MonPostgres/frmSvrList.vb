@@ -168,6 +168,9 @@
             If tmpRow.ReadOnly = True Or tmpRow.Cells(colCollectYN.Index).Value = "N" Then
                 Continue For
             End If
+            If IsDBNull(tmpRow.Cells(colHARole.Index).Value) Then
+                Continue For
+            End If
             ' Tag에는 Instance ID를 넣은다. 
             ' Add시에는 Instance ID = -1 
             ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
@@ -196,6 +199,9 @@
         'Slave node를 insert
         For Each tmpRow As DataGridViewRow In dgvSvrLst.Rows
             If tmpRow.ReadOnly = True Or tmpRow.Cells(colCollectYN.Index).Value = "N" Then
+                Continue For
+            End If
+            If IsDBNull(tmpRow.Cells(colHARole.Index).Value) Then
                 Continue For
             End If
             ' Tag에는 Instance ID를 넣은다. 
@@ -870,7 +876,8 @@
                 If dgvSvrLst.IsCurrentCellDirty = True Then
                     dgvSvrLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
                     If dgvSvrLst.Rows(e.RowIndex).Cells(colCollectYN.Index).Value = "Y" Then
-                        If dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value = "S" Then
+                        If IsDBNull(dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value) = False AndAlso _
+                           (dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value) = "S" Then
                             If dgvMonLst.Rows.Count <= 0 Then
                                 MsgBox(p_clsMsgData.fn_GetData("M026"))
                                 dgvSvrLst.CurrentCell.Value = "N"

@@ -302,7 +302,7 @@ Public Class Progress3D
 
 
         '        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + szf.Height + 1, BaseRect.Width - 2, BaseRect.Height - szf.Height - 2)
-        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + 20 + _Radius, BaseRect.Width - 2, BaseRect.Height - 2 - _Radius - 20)
+        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + 15 + _Radius, BaseRect.Width - 2, BaseRect.Height - 2 - _Radius - 15)
 
     End Function
 
