@@ -542,6 +542,11 @@
                 sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
 
             Next
+            If dtRowsSession.Count = 0 Then
+                Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-mm-dd HH:mm:ss"))
+                sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, 0)
+            End If
         End If
 
 
@@ -597,6 +602,11 @@
             sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
             sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
         Next
+        If dtRows.Count = 0 Then
+            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-mm-dd HH:mm:ss"))
+            sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, 0)
+            sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, 0)
+        End If
 
         sb_ChartAlignYAxies(Me.chtSQLRespTm)
 
