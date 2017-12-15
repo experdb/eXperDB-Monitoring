@@ -3,6 +3,9 @@
 
     Private _AgentIP As String
     Private _AgentPort As Integer
+    Private _checkAgentInterval As Integer = 1000
+    Private _startDt As String
+    Private _applyCount As Integer = 0
 
 #Region "Form Initialize"
 
@@ -344,6 +347,13 @@
         AgentMsg.SendMDX001(clsAgentEMsg.MDX001_REQ.enumMDX001ACTION.Restart)
         ' 데이터 삽입 후 목록 재 갱신 
         ReadSvrList(odbcCon)
+        ' wait until the agent is restart
+        _startDt = fn_ChkServer(odbcCon)
+        _applyCount = 0
+        CircularProgressControl1.Visible = True
+        CircularProgressControl1.Start()
+        tmCheckAgent.Interval = _checkAgentInterval
+        tmCheckAgent.Start()
 
     End Sub
 
@@ -530,4 +540,41 @@
     Private Sub AgentMsg_Complete(sender As Object, e As Object) Handles AgentMsg.Complete
 
     End Sub
+    Private Function fn_ChkServer(ByVal conODBC As eXperDB.ODBC.DXODBC) As String
+
+        Dim clsQry As New clsQuerys(conODBC)
+        Dim strStartDt As String = ""
+        Dim dtTable As DataTable = clsQry.SelectServerDate()
+        If dtTable IsNot Nothing Then
+            Dim dtRow As DataRow = dtTable.Rows(0)
+            strStartDt = dtRow.Item("START_DT")
+            Return strStartDt
+        End If
+        Return ""
+    End Function
+
+#Region "Timer Thread "
+    Private WithEvents tmCheckAgent As New Timer
+    Private Sub tmCheckAgent_Tick(sender As Object, e As EventArgs) Handles tmCheckAgent.Tick
+        tmCheckAgent.Stop()
+        tmCheckAgent.Dispose()
+        If _applyCount > 10 Then
+            CircularProgressControl1.Stop()
+            CircularProgressControl1.Visible = False
+            _applyCount = 0
+            MsgBox(p_clsMsgData.fn_GetData("M029"))
+            Return
+        End If
+        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
+        If _startDt.CompareTo(fn_ChkServer(odbcCon)) < 0 Then
+            CircularProgressControl1.Stop()
+            CircularProgressControl1.Visible = False
+            _applyCount = 0
+            MsgBox(p_clsMsgData.fn_GetData("M028"))
+        Else
+            _applyCount += 1
+            tmCheckAgent.Start()
+        End If
+    End Sub
+#End Region
 End Class

@@ -397,6 +397,10 @@
       <Project>{ae6992f9-1f54-45c4-be7a-ccf6a9a1409b}</Project>
       <Name>eXperDB.Resources</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProgressControl\ProgressControl.csproj">
+      <Project>{bb31a4a7-a194-4683-a801-3a693aed9f88}</Project>
+      <Name>ProgressControl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TreeGridView\ExpandableGridView.csproj">
       <Project>{2efe526f-79b3-49bc-9575-a7b258c59bb5}</Project>
       <Name>ExpandableGridView</Name>

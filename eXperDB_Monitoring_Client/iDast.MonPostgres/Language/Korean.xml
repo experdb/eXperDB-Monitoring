@@ -2316,5 +2316,21 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M028" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[수집서버에 적용이 완료되었습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M029" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[적용에 실패하였습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW />
 </ROWS>

@@ -2316,5 +2316,21 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M028" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[The changes applied to the server.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M029" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[Failed to apply changes.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW />
 </ROWS>

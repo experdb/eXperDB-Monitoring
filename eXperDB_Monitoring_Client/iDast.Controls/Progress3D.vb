@@ -284,11 +284,11 @@ Public Class Progress3D
 
         If _UseTitle Then
             szf = pGr.MeasureString(MyBase.Text, MyBase.Font)
-            grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + 2), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 20, BaseRect.Y + 2), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + szf.Height - 5), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + szf.Height - 5))
-            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + szf.Height + 2), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + szf.Height * 2 - 6), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + 1), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 20, BaseRect.Y + 1), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1)), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height / 3 + 1)))
+            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5 + (BaseRect.Height / 4)), System.Drawing.StringFormat.GenericDefault)
 
         End If
 
