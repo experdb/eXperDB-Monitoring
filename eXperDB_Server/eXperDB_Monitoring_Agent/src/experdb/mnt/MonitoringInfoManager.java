@@ -68,6 +68,7 @@ public class MonitoringInfoManager {
 			
 			SqlSession sessionCollect = null;
 			Connection connection = null;
+			String instance_db_version = "";
 			
 			for (HashMap<String, Object> map : tempS) {
 				
@@ -82,13 +83,15 @@ public class MonitoringInfoManager {
 					
 					sessionCollect = sqlSessionFactory.openSession(connection);
 
-					
-					
+					HashMap<String, Object> select_prev = new HashMap<String, Object>();
+					select_prev = sessionCollect.selectOne("app.EXPERDBMA_BT_GET_PGVERSION_001");
+					instance_db_version = (String)select_prev.get("pg_version");
 					HashMap<String, Object> select = new HashMap<String, Object>();
 					
 					/* add to update ha info by robin 201712*/
-					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");
-					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002");
+					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");						
+					select.put("instance_db_version", instance_db_version);	
+					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
 					
 					select.put("instance_id", map.get("instance_id"));
 					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));

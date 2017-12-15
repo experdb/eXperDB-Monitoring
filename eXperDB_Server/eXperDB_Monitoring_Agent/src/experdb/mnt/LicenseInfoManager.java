@@ -30,8 +30,8 @@ public class LicenseInfoManager {
 /* Test Code*/
  	public static void main(String... args) {
 		try {
-			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000005201711070000000008:00:27:d8:14:d7");
-			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000005201711070000000098:83:89:1D:DF:55");
+			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000008:00:27:d8:14:d6");
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000098:83:89:1D:DF:55");
 			String serialKey = LicenseInfoManager.decrypt(encSerialKey);
 			System.out.println(encSerialKey); 
 			System.out.println(serialKey);

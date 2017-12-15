@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 public class StartCollect extends TaskApplication {
@@ -21,12 +22,14 @@ public class StartCollect extends TaskApplication {
 		Connection connection = null;
 		SqlSession sessionCollect = null;
 		SqlSession sessionAgent  = null;
+		String instance_db_version = "";
 		
 		try {
 			// DB Connection을 가져온다
 			sqlSessionFactory = SqlSessionManager.getInstance();
 			
 			connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
+			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version");
 			sessionCollect = sqlSessionFactory.openSession(connection);
 			
 			sessionAgent = sqlSessionFactory.openSession();			
@@ -35,7 +38,8 @@ public class StartCollect extends TaskApplication {
 			
 			HashMap<String, Object> select = new HashMap<String, Object>();
 			/*add to update ha_info by robin 201712 */
-			select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002");
+			select.put("instance_db_version", instance_db_version);	
+			select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
 			
 			select.put("instance_id", Integer.valueOf(instanceId));
 			select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));

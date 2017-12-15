@@ -1339,13 +1339,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
 					        GET_HOSTNAME() AS HOST_NAME,
 					        VERSION() AS PG_VERSION,
-					  		CASE WHEN pg_is_in_recovery() THEN 'A' ELSE 'M' END AS HA_ROLE, 
+					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE 'M' END AS HA_ROLE, 
 		       				CASE WHEN pg_is_in_recovery() THEN '-' ELSE '-' END AS HA_HOST, 
 		       				CASE WHEN pg_is_in_recovery() THEN '-' ELSE '-' END AS HA_PORT       
 					   FROM PG_SETTINGS 
 					   WHERE NAME='max_connections'
 			</otherwise>
 		</choose>
+	</select>
+	<select id="EXPERDBMA_BT_GET_PGVERSION_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+		       SELECT SUBSTRING(SPLIT_PART(VERSION(), ' ', 2) FROM 1 FOR 3) AS pg_version;
 	</select>
 <!--	add to update ha_info by robin 201712  end -->
 	<update id="TB_INSTANCE_INFO_U001" parameterType="hashmap" >
