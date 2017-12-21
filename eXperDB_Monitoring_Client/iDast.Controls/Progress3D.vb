@@ -16,6 +16,10 @@ Public Class Progress3D
 
     Private _SubText2 As String = ""
 
+    Private _Margin As Integer = 10
+
+    Private _Radius As Integer = 10
+
     Private _isSelected As Boolean = False
     Property isSelected As Boolean
         Get
@@ -111,6 +115,16 @@ Public Class Progress3D
         MyBase.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
         MyBase.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
         MyBase.SetStyle(DoubleBuffered, True)
+
+        Dim DisplayHeight = Screen.AllScreens(0).WorkingArea.Height
+        If DisplayHeight >= 1080 Then
+            _Margin = 18
+        ElseIf DisplayHeight >= 900 And DisplayHeight < 1080 Then
+            _Margin = 15
+        Else
+            _Margin = 11
+        End If
+
     End Sub
 
 
@@ -248,7 +262,6 @@ Public Class Progress3D
     End Property
 
 
-    Private _Radius As Integer = 10
     <Category("Design")> _
     Property Radius As Integer
         Get
@@ -301,8 +314,9 @@ Public Class Progress3D
         End If
 
 
+
         '        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + szf.Height + 1, BaseRect.Width - 2, BaseRect.Height - szf.Height - 2)
-        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + 15 + _Radius, BaseRect.Width - 2, BaseRect.Height - 2 - _Radius - 15)
+        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + _Margin + _Radius, BaseRect.Width - 2, BaseRect.Height - _Radius - _Margin)
 
     End Function
 

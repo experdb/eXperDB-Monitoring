@@ -536,16 +536,16 @@
         If dtTableSession IsNot Nothing Then
             Dim dtRowsSession As DataRow() = dtTableSession.Select("INSTANCE_ID=" & Me.InstanceID)
 
-            For Each tmpRow As DataRow In dtRowsSession
-                Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-                sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
-                sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
-
-            Next
             If dtRowsSession.Count = 0 Then
-                Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-mm-dd HH:mm:ss"))
+                Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                 sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, 0)
                 sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, 0)
+            Else
+                For Each tmpRow As DataRow In dtRowsSession
+                    Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                    sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
+                    sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
+                Next
             End If
         End If
 
@@ -593,23 +593,22 @@
 
         ' Chart 데이터는 Invoke 로 넣어야 한다. 
 
-
-        For Each tmprow As DataRow In dtRows
-            Dim dblRegDt As Double = ConvOADate(tmprow.Item("REG_DATE"))
-            Dim dblMax As Double = ConvULong(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
-            Dim dblAvg As Double = ConvULong(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
-
-            sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
-            sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
-        Next
         If dtRows.Count = 0 Then
-            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-mm-dd HH:mm:ss"))
+            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
             sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, 0)
             sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, 0)
+        Else
+            For Each tmprow As DataRow In dtRows
+                Dim dblRegDt As Double = ConvOADate(tmprow.Item("REG_DATE"))
+                Dim dblMax As Double = ConvULong(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
+                Dim dblAvg As Double = ConvULong(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
+
+                sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
+                sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
+            Next
+
         End If
-
         sb_ChartAlignYAxies(Me.chtSQLRespTm)
-
     End Sub
 
     ''' <summary>

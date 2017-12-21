@@ -565,7 +565,7 @@
 
         tmpCtl.Width = 78 ' Size = New System.Drawing.Size(78, 123)
         tmpCtl.Height = 123
-        tmpCtl.Radius = 10
+        tmpCtl.Radius = 5
         tmpCtl.BackColor = System.Drawing.Color.Black
         tmpCtl.BorderColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         'tmpCtl.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1757,7 +1757,7 @@
     Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
         Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
         Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
-        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 2 'add vertical margin
+        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 3 'add vertical margin
 
         For Each tmpCtl As Progress3D In BaseCTl.Controls
             tmpCtl.Width = ctlWidth

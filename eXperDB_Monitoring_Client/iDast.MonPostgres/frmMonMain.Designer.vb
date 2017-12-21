@@ -1628,14 +1628,13 @@ Partial Class frmMonMain
         ChartArea1.BorderColor = System.Drawing.Color.Empty
         ChartArea1.InnerPlotPosition.Auto = False
         ChartArea1.InnerPlotPosition.Height = 80.0!
-        ChartArea1.InnerPlotPosition.Width = 80.0!
-        ChartArea1.InnerPlotPosition.X = 15.0!
+        ChartArea1.InnerPlotPosition.Width = 82.0!
+        ChartArea1.InnerPlotPosition.X = 8.0!
         ChartArea1.InnerPlotPosition.Y = 11.0!
         ChartArea1.Name = "ChartArea1"
         ChartArea1.Position.Auto = False
         ChartArea1.Position.Height = 79.99083!
-        ChartArea1.Position.Width = 90.0!
-        ChartArea1.Position.X = 1.0!
+        ChartArea1.Position.Width = 100.0!
         ChartArea1.Position.Y = 10.0!
         Me.chrReqInfo.ChartAreas.Add(ChartArea1)
         Me.chrReqInfo.Dock = System.Windows.Forms.DockStyle.Fill
