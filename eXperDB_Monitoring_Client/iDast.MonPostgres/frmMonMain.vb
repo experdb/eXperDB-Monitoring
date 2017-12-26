@@ -264,7 +264,7 @@
 
         ' Session Information
 
-        grpSessionInfo.Text = p_clsMsgData.fn_GetData("F089")
+        grpSessionInfo.Text = p_clsMsgData.fn_GetData("F312")
         dgvSessionInfo.AutoGenerateColumns = False
         colDgvSessionInfoSvrNm.HeaderText = p_clsMsgData.fn_GetData("F033")
         colDgvSessionInfoRead.HeaderText = p_clsMsgData.fn_GetData("F048")
@@ -356,6 +356,8 @@
             sb_setGrpDiskInfos()
             ' Request Info 
             sb_SetGrpReqinfo(grpInfo.Items)
+            ' Session Stats
+            sb_SetSessionStats(grpInfo.Items)
 
             '서버 Alert ServerInfo
             _GrpListServerinfo = grpInfo.Items
@@ -379,6 +381,8 @@
         sb_setGrpDiskInfos()
         ' Request Info 
         sb_SetGrpReqinfo(grpInfo.Items)
+        ' Session Stats
+        sb_SetSessionStats(grpInfo.Items)
 
         '서버 Alert ServerInfo
         _GrpListServerinfo = grpInfo.Items
@@ -409,6 +413,23 @@
 
 
 
+    End Sub
+    Private Sub sb_SetSessionStats(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+
+        For i As Integer = 0 To svrLst.Count - 1
+            srtLSt.Add(svrLst.Item(i).InstanceID, i)
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
+                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+            Next
+        Next
+
+        Me.chrSessionStat.Tag = srtLSt
+        chrSessionStat.Invalidate()
     End Sub
 
     ''' <summary>
@@ -763,6 +784,7 @@
                 clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
                 'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
                 clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
+                clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessionStats)
             Else
                 'SerialCheck()
 
@@ -1234,7 +1256,33 @@
     'End Sub
 
 
+    Private Sub clsAgentCollect_GetDataSessionStatsInfo(ByVal dtTableSessionStats As DataTable)
 
+        Dim tmpSrtLst As SortedList = TryCast(Me.chrSessionStat.Tag, SortedList)
+
+        Dim MaxPri As Double = 0 ' lngInsertTuples + lngDeleteTuples + lngUpdatetTuples
+        Dim MaxSec As Double = 0 ' lngReadtTuples
+        For Each dtRow As DataRow In dtTableSessionStats.Rows
+            ' GRP Reqinfo
+            ' DgvreqInfo 
+            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID")
+            ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
+            ' 추후 개선할 것 
+            Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
+            If cpuidx >= 0 Then
+                Dim lngSessionIdle As Long = ConvULong(dtRow.Item("IDLE_SESSION"))
+                Dim lngSessionActive As Long = ConvULong(dtRow.Item("ACTIVE_SESSION"))
+                If tmpSrtLst IsNot Nothing Then
+                    Dim idx As Integer = tmpSrtLst.Item(intInstID)
+                    Me.chrSessionStat.Series("ACTIVE").Points(idx).SetValueY(lngSessionActive)
+                    Me.chrSessionStat.Series("IDLE").Points(idx).SetValueY(lngSessionIdle)
+                End If
+            End If
+        Next
+
+        Me.chrSessionStat.ChartAreas(0).RecalculateAxesScale()
+
+    End Sub
     Private Sub clsAgentCollect_GetDataObjectInfo(ByVal dtTableObject As DataTable, ByVal dtTableSession As DataTable)
 
 

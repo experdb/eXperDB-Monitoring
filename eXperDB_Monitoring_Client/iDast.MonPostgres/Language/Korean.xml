@@ -2044,6 +2044,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F312" PARAMS="0">
+    <DESC>SESSION INFORMATION</DESC>
+    <DATA><![CDATA[Session Stats]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>  
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다.\n지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 \nAUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
