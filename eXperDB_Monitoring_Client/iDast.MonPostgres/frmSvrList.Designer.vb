@@ -113,6 +113,7 @@ Partial Class frmSvrList
         Me.FormControlBox2 = New eXperDB.Controls.FormControlBox()
         Me.TableLayoutPanel4 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.cmbGrp = New eXperDB.BaseControls.ComboBox()
+        Me.TableLayoutPanel6 = New eXperDB.BaseControls.TableLayoutPanel()
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpMonGrp.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -129,6 +130,7 @@ Partial Class frmSvrList
         Me.pnlAgentInfo.SuspendLayout()
         Me.FormMovePanel2.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
+        Me.TableLayoutPanel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'dgvSvrLst
@@ -182,7 +184,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.RowHeadersVisible = False
         Me.dgvSvrLst.RowTemplate.Height = 23
         Me.dgvSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSvrLst.Size = New System.Drawing.Size(691, 369)
+        Me.dgvSvrLst.Size = New System.Drawing.Size(707, 364)
         Me.dgvSvrLst.TabIndex = 9
         Me.dgvSvrLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSvrLst.UseTagValueMatchColor = False
@@ -297,7 +299,7 @@ Partial Class frmSvrList
         Me.btnStart.ForeColor = System.Drawing.Color.LightGray
         Me.btnStart.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnStart.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnStart.Location = New System.Drawing.Point(972, 9)
+        Me.btnStart.Location = New System.Drawing.Point(986, 9)
         Me.btnStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Radius = 10
@@ -314,7 +316,7 @@ Partial Class frmSvrList
         Me.grpMonGrp.AlignString = System.Drawing.StringAlignment.Near
         Me.grpMonGrp.BackColor = System.Drawing.Color.Black
         Me.grpMonGrp.Controls.Add(Me.TableLayoutPanel1)
-        Me.grpMonGrp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.grpMonGrp.Dock = System.Windows.Forms.DockStyle.Fill
         Edges1.LeftBottom = 0
         Edges1.LeftTop = 20
         Edges1.RightBottom = 0
@@ -323,11 +325,11 @@ Partial Class frmSvrList
         Me.grpMonGrp.FillColor = System.Drawing.Color.Black
         Me.grpMonGrp.LineColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.grpMonGrp.LineWidth = 1
-        Me.grpMonGrp.Location = New System.Drawing.Point(6, 215)
+        Me.grpMonGrp.Location = New System.Drawing.Point(3, 184)
         Me.grpMonGrp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpMonGrp.Name = "grpMonGrp"
         Me.grpMonGrp.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpMonGrp.Size = New System.Drawing.Size(1095, 589)
+        Me.grpMonGrp.Size = New System.Drawing.Size(1109, 584)
         Me.grpMonGrp.TabIndex = 11
         Me.grpMonGrp.TabStop = False
         Me.grpMonGrp.Text = "F025"
@@ -360,7 +362,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1089, 554)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1103, 549)
         Me.TableLayoutPanel1.TabIndex = 9
         '
         'rbGrp4
@@ -369,10 +371,10 @@ Partial Class frmSvrList
         Me.rbGrp4.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbGrp4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp4.LineColor = System.Drawing.Color.Gray
-        Me.rbGrp4.Location = New System.Drawing.Point(819, 3)
+        Me.rbGrp4.Location = New System.Drawing.Point(828, 3)
         Me.rbGrp4.Name = "rbGrp4"
         Me.rbGrp4.Radius = 10
-        Me.rbGrp4.Size = New System.Drawing.Size(267, 34)
+        Me.rbGrp4.Size = New System.Drawing.Size(272, 34)
         Me.rbGrp4.TabIndex = 15
         Me.rbGrp4.TabStop = True
         Me.rbGrp4.Text = "F026 1"
@@ -388,10 +390,10 @@ Partial Class frmSvrList
         Me.rbGrp3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbGrp3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp3.LineColor = System.Drawing.Color.Gray
-        Me.rbGrp3.Location = New System.Drawing.Point(547, 3)
+        Me.rbGrp3.Location = New System.Drawing.Point(553, 3)
         Me.rbGrp3.Name = "rbGrp3"
         Me.rbGrp3.Radius = 10
-        Me.rbGrp3.Size = New System.Drawing.Size(266, 34)
+        Me.rbGrp3.Size = New System.Drawing.Size(269, 34)
         Me.rbGrp3.TabIndex = 14
         Me.rbGrp3.TabStop = True
         Me.rbGrp3.Text = "F026 1"
@@ -407,10 +409,10 @@ Partial Class frmSvrList
         Me.rbGrp2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbGrp2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp2.LineColor = System.Drawing.Color.Gray
-        Me.rbGrp2.Location = New System.Drawing.Point(275, 3)
+        Me.rbGrp2.Location = New System.Drawing.Point(278, 3)
         Me.rbGrp2.Name = "rbGrp2"
         Me.rbGrp2.Radius = 10
-        Me.rbGrp2.Size = New System.Drawing.Size(266, 34)
+        Me.rbGrp2.Size = New System.Drawing.Size(269, 34)
         Me.rbGrp2.TabIndex = 13
         Me.rbGrp2.TabStop = True
         Me.rbGrp2.Text = "F026 1"
@@ -426,10 +428,10 @@ Partial Class frmSvrList
         Me.TableLayoutPanel1.SetColumnSpan(Me.pnlMB, 4)
         Me.pnlMB.Controls.Add(Me.TableLayoutPanel2)
         Me.pnlMB.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlMB.Location = New System.Drawing.Point(3, 510)
+        Me.pnlMB.Location = New System.Drawing.Point(3, 505)
         Me.pnlMB.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlMB.Name = "pnlMB"
-        Me.pnlMB.Size = New System.Drawing.Size(1083, 40)
+        Me.pnlMB.Size = New System.Drawing.Size(1097, 40)
         Me.pnlMB.TabIndex = 11
         '
         'TableLayoutPanel2
@@ -444,7 +446,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1083, 40)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1097, 40)
         Me.TableLayoutPanel2.TabIndex = 0
         '
         'btnGrpSave
@@ -458,7 +460,7 @@ Partial Class frmSvrList
         Me.btnGrpSave.ForeColor = System.Drawing.Color.LightGray
         Me.btnGrpSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnGrpSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnGrpSave.Location = New System.Drawing.Point(966, 4)
+        Me.btnGrpSave.Location = New System.Drawing.Point(980, 4)
         Me.btnGrpSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnGrpSave.Name = "btnGrpSave"
         Me.btnGrpSave.Radius = 10
@@ -479,7 +481,7 @@ Partial Class frmSvrList
         Me.pnlM.Location = New System.Drawing.Point(3, 49)
         Me.pnlM.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlM.Name = "pnlM"
-        Me.pnlM.Size = New System.Drawing.Size(1083, 453)
+        Me.pnlM.Size = New System.Drawing.Size(1097, 448)
         Me.pnlM.TabIndex = 10
         '
         'TableLayoutPanel3
@@ -487,9 +489,9 @@ Partial Class frmSvrList
         Me.TableLayoutPanel3.ColumnCount = 5
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblGroupName, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.txtGrp1, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.tlpMonList, 4, 1)
@@ -500,7 +502,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel3.RowCount = 2
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1081, 451)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1095, 446)
         Me.TableLayoutPanel3.TabIndex = 1
         '
         'lblGroupName
@@ -547,12 +549,12 @@ Partial Class frmSvrList
         Me.tlpMonList.Controls.Add(Me.dgvMonLst, 0, 1)
         Me.tlpMonList.Controls.Add(Me.lblMonList, 0, 0)
         Me.tlpMonList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMonList.Location = New System.Drawing.Point(713, 38)
+        Me.tlpMonList.Location = New System.Drawing.Point(729, 38)
         Me.tlpMonList.Name = "tlpMonList"
         Me.tlpMonList.RowCount = 2
         Me.tlpMonList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpMonList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpMonList.Size = New System.Drawing.Size(365, 410)
+        Me.tlpMonList.Size = New System.Drawing.Size(363, 405)
         Me.tlpMonList.TabIndex = 7
         '
         'dgvMonLst
@@ -606,7 +608,7 @@ Partial Class frmSvrList
         Me.dgvMonLst.RowHeadersVisible = False
         Me.dgvMonLst.RowTemplate.Height = 23
         Me.dgvMonLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvMonLst.Size = New System.Drawing.Size(357, 369)
+        Me.dgvMonLst.Size = New System.Drawing.Size(355, 364)
         Me.dgvMonLst.TabIndex = 12
         Me.dgvMonLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvMonLst.UseTagValueMatchColor = False
@@ -706,7 +708,7 @@ Partial Class frmSvrList
         Me.lblMonList.ForeColor = System.Drawing.Color.Gray
         Me.lblMonList.Location = New System.Drawing.Point(4, 1)
         Me.lblMonList.Name = "lblMonList"
-        Me.lblMonList.Size = New System.Drawing.Size(357, 30)
+        Me.lblMonList.Size = New System.Drawing.Size(355, 30)
         Me.lblMonList.TabIndex = 11
         Me.lblMonList.Text = "F311"
         Me.lblMonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -725,7 +727,7 @@ Partial Class frmSvrList
         Me.tlpSvrList.RowCount = 2
         Me.tlpSvrList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpSvrList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrList.Size = New System.Drawing.Size(699, 410)
+        Me.tlpSvrList.Size = New System.Drawing.Size(715, 405)
         Me.tlpSvrList.TabIndex = 6
         '
         'lblSvrList
@@ -738,7 +740,7 @@ Partial Class frmSvrList
         Me.lblSvrList.ForeColor = System.Drawing.Color.Gray
         Me.lblSvrList.Location = New System.Drawing.Point(4, 1)
         Me.lblSvrList.Name = "lblSvrList"
-        Me.lblSvrList.Size = New System.Drawing.Size(691, 30)
+        Me.lblSvrList.Size = New System.Drawing.Size(707, 30)
         Me.lblSvrList.TabIndex = 10
         Me.lblSvrList.Text = "F013"
         Me.lblSvrList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -752,7 +754,7 @@ Partial Class frmSvrList
         Me.rbGrp1.Location = New System.Drawing.Point(3, 3)
         Me.rbGrp1.Name = "rbGrp1"
         Me.rbGrp1.Radius = 10
-        Me.rbGrp1.Size = New System.Drawing.Size(266, 34)
+        Me.rbGrp1.Size = New System.Drawing.Size(269, 34)
         Me.rbGrp1.TabIndex = 12
         Me.rbGrp1.TabStop = True
         Me.rbGrp1.Text = "F026 1"
@@ -769,7 +771,7 @@ Partial Class frmSvrList
         Me.grpAgentSVR.BackColor = System.Drawing.Color.Black
         Me.grpAgentSVR.Controls.Add(Me.pnlSvrAct)
         Me.grpAgentSVR.Controls.Add(Me.pnlAgentInfo)
-        Me.grpAgentSVR.Dock = System.Windows.Forms.DockStyle.Top
+        Me.grpAgentSVR.Dock = System.Windows.Forms.DockStyle.Fill
         Edges2.LeftBottom = 0
         Edges2.LeftTop = 20
         Edges2.RightBottom = 0
@@ -778,11 +780,11 @@ Partial Class frmSvrList
         Me.grpAgentSVR.FillColor = System.Drawing.Color.Black
         Me.grpAgentSVR.LineColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.grpAgentSVR.LineWidth = 1
-        Me.grpAgentSVR.Location = New System.Drawing.Point(6, 37)
+        Me.grpAgentSVR.Location = New System.Drawing.Point(3, 4)
         Me.grpAgentSVR.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpAgentSVR.Name = "grpAgentSVR"
         Me.grpAgentSVR.Padding = New System.Windows.Forms.Padding(3, 14, 3, 3)
-        Me.grpAgentSVR.Size = New System.Drawing.Size(1095, 178)
+        Me.grpAgentSVR.Size = New System.Drawing.Size(1109, 172)
         Me.grpAgentSVR.TabIndex = 10
         Me.grpAgentSVR.TabStop = False
         Me.grpAgentSVR.Text = "F001"
@@ -800,7 +802,7 @@ Partial Class frmSvrList
         Me.pnlSvrAct.Location = New System.Drawing.Point(3, 129)
         Me.pnlSvrAct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlSvrAct.Name = "pnlSvrAct"
-        Me.pnlSvrAct.Size = New System.Drawing.Size(1089, 46)
+        Me.pnlSvrAct.Size = New System.Drawing.Size(1103, 40)
         Me.pnlSvrAct.TabIndex = 5
         '
         'TableLayoutPanel5
@@ -817,7 +819,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel5.RowCount = 2
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(1089, 46)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(1103, 40)
         Me.TableLayoutPanel5.TabIndex = 0
         '
         'btnConSave
@@ -830,7 +832,7 @@ Partial Class frmSvrList
         Me.btnConSave.ForeColor = System.Drawing.Color.LightGray
         Me.btnConSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnConSave.Location = New System.Drawing.Point(972, 4)
+        Me.btnConSave.Location = New System.Drawing.Point(986, 4)
         Me.btnConSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnConSave.Name = "btnConSave"
         Me.btnConSave.Radius = 10
@@ -851,7 +853,7 @@ Partial Class frmSvrList
         Me.btnConTest.ForeColor = System.Drawing.Color.LightGray
         Me.btnConTest.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConTest.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnConTest.Location = New System.Drawing.Point(852, 4)
+        Me.btnConTest.Location = New System.Drawing.Point(866, 4)
         Me.btnConTest.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnConTest.Name = "btnConTest"
         Me.btnConTest.Radius = 10
@@ -891,7 +893,7 @@ Partial Class frmSvrList
         Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
         Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
         Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.pnlAgentInfo.Size = New System.Drawing.Size(1089, 97)
+        Me.pnlAgentInfo.Size = New System.Drawing.Size(1103, 97)
         Me.pnlAgentInfo.TabIndex = 2
         '
         'cmbSvrDBNm
@@ -902,13 +904,13 @@ Partial Class frmSvrList
         Me.cmbSvrDBNm.FixedWidth = False
         Me.cmbSvrDBNm.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.cmbSvrDBNm.impossibleinput = ""
-        Me.cmbSvrDBNm.Location = New System.Drawing.Point(276, 69)
+        Me.cmbSvrDBNm.Location = New System.Drawing.Point(279, 69)
         Me.cmbSvrDBNm.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSvrDBNm.Name = "cmbSvrDBNm"
         Me.cmbSvrDBNm.Necessary = False
         Me.cmbSvrDBNm.PossibleInput = ""
         Me.cmbSvrDBNm.Prefix = ""
-        Me.cmbSvrDBNm.Size = New System.Drawing.Size(265, 25)
+        Me.cmbSvrDBNm.Size = New System.Drawing.Size(268, 25)
         Me.cmbSvrDBNm.StatusTip = ""
         Me.cmbSvrDBNm.TabIndex = 5
         Me.cmbSvrDBNm.Value = ""
@@ -923,7 +925,7 @@ Partial Class frmSvrList
         Me.lblSvrIP.ForeColor = System.Drawing.Color.Gray
         Me.lblSvrIP.Location = New System.Drawing.Point(4, 1)
         Me.lblSvrIP.Name = "lblSvrIP"
-        Me.lblSvrIP.Size = New System.Drawing.Size(265, 31)
+        Me.lblSvrIP.Size = New System.Drawing.Size(268, 31)
         Me.lblSvrIP.TabIndex = 2
         Me.lblSvrIP.Text = "F006"
         Me.lblSvrIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -936,9 +938,9 @@ Partial Class frmSvrList
         Me.lblSvrPort.FixedWidth = False
         Me.lblSvrPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPort.ForeColor = System.Drawing.Color.Gray
-        Me.lblSvrPort.Location = New System.Drawing.Point(548, 1)
+        Me.lblSvrPort.Location = New System.Drawing.Point(554, 1)
         Me.lblSvrPort.Name = "lblSvrPort"
-        Me.lblSvrPort.Size = New System.Drawing.Size(265, 31)
+        Me.lblSvrPort.Size = New System.Drawing.Size(268, 31)
         Me.lblSvrPort.TabIndex = 2
         Me.lblSvrPort.Text = "F007"
         Me.lblSvrPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -953,7 +955,7 @@ Partial Class frmSvrList
         Me.lblSvrUsr.ForeColor = System.Drawing.Color.Gray
         Me.lblSvrUsr.Location = New System.Drawing.Point(4, 33)
         Me.lblSvrUsr.Name = "lblSvrUsr"
-        Me.lblSvrUsr.Size = New System.Drawing.Size(265, 31)
+        Me.lblSvrUsr.Size = New System.Drawing.Size(268, 31)
         Me.lblSvrUsr.TabIndex = 2
         Me.lblSvrUsr.Text = "F008"
         Me.lblSvrUsr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -966,9 +968,9 @@ Partial Class frmSvrList
         Me.lblSvrPwd.FixedWidth = False
         Me.lblSvrPwd.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPwd.ForeColor = System.Drawing.Color.Gray
-        Me.lblSvrPwd.Location = New System.Drawing.Point(548, 33)
+        Me.lblSvrPwd.Location = New System.Drawing.Point(554, 33)
         Me.lblSvrPwd.Name = "lblSvrPwd"
-        Me.lblSvrPwd.Size = New System.Drawing.Size(265, 31)
+        Me.lblSvrPwd.Size = New System.Drawing.Size(268, 31)
         Me.lblSvrPwd.TabIndex = 2
         Me.lblSvrPwd.Text = "F009"
         Me.lblSvrPwd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -983,7 +985,7 @@ Partial Class frmSvrList
         Me.lblSvrDBNm.ForeColor = System.Drawing.Color.Gray
         Me.lblSvrDBNm.Location = New System.Drawing.Point(4, 65)
         Me.lblSvrDBNm.Name = "lblSvrDBNm"
-        Me.lblSvrDBNm.Size = New System.Drawing.Size(265, 31)
+        Me.lblSvrDBNm.Size = New System.Drawing.Size(268, 31)
         Me.lblSvrDBNm.TabIndex = 2
         Me.lblSvrDBNm.Text = "F010"
         Me.lblSvrDBNm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -996,13 +998,13 @@ Partial Class frmSvrList
         Me.txtSvrIP.FixedWidth = False
         Me.txtSvrIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrIP.impossibleinput = ""
-        Me.txtSvrIP.Location = New System.Drawing.Point(276, 5)
+        Me.txtSvrIP.Location = New System.Drawing.Point(279, 5)
         Me.txtSvrIP.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtSvrIP.Name = "txtSvrIP"
         Me.txtSvrIP.Necessary = False
         Me.txtSvrIP.PossibleInput = "1234567890."
         Me.txtSvrIP.Prefix = ""
-        Me.txtSvrIP.Size = New System.Drawing.Size(265, 25)
+        Me.txtSvrIP.Size = New System.Drawing.Size(268, 25)
         Me.txtSvrIP.StatusTip = ""
         Me.txtSvrIP.TabIndex = 1
         Me.txtSvrIP.Value = ""
@@ -1015,13 +1017,13 @@ Partial Class frmSvrList
         Me.txtSvrPort.FixedWidth = False
         Me.txtSvrPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrPort.impossibleinput = ""
-        Me.txtSvrPort.Location = New System.Drawing.Point(820, 5)
+        Me.txtSvrPort.Location = New System.Drawing.Point(829, 5)
         Me.txtSvrPort.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtSvrPort.Name = "txtSvrPort"
         Me.txtSvrPort.Necessary = False
         Me.txtSvrPort.PossibleInput = "0123456789"
         Me.txtSvrPort.Prefix = ""
-        Me.txtSvrPort.Size = New System.Drawing.Size(265, 25)
+        Me.txtSvrPort.Size = New System.Drawing.Size(270, 25)
         Me.txtSvrPort.StatusTip = ""
         Me.txtSvrPort.TabIndex = 2
         Me.txtSvrPort.Value = ""
@@ -1034,13 +1036,13 @@ Partial Class frmSvrList
         Me.txtSvrUsr.FixedWidth = False
         Me.txtSvrUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrUsr.impossibleinput = ""
-        Me.txtSvrUsr.Location = New System.Drawing.Point(276, 37)
+        Me.txtSvrUsr.Location = New System.Drawing.Point(279, 37)
         Me.txtSvrUsr.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtSvrUsr.Name = "txtSvrUsr"
         Me.txtSvrUsr.Necessary = False
         Me.txtSvrUsr.PossibleInput = ""
         Me.txtSvrUsr.Prefix = ""
-        Me.txtSvrUsr.Size = New System.Drawing.Size(265, 25)
+        Me.txtSvrUsr.Size = New System.Drawing.Size(268, 25)
         Me.txtSvrUsr.StatusTip = ""
         Me.txtSvrUsr.TabIndex = 3
         Me.txtSvrUsr.Value = ""
@@ -1053,14 +1055,14 @@ Partial Class frmSvrList
         Me.txtSvrPwd.FixedWidth = False
         Me.txtSvrPwd.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrPwd.impossibleinput = ""
-        Me.txtSvrPwd.Location = New System.Drawing.Point(820, 37)
+        Me.txtSvrPwd.Location = New System.Drawing.Point(829, 37)
         Me.txtSvrPwd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtSvrPwd.Name = "txtSvrPwd"
         Me.txtSvrPwd.Necessary = False
         Me.txtSvrPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtSvrPwd.PossibleInput = ""
         Me.txtSvrPwd.Prefix = ""
-        Me.txtSvrPwd.Size = New System.Drawing.Size(265, 25)
+        Me.txtSvrPwd.Size = New System.Drawing.Size(270, 25)
         Me.txtSvrPwd.StatusTip = ""
         Me.txtSvrPwd.TabIndex = 4
         Me.txtSvrPwd.Value = ""
@@ -1159,7 +1161,7 @@ Partial Class frmSvrList
         Me.FormMovePanel2.Location = New System.Drawing.Point(6, 6)
         Me.FormMovePanel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.FormMovePanel2.Name = "FormMovePanel2"
-        Me.FormMovePanel2.Size = New System.Drawing.Size(1095, 31)
+        Me.FormMovePanel2.Size = New System.Drawing.Size(1115, 31)
         Me.FormMovePanel2.TabIndex = 19
         Me.FormMovePanel2.Text = "eXperDB-Monitoring"
         '
@@ -1177,7 +1179,7 @@ Partial Class frmSvrList
         Me.FormControlBox2.isPower = True
         Me.FormControlBox2.isRotation = True
         Me.FormControlBox2.LEDColor = System.Drawing.Color.Lime
-        Me.FormControlBox2.Location = New System.Drawing.Point(1048, 0)
+        Me.FormControlBox2.Location = New System.Drawing.Point(1068, 0)
         Me.FormControlBox2.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.FormControlBox2.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
@@ -1208,14 +1210,14 @@ Partial Class frmSvrList
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 6.0!))
         Me.TableLayoutPanel4.Controls.Add(Me.cmbGrp, 1, 1)
         Me.TableLayoutPanel4.Controls.Add(Me.btnStart, 3, 1)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(6, 803)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 775)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 3
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(1095, 54)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(1109, 42)
         Me.TableLayoutPanel4.TabIndex = 20
         '
         'cmbGrp
@@ -1225,7 +1227,7 @@ Partial Class frmSvrList
         Me.cmbGrp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbGrp.FixedWidth = False
         Me.cmbGrp.FormattingEnabled = True
-        Me.cmbGrp.Location = New System.Drawing.Point(802, 19)
+        Me.cmbGrp.Location = New System.Drawing.Point(816, 19)
         Me.cmbGrp.Name = "cmbGrp"
         Me.cmbGrp.Necessary = False
         Me.cmbGrp.Size = New System.Drawing.Size(154, 23)
@@ -1233,16 +1235,31 @@ Partial Class frmSvrList
         Me.cmbGrp.TabIndex = 1
         Me.cmbGrp.ValueText = ""
         '
+        'TableLayoutPanel6
+        '
+        Me.TableLayoutPanel6.ColumnCount = 1
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel6.Controls.Add(Me.grpAgentSVR, 0, 0)
+        Me.TableLayoutPanel6.Controls.Add(Me.TableLayoutPanel4, 0, 2)
+        Me.TableLayoutPanel6.Controls.Add(Me.grpMonGrp, 0, 1)
+        Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(6, 37)
+        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
+        Me.TableLayoutPanel6.RowCount = 3
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(1115, 820)
+        Me.TableLayoutPanel6.TabIndex = 21
+        '
         'frmSvrList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1107, 863)
+        Me.ClientSize = New System.Drawing.Size(1127, 863)
         Me.ControlBox = False
-        Me.Controls.Add(Me.TableLayoutPanel4)
-        Me.Controls.Add(Me.grpMonGrp)
-        Me.Controls.Add(Me.grpAgentSVR)
+        Me.Controls.Add(Me.TableLayoutPanel6)
         Me.Controls.Add(Me.FormMovePanel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1272,6 +1289,7 @@ Partial Class frmSvrList
         Me.pnlAgentInfo.PerformLayout()
         Me.FormMovePanel2.ResumeLayout(False)
         Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel6.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1348,5 +1366,6 @@ Partial Class frmSvrList
     Friend WithEvents colMonHARole As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TableLayoutPanel6 As eXperDB.BaseControls.TableLayoutPanel
 
 End Class

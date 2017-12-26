@@ -2044,6 +2044,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F312" PARAMS="0">
+    <DESC>SESSION INFORMATION</DESC>
+    <DATA><![CDATA[Session Stats]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>  
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다.\n지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 \nAUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -2311,6 +2319,22 @@
   <ROW ID="M027" PARAMS="0">
     <DESC>모니터링서버리스트</DESC>
     <DATA><![CDATA[모니터링 서버 추가 후 실행하십시오.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M028" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[수집서버에 적용이 완료되었습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M029" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[적용에 실패하였습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

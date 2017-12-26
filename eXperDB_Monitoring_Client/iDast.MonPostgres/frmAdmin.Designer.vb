@@ -46,6 +46,7 @@ Partial Class frmAdmin
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAdmin))
         Me.grpSvrLst = New eXperDB.BaseControls.GroupBox()
         Me.pnlSvr = New eXperDB.BaseControls.Panel()
+        Me.CircularProgressControl1 = New ProgressControl.CircularProgressControl()
         Me.dgvSvrLst = New eXperDB.BaseControls.DataGridView()
         Me.colCheck = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.colCollectYN = New System.Windows.Forms.DataGridViewCheckBoxColumn()
@@ -129,6 +130,7 @@ Partial Class frmAdmin
         'pnlSvr
         '
         Me.pnlSvr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlSvr.Controls.Add(Me.CircularProgressControl1)
         Me.pnlSvr.Controls.Add(Me.dgvSvrLst)
         Me.pnlSvr.Controls.Add(Me.pnlSvtLst)
         Me.pnlSvr.Dock = System.Windows.Forms.DockStyle.Fill
@@ -137,6 +139,20 @@ Partial Class frmAdmin
         Me.pnlSvr.Name = "pnlSvr"
         Me.pnlSvr.Size = New System.Drawing.Size(1246, 652)
         Me.pnlSvr.TabIndex = 8
+        '
+        'CircularProgressControl1
+        '
+        Me.CircularProgressControl1.BackColor = System.Drawing.Color.Transparent
+        Me.CircularProgressControl1.Interval = 60
+        Me.CircularProgressControl1.Location = New System.Drawing.Point(461, 195)
+        Me.CircularProgressControl1.MinimumSize = New System.Drawing.Size(28, 28)
+        Me.CircularProgressControl1.Name = "CircularProgressControl1"
+        Me.CircularProgressControl1.Rotation = ProgressControl.CircularProgressControl.Direction.CLOCKWISE
+        Me.CircularProgressControl1.Size = New System.Drawing.Size(257, 185)
+        Me.CircularProgressControl1.StartAngle = 270
+        Me.CircularProgressControl1.TabIndex = 9
+        Me.CircularProgressControl1.TickColor = System.Drawing.Color.FromArgb(CType(CType(188, Byte), Integer), CType(CType(188, Byte), Integer), CType(CType(188, Byte), Integer))
+        Me.CircularProgressControl1.Visible = False
         '
         'dgvSvrLst
         '
@@ -846,4 +862,5 @@ Partial Class frmAdmin
     Friend WithEvents colLstIP As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As eXperDB.BaseControls.TableLayoutPanel
+    Private WithEvents CircularProgressControl1 As ProgressControl.CircularProgressControl
 End Class

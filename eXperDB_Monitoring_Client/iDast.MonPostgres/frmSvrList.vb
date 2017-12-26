@@ -335,7 +335,10 @@
 
     Private Sub InitForm()
 
-
+        Dim DisplayHeight = Screen.AllScreens(0).WorkingArea.Height
+        If DisplayHeight >= 1080 Then
+            Me.Height += 30
+        End If
 
         Me.grpAgentSVR.Text = p_clsMsgData.fn_GetData("F001")
         btnConTest.Text = p_clsMsgData.fn_GetData("F309")

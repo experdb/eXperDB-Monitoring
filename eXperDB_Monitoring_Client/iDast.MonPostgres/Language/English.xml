@@ -2044,6 +2044,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F312" PARAMS="0">
+    <DESC>SESSION INFORMATION</DESC>
+    <DATA><![CDATA[Session Stats]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -2311,6 +2319,22 @@
   <ROW ID="M027" PARAMS="0">
     <DESC>모니터링서버리스트</DESC>
     <DATA><![CDATA[Pleae start after adding monitoring server]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M028" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[The changes applied to the server.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M029" PARAMS="0">
+    <DESC>수집서버적용메시지</DESC>
+    <DATA><![CDATA[Failed to apply changes.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
