@@ -1374,6 +1374,37 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 <!--	add to update ha_info by robin 201712  end -->
+<!--	add to update ha_info by robin 201712  -->
+	<select id="BT_SESSION_STATS_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">		       
+		SELECT
+		(SELECT count(*) FROM pg_stat_activity WHERE state IN ('active','fastpath function call')) AS ACTIVE_SESSION_CNT,
+		(SELECT count(*) FROM pg_stat_activity WHERE state NOT IN ('active','fastpath function call')) AS IDLE_SESSION_CNT
+	</select>
+	<select id="TB_SESSION_STATS_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">		       
+		SELECT * FROM TB_SESSION_STATS
+		 WHERE INSTANCE_ID = #{instance_id}
+	</select>
+	<insert id="TB_SESSION_STATS_I001" parameterType="hashmap" >
+		INSERT INTO TB_SESSION_STATS
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			#{instance_id},
+			#{active_session_cnt},
+			#{idle_session_cnt},
+			NOW()
+		)
+	</insert>	
+	<update id="TB_SESSION_STATS_U001" parameterType="hashmap" >
+		UPDATE TB_SESSION_STATS A
+		   SET REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'), 
+		   	   INSTANCE_ID = #{instance_id},
+			   ACTIVE_SESSION_CNT = #{active_session_cnt},
+			   IDLE_SESSION_CNT = #{idle_session_cnt},
+			   COLLECT_DT = NOW()
+		 WHERE INSTANCE_ID = #{instance_id}
+	</update>	
+<!--	add to update ha_info by robin 201712  end -->
 <!-- ********************************************************** -->
 <!-- StartCollect END -->
 <!-- ********************************************************** -->

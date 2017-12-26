@@ -30,8 +30,12 @@ public class LicenseInfoManager {
 /* Test Code*/
  	public static void main(String... args) {
 		try {
-			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000008:00:27:d8:14:d6");
-			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000098:83:89:1D:DF:55");
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000008:00:27:d8:14:d6"); my vm
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000098:83:89:1D:DF:55"); my pc
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000000:50:56:A9:79:FE"); //통전 3-1차
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000008:00:27:EA:5C:D5"); //통전 3-1차
+			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000052:54:00:80:12:EB"); //222.110.153.251
+			
 			String serialKey = LicenseInfoManager.decrypt(encSerialKey);
 			System.out.println(encSerialKey); 
 			System.out.println(serialKey);
