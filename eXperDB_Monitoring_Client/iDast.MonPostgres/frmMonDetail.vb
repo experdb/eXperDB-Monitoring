@@ -274,6 +274,12 @@
         Me.FormControlBox1.UseRotationBox = False
         Me.FormControlBox1.UsePowerBox = False
         Me.EspRight.Expand = False
+        'fit position of components
+        Me.btnRefreshSession.Location = New System.Drawing.Point(Me.grpSessioninfo.Width - Me.btnRefreshSession.Width - Me.btnRefreshSession.Margin.Right, Me.btnRefreshSession.Margin.Top)
+        Me.btnRefreshLogicaliO.Location = New System.Drawing.Point(Me.grpLogicalIO.Width - Me.btnRefreshLogicaliO.Width - Me.btnRefreshLogicaliO.Margin.Right, Me.btnRefreshLogicaliO.Margin.Top)
+        Me.btnRefreshObject.Location = New System.Drawing.Point(Me.grpObject.Width - Me.btnRefreshObject.Width - Me.btnRefreshObject.Margin.Right, Me.btnRefreshObject.Margin.Top)
+        Me.btnRefreshPhysicaliO.Location = New System.Drawing.Point(Me.grpPhysicalIO.Width - Me.btnRefreshPhysicaliO.Width - Me.btnRefreshPhysicaliO.Margin.Right, Me.btnRefreshPhysicaliO.Margin.Top)
+        Me.btnRefreshSqlResp.Location = New System.Drawing.Point(Me.grpSQLResposeTime.Width - Me.btnRefreshSqlResp.Width - Me.btnRefreshSqlResp.Margin.Right, Me.btnRefreshSqlResp.Margin.Top)
 
         modCommon.FontChange(Me, p_Font)
 

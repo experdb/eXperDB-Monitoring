@@ -545,7 +545,7 @@
         Dim clsQry As New clsQuerys(conODBC)
         Dim strStartDt As String = ""
         Dim dtTable As DataTable = clsQry.SelectServerDate()
-        If dtTable IsNot Nothing Then
+        If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
             Dim dtRow As DataRow = dtTable.Rows(0)
             strStartDt = dtRow.Item("START_DT")
             Return strStartDt

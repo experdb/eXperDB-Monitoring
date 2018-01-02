@@ -2046,7 +2046,7 @@
   </ROW>
   <ROW ID="F312" PARAMS="0">
     <DESC>SESSION INFORMATION</DESC>
-    <DATA><![CDATA[Session Stats]]></DATA>
+    <DATA><![CDATA[Session Status]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

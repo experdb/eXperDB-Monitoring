@@ -302,7 +302,7 @@ Partial Class ctlChart
         Me.MainChart.TabIndex = 1
         Me.MainChart.Text = "Chart1"
         Title1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom
-        Title1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
+        Title1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold)
         Title1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Title1.IsDockedInsideChartArea = False
         Title1.Name = "Title1"

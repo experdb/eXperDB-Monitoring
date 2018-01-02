@@ -245,6 +245,8 @@
                 dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
             End If
         Next
+
+        lblMonList.Text = p_clsMsgData.fn_GetData("F311") + "(" + dgvMonLst.RowCount.ToString + ")"
     End Sub
     'R-End
 

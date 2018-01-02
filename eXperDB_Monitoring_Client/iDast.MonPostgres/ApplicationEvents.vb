@@ -42,7 +42,7 @@
             'p_CriticalInterval = clsIni.ReadValue("General", "CRITICAL", 300000)
 
             'ConfigIni.WriteValue("General","FONT",ComboBox1.Text) 
-            p_Font = clsIni.ReadValue("General", "FONT", "굴림")
+            p_Font = clsIni.ReadValue("General", "FONT", "Arial")
 
 
             p_ShowName = clsIni.ReadValue("General", "SVRNAME", 0)

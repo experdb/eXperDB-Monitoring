@@ -46,7 +46,8 @@ Module clsVariables
 
     'Public p_CriticalInterval As Integer = 300000
 
-    Public p_Font As String = "굴림"
+    'Public p_Font As String = "Gulim"
+    Public p_Font As String = "Arial"
 
 
 

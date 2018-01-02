@@ -101,7 +101,7 @@ Partial Class AlertConfiguration
         Me.grpTransactionalert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grpTransactionalert.EdgeRound = Edges1
         Me.grpTransactionalert.FillColor = System.Drawing.Color.Black
-        Me.grpTransactionalert.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.grpTransactionalert.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.grpTransactionalert.ForeColor = System.Drawing.Color.White
         Me.grpTransactionalert.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpTransactionalert.LineWidth = 1
@@ -112,7 +112,7 @@ Partial Class AlertConfiguration
         Me.grpTransactionalert.TabIndex = 1
         Me.grpTransactionalert.TabStop = False
         Me.grpTransactionalert.Text = "Transaction alert."
-        Me.grpTransactionalert.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpTransactionalert.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpTransactionalert.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpTransactionalert.UseGraColor = True
         Me.grpTransactionalert.UseRound = True
@@ -388,7 +388,7 @@ Partial Class AlertConfiguration
         Me.grpSWAPusedratio.TabIndex = 5
         Me.grpSWAPusedratio.TabStop = False
         Me.grpSWAPusedratio.Text = "SWAP used ratio"
-        Me.grpSWAPusedratio.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpSWAPusedratio.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpSWAPusedratio.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpSWAPusedratio.UseGraColor = True
         Me.grpSWAPusedratio.UseRound = True
@@ -434,7 +434,7 @@ Partial Class AlertConfiguration
         Me.grpDiskusedratio.TabIndex = 4
         Me.grpDiskusedratio.TabStop = False
         Me.grpDiskusedratio.Text = "Disk Used ratio"
-        Me.grpDiskusedratio.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpDiskusedratio.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpDiskusedratio.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpDiskusedratio.UseGraColor = True
         Me.grpDiskusedratio.UseRound = True
@@ -480,7 +480,7 @@ Partial Class AlertConfiguration
         Me.grpCommitratio.TabIndex = 1
         Me.grpCommitratio.TabStop = False
         Me.grpCommitratio.Text = "Commit ratio"
-        Me.grpCommitratio.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpCommitratio.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpCommitratio.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpCommitratio.UseGraColor = True
         Me.grpCommitratio.UseRound = True
@@ -518,7 +518,7 @@ Partial Class AlertConfiguration
         Me.grpBufferhitratio.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grpBufferhitratio.EdgeRound = Edges5
         Me.grpBufferhitratio.FillColor = System.Drawing.Color.Black
-        Me.grpBufferhitratio.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.grpBufferhitratio.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.grpBufferhitratio.ForeColor = System.Drawing.Color.White
         Me.grpBufferhitratio.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpBufferhitratio.LineWidth = 1
@@ -529,7 +529,7 @@ Partial Class AlertConfiguration
         Me.grpBufferhitratio.TabIndex = 0
         Me.grpBufferhitratio.TabStop = False
         Me.grpBufferhitratio.Text = "Buffer hit ratio"
-        Me.grpBufferhitratio.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpBufferhitratio.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpBufferhitratio.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpBufferhitratio.UseGraColor = True
         Me.grpBufferhitratio.UseRound = True
@@ -577,7 +577,7 @@ Partial Class AlertConfiguration
         Me.grpConnections.TabIndex = 2
         Me.grpConnections.TabStop = False
         Me.grpConnections.Text = "Connections"
-        Me.grpConnections.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpConnections.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpConnections.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpConnections.UseGraColor = True
         Me.grpConnections.UseRound = True
@@ -623,7 +623,7 @@ Partial Class AlertConfiguration
         Me.grpCPUwaitratio.TabIndex = 3
         Me.grpCPUwaitratio.TabStop = False
         Me.grpCPUwaitratio.Text = "CPU wait ratio"
-        Me.grpCPUwaitratio.TitleFont = New System.Drawing.Font("굴림", 9.0!)
+        Me.grpCPUwaitratio.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
         Me.grpCPUwaitratio.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpCPUwaitratio.UseGraColor = True
         Me.grpCPUwaitratio.UseRound = True
@@ -668,7 +668,7 @@ Partial Class AlertConfiguration
         Me.lblAlertconfig.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblAlertconfig.FixedHeight = False
         Me.lblAlertconfig.FixedWidth = False
-        Me.lblAlertconfig.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAlertconfig.Font = New System.Drawing.Font("Gulim", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAlertconfig.Location = New System.Drawing.Point(0, 0)
         Me.lblAlertconfig.Name = "lblAlertconfig"
         Me.lblAlertconfig.Size = New System.Drawing.Size(736, 23)

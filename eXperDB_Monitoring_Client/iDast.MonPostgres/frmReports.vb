@@ -95,7 +95,7 @@ Public Class frmReports
         '
         rtnRB.Appearance = System.Windows.Forms.Appearance.Button
         rtnRB.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        rtnRB.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        rtnRB.Font = New System.Drawing.Font("Gulim", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         rtnRB.ForeColor = System.Drawing.Color.White
         rtnRB.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         rtnRB.Location = New System.Drawing.Point(3, 3)
@@ -119,7 +119,7 @@ Public Class frmReports
         '
         rtnChk.Appearance = System.Windows.Forms.Appearance.Button
         rtnChk.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        rtnChk.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        rtnChk.Font = New System.Drawing.Font("Gulim", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         rtnChk.ForeColor = System.Drawing.Color.White
         rtnChk.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         rtnChk.Location = New System.Drawing.Point(3, 3)
