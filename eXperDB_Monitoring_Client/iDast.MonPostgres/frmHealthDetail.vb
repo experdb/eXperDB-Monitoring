@@ -7,6 +7,8 @@
     Private _AgentCn As eXperDB.ODBC.DXODBC = Nothing
     Private _SQLCols As New List(Of SQLInfo)
     Private _AgentInfo As structAgent = Nothing
+    Private _WMargin As Integer = 50
+    Private _HMargin As Integer = 50
     Private Class SQLInfo
         Dim _SQL As Integer
         ReadOnly Property SQL As Integer
@@ -179,14 +181,14 @@
 
                               ' HS Scroll 
                               If tmpRect.Top + tmpRect.Height < Me.Height Then
-                                  dgvinfo.Height = tmpRect.Top + tmpRect.Height + 1 + IIf(dgvinfo.Controls(0).Visible, dgvinfo.Controls(0).Height, 0)
+                                  dgvinfo.Height = tmpRect.Top + tmpRect.Height + 1 + IIf(dgvinfo.Controls(0).Visible, dgvinfo.Controls(0).Height, 0) + _HMargin
                               End If
                               ' VS Scroll 
                               If dgvinfo.Controls(1).Visible = True Then
                                   Me.Width += dgvinfo.Controls(1).Width
                               End If
                           Else
-                              dgvinfo.Height = dgvinfo.ColumnHeadersHeight + dgvinfo.RowTemplate.Height + IIf(dgvinfo.Controls(0).Visible, dgvinfo.Controls(0).Height, 0)
+                              dgvinfo.Height = dgvinfo.ColumnHeadersHeight + dgvinfo.RowTemplate.Height + IIf(dgvinfo.Controls(0).Visible, dgvinfo.Controls(0).Height, 0) + _HMargin
                           End If
 
 
@@ -249,7 +251,7 @@
                 tmpCtl = tmpCtl.Parent
             Loop
 
-            Me.Width = dgvWidth
+            Me.Width = dgvWidth + _WMargin
 
         End If
 
@@ -271,7 +273,7 @@
             intHeight += tmpCtl.Padding.Bottom + tmpCtl.Padding.Top + 1
             tmpCtl = tmpCtl.Parent
         Loop
-        Me.Height = intHeight
+        Me.Height = intHeight + _HMargin
     End Sub
 
     Private Sub dgvinfo_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvinfo.CellContentClick

@@ -303,6 +303,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonActInfo.resx">
       <DependentUpon>frmMonActInfo.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfig.resx">
       <DependentUpon>frmConfig.vb</DependentUpon>

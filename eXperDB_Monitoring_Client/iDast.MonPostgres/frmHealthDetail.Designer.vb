@@ -36,6 +36,7 @@ Partial Class frmHealthDetail
         Me.lblCurTime = New eXperDB.BaseControls.Label()
         Me.FormMovePanel2 = New eXperDB.Controls.FormMovePanel()
         Me.FormControlBox2 = New eXperDB.Controls.FormControlBox()
+        Me.Label1 = New eXperDB.BaseControls.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.dgvinfo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,6 +60,7 @@ Partial Class frmHealthDetail
         Me.Panel2.BackColor = System.Drawing.Color.Black
         Me.Panel2.Controls.Add(Me.lblParameter)
         Me.Panel2.Controls.Add(Me.dgvinfo)
+        Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Controls.Add(Me.lblinfo)
         Me.Panel2.Controls.Add(Me.lblResult)
         Me.Panel2.Controls.Add(Me.lblDesc)
@@ -78,7 +80,7 @@ Partial Class frmHealthDetail
         Me.lblParameter.FixedHeight = False
         Me.lblParameter.FixedWidth = False
         Me.lblParameter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblParameter.Location = New System.Drawing.Point(11, 519)
+        Me.lblParameter.Location = New System.Drawing.Point(11, 537)
         Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(682, 25)
@@ -114,7 +116,7 @@ Partial Class frmHealthDetail
         Me.dgvinfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvinfo.EnableHeadersVisualStyles = False
         Me.dgvinfo.GridColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.dgvinfo.Location = New System.Drawing.Point(11, 130)
+        Me.dgvinfo.Location = New System.Drawing.Point(11, 148)
         Me.dgvinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvinfo.Name = "dgvinfo"
         Me.dgvinfo.RowHeadersVisible = False
@@ -215,7 +217,11 @@ Partial Class frmHealthDetail
         'FormControlBox2
         '
         Me.FormControlBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.FormControlBox2.CloseBox = New System.Drawing.Rectangle(45, 1, 20, 20)
+        Me.FormControlBox2.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox2.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FormControlBox2.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FormControlBox2.isCritical = False
         Me.FormControlBox2.isLock = False
@@ -223,8 +229,13 @@ Partial Class frmHealthDetail
         Me.FormControlBox2.isRotation = True
         Me.FormControlBox2.LEDColor = System.Drawing.Color.Lime
         Me.FormControlBox2.Location = New System.Drawing.Point(635, 0)
+        Me.FormControlBox2.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.FormControlBox2.MaxBox = New System.Drawing.Rectangle(23, 1, 20, 20)
+        Me.FormControlBox2.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
         Me.FormControlBox2.Name = "FormControlBox2"
+        Me.FormControlBox2.PowerBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox2.RotationBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
         Me.FormControlBox2.ShowRectCnt = 3
         Me.FormControlBox2.Size = New System.Drawing.Size(67, 22)
         Me.FormControlBox2.TabIndex = 1
@@ -237,6 +248,19 @@ Partial Class frmHealthDetail
         Me.FormControlBox2.UseMinBox = True
         Me.FormControlBox2.UsePowerBox = False
         Me.FormControlBox2.UseRotationBox = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSizeHeight = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label1.FixedHeight = False
+        Me.Label1.FixedWidth = False
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(11, 130)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(682, 18)
+        Me.Label1.TabIndex = 9
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frmHealthDetail
         '
@@ -269,4 +293,5 @@ Partial Class frmHealthDetail
     Friend WithEvents lblDesc As eXperDB.BaseControls.Label
     Friend WithEvents lblResult As eXperDB.BaseControls.Label
     Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
+    Friend WithEvents Label1 As eXperDB.BaseControls.Label
 End Class
