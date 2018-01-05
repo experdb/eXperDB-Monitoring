@@ -1576,7 +1576,7 @@ Partial Class frmMonDetail
         Me.rtbSvrInfo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tlpMain.SetColumnSpan(Me.rtbSvrInfo, 2)
         Me.rtbSvrInfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.rtbSvrInfo.Font = New System.Drawing.Font("Gulim", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.rtbSvrInfo.Font = New System.Drawing.Font("Gulim", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.rtbSvrInfo.ForeColor = System.Drawing.Color.LightGray
         Me.rtbSvrInfo.Location = New System.Drawing.Point(6, 8)
         Me.rtbSvrInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -1609,7 +1609,7 @@ Partial Class frmMonDetail
         Me.btnLogView.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnLogView.FixedHeight = False
         Me.btnLogView.FixedWidth = False
-        Me.btnLogView.Font = New System.Drawing.Font("Gulim", 10.8989!)
+        Me.btnLogView.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.btnLogView.ForeColor = System.Drawing.Color.LightGray
         Me.btnLogView.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnLogView.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -1629,7 +1629,7 @@ Partial Class frmMonDetail
         Me.rbHour1.Appearance = System.Windows.Forms.Appearance.Button
         Me.rbHour1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.rbHour1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbHour1.Font = New System.Drawing.Font("Gulim", 12.35609!)
+        Me.rbHour1.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.rbHour1.ForeColor = System.Drawing.Color.White
         Me.rbHour1.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.rbHour1.Location = New System.Drawing.Point(780, 0)
@@ -1651,7 +1651,7 @@ Partial Class frmMonDetail
         Me.rbHour2.Appearance = System.Windows.Forms.Appearance.Button
         Me.rbHour2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.rbHour2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbHour2.Font = New System.Drawing.Font("Gulim", 12.35609!)
+        Me.rbHour2.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.rbHour2.ForeColor = System.Drawing.Color.White
         Me.rbHour2.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.rbHour2.Location = New System.Drawing.Point(917, 0)
@@ -1673,7 +1673,7 @@ Partial Class frmMonDetail
         Me.rbmin30.Appearance = System.Windows.Forms.Appearance.Button
         Me.rbmin30.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.rbmin30.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rbmin30.Font = New System.Drawing.Font("Gulim", 12.35609!)
+        Me.rbmin30.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.rbmin30.ForeColor = System.Drawing.Color.White
         Me.rbmin30.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.rbmin30.Location = New System.Drawing.Point(1054, 0)
@@ -1696,7 +1696,7 @@ Partial Class frmMonDetail
         Me.btnActInfo.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnActInfo.FixedHeight = False
         Me.btnActInfo.FixedWidth = False
-        Me.btnActInfo.Font = New System.Drawing.Font("Gulim", 10.8989!)
+        Me.btnActInfo.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.btnActInfo.ForeColor = System.Drawing.Color.LightGray
         Me.btnActInfo.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnActInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -2394,6 +2394,7 @@ Partial Class frmMonDetail
         Me.EspRight.Size = New System.Drawing.Size(10, 1047)
         Me.EspRight.TabIndex = 12
         Me.EspRight.TabStop = False
+        Me.EspRight.Visible = False
         '
         'frmMonDetail
         '
