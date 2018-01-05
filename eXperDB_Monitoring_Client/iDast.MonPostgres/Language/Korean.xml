@@ -298,7 +298,7 @@
   </ROW>
   <ROW ID="F032" PARAMS="0">
     <DESC>인스턴스 요약 정보</DESC>
-    <DATA><![CDATA[클러스터상태]]></DATA>
+    <DATA><![CDATA[Cluster Status]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2046,7 +2046,7 @@
   </ROW>
   <ROW ID="F312" PARAMS="0">
     <DESC>SESSION INFORMATION</DESC>
-    <DATA><![CDATA[Session Stats]]></DATA>
+    <DATA><![CDATA[Session Status]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

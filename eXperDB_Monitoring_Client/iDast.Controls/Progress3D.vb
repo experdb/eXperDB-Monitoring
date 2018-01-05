@@ -6,7 +6,7 @@ Public Class Progress3D
 
     Private _MaxLevel As Integer = 4
 
-    Private _Spacing As Integer = 5
+    Private _Spacing As Integer = 1
 
     Private _Items As New Progress3DItemCollection(Me)
 
@@ -118,11 +118,14 @@ Public Class Progress3D
 
         Dim DisplayHeight = Screen.AllScreens(0).WorkingArea.Height
         If DisplayHeight >= 1080 Then
-            _Margin = 18
+            '_Margin = 18
+            _Margin = 12
         ElseIf DisplayHeight >= 900 And DisplayHeight < 1080 Then
-            _Margin = 15
+            '_Margin = 15
+            _Margin = 10
         Else
-            _Margin = 11
+            '_Margin = 11
+            _Margin = 7
         End If
 
     End Sub
@@ -179,6 +182,44 @@ Public Class Progress3D
         End If
     End Sub
 
+    Private _Warning As Boolean = False
+    Property Warning() As Boolean
+        Get
+            Return _Warning
+        End Get
+        Set(value As Boolean)
+            If Not _Warning.Equals(value) Then
+                _Warning = value
+                If _Warning = True Then
+                    Tm.Interval = 120
+                    Tm.Start()
+                Else
+                    Tm.Stop()
+                    Me.Invalidate()
+                End If
+            End If
+        End Set
+    End Property
+    Private _WarningColor As Color = Color.FromArgb(255, 80, 80)
+    Property WarningColor As Color
+        Get
+            Return _WarningColor
+        End Get
+        Set(value As Color)
+            If Not _WarningColor.Equals(value) Then
+                _WarningColor = value
+            End If
+        End Set
+    End Property
+    Private WithEvents Tm As New Timer
+    Private _WOpacity As Integer = 30
+    Private Sub Tm_Tick(sender As Object, e As EventArgs) Handles Tm.Tick
+        _WOpacity += 8
+        If _WOpacity > 160 Then
+            _WOpacity = 50
+        End If
+        Me.Invalidate()
+    End Sub
 #End Region
 
     Private _BefValue As Integer = 0
@@ -275,6 +316,7 @@ Public Class Progress3D
         End Set
     End Property
 
+    Private _grPath As System.Drawing.Drawing2D.GraphicsPath
     Private Function DrawBorder(ByVal pGr As Graphics) As Rectangle
         Dim BaseRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
         Dim intDiameter As Integer = _Radius * 2
@@ -297,26 +339,27 @@ Public Class Progress3D
 
         If _UseTitle Then
             szf = pGr.MeasureString(MyBase.Text, MyBase.Font)
-            grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + 1), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 20, BaseRect.Y + 1), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1)), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height / 3 + 1)))
-            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5 + (BaseRect.Height / 4)), System.Drawing.StringFormat.GenericDefault)
+            'grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 2, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 20, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 2)), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height / 2)))
+            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 3 / 5)), System.Drawing.StringFormat.GenericDefault)
+            'grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5 + (BaseRect.Height / 4)), System.Drawing.StringFormat.GenericDefault)
 
         End If
 
         pGr.FillPath(New SolidBrush(_FillColor), grPath)
-        pGr.DrawPath(New Pen(_BorderColor, 1), grPath)
+        pGr.DrawPath(New Pen(MyBase.ForeColor, 1), grPath)
+        'pGr.DrawPath(New Pen(Color.FromArgb(255, 255, 255, 255), 1), grPath)
 
         If _UseSelected = True AndAlso isSelected = True Then
             pGr.FillPath(New SolidBrush(Color.FromArgb(30, 255, 255, 255)), grPath)
 
         End If
-
+        _grPath = grPath
 
 
         '        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + szf.Height + 1, BaseRect.Width - 2, BaseRect.Height - szf.Height - 2)
-        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + _Margin + _Radius, BaseRect.Width - 2, BaseRect.Height - _Radius - _Margin)
+        Return New Rectangle(BaseRect.Left + 1, BaseRect.Y + _Margin + _Radius, BaseRect.Width - 14, BaseRect.Height - _Radius - _Margin)
 
     End Function
 
@@ -355,17 +398,19 @@ Public Class Progress3D
         Dim HRect As New Rectangle(El1.Left, El2.Top + (El2.Height / 2), El1.Width, LvHeight)
 
         Dim FillPath As New Drawing2D.GraphicsPath
-        FillPath.AddArc(El1, 0, 180)
+        'FillPath.AddArc(El1, 0, 180)
+        FillPath.AddLine(New Point(El1.Right, El1.Top + El1.Height / 2), New Point(El1.Left, El1.Top + El1.Height / 2))
         FillPath.AddLine(New Point(El1.Left, El1.Top + El1.Height / 2), New Point(El2.Left, El2.Top + El2.Height / 2))
         FillPath.AddLine(New Point(El2.Right, El2.Top + El2.Height / 2), New Point(El1.Right, El1.Top + El1.Height / 2))
-        FillPath.AddEllipse(El2)
+        'FillPath.AddEllipse(El2)
         FillPath.FillMode = Drawing2D.FillMode.Winding
         FillPath.Flatten()
 
         Dim LinePath As New Drawing2D.GraphicsPath
-        LinePath.AddArc(El1, 0, 180)
+        'LinePath.AddArc(El1, 0, 180)
+        LinePath.AddLine(New Point(El1.Right, El1.Top + El1.Height / 2), New Point(El1.Left, El1.Top + El1.Height / 2))
         LinePath.AddLine(New Point(El1.Left, El1.Top + El1.Height / 2), New Point(El2.Left, El2.Top + El2.Height / 2))
-        LinePath.AddEllipse(El2)
+        'LinePath.AddEllipse(El2)
         LinePath.AddLine(New Point(El2.Right, El2.Top + El2.Height / 2), New Point(El1.Right, El1.Top + El1.Height / 2))
         Dim OffsetMatrix As New Drawing2D.Matrix
         OffsetMatrix.Translate(0, -1 * (LvHeight + _Spacing))
@@ -385,8 +430,8 @@ Public Class Progress3D
                     Dim intDiameter As Integer = _Radius * 2
                     initRect.Inflate(-2, -2)
                     Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
-                    grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 2), System.Drawing.StringFormat.GenericDefault)
-                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "M", Color.FromArgb(255, 60, 60, 255), Color.FromArgb(255, 255, 255, 0)))), grPath)
+                    grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "M", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
                 End If
 
                 Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, tmpItm.LineColor)), LinePath)
@@ -408,9 +453,10 @@ Public Class Progress3D
             FillPath.Transform(OffsetMatrix)
             LinePath.Transform(OffsetMatrix)
         Next
-
-
-
+        If _Warning = True Then
+            Gr.FillPath(New SolidBrush(Color.FromArgb(_WOpacity, _WarningColor.R, _WarningColor.G, _WarningColor.B)), _grPath)
+            _grPath.Dispose()
+        End If
 
     End Sub
 

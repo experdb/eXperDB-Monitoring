@@ -538,8 +538,9 @@
             tmpCtl.HeadText = svrLst.Item(i).HARole
             tmpCtl.Text = " "
             tmpCtl.Text += svrLst.Item(i).ShowNm
-            tmpCtl.SubText = "IP :" & svrLst.Item(i).IP
-            tmpCtl.SubText2 = "Port :" & svrLst.Item(i).Port
+            tmpCtl.SubText = svrLst.Item(i).IP & " / " & svrLst.Item(i).Port
+            'tmpCtl.SubText = "IP :" & svrLst.Item(i).IP
+            'tmpCtl.SubText2 = "Port :" & svrLst.Item(i).Port
             tmpCtl.Tag = svrLst.Item(i)
             flpInstance.Controls.Add(tmpCtl)
             AddHandler tmpCtl.SelectedChanged, AddressOf prog3Dinst1_SelectedChanged
@@ -568,19 +569,19 @@
         Progress3DItem1.FillColor = System.Drawing.Color.Lime
         Progress3DItem1.FillOpacity = 180
         Progress3DItem1.LineColor = System.Drawing.Color.Lime
-        Progress3DItem1.LineOpacity = 220
+        Progress3DItem1.LineOpacity = 50
         Progress3DItem1.Name = Nothing
         Progress3DItem2.Checked = False
         Progress3DItem2.FillColor = System.Drawing.Color.Orange
         Progress3DItem2.FillOpacity = 180
         Progress3DItem2.LineColor = System.Drawing.Color.Orange
-        Progress3DItem2.LineOpacity = 220
+        Progress3DItem2.LineOpacity = 50
         Progress3DItem2.Name = Nothing
         Progress3DItem3.Checked = False
         Progress3DItem3.FillColor = System.Drawing.Color.Red
         Progress3DItem3.FillOpacity = 180
         Progress3DItem3.LineColor = System.Drawing.Color.Red
-        Progress3DItem3.LineOpacity = 220
+        Progress3DItem3.LineOpacity = 50
         Progress3DItem3.Name = Nothing
         tmpCtl.Items.AddRange(New eXperDB.Controls.Progress3D.Progress3DItem() {Progress3DItem1, Progress3DItem2, Progress3DItem3})
 
@@ -591,15 +592,15 @@
         tmpCtl.BorderColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         'tmpCtl.Dock = System.Windows.Forms.DockStyle.Fill
         tmpCtl.FillColor = System.Drawing.Color.Black
-        tmpCtl.Font = New System.Drawing.Font("바탕", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        tmpCtl.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        tmpCtl.Font = New System.Drawing.Font("Gulim", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        tmpCtl.ForeColor = System.Drawing.Color.FromArgb(255, CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
         tmpCtl.isSelected = False
         tmpCtl.Text = "Server #8"
         tmpCtl.UseAnimation = False
         tmpCtl.UseSelected = True
         tmpCtl.UseTitle = True
         tmpCtl.Value = 0
-        tmpCtl.Margin = New Padding(0, 2, 0, 2)
+        tmpCtl.Margin = New Padding(0, 0, 0, 0)
 
 
         Return tmpCtl
@@ -1489,12 +1490,16 @@
                     If InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID).Count > 0 Then
                         DirectCast(tmpCtl, Progress3D).Value = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100
                         ' HA 롤 구분 문자 출력 M or S
-			DirectCast(tmpCtl, Progress3D).HeadText = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARole
+                        DirectCast(tmpCtl, Progress3D).HeadText = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARole
                         tmpCtl.Text = " "
                         tmpCtl.Text += InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Name
+                        If DirectCast(tmpCtl, Progress3D).Value > 2 Then
+                            DirectCast(tmpCtl, Progress3D).Warning = True
+                        Else
+                            DirectCast(tmpCtl, Progress3D).Warning = False
+                        End If
                     End If
                 End If
-
             Next
             'For Each tmpCtl As Control In tlpInstance.Controls
             '    If tmpCtl.Visible = True AndAlso tmpCtl.GetType.Equals(GetType(Progress3D)) Then
@@ -1805,11 +1810,12 @@
     Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
         Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
         Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
-        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 3 'add vertical margin
+        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 'add vertical margin
 
         For Each tmpCtl As Progress3D In BaseCTl.Controls
             tmpCtl.Width = ctlWidth
             tmpCtl.Height = ctlHeight
+            tmpCtl.Margin = New System.Windows.Forms.Padding(1)
         Next
 
 
@@ -1828,7 +1834,7 @@
         clsIni.WriteValue("FORM", "IDLEMAIN", chkIDLE.Checked)
     End Sub
 
-    Private Sub chrReqInfo_GetToolTipText(sender As Object, e As DataVisualization.Charting.ToolTipEventArgs) Handles chrReqInfo.GetToolTipText
+    Private Sub chrReqInfo_GetToolTipText(sender As Object, e As DataVisualization.Charting.ToolTipEventArgs) Handles chrReqInfo.GetToolTipText, chrSessionStat.GetToolTipText
 
 
         Select Case e.HitTestResult.ChartElementType

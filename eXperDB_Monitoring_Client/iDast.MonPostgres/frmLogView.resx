@@ -120,13 +120,59 @@
   <metadata name="bckmanual.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="grpLogFileList.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAGBgAAAEAIACICQAAFgAAACgAAAAYAAAAMAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAlEUsCJRFLAqURSwKlEUsCpRFLAqURSwKlEUsCpRFLAqURSwKlEUsCpRFLAqURSwKlEUsCpRF
+        LAqURSwKlEUsCpRFLAqURSwKlEUsCpRFLAqURSwKlEUsCpRFLAMAAAAAlEUszJRFLP+URSz/lEUs/5RF
+        LP+URSz/lEUs/5RFLP+URS3/lEUs/5RFLP+URSz/lEUt/5RFLP+URSz/lEUs/5RFLP+URSz/lEUs/5RF
+        LP+URSz/lEUs/5RFLEcAAAAAlEUszJRFLP+URSz/lEUs/5RFLP+URSz/lEUs/5RFLP+URSz/lEUs/5RF
+        LP+URSz/lEUs/5RFLP+URSz/lEUs/5RFLP+URSz/lEUs/5RFLP+URSz/lEUs/5RFLEcAAAAAlEUsQ5RF
+        LFSURSxUlEUsVJRFLFSURSxUlEUsVJRFLFSURSxUlEUsVJRFLFSURSxUlEUsVJRFLFSURSxUlEUsVJRF
+        LFSURSxUlEUsVJRFLFSURSxUlEUsVJRFLBgAAAAAxIlrO8SJa0rEiWtKxIlrSsSJa0rEiWtHxIlrAcSJ
+        a0DEiWtKxIlrSsSJa0rEiWtKxIlrRAAAAAAAAAAAAAAAAMSJax7EiWsnxIlrBwAAAAAAAAAAAAAAAAAA
+        AAAAAAAAxIlrzMSJa//EiWv/xIlr/8SJa//EiWv1xIlrA8SJa9vEiWv/xIlr/8SJa//EiWv/xIlr6wAA
+        AAAAAAAAAAAAAMSJa4/EiWv8xIlr88SJa9DEiWumxIlrfMSJaxgAAAAAxIlrzMSJa//EiWv/xIlr/8SJ
+        a//EiWv1xIlrA8SJa9vEiWv/xIlr/8SJa//EiWv/xIlr6wAAAAAAAAAAAAAAAMSJa7rEiWv/xIlr/8SJ
+        a//EiWv/xIlr/8SJayEAAAAAxIlrzMSJa//EiWv/xIlr/8SJa//EiWv1xIlrA8SJa9vEiWv/xIlr/8SJ
+        a//EiWv/xIlr6wAAAAAAAAAAAAAAAMSJa+TEiWv/xIlr/8SJa//EiWv/xIlr78SJawcAAAAAxYpszMWK
+        bP/Fimz/xYps/8WKbP/Fimz1xYpsA8WKbNvFimz/xYps/8WKbP/Fimz/xYps6wAAAAAAAAAAxIlrFsSJ
+        a/nEiWv/xIlr/8SJa//EiWv/xIlrysSJawEAAAAAxYpszMWKbP/Fimz/xYps/8WKbP/Fimz1xYpsA8WK
+        bNvFimz/xYps/8WKbP/Fimz/xYps6wAAAAAAAAAAxIlrO8SJa//EiWv/xIlr/8SJa//EiWv/xIlroAAA
+        AAAAAAAAxYpszMWKbP/Fimz/xYps/8WKbP/Fimz1xYpsA8WKbNvFimz/xYps/8WKbP/Fimz/xYps6wAA
+        AAAAAAAAxIlrZcSJa//EiWv/xIlr/8SJa//EiWv/xIlrdgAAAAAAAAAAxYpszMWKbP/Fimz/xYps/8WK
+        bP/Fimz1xYpsA8WKbNvFimz/xYps/8WKbP/Fimz/xYps6wAAAAAAAAAAxIlrkMSJa//EiWv/xIlr/8SJ
+        a//EiWv/xIlrSwAAAAAAAAAAxYpszMWKbP/Fimz/xYps/8WKbP/Fimz1xYpsA8WKbNvFimz/xYps/8WK
+        bP/Fimz/xYps6wAAAAAAAAAAxIlru8SJa//EiWv/xIlr/8SJa//EiWv+xIlrIAAAAAAAAAAAxYpszMWK
+        bP/Fimz/xYps/8WKbP/Fimz1xYpsA8WKbNvFimz/xYps/8WKbP/Fimz/xYps6wAAAADFimwCxIlr5MSJ
+        a//EiWv/xIlr/8SJa//EiWvqxIlrCgAAAAAAAAAAxYpszLV0V/OtaEzyrWhM8rFuUvPFimz1xYpsA8WK
+        bNu0clbzrWhM8q1oTPKycFT1xYps6wAAAADFimwaxIlr97RyVvi7fF/4wYRm+sSJa//EiWvJAAAAAAAA
+        AAAAAAAAxYpszKVdQvaVRi3/lUYt/55SOPnFimz1xYpsA8WKbNuiWT/3lUYt/5VGLf+gVTv8xYps6wAA
+        AADFimw8wINm9pZHLv2VRi3/lkgv+rFuUvrEiWufAAAAAAAAAAAAAAAAxIlszKVdQvaURSz/lEUs/55S
+        OPnEiWv1xIlrA8WKbNuiWT/3lUYt/5VGLf+gVTv8xIps6wAAAADFimxnuXpd+JVGLf+URSz/lEUs/7V0
+        WPbEiWt0AAAAAAAAAAAAAAAAxIlrzKVdQvaURSz/lEUs/55SOPnEiWv1xIlrA8WKbNuiWT/3lUYt/5VG
+        Lf+gVTv8xYps6wAAAADFimySsW5S9pRFLP+URSz/lUYt/b1/YvvEiWtJAAAAAAAAAAAAAAAAxIlrzKVd
+        QvaURSz/lEUs/55SOPnEiWv1xIlrA8WKbNuiWT/3lUYt/5VGLf+gVTv8xYps6wAAAADFimy9qWJH85RF
+        LP+URSz/mEox/MOHafrEiWshAAAAAAAAAAAAAAAAxIlrzKVdQvaURSz/lEUs/55SOPnEiWv1xIlrA8WK
+        bNuiWT/3lUYt/5VGLf+gVTv8xYps68WKbAXFimzjoVc995RFLP+URSz/nlI498SJa+nEiWsJAAAAAAAA
+        AAAAAAAAxIlrzLBtUfmmXkP/pl5D/6xmS/vEiWv1xIlrA8WKbNuva0/6pl5D/6ZeQ/+taE39xYps68WK
+        bBrFimz5pl9E8ptPNfmWSC/6pl5D+MSJa8gAAAAAAAAAAAAAAAAAAAAAxYpszMWKbP/EiWv/xYpr/8SJ
+        a//EiWv1xIlrA8WKbNvFimz/xYps/8WKbP/Fimz/xYps68WKbD7Fimz/xIlr/8SJa//AhGb6wYRn/MSJ
+        a50AAAAAAAAAAAAAAAAAAAAAxIlsR8WKbFnEiWtZxIlrWcSJa1nEiWxWxIlsAcWKbE3FimxZxYpsWcWK
+        bFnFimxZxYpsUsWKbAzFimxBxIlrasSJa5TEiWu+xIlr5MSJa3EAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAxIlrBcSJawQAAAAAAAAAAAAAAACAAABBgAAAQYAAAEGAAABBgAOPQYADgEGAA4BBgAOAQYAD
+        AEGAAwFBgAMBQYADAUGAAwFBgAIBQYACA0GAAgNBgAIDQYACA0GAAgNBgAADQYAAB0GAAAdBgAAHQf//
+        50E=
+</value>
+  </data>
   <metadata name="coldgvLogData.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAA

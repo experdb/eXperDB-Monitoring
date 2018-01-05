@@ -150,6 +150,15 @@
         Me.FormControlBox1.UseRotationBox = False
         Me.FormControlBox1.UsePowerBox = False
 
+        ' fit button location
+        Me.btnExcel.Location = New System.Drawing.Point(Me.grpTableInfo.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
+        Me.btnRefresh.Location = New System.Drawing.Point(Me.btnExcel.Location.X - Me.btnRefresh.Width - Me.btnRefresh.Margin.Right, Me.btnRefresh.Margin.Top)
+        Me.lblRefreshTime.Location = New System.Drawing.Point(Me.btnRefresh.Location.X - Me.lblRefreshTime.Width - Me.lblRefreshTime.Margin.Right, Me.btnRefresh.Margin.Top + 4)
+        'Me.btnExcel.Location = New System.Drawing.Point(1704, 4)
+
+        Me.btnPause.Location = New System.Drawing.Point(Me.grpLockInfo.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
+
+
         modCommon.FontChange(Me, p_Font)
 
     End Sub

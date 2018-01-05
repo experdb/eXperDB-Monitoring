@@ -588,7 +588,7 @@ Public Class ClsObjectCtl
 
         With pXlApp
             With .Selection.Font
-                .Name = "굴림체"
+                .Name = "Gulim"
                 .Size = 9
                 .Strikethrough = False
                 .Superscript = False

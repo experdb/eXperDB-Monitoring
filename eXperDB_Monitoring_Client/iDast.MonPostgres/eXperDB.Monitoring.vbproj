@@ -303,6 +303,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonActInfo.resx">
       <DependentUpon>frmMonActInfo.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfig.resx">
       <DependentUpon>frmConfig.vb</DependentUpon>
@@ -451,6 +452,49 @@
     <Content Include="Querys\Querys.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Resources\database.png" />
+    <None Include="Resources\template.png" />
+    <None Include="Resources\Watching.ico" />
+    <None Include="Resources\Watching16.ico" />
+    <None Include="Resources\Watching24.ico" />
+    <None Include="Resources\Cluster1.ico" />
+    <None Include="Resources\session2.ico" />
+    <None Include="Resources\Cluster2.ico" />
+    <None Include="Resources\diskaccess2.ico" />
+    <None Include="Resources\diskusage2.ico" />
+    <None Include="Resources\logicalio2.ico" />
+    <None Include="Resources\mem2.ico" />
+    <None Include="Resources\cpu2.ico" />
+    <None Include="Resources\4.Session Stats_3.png" />
+    <None Include="Resources\5.Logical IO_3.png" />
+    <None Include="Resources\6.Physical IO_3.png" />
+    <None Include="Resources\7.Disk Access_3.png" />
+    <None Include="Resources\10.Resource_3.png" />
+    <None Include="Resources\11.Backend Process_3.png" />
+    <None Include="Resources\2.CPU_3.png" />
+    <None Include="Resources\3.Memory_3.png" />
+    <None Include="Resources\diskusage3.ico" />
+    <None Include="Resources\logicalio3.ico" />
+    <None Include="Resources\mem3.ico" />
+    <None Include="Resources\session3.ico" />
+    <None Include="Resources\cpu3.ico" />
+    <None Include="Resources\diskaccess3.ico" />
+    <None Include="Resources\resource3.ico" />
+    <None Include="Resources\sqlresponse3.ico" />
+    <None Include="Resources\objectaccess3.ico" />
+    <None Include="Resources\backend3.ico" />
+    <None Include="Resources\physical3.ico" />
+    <None Include="Resources\database3.ico" />
+    <None Include="Resources\index3.ico" />
+    <None Include="Resources\table3.ico" />
+    <None Include="Resources\tablespace3.ico" />
+    <None Include="Resources\currentlock3.ico" />
+    <None Include="Resources\database31.ico" />
+    <None Include="Resources\index31.ico" />
+    <None Include="Resources\table31.ico" />
+    <None Include="Resources\tablespace31.ico" />
+    <None Include="Resources\currentlock31.ico" />
+    <None Include="Resources\filelist.ico" />
     <Content Include="Sounds\Siren.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

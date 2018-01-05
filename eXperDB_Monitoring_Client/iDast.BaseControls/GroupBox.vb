@@ -1,6 +1,8 @@
 ﻿Imports System.Drawing
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
+Imports System.Windows.Forms.VisualStyles
+Imports System.Windows.Forms
 
 Public Class GroupBox
     Inherits System.Windows.Forms.GroupBox
@@ -304,7 +306,7 @@ Public Class GroupBox
 
             MyBase.OnPaint(e)
         Else
-
+            'Application.RenderWithVisualStyles
 
             Dim intFontHeight As Integer = _TitleFont.Height + 4
 
@@ -387,19 +389,65 @@ Public Class GroupBox
                 strFormat.Alignment = _AlignString
                 strFormat.LineAlignment = _AlignLine
 
-                Gr.DrawString(MyBase.Text, _TitleFont, New SolidBrush(_LineColor), New Rectangle(New Point(BaseRect.X + _EdgeRound.LeftTop, BaseRect.Y + 2), New Size(BaseRect.Width - _EdgeRound.RightTop * 2, intFontHeight - 4)), strFormat)
+                If _Icon IsNot Nothing AndAlso MyBase.Width >= 10 AndAlso MyBase.Height >= 10 Then
+                    ' Draw the entire control
+                    Gr.DrawString(MyBase.Text, _TitleFont, New SolidBrush(_LineColor), New Rectangle(New Point(BaseRect.X + _EdgeRound.LeftTop / 2 + _Icon.Width + 5, BaseRect.Y + 2), New Size(BaseRect.Width - _EdgeRound.RightTop * 2, intFontHeight - 4)), strFormat)
+                    DrawGroupBox(e.Graphics, BaseRect)
+                Else
+                    Gr.DrawString(MyBase.Text, _TitleFont, New SolidBrush(_LineColor), New Rectangle(New Point(BaseRect.X + _EdgeRound.LeftTop, BaseRect.Y + 2), New Size(BaseRect.Width - _EdgeRound.RightTop * 2, intFontHeight - 4)), strFormat)
+                End If
                 'Gr.DrawLine(New Pen(_LineColor, _LineWidth), New Point(BaseRect.X + _Radius, BaseRect.Y + intFontHeight), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + intFontHeight))
 
 
             End If
 
-
-
-        End If
+            End If
 
     End Sub
+    Private _Icon As Icon
+    <Category("RoundBox")> _
+    Property Icon As Icon
+        Get
+            Return _Icon
+        End Get
+        Set(value As Icon)
+            _Icon = value
+            Me.Invalidate()
+        End Set
+    End Property
 
-
-
-
+    Private _Renderer As VisualStyleRenderer
+    Private Sub DrawGroupBox(grfx As Graphics, ByVal BaseRect As Rectangle)
+        'Set the enabled state of the control
+        Dim state As GroupBoxState = IIf(MyBase.Enabled, GroupBoxState.Normal, GroupBoxState.Disabled)
+        'The rectangle that bounds the control
+        Dim bounds As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
+        ' Initialize the renderer for visual styles
+        InitializeRenderer(CInt(state))
+        ' Define the rectangle for the icon
+        Dim iconrect As Rectangle = New Rectangle(BaseRect.X + _EdgeRound.LeftTop / 2, BaseRect.Y + 2, _Icon.Width, _Icon.Height)
+        ' Draw the icon
+        DrawIcon(grfx, _Icon, iconrect, state)
+        ' Clean up
+        grfx.Dispose()
+    End Sub
+    Private Sub InitializeRenderer(state As Integer)
+        Dim visualstyleelement As VisualStyleElement = visualstyleelement.Button.GroupBox.Normal
+        If _Renderer Is Nothing Then
+            _Renderer = New VisualStyleRenderer(visualstyleelement.ClassName, visualstyleelement.Part, state)
+        Else
+            _Renderer.SetParameters(visualstyleelement.ClassName, visualstyleelement.Part, state)
+        End If
+    End Sub
+    Private Sub DrawIcon(grfx As Graphics, icon As Icon, rc As Rectangle, state As GroupBoxState)
+        If state = GroupBoxState.Disabled Then
+            Using image As Image = _Icon.ToBitmap()
+                ' Draw the disabled icon
+                ControlPaint.DrawImageDisabled(grfx, image, rc.Left, rc.Top, Color.Empty)
+            End Using
+        Else
+            ' Draw the enabled icon
+            grfx.DrawIcon(icon, rc)
+        End If
+    End Sub
 End Class
