@@ -1318,17 +1318,17 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					        VERSION() AS PG_VERSION,
 					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE 'M' END AS HA_ROLE, 
 					        CASE WHEN pg_is_in_recovery() THEN 
-								(SELECT trim(ARR_COL, 'host=') FROM 
+								COALESCE((SELECT trim(ARR_COL, 'host=') FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
 								   	   FROM pg_stat_wal_receiver) ARR 
 							  	  WHERE ARR_COL LIKE 'host=%' 
-							  	  ORDER BY arr_col) ELSE '-' END AS HA_HOST, 
+							  	  ORDER BY arr_col), '-') ELSE '-' END AS HA_HOST, 
 					        CASE WHEN pg_is_in_recovery() THEN 
-								(SELECT trim(ARR_COL, 'port=') FROM 
+								COALESCE((SELECT trim(ARR_COL, 'port=') FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
 								   		FROM pg_stat_wal_receiver) ARR2 
 							  	  WHERE ARR_COL LIKE 'port=%' 
-							  	  ORDER BY arr_col) ELSE '-' END AS HA_PORT
+							  	  ORDER BY arr_col), '-') ELSE '-' END AS HA_PORT
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
 			</when>
