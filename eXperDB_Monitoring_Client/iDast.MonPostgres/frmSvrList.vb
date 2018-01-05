@@ -213,6 +213,9 @@
                 Dim idxMonRow As Integer = -1
                 'tmpRow.Cells(colHAPort.Index).Value
                 For Each tmpMonRow As DataGridViewRow In dgvMonLst.Rows
+                    If IsDBNull(tmpRow.Cells(colHAHost.Index).Value) Or IsDBNull(tmpRow.Cells(colHAHost.Index).Value) Then
+                        Continue For
+                    End If
                     If tmpMonRow.Cells(colMonHostNm.Index).Value = tmpRow.Cells(colHAHost.Index).Value Or _
                        tmpMonRow.Cells(colMonIP.Index).Value = tmpRow.Cells(colHAHost.Index).Value Then
                         If tmpMonRow.Cells(colMonPort.Index).Value = tmpRow.Cells(colHAPort.Index).Value Then

@@ -1810,7 +1810,7 @@
     Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
         Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
         Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
-        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 'add vertical margin
+        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 1 'add vertical margin
 
         For Each tmpCtl As Progress3D In BaseCTl.Controls
             tmpCtl.Width = ctlWidth
