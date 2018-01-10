@@ -1685,27 +1685,30 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	
 	<select id="PG_GET_LOGFILES_001" parameterType="hashmap" resultType="hashmap">
-		SELECT filename, filetime::text, pg_file_length(filename) AS len
-		FROM pg_logdir_ls() AS A (filetime timestamp, filename text)
-		ORDER BY filetime DESC
+		SELECT DIR||'/'||FL AS filename, 
+		       (pg_stat_file(DIR||'/'||FL)).modification::TIMESTAMP WITHOUT TIME ZONE::TEXT AS filetime,
+		       pg_file_length(DIR||'/'||FL) AS len
+		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
+		       (SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
+		 WHERE FL like '%.log'
+		 ORDER BY filename DESC
 	</select>
 	
-	<select id="PG_GET_LOGFILES_002" parameterType="hashmap" resultType="String">
-		SELECT pg_file_length(filename) AS len
-		FROM pg_logdir_ls() AS A(filetime timestamp, filename text)
-		WHERE filename = #{filename}
+	<select id="PG_GET_LOGFILE_LEN_001" parameterType="hashmap" resultType="String">
+		SELECT pg_file_length(DIR||'/'||FL) AS len
+		FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
+		   	(SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
+		WHERE FL = replace(#{filename},'pg_log/','')
 	</select>
 		
 	<select id="PG_GET_LOGFILES_003" parameterType="hashmap" resultType="hashmap">
-		SELECT PGCSV.filename AS filename, PGLOG.filetime, pg_file_length(PGCSV.filename) AS len 
-		FROM
-		(SELECT filename, filetime::text FROM pg_logdir_ls() AS A (filetime timestamp, filename text)) AS PGLOG
-		JOIN 
-		(SELECT (SELECT setting || '/' FROM pg_settings WHERE  name = 'log_directory') ||filename AS filename 
-		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) as filename 
-		 WHERE filename like '%.csv') AS PGCSV
-		ON replace(PGLOG.filename, '.log', '') = replace(PGCSV.filename, '.csv', '')
-		ORDER BY PGLOG.filetime
+ 		SELECT DIR||'/'||FL AS filename, 
+		       (pg_stat_file(DIR||'/'||FL)).modification::TIMESTAMP WITHOUT TIME ZONE::TEXT AS filetime,
+		       pg_file_length(DIR||'/'||FL) AS len
+		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
+		       (SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
+		 WHERE FL like '%.csv'
+		 ORDER BY filename DESC
 	</select>
 	
 	<select id="PG_GET_LOGFILES_004" parameterType="hashmap" resultType="String">
