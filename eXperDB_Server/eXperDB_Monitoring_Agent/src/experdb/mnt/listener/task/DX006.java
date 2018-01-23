@@ -180,10 +180,8 @@ public class DX006 implements SocketApplication{
 							return resDataArray;
 						}
 
-						if( logDestination.equals("csvlog"))
-							logBuff = sessionCollect.selectOne("app.PG_GET_LOGFILES_004", logfileParam);
-						else
-							logBuff = sessionCollect.selectOne("app.PG_GET_LOGFILES_002", logfileParam);
+
+						logBuff = sessionCollect.selectOne("app.PG_GET_LOGFILE_LEN_001", logfileParam);
 						if (logBuff.length() <= 0){
 							resDataObj.put("_error_cd", "DX006_E05");
 							resDataObj.put("_error_msg", "log info 조회에 실패했습니다..");
