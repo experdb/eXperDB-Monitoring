@@ -689,6 +689,13 @@
             Return
         End If
 
+        If p_clsAgentCollect.AgentState <> clsCollect.AgntState.Activate Then
+            Dim strMsg As String = p_clsMsgData.fn_GetData("M019")
+            MsgBox(strMsg)
+            e.Cancel = True
+            Return
+        End If
+
 
         ' Tag에 값을 넝ㅎ어 두었음. 
         ' Dim intInstanceID As Integer = DirectCast(DirectCast(sender, Progress3D).Tag, GroupInfo.ServerInfo).InstanceID

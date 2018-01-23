@@ -70,7 +70,6 @@ Partial Class frmQueryView
         Me.RichTextBoxQuery1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
         Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
-        Me.RichTextBoxQuery1.ReadOnly = True
         Me.RichTextBoxQuery1.Size = New System.Drawing.Size(780, 337)
         Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.Blue
         Me.RichTextBoxQuery1.Strings = System.Drawing.Color.Red
@@ -294,7 +293,11 @@ Partial Class frmQueryView
         'FormControlBox1
         '
         Me.FormControlBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.FormControlBox1.CloseBox = New System.Drawing.Rectangle(67, 1, 20, 20)
+        Me.FormControlBox1.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox1.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FormControlBox1.DualBox = New System.Drawing.Rectangle(45, 1, 20, 20)
         Me.FormControlBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FormControlBox1.isCritical = False
         Me.FormControlBox1.isLock = False
@@ -302,8 +305,13 @@ Partial Class frmQueryView
         Me.FormControlBox1.isRotation = True
         Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
         Me.FormControlBox1.Location = New System.Drawing.Point(932, 0)
+        Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(23, 1, 20, 20)
+        Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
         Me.FormControlBox1.Name = "FormControlBox1"
+        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(-43, 1, 20, 20)
+        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
         Me.FormControlBox1.ShowRectCnt = 4
         Me.FormControlBox1.Size = New System.Drawing.Size(89, 22)
         Me.FormControlBox1.TabIndex = 1

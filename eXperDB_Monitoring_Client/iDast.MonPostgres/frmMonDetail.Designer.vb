@@ -687,7 +687,7 @@ Partial Class frmMonDetail
         ChartArea1.AxisX.IsMarginVisible = False
         ChartArea1.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea1.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea1.AxisX.LabelStyle.Format = "HH:mm"
         ChartArea1.AxisX.LabelStyle.Interval = 0.0R
         ChartArea1.AxisX.LabelStyle.IntervalOffset = 0.0R
         ChartArea1.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
@@ -726,6 +726,10 @@ Partial Class frmMonDetail
         ChartArea1.CursorX.IsUserEnabled = True
         ChartArea1.CursorX.IsUserSelectionEnabled = True
         ChartArea1.Name = "ChartArea1"
+        ChartArea1.Position.Auto = False
+        ChartArea1.Position.Height = 94.0!
+        ChartArea1.Position.Width = 97.0!
+        ChartArea1.Position.Y = 3.0!
         Me.chtCPU.ChartAreas.Add(ChartArea1)
         Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtCPU.Location = New System.Drawing.Point(178, 4)
@@ -834,7 +838,7 @@ Partial Class frmMonDetail
         ChartArea2.AxisX.IsMarginVisible = False
         ChartArea2.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea2.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea2.AxisX.LabelStyle.Format = "HH:mm"
         ChartArea2.AxisX.LabelStyle.Interval = 0.0R
         ChartArea2.AxisX.LabelStyle.IntervalOffset = 0.0R
         ChartArea2.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
@@ -961,7 +965,7 @@ Partial Class frmMonDetail
         ChartArea3.AxisX.IsMarginVisible = False
         ChartArea3.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea3.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea3.AxisX.LabelStyle.Format = "HH:mm"
         ChartArea3.AxisX.LabelStyle.Interval = 0.0R
         ChartArea3.AxisX.LabelStyle.IntervalOffset = 0.0R
         ChartArea3.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
@@ -1087,7 +1091,7 @@ Partial Class frmMonDetail
         ChartArea4.AxisX.IsMarginVisible = False
         ChartArea4.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea4.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea4.AxisX.LabelStyle.Format = "HH:mm"
         ChartArea4.AxisX.LabelStyle.Interval = 0.0R
         ChartArea4.AxisX.LabelStyle.IntervalOffset = 0.0R
         ChartArea4.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
@@ -1269,7 +1273,7 @@ Partial Class frmMonDetail
         ChartArea5.AxisX.IsMarginVisible = False
         ChartArea5.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea5.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea5.AxisX.LabelStyle.Format = "HH:mm"
         ChartArea5.AxisX.LabelStyle.Interval = 0.0R
         ChartArea5.AxisX.LabelStyle.IntervalOffset = 0.0R
         ChartArea5.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
@@ -1643,6 +1647,7 @@ Partial Class frmMonDetail
         Me.rbHour1.UnCheckFillColor = System.Drawing.Color.Black
         Me.rbHour1.UseRound = True
         Me.rbHour1.UseVisualStyleBackColor = True
+        Me.rbHour1.Visible = False
         Me.rbHour1.Warning = False
         Me.rbHour1.WarningColor = System.Drawing.Color.Red
         '
@@ -1665,6 +1670,7 @@ Partial Class frmMonDetail
         Me.rbHour2.UnCheckFillColor = System.Drawing.Color.Black
         Me.rbHour2.UseRound = True
         Me.rbHour2.UseVisualStyleBackColor = True
+        Me.rbHour2.Visible = False
         Me.rbHour2.Warning = False
         Me.rbHour2.WarningColor = System.Drawing.Color.Red
         '
@@ -1687,6 +1693,7 @@ Partial Class frmMonDetail
         Me.rbmin30.UnCheckFillColor = System.Drawing.Color.Black
         Me.rbmin30.UseRound = True
         Me.rbmin30.UseVisualStyleBackColor = True
+        Me.rbmin30.Visible = False
         Me.rbmin30.Warning = False
         Me.rbmin30.WarningColor = System.Drawing.Color.Red
         '
@@ -2011,7 +2018,7 @@ Partial Class frmMonDetail
         ChartArea6.AxisX.IsMarginVisible = False
         ChartArea6.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea6.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea6.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea6.AxisX.LabelStyle.Format = "HH:mm"
         ChartArea6.AxisX.LabelStyle.Interval = 0.0R
         ChartArea6.AxisX.LabelStyle.IntervalOffset = 0.0R
         ChartArea6.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
@@ -2037,10 +2044,9 @@ Partial Class frmMonDetail
         ChartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
         ChartArea6.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
         ChartArea6.AxisY.MajorTickMark.Enabled = False
-        ChartArea6.AxisY.Maximum = 100.0R
         ChartArea6.AxisY.MaximumAutoSize = 100.0!
         ChartArea6.AxisY.Minimum = 0.0R
-        ChartArea6.AxisY.Title = "RATE(%)"
+        ChartArea6.AxisY.Title = "RATE(Count)"
         ChartArea6.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea6.AxisY.TitleForeColor = System.Drawing.Color.White
         ChartArea6.AxisY2.IsLabelAutoFit = False

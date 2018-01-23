@@ -265,7 +265,7 @@ Partial Class frmHealthDetail
         'frmHealthDetail
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(710, 678)
         Me.Controls.Add(Me.Panel1)

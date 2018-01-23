@@ -2174,7 +2174,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[This disables ALERT sreen. In order to enable this,\n\n click enable button on the top of the window.]]></DATA>
+    <DATA><![CDATA[This disables ALERT sreen. In order to enable this,\n click enable button on the top of the window.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2223,6 +2223,14 @@
   <ROW ID="M018" PARAMS="0">
     <DESC>라이선스체크</DESC>
     <DATA><![CDATA[License is not valid.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M019" PARAMS="0">
+    <DESC>서버연결중</DESC>
+    <DATA><![CDATA[Try to connect to server.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

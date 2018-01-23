@@ -13,12 +13,12 @@
 
                 If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
                     SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
-                    SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
-                    SetDataDisk(p_clsAgentCollect.infoDataDisk)
-                    SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm)
-                    SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                    SetDataObject(p_clsAgentCollect.infoDataObject)
-                    SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
+                    SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem) 'accumulate
+                    SetDataDisk(p_clsAgentCollect.infoDataDisk)     'accumulate
+                    SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm) 'accumulate
+                    SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo) 'accumulate
+                    SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
+                    SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
                     SetDataHealth(p_clsAgentCollect.infoDataHealth)
                 End If
 
@@ -74,6 +74,7 @@
     Private _ShowHchkWarning As Boolean = True
     Private _ShowHchkCritical As Boolean = True
     Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _clsQuery As clsQuerys  ' Main Thread용
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
 
     ReadOnly Property AgentCn As DXODBC
@@ -112,6 +113,7 @@
         _ServerInfo = ServerInfo
         _AgentInfo = clsAgentInfo
         _AgentCn = AgentCn
+        _clsQuery = New clsQuerys(_AgentCn)
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
 
@@ -137,7 +139,8 @@
     End Sub
 
     Private Sub frmMonDetail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-
+        Me.chtCPU.Dispose()
+        _clsQuery = Nothing
         Dim monMain As frmMonMain = TryCast(Me.Owner, frmMonMain)
         If monMain IsNot Nothing Then
             monMain.InstanceSelectedChange(_InstanceID, False)
@@ -154,13 +157,17 @@
 
             If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
                 SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
-                SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
+                initDataCpu()
+                'SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
                 SetDataDisk(p_clsAgentCollect.infoDataDisk)
-                SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm)
-                SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                SetDataObject(p_clsAgentCollect.infoDataObject)
+                initDataSQLRespTm()
+                'SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm)
+                initDataRequest()
+                'SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
+                'SetDataObject(p_clsAgentCollect.infoDataObject)
                 SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
                 'SetDataHealth(p_clsAgentCollect.infoDataHealth)
+                _clsQuery.CancelCommand()
             End If
 
         Catch ex As Exception
@@ -423,7 +430,6 @@
 
             sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
             sb_ChartAddPoint(Me.chtCPU, "POSTGRES", dblRegDate, ConvULong(dblCpuWait))
-
             sb_ChartAlignYAxies(Me.chtCPU)
 
 
@@ -600,7 +606,7 @@
         ' Chart 데이터는 Invoke 로 넣어야 한다. 
 
         If dtRows.Count = 0 Then
-            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm"))
             sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, 0)
             sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, 0)
         Else
@@ -612,11 +618,9 @@
                 sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
                 sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
             Next
-
         End If
         sb_ChartAlignYAxies(Me.chtSQLRespTm)
     End Sub
-
     ''' <summary>
     ''' SQL Response Time 정보 등록 
     ''' </summary>
@@ -923,6 +927,7 @@
                 For Each tmpSeries As DataVisualization.Charting.Series In Me.chtPhysicaliO.Series
                     tmpSeries.Points.Clear()
                 Next
+                initPhysical(strDiskNm)
             End If
 
             SetPhysical(strDiskNm, dtTable)
@@ -953,6 +958,150 @@
 
         sb_ChartAlignYAxies(Me.chtPhysicaliO)
     End Sub
+    ''' <summary>
+    ''' CPU / MEM 정보 초기 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDataCpu()
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTable = _clsQuery.SelectInitCPUChart(InstanceID, p_ShowName.ToString("d"))
+
+            Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+
+            If dtRows.Count > 0 Then
+                Dim dblRegDate As Double
+                Dim dblCpuMain As Integer
+                Dim dblCpuWait As Integer
+
+                ' Cpu Information 
+                Using dgvAvgRow As DataGridViewRow = dgvCPU.FindFirstRow("AVG", colDgvCPUCPU.Index)
+                    If dgvAvgRow IsNot Nothing Then
+                        dgvAvgRow.Cells(colDgvCpuProg.Index).Value = dblCpuMain
+                        dgvAvgRow.Cells(colDgvCpuUtil.Index).Value = dblCpuMain / 100
+                    End If
+
+                End Using
+
+                Dim lastRow As Integer = 0
+                For Each tmpRow As DataRow In dtRows
+                    dblRegDate = ConvOADate(tmpRow.Item("REG_DATE"))
+                    dblCpuMain = ConvDBL(tmpRow.Item("CPU_MAIN"))
+                    dblCpuWait = ConvDBL(tmpRow.Item("WAIT_UTIL_RATE"))
+                    sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
+                    sb_ChartAddPoint(Me.chtCPU, "POSTGRES", dblRegDate, ConvULong(dblCpuWait))
+                Next
+
+                modCommon.sb_GridProgClrChg(dgvCPU)
+                sb_ChartAlignYAxies(Me.chtCPU)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+    ''' <summary>
+    ''' SQL Response Time 정보 초기 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDataSQLRespTm()
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID)
+
+            Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+
+
+            ' Chart 데이터는 Invoke 로 넣어야 한다. 
+            If dtRows.Count = 0 Then
+                Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, 0)
+            Else
+                For Each tmprow As DataRow In dtRows
+                    Dim dblRegDt As Double = ConvOADate(tmprow.Item("REG_DATE"))
+                    Dim dblMax As Double = ConvULong(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
+                    Dim dblAvg As Double = ConvULong(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
+
+                    sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
+                    sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
+                Next
+            End If
+            sb_ChartAlignYAxies(Me.chtSQLRespTm)
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+    Private Sub initDataRequest()
+        Dim dtTableSession As DataTable = Nothing
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTableSession = _clsQuery.SelectInitSessionInfoChart(InstanceID)
+            Dim dtRowsSession As DataRow() = dtTableSession.Select("INSTANCE_ID=" & Me.InstanceID)
+            If dtRowsSession.Count = 0 Then
+                Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, 0)
+            Else
+                For Each tmpRow As DataRow In dtRowsSession
+                    Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                    sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
+                    sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
+                Next
+            End If
+
+            dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"))
+            Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+            If dtRows.Count = 0 Then
+                Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                sb_ChartAddPoint(Me.chtLocalIO, "READ", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtLocalIO, "INSERT", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtLocalIO, "UPDATE", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtLocalIO, "DELETE", dblRegDt, 0)
+            Else
+                For Each tmpRow As DataRow In dtRows
+                    Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                    ' Logical I/O Info   
+                    sb_ChartAddPoint(Me.chtLocalIO, "READ", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
+                    sb_ChartAddPoint(Me.chtLocalIO, "INSERT", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
+                    sb_ChartAddPoint(Me.chtLocalIO, "UPDATE", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
+                    sb_ChartAddPoint(Me.chtLocalIO, "DELETE", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
+
+                    Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                    Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
+                    Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
+                    sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan)
+                    sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan)
+                Next
+            End If
+
+            sb_ChartAlignYAxies(Me.chtObject)
+            sb_ChartAlignYAxies(Me.chtSession)
+            sb_ChartAlignYAxies(Me.chtLocalIO)
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+
+    Private Sub initPhysical(ByVal strDiskNm As String)
+        Dim dtTable As DataTable = _clsQuery.SelectInitPhysicalIOChart(InstanceID)
+        Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm))
+        If dtRows.Count = 0 Then
+            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+            sb_ChartAddPoint(Me.chtPhysicaliO, "READ", dblRegDt, 0)
+            sb_ChartAddPoint(Me.chtPhysicaliO, "WRITE", dblRegDt, 0)
+        Else
+            For Each tmpRow As DataRow In dtRows
+                Dim dblRegDate As Double = ConvOADate(tmpRow.Item("REG_DATE"))
+                Dim dblPhyRead As Double = ConvULong(tmpRow.Item("PHY_READ"))
+                Dim dblPhyWrite As Double = ConvULong(tmpRow.Item("PHY_WRITE"))
+
+                sb_ChartAddPoint(Me.chtPhysicaliO, "READ", dblRegDate, dblPhyRead)
+                sb_ChartAddPoint(Me.chtPhysicaliO, "WRITE", dblRegDate, dblPhyWrite)
+            Next
+        End If
+        sb_ChartAlignYAxies(Me.chtPhysicaliO)
+    End Sub
+
 
     Private Sub grpHealth_Enter(sender As Object, e As EventArgs) Handles grpHealth.Enter
 

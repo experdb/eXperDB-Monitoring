@@ -76,7 +76,6 @@ Public Class frmLogView
         grpLogInfo.Text = p_clsMsgData.fn_GetData("F234")
 
         btnRefresh.Text = p_clsMsgData.fn_GetData("F244")
-        btnExcel.Text = p_clsMsgData.fn_GetData("F142")
         btnMore.Text = p_clsMsgData.fn_GetData("F240")
         lblLogReadUnit.Text = p_clsMsgData.fn_GetData("F241")
         cboLogReadUnit.AddValue(5000, "5KB")

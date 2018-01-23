@@ -1061,6 +1061,115 @@
         End Try
 
     End Function
+    ' Add Functions for accumulated chart in detail view
+    Public Function SelectInitCPUChart(ByVal intInstanceID As Integer, ByVal strName As String) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCPUMEMINFOBEFORE")
+
+                strQuery = String.Format(strQuery, intInstanceID, strName)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectInitSQLRespTmChart(ByVal intInstanceID As Integer) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSQLRESPTIMEBEFORE")
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectInitSessionInfoChart(ByVal intInstanceID As Integer) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSESSIONINFOBEFORE")
+
+                strQuery = String.Format(strQuery, intInstanceID)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectInitObjectChart(ByVal intInstanceID As Integer, ByVal strName As String) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTOBJECTBEFORE")
+
+                strQuery = String.Format(strQuery, intInstanceID, strName)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectInitPhysicalIOChart(ByVal intInstanceID As Integer) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTPHYSICALIOBEFORE")
+
+                strQuery = String.Format(strQuery, intInstanceID)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
 
 
 #Region "HealthDetail"
