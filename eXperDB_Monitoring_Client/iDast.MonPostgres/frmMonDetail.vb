@@ -17,7 +17,8 @@
                     SetDataDisk(p_clsAgentCollect.infoDataDisk)     'accumulate
                     SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm) 'accumulate
                     SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo) 'accumulate
-                    SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
+                    'This chart will move to object view 20180125
+                    'SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
                     SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
                     SetDataHealth(p_clsAgentCollect.infoDataHealth)
                 End If
@@ -116,8 +117,8 @@
         _clsQuery = New clsQuerys(_AgentCn)
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
-
-        rtbSvrInfo.Text = String.Format("{0} : {1} / IP : {2} / START : {3} ", strHeader, ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
+        'FormMovePanel1.Text += " [" + String.Format("{0}(v{3}) : {1}[{2}] Started on {4} ", strHeader, ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.PGV, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss")) + "]"
+        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), ServerInfo.PGV) + "]"
         TmCollect = New Timer()
         TmCollect.Interval = _Elapseinterval
         TmCollect.Start()
@@ -150,7 +151,6 @@
     Private Sub frmMonDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' 폼 초기화 
         InitForm()
-
 
         Try
             initControls(p_clsAgentCollect.AgentState)
@@ -266,7 +266,8 @@
         'Physical I/O      Logical I/O       Object    SQL Response Time
         grpPhysicalIO.Text = p_clsMsgData.fn_GetData("F100")
         grpLogicalIO.Text = p_clsMsgData.fn_GetData("F101")
-        grpObject.Text = p_clsMsgData.fn_GetData("F102")
+        'Will move to object view
+        'grpObject.Text = p_clsMsgData.fn_GetData("F102")
         grpSQLResposeTime.Text = p_clsMsgData.fn_GetData("F103")
 
         'DB Activity Info
@@ -284,7 +285,8 @@
         'fit position of components
         Me.btnRefreshSession.Location = New System.Drawing.Point(Me.grpSessioninfo.Width - Me.btnRefreshSession.Width - Me.btnRefreshSession.Margin.Right, Me.btnRefreshSession.Margin.Top)
         Me.btnRefreshLogicaliO.Location = New System.Drawing.Point(Me.grpLogicalIO.Width - Me.btnRefreshLogicaliO.Width - Me.btnRefreshLogicaliO.Margin.Right, Me.btnRefreshLogicaliO.Margin.Top)
-        Me.btnRefreshObject.Location = New System.Drawing.Point(Me.grpObject.Width - Me.btnRefreshObject.Width - Me.btnRefreshObject.Margin.Right, Me.btnRefreshObject.Margin.Top)
+        'Will move to object view
+        'Me.btnRefreshObject.Location = New System.Drawing.Point(Me.grpObject.Width - Me.btnRefreshObject.Width - Me.btnRefreshObject.Margin.Right, Me.btnRefreshObject.Margin.Top)
         Me.btnRefreshPhysicaliO.Location = New System.Drawing.Point(Me.grpPhysicalIO.Width - Me.btnRefreshPhysicaliO.Width - Me.btnRefreshPhysicaliO.Margin.Right, Me.btnRefreshPhysicaliO.Margin.Top)
         Me.btnRefreshSqlResp.Location = New System.Drawing.Point(Me.grpSQLResposeTime.Width - Me.btnRefreshSqlResp.Width - Me.btnRefreshSqlResp.Margin.Right, Me.btnRefreshSqlResp.Margin.Top)
 
@@ -642,11 +644,11 @@
 
 
 
-            sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan)
-            sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan)
+            'sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan) 'Will move to object view
+            'sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan) 'Will move to object view
         Next
 
-        sb_ChartAlignYAxies(Me.chtObject)
+        'sb_ChartAlignYAxies(Me.chtObject) 'Will move to object view
 
     End Sub
 
@@ -1065,16 +1067,16 @@
                     sb_ChartAddPoint(Me.chtLocalIO, "INSERT", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
                     sb_ChartAddPoint(Me.chtLocalIO, "UPDATE", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
                     sb_ChartAddPoint(Me.chtLocalIO, "DELETE", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
-
-                    Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-                    Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
-                    Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
-                    sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan)
-                    sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan)
+                    'This chart will move to object view 20180125
+                    'Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                    'Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
+                    'Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
+                    'sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan)
+                    'sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan)
                 Next
             End If
 
-            sb_ChartAlignYAxies(Me.chtObject)
+            'sb_ChartAlignYAxies(Me.chtObject) 'This chart will move to object view 20180125
             sb_ChartAlignYAxies(Me.chtSession)
             sb_ChartAlignYAxies(Me.chtLocalIO)
         Catch ex As Exception
@@ -1123,7 +1125,7 @@
 
 
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshSession.Click, btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshObject.Click, btnRefreshSqlResp.Click
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click
         Select Case DirectCast(sender, BaseControls.Button).Name.ToUpper
             Case "BTNREFRESHSESSION"
                 ChartClear(chtSession)
@@ -1131,8 +1133,9 @@
                 ChartClear(chtPhysicaliO)
             Case "BTNREFRESHLOGICALIO"
                 ChartClear(chtLocalIO)
-            Case "BTNREFRESHOBJECT"
-                ChartClear(chtObject)
+                'This chart will move to object view 20180125
+                'Case "BTNREFRESHOBJECT"
+                '    ChartClear(chtObject)
             Case "BTNREFRESHSQLRESP"
                 ChartClear(chtSQLRespTm)
         End Select
@@ -1158,9 +1161,7 @@
 
     Private Sub chtCPU_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtCPU.CursorPositionChanged _
                                                                                                                         , chtLocalIO.CursorPositionChanged _
-                                                                                                                        , chtObject.CursorPositionChanged _
                                                                                                                         , chtPhysicaliO.CursorPositionChanged _
-                                                                                                                        , chtSession.CursorPositionChanged _
                                                                                                                         , chtSQLRespTm.CursorPositionChanged
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
@@ -1198,7 +1199,7 @@
 
     End Sub
 
-    Private Sub rtbSvrInfo_TextChanged(sender As Object, e As EventArgs) Handles rtbSvrInfo.TextChanged
+    Private Sub rtbSvrInfo_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 

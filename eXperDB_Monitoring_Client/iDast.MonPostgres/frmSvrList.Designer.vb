@@ -41,20 +41,6 @@ Partial Class frmSvrList
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
         Me.dgvSvrLst = New eXperDB.BaseControls.DataGridView()
-        Me.colCollectYN = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.colAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
-        Me.colLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colGrp = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.colHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnStart = New eXperDB.BaseControls.Button()
         Me.grpMonGrp = New eXperDB.BaseControls.GroupBox()
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
@@ -70,18 +56,6 @@ Partial Class frmSvrList
         Me.txtGrp1 = New eXperDB.BaseControls.TextBox()
         Me.tlpMonList = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgvMonLst = New eXperDB.BaseControls.DataGridView()
-        Me.colMonAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
-        Me.colMonLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblMonList = New eXperDB.BaseControls.Label()
         Me.tlpSvrList = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblSvrList = New eXperDB.BaseControls.Label()
@@ -114,6 +88,34 @@ Partial Class frmSvrList
         Me.TableLayoutPanel4 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.cmbGrp = New eXperDB.BaseControls.ComboBox()
         Me.TableLayoutPanel6 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.colCollectYN = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.colAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
+        Me.colLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colGrp = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.colHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colPGV = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
+        Me.colMonLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonPGV = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpMonGrp.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -156,7 +158,7 @@ Partial Class frmSvrList
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCollectYN, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colHostNm, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort})
+        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCollectYN, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colHostNm, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colPGV})
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.Black
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -188,104 +190,6 @@ Partial Class frmSvrList
         Me.dgvSvrLst.TabIndex = 9
         Me.dgvSvrLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSvrLst.UseTagValueMatchColor = False
-        '
-        'colCollectYN
-        '
-        Me.colCollectYN.FalseValue = "N"
-        Me.colCollectYN.HeaderText = "F018"
-        Me.colCollectYN.Name = "colCollectYN"
-        Me.colCollectYN.TrueValue = "Y"
-        Me.colCollectYN.Width = 75
-        '
-        'colAliasNm
-        '
-        Me.colAliasNm.HeaderText = "F019"
-        Me.colAliasNm.Name = "colAliasNm"
-        Me.colAliasNm.ReadOnly = True
-        '
-        'colDBNm
-        '
-        Me.colDBNm.HeaderText = "F010"
-        Me.colDBNm.Name = "colDBNm"
-        Me.colDBNm.ReadOnly = True
-        Me.colDBNm.Width = 130
-        '
-        'colUser
-        '
-        Me.colUser.HeaderText = "F008"
-        Me.colUser.Name = "colUser"
-        Me.colUser.ReadOnly = True
-        '
-        'colIP
-        '
-        Me.colIP.HeaderText = "F006"
-        Me.colIP.Name = "colIP"
-        Me.colIP.ReadOnly = True
-        Me.colIP.Width = 120
-        '
-        'colPort
-        '
-        Me.colPort.HeaderText = "F007"
-        Me.colPort.Name = "colPort"
-        Me.colPort.ReadOnly = True
-        Me.colPort.Width = 70
-        '
-        'colPW
-        '
-        Me.colPW.HeaderText = "F009"
-        Me.colPW.Name = "colPW"
-        Me.colPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.colPW.ReadOnly = True
-        Me.colPW.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.colPW.UseSystemPasswordChar = True
-        Me.colPW.Visible = False
-        Me.colPW.Width = 5
-        '
-        'colLstIP
-        '
-        Me.colLstIP.HeaderText = "F020"
-        Me.colLstIP.Name = "colLstIP"
-        Me.colLstIP.ReadOnly = True
-        Me.colLstIP.Visible = False
-        '
-        'colGrp
-        '
-        Me.colGrp.HeaderText = "F025"
-        Me.colGrp.Name = "colGrp"
-        Me.colGrp.Visible = False
-        Me.colGrp.Width = 134
-        '
-        'colHostNm
-        '
-        Me.colHostNm.HeaderText = "HOST_NAME"
-        Me.colHostNm.Name = "colHostNm"
-        Me.colHostNm.ReadOnly = True
-        Me.colHostNm.Visible = False
-        '
-        'colStartTime
-        '
-        Me.colStartTime.HeaderText = "STARTTIME"
-        Me.colStartTime.Name = "colStartTime"
-        Me.colStartTime.ReadOnly = True
-        Me.colStartTime.Visible = False
-        '
-        'colHARole
-        '
-        Me.colHARole.HeaderText = "HAROLE"
-        Me.colHARole.Name = "colHARole"
-        Me.colHARole.Visible = False
-        '
-        'colHAHost
-        '
-        Me.colHAHost.HeaderText = "HAHOST"
-        Me.colHAHost.Name = "colHAHost"
-        Me.colHAHost.Visible = False
-        '
-        'colHAPort
-        '
-        Me.colHAPort.HeaderText = "HAPORT"
-        Me.colHAPort.Name = "colHAPort"
-        Me.colHAPort.Visible = False
         '
         'btnStart
         '
@@ -323,6 +227,7 @@ Partial Class frmSvrList
         Edges1.RightTop = 20
         Me.grpMonGrp.EdgeRound = Edges1
         Me.grpMonGrp.FillColor = System.Drawing.Color.Black
+        Me.grpMonGrp.Icon = Nothing
         Me.grpMonGrp.LineColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.grpMonGrp.LineWidth = 1
         Me.grpMonGrp.Location = New System.Drawing.Point(3, 184)
@@ -580,7 +485,7 @@ Partial Class frmSvrList
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvMonLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvMonLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMonLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMonAliasNm, Me.colMonDBNm, Me.colMonUser, Me.colMonIP, Me.colMonPort, Me.colMonPW, Me.colMonLstIP, Me.colMonHostNm, Me.colMonStartTime, Me.colMonHARole, Me.colMonHAHost, Me.colMonHAPort})
+        Me.dgvMonLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMonAliasNm, Me.colMonDBNm, Me.colMonUser, Me.colMonIP, Me.colMonPort, Me.colMonPW, Me.colMonLstIP, Me.colMonHostNm, Me.colMonStartTime, Me.colMonHARole, Me.colMonHAHost, Me.colMonHAPort, Me.colMonPGV})
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle7.BackColor = System.Drawing.Color.Black
         DataGridViewCellStyle7.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -612,91 +517,6 @@ Partial Class frmSvrList
         Me.dgvMonLst.TabIndex = 12
         Me.dgvMonLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvMonLst.UseTagValueMatchColor = False
-        '
-        'colMonAliasNm
-        '
-        Me.colMonAliasNm.HeaderText = "F019"
-        Me.colMonAliasNm.Name = "colMonAliasNm"
-        Me.colMonAliasNm.ReadOnly = True
-        '
-        'colMonDBNm
-        '
-        Me.colMonDBNm.HeaderText = "F010"
-        Me.colMonDBNm.Name = "colMonDBNm"
-        Me.colMonDBNm.ReadOnly = True
-        Me.colMonDBNm.Visible = False
-        Me.colMonDBNm.Width = 130
-        '
-        'colMonUser
-        '
-        Me.colMonUser.HeaderText = "F008"
-        Me.colMonUser.Name = "colMonUser"
-        Me.colMonUser.ReadOnly = True
-        Me.colMonUser.Visible = False
-        '
-        'colMonIP
-        '
-        Me.colMonIP.HeaderText = "F006"
-        Me.colMonIP.Name = "colMonIP"
-        Me.colMonIP.ReadOnly = True
-        Me.colMonIP.Width = 120
-        '
-        'colMonPort
-        '
-        Me.colMonPort.HeaderText = "F007"
-        Me.colMonPort.Name = "colMonPort"
-        Me.colMonPort.ReadOnly = True
-        Me.colMonPort.Width = 70
-        '
-        'colMonPW
-        '
-        Me.colMonPW.HeaderText = "F009"
-        Me.colMonPW.Name = "colMonPW"
-        Me.colMonPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.colMonPW.ReadOnly = True
-        Me.colMonPW.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.colMonPW.UseSystemPasswordChar = True
-        Me.colMonPW.Visible = False
-        Me.colMonPW.Width = 5
-        '
-        'colMonLstIP
-        '
-        Me.colMonLstIP.HeaderText = "F020"
-        Me.colMonLstIP.Name = "colMonLstIP"
-        Me.colMonLstIP.ReadOnly = True
-        Me.colMonLstIP.Visible = False
-        '
-        'colMonHostNm
-        '
-        Me.colMonHostNm.HeaderText = "HOST_NAME"
-        Me.colMonHostNm.Name = "colMonHostNm"
-        Me.colMonHostNm.ReadOnly = True
-        Me.colMonHostNm.Visible = False
-        '
-        'colMonStartTime
-        '
-        Me.colMonStartTime.HeaderText = "STARTTIME"
-        Me.colMonStartTime.Name = "colMonStartTime"
-        Me.colMonStartTime.ReadOnly = True
-        Me.colMonStartTime.Visible = False
-        '
-        'colMonHARole
-        '
-        Me.colMonHARole.HeaderText = "HAROLE"
-        Me.colMonHARole.Name = "colMonHARole"
-        Me.colMonHARole.Visible = False
-        '
-        'colMonHAHost
-        '
-        Me.colMonHAHost.HeaderText = "HAHOST"
-        Me.colMonHAHost.Name = "colMonHAHost"
-        Me.colMonHAHost.Visible = False
-        '
-        'colMonHAPort
-        '
-        Me.colMonHAPort.HeaderText = "HAPORT"
-        Me.colMonHAPort.Name = "colMonHAPort"
-        Me.colMonHAPort.Visible = False
         '
         'lblMonList
         '
@@ -778,6 +598,7 @@ Partial Class frmSvrList
         Edges2.RightTop = 20
         Me.grpAgentSVR.EdgeRound = Edges2
         Me.grpAgentSVR.FillColor = System.Drawing.Color.Black
+        Me.grpAgentSVR.Icon = Nothing
         Me.grpAgentSVR.LineColor = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
         Me.grpAgentSVR.LineWidth = 1
         Me.grpAgentSVR.Location = New System.Drawing.Point(3, 4)
@@ -1252,6 +1073,201 @@ Partial Class frmSvrList
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(1115, 820)
         Me.TableLayoutPanel6.TabIndex = 21
         '
+        'colCollectYN
+        '
+        Me.colCollectYN.FalseValue = "N"
+        Me.colCollectYN.HeaderText = "F018"
+        Me.colCollectYN.Name = "colCollectYN"
+        Me.colCollectYN.TrueValue = "Y"
+        Me.colCollectYN.Width = 75
+        '
+        'colAliasNm
+        '
+        Me.colAliasNm.HeaderText = "F019"
+        Me.colAliasNm.Name = "colAliasNm"
+        Me.colAliasNm.ReadOnly = True
+        '
+        'colDBNm
+        '
+        Me.colDBNm.HeaderText = "F010"
+        Me.colDBNm.Name = "colDBNm"
+        Me.colDBNm.ReadOnly = True
+        Me.colDBNm.Width = 130
+        '
+        'colUser
+        '
+        Me.colUser.HeaderText = "F008"
+        Me.colUser.Name = "colUser"
+        Me.colUser.ReadOnly = True
+        '
+        'colIP
+        '
+        Me.colIP.HeaderText = "F006"
+        Me.colIP.Name = "colIP"
+        Me.colIP.ReadOnly = True
+        Me.colIP.Width = 120
+        '
+        'colPort
+        '
+        Me.colPort.HeaderText = "F007"
+        Me.colPort.Name = "colPort"
+        Me.colPort.ReadOnly = True
+        Me.colPort.Width = 70
+        '
+        'colPW
+        '
+        Me.colPW.HeaderText = "F009"
+        Me.colPW.Name = "colPW"
+        Me.colPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.colPW.ReadOnly = True
+        Me.colPW.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.colPW.UseSystemPasswordChar = True
+        Me.colPW.Visible = False
+        Me.colPW.Width = 5
+        '
+        'colLstIP
+        '
+        Me.colLstIP.HeaderText = "F020"
+        Me.colLstIP.Name = "colLstIP"
+        Me.colLstIP.ReadOnly = True
+        Me.colLstIP.Visible = False
+        '
+        'colGrp
+        '
+        Me.colGrp.HeaderText = "F025"
+        Me.colGrp.Name = "colGrp"
+        Me.colGrp.Visible = False
+        Me.colGrp.Width = 134
+        '
+        'colHostNm
+        '
+        Me.colHostNm.HeaderText = "HOST_NAME"
+        Me.colHostNm.Name = "colHostNm"
+        Me.colHostNm.ReadOnly = True
+        Me.colHostNm.Visible = False
+        '
+        'colStartTime
+        '
+        Me.colStartTime.HeaderText = "STARTTIME"
+        Me.colStartTime.Name = "colStartTime"
+        Me.colStartTime.ReadOnly = True
+        Me.colStartTime.Visible = False
+        '
+        'colHARole
+        '
+        Me.colHARole.HeaderText = "HAROLE"
+        Me.colHARole.Name = "colHARole"
+        Me.colHARole.Visible = False
+        '
+        'colHAHost
+        '
+        Me.colHAHost.HeaderText = "HAHOST"
+        Me.colHAHost.Name = "colHAHost"
+        Me.colHAHost.Visible = False
+        '
+        'colHAPort
+        '
+        Me.colHAPort.HeaderText = "HAPORT"
+        Me.colHAPort.Name = "colHAPort"
+        Me.colHAPort.Visible = False
+        '
+        'colPGV
+        '
+        Me.colPGV.HeaderText = "PGV"
+        Me.colPGV.Name = "colPGV"
+        Me.colPGV.Visible = False
+        '
+        'colMonAliasNm
+        '
+        Me.colMonAliasNm.HeaderText = "F019"
+        Me.colMonAliasNm.Name = "colMonAliasNm"
+        Me.colMonAliasNm.ReadOnly = True
+        '
+        'colMonDBNm
+        '
+        Me.colMonDBNm.HeaderText = "F010"
+        Me.colMonDBNm.Name = "colMonDBNm"
+        Me.colMonDBNm.ReadOnly = True
+        Me.colMonDBNm.Visible = False
+        Me.colMonDBNm.Width = 130
+        '
+        'colMonUser
+        '
+        Me.colMonUser.HeaderText = "F008"
+        Me.colMonUser.Name = "colMonUser"
+        Me.colMonUser.ReadOnly = True
+        Me.colMonUser.Visible = False
+        '
+        'colMonIP
+        '
+        Me.colMonIP.HeaderText = "F006"
+        Me.colMonIP.Name = "colMonIP"
+        Me.colMonIP.ReadOnly = True
+        Me.colMonIP.Width = 120
+        '
+        'colMonPort
+        '
+        Me.colMonPort.HeaderText = "F007"
+        Me.colMonPort.Name = "colMonPort"
+        Me.colMonPort.ReadOnly = True
+        Me.colMonPort.Width = 70
+        '
+        'colMonPW
+        '
+        Me.colMonPW.HeaderText = "F009"
+        Me.colMonPW.Name = "colMonPW"
+        Me.colMonPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.colMonPW.ReadOnly = True
+        Me.colMonPW.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.colMonPW.UseSystemPasswordChar = True
+        Me.colMonPW.Visible = False
+        Me.colMonPW.Width = 5
+        '
+        'colMonLstIP
+        '
+        Me.colMonLstIP.HeaderText = "F020"
+        Me.colMonLstIP.Name = "colMonLstIP"
+        Me.colMonLstIP.ReadOnly = True
+        Me.colMonLstIP.Visible = False
+        '
+        'colMonHostNm
+        '
+        Me.colMonHostNm.HeaderText = "HOST_NAME"
+        Me.colMonHostNm.Name = "colMonHostNm"
+        Me.colMonHostNm.ReadOnly = True
+        Me.colMonHostNm.Visible = False
+        '
+        'colMonStartTime
+        '
+        Me.colMonStartTime.HeaderText = "STARTTIME"
+        Me.colMonStartTime.Name = "colMonStartTime"
+        Me.colMonStartTime.ReadOnly = True
+        Me.colMonStartTime.Visible = False
+        '
+        'colMonHARole
+        '
+        Me.colMonHARole.HeaderText = "HAROLE"
+        Me.colMonHARole.Name = "colMonHARole"
+        Me.colMonHARole.Visible = False
+        '
+        'colMonHAHost
+        '
+        Me.colMonHAHost.HeaderText = "HAHOST"
+        Me.colMonHAHost.Name = "colMonHAHost"
+        Me.colMonHAHost.Visible = False
+        '
+        'colMonHAPort
+        '
+        Me.colMonHAPort.HeaderText = "HAPORT"
+        Me.colMonHAPort.Name = "colMonHAPort"
+        Me.colMonHAPort.Visible = False
+        '
+        'colMonPGV
+        '
+        Me.colMonPGV.HeaderText = "PGV"
+        Me.colMonPGV.Name = "colMonPGV"
+        Me.colMonPGV.Visible = False
+        '
         'frmSvrList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
@@ -1339,6 +1355,8 @@ Partial Class frmSvrList
     Friend WithEvents lblSvrList As eXperDB.BaseControls.Label
     Friend WithEvents lblMonList As eXperDB.BaseControls.Label
     Friend WithEvents TableLayoutPanel5 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents dgvMonLst As eXperDB.BaseControls.DataGridView
+    Friend WithEvents TableLayoutPanel6 As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents colCollectYN As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents colAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1353,7 +1371,7 @@ Partial Class frmSvrList
     Friend WithEvents colHARole As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents dgvMonLst As eXperDB.BaseControls.DataGridView
+    Friend WithEvents colPGV As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonUser As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1366,6 +1384,6 @@ Partial Class frmSvrList
     Friend WithEvents colMonHARole As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TableLayoutPanel6 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents colMonPGV As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class
