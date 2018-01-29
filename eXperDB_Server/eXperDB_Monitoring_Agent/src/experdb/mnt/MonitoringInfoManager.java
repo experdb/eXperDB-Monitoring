@@ -66,6 +66,18 @@ public class MonitoringInfoManager {
 
 //			====================== 제거
 			
+			/* *********************************<Crypto>******************************* */
+			HashMap<String, Object> configMapForKey = new HashMap<String, Object>();
+			
+			configMapForKey = session.selectOne("system.TB_CONFIG_R002");
+			String cryptokey = (String)configMapForKey.get("serial_key");
+			cryptokey = cryptokey.substring(0, 24);			
+			//get key
+			System.out.println(LicenseInfoManager.encryptTDES(cryptokey, "Hello World"));
+			System.out.println(LicenseInfoManager.decryptTDES(cryptokey, LicenseInfoManager.encryptTDES(cryptokey, "Hello World")));
+			/* *******************************<Crypto>********************************** */
+					
+			
 			SqlSession sessionCollect = null;
 			Connection connection = null;
 			String instance_db_version = "";
@@ -79,7 +91,7 @@ public class MonitoringInfoManager {
 					connection = DriverManager.getConnection(
 							"jdbc:postgresql://" + map.get("server_ip") + ":" + map.get("service_port") + "/" + map.get("conn_db_name"), 
 							(String) map.get("conn_user_id"),
-							(String) map.get("conn_user_pwd"));
+							LicenseInfoManager.decryptTDES(cryptokey, (String)map.get("conn_user_pwd")));
 					
 					sessionCollect = sqlSessionFactory.openSession(connection);
 
@@ -144,8 +156,14 @@ public class MonitoringInfoManager {
 							map.put(key, majorVersion);
 							break;
 						}
-					}
-					
+						if(key.equals("conn_user_pwd")) {
+							if(map.get(key) == null || map.get(key).equals(""))		break;
+							
+							String conn_user_pwd = (String) map.get(key);
+							map.put(key, LicenseInfoManager.decryptTDES(cryptokey, (String)map.get("conn_user_pwd")));
+							break;
+						}
+					}					
 					
 					monitoringInfoHash.put(map.get("instance_id").toString(), map);
 				}
