@@ -109,7 +109,7 @@
       ,'{2}'
       ,'{3}'
       ,'{4}'
-      ,encode('{5}'::bytea,'base64')
+      ,'{5}'
       ,'{6}'
       ,'{7}'
       ,'{8}'
@@ -132,7 +132,7 @@
         ,SERVICE_PORT
         ,DBMS_TYPE
         ,CONN_USER_ID
-        ,convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') AS CONN_USER_PWD
+        ,CONN_USER_PWD
         ,COLLECT_YN
         ,COLLECT_PERIOD_SEC
         ,CONN_DB_NAME
@@ -159,7 +159,7 @@
         ,SERVICE_PORT
         ,DBMS_TYPE
         ,CONN_USER_ID
-        ,convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') AS CONN_USER_PWD
+        ,CONN_USER_PWD
         ,COLLECT_YN
         ,MON_GROUP
         ,COLLECT_PERIOD_SEC
@@ -191,7 +191,7 @@
         ,SERVICE_PORT
         ,DBMS_TYPE
         ,CONN_USER_ID
-        ,convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') AS CONN_USER_PWD
+        ,CONN_USER_PWD
         ,COLLECT_YN
         ,COLLECT_PERIOD_SEC
         ,CONN_DB_NAME
@@ -217,7 +217,7 @@
         ,SERVICE_PORT = '{2}' 
         ,DBMS_TYPE = '{3}' 
         ,CONN_USER_ID = '{4}' 
-        ,CONN_USER_PWD = encode('{5}'::bytea,'base64')  
+        ,CONN_USER_PWD = '{5}'
         ,COLLECT_YN = '{6}' 
         ,COLLECT_PERIOD_SEC = '{7}' 
         ,CONN_DB_NAME = '{8}' 

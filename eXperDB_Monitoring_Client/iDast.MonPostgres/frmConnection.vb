@@ -1,12 +1,19 @@
-﻿Public Class frmConnection
+﻿
+Public Class frmConnection
     Private _idxROw As Integer
     Private _strAgentIP As String = ""
     Private _intAgentPort As Integer = 0
     Private _InstanceCnt As Integer = 0
-    Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal strAliasNm As String, ByVal InstanceCnt As Integer)
+    Private _isChangedPW As Integer = 0
+    Private _strSerial As String = ""
+    Private _OldPWValue As String = ""
+    Private _crypt As New eXperDB.Common.ClsCrypt
+    Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal strAliasNm As String, ByVal InstanceCnt As Integer, ByVal strSerial As String)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
+        _strSerial = strSerial
+        _crypt = New eXperDB.Common.ClsCrypt
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
 
@@ -117,7 +124,15 @@
         Dim strIp As String = txtIP.Text
         Dim strPort As Integer = txtPort.Text
         Dim strID As String = txtUsr.Text
-        Dim strPw As String = txtPW.Text
+        Dim strPw As String
+        If _isChangedPW = 1 Then
+            _crypt.TDESImplementation(_strSerial.Substring(0, 24), _strSerial.Substring(0, 8))
+            strPw = _crypt.EncryptTDES(txtPW.Text)
+            txtPW.Text = strPw
+        Else
+            strPw = txtPW.Text
+        End If
+        _isChangedPW = 0
         Dim DBName As String = cmbDbnm.Text
         'If _frmW IsNot Nothing Then
         '    _frmW = New frmWait
@@ -304,7 +319,10 @@
     End Sub
 
     Private Sub txtPW_TextChanged(sender As Object, e As EventArgs) Handles txtPW.TextChanged
-
+        If _OldPWValue.Length > 0 Then
+            _isChangedPW = 1
+        End If
+        _OldPWValue = txtPW.Text
     End Sub
 
     Private Sub txtUsr_TextChanged(sender As Object, e As EventArgs) Handles txtUsr.TextChanged

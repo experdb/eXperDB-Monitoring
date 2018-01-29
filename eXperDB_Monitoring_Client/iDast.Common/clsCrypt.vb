@@ -140,5 +140,28 @@ Public Class ClsCrypt
         'End If
     End Function
 
+    Private Key() As Byte
+    Private IVV() As Byte
+    Public Function TDESImplementation(ByVal encryptionKey As String, ByVal IV As String)
+        Key = Encoding.ASCII.GetBytes(encryptionKey)
+        IVV = Encoding.ASCII.GetBytes(IV)
+    End Function
+    Public Function EncryptTDES(ByVal textToEncrypt As String) As String
+        Dim tdes As TripleDESCryptoServiceProvider = New TripleDESCryptoServiceProvider
+        tdes.Key = Key
+        tdes.IV = IVV
+
+        Dim buffer() As Byte = Encoding.ASCII.GetBytes(textToEncrypt)
+        Return Convert.ToBase64String(tdes.CreateEncryptor().TransformFinalBlock(buffer, 0, buffer.Length))
+    End Function
+    Public Function DecryptTDES(ByVal textToDecrypt As String) As String
+        Dim buffer() As Byte = Convert.FromBase64String(textToDecrypt)
+
+        Dim tdes As TripleDESCryptoServiceProvider = New TripleDESCryptoServiceProvider
+        tdes.Key = Key
+        tdes.IV = IVV
+
+        Return Encoding.ASCII.GetString(tdes.CreateDecryptor().TransformFinalBlock(buffer, 0, buffer.Length))
+    End Function
 
 End Class
