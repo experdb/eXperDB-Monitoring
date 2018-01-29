@@ -2174,7 +2174,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n\n다시 다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
+    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2223,6 +2223,14 @@
   <ROW ID="M018" PARAMS="0">
     <DESC>라이선스 체크</DESC>
     <DATA><![CDATA[유효하지 않은 라이선스 입니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M019" PARAMS="0">
+    <DESC>서버연결중</DESC>
+    <DATA><![CDATA[서버와 연결 중입니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

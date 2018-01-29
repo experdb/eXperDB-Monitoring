@@ -76,7 +76,7 @@ Public Class GroupInfo
     Public Class ServerInfo
 	   'Robin-Start add HA info 
         'Public Sub New(ByVal intInstanceID As Integer, ByVal strIP As String, ByVal strID As String, ByVal intPort As Integer, ByVal strDBName As String, ByVal AliasName As String, ByVal HostName As String, ByVal stTime As DateTime)
-        Public Sub New(ByVal intInstanceID As Integer, ByVal strIP As String, ByVal strID As String, ByVal intPort As Integer, ByVal strDBName As String, ByVal AliasName As String, ByVal HostName As String, ByVal stTime As DateTime, ByVal strHARole As String, ByVal strHAHost As String, ByVal strHAPort As String)
+        Public Sub New(ByVal intInstanceID As Integer, ByVal strIP As String, ByVal strID As String, ByVal intPort As Integer, ByVal strDBName As String, ByVal AliasName As String, ByVal HostName As String, ByVal stTime As DateTime, ByVal strHARole As String, ByVal strHAHost As String, ByVal strHAPort As String, ByVal strPGV As String)
             _InstanceID = intInstanceID
             _IP = strIP
             _ID = strID
@@ -89,7 +89,8 @@ Public Class GroupInfo
             _HARole = strHARole
             _HAHost = strHAHost
             _HAPort = strHAPort
-    	   'Robin-End add HA info end
+            _PGV = strPGV
+            'Robin-End add HA info end
         End Sub
 
         Private _InstanceID As Integer = -1
@@ -244,6 +245,18 @@ Public Class GroupInfo
         ReadOnly Property HAPort As String
             Get
                 Return _HAPort
+            End Get
+        End Property
+        Private _PGV As String = ""
+        ''' <summary>
+        ''' PG Version
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        ReadOnly Property PGV As String
+            Get
+                Return _PGV
             End Get
         End Property
    'Robin-end add HA info end

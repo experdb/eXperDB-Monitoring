@@ -157,6 +157,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, tmpRow.Item("HA_ROLE"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, tmpRow.Item("HA_PORT"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colPGV.Index, tmpRow.Item("PG_VERSION"))
             Next
         End If
     End Sub
@@ -193,6 +194,7 @@
                 dgvMonLst.fn_DataCellADD(idxRow, colMonHARole.Index, tmpRow.Cells(colHARole.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxRow, colMonHAHost.Index, tmpRow.Cells(colHAHost.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
+                dgvMonLst.fn_DataCellADD(idxRow, colMonPGV.Index, tmpRow.Cells(colPGV.Index).Value)
             End If
         Next
 
@@ -744,8 +746,9 @@
             Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
             Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
             Dim strHAPort As String = tmpRow.Cells(colMonHAPort.Index).Value
+            Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
 
-            rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, strPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, strHAPort))
+            rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, strPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, strHAPort, strPGV))
         Next
 
         If rtnSrt.Count = 0 Then
