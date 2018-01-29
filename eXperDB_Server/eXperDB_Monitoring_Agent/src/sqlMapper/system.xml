@@ -7,7 +7,7 @@
 		       SERVER_IP, 
 		       SERVICE_PORT, 
 		       CONN_USER_ID, 
-		       convert_from(decode(CONN_USER_PWD,'base64'),'UTF8') as CONN_USER_PWD, 
+		       CONN_USER_PWD, 
 		       COLLECT_PERIOD_SEC, 
 		       CONN_DB_NAME,
 		       PG_VERSION, 

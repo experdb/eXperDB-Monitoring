@@ -15,6 +15,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.ibatis.session.SqlSession;
@@ -30,11 +31,14 @@ public class LicenseInfoManager {
 /* Test Code*/
  	public static void main(String... args) {
 		try {
-			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000008:00:27:d8:14:d6"); my vm
-			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000098:83:89:1D:DF:55"); my pc
-			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000000:50:56:A9:79:FE"); //통전 3-1차
-			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000008:00:27:EA:5C:D5"); //통전 3-1차
-			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000052:54:00:80:12:EB"); //222.110.153.251
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000008:00:27:d8:14:d6"); //my vm
+			String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000098:83:89:1D:DF:55");// my pc
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000000:50:56:A9:79:FE"); // 3-1차
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000008:00:27:EA:5C:D5"); // 3-1차
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000052:54:00:80:12:EB"); //222.110.153.251
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000122017110700000000D8:9D:67:27:E2:28"); //sssssg			//D8:9D:67:27:E2:28
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000E8:11:32:32:BF:8B"); //my vm
+			
 			
 			String serialKey = LicenseInfoManager.decrypt(encSerialKey);
 			System.out.println(encSerialKey); 
@@ -359,6 +363,39 @@ public class LicenseInfoManager {
 	        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding"); 
 	        cipher.init(Cipher.ENCRYPT_MODE,key,iv);
 	        bout.write(cipher.doFinal(inputText.getBytes("ASCII")));                        
+	    } catch(Exception e) {
+	    	log.error(e);
+	    }
+	    return new String(Base64.encodeBase64(bout.toByteArray()));
+	}	
+	
+	public static String decryptTDES(String keyString, String inputText) throws Exception {
+	    //byte[] keyValue = new byte[] { 'W', 'e', 'b', 'C', 'a', 's', 'h', '9', 'K', '4', 'M', 'D', 'A', 'd', 'n', 'p', 'q', 'z', 'p', 't', 'l', 'K', '4', 'm'};
+		byte[] keyValue = keyString.getBytes("UTF-8");
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+	    try {
+	    	SecretKeySpec    myKey = new SecretKeySpec(keyValue, "DESede"); 
+	        IvParameterSpec iv = new IvParameterSpec(keyString.substring(0,8).getBytes("UTF-8"));
+	        Cipher c3des = Cipher.getInstance("DESede/CBC/PKCS5Padding");
+	        c3des.init(Cipher.DECRYPT_MODE,myKey,iv);
+	        byte[] decoded = Base64.decodeBase64(inputText.getBytes("UTF-8"));// works with apache.commons.codec-1.3
+	        bout.write(c3des.doFinal(decoded));
+	    } catch(Exception e) {
+	    	log.error(e);
+	    }
+	    return new String(bout.toByteArray(),"UTF-8");
+	}	
+	
+	public static String encryptTDES(String keyString, String inputText) throws Exception {
+		//byte[] keyValue = new byte[] { 'W', 'e', 'b', 'C', 'a', 's', 'h', '9', 'K', '4', 'M', 'D', 'A', 'd', 'n', 'p', 'q', 'z', 'p', 't', 'l', 'K', '4', 'm'};
+		byte[] keyValue = keyString.getBytes("UTF-8");
+	    ByteArrayOutputStream bout = new ByteArrayOutputStream();
+	    try {           
+	        SecretKeySpec    myKey = new SecretKeySpec(keyValue, "DESede"); 
+	        IvParameterSpec iv = new IvParameterSpec(keyString.substring(0,8).getBytes("UTF-8"));
+	        Cipher c3des = Cipher.getInstance("DESede/CBC/PKCS5Padding"); 
+	        c3des.init(Cipher.ENCRYPT_MODE,myKey,iv);
+	        bout.write(c3des.doFinal(inputText.getBytes("UTF-8")));                        
 	    } catch(Exception e) {
 	    	log.error(e);
 	    }

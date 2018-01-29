@@ -55,8 +55,8 @@ public class DX005 implements SocketApplication{
 			try {
 				String dbPass = "";
 				dbPass = (String) jReqDataObj.get("password");
-				byte[] decoded = Base64.decodeBase64(dbPass.getBytes());
-				dbPass =  new String(decoded);
+				//byte[] decoded = Base64.decodeBase64(dbPass.getBytes());
+				//dbPass =  new String(decoded);
 				
 				connection = DriverManager.getConnection(
 						"jdbc:postgresql://" + selectMap.get("server_ip") + ":" + selectMap.get("service_port") + "/" + jReqDataObj.get("database"), 
