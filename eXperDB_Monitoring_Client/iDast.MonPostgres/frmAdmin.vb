@@ -6,6 +6,7 @@
     Private _checkAgentInterval As Integer = 1000
     Private _startDt As String
     Private _applyCount As Integer = 0
+    Private crypt As New eXperDB.Common.ClsCrypt
 
 #Region "Form Initialize"
 
@@ -182,6 +183,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colLstIP.Index, tmpRow.Item("LAST_MOD_IP"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, tmpRow.Item("CONN_SCHEMA_NAME"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, tmpRow.Item("COLLECT_PERIOD_SEC"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, IIf(tmpRow.Item("LOG_KEEP_DAYS") < Me.nudLogSaveDly.Minimum, Me.nudLogSaveDly.Minimum, tmpRow.Item("LOG_KEEP_DAYS")))
 
             Next
@@ -301,15 +303,25 @@
                 Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
                 Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
                 Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
+                Dim intPwch As Integer = tmpRow.Cells(colPWCH.Index).Value
                 ' Dim intLogDay As Integer = tmpRow.Cells(colLogSave.Index).Value
 
+                Try
+                    Dim dtTable As DataTable = ClsQuery.SelectSerialKey()
+                    If dtTable IsNot Nothing Then
+                        Dim dtRow As DataRow = dtTable.Rows(0)
+                        Dim strKey As String = dtRow.Item("LICDATA")
+                        If strKey.Length < 24 Then
+                            MsgBox(p_clsMsgData.fn_GetData("M018"))
+                            Return
+                        End If
 
-
-
-
-
-
-
+                    End If
+                Catch ex As Exception
+                    Console.WriteLine(e.ToString)
+                    MsgBox(p_clsMsgData.fn_GetData("M018"))
+                    Return
+                End Try
 
                 If tmpRow.Tag IsNot Nothing AndAlso tmpRow.Tag = -1 Then
                     ' 기존 데이터가 아닐경우 
@@ -407,6 +419,8 @@
     End Sub
 
     Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
+        crypt.TDESImplementation("lWpOnrrKPTarwaLwLrrvHDNh", "lWpOnrrK")
+        Dim testStr As String = crypt.EncryptTDES("experdba")
         ' Agent Server 접속시 정보를 넣어 두었음. 
         If _AgentIP.Trim = "" Or _AgentPort = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M016"))
@@ -419,8 +433,8 @@
             End If
         Next
 
-
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5433, "", "", 3, "", intCnt + 1)
+        Dim strkey = fn_GetSerial()
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5433, "", "", 3, "", intCnt + 1, strKey)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim struct As structConnection = Nothing
             Dim strSchema As String = ""
@@ -461,7 +475,8 @@
             End If
         Next
 
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt)
+        Dim strKey = fn_GetSerial()
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt, strKey)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnStruct As structConnection = Nothing
             Dim rtnSchema As String = ""
@@ -492,6 +507,9 @@
             tmpRow.Cells(colIP.Index).Value = tmpStruct.HostIP
             tmpRow.Cells(colUser.Index).Value = tmpStruct.UserID
             tmpRow.Cells(colPort.Index).Value = tmpStruct.Port
+            If Not tmpRow.Cells(colPW.Index).Value.Equals(tmpStruct.Password) Then
+                tmpRow.Cells(colPWCH.Index).Value = 1
+            End If
             tmpRow.Cells(colPW.Index).Value = tmpStruct.Password
             tmpRow.Cells(colSchema.Index).Value = strSChema
             tmpRow.Cells(colCollectSecond.Index).Value = intCollect
@@ -517,6 +535,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colPW.Index, tmpStruct.Password)
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, strSChema)
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, intCollect)
+                dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, nudLogSaveDly.Value)
                 ' 신규 삽입된 코드의 경우 -1로 처리하여 신규 추기인지 확인한다. 
                 ' 기존에 있던 데이터들은 Row Tag 가 Instance ID로 되어있음. 
@@ -551,6 +570,25 @@
             Return strStartDt
         End If
         Return ""
+    End Function
+    Private Function fn_GetSerial() As String
+        Dim strKey As String
+        Try
+            Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
+            Dim ClsQuery As New clsQuerys(odbcCon)
+            Dim dtTable As DataTable = ClsQuery.SelectSerialKey()
+            If dtTable IsNot Nothing Then
+                Dim dtRow As DataRow = dtTable.Rows(0)
+                strKey = dtRow.Item("LICDATA")
+                If strKey.Length < 24 Then
+                    Return ""
+                End If
+                Return strKey
+            End If
+        Catch ex As Exception
+            Console.WriteLine(ex.ToString)
+            Return ""
+        End Try
     End Function
 
 #Region "Timer Thread "

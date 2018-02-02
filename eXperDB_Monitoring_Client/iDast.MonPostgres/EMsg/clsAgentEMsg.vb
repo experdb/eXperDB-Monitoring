@@ -203,7 +203,7 @@ Public Class clsAgentEMsg
         Try
 
             _MsgThread = New Threading.Thread(Sub()
-                                                  Dim clsReq As New DX003_REQ(strIp, intPort, strUsrNm, DBNm, MakeBase64(strPW), InstanceCnt)
+                                                  Dim clsReq As New DX003_REQ(strIp, intPort, strUsrNm, DBNm, strPW, InstanceCnt)
 
                                                   Dim strReq As String = Newtonsoft.Json.JsonConvert.SerializeObject(clsReq)
 
@@ -534,7 +534,7 @@ Public Class clsAgentEMsg
         Try
 
             _MsgThread = New Threading.Thread(Sub()
-                                                  Dim clsReq As New DX005_REQ(strInstanceID, strUserNm, strDbNm, MakeBase64(strPw), "EXPLAIN " & strSql)
+                                                  Dim clsReq As New DX005_REQ(strInstanceID, strUserNm, strDbNm, strPw, "EXPLAIN " & strSql)
 
                                                   Dim strReq As String = Newtonsoft.Json.JsonConvert.SerializeObject(clsReq)
 

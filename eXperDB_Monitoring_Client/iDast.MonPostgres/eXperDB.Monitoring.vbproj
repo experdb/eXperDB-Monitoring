@@ -283,6 +283,7 @@
   <ItemGroup>
     <EmbeddedResource Include="AlertConfiguration.resx">
       <DependentUpon>AlertConfiguration.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ctlChart.resx">
       <DependentUpon>ctlChart.vb</DependentUpon>
