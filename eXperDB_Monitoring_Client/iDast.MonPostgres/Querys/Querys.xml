@@ -583,6 +583,7 @@
 		  , E.USER_NAME
 		  , E.CLIENT_ADDR
 		  , E.CLIENT_APP
+      , CASE WHEN (E.SQL <>'<IDLE>') THEN 'Active' ELSE 'Idle' END AS "STATE"
           , E.PROCESS_ID                                  --PT_04_04_001(RESRCUTILPERBACK : PID)
           , E.CURRENT_PROC_READ_KB                        --PT_03_06_001(BACKEND PROCS : MEM USEAGE READ KB)
           , E.CURRENT_PROC_WRITE_KB                       --PT_04_04_001(RESRCUTILPERBACK : MEM USAGE WRITE KB)

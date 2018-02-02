@@ -167,7 +167,7 @@
 
 
 
-
+    ' Move to SessionLock view
     ''' <summary>
     ''' Lock info 변경 되었을 경우 
     ''' </summary>

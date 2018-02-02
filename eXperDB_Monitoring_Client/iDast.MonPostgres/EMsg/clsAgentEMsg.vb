@@ -21,6 +21,7 @@ Public Class clsAgentEMsg
             Select Case clscm._tran_cd
                 Case "DX001" : rtnObj = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX001_REP)(rtnMsg)
                 Case "DX003" : rtnObj = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX003_REP)(rtnMsg)
+                Case "DX007" : rtnObj = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX007_REP)(rtnMsg)
                 Case "DX004"
                     Dim rtntmpCls As DX004_REP_TMP = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX004_REP_TMP)(rtnMsg)
                     Dim rtnCls As New DX004_REP
@@ -481,6 +482,59 @@ Public Class clsAgentEMsg
 
 
 
+
+#End Region
+
+
+#Region "DX007 쿼리수행"
+
+
+    Public Class DX007_REQ
+        Property _tran_cd As String = "DX007"
+        Property _tran_req_data As New List(Of DX007_InstanceInfo)
+
+        Public Sub New(ByVal intInstance As Integer, ByVal subCommand As String, ByVal subParam As String)
+            _tran_req_data.Add(New DX007_InstanceInfo(intInstance, subCommand, subParam))
+        End Sub
+    End Class
+
+    Public Class DX007_InstanceInfo
+        Property intInstanceId As String
+        Property subCommand As String
+        Property subParam As String
+        Public Sub New(ByVal intInstance As Integer, ByVal subCmd As String, ByVal subPrm As String)
+            intInstanceId = intInstance
+            subCommand = subCmd
+            subParam = subPrm
+        End Sub
+
+    End Class
+
+
+    Public Class DX007_REP
+        Property _tran_cd As String
+        Property _tran_res_data As List(Of ErrorResponse)
+    End Class
+
+    <Description("DX007 : 쿼리수행")> _
+    Public Sub SendDX007(ByVal intInstance As Integer, ByVal subCommand As String, ByVal subParam As String)
+        Try
+            _MsgThread = New Threading.Thread(Sub()
+                                                  Dim clsReq As New DX007_REQ(intInstance, subCommand, subParam)
+
+                                                  Dim strReq As String = Newtonsoft.Json.JsonConvert.SerializeObject(clsReq)
+
+                                                  strReq = MakeFullEMsg(strReq)
+                                                  clsSck.SendMessage(strReq)
+                                              End Sub)
+            _MsgThread.Start()
+
+        Catch ex As Exception
+            RaiseEvent Complete(Me, New clsSocket.Results(clsSocket.enumResult.Error, "", "", ex.ToString, clsSck.SvrIP, clsSck.SvrPort))
+
+        End Try
+
+    End Sub
 
 #End Region
 #Region "DX005 DB 목록 요청 "

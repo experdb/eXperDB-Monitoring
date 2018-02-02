@@ -897,6 +897,13 @@
     End Sub
 
     Private Sub clsAgentCollect_GetDataBackendinfo(ByVal dtTable As DataTable)
+        ' 하위폼이 있을 경우 하위폼에 던진다. 
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim subFrm As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+            If subFrm IsNot Nothing Then
+                subFrm.SetDataSession(dtTable)
+            End If
+        Next
         If dtTable Is Nothing OrElse dtTable.Rows.Count = 0 Then Return
 
         Dim strSvrIDInQuery As String = ""
@@ -911,7 +918,7 @@
         '        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
         '    End If
         'Next
-	' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
+        ' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
         Dim tmpGrp As GroupInfo = _GrpList.Item(0)
         strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
 
@@ -1152,7 +1159,7 @@
         ' 하위폼이 있을 경우 하위폼에 던진다. 
 
         For Each tmpFrm As Form In My.Application.OpenForms
-            Dim subFrm As frmMonActInfo = TryCast(tmpFrm, frmMonActInfo)
+            Dim subFrm As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
             If subFrm IsNot Nothing Then
                 subFrm.SetDataLockinfo(dtTable)
             End If
@@ -1270,25 +1277,26 @@
 
         Dim MaxPri As Double = 0 ' lngInsertTuples + lngDeleteTuples + lngUpdatetTuples
         Dim MaxSec As Double = 0 ' lngReadtTuples
-        For Each dtRow As DataRow In dtTableSessionStats.Rows
-            ' GRP Reqinfo
-            ' DgvreqInfo 
-            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID")
-            ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
-            ' 추후 개선할 것 
-            Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
-            If cpuidx >= 0 Then
-                Dim lngSessionIdle As Long = ConvULong(dtRow.Item("IDLE_SESSION"))
-                Dim lngSessionActive As Long = ConvULong(dtRow.Item("ACTIVE_SESSION"))
-                If tmpSrtLst IsNot Nothing Then
-                    Dim idx As Integer = tmpSrtLst.Item(intInstID)
-                    Me.chrSessionStat.Series("ACTIVE").Points(idx).SetValueY(lngSessionActive)
-                    Me.chrSessionStat.Series("IDLE").Points(idx).SetValueY(lngSessionIdle)
+        If dtTableSessionStats IsNot Nothing Then
+            For Each dtRow As DataRow In dtTableSessionStats.Rows
+                ' GRP Reqinfo
+                ' DgvreqInfo 
+                Dim intInstID As Integer = dtRow.Item("INSTANCE_ID")
+                ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
+                ' 추후 개선할 것 
+                Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
+                If cpuidx >= 0 Then
+                    Dim lngSessionIdle As Long = ConvULong(dtRow.Item("IDLE_SESSION"))
+                    Dim lngSessionActive As Long = ConvULong(dtRow.Item("ACTIVE_SESSION"))
+                    If tmpSrtLst IsNot Nothing Then
+                        Dim idx As Integer = tmpSrtLst.Item(intInstID)
+                        Me.chrSessionStat.Series("ACTIVE").Points(idx).SetValueY(lngSessionActive)
+                        Me.chrSessionStat.Series("IDLE").Points(idx).SetValueY(lngSessionIdle)
+                    End If
                 End If
-            End If
-        Next
-
-        Me.chrSessionStat.ChartAreas(0).RecalculateAxesScale()
+            Next
+            Me.chrSessionStat.ChartAreas(0).RecalculateAxesScale()
+        End If
 
     End Sub
     Private Sub clsAgentCollect_GetDataObjectInfo(ByVal dtTableObject As DataTable, ByVal dtTableSession As DataTable)

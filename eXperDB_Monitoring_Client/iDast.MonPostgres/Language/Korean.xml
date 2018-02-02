@@ -642,7 +642,7 @@
   </ROW>
   <ROW ID="F075" PARAMS="0">
     <DESC>DATABASE ACTIVITY INFORMATION</DESC>
-    <DATA><![CDATA[Object/Lock]]></DATA>
+    <DATA><![CDATA[Object View]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1992,6 +1992,54 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F245" PARAMS="0">
+    <DESC>SQL Plan</DESC>
+    <DATA><![CDATA[SQL Plan]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F246" PARAMS="0">
+    <DESC>Session Lock</DESC>
+    <DATA><![CDATA[Session/Lock]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F247" PARAMS="0">
+    <DESC>상태</DESC>
+    <DATA><![CDATA[State]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F248" PARAMS="0">
+    <DESC>Client</DESC>
+    <DATA><![CDATA[Client]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F249" PARAMS="0">
+    <DESC>Application</DESC>
+    <DATA><![CDATA[Application]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F250" PARAMS="0">
+    <DESC>Relation</DESC>
+    <DATA><![CDATA[Relation]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>
@@ -2046,7 +2094,7 @@
   </ROW>
   <ROW ID="F312" PARAMS="0">
     <DESC>SESSION INFORMATION</DESC>
-    <DATA><![CDATA[Session Status]]></DATA>
+    <DATA><![CDATA[Session list]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2343,6 +2391,38 @@
   <ROW ID="M029" PARAMS="0">
     <DESC>수집서버적용메시지</DESC>
     <DATA><![CDATA[적용에 실패하였습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M030" PARAMS="1">
+    <DESC>선택한 쿼리를 취소하시겠습니까?</DESC>
+    <DATA><![CDATA[선택한 쿼리를 취소하시겠습니까? (PID : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M031" PARAMS="1">
+    <DESC>선택한 세션을 종료하시겠습니까?</DESC>
+    <DATA><![CDATA[선택한 세션을 종료하시겠습니까? (PID : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M032" PARAMS="0">
+    <DESC>선택한 쿼리/세션에 대한 종료/취소 신호를 전송하였습니다.</DESC>
+    <DATA><![CDATA[선택한 쿼리/세션에 대한 종료/취소 신호를 전송하였습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M033" PARAMS="0">
+    <DESC>유효하지 않은 쿼리/세션입니다.</DESC>
+    <DATA><![CDATA[유효하지 않은 쿼리/세션입니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
