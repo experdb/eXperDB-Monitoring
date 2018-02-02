@@ -1726,4 +1726,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		SELECT * from pg_file_read(#{filename}, #{logoffset}, #{length})
 	</select>	
 	
+	<select id="PG_CANCEL_QUERY_001" parameterType="hashmap" resultType="hashmap">
+		SELECT pg_cancel_backend(#{pid}) AS RESULT
+	</select>
+	
+	<select id="PG_TERMINATE_QUERY_001" parameterType="hashmap" resultType="hashmap">
+		SELECT pg_terminate_backend(#{pid}) AS RESULT
+	</select>	
 </mapper>
