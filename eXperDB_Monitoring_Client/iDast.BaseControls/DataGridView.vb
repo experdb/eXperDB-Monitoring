@@ -960,6 +960,47 @@ Public Class DataGridView
         Return dtTable
     End Function
 
+    Public Function GetDataTable2(ByVal strTblNm As String, Optional ByVal UseDataProperty As Boolean = True) As System.Data.DataTable
+        If strTblNm = "" Then
+            strTblNm = Me.Name
+        End If
+
+        Dim dtTable As System.Data.DataTable = New System.Data.DataTable(strTblNm)
+        For Each tmpCol As DataGridViewColumn In Me.Columns
+            If tmpCol.Visible = True Then
+                dtTable.Columns.Add(tmpCol.HeaderText)
+                'If UseDataProperty = True Then
+                '    If tmpCol.DataPropertyName IsNot Nothing AndAlso tmpCol.DataPropertyName <> String.Empty Then
+                '        dtTable.Columns.Add(tmpCol.DataPropertyName)
+                '    Else
+                '        dtTable.Columns.Add("COL" & tmpCol.Index + 1)
+                '    End If
+                'Else
+                '    dtTable.Columns.Add(tmpCol.HeaderText)
+                'End If
+            End If
+        Next
+
+        For Each tmpRow As DataGridViewRow In Me.Rows
+
+            Dim dtRow As Data.DataRow = dtTable.NewRow
+            For Each tmpCol As DataGridViewColumn In Me.Columns
+                If tmpCol.Visible = True Then
+                    Dim strValue As String = IIf(IsDBNull(tmpRow.Cells(tmpCol.Index).Value), "", tmpRow.Cells(tmpCol.Index).Value)
+                    dtRow.Item(tmpCol.HeaderText) = strValue
+                    'If UseDataProperty = True Then
+                    '    dtRow.Item(tmpCol.DataPropertyName) = strValue
+                    'Else
+
+                    'End If
+                End If
+            Next
+            dtTable.Rows.Add(dtRow)
+        Next
+
+        Return dtTable
+    End Function
+
 
     Public Sub sb_Clear()
         Me.Rows.Clear()

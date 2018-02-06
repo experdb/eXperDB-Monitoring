@@ -4,7 +4,8 @@
     Private _Elapseinterval As Integer = 3000  ' 2시간을 기본으로 설정 
     Private _InstanceID As Integer = -1
     Private _tooltip As ToolTip
-    Private _SelectedPID As String
+    Private _SelectedIndex As String
+    Private _SelectedGrid As String
     ReadOnly Property InstanceID As Integer
         Get
             Return _InstanceID
@@ -18,9 +19,16 @@
             Return _AgentInfo
         End Get
     End Property
+    Private _AgentCn As eXperDB.ODBC.DXODBC
+
+    ReadOnly Property AgentCn As DXODBC
+        Get
+            Return _AgentCn
+        End Get
+    End Property
 
 
-    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent)
+    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.DXODBC)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -31,6 +39,7 @@
         _Elapseinterval = ElapseInterval
         _ServerInfo = ServerInfo
         _AgentInfo = clsAgentInfo
+        _AgentCn = AgentCn
 
         _tooltip = New ToolTip()
 
@@ -56,6 +65,7 @@
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
         FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
 
+        btnHistory.Text = p_clsMsgData.fn_GetData("F251")
 
         '' Current Activity
         'grpCurAct.Text = p_clsMsgData.fn_GetData("F076")
@@ -88,7 +98,7 @@
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information
 
-        grpSession.Text = p_clsMsgData.fn_GetData("F312", 0)
+        grpSession.Text = p_clsMsgData.fn_GetData("F313", 0)
         dgvSessionList.AutoGenerateColumns = False
         coldgvSessionListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
         coldgvSessionListPID.HeaderText = p_clsMsgData.fn_GetData("F082")
@@ -124,6 +134,7 @@
         Me.btnPause.Location = New System.Drawing.Point(Me.grpSessionLock.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
         Me.btnStop.Location = New System.Drawing.Point(Me.btnPause.Location.X - Me.btnStop.Width - Me.btnStop.Margin.Right, Me.btnPause.Margin.Top)
         Me.btnCancel.Location = New System.Drawing.Point(Me.btnStop.Location.X - Me.btnCancel.Width - Me.btnCancel.Margin.Right, Me.btnPause.Margin.Top)
+        Me.btnHistory.Location = New System.Drawing.Point(Me.btnCancel.Location.X - Me.btnHistory.Width - Me.btnHistory.Margin.Right, Me.btnPause.Margin.Top)
         Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
         modCommon.FontChange(Me, p_Font)
 
@@ -145,7 +156,7 @@
         'Dim topRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND BLOCKED_PID IS NULL", Me.InstanceID), "ORDER_NO ASC")
         Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
         Dgv.Nodes.Clear()
-
+        Dim intLockCount As Integer = 0
         Dim HashTbl As New Hashtable
         For Each tmpCol As DataGridViewColumn In Dgv.Columns
 
@@ -159,6 +170,7 @@
         For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
             Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
             sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+            intLockCount += 1
             For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0}", tmpRow.Item("BLOCKING_PID")), "ORDER_NO ASC")
                 Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
                 sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
@@ -169,6 +181,7 @@
 
         Next
 
+        grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", intLockCount)
 
         'For Each tmpRow As DataRow In topRows
         '    Dim tvNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
@@ -210,6 +223,13 @@
 
         Dim strQuery As String = ""
         Dim subQuery As String = IIf(cmbStatus.SelectedIndex, "", String.Format("AND SQL <> '{0}'", "<IDLE>"))
+        If cmbStatus.SelectedIndex = 0 Then
+            subQuery = ""
+        ElseIf cmbStatus.SelectedIndex = 1 Then
+            subQuery = String.Format("AND SQL <> '{0}'", "<IDLE>")
+        Else
+            subQuery = String.Format("AND SQL = '{0}'", "<IDLE>")
+        End If
 
         strQuery = String.Format("INSTANCE_ID = {0} {1}", Me.InstanceID, subQuery)
         'strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
@@ -228,7 +248,7 @@
 
         dgvSessionList.DataSource = ShowDT
 
-        grpSession.Text = p_clsMsgData.fn_GetData("F312", dtView.Count)
+        grpSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
         modCommon.sb_GridSortChg(dgvSessionList)
         'dgvSessionList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill)
 
@@ -374,7 +394,6 @@
             Me.bckmanual.CancelAsync()
         End If
         _frmWait = Nothing
-        _tooltip.Dispose()
     End Sub
 
 
@@ -409,8 +428,9 @@
         Dim strDb As String = ""
         Dim strUser As String = ""
         Dim strQuery As String = ""
-
-        _SelectedPID = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
+        If dgvLock.RowCount <= 0 Then Return
+        _Selectedindex = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
+        _SelectedGrid = 1
         If e.ColumnIndex = colDgvLockBlockedQuery.Index Then
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
             strQuery = dgvLock.CurrentCell.Value
@@ -427,10 +447,13 @@
     End Sub
 
     Private Sub dgvLock_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLock.CellMouseClick
+        If dgvLock.RowCount <= 0 Then Return
         For i As Integer = 0 To dgvSessionList.Rows.Count - 1
             dgvSessionList.Rows(i).Selected = False
         Next
-        _SelectedPID = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
+
+        _SelectedIndex = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
+        _SelectedGrid = 1
         If e.RowIndex >= 0 Then
             dgvLock.Cursor = Cursors.Hand
             If dgvLock.Rows(e.RowIndex).Selected = False Then
@@ -448,8 +471,9 @@
         Dim strDb As String = ""
         Dim strUser As String = ""
         Dim strQuery As String = ""
-
-        _SelectedPID = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+        If dgvSessionList.RowCount <= 0 Then Return
+        _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+        _SelectedGrid = 0
         If e.ColumnIndex = coldgvSessionListSQL.Index Then
             strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
             strQuery = dgvSessionList.CurrentCell.Value
@@ -460,10 +484,12 @@
     End Sub
 
     Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
+        If dgvSessionList.RowCount <= 0 Then Return
         For i As Integer = 0 To dgvLock.Rows.Count - 1
             dgvLock.Rows(i).Selected = False
         Next
-        _SelectedPID = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+        _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+        _SelectedGrid = 0
         If e.RowIndex >= 0 Then
             dgvSessionList.Cursor = Cursors.Hand
             If dgvSessionList.Rows(e.RowIndex).Selected = False Then
@@ -477,34 +503,98 @@
     End Sub
 
     Private Sub btnPause_MouseHover(sender As Object, e As EventArgs) Handles btnPause.MouseHover
-        ' _tooltip.SetToolTip(btnPause, "Auto Refresh")
+        _tooltip.SetToolTip(btnPause, "Auto Refresh")
     End Sub
 
     Private Sub btnStop_MouseHover(sender As Object, e As EventArgs) Handles btnStop.MouseHover
-        ' _tooltip.SetToolTip(btnStop, "Kill Session")
+        _tooltip.SetToolTip(btnStop, "Kill Session")
     End Sub
 
     Private Sub btnCancel_MouseHover(sender As Object, e As EventArgs) Handles btnCancel.MouseHover
-        ' _tooltip.SetToolTip(btnCancel, "Cencel Query")
+        _tooltip.SetToolTip(btnCancel, "Cancel Query")
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        If MsgBox(p_clsMsgData.fn_GetData("M030", _SelectedPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
+        Dim intPID As Integer
+        Dim strRegDate As String
+        Dim intActvRegSeq As Integer
+
+        If MsgBox(p_clsMsgData.fn_GetData("M030", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+            Return
+        End If
+
         _frmWait = New frmWait
         _frmWait.TopMost = True
         _frmWait.Show(Me)
 
-        _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
-        _AgentObject.SendDX007(Me.InstanceID, "1", _SelectedPID)
+        If _SelectedGrid = 1 Then
+            For Each row As DataGridViewRow In dgvLock.SelectedRows
+                intPID = row.Cells(colDgvLockBlockingPID.Index).Value
+                strRegDate = row.Cells(colDgvLockRegDate.Index).Value
+                intActvRegSeq = row.Cells(colDgvLockActvRegSeq.Index).Value
+                _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
+                _AgentObject.SendDX007(Me.InstanceID, intActvRegSeq, intPID, _SelectedGrid, "0", strRegDate.Substring(0, 10).Replace("-", ""))
+            Next row
+        Else
+            For Each row As DataGridViewRow In dgvSessionList.SelectedRows
+                intPID = row.Cells(coldgvSessionListPID.Index).Value
+                strRegDate = row.Cells(colDgvSessionlistRegDate.Index).Value
+                intActvRegSeq = row.Cells(colDgvSessionListActvRegSeq.Index).Value
+                _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
+                _AgentObject.SendDX007(Me.InstanceID, intActvRegSeq, intPID, _SelectedGrid, "0", strRegDate.Substring(0, 10).Replace("-", ""))
+            Next row
+        End If
     End Sub
 
     Private Sub btnStop_Click(sender As Object, e As EventArgs) Handles btnStop.Click
-        If MsgBox(p_clsMsgData.fn_GetData("M031", _SelectedPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
+        Dim intPID As Integer
+        Dim strRegDate As String
+        Dim intActvRegSeq As Integer
+
+        If MsgBox(p_clsMsgData.fn_GetData("M031", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
+
         _frmWait = New frmWait
         _frmWait.TopMost = True
         _frmWait.Show(Me)
 
-        _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
-        _AgentObject.SendDX007(Me.InstanceID, "2", _SelectedPID)
+        If _SelectedGrid = 1 Then
+            For Each row As DataGridViewRow In dgvLock.SelectedRows
+                If IsDBNull(row.Cells(colDgvLockBlockedPID.Index).Value) Then
+                    intPID = row.Cells(colDgvLockBlockingPID.Index).Value
+                    strRegDate = row.Cells(colDgvLockRegDate.Index).Value
+                    intActvRegSeq = row.Cells(colDgvLockActvRegSeq.Index).Value
+                    _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
+                    _AgentObject.SendDX007(Me.InstanceID, intActvRegSeq, intPID, _SelectedGrid, "1", strRegDate.Substring(0, 10).Replace("-", ""))
+                End If
+            Next row
+        Else
+            For Each row As DataGridViewRow In dgvSessionList.SelectedRows
+                intPID = row.Cells(coldgvSessionListPID.Index).Value
+                strRegDate = row.Cells(colDgvSessionlistRegDate.Index).Value
+                intActvRegSeq = row.Cells(colDgvSessionListActvRegSeq.Index).Value
+                _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
+                _AgentObject.SendDX007(Me.InstanceID, intActvRegSeq, intPID, _SelectedGrid, "1", strRegDate.Substring(0, 10).Replace("-", ""))
+            Next row
+        End If
+
+    End Sub
+
+    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
+        Dim BretFrm As frmSessionLockHist = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmSessionLockHist = TryCast(tmpFrm, frmSessionLockHist)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmSessionLockHist(_ServerInfo, AgentInfo, _AgentCn)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
     End Sub
 End Class

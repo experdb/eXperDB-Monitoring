@@ -658,7 +658,7 @@
   </ROW>
   <ROW ID="F077" PARAMS="0">
     <DESC>LOCK INFORMATION</DESC>
-    <DATA><![CDATA[Current Lock]]></DATA>
+    <DATA><![CDATA[Current Lock(Count : {0})]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2040,6 +2040,38 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F251" PARAMS="0">
+    <DESC>Stop/Cancel History</DESC>
+    <DATA><![CDATA[Session Control History]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F252" PARAMS="0">
+    <DESC>Control Type</DESC>
+    <DATA><![CDATA[Type]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F253" PARAMS="0">
+    <DESC>Control Time</DESC>
+    <DATA><![CDATA[Control Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F254" PARAMS="0">
+    <DESC>기간</DESC>
+    <DATA><![CDATA[Duration]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>
@@ -2095,6 +2127,14 @@
   <ROW ID="F312" PARAMS="0">
     <DESC>SESSION INFORMATION</DESC>
     <DATA><![CDATA[Session list]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F313" PARAMS="0">
+    <DESC>SESSION DETAIL</DESC>
+    <DATA><![CDATA[Session list(Count : {0})]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2406,7 +2446,7 @@
   </ROW>
   <ROW ID="M031" PARAMS="1">
     <DESC>선택한 세션을 종료하시겠습니까?</DESC>
-    <DATA><![CDATA[Do you wish to terminate the selected session (PID : {0})?]]></DATA>
+    <DATA><![CDATA[Do you wish to terminate the selected session?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

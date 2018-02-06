@@ -493,19 +493,25 @@ Public Class clsAgentEMsg
         Property _tran_cd As String = "DX007"
         Property _tran_req_data As New List(Of DX007_InstanceInfo)
 
-        Public Sub New(ByVal intInstance As Integer, ByVal subCommand As String, ByVal subParam As String)
-            _tran_req_data.Add(New DX007_InstanceInfo(intInstance, subCommand, subParam))
+        Public Sub New(ByVal InstanceId As Integer, ByVal Sequence As String, ByVal PID As String, ByVal ControlType As String, ByVal AccessType As String, ByVal RegDate As String)
+            _tran_req_data.Add(New DX007_InstanceInfo(InstanceId, Sequence, PID, ControlType, AccessType, RegDate))
         End Sub
     End Class
 
     Public Class DX007_InstanceInfo
-        Property intInstanceId As String
-        Property subCommand As String
-        Property subParam As String
-        Public Sub New(ByVal intInstance As Integer, ByVal subCmd As String, ByVal subPrm As String)
-            intInstanceId = intInstance
-            subCommand = subCmd
-            subParam = subPrm
+        Property _InstanceId As String
+        Property _Sequence As String
+        Property _PID As String
+        Property _ControlType As String
+        Property _AccessType As String
+        Property _RegDate As String
+        Public Sub New(ByVal Instance As Integer, ByVal Sequence As String, ByVal PID As String, ByVal ControlType As String, ByVal AccessType As String, ByVal RegDate As String)
+            _InstanceId = Instance
+            _Sequence = Sequence
+            _PID = PID
+            _ControlType = ControlType
+            _AccessType = AccessType
+            _RegDate = RegDate
         End Sub
 
     End Class
@@ -517,10 +523,10 @@ Public Class clsAgentEMsg
     End Class
 
     <Description("DX007 : 쿼리수행")> _
-    Public Sub SendDX007(ByVal intInstance As Integer, ByVal subCommand As String, ByVal subParam As String)
+    Public Sub SendDX007(ByVal intInstance As Integer, ByVal intSequence As Integer, ByVal intPID As Integer, ByVal intControlType As Integer, ByVal intAccessType As Integer, ByVal strRegDate As String)
         Try
             _MsgThread = New Threading.Thread(Sub()
-                                                  Dim clsReq As New DX007_REQ(intInstance, subCommand, subParam)
+                                                  Dim clsReq As New DX007_REQ(intInstance, intSequence, intPID, intControlType, intAccessType, strRegDate)
 
                                                   Dim strReq As String = Newtonsoft.Json.JsonConvert.SerializeObject(clsReq)
 
