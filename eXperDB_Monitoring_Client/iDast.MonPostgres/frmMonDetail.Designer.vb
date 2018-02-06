@@ -71,12 +71,12 @@ Partial Class frmMonDetail
         Dim Edges9 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Edges10 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpL = New eXperDB.BaseControls.TableLayoutPanel()
         Me.tlpMain = New eXperDB.BaseControls.TableLayoutPanel()
         Me.grpSessioninfo = New eXperDB.BaseControls.GroupBox()
@@ -155,13 +155,6 @@ Partial Class frmMonDetail
         Me.rndProgHealth = New eXperDB.Controls.CircleProgressbar()
         Me.lblHealth = New eXperDB.BaseControls.Label()
         Me.dgvGrpHealth = New eXperDB.BaseControls.DataGridView()
-        Me.grpEventLog = New eXperDB.BaseControls.GroupBox()
-        Me.dgvEventLog = New eXperDB.BaseControls.DataGridView()
-        Me.coldgvEventLogIssueTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvEventLogCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvEventLogValueUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvEventLogServerity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EspRight = New eXperDB.Controls.ExpandSpliter()
         Me.colDgvHealthItm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvHealthRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvHealthSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -170,6 +163,15 @@ Partial Class frmMonDetail
         Me.colDgvHealthUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvHealthStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvHealthStatusVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.grpEventLog = New eXperDB.BaseControls.GroupBox()
+        Me.dgvEventLog = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvEventLogIssueTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvEventLogCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvEventLogValueUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvEventLogServerity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EspRight = New eXperDB.Controls.ExpandSpliter()
+        Me.btnSqlPlan = New eXperDB.BaseControls.Button()
+        Me.btnSessionLock = New eXperDB.BaseControls.Button()
         Me.tlpL.SuspendLayout()
         Me.tlpMain.SuspendLayout()
         Me.grpSessioninfo.SuspendLayout()
@@ -1044,6 +1046,8 @@ Partial Class frmMonDetail
         'Panel2
         '
         Me.tlpMain.SetColumnSpan(Me.Panel2, 2)
+        Me.Panel2.Controls.Add(Me.btnSessionLock)
+        Me.Panel2.Controls.Add(Me.btnSqlPlan)
         Me.Panel2.Controls.Add(Me.btnActInfo)
         Me.Panel2.Controls.Add(Me.btnLogView)
         Me.Panel2.Controls.Add(Me.rbHour1)
@@ -2062,6 +2066,73 @@ Partial Class frmMonDetail
         Me.dgvGrpHealth.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpHealth.UseTagValueMatchColor = False
         '
+        'colDgvHealthItm
+        '
+        Me.colDgvHealthItm.HeaderText = "ITEM"
+        Me.colDgvHealthItm.Name = "colDgvHealthItm"
+        Me.colDgvHealthItm.ReadOnly = True
+        Me.colDgvHealthItm.Visible = False
+        Me.colDgvHealthItm.Width = 53
+        '
+        'colDgvHealthRegDate
+        '
+        Me.colDgvHealthRegDate.DataPropertyName = "REG_DATE"
+        Me.colDgvHealthRegDate.HeaderText = "REGDATE"
+        Me.colDgvHealthRegDate.Name = "colDgvHealthRegDate"
+        Me.colDgvHealthRegDate.ReadOnly = True
+        Me.colDgvHealthRegDate.Visible = False
+        Me.colDgvHealthRegDate.Width = 92
+        '
+        'colDgvHealthSeq
+        '
+        Me.colDgvHealthSeq.DataPropertyName = "REG_SEQ"
+        Me.colDgvHealthSeq.HeaderText = "SEQ"
+        Me.colDgvHealthSeq.Name = "colDgvHealthSeq"
+        Me.colDgvHealthSeq.ReadOnly = True
+        Me.colDgvHealthSeq.Visible = False
+        Me.colDgvHealthSeq.Width = 49
+        '
+        'colDgvHealthitmNm
+        '
+        Me.colDgvHealthitmNm.HeaderText = "F059"
+        Me.colDgvHealthitmNm.Name = "colDgvHealthitmNm"
+        Me.colDgvHealthitmNm.ReadOnly = True
+        Me.colDgvHealthitmNm.Width = 76
+        '
+        'colDgvHealthIVal
+        '
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle21.Format = "N0"
+        Me.colDgvHealthIVal.DefaultCellStyle = DataGridViewCellStyle21
+        Me.colDgvHealthIVal.FillWeight = 80.0!
+        Me.colDgvHealthIVal.HeaderText = "F060"
+        Me.colDgvHealthIVal.Name = "colDgvHealthIVal"
+        Me.colDgvHealthIVal.ReadOnly = True
+        Me.colDgvHealthIVal.Width = 76
+        '
+        'colDgvHealthUnit
+        '
+        Me.colDgvHealthUnit.FillWeight = 50.0!
+        Me.colDgvHealthUnit.HeaderText = "F061"
+        Me.colDgvHealthUnit.Name = "colDgvHealthUnit"
+        Me.colDgvHealthUnit.ReadOnly = True
+        Me.colDgvHealthUnit.Width = 76
+        '
+        'colDgvHealthStatus
+        '
+        Me.colDgvHealthStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvHealthStatus.HeaderText = "F062"
+        Me.colDgvHealthStatus.Name = "colDgvHealthStatus"
+        Me.colDgvHealthStatus.ReadOnly = True
+        '
+        'colDgvHealthStatusVal
+        '
+        Me.colDgvHealthStatusVal.HeaderText = "STATUSVAL"
+        Me.colDgvHealthStatusVal.Name = "colDgvHealthStatusVal"
+        Me.colDgvHealthStatusVal.ReadOnly = True
+        Me.colDgvHealthStatusVal.Visible = False
+        Me.colDgvHealthStatusVal.Width = 134
+        '
         'grpEventLog
         '
         Me.grpEventLog.AlignLine = System.Drawing.StringAlignment.Center
@@ -2183,72 +2254,47 @@ Partial Class frmMonDetail
         Me.EspRight.TabStop = False
         Me.EspRight.Visible = False
         '
-        'colDgvHealthItm
+        'btnSqlPlan
         '
-        Me.colDgvHealthItm.HeaderText = "ITEM"
-        Me.colDgvHealthItm.Name = "colDgvHealthItm"
-        Me.colDgvHealthItm.ReadOnly = True
-        Me.colDgvHealthItm.Visible = False
-        Me.colDgvHealthItm.Width = 53
+        Me.btnSqlPlan.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSqlPlan.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSqlPlan.FixedHeight = False
+        Me.btnSqlPlan.FixedWidth = False
+        Me.btnSqlPlan.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnSqlPlan.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSqlPlan.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.btnSqlPlan.Location = New System.Drawing.Point(753, 0)
+        Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSqlPlan.Name = "btnSqlPlan"
+        Me.btnSqlPlan.Radius = 5
+        Me.btnSqlPlan.Size = New System.Drawing.Size(146, 34)
+        Me.btnSqlPlan.TabIndex = 2
+        Me.btnSqlPlan.Text = "F245"
+        Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnSqlPlan.UseRound = True
+        Me.btnSqlPlan.UseVisualStyleBackColor = True
         '
-        'colDgvHealthRegDate
+        'btnSessionLock
         '
-        Me.colDgvHealthRegDate.DataPropertyName = "REG_DATE"
-        Me.colDgvHealthRegDate.HeaderText = "REGDATE"
-        Me.colDgvHealthRegDate.Name = "colDgvHealthRegDate"
-        Me.colDgvHealthRegDate.ReadOnly = True
-        Me.colDgvHealthRegDate.Visible = False
-        Me.colDgvHealthRegDate.Width = 92
-        '
-        'colDgvHealthSeq
-        '
-        Me.colDgvHealthSeq.DataPropertyName = "REG_SEQ"
-        Me.colDgvHealthSeq.HeaderText = "SEQ"
-        Me.colDgvHealthSeq.Name = "colDgvHealthSeq"
-        Me.colDgvHealthSeq.ReadOnly = True
-        Me.colDgvHealthSeq.Visible = False
-        Me.colDgvHealthSeq.Width = 49
-        '
-        'colDgvHealthitmNm
-        '
-        Me.colDgvHealthitmNm.HeaderText = "F059"
-        Me.colDgvHealthitmNm.Name = "colDgvHealthitmNm"
-        Me.colDgvHealthitmNm.ReadOnly = True
-        Me.colDgvHealthitmNm.Width = 76
-        '
-        'colDgvHealthIVal
-        '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle21.Format = "N0"
-        Me.colDgvHealthIVal.DefaultCellStyle = DataGridViewCellStyle21
-        Me.colDgvHealthIVal.FillWeight = 80.0!
-        Me.colDgvHealthIVal.HeaderText = "F060"
-        Me.colDgvHealthIVal.Name = "colDgvHealthIVal"
-        Me.colDgvHealthIVal.ReadOnly = True
-        Me.colDgvHealthIVal.Width = 76
-        '
-        'colDgvHealthUnit
-        '
-        Me.colDgvHealthUnit.FillWeight = 50.0!
-        Me.colDgvHealthUnit.HeaderText = "F061"
-        Me.colDgvHealthUnit.Name = "colDgvHealthUnit"
-        Me.colDgvHealthUnit.ReadOnly = True
-        Me.colDgvHealthUnit.Width = 76
-        '
-        'colDgvHealthStatus
-        '
-        Me.colDgvHealthStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvHealthStatus.HeaderText = "F062"
-        Me.colDgvHealthStatus.Name = "colDgvHealthStatus"
-        Me.colDgvHealthStatus.ReadOnly = True
-        '
-        'colDgvHealthStatusVal
-        '
-        Me.colDgvHealthStatusVal.HeaderText = "STATUSVAL"
-        Me.colDgvHealthStatusVal.Name = "colDgvHealthStatusVal"
-        Me.colDgvHealthStatusVal.ReadOnly = True
-        Me.colDgvHealthStatusVal.Visible = False
-        Me.colDgvHealthStatusVal.Width = 134
+        Me.btnSessionLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSessionLock.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSessionLock.FixedHeight = False
+        Me.btnSessionLock.FixedWidth = False
+        Me.btnSessionLock.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnSessionLock.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSessionLock.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.btnSessionLock.Location = New System.Drawing.Point(607, 0)
+        Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSessionLock.Name = "btnSessionLock"
+        Me.btnSessionLock.Radius = 5
+        Me.btnSessionLock.Size = New System.Drawing.Size(146, 34)
+        Me.btnSessionLock.TabIndex = 3
+        Me.btnSessionLock.Text = "F24"
+        Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnSessionLock.UseRound = True
+        Me.btnSessionLock.UseVisualStyleBackColor = True
         '
         'frmMonDetail
         '
@@ -2387,5 +2433,7 @@ Partial Class frmMonDetail
     Friend WithEvents colDgvHealthUnit As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvHealthStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvHealthStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents btnSessionLock As eXperDB.BaseControls.Button
+    Friend WithEvents btnSqlPlan As eXperDB.BaseControls.Button
 
 End Class

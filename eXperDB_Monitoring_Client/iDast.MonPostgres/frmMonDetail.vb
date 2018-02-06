@@ -276,6 +276,12 @@
         'Log View
         btnLogView.Text = p_clsMsgData.fn_GetData("F233")
 
+        'Query View
+        btnSqlPlan.Text = p_clsMsgData.fn_GetData("F245")
+
+        'Sessin Lock View
+        btnSessionLock.Text = p_clsMsgData.fn_GetData("F246")
+
         Me.FormControlBox1.UseConfigBox = False
         Me.FormControlBox1.UseLockBox = False
         Me.FormControlBox1.UseCriticalBox = False
@@ -1293,4 +1299,27 @@
         End If
     End Sub
 
+    Private Sub btnSqlPlan_Click(sender As Object, e As EventArgs) Handles btnSqlPlan.Click
+        Dim frmQuery As New frmQueryView("", "", InstanceID, _AgentInfo, "")
+        frmQuery.Show()
+    End Sub
+
+    Private Sub btnSessionLock_Click(sender As Object, e As EventArgs) Handles btnSessionLock.Click
+        Dim BretFrm As frmSessionLock = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmSessionLock(_ServerInfo, _Elapseinterval, AgentInfo)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+    End Sub
 End Class
