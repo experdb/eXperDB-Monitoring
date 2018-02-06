@@ -903,7 +903,8 @@
 				          NOW() AS COLLECT_DT
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
-				  WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+				  WHERE B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
 			</when>
@@ -1374,7 +1375,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 <!--	add to update ha_info by robin 201712  end -->
-<!--	add to update ha_info by robin 201712  -->
+<!--	add to update ha_info by robin 201712  
 	<select id="BT_SESSION_STATS_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">		       
 		SELECT
 		(SELECT count(*) FROM pg_stat_activity WHERE state IN ('active','fastpath function call')) AS ACTIVE_SESSION_CNT,
@@ -1404,7 +1405,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   COLLECT_DT = NOW()
 		 WHERE INSTANCE_ID = #{instance_id}
 	</update>	
-<!--	add to update ha_info by robin 201712  end -->
+	add to update ha_info by robin 201712  end -->
 <!-- ********************************************************** -->
 <!-- StartCollect END -->
 <!-- ********************************************************** -->
@@ -1532,6 +1533,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<delete id="PGMONBT_BATCH_HCHK_COLLECT_INFO_001" parameterType="hashmap" >
 		<![CDATA[
 		DELETE /* PGMONBT_BATCH_HCHK_COLLECT_INFO_001 */ FROM TB_HCHK_COLLECT_INFO WHERE REG_DATE <= TO_CHAR( (SELECT MAX(REG_DATE)::DATE FROM TB_HCHK_COLLECT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	
+	<delete id="PGMONTB_BATCH_CONTROL_PROCESS_HIST_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONTB_BATCH_CONTROL_PROCESS_HIST_001 */ FROM TB_CONTROL_PROCESS_HIST WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_CONTROL_PROCESS_HIST) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
 	</delete>
 
@@ -1733,4 +1740,18 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="PG_TERMINATE_QUERY_001" parameterType="hashmap" resultType="hashmap">
 		SELECT pg_terminate_backend(#{pid}) AS RESULT
 	</select>	
+	
+	<insert id="TB_CONTROL_PROCESS_HIST_I001" parameterType="hashmap" >
+		INSERT INTO TB_CONTROL_PROCESS_HIST
+		VALUES 
+		(
+			#{reg_date},
+			#{actv_reg_seq},
+			#{instance_id},
+			#{process_id},
+			#{control_type},
+			#{access_type},
+			NOW()
+		)
+	</insert>
 </mapper>

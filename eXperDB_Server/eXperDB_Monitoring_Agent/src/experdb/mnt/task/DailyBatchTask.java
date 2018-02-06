@@ -82,6 +82,7 @@ public class DailyBatchTask {
 				sessionAgent.delete("app.PGMONBT_BATCH_DISK_USAGE_001");
 				
 				sessionAgent.delete("app.PGMONBT_BATCH_HCHK_COLLECT_INFO_001");
+				sessionAgent.delete("app.PGMONTB_BATCH_CONTROL_PROCESS_HIST_001");//robin 0207 delte Lock history
 				
 				//Commit
 				sessionAgent.commit();

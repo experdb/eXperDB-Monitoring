@@ -173,16 +173,16 @@ public class ActvCollect extends TaskApplication {
 						throw e;
 					}				
 					
-					// SESSION_STATS 정보 수집
-					try {
-						HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
-						dbVerMap.put("instance_db_version", instance_db_version);						
-						
-						sessionStats = sessionCollect.selectList("app.BT_SESSION_STATS_001", dbVerMap);
-					} catch (Exception e) {
-						failed_collect_type = "3";
-						throw e;
-					}
+//					// SESSION_STATS 정보 수집
+//					try {
+//						HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
+//						dbVerMap.put("instance_db_version", instance_db_version);						
+//						
+//						sessionStats = sessionCollect.selectList("app.BT_SESSION_STATS_001", dbVerMap);
+//					} catch (Exception e) {
+//						failed_collect_type = "3";
+//						throw e;
+//					}
 				} catch (Exception e1) {
 					is_collect_ok = "N";
 					log.error("", e1);
@@ -392,15 +392,15 @@ public class ActvCollect extends TaskApplication {
 				
 				///////////////////////////////////////////////////////////////////////////////
 				// SESSION STATS 정보 등록
-				for (HashMap<String, Object> map : sessionStats) {
-					HashMap<String, Object> tempSessionStats = new HashMap<String, Object>();
-					tempSessionStats = sessionAgent.selectOne("app.TB_SESSION_STATS_001", parameActv);
-					map.put("instance_id", Integer.valueOf(instanceId));
-					if (tempSessionStats == null)
-						sessionAgent.insert("app.TB_SESSION_STATS_I001", map);
-					else
-						sessionAgent.update("app.TB_SESSION_STATS_U001", map);
-				}
+//				for (HashMap<String, Object> map : sessionStats) {
+//					HashMap<String, Object> tempSessionStats = new HashMap<String, Object>();
+//					tempSessionStats = sessionAgent.selectOne("app.TB_SESSION_STATS_001", parameActv);
+//					map.put("instance_id", Integer.valueOf(instanceId));
+//					if (tempSessionStats == null)
+//						sessionAgent.insert("app.TB_SESSION_STATS_I001", map);
+//					else
+//						sessionAgent.update("app.TB_SESSION_STATS_U001", map);
+//				}
 				///////////////////////////////////////////////////////////////////////////////				
 
 				//Commit

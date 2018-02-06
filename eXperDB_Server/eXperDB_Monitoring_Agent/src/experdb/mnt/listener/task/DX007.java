@@ -29,15 +29,19 @@ public class DX007 implements SocketApplication{
 		JSONObject jReqDataObj = (JSONObject) reqDataObj;
 		JSONArray resDataArray = new JSONArray();
 		JSONObject resDataObj = new JSONObject();
+		SqlSession sessionAgent  = null;
 		
 		
 		SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
 		Connection connection = null;
 		SqlSession sessionCollect = null;
 		
-		String instance_id = jReqDataObj.get("intInstanceId").toString();
-		String subCommand = jReqDataObj.get("subCommand").toString();
-		String subParam = jReqDataObj.get("subParam").toString();
+		String instance_id = jReqDataObj.get("_InstanceId").toString();
+		String Sequence = jReqDataObj.get("_Sequence").toString();
+		String PID = jReqDataObj.get("_PID").toString();
+		String ControlType = jReqDataObj.get("_ControlType").toString();
+		String AccessType = jReqDataObj.get("_AccessType").toString();
+		String RegDate = jReqDataObj.get("_RegDate").toString();
 		
 		HashMap instanceMap = MonitoringInfoManager.getInstanceMap(instance_id);
 				
@@ -66,11 +70,11 @@ public class DX007 implements SocketApplication{
 			
 			HashMap<String, Object> inputParam = new HashMap<String, Object>();
 		
-			inputParam.put("pid", Integer.valueOf(subParam));
+			inputParam.put("pid", Integer.valueOf(PID));
 			
-			if (subCommand.equalsIgnoreCase("1")) {
+			if (AccessType.equalsIgnoreCase("0")) {
 				ResultMap = sessionCollect.selectOne("app.PG_CANCEL_QUERY_001", inputParam);
-			}else if (subCommand.equalsIgnoreCase("2")){
+			}else if (AccessType.equalsIgnoreCase("1")){
 				ResultMap = sessionCollect.selectOne("app.PG_TERMINATE_QUERY_001", inputParam);			
 			}
 			
@@ -80,6 +84,17 @@ public class DX007 implements SocketApplication{
 				resDataArray.add(resDataObj);
 				return resDataArray;
 			}
+			inputParam.clear();
+			inputParam.put("reg_date", RegDate);
+			inputParam.put("actv_reg_seq", Integer.valueOf(Sequence));
+			inputParam.put("instance_id", Integer.valueOf(instance_id));
+			inputParam.put("process_id", Integer.valueOf(PID));
+			inputParam.put("control_type", ControlType);
+			inputParam.put("access_type", AccessType);
+			
+			sessionAgent = sqlSessionFactory.openSession();
+			sessionAgent.insert("app.TB_CONTROL_PROCESS_HIST_I001", inputParam);
+			sessionAgent.commit();
 		} catch (Exception e) {
 			log.error("", e);
 			resDataObj.put("_error_cd", "DX007_E03");
