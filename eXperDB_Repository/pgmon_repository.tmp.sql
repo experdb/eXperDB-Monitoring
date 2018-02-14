@@ -196,6 +196,7 @@ CREATE TABLE tb_hchk_thrd_list (
     fixed_threshold character varying(1),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
+    pause_collect_dt timestamp without time zone;
 );
 
 CREATE UNLOGGED TABLE tb_index_info (
@@ -341,6 +342,19 @@ CREATE UNLOGGED TABLE TB_CONTROL_PROCESS_HIST (
     control_time timestamp without time zone
 );
 
+CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
+(
+  reg_date character varying(8) NOT NULL,
+  hchk_reg_seq integer NOT NULL,
+  instance_id integer NOT NULL,
+  hchk_name character varying(100) NOT NULL,
+  state INTEGER,
+  check_user_id character varying(32),
+  check_comment character varying(100),
+  check_ip character varying(15),
+  check_dt timestamp without time zone NULL,
+)
+
 ALTER TABLE ONLY tb_access_info
     ADD CONSTRAINT pk_access_info PRIMARY KEY (reg_date,actv_reg_seq,db_name);
 
@@ -418,6 +432,8 @@ ALTER TABLE ONLY tb_config
 ALTER TABLE ONLY TB_CONTROL_PROCESS_HIST
     ADD CONSTRAINT PK_CONTROL_PROCESS_HIST PRIMARY KEY (reg_date,actv_reg_seq, instance_id, process_id);
 
+ALTER TABLE ONLY TB_HCHK_ALERT_INFO
+    ADD CONSTRAINT pk_hchk_alert_info PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
 
 CREATE INDEX idx01_access_info ON tb_access_info USING btree (collect_dt DESC);
 
@@ -575,6 +591,10 @@ ALTER TABLE tb_control_process_hist SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_control_process_hist SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_control_process_hist SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_control_process_hist SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_threshold = 5000);
 
 
 

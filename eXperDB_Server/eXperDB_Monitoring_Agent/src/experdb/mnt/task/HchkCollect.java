@@ -47,6 +47,17 @@ public class HchkCollect extends TaskApplication {
 			List<String> queryList = new ArrayList<String>();
 			List<HashMap<String, Object>> selectList = new ArrayList<HashMap<String,Object>>();
 			List<HashMap<String, Object>> insertList = new ArrayList<HashMap<String,Object>>();
+			// Alert 수집 robin 201802
+			List<HashMap<String, Object>> insertAlertList = new ArrayList<HashMap<String,Object>>();
+			
+			// Threshold 정보수집 robin 201802
+			List<HashMap<String, Object>> selectTholdList = new ArrayList<HashMap<String,Object>>();
+			try {					
+				selectTholdList = sessionAgent.selectList("app.TB_HCHK_THOLD_INFO_001");
+			} catch (Exception e) {
+				log.error("", e);
+				throw e;
+			}			
 			
 			try {
 				//select 쿼리
@@ -87,9 +98,59 @@ public class HchkCollect extends TaskApplication {
 				            	tempMap.put("reg_time", 		map.get("reg_time"));
 				            	
 				            	insertList.add(tempMap);
+				            	//add alert list into TB_HCHK_ALERT_INFO robin 201802
+								for (HashMap<String, Object> tholdMap : selectTholdList) {									
+						            if(tholdMap.get("instance_id").equals(tempMap.get("instance_id")) && 
+						            	tholdMap.get("hchk_name").equals(tempMap.get("hchk_name")))
+						            {
+						            	HashMap<String, Object> alertMap = new HashMap<String, Object>();
+
+						            	int nThreshold = Integer.parseInt(tholdMap.get("fixed_threshold").toString());
+						            	int nIsHigher = Integer.parseInt(tholdMap.get("is_higher").toString());
+						            	int nPause = Integer.parseInt(tholdMap.get("pause").toString());
+						            	double dWarnThold = Double.parseDouble(tholdMap.get("warning_threshold").toString());
+						            	double dCritThold = Double.parseDouble(tholdMap.get("critical_threshold").toString());
+						            	double dValue = Double.parseDouble(tempMap.get("value").toString());
+						            	if(nPause == 1) break;
+						            	if(nThreshold == 0) {
+							            	if(nIsHigher == 0) {
+							            		if(dValue < dWarnThold)
+							            			break;
+							            		alertMap.put("state", (dValue >= dCritThold) ? 300 : 200);							            		
+							            	} else {
+							            		if(dValue > dWarnThold)
+							            			break;
+							            		alertMap.put("state", (dValue <= dCritThold) ? 300 : 200);
+							            	}
+						            	} else if(nThreshold == 1) {
+							            	if(nIsHigher == 0) {
+							            		if(dValue < dWarnThold)
+							            			break;
+							            	} else {
+							            		if(dValue > dWarnThold)
+							            			break;
+							            	}
+						            		alertMap.put("state", 200);							            		
+								        } else if(nThreshold == 2) {
+							            	if(nIsHigher == 0) {
+							            		if(dValue < dCritThold)
+							            			break;
+							            	} else {
+							            		if(dValue > dCritThold)
+							            			break;
+							            	}
+						            		alertMap.put("state", 300);	
+										} else	break;	
+						            	
+						            	alertMap.put("instance_id",tempMap.get("instance_id"));
+						            	alertMap.put("hchk_name",  tempMap.get("hchk_name"));
+						            	
+						            	insertAlertList.add(alertMap);
+						            	break;						            	
+						            }
+								}								
 				            }
-				        }
-				        
+				        }				        
 					}
 				}
 				
@@ -110,6 +171,10 @@ public class HchkCollect extends TaskApplication {
 				//insert
 				for (HashMap<String, Object> map : insertList) {
 					sessionAgent.insert("app.TB_HCHK_COLLECT_INFO_I001", map);
+				}
+				//insert Alert robin 201802			
+				for (HashMap<String, Object> map : insertAlertList) {
+					sessionAgent.insert("app.TB_HCHK_ALERT_INFO_I001", map);
 				}
 				
 				//Commit
