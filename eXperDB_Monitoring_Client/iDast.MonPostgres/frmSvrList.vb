@@ -158,6 +158,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, tmpRow.Item("HA_PORT"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colPGV.Index, tmpRow.Item("PG_VERSION"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colCollectPeriod.Index, tmpRow.Item("COLLECT_PERIOD_SEC"))
             Next
         End If
     End Sub
@@ -195,6 +196,7 @@
                 dgvMonLst.fn_DataCellADD(idxRow, colMonHAHost.Index, tmpRow.Cells(colHAHost.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxRow, colMonPGV.Index, tmpRow.Cells(colPGV.Index).Value)
+                dgvMonLst.fn_DataCellADD(idxRow, colMonCollectPeriod.Index, tmpRow.Cells(colCollectPeriod.Index).Value)
             End If
         Next
 

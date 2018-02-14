@@ -1170,6 +1170,51 @@
             Return Nothing
         End Try
     End Function
+    Public Function SelectAlertSearch(ByVal StDate As DateTime,
+                                      ByVal EdDate As DateTime,
+                                      ByVal intInstanceID As Integer,
+                                      ByVal intState As Integer,
+                                      ByVal intChecked As Integer,
+                                      ByVal enmShowSvrNm As String
+                                     ) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTALERTSEARCH")
+                Dim subQuery As String = ""
+
+                If intInstanceID > 0 Then
+                    subQuery = String.Format("AND ALERT.instance_id = {0}", intInstanceID)
+                End If
+                If intState = 1 Then
+                    subQuery += String.Format(" AND ALERT.state = {0}", 300)
+                ElseIf intState = 2 Then
+                    subQuery += String.Format(" AND ALERT.state = {0}", 200)
+                End If
+                If intChecked = 1 Then
+                    subQuery += String.Format(" AND ALERT.check_user_id IS NOT NULL")
+                ElseIf intChecked = 2 Then
+                    subQuery += String.Format(" AND ALERT.check_user_id IS NULL")
+                End If
+
+                subQuery += String.Format(" ORDER BY ALERT.reg_date DESC, COL.reg_time DESC")
+                strQuery = String.Format(strQuery, intInstanceID, StDate.ToString("yyyy-MM-dd HH:mm:ss"), EdDate.ToString("yyyy-MM-dd HH:mm:ss"), enmShowSvrNm)
+                strQuery += subQuery
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
 
 
 #Region "HealthDetail"
@@ -1462,5 +1507,33 @@
         End Try
     End Function
 #End Region
+#Region "CheckAlert"
+    Public Function UpdatePauseAlert(ByVal InstanceID As Integer, ByVal strHchkName As String, ByVal strPauseTime As String) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEPAUSEALERT")
+            strQuery = String.Format(strQuery, InstanceID, strHchkName, strPauseTime)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
 
+    End Function
+
+    Public Function UpdateCheckAlert(ByVal strRegDate As String, ByVal intHchkRegSeq As Integer, ByVal InstanceID As Integer, ByVal strHchkName As String, ByVal User As String, ByVal strCheckComment As String, ByVal strLocalIp As String) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATECHECKALERT")
+            strQuery = String.Format(strQuery, strRegDate, intHchkRegSeq, InstanceID, strHchkName, User, strCheckComment, strLocalIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+
+    End Function
+#End Region
 End Class

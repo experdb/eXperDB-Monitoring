@@ -155,6 +155,12 @@
     <Compile Include="frmAlertConfig.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAlertCheck.Designer.vb">
+      <DependentUpon>frmAlertCheck.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAlertCheck.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmConnection.Designer.vb">
       <DependentUpon>frmConnection.vb</DependentUpon>
     </Compile>
@@ -171,6 +177,12 @@
       <DependentUpon>frmLogView.vb</DependentUpon>
     </Compile>
     <Compile Include="frmLogView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAlertList.Designer.vb">
+      <DependentUpon>frmAlertList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAlertList.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSessionLockHist.Designer.vb">
@@ -304,6 +316,10 @@
     <EmbeddedResource Include="frmAlertConfig.resx">
       <DependentUpon>frmAlertConfig.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAlertCheck.resx">
+      <DependentUpon>frmAlertCheck.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConnection.resx">
       <DependentUpon>frmConnection.vb</DependentUpon>
     </EmbeddedResource>
@@ -312,6 +328,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogView.resx">
       <DependentUpon>frmLogView.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAlertList.resx">
+      <DependentUpon>frmAlertList.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSessionLockHist.resx">

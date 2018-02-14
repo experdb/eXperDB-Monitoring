@@ -52,6 +52,7 @@ Partial Class frmAlertConfig
         Me.grpMain.EdgeRound = Edges1
         Me.grpMain.FillColor = System.Drawing.Color.Black
         Me.grpMain.ForeColor = System.Drawing.SystemColors.Control
+        Me.grpMain.Icon = Nothing
         Me.grpMain.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.grpMain.LineWidth = 1
         Me.grpMain.Location = New System.Drawing.Point(0, 31)

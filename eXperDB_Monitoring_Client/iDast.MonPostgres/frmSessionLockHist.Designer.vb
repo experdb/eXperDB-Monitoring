@@ -142,7 +142,6 @@ Partial Class frmSessionLockHist
         Me.grpSessionLockHist.TitleFont = New System.Drawing.Font("Arial", 13.0!, System.Drawing.FontStyle.Bold)
         Me.grpSessionLockHist.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpSessionLockHist.UseGraColor = False
-        Me.grpSessionLockHist.UseRound = True
         Me.grpSessionLockHist.UseTitle = True
         '
         'txtDatabase
@@ -405,7 +404,6 @@ Partial Class frmSessionLockHist
         Me.grpSession.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
         Me.grpSession.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpSession.UseGraColor = False
-        Me.grpSession.UseRound = True
         Me.grpSession.UseTitle = True
         '
         'dgvSessionList

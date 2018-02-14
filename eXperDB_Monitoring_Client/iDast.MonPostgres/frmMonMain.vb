@@ -291,7 +291,7 @@
 
 
 
-        Me.EspRight.Expand = False
+        Me.EspRight.Expand = True
 
         modCommon.FontChange(Me, p_Font)
 
@@ -788,7 +788,7 @@
     ''' <remarks></remarks>
     Private Sub mnuAlertConfig_Click(sender As Object, e As EventArgs) Handles mnuAlertConfig.Click
         Dim AlertConfig As New frmAlertConfig(GrpListServerinfo)
-        AlertConfig.Show()
+        AlertConfig.ShowDialog()
     End Sub
 
 
@@ -820,6 +820,7 @@
                 'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
                 clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
                 clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
+                clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
             Else
                 'SerialCheck()
 
@@ -1360,9 +1361,10 @@
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
             dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs)
+            'dtTableSessionStatus = clsQu.SelectInitSessionInfoChart("1,2")
             If dtTableSessionStatus IsNot Nothing Then
-                dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
                 For Each dtRow As DataRow In dtTableSessionStatus.Rows
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
@@ -1621,44 +1623,41 @@
 
 
 
+        ' restore 0202 instance info : robin
+        ' remove logevent : robin 0207
 
-        For Each InstanceMaxVal In InstanceMaxVals
-            ' GRP CPU
-            Dim intInstID As Integer = InstanceMaxVal.InstanceID
-            Dim strStatus As String = fn_GetHealthName(InstanceMaxVal.MaxVal)
+        'For Each InstanceMaxVal In InstanceMaxVals
+        '    ' GRP CPU
+        '    Dim intInstID As Integer = InstanceMaxVal.InstanceID
+        '    Dim strStatus As String = fn_GetHealthName(InstanceMaxVal.MaxVal)
 
-            ' restore 0202 instance info : robin
-            Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
-                If dgvHealthRow Is Nothing Then
-                    Dim intIDx As Integer = dgvHealth.Rows.Add
+        '    Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
+        '        If dgvHealthRow Is Nothing Then
+        '            Dim intIDx As Integer = dgvHealth.Rows.Add
 
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-                    dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
-
-
-                Else
-                    dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-                    dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
-                End If
-
-            End Using
+        '            dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
+        '            dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
+        '            dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
+        '            dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
+        '            dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+        '            dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
 
 
+        '        Else
+        '            dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+        '            dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+        '        End If
 
-        Next
+        '    End Using
 
+        'Next
 
 
 
+        '' 컨트롤 색상 변경 
+        'modCommon.sb_GridProgClrChg(dgvHealth, colDgvHealthStatusVal.Index, p_RageHealthClr)
+        'sb_GridSortChg(dgvHealth, colDgvHealthStatusVal.Index)
 
-
-        ' 컨트롤 색상 변경 
-        modCommon.sb_GridProgClrChg(dgvHealth, colDgvHealthStatusVal.Index, p_RageHealthClr)
-        sb_GridSortChg(dgvHealth, colDgvHealthStatusVal.Index)
 
 
         If CntCritical > 0 Then
@@ -1700,28 +1699,77 @@
 
             ' remove logevent : robin
             ' restore logevent 0202
-            For Each tmpRow As DataRow In dtTable.Rows
+            ' remove logevent : robin 0207
+            'For Each tmpRow As DataRow In dtTable.Rows
 
-                Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
-                Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
-                Dim strHost As String = tmpRow.Item("HOST_NAME")
-                Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
-                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
-                Dim strValueUnit As String = tmpRow.Item("UNIT")
-                Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
-                Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
-                strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
+            '    Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
+            '    Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
+            '    Dim strHost As String = tmpRow.Item("HOST_NAME")
+            '    Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+            '    Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+            '    Dim strValueUnit As String = tmpRow.Item("UNIT")
+            '    Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
+            '    Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
+            '    strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
 
 
 
-                If intHchkVal = 100 AndAlso _ShowHchkNormal Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
-                ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
-                ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
-                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
-                End If
-            Next
+            '    If intHchkVal = 100 AndAlso _ShowHchkNormal Then
+            '        Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
+            '    ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
+            '        Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
+            '    ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
+            '        Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
+            '    End If
+            'Next
+
+            'move to clsAgentCollect_GetDataAlert 0208
+            ''dgvAlert
+
+            'Dim dtRows As DataRow() = dtTable.Select("HCHK_VALUE >= 200")
+
+            'For Each tmpRow As DataRow In dtRows
+            '    Dim intInstanceID As Integer = tmpRow.Item("INSTANCE_ID")
+            '    Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
+            '    Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
+            '    Dim strHost As String = tmpRow.Item("HOST_NAME")
+            '    Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+            '    Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+            '    Dim strValueUnit As String = tmpRow.Item("UNIT")
+            '    Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
+            '    Dim strShowValue As String = "{0}" + Environment.NewLine + "{1}" + Environment.NewLine + "{2}{3}" + Environment.NewLine
+            '    strShowValue = String.Format(strShowValue, strRegDt.ToString("yyyy-MM-dd HH:mm:ss"), strHchkNm, strValue, strValueUnit)
+
+            '    While (dgvAlert.Rows.Count > 16)
+            '        dgvAlert.Rows.RemoveAt(dgvAlert.Rows.Count - 1)
+            '    End While
+
+            '    Dim tempRow = New DataGridViewRow()
+            '    dgvAlert.Rows.Insert(0, tempRow)
+            '    dgvAlert.Rows(0).Cells(coldgvAlertID.Index).Value = intInstanceID
+            '    dgvAlert.Rows(0).Cells(coldgvAlertStatusVal.Index).Value = intHchkVal
+            '    dgvAlert.Rows(0).Cells(coldgvAlertHostname.Index).Value = strHost
+            '    dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Value = strShowValue
+            '    'dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Style.Font = New Font("Arial", 7, FontStyle.Bold)
+            '    'Using dgvAlertRow As DataGridViewRow = dgvAlert.FindFirstRow(intInstanceID, coldgvAlertID.Index)
+            '    '    Dim intIDx As Integer = dgvAlert.Rows.Add
+            '    '    If dgvAlertRow Is Nothing Then
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertID.Index).Value = intInstanceID
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertStatusVal.Index).Value = intHchkVal
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertHostname.Index).Value = strHost
+            '    '        'dgvAlert.Rows(intIDx).Cells(coldgvAlertMsg.Index).Value = "1121212121 abcdefghi   　 　 "
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertMsg.Index).Value = strShowValue
+            '    '    Else
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertID.Index).Value = intInstanceID
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertStatusVal.Index).Value = intHchkVal
+            '    '        dgvAlert.Rows(intIDx).Cells(coldgvAlertMsg.Index).Value = strShowValue
+            '    '    End If
+            '    'End Using
+
+            '    ' 컨트롤 색상 변경
+            '    modCommon.sb_GridProgClrChg(dgvAlert, coldgvAlertStatusVal.Index, p_RageHealthClr)
+            '    sb_GridSortChg(dgvAlert, coldgvAlertStatus.Index)
+            'Next
 
         Catch ex As Exception
             Debug.Print(ex.ToString)
@@ -1735,6 +1783,48 @@
         '    End If
         'Next
 
+    End Sub
+
+    'robin add for alert current 0208
+    Private Sub clsAgentCollect_GetDataAlert(ByVal dtTable As DataTable)
+        If dtTable Is Nothing Then Return
+        Try
+            'dgvAlert
+            For Each tmpRow As DataRow In dtTable.Rows
+                Dim intInstanceID As Integer = tmpRow.Item("INSTANCE_ID")
+                Dim intHchkVal As Integer = tmpRow.Item("STATE")
+                Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, Date.Parse(tmpRow.Item("COLLECT_TIME")))
+                Dim strHost As String = tmpRow.Item("HOST_NAME")
+                Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+                Dim strValueUnit As String = ""
+                If tmpRow.Item("VALUE") <> 99999 Then
+                    strValueUnit = tmpRow.Item("UNIT")
+                End If
+                Dim strShowValue As String = "{0}" + Environment.NewLine + "{1}" + Environment.NewLine + "{2}{3}" + Environment.NewLine
+                strShowValue = String.Format(strShowValue, strRegDt.ToString("yyyy-MM-dd HH:mm:ss"), strHchkNm, strValue, strValueUnit)
+
+                While (dgvAlert.Rows.Count > 16)
+                    dgvAlert.Rows.RemoveAt(dgvAlert.Rows.Count - 1)
+                End While
+
+                Dim tempRow = New DataGridViewRow()
+                dgvAlert.Rows.Insert(0, tempRow)
+                dgvAlert.Rows(0).Cells(coldgvAlertID.Index).Value = intInstanceID
+                dgvAlert.Rows(0).Cells(coldgvAlertStatusVal.Index).Value = intHchkVal
+                dgvAlert.Rows(0).Cells(coldgvAlertHostname.Index).Value = strHost
+                dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Value = strShowValue
+                dgvAlert.Rows(0).Cells(coldgvAlertCollectDt.Index).Value = strRegDt
+                dgvAlert.Rows(0).Cells(coldgvAlertHchkName.Index).Value = strHchkNm
+
+                ' 컨트롤 색상 변경
+                modCommon.sb_GridProgClrChg(dgvAlert, coldgvAlertStatusVal.Index, p_RageHealthClr)
+                sb_GridSortChg(dgvAlert, coldgvAlertStatus.Index)
+            Next
+
+        Catch ex As Exception
+            Debug.Print(ex.ToString)
+        End Try
     End Sub
 
 
@@ -2139,7 +2229,7 @@
             Dim rtnValue As Integer = MSChart.Series(strSeries).Points.AddXY(Date.FromOADate(dblX), dblY)
 
             Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
-            If NowCnt >= (_ElapseCount * _GrpListServerinfo.Count) Then '5분간 유지 10분 200
+            If NowCnt >= _ElapseCount Then '5분간 유지 10분 200
                 For i As Integer = 0 To NowCnt - _ElapseCount
                     MSChart.Series(strSeries).Points.RemoveAt(0)
                 Next
@@ -2218,4 +2308,35 @@
         'Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
     End Sub
 #End Region
+
+    Private Sub dgvAlert_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlert.CellClick
+
+        If e.RowIndex >= 0 Then
+            Dim InstanceID = dgvAlert.Rows(e.RowIndex).Cells(coldgvAlertID.Index).Value
+            Dim strCollectDt = dgvAlert.Rows(e.RowIndex).Cells(coldgvAlertCollectDt.Index).Value
+            Dim AlertLevel = dgvAlert.Rows(e.RowIndex).Cells(coldgvAlertStatusVal.Index).Value
+            Dim tmpSvr As GroupInfo.ServerInfo = Nothing
+            Dim BretFrm As frmAlertList = Nothing
+
+            For Each tmpSvr In _GrpListServerinfo
+                If tmpSvr.InstanceID = InstanceID Then Exit For
+            Next
+
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmAlertList = TryCast(tmpFrm, frmAlertList)
+                If frmDtl IsNot Nothing Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, InstanceID, AlertLevel, strCollectDt)
+                BretFrm.Owner = Me
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        End If
+    End Sub
 End Class

@@ -729,6 +729,24 @@
         /0E=
 </value>
   </data>
+  <metadata name="colDgvHealthSvrID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colDgvHealthStatusVal.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colDgvHealthSvrNm.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colDgvHealthSvrIP.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colDgvHealthSvrPort.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colDgvHealthSvrStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="grpReqInfo.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAGBgAAAEAIACICQAAFgAAACgAAAAYAAAAMAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1071,24 +1089,6 @@
   <metadata name="mnuPopup.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>107, 17</value>
   </metadata>
-  <metadata name="colDgvHealthSvrID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colDgvHealthStatusVal.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colDgvHealthSvrNm.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colDgvHealthSvrIP.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colDgvHealthSvrPort.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colDgvHealthSvrStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="EspRight.CollapseImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAgAAADUCAIAAAAukfWIAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -1119,6 +1119,73 @@
   <metadata name="ttChart.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>220, 17</value>
   </metadata>
+  <metadata name="coldgvAlertID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coldgvAlertStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coldgvAlertStatusVal.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coldgvAlertHostname.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coldgvAlertMsg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coldgvAlertCollectDt.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="coldgvAlertHchkName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="GroupBox1.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAGBgAAAEAIACICQAAFgAAACgAAAAYAAAAMAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAACURSwJlEUs1pRFLNaURSzWlEUs1pRFLByURSwHlEUszpRFLNaURSzWlEUs1pRF
+        LCaURSwFlEUsxJRFLNaURSzWlEUs1pRFLDOURSwDlEUsu5RFLNaURSzWlEUs1pRFLDyURSwKlEUs/5RF
+        LP+URSz/lEUs/5RFLCGURSwIlEUs9pRFLP+URSz/lEUs/5RFLC2URSwGlEUs6ZRFLP+URSz/lEUs/5RF
+        LDyURSwElEUs35RFLP+URSz/lEUs/5RFLEeURSwKlEUs/5RFLP+URSz/lEUs/5RFLCGURSwIlEUs9pRF
+        LP+URSz/lEUs/5RFLC2URSwGlEUs6ZRFLP+URSz/lEUs/5RFLDyURSwElEUs35RFLP+URSz/lEUs/5RF
+        LEeURSwKlEUs/5RFLP+URSz/lEUs/5RFLCGURSwIlEUs9pRFLP+URSz/lEUs/5RFLC2URSwGlEUs6ZRF
+        LP+URSz/lEUs/5RFLDyURSwElEUs35RFLP+URSz/lEUs/5RFLEeyb1MKr2tP869rT/Ova0/zr2tP87Jw
+        VCGURSwIlEUs9pRFLP+URSz/lEUs/5RFLC2URSwGlEUs6ZRFLP+URSz/lEUs/5RFLDyURSwElEUs35RF
+        LP+URSz/lEUs/5RFLEfEiWsKxIlr/8SJa//EiWv/xIlr/8SJayGURSwIlEUs9pRFLP+URS3/lEUs/5RF
+        LC2URSwGlEUt6ZRFLP+URSz/lEUs/5RFLDyURSwElEUs35RFLP+URSz/lEUs/5RFLEfFimwKxYps/8WK
+        bP/Fimz/xYps/8WKbCGVRi0IlEYt9pVGLf+VRi3/lUYt/5VGLS2VRi0GlUYt6ZVGLf+VRi3/lEUs/5RF
+        LDy1dFgEtXNX1LRzV/K0c1fytHNX8rRyVkTFimwKxYps/8WKbP/Fimz/xYps/8WKbCGVRi0IlUYt9pVG
+        Lf+VRi3/lUYt/5VGLS2VRi0GlUYt6ZVGLf+VRi3/lEUs/5RFLDzEiWsExIlr38SJa//EiWv/xIlr/8SJ
+        a0fFimwKxYps/8WKbP/Fimz/xYps/8WKbCGVRi0IlUYt9pVGLf+VRi3/lUYt/5VGLS2sZ0sGrmpO3q5p
+        TvKuaU7yrmlO8qxnTDrEiWsExIlr38SJa//EiWv/xIlr/8SJa0fFimwKxYps/8WKbP/Fimz/xYps/8WK
+        bCGURi0IlUYt9pVGLf+VRi3/lUYt/5VGLS3FimwGxYps6cWKbP/Fimz/xIlr/8SJazzEiWsExIlr38SJ
+        a//EiWv/xIlr/8SJa0fFimwKxYps/8WKbP/Fimz/xYps/8WKbCGXSTAIlUYt9JVGLf2VRi39lUYt/ZdJ
+        MC3FimwGxYps6cWKbP/Fimz/xIlr/8SJazzEiWsExIlr38SJa//EiWv/xIlr/8SJa0fFimwKxYps/8WK
+        bP/Fimz/xYps/8WKbCG+gGMIvoBj676AY/S+gGP0voBj9L6AYyzFimwGxYps6cWKbP/Fimz/xIlr/8SJ
+        azzEiWsExIlr38SJa//EiWv/xIlr/8SJa0fFimwJxYps5sWKbObFimzmxYps5sWKbB7FimwIxYps9sWK
+        bP/Fimz/xYps/8WKbC3FimwGxYps6cWKbP/Fimz/xIlr/8SJazzEiWsExIlr38SJa//EiWv/xIlr/8SJ
+        a0cAAAAAxYpsBsWKbAbFimwGxYpsBsWKbAHFimwIxYps9sWKbP/Fimz/xYps/8WKbC3FimwGxYps6cWK
+        bP/Fimz/xIlr/8SJazzEiWsExIlr38SJa//EiWv/xIlr/8SJa0cAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AADEiWsIxIlr9sWKbP/Fimz/xYps/8WKbC3FimwGxIps6cWKbP/Fimz/xIlr/8SJazzEiWsDxIlrtcSJ
+        a8/EiWvPxIlrz8SJazoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADEiWsIxIlr9sWKbP/Fimz/xYps/8WK
+        bC3FimwGxYps6cWKbP/Fimz/xIlr/8SJazwAAAAAxIlrAcSJawHEiWsBxIlrAQAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAADEiWsIxIlr9sWKbP/Fimz/xYps/8WKbC3FimwFxYps3MWKbPHFimzxxIlr8cSJ
+        azkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADEiWsIxIlr9sWK
+        bP/Fimz/xYps/8WKbC0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADEiWsIxIlr9sWKbP/Fimz/xYps/8WKbC0AAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AADEiWsFxIlrk8WKbJnFimyZxYpsmcWKbBsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9B////QQAAAEEAAABBAAAAQQAAAEEAAABBAAAAQQAA
+        AEEAAABBAAAAQQAAAEEAAABBAAAAQQAAAEGAAABB/AAAQfwAIUH8AD9B/A//QfwP/0H8D/9B////Qf//
+        /0E=
+</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>53</value>
   </metadata>

@@ -2018,7 +2018,7 @@
   </ROW>
   <ROW ID="F248" PARAMS="0">
     <DESC>Client</DESC>
-    <DATA><![CDATA[Client]]></DATA>
+    <DATA><![CDATA[Address]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2067,6 +2067,102 @@
   <ROW ID="F254" PARAMS="0">
     <DESC>기간</DESC>
     <DATA><![CDATA[Duration]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F255" PARAMS="0">
+    <DESC>알람리스트</DESC>
+    <DATA><![CDATA[Alarm List]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F256" PARAMS="0">
+    <DESC>경고수준</DESC>
+    <DATA><![CDATA[Alert Level]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F257" PARAMS="0">
+    <DESC>경고시간</DESC>
+    <DATA><![CDATA[Alert Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F258" PARAMS="0">
+    <DESC>경고유형</DESC>
+    <DATA><![CDATA[Alert Type]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F259" PARAMS="0">
+    <DESC>경고내용</DESC>
+    <DATA><![CDATA[Alert Message]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F260" PARAMS="0">
+    <DESC>확인내용</DESC>
+    <DATA><![CDATA[Check Comments]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F261" PARAMS="0">
+    <DESC>확인시간</DESC>
+    <DATA><![CDATA[Check Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F262" PARAMS="0">
+    <DESC>확인</DESC>
+    <DATA><![CDATA[Check]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F263" PARAMS="0">
+    <DESC>일시정지</DESC>
+    <DATA><![CDATA[Pause Alert(min)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F264" PARAMS="0">
+    <DESC>알람 임계치 설정</DESC>
+    <DATA><![CDATA[Alert Setting]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F265" PARAMS="0">
+    <DESC>확인자</DESC>
+    <DATA><![CDATA[Check User]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F266" PARAMS="0">
+    <DESC>확인주소</DESC>
+    <DATA><![CDATA[Check IP]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2463,6 +2559,14 @@
   <ROW ID="M033" PARAMS="0">
     <DESC>유효하지 않은 쿼리/세션입니다.</DESC>
     <DATA><![CDATA[Invalid query or session.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M034" PARAMS="0">
+    <DESC>선택된 항목이 없습니다.</DESC>
+    <DATA><![CDATA[There is no selected data]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

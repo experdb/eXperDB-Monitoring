@@ -802,52 +802,6 @@
 
         End Set
     End Property
-    Private _infoDataSessionStats As DataTable
-    ''' <summary>
-    ''' Health Check 수집데이터 정보 
-    ''' </summary>
-    ''' <value></value>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Property infoDataSessionStats As DataTable
-        Get
-            Dim Rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
-            Rw.AcquireReaderLock(-1)
-
-            Try
-                If _infoDataSessionStats IsNot Nothing Then
-                    Return _infoDataSessionStats.Copy
-                Else
-                    Return Nothing
-                End If
-
-            Catch ex As Exception
-                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Session stats information Read Prop Exception Error" & ex.ToString)
-                GC.Collect()
-                Return Nothing
-            Finally
-                Rw.ReleaseReaderLock()
-
-            End Try
-        End Get
-        Set(value As DataTable)
-
-            Dim rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
-            rw.AcquireWriterLock(-1)
-            Try
-                _infoDataSessionStats = value
-            Catch ex As Threading.ThreadAbortException
-                p_Log.AddMessage(clsLog4Net.enmType.Error, " Session stats information Write Prop Thread Error" & ex.ToString)
-                GC.Collect()
-            Catch ex As Exception
-                p_Log.AddMessage(clsLog4Net.enmType.Error, " Session stats information Write Prop Exception Error" & ex.ToString)
-                GC.Collect()
-            Finally
-                rw.ReleaseWriterLock()
-            End Try
-
-        End Set
-    End Property
 
     Private _infoDataHealth As DataTable
     ''' <summary>
@@ -888,6 +842,54 @@
                 GC.Collect()
             Catch ex As Exception
                 p_Log.AddMessage(clsLog4Net.enmType.Error, " Health Check information Write Prop Exception Error" & ex.ToString)
+                GC.Collect()
+            Finally
+                rw.ReleaseWriterLock()
+            End Try
+
+        End Set
+    End Property
+
+    ' robin add to collect current alert
+    Private _infoDataAlert As DataTable
+    ''' <summary>
+    ''' Alert 수집데이터 정보 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property infoDataAlert As DataTable
+        Get
+            Dim Rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            Rw.AcquireReaderLock(-1)
+
+            Try
+                If _infoDataAlert IsNot Nothing Then
+                    Return _infoDataAlert.Copy
+                Else
+                    Return Nothing
+                End If
+
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Alert information Read Prop Exception Error" & ex.ToString)
+                GC.Collect()
+                Return Nothing
+            Finally
+                Rw.ReleaseReaderLock()
+
+            End Try
+        End Get
+        Set(value As DataTable)
+
+            Dim rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            rw.AcquireWriterLock(-1)
+            Try
+                _infoDataAlert = value
+            Catch ex As Threading.ThreadAbortException
+                p_Log.AddMessage(clsLog4Net.enmType.Error, " Alert information Write Prop Thread Error" & ex.ToString)
+                GC.Collect()
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, " Alert information Write Prop Exception Error" & ex.ToString)
                 GC.Collect()
             Finally
                 rw.ReleaseWriterLock()
@@ -1124,8 +1126,10 @@
                         ' Session info
                         infoDataSessioninfo = StartThread("SELECTSESSIONINFO", _intPeriod)
 
-                        ' Session Stats info
-                        infoDataSessionStats = StartThread("SELECTSESSIONSTATSINFO", _intPeriod)
+                        ' Alert 
+                        infoDataAlert = StartThread("SELECTALERT", _intPeriod, _enmSvrNm)
+                        'StartHealth(_intPeriod)
+
 
                         ''DB Information
                         'startDBinfo(_intPeriod)

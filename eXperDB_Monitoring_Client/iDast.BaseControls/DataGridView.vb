@@ -987,7 +987,9 @@ Public Class DataGridView
             For Each tmpCol As DataGridViewColumn In Me.Columns
                 If tmpCol.Visible = True Then
                     Dim strValue As String = IIf(IsDBNull(tmpRow.Cells(tmpCol.Index).Value), "", tmpRow.Cells(tmpCol.Index).Value)
-                    dtRow.Item(tmpCol.HeaderText) = strValue
+                    If strValue IsNot Nothing Then
+                        dtRow.Item(tmpCol.HeaderText) = strValue
+                    End If
                     'If UseDataProperty = True Then
                     '    dtRow.Item(tmpCol.DataPropertyName) = strValue
                     'Else

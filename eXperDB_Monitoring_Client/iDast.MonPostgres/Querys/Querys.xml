@@ -937,7 +937,7 @@
          AND IST.COLLECT_YN = 'Y'
          AND IST.DELETE_YN = 'N'
        GROUP BY IST.INSTANCE_ID,BAK.COLLECT_DT
-       ORDER BY IST.INSTANCE_ID,BAK.COLLECT_DT	  
+       ORDER BY BAK.COLLECT_DT,IST.INSTANCE_ID
       ]]>
     </DATA>
   </ROW>
@@ -1651,6 +1651,101 @@
           AND D.CONTROL_TYPE = '1'
        ORDER BY ORDER_NO;
       ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTALERT" PARAMS="2">
+    <DESC>Alert</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT 
+		        ALERT.instance_id INSTANCE_ID, 
+		        CASE WHEN {1}=0 THEN INS.HOST_NAME ELSE INS.CONN_NAME END AS HOST_NAME,
+		        ALERT.reg_date REG_DATE,
+		        ALERT.hchk_reg_seq HCHK_REG_SEQ,
+		        ALERT.hchk_name HCHK_NAME,
+            ALERT.state STATE,		
+		        COL.VALUE ,
+            TH.unit UNIT,
+		        DATE(ALERT.reg_date) + COL.reg_time COLLECT_TIME
+        FROM TB_HCHK_ALERT_INFO ALERT, 
+             TB_INSTANCE_INFO INS ,
+             TB_HCHK_COLLECT_INFO COL,
+             TB_HCHK_THRD_LIST TH
+        WHERE ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO WHERE reg_date = ALERT.reg_date)
+        AND ALERT.instance_id = INS.instance_id
+        AND ALERT.instance_id = COL.instance_id
+        AND ALERT.reg_date = COL.reg_date 
+        AND ALERT.reg_date = TO_CHAR(NOW(), 'YYYYMMDD')
+        AND ALERT.hchk_reg_seq = COL.hchk_reg_seq
+        AND ALERT.hchk_name = COL.hchk_name
+        AND ALERT.instance_id = TH.instance_id
+        AND ALERT.hchk_name = TH.hchk_name   
+        AND ALERT.instance_id in ({0})
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTALERTSEARCH" PARAMS="2">
+    <DESC>Alert Search</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT 
+		        ALERT.instance_id INSTANCE_ID, 
+		        CASE WHEN 0=0 THEN INS.HOST_NAME ELSE INS.CONN_NAME END AS HOST_NAME,
+		        ALERT.reg_date REG_DATE,
+		        ALERT.hchk_reg_seq HCHK_REG_SEQ,
+		        ALERT.hchk_name HCHK_NAME,
+			      ALERT.state STATE,
+			      CASE WHEN COALESCE(check_user_id, 'f') = 'f' THEN 'f' ELSE 't' END AS CHECK,
+		        COL.VALUE ,
+			      TH.unit UNIT,
+		        DATE(ALERT.reg_date) + COL.reg_time COLLECT_TIME,
+		        CHECK_USER_ID,
+		        CHECK_COMMENT,
+		        CHECK_IP,
+		        CHECK_DT		        
+        FROM TB_HCHK_ALERT_INFO ALERT, 
+             TB_INSTANCE_INFO INS ,
+             TB_HCHK_COLLECT_INFO COL,
+             TB_HCHK_THRD_LIST TH
+        WHERE ALERT.instance_id = INS.instance_id
+        --AND ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO)
+        AND ALERT.instance_id = COL.instance_id
+        AND ALERT.instance_id = TH.instance_id
+        AND ALERT.reg_date = COL.reg_date 
+        AND ALERT.hchk_reg_seq = COL.hchk_reg_seq
+        AND ALERT.hchk_name = COL.hchk_name
+        AND ALERT.hchk_name = TH.hchk_name   
+        AND (DATE(ALERT.reg_date) + COL.reg_time) BETWEEN '{1}' AND '{2}'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="UPDATEPAUSEALERT" PARAMS="3">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      UPDATE TB_HCHK_THRD_LIST
+      SET PAUSE_COLLECT_DT = timestamp '{2}' 
+      WHERE INSTANCE_ID = {0}
+      AND HCHK_NAME = '{1}'
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="UPDATECHECKALERT" PARAMS="7">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+      UPDATE TB_HCHK_ALERT_INFO 
+      SET CHECK_USER_ID = '{4}' 
+        ,CHECK_COMMENT = '{5}' 
+        ,CHECK_IP = '{6}' 
+        ,CHECK_DT = NOW()         
+      WHERE REG_DATE = '{0}'
+      AND HCHK_REG_SEQ = {1}
+      AND INSTANCE_ID = '{2}'
+      AND HCHK_NAME = '{3}'
+    ]]>
     </DATA>
     <COMMENTS />
   </ROW>
