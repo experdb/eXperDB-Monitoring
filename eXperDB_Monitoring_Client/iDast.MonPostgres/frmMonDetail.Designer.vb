@@ -106,6 +106,8 @@ Partial Class frmMonDetail
         Me.coldgvResUtilPerBackProcElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.coldgvResUtilPerBackProcSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel2 = New eXperDB.BaseControls.Panel()
+        Me.btnSessionLock = New eXperDB.BaseControls.Button()
+        Me.btnSqlPlan = New eXperDB.BaseControls.Button()
         Me.btnActInfo = New eXperDB.BaseControls.Button()
         Me.btnLogView = New eXperDB.BaseControls.Button()
         Me.rbHour1 = New eXperDB.BaseControls.RadioButton()
@@ -170,8 +172,6 @@ Partial Class frmMonDetail
         Me.coldgvEventLogValueUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvEventLogServerity = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EspRight = New eXperDB.Controls.ExpandSpliter()
-        Me.btnSqlPlan = New eXperDB.BaseControls.Button()
-        Me.btnSessionLock = New eXperDB.BaseControls.Button()
         Me.tlpL.SuspendLayout()
         Me.tlpMain.SuspendLayout()
         Me.grpSessioninfo.SuspendLayout()
@@ -341,7 +341,7 @@ Partial Class frmMonDetail
         ChartArea1.AxisY.MajorTickMark.Enabled = False
         ChartArea1.AxisY.MaximumAutoSize = 100.0!
         ChartArea1.AxisY.Minimum = 0.0R
-        ChartArea1.AxisY.Title = "RATE(Count)"
+        ChartArea1.AxisY.Title = "Count"
         ChartArea1.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea1.AxisY.TitleForeColor = System.Drawing.Color.White
         ChartArea1.AxisY2.IsLabelAutoFit = False
@@ -1058,6 +1058,48 @@ Partial Class frmMonDetail
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1191, 34)
         Me.Panel2.TabIndex = 11
+        '
+        'btnSessionLock
+        '
+        Me.btnSessionLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSessionLock.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSessionLock.FixedHeight = False
+        Me.btnSessionLock.FixedWidth = False
+        Me.btnSessionLock.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnSessionLock.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSessionLock.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.btnSessionLock.Location = New System.Drawing.Point(607, 0)
+        Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSessionLock.Name = "btnSessionLock"
+        Me.btnSessionLock.Radius = 5
+        Me.btnSessionLock.Size = New System.Drawing.Size(146, 34)
+        Me.btnSessionLock.TabIndex = 3
+        Me.btnSessionLock.Text = "F24"
+        Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnSessionLock.UseRound = True
+        Me.btnSessionLock.UseVisualStyleBackColor = True
+        '
+        'btnSqlPlan
+        '
+        Me.btnSqlPlan.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSqlPlan.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSqlPlan.FixedHeight = False
+        Me.btnSqlPlan.FixedWidth = False
+        Me.btnSqlPlan.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnSqlPlan.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSqlPlan.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.btnSqlPlan.Location = New System.Drawing.Point(753, 0)
+        Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSqlPlan.Name = "btnSqlPlan"
+        Me.btnSqlPlan.Radius = 5
+        Me.btnSqlPlan.Size = New System.Drawing.Size(146, 34)
+        Me.btnSqlPlan.TabIndex = 2
+        Me.btnSqlPlan.Text = "F245"
+        Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnSqlPlan.UseRound = True
+        Me.btnSqlPlan.UseVisualStyleBackColor = True
         '
         'btnActInfo
         '
@@ -2253,48 +2295,6 @@ Partial Class frmMonDetail
         Me.EspRight.TabIndex = 12
         Me.EspRight.TabStop = False
         Me.EspRight.Visible = False
-        '
-        'btnSqlPlan
-        '
-        Me.btnSqlPlan.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSqlPlan.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnSqlPlan.FixedHeight = False
-        Me.btnSqlPlan.FixedWidth = False
-        Me.btnSqlPlan.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.btnSqlPlan.ForeColor = System.Drawing.Color.LightGray
-        Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSqlPlan.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btnSqlPlan.Location = New System.Drawing.Point(753, 0)
-        Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnSqlPlan.Name = "btnSqlPlan"
-        Me.btnSqlPlan.Radius = 5
-        Me.btnSqlPlan.Size = New System.Drawing.Size(146, 34)
-        Me.btnSqlPlan.TabIndex = 2
-        Me.btnSqlPlan.Text = "F245"
-        Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.Black
-        Me.btnSqlPlan.UseRound = True
-        Me.btnSqlPlan.UseVisualStyleBackColor = True
-        '
-        'btnSessionLock
-        '
-        Me.btnSessionLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSessionLock.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnSessionLock.FixedHeight = False
-        Me.btnSessionLock.FixedWidth = False
-        Me.btnSessionLock.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.btnSessionLock.ForeColor = System.Drawing.Color.LightGray
-        Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSessionLock.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btnSessionLock.Location = New System.Drawing.Point(607, 0)
-        Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnSessionLock.Name = "btnSessionLock"
-        Me.btnSessionLock.Radius = 5
-        Me.btnSessionLock.Size = New System.Drawing.Size(146, 34)
-        Me.btnSessionLock.TabIndex = 3
-        Me.btnSessionLock.Text = "F24"
-        Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.Black
-        Me.btnSessionLock.UseRound = True
-        Me.btnSessionLock.UseVisualStyleBackColor = True
         '
         'frmMonDetail
         '

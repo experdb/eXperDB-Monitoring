@@ -656,9 +656,9 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="F077" PARAMS="0">
+  <ROW ID="F077" PARAMS="1">
     <DESC>LOCK INFORMATION</DESC>
-    <DATA><![CDATA[Current Lock]]></DATA>
+    <DATA><![CDATA[Current Lock(Count : {0})]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2040,6 +2040,38 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F251" PARAMS="0">
+    <DESC>Stop/Cancel History</DESC>
+    <DATA><![CDATA[세션/락 관리 이력]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F252" PARAMS="0">
+    <DESC>Control Type</DESC>
+    <DATA><![CDATA[Type]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F253" PARAMS="0">
+    <DESC>Control Time</DESC>
+    <DATA><![CDATA[Control Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F254" PARAMS="0">
+    <DESC>기간</DESC>
+    <DATA><![CDATA[기간]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>
@@ -2099,7 +2131,15 @@
     <CATEGORY />
     <COLUMNS />
     <VALUECAST />
-  </ROW>  
+  </ROW>
+  <ROW ID="F313" PARAMS="1">
+    <DESC>SESSION DETAIL</DESC>
+    <DATA><![CDATA[Session list(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다.\n지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 \nAUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -2406,7 +2446,7 @@
   </ROW>
   <ROW ID="M031" PARAMS="1">
     <DESC>선택한 세션을 종료하시겠습니까?</DESC>
-    <DATA><![CDATA[선택한 세션을 종료하시겠습니까? (PID : {0})]]></DATA>
+    <DATA><![CDATA[선택한 세션을 종료하시겠습니까?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

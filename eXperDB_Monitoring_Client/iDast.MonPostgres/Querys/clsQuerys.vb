@@ -1103,7 +1103,7 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectInitSessionInfoChart(ByVal intInstanceID As Integer) As DataTable
+    Public Function SelectInitSessionInfoChart(ByVal intInstanceID As String) As DataTable
 
         Try
             If _ODBC IsNot Nothing Then
@@ -1416,5 +1416,51 @@
     End Function
 #End Region
 
+#Region "ControlHistory"
+    Public Function SelectSessionControlHistory(ByVal intInstanceID As String, ByVal enmShowSvrNm As String) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTBACKENDCONTROLHIST")
+
+                strQuery = String.Format(strQuery, intInstanceID, enmShowSvrNm)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectLockControlHistory(ByVal intInstanceID As String, ByVal enmShowSvrNm As String) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKCONTROLHIST")
+
+                strQuery = String.Format(strQuery, intInstanceID, enmShowSvrNm)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+#End Region
 
 End Class

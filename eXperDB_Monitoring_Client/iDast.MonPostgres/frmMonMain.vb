@@ -42,7 +42,7 @@
     Private _ElapseInterval As Integer = 3000
     Private _GroupRotateinterval As Integer = 120000
     Private _IsCollectRunning As Boolean = False
-
+    Private _ElapseCount As Integer = 100
 
 
     Private _GrpListServerinfo As List(Of GroupInfo.ServerInfo)
@@ -112,6 +112,7 @@
         ReadConfig()
 
 
+        _ElapseCount = (60000 / _ElapseInterval) * 60 / 12 ' 5분
         'Me.ShowCritical = False
         Me.ShowCritical = True
 
@@ -218,31 +219,32 @@
         radMem.Style = iniConfig.ReadValue("STYLE", "MEM", 2)
         radMem.ItemReverse = iniConfig.ReadValue("STYLE", "MEMREVERSE", False)
 
-        ' Request Information
+        ''Remove 0202
+        '' Request Information
         grpReqInfo.Text = p_clsMsgData.fn_GetData("F040")
-        colDgvReqInfoSvrNm.HeaderText = p_clsMsgData.fn_GetData("F033")
-        colDgvReqInfoInsert.HeaderText = p_clsMsgData.fn_GetData("F053")
-        colDgvReqInfoInsert.HeaderCell.Style.ForeColor = chrReqInfo.Series("INSERT").Color
-        colDgvReqInfoInsert.DefaultCellStyle.ForeColor = chrReqInfo.Series("INSERT").Color
-        colDgvReqInfoInsert.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("INSERT").Color
+        'colDgvReqInfoSvrNm.HeaderText = p_clsMsgData.fn_GetData("F033")
+        'colDgvReqInfoInsert.HeaderText = p_clsMsgData.fn_GetData("F053")
+        'colDgvReqInfoInsert.HeaderCell.Style.ForeColor = chrReqInfo.Series("INSERT").Color
+        'colDgvReqInfoInsert.DefaultCellStyle.ForeColor = chrReqInfo.Series("INSERT").Color
+        'colDgvReqInfoInsert.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("INSERT").Color
 
-        colDgvReqInfoRead.HeaderText = p_clsMsgData.fn_GetData("F054")
-        colDgvReqInfoRead.HeaderCell.Style.ForeColor = chrReqInfo.Series("READ").Color
-        colDgvReqInfoRead.DefaultCellStyle.ForeColor = chrReqInfo.Series("READ").Color
-        colDgvReqInfoRead.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("READ").Color
+        'colDgvReqInfoRead.HeaderText = p_clsMsgData.fn_GetData("F054")
+        'colDgvReqInfoRead.HeaderCell.Style.ForeColor = chrReqInfo.Series("READ").Color
+        'colDgvReqInfoRead.DefaultCellStyle.ForeColor = chrReqInfo.Series("READ").Color
+        'colDgvReqInfoRead.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("READ").Color
 
-        colDgvReqInfoUpdate.HeaderText = p_clsMsgData.fn_GetData("F055")
-        colDgvReqInfoUpdate.HeaderCell.Style.ForeColor = chrReqInfo.Series("UPDATE").Color
-        colDgvReqInfoUpdate.DefaultCellStyle.ForeColor = chrReqInfo.Series("UPDATE").Color
-        colDgvReqInfoUpdate.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("UPDATE").Color
+        'colDgvReqInfoUpdate.HeaderText = p_clsMsgData.fn_GetData("F055")
+        'colDgvReqInfoUpdate.HeaderCell.Style.ForeColor = chrReqInfo.Series("UPDATE").Color
+        'colDgvReqInfoUpdate.DefaultCellStyle.ForeColor = chrReqInfo.Series("UPDATE").Color
+        'colDgvReqInfoUpdate.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("UPDATE").Color
 
-        colDgvReqInfoDelete.HeaderText = p_clsMsgData.fn_GetData("F056")
-        colDgvReqInfoDelete.HeaderCell.Style.ForeColor = chrReqInfo.Series("DELETE").Color
-        colDgvReqInfoDelete.DefaultCellStyle.ForeColor = chrReqInfo.Series("DELETE").Color
-        colDgvReqInfoDelete.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("DELETE").Color
+        'colDgvReqInfoDelete.HeaderText = p_clsMsgData.fn_GetData("F056")
+        'colDgvReqInfoDelete.HeaderCell.Style.ForeColor = chrReqInfo.Series("DELETE").Color
+        'colDgvReqInfoDelete.DefaultCellStyle.ForeColor = chrReqInfo.Series("DELETE").Color
+        'colDgvReqInfoDelete.DefaultCellStyle.SelectionForeColor = chrReqInfo.Series("DELETE").Color
 
-        colDgvReqInfoCommit.HeaderText = p_clsMsgData.fn_GetData("F057")
-        colDgvReqInfoRollback.HeaderText = p_clsMsgData.fn_GetData("F058")
+        'colDgvReqInfoCommit.HeaderText = p_clsMsgData.fn_GetData("F057")
+        'colDgvReqInfoRollback.HeaderText = p_clsMsgData.fn_GetData("F058")
 
 
 
@@ -260,7 +262,9 @@
         colDgvDiskUsageTot.HeaderText = p_clsMsgData.fn_GetData("F045")
         colDgvDiskUsageRate.HeaderText = p_clsMsgData.fn_GetData("F046")
 
+        ' Session Chart
 
+        grpSesionChart.Text = p_clsMsgData.fn_GetData("F167")
 
         ' Session Information
 
@@ -356,8 +360,6 @@
             sb_setGrpDiskInfos()
             ' Request Info 
             sb_SetGrpReqinfo(grpInfo.Items)
-            ' Session Stats
-            sb_SetSessionStats(grpInfo.Items)
 
             '서버 Alert ServerInfo
             _GrpListServerinfo = grpInfo.Items
@@ -382,7 +384,7 @@
         ' Request Info 
         sb_SetGrpReqinfo(grpInfo.Items)
         ' Session Stats
-        sb_SetSessionStats(grpInfo.Items)
+        sb_SetSessionStatus(grpInfo.Items)
 
         '서버 Alert ServerInfo
         _GrpListServerinfo = grpInfo.Items
@@ -409,27 +411,52 @@
 
         chrReqInfo.Invalidate()
 
-        dgvReqInfo.Rows.Clear()
+        'dgvReqInfo.Rows.Clear() '0202
 
 
 
     End Sub
-    Private Sub sb_SetSessionStats(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
-            tmpSeries.Points.Clear()
-        Next
-        Dim srtLSt As New SortedList
+    Private Sub sb_SetSessionStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        '0202 change flow chart
+        'For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
+        '    tmpSeries.Points.Clear()
+        'Next
+        'Dim srtLSt As New SortedList
 
-        For i As Integer = 0 To svrLst.Count - 1
-            srtLSt.Add(svrLst.Item(i).InstanceID, i)
-            For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
-                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
-                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
-            Next
+        'For i As Integer = 0 To svrLst.Count - 1
+        '    srtLSt.Add(svrLst.Item(i).InstanceID, i)
+        '    For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
+        '        Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+        '        tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+        '    Next
+        'Next
+
+        'Me.chrSessionStat.Tag = srtLSt
+        'chrSessionStat.Invalidate()
+
+        Dim colors() As Color = {System.Drawing.Color.Lime,
+                                 System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                                 System.Drawing.Color.Orange,
+                                 System.Drawing.Color.Red,
+                                 System.Drawing.Color.Blue,
+                                 System.Drawing.Color.Brown,
+                                 System.Drawing.Color.Green,
+                                 System.Drawing.Color.Purple,
+                                 System.Drawing.Color.Yellow,
+                                 System.Drawing.Color.Pink,
+                                 System.Drawing.Color.PowderBlue,
+                                 System.Drawing.Color.SkyBlue,
+                                 System.Drawing.Color.SpringGreen,
+                                 System.Drawing.Color.YellowGreen,
+                                 System.Drawing.Color.Violet,
+                                 System.Drawing.Color.Salmon}
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtSessionStatus, tmpSvr.ShowNm, tmpSvr.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            index += 1
         Next
 
-        Me.chrSessionStat.Tag = srtLSt
-        chrSessionStat.Invalidate()
+        init_DataSessionStatsInfo()
     End Sub
 
     ''' <summary>
@@ -792,7 +819,7 @@
                 clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
                 'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
                 clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
-                clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessionStats)
+                clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
             Else
                 'SerialCheck()
 
@@ -1271,33 +1298,91 @@
     'End Sub
 
 
-    Private Sub clsAgentCollect_GetDataSessionStatsInfo(ByVal dtTableSessionStats As DataTable)
+    Private Sub clsAgentCollect_GetDataSessionStatsInfo(ByVal dtTableSessionStatus As DataTable)
 
-        Dim tmpSrtLst As SortedList = TryCast(Me.chrSessionStat.Tag, SortedList)
-
-        Dim MaxPri As Double = 0 ' lngInsertTuples + lngDeleteTuples + lngUpdatetTuples
-        Dim MaxSec As Double = 0 ' lngReadtTuples
-        If dtTableSessionStats IsNot Nothing Then
-            For Each dtRow As DataRow In dtTableSessionStats.Rows
-                ' GRP Reqinfo
-                ' DgvreqInfo 
-                Dim intInstID As Integer = dtRow.Item("INSTANCE_ID")
-                ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
-                ' 추후 개선할 것 
-                Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
-                If cpuidx >= 0 Then
-                    Dim lngSessionIdle As Long = ConvULong(dtRow.Item("IDLE_SESSION"))
-                    Dim lngSessionActive As Long = ConvULong(dtRow.Item("ACTIVE_SESSION"))
-                    If tmpSrtLst IsNot Nothing Then
-                        Dim idx As Integer = tmpSrtLst.Item(intInstID)
-                        Me.chrSessionStat.Series("ACTIVE").Points(idx).SetValueY(lngSessionActive)
-                        Me.chrSessionStat.Series("IDLE").Points(idx).SetValueY(lngSessionIdle)
+        '0202 change flow chart
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        If dtTableSessionStatus IsNot Nothing Then
+            dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
+            For Each dtRow As DataRow In dtTableSessionStatus.Rows
+                intInstID = dtRow.Item("INSTANCE_ID")
+                'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                    If tmpSvr.InstanceID = intInstID Then
+                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                        'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, 1)
+                    Else
+                        Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count - 1
+                        If lastYPoint > 0 Then
+                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(lastYPoint).YValues(0))
+                            'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
+                            'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
+                        End If
                     End If
-                End If
+                Next
             Next
-            Me.chrSessionStat.ChartAreas(0).RecalculateAxesScale()
+            sb_ChartAlignYAxies(Me.chtSessionStatus)
         End If
 
+
+        'Dim dtTableSession As DataTable = Nothing
+        'Dim dtTable As DataTable = Nothing
+        'Dim dblRegDt As Double
+
+        'Try
+        '    For i As Integer = 0 To 1
+        '        dblRegDt = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm")) + i
+        '        For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+        '            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(i))
+        '        Next
+        '    Next
+        '    sb_ChartAlignYAxies(Me.chtSessionStatus)
+        'Catch ex As Exception
+        '    GC.Collect()
+        'End Try
+
+    End Sub
+    '0202 add flow chart
+    Private Sub init_DataSessionStatsInfo()
+        '0202 change flow chart
+        Dim dtTableSessionStatus As DataTable = Nothing
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Dim strInstancIDs As String
+        Dim clsQu As clsQuerys
+        Try
+            clsQu = New clsQuerys(_AgentCn)
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstancIDs = String.Join(",", Instance)
+            dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs)
+            If dtTableSessionStatus IsNot Nothing Then
+                dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
+                For Each dtRow As DataRow In dtTableSessionStatus.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                        Else
+                            Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count - 1
+                            If lastYPoint > 0 Then
+                                sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(lastYPoint).YValues(0))
+
+                            End If
+                        End If
+                    Next
+                Next
+                sb_ChartAlignYAxies(Me.chtSessionStatus)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        Finally
+            clsQu = Nothing
+        End Try
     End Sub
     Private Sub clsAgentCollect_GetDataObjectInfo(ByVal dtTableObject As DataTable, ByVal dtTableSession As DataTable)
 
@@ -1324,31 +1409,31 @@
                 Dim lngRollabckTuples As Long = ConvULong(dtRow.Item("ROLLBACK_TUPLES_PER_SEC"))
 
 
+                ' Remove 0202
+                '' 키로 찾기 위하여 Instance  + Disk Name 으로 키를 넣어둠. 
+                'Using tmpRow As DataGridViewRow = dgvReqInfo.FindFirstRow(intInstID, colDgvReqinfoID.Index)
+                '    If tmpRow Is Nothing Then
+                '        Dim intIdx As Integer = dgvReqInfo.Rows.Add
+                '        ' 디스크KEY
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqinfoID.Index).Value = intInstID
+                '        ' 서버명칭 
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoSvrNm.Index).Value = strInstNm
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoInsert.Index).Value = lngInsertTuples
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoRead.Index).Value = lngReadtTuples
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoUpdate.Index).Value = lngUpdatetTuples
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoDelete.Index).Value = lngDeleteTuples
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoCommit.Index).Value = lngCommitTuples
+                '        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoRollback.Index).Value = lngRollabckTuples
+                '    Else
+                '        tmpRow.Cells(colDgvReqInfoInsert.Index).Value = lngInsertTuples
+                '        tmpRow.Cells(colDgvReqInfoRead.Index).Value = lngReadtTuples
+                '        tmpRow.Cells(colDgvReqInfoUpdate.Index).Value = lngUpdatetTuples
+                '        tmpRow.Cells(colDgvReqInfoDelete.Index).Value = lngDeleteTuples
+                '        tmpRow.Cells(colDgvReqInfoCommit.Index).Value = lngCommitTuples
+                '        tmpRow.Cells(colDgvReqInfoRollback.Index).Value = lngRollabckTuples
 
-                ' 키로 찾기 위하여 Instance  + Disk Name 으로 키를 넣어둠. 
-                Using tmpRow As DataGridViewRow = dgvReqInfo.FindFirstRow(intInstID, colDgvReqinfoID.Index)
-                    If tmpRow Is Nothing Then
-                        Dim intIdx As Integer = dgvReqInfo.Rows.Add
-                        ' 디스크KEY
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqinfoID.Index).Value = intInstID
-                        ' 서버명칭 
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoSvrNm.Index).Value = strInstNm
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoInsert.Index).Value = lngInsertTuples
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoRead.Index).Value = lngReadtTuples
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoUpdate.Index).Value = lngUpdatetTuples
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoDelete.Index).Value = lngDeleteTuples
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoCommit.Index).Value = lngCommitTuples
-                        dgvReqInfo.Rows(intIdx).Cells(colDgvReqInfoRollback.Index).Value = lngRollabckTuples
-                    Else
-                        tmpRow.Cells(colDgvReqInfoInsert.Index).Value = lngInsertTuples
-                        tmpRow.Cells(colDgvReqInfoRead.Index).Value = lngReadtTuples
-                        tmpRow.Cells(colDgvReqInfoUpdate.Index).Value = lngUpdatetTuples
-                        tmpRow.Cells(colDgvReqInfoDelete.Index).Value = lngDeleteTuples
-                        tmpRow.Cells(colDgvReqInfoCommit.Index).Value = lngCommitTuples
-                        tmpRow.Cells(colDgvReqInfoRollback.Index).Value = lngRollabckTuples
-
-                    End If
-                End Using
+                '    End If
+                'End Using
                 If tmpSrtLst IsNot Nothing Then
                     Dim idx As Integer = tmpSrtLst.Item(intInstID)
                     Me.chrReqInfo.Series("INSERT").Points(idx).SetValueY(lngInsertTuples)
@@ -1485,7 +1570,7 @@
             '        Next
             '    End If
             'Next
-		' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
+            ' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
             Dim tmpGrp As GroupInfo = _GrpList.Item(0)
             For Each tmpSvrInfo As GroupInfo.ServerInfo In tmpGrp.Items
                 Dim tmpInstance = InstanceMaxVals.AsEnumerable.Where(Function(e) e.InstanceID = tmpSvrInfo.InstanceID)
@@ -1542,25 +1627,25 @@
             Dim intInstID As Integer = InstanceMaxVal.InstanceID
             Dim strStatus As String = fn_GetHealthName(InstanceMaxVal.MaxVal)
 
-            ' remove instance info : robin
-            'Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
-            '    If dgvHealthRow Is Nothing Then
-            '        Dim intIDx As Integer = dgvHealth.Rows.Add
+            ' restore 0202 instance info : robin
+            Using dgvHealthRow As DataGridViewRow = dgvHealth.FindFirstRow(intInstID, colDgvHealthSvrID.Index)
+                If dgvHealthRow Is Nothing Then
+                    Dim intIDx As Integer = dgvHealth.Rows.Add
 
-            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
-            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
-            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
-            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
-            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-            '        dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrID.Index).Value = InstanceMaxVal.InstanceID
+                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrNm.Index).Value = InstanceMaxVal.Name
+                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrIP.Index).Value = InstanceMaxVal.IP
+                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrPort.Index).Value = InstanceMaxVal.Port
+                    dgvHealth.Rows(intIDx).Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+                    dgvHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
 
 
-            '    Else
-            '        dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
-            '        dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
-            '    End If
+                Else
+                    dgvHealthRow.Cells(colDgvHealthSvrStatus.Index).Value = strStatus
+                    dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = InstanceMaxVal.MaxVal
+                End If
 
-            'End Using
+            End Using
 
 
 
@@ -1614,28 +1699,29 @@
         Try
 
             ' remove logevent : robin
-            'For Each tmpRow As DataRow In dtTable.Rows
-            '
-            '    Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
-            '    Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
-            '    Dim strHost As String = tmpRow.Item("HOST_NAME")
-            '    Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
-            '    Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
-            '    Dim strValueUnit As String = tmpRow.Item("UNIT")
-            '    Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
-            '    Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
-            '    strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
-            '
-            '
-            '
-            'If intHchkVal = 100 AndAlso _ShowHchkNormal Then
-            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
-            'ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
-            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
-            'ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
-            '    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
-            'End If
-            'Next
+            ' restore logevent 0202
+            For Each tmpRow As DataRow In dtTable.Rows
+
+                Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
+                Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, tmpRow.Item("COLLECT_TIME"))
+                Dim strHost As String = tmpRow.Item("HOST_NAME")
+                Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+                Dim strValueUnit As String = tmpRow.Item("UNIT")
+                Dim strComment As String = IIf(IsDBNull(tmpRow.Item("COMMENTS")), "", tmpRow.Item("COMMENTS"))
+                Dim strShowValue As String = "[{0}]{1}-{2} {3}{4} {5}"
+                strShowValue = String.Format(strShowValue, strRegDt.ToString("HH:mm:ss"), strHost, strHchkNm, strValue, strValueUnit, strComment)
+
+
+
+                If intHchkVal = 100 AndAlso _ShowHchkNormal Then
+                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Lime)
+                ElseIf intHchkVal = 200 AndAlso _ShowHchkWarning Then
+                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Orange)
+                ElseIf intHchkVal = 300 AndAlso _ShowHchkCritical Then
+                    Me.logEvents.AppendTextNewLine(strShowValue, Color.Red)
+                End If
+            Next
 
         Catch ex As Exception
             Debug.Print(ex.ToString)
@@ -1746,10 +1832,11 @@
                     dgvSessionInfo.Rows.RemoveAt(0)
                 End While
                 dgvSessionInfo.DataSource = Nothing
-                While (dgvReqInfo.Rows.Count > 1)
-                    dgvReqInfo.Rows.RemoveAt(0)
-                End While
-                dgvReqInfo.Rows.Clear()
+                ' Remove 0202
+                'While (dgvReqInfo.Rows.Count > 1)
+                '    dgvReqInfo.Rows.RemoveAt(0)
+                'End While
+                'dgvReqInfo.Rows.Clear()
                 While (dgvHealth.Rows.Count > 1)
                     dgvHealth.Rows.RemoveAt(0)
                 End While
@@ -1849,7 +1936,7 @@
         clsIni.WriteValue("FORM", "IDLEMAIN", chkIDLE.Checked)
     End Sub
 
-    Private Sub chrReqInfo_GetToolTipText(sender As Object, e As DataVisualization.Charting.ToolTipEventArgs) Handles chrReqInfo.GetToolTipText, chrSessionStat.GetToolTipText
+    Private Sub chrReqInfo_GetToolTipText(sender As Object, e As DataVisualization.Charting.ToolTipEventArgs) Handles chrReqInfo.GetToolTipText
 
 
         Select Case e.HitTestResult.ChartElementType
@@ -2037,5 +2124,98 @@
             End If
         End If
     End Sub
+#Region "Ctl "
+    ''' <summary>
+    ''' Chart Point 등록 
+    ''' </summary>
+    ''' <param name="MSChart"></param>
+    ''' <param name="strSeries"></param>
+    ''' <param name="dblX"></param>
+    ''' <param name="dblY"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function sb_ChartAddPoint(ByVal MSChart As DataVisualization.Charting.Chart, ByVal strSeries As String, ByVal dblX As Double, ByVal dblY As Double) As Integer
+        Try
+            Dim rtnValue As Integer = MSChart.Series(strSeries).Points.AddXY(Date.FromOADate(dblX), dblY)
 
+            Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
+            If NowCnt >= (_ElapseCount * _GrpListServerinfo.Count) Then '5분간 유지 10분 200
+                For i As Integer = 0 To NowCnt - _ElapseCount
+                    MSChart.Series(strSeries).Points.RemoveAt(0)
+                Next
+            End If
+            Return rtnValue
+        Catch ex As Exception
+            Return -1
+        Finally
+        End Try
+    End Function
+
+    Private Sub sb_ChartAlignYAxies(ByVal MSChart As DataVisualization.Charting.Chart)
+        Dim dblMaxPri As Double = 0
+        Dim dblMaxSec As Double = 0
+        For Each tmpSeries As DataVisualization.Charting.Series In MSChart.Series
+            If tmpSeries.Points.Count > 0 Then
+                If tmpSeries.YAxisType = DataVisualization.Charting.AxisType.Primary Then
+                    Dim tmpValue As Double = Double.NaN
+                    tmpValue = tmpSeries.Points.FindMaxByValue().YValues(0)
+                    dblMaxPri = Math.Max(dblMaxPri, IIf(tmpValue.Equals(Double.NaN), 0, tmpValue))
+                Else
+                    Dim tmpValue As Double = Double.NaN
+                    tmpValue = tmpSeries.Points.FindMaxByValue().YValues(0)
+                    dblMaxSec = Math.Max(dblMaxSec, IIf(tmpValue.Equals(Double.NaN), 0, tmpValue))
+                End If
+            End If
+        Next
+
+        If Not dblMaxPri.Equals(Double.NaN) Then
+            Dim intValuePri As Integer = dblMaxPri \ 5
+            intValuePri += 1
+
+            MSChart.ChartAreas(0).AxisY.Maximum = intValuePri * 5
+            MSChart.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            MSChart.ChartAreas(0).AxisY.Interval = MSChart.ChartAreas(0).AxisY.Maximum / 5
+        End If
+
+        If Not dblMaxSec.Equals(Double.NaN) Then
+
+            Dim intValueSec As Integer = dblMaxSec \ 5
+            MSChart.ChartAreas(0).AxisY2.Maximum = intValueSec * 5
+            MSChart.ChartAreas(0).AxisY2.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            MSChart.ChartAreas(0).AxisY2.Interval = MSChart.ChartAreas(0).AxisY2.Maximum / 5
+        End If
+        MSChart.ChartAreas(0).RecalculateAxesScale()
+    End Sub
+
+    Public Sub AddSeries(ByVal chtName As System.Windows.Forms.DataVisualization.Charting.Chart,
+                         ByVal SeriesName As String,
+                         ByVal strTitle As String,
+                         Optional ByVal LineColor As System.Drawing.Color = Nothing,
+                         Optional ByVal ChartType As System.Windows.Forms.DataVisualization.Charting.SeriesChartType = DataVisualization.Charting.SeriesChartType.Line)
+        Dim Series As System.Windows.Forms.DataVisualization.Charting.Series = chtName.Series.Add(SeriesName.ToUpper)
+        Series.BorderWidth = 2
+        Series.ChartArea = "ChartArea1"
+        Series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series.Legend = "Legend1"
+        Series.Name = strTitle
+        Series.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
+        'Series.IsXValueIndexed = True
+        'Series.CustomProperties = "EmptyPointValue=Zero"
+
+        If Not IsNothing(LineColor) Then
+            Series.Color = LineColor
+        End If
+
+
+        'Series.BorderWidth = 2
+        'Series.ChartArea = "ChartArea1"
+        'Series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        'Series.Color = System.Drawing.Color.Orange
+        'Series.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        'Series.Legend = "Legend1"
+        'Series.Name = "UPDATE"
+        'Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
+    End Sub
+#End Region
 End Class
