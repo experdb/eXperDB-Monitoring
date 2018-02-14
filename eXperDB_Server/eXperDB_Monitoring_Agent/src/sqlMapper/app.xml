@@ -1319,13 +1319,13 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					        VERSION() AS PG_VERSION,
 					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE 'M' END AS HA_ROLE, 
 					        CASE WHEN pg_is_in_recovery() THEN 
-								COALESCE((SELECT trim(ARR_COL, 'host=') FROM 
+								COALESCE((SELECT substring(ARR_COL, length('host=')+1) FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
 								   	   FROM pg_stat_wal_receiver) ARR 
 							  	  WHERE ARR_COL LIKE 'host=%' 
 							  	  ORDER BY arr_col), '-') ELSE '-' END AS HA_HOST, 
 					        CASE WHEN pg_is_in_recovery() THEN 
-								COALESCE((SELECT trim(ARR_COL, 'port=') FROM 
+								COALESCE((SELECT substring(ARR_COL, length('port=')+1) FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
 								   		FROM pg_stat_wal_receiver) ARR2 
 							  	  WHERE ARR_COL LIKE 'port=%' 
@@ -1541,7 +1541,17 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		DELETE /* PGMONTB_BATCH_CONTROL_PROCESS_HIST_001 */ FROM TB_CONTROL_PROCESS_HIST WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_CONTROL_PROCESS_HIST) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
 	</delete>
-
+<!-- ********************************************************** -->
+<!-- for Alert Start-->
+<!-- ********************************************************** -->
+	<delete id="PGMONTB_BATCH_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONTB_BATCH_HCHK_ALERT_INFO_I001 */ FROM TB_HCHK_ALERT_INFO WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_HCHK_ALERT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+<!-- ********************************************************** -->
+<!-- for Alert Start-->
+<!-- ********************************************************** -->
 
 
 	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
@@ -1754,4 +1764,32 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			NOW()
 		)
 	</insert>
+<!-- ********************************************************** -->
+<!-- for Alert Start-->
+<!-- ********************************************************** -->
+	<select id="TB_HCHK_THOLD_INFO_001" parameterType="hashmap" resultType="hashmap">
+		   SELECT /* EXPERDBMA_TB_HCHK_THOLD_INFO_001 */
+		           INSTANCE_ID, HCHK_NAME, IS_HIGHER, WARNING_THRESHOLD, CRITICAL_THRESHOLD, FIXED_THRESHOLD, 
+   				   (CASE WHEN ((PAUSE_COLLECT_DT - now()) > interval '00:00:00') then 1 else 0 end) AS PAUSE
+		     FROM TB_HCHK_THRD_LIST
+	</select>	
+	<insert id="TB_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_HCHK_ALERT_INFO	
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('HCHK_REG_SEQ'),
+			#{instance_id},
+			#{hchk_name},
+			#{state},
+			NULL,
+			NULL,
+			NULL,
+			NULL
+		)
+	</insert>
+<!-- ********************************************************** -->
+<!-- for Alert End -->
+<!-- ********************************************************** -->
+
 </mapper>
