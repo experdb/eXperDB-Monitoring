@@ -216,7 +216,8 @@
                     If IsDBNull(tmpRow.Cells(colHAHost.Index).Value) Or IsDBNull(tmpRow.Cells(colHAHost.Index).Value) Then
                         Continue For
                     End If
-                    If tmpMonRow.Cells(colMonHostNm.Index).Value = tmpRow.Cells(colHAHost.Index).Value Or _
+                    'If tmpMonRow.Cells(colMonHostNm.Index).Value = tmpRow.Cells(colHAHost.Index).Value Or _
+                    If (tmpRow.Cells(colHAHost.Index).Value Like (tmpMonRow.Cells(colMonHostNm.Index).Value + "*")) = True Or _
                        tmpMonRow.Cells(colMonIP.Index).Value = tmpRow.Cells(colHAHost.Index).Value Then
                         If tmpMonRow.Cells(colMonPort.Index).Value = tmpRow.Cells(colHAPort.Index).Value Then
                             idxMonRow = tmpMonRow.Index
