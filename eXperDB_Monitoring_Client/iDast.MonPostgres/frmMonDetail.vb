@@ -123,6 +123,8 @@
         TmCollect.Interval = _Elapseinterval
         TmCollect.Start()
 
+        _ElapseCount = (60000 / _Elapseinterval) * 60 / 6 ' 10분
+
         ReadConfig()
     End Sub
 
@@ -1048,7 +1050,7 @@
                       Dim dtTableSession As DataTable = Nothing
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTableSession = _clsQuery.SelectInitSessionInfoChart(InstanceID)
+                          dtTableSession = _clsQuery.SelectInitSessionInfoChart(InstanceID, New Date(), New Date(), False)
                           Dim dtRowsSession As DataRow() = dtTableSession.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRowsSession.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
@@ -1062,7 +1064,7 @@
                               Next
                           End If
 
-                          dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"))
+                          dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"), New Date(), New Date(), False)
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRows.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
@@ -1329,5 +1331,33 @@
         Else
             BretFrm.Activate()
         End If
+    End Sub
+
+    Private Sub chtSession_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtSession.CursorPositionChanged
+        If Double.IsNaN(e.NewPosition) Then Return
+        Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
+        Dim edDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionEnd)
+        If stDt > edDt Then
+            Dim tmpDt As DateTime
+            tmpDt = stDt
+            stDt = edDt
+            edDt = tmpDt
+        End If
+
+        If DateDiff(DateInterval.Minute, stDt, edDt) < 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M014"))
+            Return
+        Else
+            If DateDiff(DateInterval.Minute, stDt, edDt) > 120 Then
+                MsgBox(p_clsMsgData.fn_GetData("M015"))
+                Return
+            End If
+        End If
+
+        Dim ctlChart As DataVisualization.Charting.Chart = DirectCast(sender, DataVisualization.Charting.Chart)
+        ctlChart.ChartAreas(0).CursorX.SetSelectionPosition(-1, -1)
+        ctlChart.ChartAreas(0).CursorX.SetCursorPosition(-1)
+        Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, 1)
+        frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
     End Sub
 End Class

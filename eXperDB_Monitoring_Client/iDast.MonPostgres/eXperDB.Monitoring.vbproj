@@ -185,6 +185,12 @@
     <Compile Include="frmAlertList.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmMonItemDetail.Designer.vb">
+      <DependentUpon>frmMonItemDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMonItemDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmSessionLockHist.Designer.vb">
       <DependentUpon>frmSessionLockHist.vb</DependentUpon>
     </Compile>
@@ -332,6 +338,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAlertList.resx">
       <DependentUpon>frmAlertList.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMonItemDetail.resx">
+      <DependentUpon>frmMonItemDetail.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSessionLockHist.resx">

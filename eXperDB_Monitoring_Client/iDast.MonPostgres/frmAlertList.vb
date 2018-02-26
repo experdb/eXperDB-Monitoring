@@ -160,6 +160,7 @@
         Dim dtTable As DataTable
 
         dgvAlertList.Rows.Clear()
+        RemoveHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
 
         dtTable = _clsQuery.SelectAlertSearch(dtpSt.Value, dtpEd.Value, cmbServer.SelectedValue, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
         If dtTable IsNot Nothing Then

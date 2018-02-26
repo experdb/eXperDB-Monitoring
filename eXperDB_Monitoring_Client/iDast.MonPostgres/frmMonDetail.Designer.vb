@@ -428,6 +428,7 @@ Partial Class frmMonDetail
         '
         Me.chtSQLRespTm.BackColor = System.Drawing.Color.Transparent
         ChartArea2.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea2.AxisX.IsLabelAutoFit = False
         ChartArea2.AxisX.IsMarginVisible = False
         ChartArea2.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -445,6 +446,7 @@ Partial Class frmMonDetail
         ChartArea2.AxisX.MajorTickMark.Enabled = False
         ChartArea2.AxisX.ScaleView.Zoomable = False
         ChartArea2.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea2.AxisX2.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea2.AxisX2.IsLabelAutoFit = False
         ChartArea2.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea2.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -555,6 +557,7 @@ Partial Class frmMonDetail
         '
         Me.chtLocalIO.BackColor = System.Drawing.Color.Transparent
         ChartArea3.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea3.AxisX.IsLabelAutoFit = False
         ChartArea3.AxisX.IsMarginVisible = False
         ChartArea3.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -572,6 +575,7 @@ Partial Class frmMonDetail
         ChartArea3.AxisX.MajorTickMark.Enabled = False
         ChartArea3.AxisX.ScaleView.Zoomable = False
         ChartArea3.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisX2.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea3.AxisX2.IsLabelAutoFit = False
         ChartArea3.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea3.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -737,6 +741,7 @@ Partial Class frmMonDetail
         '
         Me.chtPhysicaliO.BackColor = System.Drawing.Color.Transparent
         ChartArea4.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea4.AxisX.IsLabelAutoFit = False
         ChartArea4.AxisX.IsMarginVisible = False
         ChartArea4.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -756,6 +761,7 @@ Partial Class frmMonDetail
         ChartArea4.AxisX.ScaleView.Zoomable = False
         ChartArea4.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisX.TitleForeColor = System.Drawing.Color.Empty
+        ChartArea4.AxisX2.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea4.AxisX2.IsLabelAutoFit = False
         ChartArea4.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -1633,6 +1639,7 @@ Partial Class frmMonDetail
         '
         Me.chtCPU.BackColor = System.Drawing.Color.Transparent
         ChartArea5.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea5.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea5.AxisX.IsLabelAutoFit = False
         ChartArea5.AxisX.IsMarginVisible = False
         ChartArea5.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)

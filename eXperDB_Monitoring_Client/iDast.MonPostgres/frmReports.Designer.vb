@@ -92,6 +92,7 @@ Partial Class frmReports
         Me.grpRptCpu.EdgeRound = Edges1
         Me.grpRptCpu.FillColor = System.Drawing.Color.Black
         Me.grpRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.grpRptCpu.Icon = Nothing
         Me.grpRptCpu.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpRptCpu.LineWidth = 1
         Me.grpRptCpu.Location = New System.Drawing.Point(0, 0)
@@ -160,7 +161,7 @@ Partial Class frmReports
         Me.pnlSearch.Controls.Add(Me.lblInst)
         Me.pnlSearch.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlSearch.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.pnlSearch.Location = New System.Drawing.Point(2, 33)
+        Me.pnlSearch.Location = New System.Drawing.Point(2, 29)
         Me.pnlSearch.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlSearch.Name = "pnlSearch"
         Me.pnlSearch.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -289,6 +290,7 @@ Partial Class frmReports
         Me.grpRptDisk.EdgeRound = Edges2
         Me.grpRptDisk.FillColor = System.Drawing.Color.Black
         Me.grpRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.grpRptDisk.Icon = Nothing
         Me.grpRptDisk.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpRptDisk.LineWidth = 1
         Me.grpRptDisk.Location = New System.Drawing.Point(0, 425)
@@ -361,6 +363,7 @@ Partial Class frmReports
         Me.grpRptTimeLine.EdgeRound = Edges3
         Me.grpRptTimeLine.FillColor = System.Drawing.Color.Black
         Me.grpRptTimeLine.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.grpRptTimeLine.Icon = Nothing
         Me.grpRptTimeLine.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpRptTimeLine.LineWidth = 1
         Me.grpRptTimeLine.Location = New System.Drawing.Point(0, 1263)
@@ -649,15 +652,14 @@ Partial Class frmReports
         Me.pnlMain.Controls.Add(Me.grpRptCpu)
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.pnlMain.Location = New System.Drawing.Point(2, 67)
+        Me.pnlMain.Location = New System.Drawing.Point(2, 63)
         Me.pnlMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1822, 1031)
+        Me.pnlMain.Size = New System.Drawing.Size(1822, 1035)
         Me.pnlMain.TabIndex = 19
         '
         'frmReports
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.Black
         Me.BaseHeight = 1102
@@ -665,7 +667,6 @@ Partial Class frmReports
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.pnlSearch)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Location = New System.Drawing.Point(0, 0)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmReports"
         Me.Controls.SetChildIndex(Me.pnlSearch, 0)

@@ -1103,51 +1103,6 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectInitSessionInfoChart(ByVal intInstanceID As String) As DataTable
-
-        Try
-            If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSESSIONINFOBEFORE")
-
-                strQuery = String.Format(strQuery, intInstanceID)
-                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
-                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
-                    Return dtSet.Tables(0)
-                Else
-                    Return Nothing
-                End If
-            Else
-                Return Nothing
-            End If
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            GC.Collect()
-            Return Nothing
-        End Try
-    End Function
-    Public Function SelectInitObjectChart(ByVal intInstanceID As Integer, ByVal strName As String) As DataTable
-
-        Try
-            If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTOBJECTBEFORE")
-
-                strQuery = String.Format(strQuery, intInstanceID, strName)
-                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
-                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
-                    Return dtSet.Tables(0)
-                Else
-                    Return Nothing
-                End If
-            Else
-                Return Nothing
-            End If
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            GC.Collect()
-            Return Nothing
-        End Try
-    End Function
-
     Public Function SelectInitPhysicalIOChart(ByVal intInstanceID As Integer) As DataTable
 
         Try
@@ -1534,6 +1489,131 @@
             Return False
         End Try
 
+    End Function
+#End Region
+
+#Region "ChartDetail"
+    Public Function SelectInitSessionInfoChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSESSIONINFOBEFORE")
+                Dim subQuery As String = ""
+
+                If HaveDuration = True Then
+                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                        subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                    Else
+                        subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                    End If
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
+                Else
+                    subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, "now() - interval '10 minute'", "now()")
+                End If
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectInitObjectChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTOBJECTBEFORE")
+                Dim subQuery As String = ""
+
+                If HaveDuration = True Then
+                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                        subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                    Else
+                        subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                    End If
+                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
+                Else
+                    subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '10 minute'", "now()")
+                End If
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectDetailSQLRespChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSQLRESPTIME")
+                Dim subQuery As String = ""
+
+                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, InstanceID, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectDetailSQLListChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSQLLIST")
+                Dim subQuery As String = ""
+
+                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
     End Function
 #End Region
 End Class

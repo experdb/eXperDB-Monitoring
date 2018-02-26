@@ -2020,7 +2020,7 @@ Public Class ctlChart
     End Function
     Sub SetInnerPlotPosition()
         Dim ChartBorderLeft As Integer = 100 'Pixels on the left
-        Dim ChartBorderRight As Integer = 10 'Pixels on the right
+        Dim ChartBorderRight As Integer = 100 'Pixels on the right
         Dim ChartBorderTop As Integer = 0 'Pixels on the top
         Dim ChartBorderBottom As Integer = 40 'Pixels on the bottom
 

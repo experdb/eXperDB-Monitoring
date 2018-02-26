@@ -2168,6 +2168,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F267" PARAMS="0">
+    <DESC>SQL RESPONSE TIME</DESC>
+    <DATA><![CDATA[SQL Response]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F268" PARAMS="0">
+    <DESC>Chart details</DESC>
+    <DATA><![CDATA[Chart details]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>
