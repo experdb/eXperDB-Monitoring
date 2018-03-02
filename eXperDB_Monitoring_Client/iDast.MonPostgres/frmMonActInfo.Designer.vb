@@ -268,7 +268,7 @@ Partial Class frmMonActInfo
         Me.spnlMain.Panel2.Controls.Add(Me.grpLockInfo)
         Me.spnlMain.Panel2.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.spnlMain.Size = New System.Drawing.Size(1822, 1059)
-        Me.spnlMain.SplitterDistance = 758
+        Me.spnlMain.SplitterDistance = 1000
         Me.spnlMain.SplitterWidth = 5
         Me.spnlMain.TabIndex = 11
         '
@@ -285,7 +285,7 @@ Partial Class frmMonActInfo
         Me.tlpMain.RowCount = 2
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.670529!))
         Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.32947!))
-        Me.tlpMain.Size = New System.Drawing.Size(1822, 758)
+        Me.tlpMain.Size = New System.Drawing.Size(1822, 1000)
         Me.tlpMain.TabIndex = 11
         '
         'grpTableInfo
@@ -311,7 +311,7 @@ Partial Class frmMonActInfo
         Me.grpTableInfo.Name = "grpTableInfo"
         Me.grpTableInfo.Padding = New System.Windows.Forms.Padding(3, 13, 3, 3)
         Me.tlpMain.SetRowSpan(Me.grpTableInfo, 2)
-        Me.grpTableInfo.Size = New System.Drawing.Size(1816, 750)
+        Me.grpTableInfo.Size = New System.Drawing.Size(1816, 992)
         Me.grpTableInfo.TabIndex = 1
         Me.grpTableInfo.TabStop = False
         Me.grpTableInfo.Text = "F138"
@@ -399,7 +399,7 @@ Partial Class frmMonActInfo
         Me.tlpBottom.RowCount = 2
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.Size = New System.Drawing.Size(1810, 714)
+        Me.tlpBottom.Size = New System.Drawing.Size(1810, 956)
         Me.tlpBottom.TabIndex = 0
         '
         'grpTblinfo
@@ -417,11 +417,11 @@ Partial Class frmMonActInfo
         Me.grpTblinfo.Icon = CType(resources.GetObject("grpTblinfo.Icon"), System.Drawing.Icon)
         Me.grpTblinfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpTblinfo.LineWidth = 1
-        Me.grpTblinfo.Location = New System.Drawing.Point(3, 361)
+        Me.grpTblinfo.Location = New System.Drawing.Point(3, 482)
         Me.grpTblinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpTblinfo.Name = "grpTblinfo"
         Me.grpTblinfo.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpTblinfo.Size = New System.Drawing.Size(899, 349)
+        Me.grpTblinfo.Size = New System.Drawing.Size(899, 470)
         Me.grpTblinfo.TabIndex = 3
         Me.grpTblinfo.TabStop = False
         Me.grpTblinfo.Text = "F080"
@@ -477,7 +477,7 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.RowHeadersVisible = False
         Me.dgvTblinfo.RowTemplate.Height = 23
         Me.dgvTblinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTblinfo.Size = New System.Drawing.Size(893, 308)
+        Me.dgvTblinfo.Size = New System.Drawing.Size(893, 429)
         Me.dgvTblinfo.TabIndex = 12
         Me.dgvTblinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvTblinfo.UseTagValueMatchColor = False
@@ -618,7 +618,7 @@ Partial Class frmMonActInfo
         Me.grpTblSpaceInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpTblSpaceInfo.Name = "grpTblSpaceInfo"
         Me.grpTblSpaceInfo.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpTblSpaceInfo.Size = New System.Drawing.Size(899, 349)
+        Me.grpTblSpaceInfo.Size = New System.Drawing.Size(899, 470)
         Me.grpTblSpaceInfo.TabIndex = 1
         Me.grpTblSpaceInfo.TabStop = False
         Me.grpTblSpaceInfo.Text = "F079"
@@ -674,7 +674,7 @@ Partial Class frmMonActInfo
         Me.dgvTblSpaceInfo.RowHeadersVisible = False
         Me.dgvTblSpaceInfo.RowTemplate.Height = 23
         Me.dgvTblSpaceInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTblSpaceInfo.Size = New System.Drawing.Size(893, 308)
+        Me.dgvTblSpaceInfo.Size = New System.Drawing.Size(893, 429)
         Me.dgvTblSpaceInfo.TabIndex = 12
         Me.dgvTblSpaceInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvTblSpaceInfo.UseTagValueMatchColor = False
@@ -756,11 +756,11 @@ Partial Class frmMonActInfo
         Me.grpidxinfo.Icon = CType(resources.GetObject("grpidxinfo.Icon"), System.Drawing.Icon)
         Me.grpidxinfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpidxinfo.LineWidth = 1
-        Me.grpidxinfo.Location = New System.Drawing.Point(908, 361)
+        Me.grpidxinfo.Location = New System.Drawing.Point(908, 482)
         Me.grpidxinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpidxinfo.Name = "grpidxinfo"
         Me.grpidxinfo.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpidxinfo.Size = New System.Drawing.Size(899, 349)
+        Me.grpidxinfo.Size = New System.Drawing.Size(899, 470)
         Me.grpidxinfo.TabIndex = 4
         Me.grpidxinfo.TabStop = False
         Me.grpidxinfo.Text = "F081"
@@ -808,7 +808,7 @@ Partial Class frmMonActInfo
         Me.dgvIdxinfo.RowHeadersVisible = False
         Me.dgvIdxinfo.RowTemplate.Height = 23
         Me.dgvIdxinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvIdxinfo.Size = New System.Drawing.Size(893, 315)
+        Me.dgvIdxinfo.Size = New System.Drawing.Size(893, 436)
         Me.dgvIdxinfo.TabIndex = 13
         Me.dgvIdxinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvIdxinfo.UseTagValueMatchColor = False
@@ -925,7 +925,7 @@ Partial Class frmMonActInfo
         Me.grpDBinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpDBinfo.Name = "grpDBinfo"
         Me.grpDBinfo.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpDBinfo.Size = New System.Drawing.Size(899, 349)
+        Me.grpDBinfo.Size = New System.Drawing.Size(899, 470)
         Me.grpDBinfo.TabIndex = 2
         Me.grpDBinfo.TabStop = False
         Me.grpDBinfo.Text = "F078"
@@ -981,7 +981,7 @@ Partial Class frmMonActInfo
         Me.dgvDBinfo.RowHeadersVisible = False
         Me.dgvDBinfo.RowTemplate.Height = 23
         Me.dgvDBinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDBinfo.Size = New System.Drawing.Size(893, 315)
+        Me.dgvDBinfo.Size = New System.Drawing.Size(893, 436)
         Me.dgvDBinfo.TabIndex = 11
         Me.dgvDBinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvDBinfo.UseTagValueMatchColor = False
@@ -1101,7 +1101,7 @@ Partial Class frmMonActInfo
         Me.grpLockInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpLockInfo.Name = "grpLockInfo"
         Me.grpLockInfo.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpLockInfo.Size = New System.Drawing.Size(1822, 296)
+        Me.grpLockInfo.Size = New System.Drawing.Size(1822, 54)
         Me.grpLockInfo.TabIndex = 12
         Me.grpLockInfo.TabStop = False
         Me.grpLockInfo.Text = "F077"
@@ -1110,6 +1110,7 @@ Partial Class frmMonActInfo
         Me.grpLockInfo.UseGraColor = False
         Me.grpLockInfo.UseRound = True
         Me.grpLockInfo.UseTitle = True
+        Me.grpLockInfo.Visible = False
         '
         'btnPause
         '
@@ -1181,7 +1182,7 @@ Partial Class frmMonActInfo
         Me.dgvLock.RowHeadersDefaultCellStyle = DataGridViewCellStyle36
         Me.dgvLock.RowHeadersVisible = False
         Me.dgvLock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLock.Size = New System.Drawing.Size(1816, 262)
+        Me.dgvLock.Size = New System.Drawing.Size(1816, 20)
         Me.dgvLock.TabIndex = 9
         '
         'frmMonActInfo

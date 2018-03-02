@@ -1175,41 +1175,41 @@
 
     End Sub
 
-    Private Sub chtCPU_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtCPU.CursorPositionChanged _
-                                                                                                                        , chtLocalIO.CursorPositionChanged _
-                                                                                                                        , chtPhysicaliO.CursorPositionChanged _
-                                                                                                                        , chtSQLRespTm.CursorPositionChanged
-        If Double.IsNaN(e.NewPosition) Then Return
-        Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
-        Dim edDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionEnd)
-        If stDt > edDt Then
-            Dim tmpDt As DateTime
-            tmpDt = stDt
-            stDt = edDt
-            edDt = tmpDt
-        End If
+    'Private Sub chtCPU_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtCPU.CursorPositionChanged _
+    '                                                                                                                    , chtLocalIO.CursorPositionChanged _
+    '                                                                                                                    , chtPhysicaliO.CursorPositionChanged _
+    '                                                                                                                    , chtSQLRespTm.CursorPositionChanged
+    '    If Double.IsNaN(e.NewPosition) Then Return
+    '    Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
+    '    Dim edDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionEnd)
+    '    If stDt > edDt Then
+    '        Dim tmpDt As DateTime
+    '        tmpDt = stDt
+    '        stDt = edDt
+    '        edDt = tmpDt
+    '    End If
 
-        If DateDiff(DateInterval.Minute, stDt, edDt) < 0 Then
-            MsgBox(p_clsMsgData.fn_GetData("M014"))
-            Return
-        Else
-            If DateDiff(DateInterval.Minute, stDt, edDt) > 120 Then
-                MsgBox(p_clsMsgData.fn_GetData("M015"))
-                Return
-            End If
-        End If
-
-
-
-        Dim ctlChart As DataVisualization.Charting.Chart = DirectCast(sender, DataVisualization.Charting.Chart)
-        ctlChart.ChartAreas(0).CursorX.SetSelectionPosition(-1, -1)
-        ctlChart.ChartAreas(0).CursorX.SetCursorPosition(-1)
-        Dim frmRpt As New frmReports(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpList, Me.InstanceID, stDt, edDt, _AgentInfo)
-        frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
+    '    If DateDiff(DateInterval.Minute, stDt, edDt) < 0 Then
+    '        MsgBox(p_clsMsgData.fn_GetData("M014"))
+    '        Return
+    '    Else
+    '        If DateDiff(DateInterval.Minute, stDt, edDt) > 120 Then
+    '            MsgBox(p_clsMsgData.fn_GetData("M015"))
+    '            Return
+    '        End If
+    '    End If
 
 
 
-    End Sub
+    '    Dim ctlChart As DataVisualization.Charting.Chart = DirectCast(sender, DataVisualization.Charting.Chart)
+    '    ctlChart.ChartAreas(0).CursorX.SetSelectionPosition(-1, -1)
+    '    ctlChart.ChartAreas(0).CursorX.SetCursorPosition(-1)
+    '    Dim frmRpt As New frmReports(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpList, Me.InstanceID, stDt, edDt, _AgentInfo)
+    '    frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
+
+
+
+    'End Sub
 
     Private Sub rndProgMEM_Click(sender As Object, e As EventArgs) Handles rndProgMEM.Click
 
@@ -1333,7 +1333,12 @@
         End If
     End Sub
 
-    Private Sub chtSession_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtSession.CursorPositionChanged
+    Private Sub chtSession_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtSession.CursorPositionChanged _
+                                                                                                                        , chtCPU.CursorPositionChanged _
+                                                                                                                        , chtLocalIO.CursorPositionChanged _
+                                                                                                                        , chtPhysicaliO.CursorPositionChanged _
+                                                                                                                        , chtSQLRespTm.CursorPositionChanged
+
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
         Dim edDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionEnd)
@@ -1357,7 +1362,21 @@
         Dim ctlChart As DataVisualization.Charting.Chart = DirectCast(sender, DataVisualization.Charting.Chart)
         ctlChart.ChartAreas(0).CursorX.SetSelectionPosition(-1, -1)
         ctlChart.ChartAreas(0).CursorX.SetCursorPosition(-1)
-        Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, 1)
+        Dim index As Integer
+        Select Case ctlChart.Name
+            Case "chtCPU"
+                index = 0
+            Case "chtSession"
+                index = 1
+            Case "chtLocalIO"
+                index = 2
+	    Case "chtPhysicalIO"
+                index = 3
+            Case "chtSQLRespTm"
+                index = 4
+        End Select
+
+        Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, index)
         frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
     End Sub
 End Class

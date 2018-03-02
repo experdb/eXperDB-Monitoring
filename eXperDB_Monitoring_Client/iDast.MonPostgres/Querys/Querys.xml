@@ -661,7 +661,33 @@
       ]]>
     </DATA>
   </ROW>
-
+  <ROW ID="SELECTPHYSICALIODETAIL" PARAMS="0">
+    <DESC>PT_04_07_001(PHYSICAL IO : PHY_READ, PHY_WRITE)</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT /* SELECTPHYSICALIODETAIL */ A.INSTANCE_ID
+            , E.COLLECT_DT AS COLLECT_DT
+            , DISK_NAME
+ 	          , READ_BUSY_RATE AS "PHY_READ"          --PT_04_07_001(PHYSICAL IO : PHY_READ)
+	          , WRITE_BUSY_RATE AS "PHY_WRITE"        --PT_04_07_001(PHYSICAL IO : PHY_WRITE)
+            , (READ_BUSY_RATE + WRITE_BUSY_RATE) AS PHY_IO
+          FROM TB_INSTANCE_INFO A,
+          	TB_RSC_COLLECT_INFO B,
+          	TB_DISK_IO E
+          WHERE B.REG_DATE = E.REG_DATE
+          -- AND B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+          AND B.REG_DATE {1}
+          AND B.RSC_REG_SEQ = E.RSC_REG_SEQ
+          AND B.INSTANCE_ID = A.INSTANCE_ID
+          AND A.INSTANCE_ID IN ({0})
+          -- AND E.COLLECT_DT BETWEEN now() - interval '10 minute' AND now()
+          AND E.COLLECT_DT BETWEEN {2} AND {3}
+          AND A.COLLECT_YN = 'Y' 
+          AND A.DELETE_YN = 'N'  
+          ORDER BY A.INSTANCE_ID, B.RSC_REG_SEQ
+      ]]>
+    </DATA>
+  </ROW>
 
   <ROW ID="UPDATEHEALTHLIMITED " PARAMS="7">
     <DESC>헬스체크 임계정보</DESC>
@@ -1603,7 +1629,7 @@
 			    AND A.INSTANCE_ID = F.INSTANCE_ID
 			    AND E.ACTV_REG_SEQ = F.ACTV_REG_SEQ
 			    AND F.PROCESS_ID = E.PROCESS_ID			  
-			    AND F.CONTROL_TYPE = '0'
+			    --AND F.CONTROL_TYPE = '0'
 			    AND A.COLLECT_YN = 'Y' 
 			    AND A.DELETE_YN = 'N'
 			    AND E.SQL != 'BACKGROUND PROC'

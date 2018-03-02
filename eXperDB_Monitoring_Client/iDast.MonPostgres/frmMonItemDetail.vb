@@ -4,7 +4,12 @@
     Private _SelectedIndex As String
     Private _SelectedGrid As String
     Private _chtOrder As Integer = -1
+    Private _AreaCount As Integer = 5
+    Private _chtCount As Integer = 0
+    Private _chtHeight As Integer
     Private _clsQuery As clsQuerys
+    Private _bChartMenu As Boolean = False
+    Private _bRange As Boolean = False
 
     Private _ThreadDetail As Threading.Thread
 
@@ -66,6 +71,7 @@
     ''' <remarks></remarks>
     Private Sub frmMonItemDetail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitForm()
+        InitCharts()
         If _InstanceID > 0 Then
             Dim comboSource As New Dictionary(Of String, String)()
             Dim index As Integer = 0
@@ -76,8 +82,7 @@
                 index += 1
             Next
         End If
-        InitCharts()
-        SetDataSession()
+        SetDataSession(dtpSt.Value, dtpEd.Value)
     End Sub
 
     Private Sub InitForm()
@@ -98,6 +103,11 @@
         chkLogicalIO.Text = p_clsMsgData.fn_GetData("F101")
         chkPhysicalIO.Text = p_clsMsgData.fn_GetData("F100")
         chkSQLResp.Text = p_clsMsgData.fn_GetData("F267")
+
+        ' Button 
+        btnQuery.Text = p_clsMsgData.fn_GetData("F151")
+        btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
+        btnChartMenu.Text = p_clsMsgData.fn_GetData("F270", "Off")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information
@@ -185,12 +195,12 @@
     ''' </summary>
     ''' <param name="dtTable"></param>
     ''' <remarks></remarks>
-    Public Sub SetDataSession()
+    Public Sub SetDataSession(ByVal starDt As DateTime, ByVal endDt As DateTime)
 
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
                                                                  Try
-                                                                     dtTable = _clsQuery.SelectDetailSQLListChart(_InstanceID, p_ShowName.ToString("d"), dtpSt.Value, dtpEd.Value)
+                                                                     dtTable = _clsQuery.SelectDetailSQLListChart(_InstanceID, p_ShowName.ToString("d"), starDt, endDt)
                                                                  Catch ex As Exception
                                                                      GC.Collect()
                                                                  End Try
@@ -348,11 +358,28 @@
         chkPhysicalIO.Tag = 3
         chkSQLResp.Tag = 4
 
+        _chtHeight = chtCPU.Height + 30
+
         SetDefaultTitle(chkCpu, chtCPU, False, "")
         SetDefaultTitle(chkSession, chtSession, False, "")
         SetDefaultTitle(chkLogicalIO, chtLogicalIO, False, "")
         SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, False, "")
         SetDefaultTitle(chkSQLResp, chtSQLResp, False, "")
+
+        chtCPU.MainChart.ChartAreas(0).Visible = False
+        chtCPU.AddAreaEx("CPU USAGE", "RATE(%)", True, "CPUAREA")
+        chtCPU.AddAreaEx("Session", "Count", True, "SESSIONAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F040"), "TUPLES/sec", True, "LOGICALAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F100"), "BUSY(%)", True, "PHYSICALAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F103"), "SEC", True, "SQLRESPAREA")
+
+        chtCPU.MainChart.ChartAreas("CPUAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("SESSIONAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("LOGICALAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("PHYSICALAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("SQLRESPAREA").Visible = False
+
+        Me.chtCPU.Visible = True
 
         If _chtOrder >= 0 Then
             Select Case _chtOrder
@@ -363,78 +390,196 @@
                 Case 4 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
             End Select
         End If
+
+        'chtCPU.MainChart.ChartAreas("CPUAREA").AxisX.ScaleView.Zoomable = False
+        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Minutes
+        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Minutes
+        'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserEnabled = True
+        'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserSelectionEnabled = True
+        'chtCPU.MainChart.ChartAreas("CPUAREA").CursorY.IsUserEnabled = False
+        'chtCPU.MainChart.ChartAreas("CPUAREA").CursorY.IsUserSelectionEnabled = False
+
+        'chtCPU.MainChart.ChartAreas("SESSIONAREA").AxisX.ScaleView.Zoomable = False
+        chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IsUserEnabled = True
+        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IsUserSelectionEnabled = True
+        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorY.IsUserEnabled = False
+        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorY.IsUserSelectionEnabled = False
+
+        chtCPU.MainChart.ChartAreas("LOGICALAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("LOGICALAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+
+        chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+
+        chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+
     End Sub
-    Private Sub SetDefaultTitle(ByRef chkBox As eXperDB.BaseControls.CheckBox, ByRef chart As eXperDB.Monitoring.ctlChart, ByVal chtEnable As Boolean, ByVal chtTitle As String)
+    Private Sub SetDefaultTitle(ByRef chkBox As eXperDB.BaseControls.CheckBox, ByRef chart As eXperDB.Monitoring.ctlChartEx, ByVal chtEnable As Boolean, ByVal chtTitle As String)
         chkBox.Checked = chtEnable
     End Sub
 
     Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkPhysicalIO.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged
         Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
-        Select Case CheckBox.Tag
-            Case 0
-                Me.chtCPU.Visible = True
-                _ThreadDetail = New Threading.Thread(Sub()
+        If CheckBox.Checked = True Then
+            _chtCount += 1
+        Else
+            _chtCount -= 1
+        End If
 
-                                                         ShowCpuChart(dtpSt.Value, dtpEd.Value, CheckBox.Checked)
-                                                     End Sub)
-            Case 1
-                Me.chtSession.Visible = True
-                _ThreadDetail = New Threading.Thread(Sub()
-                                                         ShowSessionChart(dtpSt.Value, dtpEd.Value, CheckBox.Checked)
-                                                     End Sub)
-            Case 2
-                Me.chtLogicalIO.Visible = True
-                _ThreadDetail = New Threading.Thread(Sub()
-                                                         ShowLogicalIOChart(dtpSt.Value, dtpEd.Value, CheckBox.Checked)
-                                                     End Sub)
-            Case 3
-                Me.chtPhysicalIO.Visible = True
-                _ThreadDetail = New Threading.Thread(Sub()
-                                                         ShowPhysicalIOChart(dtpSt.Value, dtpEd.Value, CheckBox.Checked)
-                                                     End Sub)
-            Case 4
-                Me.chtSQLResp.Visible = True
-                _ThreadDetail = New Threading.Thread(Sub()
-                                                         ShowSQLRespChart(dtpSt.Value, dtpEd.Value, CheckBox.Checked)
-                                                     End Sub)
-        End Select
+        chtCPU.Height = _chtHeight * _chtCount
+        QueryChartData(CheckBox.Tag + 1, CheckBox.Checked)
+    End Sub
+    Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
+        If index = 4 Then
+            _ThreadDetail = New Threading.Thread(Sub()
+                                                     ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
+                                                 End Sub)
+        Else
+            _ThreadDetail = New Threading.Thread(Sub()
+                                                     ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
+                                                 End Sub)
+        End If
 
         _ThreadDetail.Start()
+        modCommon.FontChange(Me, p_Font)
     End Sub
-    Private Sub ShowCpuChart(ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
-        Dim strUsed As String = "USED"
-        Dim strWait As String = "WAIT"
+    Private Sub ArrangeChartlayout()
+        Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
+        Dim nCount As Integer = 0
+        Dim MarginTop As Integer = 0
+        Dim MarginBottom As Integer = 0
+        Dim AreaHeight As Integer = (100 / _chtCount)
+        MarginTop = AreaHeight * 0.3
+        AreaHeight = AreaHeight * 0.7
+        For i As Integer = 1 To _AreaCount
+            tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
+            If tmpChartArea.Visible = True Then
+                tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * nCount
+                tmpChartArea.Position.Height = AreaHeight
+                tmpChartArea.Position.X = 3
+                If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
+                    tmpChartArea.Position.Width = tmpChartArea.Position.Width * (1 + CSng(100 / (Me.chtCPU.MainChart.Width)))
+                End If
+                nCount += 1
+            End If
+        Next
+
+    End Sub
+    'Private Function InvokeMethod(ByVal method As [Delegate], ParamArray args As Object()) As Object
+    '    Return method.DynamicInvoke(args)
+    'End Function
+
+    Private Sub ShowDynamicChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
+        Dim strLegend1 As String = ""
+        Dim strLegend2 As String = ""
+        Dim strLegend3 As String = ""
+        Dim strLegend4 As String = ""
+        Dim strSeriesData1 As String = ""
+        Dim strSeriesData2 As String = ""
+        Dim strSeriesData3 As String = ""
+        Dim strSeriesData4 As String = ""
+
+        Dim LineColor1 As System.Drawing.Color
+        Dim LineColor2 As System.Drawing.Color
+        Dim LineColor3 As System.Drawing.Color
+        Dim LineColor4 As System.Drawing.Color
+        Dim seriesChartType As DataVisualization.Charting.SeriesChartType
+        Dim yAxisType As DataVisualization.Charting.AxisType = DataVisualization.Charting.AxisType.Primary
+        'YAxisType:=DataVisualization.Charting.AxisType.Secondary
+
+        Select Case index
+            Case 1
+                strLegend1 = "USED"
+                strLegend2 = "WAIT"
+                strSeriesData1 = "USED_UTIL_RATE"
+                strSeriesData2 = "WAIT_UTIL_RATE"
+                LineColor1 = Color.Lime
+                LineColor2 = Color.Yellow
+                seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
+            Case 2
+                strLegend1 = "BACKENDTOT"
+                strLegend2 = "BACKENDACT"
+                strSeriesData1 = "TOT_BACKEND_CNT"
+                strSeriesData2 = "CUR_ACTV_BACKEND_CNT"
+                LineColor1 = Color.Yellow
+                LineColor2 = Color.Lime
+                seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
+            Case 3
+                strLegend1 = "Read"
+                strLegend2 = "Insert"
+                strLegend3 = "Update"
+                strLegend4 = "Delete"
+                strSeriesData1 = "SELECT_TUPLES_PER_SEC"
+                strSeriesData2 = "INSERT_TUPLES_PER_SEC"
+                strSeriesData3 = "UPDATE_TUPLES_PER_SEC"
+                strSeriesData4 = "DELETE_TUPLES_PER_SEC"
+                LineColor1 = Color.Lime
+                LineColor2 = Color.Blue
+                LineColor3 = Color.Orange
+                LineColor4 = Color.Red
+                seriesChartType = DataVisualization.Charting.SeriesChartType.Line
+                yAxisType = DataVisualization.Charting.AxisType.Secondary
+            Case 4
+            Case 5
+                strLegend1 = p_clsMsgData.fn_GetData("F103")
+                strSeriesData1 = "SQL_ELAPSED_SEC"
+                LineColor1 = Color.Lime
+                seriesChartType = DataVisualization.Charting.SeriesChartType.Point
+        End Select
 
         If ShowChart = False Then
             Me.Invoke(New MethodInvoker(Sub()
                                             Try
-                                                Me.chtCPU.Clear()
-                                                Me.chtCPU.Visible = False
+                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                        tmpSeries.Points.Clear()
+                                                    End If
+                                                Next
+                                                ArrangeChartlayout()
                                             Catch ex As Exception
                                                 GC.Collect()
                                             End Try
                                         End Sub))
             Return
         End If
-        ' Chart CPU 
         Me.Invoke(New MethodInvoker(Sub()
-                                        If chtCPU.GetSeries(strUsed) = False Then
-                                            chtCPU.AddSeries(strUsed, strUsed, Color.Lime, DataVisualization.Charting.SeriesChartType.SplineArea)
+                                        If strLegend1 <> "" AndAlso chtCPU.GetSeries(strLegend1) = False Then
+                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend1, strLegend1, LineColor1, seriesChartType, yAxisType)
+                                            If yAxisType = DataVisualization.Charting.AxisType.Secondary Then
+                                                chtCPU.SetAxisY2ChartArea(Color.Lime, index)
+                                            End If
                                         End If
-                                        If chtCPU.GetSeries(strWait) = False Then
-                                            chtCPU.AddSeries(strWait, strWait, Color.Yellow, DataVisualization.Charting.SeriesChartType.SplineArea)
+                                        If strLegend2 <> "" AndAlso chtCPU.GetSeries(strLegend2) = False Then
+                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend2, strLegend2, LineColor2, seriesChartType)
                                         End If
-
-                                        Me.chtCPU.SetAxisXTitle("CPU USAGE")
-                                        Me.chtCPU.SetAxisYTitle("RATE(%)")
-                                        'Me.chtCPU.SetDefaultMean("USED")
+                                        If strLegend3 <> "" AndAlso chtCPU.GetSeries(strLegend3) = False Then
+                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend3, strLegend3, LineColor3, seriesChartType)
+                                        End If
+                                        If strLegend4 <> "" AndAlso chtCPU.GetSeries(strLegend4) = False Then
+                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend4, strLegend4, LineColor4, seriesChartType)
+                                        End If
                                     End Sub))
 
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
                                                                  Try
-                                                                     dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
+                                                                     Select Case index
+                                                                         Case 1
+                                                                             dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
+                                                                         Case 2
+                                                                             dtTable = _clsQuery.SelectInitSessionInfoChart(_InstanceID, stDate, edDate, True)
+                                                                         Case 3
+                                                                             dtTable = _clsQuery.SelectInitObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate, True)
+                                                                         Case 4
+                                                                         Case 5
+                                                                             dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)
+                                                                     End Select
+
                                                                  Catch ex As Exception
                                                                      GC.Collect()
                                                                  End Try
@@ -444,294 +589,156 @@
         If dtTable IsNot Nothing Then
             Me.Invoke(New MethodInvoker(Sub()
                                             Try
+                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
                                                 For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
-                                                    tmpSeries.Points.Clear()
+                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                        tmpSeries.Points.Clear()
+                                                    End If
                                                 Next
-                                                chtCPU.SetMinimumAxisX(ConvOADate(stDate))
-                                                chtCPU.SetMaximumAxisX(ConvOADate(edDate))
+                                                chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
+                                                chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
                                                 For i As Integer = 0 To dtTable.Rows.Count - 1
                                                     Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    Me.chtCPU.AddPoints(strUsed, tmpDate, ConvULong(dtTable.Rows(i).Item("USED_UTIL_RATE")))
-                                                    Me.chtCPU.AddPoints(strWait, tmpDate, ConvULong(dtTable.Rows(i).Item("WAIT_UTIL_RATE")))
+                                                    If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData1)))
+                                                    If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData2)))
+                                                    If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData3)))
+                                                    If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData4)))
+                                                Next
+
+                                                Me.chtCPU.ShowMaxValue(True)
+                                                chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                            Catch ex As Exception
+                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                GC.Collect()
+                                            End Try
+
+                                        End Sub))
+        End If
+
+        Me.Invoke(New MethodInvoker(Sub()
+                                        chtCPU.SetInnerPlotPositionChartArea(index, _chtCount)
+                                        chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                        ArrangeChartlayout()
+                                    End Sub))
+
+    End Sub
+    Private Sub ShowPhysicalIOChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
+        Dim arrPartition As New ArrayList
+        Dim colors() As Color = {System.Drawing.Color.Lime,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.Orange,
+                         System.Drawing.Color.Red,
+                         System.Drawing.Color.Blue,
+                         System.Drawing.Color.Brown,
+                         System.Drawing.Color.Green,
+                         System.Drawing.Color.Purple,
+                         System.Drawing.Color.Yellow,
+                         System.Drawing.Color.Pink,
+                         System.Drawing.Color.PowderBlue,
+                         System.Drawing.Color.SkyBlue,
+                         System.Drawing.Color.SpringGreen,
+                         System.Drawing.Color.YellowGreen,
+                         System.Drawing.Color.Violet,
+                         System.Drawing.Color.Salmon}
+
+        If ShowChart = False Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            Try
+                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                        tmpSeries.Points.Clear()
+                                                    End If
+                                                Next
+                                                ArrangeChartlayout()
+                                            Catch ex As Exception
+                                                GC.Collect()
+                                            End Try
+                                        End Sub))
+            Return
+        End If
+        ' Get Partition list
+        Dim dtTable As DataTable = Nothing
+        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
+                                                                 Try
+                                                                     dtTable = _clsQuery.SelectPhysicaliO(_InstanceID)
+                                                                 Catch ex As Exception
+                                                                     GC.Collect()
+                                                                 End Try
+                                                             End Sub)
+        tmpTh.Start()
+        tmpTh.Join()
+        If dtTable IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            Try
+                                                For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                    arrPartition.Add(dtTable.Rows(i).Item("DISK_NAME"))
+                                                Next
+                                            Catch ex As Exception
+                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                GC.Collect()
+                                            End Try
+                                        End Sub))
+        Else
+        End If
+        ' Chart Physical I/O
+        Me.Invoke(New MethodInvoker(Sub()
+                                        For i As Integer = 0 To arrPartition.Count - 1
+                                            Dim strSeries = arrPartition.Item(i)
+                                            If Not IsDBNull(strSeries) AndAlso strSeries <> "" Then
+                                                If chtCPU.GetSeries(strSeries) = False Then
+                                                    chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strSeries, strSeries, colors(i))
+                                                End If
+                                            End If
+                                        Next
+                                    End Sub))
+
+        tmpTh = New Threading.Thread(Sub()
+                                         Try
+                                             dtTable = _clsQuery.SelectDetailPhysicalIOChart(_InstanceID, stDate, edDate)
+                                         Catch ex As Exception
+                                             GC.Collect()
+                                         End Try
+                                     End Sub)
+        tmpTh.Start()
+        tmpTh.Join()
+        If dtTable IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            Try
+                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                chtCPU.MenuVisible = True
+                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                        tmpSeries.Points.Clear()
+                                                    End If
+                                                Next
+
+                                                chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
+                                                chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
+
+                                                For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
+                                                    Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
+                                                    For j As Integer = 0 To arrPartition.Count - 1
+                                                        If strSeries = arrPartition.Item(j) Then
+                                                            Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
+                                                            Exit For
+                                                        End If
+                                                    Next
                                                 Next
                                                 Me.chtCPU.ShowMaxValue(True)
+                                                chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                                 GC.Collect()
                                             End Try
-
                                         End Sub))
         End If
 
         Me.Invoke(New MethodInvoker(Sub()
-                                        chtCPU.SetInnerPlotPosition()
-                                        chtCPU.MainChart.ChartAreas(0).RecalculateAxesScale()
-                                    End Sub))
-
-    End Sub
-    Private Sub ShowSessionChart(ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
-        Dim strTotal As String = "BACKENDTOT"
-        Dim strActive As String = "BACKENDACT"
-
-        If ShowChart = False Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Me.chtSession.Clear()
-                                                Me.chtSession.Visible = False
-                                            Catch ex As Exception
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
-            Return
-        End If
-        ' Chart CPU 
-        Me.Invoke(New MethodInvoker(Sub()
-                                        If chtSession.GetSeries(strTotal) = False Then
-                                            chtSession.AddSeries(strTotal, strTotal, Color.Yellow, DataVisualization.Charting.SeriesChartType.SplineArea)
-                                        End If
-                                        If chtSession.GetSeries(strActive) = False Then
-                                            chtSession.AddSeries(strActive, strActive, Color.Lime, DataVisualization.Charting.SeriesChartType.SplineArea)
-                                        End If
-
-                                        Me.chtSession.SetAxisXTitle("Session")
-                                        Me.chtSession.SetAxisYTitle("Count")
-                                    End Sub))
-
-        Dim dtTable As DataTable = Nothing
-        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
-                                                                 Try
-                                                                     dtTable = _clsQuery.SelectInitSessionInfoChart(_InstanceID, stDate, edDate, True)
-                                                                 Catch ex As Exception
-                                                                     GC.Collect()
-                                                                 End Try
-                                                             End Sub)
-        tmpTh.Start()
-        tmpTh.Join()
-        If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                For Each tmpSeries As DataVisualization.Charting.Series In chtSession.MainChart.Series
-                                                    tmpSeries.Points.Clear()
-                                                Next
-                                                chtSession.SetMinimumAxisX(ConvOADate(stDate))
-                                                chtSession.SetMaximumAxisX(ConvOADate(edDate))
-
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    Me.chtSession.AddPoints(strTotal, tmpDate, ConvULong(dtTable.Rows(i).Item("TOT_BACKEND_CNT")))
-                                                    Me.chtSession.AddPoints(strActive, tmpDate, ConvULong(dtTable.Rows(i).Item("CUR_ACTV_BACKEND_CNT")))
-                                                Next
-                                                Me.chtSession.ShowMaxValue(True)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
-
-                                        End Sub))
-        End If
-
-        Me.Invoke(New MethodInvoker(Sub()
-                                        chtSession.SetInnerPlotPosition()
-                                        chtSession.MainChart.ChartAreas(0).RecalculateAxesScale()
-                                    End Sub))
-
-    End Sub
-    Private Sub ShowLogicalIOChart(ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
-        Dim strRead As String = "Read"
-        Dim strInsert As String = "Insert"
-        Dim strUpdate As String = "Update"
-        Dim strDelete As String = "Delete"
-
-        If ShowChart = False Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Me.chtLogicalIO.Clear()
-                                                Me.chtLogicalIO.Visible = False
-                                            Catch ex As Exception
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
-            Return
-        End If
-        ' Chart CPU 
-        Me.Invoke(New MethodInvoker(Sub()
-                                        If chtLogicalIO.GetSeries(strRead) = False Then
-                                            chtLogicalIO.AddSeries(strRead, strRead, Color.Lime, YAxisType:=DataVisualization.Charting.AxisType.Secondary)
-                                            chtLogicalIO.SetAxisY2(Color.Lime)
-                                        End If
-                                        If chtLogicalIO.GetSeries(strInsert) = False Then
-                                            chtLogicalIO.AddSeries(strInsert, strInsert, Color.Blue)
-                                        End If
-                                        If chtLogicalIO.GetSeries(strUpdate) = False Then
-                                            chtLogicalIO.AddSeries(strUpdate, strUpdate, Color.Orange)
-                                        End If
-                                        If chtLogicalIO.GetSeries(strDelete) = False Then
-                                            chtLogicalIO.AddSeries(strDelete, strDelete, Color.Red)
-                                        End If
-
-                                        Me.chtLogicalIO.SetAxisXTitle(p_clsMsgData.fn_GetData("F040"))
-                                        Me.chtLogicalIO.SetAxisYTitle("TUPLES/sec")
-                                        Me.chtLogicalIO.AutoGridYSpacing()
-                                    End Sub))
-
-        Dim dtTable As DataTable = Nothing
-        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
-                                                                 Try
-                                                                     dtTable = _clsQuery.SelectInitObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate, True)
-                                                                 Catch ex As Exception
-                                                                     GC.Collect()
-                                                                 End Try
-                                                             End Sub)
-        tmpTh.Start()
-        tmpTh.Join()
-        If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                chtLogicalIO.SetMinimumAxisX(ConvOADate(stDate))
-                                                chtLogicalIO.SetMaximumAxisX(ConvOADate(edDate))
-
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    Me.chtLogicalIO.AddPoints(strRead, tmpDate, ConvULong(dtTable.Rows(i).Item("SELECT_TUPLES_PER_SEC")))
-                                                    Me.chtLogicalIO.AddPoints(strInsert, tmpDate, ConvULong(dtTable.Rows(i).Item("INSERT_TUPLES_PER_SEC")))
-                                                    Me.chtLogicalIO.AddPoints(strUpdate, tmpDate, ConvULong(dtTable.Rows(i).Item("UPDATE_TUPLES_PER_SEC")))
-                                                    Me.chtLogicalIO.AddPoints(strDelete, tmpDate, ConvULong(dtTable.Rows(i).Item("DELETE_TUPLES_PER_SEC")))
-                                                Next
-                                                Me.chtLogicalIO.ShowMaxValue(True)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
-
-                                        End Sub))
-        End If
-
-        Me.Invoke(New MethodInvoker(Sub()
-                                        chtLogicalIO.SetInnerPlotPosition()
-                                        chtLogicalIO.MainChart.ChartAreas(0).RecalculateAxesScale()
-                                    End Sub))
-    End Sub
-    Private Sub ShowPhysicalIOChart(ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
-        Dim strUsed As String = "USED"
-        Dim strWait As String = "WAIT"
-
-        If ShowChart = False Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Me.chtPhysicalIO.Clear()
-                                                Me.chtPhysicalIO.Visible = False
-                                            Catch ex As Exception
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
-            Return
-        End If
-        ' Chart CPU 
-        Me.Invoke(New MethodInvoker(Sub()
-                                        If chtPhysicalIO.GetSeries(strUsed) = False Then
-                                            chtPhysicalIO.AddSeries(strUsed, strUsed, Color.Lime, DataVisualization.Charting.SeriesChartType.SplineArea)
-                                        End If
-                                        If chtPhysicalIO.GetSeries(strWait) = False Then
-                                            chtPhysicalIO.AddSeries(strWait, strWait, Color.Yellow, DataVisualization.Charting.SeriesChartType.SplineArea)
-                                        End If
-
-                                        Me.chtPhysicalIO.SetAxisXTitle("Physical I/O")
-                                        Me.chtPhysicalIO.SetAxisYTitle("BUSY(%)")
-                                    End Sub))
-
-        Dim dtTable As DataTable = Nothing
-        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
-                                                                 Try
-                                                                     dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
-                                                                 Catch ex As Exception
-                                                                     GC.Collect()
-                                                                 End Try
-                                                             End Sub)
-        tmpTh.Start()
-        tmpTh.Join()
-        If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                For Each tmpSeries As DataVisualization.Charting.Series In chtPhysicalIO.MainChart.Series
-                                                    tmpSeries.Points.Clear()
-                                                Next
-                                                chtPhysicalIO.SetMinimumAxisX(ConvOADate(stDate))
-                                                chtPhysicalIO.SetMaximumAxisX(ConvOADate(edDate))
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    Me.chtPhysicalIO.AddPoints(strUsed, tmpDate, ConvULong(dtTable.Rows(i).Item("USED_UTIL_RATE")))
-                                                    Me.chtPhysicalIO.AddPoints(strWait, tmpDate, ConvULong(dtTable.Rows(i).Item("WAIT_UTIL_RATE")))
-                                                Next
-                                                Me.chtPhysicalIO.ShowMaxValue(True)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
-
-                                        End Sub))
-        End If
-
-        Me.Invoke(New MethodInvoker(Sub()
-                                        chtPhysicalIO.SetInnerPlotPosition()
-                                        chtPhysicalIO.MainChart.ChartAreas(0).RecalculateAxesScale()
-                                    End Sub))
-    End Sub
-    Private Sub ShowSQLRespChart(ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
-        Dim strTime As String = p_clsMsgData.fn_GetData("F103")
-
-        If ShowChart = False Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Me.chtSQLResp.Clear()
-                                                Me.chtSQLResp.Visible = False
-                                            Catch ex As Exception
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
-            Return
-        End If
-        ' Chart CPU 
-        Me.Invoke(New MethodInvoker(Sub()
-                                        If chtSQLResp.GetSeries(strTime) = False Then
-                                            chtSQLResp.AddSeries(strTime, strTime, Color.Lime, DataVisualization.Charting.SeriesChartType.Point)
-                                        End If
-
-                                        Me.chtSQLResp.SetAxisXTitle(p_clsMsgData.fn_GetData("F103"))
-                                        Me.chtSQLResp.SetAxisYTitle("SEC")
-                                    End Sub))
-
-        Dim dtTable As DataTable = Nothing
-        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
-                                                                 Try
-                                                                     dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)
-                                                                 Catch ex As Exception
-                                                                     GC.Collect()
-                                                                 End Try
-                                                             End Sub)
-        tmpTh.Start()
-        tmpTh.Join()
-        If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                chtSQLResp.SetMinimumAxisX(ConvOADate(stDate))
-                                                chtSQLResp.SetMaximumAxisX(ConvOADate(edDate))
-
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    Me.chtSQLResp.AddPoints(strTime, tmpDate, ConvULong(dtTable.Rows(i).Item("SQL_ELAPSED_SEC")))
-                                                Next
-                                                Me.chtSQLResp.ShowMaxValue(True)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
-
-                                        End Sub))
-        End If
-
-        Me.Invoke(New MethodInvoker(Sub()
-                                        chtSQLResp.SetInnerPlotPosition()
-                                        chtSQLResp.MainChart.ChartAreas(0).RecalculateAxesScale()
+                                        chtCPU.SetInnerPlotPositionChartArea(index, _chtCount)
+                                        chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                        ArrangeChartlayout()
                                     End Sub))
     End Sub
 
@@ -749,5 +756,168 @@
         pnlChart.Controls.SetChildIndex(chtLogicalIO, 2)
         pnlChart.Controls.SetChildIndex(chtPhysicalIO, 1)
         pnlChart.Controls.SetChildIndex(chtSQLResp, 0)
+    End Sub
+
+    Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
+        For i As Integer = 1 To _AreaCount
+            If chtCPU.MainChart.ChartAreas(i).Visible = True Then
+                QueryChartData(i, True)
+            End If
+        Next
+    End Sub
+
+    Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
+        If _bRange = True Then
+
+            RemoveHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
+            RemoveHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
+
+            chtCPU.MainChart.Annotations(0).Visible = False
+            chtCPU.MainChart.Annotations(1).Visible = False
+
+            For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
+                If tmpChartArea.Visible = True Then
+                    tmpChartArea.CursorX.SetSelectionPosition(-1, -1)
+                End If
+            Next
+
+            SetDataSession(dtpSt.Value, dtpEd.Value)
+
+            btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
+            btnRange.ForeColor = Color.LightGray
+            _bRange = False
+        Else
+            Dim index As Integer
+            Dim dblRangeMax As Double = 0
+            Dim dblRangeMin As Double = 0
+            Dim dblXResolution As Double = 0.00003471
+            For index = 1 To _AreaCount
+                If chtCPU.MainChart.ChartAreas(index).Visible = True Then
+                    Exit For
+                End If
+            Next
+
+            Dim stVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
+            Dim edVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
+            Dim stRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(2)
+            Dim edRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(3)
+
+            stVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
+            stVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
+            stVerticalAnnotation.X = chtCPU.GetMinimumAxisXChartArea(index)
+            stVerticalAnnotation.Visible = True
+            stVerticalAnnotation.AllowMoving = True
+            stVerticalAnnotation.IsInfinitive = True
+            'defVerticalAnnotation.ClipToChartArea = ChartArea1.Name
+            stVerticalAnnotation.Name = "StartTime"
+            stVerticalAnnotation.AnchorY = 200
+            stVerticalAnnotation.ToolTip = "StartTime"
+            stVerticalAnnotation.AllowTextEditing = True
+
+            'stRectAnnotation.AxisX = stVerticalAnnotation.AxisX
+            'stRectAnnotation.AxisY = stVerticalAnnotation.AxisY
+            'stRectAnnotation.IsSizeAlwaysRelative = False
+            'stRectAnnotation.Width = dblXResolution * 20
+            'stRectAnnotation.Height = 1 * 2
+            'stRectAnnotation.Name = "StartTimeText"
+            'stRectAnnotation.LineColor = Color.Red
+            'stRectAnnotation.BackColor = Color.Red
+            'stRectAnnotation.Y = stVerticalAnnotation.Y
+            'stRectAnnotation.X = chtCPU.MainChart.Series(0).Points(chtCPU.MainChart.Series(0).Points.Count / 2).XValue
+            'stRectAnnotation.Text = "StartTime"
+
+            edVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
+            edVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
+            edVerticalAnnotation.X = chtCPU.GetMaximumAxisXChartArea(index)
+            edVerticalAnnotation.Visible = True
+            edVerticalAnnotation.AllowMoving = True
+            edVerticalAnnotation.IsInfinitive = True
+            'defVerticalAnnotation.ClipToChartArea = ChartArea1.Name
+            edVerticalAnnotation.Name = "EndTime"
+            edVerticalAnnotation.AnchorY = 200
+            edVerticalAnnotation.ToolTip = "EndTime"
+
+            AddHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
+            AddHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
+
+            btnRange.Text = p_clsMsgData.fn_GetData("F269", "On")
+            btnRange.ForeColor = Color.Lime
+            _bRange = True
+        End If
+    End Sub
+
+    Private Sub btnChartMenu_Click(sender As Object, e As EventArgs) Handles btnChartMenu.Click
+        If _bChartMenu = True Then
+            chtCPU.MenuVisible = False
+            btnChartMenu.Text = p_clsMsgData.fn_GetData("F270", "Off")
+            btnChartMenu.ForeColor = Color.LightGray
+            _bChartMenu = False
+        Else
+            chtCPU.MenuVisible = True
+            btnChartMenu.Text = p_clsMsgData.fn_GetData("F270", "On")
+            btnChartMenu.ForeColor = Color.Lime
+            _bChartMenu = True
+        End If
+    End Sub
+
+    Private Sub chtCPU_AnnotationPositionChanged(sender As Object, e As EventArgs)
+        Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
+        Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
+
+        SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
+    End Sub
+
+    Private Sub chtCPU_AnnotationPositionChanging(sender As Object, e As EventArgs)
+        Dim vl As DataVisualization.Charting.VerticalLineAnnotation = DirectCast(sender, DataVisualization.Charting.VerticalLineAnnotation)
+        Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
+        Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
+
+        If vl.Name = "StartTime" Then
+            If vl.X >= vlEnd.X Then
+                chtCPU.MainChart.Annotations(1).X = vl.X + (2 * 0.00003471)
+            End If
+        Else
+            If vl.X <= vlStart.X Then
+                chtCPU.MainChart.Annotations(0).X = vl.X - (2 * 0.00003471)
+            End If
+        End If
+
+        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
+            If tmpChartArea.Visible = True Then
+                tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub dgvSessionList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellClick
+        Dim strDb As String = ""
+        Dim strUser As String = ""
+        Dim strQuery As String = ""
+        If dgvSessionList.RowCount <= 0 Then Return
+        If e.ColumnIndex = coldgvSessionListSQL.Index Then
+            strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
+            strQuery = dgvSessionList.CurrentCell.Value
+            strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
+            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            frmQuery.ShowDialog(Me)
+        End If
+    End Sub
+
+    Private Sub dgvSessionList_CellMouseClick_1(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
+        If dgvSessionList.RowCount <= 0 Then Return
+        For i As Integer = 0 To dgvLock.Rows.Count - 1
+            dgvLock.Rows(i).Selected = False
+        Next
+        If e.RowIndex >= 0 Then
+            dgvSessionList.Cursor = Cursors.Hand
+            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+                dgvSessionList.ClearSelection()
+                dgvSessionList.Rows(e.RowIndex).Selected = True
+            End If
+            For i As Integer = 0 To dgvSessionList.ColumnCount - 1
+                dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
+            Next
+        End If
     End Sub
 End Class

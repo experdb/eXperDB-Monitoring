@@ -220,7 +220,7 @@
                 strQuery += String.Format(" AND DB_NAME LIKE '%{0}%'", txtDatabase.Text)
             End If
 
-            strQuery += String.Format(" AND CONTROL_TIME >= '{0}' AND CONTROL_TIME <= '{1}'", dtpSt.Value.ToString("yyyy-MM-dd HH:MM:ss"), dtpEd.Value.ToString("yyyy-MM-dd HH:MM:ss"))
+            strQuery += String.Format(" AND CONTROL_TIME >= '{0}' AND CONTROL_TIME <= '{1}'", dtpSt.Value.ToString("yyyy-MM-dd HH:mm:ss"), dtpEd.Value.ToString("yyyy-MM-dd HH:mm:ss"))
             If txtSQL.Text <> "" Then
                 strQuery += String.Format(" AND SQL LIKE '%{0}%'", txtSQL.Text)
             End If

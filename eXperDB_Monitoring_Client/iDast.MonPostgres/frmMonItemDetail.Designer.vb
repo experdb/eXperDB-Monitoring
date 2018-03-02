@@ -45,11 +45,11 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea = New eXperDB.BaseControls.TableLayoutPanel()
         Me.grpChart = New eXperDB.BaseControls.GroupBox()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
-        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChart()
-        Me.chtSQLResp = New eXperDB.Monitoring.ctlChart()
-        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChart()
-        Me.chtSession = New eXperDB.Monitoring.ctlChart()
-        Me.chtCPU = New eXperDB.Monitoring.ctlChart()
+        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.cmbInst = New eXperDB.BaseControls.ComboBox()
         Me.lblServer = New eXperDB.BaseControls.Label()
@@ -58,6 +58,9 @@ Partial Class frmMonItemDetail
         Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
         Me.lblDuration = New eXperDB.BaseControls.Label()
         Me.tlpButton = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.btnChartMenu = New eXperDB.BaseControls.Button()
+        Me.btnRange = New eXperDB.BaseControls.Button()
+        Me.btnQuery = New eXperDB.BaseControls.Button()
         Me.chkSQLResp = New eXperDB.BaseControls.CheckBox()
         Me.chkPhysicalIO = New eXperDB.BaseControls.CheckBox()
         Me.chkLogicalIO = New eXperDB.BaseControls.CheckBox()
@@ -180,7 +183,7 @@ Partial Class frmMonItemDetail
         Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tlpBottom.SetRowSpan(Me.SplitContainer1, 2)
         Me.SplitContainer1.Size = New System.Drawing.Size(1416, 821)
-        Me.SplitContainer1.SplitterDistance = 486
+        Me.SplitContainer1.SplitterDistance = 430
         Me.SplitContainer1.TabIndex = 0
         '
         'tlpChartArea
@@ -198,7 +201,9 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpChartArea.Size = New System.Drawing.Size(1416, 486)
+        Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpChartArea.Size = New System.Drawing.Size(1416, 430)
         Me.tlpChartArea.TabIndex = 0
         '
         'grpChart
@@ -220,7 +225,7 @@ Partial Class frmMonItemDetail
         Me.grpChart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpChart.Name = "grpChart"
         Me.grpChart.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpChart.Size = New System.Drawing.Size(1410, 398)
+        Me.grpChart.Size = New System.Drawing.Size(1410, 342)
         Me.grpChart.TabIndex = 13
         Me.grpChart.TabStop = False
         Me.grpChart.Text = "F268"
@@ -242,7 +247,7 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlChart.Location = New System.Drawing.Point(3, 33)
         Me.pnlChart.Name = "pnlChart"
-        Me.pnlChart.Size = New System.Drawing.Size(1404, 362)
+        Me.pnlChart.Size = New System.Drawing.Size(1404, 306)
         Me.pnlChart.TabIndex = 0
         '
         'chtLogicalIO
@@ -444,9 +449,12 @@ Partial Class frmMonItemDetail
         Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.tlpButton.Controls.Add(Me.btnChartMenu, 9, 0)
+        Me.tlpButton.Controls.Add(Me.btnRange, 8, 0)
+        Me.tlpButton.Controls.Add(Me.btnQuery, 7, 0)
         Me.tlpButton.Controls.Add(Me.chkSQLResp, 4, 0)
         Me.tlpButton.Controls.Add(Me.chkPhysicalIO, 3, 0)
         Me.tlpButton.Controls.Add(Me.chkLogicalIO, 2, 0)
@@ -459,6 +467,72 @@ Partial Class frmMonItemDetail
         Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpButton.Size = New System.Drawing.Size(1410, 34)
         Me.tlpButton.TabIndex = 2
+        '
+        'btnChartMenu
+        '
+        Me.btnChartMenu.BackColor = System.Drawing.Color.Black
+        Me.btnChartMenu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnChartMenu.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnChartMenu.FixedHeight = False
+        Me.btnChartMenu.FixedWidth = False
+        Me.btnChartMenu.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.btnChartMenu.ForeColor = System.Drawing.Color.LightGray
+        Me.btnChartMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnChartMenu.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnChartMenu.Location = New System.Drawing.Point(1293, 4)
+        Me.btnChartMenu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnChartMenu.Name = "btnChartMenu"
+        Me.btnChartMenu.Radius = 5
+        Me.btnChartMenu.Size = New System.Drawing.Size(114, 26)
+        Me.btnChartMenu.TabIndex = 13
+        Me.btnChartMenu.Text = "F270"
+        Me.btnChartMenu.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnChartMenu.UseRound = True
+        Me.btnChartMenu.UseVisualStyleBackColor = False
+        '
+        'btnRange
+        '
+        Me.btnRange.BackColor = System.Drawing.Color.Black
+        Me.btnRange.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnRange.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnRange.FixedHeight = False
+        Me.btnRange.FixedWidth = False
+        Me.btnRange.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.btnRange.ForeColor = System.Drawing.Color.LightGray
+        Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnRange.Location = New System.Drawing.Point(1173, 4)
+        Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnRange.Name = "btnRange"
+        Me.btnRange.Radius = 5
+        Me.btnRange.Size = New System.Drawing.Size(114, 26)
+        Me.btnRange.TabIndex = 12
+        Me.btnRange.Text = "F269"
+        Me.btnRange.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnRange.UseRound = True
+        Me.btnRange.UseVisualStyleBackColor = False
+        '
+        'btnQuery
+        '
+        Me.btnQuery.BackColor = System.Drawing.Color.Black
+        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnQuery.FixedHeight = False
+        Me.btnQuery.FixedWidth = False
+        Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.btnQuery.ForeColor = System.Drawing.Color.LightGray
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.Location = New System.Drawing.Point(1053, 4)
+        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnQuery.Name = "btnQuery"
+        Me.btnQuery.Radius = 5
+        Me.btnQuery.Size = New System.Drawing.Size(114, 26)
+        Me.btnQuery.TabIndex = 11
+        Me.btnQuery.Text = "F151"
+        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.UseRound = True
+        Me.btnQuery.UseVisualStyleBackColor = False
         '
         'chkSQLResp
         '
@@ -557,7 +631,7 @@ Partial Class frmMonItemDetail
         Me.Panel1.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1416, 331)
+        Me.Panel1.Size = New System.Drawing.Size(1416, 387)
         Me.Panel1.TabIndex = 0
         '
         'grpSession
@@ -579,7 +653,7 @@ Partial Class frmMonItemDetail
         Me.grpSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpSession.Name = "grpSession"
         Me.grpSession.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpSession.Size = New System.Drawing.Size(1416, 331)
+        Me.grpSession.Size = New System.Drawing.Size(1416, 387)
         Me.grpSession.TabIndex = 12
         Me.grpSession.TabStop = False
         Me.grpSession.Text = "F313"
@@ -637,7 +711,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.RowHeadersVisible = False
         Me.dgvSessionList.RowTemplate.Height = 23
         Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionList.Size = New System.Drawing.Size(1410, 295)
+        Me.dgvSessionList.Size = New System.Drawing.Size(1410, 351)
         Me.dgvSessionList.TabIndex = 11
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
@@ -1012,12 +1086,15 @@ Partial Class frmMonItemDetail
     Friend WithEvents coldgvSessionListSQL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionlistRegDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionListActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents chtCPU As eXperDB.Monitoring.ctlChart
+    Friend WithEvents chtCPU As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents grpChart As eXperDB.BaseControls.GroupBox
-    Friend WithEvents chtSQLResp As eXperDB.Monitoring.ctlChart
-    Friend WithEvents chtPhysicalIO As eXperDB.Monitoring.ctlChart
-    Friend WithEvents chtLogicalIO As eXperDB.Monitoring.ctlChart
-    Friend WithEvents chtSession As eXperDB.Monitoring.ctlChart
+    Friend WithEvents chtSQLResp As eXperDB.Monitoring.ctlChartEx
+    Friend WithEvents chtPhysicalIO As eXperDB.Monitoring.ctlChartEx
+    Friend WithEvents chtLogicalIO As eXperDB.Monitoring.ctlChartEx
+    Friend WithEvents chtSession As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents pnlChart As eXperDB.BaseControls.Panel
+    Friend WithEvents btnQuery As eXperDB.BaseControls.Button
+    Friend WithEvents btnChartMenu As eXperDB.BaseControls.Button
+    Friend WithEvents btnRange As eXperDB.BaseControls.Button
 
 End Class

@@ -2184,6 +2184,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F269" PARAMS="1">
+    <DESC>구간</DESC>
+    <DATA><![CDATA[Range {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F270" PARAMS="1">
+    <DESC>차트메뉴</DESC>
+    <DATA><![CDATA[Chart Menu {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>
