@@ -2200,6 +2200,30 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F271" PARAMS="0">
+    <DESC>파일시스템</DESC>
+    <DATA><![CDATA[File System]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F272" PARAMS="0">
+    <DESC>가용량</DESC>
+    <DATA><![CDATA[Disk Available]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F273" PARAMS="0">
+    <DESC>Mount On</DESC>
+    <DATA><![CDATA[Mount On]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>

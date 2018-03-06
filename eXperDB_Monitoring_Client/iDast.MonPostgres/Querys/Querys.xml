@@ -397,7 +397,7 @@
           UNION ALL
           SELECT A.INSTANCE_ID
             , D.COLLECT_DT AS REG_DATE
-            , '-' AS DISK_NAME                                                            --PT_03_04_001
+            , D.DEVICE_NAME AS DISK_NAME                                                            --PT_03_04_001
             , 0 AS BUSY_RATE                                                              --PT_03_04_001, PT_04_03_001(DISK IO BUSY)
             , 0 AS CURRENT_READ_KB                                                        --PT_04_03_001(DISK IO READ_KB)
             , 0 AS CURRENT_WRITE_KB                                                       --PT_04_03_001(DISK IO WRITE_KB)
@@ -406,6 +406,32 @@
             , ROUND((((D.TOTAL_KB-D.avail_kb)/D.TOTAL_KB) * 100),2) AS DISK_USAGE_PER     --PT_03_05_001(DISK USAGE PER)
             --, A.CONN_NAME 
             ,CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+          FROM TB_INSTANCE_INFO A
+          , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B          
+          , TB_DISK_USAGE D
+          WHERE A.INSTANCE_ID = B.INSTANCE_ID
+            AND B.REG_DATE = D.REG_DATE
+            AND B.RSC_REG_SEQ = D.RSC_REG_SEQ
+            AND A.INSTANCE_ID IN ({0})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+          --ORDER BY A.INSTANCE_ID, C.READ_BUSY_RATE + C.WRITE_BUSY_RATE DESC;          
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+
+  <ROW ID="SELECTDISKUSAGE" PARAMS="2">
+    <DESC>PT_03_04_001(인스턴스별 DISK USAGE 정보)</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT A.INSTANCE_ID
+            , D.COLLECT_DT AS REG_DATE
+            , D.DEVICE_NAME AS DISK_NAME                                                            --PT_03_04_001
+            , D.MOUNT_POINT_DIR                                                           --PT_03_05_001(DISK USAGE)
+            , D.TOTAL_KB                                                                  --PT_03_05_001(DISK USAGE TOTAL)
+            , ROUND((((D.TOTAL_KB-D.AVAIL_KB)/D.TOTAL_KB) * 100),2) AS DISK_USAGE_PER     --PT_03_05_001(DISK USAGE PER)
+            , D.AVAIL_KB
           FROM TB_INSTANCE_INFO A
           , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B          
           , TB_DISK_USAGE D
@@ -1832,6 +1858,55 @@
           GROUP BY A.INSTANCE_ID, E.DB_NAME, E.PROCESS_ID, QUERY_START, E.USER_NAME, E.CLIENT_ADDR, E.CLIENT_APP
           ORDER BY ELAPSED_TIME DESC, CPU_USAGE DESC
      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTTBSPACEINFO2" PARAMS="0">
+    <DESC>PT_05_04_001(TABLESPACE INFO)</DESC>
+    <DATA>
+      <![CDATA[
+          SELECT A.INSTANCE_ID
+            , D.COLLECT_DT AS REG_DATE
+            , D.MOUNT_POINT_DIR                                                           --PT_03_05_001(DISK USAGE)
+            , D.TOTAL_KB                                                                  --PT_03_05_001(DISK USAGE TOTAL)
+            , D.USED_KB
+            , D.AVAIL_KB
+            , ROUND((((D.TOTAL_KB-D.avail_kb)/D.TOTAL_KB) * 100),2) AS DISK_USAGE_PER     --PT_03_05_001(DISK USAGE PER)
+            , CASE WHEN {0}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+            , NULL AS TABLESPACE_NAME
+            , NULL AS LOCATION
+            , NULL AS TS_SIZE_KB
+          FROM TB_INSTANCE_INFO A
+          , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B          
+          , TB_DISK_USAGE D
+          WHERE A.INSTANCE_ID = B.INSTANCE_ID
+            AND B.REG_DATE = D.REG_DATE
+            AND B.RSC_REG_SEQ = D.RSC_REG_SEQ
+            AND A.INSTANCE_ID IN ({1})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+        UNION
+           SELECT NULL AS INSTANCE_ID
+            , NULL AS REG_DATE
+            , NULL MOUNT_POINT_DIR                                                           --PT_03_05_001(DISK USAGE)
+            , NULL AS TOTAL_KB                                                                  --PT_03_05_001(DISK USAGE TOTAL)
+            , NULL AS USED_KB
+            , NULL AS AVAIL_KB
+            , NULL AS DISK_USAGE_PER     --PT_03_05_001(DISK USAGE PER)
+            , NULL AS HOST_NAME
+            , CC.TABLESPACE_NAME AS TABLESPACE
+	    , CC.LOCATION AS LOCATION
+            , CC.SIZE_KB AS TS_SIZE_KB
+          FROM TB_INSTANCE_INFO AA
+          , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(OBJT_REG_SEQ) AS OBJT_REG_SEQ, INSTANCE_ID FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) BB
+          , TB_TABLESPACE_INFO CC
+          WHERE AA.INSTANCE_ID = BB.INSTANCE_ID
+          AND BB.REG_DATE = CC.REG_DATE
+          AND BB.OBJT_REG_SEQ = CC.OBJT_REG_SEQ
+          AND AA.INSTANCE_ID IN ({2})
+          AND AA.COLLECT_YN = 'Y'
+          AND AA.DELETE_YN = 'N' 
+        ORDER BY INSTANCE_ID, MOUNT_POINT_DIR, LOCATION
+      ]]>
     </DATA>
   </ROW>
 </ROWS>

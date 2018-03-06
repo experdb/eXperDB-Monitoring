@@ -67,7 +67,6 @@
 
 
         ' lock Information 
-        grpLockInfo.Text = p_clsMsgData.fn_GetData("F077")
         dgvLock.AutoGenerateColumns = False
         'colDgvLockSel.HeaderText = p_clsMsgData.fn_GetData("F017")
         colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
@@ -105,6 +104,9 @@
         coldgvTblSpaceInfoLOCATION.HeaderText = p_clsMsgData.fn_GetData("F113")
         coldgvTblSpaceInfoDISKSIZE.HeaderText = p_clsMsgData.fn_GetData("F114")
         coldgvTblSpaceInfoDISKUSED.HeaderText = p_clsMsgData.fn_GetData("F115")
+        coldgvTblSpaceInfoFileSystem.HeaderText = p_clsMsgData.fn_GetData("F271")
+        coldgvTblSpaceInfoAvail.HeaderText = p_clsMsgData.fn_GetData("F272")
+        coldgvTblSpaceInfoMountPoint.HeaderText = p_clsMsgData.fn_GetData("F273")
 
         ' Talble Information
 
@@ -157,76 +159,9 @@
         Me.lblRefreshTime.Location = New System.Drawing.Point(Me.btnRefresh.Location.X - Me.lblRefreshTime.Width - Me.lblRefreshTime.Margin.Right, Me.btnRefresh.Margin.Top + 4)
         'Me.btnExcel.Location = New System.Drawing.Point(1704, 4)
 
-        Me.btnPause.Location = New System.Drawing.Point(Me.grpLockInfo.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
-
-
         modCommon.FontChange(Me, p_Font)
 
     End Sub
-
-
-
-
-    ' Move to SessionLock view
-    ''' <summary>
-    ''' Lock info 변경 되었을 경우 
-    ''' </summary>
-    ''' <param name="dtTable"></param>
-    ''' <remarks></remarks>
-    Public Sub SetDataLockinfo(ByVal dtTable As DataTable)
-        ' 전체 목록중 내것만 추출 
-        ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-        'Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
-
-        ' dgvLock.DataSource = dtView
-        If btnPause.Text = "4" Then Return
-
-
-        'Dim topRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND BLOCKED_PID IS NULL", Me.InstanceID), "ORDER_NO ASC")
-        Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
-        Dgv.Nodes.Clear()
-
-        Dim HashTbl As New Hashtable
-        For Each tmpCol As DataGridViewColumn In Dgv.Columns
-            If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
-                HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-            End If
-        Next
-
-
-        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
-        For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
-            Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
-            sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-            For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0}", tmpRow.Item("BLOCKING_PID")), "ORDER_NO ASC")
-                Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
-                sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
-
-            Next
-            topNode.Expand()
-            topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
-
-        Next
-
-
-        'For Each tmpRow As DataRow In topRows
-        '    Dim tvNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
-        '    For Each tmpChild As DataRow In dtTable.Select(String.Format("INSTANCE_ID = {0} AND BLOCKED_PID IS NULL
-
-        '    Next
-
-
-
-
-
-
-        'modCommon.sb_GridSortChg(dgvLock, srtColidx, srtOrd)
-        dgvLock.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-
-
-
-    End Sub
-
 
     Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataRow)
         For Each tmpColIdx As Integer In ColHashSet.Keys
@@ -234,33 +169,6 @@
         Next
 
     End Sub
-
-    ' ''' <summary>
-    ' ''' Current Activity 정보가 변경 되었을 경우
-    ' ''' </summary>
-    ' ''' <param name="dtTable"></param>
-    ' ''' <remarks></remarks>
-    'Public Sub SetDataCurrentAct(ByVal dtTable As DataTable)
-    '    ' 전체 목록중 내것만 추출 
-    '    ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-
-
-
-    '    Dim dtView As DataView = New DataView(dtTable, "INSTANCE_ID=" & Me.InstanceID, "", DataViewRowState.CurrentRows)
-
-
-    '    ' 초기화 
-
-    '    dgvCurrentAct.DataSource = dtView
-
-
-
-    'End Sub
-
-
-
-
-
 
     ''' <summary>
     ''' table information 정보가 변경 되었을 경우
@@ -293,25 +201,95 @@
     ''' </summary>
     ''' <param name="dtTable"></param>
     ''' <remarks></remarks>
-    Public Sub SetDataTBspaceinfo(ByVal dtTable As DataTable)
+    Public Sub SetDataTBspaceinfo(ByVal dtDiskTable As DataTable, ByVal dtTable As DataTable)
+        If dtDiskTable Is Nothing Then Return
         If dtTable Is Nothing Then Return
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
 
-        'Dim dtView As DataView = New DataView(dtTable, "INSTANCE_ID=" & Me.InstanceID, "", DataViewRowState.CurrentRows)
-        'dgvTblSpaceInfo.DataSource = dtView
-        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
-        dgvTblSpaceInfo.DataSource = dtView
+        dgvTblSpaceInfo.Rows.Clear()
 
+        'For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
+        For Each dtRow As DataRow In dtDiskTable.Select("MOUNT_POINT_DIR <> '-'")
+            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID") ' datainfo.C00_INSTANCE_ID
+            Dim idxRow As Integer = dgvTblSpaceInfo.Rows.Add()
+            Dim strFileSystem As String = dtRow.Item("DISK_NAME")
+            Dim strDeviceNm As String = dtRow.Item("MOUNT_POINT_DIR")
+            Dim dblTotKb As Double = ConvDBL(dtRow.Item("TOTAL_KB"))
+            Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
+            Dim dblAvailKb As Double = ConvDBL(dtRow.Item("AVAIL_KB"))
 
-        grpTblSpaceInfo.Text = p_clsMsgData.fn_GetData("F079", dtView.Count)
+            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoFileSystem.Index).Value = strFileSystem
+            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoDISKSIZE.Index).Value = dblTotKb
+            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoDISKUSED.Index).Value = dblRate / 100
+            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoAvail.Index).Value = dblAvailKb
+            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value = strDeviceNm
+        Next
+
+        For Each dtRow As DataRow In dtTable.Rows
+            Dim strLocation As String = dtRow.Item("LOCATION")
+            Dim dblTotKb As Double = ConvDBL(dtRow.Item("SIZE"))
+            Dim strTablespace As String = dtRow.Item("TABLESPACE")
+            Dim bFoundMT As Boolean = False
+            Dim intRowIndex As Integer = -1
+            intRowIndex = findMountPoint(dtTable)
+            If intRowIndex >= 0 Then
+                Using dgvRow As DataGridViewRow = dgvTblSpaceInfo.Rows(intRowIndex)
+                    If dgvRow.Cells(coldgvTblSpaceInfoTABLESPACE.Index).Value = "" Then
+                        dgvRow.Cells(coldgvTblSpaceInfoTABLESPACE.Index).Value = strTablespace
+                        dgvRow.Cells(coldgvTblSpaceInfoSIZE.Index).Value = dblTotKb
+                        dgvRow.Cells(coldgvTblSpaceInfoLOCATION.Index).Value = strLocation
+                    Else
+                        Dim intNewRow = dgvRow.Index + 1
+                        dgvTblSpaceInfo.Rows.Insert(intNewRow)
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoFileSystem.Index).Value = dgvRow.Cells(coldgvTblSpaceInfoFileSystem.Index).Value
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoDISKSIZE.Index).Value = dgvRow.Cells(coldgvTblSpaceInfoDISKSIZE.Index).Value
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoDISKUSED.Index).Value = dgvRow.Cells(coldgvTblSpaceInfoDISKUSED.Index).Value
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoAvail.Index).Value = dgvRow.Cells(coldgvTblSpaceInfoAvail.Index).Value
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value = dgvRow.Cells(coldgvTblSpaceInfoMountPoint.Index).Value
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoTABLESPACE.Index).Value = strTablespace
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoSIZE.Index).Value = dblTotKb
+                        dgvTblSpaceInfo.Rows(intNewRow).Cells(coldgvTblSpaceInfoLOCATION.Index).Value = strLocation
+                    End If
+                End Using
+            End If
+        Next
+
+        grpTblSpaceInfo.Text = p_clsMsgData.fn_GetData("F079", dtTable.Rows.Count)
         modCommon.sb_GridSortChg(dgvTblSpaceInfo)
         dgvTblSpaceInfo.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
 
-
-
     End Sub
+
+    ''' <summary>
+    ''' Find Mount Point index
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <param name="bRootfs"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function findMountPoint(ByVal dtTable As DataTable) As Integer
+        Dim bRootfs As Boolean = False
+        Dim intReturn As Integer = -1
+        For Each dtRow As DataRow In dtTable.Rows
+            Dim strLocation As String = dtRow.Item("LOCATION")
+            For intRow As Integer = 0 To dgvTblSpaceInfo.Rows.Count - 1
+                Dim strDeviceNm As String = dgvTblSpaceInfo.Rows(intRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value
+                If strDeviceNm.Equals("/") = False Then
+                    If strLocation.IndexOf(strDeviceNm) >= 0 Then
+                        intReturn = intRow
+                        Return intReturn
+                    End If
+                End If
+            Next
+            Dim dgvRow As DataGridViewRow = dgvTblSpaceInfo.FindFirstRow("/", coldgvTblSpaceInfoMountPoint.Index)
+            If dgvRow IsNot Nothing Then
+                intReturn = dgvRow.Index
+            End If
+            Return intReturn
+        Next
+    End Function
 
 
     ''' <summary>
@@ -489,7 +467,7 @@
             If _frmWait IsNot Nothing Then
                 _frmWait.AddText("Data Table Space Information")
             End If
-            Me.SetDataTBspaceinfo(p_clsAgentCollect.infoDataTBspaceinfo)
+            Me.SetDataTBspaceinfo(p_clsAgentCollect.infoDataDisk, p_clsAgentCollect.infoDataTBspaceinfo)
             If _frmWait IsNot Nothing Then
                 _frmWait.AddText("Data Index Information")
             End If
@@ -612,18 +590,6 @@
     End Sub
 
 
-
-
-    Private Sub btnPause_Click(sender As Object, e As EventArgs) Handles btnPause.Click
-        ' Play webding = "4"   Pause Webding = ";"
-        If btnPause.Text = "4" Then
-            btnPause.Text = ";"
-        Else
-            btnPause.Text = "4"
-        End If
-
-
-    End Sub
 
 
     Private Sub dgvLock_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellContentDoubleClick
