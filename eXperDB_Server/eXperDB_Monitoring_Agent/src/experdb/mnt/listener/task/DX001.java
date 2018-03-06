@@ -52,7 +52,10 @@ public class DX001 implements SocketApplication{
 			instanceList = sessionAgent.selectList("app.DX001_001", inputParam);			
 			
 
-			for (HashMap<String, Object> instanceMap : instanceList) {
+			HashMap instanceMap = null;
+			
+			for(Integer instanceId: inputParam) {		
+			//for (HashMap<String, Object> instanceMap : instanceList) {
 				Connection connection = null;
 				SqlSession sessionCollect = null;
 				
@@ -60,6 +63,8 @@ public class DX001 implements SocketApplication{
 				String failed_collect_type = "";				
 				
 				String instance_db_version = "";
+				
+				instanceMap = MonitoringInfoManager.getInstanceMap(Integer.toString(instanceId));
 				
 				try {
 					Class.forName("org.postgresql.Driver");
