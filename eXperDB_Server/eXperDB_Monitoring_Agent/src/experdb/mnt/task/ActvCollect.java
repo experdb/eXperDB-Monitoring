@@ -390,19 +390,6 @@ public class ActvCollect extends TaskApplication {
 				}
 				///////////////////////////////////////////////////////////////////////////////			
 				
-				///////////////////////////////////////////////////////////////////////////////
-				// SESSION STATS 정보 등록
-//				for (HashMap<String, Object> map : sessionStats) {
-//					HashMap<String, Object> tempSessionStats = new HashMap<String, Object>();
-//					tempSessionStats = sessionAgent.selectOne("app.TB_SESSION_STATS_001", parameActv);
-//					map.put("instance_id", Integer.valueOf(instanceId));
-//					if (tempSessionStats == null)
-//						sessionAgent.insert("app.TB_SESSION_STATS_I001", map);
-//					else
-//						sessionAgent.update("app.TB_SESSION_STATS_U001", map);
-//				}
-				///////////////////////////////////////////////////////////////////////////////				
-
 				//Commit
 				sessionAgent.commit();
 			} catch (Exception e) {

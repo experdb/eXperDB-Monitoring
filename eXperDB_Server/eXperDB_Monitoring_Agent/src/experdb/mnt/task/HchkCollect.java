@@ -213,7 +213,7 @@ public class HchkCollect extends TaskApplication {
 		
 		try {
 			//수집 DB의 버젼을 가져온다
-			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(reqInstanceId).get("pg_version");
+			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(reqInstanceId).get("pg_version_min");
 			
 			// DB Connection을 가져온다
 			sqlSessionFactory = SqlSessionManager.getInstance();
@@ -484,9 +484,10 @@ public class HchkCollect extends TaskApplication {
 			
 				///////////////////////////////////////////////////////////////////////////////
 				// TABLE 정보 등록
-				for (HashMap<String, Object> map : tableSel) {
-					sessionAgent.delete("app.TB_TABLE_INFO_D001", map);
-				}
+//				for (HashMap<String, Object> map : tableSel) {
+//					sessionAgent.delete("app.TB_TABLE_INFO_D001", map);
+//				}
+				sessionAgent.delete("app.TB_TABLE_INFO_D001", tableSel.get(0)); //Run only once by Database(Sequence)
 				
 				for (HashMap<String, Object> map : tableSel) {
 					sessionAgent.insert("app.TB_TABLE_INFO_I001", map);
@@ -495,9 +496,10 @@ public class HchkCollect extends TaskApplication {
 				
 				///////////////////////////////////////////////////////////////////////////////
 				// INDEX 정보 등록
-				for (HashMap<String, Object> map : indexSel) {
-					sessionAgent.delete("app.TB_INDEX_INFO_D001", map);
-				}
+//				for (HashMap<String, Object> map : indexSel) {
+//					sessionAgent.delete("app.TB_INDEX_INFO_D001", map);
+//				}
+				sessionAgent.delete("app.TB_INDEX_INFO_D001", indexSel.get(0)); //Run only once by Database(Sequence)
 				
 				for (HashMap<String, Object> map : indexSel) {
 					sessionAgent.insert("app.TB_INDEX_INFO_I001", map);

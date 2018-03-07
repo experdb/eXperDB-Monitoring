@@ -29,7 +29,7 @@ public class StartCollect extends TaskApplication {
 			sqlSessionFactory = SqlSessionManager.getInstance();
 			
 			connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
-			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version");
+			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version_min");
 			sessionCollect = sqlSessionFactory.openSession(connection);
 			
 			sessionAgent = sqlSessionFactory.openSession();			
