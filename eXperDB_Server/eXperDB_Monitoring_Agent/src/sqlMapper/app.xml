@@ -413,8 +413,6 @@
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
 			AND DB_NAME = #{db_name}
-			AND SCHEMA_NAME = #{schema_name}
-			AND TABLE_NAME = #{table_name}
 		]]>	
 	</delete>
 
@@ -446,8 +444,6 @@
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
 			AND DB_NAME = #{db_name}
-			AND SCHEMA_NAME = #{schema_name}
-			AND INDEX_NAME = #{index_name}
 		]]>	
 	</delete>
 	
@@ -1314,7 +1310,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="EXPERDBMA_BT_UPTIME_MAXCONN_002" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		<choose>
 			<when test="instance_db_version >= '9.6'">
-					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 24e9ab7301ff1966da4fb30dc1538882 */
+				<![CDATA[
+					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_002 24e9ab7301ff1966da4fb30dc1538882 */
 					        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
 					        SETTING AS MAX_CONN_CNT, 
 					        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
@@ -1335,6 +1332,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							  	  ORDER BY arr_col), '-') ELSE '-' END AS HA_PORT
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
+					 ]]>
 			</when>
 			<otherwise>
 					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_001 24e9ab7301ff1966da4fb30dc1538882 */
@@ -1352,7 +1350,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		</choose>
 	</select>
 	<select id="EXPERDBMA_BT_GET_PGVERSION_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
-		       SELECT SUBSTRING(SPLIT_PART(VERSION(), ' ', 2) FROM 1 FOR 3) AS pg_version;
+		       SELECT /* EXPERDBMA_BT_GET_PGVERSION_001 24e9ab7301ff1966da4fb30dc1538882 */ 
+		       		SUBSTRING(SPLIT_PART(VERSION(), ' ', 2) FROM 1 FOR 3) AS pg_version;
 	</select>
 <!--	add to update ha_info by robin 201712  end -->
 	<update id="TB_INSTANCE_INFO_U001" parameterType="hashmap" >
@@ -1378,42 +1377,6 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 <!--	add to update ha_info by robin 201712  end -->
-<!--	add to update ha_info by robin 201712  
-	<select id="BT_SESSION_STATS_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">		       
-		SELECT
-		(SELECT count(*) FROM pg_stat_activity WHERE state IN ('active','fastpath function call')) AS ACTIVE_SESSION_CNT,
-		(SELECT count(*) FROM pg_stat_activity WHERE state NOT IN ('active','fastpath function call')) AS IDLE_SESSION_CNT
-	</select>
-	<select id="TB_SESSION_STATS_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">		       
-		SELECT * FROM TB_SESSION_STATS
-		 WHERE INSTANCE_ID = #{instance_id}
-	</select>
-	<insert id="TB_SESSION_STATS_I001" parameterType="hashmap" >
-		INSERT INTO TB_SESSION_STATS
-		VALUES 
-		(
-			TO_CHAR(NOW(), 'YYYYMMDD'),
-			#{instance_id},
-			#{active_session_cnt},
-			#{idle_session_cnt},
-			NOW()
-		)
-	</insert>	
-	<update id="TB_SESSION_STATS_U001" parameterType="hashmap" >
-		UPDATE TB_SESSION_STATS A
-		   SET REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'), 
-		   	   INSTANCE_ID = #{instance_id},
-			   ACTIVE_SESSION_CNT = #{active_session_cnt},
-			   IDLE_SESSION_CNT = #{idle_session_cnt},
-			   COLLECT_DT = NOW()
-		 WHERE INSTANCE_ID = #{instance_id}
-	</update>	
-	add to update ha_info by robin 201712  end -->
-<!-- ********************************************************** -->
-<!-- StartCollect END -->
-<!-- ********************************************************** -->
-
-
 
 <!-- ********************************************************** -->
 <!-- DailyBatchTask START -->
@@ -1539,19 +1502,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>	
 	</delete>
 	
+<!-- ********************************************************** -->
+<!-- for Alert Start-->
+<!-- ********************************************************** -->
 	<delete id="PGMONTB_BATCH_CONTROL_PROCESS_HIST_001" parameterType="hashmap" >
 		<![CDATA[
 		DELETE /* PGMONTB_BATCH_CONTROL_PROCESS_HIST_001 */ FROM TB_CONTROL_PROCESS_HIST WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_CONTROL_PROCESS_HIST) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
 	</delete>
-<!-- ********************************************************** -->
-<!-- for Alert Start-->
-<!-- ********************************************************** -->
 	<delete id="PGMONTB_BATCH_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
 		<![CDATA[
 		DELETE /* PGMONTB_BATCH_HCHK_ALERT_INFO_I001 */ FROM TB_HCHK_ALERT_INFO WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_HCHK_ALERT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
 	</delete>
+	
 <!-- ********************************************************** -->
 <!-- for Alert Start-->
 <!-- ********************************************************** -->
@@ -1613,6 +1577,15 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="VACUUM_ANALYZE_U021" parameterType="hashmap" >		
 		vacuum analyze TB_SYS_LOG          ;
+	</update>
+	<update id="VACUUM_ANALYZE_U022" parameterType="hashmap" >		
+		vacuum analyze TB_GROUP_INFO       ;
+	</update>
+	<update id="VACUUM_ANALYZE_U023" parameterType="hashmap" >		
+		vacuum analyze TB_HCHK_ALERT_INFO  ;
+	</update>
+	<update id="VACUUM_ANALYZE_U024" parameterType="hashmap" >		
+		vacuum analyze TB_CONTROL_PROCESS_HIST ;
 	</update>
 <!-- ********************************************************** -->
 <!-- DailyBatchTask END -->
