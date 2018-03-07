@@ -167,7 +167,7 @@ Partial Class frmSessionLock
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Radius = 5
         Me.btnCancel.Size = New System.Drawing.Size(38, 31)
-        Me.btnCancel.TabIndex = 15
+        Me.btnCancel.TabIndex = 17
         Me.btnCancel.Text = "x"
         Me.btnCancel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnCancel.UseRound = True
@@ -188,7 +188,7 @@ Partial Class frmSessionLock
         Me.btnStop.Name = "btnStop"
         Me.btnStop.Radius = 5
         Me.btnStop.Size = New System.Drawing.Size(38, 31)
-        Me.btnStop.TabIndex = 14
+        Me.btnStop.TabIndex = 18
         Me.btnStop.Text = "<"
         Me.btnStop.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnStop.UseRound = True
@@ -209,7 +209,7 @@ Partial Class frmSessionLock
         Me.btnPause.Name = "btnPause"
         Me.btnPause.Radius = 5
         Me.btnPause.Size = New System.Drawing.Size(38, 31)
-        Me.btnPause.TabIndex = 10
+        Me.btnPause.TabIndex = 19
         Me.btnPause.Text = "q"
         Me.btnPause.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnPause.UseRound = True
@@ -322,7 +322,7 @@ Partial Class frmSessionLock
         Me.cmbStatus.Necessary = False
         Me.cmbStatus.Size = New System.Drawing.Size(94, 23)
         Me.cmbStatus.StatusTip = ""
-        Me.cmbStatus.TabIndex = 16
+        Me.cmbStatus.TabIndex = 20
         Me.cmbStatus.ValueText = ""
         '
         'dgvSessionList

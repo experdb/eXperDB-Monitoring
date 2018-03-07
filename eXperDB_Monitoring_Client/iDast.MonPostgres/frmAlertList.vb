@@ -187,6 +187,7 @@
                 dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertTime.Index, tmpRow.Item("COLLECT_TIME"))
                 dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertRegDate.Index, tmpRow.Item("REG_DATE"))
                 dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertHCHKREGREQ.Index, tmpRow.Item("HCHK_REG_SEQ"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertDT.Index, tmpRow.Item("CHECK_DT"))
             Next
         End If
     End Sub
@@ -249,6 +250,7 @@
     Private Sub btnCheck_Click(sender As Object, e As EventArgs) Handles btnCheck.Click
         Dim intPauseTime As Integer = 0
         Dim strCheckComment As String = ""
+        Dim strCheckUser As String = ""
         Dim bReturn As Boolean = False
 
         Dim i As Integer = 0
@@ -265,7 +267,7 @@
         End If
 
         If frmAlertCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
-            frmAlertCheck.rtnValue(intPauseTime, strCheckComment)
+            frmAlertCheck.rtnValue(intPauseTime, strCheckComment, strCheckUser)
         Else
             frmAlertCheck.Dispose()
             Return
@@ -285,7 +287,7 @@
                     Dim intHchkRegSeq As Integer = row.Cells(coldgvAlertHCHKREGREQ.Index).Value
                     Dim strHchkName As String = row.Cells(coldgvAlertType.Index).Value
                     If intPauseTime > 0 Then
-                        bReturn = _clsQuery.UpdatePauseAlert(instInstanceId, strHchkName, PauseTime.ToString("yyyy-MM-dd HH:MM:ss"))
+                        bReturn = _clsQuery.UpdatePauseAlert(instInstanceId, strHchkName, PauseTime.ToString("yyyy-MM-dd HH:mm:ss"))
                         If bReturn = False Then
                             Exit For
                         End If
@@ -295,7 +297,7 @@
                                                intHchkRegSeq,
                                                instInstanceId,
                                                strHchkName,
-                                               "k4m",
+                                               strCheckUser,
                                                strCheckComment,
                                                strLocIP)
                     If bReturn = False Then

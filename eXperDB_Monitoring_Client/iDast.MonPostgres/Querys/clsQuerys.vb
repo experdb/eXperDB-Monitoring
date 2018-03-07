@@ -690,6 +690,21 @@
         End Try
     End Function
 
+    Public Function UpdatePassword(ByVal UserID As String, ByVal UserPW As String) As Integer
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEPASSWORD")
+                strQuery = String.Format(strQuery, UserID, UserPW)
+                Return _ODBC.dbExecuteNonQuery(strQuery)
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+    End Function
+
     ''' <summary>
     ''' 기본값은 7로 반환한다.
     ''' </summary>

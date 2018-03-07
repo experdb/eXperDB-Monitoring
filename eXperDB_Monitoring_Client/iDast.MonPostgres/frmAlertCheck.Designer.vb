@@ -194,7 +194,6 @@ Partial Class frmAlertCheck
         '
         'lblInstance
         '
-        Me.lblInstance.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblInstance.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblInstance.ForeColor = System.Drawing.Color.DarkGray
         Me.lblInstance.Location = New System.Drawing.Point(47, 13)
@@ -209,6 +208,7 @@ Partial Class frmAlertCheck
         '
         Me.GroupBox1.AlignLine = System.Drawing.StringAlignment.Center
         Me.GroupBox1.AlignString = System.Drawing.StringAlignment.Near
+        Me.GroupBox1.BackColor = System.Drawing.Color.Black
         Me.GroupBox1.Controls.Add(Me.TableLayoutPanel2)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.EdgeRound = Edges1
@@ -266,7 +266,6 @@ Partial Class frmAlertCheck
         '
         'lblAlertUser
         '
-        Me.lblAlertUser.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblAlertUser.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblAlertUser.FixedWidth = False
         Me.lblAlertUser.ForeColor = System.Drawing.Color.DarkGray
@@ -293,7 +292,6 @@ Partial Class frmAlertCheck
         '
         'lblAlertComment
         '
-        Me.lblAlertComment.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblAlertComment.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblAlertComment.FixedHeight = False
         Me.lblAlertComment.FixedWidth = False
@@ -407,7 +405,6 @@ Partial Class frmAlertCheck
         '
         'lblPause
         '
-        Me.lblPause.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lblPause.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPause.FixedWidth = False
         Me.lblPause.ForeColor = System.Drawing.Color.DarkGray
@@ -426,7 +423,7 @@ Partial Class frmAlertCheck
         Me.cmbPauseTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPauseTime.FixedWidth = False
         Me.cmbPauseTime.FormattingEnabled = True
-        Me.cmbPauseTime.Items.AddRange(New Object() {"None", "5", "30", "60", "120"})
+        Me.cmbPauseTime.Items.AddRange(New Object() {"Not Set", "5", "30", "60", "120"})
         Me.cmbPauseTime.Location = New System.Drawing.Point(153, 61)
         Me.cmbPauseTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbPauseTime.Name = "cmbPauseTime"
@@ -458,7 +455,7 @@ Partial Class frmAlertCheck
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.BackColor = System.Drawing.Color.Black
+        Me.BackColor = System.Drawing.Color.DimGray
         Me.ClientSize = New System.Drawing.Size(431, 282)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Panel2)

@@ -19,7 +19,30 @@
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
 
         Dim clsQu As New clsQuerys(_Odbc)
-        If clsQu.CheckPassword(p_UseID, txtPw.Text) = True Then
+        Dim strKey As String = Nothing
+        Try
+            Dim dtTable As DataTable = clsQu.SelectSerialKey()
+            If dtTable IsNot Nothing Then
+                Dim dtRow As DataRow = dtTable.Rows(0)
+                strKey = dtRow.Item("LICDATA")
+                If strKey.Length < 24 Then
+                    MsgBox(p_clsMsgData.fn_GetData("M018"))
+                    Return
+                End If
+
+            End If
+        Catch ex As Exception
+            Console.WriteLine(e.ToString)
+            MsgBox(p_clsMsgData.fn_GetData("M018"))
+            Return
+        End Try
+
+        Dim crypt As New eXperDB.Common.ClsCrypt
+
+        crypt.TDESImplementation(strKey.Substring(0, 24), strKey.Substring(0, 8))
+        Dim strPw As String = crypt.EncryptTDES(txtPw.Text)
+
+        If clsQu.CheckPassword(p_UseID, strPw) = True Then
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else

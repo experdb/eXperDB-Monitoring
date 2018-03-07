@@ -2224,6 +2224,30 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F274" PARAMS="1">
+    <DESC>LOCK INFORMATION</DESC>
+    <DATA><![CDATA[Lock List(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F275" PARAMS="0">
+    <DESC>새 비밀번호</DESC>
+    <DATA><![CDATA[New Password]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F276" PARAMS="0">
+    <DESC>비밀번호 확인</DESC>
+    <DATA><![CDATA[Repeat Password]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>
@@ -2436,9 +2460,9 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="M015" PARAMS="0">
+  <ROW ID="M015" PARAMS="1">
     <DESC>Report Chect</DESC>
-    <DATA><![CDATA[Can not search over 2 hours. ]]></DATA>
+    <DATA><![CDATA[Can not search over {0} hours. ]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2628,4 +2652,29 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M035" PARAMS="0">
+    <DESC>CRITIAL 잠금 해제 메시지</DESC>
+    <DATA><![CDATA[This disables ALERT sreen until choose time. In order to enable this,\n click enable button on the top of the window.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M036" PARAMS="2">
+    <DESC>비밀번호불일치2</DESC>
+    <DATA><![CDATA[New password and Repeat password are mismatched.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M037" PARAMS="2">
+    <DESC>비밀번호길이</DESC>
+    <DATA><![CDATA[The password should contain at least 8~12 alphanumeric characters.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  alphanumeric characters and special characters.
 </ROWS>

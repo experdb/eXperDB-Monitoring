@@ -142,6 +142,7 @@ Partial Class frmSessionLockHist
         Me.grpSessionLockHist.TitleFont = New System.Drawing.Font("Arial", 13.0!, System.Drawing.FontStyle.Bold)
         Me.grpSessionLockHist.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpSessionLockHist.UseGraColor = False
+        Me.grpSessionLockHist.UseRound = True
         Me.grpSessionLockHist.UseTitle = True
         '
         'txtDatabase
@@ -159,7 +160,7 @@ Partial Class frmSessionLockHist
         Me.txtDatabase.Prefix = ""
         Me.txtDatabase.Size = New System.Drawing.Size(120, 25)
         Me.txtDatabase.StatusTip = ""
-        Me.txtDatabase.TabIndex = 27
+        Me.txtDatabase.TabIndex = 18
         Me.txtDatabase.Value = ""
         '
         'lblSQL
@@ -245,7 +246,7 @@ Partial Class frmSessionLockHist
         Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEd.Name = "dtpEd"
         Me.dtpEd.Necessary = False
-        Me.dtpEd.Size = New System.Drawing.Size(140, 25)
+        Me.dtpEd.Size = New System.Drawing.Size(170, 25)
         Me.dtpEd.StatusTip = ""
         Me.dtpEd.TabIndex = 21
         '
@@ -311,7 +312,7 @@ Partial Class frmSessionLockHist
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Radius = 5
         Me.btnQuery.Size = New System.Drawing.Size(100, 31)
-        Me.btnQuery.TabIndex = 10
+        Me.btnQuery.TabIndex = 23
         Me.btnQuery.Text = "F151"
         Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnQuery.UseRound = True
@@ -333,7 +334,7 @@ Partial Class frmSessionLockHist
         Me.btnExcel.Name = "btnExcel"
         Me.btnExcel.Radius = 5
         Me.btnExcel.Size = New System.Drawing.Size(102, 31)
-        Me.btnExcel.TabIndex = 13
+        Me.btnExcel.TabIndex = 24
         Me.btnExcel.Text = "F142"
         Me.btnExcel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnExcel.UseRound = True
@@ -404,6 +405,7 @@ Partial Class frmSessionLockHist
         Me.grpSession.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
         Me.grpSession.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpSession.UseGraColor = False
+        Me.grpSession.UseRound = True
         Me.grpSession.UseTitle = True
         '
         'dgvSessionList
@@ -628,7 +630,7 @@ Partial Class frmSessionLockHist
         Me.grpLockInfo.Size = New System.Drawing.Size(1804, 406)
         Me.grpLockInfo.TabIndex = 12
         Me.grpLockInfo.TabStop = False
-        Me.grpLockInfo.Text = "F077"
+        Me.grpLockInfo.Text = "F274"
         Me.grpLockInfo.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
         Me.grpLockInfo.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpLockInfo.UseGraColor = False

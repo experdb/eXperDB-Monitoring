@@ -2138,7 +2138,7 @@
   </ROW>
   <ROW ID="F263" PARAMS="0">
     <DESC>알람일시정지</DESC>
-    <DATA><![CDATA[알람 일시 정지(분)]]></DATA>
+    <DATA><![CDATA[일시 정지(분)]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2219,6 +2219,30 @@
   <ROW ID="F273" PARAMS="0">
     <DESC>Mount On</DESC>
     <DATA><![CDATA[Mount On]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F274" PARAMS="1">
+    <DESC>LOCK INFORMATION</DESC>
+    <DATA><![CDATA[Lock List(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F275" PARAMS="0">
+    <DESC>새 비밀번호</DESC>
+    <DATA><![CDATA[새 비밀번호]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F276" PARAMS="0">
+    <DESC>비밀번호 확인</DESC>
+    <DATA><![CDATA[비밀번호 확인]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2414,7 +2438,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
+    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2436,9 +2460,9 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="M015" PARAMS="0">
+  <ROW ID="M015" PARAMS="1">
     <DESC>Report Chech</DESC>
-    <DATA><![CDATA[2시간 이상은 조회 하실 수 없습니다.]]></DATA>
+    <DATA><![CDATA[{0}시간 이상은 조회 하실 수 없습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2629,4 +2653,29 @@
     <VALUECAST />
   </ROW>
   <ROW />
+  <ROW ID="M035" PARAMS="0">
+    <DESC>선택된 항목이 없습니다.</DESC>
+    <DATA><![CDATA[선택한 시간까지 Critial 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW />
+  <ROW ID="M036" PARAMS="2">
+    <DESC>비밀번호불일치2</DESC>
+    <DATA><![CDATA[새 비밀번호와 확인 비밀번호가 일치하지 않습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M037" PARAMS="2">
+    <DESC>비밀번호길이</DESC>
+    <DATA><![CDATA[비밀번호는 8자 ~ 16자의 영문, 숫자, 특수문자를 사용할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
 </ROWS>

@@ -55,6 +55,7 @@
         btnDelete.Text = p_clsMsgData.fn_GetData("F015")
 
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
+        btnAdminPW.Text = p_clsMsgData.fn_GetData("F004")
 
         sb_Ctlenabled(False)
 
@@ -615,4 +616,10 @@
         End If
     End Sub
 #End Region
+
+    Private Sub btnAdminPW_Click(sender As Object, e As EventArgs) Handles btnAdminPW.Click
+        Dim strkey = fn_GetSerial()
+        Dim frmUserConf As New frmUserConfig(grpSvrLst.Tag, strkey)
+        frmUserConf.ShowDialog()
+    End Sub
 End Class
