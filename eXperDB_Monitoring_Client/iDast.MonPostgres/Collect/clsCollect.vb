@@ -1398,6 +1398,7 @@
                 'lstThread.Add(New ManualThread("SELECTINDEXINFO", _clsQuery, _InstanceIDs))
                 Dim clsQry As New clsQuerys(New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo))
                 lstThread.Add(New ManualThread("SELECTDBINFO", clsQry, instanceID))
+                lstThread.Add(New ManualThread("SELECTDISKUSAGE", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTTBSPACEINFO", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTTBINFO", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTINDEXINFO", clsQry, instanceID))
@@ -1418,10 +1419,10 @@
                 Next
 
                 Me.infoDataDBinfo = lstThread.Item(0).rtnDtTable
-                Me.infoDataTBspaceinfo = lstThread.Item(1).rtnDtTable
-                Me.infoDataTBinfo = lstThread.Item(2).rtnDtTable
-                Me.infoDataIndexinfo = lstThread.Item(3).rtnDtTable
-
+                Me.infoDataDisk = lstThread.Item(1).rtnDtTable
+                Me.infoDataTBspaceinfo = lstThread.Item(2).rtnDtTable
+                Me.infoDataTBinfo = lstThread.Item(3).rtnDtTable
+                Me.infoDataIndexinfo = lstThread.Item(4).rtnDtTable
 
                 Return True
 

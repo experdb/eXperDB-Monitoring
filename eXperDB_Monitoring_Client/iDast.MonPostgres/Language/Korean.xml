@@ -962,7 +962,7 @@
   </ROW>
   <ROW ID="F115" PARAMS="0">
     <DESC>DISK USED</DESC>
-    <DATA><![CDATA[DISK USED]]></DATA>
+    <DATA><![CDATA[Disk Used]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2195,6 +2195,30 @@
   <ROW ID="F270" PARAMS="1">
     <DESC>차트메뉴</DESC>
     <DATA><![CDATA[차트메뉴 {0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F271" PARAMS="0">
+    <DESC>파일시스템</DESC>
+    <DATA><![CDATA[File System]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F272" PARAMS="0">
+    <DESC>가용량</DESC>
+    <DATA><![CDATA[Disk Available]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F273" PARAMS="0">
+    <DESC>Mount On</DESC>
+    <DATA><![CDATA[Mount On]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
