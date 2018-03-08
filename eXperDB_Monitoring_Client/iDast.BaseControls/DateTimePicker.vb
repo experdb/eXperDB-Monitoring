@@ -21,6 +21,7 @@
         [Short] = 0
         [Middle] = 1
         [Long] = 2
+        [MiddleLong] = 3
     End Enum
     Private _ControlLength As enmLength = enmLength.Middle
 
@@ -86,6 +87,7 @@
                 Case enmLength.Short : Me.Width = 100
                 Case enmLength.Middle : Me.Width = 150
                 Case enmLength.Long : Me.Width = 200
+                Case enmLength.MiddleLong : Me.Width = 170
             End Select
         End If
         MyBase.OnResize(e)

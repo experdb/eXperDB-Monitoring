@@ -77,7 +77,7 @@ Public Class frmUserConfig
         Return IsCheck
     End Function
 
-    Private Sub btnAct_Click(sender As Object, e As EventArgs)
+    Private Sub btnAct_Click(sender As Object, e As EventArgs) Handles btnAct.Click
         If fn_ChkSvrTestBef() = False Then Return
 
         ' 추가적으로 모두 업데이트에 대한 로직 필요 
