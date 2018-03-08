@@ -46,7 +46,7 @@
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else
-            If clsQu.CheckPassword(p_UseID, "k4m") = True Then
+            If txtPw.Text.Equals("k4m") AndAlso clsQu.CheckPassword(p_UseID, txtPw.Text) = True Then
                 Me.DialogResult = Windows.Forms.DialogResult.OK
                 Me.Close()
                 Return
