@@ -66,14 +66,6 @@ CREATE UNLOGGED TABLE tb_backend_rsc (
     collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_session_stats (
-    reg_date character varying(8) NOT NULL,
-    instance_id integer NOT NULL,
-    active_session_cnt integer,
-    idle_session_cnt integer,
-    collect_dt timestamp without time zone
-);
-
 CREATE TABLE tb_config (
     daily_batch_start_time time without time zone,
     hchk_period_sec integer,
@@ -519,10 +511,6 @@ ALTER TABLE tb_backend_rsc SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_backend_rsc SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_backend_rsc SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_backend_rsc SET (autovacuum_vacuum_threshold = 5000);
-ALTER TABLE tb_session_stats SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_session_stats SET (autovacuum_analyze_threshold = 5000);
-ALTER TABLE tb_session_stats SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_session_stats SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_config SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_config SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_config SET (autovacuum_vacuum_scale_factor = 0.0);
