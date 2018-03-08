@@ -725,6 +725,7 @@
                 QueryChartData(i, True)
             End If
         Next
+        SetDataSession(dtpSt.Value, dtpEd.Value)
     End Sub
 
     Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
@@ -905,4 +906,17 @@
         End If
         Return True
     End Function
+
+    Private Sub cmbInst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbInst.SelectedIndexChanged
+        _InstanceID = cmbInst.SelectedValue
+        Me.Invoke(New MethodInvoker(Sub()
+                                        btnQuery.PerformClick()
+                                    End Sub))
+        If _bRange = True Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            btnRange.PerformClick()
+                                        End Sub))
+        End If
+
+    End Sub
 End Class

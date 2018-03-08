@@ -468,7 +468,7 @@
                                  System.Drawing.Color.Salmon}
         Dim index As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtSessionStatus, tmpSvr.ShowNm, tmpSvr.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
             index += 1
         Next
 
@@ -1327,12 +1327,12 @@
                 'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                 For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                     If tmpSvr.InstanceID = intInstID Then
-                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
                         'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                     Else
-                        Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count - 1
+                        Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
                         If lastYPoint > 0 Then
-                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(lastYPoint).YValues(0))
+                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
                             'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
                             'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
                         End If
@@ -1384,11 +1384,11 @@
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                         Else
-                            Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count - 1
+                            Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
                             If lastYPoint > 0 Then
-                                sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(lastYPoint).YValues(0))
+                                sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
 
                             End If
                         End If
@@ -2310,7 +2310,7 @@
         Series.ChartArea = "ChartArea1"
         Series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series.Legend = "Legend1"
-        Series.Name = strTitle
+        Series.Name = SeriesName
         Series.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         'Series.IsXValueIndexed = True
