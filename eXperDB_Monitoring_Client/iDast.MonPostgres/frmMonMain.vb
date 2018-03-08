@@ -44,7 +44,6 @@
     Private _IsCollectRunning As Boolean = False
     Private _ElapseCount As Integer = 100
 
-
     Private _GrpListServerinfo As List(Of GroupInfo.ServerInfo)
     ''' <summary>
     ''' Group List Items 안에 서버 리스트가 있음. 
@@ -82,7 +81,24 @@
     '        End If
     '    End Set
     'End Property
-
+    Private _QuiteCriticalTime As DateTime
+    Property CriticalTime As Date
+        Get
+            Return Me._QuiteCriticalTime
+        End Get
+        Set(value As Date)
+            Me._QuiteCriticalTime = value
+        End Set
+    End Property
+    Private _UseQuiteCriticalTime As Boolean
+    Property UseCriticalTime As Boolean
+        Get
+            Return Me._UseQuiteCriticalTime
+        End Get
+        Set(value As Boolean)
+            Me._UseQuiteCriticalTime = value
+        End Set
+    End Property
 #End Region
 
 
@@ -287,9 +303,9 @@
         colDgvHealthSvrPort.HeaderText = p_clsMsgData.fn_GetData("F007")
         colDgvHealthSvrStatus.HeaderText = p_clsMsgData.fn_GetData("F063")
 
-
-
-
+        'Alert
+        Me.cmbLevel.Location = New System.Drawing.Point(Me.grpAlert.Width - Me.cmbLevel.Width - Me.cmbLevel.Margin.Right, Me.cmbLevel.Margin.Top)
+        Me.cmbLevel.SelectedIndex = 0
 
         Me.EspRight.Expand = True
 
@@ -1311,8 +1327,8 @@
                 'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                 For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                     If tmpSvr.InstanceID = intInstID Then
-                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
-                        'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, 1)
+                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                        'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                     Else
                         Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count - 1
                         If lastYPoint > 0 Then
@@ -1675,6 +1691,14 @@
             Me.radCpu.AniColorin = Color.Red
             Me.radMem.AniColorin = Color.Red
 
+            If Me._UseQuiteCriticalTime = True Then
+                If Me._QuiteCriticalTime > Now Then
+                    Me.ShowCritical = False
+                Else
+                    Me.ShowCritical = True
+                    Me.UseCriticalTime = False
+                End If
+            End If
 
             If Me.ShowCritical = True Then
 
@@ -1790,7 +1814,13 @@
         If dtTable Is Nothing Then Return
         Try
             'dgvAlert
-            For Each tmpRow As DataRow In dtTable.Rows
+            Dim tmpCondition As String
+            If cmbLevel.SelectedIndex = 0 Then
+                tmpCondition = "STATE > 200"
+            Else
+                tmpCondition = ""
+            End If
+            For Each tmpRow As DataRow In dtTable.Select(tmpCondition)
                 Dim intInstanceID As Integer = tmpRow.Item("INSTANCE_ID")
                 Dim intHchkVal As Integer = tmpRow.Item("STATE")
                 Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, Date.Parse(tmpRow.Item("COLLECT_TIME")))
@@ -1957,19 +1987,12 @@
 
 #End Region
 
-
-    Private Sub dgvSessionInfo_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellContentClick
-        'SQL
+    Private Sub dgvSessionInfo_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellDoubleClick
+        If dgvSessionInfo.RowCount <= 0 Then Return
         If e.RowIndex >= 0 Then
-            If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-                Dim frmQuery As New frmQueryView(dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoSQL.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoDBNm.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoInstID.Index).Value, _AgentInfo, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoUser.Index).Value)
-
-                frmQuery.Show()
-            End If
+            Dim frmQuery As New frmQueryView(dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoSQL.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoDBNm.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoInstID.Index).Value, _AgentInfo, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoUser.Index).Value)
+            frmQuery.ShowDialog(Me)
         End If
-    End Sub
-
-    Private Sub dgvSessionInfo_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellContentDoubleClick
     End Sub
 
     Private Sub mnuReports_Click(sender As Object, e As EventArgs) Handles mnuReports.Click
@@ -2187,31 +2210,31 @@
 
     Private Sub dgvSessionInfo_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionInfo.CellMouseMove
         If e.RowIndex >= 0 Then
-            If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-                dgvSessionInfo.Cursor = Cursors.Hand
-                If dgvSessionInfo.Rows(e.RowIndex).Selected = False Then
-                    dgvSessionInfo.ClearSelection()
-                    dgvSessionInfo.Rows(e.RowIndex).Selected = True
-                End If
-                For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-                    dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-                Next
+            ' If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
+            dgvSessionInfo.Cursor = Cursors.Hand
+            If dgvSessionInfo.Rows(e.RowIndex).Selected = False Then
+                dgvSessionInfo.ClearSelection()
+                dgvSessionInfo.Rows(e.RowIndex).Selected = True
             End If
+            For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
+                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
+            Next
+            'End If
         End If
     End Sub
 
     Private Sub dgvSessionInfo_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellMouseLeave
         If e.RowIndex >= 0 Then
-            If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-                dgvSessionInfo.Cursor = Cursors.Arrow
-                If dgvSessionInfo.Rows(e.RowIndex).Selected = True Then
-                    dgvSessionInfo.ClearSelection()
-                    dgvSessionInfo.Rows(e.RowIndex).Selected = False
-                End If
-                For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-                    dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvSessionInfo.DefaultCellStyle.SelectionBackColor
-                Next
+            'If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
+            dgvSessionInfo.Cursor = Cursors.Arrow
+            If dgvSessionInfo.Rows(e.RowIndex).Selected = True Then
+                dgvSessionInfo.ClearSelection()
+                dgvSessionInfo.Rows(e.RowIndex).Selected = False
             End If
+            For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
+                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvSessionInfo.DefaultCellStyle.SelectionBackColor
+            Next
+            'End If
         End If
     End Sub
 #Region "Ctl "
@@ -2336,6 +2359,19 @@
                 BretFrm.Show()
             Else
                 BretFrm.Activate()
+            End If
+        End If
+    End Sub
+
+    Private Sub cmbLevel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLevel.SelectedIndexChanged
+        If cmbLevel.SelectedIndex = 0 Then
+            Dim RowCount As Integer = dgvAlert.Rows.Count - 1
+            If RowCount >= 0 Then
+                For i As Integer = RowCount To 0 Step -1
+                    If dgvAlert.Rows(i).Cells(coldgvAlertStatusVal.Index).Value <= 200 Then
+                        dgvAlert.Rows.RemoveAt(i)
+                    End If
+                Next
             End If
         End If
     End Sub

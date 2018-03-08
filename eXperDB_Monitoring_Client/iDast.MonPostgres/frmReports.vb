@@ -634,7 +634,7 @@ Public Class frmReports
             Return False
         Else
             If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 120 Then
-                MsgBox(p_clsMsgData.fn_GetData("M015"))
+                MsgBox(p_clsMsgData.fn_GetData("M015", "2"))
                 Return False
             End If
         End If
@@ -941,11 +941,11 @@ Public Class frmReports
 
     End Sub
 
-    Private Sub dgvRptSQL_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRptSQL.CellContentClick
-        If e.ColumnIndex = colDgvRptSqlSql.Index Then
-            Dim frmQuery As New frmQueryView(dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlSql.Index).Value, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlDBNm.Index).Value, cmbInst.Tag, _AgentInfo, "")
-            frmQuery.Show()
-        End If
+    Private Sub dgvRptSQL_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRptSQL.CellDoubleClick
+        'If e.ColumnIndex = colDgvRptSqlSql.Index Then
+        Dim frmQuery As New frmQueryView(dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlSql.Index).Value, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlDBNm.Index).Value, cmbInst.Tag, _AgentInfo, "")
+        frmQuery.ShowDialog(Me)
+        'End If
     End Sub
 
     Private Sub dgvRptSQL_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)

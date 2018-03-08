@@ -1120,26 +1120,9 @@
                   End Sub)
     End Sub
 
-
     Private Sub grpHealth_Enter(sender As Object, e As EventArgs) Handles grpHealth.Enter
 
     End Sub
-
-
-    Private Sub dgvResUtilPerBackProc_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellContentClick
-        'SQL
-        If e.RowIndex >= 0 Then
-            If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-                Dim frmQuery As New frmQueryView(dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcSQL.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcDB.Index).Value, InstanceID, _AgentInfo, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcUser.Index).Value)
-
-                frmQuery.Show()
-            End If
-        End If
-    End Sub
-    Private Sub dgvResUtilPerBackProc_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellContentDoubleClick
-    End Sub
-
-
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click
         Select Case DirectCast(sender, BaseControls.Button).Name.ToUpper
@@ -1281,31 +1264,31 @@
 
     Private Sub dgvResUtilPerBackProc_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvResUtilPerBackProc.CellMouseMove
         If e.RowIndex >= 0 Then
-            If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-                dgvResUtilPerBackProc.Cursor = Cursors.Hand
-                If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False Then
-                    dgvResUtilPerBackProc.ClearSelection()
-                    dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True
-                End If
-                For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
-                    dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-                Next
+            'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
+            dgvResUtilPerBackProc.Cursor = Cursors.Hand
+            If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False Then
+                dgvResUtilPerBackProc.ClearSelection()
+                dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True
             End If
+            For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
+                dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
+            Next
+            'End If
         End If
     End Sub
 
     Private Sub dgvResUtilPerBackProc_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellMouseLeave
         If e.RowIndex >= 0 Then
-            If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-                dgvResUtilPerBackProc.Cursor = Cursors.Arrow
-                If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True Then
-                    dgvResUtilPerBackProc.ClearSelection()
-                    dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False
-                End If
-                For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
-                    dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
-                Next
+            'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
+            dgvResUtilPerBackProc.Cursor = Cursors.Arrow
+            If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True Then
+                dgvResUtilPerBackProc.ClearSelection()
+                dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False
             End If
+            For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
+                dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
+            Next
+            'End If
         End If
     End Sub
 
@@ -1354,7 +1337,7 @@
             Return
         Else
             If DateDiff(DateInterval.Minute, stDt, edDt) > 120 Then
-                MsgBox(p_clsMsgData.fn_GetData("M015"))
+                MsgBox(p_clsMsgData.fn_GetData("M015", "2"))
                 Return
             End If
         End If
@@ -1370,7 +1353,7 @@
                 index = 1
             Case "chtLocalIO"
                 index = 2
-	    Case "chtPhysicalIO"
+            Case "chtPhysicalIO"
                 index = 3
             Case "chtSQLRespTm"
                 index = 4
@@ -1378,5 +1361,14 @@
 
         Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, index)
         frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
+    End Sub
+
+    Private Sub dgvResUtilPerBackProc_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellDoubleClick
+        If dgvResUtilPerBackProc.RowCount <= 0 Then Return
+        'SQL
+        If e.RowIndex >= 0 Then
+            Dim frmQuery As New frmQueryView(dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcSQL.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcDB.Index).Value, InstanceID, _AgentInfo, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcUser.Index).Value)
+            frmQuery.Show()
+        End If
     End Sub
 End Class

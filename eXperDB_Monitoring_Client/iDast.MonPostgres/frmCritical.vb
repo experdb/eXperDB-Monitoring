@@ -10,19 +10,35 @@
         sndPlayer.Dispose()
 
         Dim strMsg As String = p_clsMsgData.fn_GetData("M012")
-        MsgBox(strMsg)
-
-        For Each tmpFrm As Form In My.Application.OpenForms
+        'MsgBox(strMsg)
+        Dim intPauseTime As Integer = -1
+        Dim tmpFrm As Form = Nothing
+        For Each tmpFrm In My.Application.OpenForms
             If tmpFrm.GetType.Equals(GetType(frmMonMain)) Then
                 DirectCast(tmpFrm, frmMonMain).ShowCritical = False
                 Exit For
             End If
         Next
 
+        frmCriticalCheck.TopMost = True
+        If frmCriticalCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
+            frmCriticalCheck.rtnValue(intPauseTime)
+        Else
+            DirectCast(tmpFrm, frmMonMain).ShowCritical = True
+            frmCriticalCheck.Dispose()
+            Return
+        End If
+        If intPauseTime > 0 Then
+            Dim PauseTime As Date
+            PauseTime = Now        ' Current date and time.
+            PauseTime = PauseTime.AddSeconds(intPauseTime)
+            'PauseTime = PauseTime.AddSeconds(30)
+            DirectCast(tmpFrm, frmMonMain).UseCriticalTime = True
+            DirectCast(tmpFrm, frmMonMain).CriticalTime = PauseTime
+        Else
+            DirectCast(tmpFrm, frmMonMain).UseCriticalTime = False
+        End If
     End Sub
-
-
-
 
     Private Sub frmWarning_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

@@ -186,7 +186,8 @@ Partial Class frmMonMain
         Me.coldgvAlertCollectDt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertHchkName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pnlRibon = New eXperDB.BaseControls.Panel()
-        Me.GroupBox1 = New eXperDB.BaseControls.GroupBox()
+        Me.grpAlert = New eXperDB.BaseControls.GroupBox()
+        Me.cmbLevel = New eXperDB.BaseControls.ComboBox()
         Me.grpStausSuminfo.SuspendLayout()
         Me.tlpHealth.SuspendLayout()
         CType(Me.picLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -218,7 +219,7 @@ Partial Class frmMonMain
         Me.tlpBase.SuspendLayout()
         CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlRibon.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.grpAlert.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpStausSuminfo
@@ -2041,39 +2042,58 @@ Partial Class frmMonMain
         '
         'pnlRibon
         '
-        Me.pnlRibon.Controls.Add(Me.GroupBox1)
+        Me.pnlRibon.Controls.Add(Me.grpAlert)
         Me.pnlRibon.Dock = System.Windows.Forms.DockStyle.Right
         Me.pnlRibon.Location = New System.Drawing.Point(1666, 29)
         Me.pnlRibon.Name = "pnlRibon"
         Me.pnlRibon.Size = New System.Drawing.Size(250, 1047)
         Me.pnlRibon.TabIndex = 10
         '
-        'GroupBox1
+        'grpAlert
         '
-        Me.GroupBox1.AlignLine = System.Drawing.StringAlignment.Center
-        Me.GroupBox1.AlignString = System.Drawing.StringAlignment.Near
-        Me.GroupBox1.Controls.Add(Me.dgvAlert)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpAlert.AlignLine = System.Drawing.StringAlignment.Center
+        Me.grpAlert.AlignString = System.Drawing.StringAlignment.Near
+        Me.grpAlert.Controls.Add(Me.cmbLevel)
+        Me.grpAlert.Controls.Add(Me.dgvAlert)
+        Me.grpAlert.Dock = System.Windows.Forms.DockStyle.Fill
         Edges10.LeftBottom = 0
         Edges10.RightBottom = 0
-        Me.GroupBox1.EdgeRound = Edges10
-        Me.GroupBox1.FillColor = System.Drawing.Color.Black
-        Me.GroupBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GroupBox1.Icon = CType(resources.GetObject("GroupBox1.Icon"), System.Drawing.Icon)
-        Me.GroupBox1.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.GroupBox1.LineWidth = 1
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.GroupBox1.Size = New System.Drawing.Size(250, 1047)
-        Me.GroupBox1.TabIndex = 8
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Alert"
-        Me.GroupBox1.TitleFont = New System.Drawing.Font("Malgun Gothic", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.GroupBox1.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.GroupBox1.UseGraColor = False
-        Me.GroupBox1.UseRound = True
-        Me.GroupBox1.UseTitle = True
+        Me.grpAlert.EdgeRound = Edges10
+        Me.grpAlert.FillColor = System.Drawing.Color.Black
+        Me.grpAlert.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.grpAlert.Icon = CType(resources.GetObject("grpAlert.Icon"), System.Drawing.Icon)
+        Me.grpAlert.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.grpAlert.LineWidth = 1
+        Me.grpAlert.Location = New System.Drawing.Point(0, 0)
+        Me.grpAlert.Name = "grpAlert"
+        Me.grpAlert.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
+        Me.grpAlert.Size = New System.Drawing.Size(250, 1047)
+        Me.grpAlert.TabIndex = 8
+        Me.grpAlert.TabStop = False
+        Me.grpAlert.Text = "Alert"
+        Me.grpAlert.TitleFont = New System.Drawing.Font("Malgun Gothic", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.grpAlert.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.grpAlert.UseGraColor = False
+        Me.grpAlert.UseRound = True
+        Me.grpAlert.UseTitle = True
+        '
+        'cmbLevel
+        '
+        Me.cmbLevel.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLevel.DisplayMember = "All"
+        Me.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbLevel.FixedWidth = False
+        Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbLevel.FormattingEnabled = True
+        Me.cmbLevel.Items.AddRange(New Object() {"Critical", "Warning"})
+        Me.cmbLevel.Location = New System.Drawing.Point(152, 4)
+        Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbLevel.Name = "cmbLevel"
+        Me.cmbLevel.Necessary = False
+        Me.cmbLevel.Size = New System.Drawing.Size(92, 23)
+        Me.cmbLevel.StatusTip = ""
+        Me.cmbLevel.TabIndex = 24
+        Me.cmbLevel.ValueText = ""
         '
         'frmMonMain
         '
@@ -2122,7 +2142,7 @@ Partial Class frmMonMain
         Me.tlpBase.ResumeLayout(False)
         CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlRibon.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
+        Me.grpAlert.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -2217,7 +2237,7 @@ Partial Class frmMonMain
     Friend WithEvents chtSessionStatus As System.Windows.Forms.DataVisualization.Charting.Chart
     Friend WithEvents dgvAlert As eXperDB.BaseControls.DataGridView
     Friend WithEvents pnlRibon As eXperDB.BaseControls.Panel
-    Friend WithEvents GroupBox1 As eXperDB.BaseControls.GroupBox
+    Friend WithEvents grpAlert As eXperDB.BaseControls.GroupBox
     Friend WithEvents coldgvAlertID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -2225,5 +2245,6 @@ Partial Class frmMonMain
     Friend WithEvents coldgvAlertMsg As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertCollectDt As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertHchkName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents cmbLevel As eXperDB.BaseControls.ComboBox
 
 End Class

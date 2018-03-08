@@ -38,6 +38,16 @@
       ]]>
     </DATA>
   </ROW>
+  <ROW ID="UPDATEPASSWORD" PARAMS="2">
+    <DESC>Update password</DESC>
+    <DATA>
+      <![CDATA[
+        UPDATE TB_CONFIG 
+          SET ADMIN_PASSWORD = '{1}'
+        WHERE ADMIN_USER_ID='{0}'
+      ]]>
+    </DATA>
+  </ROW>
   <ROW ID="SELECTCONFIG" PARAMS="0">
     <DESC>Server Batch Log Keep Days</DESC>
     <DATA>

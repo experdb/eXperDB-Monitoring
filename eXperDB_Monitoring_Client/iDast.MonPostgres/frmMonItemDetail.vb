@@ -273,49 +273,6 @@
 
     End Sub
 
-    Private Sub dgvLock_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellContentDoubleClick
-        Dim strDb As String = ""
-        Dim strUser As String = ""
-        Dim strQuery As String = ""
-        If dgvLock.RowCount <= 0 Then Return
-        _Selectedindex = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
-        _SelectedGrid = 1
-        If e.ColumnIndex = colDgvLockBlockedQuery.Index Then
-            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
-            strQuery = dgvLock.CurrentCell.Value
-            strUser = dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
-            frmQuery.ShowDialog(Me)
-        ElseIf e.ColumnIndex = colDgvLockBlockingQuery.Index Then
-            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
-            strQuery = dgvLock.CurrentCell.Value
-            strUser = dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
-            frmQuery.ShowDialog(Me)
-        End If
-    End Sub
-
-    Private Sub dgvLock_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLock.CellMouseClick
-        If dgvLock.RowCount <= 0 Then Return
-        For i As Integer = 0 To dgvSessionList.Rows.Count - 1
-            dgvSessionList.Rows(i).Selected = False
-        Next
-
-        _SelectedIndex = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
-        _SelectedGrid = 1
-        If e.RowIndex >= 0 Then
-            dgvLock.Cursor = Cursors.Hand
-            If dgvLock.Rows(e.RowIndex).Selected = False Then
-                dgvLock.ClearSelection()
-                dgvLock.Rows(e.RowIndex).Selected = True
-            End If
-            For i As Integer = 0 To dgvLock.ColumnCount - 1
-                dgvLock.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
-            Next
-        End If
-    End Sub
-
-
     Private Sub dgvSessionList_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
         Dim strDb As String = ""
         Dim strUser As String = ""
@@ -334,9 +291,7 @@
 
     Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
         If dgvSessionList.RowCount <= 0 Then Return
-        For i As Integer = 0 To dgvLock.Rows.Count - 1
-            dgvLock.Rows(i).Selected = False
-        Next
+
         _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
         _SelectedGrid = 0
         If e.RowIndex >= 0 Then
@@ -392,8 +347,8 @@
         End If
 
         'chtCPU.MainChart.ChartAreas("CPUAREA").AxisX.ScaleView.Zoomable = False
-        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Minutes
-        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Minutes
+        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserEnabled = True
         'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserSelectionEnabled = True
         'chtCPU.MainChart.ChartAreas("CPUAREA").CursorY.IsUserEnabled = False
@@ -422,6 +377,7 @@
     End Sub
 
     Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkPhysicalIO.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged
+
         Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
         If CheckBox.Checked = True Then
@@ -431,9 +387,14 @@
         End If
 
         chtCPU.Height = _chtHeight * _chtCount
+        'this.chartTracking.Focus();
+        chtCPU.MainChart.Focus()
         QueryChartData(CheckBox.Tag + 1, CheckBox.Checked)
     End Sub
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
+
+        If fn_SearchBefCheck() = False Then Return
+
         If index = 4 Then
             _ThreadDetail = New Threading.Thread(Sub()
                                                      ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
@@ -453,12 +414,13 @@
         Dim MarginTop As Integer = 0
         Dim MarginBottom As Integer = 0
         Dim AreaHeight As Integer = (100 / _chtCount)
-        MarginTop = AreaHeight * 0.3
+        MarginTop = AreaHeight * 0.2
         AreaHeight = AreaHeight * 0.7
+        MarginBottom = AreaHeight * 0.1
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
-                tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * nCount
+                tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * (nCount + 1) + MarginBottom * nCount
                 tmpChartArea.Position.Height = AreaHeight
                 tmpChartArea.Position.X = 3
                 If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
@@ -706,7 +668,6 @@
             Me.Invoke(New MethodInvoker(Sub()
                                             Try
                                                 chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
-                                                chtCPU.MenuVisible = True
                                                 For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
                                                     If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
                                                         tmpSeries.Points.Clear()
@@ -863,7 +824,20 @@
     Private Sub chtCPU_AnnotationPositionChanged(sender As Object, e As EventArgs)
         Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
         Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
+        Dim index As Integer = -1
+        For index = 1 To _AreaCount
+            If chtCPU.MainChart.ChartAreas(index).Visible = True Then
+                Exit For
+            End If
+        Next
 
+        If chtCPU.MainChart.Annotations(0).X < chtCPU.GetMinimumAxisXChartArea(index) _
+            Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index) _
+            Or chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _
+            Or chtCPU.MainChart.Annotations(1).X > chtCPU.GetMaximumAxisXChartArea(index) Then
+            chtCPU.MainChart.Annotations(0).X = chtCPU.GetMinimumAxisXChartArea(index)
+            chtCPU.MainChart.Annotations(1).X = chtCPU.GetMaximumAxisXChartArea(index)
+        End If
         SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
     End Sub
 
@@ -890,25 +864,23 @@
 
     End Sub
 
-    Private Sub dgvSessionList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellClick
+    Private Sub dgvSessionList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellDoubleClick
         Dim strDb As String = ""
         Dim strUser As String = ""
         Dim strQuery As String = ""
         If dgvSessionList.RowCount <= 0 Then Return
-        If e.ColumnIndex = coldgvSessionListSQL.Index Then
-            strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
-            strQuery = dgvSessionList.CurrentCell.Value
-            strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
-            frmQuery.ShowDialog(Me)
-        End If
+        'If e.ColumnIndex = coldgvSessionListSQL.Index Then
+        strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
+        strQuery = dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value
+        strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
+        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        frmQuery.ShowDialog(Me)
+        'End If
     End Sub
 
     Private Sub dgvSessionList_CellMouseClick_1(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
         If dgvSessionList.RowCount <= 0 Then Return
-        For i As Integer = 0 To dgvLock.Rows.Count - 1
-            dgvLock.Rows(i).Selected = False
-        Next
+
         If e.RowIndex >= 0 Then
             dgvSessionList.Cursor = Cursors.Hand
             If dgvSessionList.Rows(e.RowIndex).Selected = False Then
@@ -920,4 +892,17 @@
             Next
         End If
     End Sub
+
+    Private Function fn_SearchBefCheck() As Boolean
+        If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) < 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M014"))
+            Return False
+        Else
+            If DateDiff(DateInterval.Hour, dtpSt.Value, dtpEd.Value) >= 1 Then
+                MsgBox(p_clsMsgData.fn_GetData("M015", "1"))
+                Return False
+            End If
+        End If
+        Return True
+    End Function
 End Class

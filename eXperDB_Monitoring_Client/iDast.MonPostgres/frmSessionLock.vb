@@ -423,13 +423,12 @@
         'End If
     End Sub
 
-
-    Private Sub dgvLock_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellContentDoubleClick
+    Private Sub dgvLock_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellDoubleClick
         Dim strDb As String = ""
         Dim strUser As String = ""
         Dim strQuery As String = ""
         If dgvLock.RowCount <= 0 Then Return
-        _Selectedindex = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
+        _SelectedIndex = dgvLock.CurrentRow.Cells(colDgvLockBlockingPID.Index).Value
         _SelectedGrid = 1
         If e.ColumnIndex = colDgvLockBlockedQuery.Index Then
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
@@ -466,21 +465,20 @@
         End If
     End Sub
 
-
-    Private Sub dgvSessionList_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellContentDoubleClick
+    Private Sub dgvSessionList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellDoubleClick
         Dim strDb As String = ""
         Dim strUser As String = ""
         Dim strQuery As String = ""
         If dgvSessionList.RowCount <= 0 Then Return
         _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
         _SelectedGrid = 0
-        If e.ColumnIndex = coldgvSessionListSQL.Index Then
-            strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
-            strQuery = dgvSessionList.CurrentCell.Value
-            strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
-            frmQuery.ShowDialog(Me)
-        End If
+        'If e.ColumnIndex = coldgvSessionListSQL.Index Then
+        strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
+        strQuery = dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value
+        strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
+        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        frmQuery.ShowDialog(Me)
+        'End If
     End Sub
 
     Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
@@ -596,5 +594,14 @@
         Else
             BretFrm.Activate()
         End If
+    End Sub
+
+    Private Sub frmSessionLock_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        Me.btnPause.Location = New System.Drawing.Point(Me.grpSessionLock.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
+        Me.btnStop.Location = New System.Drawing.Point(Me.btnPause.Location.X - Me.btnStop.Width - Me.btnStop.Margin.Right, Me.btnPause.Margin.Top)
+        Me.btnCancel.Location = New System.Drawing.Point(Me.btnStop.Location.X - Me.btnCancel.Width - Me.btnCancel.Margin.Right, Me.btnPause.Margin.Top)
+        Me.btnHistory.Location = New System.Drawing.Point(Me.btnCancel.Location.X - Me.btnHistory.Width - Me.btnHistory.Margin.Right, Me.btnPause.Margin.Top)
+        Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
+        modCommon.FontChange(Me, p_Font)
     End Sub
 End Class

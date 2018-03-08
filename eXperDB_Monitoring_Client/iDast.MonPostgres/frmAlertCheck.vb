@@ -40,10 +40,11 @@
         Me.Close()
     End Sub
 
-    Public Sub rtnValue(ByRef intPauseTime As Integer, ByRef strCheckComment As String)
+    Public Sub rtnValue(ByRef intPauseTime As Integer, ByRef strCheckComment As String, ByRef strUserName As String)
         If cmbPauseTime.SelectedIndex > 0 Then
             intPauseTime = Integer.Parse(cmbPauseTime.Text) * 60
         End If
         strCheckComment = txtAlertComment.Text
+        strUserName = txtAlertUser.Text
     End Sub
 End Class
