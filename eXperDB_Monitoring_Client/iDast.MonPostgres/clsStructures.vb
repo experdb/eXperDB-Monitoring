@@ -90,6 +90,7 @@ Public Class GroupInfo
             _HAHost = strHAHost
             _HAPort = strHAPort
             _PGV = strPGV
+            _Reserved = HostName
             'Robin-End add HA info end
         End Sub
 
@@ -210,6 +211,15 @@ Public Class GroupInfo
                 End If
             End Get
         End Property
+        ReadOnly Property ShowSeriesNm As String
+            Get
+                If p_ShowName = clsEnums.ShowName.HostName Then
+                    Return _HostNm + ":" + CStr(_Port)
+                Else
+                    Return _AliasNm + ":" + CStr(_Port)
+                End If
+            End Get
+        End Property
    'Robin-Start add HA info 
         Private _HARole As String = ""
         ''' <summary>
@@ -257,6 +267,18 @@ Public Class GroupInfo
         ReadOnly Property PGV As String
             Get
                 Return _PGV
+            End Get
+        End Property
+        Private _Reserved As String = ""
+        ''' <summary>
+        ''' Reserved
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        ReadOnly Property Reserved As String
+            Get
+                Return _Reserved
             End Get
         End Property
    'Robin-end add HA info end

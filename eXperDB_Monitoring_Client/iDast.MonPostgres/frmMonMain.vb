@@ -192,6 +192,7 @@
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         sb_SetRbGrp(_GrpList)
         FormMovePanel1.Text += " [" + _GrpList.Item(0).GroupName + "]"
+        tmCollect.Interval = 500
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
@@ -860,6 +861,7 @@
             GC.Collect()
         Finally
 
+            tmCollect.Interval = _ElapseInterval
             tmCollect.Start()
             _IsCollectRunning = False
         End Try
@@ -1384,7 +1386,8 @@
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT")))
                         Else
                             Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
                             If lastYPoint > 0 Then

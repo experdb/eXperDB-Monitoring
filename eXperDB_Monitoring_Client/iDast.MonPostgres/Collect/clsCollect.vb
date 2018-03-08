@@ -82,7 +82,8 @@
 
             _clsQuery = New clsQuerys(New eXperDB.ODBC.DXODBC(AgentCn.ODBCConninfo, _intPeriod))
             If threadTimer Is Nothing Then
-                threadTimer = New System.Timers.Timer(_intPeriod)
+                'threadTimer = New System.Timers.Timer(_intPeriod)
+                threadTimer = New System.Timers.Timer(500)
                 threadTimer.AutoReset = False
             End If
 
@@ -1165,6 +1166,7 @@
             GC.Collect()
         End Try
 
+        threadTimer.Interval = _intPeriod
         threadTimer.Start()
 
     End Sub
