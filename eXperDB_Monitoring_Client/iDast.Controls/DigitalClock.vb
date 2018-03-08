@@ -46,7 +46,7 @@ Public Class DigitalClock
         Me.SetStyle(ControlStyles.ResizeRedraw, True)
         Me.SetStyle(ControlStyles.UserPaint, True)
         Me.SetStyle(ControlStyles.SupportsTransparentBackColor, True)
-        Me.BackColor = Color.Transparent
+        Me.BackColor = Color.Black
      
 
         Tm.Interval = 1000

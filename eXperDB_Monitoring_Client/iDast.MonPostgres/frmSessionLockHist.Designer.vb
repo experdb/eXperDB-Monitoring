@@ -321,7 +321,7 @@ Partial Class frmSessionLockHist
         'btnExcel
         '
         Me.btnExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExcel.BackColor = System.Drawing.Color.Transparent
+        Me.btnExcel.BackColor = System.Drawing.Color.Black
         Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
@@ -342,7 +342,7 @@ Partial Class frmSessionLockHist
         '
         'tlpBottom
         '
-        Me.tlpBottom.BackColor = System.Drawing.Color.Transparent
+        Me.tlpBottom.BackColor = System.Drawing.Color.Black
         Me.tlpBottom.ColumnCount = 2
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -834,6 +834,7 @@ Partial Class frmSessionLockHist
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmSessionLockHist"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Normal
         Me.Controls.SetChildIndex(Me.tlpMain, 0)
         Me.grpSessionLockHist.ResumeLayout(False)
         Me.grpSessionLockHist.PerformLayout()

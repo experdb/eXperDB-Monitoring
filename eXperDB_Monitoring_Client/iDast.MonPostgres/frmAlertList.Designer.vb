@@ -299,7 +299,7 @@ Partial Class frmAlertList
         '
         'lblServer
         '
-        Me.lblServer.BackColor = System.Drawing.Color.Transparent
+        Me.lblServer.BackColor = System.Drawing.Color.Black
         Me.lblServer.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
         Me.lblServer.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblServer.FixedHeight = False

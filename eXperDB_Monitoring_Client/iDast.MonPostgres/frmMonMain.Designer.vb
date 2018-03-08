@@ -251,7 +251,7 @@ Partial Class frmMonMain
         '
         'tlpHealth
         '
-        Me.tlpHealth.BackColor = System.Drawing.Color.Transparent
+        Me.tlpHealth.BackColor = System.Drawing.Color.Black
         Me.tlpHealth.ColumnCount = 3
         Me.tlpHealth.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33332!))
         Me.tlpHealth.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334!))
@@ -274,7 +274,7 @@ Partial Class frmMonMain
         '
         'dgtNumC
         '
-        Me.dgtNumC.BackColor = System.Drawing.Color.Transparent
+        Me.dgtNumC.BackColor = System.Drawing.Color.Black
         Me.dgtNumC.DigitBlankOpacity = 30
         Me.dgtNumC.DigitColor = System.Drawing.Color.Red
         Me.dgtNumC.Dock = System.Windows.Forms.DockStyle.Fill
@@ -286,7 +286,7 @@ Partial Class frmMonMain
         '
         'dgtNumW
         '
-        Me.dgtNumW.BackColor = System.Drawing.Color.Transparent
+        Me.dgtNumW.BackColor = System.Drawing.Color.Black
         Me.dgtNumW.DigitBlankOpacity = 30
         Me.dgtNumW.DigitColor = System.Drawing.Color.Orange
         Me.dgtNumW.Dock = System.Windows.Forms.DockStyle.Fill
@@ -298,7 +298,7 @@ Partial Class frmMonMain
         '
         'dgtNumN
         '
-        Me.dgtNumN.BackColor = System.Drawing.Color.Transparent
+        Me.dgtNumN.BackColor = System.Drawing.Color.Black
         Me.dgtNumN.DigitBlankOpacity = 30
         Me.dgtNumN.DigitColor = System.Drawing.Color.Lime
         Me.dgtNumN.Dock = System.Windows.Forms.DockStyle.Fill
@@ -310,7 +310,7 @@ Partial Class frmMonMain
         '
         'lblNormal
         '
-        Me.lblNormal.BackColor = System.Drawing.Color.Transparent
+        Me.lblNormal.BackColor = System.Drawing.Color.Black
         Me.lblNormal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblNormal.FixedHeight = False
         Me.lblNormal.FixedWidth = False
@@ -325,7 +325,7 @@ Partial Class frmMonMain
         '
         'lblWarning
         '
-        Me.lblWarning.BackColor = System.Drawing.Color.Transparent
+        Me.lblWarning.BackColor = System.Drawing.Color.Black
         Me.lblWarning.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblWarning.FixedHeight = False
         Me.lblWarning.FixedWidth = False
@@ -340,7 +340,7 @@ Partial Class frmMonMain
         '
         'lblCritical
         '
-        Me.lblCritical.BackColor = System.Drawing.Color.Transparent
+        Me.lblCritical.BackColor = System.Drawing.Color.Black
         Me.lblCritical.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblCritical.FixedHeight = False
         Me.lblCritical.FixedWidth = False
@@ -355,7 +355,7 @@ Partial Class frmMonMain
         '
         'tmDigitalClock
         '
-        Me.tmDigitalClock.BackColor = System.Drawing.Color.Transparent
+        Me.tmDigitalClock.BackColor = System.Drawing.Color.Black
         Me.tmDigitalClock.DigitBlankOpacity = 30
         Me.tmDigitalClock.DigitColor = System.Drawing.Color.Lime
         Me.tmDigitalClock.Dock = System.Windows.Forms.DockStyle.Fill
@@ -525,7 +525,7 @@ Partial Class frmMonMain
         '
         'tlpCPU
         '
-        Me.tlpCPU.BackColor = System.Drawing.Color.Transparent
+        Me.tlpCPU.BackColor = System.Drawing.Color.Black
         Me.tlpCPU.ColumnCount = 2
         Me.tlpCPU.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
         Me.tlpCPU.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
@@ -742,7 +742,7 @@ Partial Class frmMonMain
         '
         'tlpMem
         '
-        Me.tlpMem.BackColor = System.Drawing.Color.Transparent
+        Me.tlpMem.BackColor = System.Drawing.Color.Black
         Me.tlpMem.ColumnCount = 2
         Me.tlpMem.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
         Me.tlpMem.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
@@ -1214,7 +1214,7 @@ Partial Class frmMonMain
         '
         Me.chkIDLE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkIDLE.AutoSize = True
-        Me.chkIDLE.BackColor = System.Drawing.Color.Transparent
+        Me.chkIDLE.BackColor = System.Drawing.Color.Black
         Me.chkIDLE.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkIDLE.LineColor = System.Drawing.Color.Gray
         Me.chkIDLE.Location = New System.Drawing.Point(549, 5)
@@ -1568,7 +1568,7 @@ Partial Class frmMonMain
         ChartArea1.AxisY2.MajorGrid.Enabled = False
         ChartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime
         ChartArea1.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea1.BackColor = System.Drawing.Color.Transparent
+        ChartArea1.BackColor = System.Drawing.Color.Black
         ChartArea1.BorderColor = System.Drawing.Color.Empty
         ChartArea1.InnerPlotPosition.Auto = False
         ChartArea1.InnerPlotPosition.Height = 80.0!
@@ -1584,11 +1584,11 @@ Partial Class frmMonMain
         Me.chrReqInfo.ChartAreas.Add(ChartArea1)
         Me.chrReqInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Legend1.Alignment = System.Drawing.StringAlignment.Far
-        Legend1.BackColor = System.Drawing.Color.Transparent
+        Legend1.BackColor = System.Drawing.Color.Black
         Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
         Legend1.ForeColor = System.Drawing.Color.White
         Legend1.Name = "Legend1"
-        Legend2.BackColor = System.Drawing.Color.Transparent
+        Legend2.BackColor = System.Drawing.Color.Black
         Legend2.ForeColor = System.Drawing.Color.White
         Legend2.IsDockedInsideChartArea = False
         Legend2.Name = "Legend2"
@@ -1703,7 +1703,7 @@ Partial Class frmMonMain
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Black
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.44898!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.55102!))
@@ -1734,7 +1734,7 @@ Partial Class frmMonMain
         '
         'lblAgentSvrState
         '
-        Me.lblAgentSvrState.BackColor = System.Drawing.Color.Transparent
+        Me.lblAgentSvrState.BackColor = System.Drawing.Color.Black
         Me.lblAgentSvrState.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblAgentSvrState.FixedHeight = False
         Me.lblAgentSvrState.FixedWidth = False
@@ -1748,7 +1748,7 @@ Partial Class frmMonMain
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.BackColor = System.Drawing.Color.Black
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.FixedHeight = False
         Me.Label1.FixedWidth = False
@@ -1816,7 +1816,7 @@ Partial Class frmMonMain
         '
         'chtSessionStatus
         '
-        Me.chtSessionStatus.BackColor = System.Drawing.Color.Transparent
+        Me.chtSessionStatus.BackColor = System.Drawing.Color.Black
         ChartArea2.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea2.AxisX.IsLabelAutoFit = False
         ChartArea2.AxisX.IsMarginVisible = False
@@ -1863,7 +1863,7 @@ Partial Class frmMonMain
         ChartArea2.AxisY2.MajorTickMark.Enabled = False
         ChartArea2.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea2.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea2.BackColor = System.Drawing.Color.Transparent
+        ChartArea2.BackColor = System.Drawing.Color.Black
         ChartArea2.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
         ChartArea2.Name = "ChartArea1"
         ChartArea2.Position.Auto = False
@@ -1874,7 +1874,7 @@ Partial Class frmMonMain
         Me.chtSessionStatus.ChartAreas.Add(ChartArea2)
         Me.chtSessionStatus.Dock = System.Windows.Forms.DockStyle.Fill
         Legend3.Alignment = System.Drawing.StringAlignment.Far
-        Legend3.BackColor = System.Drawing.Color.Transparent
+        Legend3.BackColor = System.Drawing.Color.Black
         Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
         Legend3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Legend3.ForeColor = System.Drawing.Color.White

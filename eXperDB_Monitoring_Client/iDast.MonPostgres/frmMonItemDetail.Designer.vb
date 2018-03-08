@@ -330,7 +330,7 @@ Partial Class frmMonItemDetail
         '
         'tlpBottom
         '
-        Me.tlpBottom.BackColor = System.Drawing.Color.Transparent
+        Me.tlpBottom.BackColor = System.Drawing.Color.Black
         Me.tlpBottom.ColumnCount = 2
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -551,7 +551,7 @@ Partial Class frmMonItemDetail
         '
         'lblServer
         '
-        Me.lblServer.BackColor = System.Drawing.Color.Transparent
+        Me.lblServer.BackColor = System.Drawing.Color.Black
         Me.lblServer.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
         Me.lblServer.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblServer.FixedHeight = False

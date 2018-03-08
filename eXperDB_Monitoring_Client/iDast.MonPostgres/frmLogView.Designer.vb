@@ -23,12 +23,10 @@ Partial Class frmLogView
         Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogView))
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.spnlMain = New System.Windows.Forms.SplitContainer()
@@ -73,7 +71,7 @@ Partial Class frmLogView
         'spnlMain
         '
         Me.spnlMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.spnlMain.Font = New System.Drawing.Font("Gulim", 14.84401!)
+        Me.spnlMain.Font = New System.Drawing.Font("Gulim", 15.03674!)
         Me.spnlMain.Location = New System.Drawing.Point(2, 29)
         Me.spnlMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.spnlMain.Name = "spnlMain"
@@ -82,11 +80,11 @@ Partial Class frmLogView
         'spnlMain.Panel1
         '
         Me.spnlMain.Panel1.Controls.Add(Me.tlpMain)
-        Me.spnlMain.Panel1.Font = New System.Drawing.Font("Gulim", 14.84401!)
+        Me.spnlMain.Panel1.Font = New System.Drawing.Font("Gulim", 15.03674!)
         '
         'spnlMain.Panel2
         '
-        Me.spnlMain.Panel2.Font = New System.Drawing.Font("Gulim", 1.198273!)
+        Me.spnlMain.Panel2.Font = New System.Drawing.Font("Gulim", 1.213831!)
         Me.spnlMain.Size = New System.Drawing.Size(1822, 1043)
         Me.spnlMain.SplitterDistance = 1012
         Me.spnlMain.SplitterWidth = 5
@@ -98,7 +96,7 @@ Partial Class frmLogView
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpMain.Controls.Add(Me.grpLogInfo, 0, 0)
         Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMain.Font = New System.Drawing.Font("Gulim", 15.20329!)
+        Me.tlpMain.Font = New System.Drawing.Font("Gulim", 15.40068!)
         Me.tlpMain.Location = New System.Drawing.Point(0, 0)
         Me.tlpMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tlpMain.Name = "tlpMain"
@@ -123,7 +121,7 @@ Partial Class frmLogView
         Edges3.RightTop = 20
         Me.grpLogInfo.EdgeRound = Edges3
         Me.grpLogInfo.FillColor = System.Drawing.Color.Black
-        Me.grpLogInfo.Font = New System.Drawing.Font("Gulim", 3.867546!)
+        Me.grpLogInfo.Font = New System.Drawing.Font("Gulim", 3.917761!)
         Me.grpLogInfo.Icon = Nothing
         Me.grpLogInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpLogInfo.LineWidth = 1
@@ -135,7 +133,7 @@ Partial Class frmLogView
         Me.grpLogInfo.TabIndex = 1
         Me.grpLogInfo.TabStop = False
         Me.grpLogInfo.Text = "F138"
-        Me.grpLogInfo.TitleFont = New System.Drawing.Font("Gulim", 1.308176!)
+        Me.grpLogInfo.TitleFont = New System.Drawing.Font("Gulim", 1.325161!)
         Me.grpLogInfo.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpLogInfo.UseGraColor = False
         Me.grpLogInfo.UseRound = True
@@ -148,7 +146,7 @@ Partial Class frmLogView
         Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
-        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 15.58266!)
+        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 15.78498!)
         Me.btnExcel.ForeColor = System.Drawing.Color.LightGray
         Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnExcel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -166,14 +164,14 @@ Partial Class frmLogView
         '
         'tlpTop
         '
-        Me.tlpTop.BackColor = System.Drawing.Color.Transparent
+        Me.tlpTop.BackColor = System.Drawing.Color.Black
         Me.tlpTop.ColumnCount = 2
         Me.tlpTop.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 370.0!))
         Me.tlpTop.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpTop.Controls.Add(Me.grpLogFileList, 0, 0)
         Me.tlpTop.Controls.Add(Me.grpLogview, 1, 0)
         Me.tlpTop.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTop.Font = New System.Drawing.Font("Gulim", 15.20329!)
+        Me.tlpTop.Font = New System.Drawing.Font("Gulim", 15.40068!)
         Me.tlpTop.Location = New System.Drawing.Point(3, 11)
         Me.tlpTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tlpTop.Name = "tlpTop"
@@ -195,7 +193,7 @@ Partial Class frmLogView
         Edges1.RightTop = 20
         Me.grpLogFileList.EdgeRound = Edges1
         Me.grpLogFileList.FillColor = System.Drawing.Color.Black
-        Me.grpLogFileList.Font = New System.Drawing.Font("Gulim", 12.06467!)
+        Me.grpLogFileList.Font = New System.Drawing.Font("Gulim", 12.22131!)
         Me.grpLogFileList.Icon = Nothing
         Me.grpLogFileList.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpLogFileList.LineWidth = 1
@@ -207,7 +205,7 @@ Partial Class frmLogView
         Me.grpLogFileList.TabIndex = 3
         Me.grpLogFileList.TabStop = False
         Me.grpLogFileList.Text = "F235"
-        Me.grpLogFileList.TitleFont = New System.Drawing.Font("Gulim", 11.22221!, System.Drawing.FontStyle.Bold)
+        Me.grpLogFileList.TitleFont = New System.Drawing.Font("Gulim", 11.36791!, System.Drawing.FontStyle.Bold)
         Me.grpLogFileList.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpLogFileList.UseGraColor = False
         Me.grpLogFileList.UseRound = True
@@ -222,7 +220,7 @@ Partial Class frmLogView
         Me.TableLayoutPanel1.Controls.Add(Me.dgvLogFileList, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.lblRefreshTime, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Font = New System.Drawing.Font("Gulim", 15.02422!)
+        Me.TableLayoutPanel1.Font = New System.Drawing.Font("Gulim", 15.21929!)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 35)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
@@ -238,7 +236,7 @@ Partial Class frmLogView
         Me.btnRefresh.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnRefresh.FixedHeight = False
         Me.btnRefresh.FixedWidth = False
-        Me.btnRefresh.Font = New System.Drawing.Font("Gulim", 9.907919!)
+        Me.btnRefresh.Font = New System.Drawing.Font("Gulim", 10.03656!)
         Me.btnRefresh.ForeColor = System.Drawing.Color.LightGray
         Me.btnRefresh.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnRefresh.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -265,7 +263,7 @@ Partial Class frmLogView
         Me.dgvLogFileList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 10.12984!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
@@ -276,7 +274,7 @@ Partial Class frmLogView
         Me.TableLayoutPanel1.SetColumnSpan(Me.dgvLogFileList, 2)
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 10.12984!)
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -284,20 +282,12 @@ Partial Class frmLogView
         Me.dgvLogFileList.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvLogFileList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLogFileList.EnableHeadersVisualStyles = False
-        Me.dgvLogFileList.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.dgvLogFileList.Font = New System.Drawing.Font("Gulim", 10.12984!)
         Me.dgvLogFileList.GridColor = System.Drawing.Color.Black
         Me.dgvLogFileList.Location = New System.Drawing.Point(3, 44)
         Me.dgvLogFileList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvLogFileList.MultiSelect = False
         Me.dgvLogFileList.Name = "dgvLogFileList"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvLogFileList.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvLogFileList.RowHeadersVisible = False
         Me.dgvLogFileList.RowTemplate.Height = 23
         Me.dgvLogFileList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -313,7 +303,7 @@ Partial Class frmLogView
         Me.coldgvLogFileListName.Name = "coldgvLogFileListName"
         Me.coldgvLogFileListName.ReadOnly = True
         Me.coldgvLogFileListName.Visible = False
-        Me.coldgvLogFileListName.Width = 44
+        Me.coldgvLogFileListName.Width = 69
         '
         'coldgvLogFileListTime
         '
@@ -341,12 +331,12 @@ Partial Class frmLogView
         '
         'lblRefreshTime
         '
-        Me.lblRefreshTime.BackColor = System.Drawing.Color.Transparent
+        Me.lblRefreshTime.BackColor = System.Drawing.Color.Black
         Me.lblRefreshTime.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
         Me.lblRefreshTime.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblRefreshTime.FixedHeight = False
         Me.lblRefreshTime.FixedWidth = False
-        Me.lblRefreshTime.Font = New System.Drawing.Font("Gulim", 11.72557!)
+        Me.lblRefreshTime.Font = New System.Drawing.Font("Gulim", 11.87781!)
         Me.lblRefreshTime.ForeColor = System.Drawing.Color.DarkGray
         Me.lblRefreshTime.Location = New System.Drawing.Point(3, 0)
         Me.lblRefreshTime.Name = "lblRefreshTime"
@@ -369,7 +359,7 @@ Partial Class frmLogView
         Edges2.RightTop = 20
         Me.grpLogview.EdgeRound = Edges2
         Me.grpLogview.FillColor = System.Drawing.Color.Black
-        Me.grpLogview.Font = New System.Drawing.Font("Gulim", 12.06467!)
+        Me.grpLogview.Font = New System.Drawing.Font("Gulim", 12.22131!)
         Me.grpLogview.Icon = Nothing
         Me.grpLogview.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpLogview.LineWidth = 1
@@ -381,7 +371,7 @@ Partial Class frmLogView
         Me.grpLogview.TabIndex = 4
         Me.grpLogview.TabStop = False
         Me.grpLogview.Text = "F236"
-        Me.grpLogview.TitleFont = New System.Drawing.Font("Gulim", 11.22221!, System.Drawing.FontStyle.Bold)
+        Me.grpLogview.TitleFont = New System.Drawing.Font("Gulim", 11.36791!, System.Drawing.FontStyle.Bold)
         Me.grpLogview.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpLogview.UseGraColor = False
         Me.grpLogview.UseRound = True
@@ -396,39 +386,31 @@ Partial Class frmLogView
         Me.dgvLogData.BackgroundColor = System.Drawing.Color.Black
         Me.dgvLogData.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvLogData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvLogData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.116852!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvLogData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvLogData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLogData.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvLogData})
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvLogData.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.116852!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvLogData.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvLogData.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLogData.EnableHeadersVisualStyles = False
-        Me.dgvLogData.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.dgvLogData.Font = New System.Drawing.Font("Gulim", 9.116852!)
         Me.dgvLogData.GridColor = System.Drawing.Color.Black
         Me.dgvLogData.Location = New System.Drawing.Point(3, 35)
         Me.dgvLogData.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvLogData.Name = "dgvLogData"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvLogData.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvLogData.RowHeadersVisible = False
         Me.dgvLogData.RowTemplate.Height = 23
         Me.dgvLogData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -447,7 +429,7 @@ Partial Class frmLogView
         '
         'tlpBottom
         '
-        Me.tlpBottom.BackColor = System.Drawing.Color.Transparent
+        Me.tlpBottom.BackColor = System.Drawing.Color.Black
         Me.tlpBottom.ColumnCount = 5
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.49612!))
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.50387!))
@@ -458,7 +440,7 @@ Partial Class frmLogView
         Me.tlpBottom.Controls.Add(Me.btnMore, 4, 0)
         Me.tlpBottom.Controls.Add(Me.cboLogReadUnit, 3, 0)
         Me.tlpBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tlpBottom.Font = New System.Drawing.Font("Gulim", 15.20329!)
+        Me.tlpBottom.Font = New System.Drawing.Font("Gulim", 15.40068!)
         Me.tlpBottom.Location = New System.Drawing.Point(3, 961)
         Me.tlpBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tlpBottom.Name = "tlpBottom"
@@ -473,7 +455,7 @@ Partial Class frmLogView
         Me.lblLogReadUnit.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblLogReadUnit.FixedHeight = False
         Me.lblLogReadUnit.FixedWidth = False
-        Me.lblLogReadUnit.Font = New System.Drawing.Font("Gulim", 9.907919!)
+        Me.lblLogReadUnit.Font = New System.Drawing.Font("Gulim", 10.03656!)
         Me.lblLogReadUnit.ForeColor = System.Drawing.Color.White
         Me.lblLogReadUnit.Location = New System.Drawing.Point(1312, 0)
         Me.lblLogReadUnit.Name = "lblLogReadUnit"
@@ -489,7 +471,7 @@ Partial Class frmLogView
         Me.btnMore.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnMore.FixedHeight = False
         Me.btnMore.FixedWidth = False
-        Me.btnMore.Font = New System.Drawing.Font("Gulim", 9.907919!)
+        Me.btnMore.Font = New System.Drawing.Font("Gulim", 10.03656!)
         Me.btnMore.ForeColor = System.Drawing.Color.LightGray
         Me.btnMore.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnMore.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -509,7 +491,7 @@ Partial Class frmLogView
         Me.cboLogReadUnit.BackColor = System.Drawing.SystemColors.Window
         Me.cboLogReadUnit.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cboLogReadUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboLogReadUnit.Font = New System.Drawing.Font("Gulim", 11.22221!)
+        Me.cboLogReadUnit.Font = New System.Drawing.Font("Gulim", 11.36791!)
         Me.cboLogReadUnit.FormattingEnabled = True
         Me.cboLogReadUnit.Location = New System.Drawing.Point(1472, 9)
         Me.cboLogReadUnit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -522,12 +504,15 @@ Partial Class frmLogView
         '
         'frmLogView
         '
-        Me.BaseHeight = 1076
+        Me.BaseHeight = 1074
         Me.ClientSize = New System.Drawing.Size(1826, 1074)
         Me.Controls.Add(Me.spnlMain)
+        Me.DoubleBuffered = True
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmLogView"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Normal
         Me.Controls.SetChildIndex(Me.spnlMain, 0)
         Me.spnlMain.Panel1.ResumeLayout(False)
         CType(Me.spnlMain, System.ComponentModel.ISupportInitialize).EndInit()

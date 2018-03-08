@@ -239,7 +239,7 @@ Partial Class ctlChart
         StripLine1.TextLineAlignment = System.Drawing.StringAlignment.Far
         ChartArea1.AxisY.StripLines.Add(StripLine1)
         ChartArea1.AxisY.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        ChartArea1.BackColor = System.Drawing.Color.Transparent
+        ChartArea1.BackColor = System.Drawing.Color.Black
         ChartArea1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         ChartArea1.Name = "DEFAREA"
         Me.MainChart.ChartAreas.Add(ChartArea1)
@@ -247,7 +247,7 @@ Partial Class ctlChart
         Me.MainChart.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.MainChart.Dock = System.Windows.Forms.DockStyle.Fill
         Legend1.Alignment = System.Drawing.StringAlignment.Far
-        Legend1.BackColor = System.Drawing.Color.Transparent
+        Legend1.BackColor = System.Drawing.Color.Black
         LegendCellColumn1.ColumnType = System.Windows.Forms.DataVisualization.Charting.LegendCellColumnType.SeriesSymbol
         LegendCellColumn1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         LegendCellColumn1.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))

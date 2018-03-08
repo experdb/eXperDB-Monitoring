@@ -1313,7 +1313,7 @@ Public Class ctlChartEx
         Dim tmpLegend As System.Windows.Forms.DataVisualization.Charting.Legend = Me.MainChart.Legends(strNewLegendNm)
         tmpLegend.Alignment = defLegend.Alignment
         tmpLegend.Alignment = System.Drawing.StringAlignment.Far
-        tmpLegend.BackColor = System.Drawing.Color.Transparent
+        tmpLegend.BackColor = System.Drawing.Color.Black
         tmpLegend.CellColumns(0) = defLegend.CellColumns(0)
         tmpLegend.CellColumns(1) = defLegend.CellColumns(1)
         tmpLegend.CellColumns(2) = defLegend.CellColumns(2)

@@ -45,7 +45,7 @@ Public Class DigitalNumber
         Me.SetStyle(ControlStyles.ResizeRedraw, True)
         Me.SetStyle(ControlStyles.UserPaint, True)
         Me.SetStyle(ControlStyles.SupportsTransparentBackColor, True)
-        Me.BackColor = Color.Transparent
+        Me.BackColor = Color.Black
 
 
       

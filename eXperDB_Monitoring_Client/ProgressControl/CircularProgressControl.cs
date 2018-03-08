@@ -111,7 +111,7 @@ namespace ProgressControl
 
             InitializeComponent();
 
-            this.BackColor = Color.Transparent;
+            this.BackColor = Color.Black;
             this.TickColor = DEFAULT_TICK_COLOR;
             this.MinimumSize = MINIMUM_CONTROL_SIZE;
             this.Interval = DEFAULT_INTERVAL;

@@ -322,7 +322,7 @@ Partial Class frmMonActInfo
         'btnExcel
         '
         Me.btnExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExcel.BackColor = System.Drawing.Color.Transparent
+        Me.btnExcel.BackColor = System.Drawing.Color.Black
         Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
@@ -344,7 +344,7 @@ Partial Class frmMonActInfo
         'lblRefreshTime
         '
         Me.lblRefreshTime.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblRefreshTime.BackColor = System.Drawing.Color.Transparent
+        Me.lblRefreshTime.BackColor = System.Drawing.Color.Black
         Me.lblRefreshTime.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
         Me.lblRefreshTime.FixedHeight = False
         Me.lblRefreshTime.FixedWidth = False
@@ -360,7 +360,7 @@ Partial Class frmMonActInfo
         'btnRefresh
         '
         Me.btnRefresh.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefresh.BackColor = System.Drawing.Color.Transparent
+        Me.btnRefresh.BackColor = System.Drawing.Color.Black
         Me.btnRefresh.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnRefresh.FixedHeight = False
         Me.btnRefresh.FixedWidth = False
@@ -381,7 +381,7 @@ Partial Class frmMonActInfo
         '
         'tlpBottom
         '
-        Me.tlpBottom.BackColor = System.Drawing.Color.Transparent
+        Me.tlpBottom.BackColor = System.Drawing.Color.Black
         Me.tlpBottom.ColumnCount = 2
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))

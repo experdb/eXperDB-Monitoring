@@ -133,7 +133,7 @@ Partial Class frmSessionLock
         'btnHistory
         '
         Me.btnHistory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnHistory.BackColor = System.Drawing.Color.Transparent
+        Me.btnHistory.BackColor = System.Drawing.Color.Black
         Me.btnHistory.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnHistory.FixedHeight = False
         Me.btnHistory.FixedWidth = False
@@ -218,7 +218,7 @@ Partial Class frmSessionLock
         'btnExcel
         '
         Me.btnExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExcel.BackColor = System.Drawing.Color.Transparent
+        Me.btnExcel.BackColor = System.Drawing.Color.Black
         Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
@@ -240,7 +240,7 @@ Partial Class frmSessionLock
         '
         'tlpBottom
         '
-        Me.tlpBottom.BackColor = System.Drawing.Color.Transparent
+        Me.tlpBottom.BackColor = System.Drawing.Color.Black
         Me.tlpBottom.ColumnCount = 2
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -742,9 +742,10 @@ Partial Class frmSessionLock
         Me.BaseHeight = 1092
         Me.ClientSize = New System.Drawing.Size(1826, 1090)
         Me.Controls.Add(Me.tlpMain)
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmSessionLock"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Normal
         Me.Controls.SetChildIndex(Me.tlpMain, 0)
         Me.grpSessionLock.ResumeLayout(false)
         Me.tlpBottom.ResumeLayout(false)
