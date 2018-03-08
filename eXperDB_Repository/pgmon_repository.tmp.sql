@@ -187,8 +187,8 @@ CREATE TABLE tb_hchk_thrd_list (
     critical_threshold numeric(15,2),
     fixed_threshold character varying(1),
     last_mod_ip character varying(15),
-    last_mod_dt timestamp without time zone
-    pause_collect_dt timestamp without time zone;
+    last_mod_dt timestamp without time zone,
+    pause_collect_dt timestamp without time zone
 );
 
 CREATE UNLOGGED TABLE tb_index_info (
@@ -344,8 +344,8 @@ CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
   check_user_id character varying(32),
   check_comment character varying(100),
   check_ip character varying(15),
-  check_dt timestamp without time zone NULL,
-)
+  check_dt timestamp without time zone NULL
+);
 
 ALTER TABLE ONLY tb_access_info
     ADD CONSTRAINT pk_access_info PRIMARY KEY (reg_date,actv_reg_seq,db_name);
