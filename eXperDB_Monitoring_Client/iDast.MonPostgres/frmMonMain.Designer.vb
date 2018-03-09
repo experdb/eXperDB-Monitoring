@@ -1913,7 +1913,7 @@ Partial Class frmMonMain
         Me.EspRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.EspRight.Enabled = False
         Me.EspRight.Expand = True
-        Me.EspRight.ExpandImage = CType(resources.GetObject("EspRight.ExpandImage"), System.Drawing.Image)
+        Me.EspRight.ExpandImage = Nothing
         Me.EspRight.Location = New System.Drawing.Point(1657, 29)
         Me.EspRight.Name = "EspRight"
         Me.EspRight.Size = New System.Drawing.Size(9, 1047)
