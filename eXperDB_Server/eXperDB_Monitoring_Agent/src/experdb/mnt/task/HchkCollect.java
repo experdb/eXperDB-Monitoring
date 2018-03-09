@@ -487,7 +487,8 @@ public class HchkCollect extends TaskApplication {
 //				for (HashMap<String, Object> map : tableSel) {
 //					sessionAgent.delete("app.TB_TABLE_INFO_D001", map);
 //				}
-				sessionAgent.delete("app.TB_TABLE_INFO_D001", tableSel.get(0)); //Run only once by Database(Sequence)
+				if (tableSel.size() > 0)
+					sessionAgent.delete("app.TB_TABLE_INFO_D001", tableSel.get(0)); //Run only once by Database(Sequence)
 				
 				for (HashMap<String, Object> map : tableSel) {
 					sessionAgent.insert("app.TB_TABLE_INFO_I001", map);
@@ -499,7 +500,8 @@ public class HchkCollect extends TaskApplication {
 //				for (HashMap<String, Object> map : indexSel) {
 //					sessionAgent.delete("app.TB_INDEX_INFO_D001", map);
 //				}
-				sessionAgent.delete("app.TB_INDEX_INFO_D001", indexSel.get(0)); //Run only once by Database(Sequence)
+				if (indexSel.size() > 0)
+					sessionAgent.delete("app.TB_INDEX_INFO_D001", indexSel.get(0)); //Run only once by Database(Sequence)
 				
 				for (HashMap<String, Object> map : indexSel) {
 					sessionAgent.insert("app.TB_INDEX_INFO_I001", map);
