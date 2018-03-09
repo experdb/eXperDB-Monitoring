@@ -11,7 +11,7 @@
 		       COLLECT_PERIOD_SEC, 
 		       CONN_DB_NAME,
 		       PG_VERSION, 
-		       SUBSTRING(SPLIT_PART(PG_VERSION, ' ', 2) FROM 1 FOR 3) AS PG_VERSION_MIN,
+		       SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 2) AS PG_VERSION_MIN,
 		       LAST_MOD_DT
 		  from TB_INSTANCE_INFO
 		 where COLLECT_YN = 'Y'
