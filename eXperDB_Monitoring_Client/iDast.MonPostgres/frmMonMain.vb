@@ -309,6 +309,7 @@
         Me.cmbLevel.SelectedIndex = 0
 
         Me.EspRight.Expand = True
+        Me.pnlRibon.Width = flpInstance.Width * 1.22
 
         modCommon.FontChange(Me, p_Font)
 

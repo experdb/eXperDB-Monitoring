@@ -246,20 +246,21 @@
             Else
                 checkBox.Value = True
             End If
+
+
+            'Loop to verify whether all row CheckBoxes are checked or not.
+            Dim nChecked As Integer = IIf(checkBox.Value, 1, 0)
+
+            For Each row As DataGridViewRow In dgvAlertList.Rows
+                If row.Index = e.RowIndex Then Continue For
+                If Convert.ToBoolean(row.Cells(coldgvAlertSel.Index).EditedFormattedValue) = True Then
+                    nChecked += 1
+                End If
+            Next
+            _cbCheckAll.Checked = IIf(nChecked = dgvAlertList.Rows.Count, True, False)
+
+            ' DirectCast(sender, BaseControls.CheckBox).Checked = isChecked
         End If
-
-        'Loop to verify whether all row CheckBoxes are checked or not.
-        Dim nChecked As Integer = IIf(checkBox.Value, 1, 0)
-
-        For Each row As DataGridViewRow In dgvAlertList.Rows
-            If row.Index = e.RowIndex Then Continue For
-            If Convert.ToBoolean(row.Cells(coldgvAlertSel.Index).EditedFormattedValue) = True Then
-                nChecked += 1
-            End If
-        Next
-        _cbCheckAll.Checked = IIf(nChecked = dgvAlertList.Rows.Count, True, False)
-
-        ' DirectCast(sender, BaseControls.CheckBox).Checked = isChecked
     End Sub
 
     Private Sub btnCheck_Click(sender As Object, e As EventArgs) Handles btnCheck.Click
