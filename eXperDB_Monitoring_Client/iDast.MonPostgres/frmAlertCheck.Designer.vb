@@ -22,399 +22,64 @@ Partial Class frmAlertCheck
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertCheck))
-        Me.btnClose = New eXperDB.BaseControls.Button()
-        Me.btnSave = New eXperDB.BaseControls.Button()
-        Me.Panel2 = New eXperDB.BaseControls.Panel()
-        Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.FormMovePanel1 = New eXperDB.Controls.FormMovePanel()
-        Me.FormControlBox1 = New eXperDB.Controls.FormControlBox()
-        Me.txtAlertComment = New eXperDB.BaseControls.TextBox()
-        Me.lblInstance = New eXperDB.BaseControls.Label()
-        Me.GroupBox1 = New eXperDB.BaseControls.GroupBox()
-        Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblAlertUser = New eXperDB.BaseControls.Label()
-        Me.lblAlertType = New eXperDB.BaseControls.Label()
         Me.lblAlertComment = New eXperDB.BaseControls.Label()
-        Me.lblAlertTime = New eXperDB.BaseControls.Label()
-        Me.lblAlertLevel = New eXperDB.BaseControls.Label()
-        Me.lblInstanceValue = New eXperDB.BaseControls.Label()
-        Me.lblAlertTypeValue = New eXperDB.BaseControls.Label()
-        Me.lblAlertTimeValue = New eXperDB.BaseControls.Label()
-        Me.lblAlertLevelValue = New eXperDB.BaseControls.Label()
-        Me.lblMsgValue = New eXperDB.BaseControls.Label()
-        Me.lblAlertMsg = New eXperDB.BaseControls.Label()
         Me.lblPause = New eXperDB.BaseControls.Label()
         Me.cmbPauseTime = New eXperDB.BaseControls.ComboBox()
         Me.txtAlertUser = New eXperDB.BaseControls.TextBox()
-        Me.Panel2.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.FormMovePanel1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnSave = New eXperDB.BaseControls.Button()
+        Me.btnClose = New eXperDB.BaseControls.Button()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.txtAlertComment = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btnClose
-        '
-        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnClose.FixedHeight = False
-        Me.btnClose.FixedWidth = False
-        Me.btnClose.ForeColor = System.Drawing.SystemColors.Control
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(318, 4)
-        Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(104, 28)
-        Me.btnClose.TabIndex = 1
-        Me.btnClose.Text = "F021"
-        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnClose.UseRound = True
-        Me.btnClose.UseVisualStyleBackColor = True
-        '
-        'btnSave
-        '
-        Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSave.FixedHeight = False
-        Me.btnSave.FixedWidth = False
-        Me.btnSave.ForeColor = System.Drawing.SystemColors.Control
-        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnSave.Location = New System.Drawing.Point(208, 4)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Radius = 10
-        Me.btnSave.Size = New System.Drawing.Size(104, 28)
-        Me.btnSave.TabIndex = 0
-        Me.btnSave.Text = "F014"
-        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnSave.UseRound = True
-        Me.btnSave.UseVisualStyleBackColor = True
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.Black
-        Me.Panel2.Controls.Add(Me.TableLayoutPanel1)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(3, 239)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(425, 39)
-        Me.Panel2.TabIndex = 3
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 2, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 3)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(425, 36)
-        Me.TableLayoutPanel1.TabIndex = 0
-        '
-        'FormMovePanel1
-        '
-        Me.FormMovePanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormMovePanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FormMovePanel1.Controls.Add(Me.FormControlBox1)
-        Me.FormMovePanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FormMovePanel1.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.FormMovePanel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormMovePanel1.Location = New System.Drawing.Point(3, 4)
-        Me.FormMovePanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormMovePanel1.Name = "FormMovePanel1"
-        Me.FormMovePanel1.Size = New System.Drawing.Size(425, 31)
-        Me.FormMovePanel1.TabIndex = 8
-        Me.FormMovePanel1.Text = "F262"
-        '
-        'FormControlBox1
-        '
-        Me.FormControlBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormControlBox1.CloseBox = New System.Drawing.Rectangle(23, 1, 20, 20)
-        Me.FormControlBox1.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FormControlBox1.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormControlBox1.isCritical = False
-        Me.FormControlBox1.isLock = False
-        Me.FormControlBox1.isPower = False
-        Me.FormControlBox1.isRotation = True
-        Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
-        Me.FormControlBox1.Location = New System.Drawing.Point(378, 0)
-        Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
-        Me.FormControlBox1.Name = "FormControlBox1"
-        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.ShowRectCnt = 2
-        Me.FormControlBox1.Size = New System.Drawing.Size(45, 22)
-        Me.FormControlBox1.TabIndex = 1
-        Me.FormControlBox1.Text = "FormControlBox1"
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseDualBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseMaxBox = False
-        Me.FormControlBox1.UseMinBox = True
-        Me.FormControlBox1.UsePowerBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        '
-        'txtAlertComment
-        '
-        Me.txtAlertComment.BackColor = System.Drawing.SystemColors.Window
-        Me.txtAlertComment.code = False
-        Me.txtAlertComment.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtAlertComment.FixedWidth = False
-        Me.txtAlertComment.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtAlertComment.impossibleinput = ""
-        Me.txtAlertComment.Location = New System.Drawing.Point(153, 100)
-        Me.txtAlertComment.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.txtAlertComment.Multiline = True
-        Me.txtAlertComment.Name = "txtAlertComment"
-        Me.txtAlertComment.Necessary = False
-        Me.txtAlertComment.PossibleInput = ""
-        Me.txtAlertComment.Prefix = ""
-        Me.txtAlertComment.Size = New System.Drawing.Size(263, 62)
-        Me.txtAlertComment.StatusTip = ""
-        Me.txtAlertComment.TabIndex = 10
-        Me.txtAlertComment.Value = ""
-        '
-        'lblInstance
-        '
-        Me.lblInstance.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblInstance.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblInstance.Location = New System.Drawing.Point(47, 13)
-        Me.lblInstance.Name = "lblInstance"
-        Me.lblInstance.Size = New System.Drawing.Size(100, 21)
-        Me.lblInstance.TabIndex = 9
-        Me.lblInstance.Text = "F033"
-        Me.lblInstance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblInstance.Visible = False
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.AlignLine = System.Drawing.StringAlignment.Center
-        Me.GroupBox1.AlignString = System.Drawing.StringAlignment.Near
-        Me.GroupBox1.BackColor = System.Drawing.Color.Black
-        Me.GroupBox1.Controls.Add(Me.TableLayoutPanel2)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.EdgeRound = Edges1
-        Me.GroupBox1.FillColor = System.Drawing.Color.FromArgb(CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer), CType(CType(38, Byte), Integer))
-        Me.GroupBox1.Icon = Nothing
-        Me.GroupBox1.LineColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.GroupBox1.LineWidth = 1
-        Me.GroupBox1.Location = New System.Drawing.Point(3, 35)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(425, 204)
-        Me.GroupBox1.TabIndex = 11
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
-        Me.GroupBox1.TitleGraColor = System.Drawing.Color.DimGray
-        Me.GroupBox1.UseGraColor = False
-        Me.GroupBox1.UseTitle = False
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertUser, 0, 6)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblInstance, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertType, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertComment, 0, 8)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertTime, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertLevel, 0, 4)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtAlertComment, 1, 8)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblInstanceValue, 1, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertTypeValue, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertTimeValue, 1, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertLevelValue, 1, 4)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblMsgValue, 1, 5)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblAlertMsg, 0, 5)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblPause, 0, 7)
-        Me.TableLayoutPanel2.Controls.Add(Me.cmbPauseTime, 1, 7)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtAlertUser, 1, 6)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 21)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 10
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(419, 180)
-        Me.TableLayoutPanel2.TabIndex = 11
         '
         'lblAlertUser
         '
-        Me.lblAlertUser.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblAlertUser.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblAlertUser.FixedWidth = False
-        Me.lblAlertUser.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertUser.Location = New System.Drawing.Point(3, 21)
-        Me.lblAlertUser.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblAlertUser.ForeColor = System.Drawing.Color.White
+        Me.lblAlertUser.Location = New System.Drawing.Point(3, 13)
+        Me.lblAlertUser.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblAlertUser.Name = "lblAlertUser"
-        Me.lblAlertUser.Size = New System.Drawing.Size(144, 21)
+        Me.lblAlertUser.Size = New System.Drawing.Size(94, 21)
         Me.lblAlertUser.TabIndex = 14
         Me.lblAlertUser.Text = "F265"
-        Me.lblAlertUser.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblAlertType
-        '
-        Me.lblAlertType.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblAlertType.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblAlertType.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertType.Location = New System.Drawing.Point(47, 14)
-        Me.lblAlertType.Name = "lblAlertType"
-        Me.lblAlertType.Size = New System.Drawing.Size(100, 21)
-        Me.lblAlertType.TabIndex = 9
-        Me.lblAlertType.Text = "F258"
-        Me.lblAlertType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblAlertType.Visible = False
+        Me.lblAlertUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblAlertComment
         '
-        Me.lblAlertComment.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblAlertComment.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblAlertComment.FixedHeight = False
         Me.lblAlertComment.FixedWidth = False
-        Me.lblAlertComment.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertComment.Location = New System.Drawing.Point(3, 99)
-        Me.lblAlertComment.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblAlertComment.ForeColor = System.Drawing.Color.White
+        Me.lblAlertComment.Location = New System.Drawing.Point(3, 71)
+        Me.lblAlertComment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblAlertComment.Name = "lblAlertComment"
-        Me.lblAlertComment.Size = New System.Drawing.Size(144, 21)
+        Me.lblAlertComment.Size = New System.Drawing.Size(94, 182)
         Me.lblAlertComment.TabIndex = 9
         Me.lblAlertComment.Text = "F260"
-        Me.lblAlertComment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblAlertTime
-        '
-        Me.lblAlertTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblAlertTime.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblAlertTime.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertTime.Location = New System.Drawing.Point(47, 15)
-        Me.lblAlertTime.Name = "lblAlertTime"
-        Me.lblAlertTime.Size = New System.Drawing.Size(100, 21)
-        Me.lblAlertTime.TabIndex = 9
-        Me.lblAlertTime.Text = "F257"
-        Me.lblAlertTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblAlertTime.Visible = False
-        '
-        'lblAlertLevel
-        '
-        Me.lblAlertLevel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblAlertLevel.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblAlertLevel.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertLevel.Location = New System.Drawing.Point(47, 16)
-        Me.lblAlertLevel.Name = "lblAlertLevel"
-        Me.lblAlertLevel.Size = New System.Drawing.Size(100, 21)
-        Me.lblAlertLevel.TabIndex = 9
-        Me.lblAlertLevel.Text = "F256"
-        Me.lblAlertLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblAlertLevel.Visible = False
-        '
-        'lblInstanceValue
-        '
-        Me.lblInstanceValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblInstanceValue.FixedWidth = False
-        Me.lblInstanceValue.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblInstanceValue.Location = New System.Drawing.Point(153, 13)
-        Me.lblInstanceValue.Name = "lblInstanceValue"
-        Me.lblInstanceValue.Size = New System.Drawing.Size(263, 21)
-        Me.lblInstanceValue.TabIndex = 11
-        Me.lblInstanceValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblInstanceValue.Visible = False
-        '
-        'lblAlertTypeValue
-        '
-        Me.lblAlertTypeValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblAlertTypeValue.FixedWidth = False
-        Me.lblAlertTypeValue.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertTypeValue.Location = New System.Drawing.Point(153, 14)
-        Me.lblAlertTypeValue.Name = "lblAlertTypeValue"
-        Me.lblAlertTypeValue.Size = New System.Drawing.Size(263, 21)
-        Me.lblAlertTypeValue.TabIndex = 11
-        Me.lblAlertTypeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblAlertTypeValue.Visible = False
-        '
-        'lblAlertTimeValue
-        '
-        Me.lblAlertTimeValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblAlertTimeValue.FixedWidth = False
-        Me.lblAlertTimeValue.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertTimeValue.Location = New System.Drawing.Point(153, 15)
-        Me.lblAlertTimeValue.Name = "lblAlertTimeValue"
-        Me.lblAlertTimeValue.Size = New System.Drawing.Size(263, 21)
-        Me.lblAlertTimeValue.TabIndex = 11
-        Me.lblAlertTimeValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblAlertTimeValue.Visible = False
-        '
-        'lblAlertLevelValue
-        '
-        Me.lblAlertLevelValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblAlertLevelValue.FixedWidth = False
-        Me.lblAlertLevelValue.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertLevelValue.Location = New System.Drawing.Point(153, 16)
-        Me.lblAlertLevelValue.Name = "lblAlertLevelValue"
-        Me.lblAlertLevelValue.Size = New System.Drawing.Size(263, 21)
-        Me.lblAlertLevelValue.TabIndex = 11
-        Me.lblAlertLevelValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblAlertLevelValue.Visible = False
-        '
-        'lblMsgValue
-        '
-        Me.lblMsgValue.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblMsgValue.FixedWidth = False
-        Me.lblMsgValue.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblMsgValue.Location = New System.Drawing.Point(153, 17)
-        Me.lblMsgValue.Name = "lblMsgValue"
-        Me.lblMsgValue.Size = New System.Drawing.Size(263, 21)
-        Me.lblMsgValue.TabIndex = 11
-        Me.lblMsgValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblMsgValue.Visible = False
-        '
-        'lblAlertMsg
-        '
-        Me.lblAlertMsg.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblAlertMsg.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblAlertMsg.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblAlertMsg.Location = New System.Drawing.Point(47, 17)
-        Me.lblAlertMsg.Name = "lblAlertMsg"
-        Me.lblAlertMsg.Size = New System.Drawing.Size(100, 21)
-        Me.lblAlertMsg.TabIndex = 9
-        Me.lblAlertMsg.Text = "F259"
-        Me.lblAlertMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.lblAlertMsg.Visible = False
+        Me.lblAlertComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblPause
         '
-        Me.lblPause.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblPause.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblPause.FixedWidth = False
-        Me.lblPause.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblPause.Location = New System.Drawing.Point(3, 60)
-        Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblPause.ForeColor = System.Drawing.Color.White
+        Me.lblPause.Location = New System.Drawing.Point(3, 43)
+        Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblPause.Name = "lblPause"
-        Me.lblPause.Size = New System.Drawing.Size(144, 21)
+        Me.lblPause.Size = New System.Drawing.Size(94, 21)
         Me.lblPause.TabIndex = 12
         Me.lblPause.Text = "F263"
-        Me.lblPause.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblPause.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'cmbPauseTime
         '
@@ -424,11 +89,10 @@ Partial Class frmAlertCheck
         Me.cmbPauseTime.FixedWidth = False
         Me.cmbPauseTime.FormattingEnabled = True
         Me.cmbPauseTime.Items.AddRange(New Object() {"Not Set", "5", "30", "60", "120"})
-        Me.cmbPauseTime.Location = New System.Drawing.Point(153, 61)
-        Me.cmbPauseTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbPauseTime.Location = New System.Drawing.Point(103, 44)
         Me.cmbPauseTime.Name = "cmbPauseTime"
         Me.cmbPauseTime.Necessary = False
-        Me.cmbPauseTime.Size = New System.Drawing.Size(100, 23)
+        Me.cmbPauseTime.Size = New System.Drawing.Size(150, 20)
         Me.cmbPauseTime.StatusTip = ""
         Me.cmbPauseTime.TabIndex = 13
         Me.cmbPauseTime.ValueText = ""
@@ -436,68 +100,194 @@ Partial Class frmAlertCheck
         'txtAlertUser
         '
         Me.txtAlertUser.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAlertUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtAlertUser.code = False
         Me.txtAlertUser.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtAlertUser.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAlertUser.impossibleinput = ""
-        Me.txtAlertUser.Location = New System.Drawing.Point(153, 21)
+        Me.txtAlertUser.Location = New System.Drawing.Point(103, 13)
+        Me.txtAlertUser.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txtAlertUser.Name = "txtAlertUser"
         Me.txtAlertUser.Necessary = False
         Me.txtAlertUser.PossibleInput = ""
         Me.txtAlertUser.Prefix = ""
-        Me.txtAlertUser.Size = New System.Drawing.Size(150, 25)
+        Me.txtAlertUser.Size = New System.Drawing.Size(150, 21)
         Me.txtAlertUser.StatusTip = ""
         Me.txtAlertUser.TabIndex = 15
         Me.txtAlertUser.Value = ""
         '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.Controls.Add(Me.lblAlertComment, 0, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.txtAlertComment, 1, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.cmbPauseTime, 1, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblPause, 0, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblAlertUser, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.txtAlertUser, 1, 1)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 33)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 4
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(430, 253)
+        Me.TableLayoutPanel3.TabIndex = 12
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSave, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnClose, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 286)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(430, 41)
+        Me.TableLayoutPanel2.TabIndex = 13
+        '
+        'btnSave
+        '
+        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnSave.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnSave.FixedHeight = False
+        Me.btnSave.FixedWidth = False
+        Me.btnSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnSave.ForeColor = System.Drawing.Color.White
+        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnSave.Location = New System.Drawing.Point(138, 4)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Radius = 5
+        Me.btnSave.Size = New System.Drawing.Size(74, 33)
+        Me.btnSave.TabIndex = 27
+        Me.btnSave.Text = "F014"
+        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnSave.UseRound = True
+        Me.btnSave.UseVisualStyleBackColor = False
+        '
+        'btnClose
+        '
+        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnClose.FixedHeight = False
+        Me.btnClose.FixedWidth = False
+        Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.ForeColor = System.Drawing.Color.White
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.Location = New System.Drawing.Point(218, 4)
+        Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Radius = 5
+        Me.btnClose.Size = New System.Drawing.Size(74, 33)
+        Me.btnClose.TabIndex = 28
+        Me.btnClose.Text = "F021"
+        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnClose.UseRound = True
+        Me.btnClose.UseVisualStyleBackColor = False
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 392.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.StatusLabel, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(430, 30)
+        Me.TableLayoutPanel1.TabIndex = 14
+        '
+        'StatusLabel
+        '
+        Me.StatusLabel.AutoSize = True
+        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.StatusLabel.ForeColor = System.Drawing.Color.White
+        Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StatusLabel.Location = New System.Drawing.Point(41, 0)
+        Me.StatusLabel.Name = "StatusLabel"
+        Me.StatusLabel.Size = New System.Drawing.Size(386, 30)
+        Me.StatusLabel.TabIndex = 0
+        Me.StatusLabel.Text = "Text"
+        Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'txtAlertComment
+        '
+        Me.txtAlertComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtAlertComment.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtAlertComment.Location = New System.Drawing.Point(103, 72)
+        Me.txtAlertComment.Multiline = True
+        Me.txtAlertComment.Name = "txtAlertComment"
+        Me.txtAlertComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtAlertComment.Size = New System.Drawing.Size(324, 178)
+        Me.txtAlertComment.TabIndex = 16
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(32, 30)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
+        '
         'frmAlertCheck
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.BackColor = System.Drawing.Color.DimGray
-        Me.ClientSize = New System.Drawing.Size(431, 282)
-        Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.FormMovePanel1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(436, 330)
+        Me.Controls.Add(Me.TableLayoutPanel3)
+        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.TableLayoutPanel2)
+        Me.ForeColor = System.Drawing.Color.White
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmAlertCheck"
-        Me.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "frmConfig"
-        Me.Panel2.ResumeLayout(false)
-        Me.TableLayoutPanel1.ResumeLayout(false)
-        Me.FormMovePanel1.ResumeLayout(false)
-        Me.GroupBox1.ResumeLayout(false)
-        Me.TableLayoutPanel2.ResumeLayout(false)
-        Me.TableLayoutPanel2.PerformLayout
-        Me.ResumeLayout(false)
+        Me.Text = "Alert Confirm"
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.ResumeLayout(False)
 
-End Sub
-    Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
-    Friend WithEvents btnClose As eXperDB.BaseControls.Button
-    Friend WithEvents btnSave As eXperDB.BaseControls.Button
-    Friend WithEvents FormMovePanel1 As eXperDB.Controls.FormMovePanel
-    Friend WithEvents FormControlBox1 As eXperDB.Controls.FormControlBox
-    Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
-    Friend WithEvents txtAlertComment As eXperDB.BaseControls.TextBox
-    Friend WithEvents lblInstance As eXperDB.BaseControls.Label
-    Friend WithEvents GroupBox1 As eXperDB.BaseControls.GroupBox
-    Friend WithEvents lblAlertTime As eXperDB.BaseControls.Label
-    Friend WithEvents lblAlertType As eXperDB.BaseControls.Label
+    End Sub
     Friend WithEvents lblAlertComment As eXperDB.BaseControls.Label
-    Friend WithEvents lblAlertMsg As eXperDB.BaseControls.Label
-    Friend WithEvents lblAlertLevel As eXperDB.BaseControls.Label
-    Friend WithEvents TableLayoutPanel2 As eXperDB.BaseControls.TableLayoutPanel
-    Friend WithEvents lblInstanceValue As eXperDB.BaseControls.Label
-    Friend WithEvents lblAlertTypeValue As eXperDB.BaseControls.Label
-    Friend WithEvents lblAlertTimeValue As eXperDB.BaseControls.Label
-    Friend WithEvents lblAlertLevelValue As eXperDB.BaseControls.Label
-    Friend WithEvents lblMsgValue As eXperDB.BaseControls.Label
     Friend WithEvents lblPause As eXperDB.BaseControls.Label
     Friend WithEvents cmbPauseTime As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblAlertUser As eXperDB.BaseControls.Label
     Friend WithEvents txtAlertUser As eXperDB.BaseControls.TextBox
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents btnSave As eXperDB.BaseControls.Button
+    Friend WithEvents btnClose As eXperDB.BaseControls.Button
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents StatusLabel As System.Windows.Forms.Label
+    Friend WithEvents txtAlertComment As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

@@ -78,7 +78,7 @@
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("Alert List") + " ]"
+        'FormMovePanel1.Text += " [ " + String.Format("Alert List") + " ]"
 
         lblServer.Text = p_clsMsgData.fn_GetData("F033")
         lblLevel.Text = p_clsMsgData.fn_GetData("F247")
@@ -89,9 +89,9 @@
         btnConfig.Text = p_clsMsgData.fn_GetData("F264")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        grpAlertList.Text = p_clsMsgData.fn_GetData("F255")
+        'grpAlertList.Text = p_clsMsgData.fn_GetData("F255")
         ' Talble Information
-        grpAlert.Text = p_clsMsgData.fn_GetData("F255")
+        'grpAlert.Text = p_clsMsgData.fn_GetData("F255")
         dgvAlertList.AutoGenerateColumns = False
         'coldgvAlertSel.HeaderText = p_clsMsgData.fn_GetData("F252")
         coldgvAlertHostName.HeaderText = p_clsMsgData.fn_GetData("F033")
@@ -106,14 +106,14 @@
 
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
         ' fit button location
-        Me.btnExcel.Location = New System.Drawing.Point(Me.grpAlertList.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
+        'Me.btnExcel.Location = New System.Drawing.Point(Me.grpAlertList.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
 
         ' Set default duration
         dtpSt.Value = DateTime.Now.AddHours(-1)
@@ -134,6 +134,8 @@
         cmbCheck.SelectedIndex = 0
 
         modCommon.FontChange(Me, p_Font)
+
+        'CountStatusLabel1.Text = "(0/0)"
 
     End Sub
 
@@ -191,6 +193,8 @@
             Next
         End If
     End Sub
+
+
 
     Private Sub dgvAlertList_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles dgvAlertList.CellPainting
         If e.ColumnIndex = 0 AndAlso e.RowIndex = -1 Then
@@ -261,17 +265,21 @@
                 Exit For
             End If
         Next
+
+
         If i = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M034"))
             Return
         End If
 
+        frmAlertCheck.StatusLabel.Text = "총 (" & i & ") 건이 선택되어 알람 조치 합니다."
         If frmAlertCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
             frmAlertCheck.rtnValue(intPauseTime, strCheckComment, strCheckUser)
         Else
             frmAlertCheck.Dispose()
             Return
         End If
+
         Try
             Dim COC As New Common.ClsObjectCtl
             Dim strLocIP As String = COC.GetLocalIP
@@ -320,6 +328,18 @@
         Else
             MsgBox(p_clsMsgData.fn_GetData("M029"))
         End If
+
+    End Sub
+
+    Private Sub dgvAlertList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellDoubleClick
+        Dim cv As Boolean
+        cv = dgvAlertList.CurrentRow.Cells(0).Value
+
+        If cv = False Then
+            dgvAlertList.CurrentRow.Cells(0).Value = True
+        End If
+
+        btnCheck.PerformClick()
 
     End Sub
 
