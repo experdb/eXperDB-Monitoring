@@ -164,6 +164,17 @@
 
     End Property
 
+    Private _UseResizeFont As Boolean = True
+    Property UseResizeFont As Boolean
+        Get
+            Return _UseResizeFont
+        End Get
+        Set(value As Boolean)
+            _UseResizeFont = value
+        End Set
+
+    End Property
+
     Private Sub frmMonBase_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         FontSizeChange()
@@ -175,8 +186,7 @@
 
 
     Private Sub frmMonBase_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
-        If Me.Created = True AndAlso Me.IsHandleCreated Then
-
+        If Me.Created = True AndAlso Me.IsHandleCreated AndAlso Me._UseResizeFont = True Then
             FontSizeChange()
         End If
         '  Me.ShowCritical

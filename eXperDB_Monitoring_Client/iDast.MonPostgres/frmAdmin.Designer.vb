@@ -145,7 +145,7 @@ Partial Class frmAdmin
         '
         'CircularProgressControl1
         '
-        Me.CircularProgressControl1.BackColor = System.Drawing.Color.Transparent
+        Me.CircularProgressControl1.BackColor = System.Drawing.Color.Black
         Me.CircularProgressControl1.Interval = 60
         Me.CircularProgressControl1.Location = New System.Drawing.Point(461, 195)
         Me.CircularProgressControl1.MinimumSize = New System.Drawing.Size(28, 28)

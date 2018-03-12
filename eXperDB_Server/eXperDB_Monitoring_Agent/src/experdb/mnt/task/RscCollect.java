@@ -339,7 +339,8 @@ public class RscCollect extends TaskApplication {
 					double read_busy_rate = 0;
 					double write_busy_rate = 0;
 
-					if(sec_diff != 0)
+					//if(sec_diff != 0)
+					if(sec_diff > 0)
 					{
 						double rate = (current_io_msec / 1000) / sec_diff;
 						if (rate > 1) 	rate = 1.0;

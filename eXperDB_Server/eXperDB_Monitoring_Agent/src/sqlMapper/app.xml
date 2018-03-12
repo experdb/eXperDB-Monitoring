@@ -283,7 +283,7 @@
 				          NOW() AS COLLECT_DT
 				  FROM PG_TABLESPACE			
 			</when>
-			<when test="instance_db_version >= '9.2'">
+			<when test="instance_db_version >= 9.2">
 				SELECT /* EXPERDBMABT_TABLESPACE_INFO_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
 				         -- ? AS REG_DATE, --@ TO_CHAR(NOW(), 'YYYYMMDD'),
 				         -- ? AS OBJT_REG_SEQ, --@NEXTVAL('OBJT_REG_SEQ'),
@@ -686,7 +686,7 @@
 			) AS A;
 			]]>
 			</when>
-			<when test="instance_db_version >= '9.2'">
+			<when test="instance_db_version >= 9.2">
 			<![CDATA[
 			WITH TEMP AS (   /* EXPERDBMABT_CURRENT_LOCK_001 24e9ab7301ff1966da4fb30dc1538882 */
 			             SELECT DB,
@@ -868,11 +868,11 @@
 				          NOW() AS COLLECT_DT
 				  --FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
 		  		  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID 
-           WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+           WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  		  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리
 				]]>
 			</when>
-			<when test="instance_db_version >= '9.2'">
+			<when test="instance_db_version >= 9.2">
 				<![CDATA[
 				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
 				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -903,7 +903,7 @@
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
 				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
-				  WHERE B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
 			</when>

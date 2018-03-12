@@ -1837,24 +1837,47 @@
                 Dim strShowValue As String = "{0}" + Environment.NewLine + "{1}" + Environment.NewLine + "{2}{3}" + Environment.NewLine
                 strShowValue = String.Format(strShowValue, strRegDt.ToString("yyyy-MM-dd HH:mm:ss"), strHchkNm, strValue, strValueUnit)
 
-                While (dgvAlert.Rows.Count > 16)
+                While (dgvAlert.Rows.Count > 200)
                     dgvAlert.Rows.RemoveAt(dgvAlert.Rows.Count - 1)
                 End While
 
-                Dim tempRow = New DataGridViewRow()
-                dgvAlert.Rows.Insert(0, tempRow)
-                dgvAlert.Rows(0).Cells(coldgvAlertID.Index).Value = intInstanceID
-                dgvAlert.Rows(0).Cells(coldgvAlertStatusVal.Index).Value = intHchkVal
-                dgvAlert.Rows(0).Cells(coldgvAlertHostname.Index).Value = strHost
-                dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Value = strShowValue
-                dgvAlert.Rows(0).Cells(coldgvAlertCollectDt.Index).Value = strRegDt
-                dgvAlert.Rows(0).Cells(coldgvAlertHchkName.Index).Value = strHchkNm
+                Dim intAlertCnt As Integer = dgvAlert.Rows.Count - 1
+                Dim bExist As Boolean = False
+                For i As Integer = 0 To intAlertCnt
+                    If dgvAlert.Rows(0).Cells(coldgvAlertID.Index).Value = intInstanceID AndAlso _
+                       dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Value.Equals(strShowValue) Then
+                        bExist = True
+                        Exit For
+                    End If
+                Next
+
+                Dim tRow As DataGridViewRow = dgvAlert.FindFirstRow(strShowValue, coldgvAlertMsg.Index)
+                If IsNothing(tRow) Or _
+                     tRow IsNot Nothing AndAlso tRow.Cells(coldgvAlertID.Index).Value <> intInstanceID Then
+                    Dim tempRow = New DataGridViewRow()
+                    dgvAlert.Rows.Insert(0, tempRow)
+                    dgvAlert.Rows(0).Cells(coldgvAlertID.Index).Value = intInstanceID
+                    dgvAlert.Rows(0).Cells(coldgvAlertStatusVal.Index).Value = intHchkVal
+                    dgvAlert.Rows(0).Cells(coldgvAlertHostname.Index).Value = strHost
+                    dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Value = strShowValue
+                    dgvAlert.Rows(0).Cells(coldgvAlertCollectDt.Index).Value = strRegDt
+                    dgvAlert.Rows(0).Cells(coldgvAlertHchkName.Index).Value = strHchkNm
+                End If
 
                 ' 컨트롤 색상 변경
                 modCommon.sb_GridProgClrChg(dgvAlert, coldgvAlertStatusVal.Index, p_RageHealthClr)
                 sb_GridSortChg(dgvAlert, coldgvAlertStatus.Index)
             Next
 
+            Dim intAlertCount As Integer = dgvAlert.Rows.Count - 1
+            Dim RemoveDt As Date = Now
+            RemoveDt = RemoveDt.AddMinutes(-120)
+            For i As Integer = intAlertCount To 0 Step -1
+                Dim AlertDt As Date = dgvAlert.Rows(i).Cells(coldgvAlertCollectDt.Index).Value
+                If RemoveDt >= AlertDt Then
+                    dgvAlert.Rows.RemoveAt(i)
+                End If
+            Next
         Catch ex As Exception
             Debug.Print(ex.ToString)
         End Try
@@ -2149,11 +2172,8 @@
                 dgvGrpCpuSvrLst.ClearSelection()
                 dgvGrpCpuSvrLst.Rows(e.RowIndex).Selected = True
             End If
-            For i As Integer = 0 To dgvGrpCpuSvrLst.ColumnCount - 1
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = New Font("Gulim", 10, FontStyle.Bold)
-
-            Next
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 20, 30)
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = New Font("Gulim", 10, FontStyle.Bold)
         End If
     End Sub
 
@@ -2164,10 +2184,8 @@
                 dgvGrpCpuSvrLst.ClearSelection()
                 dgvGrpCpuSvrLst.Rows(e.RowIndex).Selected = False
             End If
-            For i As Integer = 0 To dgvGrpCpuSvrLst.ColumnCount - 1
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvGrpCpuSvrLst.DefaultCellStyle.SelectionBackColor
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = dgvGrpCpuSvrLst.DefaultCellStyle.Font
-            Next
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvGrpCpuSvrLst.DefaultCellStyle.SelectionBackColor
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = dgvGrpCpuSvrLst.DefaultCellStyle.Font
         End If
     End Sub
 
@@ -2220,7 +2238,7 @@
                 dgvSessionInfo.Rows(e.RowIndex).Selected = True
             End If
             For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
+                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
             Next
             'End If
         End If

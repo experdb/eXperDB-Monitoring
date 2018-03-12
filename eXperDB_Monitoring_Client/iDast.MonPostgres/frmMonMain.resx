@@ -1105,17 +1105,6 @@
         xAIAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="EspRight.ExpandImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAAgAAADUCAIAAAAukfWIAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAARtJREFUWEftkVGOwjAQQ/c0PccerUdfe9J9mkkhqlRVFMiT0GDeR2zxszzhQvEb
-        6EsR67oeEwSJhoUOIjMUje2Hfw7vgF7w3nAH9IIQ7YyFDiIzB14wEIY7oBeEaGcsdBCZ+wwUFClCFYog
-        tHrCQgeRmQPvNxCKyCHzMQP1IURtY6GDyMyBO84LihShCscEIWobCx1E5rnY7o7zgveKyEWGgiDRsNBB
-        ZF7x1/LecAf0ghDtjIUOIjMHXjAQhjugF4RoZyx0EJn7DBQUKUIViiC0esJCB5GZA+83EIrIIfORA906
-        6EXm3QbqQ4jaxkIHkfmKgY/FdnecF7xXRC4yFASJhoUOIvOKv5b3hjugF4RoZyx0EJk58OjAZfkDI8ce
-        z5cAVVAAAAAASUVORK5CYII=
-</value>
-  </data>
   <metadata name="ttChart.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>220, 17</value>
   </metadata>

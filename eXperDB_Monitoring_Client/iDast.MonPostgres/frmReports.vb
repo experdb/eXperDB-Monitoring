@@ -36,6 +36,8 @@ Public Class frmReports
         _clsQuerySub = New clsQuerys(_AgentCn)
         _AgentInfo = AgentInfo
 
+        dtpEd.Value = dtpSt.Value.AddMinutes(1)
+
         Me.FormControlBox1.UseConfigBox = False
         Me.FormControlBox1.UseCriticalBox = False
         Me.FormControlBox1.UseLockBox = False

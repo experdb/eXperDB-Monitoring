@@ -285,7 +285,7 @@ Partial Class frmMonDetail
         'btnRefreshSession
         '
         Me.btnRefreshSession.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefreshSession.BackColor = System.Drawing.Color.Transparent
+        Me.btnRefreshSession.BackColor = System.Drawing.Color.Black
         Me.btnRefreshSession.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnRefreshSession.FixedHeight = False
         Me.btnRefreshSession.FixedWidth = False
@@ -306,7 +306,7 @@ Partial Class frmMonDetail
         '
         'chtSession
         '
-        Me.chtSession.BackColor = System.Drawing.Color.Transparent
+        Me.chtSession.BackColor = System.Drawing.Color.Black
         ChartArea1.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea1.AxisX.IsLabelAutoFit = False
@@ -347,7 +347,7 @@ Partial Class frmMonDetail
         ChartArea1.AxisY2.IsLabelAutoFit = False
         ChartArea1.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea1.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea1.BackColor = System.Drawing.Color.Transparent
+        ChartArea1.BackColor = System.Drawing.Color.Black
         ChartArea1.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
         ChartArea1.CursorX.IsUserEnabled = True
         ChartArea1.CursorX.IsUserSelectionEnabled = True
@@ -405,7 +405,7 @@ Partial Class frmMonDetail
         'btnRefreshSqlResp
         '
         Me.btnRefreshSqlResp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefreshSqlResp.BackColor = System.Drawing.Color.Transparent
+        Me.btnRefreshSqlResp.BackColor = System.Drawing.Color.Black
         Me.btnRefreshSqlResp.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnRefreshSqlResp.FixedHeight = False
         Me.btnRefreshSqlResp.FixedWidth = False
@@ -426,7 +426,7 @@ Partial Class frmMonDetail
         '
         'chtSQLRespTm
         '
-        Me.chtSQLRespTm.BackColor = System.Drawing.Color.Transparent
+        Me.chtSQLRespTm.BackColor = System.Drawing.Color.Black
         ChartArea2.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea2.AxisX.IsLabelAutoFit = False
@@ -464,7 +464,7 @@ Partial Class frmMonDetail
         ChartArea2.AxisY2.IsLabelAutoFit = False
         ChartArea2.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea2.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.BackColor = System.Drawing.Color.Transparent
+        ChartArea2.BackColor = System.Drawing.Color.Black
         ChartArea2.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
         ChartArea2.CursorX.IsUserEnabled = True
         ChartArea2.CursorX.IsUserSelectionEnabled = True
@@ -472,7 +472,7 @@ Partial Class frmMonDetail
         Me.chtSQLRespTm.ChartAreas.Add(ChartArea2)
         Me.chtSQLRespTm.Dock = System.Windows.Forms.DockStyle.Fill
         Legend1.Alignment = System.Drawing.StringAlignment.Far
-        Legend1.BackColor = System.Drawing.Color.Transparent
+        Legend1.BackColor = System.Drawing.Color.Black
         Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
         Legend1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Legend1.ForeColor = System.Drawing.Color.White
@@ -534,7 +534,7 @@ Partial Class frmMonDetail
         'btnRefreshLogicaliO
         '
         Me.btnRefreshLogicaliO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefreshLogicaliO.BackColor = System.Drawing.Color.Transparent
+        Me.btnRefreshLogicaliO.BackColor = System.Drawing.Color.Black
         Me.btnRefreshLogicaliO.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnRefreshLogicaliO.FixedHeight = False
         Me.btnRefreshLogicaliO.FixedWidth = False
@@ -555,7 +555,7 @@ Partial Class frmMonDetail
         '
         'chtLocalIO
         '
-        Me.chtLocalIO.BackColor = System.Drawing.Color.Transparent
+        Me.chtLocalIO.BackColor = System.Drawing.Color.Black
         ChartArea3.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea3.AxisX.IsLabelAutoFit = False
@@ -601,7 +601,7 @@ Partial Class frmMonDetail
         ChartArea3.AxisY2.MajorTickMark.Enabled = False
         ChartArea3.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea3.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea3.BackColor = System.Drawing.Color.Transparent
+        ChartArea3.BackColor = System.Drawing.Color.Black
         ChartArea3.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
         ChartArea3.CursorX.IsUserEnabled = True
         ChartArea3.CursorX.IsUserSelectionEnabled = True
@@ -609,13 +609,13 @@ Partial Class frmMonDetail
         Me.chtLocalIO.ChartAreas.Add(ChartArea3)
         Me.chtLocalIO.Dock = System.Windows.Forms.DockStyle.Fill
         Legend2.Alignment = System.Drawing.StringAlignment.Far
-        Legend2.BackColor = System.Drawing.Color.Transparent
+        Legend2.BackColor = System.Drawing.Color.Black
         Legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
         Legend2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Legend2.ForeColor = System.Drawing.Color.White
         Legend2.IsTextAutoFit = False
         Legend2.Name = "Legend1"
-        Legend3.BackColor = System.Drawing.Color.Transparent
+        Legend3.BackColor = System.Drawing.Color.Black
         Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left
         Legend3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Legend3.ForeColor = System.Drawing.Color.White
@@ -702,7 +702,7 @@ Partial Class frmMonDetail
         'btnRefreshPhysicaliO
         '
         Me.btnRefreshPhysicaliO.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefreshPhysicaliO.BackColor = System.Drawing.Color.Transparent
+        Me.btnRefreshPhysicaliO.BackColor = System.Drawing.Color.Black
         Me.btnRefreshPhysicaliO.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnRefreshPhysicaliO.FixedHeight = False
         Me.btnRefreshPhysicaliO.FixedWidth = False
@@ -739,7 +739,7 @@ Partial Class frmMonDetail
         '
         'chtPhysicaliO
         '
-        Me.chtPhysicaliO.BackColor = System.Drawing.Color.Transparent
+        Me.chtPhysicaliO.BackColor = System.Drawing.Color.Black
         ChartArea4.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea4.AxisX.IsLabelAutoFit = False
@@ -779,7 +779,7 @@ Partial Class frmMonDetail
         ChartArea4.AxisY2.IsLabelAutoFit = False
         ChartArea4.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.BackColor = System.Drawing.Color.Transparent
+        ChartArea4.BackColor = System.Drawing.Color.Black
         ChartArea4.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
         ChartArea4.CursorX.IsUserEnabled = True
         ChartArea4.CursorX.IsUserSelectionEnabled = True
@@ -787,7 +787,7 @@ Partial Class frmMonDetail
         Me.chtPhysicaliO.ChartAreas.Add(ChartArea4)
         Me.chtPhysicaliO.Dock = System.Windows.Forms.DockStyle.Fill
         Legend4.Alignment = System.Drawing.StringAlignment.Far
-        Legend4.BackColor = System.Drawing.Color.Transparent
+        Legend4.BackColor = System.Drawing.Color.Black
         Legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
         Legend4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Legend4.ForeColor = System.Drawing.Color.White
@@ -852,7 +852,7 @@ Partial Class frmMonDetail
         '
         Me.chkIDLE.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.chkIDLE.AutoSize = True
-        Me.chkIDLE.BackColor = System.Drawing.Color.Transparent
+        Me.chkIDLE.BackColor = System.Drawing.Color.Black
         Me.chkIDLE.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkIDLE.Font = New System.Drawing.Font("Gulim", 10.8989!)
         Me.chkIDLE.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -1637,7 +1637,7 @@ Partial Class frmMonDetail
         '
         'chtCPU
         '
-        Me.chtCPU.BackColor = System.Drawing.Color.Transparent
+        Me.chtCPU.BackColor = System.Drawing.Color.Black
         ChartArea5.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea5.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
         ChartArea5.AxisX.IsLabelAutoFit = False
@@ -2057,7 +2057,7 @@ Partial Class frmMonDetail
         '
         'lblHealth
         '
-        Me.lblHealth.BackColor = System.Drawing.Color.Transparent
+        Me.lblHealth.BackColor = System.Drawing.Color.Black
         Me.lblHealth.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblHealth.FixedHeight = False
         Me.lblHealth.FixedWidth = False

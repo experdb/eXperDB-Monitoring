@@ -38,6 +38,7 @@ public class LicenseInfoManager {
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000012201711070000000052:54:00:80:12:EB"); //222.110.153.251
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000122017110700000000D8:9D:67:27:E2:28"); //sssssg			//D8:9D:67:27:E2:28
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000E8:11:32:32:BF:8B"); //my vm
+			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000E8:11:32:32:BF:8B");// 162 (E8:11:32:32:BF:8B)
 			
 			
 			String serialKey = LicenseInfoManager.decrypt(encSerialKey);

@@ -334,4 +334,47 @@
         Me.lblType.Location = New System.Drawing.Point(Me.cmbType.Location.X - Me.lblType.Width - Me.lblType.Margin.Right, Me.cmbType.Margin.Top)
     End Sub
 
+    Private Sub dgvSessionList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellMouseLeave
+        If e.RowIndex >= 0 Then
+            dgvSessionList.Cursor = Cursors.Arrow
+            If dgvSessionList.Rows(e.RowIndex).Selected = True Then
+                dgvSessionList.ClearSelection()
+                dgvSessionList.Rows(e.RowIndex).Selected = False
+            End If
+            dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvSessionList.DefaultCellStyle.SelectionBackColor
+        End If
+    End Sub
+
+    Private Sub dgvSessionList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseMove
+        If e.RowIndex >= 0 Then
+            dgvSessionList.Cursor = Cursors.Hand
+            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+                dgvSessionList.ClearSelection()
+                dgvSessionList.Rows(e.RowIndex).Selected = True
+            End If
+            dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+        End If
+    End Sub
+
+    Private Sub dgvLockt_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellMouseLeave
+        If e.RowIndex >= 0 Then
+            dgvLock.Cursor = Cursors.Arrow
+            If dgvLock.Rows(e.RowIndex).Selected = True Then
+                dgvLock.ClearSelection()
+                dgvLock.Rows(e.RowIndex).Selected = False
+            End If
+            dgvLock.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvLock.DefaultCellStyle.SelectionBackColor
+        End If
+    End Sub
+
+    Private Sub dgvLock_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvLock.CellMouseMove
+        If e.RowIndex >= 0 Then
+            dgvLock.Cursor = Cursors.Hand
+            If dgvLock.Rows(e.RowIndex).Selected = False Then
+                dgvLock.ClearSelection()
+                dgvLock.Rows(e.RowIndex).Selected = True
+            End If
+            dgvLock.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+        End If
+    End Sub
 End Class
