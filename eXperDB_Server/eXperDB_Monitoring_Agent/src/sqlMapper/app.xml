@@ -1648,6 +1648,15 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		); 
 	</insert>
 	
+	<update id="TB_SYS_LOG_U002" parameterType="hashmap">
+		UPDATE TB_SYS_LOG 
+		   SET DRIVER_STATUS = COALESCE(DRIVER_STATUS,'') || #{driver_status}
+		 WHERE REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+		   AND TASK_CD='3'
+		   AND START_DT = (SELECT MAX(START_DT) FROM TB_SYS_LOG);
+	</update>
+	
+	
 	<select id="RSC_NOW" parameterType="hashmap" resultType="hashmap">
 		SELECT NOW() AS DT_NOW
 	</select>
