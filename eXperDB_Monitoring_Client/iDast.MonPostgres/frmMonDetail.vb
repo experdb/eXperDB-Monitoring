@@ -1243,9 +1243,7 @@
                 dgvGrpHealth.ClearSelection()
                 dgvGrpHealth.Rows(e.RowIndex).Selected = True
             End If
-            For i As Integer = 0 To dgvGrpHealth.ColumnCount - 1
-                dgvGrpHealth.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-            Next
+            dgvGrpHealth.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
         End If
     End Sub
 
@@ -1256,9 +1254,7 @@
                 dgvGrpHealth.ClearSelection()
                 dgvGrpHealth.Rows(e.RowIndex).Selected = False
             End If
-            For i As Integer = 0 To dgvGrpHealth.ColumnCount - 1
-                dgvGrpHealth.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvGrpHealth.DefaultCellStyle.SelectionBackColor
-            Next
+            dgvGrpHealth.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvGrpHealth.DefaultCellStyle.SelectionBackColor
         End If
     End Sub
 
@@ -1270,9 +1266,7 @@
                 dgvResUtilPerBackProc.ClearSelection()
                 dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True
             End If
-            For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
-                dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-            Next
+            dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
             'End If
         End If
     End Sub
@@ -1285,9 +1279,7 @@
                 dgvResUtilPerBackProc.ClearSelection()
                 dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False
             End If
-            For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
-                dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
-            Next
+            dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
             'End If
         End If
     End Sub

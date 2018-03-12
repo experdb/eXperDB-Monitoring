@@ -936,7 +936,7 @@ Partial Class frmMonItemDetail
         '
         'coldgvSessionListStTime
         '
-        Me.coldgvSessionListStTime.DataPropertyName = "START_TIME"
+        Me.coldgvSessionListStTime.DataPropertyName = "QUERY_START"
         DataGridViewCellStyle7.Format = "HH:mm:ss"
         Me.coldgvSessionListStTime.DefaultCellStyle = DataGridViewCellStyle7
         Me.coldgvSessionListStTime.HeaderText = "F050"

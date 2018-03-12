@@ -460,7 +460,7 @@
                 dgvLock.Rows(e.RowIndex).Selected = True
             End If
             For i As Integer = 0 To dgvLock.ColumnCount - 1
-                dgvLock.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
+                dgvLock.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
             Next
         End If
     End Sub
@@ -495,7 +495,7 @@
                 dgvSessionList.Rows(e.RowIndex).Selected = True
             End If
             For i As Integer = 0 To dgvSessionList.ColumnCount - 1
-                dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
+                dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
             Next
         End If
     End Sub

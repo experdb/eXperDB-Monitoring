@@ -218,7 +218,7 @@
 
                                                 Dim ShowDT As DataTable = Nothing
                                                 If dtView.Count > 0 Then
-                                                    ShowDT = dtView.ToTable.AsEnumerable.Take(100).CopyToDataTable
+                                                    ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
                                                 End If
 
                                                 If ShowDT Is Nothing Then
@@ -229,6 +229,7 @@
                                                 dgvSessionList.DataSource = ShowDT
 
                                                 modCommon.sb_GridSortChg(dgvSessionList)
+                                                grpSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
                                                 'dgvSessionList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill)
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -918,5 +919,26 @@
                                         End Sub))
         End If
 
+    End Sub
+    Private Sub dgvSessionList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseMove
+        If e.RowIndex >= 0 Then
+            dgvSessionList.Cursor = Cursors.Hand
+            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+                dgvSessionList.ClearSelection()
+                dgvSessionList.Rows(e.RowIndex).Selected = True
+            End If
+            dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+        End If
+    End Sub
+
+    Private Sub dgvSessionList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellMouseLeave
+        If e.RowIndex >= 0 Then
+            dgvSessionList.Cursor = Cursors.Arrow
+            If dgvSessionList.Rows(e.RowIndex).Selected = True Then
+                dgvSessionList.ClearSelection()
+                dgvSessionList.Rows(e.RowIndex).Selected = False
+            End If
+            dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvSessionList.DefaultCellStyle.SelectionBackColor
+        End If
     End Sub
 End Class

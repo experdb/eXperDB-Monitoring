@@ -30,6 +30,7 @@
         'Me.SetStyle(ControlStyles.AllPaintingInWmPaint Or _
         '                    ControlStyles.UserPaint Or _
         '                    ControlStyles.DoubleBuffer, True)
+        UseResizeFont = False
         _SvrpList = GrpLst
         _intInstanceID = InstanceID
         _strCollectDt = strCollectDt
@@ -71,6 +72,11 @@
         Me.Invoke(New MethodInvoker(Sub()
                                         btnQuery.PerformClick()
                                     End Sub))
+
+        'Temporary solution
+        Me.dgvAlertList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 8.3)
+        Me.dgvAlertList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 8.3)
+
     End Sub
 
     Private Sub InitForm()
@@ -133,7 +139,7 @@
         cmbLevel.SelectedIndex = 1
         cmbCheck.SelectedIndex = 0
 
-        modCommon.FontChange(Me, p_Font)
+        ' modCommon.FontChange(Me, p_Font)
 
     End Sub
 
@@ -229,22 +235,31 @@
         Next
     End Sub
 
-    Private Sub dgvAlertList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellContentClick
+
+    Private Sub dgvAlertList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellClick
         'Check to ensure that the row CheckBox is clicked.
-        If e.RowIndex >= 0 AndAlso e.ColumnIndex = 0 Then
-
-            'Loop to verify whether all row CheckBoxes are checked or not.
-            Dim isChecked As Boolean = True
-            For Each row As DataGridViewRow In dgvAlertList.Rows
-                If Convert.ToBoolean(row.Cells(coldgvAlertSel.Index).EditedFormattedValue) = False Then
-                    isChecked = False
-                    Exit For
-                End If
-            Next
-
-            ' DirectCast(sender, BaseControls.CheckBox).Checked = isChecked
-            _cbCheckAll.Checked = isChecked
+        Dim checkBox As DataGridViewCheckBoxCell = Nothing
+        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+            checkBox = (TryCast(dgvAlertList.Rows(e.RowIndex).Cells(coldgvAlertSel.Index), DataGridViewCheckBoxCell))
+            If checkBox.Value = True Then
+                checkBox.Value = False
+            Else
+                checkBox.Value = True
+            End If
         End If
+
+        'Loop to verify whether all row CheckBoxes are checked or not.
+        Dim nChecked As Integer = IIf(checkBox.Value, 1, 0)
+
+        For Each row As DataGridViewRow In dgvAlertList.Rows
+            If row.Index = e.RowIndex Then Continue For
+            If Convert.ToBoolean(row.Cells(coldgvAlertSel.Index).EditedFormattedValue) = True Then
+                nChecked += 1
+            End If
+        Next
+        _cbCheckAll.Checked = IIf(nChecked = dgvAlertList.Rows.Count, True, False)
+
+        ' DirectCast(sender, BaseControls.CheckBox).Checked = isChecked
     End Sub
 
     Private Sub btnCheck_Click(sender As Object, e As EventArgs) Handles btnCheck.Click
@@ -331,5 +346,27 @@
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
         Dim AlertConfig As New frmAlertConfig(_SvrpList)
         AlertConfig.ShowDialog()
+    End Sub
+
+    Private Sub dgvAlertList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvAlertList.CellMouseMove
+        If e.RowIndex >= 0 Then
+            dgvAlertList.Cursor = Cursors.Hand
+            If dgvAlertList.Rows(e.RowIndex).Selected = False Then
+                dgvAlertList.ClearSelection()
+                dgvAlertList.Rows(e.RowIndex).Selected = True
+            End If
+            dgvAlertList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+        End If
+    End Sub
+
+    Private Sub dgvAlertList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellMouseLeave
+        If e.RowIndex >= 0 Then
+            dgvAlertList.Cursor = Cursors.Arrow
+            If dgvAlertList.Rows(e.RowIndex).Selected = True Then
+                dgvAlertList.ClearSelection()
+                dgvAlertList.Rows(e.RowIndex).Selected = False
+            End If
+            dgvAlertList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvAlertList.DefaultCellStyle.SelectionBackColor
+        End If
     End Sub
 End Class

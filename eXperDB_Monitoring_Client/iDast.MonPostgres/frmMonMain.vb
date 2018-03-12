@@ -2172,11 +2172,8 @@
                 dgvGrpCpuSvrLst.ClearSelection()
                 dgvGrpCpuSvrLst.Rows(e.RowIndex).Selected = True
             End If
-            For i As Integer = 0 To dgvGrpCpuSvrLst.ColumnCount - 1
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = New Font("Gulim", 10, FontStyle.Bold)
-
-            Next
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 20, 30)
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = New Font("Gulim", 10, FontStyle.Bold)
         End If
     End Sub
 
@@ -2187,10 +2184,8 @@
                 dgvGrpCpuSvrLst.ClearSelection()
                 dgvGrpCpuSvrLst.Rows(e.RowIndex).Selected = False
             End If
-            For i As Integer = 0 To dgvGrpCpuSvrLst.ColumnCount - 1
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvGrpCpuSvrLst.DefaultCellStyle.SelectionBackColor
-                dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = dgvGrpCpuSvrLst.DefaultCellStyle.Font
-            Next
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvGrpCpuSvrLst.DefaultCellStyle.SelectionBackColor
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = dgvGrpCpuSvrLst.DefaultCellStyle.Font
         End If
     End Sub
 
@@ -2243,7 +2238,7 @@
                 dgvSessionInfo.Rows(e.RowIndex).Selected = True
             End If
             For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
+                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
             Next
             'End If
         End If
