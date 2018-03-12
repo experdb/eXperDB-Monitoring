@@ -305,11 +305,12 @@
         colDgvHealthSvrStatus.HeaderText = p_clsMsgData.fn_GetData("F063")
 
         'Alert
-        Me.cmbLevel.Location = New System.Drawing.Point(Me.grpAlert.Width - Me.cmbLevel.Width - Me.cmbLevel.Margin.Right, Me.cmbLevel.Margin.Top)
-        Me.cmbLevel.SelectedIndex = 0
 
         Me.EspRight.Expand = True
-        Me.pnlRibon.Width = flpInstance.Width * 1.22
+        Me.pnlRibon.Width = Me.Width * 0.14
+
+        Me.cmbLevel.Location = New System.Drawing.Point(Me.grpAlert.Width - Me.cmbLevel.Width - Me.cmbLevel.Margin.Right, Me.cmbLevel.Margin.Top)
+        Me.cmbLevel.SelectedIndex = 0
 
         modCommon.FontChange(Me, p_Font)
 
