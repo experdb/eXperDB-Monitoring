@@ -54,6 +54,9 @@ public class TaskManager implements Runnable{
 					Thread.sleep(1* 1000);
 				}
 				
+				//Update Driver of instances status
+				updateDriverStatus();
+				
 				//전체 작업 Task를 가져온다
 				if(isstandAloneStart)
 				{
@@ -130,5 +133,20 @@ public class TaskManager implements Runnable{
 		}
 		
 	}
-
+	public static void updateDriverStatus(){
+		log.info("Update driver status");
+		SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
+		SqlSession sessionAgent = sqlSessionFactory.openSession();
+		
+		try {
+			HashMap<String, Object> updateMap = new HashMap<String, Object>();
+			updateMap.put("driver_status", "H");			
+			sessionAgent.update("app.TB_SYS_LOG_U002", updateMap);			
+			sessionAgent.commit();
+		} catch (Exception e){
+			sessionAgent.rollback();
+			log.error("driver_status를 update하는중 오류가 발생하였습니다.");
+			log.error(e);
+		}
+	}
 }
