@@ -567,8 +567,10 @@
         Dim dtTable As DataTable = clsQry.SelectServerDate()
         If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
             Dim dtRow As DataRow = dtTable.Rows(0)
-            strStartDt = dtRow.Item("START_DT")
-            Return strStartDt
+            If dtRow.Item("DRIVER_STATUS") = True Then
+                strStartDt = dtRow.Item("START_DT")
+                Return strStartDt
+            End If
         End If
         Return ""
     End Function
@@ -597,7 +599,7 @@
     Private Sub tmCheckAgent_Tick(sender As Object, e As EventArgs) Handles tmCheckAgent.Tick
         tmCheckAgent.Stop()
         tmCheckAgent.Dispose()
-        If _applyCount > 10 Then
+        If _applyCount > 20 Then
             CircularProgressControl1.Stop()
             CircularProgressControl1.Visible = False
             _applyCount = 0

@@ -285,6 +285,7 @@ CREATE UNLOGGED TABLE tb_sys_log (
     status character varying(1),
     end_dt timestamp without time zone,
     comments character varying(100)
+    driver_status character varying(3)
 );
 
 CREATE UNLOGGED TABLE tb_table_info (
