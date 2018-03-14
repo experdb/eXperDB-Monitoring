@@ -40,4 +40,9 @@
 		 WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 		   AND TASK_CD = '2'	
 	</select>	
+	<select id="TB_SYS_LOG_R002" resultType="hashmap">
+		SELECT 1
+		 WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+		   AND TASK_CD = '3'	
+	</select>	
 </mapper>

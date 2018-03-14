@@ -35,11 +35,14 @@ public class ObjtCollect extends TaskApplication {
 	@Override
 	public void run() {
 		
-		long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("collect_period_sec");
+		long collectPeriod = (Integer) MonitoringInfoManager.getInstance().getConfig("hchk_period_sec");
+		long collectObjectPeriod = (Integer) MonitoringInfoManager.getInstance().getConfig("objt_period_sec");
 		
 		long sleepTime;
 		long startTime;
+		long startExecuteTime = 0;
 		long endTime;
+		int DelteTurn = 5;
 		
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
@@ -49,21 +52,45 @@ public class ObjtCollect extends TaskApplication {
 				is_collect_ok = "Y";
 				failed_collect_type = "";
 				
-				startTime =  System.currentTimeMillis();
+				startTime =  System.currentTimeMillis();				
 				
-				execute(); //수집 실행
+				//HA info
+				Enumeration		en = MonitoringInfoManager.getInstance().getInstanceId();
+				while (en.hasMoreElements()) {
+					updateHAstatus((String) en.nextElement());
+				}	
+				
+				if ( startExecuteTime  <= startTime) {
+					//OBJT 정보수집
+					en = MonitoringInfoManager.getInstance().getInstanceId();
+					while (en.hasMoreElements()) {
+						execute((String) en.nextElement());
+					}					
+					startExecuteTime = System.currentTimeMillis() + collectObjectPeriod * 1000;
+				}
+				
+				if ( DelteTurn * startExecuteTime  <= startTime) {
+					//OBJT 정보수집
+					en = MonitoringInfoManager.getInstance().getInstanceId();
+					while (en.hasMoreElements()) {
+						DeleteObject((String) en.nextElement());
+					}					
+				}
 
 				endTime =  System.currentTimeMillis();
 				
-				if((endTime - startTime) > (collectPeriod * 1000) )
-				{
-					//처리 시간이 수집주기보다 크면 바로처리
-					continue;
-				} else {
-					sleepTime = (collectPeriod * 1000) - (endTime - startTime);
-				}
+				sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+				Thread.sleep(sleepTime < 0 ? 0 : sleepTime);
+				
+//				if((endTime - startTime) > (collectPeriod * 1000) )
+//				{
+//					//처리 시간이 수집주기보다 크면 바로처리
+//					continue;
+//				} else {
+//					sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+//				}
 			
-				Thread.sleep(sleepTime);
+//				Thread.sleep(sleepTime);
 				
 			} catch (Exception e) {
 				log.error("", e);
@@ -72,18 +99,23 @@ public class ObjtCollect extends TaskApplication {
 		
 	}	
 	
-	private void execute() {
+	private void execute(String reqInstanceId) {
 		SqlSessionFactory sqlSessionFactory = null;
 		Connection connection = null;
 		SqlSession sessionCollect = null;
 		SqlSession sessionAgent  = null;
+		String instance_db_version = "";
 		
 		try {
+			//수집 DB의 버젼을 가져온다
+			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(reqInstanceId).get("pg_version_min");
+
+			
 			// DB Connection을 가져온다
 			sqlSessionFactory = SqlSessionManager.getInstance();
 			
 			try {			
-				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
+				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + reqInstanceId);
 				sessionCollect = sqlSessionFactory.openSession(connection);
 			} catch (Exception e) {
 				failed_collect_type = "0";
@@ -93,9 +125,32 @@ public class ObjtCollect extends TaskApplication {
 			
 			sessionAgent = sqlSessionFactory.openSession();
 			
-
+			// 인스턴스정보를 가져와 UPDATE 한다.
+			if(is_collect_ok.equals("Y"))
+			{	
+				try {
+					HashMap<String, Object> select = new HashMap<String, Object>();
+					/*add to update ha_info by robin 201712 */
+					select.put("instance_db_version", instance_db_version);	
+					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
+					
+					select.put("instance_id", Integer.valueOf(reqInstanceId));
+					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
+					select.put("ha_role", select.get("ha_role"));
+					select.put("ha_host", select.get("ha_host"));
+					select.put("ha_port", select.get("ha_port"));
+					
+					sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
+					/*add to update ha_info by robin 201712 end*/
+					
+					sessionAgent.commit();
+				} catch (Exception e) {
+					sessionAgent.rollback();
+					log.error("", e);
+				}			
+			}
 			
-			List<HashMap<String, Object>> accessSel = new ArrayList<HashMap<String,Object>>(); //Access 수집
+			//List<HashMap<String, Object>> accessSel = new ArrayList<HashMap<String,Object>>(); //Access 수집
 			List<HashMap<String, Object>> tableSel = new ArrayList<HashMap<String,Object>>(); //Table 수집
 			List<HashMap<String, Object>> indexSel = new ArrayList<HashMap<String,Object>>(); //Index 수집
 			List<HashMap<String, Object>> tablespaceSel = new ArrayList<HashMap<String,Object>>(); //TableSpace 수집			
@@ -115,7 +170,7 @@ public class ObjtCollect extends TaskApplication {
 				
 		
 				for (HashMap<String, Object> mapDB : dbConnList) {
-					String poolName = instanceId + "." + taskId + "." + mapDB.get("db_name");
+					String poolName = reqInstanceId + "." + taskId + "." + mapDB.get("db_name");
 					
 					//풀 생성여부를 확인하여 없으면 생성한다.
 					boolean isPool = false;
@@ -129,7 +184,7 @@ public class ObjtCollect extends TaskApplication {
 					if(!isPool)
 					{
 						//pool이 없는경우 폴을 생성한다.
-						HashMap instanceMap = MonitoringInfoManager.getInstanceMap(instanceId);
+						HashMap instanceMap = MonitoringInfoManager.getInstanceMap(reqInstanceId);
 						
 						DBCPPoolManager.setupDriver(
 								"org.postgresql.Driver",
@@ -153,48 +208,48 @@ public class ObjtCollect extends TaskApplication {
 	
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						///////////////////////////////////////////////////////////////////////////////
-						// ACCESS 이전값 확인
-						if(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name")) == null)
-						{
-							HashMap<String, Object> inputParam = new HashMap<String, Object>();
-							inputParam.put("db_name", 					mapDB.get("db_name"));
-							inputParam.put("datid", 					mapDB.get("datid"));
-	
-							
-							HashMap<String, Object> selectMap = sessDB.selectOne("app.BT_ACCESS_INFO_001", inputParam);
-	
-							ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name"), selectMap);
-							
-	//						log.fatal("최초 이전값 : " + selectMap);
-						}
-						///////////////////////////////////////////////////////////////////////////////				
-						
-						///////////////////////////////////////////////////////////////////////////////
-						// ACCESS 정보수집
-						HashMap<String, Object> inputAccessParam = new HashMap<String, Object>();
-						inputAccessParam = (HashMap<String, Object>) ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name"));
-						
-						Map<String, Object> accessTempSel = new HashMap<String, Object>();
-						try {
-							inputAccessParam.put("datid", 					mapDB.get("datid"));
-							
-							accessTempSel = sessDB.selectOne("app.BT_ACCESS_INFO_001", inputAccessParam);
-						} catch (Exception e) {
-							failed_collect_type = "1";
-							throw e;
-						}						
-						accessSel.add((HashMap<String, Object>) accessTempSel);
-						
-	//					log.fatal("이전값 : " + inputAccessParam);
-	//					log.fatal("조회값 : " + accessTempSel);
-						
-						ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name"), accessTempSel);
-						/////////////////////////////////////////////////////////////////////////////
+//						// ACCESS 이전값 확인
+//						if(ResourceInfo.getInstance().get(reqInstanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name")) == null)
+//						{
+//							HashMap<String, Object> inputParam = new HashMap<String, Object>();
+//							inputParam.put("db_name", 					mapDB.get("db_name"));
+//							inputParam.put("datid", 					mapDB.get("datid"));
+//	
+//							
+//							HashMap<String, Object> selectMap = sessDB.selectOne("app.BT_ACCESS_INFO_001", inputParam);
+//	
+//							ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name"), selectMap);
+//							
+//	//						log.fatal("최초 이전값 : " + selectMap);
+//						}
+//						///////////////////////////////////////////////////////////////////////////////				
+//						
+//						///////////////////////////////////////////////////////////////////////////////
+//						// ACCESS 정보수집
+//						HashMap<String, Object> inputAccessParam = new HashMap<String, Object>();
+//						inputAccessParam = (HashMap<String, Object>) ResourceInfo.getInstance().get(reqInstanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name"));
+//						
+//						Map<String, Object> accessTempSel = new HashMap<String, Object>();
+//						try {
+//							inputAccessParam.put("datid", 					mapDB.get("datid"));
+//							
+//							accessTempSel = sessDB.selectOne("app.BT_ACCESS_INFO_001", inputAccessParam);
+//						} catch (Exception e) {
+//							failed_collect_type = "1";
+//							throw e;
+//						}						
+//						accessSel.add((HashMap<String, Object>) accessTempSel);
+//						
+//	//					log.fatal("이전값 : " + inputAccessParam);
+//	//					log.fatal("조회값 : " + accessTempSel);
+//						
+//						ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_ACCESS + "_" + mapDB.get("db_name"), accessTempSel);
+//						/////////////////////////////////////////////////////////////////////////////
 						
 						
 						///////////////////////////////////////////////////////////////////////////////
 						// TABLE 이전값 확인
-						if(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name")) == null)
+						if(ResourceInfo.getInstance().get(reqInstanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name")) == null)
 						{
 							List<HashMap<String, Object>> selectList = new ArrayList<HashMap<String,Object>>();
 							selectList = sessDB.selectList("app.BT_TABLE_INFO_001");
@@ -206,13 +261,13 @@ public class ObjtCollect extends TaskApplication {
 								temp.put("agg_index_scan_cnt", 	map.get("agg_index_scan_cnt"));
 								temp.put("agg_index_tuples", 	map.get("agg_index_tuples"));
 								
-								ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
+								ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
 										                                                              + "_" + map.get("schema_name")
 										                                                              + "_" + map.get("table_name")
 										                                                              , temp);
 							}
 							
-							ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name"), mapDB.get("db_name")); 
+							ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name"), mapDB.get("db_name")); 
 						}
 						///////////////////////////////////////////////////////////////////////////////
 						
@@ -228,7 +283,7 @@ public class ObjtCollect extends TaskApplication {
 							
 						for (HashMap<String, Object> map : tableTempSel) {
 							HashMap<String, Object> tempMap = new HashMap<String, Object>(); //이전값
-							tempMap =  (HashMap<String, Object>) ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_TABLE 
+							tempMap =  (HashMap<String, Object>) ResourceInfo.getInstance().get(reqInstanceId, taskId, RESOURCE_KEY_TABLE 
 																										+ "_" + mapDB.get("db_name") 
 																										+ "_" + map.get("schema_name") 
 																										+ "_" + map.get("table_name"));
@@ -242,7 +297,7 @@ public class ObjtCollect extends TaskApplication {
 								tempMap.put("agg_index_scan_cnt", 	map.get("agg_index_scan_cnt"));
 								tempMap.put("agg_index_tuples", 	map.get("agg_index_tuples"));
 								
-								ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
+								ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
 		                                + "_" + map.get("schema_name")
 		                                + "_" + map.get("table_name")
 		                                , tempMap);
@@ -269,7 +324,7 @@ public class ObjtCollect extends TaskApplication {
 							tempMap.put("agg_index_scan_cnt", 	map.get("agg_index_scan_cnt"));
 							tempMap.put("agg_index_tuples", 	map.get("agg_index_tuples"));
 							
-							ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
+							ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
 	                                + "_" + map.get("schema_name")
 	                                + "_" + map.get("table_name")
 	                                , tempMap);						
@@ -309,7 +364,10 @@ public class ObjtCollect extends TaskApplication {
 				// TABLESPACE 정보 수집
 				if(is_collect_ok.equals("Y")) {
 					try {
-						tablespaceSel = sessionCollect.selectList("app.BT_TABLESPACE_INFO_001");
+						HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
+						dbVerMap.put("instance_db_version", instance_db_version);						
+
+						tablespaceSel = sessionCollect.selectList("app.BT_TABLESPACE_INFO_001", dbVerMap);
 					} catch (Exception e) {
 						failed_collect_type = "2";
 						is_collect_ok = "N";
@@ -324,8 +382,20 @@ public class ObjtCollect extends TaskApplication {
 				
 				///////////////////////////////////////////////////////////////////////////////
 				// TB_RSC_COLLECT_INFO 정보 등록
+				
+				//금일자 최초 거래인지 확인
+				HashMap<String, Object> regDateMap = sessionAgent.selectOne("app.TB_OBJT_COLLECT_INFO_S001");
+				
+				if(regDateMap.get("max_reg_date") == null)	regDateMap.put("max_reg_date", "");
+				
+				if(!regDateMap.get("max_reg_date").equals(regDateMap.get("reg_date")))
+				{
+					//금일자에 등록된 거래가 없는경우 시퀀스 초기화
+					sessionAgent.selectList("app.SEQ_SETVAL_OBJT");
+				}	
+				
 				Map<String, Object> parameObjt = new HashMap<String, Object>();
-				parameObjt.put("instance_id", Integer.valueOf(instanceId));				
+				parameObjt.put("instance_id", Integer.valueOf(reqInstanceId));				
 				parameObjt.put("is_collect_ok", is_collect_ok);				
 				parameObjt.put("failed_collect_type", failed_collect_type);
 				
@@ -339,12 +409,12 @@ public class ObjtCollect extends TaskApplication {
 				///////////////////////////////////////////////////////////////////////////////			
 			
 				
-				///////////////////////////////////////////////////////////////////////////////
-				// ACCESS 정보 등록
-				for (HashMap<String, Object> map : accessSel) {
-					sessionAgent.insert("app.TB_ACCESS_INFO_I001", map);
-				}
-				///////////////////////////////////////////////////////////////////////////////			
+//				///////////////////////////////////////////////////////////////////////////////
+//				// ACCESS 정보 등록
+//				for (HashMap<String, Object> map : accessSel) {
+//					sessionAgent.insert("app.TB_ACCESS_INFO_I001", map);
+//				}
+//				///////////////////////////////////////////////////////////////////////////////			
 			
 				///////////////////////////////////////////////////////////////////////////////
 				// TABLESPACE 정보 등록
@@ -382,5 +452,106 @@ public class ObjtCollect extends TaskApplication {
 			if(sessionCollect != null)	sessionCollect.close();
 		}
 	}
+	
+	private void DeleteObject(String reqInstanceId) {
+		SqlSessionFactory sqlSessionFactory = null;
+		Connection connection = null;
+		SqlSession sessionCollect = null;
+		SqlSession sessionAgent  = null;
+		String instance_db_version = "";
+		
+		try {
+			// DB Connection을 가져온다
+			sqlSessionFactory = SqlSessionManager.getInstance();
 
+			sessionAgent = sqlSessionFactory.openSession();
+					
+			try {
+				///////////////////////////////////////////////////////////////////////////////
+				// TABLESPACE 정보 삭제
+				sessionAgent.delete("app.TB_TABLESPACE_INFO_D001");
+				///////////////////////////////////////////////////////////////////////////////			
+			
+				///////////////////////////////////////////////////////////////////////////////
+				// TABLE 정보 삭제
+				sessionAgent.delete("app.TB_TABLE_INFO_D001");
+				///////////////////////////////////////////////////////////////////////////////				
+				
+				///////////////////////////////////////////////////////////////////////////////
+				// INDEX 정보 삭제
+				sessionAgent.delete("app.TB_INDEX_INFO_D001");
+				///////////////////////////////////////////////////////////////////////////////				
+							
+				//Commit
+				sessionAgent.commit();
+			} catch (Exception e) {
+				sessionAgent.rollback();
+				log.error("", e);
+			}			
+			
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if(sessionAgent != null)	sessionAgent.close();
+			if(sessionCollect != null)	sessionCollect.close();
+		}
+	}
+	
+	private void updateHAstatus(String reqInstanceId) {
+		SqlSessionFactory sqlSessionFactory = null;
+		Connection connection = null;
+		SqlSession sessionCollect = null;
+		SqlSession sessionAgent  = null;
+		String instance_db_version = "";
+		
+		try {
+			//수집 DB의 버젼을 가져온다
+			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(reqInstanceId).get("pg_version_min");
+
+			
+			// DB Connection을 가져온다
+			sqlSessionFactory = SqlSessionManager.getInstance();
+			
+			try {			
+				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + reqInstanceId);
+				sessionCollect = sqlSessionFactory.openSession(connection);
+			} catch (Exception e) {
+				failed_collect_type = "0";
+				is_collect_ok = "N";
+				log.error("", e);
+			}
+			
+			sessionAgent = sqlSessionFactory.openSession();
+			
+			// 인스턴스정보를 가져와 UPDATE 한다.
+			if(is_collect_ok.equals("Y"))
+			{	
+				try {
+					HashMap<String, Object> select = new HashMap<String, Object>();
+					/*add to update ha_info by robin 201712 */
+					select.put("instance_db_version", instance_db_version);	
+					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
+					
+					select.put("instance_id", Integer.valueOf(reqInstanceId));
+					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
+					select.put("ha_role", select.get("ha_role"));
+					select.put("ha_host", select.get("ha_host"));
+					select.put("ha_port", select.get("ha_port"));
+					
+					sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
+					/*add to update ha_info by robin 201712 end*/
+					
+					sessionAgent.commit();
+				} catch (Exception e) {
+					sessionAgent.rollback();
+					log.error("", e);
+				}			
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if(sessionAgent != null)	sessionAgent.close();
+			if(sessionCollect != null)	sessionCollect.close();
+		}
+	}
 }

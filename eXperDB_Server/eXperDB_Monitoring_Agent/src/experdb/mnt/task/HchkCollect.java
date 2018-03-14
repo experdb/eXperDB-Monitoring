@@ -28,11 +28,11 @@ public class HchkCollect extends TaskApplication {
 	@Override
 	public void run() {
 
-		//OBJT 정보수집
-		Enumeration		en = MonitoringInfoManager.getInstance().getInstanceId();
-		while (en.hasMoreElements()) {
-			objtCollect((String) en.nextElement());
-		}
+//		//OBJT 정보수집
+//		Enumeration		en = MonitoringInfoManager.getInstance().getInstanceId();
+//		while (en.hasMoreElements()) {
+//			objtCollect((String) en.nextElement());
+//		}
 		
 		
 		SqlSessionFactory sqlSessionFactory = null;

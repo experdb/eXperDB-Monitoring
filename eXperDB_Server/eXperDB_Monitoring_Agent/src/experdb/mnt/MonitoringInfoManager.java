@@ -73,8 +73,8 @@ public class MonitoringInfoManager {
 			String cryptokey = (String)configMapForKey.get("serial_key");
 			cryptokey = cryptokey.substring(0, 24);			
 			//get key
-			System.out.println(LicenseInfoManager.encryptTDES(cryptokey, "Hello World"));
-			System.out.println(LicenseInfoManager.decryptTDES(cryptokey, LicenseInfoManager.encryptTDES(cryptokey, "Hello World")));
+//			System.out.println(LicenseInfoManager.encryptTDES(cryptokey, "Hello World"));
+//			System.out.println(LicenseInfoManager.decryptTDES(cryptokey, LicenseInfoManager.encryptTDES(cryptokey, "Hello World")));
 			/* *******************************<Crypto>********************************** */
 					
 			

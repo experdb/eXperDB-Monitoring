@@ -39,6 +39,7 @@
 	<select id="TB_CONFIG_R001" resultType="hashmap">
 		SELECT DAILY_BATCH_START_TIME, 
 		       HCHK_PERIOD_SEC,
+		       OBJT_PERIOD_SEC,	
 		       TO_CHAR(NOW(), 'HH24:MI:SS') NOW_TIME
 	      FROM TB_CONFIG
 	</select>

@@ -327,6 +327,17 @@
 		)
 	</insert>
 	
+	<delete id="TB_TABLESPACE_INFO_D001" parameterType="hashmap" >
+		<![CDATA[
+		/* TB_TABLESPACE_INFO_D001 */
+		DELETE  
+		FROM 
+			TB_TABLESPACE_INFO        
+		WHERE 
+			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
+		]]>	
+	</delete>	
 	
 	<select id="BT_TABLE_INFO_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
 		<![CDATA[
@@ -412,7 +423,6 @@
 		WHERE 
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
-			AND DB_NAME = #{db_name}
 		]]>	
 	</delete>
 
@@ -443,7 +453,6 @@
 		WHERE 
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 			AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
-			AND DB_NAME = #{db_name}
 		]]>	
 	</delete>
 	
