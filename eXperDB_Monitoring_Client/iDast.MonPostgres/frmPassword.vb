@@ -8,7 +8,7 @@
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
         _Odbc = objCn
 
-        FormMovePanel1.Text = p_clsMsgData.fn_GetData("F004")
+        'FormMovePanel1.Text = p_clsMsgData.fn_GetData("F004")
         btnOK.Text = p_clsMsgData.fn_GetData("F005")
 
 
@@ -16,7 +16,17 @@
 
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub btnOK_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub txtPw_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPw.KeyDown
+        If e.KeyCode = Keys.Return Or e.KeyCode = Keys.Enter Then
+            btnOK.PerformClick()
+        End If
+    End Sub
+
+    Private Sub btnOK_Click_1(sender As Object, e As EventArgs) Handles btnOK.Click
 
         Dim clsQu As New clsQuerys(_Odbc)
         Dim strKey As String = Nothing
@@ -55,16 +65,14 @@
             MsgBox(strMsg)
             Return
         End If
+    End Sub
+
+    Private Sub frmPassword_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        StatusLabel.Text = "관리자 패스워드를 입력하세요"
 
     End Sub
 
-    Private Sub txtPw_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPw.KeyDown
-        If e.KeyCode = Keys.Return Or e.KeyCode = Keys.Enter Then
-            btnOK.PerformClick()
-        End If
-    End Sub
-
-    Private Sub txtPw_TextChanged(sender As Object, e As EventArgs) Handles txtPw.TextChanged
-
+    Private Sub frmPassword_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        txtPw.Focus()
     End Sub
 End Class

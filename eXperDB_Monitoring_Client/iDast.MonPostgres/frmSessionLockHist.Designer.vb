@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmSessionLockHist
-    Inherits Monitoring.frmMonBase
+    'Inherits Monitoring.frmMonBase
+    Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -19,57 +20,22 @@ Partial Class frmSessionLockHist
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Edges3 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSessionLockHist))
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSessionLockHist))
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
-        Me.grpSessionLockHist = New eXperDB.BaseControls.GroupBox()
-        Me.txtDatabase = New eXperDB.BaseControls.TextBox()
-        Me.lblSQL = New eXperDB.BaseControls.Label()
-        Me.lblDuration = New eXperDB.BaseControls.Label()
-        Me.lblDatabase = New eXperDB.BaseControls.Label()
-        Me.lblType = New eXperDB.BaseControls.Label()
-        Me.txtSQL = New eXperDB.BaseControls.TextBox()
-        Me.dtpEd = New eXperDB.BaseControls.DateTimePicker()
-        Me.lblDuration2 = New eXperDB.BaseControls.Label()
-        Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
-        Me.cmbType = New eXperDB.BaseControls.ComboBox()
-        Me.btnQuery = New eXperDB.BaseControls.Button()
-        Me.btnExcel = New eXperDB.BaseControls.Button()
-        Me.tlpBottom = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.grpSession = New eXperDB.BaseControls.GroupBox()
-        Me.dgvSessionList = New eXperDB.BaseControls.DataGridView()
-        Me.coldgvSessionCtrlType = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionCtrlTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListStTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvSessionListStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListClient = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListApp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListRead = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvSessionListWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvSessionListSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.grpLockInfo = New eXperDB.BaseControls.GroupBox()
         Me.dgvLock = New AdvancedDataGridView.TreeGridView()
         Me.colDgvLockDB = New AdvancedDataGridView.TreeGridColumn()
         Me.coldgvLockCtrlType = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -84,558 +50,62 @@ Partial Class frmSessionLockHist
         Me.colDgvLockElapse = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockQueryStart = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockXactStart = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.tlpMain = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.grpSessionLockHist.SuspendLayout()
-        Me.tlpBottom.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
-        Me.grpSession.SuspendLayout()
-        CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpLockInfo.SuspendLayout()
+        Me.dgvSessionList = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvSessionListSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvSessionListRead = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvSessionListApp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListClient = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvSessionListStTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionCtrlTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionCtrlType = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lblType = New eXperDB.BaseControls.Label()
+        Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
+        Me.lblDatabase = New eXperDB.BaseControls.Label()
+        Me.lblDuration2 = New eXperDB.BaseControls.Label()
+        Me.cmbType = New eXperDB.BaseControls.ComboBox()
+        Me.dtpEd = New eXperDB.BaseControls.DateTimePicker()
+        Me.btnExcel = New eXperDB.BaseControls.Button()
+        Me.txtDatabase = New eXperDB.BaseControls.TextBox()
+        Me.btnQuery = New eXperDB.BaseControls.Button()
+        Me.lblDuration = New eXperDB.BaseControls.Label()
+        Me.lblSQL = New eXperDB.BaseControls.Label()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MsgLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.grpSession = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.grpLockInfo = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.txtSQL = New System.Windows.Forms.TextBox()
         CType(Me.dgvLock, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tlpMain.SuspendLayout()
+        CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
+        Me.tlpHead.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'bckmanual
         '
         Me.bckmanual.WorkerReportsProgress = True
         Me.bckmanual.WorkerSupportsCancellation = True
-        '
-        'grpSessionLockHist
-        '
-        Me.grpSessionLockHist.AlignLine = System.Drawing.StringAlignment.Center
-        Me.grpSessionLockHist.AlignString = System.Drawing.StringAlignment.Near
-        Me.grpSessionLockHist.BackColor = System.Drawing.Color.Black
-        Me.grpSessionLockHist.Controls.Add(Me.txtDatabase)
-        Me.grpSessionLockHist.Controls.Add(Me.lblSQL)
-        Me.grpSessionLockHist.Controls.Add(Me.lblDuration)
-        Me.grpSessionLockHist.Controls.Add(Me.lblDatabase)
-        Me.grpSessionLockHist.Controls.Add(Me.lblType)
-        Me.grpSessionLockHist.Controls.Add(Me.txtSQL)
-        Me.grpSessionLockHist.Controls.Add(Me.dtpEd)
-        Me.grpSessionLockHist.Controls.Add(Me.lblDuration2)
-        Me.grpSessionLockHist.Controls.Add(Me.dtpSt)
-        Me.grpSessionLockHist.Controls.Add(Me.cmbType)
-        Me.grpSessionLockHist.Controls.Add(Me.btnQuery)
-        Me.grpSessionLockHist.Controls.Add(Me.btnExcel)
-        Me.grpSessionLockHist.Controls.Add(Me.tlpBottom)
-        Me.grpSessionLockHist.Dock = System.Windows.Forms.DockStyle.Fill
-        Edges3.LeftBottom = 0
-        Edges3.RightBottom = 0
-        Me.grpSessionLockHist.EdgeRound = Edges3
-        Me.grpSessionLockHist.FillColor = System.Drawing.Color.Black
-        Me.grpSessionLockHist.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.grpSessionLockHist.Icon = Nothing
-        Me.grpSessionLockHist.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.grpSessionLockHist.LineWidth = 1
-        Me.grpSessionLockHist.Location = New System.Drawing.Point(3, 4)
-        Me.grpSessionLockHist.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.grpSessionLockHist.Name = "grpSessionLockHist"
-        Me.grpSessionLockHist.Padding = New System.Windows.Forms.Padding(3, 13, 3, 3)
-        Me.tlpMain.SetRowSpan(Me.grpSessionLockHist, 2)
-        Me.grpSessionLockHist.Size = New System.Drawing.Size(1816, 1051)
-        Me.grpSessionLockHist.TabIndex = 1
-        Me.grpSessionLockHist.TabStop = False
-        Me.grpSessionLockHist.Text = "F247"
-        Me.grpSessionLockHist.TitleFont = New System.Drawing.Font("Arial", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.grpSessionLockHist.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.grpSessionLockHist.UseGraColor = False
-        Me.grpSessionLockHist.UseRound = True
-        Me.grpSessionLockHist.UseTitle = True
-        '
-        'txtDatabase
-        '
-        Me.txtDatabase.BackColor = System.Drawing.SystemColors.Window
-        Me.txtDatabase.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtDatabase.code = False
-        Me.txtDatabase.FixedWidth = False
-        Me.txtDatabase.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtDatabase.impossibleinput = ""
-        Me.txtDatabase.Location = New System.Drawing.Point(802, 7)
-        Me.txtDatabase.Name = "txtDatabase"
-        Me.txtDatabase.Necessary = False
-        Me.txtDatabase.PossibleInput = ""
-        Me.txtDatabase.Prefix = ""
-        Me.txtDatabase.Size = New System.Drawing.Size(120, 25)
-        Me.txtDatabase.StatusTip = ""
-        Me.txtDatabase.TabIndex = 18
-        Me.txtDatabase.Value = ""
-        '
-        'lblSQL
-        '
-        Me.lblSQL.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblSQL.FixedHeight = False
-        Me.lblSQL.FixedWidth = False
-        Me.lblSQL.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.lblSQL.ForeColor = System.Drawing.Color.LightGray
-        Me.lblSQL.Location = New System.Drawing.Point(1411, 5)
-        Me.lblSQL.Name = "lblSQL"
-        Me.lblSQL.Size = New System.Drawing.Size(50, 26)
-        Me.lblSQL.TabIndex = 26
-        Me.lblSQL.Text = "SQL"
-        Me.lblSQL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblDuration
-        '
-        Me.lblDuration.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblDuration.FixedHeight = False
-        Me.lblDuration.FixedWidth = False
-        Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.lblDuration.ForeColor = System.Drawing.Color.LightGray
-        Me.lblDuration.Location = New System.Drawing.Point(927, 5)
-        Me.lblDuration.Name = "lblDuration"
-        Me.lblDuration.Size = New System.Drawing.Size(88, 26)
-        Me.lblDuration.TabIndex = 25
-        Me.lblDuration.Text = "F254"
-        Me.lblDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblDatabase
-        '
-        Me.lblDatabase.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblDatabase.FixedHeight = False
-        Me.lblDatabase.FixedWidth = False
-        Me.lblDatabase.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.lblDatabase.ForeColor = System.Drawing.Color.LightGray
-        Me.lblDatabase.Location = New System.Drawing.Point(719, 5)
-        Me.lblDatabase.Name = "lblDatabase"
-        Me.lblDatabase.Size = New System.Drawing.Size(88, 26)
-        Me.lblDatabase.TabIndex = 24
-        Me.lblDatabase.Text = "Database"
-        Me.lblDatabase.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblType
-        '
-        Me.lblType.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblType.FixedHeight = False
-        Me.lblType.FixedWidth = False
-        Me.lblType.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.lblType.ForeColor = System.Drawing.Color.LightGray
-        Me.lblType.Location = New System.Drawing.Point(525, 5)
-        Me.lblType.Name = "lblType"
-        Me.lblType.Size = New System.Drawing.Size(88, 26)
-        Me.lblType.TabIndex = 23
-        Me.lblType.Text = "F252"
-        Me.lblType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtSQL
-        '
-        Me.txtSQL.BackColor = System.Drawing.SystemColors.Window
-        Me.txtSQL.code = False
-        Me.txtSQL.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSQL.impossibleinput = ""
-        Me.txtSQL.Location = New System.Drawing.Point(1463, 7)
-        Me.txtSQL.Name = "txtSQL"
-        Me.txtSQL.Necessary = False
-        Me.txtSQL.PossibleInput = ""
-        Me.txtSQL.Prefix = ""
-        Me.txtSQL.Size = New System.Drawing.Size(150, 25)
-        Me.txtSQL.StatusTip = ""
-        Me.txtSQL.TabIndex = 22
-        Me.txtSQL.Value = ""
-        '
-        'dtpEd
-        '
-        Me.dtpEd.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm:ss"
-        Me.dtpEd.FixedWidth = False
-        Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEd.Location = New System.Drawing.Point(1226, 7)
-        Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpEd.Name = "dtpEd"
-        Me.dtpEd.Necessary = False
-        Me.dtpEd.Size = New System.Drawing.Size(170, 25)
-        Me.dtpEd.StatusTip = ""
-        Me.dtpEd.TabIndex = 21
-        '
-        'lblDuration2
-        '
-        Me.lblDuration2.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblDuration2.FixedHeight = False
-        Me.lblDuration2.FixedWidth = False
-        Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.lblDuration2.ForeColor = System.Drawing.Color.LightGray
-        Me.lblDuration2.Location = New System.Drawing.Point(1200, 5)
-        Me.lblDuration2.Name = "lblDuration2"
-        Me.lblDuration2.Size = New System.Drawing.Size(26, 26)
-        Me.lblDuration2.TabIndex = 20
-        Me.lblDuration2.Text = "~"
-        Me.lblDuration2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'dtpSt
-        '
-        Me.dtpSt.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm:ss"
-        Me.dtpSt.FixedWidth = False
-        Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSt.Location = New System.Drawing.Point(1020, 7)
-        Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpSt.Name = "dtpSt"
-        Me.dtpSt.Necessary = False
-        Me.dtpSt.Size = New System.Drawing.Size(170, 25)
-        Me.dtpSt.StatusTip = ""
-        Me.dtpSt.TabIndex = 19
-        '
-        'cmbType
-        '
-        Me.cmbType.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbType.DisplayMember = "All"
-        Me.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbType.FixedWidth = False
-        Me.cmbType.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.cmbType.FormattingEnabled = True
-        Me.cmbType.Items.AddRange(New Object() {"All", "Cancel", "Stop"})
-        Me.cmbType.Location = New System.Drawing.Point(619, 8)
-        Me.cmbType.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbType.Name = "cmbType"
-        Me.cmbType.Necessary = False
-        Me.cmbType.Size = New System.Drawing.Size(94, 23)
-        Me.cmbType.StatusTip = ""
-        Me.cmbType.TabIndex = 17
-        Me.cmbType.ValueText = ""
-        '
-        'btnQuery
-        '
-        Me.btnQuery.BackColor = System.Drawing.Color.Black
-        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnQuery.FixedHeight = False
-        Me.btnQuery.FixedWidth = False
-        Me.btnQuery.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.btnQuery.ForeColor = System.Drawing.Color.LightGray
-        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQuery.Location = New System.Drawing.Point(1619, 4)
-        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnQuery.Name = "btnQuery"
-        Me.btnQuery.Radius = 5
-        Me.btnQuery.Size = New System.Drawing.Size(100, 31)
-        Me.btnQuery.TabIndex = 23
-        Me.btnQuery.Text = "F151"
-        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnQuery.UseRound = True
-        Me.btnQuery.UseVisualStyleBackColor = False
-        '
-        'btnExcel
-        '
-        Me.btnExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExcel.BackColor = System.Drawing.Color.Black
-        Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnExcel.FixedHeight = False
-        Me.btnExcel.FixedWidth = False
-        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.btnExcel.ForeColor = System.Drawing.Color.LightGray
-        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnExcel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnExcel.Location = New System.Drawing.Point(1716, 4)
-        Me.btnExcel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Radius = 5
-        Me.btnExcel.Size = New System.Drawing.Size(102, 31)
-        Me.btnExcel.TabIndex = 24
-        Me.btnExcel.Text = "F142"
-        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnExcel.UseRound = True
-        Me.btnExcel.UseVisualStyleBackColor = False
-        '
-        'tlpBottom
-        '
-        Me.tlpBottom.BackColor = System.Drawing.Color.Black
-        Me.tlpBottom.ColumnCount = 2
-        Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.Controls.Add(Me.SplitContainer1, 0, 0)
-        Me.tlpBottom.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpBottom.Font = New System.Drawing.Font("Gulim", 14.03751!)
-        Me.tlpBottom.Location = New System.Drawing.Point(3, 31)
-        Me.tlpBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.tlpBottom.Name = "tlpBottom"
-        Me.tlpBottom.RowCount = 2
-        Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpBottom.Size = New System.Drawing.Size(1810, 1017)
-        Me.tlpBottom.TabIndex = 0
-        '
-        'SplitContainer1
-        '
-        Me.tlpBottom.SetColumnSpan(Me.SplitContainer1, 2)
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(3, 3)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.grpSession)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.grpLockInfo)
-        Me.tlpBottom.SetRowSpan(Me.SplitContainer1, 2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1804, 1011)
-        Me.SplitContainer1.SplitterDistance = 601
-        Me.SplitContainer1.TabIndex = 0
-        '
-        'grpSession
-        '
-        Me.grpSession.AlignLine = System.Drawing.StringAlignment.Center
-        Me.grpSession.AlignString = System.Drawing.StringAlignment.Near
-        Me.grpSession.BackColor = System.Drawing.Color.Black
-        Me.grpSession.Controls.Add(Me.dgvSessionList)
-        Me.grpSession.Dock = System.Windows.Forms.DockStyle.Fill
-        Edges1.LeftBottom = 0
-        Edges1.RightBottom = 0
-        Me.grpSession.EdgeRound = Edges1
-        Me.grpSession.FillColor = System.Drawing.Color.Black
-        Me.grpSession.Font = New System.Drawing.Font("Gulim", 11.0!)
-        Me.grpSession.Icon = CType(resources.GetObject("grpSession.Icon"), System.Drawing.Icon)
-        Me.grpSession.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.grpSession.LineWidth = 1
-        Me.grpSession.Location = New System.Drawing.Point(0, 0)
-        Me.grpSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.grpSession.Name = "grpSession"
-        Me.grpSession.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpSession.Size = New System.Drawing.Size(1804, 601)
-        Me.grpSession.TabIndex = 3
-        Me.grpSession.TabStop = False
-        Me.grpSession.Text = "F080"
-        Me.grpSession.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.grpSession.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.grpSession.UseGraColor = False
-        Me.grpSession.UseRound = True
-        Me.grpSession.UseTitle = True
-        '
-        'dgvSessionList
-        '
-        Me.dgvSessionList.AllowUserToAddRows = False
-        Me.dgvSessionList.AllowUserToDeleteRows = False
-        Me.dgvSessionList.AllowUserToOrderColumns = True
-        Me.dgvSessionList.AllowUserToResizeRows = False
-        Me.dgvSessionList.BackgroundColor = System.Drawing.Color.Black
-        Me.dgvSessionList.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvSessionList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.5!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSessionList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvSessionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSessionList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvSessionCtrlType, Me.coldgvSessionCtrlTime, Me.coldgvSessionListDB, Me.coldgvSessionListPID, Me.coldgvSessionListCpuUsage, Me.coldgvSessionListStTime, Me.coldgvSessionListElapsedTime, Me.coldgvSessionListStatus, Me.coldgvSessionListUser, Me.coldgvSessionListClient, Me.coldgvSessionListApp, Me.coldgvSessionListRead, Me.coldgvSessionListWrite, Me.coldgvSessionListSQL})
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Gulim", 9.5!)
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSessionList.DefaultCellStyle = DataGridViewCellStyle9
-        Me.dgvSessionList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvSessionList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
-        Me.dgvSessionList.EnableHeadersVisualStyles = False
-        Me.dgvSessionList.Font = New System.Drawing.Font("Gulim", 9.5!)
-        Me.dgvSessionList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dgvSessionList.Location = New System.Drawing.Point(3, 33)
-        Me.dgvSessionList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dgvSessionList.MultiSelect = False
-        Me.dgvSessionList.Name = "dgvSessionList"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Gulim", 9.5!)
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSessionList.RowHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.dgvSessionList.RowHeadersVisible = False
-        Me.dgvSessionList.RowTemplate.Height = 23
-        Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionList.Size = New System.Drawing.Size(1798, 565)
-        Me.dgvSessionList.TabIndex = 10
-        Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
-        Me.dgvSessionList.UseTagValueMatchColor = False
-        '
-        'coldgvSessionCtrlType
-        '
-        Me.coldgvSessionCtrlType.DataPropertyName = "ACCESS_TYPE"
-        Me.coldgvSessionCtrlType.HeaderText = "F252"
-        Me.coldgvSessionCtrlType.Name = "coldgvSessionCtrlType"
-        Me.coldgvSessionCtrlType.ReadOnly = True
-        Me.coldgvSessionCtrlType.Width = 66
-        '
-        'coldgvSessionCtrlTime
-        '
-        Me.coldgvSessionCtrlTime.DataPropertyName = "CONTROL_TIME"
-        DataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.coldgvSessionCtrlTime.DefaultCellStyle = DataGridViewCellStyle2
-        Me.coldgvSessionCtrlTime.HeaderText = "F253"
-        Me.coldgvSessionCtrlTime.Name = "coldgvSessionCtrlTime"
-        Me.coldgvSessionCtrlTime.ReadOnly = True
-        Me.coldgvSessionCtrlTime.Width = 160
-        '
-        'coldgvSessionListDB
-        '
-        Me.coldgvSessionListDB.DataPropertyName = "DB_NAME"
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = "0"
-        Me.coldgvSessionListDB.DefaultCellStyle = DataGridViewCellStyle3
-        Me.coldgvSessionListDB.HeaderText = "F090"
-        Me.coldgvSessionListDB.Name = "coldgvSessionListDB"
-        Me.coldgvSessionListDB.ReadOnly = True
-        Me.coldgvSessionListDB.Width = 88
-        '
-        'coldgvSessionListPID
-        '
-        Me.coldgvSessionListPID.DataPropertyName = "PROCESS_ID"
-        Me.coldgvSessionListPID.HeaderText = "F082"
-        Me.coldgvSessionListPID.Name = "coldgvSessionListPID"
-        Me.coldgvSessionListPID.ReadOnly = True
-        Me.coldgvSessionListPID.Width = 76
-        '
-        'coldgvSessionListCpuUsage
-        '
-        Me.coldgvSessionListCpuUsage.DataPropertyName = "CPU_USAGE"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "P"
-        Me.coldgvSessionListCpuUsage.DefaultCellStyle = DataGridViewCellStyle4
-        Me.coldgvSessionListCpuUsage.HeaderText = "F092"
-        Me.coldgvSessionListCpuUsage.Name = "coldgvSessionListCpuUsage"
-        Me.coldgvSessionListCpuUsage.ReadOnly = True
-        Me.coldgvSessionListCpuUsage.Width = 76
-        '
-        'coldgvSessionListStTime
-        '
-        Me.coldgvSessionListStTime.DataPropertyName = "START_TIME"
-        DataGridViewCellStyle5.Format = "HH:mm:ss"
-        Me.coldgvSessionListStTime.DefaultCellStyle = DataGridViewCellStyle5
-        Me.coldgvSessionListStTime.HeaderText = "F050"
-        Me.coldgvSessionListStTime.Name = "coldgvSessionListStTime"
-        Me.coldgvSessionListStTime.ReadOnly = True
-        Me.coldgvSessionListStTime.Width = 130
-        '
-        'coldgvSessionListElapsedTime
-        '
-        Me.coldgvSessionListElapsedTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.coldgvSessionListElapsedTime.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = "12"
-        Me.coldgvSessionListElapsedTime.DefaultCellStyle = DataGridViewCellStyle6
-        Me.coldgvSessionListElapsedTime.FillWeight = 150.0!
-        Me.coldgvSessionListElapsedTime.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
-        Me.coldgvSessionListElapsedTime.HeaderText = "F051"
-        Me.coldgvSessionListElapsedTime.MinimumWidth = 150
-        Me.coldgvSessionListElapsedTime.Name = "coldgvSessionListElapsedTime"
-        Me.coldgvSessionListElapsedTime.ReadOnly = True
-        Me.coldgvSessionListElapsedTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvSessionListElapsedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvSessionListElapsedTime.Width = 150
-        '
-        'coldgvSessionListStatus
-        '
-        Me.coldgvSessionListStatus.DataPropertyName = "STATE"
-        Me.coldgvSessionListStatus.HeaderText = "F247"
-        Me.coldgvSessionListStatus.Name = "coldgvSessionListStatus"
-        Me.coldgvSessionListStatus.ReadOnly = True
-        Me.coldgvSessionListStatus.Width = 76
-        '
-        'coldgvSessionListUser
-        '
-        Me.coldgvSessionListUser.DataPropertyName = "USER_NAME"
-        Me.coldgvSessionListUser.HeaderText = "F008"
-        Me.coldgvSessionListUser.Name = "coldgvSessionListUser"
-        Me.coldgvSessionListUser.ReadOnly = True
-        Me.coldgvSessionListUser.Width = 120
-        '
-        'coldgvSessionListClient
-        '
-        Me.coldgvSessionListClient.DataPropertyName = "CLIENT_ADDR"
-        Me.coldgvSessionListClient.HeaderText = "F248"
-        Me.coldgvSessionListClient.Name = "coldgvSessionListClient"
-        Me.coldgvSessionListClient.ReadOnly = True
-        Me.coldgvSessionListClient.Width = 200
-        '
-        'coldgvSessionListApp
-        '
-        Me.coldgvSessionListApp.DataPropertyName = "CLIENT_APP"
-        Me.coldgvSessionListApp.HeaderText = "F249"
-        Me.coldgvSessionListApp.Name = "coldgvSessionListApp"
-        Me.coldgvSessionListApp.ReadOnly = True
-        Me.coldgvSessionListApp.Width = 200
-        '
-        'coldgvSessionListRead
-        '
-        Me.coldgvSessionListRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvSessionListRead.DataPropertyName = "CURRENT_PROC_READ_KB"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N1"
-        Me.coldgvSessionListRead.DefaultCellStyle = DataGridViewCellStyle7
-        Me.coldgvSessionListRead.HeaderText = "F048"
-        Me.coldgvSessionListRead.HeaderWord = ""
-        Me.coldgvSessionListRead.Name = "coldgvSessionListRead"
-        Me.coldgvSessionListRead.ReadOnly = True
-        Me.coldgvSessionListRead.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvSessionListRead.ShowUnit = True
-        Me.coldgvSessionListRead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvSessionListRead.TailWord = ""
-        Me.coldgvSessionListRead.Width = 110
-        '
-        'coldgvSessionListWrite
-        '
-        Me.coldgvSessionListWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvSessionListWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
-        DataGridViewCellStyle8.Format = "N1"
-        Me.coldgvSessionListWrite.DefaultCellStyle = DataGridViewCellStyle8
-        Me.coldgvSessionListWrite.HeaderText = "F136"
-        Me.coldgvSessionListWrite.HeaderWord = ""
-        Me.coldgvSessionListWrite.Name = "coldgvSessionListWrite"
-        Me.coldgvSessionListWrite.ReadOnly = True
-        Me.coldgvSessionListWrite.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvSessionListWrite.ShowUnit = True
-        Me.coldgvSessionListWrite.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvSessionListWrite.TailWord = ""
-        Me.coldgvSessionListWrite.Width = 110
-        '
-        'coldgvSessionListSQL
-        '
-        Me.coldgvSessionListSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvSessionListSQL.DataPropertyName = "SQL"
-        Me.coldgvSessionListSQL.HeaderText = "F052"
-        Me.coldgvSessionListSQL.Name = "coldgvSessionListSQL"
-        Me.coldgvSessionListSQL.ReadOnly = True
-        '
-        'grpLockInfo
-        '
-        Me.grpLockInfo.AlignLine = System.Drawing.StringAlignment.Center
-        Me.grpLockInfo.AlignString = System.Drawing.StringAlignment.Near
-        Me.grpLockInfo.BackColor = System.Drawing.Color.Black
-        Me.grpLockInfo.Controls.Add(Me.dgvLock)
-        Me.grpLockInfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Edges2.LeftBottom = 0
-        Edges2.RightBottom = 0
-        Me.grpLockInfo.EdgeRound = Edges2
-        Me.grpLockInfo.FillColor = System.Drawing.Color.Black
-        Me.grpLockInfo.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.grpLockInfo.Icon = CType(resources.GetObject("grpLockInfo.Icon"), System.Drawing.Icon)
-        Me.grpLockInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.grpLockInfo.LineWidth = 1
-        Me.grpLockInfo.Location = New System.Drawing.Point(0, 0)
-        Me.grpLockInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.grpLockInfo.Name = "grpLockInfo"
-        Me.grpLockInfo.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpLockInfo.Size = New System.Drawing.Size(1804, 406)
-        Me.grpLockInfo.TabIndex = 12
-        Me.grpLockInfo.TabStop = False
-        Me.grpLockInfo.Text = "F274"
-        Me.grpLockInfo.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.grpLockInfo.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.grpLockInfo.UseGraColor = False
-        Me.grpLockInfo.UseRound = True
-        Me.grpLockInfo.UseTitle = True
         '
         'dgvLock
         '
@@ -645,47 +115,47 @@ Partial Class frmSessionLockHist
         Me.dgvLock.AllowUserToResizeRows = False
         Me.dgvLock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvLock.BackgroundColor = System.Drawing.Color.Black
-        Me.dgvLock.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvLock.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvLock.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
-        Me.dgvLock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvLock.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
+        Me.dgvLock.ColumnHeadersHeight = 30
+        Me.dgvLock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvLock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvLockDB, Me.coldgvLockCtrlType, Me.coldgvLockCtrlTime, Me.colDgvLockBlockingPID, Me.colDgvLockBlockingUser, Me.colDgvLockBlockingQuery, Me.colDgvLockBlockedPID, Me.colDgvLockBlockedUser, Me.colDgvLockBlockedQuery, Me.colDgvLockMode, Me.colDgvLockElapse, Me.colDgvLockQueryStart, Me.colDgvLockXactStart})
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvLock.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvLock.DefaultCellStyle = DataGridViewCellStyle17
         Me.dgvLock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLock.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvLock.EnableHeadersVisualStyles = False
-        Me.dgvLock.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.dgvLock.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.dgvLock.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.dgvLock.GridColor = System.Drawing.Color.Gray
         Me.dgvLock.ImageList = Nothing
-        Me.dgvLock.Location = New System.Drawing.Point(3, 31)
+        Me.dgvLock.Location = New System.Drawing.Point(0, 40)
         Me.dgvLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvLock.MultiSelect = False
         Me.dgvLock.Name = "dgvLock"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvLock.RowHeadersDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("굴림", 10.0!)
+        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvLock.RowHeadersDefaultCellStyle = DataGridViewCellStyle18
         Me.dgvLock.RowHeadersVisible = False
         Me.dgvLock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLock.Size = New System.Drawing.Size(1798, 372)
+        Me.dgvLock.Size = New System.Drawing.Size(1150, 158)
         Me.dgvLock.TabIndex = 9
         '
         'colDgvLockDB
@@ -711,8 +181,8 @@ Partial Class frmSessionLockHist
         'coldgvLockCtrlTime
         '
         Me.coldgvLockCtrlTime.DataPropertyName = "CONTROL_TIME"
-        DataGridViewCellStyle12.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.coldgvLockCtrlTime.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle16.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.coldgvLockCtrlTime.DefaultCellStyle = DataGridViewCellStyle16
         Me.coldgvLockCtrlTime.FillWeight = 160.0!
         Me.coldgvLockCtrlTime.HeaderText = "F253"
         Me.coldgvLockCtrlTime.Name = "coldgvLockCtrlTime"
@@ -810,58 +280,667 @@ Partial Class frmSessionLockHist
         Me.colDgvLockXactStart.ReadOnly = True
         Me.colDgvLockXactStart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
-        'tlpMain
+        'dgvSessionList
         '
-        Me.tlpMain.ColumnCount = 1
-        Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpMain.Controls.Add(Me.grpSessionLockHist, 0, 0)
-        Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMain.Font = New System.Drawing.Font("Gulim", 14.03751!)
-        Me.tlpMain.Location = New System.Drawing.Point(2, 29)
-        Me.tlpMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.tlpMain.Name = "tlpMain"
-        Me.tlpMain.RowCount = 2
-        Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.670529!))
-        Me.tlpMain.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.32947!))
-        Me.tlpMain.Size = New System.Drawing.Size(1822, 1059)
-        Me.tlpMain.TabIndex = 11
+        Me.dgvSessionList.AllowUserToAddRows = False
+        Me.dgvSessionList.AllowUserToDeleteRows = False
+        Me.dgvSessionList.AllowUserToOrderColumns = True
+        Me.dgvSessionList.AllowUserToResizeRows = False
+        Me.dgvSessionList.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvSessionList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSessionList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvSessionList.ColumnHeadersHeight = 30
+        Me.dgvSessionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvSessionList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvSessionCtrlType, Me.coldgvSessionCtrlTime, Me.coldgvSessionListDB, Me.coldgvSessionListPID, Me.coldgvSessionListCpuUsage, Me.coldgvSessionListStTime, Me.coldgvSessionListElapsedTime, Me.coldgvSessionListStatus, Me.coldgvSessionListUser, Me.coldgvSessionListClient, Me.coldgvSessionListApp, Me.coldgvSessionListRead, Me.coldgvSessionListWrite, Me.coldgvSessionListSQL})
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSessionList.DefaultCellStyle = DataGridViewCellStyle24
+        Me.dgvSessionList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvSessionList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
+        Me.dgvSessionList.EnableHeadersVisualStyles = False
+        Me.dgvSessionList.Font = New System.Drawing.Font("굴림", 9.5!)
+        Me.dgvSessionList.GridColor = System.Drawing.Color.Gray
+        Me.dgvSessionList.Location = New System.Drawing.Point(0, 189)
+        Me.dgvSessionList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dgvSessionList.MultiSelect = False
+        Me.dgvSessionList.Name = "dgvSessionList"
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle25.Font = New System.Drawing.Font("굴림", 9.5!)
+        DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSessionList.RowHeadersDefaultCellStyle = DataGridViewCellStyle25
+        Me.dgvSessionList.RowHeadersVisible = False
+        Me.dgvSessionList.RowTemplate.Height = 23
+        Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvSessionList.Size = New System.Drawing.Size(1150, 207)
+        Me.dgvSessionList.TabIndex = 10
+        Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
+        Me.dgvSessionList.UseTagValueMatchColor = False
+        '
+        'coldgvSessionListSQL
+        '
+        Me.coldgvSessionListSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvSessionListSQL.DataPropertyName = "SQL"
+        Me.coldgvSessionListSQL.HeaderText = "F052"
+        Me.coldgvSessionListSQL.Name = "coldgvSessionListSQL"
+        Me.coldgvSessionListSQL.ReadOnly = True
+        '
+        'coldgvSessionListWrite
+        '
+        Me.coldgvSessionListWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvSessionListWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
+        DataGridViewCellStyle23.Format = "N1"
+        Me.coldgvSessionListWrite.DefaultCellStyle = DataGridViewCellStyle23
+        Me.coldgvSessionListWrite.HeaderText = "F136"
+        Me.coldgvSessionListWrite.HeaderWord = ""
+        Me.coldgvSessionListWrite.Name = "coldgvSessionListWrite"
+        Me.coldgvSessionListWrite.ReadOnly = True
+        Me.coldgvSessionListWrite.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvSessionListWrite.ShowUnit = True
+        Me.coldgvSessionListWrite.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvSessionListWrite.TailWord = ""
+        Me.coldgvSessionListWrite.Width = 110
+        '
+        'coldgvSessionListRead
+        '
+        Me.coldgvSessionListRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvSessionListRead.DataPropertyName = "CURRENT_PROC_READ_KB"
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle22.Format = "N1"
+        Me.coldgvSessionListRead.DefaultCellStyle = DataGridViewCellStyle22
+        Me.coldgvSessionListRead.HeaderText = "F048"
+        Me.coldgvSessionListRead.HeaderWord = ""
+        Me.coldgvSessionListRead.Name = "coldgvSessionListRead"
+        Me.coldgvSessionListRead.ReadOnly = True
+        Me.coldgvSessionListRead.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvSessionListRead.ShowUnit = True
+        Me.coldgvSessionListRead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvSessionListRead.TailWord = ""
+        Me.coldgvSessionListRead.Width = 110
+        '
+        'coldgvSessionListApp
+        '
+        Me.coldgvSessionListApp.DataPropertyName = "CLIENT_APP"
+        Me.coldgvSessionListApp.HeaderText = "F249"
+        Me.coldgvSessionListApp.Name = "coldgvSessionListApp"
+        Me.coldgvSessionListApp.ReadOnly = True
+        Me.coldgvSessionListApp.Width = 200
+        '
+        'coldgvSessionListClient
+        '
+        Me.coldgvSessionListClient.DataPropertyName = "CLIENT_ADDR"
+        Me.coldgvSessionListClient.HeaderText = "F248"
+        Me.coldgvSessionListClient.Name = "coldgvSessionListClient"
+        Me.coldgvSessionListClient.ReadOnly = True
+        Me.coldgvSessionListClient.Width = 200
+        '
+        'coldgvSessionListUser
+        '
+        Me.coldgvSessionListUser.DataPropertyName = "USER_NAME"
+        Me.coldgvSessionListUser.HeaderText = "F008"
+        Me.coldgvSessionListUser.Name = "coldgvSessionListUser"
+        Me.coldgvSessionListUser.ReadOnly = True
+        Me.coldgvSessionListUser.Width = 120
+        '
+        'coldgvSessionListStatus
+        '
+        Me.coldgvSessionListStatus.DataPropertyName = "STATE"
+        Me.coldgvSessionListStatus.HeaderText = "F247"
+        Me.coldgvSessionListStatus.Name = "coldgvSessionListStatus"
+        Me.coldgvSessionListStatus.ReadOnly = True
+        Me.coldgvSessionListStatus.Width = 76
+        '
+        'coldgvSessionListElapsedTime
+        '
+        Me.coldgvSessionListElapsedTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.coldgvSessionListElapsedTime.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle21.Format = "N2"
+        DataGridViewCellStyle21.NullValue = "12"
+        Me.coldgvSessionListElapsedTime.DefaultCellStyle = DataGridViewCellStyle21
+        Me.coldgvSessionListElapsedTime.FillWeight = 150.0!
+        Me.coldgvSessionListElapsedTime.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
+        Me.coldgvSessionListElapsedTime.HeaderText = "F051"
+        Me.coldgvSessionListElapsedTime.MinimumWidth = 150
+        Me.coldgvSessionListElapsedTime.Name = "coldgvSessionListElapsedTime"
+        Me.coldgvSessionListElapsedTime.ReadOnly = True
+        Me.coldgvSessionListElapsedTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvSessionListElapsedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvSessionListElapsedTime.Width = 150
+        '
+        'coldgvSessionListStTime
+        '
+        Me.coldgvSessionListStTime.DataPropertyName = "START_TIME"
+        DataGridViewCellStyle20.Format = "HH:mm:ss"
+        Me.coldgvSessionListStTime.DefaultCellStyle = DataGridViewCellStyle20
+        Me.coldgvSessionListStTime.HeaderText = "F050"
+        Me.coldgvSessionListStTime.Name = "coldgvSessionListStTime"
+        Me.coldgvSessionListStTime.ReadOnly = True
+        Me.coldgvSessionListStTime.Width = 130
+        '
+        'coldgvSessionListCpuUsage
+        '
+        Me.coldgvSessionListCpuUsage.DataPropertyName = "CPU_USAGE"
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle19.Format = "P"
+        Me.coldgvSessionListCpuUsage.DefaultCellStyle = DataGridViewCellStyle19
+        Me.coldgvSessionListCpuUsage.HeaderText = "F092"
+        Me.coldgvSessionListCpuUsage.Name = "coldgvSessionListCpuUsage"
+        Me.coldgvSessionListCpuUsage.ReadOnly = True
+        Me.coldgvSessionListCpuUsage.Width = 76
+        '
+        'coldgvSessionListPID
+        '
+        Me.coldgvSessionListPID.DataPropertyName = "PROCESS_ID"
+        Me.coldgvSessionListPID.HeaderText = "F082"
+        Me.coldgvSessionListPID.Name = "coldgvSessionListPID"
+        Me.coldgvSessionListPID.ReadOnly = True
+        Me.coldgvSessionListPID.Width = 76
+        '
+        'coldgvSessionListDB
+        '
+        Me.coldgvSessionListDB.DataPropertyName = "DB_NAME"
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = "0"
+        Me.coldgvSessionListDB.DefaultCellStyle = DataGridViewCellStyle4
+        Me.coldgvSessionListDB.HeaderText = "F090"
+        Me.coldgvSessionListDB.Name = "coldgvSessionListDB"
+        Me.coldgvSessionListDB.ReadOnly = True
+        Me.coldgvSessionListDB.Width = 88
+        '
+        'coldgvSessionCtrlTime
+        '
+        Me.coldgvSessionCtrlTime.DataPropertyName = "CONTROL_TIME"
+        DataGridViewCellStyle3.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.coldgvSessionCtrlTime.DefaultCellStyle = DataGridViewCellStyle3
+        Me.coldgvSessionCtrlTime.HeaderText = "F253"
+        Me.coldgvSessionCtrlTime.Name = "coldgvSessionCtrlTime"
+        Me.coldgvSessionCtrlTime.ReadOnly = True
+        Me.coldgvSessionCtrlTime.Width = 160
+        '
+        'coldgvSessionCtrlType
+        '
+        Me.coldgvSessionCtrlType.DataPropertyName = "ACCESS_TYPE"
+        Me.coldgvSessionCtrlType.HeaderText = "F252"
+        Me.coldgvSessionCtrlType.Name = "coldgvSessionCtrlType"
+        Me.coldgvSessionCtrlType.ReadOnly = True
+        Me.coldgvSessionCtrlType.Width = 66
+        '
+        'lblType
+        '
+        Me.lblType.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblType.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblType.FixedHeight = False
+        Me.lblType.FixedWidth = False
+        Me.lblType.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblType.ForeColor = System.Drawing.Color.LightGray
+        Me.lblType.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblType.Location = New System.Drawing.Point(3, 16)
+        Me.lblType.Name = "lblType"
+        Me.lblType.Size = New System.Drawing.Size(74, 26)
+        Me.lblType.TabIndex = 23
+        Me.lblType.Text = "F252"
+        Me.lblType.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'dtpSt
+        '
+        Me.dtpSt.BackColor = System.Drawing.SystemColors.Window
+        Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm:ss"
+        Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dtpSt.FixedWidth = False
+        Me.dtpSt.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpSt.Location = New System.Drawing.Point(483, 17)
+        Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtpSt.Name = "dtpSt"
+        Me.dtpSt.Necessary = False
+        Me.dtpSt.Size = New System.Drawing.Size(164, 21)
+        Me.dtpSt.StatusTip = ""
+        Me.dtpSt.TabIndex = 19
+        '
+        'lblDatabase
+        '
+        Me.lblDatabase.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblDatabase.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblDatabase.FixedHeight = False
+        Me.lblDatabase.FixedWidth = False
+        Me.lblDatabase.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblDatabase.ForeColor = System.Drawing.Color.LightGray
+        Me.lblDatabase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblDatabase.Location = New System.Drawing.Point(203, 16)
+        Me.lblDatabase.Name = "lblDatabase"
+        Me.lblDatabase.Size = New System.Drawing.Size(74, 26)
+        Me.lblDatabase.TabIndex = 24
+        Me.lblDatabase.Text = "Database"
+        Me.lblDatabase.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblDuration2
+        '
+        Me.lblDuration2.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblDuration2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblDuration2.FixedHeight = False
+        Me.lblDuration2.FixedWidth = False
+        Me.lblDuration2.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblDuration2.ForeColor = System.Drawing.Color.LightGray
+        Me.lblDuration2.Location = New System.Drawing.Point(653, 16)
+        Me.lblDuration2.Name = "lblDuration2"
+        Me.lblDuration2.Size = New System.Drawing.Size(14, 26)
+        Me.lblDuration2.TabIndex = 20
+        Me.lblDuration2.Text = "~"
+        Me.lblDuration2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmbType
+        '
+        Me.cmbType.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbType.DisplayMember = "All"
+        Me.cmbType.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbType.FixedWidth = False
+        Me.cmbType.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.cmbType.FormattingEnabled = True
+        Me.cmbType.Items.AddRange(New Object() {"All", "Cancel", "Stop"})
+        Me.cmbType.Location = New System.Drawing.Point(83, 18)
+        Me.cmbType.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbType.Name = "cmbType"
+        Me.cmbType.Necessary = False
+        Me.cmbType.Size = New System.Drawing.Size(114, 20)
+        Me.cmbType.StatusTip = ""
+        Me.cmbType.TabIndex = 17
+        Me.cmbType.ValueText = ""
+        '
+        'dtpEd
+        '
+        Me.dtpEd.BackColor = System.Drawing.SystemColors.Window
+        Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm:ss"
+        Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dtpEd.FixedWidth = False
+        Me.dtpEd.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEd.Location = New System.Drawing.Point(673, 17)
+        Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtpEd.Name = "dtpEd"
+        Me.dtpEd.Necessary = False
+        Me.dtpEd.Size = New System.Drawing.Size(164, 21)
+        Me.dtpEd.StatusTip = ""
+        Me.dtpEd.TabIndex = 21
+        '
+        'btnExcel
+        '
+        Me.btnExcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnExcel.FixedHeight = False
+        Me.btnExcel.FixedWidth = False
+        Me.btnExcel.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnExcel.ForeColor = System.Drawing.Color.LightGray
+        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnExcel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnExcel.Location = New System.Drawing.Point(1073, 4)
+        Me.btnExcel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnExcel.Name = "btnExcel"
+        Me.btnExcel.Radius = 5
+        Me.btnExcel.Size = New System.Drawing.Size(74, 34)
+        Me.btnExcel.TabIndex = 24
+        Me.btnExcel.Text = "F142"
+        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnExcel.UseRound = True
+        Me.btnExcel.UseVisualStyleBackColor = False
+        '
+        'txtDatabase
+        '
+        Me.txtDatabase.BackColor = System.Drawing.SystemColors.Window
+        Me.txtDatabase.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtDatabase.code = False
+        Me.txtDatabase.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtDatabase.FixedWidth = False
+        Me.txtDatabase.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtDatabase.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtDatabase.impossibleinput = ""
+        Me.txtDatabase.Location = New System.Drawing.Point(283, 18)
+        Me.txtDatabase.Name = "txtDatabase"
+        Me.txtDatabase.Necessary = False
+        Me.txtDatabase.PossibleInput = ""
+        Me.txtDatabase.Prefix = ""
+        Me.txtDatabase.Size = New System.Drawing.Size(114, 21)
+        Me.txtDatabase.StatusTip = ""
+        Me.txtDatabase.TabIndex = 18
+        Me.txtDatabase.Value = ""
+        '
+        'btnQuery
+        '
+        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnQuery.FixedHeight = False
+        Me.btnQuery.FixedWidth = False
+        Me.btnQuery.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnQuery.ForeColor = System.Drawing.Color.LightGray
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.Location = New System.Drawing.Point(993, 4)
+        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnQuery.Name = "btnQuery"
+        Me.btnQuery.Radius = 5
+        Me.btnQuery.Size = New System.Drawing.Size(74, 34)
+        Me.btnQuery.TabIndex = 23
+        Me.btnQuery.Text = "F151"
+        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnQuery.UseRound = True
+        Me.btnQuery.UseVisualStyleBackColor = False
+        '
+        'lblDuration
+        '
+        Me.lblDuration.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblDuration.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblDuration.FixedHeight = False
+        Me.lblDuration.FixedWidth = False
+        Me.lblDuration.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblDuration.ForeColor = System.Drawing.Color.LightGray
+        Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblDuration.Location = New System.Drawing.Point(403, 16)
+        Me.lblDuration.Name = "lblDuration"
+        Me.lblDuration.Size = New System.Drawing.Size(74, 26)
+        Me.lblDuration.TabIndex = 25
+        Me.lblDuration.Text = "F254"
+        Me.lblDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSQL
+        '
+        Me.lblSQL.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblSQL.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSQL.FixedHeight = False
+        Me.lblSQL.FixedWidth = False
+        Me.lblSQL.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblSQL.ForeColor = System.Drawing.Color.LightGray
+        Me.lblSQL.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSQL.Location = New System.Drawing.Point(3, 0)
+        Me.lblSQL.Name = "lblSQL"
+        Me.lblSQL.Size = New System.Drawing.Size(74, 41)
+        Me.lblSQL.TabIndex = 26
+        Me.lblSQL.Text = "SQL"
+        Me.lblSQL.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.dgvSessionList)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TableLayoutPanel3)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TableLayoutPanel4)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.tlpHead)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TableLayoutPanel2)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.dgvLock)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.TableLayoutPanel1)
+        Me.SplitContainer2.Size = New System.Drawing.Size(1150, 598)
+        Me.SplitContainer2.SplitterDistance = 396
+        Me.SplitContainer2.TabIndex = 12
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 8
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.MsgLabel, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1150, 50)
+        Me.TableLayoutPanel2.TabIndex = 17
+        '
+        'MsgLabel
+        '
+        Me.MsgLabel.AutoSize = True
+        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MsgLabel.ForeColor = System.Drawing.Color.White
+        Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MsgLabel.Location = New System.Drawing.Point(43, 0)
+        Me.MsgLabel.Name = "MsgLabel"
+        Me.MsgLabel.Size = New System.Drawing.Size(884, 50)
+        Me.MsgLabel.TabIndex = 0
+        Me.MsgLabel.Text = "Text"
+        Me.MsgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
+        '
+        'tlpHead
+        '
+        Me.tlpHead.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpHead.ColumnCount = 11
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpHead.Controls.Add(Me.lblType, 0, 0)
+        Me.tlpHead.Controls.Add(Me.cmbType, 1, 0)
+        Me.tlpHead.Controls.Add(Me.lblDatabase, 2, 0)
+        Me.tlpHead.Controls.Add(Me.txtDatabase, 3, 0)
+        Me.tlpHead.Controls.Add(Me.lblDuration, 4, 0)
+        Me.tlpHead.Controls.Add(Me.dtpSt, 5, 0)
+        Me.tlpHead.Controls.Add(Me.lblDuration2, 6, 0)
+        Me.tlpHead.Controls.Add(Me.dtpEd, 7, 0)
+        Me.tlpHead.Controls.Add(Me.btnQuery, 9, 0)
+        Me.tlpHead.Controls.Add(Me.btnExcel, 10, 0)
+        Me.tlpHead.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tlpHead.Font = New System.Drawing.Font("굴림", 12.27167!)
+        Me.tlpHead.Location = New System.Drawing.Point(0, 50)
+        Me.tlpHead.Name = "tlpHead"
+        Me.tlpHead.RowCount = 1
+        Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tlpHead.Size = New System.Drawing.Size(1150, 42)
+        Me.tlpHead.TabIndex = 18
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.Controls.Add(Me.Label4, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.grpSession, 1, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 149)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1150, 40)
+        Me.TableLayoutPanel3.TabIndex = 19
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label4.Image = CType(resources.GetObject("Label4.Image"), System.Drawing.Image)
+        Me.Label4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label4.Location = New System.Drawing.Point(3, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(34, 40)
+        Me.Label4.TabIndex = 2
+        Me.Label4.Text = "      "
+        '
+        'grpSession
+        '
+        Me.grpSession.AutoSize = True
+        Me.grpSession.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpSession.ForeColor = System.Drawing.Color.White
+        Me.grpSession.Location = New System.Drawing.Point(43, 0)
+        Me.grpSession.Name = "grpSession"
+        Me.grpSession.Size = New System.Drawing.Size(1104, 40)
+        Me.grpSession.TabIndex = 3
+        Me.grpSession.Text = "F080"
+        Me.grpSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.grpLockInfo, 1, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1150, 40)
+        Me.TableLayoutPanel1.TabIndex = 20
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label2.Image = CType(resources.GetObject("Label2.Image"), System.Drawing.Image)
+        Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label2.Location = New System.Drawing.Point(3, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(34, 40)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "      "
+        '
+        'grpLockInfo
+        '
+        Me.grpLockInfo.AutoSize = True
+        Me.grpLockInfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpLockInfo.ForeColor = System.Drawing.Color.White
+        Me.grpLockInfo.Location = New System.Drawing.Point(43, 0)
+        Me.grpLockInfo.Name = "grpLockInfo"
+        Me.grpLockInfo.Size = New System.Drawing.Size(1104, 40)
+        Me.grpLockInfo.TabIndex = 3
+        Me.grpLockInfo.Text = "F274"
+        Me.grpLockInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel4.ColumnCount = 3
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 760.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.txtSQL, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.lblSQL, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(0, 92)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 2
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(1150, 57)
+        Me.TableLayoutPanel4.TabIndex = 20
+        '
+        'txtSQL
+        '
+        Me.txtSQL.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSQL.Location = New System.Drawing.Point(83, 3)
+        Me.txtSQL.Multiline = True
+        Me.txtSQL.Name = "txtSQL"
+        Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtSQL.Size = New System.Drawing.Size(754, 35)
+        Me.txtSQL.TabIndex = 21
         '
         'frmSessionLockHist
         '
-        Me.BaseHeight = 1092
-        Me.ClientSize = New System.Drawing.Size(1826, 1090)
-        Me.Controls.Add(Me.tlpMain)
+        Me.ClientSize = New System.Drawing.Size(1150, 598)
+        Me.Controls.Add(Me.SplitContainer2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmSessionLockHist"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Normal
-        Me.Controls.SetChildIndex(Me.tlpMain, 0)
-        Me.grpSessionLockHist.ResumeLayout(False)
-        Me.grpSessionLockHist.PerformLayout()
-        Me.tlpBottom.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
-        Me.grpSession.ResumeLayout(False)
-        CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpLockInfo.ResumeLayout(False)
+        Me.Text = "Session History Managemet"
         CType(Me.dgvLock, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tlpMain.ResumeLayout(False)
+        CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.tlpHead.ResumeLayout(False)
+        Me.tlpHead.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents bckmanual As System.ComponentModel.BackgroundWorker
-    Friend WithEvents grpSessionLockHist As eXperDB.BaseControls.GroupBox
-    Friend WithEvents btnExcel As eXperDB.BaseControls.Button
-    Friend WithEvents grpLockInfo As eXperDB.BaseControls.GroupBox
     Friend WithEvents dgvLock As AdvancedDataGridView.TreeGridView
-    Friend WithEvents grpSession As eXperDB.BaseControls.GroupBox
-    Friend WithEvents dgvSessionList As eXperDB.BaseControls.DataGridView
-    Friend WithEvents tlpMain As eXperDB.BaseControls.TableLayoutPanel
-    Friend WithEvents tlpBottom As eXperDB.BaseControls.TableLayoutPanel
-    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
+    Friend WithEvents colDgvLockDB As AdvancedDataGridView.TreeGridColumn
+    Friend WithEvents coldgvLockCtrlType As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvLockCtrlTime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockBlockingPID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockBlockingUser As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockBlockingQuery As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockBlockedPID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockBlockedUser As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockBlockedQuery As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockMode As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockElapse As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockQueryStart As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvLockXactStart As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents lblSQL As eXperDB.BaseControls.Label
+    Friend WithEvents lblDuration As eXperDB.BaseControls.Label
     Friend WithEvents btnQuery As eXperDB.BaseControls.Button
+    Friend WithEvents txtDatabase As eXperDB.BaseControls.TextBox
+    Friend WithEvents btnExcel As eXperDB.BaseControls.Button
+    Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents cmbType As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblDuration2 As eXperDB.BaseControls.Label
+    Friend WithEvents lblDatabase As eXperDB.BaseControls.Label
+    Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents lblType As eXperDB.BaseControls.Label
+    Friend WithEvents dgvSessionList As eXperDB.BaseControls.DataGridView
     Friend WithEvents coldgvSessionCtrlType As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvSessionCtrlTime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvSessionListDB As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -876,28 +955,18 @@ Partial Class frmSessionLockHist
     Friend WithEvents coldgvSessionListRead As eXperDB.Controls.DataGridViewDataSizeColumn
     Friend WithEvents coldgvSessionListWrite As eXperDB.Controls.DataGridViewDataSizeColumn
     Friend WithEvents coldgvSessionListSQL As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockDB As AdvancedDataGridView.TreeGridColumn
-    Friend WithEvents coldgvLockCtrlType As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvLockCtrlTime As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockBlockingPID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockBlockingUser As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockBlockingQuery As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockBlockedPID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockBlockedUser As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockBlockedQuery As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockMode As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockElapse As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockQueryStart As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvLockXactStart As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents cmbType As eXperDB.BaseControls.ComboBox
-    Friend WithEvents lblType As eXperDB.BaseControls.Label
-    Friend WithEvents txtSQL As eXperDB.BaseControls.TextBox
-    Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
-    Friend WithEvents lblDuration2 As eXperDB.BaseControls.Label
-    Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
-    Friend WithEvents lblDatabase As eXperDB.BaseControls.Label
-    Friend WithEvents lblDuration As eXperDB.BaseControls.Label
-    Friend WithEvents lblSQL As eXperDB.BaseControls.Label
-    Friend WithEvents txtDatabase As eXperDB.BaseControls.TextBox
+    Friend WithEvents SplitContainer2 As System.Windows.Forms.SplitContainer
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents MsgLabel As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents tlpHead As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents grpSession As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents grpLockInfo As System.Windows.Forms.Label
+    Friend WithEvents txtSQL As System.Windows.Forms.TextBox
 
 End Class

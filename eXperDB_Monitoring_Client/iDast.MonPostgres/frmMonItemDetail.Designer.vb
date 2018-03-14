@@ -125,7 +125,7 @@ Partial Class frmMonItemDetail
         Me.dgvLock.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 10.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
@@ -135,7 +135,7 @@ Partial Class frmMonItemDetail
         Me.dgvLock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvLockDB, Me.colDgvLockBlockingPID, Me.colDgvLockBlockingUser, Me.colDgvLockBlockingQuery, Me.colDgvLockBlockedPID, Me.colDgvLockBlockedUser, Me.colDgvLockBlockedQuery, Me.colDgvLockMode, Me.colDgvLockElapse, Me.colDgvLockQueryStart, Me.colDgvLockXactStart, Me.colDgvLockRegDate, Me.colDgvLockActvRegSeq})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 10.0!)
         DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -144,7 +144,7 @@ Partial Class frmMonItemDetail
         Me.dgvLock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLock.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvLock.EnableHeadersVisualStyles = False
-        Me.dgvLock.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.dgvLock.Font = New System.Drawing.Font("굴림", 10.0!)
         Me.dgvLock.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.dgvLock.ImageList = Nothing
         Me.dgvLock.Location = New System.Drawing.Point(3, 31)
@@ -152,7 +152,7 @@ Partial Class frmMonItemDetail
         Me.dgvLock.Name = "dgvLock"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 10.0!)
         DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -289,7 +289,7 @@ Partial Class frmMonItemDetail
         Me.tlpMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpMain.Controls.Add(Me.grpSessionLock, 0, 0)
         Me.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMain.Font = New System.Drawing.Font("Gulim", 11.46654!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tlpMain.Font = New System.Drawing.Font("굴림", 11.46654!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tlpMain.Location = New System.Drawing.Point(2, 29)
         Me.tlpMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tlpMain.Name = "tlpMain"
@@ -310,7 +310,7 @@ Partial Class frmMonItemDetail
         Edges3.RightBottom = 0
         Me.grpSessionLock.EdgeRound = Edges3
         Me.grpSessionLock.FillColor = System.Drawing.Color.Black
-        Me.grpSessionLock.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grpSessionLock.Font = New System.Drawing.Font("굴림", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grpSessionLock.Icon = Nothing
         Me.grpSessionLock.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpSessionLock.LineWidth = 1
@@ -336,15 +336,15 @@ Partial Class frmMonItemDetail
         Me.tlpBottom.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.Controls.Add(Me.SplitContainer1, 0, 0)
         Me.tlpBottom.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpBottom.Font = New System.Drawing.Font("Gulim", 11.46654!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tlpBottom.Location = New System.Drawing.Point(3, 21)
+        Me.tlpBottom.Font = New System.Drawing.Font("굴림", 11.46654!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tlpBottom.Location = New System.Drawing.Point(3, 18)
         Me.tlpBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tlpBottom.Name = "tlpBottom"
         Me.tlpBottom.RowCount = 2
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpBottom.Size = New System.Drawing.Size(1422, 827)
+        Me.tlpBottom.Size = New System.Drawing.Size(1422, 830)
         Me.tlpBottom.TabIndex = 0
         '
         'SplitContainer1
@@ -352,7 +352,7 @@ Partial Class frmMonItemDetail
         Me.SplitContainer1.BackColor = System.Drawing.Color.Black
         Me.tlpBottom.SetColumnSpan(Me.SplitContainer1, 2)
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SplitContainer1.Font = New System.Drawing.Font("굴림", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SplitContainer1.Location = New System.Drawing.Point(3, 3)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
@@ -360,16 +360,16 @@ Partial Class frmMonItemDetail
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.tlpChartArea)
-        Me.SplitContainer1.Panel1.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SplitContainer1.Panel1.Font = New System.Drawing.Font("굴림", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.Black
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("굴림", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tlpBottom.SetRowSpan(Me.SplitContainer1, 2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1416, 821)
-        Me.SplitContainer1.SplitterDistance = 430
+        Me.SplitContainer1.Size = New System.Drawing.Size(1416, 824)
+        Me.SplitContainer1.SplitterDistance = 431
         Me.SplitContainer1.TabIndex = 0
         '
         'tlpChartArea
@@ -380,7 +380,7 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.Controls.Add(Me.tlpInput, 0, 0)
         Me.tlpChartArea.Controls.Add(Me.tlpButton, 0, 1)
         Me.tlpChartArea.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpChartArea.Font = New System.Drawing.Font("Gulim", 9.366439!)
+        Me.tlpChartArea.Font = New System.Drawing.Font("굴림", 9.366439!)
         Me.tlpChartArea.Location = New System.Drawing.Point(0, 0)
         Me.tlpChartArea.Name = "tlpChartArea"
         Me.tlpChartArea.RowCount = 3
@@ -389,7 +389,7 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpChartArea.Size = New System.Drawing.Size(1416, 430)
+        Me.tlpChartArea.Size = New System.Drawing.Size(1416, 431)
         Me.tlpChartArea.TabIndex = 0
         '
         'grpChart
@@ -403,7 +403,7 @@ Partial Class frmMonItemDetail
         Edges1.RightBottom = 0
         Me.grpChart.EdgeRound = Edges1
         Me.grpChart.FillColor = System.Drawing.Color.Black
-        Me.grpChart.Font = New System.Drawing.Font("Gulim", 11.0!)
+        Me.grpChart.Font = New System.Drawing.Font("굴림", 11.0!)
         Me.grpChart.Icon = CType(resources.GetObject("grpChart.Icon"), System.Drawing.Icon)
         Me.grpChart.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpChart.LineWidth = 1
@@ -411,11 +411,11 @@ Partial Class frmMonItemDetail
         Me.grpChart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpChart.Name = "grpChart"
         Me.grpChart.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpChart.Size = New System.Drawing.Size(1410, 342)
+        Me.grpChart.Size = New System.Drawing.Size(1410, 343)
         Me.grpChart.TabIndex = 13
         Me.grpChart.TabStop = False
         Me.grpChart.Text = "F268"
-        Me.grpChart.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.grpChart.TitleFont = New System.Drawing.Font("굴림", 11.0!, System.Drawing.FontStyle.Bold)
         Me.grpChart.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpChart.UseGraColor = False
         Me.grpChart.UseRound = True
@@ -431,9 +431,9 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Controls.Add(Me.chtSession)
         Me.pnlChart.Controls.Add(Me.chtCPU)
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlChart.Location = New System.Drawing.Point(3, 33)
+        Me.pnlChart.Location = New System.Drawing.Point(3, 28)
         Me.pnlChart.Name = "pnlChart"
-        Me.pnlChart.Size = New System.Drawing.Size(1404, 306)
+        Me.pnlChart.Size = New System.Drawing.Size(1404, 312)
         Me.pnlChart.TabIndex = 0
         '
         'chtLogicalIO
@@ -445,7 +445,7 @@ Partial Class frmMonItemDetail
         Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLogicalIO.MenuVisible = False
         Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1383, 362)
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1387, 362)
         Me.chtLogicalIO.TabIndex = 6
         Me.chtLogicalIO.Title = ""
         Me.chtLogicalIO.Visible = False
@@ -459,7 +459,7 @@ Partial Class frmMonItemDetail
         Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLResp.MenuVisible = False
         Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1383, 362)
+        Me.chtSQLResp.Size = New System.Drawing.Size(1387, 362)
         Me.chtSQLResp.TabIndex = 8
         Me.chtSQLResp.Title = ""
         Me.chtSQLResp.Visible = False
@@ -473,7 +473,7 @@ Partial Class frmMonItemDetail
         Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtPhysicalIO.MenuVisible = False
         Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1383, 362)
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1387, 362)
         Me.chtPhysicalIO.TabIndex = 7
         Me.chtPhysicalIO.Title = ""
         Me.chtPhysicalIO.Visible = False
@@ -487,7 +487,7 @@ Partial Class frmMonItemDetail
         Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSession.MenuVisible = False
         Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1383, 362)
+        Me.chtSession.Size = New System.Drawing.Size(1387, 362)
         Me.chtSession.TabIndex = 5
         Me.chtSession.Title = ""
         Me.chtSession.Visible = False
@@ -501,7 +501,7 @@ Partial Class frmMonItemDetail
         Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtCPU.MenuVisible = False
         Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1383, 362)
+        Me.chtCPU.Size = New System.Drawing.Size(1387, 362)
         Me.chtCPU.TabIndex = 3
         Me.chtCPU.Title = ""
         '
@@ -523,7 +523,7 @@ Partial Class frmMonItemDetail
         Me.tlpInput.Controls.Add(Me.dtpSt, 3, 0)
         Me.tlpInput.Controls.Add(Me.lblDuration, 2, 0)
         Me.tlpInput.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpInput.Font = New System.Drawing.Font("Gulim", 7.650974!)
+        Me.tlpInput.Font = New System.Drawing.Font("굴림", 7.650974!)
         Me.tlpInput.Location = New System.Drawing.Point(3, 3)
         Me.tlpInput.Name = "tlpInput"
         Me.tlpInput.RowCount = 1
@@ -538,13 +538,13 @@ Partial Class frmMonItemDetail
         Me.cmbInst.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbInst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbInst.FixedWidth = False
-        Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.cmbInst.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 6)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 10)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
-        Me.cmbInst.Size = New System.Drawing.Size(114, 23)
+        Me.cmbInst.Size = New System.Drawing.Size(114, 20)
         Me.cmbInst.StatusTip = ""
         Me.cmbInst.TabIndex = 20
         Me.cmbInst.ValueText = ""
@@ -556,7 +556,7 @@ Partial Class frmMonItemDetail
         Me.lblServer.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblServer.FixedHeight = False
         Me.lblServer.FixedWidth = False
-        Me.lblServer.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.lblServer.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.lblServer.ForeColor = System.Drawing.Color.LightGray
         Me.lblServer.Location = New System.Drawing.Point(3, 0)
         Me.lblServer.Name = "lblServer"
@@ -571,13 +571,13 @@ Partial Class frmMonItemDetail
         Me.dtpEd.ControlLength = eXperDB.BaseControls.DateTimePicker.enmLength.MiddleLong
         Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm:ss"
         Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.dtpEd.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEd.Location = New System.Drawing.Point(483, 5)
+        Me.dtpEd.Location = New System.Drawing.Point(483, 8)
         Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEd.Name = "dtpEd"
         Me.dtpEd.Necessary = False
-        Me.dtpEd.Size = New System.Drawing.Size(170, 25)
+        Me.dtpEd.Size = New System.Drawing.Size(170, 22)
         Me.dtpEd.StatusTip = ""
         Me.dtpEd.TabIndex = 22
         '
@@ -587,7 +587,7 @@ Partial Class frmMonItemDetail
         Me.lblDuration2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDuration2.FixedHeight = False
         Me.lblDuration2.FixedWidth = False
-        Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 6.438643!)
+        Me.lblDuration2.Font = New System.Drawing.Font("굴림", 6.438643!)
         Me.lblDuration2.ForeColor = System.Drawing.Color.LightGray
         Me.lblDuration2.Location = New System.Drawing.Point(463, 0)
         Me.lblDuration2.Name = "lblDuration2"
@@ -602,13 +602,13 @@ Partial Class frmMonItemDetail
         Me.dtpSt.ControlLength = eXperDB.BaseControls.DateTimePicker.enmLength.MiddleLong
         Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm:ss"
         Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.dtpSt.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSt.Location = New System.Drawing.Point(283, 5)
+        Me.dtpSt.Location = New System.Drawing.Point(283, 8)
         Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpSt.Name = "dtpSt"
         Me.dtpSt.Necessary = False
-        Me.dtpSt.Size = New System.Drawing.Size(170, 25)
+        Me.dtpSt.Size = New System.Drawing.Size(170, 22)
         Me.dtpSt.StatusTip = ""
         Me.dtpSt.TabIndex = 21
         '
@@ -618,7 +618,7 @@ Partial Class frmMonItemDetail
         Me.lblDuration.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblDuration.FixedHeight = False
         Me.lblDuration.FixedWidth = False
-        Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.lblDuration.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.lblDuration.ForeColor = System.Drawing.Color.LightGray
         Me.lblDuration.Location = New System.Drawing.Point(203, 0)
         Me.lblDuration.Name = "lblDuration"
@@ -663,7 +663,7 @@ Partial Class frmMonItemDetail
         Me.btnChartMenu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnChartMenu.FixedHeight = False
         Me.btnChartMenu.FixedWidth = False
-        Me.btnChartMenu.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.btnChartMenu.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.btnChartMenu.ForeColor = System.Drawing.Color.LightGray
         Me.btnChartMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnChartMenu.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -685,7 +685,7 @@ Partial Class frmMonItemDetail
         Me.btnRange.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnRange.FixedHeight = False
         Me.btnRange.FixedWidth = False
-        Me.btnRange.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.btnRange.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.btnRange.ForeColor = System.Drawing.Color.LightGray
         Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -707,7 +707,7 @@ Partial Class frmMonItemDetail
         Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnQuery.FixedHeight = False
         Me.btnQuery.FixedWidth = False
-        Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.btnQuery.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.btnQuery.ForeColor = System.Drawing.Color.LightGray
         Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -727,7 +727,7 @@ Partial Class frmMonItemDetail
         Me.chkSQLResp.Appearance = System.Windows.Forms.Appearance.Button
         Me.chkSQLResp.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkSQLResp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkSQLResp.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkSQLResp.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.chkSQLResp.ForeColor = System.Drawing.Color.White
         Me.chkSQLResp.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.chkSQLResp.Location = New System.Drawing.Point(603, 3)
@@ -745,7 +745,7 @@ Partial Class frmMonItemDetail
         Me.chkPhysicalIO.Appearance = System.Windows.Forms.Appearance.Button
         Me.chkPhysicalIO.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkPhysicalIO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkPhysicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkPhysicalIO.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.chkPhysicalIO.ForeColor = System.Drawing.Color.White
         Me.chkPhysicalIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.chkPhysicalIO.Location = New System.Drawing.Point(453, 3)
@@ -763,7 +763,7 @@ Partial Class frmMonItemDetail
         Me.chkLogicalIO.Appearance = System.Windows.Forms.Appearance.Button
         Me.chkLogicalIO.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkLogicalIO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkLogicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkLogicalIO.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.chkLogicalIO.ForeColor = System.Drawing.Color.White
         Me.chkLogicalIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.chkLogicalIO.Location = New System.Drawing.Point(303, 3)
@@ -781,7 +781,7 @@ Partial Class frmMonItemDetail
         Me.chkSession.Appearance = System.Windows.Forms.Appearance.Button
         Me.chkSession.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkSession.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkSession.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkSession.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.chkSession.ForeColor = System.Drawing.Color.White
         Me.chkSession.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.chkSession.Location = New System.Drawing.Point(153, 3)
@@ -799,7 +799,7 @@ Partial Class frmMonItemDetail
         Me.chkCpu.Appearance = System.Windows.Forms.Appearance.Button
         Me.chkCpu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkCpu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkCpu.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkCpu.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.chkCpu.ForeColor = System.Drawing.Color.White
         Me.chkCpu.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.chkCpu.Location = New System.Drawing.Point(3, 3)
@@ -816,10 +816,10 @@ Partial Class frmMonItemDetail
         '
         Me.Panel1.Controls.Add(Me.grpSession)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.Panel1.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1416, 387)
+        Me.Panel1.Size = New System.Drawing.Size(1416, 389)
         Me.Panel1.TabIndex = 0
         '
         'grpSession
@@ -833,7 +833,7 @@ Partial Class frmMonItemDetail
         Edges2.RightBottom = 0
         Me.grpSession.EdgeRound = Edges2
         Me.grpSession.FillColor = System.Drawing.Color.Black
-        Me.grpSession.Font = New System.Drawing.Font("Gulim", 11.0!)
+        Me.grpSession.Font = New System.Drawing.Font("굴림", 11.0!)
         Me.grpSession.Icon = CType(resources.GetObject("grpSession.Icon"), System.Drawing.Icon)
         Me.grpSession.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.grpSession.LineWidth = 1
@@ -841,11 +841,11 @@ Partial Class frmMonItemDetail
         Me.grpSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpSession.Name = "grpSession"
         Me.grpSession.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpSession.Size = New System.Drawing.Size(1416, 387)
+        Me.grpSession.Size = New System.Drawing.Size(1416, 389)
         Me.grpSession.TabIndex = 12
         Me.grpSession.TabStop = False
         Me.grpSession.Text = "F313"
-        Me.grpSession.TitleFont = New System.Drawing.Font("Gulim", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.grpSession.TitleFont = New System.Drawing.Font("굴림", 11.0!, System.Drawing.FontStyle.Bold)
         Me.grpSession.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.grpSession.UseGraColor = False
         Me.grpSession.UseRound = True
@@ -864,7 +864,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 7.760073!)
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("굴림", 7.760073!)
         DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
@@ -874,7 +874,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvSessionListDB, Me.coldgvSessionListPID, Me.coldgvSessionListCpuUsage, Me.coldgvSessionListStTime, Me.coldgvSessionListElapsedTime, Me.coldgvSessionListUser, Me.coldgvSessionListClient, Me.coldgvSessionListApp, Me.coldgvSessionListSQL, Me.colDgvSessionlistRegDate, Me.colDgvSessionListActvRegSeq})
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Gulim", 7.760073!)
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("굴림", 7.760073!)
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -883,14 +883,14 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSessionList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvSessionList.EnableHeadersVisualStyles = False
-        Me.dgvSessionList.Font = New System.Drawing.Font("Gulim", 7.760073!)
+        Me.dgvSessionList.Font = New System.Drawing.Font("굴림", 7.760073!)
         Me.dgvSessionList.GridColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.dgvSessionList.Location = New System.Drawing.Point(3, 33)
+        Me.dgvSessionList.Location = New System.Drawing.Point(3, 28)
         Me.dgvSessionList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvSessionList.Name = "dgvSessionList"
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Gulim", 9.2!)
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("굴림", 9.2!)
         DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -899,7 +899,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.RowHeadersVisible = False
         Me.dgvSessionList.RowTemplate.Height = 23
         Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionList.Size = New System.Drawing.Size(1410, 351)
+        Me.dgvSessionList.Size = New System.Drawing.Size(1410, 358)
         Me.dgvSessionList.TabIndex = 11
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
@@ -1017,7 +1017,7 @@ Partial Class frmMonItemDetail
         Me.BaseHeight = 892
         Me.ClientSize = New System.Drawing.Size(1438, 890)
         Me.Controls.Add(Me.tlpMain)
-        Me.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("굴림", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmMonItemDetail"

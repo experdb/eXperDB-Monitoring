@@ -21,33 +21,33 @@
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
 
-        Me.FormMovePanel2.Font = New Font(p_Font, Me.FormMovePanel2.Font.Size)
-        Me.lblMessage.Font = New Font(p_Font, Me.lblMessage.Font.Size)
-        Me.btn1.Font = New Font(p_Font, Me.btn1.Font.Size)
-        Me.btn2.Font = New Font(p_Font, Me.btn2.Font.Size)
-        Me.btn3.Font = New Font(p_Font, Me.btn3.Font.Size)
+        'Me.FormMovePanel2.Font = New Font(p_Font, Me.FormMovePanel2.Font.Size)
+        'Me.lblMessage.Font = New Font(p_Font, Me.lblMessage.Font.Size)
+        'Me.btn1.Font = New Font(p_Font, Me.btn1.Font.Size)
+        'Me.btn2.Font = New Font(p_Font, Me.btn2.Font.Size)
+        'Me.btn3.Font = New Font(p_Font, Me.btn3.Font.Size)
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
-        FormMovePanel2.Text = Title
+        'FormMovePanel2.Text = Title
         Me.lblMessage.Text = Prompt.Replace("\n", vbCrLf)
-        pnl1.Visible = False
-        pnl2.Visible = False
-        pnl3.Visible = False
+        btn1.Visible = False
+        btn2.Visible = False
+        btn3.Visible = False
 
         If Buttons And cOK Then
-            pnl1.Visible = True
+            btn1.Visible = True
             btn1.Tag = MsgBoxResult.OK
             btn1.Text = "OK"
         End If
         If Buttons And cNo Then
-            pnl2.Visible = True
+            btn2.Visible = True
             btn2.Tag = MsgBoxResult.No
             btn2.Text = "No"
             btn1.Text = "Yes"
         End If
 
         If Buttons And cCancel Then
-            pnl3.Visible = True
+            btn3.Visible = True
             btn3.Tag = MsgBoxResult.Cancel
             btn3.Text = "Cancel"
         End If
@@ -68,5 +68,13 @@
     Private Sub frmMsg_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         btn1.Focus()
 
+    End Sub
+
+    Private Sub FormMovePanel2_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
+
+    Private Sub frmMsgbox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        StatusLabel.Text = "eXperDB 에이전트의 응답 메시지 입니다"
     End Sub
 End Class

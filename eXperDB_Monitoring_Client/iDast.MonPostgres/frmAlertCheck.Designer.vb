@@ -29,12 +29,12 @@ Partial Class frmAlertCheck
         Me.cmbPauseTime = New eXperDB.BaseControls.ComboBox()
         Me.txtAlertUser = New eXperDB.BaseControls.TextBox()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.txtAlertComment = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSave = New eXperDB.BaseControls.Button()
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
-        Me.txtAlertComment = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -139,6 +139,17 @@ Partial Class frmAlertCheck
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(430, 253)
         Me.TableLayoutPanel3.TabIndex = 12
         '
+        'txtAlertComment
+        '
+        Me.txtAlertComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtAlertComment.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtAlertComment.Location = New System.Drawing.Point(103, 72)
+        Me.txtAlertComment.Multiline = True
+        Me.txtAlertComment.Name = "txtAlertComment"
+        Me.txtAlertComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtAlertComment.Size = New System.Drawing.Size(324, 178)
+        Me.txtAlertComment.TabIndex = 16
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -228,17 +239,6 @@ Partial Class frmAlertCheck
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'txtAlertComment
-        '
-        Me.txtAlertComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtAlertComment.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtAlertComment.Location = New System.Drawing.Point(103, 72)
-        Me.txtAlertComment.Multiline = True
-        Me.txtAlertComment.Name = "txtAlertComment"
-        Me.txtAlertComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAlertComment.Size = New System.Drawing.Size(324, 178)
-        Me.txtAlertComment.TabIndex = 16
         '
         'Label1
         '

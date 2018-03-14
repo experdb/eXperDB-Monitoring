@@ -63,9 +63,9 @@
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        Me.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
 
-        btnHistory.Text = p_clsMsgData.fn_GetData("F251")
+        'btnHistory.Text = p_clsMsgData.fn_GetData("F251")
 
         '' Current Activity
         'grpCurAct.Text = p_clsMsgData.fn_GetData("F076")
@@ -114,29 +114,31 @@
         coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
 
 
-        grpSessionLock.Text = p_clsMsgData.fn_GetData("F246")
+        'grpSessionLock.Text = p_clsMsgData.fn_GetData("F246")
 
-        btnExcel.Text = p_clsMsgData.fn_GetData("F142")
+        'btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
         'btnRefresh.Text = p_clsMsgData.fn_GetData("F137")
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
         ' fit button location
         'Me.btnExcel.Location = New System.Drawing.Point(Me.grpTableInfo.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
         'Me.lblRefreshTime.Location = New System.Drawing.Point(Me.grpSessionLock.Location.X - Me.lblRefreshTime.Width - Me.lblRefreshTime.Margin.Right, Me.grpSessionLock.Margin.Top + 4)
         'Me.btnExcel.Location = New System.Drawing.Point(1704, 4)
 
-        Me.btnPause.Location = New System.Drawing.Point(Me.grpSessionLock.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
-        Me.btnStop.Location = New System.Drawing.Point(Me.btnPause.Location.X - Me.btnStop.Width - Me.btnStop.Margin.Right, Me.btnPause.Margin.Top)
-        Me.btnCancel.Location = New System.Drawing.Point(Me.btnStop.Location.X - Me.btnCancel.Width - Me.btnCancel.Margin.Right, Me.btnPause.Margin.Top)
-        Me.btnHistory.Location = New System.Drawing.Point(Me.btnCancel.Location.X - Me.btnHistory.Width - Me.btnHistory.Margin.Right, Me.btnPause.Margin.Top)
-        Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
-        modCommon.FontChange(Me, p_Font)
+        'Me.btnPause.Location = New System.Drawing.Point(Me.grpSessionLock.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.btnStop.Location = New System.Drawing.Point(Me.btnPause.Location.X - Me.btnStop.Width - Me.btnStop.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.btnCancel.Location = New System.Drawing.Point(Me.btnStop.Location.X - Me.btnCancel.Width - Me.btnCancel.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.btnHistory.Location = New System.Drawing.Point(Me.btnCancel.Location.X - Me.btnHistory.Width - Me.btnHistory.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
+        'modCommon.FontChange(Me, p_Font)
+
+        MsgLabel.Text = "데이터베이스 트랜젝션 리스트 및 특정 세션의 취소/락 관리를 할수 있습니다. "
 
     End Sub
     ''' <summary>
@@ -412,7 +414,7 @@
         ' Play webding = "4"   Pause Webding = ";"
 
         If btnPause.ForeColor = Color.LightGray Then
-            btnPause.ForeColor = Color.LawnGreen
+            btnPause.ForeColor = Color.Blue
         Else
             btnPause.ForeColor = Color.LightGray
         End If
@@ -481,24 +483,24 @@
         'End If
     End Sub
 
-    Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
-        If dgvSessionList.RowCount <= 0 Then Return
-        For i As Integer = 0 To dgvLock.Rows.Count - 1
-            dgvLock.Rows(i).Selected = False
-        Next
-        _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
-        _SelectedGrid = 0
-        If e.RowIndex >= 0 Then
-            dgvSessionList.Cursor = Cursors.Hand
-            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-                dgvSessionList.ClearSelection()
-                dgvSessionList.Rows(e.RowIndex).Selected = True
-            End If
-            For i As Integer = 0 To dgvSessionList.ColumnCount - 1
-                dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
-            Next
-        End If
-    End Sub
+    'Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
+    '    If dgvSessionList.RowCount <= 0 Then Return
+    '    For i As Integer = 0 To dgvLock.Rows.Count - 1
+    '        dgvLock.Rows(i).Selected = False
+    '    Next
+    '    _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+    '    _SelectedGrid = 0
+    '    If e.RowIndex >= 0 Then
+    '        dgvSessionList.Cursor = Cursors.Hand
+    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+    '            dgvSessionList.ClearSelection()
+    '            dgvSessionList.Rows(e.RowIndex).Selected = True
+    '        End If
+    '        For i As Integer = 0 To dgvSessionList.ColumnCount - 1
+    '            dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
+    '        Next
+    '    End If
+    'End Sub
 
     Private Sub btnPause_MouseHover(sender As Object, e As EventArgs) Handles btnPause.MouseHover
         _tooltip.SetToolTip(btnPause, "Auto Refresh")
@@ -597,11 +599,15 @@
     End Sub
 
     Private Sub frmSessionLock_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-        Me.btnPause.Location = New System.Drawing.Point(Me.grpSessionLock.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
-        Me.btnStop.Location = New System.Drawing.Point(Me.btnPause.Location.X - Me.btnStop.Width - Me.btnStop.Margin.Right, Me.btnPause.Margin.Top)
-        Me.btnCancel.Location = New System.Drawing.Point(Me.btnStop.Location.X - Me.btnCancel.Width - Me.btnCancel.Margin.Right, Me.btnPause.Margin.Top)
-        Me.btnHistory.Location = New System.Drawing.Point(Me.btnCancel.Location.X - Me.btnHistory.Width - Me.btnHistory.Margin.Right, Me.btnPause.Margin.Top)
-        Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
-        modCommon.FontChange(Me, p_Font)
+        'Me.btnPause.Location = New System.Drawing.Point(Me.grpSessionLock.Width - Me.btnPause.Width - Me.btnPause.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.btnStop.Location = New System.Drawing.Point(Me.btnPause.Location.X - Me.btnStop.Width - Me.btnStop.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.btnCancel.Location = New System.Drawing.Point(Me.btnStop.Location.X - Me.btnCancel.Width - Me.btnCancel.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.btnHistory.Location = New System.Drawing.Point(Me.btnCancel.Location.X - Me.btnHistory.Width - Me.btnHistory.Margin.Right, Me.btnPause.Margin.Top)
+        'Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
+        'modCommon.FontChange(Me, p_Font)
+    End Sub
+
+    Private Sub dgvSessionList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellContentClick
+
     End Sub
 End Class

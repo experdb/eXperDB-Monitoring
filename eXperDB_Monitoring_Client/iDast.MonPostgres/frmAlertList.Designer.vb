@@ -19,12 +19,12 @@ Partial Class frmAlertList
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
         Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnConfig = New eXperDB.BaseControls.Button()
         Me.lblServer = New eXperDB.BaseControls.Label()
@@ -54,8 +54,12 @@ Partial Class frmAlertList
         Me.coldgvAlertComment = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertDT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MsgLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.tlpHead.SuspendLayout()
         CType(Me.dgvAlertList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'tlpHead
@@ -89,13 +93,13 @@ Partial Class frmAlertList
         Me.tlpHead.Controls.Add(Me.dtpEd, 5, 1)
         Me.tlpHead.Dock = System.Windows.Forms.DockStyle.Top
         Me.tlpHead.Font = New System.Drawing.Font("굴림", 12.27167!)
-        Me.tlpHead.Location = New System.Drawing.Point(0, 0)
+        Me.tlpHead.Location = New System.Drawing.Point(0, 50)
         Me.tlpHead.Name = "tlpHead"
         Me.tlpHead.RowCount = 3
-        Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.6962!))
-        Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.3038!))
+        Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
-        Me.tlpHead.Size = New System.Drawing.Size(1309, 96)
+        Me.tlpHead.Size = New System.Drawing.Size(1033, 96)
         Me.tlpHead.TabIndex = 5
         '
         'btnConfig
@@ -110,11 +114,11 @@ Partial Class frmAlertList
         Me.btnConfig.ForeColor = System.Drawing.Color.White
         Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnConfig.LineColor = System.Drawing.Color.DimGray
-        Me.btnConfig.Location = New System.Drawing.Point(992, 4)
+        Me.btnConfig.Location = New System.Drawing.Point(716, 4)
         Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnConfig.Name = "btnConfig"
         Me.btnConfig.Radius = 5
-        Me.btnConfig.Size = New System.Drawing.Size(74, 36)
+        Me.btnConfig.Size = New System.Drawing.Size(74, 32)
         Me.btnConfig.TabIndex = 26
         Me.btnConfig.Text = "F264"
         Me.btnConfig.UnCheckFillColor = System.Drawing.Color.Black
@@ -130,9 +134,8 @@ Partial Class frmAlertList
         Me.lblServer.FixedWidth = False
         Me.lblServer.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblServer.ForeColor = System.Drawing.Color.White
-        Me.lblServer.Image = CType(resources.GetObject("lblServer.Image"), System.Drawing.Image)
         Me.lblServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblServer.Location = New System.Drawing.Point(3, 15)
+        Me.lblServer.Location = New System.Drawing.Point(3, 11)
         Me.lblServer.Name = "lblServer"
         Me.lblServer.Size = New System.Drawing.Size(74, 29)
         Me.lblServer.TabIndex = 23
@@ -151,11 +154,11 @@ Partial Class frmAlertList
         Me.btnExcel.ForeColor = System.Drawing.Color.White
         Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnExcel.LineColor = System.Drawing.Color.DimGray
-        Me.btnExcel.Location = New System.Drawing.Point(1232, 4)
+        Me.btnExcel.Location = New System.Drawing.Point(956, 4)
         Me.btnExcel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnExcel.Name = "btnExcel"
         Me.btnExcel.Radius = 5
-        Me.btnExcel.Size = New System.Drawing.Size(74, 36)
+        Me.btnExcel.Size = New System.Drawing.Size(74, 32)
         Me.btnExcel.TabIndex = 13
         Me.btnExcel.Text = "F142"
         Me.btnExcel.UnCheckFillColor = System.Drawing.Color.Black
@@ -174,11 +177,11 @@ Partial Class frmAlertList
         Me.btnQuery.ForeColor = System.Drawing.Color.White
         Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnQuery.LineColor = System.Drawing.Color.DimGray
-        Me.btnQuery.Location = New System.Drawing.Point(1152, 4)
+        Me.btnQuery.Location = New System.Drawing.Point(876, 4)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Radius = 5
-        Me.btnQuery.Size = New System.Drawing.Size(74, 36)
+        Me.btnQuery.Size = New System.Drawing.Size(74, 32)
         Me.btnQuery.TabIndex = 10
         Me.btnQuery.Text = "F151"
         Me.btnQuery.UnCheckFillColor = System.Drawing.Color.Black
@@ -194,7 +197,7 @@ Partial Class frmAlertList
         Me.cmbServer.FixedWidth = False
         Me.cmbServer.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(83, 19)
+        Me.cmbServer.Location = New System.Drawing.Point(83, 16)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -215,11 +218,11 @@ Partial Class frmAlertList
         Me.btnCheck.ForeColor = System.Drawing.Color.White
         Me.btnCheck.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnCheck.LineColor = System.Drawing.Color.DimGray
-        Me.btnCheck.Location = New System.Drawing.Point(1072, 4)
+        Me.btnCheck.Location = New System.Drawing.Point(796, 4)
         Me.btnCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCheck.Name = "btnCheck"
         Me.btnCheck.Radius = 5
-        Me.btnCheck.Size = New System.Drawing.Size(74, 36)
+        Me.btnCheck.Size = New System.Drawing.Size(74, 32)
         Me.btnCheck.TabIndex = 10
         Me.btnCheck.Text = "F262"
         Me.btnCheck.UnCheckFillColor = System.Drawing.Color.Black
@@ -234,9 +237,8 @@ Partial Class frmAlertList
         Me.lblLevel.FixedWidth = False
         Me.lblLevel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLevel.ForeColor = System.Drawing.Color.White
-        Me.lblLevel.Image = CType(resources.GetObject("lblLevel.Image"), System.Drawing.Image)
         Me.lblLevel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblLevel.Location = New System.Drawing.Point(224, 15)
+        Me.lblLevel.Location = New System.Drawing.Point(224, 11)
         Me.lblLevel.Name = "lblLevel"
         Me.lblLevel.Size = New System.Drawing.Size(74, 29)
         Me.lblLevel.TabIndex = 23
@@ -253,7 +255,7 @@ Partial Class frmAlertList
         Me.cmbLevel.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(304, 19)
+        Me.cmbLevel.Location = New System.Drawing.Point(304, 16)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -270,9 +272,8 @@ Partial Class frmAlertList
         Me.lblCheck.FixedWidth = False
         Me.lblCheck.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblCheck.ForeColor = System.Drawing.Color.White
-        Me.lblCheck.Image = CType(resources.GetObject("lblCheck.Image"), System.Drawing.Image)
         Me.lblCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblCheck.Location = New System.Drawing.Point(3, 50)
+        Me.lblCheck.Location = New System.Drawing.Point(3, 51)
         Me.lblCheck.Name = "lblCheck"
         Me.lblCheck.Size = New System.Drawing.Size(74, 29)
         Me.lblCheck.TabIndex = 23
@@ -289,7 +290,7 @@ Partial Class frmAlertList
         Me.cmbCheck.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.cmbCheck.FormattingEnabled = True
         Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(83, 54)
+        Me.cmbCheck.Location = New System.Drawing.Point(83, 56)
         Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCheck.Name = "cmbCheck"
         Me.cmbCheck.Necessary = False
@@ -306,9 +307,8 @@ Partial Class frmAlertList
         Me.lblDuration.FixedWidth = False
         Me.lblDuration.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration.ForeColor = System.Drawing.Color.White
-        Me.lblDuration.Image = CType(resources.GetObject("lblDuration.Image"), System.Drawing.Image)
         Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblDuration.Location = New System.Drawing.Point(224, 50)
+        Me.lblDuration.Location = New System.Drawing.Point(224, 51)
         Me.lblDuration.Name = "lblDuration"
         Me.lblDuration.Size = New System.Drawing.Size(74, 29)
         Me.lblDuration.TabIndex = 25
@@ -322,7 +322,7 @@ Partial Class frmAlertList
         Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dtpSt.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSt.Location = New System.Drawing.Point(304, 53)
+        Me.dtpSt.Location = New System.Drawing.Point(304, 54)
         Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpSt.Name = "dtpSt"
         Me.dtpSt.Necessary = False
@@ -338,7 +338,7 @@ Partial Class frmAlertList
         Me.lblDuration2.FixedWidth = False
         Me.lblDuration2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration2.ForeColor = System.Drawing.Color.Black
-        Me.lblDuration2.Location = New System.Drawing.Point(460, 50)
+        Me.lblDuration2.Location = New System.Drawing.Point(460, 51)
         Me.lblDuration2.Name = "lblDuration2"
         Me.lblDuration2.Size = New System.Drawing.Size(9, 29)
         Me.lblDuration2.TabIndex = 20
@@ -352,7 +352,7 @@ Partial Class frmAlertList
         Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dtpEd.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEd.Location = New System.Drawing.Point(475, 53)
+        Me.dtpEd.Location = New System.Drawing.Point(475, 54)
         Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEd.Name = "dtpEd"
         Me.dtpEd.Necessary = False
@@ -381,7 +381,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertSel, Me.coldgvAlertHostName, Me.coldgvAlertINSTANCEID, Me.coldgvAlertHCHKREGREQ, Me.coldgvAlertRegDate, Me.coldgvAlertTime, Me.coldgvAlertType, Me.coldgvAlertLevel, Me.coldgvAlertMessage, Me.coldgvAlertYN, Me.coldgvAlertComment, Me.coldgvAlertIP, Me.coldgvAlertDT})
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
@@ -392,7 +392,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.EnableHeadersVisualStyles = False
         Me.dgvAlertList.Font = New System.Drawing.Font("굴림", 8.320187!)
         Me.dgvAlertList.GridColor = System.Drawing.Color.Gray
-        Me.dgvAlertList.Location = New System.Drawing.Point(0, 96)
+        Me.dgvAlertList.Location = New System.Drawing.Point(0, 146)
         Me.dgvAlertList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvAlertList.Name = "dgvAlertList"
         Me.dgvAlertList.RowHeadersVisible = False
@@ -400,7 +400,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvAlertList.RowTemplate.Height = 23
         Me.dgvAlertList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvAlertList.Size = New System.Drawing.Size(1309, 561)
+        Me.dgvAlertList.Size = New System.Drawing.Size(1033, 511)
         Me.dgvAlertList.TabIndex = 10
         Me.dgvAlertList.TagValueMatchColor = System.Drawing.Color.White
         Me.dgvAlertList.UseTagValueMatchColor = False
@@ -535,13 +535,62 @@ Partial Class frmAlertList
         Me.coldgvAlertDT.Name = "coldgvAlertDT"
         Me.coldgvAlertDT.ReadOnly = True
         '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 8
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.MsgLabel, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1033, 50)
+        Me.TableLayoutPanel2.TabIndex = 18
+        '
+        'MsgLabel
+        '
+        Me.MsgLabel.AutoSize = True
+        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MsgLabel.ForeColor = System.Drawing.Color.White
+        Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MsgLabel.Location = New System.Drawing.Point(43, 0)
+        Me.MsgLabel.Name = "MsgLabel"
+        Me.MsgLabel.Size = New System.Drawing.Size(767, 50)
+        Me.MsgLabel.TabIndex = 0
+        Me.MsgLabel.Text = "Text"
+        Me.MsgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
+        '
         'frmAlertList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1309, 657)
+        Me.ClientSize = New System.Drawing.Size(1033, 657)
         Me.Controls.Add(Me.dgvAlertList)
         Me.Controls.Add(Me.tlpHead)
+        Me.Controls.Add(Me.TableLayoutPanel2)
         Me.ForeColor = System.Drawing.Color.White
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
@@ -549,6 +598,8 @@ Partial Class frmAlertList
         Me.Text = "Alert List"
         Me.tlpHead.ResumeLayout(False)
         CType(Me.dgvAlertList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -581,5 +632,8 @@ Partial Class frmAlertList
     Friend WithEvents lblCheck As eXperDB.BaseControls.Label
     Friend WithEvents cmbCheck As eXperDB.BaseControls.ComboBox
     Friend WithEvents btnCheck As eXperDB.BaseControls.Button
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents MsgLabel As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class

@@ -60,12 +60,11 @@ Partial Class frmConnection
         Me.FormMovePanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FormMovePanel1.Controls.Add(Me.FormControlBox1)
         Me.FormMovePanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FormMovePanel1.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.FormMovePanel1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.FormMovePanel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormMovePanel1.Location = New System.Drawing.Point(3, 4)
-        Me.FormMovePanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.FormMovePanel1.Location = New System.Drawing.Point(3, 3)
         Me.FormMovePanel1.Name = "FormMovePanel1"
-        Me.FormMovePanel1.Size = New System.Drawing.Size(529, 31)
+        Me.FormMovePanel1.Size = New System.Drawing.Size(462, 25)
         Me.FormMovePanel1.TabIndex = 9
         Me.FormMovePanel1.Text = "eXperDB-Monitoring"
         '
@@ -83,9 +82,8 @@ Partial Class frmConnection
         Me.FormControlBox1.isPower = True
         Me.FormControlBox1.isRotation = True
         Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
-        Me.FormControlBox1.Location = New System.Drawing.Point(460, 0)
+        Me.FormControlBox1.Location = New System.Drawing.Point(393, 0)
         Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
         Me.FormControlBox1.Name = "FormControlBox1"
@@ -127,28 +125,27 @@ Partial Class frmConnection
         Me.tlpSvrChk.Controls.Add(Me.lblAlias, 0, 14)
         Me.tlpSvrChk.Controls.Add(Me.txtAlias, 0, 15)
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 35)
-        Me.tlpSvrChk.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 28)
         Me.tlpSvrChk.Name = "tlpSvrChk"
         Me.tlpSvrChk.RowCount = 17
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(529, 503)
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpSvrChk.Size = New System.Drawing.Size(462, 403)
         Me.tlpSvrChk.TabIndex = 10
         '
         'lblIP
@@ -156,11 +153,11 @@ Partial Class frmConnection
         Me.lblIP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblIP.FixedHeight = False
         Me.lblIP.FixedWidth = False
-        Me.lblIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblIP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblIP.ForeColor = System.Drawing.Color.Gray
         Me.lblIP.Location = New System.Drawing.Point(3, 0)
         Me.lblIP.Name = "lblIP"
-        Me.lblIP.Size = New System.Drawing.Size(523, 25)
+        Me.lblIP.Size = New System.Drawing.Size(456, 20)
         Me.lblIP.TabIndex = 0
         Me.lblIP.Text = "F006"
         Me.lblIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -171,13 +168,12 @@ Partial Class frmConnection
         Me.nudCollectSecond.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
         Me.nudCollectSecond.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nudCollectSecond.FixedWidth = False
-        Me.nudCollectSecond.Location = New System.Drawing.Point(3, 365)
-        Me.nudCollectSecond.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.nudCollectSecond.Location = New System.Drawing.Point(3, 293)
         Me.nudCollectSecond.Maximum = New Decimal(New Integer() {1800, 0, 0, 0})
         Me.nudCollectSecond.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudCollectSecond.Name = "nudCollectSecond"
         Me.nudCollectSecond.Necessary = False
-        Me.nudCollectSecond.Size = New System.Drawing.Size(523, 25)
+        Me.nudCollectSecond.Size = New System.Drawing.Size(456, 21)
         Me.nudCollectSecond.StatusTip = ""
         Me.nudCollectSecond.TabIndex = 13
         Me.nudCollectSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -189,11 +185,11 @@ Partial Class frmConnection
         Me.lblPort.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblPort.FixedHeight = False
         Me.lblPort.FixedWidth = False
-        Me.lblPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPort.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPort.ForeColor = System.Drawing.Color.Gray
-        Me.lblPort.Location = New System.Drawing.Point(3, 56)
+        Me.lblPort.Location = New System.Drawing.Point(3, 45)
         Me.lblPort.Name = "lblPort"
-        Me.lblPort.Size = New System.Drawing.Size(523, 25)
+        Me.lblPort.Size = New System.Drawing.Size(456, 20)
         Me.lblPort.TabIndex = 2
         Me.lblPort.Text = "F007"
         Me.lblPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -203,11 +199,11 @@ Partial Class frmConnection
         Me.lblUser.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblUser.FixedHeight = False
         Me.lblUser.FixedWidth = False
-        Me.lblUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblUser.ForeColor = System.Drawing.Color.Gray
-        Me.lblUser.Location = New System.Drawing.Point(3, 112)
+        Me.lblUser.Location = New System.Drawing.Point(3, 90)
         Me.lblUser.Name = "lblUser"
-        Me.lblUser.Size = New System.Drawing.Size(523, 25)
+        Me.lblUser.Size = New System.Drawing.Size(456, 20)
         Me.lblUser.TabIndex = 4
         Me.lblUser.Text = "F008"
         Me.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -217,11 +213,11 @@ Partial Class frmConnection
         Me.lblPW.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblPW.FixedHeight = False
         Me.lblPW.FixedWidth = False
-        Me.lblPW.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPW.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPW.ForeColor = System.Drawing.Color.Gray
-        Me.lblPW.Location = New System.Drawing.Point(3, 168)
+        Me.lblPW.Location = New System.Drawing.Point(3, 135)
         Me.lblPW.Name = "lblPW"
-        Me.lblPW.Size = New System.Drawing.Size(523, 25)
+        Me.lblPW.Size = New System.Drawing.Size(456, 20)
         Me.lblPW.TabIndex = 6
         Me.lblPW.Text = "F009"
         Me.lblPW.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -231,11 +227,11 @@ Partial Class frmConnection
         Me.lblSvrGatSDly.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblSvrGatSDly.FixedHeight = False
         Me.lblSvrGatSDly.FixedWidth = False
-        Me.lblSvrGatSDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrGatSDly.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrGatSDly.ForeColor = System.Drawing.Color.Gray
-        Me.lblSvrGatSDly.Location = New System.Drawing.Point(3, 336)
+        Me.lblSvrGatSDly.Location = New System.Drawing.Point(3, 270)
         Me.lblSvrGatSDly.Name = "lblSvrGatSDly"
-        Me.lblSvrGatSDly.Size = New System.Drawing.Size(523, 25)
+        Me.lblSvrGatSDly.Size = New System.Drawing.Size(456, 20)
         Me.lblSvrGatSDly.TabIndex = 12
         Me.lblSvrGatSDly.Text = "F011"
         Me.lblSvrGatSDly.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -245,11 +241,11 @@ Partial Class frmConnection
         Me.lblDB.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDB.FixedHeight = False
         Me.lblDB.FixedWidth = False
-        Me.lblDB.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblDB.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDB.ForeColor = System.Drawing.Color.Gray
-        Me.lblDB.Location = New System.Drawing.Point(3, 224)
+        Me.lblDB.Location = New System.Drawing.Point(3, 180)
         Me.lblDB.Name = "lblDB"
-        Me.lblDB.Size = New System.Drawing.Size(523, 25)
+        Me.lblDB.Size = New System.Drawing.Size(456, 20)
         Me.lblDB.TabIndex = 8
         Me.lblDB.Text = "F010"
         Me.lblDB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -262,13 +258,12 @@ Partial Class frmConnection
         Me.txtIP.FixedWidth = False
         Me.txtIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtIP.impossibleinput = ""
-        Me.txtIP.Location = New System.Drawing.Point(3, 29)
-        Me.txtIP.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtIP.Location = New System.Drawing.Point(3, 23)
         Me.txtIP.Name = "txtIP"
         Me.txtIP.Necessary = False
         Me.txtIP.PossibleInput = "0123456789."
         Me.txtIP.Prefix = ""
-        Me.txtIP.Size = New System.Drawing.Size(523, 25)
+        Me.txtIP.Size = New System.Drawing.Size(456, 21)
         Me.txtIP.StatusTip = ""
         Me.txtIP.TabIndex = 1
         Me.txtIP.Value = ""
@@ -281,13 +276,12 @@ Partial Class frmConnection
         Me.txtPort.FixedWidth = False
         Me.txtPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPort.impossibleinput = ""
-        Me.txtPort.Location = New System.Drawing.Point(3, 85)
-        Me.txtPort.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtPort.Location = New System.Drawing.Point(3, 68)
         Me.txtPort.Name = "txtPort"
         Me.txtPort.Necessary = False
         Me.txtPort.PossibleInput = "0123456789"
         Me.txtPort.Prefix = ""
-        Me.txtPort.Size = New System.Drawing.Size(523, 25)
+        Me.txtPort.Size = New System.Drawing.Size(456, 21)
         Me.txtPort.StatusTip = ""
         Me.txtPort.TabIndex = 3
         Me.txtPort.Value = ""
@@ -300,13 +294,12 @@ Partial Class frmConnection
         Me.txtUsr.FixedWidth = False
         Me.txtUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtUsr.impossibleinput = ""
-        Me.txtUsr.Location = New System.Drawing.Point(3, 141)
-        Me.txtUsr.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtUsr.Location = New System.Drawing.Point(3, 113)
         Me.txtUsr.Name = "txtUsr"
         Me.txtUsr.Necessary = False
         Me.txtUsr.PossibleInput = ""
         Me.txtUsr.Prefix = ""
-        Me.txtUsr.Size = New System.Drawing.Size(523, 25)
+        Me.txtUsr.Size = New System.Drawing.Size(456, 21)
         Me.txtUsr.StatusTip = ""
         Me.txtUsr.TabIndex = 5
         Me.txtUsr.Value = ""
@@ -319,14 +312,13 @@ Partial Class frmConnection
         Me.txtPW.FixedWidth = False
         Me.txtPW.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPW.impossibleinput = ""
-        Me.txtPW.Location = New System.Drawing.Point(3, 197)
-        Me.txtPW.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtPW.Location = New System.Drawing.Point(3, 158)
         Me.txtPW.Name = "txtPW"
         Me.txtPW.Necessary = False
         Me.txtPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPW.PossibleInput = ""
         Me.txtPW.Prefix = ""
-        Me.txtPW.Size = New System.Drawing.Size(523, 25)
+        Me.txtPW.Size = New System.Drawing.Size(456, 21)
         Me.txtPW.StatusTip = ""
         Me.txtPW.TabIndex = 7
         Me.txtPW.Value = ""
@@ -337,11 +329,10 @@ Partial Class frmConnection
         Me.cmbDbnm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbDbnm.FixedWidth = False
         Me.cmbDbnm.FormattingEnabled = True
-        Me.cmbDbnm.Location = New System.Drawing.Point(3, 253)
-        Me.cmbDbnm.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbDbnm.Location = New System.Drawing.Point(3, 203)
         Me.cmbDbnm.Name = "cmbDbnm"
         Me.cmbDbnm.Necessary = False
-        Me.cmbDbnm.Size = New System.Drawing.Size(523, 23)
+        Me.cmbDbnm.Size = New System.Drawing.Size(456, 20)
         Me.cmbDbnm.StatusTip = ""
         Me.cmbDbnm.TabIndex = 9
         Me.cmbDbnm.ValueText = ""
@@ -351,11 +342,11 @@ Partial Class frmConnection
         Me.lblSchema.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblSchema.FixedHeight = False
         Me.lblSchema.FixedWidth = False
-        Me.lblSchema.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblSchema.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblSchema.ForeColor = System.Drawing.Color.Gray
-        Me.lblSchema.Location = New System.Drawing.Point(3, 280)
+        Me.lblSchema.Location = New System.Drawing.Point(3, 225)
         Me.lblSchema.Name = "lblSchema"
-        Me.lblSchema.Size = New System.Drawing.Size(523, 25)
+        Me.lblSchema.Size = New System.Drawing.Size(456, 20)
         Me.lblSchema.TabIndex = 10
         Me.lblSchema.Text = "F074"
         Me.lblSchema.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -366,11 +357,10 @@ Partial Class frmConnection
         Me.cmbSchema.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbSchema.FixedWidth = False
         Me.cmbSchema.FormattingEnabled = True
-        Me.cmbSchema.Location = New System.Drawing.Point(3, 309)
-        Me.cmbSchema.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbSchema.Location = New System.Drawing.Point(3, 248)
         Me.cmbSchema.Name = "cmbSchema"
         Me.cmbSchema.Necessary = False
-        Me.cmbSchema.Size = New System.Drawing.Size(523, 23)
+        Me.cmbSchema.Size = New System.Drawing.Size(456, 20)
         Me.cmbSchema.StatusTip = ""
         Me.cmbSchema.TabIndex = 11
         Me.cmbSchema.ValueText = ""
@@ -378,28 +368,28 @@ Partial Class frmConnection
         'pnlSvrTestAct
         '
         Me.pnlSvrTestAct.Controls.Add(Me.TableLayoutPanel1)
-        Me.pnlSvrTestAct.Location = New System.Drawing.Point(3, 452)
-        Me.pnlSvrTestAct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.pnlSvrTestAct.Location = New System.Drawing.Point(3, 363)
         Me.pnlSvrTestAct.Name = "pnlSvrTestAct"
-        Me.pnlSvrTestAct.Size = New System.Drawing.Size(517, 41)
+        Me.pnlSvrTestAct.Size = New System.Drawing.Size(452, 33)
         Me.pnlSvrTestAct.TabIndex = 16
         '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 79.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnAct, 2, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(517, 41)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(452, 33)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'btnClose
@@ -409,15 +399,14 @@ Partial Class frmConnection
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
-        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.LightGray
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(430, 4)
-        Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClose.Location = New System.Drawing.Point(376, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(84, 33)
+        Me.btnClose.Size = New System.Drawing.Size(73, 27)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -431,15 +420,14 @@ Partial Class frmConnection
         Me.btnTest.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnTest.FixedHeight = False
         Me.btnTest.FixedWidth = False
-        Me.btnTest.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnTest.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnTest.ForeColor = System.Drawing.Color.LightGray
         Me.btnTest.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnTest.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnTest.Location = New System.Drawing.Point(3, 4)
-        Me.btnTest.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnTest.Location = New System.Drawing.Point(3, 3)
         Me.btnTest.Name = "btnTest"
         Me.btnTest.Radius = 10
-        Me.btnTest.Size = New System.Drawing.Size(84, 33)
+        Me.btnTest.Size = New System.Drawing.Size(73, 27)
         Me.btnTest.TabIndex = 1
         Me.btnTest.Text = "F002"
         Me.btnTest.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -453,15 +441,14 @@ Partial Class frmConnection
         Me.btnAct.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnAct.FixedHeight = False
         Me.btnAct.FixedWidth = False
-        Me.btnAct.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnAct.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAct.ForeColor = System.Drawing.Color.LightGray
         Me.btnAct.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAct.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnAct.Location = New System.Drawing.Point(340, 4)
-        Me.btnAct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnAct.Location = New System.Drawing.Point(297, 3)
         Me.btnAct.Name = "btnAct"
         Me.btnAct.Radius = 10
-        Me.btnAct.Size = New System.Drawing.Size(84, 33)
+        Me.btnAct.Size = New System.Drawing.Size(73, 27)
         Me.btnAct.TabIndex = 2
         Me.btnAct.Text = "F140/F141"
         Me.btnAct.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -473,11 +460,11 @@ Partial Class frmConnection
         Me.lblAlias.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblAlias.FixedHeight = False
         Me.lblAlias.FixedWidth = False
-        Me.lblAlias.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.lblAlias.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold)
         Me.lblAlias.ForeColor = System.Drawing.Color.Gray
-        Me.lblAlias.Location = New System.Drawing.Point(3, 392)
+        Me.lblAlias.Location = New System.Drawing.Point(3, 315)
         Me.lblAlias.Name = "lblAlias"
-        Me.lblAlias.Size = New System.Drawing.Size(523, 25)
+        Me.lblAlias.Size = New System.Drawing.Size(456, 20)
         Me.lblAlias.TabIndex = 14
         Me.lblAlias.Text = "F019"
         Me.lblAlias.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -490,30 +477,28 @@ Partial Class frmConnection
         Me.txtAlias.FixedWidth = False
         Me.txtAlias.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAlias.impossibleinput = ""
-        Me.txtAlias.Location = New System.Drawing.Point(3, 421)
-        Me.txtAlias.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtAlias.Location = New System.Drawing.Point(3, 338)
         Me.txtAlias.Name = "txtAlias"
         Me.txtAlias.Necessary = False
         Me.txtAlias.PossibleInput = ""
         Me.txtAlias.Prefix = ""
-        Me.txtAlias.Size = New System.Drawing.Size(523, 25)
+        Me.txtAlias.Size = New System.Drawing.Size(456, 21)
         Me.txtAlias.StatusTip = ""
         Me.txtAlias.TabIndex = 15
         Me.txtAlias.Value = ""
         '
         'frmConnection
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(535, 542)
+        Me.ClientSize = New System.Drawing.Size(468, 434)
         Me.Controls.Add(Me.tlpSvrChk)
         Me.Controls.Add(Me.FormMovePanel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmConnection"
-        Me.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
         Me.Text = "frmConnection"
         Me.FormMovePanel1.ResumeLayout(False)
         Me.tlpSvrChk.ResumeLayout(False)

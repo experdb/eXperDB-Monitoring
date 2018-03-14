@@ -924,4 +924,31 @@
     Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs) Handles pnlAgentInfo.Paint
 
     End Sub
+
+    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
+        If btnConTest.Tag Is Nothing OrElse TryCast(btnConTest.Tag, eXperDB.ODBC.DXODBC) Is Nothing Then
+            Dim strMsg As String = p_clsMsgData.fn_GetData("M010")
+            MsgBox(strMsg)
+        Else
+            Dim frmPw As New frmPassword(DirectCast(btnConTest.Tag, eXperDB.ODBC.DXODBC))
+            If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
+                Dim frmAdmin As New frmAdmin
+                frmAdmin.ShowDialog(Me)
+            End If
+            'ReadSvrList(btnConTest.Tag)
+            '커넥트 테스트 후 조회그룹을 선택 from ini
+            'Dim tmpCtl As BaseControls.RadioButton
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
+            'tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
+            'tmpCtl.Checked = True
+            cmbGrp.SelectedIndex = groupIndex
+            sb_Ctlenabled(True)
+            'ReadSvrList(tmpCn)
+            ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
+            LoadMonList(groupIndex + 1)
+            'btnConTest.PerformClick()
+        End If
+
+    End Sub
 End Class

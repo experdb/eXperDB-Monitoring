@@ -77,7 +77,7 @@
 
         lblLogBatch.Text = p_clsMsgData.fn_GetData("F143")
         lblLogBatchH.Text = p_clsMsgData.fn_GetData("F144")
-        lblLogBatchM.Text = p_clsMsgData.fn_GetData("F145")
+        'lblLogBatchM.Text = p_clsMsgData.fn_GetData("F145")
 
 
         For i As Integer = 0 To 23
@@ -136,9 +136,7 @@
 
 
     Private Sub frmAdmin_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-
-
+        MsgLabel.Text = "모니터링 대상 서버 선정 및 관리를 할수 있습니다"
 
     End Sub
 
@@ -249,15 +247,6 @@
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-
-
-        For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
-            If tmpRow.Cells(colCheck.Index).Value = "Y" Then
-                tmpRow.Visible = False
-            End If
-        Next
-    End Sub
 
 
     Private Sub dgvSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSvrLst.CellContentClick
@@ -265,120 +254,9 @@
 
 
     End Sub
-    ''' <summary>
-    ''' 적용 버튼을 클릭 하엿을 경우 해당 복록을 DB에 저장한다. 
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
-        ' 저장하겠냐는 메시지 출력 
-        If MsgBox(p_clsMsgData.fn_GetData("M006"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
 
+ 
 
-        ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
-
-
-
-        ' 추가적으로 모두 업데이트에 대한 로직 필요 
-
-
-
-        If odbcCon IsNot Nothing Then
-
-            Dim ClsQuery As New clsQuerys(odbcCon)
-            Dim COC As New Common.ClsObjectCtl
-            Dim strLocIP As String = COC.GetLocalIP
-
-            For Each tmpRow As DataGridViewRow In dgvSvrLst.Rows
-                Dim intInstID As Integer = IIf(tmpRow.Tag Is Nothing, -1, tmpRow.Tag)
-
-                Dim strIP As String = tmpRow.Cells(colIP.Index).Value
-                Dim strPort As String = tmpRow.Cells(colPort.Index).Value
-                Dim strDBType As String = System.Enum.GetName(GetType(eXperDB.ODBC.DXODBC.enumODBCType), odbcCon.ODBCConninfo.ODBCType)
-                Dim strUser As String = tmpRow.Cells(colUser.Index).Value
-                Dim strPw As String = tmpRow.Cells(colPW.Index).Value
-                Dim strCollectYN As String = tmpRow.Cells(colCollectYN.Index).Value
-                Dim strDBNM As String = tmpRow.Cells(colDBNm.Index).Value
-                Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
-                Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
-                Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
-                Dim intPwch As Integer = tmpRow.Cells(colPWCH.Index).Value
-                ' Dim intLogDay As Integer = tmpRow.Cells(colLogSave.Index).Value
-
-                Try
-                    Dim dtTable As DataTable = ClsQuery.SelectSerialKey()
-                    If dtTable IsNot Nothing Then
-                        Dim dtRow As DataRow = dtTable.Rows(0)
-                        Dim strKey As String = dtRow.Item("LICDATA")
-                        If strKey.Length < 24 Then
-                            MsgBox(p_clsMsgData.fn_GetData("M018"))
-                            Return
-                        End If
-
-                    End If
-                Catch ex As Exception
-                    Console.WriteLine(e.ToString)
-                    MsgBox(p_clsMsgData.fn_GetData("M018"))
-                    Return
-                End Try
-
-                If tmpRow.Tag IsNot Nothing AndAlso tmpRow.Tag = -1 Then
-                    ' 기존 데이터가 아닐경우 
-                    Dim tmpInst As Integer = ClsQuery.ExistsServer(strIP, strPort)
-                    If tmpInst < 0 Then
-                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
-                    Else
-                        tmpRow.Tag = tmpInst
-                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
-                    End If
-
-                ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
-                    ' Delete 시에 Visible을 없애 버리므로 Visible 을 체크하고 
-                    ' 신규 서버인 경우에 굳이 Delete 쿼리를 날릴 필요가 없으므로 그냥 넘어감 
-                    ClsQuery.DeleteServerList(intInstID, strLocIP)
-                Else
-                    ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
-                    If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
-                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
-                    End If
-
-                End If
-            Next
-
-            If Not nudLogSaveDly.Value.Equals(nudLogSaveDly.Tag) _
-                Or Not cmbLogBatchH.SelectedIndex.Equals(cmbLogBatchH.Tag) _
-                Or Not cmbLogBatchM.SelectedIndex.Equals(cmbLogBatchM.Tag) _
-                Or Not cmbHealthTime.SelectedValue.Equals(cmbHealthTime.Tag) Then
-                ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue)
-            End If
-
-        End If
-        ' 데이터 삽입 후 서버 Agent 재시작 
-        AgentMsg = New clsAgentEMsg(_AgentIP, _AgentPort)
-        AgentMsg.SendMDX001(clsAgentEMsg.MDX001_REQ.enumMDX001ACTION.Restart)
-        ' 데이터 삽입 후 목록 재 갱신 
-        ReadSvrList(odbcCon)
-        ' wait until the agent is restart
-        _startDt = fn_ChkServer(odbcCon)
-        _applyCount = 0
-        CircularProgressControl1.Visible = True
-        CircularProgressControl1.Start()
-        tmCheckAgent.Interval = _checkAgentInterval
-        tmCheckAgent.Start()
-
-    End Sub
-
-
-
-
-
-
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
-
-    End Sub
 
     ''' <summary>
     ''' 테스트 접속 후 데이터를 변경 하였을 경우  추가 버튼 Enabled을 비활성화 
@@ -419,78 +297,14 @@
 
     End Sub
 
-    Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
-        crypt.TDESImplementation("lWpOnrrKPTarwaLwLrrvHDNh", "lWpOnrrK")
-        Dim testStr As String = crypt.EncryptTDES("experdba")
-        ' Agent Server 접속시 정보를 넣어 두었음. 
-        If _AgentIP.Trim = "" Or _AgentPort = 0 Then
-            MsgBox(p_clsMsgData.fn_GetData("M016"))
-            Return
-        End If
-        Dim intCnt As Integer = 0
-        For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
-            If tmpRow.Visible = True Then
-                intCnt += 1
-            End If
-        Next
-
-        Dim strkey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5433, "", "", 3, "", intCnt + 1, strkey)
-        If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Dim struct As structConnection = Nothing
-            Dim strSchema As String = ""
-            Dim intCollect As Integer = 0
-            Dim strAlias As String = ""
-            frmConn.rtnValue(-1, struct, strSchema, intCollect, strAlias)
-
-            AddData(-1, struct, strSchema, intCollect, strAlias)
-
-        End If
-
-
-    End Sub
-
-    Private Sub btnModify_Click(sender As Object, e As EventArgs) Handles btnModify.Click
-        ' Agent Server 접속시 정보를 넣어 두었음. 
-        If _AgentIP.Trim = "" Or _AgentPort = 0 Then
-            MsgBox(p_clsMsgData.fn_GetData("M016"))
-            Return
-        End If
-        Dim tmpRow As DataGridViewRow = dgvSvrLst.SelectedRows(0)
-        Dim intSelRow As Integer = tmpRow.Index
-        Dim strIP As String = tmpRow.Cells(colIP.Index).Value
-        Dim strPort As String = tmpRow.Cells(colPort.Index).Value
-        'Dim strDBType As String = System.Enum.GetName(GetType(ODBC.DXODBC.enumODBCType), odbcCon.ODBCConninfo.ODBCType)
-        Dim strUser As String = tmpRow.Cells(colUser.Index).Value
-        Dim strPw As String = tmpRow.Cells(colPW.Index).Value
-        Dim strCollectYN As String = tmpRow.Cells(colCollectYN.Index).Value
-        Dim strDBNM As String = tmpRow.Cells(colDBNm.Index).Value
-        Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
-        Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
-        Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
-
-        Dim intCnt As Integer = 0
-        For Each cntRow As DataGridViewRow In Me.dgvSvrLst.Rows
-            If cntRow.Visible = True Then
-                intCnt += 1
-            End If
-        Next
-
-        Dim strKey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt, strKey)
-        If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Dim rtnStruct As structConnection = Nothing
-            Dim rtnSchema As String = ""
-            Dim rtnCollect As Integer = 0
-            Dim strAlias As String = ""
-            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, strAlias)
-
-            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, strAlias)
-        End If
-
-
-    End Sub
-
+  
+    
+    ''' <summary>
+    ''' 적용 버튼을 클릭 하엿을 경우 해당 복록을 DB에 저장한다. 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
 
     Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal strAliasNm As String)
 
@@ -619,9 +433,193 @@
     End Sub
 #End Region
 
+
+
     Private Sub btnAdminPW_Click(sender As Object, e As EventArgs) Handles btnAdminPW.Click
         Dim strkey = fn_GetSerial()
         Dim frmUserConf As New frmUserConfig(grpSvrLst.Tag, strkey)
         frmUserConf.ShowDialog()
+    End Sub
+
+    Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
+        crypt.TDESImplementation("lWpOnrrKPTarwaLwLrrvHDNh", "lWpOnrrK")
+        Dim testStr As String = crypt.EncryptTDES("experdba")
+        ' Agent Server 접속시 정보를 넣어 두었음. 
+        If _AgentIP.Trim = "" Or _AgentPort = 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M016"))
+            Return
+        End If
+        Dim intCnt As Integer = 0
+        For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
+            If tmpRow.Visible = True Then
+                intCnt += 1
+            End If
+        Next
+
+        Dim strkey = fn_GetSerial()
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5433, "", "", 3, "", intCnt + 1, strkey)
+        If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim struct As structConnection = Nothing
+            Dim strSchema As String = ""
+            Dim intCollect As Integer = 0
+            Dim strAlias As String = ""
+            frmConn.rtnValue(-1, struct, strSchema, intCollect, strAlias)
+
+            AddData(-1, struct, strSchema, intCollect, strAlias)
+
+        End If
+    End Sub
+
+    Private Sub btnModify_Click(sender As Object, e As EventArgs) Handles btnModify.Click
+        ' Agent Server 접속시 정보를 넣어 두었음. 
+        If _AgentIP.Trim = "" Or _AgentPort = 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M016"))
+            Return
+        End If
+        Dim tmpRow As DataGridViewRow = dgvSvrLst.SelectedRows(0)
+        Dim intSelRow As Integer = tmpRow.Index
+        Dim strIP As String = tmpRow.Cells(colIP.Index).Value
+        Dim strPort As String = tmpRow.Cells(colPort.Index).Value
+        'Dim strDBType As String = System.Enum.GetName(GetType(ODBC.DXODBC.enumODBCType), odbcCon.ODBCConninfo.ODBCType)
+        Dim strUser As String = tmpRow.Cells(colUser.Index).Value
+        Dim strPw As String = tmpRow.Cells(colPW.Index).Value
+        Dim strCollectYN As String = tmpRow.Cells(colCollectYN.Index).Value
+        Dim strDBNM As String = tmpRow.Cells(colDBNm.Index).Value
+        Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
+        Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
+        Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
+
+        Dim intCnt As Integer = 0
+        For Each cntRow As DataGridViewRow In Me.dgvSvrLst.Rows
+            If cntRow.Visible = True Then
+                intCnt += 1
+            End If
+        Next
+
+        Dim strKey = fn_GetSerial()
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt, strKey)
+        If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim rtnStruct As structConnection = Nothing
+            Dim rtnSchema As String = ""
+            Dim rtnCollect As Integer = 0
+            Dim strAlias As String = ""
+            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, strAlias)
+
+            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, strAlias)
+        End If
+
+
+    End Sub
+
+    Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
+        ' 저장하겠냐는 메시지 출력 
+        If MsgBox(p_clsMsgData.fn_GetData("M006"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
+
+
+        ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
+        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
+
+
+
+        ' 추가적으로 모두 업데이트에 대한 로직 필요 
+
+
+
+        If odbcCon IsNot Nothing Then
+
+            Dim ClsQuery As New clsQuerys(odbcCon)
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
+
+            For Each tmpRow As DataGridViewRow In dgvSvrLst.Rows
+                Dim intInstID As Integer = IIf(tmpRow.Tag Is Nothing, -1, tmpRow.Tag)
+
+                Dim strIP As String = tmpRow.Cells(colIP.Index).Value
+                Dim strPort As String = tmpRow.Cells(colPort.Index).Value
+                Dim strDBType As String = System.Enum.GetName(GetType(eXperDB.ODBC.DXODBC.enumODBCType), odbcCon.ODBCConninfo.ODBCType)
+                Dim strUser As String = tmpRow.Cells(colUser.Index).Value
+                Dim strPw As String = tmpRow.Cells(colPW.Index).Value
+                Dim strCollectYN As String = tmpRow.Cells(colCollectYN.Index).Value
+                Dim strDBNM As String = tmpRow.Cells(colDBNm.Index).Value
+                Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
+                Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
+                Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
+                Dim intPwch As Integer = tmpRow.Cells(colPWCH.Index).Value
+                ' Dim intLogDay As Integer = tmpRow.Cells(colLogSave.Index).Value
+
+                Try
+                    Dim dtTable As DataTable = ClsQuery.SelectSerialKey()
+                    If dtTable IsNot Nothing Then
+                        Dim dtRow As DataRow = dtTable.Rows(0)
+                        Dim strKey As String = dtRow.Item("LICDATA")
+                        If strKey.Length < 24 Then
+                            MsgBox(p_clsMsgData.fn_GetData("M018"))
+                            Return
+                        End If
+
+                    End If
+                Catch ex As Exception
+                    Console.WriteLine(e.ToString)
+                    MsgBox(p_clsMsgData.fn_GetData("M018"))
+                    Return
+                End Try
+
+                If tmpRow.Tag IsNot Nothing AndAlso tmpRow.Tag = -1 Then
+                    ' 기존 데이터가 아닐경우 
+                    Dim tmpInst As Integer = ClsQuery.ExistsServer(strIP, strPort)
+                    If tmpInst < 0 Then
+                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
+                    Else
+                        tmpRow.Tag = tmpInst
+                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
+                    End If
+
+                ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
+                    ' Delete 시에 Visible을 없애 버리므로 Visible 을 체크하고 
+                    ' 신규 서버인 경우에 굳이 Delete 쿼리를 날릴 필요가 없으므로 그냥 넘어감 
+                    ClsQuery.DeleteServerList(intInstID, strLocIP)
+                Else
+                    ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
+                    If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
+                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
+                    End If
+
+                End If
+            Next
+
+            If Not nudLogSaveDly.Value.Equals(nudLogSaveDly.Tag) _
+                Or Not cmbLogBatchH.SelectedIndex.Equals(cmbLogBatchH.Tag) _
+                Or Not cmbLogBatchM.SelectedIndex.Equals(cmbLogBatchM.Tag) _
+                Or Not cmbHealthTime.SelectedValue.Equals(cmbHealthTime.Tag) Then
+                ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue)
+            End If
+
+        End If
+        ' 데이터 삽입 후 서버 Agent 재시작 
+        AgentMsg = New clsAgentEMsg(_AgentIP, _AgentPort)
+        AgentMsg.SendMDX001(clsAgentEMsg.MDX001_REQ.enumMDX001ACTION.Restart)
+        ' 데이터 삽입 후 목록 재 갱신 
+        ReadSvrList(odbcCon)
+        ' wait until the agent is restart
+        _startDt = fn_ChkServer(odbcCon)
+        _applyCount = 0
+        CircularProgressControl1.Visible = True
+        CircularProgressControl1.Start()
+        tmCheckAgent.Interval = _checkAgentInterval
+        tmCheckAgent.Start()
+
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
+            If tmpRow.Cells(colCheck.Index).Value = "Y" Then
+                tmpRow.Visible = False
+            End If
+        Next
+    End Sub
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
+
     End Sub
 End Class

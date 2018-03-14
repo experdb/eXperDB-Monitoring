@@ -49,7 +49,8 @@
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        'FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        Me.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
 
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
         lblType.Text = p_clsMsgData.fn_GetData("F252")
@@ -95,36 +96,36 @@
         coldgvSessionListWrite.HeaderText = p_clsMsgData.fn_GetData("F136")
         coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
 
-        grpSessionLockHist.Text = p_clsMsgData.fn_GetData("F246")
+        'grpSessionLockHist.Text = p_clsMsgData.fn_GetData("F246")
 
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
         ' fit button location
-        Me.btnExcel.Location = New System.Drawing.Point(Me.grpSessionLockHist.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
-        Me.btnQuery.Location = New System.Drawing.Point(Me.btnExcel.Location.X - Me.btnQuery.Width - Me.btnQuery.Margin.Right, Me.btnExcel.Margin.Top)
-        Me.txtSQL.Location = New System.Drawing.Point(Me.btnQuery.Location.X - Me.txtSQL.Width - Me.txtSQL.Margin.Right, 7)
-        Me.lblSQL.Location = New System.Drawing.Point(Me.txtSQL.Location.X - Me.lblSQL.Width - Me.lblSQL.Margin.Right, Me.txtSQL.Margin.Top)
-        Me.dtpEd.Location = New System.Drawing.Point(Me.lblSQL.Location.X - Me.dtpEd.Width - Me.dtpEd.Margin.Right, 6)
-        Me.lblDuration2.Location = New System.Drawing.Point(Me.dtpEd.Location.X - Me.lblDuration2.Width - Me.lblDuration2.Margin.Right, Me.dtpEd.Margin.Top)
-        Me.dtpSt.Location = New System.Drawing.Point(Me.lblDuration2.Location.X - Me.dtpSt.Width - Me.dtpSt.Margin.Right, 6)
-        Me.lblDuration.Location = New System.Drawing.Point(Me.dtpSt.Location.X - Me.lblDuration.Width - Me.lblDuration.Margin.Right, Me.dtpSt.Margin.Top)
-        Me.txtDatabase.Location = New System.Drawing.Point(Me.lblDuration.Location.X - Me.txtDatabase.Width - Me.txtDatabase.Margin.Right, 7)
-        Me.lblDatabase.Location = New System.Drawing.Point(Me.txtDatabase.Location.X - Me.lblDatabase.Width - Me.lblDatabase.Margin.Right, Me.txtDatabase.Margin.Top)
-        Me.cmbType.Location = New System.Drawing.Point(Me.lblDatabase.Location.X - Me.cmbType.Width - Me.cmbType.Margin.Right, 6)
-        Me.lblType.Location = New System.Drawing.Point(Me.cmbType.Location.X - Me.lblType.Width - Me.lblType.Margin.Right, Me.cmbType.Margin.Top)
+        'Me.btnExcel.Location = New System.Drawing.Point(Me.grpSessionLockHist.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
+        'Me.btnQuery.Location = New System.Drawing.Point(Me.btnExcel.Location.X - Me.btnQuery.Width - Me.btnQuery.Margin.Right, Me.btnExcel.Margin.Top)
+        'Me.txtSQL.Location = New System.Drawing.Point(Me.btnQuery.Location.X - Me.txtSQL.Width - Me.txtSQL.Margin.Right, 7)
+        'Me.lblSQL.Location = New System.Drawing.Point(Me.txtSQL.Location.X - Me.lblSQL.Width - Me.lblSQL.Margin.Right, Me.txtSQL.Margin.Top)
+        'Me.dtpEd.Location = New System.Drawing.Point(Me.lblSQL.Location.X - Me.dtpEd.Width - Me.dtpEd.Margin.Right, 6)
+        'Me.lblDuration2.Location = New System.Drawing.Point(Me.dtpEd.Location.X - Me.lblDuration2.Width - Me.lblDuration2.Margin.Right, Me.dtpEd.Margin.Top)
+        'Me.dtpSt.Location = New System.Drawing.Point(Me.lblDuration2.Location.X - Me.dtpSt.Width - Me.dtpSt.Margin.Right, 6)
+        'Me.lblDuration.Location = New System.Drawing.Point(Me.dtpSt.Location.X - Me.lblDuration.Width - Me.lblDuration.Margin.Right, Me.dtpSt.Margin.Top)
+        'Me.txtDatabase.Location = New System.Drawing.Point(Me.lblDuration.Location.X - Me.txtDatabase.Width - Me.txtDatabase.Margin.Right, 7)
+        'Me.lblDatabase.Location = New System.Drawing.Point(Me.txtDatabase.Location.X - Me.lblDatabase.Width - Me.lblDatabase.Margin.Right, Me.txtDatabase.Margin.Top)
+        'Me.cmbType.Location = New System.Drawing.Point(Me.lblDatabase.Location.X - Me.cmbType.Width - Me.cmbType.Margin.Right, 6)
+        'Me.lblType.Location = New System.Drawing.Point(Me.cmbType.Location.X - Me.lblType.Width - Me.lblType.Margin.Right, Me.cmbType.Margin.Top)
 
 
         dtpSt.Value = DateTime.Now.AddDays(-1)
         cmbType.SelectedIndex = 0
 
-        modCommon.FontChange(Me, p_Font)
-
+        ' modCommon.FontChange(Me, p_Font)
+        MsgLabel.Text = "세션 이력 관리를 합니다."
     End Sub
 
     Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataRow)
@@ -320,18 +321,18 @@
 
     Private Sub frmSessionLockHist_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         ' fit button location
-        Me.btnExcel.Location = New System.Drawing.Point(Me.grpSessionLockHist.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
-        Me.btnQuery.Location = New System.Drawing.Point(Me.btnExcel.Location.X - Me.btnQuery.Width - Me.btnQuery.Margin.Right, Me.btnExcel.Margin.Top)
-        Me.txtSQL.Location = New System.Drawing.Point(Me.btnQuery.Location.X - Me.txtSQL.Width - Me.txtSQL.Margin.Right, 7)
-        Me.lblSQL.Location = New System.Drawing.Point(Me.txtSQL.Location.X - Me.lblSQL.Width - Me.lblSQL.Margin.Right, Me.txtSQL.Margin.Top)
-        Me.dtpEd.Location = New System.Drawing.Point(Me.lblSQL.Location.X - Me.dtpEd.Width - Me.dtpEd.Margin.Right, 6)
-        Me.lblDuration2.Location = New System.Drawing.Point(Me.dtpEd.Location.X - Me.lblDuration2.Width - Me.lblDuration2.Margin.Right, Me.dtpEd.Margin.Top)
-        Me.dtpSt.Location = New System.Drawing.Point(Me.lblDuration2.Location.X - Me.dtpSt.Width - Me.dtpSt.Margin.Right, 6)
-        Me.lblDuration.Location = New System.Drawing.Point(Me.dtpSt.Location.X - Me.lblDuration.Width - Me.lblDuration.Margin.Right, Me.dtpSt.Margin.Top)
-        Me.txtDatabase.Location = New System.Drawing.Point(Me.lblDuration.Location.X - Me.txtDatabase.Width - Me.txtDatabase.Margin.Right, 7)
-        Me.lblDatabase.Location = New System.Drawing.Point(Me.txtDatabase.Location.X - Me.lblDatabase.Width - Me.lblDatabase.Margin.Right, Me.txtDatabase.Margin.Top)
-        Me.cmbType.Location = New System.Drawing.Point(Me.lblDatabase.Location.X - Me.cmbType.Width - Me.cmbType.Margin.Right, 6)
-        Me.lblType.Location = New System.Drawing.Point(Me.cmbType.Location.X - Me.lblType.Width - Me.lblType.Margin.Right, Me.cmbType.Margin.Top)
+        'Me.btnExcel.Location = New System.Drawing.Point(Me.grpSessionLockHist.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
+        'Me.btnQuery.Location = New System.Drawing.Point(Me.btnExcel.Location.X - Me.btnQuery.Width - Me.btnQuery.Margin.Right, Me.btnExcel.Margin.Top)
+        'Me.txtSQL.Location = New System.Drawing.Point(Me.btnQuery.Location.X - Me.txtSQL.Width - Me.txtSQL.Margin.Right, 7)
+        'Me.lblSQL.Location = New System.Drawing.Point(Me.txtSQL.Location.X - Me.lblSQL.Width - Me.lblSQL.Margin.Right, Me.txtSQL.Margin.Top)
+        'Me.dtpEd.Location = New System.Drawing.Point(Me.lblSQL.Location.X - Me.dtpEd.Width - Me.dtpEd.Margin.Right, 6)
+        'Me.lblDuration2.Location = New System.Drawing.Point(Me.dtpEd.Location.X - Me.lblDuration2.Width - Me.lblDuration2.Margin.Right, Me.dtpEd.Margin.Top)
+        'Me.dtpSt.Location = New System.Drawing.Point(Me.lblDuration2.Location.X - Me.dtpSt.Width - Me.dtpSt.Margin.Right, 6)
+        'Me.lblDuration.Location = New System.Drawing.Point(Me.dtpSt.Location.X - Me.lblDuration.Width - Me.lblDuration.Margin.Right, Me.dtpSt.Margin.Top)
+        'Me.txtDatabase.Location = New System.Drawing.Point(Me.lblDuration.Location.X - Me.txtDatabase.Width - Me.txtDatabase.Margin.Right, 7)
+        'Me.lblDatabase.Location = New System.Drawing.Point(Me.txtDatabase.Location.X - Me.lblDatabase.Width - Me.lblDatabase.Margin.Right, Me.txtDatabase.Margin.Top)
+        'Me.cmbType.Location = New System.Drawing.Point(Me.lblDatabase.Location.X - Me.cmbType.Width - Me.cmbType.Margin.Right, 6)
+        'Me.lblType.Location = New System.Drawing.Point(Me.cmbType.Location.X - Me.lblType.Width - Me.lblType.Margin.Right, Me.cmbType.Margin.Top)
     End Sub
 
     Private Sub dgvSessionList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellMouseLeave

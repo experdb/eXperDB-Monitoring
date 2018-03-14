@@ -136,6 +136,7 @@
         modCommon.FontChange(Me, p_Font)
 
         'CountStatusLabel1.Text = "(0/0)"
+        MsgLabel.Text = "시스템 알람에 대해 조치 관리를 합니다."
 
     End Sub
 
