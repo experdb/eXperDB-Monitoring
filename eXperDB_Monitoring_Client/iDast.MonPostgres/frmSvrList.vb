@@ -5,9 +5,6 @@
 
     Private Sub btnConTest_Click(sender As Object, e As EventArgs) Handles btnConTest.Click
 
-
-
-
         If fn_ChkTestBef() = False Then Return
         Dim strIp As String = txtSvrIP.Text
         Dim strPort As Integer = txtSvrPort.Text
@@ -19,7 +16,7 @@
         Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
         Dim tmpCn As New DXODBC(dbtype, strIp, strPort, strID, strPw, DBName)
         If tmpCn.ConnectionCheck = True Then
-            MsgBox(p_clsMsgData.fn_GetData("M003"))
+            'MsgBox(p_clsMsgData.fn_GetData("M003"))
             ' R-Start 그룹명 조회
             Dim ClsQuery As New clsQuerys(tmpCn)
             cmbGrp.Items.Clear()
@@ -34,8 +31,8 @@
             '커넥트 테스트 후 조회그룹을 선택 from ini
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
             Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
-            tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
-            tmpCtl.Checked = True
+            'tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
+            'tmpCtl.Checked = True
             cmbGrp.SelectedIndex = groupIndex
             sb_Ctlenabled(True)
             'ReadSvrList(tmpCn)
@@ -43,6 +40,14 @@
             LoadMonList(groupIndex + 1)
             'R-End
             btnConTest.Tag = tmpCn
+
+            '서버리스트 Tabpage Focus
+            TabControl1.TabPages(0).Enabled = False
+
+            If TabControl1.TabPages(1).Enabled = False Then
+                TabControl1.TabPages(1).Enabled = True
+                TabControl1.SelectedIndex = 1
+            End If
 
         Else
             MsgBox(p_clsMsgData.fn_GetData("M004"))
@@ -130,8 +135,8 @@
                 ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
                 dgvSvrLst.Rows(idxRow).Tag = tmpRow.Item("INSTANCE_ID")
                 ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
-                dgvSvrLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.White
-                dgvSvrLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.White
+                'dgvSvrLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.White
+                'dgvSvrLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.White
                 If IsDBNull(tmpRow.Item("MON_GROUP")) Then
                     dgvSvrLst.fn_DataCellADD(idxRow, colCollectYN.Index, "N")
                 ElseIf tmpRow.Item("MON_GROUP") = 0 Then
@@ -181,8 +186,8 @@
                 ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
                 Dim idxRow As Integer = dgvMonLst.Rows.Add()
                 dgvMonLst.Rows(idxRow).Tag = tmpRow.Tag
-                dgvMonLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.White
-                dgvMonLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.White
+                'dgvMonLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.White
+                'dgvMonLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.White
                 dgvMonLst.fn_DataCellADD(idxRow, colMonIP.Index, tmpRow.Cells(colIP.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxRow, colMonPort.Index, tmpRow.Cells(colPort.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxRow, colMonUser.Index, tmpRow.Cells(colUser.Index).Value)
@@ -236,8 +241,8 @@
                 idxMonRow += 1
                 dgvMonLst.Rows.Insert(idxMonRow)
                 dgvMonLst.Rows(idxMonRow).Tag = tmpRow.Tag
-                dgvMonLst.Rows(idxMonRow).DefaultCellStyle.ForeColor = Color.White
-                dgvMonLst.Rows(idxMonRow).DefaultCellStyle.SelectionForeColor = Color.White
+                'dgvMonLst.Rows(idxMonRow).DefaultCellStyle.ForeColor = Color.White
+                'dgvMonLst.Rows(idxMonRow).DefaultCellStyle.SelectionForeColor = Color.White
                 dgvMonLst.fn_DataCellADD(idxMonRow, colMonIP.Index, tmpRow.Cells(colIP.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxMonRow, colMonPort.Index, tmpRow.Cells(colPort.Index).Value)
                 dgvMonLst.fn_DataCellADD(idxMonRow, colMonUser.Index, tmpRow.Cells(colUser.Index).Value)
@@ -349,7 +354,7 @@
             Me.Height += 30
         End If
 
-        Me.grpAgentSVR.Text = p_clsMsgData.fn_GetData("F001")
+        'Me.grpAgentSVR.Text = p_clsMsgData.fn_GetData("F001")
         btnConTest.Text = p_clsMsgData.fn_GetData("F309")
         btnConSave.Text = p_clsMsgData.fn_GetData("F003")
         lblSvrIP.Text = p_clsMsgData.fn_GetData("F006")
@@ -360,7 +365,7 @@
         'grpSvrLst.Text = p_clsMsgData.fn_GetData("F013")
 
 
-        grpMonGrp.Text = p_clsMsgData.fn_GetData("F025")
+        'grpMonGrp.Text = p_clsMsgData.fn_GetData("F025")
         Dim tmpGrpNm As String = p_clsMsgData.fn_GetData("F026")
         rbGrp1.Text = tmpGrpNm & " 1"
         rbGrp2.Text = tmpGrpNm & " 2"
@@ -420,7 +425,7 @@
         'grpSvrLst.Enabled = Bret
         'pnlB.Enabled = Bret
         btnConSave.Enabled = Bret
-        grpMonGrp.Enabled = Bret
+        'grpMonGrp.Enabled = Bret
         dgvSvrLst.Rows.Clear()
         btnStart.Enabled = Bret
 
@@ -430,7 +435,7 @@
 
 #Region "Form Event"
 
-    Private Sub FormControlBox1_ButtonConfigClick(sender As Object, e As Rectangle) Handles FormControlBox2.ButtonConfigClick
+    Private Sub FormControlBox1_ButtonConfigClick(sender As Object, e As Rectangle)
 
         If btnConTest.Tag Is Nothing OrElse TryCast(btnConTest.Tag, eXperDB.ODBC.DXODBC) Is Nothing Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M010")
@@ -443,11 +448,11 @@
             End If
             'ReadSvrList(btnConTest.Tag)
             '커넥트 테스트 후 조회그룹을 선택 from ini
-            Dim tmpCtl As BaseControls.RadioButton
+            'Dim tmpCtl As BaseControls.RadioButton
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
             Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
-            tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
-            tmpCtl.Checked = True
+            'tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
+            'tmpCtl.Checked = True
             cmbGrp.SelectedIndex = groupIndex
             sb_Ctlenabled(True)
             'ReadSvrList(tmpCn)
@@ -645,11 +650,11 @@
                 Dim groupName As String = txtGrp1.Text
                 Dim groupId As Integer
                 For i As Integer = 0 To 3
-                    Dim tmpCtl As BaseControls.RadioButton = grpMonGrp.Controls.Find("rbGrp" & i + 1, True)(0)
-                    If tmpCtl.Checked = True Then
-                        groupId = i + 1
-                        Exit For
-                    End If
+                    'Dim tmpCtl As BaseControls.RadioButton = grpMonGrp.Controls.Find("rbGrp" & i + 1, True)(0)
+                    'If tmpCtl.Checked = True Then
+                    '    groupId = i + 1
+                    '    Exit For
+                    'End If
                 Next
 
                 ' Instance 별 조회 그룹을 업데이트 한다. 
@@ -852,20 +857,20 @@
     End Sub
     'R-Start
     Private Sub rbGrp_CheckedChanged(sender As Object, e As EventArgs) Handles rbGrp2.CheckedChanged, rbGrp4.CheckedChanged, rbGrp3.CheckedChanged, rbGrp1.CheckedChanged
-        Dim tmpCtl As BaseControls.RadioButton
+        'Dim tmpCtl As BaseControls.RadioButton
         Dim groupIndex As Integer = 0
-        For i As Integer = 0 To 3
-            tmpCtl = grpMonGrp.Controls.Find("rbGrp" & i + 1, True)(0)
-            If tmpCtl.Checked = True Then
-                tmpCtl.ForeColor = System.Drawing.Color.White
-                tmpCtl.BackColor = System.Drawing.Color.Black
-                groupIndex = i
-                cmbGrp.SelectedIndex = groupIndex
-            Else
-                tmpCtl.ForeColor = System.Drawing.Color.Black
-                tmpCtl.BackColor = System.Drawing.Color.Black
-            End If
-        Next
+        'For i As Integer = 0 To 3
+        '    tmpCtl = grpMonGrp.Controls.Find("rbGrp" & i + 1, True)(0)
+        '    If tmpCtl.Checked = True Then
+        '        tmpCtl.ForeColor = System.Drawing.Color.White
+        '        tmpCtl.BackColor = System.Drawing.Color.Black
+        '        groupIndex = i
+        '        cmbGrp.SelectedIndex = groupIndex
+        '    Else
+        '        tmpCtl.ForeColor = System.Drawing.Color.Black
+        '        tmpCtl.BackColor = System.Drawing.Color.Black
+        '    End If
+        'Next
         ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
         LoadMonList(groupIndex + 1)
     End Sub
@@ -876,11 +881,11 @@
     End Sub
 
     Private Sub cmbGrp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbGrp.SelectedIndexChanged
-        Dim tmpCtl As BaseControls.RadioButton
-        tmpCtl = grpMonGrp.Controls.Find("rbGrp" & cmbGrp.SelectedIndex + 1, True)(0)
-        If tmpCtl.Checked = False Then
-            tmpCtl.Checked = True
-        End If
+        'Dim tmpCtl As BaseControls.RadioButton
+        'tmpCtl = grpMonGrp.Controls.Find("rbGrp" & cmbGrp.SelectedIndex + 1, True)(0)
+        'If tmpCtl.Checked = False Then
+        '    tmpCtl.Checked = True
+        'End If
     End Sub
 
     Private Sub dgvSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSvrLst.CellContentClick
@@ -904,5 +909,19 @@
                 End If
             End If
         End If
+    End Sub
+
+
+    Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MsgLabel.Text = "eXperDB 수집서버 정보를 입력하세요."
+        MsgLabel2.Text = "모니터링 대상 서버를 선택하여 그룹관리를 하십시요."
+        TabControl1.TabPages(0).Enabled = True
+        TabControl1.TabPages(1).Enabled = False
+        TabControl1.SelectedIndex = 0
+
+    End Sub
+
+    Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs) Handles pnlAgentInfo.Paint
+
     End Sub
 End Class

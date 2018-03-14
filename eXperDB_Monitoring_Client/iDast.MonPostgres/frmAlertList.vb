@@ -30,7 +30,6 @@
         'Me.SetStyle(ControlStyles.AllPaintingInWmPaint Or _
         '                    ControlStyles.UserPaint Or _
         '                    ControlStyles.DoubleBuffer, True)
-        UseResizeFont = False
         _SvrpList = GrpLst
         _intInstanceID = InstanceID
         _strCollectDt = strCollectDt
@@ -72,11 +71,6 @@
         Me.Invoke(New MethodInvoker(Sub()
                                         btnQuery.PerformClick()
                                     End Sub))
-
-        'Temporary solution
-        Me.dgvAlertList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 8.3)
-        Me.dgvAlertList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 8.3)
-
     End Sub
 
     Private Sub InitForm()
@@ -84,7 +78,7 @@
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("Alert List") + " ]"
+        'FormMovePanel1.Text += " [ " + String.Format("Alert List") + " ]"
 
         lblServer.Text = p_clsMsgData.fn_GetData("F033")
         lblLevel.Text = p_clsMsgData.fn_GetData("F247")
@@ -95,9 +89,9 @@
         btnConfig.Text = p_clsMsgData.fn_GetData("F264")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        grpAlertList.Text = p_clsMsgData.fn_GetData("F255")
+        'grpAlertList.Text = p_clsMsgData.fn_GetData("F255")
         ' Talble Information
-        grpAlert.Text = p_clsMsgData.fn_GetData("F255")
+        'grpAlert.Text = p_clsMsgData.fn_GetData("F255")
         dgvAlertList.AutoGenerateColumns = False
         'coldgvAlertSel.HeaderText = p_clsMsgData.fn_GetData("F252")
         coldgvAlertHostName.HeaderText = p_clsMsgData.fn_GetData("F033")
@@ -112,14 +106,14 @@
 
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
         ' fit button location
-        Me.btnExcel.Location = New System.Drawing.Point(Me.grpAlertList.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
+        'Me.btnExcel.Location = New System.Drawing.Point(Me.grpAlertList.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
 
         ' Set default duration
         dtpSt.Value = DateTime.Now.AddHours(-1)
@@ -139,7 +133,9 @@
         cmbLevel.SelectedIndex = 1
         cmbCheck.SelectedIndex = 0
 
-        ' modCommon.FontChange(Me, p_Font)
+        modCommon.FontChange(Me, p_Font)
+
+        'CountStatusLabel1.Text = "(0/0)"
 
     End Sub
 
@@ -198,6 +194,8 @@
         End If
     End Sub
 
+
+
     Private Sub dgvAlertList_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles dgvAlertList.CellPainting
         If e.ColumnIndex = 0 AndAlso e.RowIndex = -1 Then
             e.PaintBackground(e.ClipBounds, False)
@@ -235,34 +233,6 @@
         Next
     End Sub
 
-
-    Private Sub dgvAlertList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellClick
-        'Check to ensure that the row CheckBox is clicked.
-        Dim checkBox As DataGridViewCheckBoxCell = Nothing
-        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
-            checkBox = (TryCast(dgvAlertList.Rows(e.RowIndex).Cells(coldgvAlertSel.Index), DataGridViewCheckBoxCell))
-            If checkBox.Value = True Then
-                checkBox.Value = False
-            Else
-                checkBox.Value = True
-            End If
-
-
-            'Loop to verify whether all row CheckBoxes are checked or not.
-            Dim nChecked As Integer = IIf(checkBox.Value, 1, 0)
-
-            For Each row As DataGridViewRow In dgvAlertList.Rows
-                If row.Index = e.RowIndex Then Continue For
-                If Convert.ToBoolean(row.Cells(coldgvAlertSel.Index).EditedFormattedValue) = True Then
-                    nChecked += 1
-                End If
-            Next
-            _cbCheckAll.Checked = IIf(nChecked = dgvAlertList.Rows.Count, True, False)
-
-            ' DirectCast(sender, BaseControls.CheckBox).Checked = isChecked
-        End If
-    End Sub
-
     Private Sub btnCheck_Click(sender As Object, e As EventArgs) Handles btnCheck.Click
         Dim intPauseTime As Integer = 0
         Dim strCheckComment As String = ""
@@ -277,17 +247,21 @@
                 Exit For
             End If
         Next
+
+
         If i = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M034"))
             Return
         End If
 
+        frmAlertCheck.StatusLabel.Text = "총 (" & i & ") 건이 선택되어 알람 조치 합니다."
         If frmAlertCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
             frmAlertCheck.rtnValue(intPauseTime, strCheckComment, strCheckUser)
         Else
             frmAlertCheck.Dispose()
             Return
         End If
+
         Try
             Dim COC As New Common.ClsObjectCtl
             Dim strLocIP As String = COC.GetLocalIP
@@ -339,6 +313,18 @@
 
     End Sub
 
+    Private Sub dgvAlertList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellDoubleClick
+        Dim cv As Boolean
+        cv = dgvAlertList.CurrentRow.Cells(0).Value
+
+        If cv = False Then
+            dgvAlertList.CurrentRow.Cells(0).Value = True
+        End If
+
+        btnCheck.PerformClick()
+
+    End Sub
+
     Private Sub frmAlertList_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         RemoveHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
     End Sub
@@ -347,27 +333,5 @@
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
         Dim AlertConfig As New frmAlertConfig(_SvrpList)
         AlertConfig.ShowDialog()
-    End Sub
-
-    Private Sub dgvAlertList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvAlertList.CellMouseMove
-        If e.RowIndex >= 0 Then
-            dgvAlertList.Cursor = Cursors.Hand
-            If dgvAlertList.Rows(e.RowIndex).Selected = False Then
-                dgvAlertList.ClearSelection()
-                dgvAlertList.Rows(e.RowIndex).Selected = True
-            End If
-            dgvAlertList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
-        End If
-    End Sub
-
-    Private Sub dgvAlertList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertList.CellMouseLeave
-        If e.RowIndex >= 0 Then
-            dgvAlertList.Cursor = Cursors.Arrow
-            If dgvAlertList.Rows(e.RowIndex).Selected = True Then
-                dgvAlertList.ClearSelection()
-                dgvAlertList.Rows(e.RowIndex).Selected = False
-            End If
-            dgvAlertList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvAlertList.DefaultCellStyle.SelectionBackColor
-        End If
     End Sub
 End Class

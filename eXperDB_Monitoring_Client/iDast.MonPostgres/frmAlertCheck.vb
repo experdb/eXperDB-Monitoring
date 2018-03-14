@@ -14,12 +14,12 @@
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
 
         ' 일반설정 탭 
-        FormMovePanel1.Text = p_clsMsgData.fn_GetData("F262")
-        lblInstance.Text = p_clsMsgData.fn_GetData("F033")
-        lblAlertType.Text = p_clsMsgData.fn_GetData("F258")
-        lblAlertTime.Text = p_clsMsgData.fn_GetData("F257")
-        lblAlertLevel.Text = p_clsMsgData.fn_GetData("F256")
-        lblAlertMsg.Text = p_clsMsgData.fn_GetData("F259")
+        'FormMovePanel1.Text = p_clsMsgData.fn_GetData("F262")
+        'lblInstance.Text = p_clsMsgData.fn_GetData("F033")
+        'lblAlertType.Text = p_clsMsgData.fn_GetData("F258")
+        'lblAlertTime.Text = p_clsMsgData.fn_GetData("F257")
+        'lblAlertLevel.Text = p_clsMsgData.fn_GetData("F256")
+        'lblAlertMsg.Text = p_clsMsgData.fn_GetData("F259")
         lblAlertComment.Text = p_clsMsgData.fn_GetData("F260")
         lblPause.Text = p_clsMsgData.fn_GetData("F263")
         lblAlertUser.Text = p_clsMsgData.fn_GetData("F265")
@@ -27,6 +27,16 @@
         cmbPauseTime.SelectedIndex = 0
         modCommon.FontChange(Me, p_Font)
     End Sub
+
+
+    Public Sub rtnValue(ByRef intPauseTime As Integer, ByRef strCheckComment As String, ByRef strUserName As String)
+        If cmbPauseTime.SelectedIndex > 0 Then
+            intPauseTime = Integer.Parse(cmbPauseTime.Text) * 60
+        End If
+        strCheckComment = txtAlertComment.Text
+        strUserName = txtAlertUser.Text
+    End Sub
+
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If MsgBox(p_clsMsgData.fn_GetData("M006"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
@@ -40,11 +50,4 @@
         Me.Close()
     End Sub
 
-    Public Sub rtnValue(ByRef intPauseTime As Integer, ByRef strCheckComment As String, ByRef strUserName As String)
-        If cmbPauseTime.SelectedIndex > 0 Then
-            intPauseTime = Integer.Parse(cmbPauseTime.Text) * 60
-        End If
-        strCheckComment = txtAlertComment.Text
-        strUserName = txtAlertUser.Text
-    End Sub
 End Class
