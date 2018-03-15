@@ -22,240 +22,182 @@ Partial Class frmAlertConfig
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertConfig))
-        Me.grpMain = New eXperDB.BaseControls.GroupBox()
         Me.tbMain = New FlatTabControl.FlatTabControl()
-        Me.Panel2 = New eXperDB.BaseControls.Panel()
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.btnHealthInit = New eXperDB.BaseControls.Button()
         Me.btnSave = New eXperDB.BaseControls.Button()
-        Me.Panel1 = New eXperDB.BaseControls.Panel()
-        Me.FormControlBox1 = New eXperDB.Controls.FormControlBox()
-        Me.pnlAlertConfig = New eXperDB.Controls.FormMovePanel()
-        Me.grpMain.SuspendLayout()
-        Me.Panel2.SuspendLayout()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.pnlAlertConfig.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'grpMain
-        '
-        Me.grpMain.AlignLine = System.Drawing.StringAlignment.Center
-        Me.grpMain.AlignString = System.Drawing.StringAlignment.Near
-        Me.grpMain.BackColor = System.Drawing.Color.Black
-        Me.grpMain.Controls.Add(Me.tbMain)
-        Me.grpMain.Controls.Add(Me.Panel2)
-        Me.grpMain.Controls.Add(Me.Panel1)
-        Me.grpMain.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpMain.EdgeRound = Edges1
-        Me.grpMain.FillColor = System.Drawing.Color.Black
-        Me.grpMain.ForeColor = System.Drawing.SystemColors.Control
-        Me.grpMain.Icon = Nothing
-        Me.grpMain.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.grpMain.LineWidth = 1
-        Me.grpMain.Location = New System.Drawing.Point(0, 31)
-        Me.grpMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.grpMain.Name = "grpMain"
-        Me.grpMain.Size = New System.Drawing.Size(874, 710)
-        Me.grpMain.TabIndex = 1
-        Me.grpMain.TabStop = False
-        Me.grpMain.Text = "F199"
-        Me.grpMain.TitleFont = New System.Drawing.Font("Gulim", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.grpMain.TitleGraColor = System.Drawing.Color.DimGray
-        Me.grpMain.UseGraColor = True
-        Me.grpMain.UseRound = True
-        Me.grpMain.UseTitle = False
         '
         'tbMain
         '
         Me.tbMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tbMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
         Me.tbMain.ItemSize = New System.Drawing.Size(150, 21)
-        Me.tbMain.Location = New System.Drawing.Point(3, 21)
-        Me.tbMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.tbMain.myBackColor = System.Drawing.Color.Black
+        Me.tbMain.Location = New System.Drawing.Point(0, 30)
+        Me.tbMain.myBackColor = System.Drawing.Color.Gray
         Me.tbMain.Name = "tbMain"
         Me.tbMain.SelectedIndex = 0
-        Me.tbMain.Size = New System.Drawing.Size(868, 647)
+        Me.tbMain.Size = New System.Drawing.Size(765, 527)
         Me.tbMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
-        Me.tbMain.TabIndex = 0
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.Black
-        Me.Panel2.Controls.Add(Me.TableLayoutPanel1)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(3, 668)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(868, 39)
-        Me.Panel2.TabIndex = 3
+        Me.tbMain.TabIndex = 4
         '
         'TableLayoutPanel1
         '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel1.ColumnCount = 4
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnHealthInit, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 2, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 557)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(868, 39)
-        Me.TableLayoutPanel1.TabIndex = 0
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(765, 41)
+        Me.TableLayoutPanel1.TabIndex = 5
         '
         'btnClose
         '
+        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
+        Me.btnClose.ForeColor = System.Drawing.Color.White
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(761, 4)
-        Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClose.Location = New System.Drawing.Point(672, 3)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(104, 31)
+        Me.btnClose.Radius = 5
+        Me.btnClose.Size = New System.Drawing.Size(90, 35)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
-        Me.btnClose.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnClose.UseRound = True
-        Me.btnClose.UseVisualStyleBackColor = True
+        Me.btnClose.UseVisualStyleBackColor = False
         '
         'btnHealthInit
         '
+        Me.btnHealthInit.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnHealthInit.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnHealthInit.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnHealthInit.FixedHeight = False
         Me.btnHealthInit.FixedWidth = False
+        Me.btnHealthInit.ForeColor = System.Drawing.Color.White
         Me.btnHealthInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnHealthInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnHealthInit.Location = New System.Drawing.Point(541, 4)
-        Me.btnHealthInit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnHealthInit.Location = New System.Drawing.Point(480, 3)
         Me.btnHealthInit.Name = "btnHealthInit"
-        Me.btnHealthInit.Radius = 10
-        Me.btnHealthInit.Size = New System.Drawing.Size(104, 31)
+        Me.btnHealthInit.Radius = 5
+        Me.btnHealthInit.Size = New System.Drawing.Size(90, 35)
         Me.btnHealthInit.TabIndex = 2
         Me.btnHealthInit.Text = "F226"
-        Me.btnHealthInit.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnHealthInit.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnHealthInit.UseRound = True
-        Me.btnHealthInit.UseVisualStyleBackColor = True
+        Me.btnHealthInit.UseVisualStyleBackColor = False
         '
         'btnSave
         '
+        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnSave.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnSave.FixedHeight = False
         Me.btnSave.FixedWidth = False
+        Me.btnSave.ForeColor = System.Drawing.Color.White
         Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnSave.Location = New System.Drawing.Point(651, 4)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSave.Location = New System.Drawing.Point(576, 3)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Radius = 10
-        Me.btnSave.Size = New System.Drawing.Size(104, 31)
+        Me.btnSave.Radius = 5
+        Me.btnSave.Size = New System.Drawing.Size(90, 35)
         Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "F014"
-        Me.btnSave.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSave.UseRound = True
-        Me.btnSave.UseVisualStyleBackColor = True
+        Me.btnSave.UseVisualStyleBackColor = False
         '
-        'Panel1
+        'TableLayoutPanel2
         '
-        Me.Panel1.Location = New System.Drawing.Point(449, 36)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(79, 65)
-        Me.Panel1.TabIndex = 1
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 730.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.StatusLabel, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(765, 30)
+        Me.TableLayoutPanel2.TabIndex = 15
         '
-        'FormControlBox1
+        'StatusLabel
         '
-        Me.FormControlBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormControlBox1.CloseBox = New System.Drawing.Rectangle(45, 1, 20, 20)
-        Me.FormControlBox1.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.CriticalBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
-        Me.FormControlBox1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FormControlBox1.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.FormControlBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormControlBox1.isCritical = True
-        Me.FormControlBox1.isLock = False
-        Me.FormControlBox1.isPower = True
-        Me.FormControlBox1.isRotation = True
-        Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
-        Me.FormControlBox1.Location = New System.Drawing.Point(805, 0)
-        Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(23, 1, 20, 20)
-        Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
-        Me.FormControlBox1.Name = "FormControlBox1"
-        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(-43, 1, 20, 20)
-        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.ShowRectCnt = 3
-        Me.FormControlBox1.Size = New System.Drawing.Size(67, 22)
-        Me.FormControlBox1.TabIndex = 5
-        Me.FormControlBox1.Text = "FormControlBox1"
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseCriticalBox = True
-        Me.FormControlBox1.UseDualBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseMaxBox = True
-        Me.FormControlBox1.UseMinBox = True
-        Me.FormControlBox1.UsePowerBox = True
-        Me.FormControlBox1.UseRotationBox = False
+        Me.StatusLabel.AutoSize = True
+        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.StatusLabel.ForeColor = System.Drawing.Color.White
+        Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StatusLabel.Location = New System.Drawing.Point(38, 0)
+        Me.StatusLabel.Name = "StatusLabel"
+        Me.StatusLabel.Size = New System.Drawing.Size(724, 30)
+        Me.StatusLabel.TabIndex = 0
+        Me.StatusLabel.Text = "Text"
+        Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'pnlAlertConfig
+        'Label1
         '
-        Me.pnlAlertConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.pnlAlertConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlAlertConfig.Controls.Add(Me.FormControlBox1)
-        Me.pnlAlertConfig.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlAlertConfig.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.pnlAlertConfig.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.pnlAlertConfig.Location = New System.Drawing.Point(0, 0)
-        Me.pnlAlertConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.pnlAlertConfig.Name = "pnlAlertConfig"
-        Me.pnlAlertConfig.Size = New System.Drawing.Size(874, 31)
-        Me.pnlAlertConfig.TabIndex = 4
-        Me.pnlAlertConfig.Text = "F199"
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(29, 30)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
         '
         'frmAlertConfig
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(874, 748)
-        Me.Controls.Add(Me.grpMain)
-        Me.Controls.Add(Me.pnlAlertConfig)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.ClientSize = New System.Drawing.Size(765, 598)
+        Me.Controls.Add(Me.tbMain)
+        Me.Controls.Add(Me.TableLayoutPanel2)
+        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmAlertConfig"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmAlertConfig"
-        Me.grpMain.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.pnlAlertConfig.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents tbMain As FlatTabControl.FlatTabControl
-    Friend WithEvents grpMain As eXperDB.BaseControls.GroupBox
-    Friend WithEvents Panel1 As eXperDB.BaseControls.Panel
-    Friend WithEvents pnlAlertConfig As eXperDB.Controls.FormMovePanel
-    Friend WithEvents FormControlBox1 As eXperDB.Controls.FormControlBox
-    Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
-    Friend WithEvents btnClose As eXperDB.BaseControls.Button
-    Friend WithEvents btnSave As eXperDB.BaseControls.Button
-    Friend WithEvents btnHealthInit As eXperDB.BaseControls.Button
     Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents btnClose As eXperDB.BaseControls.Button
+    Friend WithEvents btnHealthInit As eXperDB.BaseControls.Button
+    Friend WithEvents btnSave As eXperDB.BaseControls.Button
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents StatusLabel As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

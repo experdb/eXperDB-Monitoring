@@ -14,7 +14,9 @@
         btnClose.Text = "Cancel"
 
         ' 일반설정 탭 
-        FormMovePanel1.Text = p_clsMsgData.fn_GetData("F262")
+        'FormMovePanel1.Text = p_clsMsgData.fn_GetData("F262")
+        Me.Text = p_clsMsgData.fn_GetData("F262")
+        StatusLabel.Text = p_clsMsgData.fn_GetData("F262")
         lblPause.Text = p_clsMsgData.fn_GetData("F263")
         lblMsg.Text = p_clsMsgData.fn_GetData("M035")
 

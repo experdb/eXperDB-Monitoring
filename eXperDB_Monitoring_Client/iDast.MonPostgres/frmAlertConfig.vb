@@ -13,8 +13,8 @@ Public Class frmAlertConfig
         btnHealthInit.Text = p_clsMsgData.fn_GetData("F226")
 
         ' 일반설정 탭 
-        grpMain.Text = p_clsMsgData.fn_GetData("F199")
-        pnlAlertConfig.Text = p_clsMsgData.fn_GetData("F199")
+        Me.Text = p_clsMsgData.fn_GetData("F199")
+        Me.StatusLabel.Text = p_clsMsgData.fn_GetData("F199")
 
         ' Me.tbMain.TabPages.Clear()
 
@@ -35,10 +35,16 @@ Public Class frmAlertConfig
             usrContorl.Name = "AlertConfig" ' & svrLst.Item(i).InstanceID
             tbMain.TabPages(tbMain.TabPages.Count - 1).Controls.Add(usrContorl)
             'tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Black
+            If i = 0 Then
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+            Else
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+            End If
+            tbMain.TabPages.Item(i).ForeColor = System.Drawing.Color.White
+            tbMain.TabPages.Item(i).Font = New Font("굴림체", 9.0!, System.Drawing.FontStyle.Regular)
         Next
 
-        modCommon.FontChange(Me, p_Font)
+        ' modCommon.FontChange(Me, p_Font)
     End Sub
 
 
@@ -193,5 +199,16 @@ Public Class frmAlertConfig
         tmpctl.Setvalue(dt)
         'Dim HealtLimited As AlertConfiguration.GetServerAlertConfig = tmpctl.GetValue
         'Dim InstanceID As Integer = HealtLimited.InstanceID
+    End Sub
+
+    Private Sub tbMain_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tbMain.SelectedIndexChanged
+        'tbMain.TabPages(tbMain.SelectedIndex).Font = New Font("굴림체", tbMain.TabPages(tbMain.SelectedIndex).Font.Size, System.Drawing.FontStyle.Bold)
+        For i As Integer = 0 To tbMain.TabCount - 1
+            If i = tbMain.SelectedIndex Then
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+            Else
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+            End If
+        Next
     End Sub
 End Class

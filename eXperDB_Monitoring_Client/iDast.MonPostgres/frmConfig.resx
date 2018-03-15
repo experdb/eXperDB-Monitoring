@@ -117,22 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RichTextBoxQuery1.Text" xml:space="preserve">
-    <value>/* PREVIEW   SAMPLE   DATA */ 
-SELECT -- SAMPLE DATA
-  1234.0 AS COLNUMBER,
-  'SAMPLE' AS COLSTRING,
-  NOW() AS COLFUNCTIONS,
-  NULL AS COLKEYWORDS,
-FROM SAMPLE_TABLE
-WHERE CAST(COL1 AS CHAR(5)) = '12345'
-  AND COL2 = $1
-  AND COL3 = $2
-  AND COL4 = 'VARIABLES'
-GROUP BY COL1 , COL2 , COL3 
-ORDER BY COL1 ASC</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Label1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAABoSURBVDhPYxhhoOwwx/+Sg6z/C/cz/YcKEQ+QNefvYfyf
+        u4uBeEOwac7eQaQBRGluPmv0v/GM5v+6U4ooEiRrrjkp+b/quDBYAdHORtdccYT3P8l+pkgzDFCkGQYo
+        0gwDFGkeAMDAAAD9EqdCoVX3DwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAA

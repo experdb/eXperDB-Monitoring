@@ -31,8 +31,7 @@
         _AgentInfo = clsAgentInfo
 
 
-
-
+        InitForm()
 
     End Sub
     ''' <summary>
@@ -42,7 +41,9 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        InitForm()
+        Me.Invoke(New MethodInvoker(Sub()
+                                        btnPause.PerformClick()
+                                    End Sub))
     End Sub
 
 
@@ -52,39 +53,12 @@
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
-
-
-        '' Current Activity
-        'grpCurAct.Text = p_clsMsgData.fn_GetData("F076")
-        'dgvCurrentAct.AutoGenerateColumns = False
-        'coldgvCurrentActDB.HeaderText = p_clsMsgData.fn_GetData("F104")
-        'coldgvCurrentActPID.HeaderText = p_clsMsgData.fn_GetData("F082")
-        'coldgvCurrentActUSER.HeaderText = p_clsMsgData.fn_GetData("F134")
-        'coldgvCurrentActXACTSTART.HeaderText = p_clsMsgData.fn_GetData("F083")
-        'coldgvCurrentActELASPEDTIME.HeaderText = p_clsMsgData.fn_GetData("F135")
-        'coldgvCurrentActQUERY.HeaderText = p_clsMsgData.fn_GetData("F084")
-
-
-        ' lock Information 
-        dgvLock.AutoGenerateColumns = False
-        'colDgvLockSel.HeaderText = p_clsMsgData.fn_GetData("F017")
-        colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
-        colDgvLockBlockedPID.HeaderText = p_clsMsgData.fn_GetData("F195")
-        colDgvLockBlockedUser.HeaderText = p_clsMsgData.fn_GetData("F196")
-        colDgvLockBlockingPID.HeaderText = p_clsMsgData.fn_GetData("F197")
-        colDgvLockBlockingUser.HeaderText = p_clsMsgData.fn_GetData("F198")
-        colDgvLockElapse.HeaderText = p_clsMsgData.fn_GetData("F135")
-        colDgvLockBlockingQuery.HeaderText = p_clsMsgData.fn_GetData("F225")
-        colDgvLockBlockedQuery.HeaderText = p_clsMsgData.fn_GetData("F221")
-        colDgvLOckLockMode.HeaderText = p_clsMsgData.fn_GetData("F222")
-        colDgvLockQueryStart.HeaderText = p_clsMsgData.fn_GetData("F223")
-        colDgvLockXactStart.HeaderText = p_clsMsgData.fn_GetData("F224")
+        'FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
 
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' DB Information
-        grpDBinfo.Text = p_clsMsgData.fn_GetData("F078", 0)
+        lblDBinfo.Text = p_clsMsgData.fn_GetData("F078", 0)
         dgvDBinfo.AutoGenerateColumns = False
         coldgvDBinfoDB.HeaderText = p_clsMsgData.fn_GetData("F104")
         coldgvDBinfoSIZE.HeaderText = p_clsMsgData.fn_GetData("F105")
@@ -97,7 +71,7 @@
 
 
         'Tablespace Information
-        grpTblSpaceInfo.Text = p_clsMsgData.fn_GetData("F079", 0)
+        lblTblSpaceInfo.Text = p_clsMsgData.fn_GetData("F079", 0)
         dgvTblSpaceInfo.AutoGenerateColumns = False
         coldgvTblSpaceInfoTABLESPACE.HeaderText = p_clsMsgData.fn_GetData("F111")
         coldgvTblSpaceInfoSIZE.HeaderText = p_clsMsgData.fn_GetData("F112")
@@ -110,7 +84,7 @@
 
         ' Talble Information
 
-        grpTblinfo.Text = p_clsMsgData.fn_GetData("F080", 0)
+        lblTblinfo.Text = p_clsMsgData.fn_GetData("F080", 0)
         dgvTblinfo.AutoGenerateColumns = False
         coldgvTblinfoDB.HeaderText = p_clsMsgData.fn_GetData("F116")
         coldgvTblinfoTABLE.HeaderText = p_clsMsgData.fn_GetData("F117")
@@ -128,7 +102,7 @@
 
 
         ' Index Information
-        grpidxinfo.Text = p_clsMsgData.fn_GetData("F081", 0)
+        lblidxinfo.Text = p_clsMsgData.fn_GetData("F081", 0)
         dgvIdxinfo.AutoGenerateColumns = False
         coldgvIdxinfoDB.HeaderText = p_clsMsgData.fn_GetData("F126")
         coldgvIdxinfoINDEX.HeaderText = p_clsMsgData.fn_GetData("F127")
@@ -141,25 +115,11 @@
         coldgvIdxinfoLiveTuples.HeaderText = p_clsMsgData.fn_GetData("F124")
 
 
-        grpTableInfo.Text = p_clsMsgData.fn_GetData("F138")
+        MsgLabel.Text = p_clsMsgData.fn_GetData("F138")
 
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
-        'btnRefresh.Text = p_clsMsgData.fn_GetData("F137")
-
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
-
-        ' fit button location
-        Me.btnExcel.Location = New System.Drawing.Point(Me.grpTableInfo.Width - Me.btnExcel.Width - Me.btnExcel.Margin.Right, Me.btnExcel.Margin.Top)
-        Me.btnRefresh.Location = New System.Drawing.Point(Me.btnExcel.Location.X - Me.btnRefresh.Width - Me.btnRefresh.Margin.Right, Me.btnRefresh.Margin.Top)
-        Me.lblRefreshTime.Location = New System.Drawing.Point(Me.btnRefresh.Location.X - Me.lblRefreshTime.Width - Me.lblRefreshTime.Margin.Right, Me.btnRefresh.Margin.Top + 4)
-        'Me.btnExcel.Location = New System.Drawing.Point(1704, 4)
-
-        modCommon.FontChange(Me, p_Font)
+        'modCommon.FontChange(Me, p_Font)
 
     End Sub
 
@@ -187,7 +147,7 @@
         dgvDBinfo.DataSource = dtView ' dtTable.DefaultView
 
 
-        grpDBinfo.Text = p_clsMsgData.fn_GetData("F078", dtView.Count)
+        lblDBinfo.Text = p_clsMsgData.fn_GetData("F078", dtView.Count)
 
 
         modCommon.sb_GridSortChg(dgvDBinfo)
@@ -208,23 +168,26 @@
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
 
         dgvTblSpaceInfo.Rows.Clear()
+        Try
+            'For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
+            For Each dtRow As DataRow In dtDiskTable.Select("MOUNT_POINT_DIR <> '-'")
+                Dim intInstID As Integer = dtRow.Item("INSTANCE_ID") ' datainfo.C00_INSTANCE_ID
+                Dim idxRow As Integer = dgvTblSpaceInfo.Rows.Add()
+                Dim strFileSystem As String = dtRow.Item("DISK_NAME")
+                Dim strDeviceNm As String = dtRow.Item("MOUNT_POINT_DIR")
+                Dim dblTotKb As Double = ConvDBL(dtRow.Item("TOTAL_KB"))
+                Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
+                Dim dblAvailKb As Double = ConvDBL(dtRow.Item("AVAIL_KB"))
 
-        'For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
-        For Each dtRow As DataRow In dtDiskTable.Select("MOUNT_POINT_DIR <> '-'")
-            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID") ' datainfo.C00_INSTANCE_ID
-            Dim idxRow As Integer = dgvTblSpaceInfo.Rows.Add()
-            Dim strFileSystem As String = dtRow.Item("DISK_NAME")
-            Dim strDeviceNm As String = dtRow.Item("MOUNT_POINT_DIR")
-            Dim dblTotKb As Double = ConvDBL(dtRow.Item("TOTAL_KB"))
-            Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
-            Dim dblAvailKb As Double = ConvDBL(dtRow.Item("AVAIL_KB"))
-
-            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoFileSystem.Index).Value = strFileSystem
-            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoDISKSIZE.Index).Value = dblTotKb
-            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoDISKUSED.Index).Value = dblRate / 100
-            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoAvail.Index).Value = dblAvailKb
-            dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value = strDeviceNm
-        Next
+                dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoFileSystem.Index).Value = strFileSystem
+                dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoDISKSIZE.Index).Value = dblTotKb
+                dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoDISKUSED.Index).Value = dblRate / 100
+                dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoAvail.Index).Value = dblAvailKb
+                dgvTblSpaceInfo.Rows(idxRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value = strDeviceNm
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
 
         For Each dtRow As DataRow In dtTable.Rows
             Dim strLocation As String = dtRow.Item("LOCATION")
@@ -255,7 +218,7 @@
             End If
         Next
 
-        grpTblSpaceInfo.Text = p_clsMsgData.fn_GetData("F079", dtTable.Rows.Count)
+        lblTblSpaceInfo.Text = p_clsMsgData.fn_GetData("F079", dtTable.Rows.Count)
         modCommon.sb_GridSortChg(dgvTblSpaceInfo)
         dgvTblSpaceInfo.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
@@ -307,7 +270,7 @@
         'dgvTblinfo.DataSource = dtView
         Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
         dgvTblinfo.DataSource = dtView
-        grpTblinfo.Text = p_clsMsgData.fn_GetData("F080", dtView.Count)
+        lblTblinfo.Text = p_clsMsgData.fn_GetData("F080", dtView.Count)
         modCommon.sb_GridSortChg(dgvTblinfo)
         dgvTblinfo.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
@@ -413,36 +376,36 @@
 
         dgvIdxinfo.DataSource = dtView
 
-        grpidxinfo.Text = p_clsMsgData.fn_GetData("F081", dtView.Count)
+        lblidxinfo.Text = p_clsMsgData.fn_GetData("F081", dtView.Count)
         modCommon.sb_GridSortChg(dgvIdxinfo)
         dgvIdxinfo.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
     End Sub
 
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnPause.Click
 
-        _frmWait = New frmWait
-        _frmWait.TopMost = True
-        _frmWait.Show(Me)
+        '_frmWait = New frmWait
+        '_frmWait.TopMost = True
+        '_frmWait.Show(Me)
 
         _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
         _AgentObject.SendDX001(Me.InstanceID)
 
 
-        'If bckmanual.IsBusy = True Then
-        '    bckmanual.CancelAsync()
-        '    Return
-        'End If
+        If bckmanual.IsBusy = True Then
+            bckmanual.CancelAsync()
+            Return
+        End If
         'bckmanual.RunWorkerAsync()
 
     End Sub
 
 
     Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
-        If _frmWait IsNot Nothing Then
-            _frmWait.AddText("Data select start")
-        End If
+        'If _frmWait IsNot Nothing Then
+        '    _frmWait.AddText("Data select start")
+        'End If
 
         bckmanual.ReportProgress(100)
 
@@ -467,12 +430,12 @@
             If _frmWait IsNot Nothing Then
                 _frmWait.AddText("Data Table Space Information")
             End If
-            Me.SetDataTBspaceinfo(p_clsAgentCollect.infoDataDisk, p_clsAgentCollect.infoDataTBspaceinfo)
+            Me.SetDataTBspaceinfo(p_clsAgentCollect.infoDataDiskUsage, p_clsAgentCollect.infoDataTBspaceinfo)
             If _frmWait IsNot Nothing Then
                 _frmWait.AddText("Data Index Information")
             End If
             Me.SetDataIndexinfo(p_clsAgentCollect.infoDataIndexinfo)
-            lblRefreshTime.Text = Now.ToString("yyyy-MM-dd HH:mm:ss")
+            'lblRefreshTime.Text = Now.ToString("yyyy-MM-dd HH:mm:ss")
 
 
         End If
@@ -485,7 +448,10 @@
 
     Private Sub frmMonActInfo_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
-        bckmanual.RunWorkerAsync()
+        'bckmanual.RunWorkerAsync()
+        'Me.Invoke(New MethodInvoker(Sub()
+        'btnPause.PerformClick()
+        'End Sub))
 
     End Sub
 
@@ -532,25 +498,25 @@
                                                 bckmanual.RunWorkerAsync()
                                             End Sub))
 
-            Else
-                Me.Invoke(New MethodInvoker(Sub()
-                                                If _frmWait IsNot Nothing Then
-                                                    _frmWait.AddText(String.Format("[{0}]{1}", rtnValue._tran_res_data(0)._error_cd, rtnValue._tran_res_data(1)._error_msg))
-                                                End If
-                                            End Sub))
+                'Else
+                '    Me.Invoke(New MethodInvoker(Sub()
+                '                                    If _frmWait IsNot Nothing Then
+                '                                        _frmWait.AddText(String.Format("[{0}]{1}", rtnValue._tran_res_data(0)._error_cd, rtnValue._tran_res_data(1)._error_msg))
+                '                                    End If
+                '                                End Sub))
             End If
-        ElseIf e.GetType.Equals(GetType(clsSocket.Results)) Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            If _frmWait IsNot Nothing Then
-                                                _frmWait.AddText(DirectCast(e, clsSocket.Results).ErrorMsg)
-                                            End If
-                                        End Sub))
-        Else
-            Me.Invoke(New MethodInvoker(Sub()
-                                            If _frmWait IsNot Nothing Then
-                                                _frmWait.AddText("Unknown Error")
-                                            End If
-                                        End Sub))
+            'ElseIf e.GetType.Equals(GetType(clsSocket.Results)) Then
+            '    'Me.Invoke(New MethodInvoker(Sub()
+            '    '                                If _frmWait IsNot Nothing Then
+            '    '                                    _frmWait.AddText(DirectCast(e, clsSocket.Results).ErrorMsg)
+            '    '                                End If
+            '    '                            End Sub))
+            'Else
+            '    Me.Invoke(New MethodInvoker(Sub()
+            '                                    If _frmWait IsNot Nothing Then
+            '                                        _frmWait.AddText("Unknown Error")
+            '                                    End If
+            '                                End Sub))
         End If
 
 
@@ -560,7 +526,9 @@
     Private Sub AgentObject_Progress(sender As Object, e As clsSocket.ProgArgs) Handles _AgentObject.Progress
         If e.Status = clsSocket.enumStatus.Start Then
             Me.Invoke(New MethodInvoker(Sub()
-                                            _frmWait.AddText("Agent Running")
+                                            If _frmWait IsNot Nothing Then
+                                                _frmWait.AddText("Agent Running")
+                                            End If
                                         End Sub))
         End If
     End Sub
@@ -586,29 +554,6 @@
 
         End If
 
-
-    End Sub
-
-
-
-
-    Private Sub dgvLock_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellContentDoubleClick
-        Dim strDb As String = ""
-        Dim strUser As String = ""
-        Dim strQuery As String = ""
-
-        If e.ColumnIndex = colDgvLockBlockedQuery.Index Then
-            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
-            strQuery = dgvLock.CurrentCell.Value
-            strUser = dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value
-        ElseIf e.ColumnIndex = colDgvLockBlockingQuery.Index Then
-            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
-            strQuery = dgvLock.CurrentCell.Value
-            strUser = dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value
-        End If
-
-        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
-        frmQuery.ShowDialog(Me)
 
     End Sub
 

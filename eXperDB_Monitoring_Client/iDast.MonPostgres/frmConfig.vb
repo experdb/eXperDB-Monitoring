@@ -19,7 +19,9 @@
 
 
         ' 일반설정 탭 
-        FormMovePanel1.Text = p_clsMsgData.fn_GetData("F022")
+        'FormMovePanel1.Text = p_clsMsgData.fn_GetData("F022")
+        Me.Text = p_clsMsgData.fn_GetData("F022")
+        StatusLabel.Text = p_clsMsgData.fn_GetData("F022")
         tp1.Text = p_clsMsgData.fn_GetData("F024")
         lblLang.Text = p_clsMsgData.fn_GetData("F023")
 
@@ -108,54 +110,55 @@
 
         cmbFont.Text = p_Font
 
-
+        tp1.BackColor = System.Drawing.Color.Gray
+        tp2.BackColor = System.Drawing.Color.DimGray
         ' SQL TAB 
 
         btnQueryInit.Text = p_clsMsgData.fn_GetData("F226")
 
-        tpSQL.Text = p_clsMsgData.fn_GetData("F208")
+        'tpSQL.Text = p_clsMsgData.fn_GetData("F208")
         lblRegex.Text = p_clsMsgData.fn_GetData("F209")
-        lblBackColor.Text = p_clsMsgData.fn_GetData("F210")
-        lblComments.Text = p_clsMsgData.fn_GetData("F211")
-        lblFunctions.Text = p_clsMsgData.fn_GetData("F212")
-        lblKeywords.Text = p_clsMsgData.fn_GetData("F213")
-        lblNumbers.Text = p_clsMsgData.fn_GetData("F214")
-        lblStatements.Text = p_clsMsgData.fn_GetData("F215")
-        lblTypes.Text = p_clsMsgData.fn_GetData("F216")
-        lblVariables.Text = p_clsMsgData.fn_GetData("F217")
-        lblStrings.Text = p_clsMsgData.fn_GetData("F218")
-        lblNormal.Text = p_clsMsgData.fn_GetData("F220")
+        'lblBackColor.Text = p_clsMsgData.fn_GetData("F210")
+        'lblComments.Text = p_clsMsgData.fn_GetData("F211")
+        'lblFunctions.Text = p_clsMsgData.fn_GetData("F212")
+        'lblKeywords.Text = p_clsMsgData.fn_GetData("F213")
+        'lblNumbers.Text = p_clsMsgData.fn_GetData("F214")
+        'lblStatements.Text = p_clsMsgData.fn_GetData("F215")
+        'lblTypes.Text = p_clsMsgData.fn_GetData("F216")
+        'lblVariables.Text = p_clsMsgData.fn_GetData("F217")
+        'lblStrings.Text = p_clsMsgData.fn_GetData("F218")
+        'lblNormal.Text = p_clsMsgData.fn_GetData("F220")
 
 
         txtRegex.Text = clsIni.ReadValue("SQL", "PATTERN", "\$[a-zA-Z_\d]*\b")
-        cmbBackColor.Text = clsIni.ReadValue("SQL", "BACKCOLOR", "BLACK")
-        cmbComments.Text = clsIni.ReadValue("SQL", "COMMENTS", "GREEN")
-        cmbFunctions.Text = clsIni.ReadValue("SQL", "FUNCTIONS", "MAROON")
-        cmbKeywords.Text = clsIni.ReadValue("SQL", "KEYWORDS", "BLUE")
-        cmbNumbers.Text = clsIni.ReadValue("SQL", "NUMBERS", "MAGENTA")
-        cmbStatements.Text = clsIni.ReadValue("SQL", "STATEMENTS", "BLUE")
-        cmbTypes.Text = clsIni.ReadValue("SQL", "TYPES", "BROWN")
-        cmbVariables.Text = clsIni.ReadValue("SQL", "VARIABLES", "MAROON")
-        cmbStrings.Text = clsIni.ReadValue("SQL", "STRINGS", "RED")
-        cmbNormal.Text = clsIni.ReadValue("SQL", "NORMAL", "GRAY")
+        'cmbBackColor.Text = clsIni.ReadValue("SQL", "BACKCOLOR", "BLACK")
+        'cmbComments.Text = clsIni.ReadValue("SQL", "COMMENTS", "GREEN")
+        'cmbFunctions.Text = clsIni.ReadValue("SQL", "FUNCTIONS", "MAROON")
+        'cmbKeywords.Text = clsIni.ReadValue("SQL", "KEYWORDS", "BLUE")
+        'cmbNumbers.Text = clsIni.ReadValue("SQL", "NUMBERS", "MAGENTA")
+        'cmbStatements.Text = clsIni.ReadValue("SQL", "STATEMENTS", "BLUE")
+        'cmbTypes.Text = clsIni.ReadValue("SQL", "TYPES", "BROWN")
+        'cmbVariables.Text = clsIni.ReadValue("SQL", "VARIABLES", "MAROON")
+        'cmbStrings.Text = clsIni.ReadValue("SQL", "STRINGS", "RED")
+        'cmbNormal.Text = clsIni.ReadValue("SQL", "NORMAL", "GRAY")
 
 
-        Me.RichTextBoxQuery1.BackColor = System.Drawing.Color.FromName(cmbBackColor.Text)
-        Me.RichTextBoxQuery1.Comments = System.Drawing.Color.FromName(cmbComments.Text)
-        Me.RichTextBoxQuery1.Functions = System.Drawing.Color.FromName(cmbFunctions.Text)
-        Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.FromName(cmbKeywords.Text)
-        Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.FromName(cmbNumbers.Text)
-        Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.FromName(cmbStatements.Text)
-        Me.RichTextBoxQuery1.Types = System.Drawing.Color.FromName(cmbTypes.Text)
-        Me.RichTextBoxQuery1.Variables = System.Drawing.Color.FromName(cmbVariables.Text)
-        Me.RichTextBoxQuery1.Strings = System.Drawing.Color.FromName(cmbStrings.Text)
-        Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.FromName(cmbNormal.Text)
+        'Me.RichTextBoxQuery1.BackColor = System.Drawing.Color.FromName(cmbBackColor.Text)
+        'Me.RichTextBoxQuery1.Comments = System.Drawing.Color.FromName(cmbComments.Text)
+        'Me.RichTextBoxQuery1.Functions = System.Drawing.Color.FromName(cmbFunctions.Text)
+        'Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.FromName(cmbKeywords.Text)
+        'Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.FromName(cmbNumbers.Text)
+        'Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.FromName(cmbStatements.Text)
+        'Me.RichTextBoxQuery1.Types = System.Drawing.Color.FromName(cmbTypes.Text)
+        'Me.RichTextBoxQuery1.Variables = System.Drawing.Color.FromName(cmbVariables.Text)
+        'Me.RichTextBoxQuery1.Strings = System.Drawing.Color.FromName(cmbStrings.Text)
+        'Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.FromName(cmbNormal.Text)
 
 
 
 
 
-        modCommon.FontChange(Me, p_Font)
+        'modCommon.FontChange(Me, p_Font)
 
 
 
@@ -175,16 +178,16 @@
 
         Dim ConfigIni As New Common.IniFile(p_AppConfigIni)
         ConfigIni.WriteValue("SQL", "PATTERN", txtRegex.Text)
-        ConfigIni.WriteValue("SQL", "BACKCOLOR", cmbBackColor.Text)
-        ConfigIni.WriteValue("SQL", "COMMENTS", cmbComments.Text)
-        ConfigIni.WriteValue("SQL", "FUNCTIONS", cmbFunctions.Text)
-        ConfigIni.WriteValue("SQL", "KEYWORDS", cmbKeywords.Text)
-        ConfigIni.WriteValue("SQL", "NUMBERS", cmbNumbers.Text)
-        ConfigIni.WriteValue("SQL", "STATEMENTS", cmbStatements.Text)
-        ConfigIni.WriteValue("SQL", "TYPES", cmbTypes.Text)
-        ConfigIni.WriteValue("SQL", "VARIABLES", cmbVariables.Text)
-        ConfigIni.WriteValue("SQL", "STRINGS", cmbStrings.Text)
-        ConfigIni.WriteValue("SQL", "NORMAL", cmbNormal.Text)
+        'ConfigIni.WriteValue("SQL", "BACKCOLOR", cmbBackColor.Text)
+        'ConfigIni.WriteValue("SQL", "COMMENTS", cmbComments.Text)
+        'ConfigIni.WriteValue("SQL", "FUNCTIONS", cmbFunctions.Text)
+        'ConfigIni.WriteValue("SQL", "KEYWORDS", cmbKeywords.Text)
+        'ConfigIni.WriteValue("SQL", "NUMBERS", cmbNumbers.Text)
+        'ConfigIni.WriteValue("SQL", "STATEMENTS", cmbStatements.Text)
+        'ConfigIni.WriteValue("SQL", "TYPES", cmbTypes.Text)
+        'ConfigIni.WriteValue("SQL", "VARIABLES", cmbVariables.Text)
+        'ConfigIni.WriteValue("SQL", "STRINGS", cmbStrings.Text)
+        'ConfigIni.WriteValue("SQL", "NORMAL", cmbNormal.Text)
     End Sub
 
 
@@ -280,57 +283,30 @@
 
     End Sub
 
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles lblStrings.Click, lblNormal.Click
 
-    End Sub
-
-    Private Sub cmbQueryClr_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBackColor.SelectedIndexChanged _
-                                                                                         , cmbVariables.SelectedIndexChanged _
-                                                                                         , cmbTypes.SelectedIndexChanged _
-                                                                                         , cmbStrings.SelectedIndexChanged _
-                                                                                         , cmbStatements.SelectedIndexChanged _
-                                                                                         , cmbNumbers.SelectedIndexChanged _
-                                                                                         , cmbNormal.SelectedIndexChanged _
-                                                                                         , cmbKeywords.SelectedIndexChanged _
-                                                                                         , cmbFunctions.SelectedIndexChanged _
-                                                                                         , cmbComments.SelectedIndexChanged
-        Select Case DirectCast(sender, Control).Name
-            Case cmbBackColor.Name
-                RichTextBoxQuery1.BackColor = Color.FromName(cmbBackColor.Text)
-            Case cmbVariables.Name
-                RichTextBoxQuery1.Variables = Color.FromName(cmbVariables.Text)
-            Case cmbTypes.Name
-                RichTextBoxQuery1.Types = Color.FromName(cmbTypes.Text)
-            Case cmbStrings.Name
-                RichTextBoxQuery1.Strings = Color.FromName(cmbStrings.Text)
-            Case cmbStatements.Name
-                RichTextBoxQuery1.StateMents = Color.FromName(cmbStatements.Text)
-            Case cmbNumbers.Name
-                RichTextBoxQuery1.Numbers = Color.FromName(cmbNumbers.Text)
-            Case cmbNormal.Name
-                RichTextBoxQuery1.ForeColor = Color.FromName(cmbNormal.Text)
-            Case cmbKeywords.Name
-                RichTextBoxQuery1.KeyWords = Color.FromName(cmbKeywords.Text)
-            Case cmbFunctions.Name
-                RichTextBoxQuery1.Functions = Color.FromName(cmbFunctions.Text)
-            Case cmbComments.Name
-                RichTextBoxQuery1.Comments = Color.FromName(cmbComments.Text)
-           
-
-        End Select
-    End Sub
 
     Private Sub btnQueryInit_Click(sender As Object, e As EventArgs) Handles btnQueryInit.Click
-        cmbBackColor.Text = "BLACK"
-        cmbComments.Text = "GREEN"
-        cmbFunctions.Text = "MAROON"
-        cmbKeywords.Text = "BLUE"
-        cmbNumbers.Text = "MAGENTA"
-        cmbStatements.Text = "BLUE"
-        cmbTypes.Text = "BROWN"
-        cmbVariables.Text = "MAROON"
-        cmbStrings.Text = "RED"
-        cmbNormal.Text = "GRAY"
+        'cmbBackColor.Text = "BLACK"
+        'cmbComments.Text = "GREEN"
+        'cmbFunctions.Text = "MAROON"
+        'cmbKeywords.Text = "BLUE"
+        'cmbNumbers.Text = "MAGENTA"
+        'cmbStatements.Text = "BLUE"
+        'cmbTypes.Text = "BROWN"
+        'cmbVariables.Text = "MAROON"
+        'cmbStrings.Text = "RED"
+        'cmbNormal.Text = "GRAY"
+    End Sub
+
+    Private Sub tbMain_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tbMain.SelectedIndexChanged
+        'tbMain.TabPages(tbMain.SelectedIndex).Font = New Font("굴림체", tbMain.TabPages(tbMain.SelectedIndex).Font.Size, System.Drawing.FontStyle.Bold)
+        For i As Integer = 0 To tbMain.TabCount - 1
+            If i = tbMain.SelectedIndex Then
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+            Else
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+            End If
+        Next
     End Sub
 
 End Class
