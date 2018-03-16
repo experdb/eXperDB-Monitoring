@@ -8,11 +8,9 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
 
-
         Me.RichTextBoxQuery1.Tag = strText
         Me.RichTextBoxQuery1.Text = strText
         _intInstanceID = intInstID
-
 
         lblDB.Text = p_clsMsgData.fn_GetData("F010")
         lblID.Text = p_clsMsgData.fn_GetData("F008")
@@ -45,9 +43,12 @@
             Next
         End If
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
+
+        Me.Text = "SQL Plan"
+        lblSubject.Text = Me.Text
 
     End Sub
 

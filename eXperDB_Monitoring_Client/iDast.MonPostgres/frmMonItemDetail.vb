@@ -61,8 +61,26 @@
         dtpEd.Value = edDt.AddMinutes(1)
         dtpSt.Tag = stDt
         dtpEd.Tag = edDt
-
+        InitForm()
+        InitCharts()
     End Sub
+
+    Delegate Sub InvokeDelegate()
+
+
+    Public Sub InvokeMethod()
+        If _chtOrder >= 0 Then
+            Select Case _chtOrder
+                Case 0 : SetDefaultTitle(chkCpu, chtCPU, True, "")
+                Case 1 : SetDefaultTitle(chkSession, chtSession, True, "")
+                Case 2 : SetDefaultTitle(chkLogicalIO, chtLogicalIO, True, "")
+                Case 3 : SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, True, "")
+                Case 4 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
+            End Select
+        End If
+    End Sub 'InvokeMethod
+
+
     ''' <summary>
     ''' 화면 초기화 
     ''' </summary>
@@ -70,8 +88,6 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub frmMonItemDetail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        InitForm()
-        InitCharts()
         If _InstanceID > 0 Then
             Dim comboSource As New Dictionary(Of String, String)()
             Dim index As Integer = 0
@@ -82,20 +98,25 @@
                 index += 1
             Next
         End If
+
+        _chtCount = 1
+        chtCPU.MainChart.Focus()
         SetDataSession(dtpSt.Value, dtpEd.Value)
+        BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
     End Sub
 
     Private Sub InitForm()
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
-        FormMovePanel1.Font = New System.Drawing.Font("Gulim", 10, System.Drawing.FontStyle.Bold)
+        'FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        Me.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        lblSubject.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'label & Input
         lblServer.Text = p_clsMsgData.fn_GetData("F033")
         lblDuration.Text = p_clsMsgData.fn_GetData("F254")
-        grpChart.Text = p_clsMsgData.fn_GetData("F268")
+        lblChart.Text = p_clsMsgData.fn_GetData("F268")
 
         ' Checkbox Button
         chkCpu.Text = p_clsMsgData.fn_GetData("F035")
@@ -112,7 +133,7 @@
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information
 
-        grpSession.Text = p_clsMsgData.fn_GetData("F313", 0)
+        lslSession.Text = p_clsMsgData.fn_GetData("F313", 0)
         dgvSessionList.AutoGenerateColumns = False
         coldgvSessionListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
         coldgvSessionListPID.HeaderText = p_clsMsgData.fn_GetData("F082")
@@ -124,13 +145,8 @@
         coldgvSessionListApp.HeaderText = p_clsMsgData.fn_GetData("F249")
         coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
 
-        grpSessionLock.Text = p_clsMsgData.fn_GetData("F246")
-
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        dgvSessionList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
+        dgvSessionList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
 
         chtCPU.Visible = False
         chtSession.Visible = False
@@ -140,48 +156,6 @@
 
         'modCommon.FontChange(Me, p_Font)
     End Sub
-    ''' <summary>
-    ''' Lock info 변경 되었을 경우 
-    ''' </summary>
-    ''' <param name="dtTable"></param>
-    ''' <remarks></remarks>
-    Public Sub SetDataLockinfo(ByVal dtTable As DataTable)
-        ' 전체 목록중 내것만 추출 
-        ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-        'Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
-
-        ' dgvLock.DataSource = dtView
-        'If btnPause.Text = "4" Then Return
-
-        'Dim topRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND BLOCKED_PID IS NULL", Me.InstanceID), "ORDER_NO ASC")
-        Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
-        Dgv.Nodes.Clear()
-        Dim intLockCount As Integer = 0
-        Dim HashTbl As New Hashtable
-        For Each tmpCol As DataGridViewColumn In Dgv.Columns
-
-            If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
-                HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-            End If
-        Next
-
-        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
-        For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
-            Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
-            sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-            intLockCount += 1
-            For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0}", tmpRow.Item("BLOCKING_PID")), "ORDER_NO ASC")
-                Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
-                sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
-
-            Next
-            topNode.Expand()
-            topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
-
-        Next
-
-    End Sub
-
 
     Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataRow)
         For Each tmpColIdx As Integer In ColHashSet.Keys
@@ -229,7 +203,7 @@
                                                 dgvSessionList.DataSource = ShowDT
 
                                                 modCommon.sb_GridSortChg(dgvSessionList)
-                                                grpSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
+                                                lslSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
                                                 'dgvSessionList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill)
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -290,22 +264,22 @@
         End If
     End Sub
 
-    Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
-        If dgvSessionList.RowCount <= 0 Then Return
+    'Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
+    '    If dgvSessionList.RowCount <= 0 Then Return
 
-        _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
-        _SelectedGrid = 0
-        If e.RowIndex >= 0 Then
-            dgvSessionList.Cursor = Cursors.Hand
-            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-                dgvSessionList.ClearSelection()
-                dgvSessionList.Rows(e.RowIndex).Selected = True
-            End If
-            For i As Integer = 0 To dgvSessionList.ColumnCount - 1
-                dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
-            Next
-        End If
-    End Sub
+    '    _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+    '    _SelectedGrid = 0
+    '    If e.RowIndex >= 0 Then
+    '        dgvSessionList.Cursor = Cursors.Hand
+    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+    '            dgvSessionList.ClearSelection()
+    '            dgvSessionList.Rows(e.RowIndex).Selected = True
+    '        End If
+    '        For i As Integer = 0 To dgvSessionList.ColumnCount - 1
+    '            dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
+    '        Next
+    '    End If
+    'End Sub
     Private Sub InitCharts()
 
         chkCpu.Tag = 0
@@ -336,16 +310,6 @@
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").Visible = False
 
         Me.chtCPU.Visible = True
-
-        If _chtOrder >= 0 Then
-            Select Case _chtOrder
-                Case 0 : SetDefaultTitle(chkCpu, chtCPU, True, "")
-                Case 1 : SetDefaultTitle(chkSession, chtSession, True, "")
-                Case 2 : SetDefaultTitle(chkLogicalIO, chtLogicalIO, True, "")
-                Case 3 : SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, True, "")
-                Case 4 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
-            End Select
-        End If
 
         'chtCPU.MainChart.ChartAreas("CPUAREA").AxisX.ScaleView.Zoomable = False
         chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
@@ -398,16 +362,18 @@
 
         If index = 4 Then
             _ThreadDetail = New Threading.Thread(Sub()
+                                                     Threading.Thread.Sleep(50)
                                                      ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
                                                  End Sub)
         Else
             _ThreadDetail = New Threading.Thread(Sub()
+                                                     Threading.Thread.Sleep(50)
                                                      ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
                                                  End Sub)
         End If
 
         _ThreadDetail.Start()
-        modCommon.FontChange(Me, p_Font)
+        'modCommon.FontChange(Me, p_Font)
     End Sub
     Private Sub ArrangeChartlayout()
         Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
@@ -880,20 +846,20 @@
         'End If
     End Sub
 
-    Private Sub dgvSessionList_CellMouseClick_1(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
-        If dgvSessionList.RowCount <= 0 Then Return
+    'Private Sub dgvSessionList_CellMouseClick_1(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
+    '    If dgvSessionList.RowCount <= 0 Then Return
 
-        If e.RowIndex >= 0 Then
-            dgvSessionList.Cursor = Cursors.Hand
-            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-                dgvSessionList.ClearSelection()
-                dgvSessionList.Rows(e.RowIndex).Selected = True
-            End If
-            For i As Integer = 0 To dgvSessionList.ColumnCount - 1
-                dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
-            Next
-        End If
-    End Sub
+    '    If e.RowIndex >= 0 Then
+    '        dgvSessionList.Cursor = Cursors.Hand
+    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+    '            dgvSessionList.ClearSelection()
+    '            dgvSessionList.Rows(e.RowIndex).Selected = True
+    '        End If
+    '        For i As Integer = 0 To dgvSessionList.ColumnCount - 1
+    '            dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
+    '        Next
+    '    End If
+    'End Sub
 
     Private Function fn_SearchBefCheck() As Boolean
         If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) < 0 Then
@@ -920,25 +886,27 @@
         End If
 
     End Sub
-    Private Sub dgvSessionList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseMove
-        If e.RowIndex >= 0 Then
-            dgvSessionList.Cursor = Cursors.Hand
-            If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-                dgvSessionList.ClearSelection()
-                dgvSessionList.Rows(e.RowIndex).Selected = True
-            End If
-            dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
-        End If
-    End Sub
+    'Private Sub dgvSessionList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseMove
+    '    If e.RowIndex >= 0 Then
+    '        dgvSessionList.Cursor = Cursors.Hand
+    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
+    '            dgvSessionList.ClearSelection()
+    '            dgvSessionList.Rows(e.RowIndex).Selected = True
+    '        End If
+    '        dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+    '    End If
+    'End Sub
 
-    Private Sub dgvSessionList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellMouseLeave
-        If e.RowIndex >= 0 Then
-            dgvSessionList.Cursor = Cursors.Arrow
-            If dgvSessionList.Rows(e.RowIndex).Selected = True Then
-                dgvSessionList.ClearSelection()
-                dgvSessionList.Rows(e.RowIndex).Selected = False
-            End If
-            dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvSessionList.DefaultCellStyle.SelectionBackColor
-        End If
-    End Sub
+    'Private Sub dgvSessionList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellMouseLeave
+    '    If e.RowIndex >= 0 Then
+    '        dgvSessionList.Cursor = Cursors.Arrow
+    '        If dgvSessionList.Rows(e.RowIndex).Selected = True Then
+    '            dgvSessionList.ClearSelection()
+    '            dgvSessionList.Rows(e.RowIndex).Selected = False
+    '        End If
+    '        dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvSessionList.DefaultCellStyle.SelectionBackColor
+    '    End If
+    'End Sub
+
+
 End Class

@@ -31,8 +31,8 @@
             '커넥트 테스트 후 조회그룹을 선택 from ini
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
             Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
-            'tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
-            'tmpCtl.Checked = True
+            tmpCtl = tlpGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
+            tmpCtl.Checked = True
             cmbGrp.SelectedIndex = groupIndex
             sb_Ctlenabled(True)
             'ReadSvrList(tmpCn)
@@ -42,11 +42,11 @@
             btnConTest.Tag = tmpCn
 
             '서버리스트 Tabpage Focus
-            TabControl1.TabPages(0).Enabled = False
+            tbServer.TabPages(0).Enabled = False
 
-            If TabControl1.TabPages(1).Enabled = False Then
-                TabControl1.TabPages(1).Enabled = True
-                TabControl1.SelectedIndex = 1
+            If tbServer.TabPages(1).Enabled = False Then
+                tbServer.TabPages(1).Enabled = True
+                tbServer.SelectedIndex = 1
             End If
 
             If btnConTest.Tag IsNot Nothing AndAlso btnConTest.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then
@@ -363,6 +363,10 @@
         rbGrp2.Text = tmpGrpNm & " 2"
         rbGrp3.Text = tmpGrpNm & " 3"
         rbGrp4.Text = tmpGrpNm & " 4"
+        rbGrp1.Tag = 1
+        rbGrp2.Tag = 2
+        rbGrp3.Tag = 3
+        rbGrp4.Tag = 4
 
 
         btnGrpSave.Text = p_clsMsgData.fn_GetData("F003")
@@ -492,7 +496,7 @@
         ''clsIni.WriteValue("GROUP", "GROUP3", txtGrp3.Text)
         ''clsIni.WriteValue("GROUP", "GROUP4", txtGrp4.Text)
         'ReadGrpComboList()
-        
+
         ' 추가적으로 모두 업데이트에 대한 로직 필요 
         Try
             If sb_SaveGrpMonLst() = True Then
@@ -622,8 +626,16 @@
                 clsIni.WriteValue("SERVER GROUP", intInstanceID, intGrpID)
             End If
         Next
-        clsIni.WriteValue("GROUP", "MONGROUP", cmbGrp.SelectedIndex)
+        Dim groupId As Integer = 0
+        For i As Integer = 0 To 3
+            Dim RadioButton As BaseControls.RadioButton = tlpGrp.Controls.Find("rbGrp" & i + 1, True)(0)
+            If RadioButton.Checked = True Then
+                groupId = i + 1
+                Exit For
+            End If
+        Next
 
+        clsIni.WriteValue("GROUP", "MONGROUP", groupId - 1)
     End Sub
     ''' <summary>
     ''' 서버 목록의 그룹명 로컬 저장 
@@ -642,11 +654,11 @@
                 Dim groupName As String = txtGrp1.Text
                 Dim groupId As Integer
                 For i As Integer = 0 To 3
-                    'Dim tmpCtl As BaseControls.RadioButton = grpMonGrp.Controls.Find("rbGrp" & i + 1, True)(0)
-                    'If tmpCtl.Checked = True Then
-                    '    groupId = i + 1
-                    '    Exit For
-                    'End If
+                    Dim RadioButton As BaseControls.RadioButton = tlpGrp.Controls.Find("rbGrp" & i + 1, True)(0)
+                    If RadioButton.Checked = True Then
+                        groupId = i + 1
+                        Exit For
+                    End If
                 Next
 
                 ' Instance 별 조회 그룹을 업데이트 한다. 
@@ -863,8 +875,15 @@
         '        tmpCtl.BackColor = System.Drawing.Color.Black
         '    End If
         'Next
-        ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
-        LoadMonList(groupIndex + 1)
+
+        Dim RadioButton As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If RadioButton.Checked = True Then
+            ReadSvrListbyGroup(btnConTest.Tag, RadioButton.Tag)
+            LoadMonList(RadioButton.Tag)
+        End If
+
+        'ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
+        'LoadMonList(groupIndex + 1)
     End Sub
     ' R-End
 
@@ -907,10 +926,11 @@
     Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MsgLabel.Text = "eXperDB 수집서버 정보를 입력하세요."
         MsgLabel2.Text = "모니터링 대상 서버를 선택하여 그룹관리를 하십시요."
-        TabControl1.TabPages(0).Enabled = True
-        TabControl1.TabPages(1).Enabled = False
-        TabControl1.SelectedIndex = 0
-
+        tbServer.TabPages(0).Enabled = True
+        tbServer.TabPages(1).Enabled = False
+        tbServer.TabPages(0).BackColor = System.Drawing.Color.Gray
+        tbServer.TabPages(1).BackColor = System.Drawing.Color.DimGray
+        tbServer.SelectedIndex = 0
     End Sub
 
     Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs) Handles pnlAgentInfo.Paint
@@ -942,5 +962,16 @@
             'btnConTest.PerformClick()
         End If
 
+    End Sub
+
+    Private Sub tbServer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tbServer.SelectedIndexChanged
+        'tbMain.TabPages(tbMain.SelectedIndex).Font = New Font("굴림체", tbMain.TabPages(tbMain.SelectedIndex).Font.Size, System.Drawing.FontStyle.Bold)
+        For i As Integer = 0 To tbServer.TabCount - 1
+            If i = tbServer.SelectedIndex Then
+                tbServer.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+            Else
+                tbServer.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+            End If
+        Next
     End Sub
 End Class
