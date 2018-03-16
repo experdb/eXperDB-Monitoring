@@ -130,7 +130,7 @@
 
         _ElapseCount = (60000 / _ElapseInterval) * 60 / 12 ' 5분
         'Me.ShowCritical = False
-        Me.ShowCritical = True
+        'Noh -> Me.ShowCritical = True
 
 
 
@@ -150,35 +150,38 @@
 
 
     End Sub
-    Private Sub frmMonMain_FormControlRotation(e As Boolean) Handles Me.FormControlRotation
-        Try
-            If e = True Then
-                tmRotateGroup.Start()
-            Else
-                tmRotateGroup.Stop()
-            End If
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-        End Try
-    End Sub
-    Private Sub frmMonMain_FormControlPower(e As Boolean) Handles Me.FormControlPower
-        Try
-
-       
-            If e = True Then
-
-                p_clsAgentCollect.Start(_AgentCn, _ElapseInterval, p_ShowName)
-                tmCollect.Start()
-            Else
-                tmCollect.Stop()
-                p_clsAgentCollect.Stop()
-            End If
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-        End Try
-    End Sub
 
 
+    'Noh ->
+    'Private Sub frmMonMain_FormControlRotation(e As Boolean) Handles Me.FormControlRotation
+    '    Try
+    '        If e = True Then
+    '            tmRotateGroup.Start()
+    '        Else
+    '            tmRotateGroup.Stop()
+    '        End If
+    '    Catch ex As Exception
+    '        p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+    '    End Try
+    'End Sub
+    'Private Sub frmMonMain_FormControlPower(e As Boolean) Handles Me.FormControlPower
+    '    Try
+
+
+    '        If e = True Then
+
+    '            p_clsAgentCollect.Start(_AgentCn, _ElapseInterval, p_ShowName)
+    '            tmCollect.Start()
+    '        Else
+    '            tmCollect.Stop()
+    '            p_clsAgentCollect.Stop()
+    '        End If
+    '    Catch ex As Exception
+    '        p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+    '    End Try
+    'End Sub
+
+    '/<-noh
 
     ''' <summary>
     ''' Form Load 
@@ -190,8 +193,8 @@
         ' 폼 초기화 
         InitForm()
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
-        sb_SetRbGrp(_GrpList)
-        FormMovePanel1.Text += " [" + _GrpList.Item(0).GroupName + "]"
+        'sb_SetRbGrp(_GrpList)
+        ServerName_lv.Text += " [" + _GrpList.Item(0).GroupName + "]"
         tmCollect.Interval = 500
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
@@ -199,8 +202,28 @@
 	' 그룹 라디오 감추고 그룹명을 타이틀에 초기화는 form load에서 
         sb_InitControl()
 
+        'getData()
+    End Sub
+
+    Private Sub getData()
+
+        Dim grpInfo As GroupInfo = _GrpList.Item(0)
+
+        sb_SetInstanceStatus(grpInfo.Items)
+        ' CPU 관련 목록을 변경한다. 
+        sb_SetGrpCPU(grpInfo.Items)
+        ' 메모리 관련 목록을 변경한다. 
+        sb_SetGrpMem(grpInfo.Items)
+        ' Disk Access , Disk Usage
+        sb_setGrpDiskInfos()
+        ' Request Info 
+        sb_SetGrpReqinfo(grpInfo.Items)
+
+        '서버 Alert ServerInfo
+        _GrpListServerinfo = grpInfo.Items
 
     End Sub
+
 
     ''' <summary>
     ''' 화면 언어 및 컨트롤 초기화 실행 
@@ -213,7 +236,7 @@
 
 
         ' 상태 이상 정보 
-        grpStausSuminfo.Text = p_clsMsgData.fn_GetData("F028")
+        'grpStausSuminfo.Text = p_clsMsgData.fn_GetData("F028")
         lblNormal.Text = p_clsMsgData.fn_GetData("F029")
         lblWarning.Text = p_clsMsgData.fn_GetData("F030")
         lblCritical.Text = p_clsMsgData.fn_GetData("F031")
@@ -299,15 +322,15 @@
         chkIDLE.Tag = p_clsMsgData.fn_GetSpecificData("F227", "COMMENTS")
 
         'Health 
-        colDgvHealthSvrNm.HeaderText = p_clsMsgData.fn_GetData("F146")
-        colDgvHealthSvrIP.HeaderText = p_clsMsgData.fn_GetData("F034")
-        colDgvHealthSvrPort.HeaderText = p_clsMsgData.fn_GetData("F007")
-        colDgvHealthSvrStatus.HeaderText = p_clsMsgData.fn_GetData("F063")
+        'colDgvHealthSvrNm.HeaderText = p_clsMsgData.fn_GetData("F146")
+        'colDgvHealthSvrIP.HeaderText = p_clsMsgData.fn_GetData("F034")
+        'colDgvHealthSvrPort.HeaderText = p_clsMsgData.fn_GetData("F007")
+        'colDgvHealthSvrStatus.HeaderText = p_clsMsgData.fn_GetData("F063")
 
         'Alert
 
-        Me.EspRight.Expand = True
-        Me.pnlRibon.Width = Me.Width * 0.14
+        'Me.EspRight.Expand = True
+        'Me.pnlRibon.Width = Me.Width * 0.14
 
         Me.cmbLevel.Location = New System.Drawing.Point(Me.grpAlert.Width - Me.cmbLevel.Width - Me.cmbLevel.Margin.Right, Me.cmbLevel.Margin.Top)
         Me.cmbLevel.SelectedIndex = 0
@@ -317,51 +340,52 @@
     End Sub
 
 
-    ''' <summary>
-    ''' Group Radio Button 초기화 
-    ''' </summary>
-    ''' <param name="grpLst"></param>
-    ''' <remarks></remarks>
-    Private Sub sb_SetRbGrp(ByVal grpLst As List(Of GroupInfo))
+    ' ''' <summary>
+    ' ''' Group Radio Button 초기화 
+    ' ''' </summary>
+    ' ''' <param name="grpLst"></param>
+    ' ''' <remarks></remarks>
+    'Private Sub sb_SetRbGrp(ByVal grpLst As List(Of GroupInfo))
 
-        If grpLst Is Nothing Then Return
+    '    If grpLst Is Nothing Then Return
 
-        ' 그룹 버튼을 Visible을 끈다. 
-        For Each tmpCtl As Control In tlpGroup.Controls
-            tmpCtl.Visible = False
-        Next
+    '    ' 그룹 버튼을 Visible을 끈다. 
+    '    'For Each tmpCtl As Control In tlpGroup.Controls
+    '    '    tmpCtl.Visible = False
+    '    'Next
 
 
-        ' 컨트롤의 이름을 변경하고 Tag에 서버 목록을 저장한다. 
-        ' 인스턴스 정보나 기타 정보는 CheckED
-        For i As Integer = 0 To grpLst.Count - 1
-            Dim tmpCtl As BaseControls.RadioButton = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
-            tmpCtl.Text = grpLst.Item(i).GroupName
-            tmpCtl.ForeColor = System.Drawing.Color.Gray
-            tmpCtl.Visible = False '라디오버튼 일시 감춤
-            ' tag 에 그룹에 속한 서버 리스트를 저장한다. 
-            ' 버튼 선택시 자신의 Tag 에서 해당 리스트 목록을 가져오기 위함. 
-            tmpCtl.Tag = GrpList.Item(i)
-            If i = 0 Then
-                tmpCtl.Checked = True
-                tmpCtl.ForeColor = System.Drawing.Color.Yellow
-            End If
-        Next
+    '    ' 컨트롤의 이름을 변경하고 Tag에 서버 목록을 저장한다. 
+    '    ' 인스턴스 정보나 기타 정보는 CheckED
+    '    For i As Integer = 0 To grpLst.Count - 1
+    '        Dim tmpCtl As BaseControls.RadioButton = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
+    '        tmpCtl.Text = grpLst.Item(i).GroupName
+    '        tmpCtl.ForeColor = System.Drawing.Color.Gray
+    '        tmpCtl.Visible = False '라디오버튼 일시 감춤
+    '        ' tag 에 그룹에 속한 서버 리스트를 저장한다. 
+    '        ' 버튼 선택시 자신의 Tag 에서 해당 리스트 목록을 가져오기 위함. 
+    '        tmpCtl.Tag = GrpList.Item(i)
+    '        If i = 0 Then
+    '            tmpCtl.Checked = True
+    '            tmpCtl.ForeColor = System.Drawing.Color.Yellow
+    '        End If
+    '    Next
 
-    End Sub
+    'End Sub
+
     ''' <summary>
     ''' 그룹 박스 체크시 
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub rbGrp_CheckedChanged(sender As Object, e As EventArgs) Handles rbGrp1.CheckedChanged, rbGrp2.CheckedChanged, rbGrp3.CheckedChanged, rbGrp4.CheckedChanged
+    Private Sub rbGrp_CheckedChanged(sender As Object, e As EventArgs)
 
-        For i As Integer = 0 To _GrpList.Count - 1
-            Dim tmpCtl As BaseControls.RadioButton = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
-            tmpCtl.ForeColor = System.Drawing.Color.Gray
-            tmpCtl.BackColor = System.Drawing.Color.Black
-        Next
+        'For i As Integer = 0 To _GrpList.Count - 1
+        '    Dim tmpCtl As BaseControls.RadioButton = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
+        '    tmpCtl.ForeColor = System.Drawing.Color.Gray
+        '    tmpCtl.BackColor = System.Drawing.Color.Black
+        'Next
 
         Dim selCtl As BaseControls.RadioButton = TryCast(sender, BaseControls.RadioButton)
         If selCtl IsNot Nothing AndAlso selCtl.Checked = True Then
@@ -580,7 +604,7 @@
         ' 인스턴스 수 만큼 화면에 보여준다. 
         For i As Integer = 0 To svrLst.Count - 1
             Dim tmpCtl As Progress3D = CreateProgress3D("prog3Dinst" & i + 1)
-	    ' 인스턴스 정보 문자 출력
+            ' 인스턴스 정보 문자 출력
             tmpCtl.HeadText = svrLst.Item(i).HARole
             tmpCtl.Text = " "
             tmpCtl.Text += svrLst.Item(i).ShowNm
@@ -597,7 +621,18 @@
             'tmpProg.Visible = True
         Next
 
-        flpInstance_SizeChanged(flpInstance, Nothing)
+        'flpInstance_SizeChanged(flpInstance, Nothing)
+
+        Dim BaseCTl As BaseControls.FlowLayoutPanel = flpInstance
+        Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
+        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 1 'add vertical margin
+
+        For Each tmpCtl As Progress3D In BaseCTl.Controls
+            tmpCtl.Width = ctlWidth
+            tmpCtl.Height = ctlHeight
+            tmpCtl.Margin = New System.Windows.Forms.Padding(1)
+        Next
+
 
     End Sub
 
@@ -681,19 +716,17 @@
 #End Region
 
 
-    ''' <summary>
-    ''' Controls Configuration 버튼 클릭시 메뉴 아이템을 보여준다. 
-    ''' </summary>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub frmMonMain_FormControlConfig(e As Rectangle) Handles Me.FormControlConfig
-        mnuPopup.Show(New Point(e.X, e.Y + e.Height), ToolStripDropDownDirection.Default)
+    'Noh ->
+    ' ''' <summary>
+    ' ''' Controls Configuration 버튼 클릭시 메뉴 아이템을 보여준다. 
+    ' ''' </summary>
+    ' ''' <param name="e"></param>
+    ' ''' <remarks></remarks>
+    'Private Sub frmMonMain_FormControlConfig(e As Rectangle) Handles Me.FormControlConfig
+    '    mnuPopup.Show(New Point(e.X, e.Y + e.Height), ToolStripDropDownDirection.Default)
 
-
-
-
-    End Sub
-
+    'End Sub
+    '/ <-noh
 
 
     ''' <summary>
@@ -773,18 +806,18 @@
 
 
     Public Sub InstanceSelectedChange(ByVal intInstanceID As Integer, ByVal Bret As Boolean)
+        'For Each tmpCtl As Controls.Progress3D In Me.flpInstance.Controls
+        '    If tmpCtl.Visible = True AndAlso _GrpListServerinfo.Item(0).InstanceID.Equals(intInstanceID) Then
+        '        tmpCtl.isSelected = Bret
+        '        Exit For
+        '    End If
+        'Next
         For Each tmpCtl As Controls.Progress3D In Me.flpInstance.Controls
             If tmpCtl.Visible = True AndAlso DirectCast(tmpCtl.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
                 tmpCtl.isSelected = Bret
                 Exit For
             End If
         Next
-        'For Each tmpCtl As Controls.Progress3D In Me.tlpInstance.Controls
-        '    If tmpCtl.Visible = True AndAlso DirectCast(tmpCtl.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
-        '        tmpCtl.isSelected = Bret
-        '        Exit For
-        '    End If
-        'Next
 
     End Sub
 
@@ -794,7 +827,7 @@
 
 
 
-    Private Sub grpDiskAccess_Enter(sender As Object, e As EventArgs) Handles grpDiskAccess.Enter
+    Private Sub grpDiskAccess_Enter(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -854,11 +887,11 @@
 
             'logEvents.AppendTextNewLine(String.Format("[{0}] 데이터 정상 로드 완료", Now.ToString("yyyy-MM-dd HH:mm:ss")))
 
-            Dim msgQueue As Queue(Of String) = p_clsAgentCollect.ThreadMsgQueue
-            Do Until msgQueue.Count = 0
-                Dim strMSg As String = msgQueue.Dequeue()
-                logEvents.AppendTextNewLine(strMSg, Color.DarkGray)
-            Loop
+            'Dim msgQueue As Queue(Of String) = p_clsAgentCollect.ThreadMsgQueue
+            'Do Until msgQueue.Count = 0
+            '    Dim strMSg As String = msgQueue.Dequeue()
+            '    logEvents.AppendTextNewLine(strMSg, Color.DarkGray)
+            'Loop
         Catch ex As Exception
             GC.Collect()
         Finally
@@ -884,7 +917,7 @@
             tmCollect.Dispose()
             tmRotateGroup.Stop()
             tmRotateGroup.Dispose()
-            
+
             If _GrpList Is Nothing Then Return
 
             ' 컨트롤의 이름을 변경하고 Tag에 서버 목록을 저장한다. 
@@ -1690,37 +1723,37 @@
             'arrSvrIds.Add(tmpLst.InstanceID, tmpLst.InstanceID)
             'Next
 
-            SetGrpWarning(arrSvrIds)
+            'SetGrpWarning(arrSvrIds)
 
 
             Me.radCpu.AniColorin = Color.Red
             Me.radMem.AniColorin = Color.Red
 
-            If Me._UseQuiteCriticalTime = True Then
-                If Me._QuiteCriticalTime > Now Then
-                    Me.ShowCritical = False
-                Else
-                    Me.ShowCritical = True
-                    Me.UseCriticalTime = False
-                End If
-            End If
+            'If Me._UseQuiteCriticalTime = True Then
+            '    If Me._QuiteCriticalTime > Now Then
+            '        Me.ShowCritical = False
+            '    Else
+            '        Me.ShowCritical = True
+            '        Me.UseCriticalTime = False
+            '    End If
+            'End If
 
-            If Me.ShowCritical = True Then
-
-
+            'If Me.ShowCritical = True Then
 
 
-                sb_CriticalShow(arrSvrIds)
-            End If
+
+
+            '    sb_CriticalShow(arrSvrIds)
+            'End If
         Else
             Me.radCpu.AniColorin = Color.Lime
             Me.radMem.AniColorin = Color.Lime
-            For Each tmpCtl As Control In tlpGroup.Controls
-                If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing Then
-                    DirectCast(tmpCtl, BaseControls.RadioButton).Warning = False
-                End If
-            Next
-            sb_CriticalClose()
+            'For Each tmpCtl As Control In tlpGroup.Controls
+            '    If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing Then
+            '        DirectCast(tmpCtl, BaseControls.RadioButton).Warning = False
+            '    End If
+            'Next
+            'sb_CriticalClose()
         End If
 
 
@@ -1811,7 +1844,6 @@
         '        subFrm.SetDataHealth(dtTable)
         '    End If
         'Next
-
     End Sub
 
     'robin add for alert current 0208
@@ -1928,9 +1960,10 @@
             Else
                 lblAgentSvrState.ForeColor = Color.Red
                 ' Group Stop 
-                For Each tmpCtl As eXperDB.BaseControls.RadioButton In tlpGroup.Controls
-                    tmpCtl.Warning = False
-                Next
+                'For Each tmpCtl As eXperDB.BaseControls.RadioButton In tlpGroup.Controls
+                '    tmpCtl.Warning = False
+                'Next
+
                 ' CPU STOP 
                 radCpu.UseAnimation = False
                 For Each tmpItm As RaiderItem In radCpu.items
@@ -1985,10 +2018,10 @@
                 '    dgvReqInfo.Rows.RemoveAt(0)
                 'End While
                 'dgvReqInfo.Rows.Clear()
-                While (dgvHealth.Rows.Count > 1)
-                    dgvHealth.Rows.RemoveAt(0)
-                End While
-                dgvHealth.Rows.Clear()
+                'While (dgvHealth.Rows.Count > 1)
+                '    dgvHealth.Rows.RemoveAt(0)
+                'End While
+                'dgvHealth.Rows.Clear()
 
                 ' CHART CLEAR 
 
@@ -2050,19 +2083,19 @@
 
     End Sub
 
-    Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
-        Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
-        Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
-        Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 1 'add vertical margin
+    'Private Sub flpInstance_SizeChanged(sender As Object, e As EventArgs) Handles flpInstance.SizeChanged
+    '    Dim BaseCTl As BaseControls.FlowLayoutPanel = sender
+    '    Dim ctlWidth As Integer = (BaseCTl.Width - (2 * 2) - IIf(BaseCTl.VerticalScroll.Visible, 20, 0))
+    '    Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 1 'add vertical margin
 
-        For Each tmpCtl As Progress3D In BaseCTl.Controls
-            tmpCtl.Width = ctlWidth
-            tmpCtl.Height = ctlHeight
-            tmpCtl.Margin = New System.Windows.Forms.Padding(1)
-        Next
+    '    For Each tmpCtl As Progress3D In BaseCTl.Controls
+    '        tmpCtl.Width = ctlWidth
+    '        tmpCtl.Height = ctlHeight
+    '        tmpCtl.Margin = New System.Windows.Forms.Padding(1)
+    '    Next
 
 
-    End Sub
+    'End Sub
 
 
     Private Sub nudBackendcnt_ValueChanged(sender As Object, e As EventArgs) Handles nudBackendcnt.ValueChanged
@@ -2174,8 +2207,7 @@
                 dgvGrpCpuSvrLst.ClearSelection()
                 dgvGrpCpuSvrLst.Rows(e.RowIndex).Selected = True
             End If
-            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 20, 30)
-            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = New Font("Gulim", 10, FontStyle.Bold)
+            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = New Font("Gulim", 9, FontStyle.Bold)
         End If
     End Sub
 
@@ -2186,7 +2218,6 @@
                 dgvGrpCpuSvrLst.ClearSelection()
                 dgvGrpCpuSvrLst.Rows(e.RowIndex).Selected = False
             End If
-            dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvGrpCpuSvrLst.DefaultCellStyle.SelectionBackColor
             dgvGrpCpuSvrLst.Rows(e.RowIndex).DefaultCellStyle.Font = dgvGrpCpuSvrLst.DefaultCellStyle.Font
         End If
     End Sub
@@ -2210,8 +2241,7 @@
                 dgvGrpMemSvrLst.Rows(e.RowIndex).Selected = True
             End If
             For i As Integer = 0 To dgvGrpMemSvrLst.ColumnCount - 1
-                dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-                dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = New Font("Gulim", 10, FontStyle.Bold)
+                dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = New Font("Gulim", 9, FontStyle.Bold)
 
             Next
         End If
@@ -2225,7 +2255,6 @@
                 dgvGrpMemSvrLst.Rows(e.RowIndex).Selected = False
             End If
             For i As Integer = 0 To dgvGrpMemSvrLst.ColumnCount - 1
-                dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvGrpMemSvrLst.DefaultCellStyle.SelectionBackColor
                 dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(i).Style.Font = dgvGrpMemSvrLst.DefaultCellStyle.Font
             Next
         End If
@@ -2398,4 +2427,5 @@
             End If
         End If
     End Sub
+
 End Class

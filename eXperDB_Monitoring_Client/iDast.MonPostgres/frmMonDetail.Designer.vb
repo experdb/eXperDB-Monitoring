@@ -44,25 +44,25 @@ Partial Class frmMonDetail
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Series11 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim Series12 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Series11 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series12 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonDetail))
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshSession = New eXperDB.BaseControls.Button()
         Me.chtSession = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.btnRefreshSqlResp = New eXperDB.BaseControls.Button()
@@ -79,6 +79,15 @@ Partial Class frmMonDetail
         Me.chkIDLE = New eXperDB.BaseControls.CheckBox()
         Me.nudBackendcnt = New eXperDB.BaseControls.NumericUpDown()
         Me.dgvResUtilPerBackProc = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvResUtilPerBackProcDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvResUtilPerBackProcUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvResUtilPerBackProcPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvResUtilPerBackProcRead = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvResUtilPerBackProcWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvResUtilPerBackProcCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvResUtilPerBackProcStTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvResUtilPerBackProcElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvResUtilPerBackProcSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.tlpMeminfo = New System.Windows.Forms.TableLayoutPanel()
         Me.lblMemTot = New eXperDB.BaseControls.Label()
@@ -108,11 +117,21 @@ Partial Class frmMonDetail
         Me.rndProgHealth = New eXperDB.Controls.CircleProgressbar()
         Me.lblHealth = New eXperDB.BaseControls.Label()
         Me.dgvGrpHealth = New eXperDB.BaseControls.DataGridView()
+        Me.colDgvHealthItm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthitmNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthIVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvHealthStatusVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnSessionLock = New eXperDB.BaseControls.Button()
         Me.btnSqlPlan = New eXperDB.BaseControls.Button()
         Me.btnActInfo = New eXperDB.BaseControls.Button()
         Me.btnLogView = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.picLogo = New System.Windows.Forms.PictureBox()
+        Me.ServerName_lv = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvDiskIO = New eXperDB.BaseControls.DataGridView()
@@ -153,25 +172,6 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel19 = New System.Windows.Forms.TableLayoutPanel()
         Me.grpSQLResposeTime = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.coldgvResUtilPerBackProcDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvResUtilPerBackProcUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvResUtilPerBackProcPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvResUtilPerBackProcRead = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvResUtilPerBackProcWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvResUtilPerBackProcCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvResUtilPerBackProcStTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvResUtilPerBackProcElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvResUtilPerBackProcSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthItm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthitmNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthIVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvHealthStatusVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ServerName_lv = New System.Windows.Forms.Label()
-        Me.picLogo = New System.Windows.Forms.PictureBox()
         CType(Me.chtSession, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtSQLRespTm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtLocalIO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -185,6 +185,7 @@ Partial Class frmMonDetail
         Me.tlpStatus.SuspendLayout()
         CType(Me.dgvGrpHealth, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
+        CType(Me.picLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel6.SuspendLayout()
         CType(Me.dgvDiskIO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -203,7 +204,6 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel17.SuspendLayout()
         Me.TableLayoutPanel18.SuspendLayout()
         Me.TableLayoutPanel19.SuspendLayout()
-        CType(Me.picLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnRefreshSession
@@ -830,6 +830,117 @@ Partial Class frmMonDetail
         Me.dgvResUtilPerBackProc.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvResUtilPerBackProc.UseTagValueMatchColor = False
         '
+        'coldgvResUtilPerBackProcDB
+        '
+        Me.coldgvResUtilPerBackProcDB.DataPropertyName = "DB_NAME"
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = "0"
+        Me.coldgvResUtilPerBackProcDB.DefaultCellStyle = DataGridViewCellStyle6
+        Me.coldgvResUtilPerBackProcDB.HeaderText = "F090"
+        Me.coldgvResUtilPerBackProcDB.Name = "coldgvResUtilPerBackProcDB"
+        Me.coldgvResUtilPerBackProcDB.ReadOnly = True
+        Me.coldgvResUtilPerBackProcDB.Width = 76
+        '
+        'coldgvResUtilPerBackProcUser
+        '
+        Me.coldgvResUtilPerBackProcUser.DataPropertyName = "USER_NAME"
+        Me.coldgvResUtilPerBackProcUser.HeaderText = "USER"
+        Me.coldgvResUtilPerBackProcUser.MinimumWidth = 81
+        Me.coldgvResUtilPerBackProcUser.Name = "coldgvResUtilPerBackProcUser"
+        Me.coldgvResUtilPerBackProcUser.ReadOnly = True
+        Me.coldgvResUtilPerBackProcUser.Visible = False
+        Me.coldgvResUtilPerBackProcUser.Width = 81
+        '
+        'coldgvResUtilPerBackProcPID
+        '
+        Me.coldgvResUtilPerBackProcPID.DataPropertyName = "PROCESS_ID"
+        Me.coldgvResUtilPerBackProcPID.HeaderText = "F082"
+        Me.coldgvResUtilPerBackProcPID.Name = "coldgvResUtilPerBackProcPID"
+        Me.coldgvResUtilPerBackProcPID.ReadOnly = True
+        Me.coldgvResUtilPerBackProcPID.Width = 76
+        '
+        'coldgvResUtilPerBackProcRead
+        '
+        Me.coldgvResUtilPerBackProcRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvResUtilPerBackProcRead.DataPropertyName = "CURRENT_PROC_READ_KB"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "N1"
+        Me.coldgvResUtilPerBackProcRead.DefaultCellStyle = DataGridViewCellStyle7
+        Me.coldgvResUtilPerBackProcRead.HeaderText = "F048"
+        Me.coldgvResUtilPerBackProcRead.HeaderWord = ""
+        Me.coldgvResUtilPerBackProcRead.Name = "coldgvResUtilPerBackProcRead"
+        Me.coldgvResUtilPerBackProcRead.ReadOnly = True
+        Me.coldgvResUtilPerBackProcRead.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvResUtilPerBackProcRead.ShowUnit = True
+        Me.coldgvResUtilPerBackProcRead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvResUtilPerBackProcRead.TailWord = ""
+        Me.coldgvResUtilPerBackProcRead.Visible = False
+        Me.coldgvResUtilPerBackProcRead.Width = 76
+        '
+        'coldgvResUtilPerBackProcWrite
+        '
+        Me.coldgvResUtilPerBackProcWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvResUtilPerBackProcWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
+        DataGridViewCellStyle8.Format = "N1"
+        Me.coldgvResUtilPerBackProcWrite.DefaultCellStyle = DataGridViewCellStyle8
+        Me.coldgvResUtilPerBackProcWrite.HeaderText = "F136"
+        Me.coldgvResUtilPerBackProcWrite.HeaderWord = ""
+        Me.coldgvResUtilPerBackProcWrite.Name = "coldgvResUtilPerBackProcWrite"
+        Me.coldgvResUtilPerBackProcWrite.ReadOnly = True
+        Me.coldgvResUtilPerBackProcWrite.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvResUtilPerBackProcWrite.ShowUnit = True
+        Me.coldgvResUtilPerBackProcWrite.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvResUtilPerBackProcWrite.TailWord = ""
+        Me.coldgvResUtilPerBackProcWrite.Visible = False
+        Me.coldgvResUtilPerBackProcWrite.Width = 76
+        '
+        'coldgvResUtilPerBackProcCpuUsage
+        '
+        Me.coldgvResUtilPerBackProcCpuUsage.DataPropertyName = "CPU_USAGE"
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "P"
+        Me.coldgvResUtilPerBackProcCpuUsage.DefaultCellStyle = DataGridViewCellStyle9
+        Me.coldgvResUtilPerBackProcCpuUsage.HeaderText = "F092"
+        Me.coldgvResUtilPerBackProcCpuUsage.Name = "coldgvResUtilPerBackProcCpuUsage"
+        Me.coldgvResUtilPerBackProcCpuUsage.ReadOnly = True
+        Me.coldgvResUtilPerBackProcCpuUsage.Width = 76
+        '
+        'coldgvResUtilPerBackProcStTime
+        '
+        Me.coldgvResUtilPerBackProcStTime.DataPropertyName = "START_TIME"
+        DataGridViewCellStyle10.Format = "HH:mm:ss"
+        Me.coldgvResUtilPerBackProcStTime.DefaultCellStyle = DataGridViewCellStyle10
+        Me.coldgvResUtilPerBackProcStTime.HeaderText = "F050"
+        Me.coldgvResUtilPerBackProcStTime.MinimumWidth = 80
+        Me.coldgvResUtilPerBackProcStTime.Name = "coldgvResUtilPerBackProcStTime"
+        Me.coldgvResUtilPerBackProcStTime.ReadOnly = True
+        Me.coldgvResUtilPerBackProcStTime.Width = 80
+        '
+        'coldgvResUtilPerBackProcElapsedTime
+        '
+        Me.coldgvResUtilPerBackProcElapsedTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.coldgvResUtilPerBackProcElapsedTime.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle11.Format = "N2"
+        DataGridViewCellStyle11.NullValue = "12"
+        Me.coldgvResUtilPerBackProcElapsedTime.DefaultCellStyle = DataGridViewCellStyle11
+        Me.coldgvResUtilPerBackProcElapsedTime.FillWeight = 150.0!
+        Me.coldgvResUtilPerBackProcElapsedTime.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
+        Me.coldgvResUtilPerBackProcElapsedTime.HeaderText = "F051"
+        Me.coldgvResUtilPerBackProcElapsedTime.MinimumWidth = 150
+        Me.coldgvResUtilPerBackProcElapsedTime.Name = "coldgvResUtilPerBackProcElapsedTime"
+        Me.coldgvResUtilPerBackProcElapsedTime.ReadOnly = True
+        Me.coldgvResUtilPerBackProcElapsedTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvResUtilPerBackProcElapsedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvResUtilPerBackProcElapsedTime.Width = 150
+        '
+        'coldgvResUtilPerBackProcSQL
+        '
+        Me.coldgvResUtilPerBackProcSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvResUtilPerBackProcSQL.DataPropertyName = "SQL"
+        Me.coldgvResUtilPerBackProcSQL.HeaderText = "F052"
+        Me.coldgvResUtilPerBackProcSQL.Name = "coldgvResUtilPerBackProcSQL"
+        Me.coldgvResUtilPerBackProcSQL.ReadOnly = True
+        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.ColumnCount = 2
@@ -1399,7 +1510,7 @@ Partial Class frmMonDetail
         Me.dgvGrpHealth.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle14.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("굴림", 10.8989!)
         DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.DimGray
@@ -1411,7 +1522,7 @@ Partial Class frmMonDetail
         Me.dgvGrpHealth.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvHealthItm, Me.colDgvHealthRegDate, Me.colDgvHealthSeq, Me.colDgvHealthitmNm, Me.colDgvHealthIVal, Me.colDgvHealthUnit, Me.colDgvHealthStatus, Me.colDgvHealthStatusVal})
         DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle16.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("굴림", 10.8989!)
         DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -1433,6 +1544,79 @@ Partial Class frmMonDetail
         Me.dgvGrpHealth.TabIndex = 8
         Me.dgvGrpHealth.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpHealth.UseTagValueMatchColor = False
+        '
+        'colDgvHealthItm
+        '
+        Me.colDgvHealthItm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvHealthItm.HeaderText = "ITEM"
+        Me.colDgvHealthItm.Name = "colDgvHealthItm"
+        Me.colDgvHealthItm.ReadOnly = True
+        Me.colDgvHealthItm.Visible = False
+        Me.colDgvHealthItm.Width = 5
+        '
+        'colDgvHealthRegDate
+        '
+        Me.colDgvHealthRegDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvHealthRegDate.DataPropertyName = "REG_DATE"
+        Me.colDgvHealthRegDate.HeaderText = "REGDATE"
+        Me.colDgvHealthRegDate.Name = "colDgvHealthRegDate"
+        Me.colDgvHealthRegDate.ReadOnly = True
+        Me.colDgvHealthRegDate.Visible = False
+        Me.colDgvHealthRegDate.Width = 5
+        '
+        'colDgvHealthSeq
+        '
+        Me.colDgvHealthSeq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvHealthSeq.DataPropertyName = "REG_SEQ"
+        Me.colDgvHealthSeq.HeaderText = "SEQ"
+        Me.colDgvHealthSeq.Name = "colDgvHealthSeq"
+        Me.colDgvHealthSeq.ReadOnly = True
+        Me.colDgvHealthSeq.Visible = False
+        Me.colDgvHealthSeq.Width = 5
+        '
+        'colDgvHealthitmNm
+        '
+        Me.colDgvHealthitmNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvHealthitmNm.HeaderText = "F059"
+        Me.colDgvHealthitmNm.Name = "colDgvHealthitmNm"
+        Me.colDgvHealthitmNm.ReadOnly = True
+        Me.colDgvHealthitmNm.Width = 5
+        '
+        'colDgvHealthIVal
+        '
+        Me.colDgvHealthIVal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle15.Format = "N0"
+        Me.colDgvHealthIVal.DefaultCellStyle = DataGridViewCellStyle15
+        Me.colDgvHealthIVal.FillWeight = 80.0!
+        Me.colDgvHealthIVal.HeaderText = "F060"
+        Me.colDgvHealthIVal.Name = "colDgvHealthIVal"
+        Me.colDgvHealthIVal.ReadOnly = True
+        Me.colDgvHealthIVal.Width = 5
+        '
+        'colDgvHealthUnit
+        '
+        Me.colDgvHealthUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvHealthUnit.FillWeight = 50.0!
+        Me.colDgvHealthUnit.HeaderText = "F061"
+        Me.colDgvHealthUnit.Name = "colDgvHealthUnit"
+        Me.colDgvHealthUnit.ReadOnly = True
+        Me.colDgvHealthUnit.Width = 5
+        '
+        'colDgvHealthStatus
+        '
+        Me.colDgvHealthStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvHealthStatus.HeaderText = "F062"
+        Me.colDgvHealthStatus.Name = "colDgvHealthStatus"
+        Me.colDgvHealthStatus.ReadOnly = True
+        '
+        'colDgvHealthStatusVal
+        '
+        Me.colDgvHealthStatusVal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvHealthStatusVal.HeaderText = "STATUSVAL"
+        Me.colDgvHealthStatusVal.Name = "colDgvHealthStatusVal"
+        Me.colDgvHealthStatusVal.ReadOnly = True
+        Me.colDgvHealthStatusVal.Visible = False
         '
         'btnSessionLock
         '
@@ -1543,6 +1727,31 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(1289, 54)
         Me.TableLayoutPanel2.TabIndex = 13
+        '
+        'picLogo
+        '
+        Me.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.picLogo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.picLogo.Image = CType(resources.GetObject("picLogo.Image"), System.Drawing.Image)
+        Me.picLogo.Location = New System.Drawing.Point(3, 3)
+        Me.picLogo.Name = "picLogo"
+        Me.picLogo.Size = New System.Drawing.Size(34, 40)
+        Me.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picLogo.TabIndex = 7
+        Me.picLogo.TabStop = False
+        '
+        'ServerName_lv
+        '
+        Me.ServerName_lv.AutoSize = True
+        Me.ServerName_lv.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ServerName_lv.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.ServerName_lv.ForeColor = System.Drawing.Color.White
+        Me.ServerName_lv.Location = New System.Drawing.Point(43, 0)
+        Me.ServerName_lv.Name = "ServerName_lv"
+        Me.ServerName_lv.Size = New System.Drawing.Size(581, 46)
+        Me.ServerName_lv.TabIndex = 4
+        Me.ServerName_lv.Text = "ServerInfo"
+        Me.ServerName_lv.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TableLayoutPanel3
         '
@@ -2155,215 +2364,6 @@ Partial Class frmMonDetail
         Me.Label15.TabIndex = 1
         Me.Label15.Text = "      "
         '
-        'coldgvResUtilPerBackProcDB
-        '
-        Me.coldgvResUtilPerBackProcDB.DataPropertyName = "DB_NAME"
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = "0"
-        Me.coldgvResUtilPerBackProcDB.DefaultCellStyle = DataGridViewCellStyle6
-        Me.coldgvResUtilPerBackProcDB.HeaderText = "F090"
-        Me.coldgvResUtilPerBackProcDB.Name = "coldgvResUtilPerBackProcDB"
-        Me.coldgvResUtilPerBackProcDB.ReadOnly = True
-        Me.coldgvResUtilPerBackProcDB.Width = 76
-        '
-        'coldgvResUtilPerBackProcUser
-        '
-        Me.coldgvResUtilPerBackProcUser.DataPropertyName = "USER_NAME"
-        Me.coldgvResUtilPerBackProcUser.HeaderText = "USER"
-        Me.coldgvResUtilPerBackProcUser.MinimumWidth = 81
-        Me.coldgvResUtilPerBackProcUser.Name = "coldgvResUtilPerBackProcUser"
-        Me.coldgvResUtilPerBackProcUser.ReadOnly = True
-        Me.coldgvResUtilPerBackProcUser.Visible = False
-        Me.coldgvResUtilPerBackProcUser.Width = 81
-        '
-        'coldgvResUtilPerBackProcPID
-        '
-        Me.coldgvResUtilPerBackProcPID.DataPropertyName = "PROCESS_ID"
-        Me.coldgvResUtilPerBackProcPID.HeaderText = "F082"
-        Me.coldgvResUtilPerBackProcPID.Name = "coldgvResUtilPerBackProcPID"
-        Me.coldgvResUtilPerBackProcPID.ReadOnly = True
-        Me.coldgvResUtilPerBackProcPID.Width = 76
-        '
-        'coldgvResUtilPerBackProcRead
-        '
-        Me.coldgvResUtilPerBackProcRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvResUtilPerBackProcRead.DataPropertyName = "CURRENT_PROC_READ_KB"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N1"
-        Me.coldgvResUtilPerBackProcRead.DefaultCellStyle = DataGridViewCellStyle7
-        Me.coldgvResUtilPerBackProcRead.HeaderText = "F048"
-        Me.coldgvResUtilPerBackProcRead.HeaderWord = ""
-        Me.coldgvResUtilPerBackProcRead.Name = "coldgvResUtilPerBackProcRead"
-        Me.coldgvResUtilPerBackProcRead.ReadOnly = True
-        Me.coldgvResUtilPerBackProcRead.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvResUtilPerBackProcRead.ShowUnit = True
-        Me.coldgvResUtilPerBackProcRead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvResUtilPerBackProcRead.TailWord = ""
-        Me.coldgvResUtilPerBackProcRead.Visible = False
-        Me.coldgvResUtilPerBackProcRead.Width = 76
-        '
-        'coldgvResUtilPerBackProcWrite
-        '
-        Me.coldgvResUtilPerBackProcWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvResUtilPerBackProcWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
-        DataGridViewCellStyle8.Format = "N1"
-        Me.coldgvResUtilPerBackProcWrite.DefaultCellStyle = DataGridViewCellStyle8
-        Me.coldgvResUtilPerBackProcWrite.HeaderText = "F136"
-        Me.coldgvResUtilPerBackProcWrite.HeaderWord = ""
-        Me.coldgvResUtilPerBackProcWrite.Name = "coldgvResUtilPerBackProcWrite"
-        Me.coldgvResUtilPerBackProcWrite.ReadOnly = True
-        Me.coldgvResUtilPerBackProcWrite.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvResUtilPerBackProcWrite.ShowUnit = True
-        Me.coldgvResUtilPerBackProcWrite.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvResUtilPerBackProcWrite.TailWord = ""
-        Me.coldgvResUtilPerBackProcWrite.Visible = False
-        Me.coldgvResUtilPerBackProcWrite.Width = 76
-        '
-        'coldgvResUtilPerBackProcCpuUsage
-        '
-        Me.coldgvResUtilPerBackProcCpuUsage.DataPropertyName = "CPU_USAGE"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "P"
-        Me.coldgvResUtilPerBackProcCpuUsage.DefaultCellStyle = DataGridViewCellStyle9
-        Me.coldgvResUtilPerBackProcCpuUsage.HeaderText = "F092"
-        Me.coldgvResUtilPerBackProcCpuUsage.Name = "coldgvResUtilPerBackProcCpuUsage"
-        Me.coldgvResUtilPerBackProcCpuUsage.ReadOnly = True
-        Me.coldgvResUtilPerBackProcCpuUsage.Width = 76
-        '
-        'coldgvResUtilPerBackProcStTime
-        '
-        Me.coldgvResUtilPerBackProcStTime.DataPropertyName = "START_TIME"
-        DataGridViewCellStyle10.Format = "HH:mm:ss"
-        Me.coldgvResUtilPerBackProcStTime.DefaultCellStyle = DataGridViewCellStyle10
-        Me.coldgvResUtilPerBackProcStTime.HeaderText = "F050"
-        Me.coldgvResUtilPerBackProcStTime.MinimumWidth = 80
-        Me.coldgvResUtilPerBackProcStTime.Name = "coldgvResUtilPerBackProcStTime"
-        Me.coldgvResUtilPerBackProcStTime.ReadOnly = True
-        Me.coldgvResUtilPerBackProcStTime.Width = 80
-        '
-        'coldgvResUtilPerBackProcElapsedTime
-        '
-        Me.coldgvResUtilPerBackProcElapsedTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.coldgvResUtilPerBackProcElapsedTime.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle11.Format = "N2"
-        DataGridViewCellStyle11.NullValue = "12"
-        Me.coldgvResUtilPerBackProcElapsedTime.DefaultCellStyle = DataGridViewCellStyle11
-        Me.coldgvResUtilPerBackProcElapsedTime.FillWeight = 150.0!
-        Me.coldgvResUtilPerBackProcElapsedTime.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
-        Me.coldgvResUtilPerBackProcElapsedTime.HeaderText = "F051"
-        Me.coldgvResUtilPerBackProcElapsedTime.MinimumWidth = 150
-        Me.coldgvResUtilPerBackProcElapsedTime.Name = "coldgvResUtilPerBackProcElapsedTime"
-        Me.coldgvResUtilPerBackProcElapsedTime.ReadOnly = True
-        Me.coldgvResUtilPerBackProcElapsedTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvResUtilPerBackProcElapsedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvResUtilPerBackProcElapsedTime.Width = 150
-        '
-        'coldgvResUtilPerBackProcSQL
-        '
-        Me.coldgvResUtilPerBackProcSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvResUtilPerBackProcSQL.DataPropertyName = "SQL"
-        Me.coldgvResUtilPerBackProcSQL.HeaderText = "F052"
-        Me.coldgvResUtilPerBackProcSQL.Name = "coldgvResUtilPerBackProcSQL"
-        Me.coldgvResUtilPerBackProcSQL.ReadOnly = True
-        '
-        'colDgvHealthItm
-        '
-        Me.colDgvHealthItm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvHealthItm.HeaderText = "ITEM"
-        Me.colDgvHealthItm.Name = "colDgvHealthItm"
-        Me.colDgvHealthItm.ReadOnly = True
-        Me.colDgvHealthItm.Visible = False
-        Me.colDgvHealthItm.Width = 40
-        '
-        'colDgvHealthRegDate
-        '
-        Me.colDgvHealthRegDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvHealthRegDate.DataPropertyName = "REG_DATE"
-        Me.colDgvHealthRegDate.HeaderText = "REGDATE"
-        Me.colDgvHealthRegDate.Name = "colDgvHealthRegDate"
-        Me.colDgvHealthRegDate.ReadOnly = True
-        Me.colDgvHealthRegDate.Visible = False
-        Me.colDgvHealthRegDate.Width = 67
-        '
-        'colDgvHealthSeq
-        '
-        Me.colDgvHealthSeq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvHealthSeq.DataPropertyName = "REG_SEQ"
-        Me.colDgvHealthSeq.HeaderText = "SEQ"
-        Me.colDgvHealthSeq.Name = "colDgvHealthSeq"
-        Me.colDgvHealthSeq.ReadOnly = True
-        Me.colDgvHealthSeq.Visible = False
-        Me.colDgvHealthSeq.Width = 35
-        '
-        'colDgvHealthitmNm
-        '
-        Me.colDgvHealthitmNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvHealthitmNm.HeaderText = "F059"
-        Me.colDgvHealthitmNm.Name = "colDgvHealthitmNm"
-        Me.colDgvHealthitmNm.ReadOnly = True
-        Me.colDgvHealthitmNm.Width = 5
-        '
-        'colDgvHealthIVal
-        '
-        Me.colDgvHealthIVal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle15.Format = "N0"
-        Me.colDgvHealthIVal.DefaultCellStyle = DataGridViewCellStyle15
-        Me.colDgvHealthIVal.FillWeight = 80.0!
-        Me.colDgvHealthIVal.HeaderText = "F060"
-        Me.colDgvHealthIVal.Name = "colDgvHealthIVal"
-        Me.colDgvHealthIVal.ReadOnly = True
-        Me.colDgvHealthIVal.Width = 5
-        '
-        'colDgvHealthUnit
-        '
-        Me.colDgvHealthUnit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvHealthUnit.FillWeight = 50.0!
-        Me.colDgvHealthUnit.HeaderText = "F061"
-        Me.colDgvHealthUnit.Name = "colDgvHealthUnit"
-        Me.colDgvHealthUnit.ReadOnly = True
-        Me.colDgvHealthUnit.Width = 5
-        '
-        'colDgvHealthStatus
-        '
-        Me.colDgvHealthStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvHealthStatus.HeaderText = "F062"
-        Me.colDgvHealthStatus.Name = "colDgvHealthStatus"
-        Me.colDgvHealthStatus.ReadOnly = True
-        '
-        'colDgvHealthStatusVal
-        '
-        Me.colDgvHealthStatusVal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvHealthStatusVal.HeaderText = "STATUSVAL"
-        Me.colDgvHealthStatusVal.Name = "colDgvHealthStatusVal"
-        Me.colDgvHealthStatusVal.ReadOnly = True
-        Me.colDgvHealthStatusVal.Visible = False
-        '
-        'ServerName_lv
-        '
-        Me.ServerName_lv.AutoSize = True
-        Me.ServerName_lv.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ServerName_lv.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.ServerName_lv.ForeColor = System.Drawing.Color.White
-        Me.ServerName_lv.Location = New System.Drawing.Point(43, 0)
-        Me.ServerName_lv.Name = "ServerName_lv"
-        Me.ServerName_lv.Size = New System.Drawing.Size(581, 46)
-        Me.ServerName_lv.TabIndex = 4
-        Me.ServerName_lv.Text = "ServerInfo"
-        Me.ServerName_lv.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'picLogo
-        '
-        Me.picLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.picLogo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.picLogo.Image = CType(resources.GetObject("picLogo.Image"), System.Drawing.Image)
-        Me.picLogo.Location = New System.Drawing.Point(3, 3)
-        Me.picLogo.Name = "picLogo"
-        Me.picLogo.Size = New System.Drawing.Size(34, 40)
-        Me.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picLogo.TabIndex = 7
-        Me.picLogo.TabStop = False
-        '
         'frmMonDetail
         '
         Me.BackColor = System.Drawing.Color.Black
@@ -2389,6 +2389,7 @@ Partial Class frmMonDetail
         CType(Me.dgvGrpHealth, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
+        CType(Me.picLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.TableLayoutPanel6.ResumeLayout(False)
         CType(Me.dgvDiskIO, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2415,7 +2416,6 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel18.ResumeLayout(False)
         Me.TableLayoutPanel19.ResumeLayout(False)
         Me.TableLayoutPanel19.PerformLayout()
-        CType(Me.picLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
