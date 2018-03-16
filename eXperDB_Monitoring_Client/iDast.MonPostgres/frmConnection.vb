@@ -47,8 +47,10 @@ Public Class frmConnection
         _idxROw = idxRow
         If idxRow >= 0 Then
             btnAct.Text = p_clsMsgData.fn_GetData("F141")
+            StatusLabel.Text = "DBMS 정보를 수정합니다."
         Else
             btnAct.Text = p_clsMsgData.fn_GetData("F140")
+            StatusLabel.Text = "DBMS 정보를 새롭게 등록합니다."
         End If
     End Sub
 
@@ -174,7 +176,7 @@ Public Class frmConnection
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs)
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
         Me.Close()
 
@@ -480,4 +482,13 @@ Public Class frmConnection
     'End Sub
 
 
+
+    Private Sub frmConnection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
+
+    End Sub
 End Class

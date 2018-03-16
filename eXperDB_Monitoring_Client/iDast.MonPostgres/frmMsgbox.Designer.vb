@@ -41,7 +41,7 @@ Partial Class frmMsgbox
         Me.lblMessage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMessage.FixedHeight = False
         Me.lblMessage.FixedWidth = False
-        Me.lblMessage.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblMessage.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblMessage.ForeColor = System.Drawing.Color.White
         Me.lblMessage.Location = New System.Drawing.Point(3, 33)
         Me.lblMessage.Name = "lblMessage"
@@ -53,12 +53,12 @@ Partial Class frmMsgbox
         '
         'btn1
         '
-        Me.btn1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btn1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btn1.Dock = System.Windows.Forms.DockStyle.Right
         Me.btn1.FixedHeight = False
         Me.btn1.FixedWidth = False
-        Me.btn1.ForeColor = System.Drawing.Color.LightGray
-        Me.btn1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btn1.ForeColor = System.Drawing.Color.White
+        Me.btn1.GraColor = System.Drawing.Color.Gray
         Me.btn1.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btn1.Location = New System.Drawing.Point(114, 3)
         Me.btn1.Name = "btn1"
@@ -72,12 +72,12 @@ Partial Class frmMsgbox
         '
         'btn2
         '
-        Me.btn2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btn2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btn2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btn2.FixedHeight = False
         Me.btn2.FixedWidth = False
-        Me.btn2.ForeColor = System.Drawing.Color.LightGray
-        Me.btn2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btn2.ForeColor = System.Drawing.Color.White
+        Me.btn2.GraColor = System.Drawing.Color.Gray
         Me.btn2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btn2.Location = New System.Drawing.Point(194, 3)
         Me.btn2.Name = "btn2"
@@ -91,12 +91,12 @@ Partial Class frmMsgbox
         '
         'btn3
         '
-        Me.btn3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btn3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btn3.Dock = System.Windows.Forms.DockStyle.Left
         Me.btn3.FixedHeight = False
         Me.btn3.FixedWidth = False
-        Me.btn3.ForeColor = System.Drawing.Color.LightGray
-        Me.btn3.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btn3.ForeColor = System.Drawing.Color.White
+        Me.btn3.GraColor = System.Drawing.Color.Gray
         Me.btn3.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btn3.Location = New System.Drawing.Point(274, 3)
         Me.btn3.Name = "btn3"

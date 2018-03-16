@@ -120,8 +120,13 @@ Public Class frmUserConfig
         Me.DialogResult = Windows.Forms.DialogResult.OK
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs)
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
         Me.Close()
+    End Sub
+
+    Private Sub frmUserConfig_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        StatusLabel.Text = "관리자 패스워드를 변경합니다."
     End Sub
 End Class

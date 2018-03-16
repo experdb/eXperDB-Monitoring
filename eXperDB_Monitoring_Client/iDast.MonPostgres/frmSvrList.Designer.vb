@@ -39,21 +39,20 @@ Partial Class frmSvrList
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.pnlAgentInfo = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.txtSvrPwd = New eXperDB.BaseControls.TextBox()
+        Me.txtSvrPort = New eXperDB.BaseControls.TextBox()
         Me.cmbSvrDBNm = New eXperDB.BaseControls.TextBox()
-        Me.lblSvrIP = New eXperDB.BaseControls.Label()
-        Me.lblSvrUsr = New eXperDB.BaseControls.Label()
-        Me.lblSvrDBNm = New eXperDB.BaseControls.Label()
-        Me.txtSvrIP = New eXperDB.BaseControls.TextBox()
         Me.txtSvrUsr = New eXperDB.BaseControls.TextBox()
+        Me.txtSvrIP = New eXperDB.BaseControls.TextBox()
         Me.lblSvrPwd = New eXperDB.BaseControls.Label()
         Me.lblSvrPort = New eXperDB.BaseControls.Label()
-        Me.txtSvrPort = New eXperDB.BaseControls.TextBox()
-        Me.txtSvrPwd = New eXperDB.BaseControls.TextBox()
+        Me.lblSvrDBNm = New eXperDB.BaseControls.Label()
+        Me.lblSvrUsr = New eXperDB.BaseControls.Label()
+        Me.lblSvrIP = New eXperDB.BaseControls.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.MsgLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel5 = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.btnConSave = New eXperDB.BaseControls.Button()
         Me.btnConTest = New eXperDB.BaseControls.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
@@ -107,6 +106,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.MsgLabel2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnHistory = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnStart = New eXperDB.BaseControls.Button()
         Me.btnGrpSave = New eXperDB.BaseControls.Button()
@@ -117,7 +117,6 @@ Partial Class frmSvrList
         Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewPasswordTextBoxColumn1 = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btnHistory = New eXperDB.BaseControls.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.pnlAgentInfo.SuspendLayout()
@@ -172,185 +171,43 @@ Partial Class frmSvrList
         '
         Me.pnlAgentInfo.AutoSize = True
         Me.pnlAgentInfo.BackColor = System.Drawing.Color.Gray
-        Me.pnlAgentInfo.ColumnCount = 2
-        Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.pnlAgentInfo.ColumnCount = 4
+        Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74.0!))
         Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.pnlAgentInfo.Controls.Add(Me.cmbSvrDBNm, 1, 2)
-        Me.pnlAgentInfo.Controls.Add(Me.lblSvrIP, 0, 0)
-        Me.pnlAgentInfo.Controls.Add(Me.lblSvrUsr, 0, 1)
-        Me.pnlAgentInfo.Controls.Add(Me.lblSvrDBNm, 0, 2)
-        Me.pnlAgentInfo.Controls.Add(Me.txtSvrIP, 1, 0)
-        Me.pnlAgentInfo.Controls.Add(Me.txtSvrUsr, 1, 1)
-        Me.pnlAgentInfo.Controls.Add(Me.lblSvrPwd, 0, 4)
-        Me.pnlAgentInfo.Controls.Add(Me.lblSvrPort, 0, 3)
-        Me.pnlAgentInfo.Controls.Add(Me.txtSvrPort, 1, 3)
-        Me.pnlAgentInfo.Controls.Add(Me.txtSvrPwd, 1, 4)
+        Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 206.0!))
+        Me.pnlAgentInfo.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.pnlAgentInfo.Controls.Add(Me.txtSvrPwd, 2, 5)
+        Me.pnlAgentInfo.Controls.Add(Me.txtSvrPort, 2, 4)
+        Me.pnlAgentInfo.Controls.Add(Me.cmbSvrDBNm, 2, 3)
+        Me.pnlAgentInfo.Controls.Add(Me.txtSvrUsr, 2, 2)
+        Me.pnlAgentInfo.Controls.Add(Me.txtSvrIP, 2, 1)
+        Me.pnlAgentInfo.Controls.Add(Me.lblSvrPwd, 1, 5)
+        Me.pnlAgentInfo.Controls.Add(Me.lblSvrPort, 1, 4)
+        Me.pnlAgentInfo.Controls.Add(Me.lblSvrDBNm, 1, 3)
+        Me.pnlAgentInfo.Controls.Add(Me.lblSvrUsr, 1, 2)
+        Me.pnlAgentInfo.Controls.Add(Me.lblSvrIP, 1, 1)
         Me.pnlAgentInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlAgentInfo.Location = New System.Drawing.Point(3, 60)
         Me.pnlAgentInfo.Name = "pnlAgentInfo"
-        Me.pnlAgentInfo.RowCount = 6
-        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.pnlAgentInfo.RowCount = 7
         Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.pnlAgentInfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.pnlAgentInfo.Size = New System.Drawing.Size(880, 486)
         Me.pnlAgentInfo.TabIndex = 4
-        '
-        'cmbSvrDBNm
-        '
-        Me.cmbSvrDBNm.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSvrDBNm.code = False
-        Me.cmbSvrDBNm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmbSvrDBNm.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.cmbSvrDBNm.impossibleinput = ""
-        Me.cmbSvrDBNm.Location = New System.Drawing.Point(103, 57)
-        Me.cmbSvrDBNm.Name = "cmbSvrDBNm"
-        Me.cmbSvrDBNm.Necessary = False
-        Me.cmbSvrDBNm.PossibleInput = ""
-        Me.cmbSvrDBNm.Prefix = ""
-        Me.cmbSvrDBNm.Size = New System.Drawing.Size(150, 21)
-        Me.cmbSvrDBNm.StatusTip = ""
-        Me.cmbSvrDBNm.TabIndex = 5
-        Me.cmbSvrDBNm.Value = ""
-        '
-        'lblSvrIP
-        '
-        Me.lblSvrIP.BackColor = System.Drawing.Color.Transparent
-        Me.lblSvrIP.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSvrIP.FixedHeight = False
-        Me.lblSvrIP.FixedWidth = False
-        Me.lblSvrIP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSvrIP.ForeColor = System.Drawing.Color.White
-        Me.lblSvrIP.Location = New System.Drawing.Point(3, 0)
-        Me.lblSvrIP.Name = "lblSvrIP"
-        Me.lblSvrIP.Size = New System.Drawing.Size(94, 27)
-        Me.lblSvrIP.TabIndex = 2
-        Me.lblSvrIP.Text = "F006"
-        Me.lblSvrIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblSvrUsr
-        '
-        Me.lblSvrUsr.BackColor = System.Drawing.Color.Transparent
-        Me.lblSvrUsr.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSvrUsr.FixedHeight = False
-        Me.lblSvrUsr.FixedWidth = False
-        Me.lblSvrUsr.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSvrUsr.ForeColor = System.Drawing.Color.White
-        Me.lblSvrUsr.Location = New System.Drawing.Point(3, 27)
-        Me.lblSvrUsr.Name = "lblSvrUsr"
-        Me.lblSvrUsr.Size = New System.Drawing.Size(94, 27)
-        Me.lblSvrUsr.TabIndex = 2
-        Me.lblSvrUsr.Text = "F008"
-        Me.lblSvrUsr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblSvrDBNm
-        '
-        Me.lblSvrDBNm.BackColor = System.Drawing.Color.Transparent
-        Me.lblSvrDBNm.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSvrDBNm.FixedHeight = False
-        Me.lblSvrDBNm.FixedWidth = False
-        Me.lblSvrDBNm.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSvrDBNm.ForeColor = System.Drawing.Color.White
-        Me.lblSvrDBNm.Location = New System.Drawing.Point(3, 54)
-        Me.lblSvrDBNm.Name = "lblSvrDBNm"
-        Me.lblSvrDBNm.Size = New System.Drawing.Size(94, 27)
-        Me.lblSvrDBNm.TabIndex = 2
-        Me.lblSvrDBNm.Text = "F010"
-        Me.lblSvrDBNm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'txtSvrIP
-        '
-        Me.txtSvrIP.BackColor = System.Drawing.SystemColors.Window
-        Me.txtSvrIP.code = False
-        Me.txtSvrIP.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSvrIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSvrIP.impossibleinput = ""
-        Me.txtSvrIP.Location = New System.Drawing.Point(103, 3)
-        Me.txtSvrIP.Name = "txtSvrIP"
-        Me.txtSvrIP.Necessary = False
-        Me.txtSvrIP.PossibleInput = "1234567890."
-        Me.txtSvrIP.Prefix = ""
-        Me.txtSvrIP.Size = New System.Drawing.Size(150, 21)
-        Me.txtSvrIP.StatusTip = ""
-        Me.txtSvrIP.TabIndex = 1
-        Me.txtSvrIP.Value = ""
-        '
-        'txtSvrUsr
-        '
-        Me.txtSvrUsr.BackColor = System.Drawing.SystemColors.Window
-        Me.txtSvrUsr.code = False
-        Me.txtSvrUsr.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSvrUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSvrUsr.impossibleinput = ""
-        Me.txtSvrUsr.Location = New System.Drawing.Point(103, 30)
-        Me.txtSvrUsr.Name = "txtSvrUsr"
-        Me.txtSvrUsr.Necessary = False
-        Me.txtSvrUsr.PossibleInput = ""
-        Me.txtSvrUsr.Prefix = ""
-        Me.txtSvrUsr.Size = New System.Drawing.Size(150, 21)
-        Me.txtSvrUsr.StatusTip = ""
-        Me.txtSvrUsr.TabIndex = 3
-        Me.txtSvrUsr.Value = ""
-        '
-        'lblSvrPwd
-        '
-        Me.lblSvrPwd.BackColor = System.Drawing.Color.Transparent
-        Me.lblSvrPwd.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSvrPwd.FixedHeight = False
-        Me.lblSvrPwd.FixedWidth = False
-        Me.lblSvrPwd.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSvrPwd.ForeColor = System.Drawing.Color.White
-        Me.lblSvrPwd.Location = New System.Drawing.Point(3, 110)
-        Me.lblSvrPwd.Name = "lblSvrPwd"
-        Me.lblSvrPwd.Size = New System.Drawing.Size(94, 27)
-        Me.lblSvrPwd.TabIndex = 2
-        Me.lblSvrPwd.Text = "F009"
-        Me.lblSvrPwd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblSvrPort
-        '
-        Me.lblSvrPort.BackColor = System.Drawing.Color.Transparent
-        Me.lblSvrPort.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSvrPort.FixedHeight = False
-        Me.lblSvrPort.FixedWidth = False
-        Me.lblSvrPort.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSvrPort.ForeColor = System.Drawing.Color.White
-        Me.lblSvrPort.Location = New System.Drawing.Point(3, 81)
-        Me.lblSvrPort.Name = "lblSvrPort"
-        Me.lblSvrPort.Size = New System.Drawing.Size(94, 29)
-        Me.lblSvrPort.TabIndex = 2
-        Me.lblSvrPort.Text = "F007"
-        Me.lblSvrPort.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'txtSvrPort
-        '
-        Me.txtSvrPort.BackColor = System.Drawing.SystemColors.Window
-        Me.txtSvrPort.code = False
-        Me.txtSvrPort.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSvrPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSvrPort.impossibleinput = ""
-        Me.txtSvrPort.Location = New System.Drawing.Point(103, 84)
-        Me.txtSvrPort.Name = "txtSvrPort"
-        Me.txtSvrPort.Necessary = False
-        Me.txtSvrPort.PossibleInput = "0123456789"
-        Me.txtSvrPort.Prefix = ""
-        Me.txtSvrPort.Size = New System.Drawing.Size(150, 21)
-        Me.txtSvrPort.StatusTip = ""
-        Me.txtSvrPort.TabIndex = 2
-        Me.txtSvrPort.Value = ""
         '
         'txtSvrPwd
         '
         Me.txtSvrPwd.BackColor = System.Drawing.SystemColors.Window
         Me.txtSvrPwd.code = False
-        Me.txtSvrPwd.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtSvrPwd.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtSvrPwd.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrPwd.impossibleinput = ""
-        Me.txtSvrPwd.Location = New System.Drawing.Point(103, 113)
+        Me.txtSvrPwd.Location = New System.Drawing.Point(177, 196)
         Me.txtSvrPwd.Name = "txtSvrPwd"
         Me.txtSvrPwd.Necessary = False
         Me.txtSvrPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -360,6 +217,149 @@ Partial Class frmSvrList
         Me.txtSvrPwd.StatusTip = ""
         Me.txtSvrPwd.TabIndex = 4
         Me.txtSvrPwd.Value = ""
+        '
+        'txtSvrPort
+        '
+        Me.txtSvrPort.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSvrPort.code = False
+        Me.txtSvrPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSvrPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtSvrPort.impossibleinput = ""
+        Me.txtSvrPort.Location = New System.Drawing.Point(177, 156)
+        Me.txtSvrPort.Name = "txtSvrPort"
+        Me.txtSvrPort.Necessary = False
+        Me.txtSvrPort.PossibleInput = "0123456789"
+        Me.txtSvrPort.Prefix = ""
+        Me.txtSvrPort.Size = New System.Drawing.Size(150, 21)
+        Me.txtSvrPort.StatusTip = ""
+        Me.txtSvrPort.TabIndex = 2
+        Me.txtSvrPort.Value = ""
+        '
+        'cmbSvrDBNm
+        '
+        Me.cmbSvrDBNm.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSvrDBNm.code = False
+        Me.cmbSvrDBNm.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbSvrDBNm.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cmbSvrDBNm.impossibleinput = ""
+        Me.cmbSvrDBNm.Location = New System.Drawing.Point(177, 116)
+        Me.cmbSvrDBNm.Name = "cmbSvrDBNm"
+        Me.cmbSvrDBNm.Necessary = False
+        Me.cmbSvrDBNm.PossibleInput = ""
+        Me.cmbSvrDBNm.Prefix = ""
+        Me.cmbSvrDBNm.Size = New System.Drawing.Size(150, 21)
+        Me.cmbSvrDBNm.StatusTip = ""
+        Me.cmbSvrDBNm.TabIndex = 5
+        Me.cmbSvrDBNm.Value = ""
+        '
+        'txtSvrUsr
+        '
+        Me.txtSvrUsr.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSvrUsr.code = False
+        Me.txtSvrUsr.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSvrUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtSvrUsr.impossibleinput = ""
+        Me.txtSvrUsr.Location = New System.Drawing.Point(177, 76)
+        Me.txtSvrUsr.Name = "txtSvrUsr"
+        Me.txtSvrUsr.Necessary = False
+        Me.txtSvrUsr.PossibleInput = ""
+        Me.txtSvrUsr.Prefix = ""
+        Me.txtSvrUsr.Size = New System.Drawing.Size(150, 21)
+        Me.txtSvrUsr.StatusTip = ""
+        Me.txtSvrUsr.TabIndex = 3
+        Me.txtSvrUsr.Value = ""
+        '
+        'txtSvrIP
+        '
+        Me.txtSvrIP.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSvrIP.code = False
+        Me.txtSvrIP.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSvrIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtSvrIP.impossibleinput = ""
+        Me.txtSvrIP.Location = New System.Drawing.Point(177, 36)
+        Me.txtSvrIP.Name = "txtSvrIP"
+        Me.txtSvrIP.Necessary = False
+        Me.txtSvrIP.PossibleInput = "1234567890."
+        Me.txtSvrIP.Prefix = ""
+        Me.txtSvrIP.Size = New System.Drawing.Size(150, 21)
+        Me.txtSvrIP.StatusTip = ""
+        Me.txtSvrIP.TabIndex = 1
+        Me.txtSvrIP.Value = ""
+        '
+        'lblSvrPwd
+        '
+        Me.lblSvrPwd.BackColor = System.Drawing.Color.Transparent
+        Me.lblSvrPwd.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrPwd.FixedHeight = False
+        Me.lblSvrPwd.FixedWidth = False
+        Me.lblSvrPwd.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrPwd.ForeColor = System.Drawing.Color.White
+        Me.lblSvrPwd.Location = New System.Drawing.Point(77, 193)
+        Me.lblSvrPwd.Name = "lblSvrPwd"
+        Me.lblSvrPwd.Size = New System.Drawing.Size(94, 27)
+        Me.lblSvrPwd.TabIndex = 2
+        Me.lblSvrPwd.Text = "F009"
+        Me.lblSvrPwd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblSvrPort
+        '
+        Me.lblSvrPort.BackColor = System.Drawing.Color.Transparent
+        Me.lblSvrPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrPort.FixedHeight = False
+        Me.lblSvrPort.FixedWidth = False
+        Me.lblSvrPort.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrPort.ForeColor = System.Drawing.Color.White
+        Me.lblSvrPort.Location = New System.Drawing.Point(77, 151)
+        Me.lblSvrPort.Name = "lblSvrPort"
+        Me.lblSvrPort.Size = New System.Drawing.Size(94, 29)
+        Me.lblSvrPort.TabIndex = 2
+        Me.lblSvrPort.Text = "F007"
+        Me.lblSvrPort.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblSvrDBNm
+        '
+        Me.lblSvrDBNm.BackColor = System.Drawing.Color.Transparent
+        Me.lblSvrDBNm.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrDBNm.FixedHeight = False
+        Me.lblSvrDBNm.FixedWidth = False
+        Me.lblSvrDBNm.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrDBNm.ForeColor = System.Drawing.Color.White
+        Me.lblSvrDBNm.Location = New System.Drawing.Point(77, 113)
+        Me.lblSvrDBNm.Name = "lblSvrDBNm"
+        Me.lblSvrDBNm.Size = New System.Drawing.Size(94, 27)
+        Me.lblSvrDBNm.TabIndex = 2
+        Me.lblSvrDBNm.Text = "F010"
+        Me.lblSvrDBNm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblSvrUsr
+        '
+        Me.lblSvrUsr.BackColor = System.Drawing.Color.Transparent
+        Me.lblSvrUsr.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrUsr.FixedHeight = False
+        Me.lblSvrUsr.FixedWidth = False
+        Me.lblSvrUsr.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrUsr.ForeColor = System.Drawing.Color.White
+        Me.lblSvrUsr.Location = New System.Drawing.Point(77, 73)
+        Me.lblSvrUsr.Name = "lblSvrUsr"
+        Me.lblSvrUsr.Size = New System.Drawing.Size(94, 27)
+        Me.lblSvrUsr.TabIndex = 2
+        Me.lblSvrUsr.Text = "F008"
+        Me.lblSvrUsr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblSvrIP
+        '
+        Me.lblSvrIP.BackColor = System.Drawing.Color.Transparent
+        Me.lblSvrIP.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrIP.FixedHeight = False
+        Me.lblSvrIP.FixedWidth = False
+        Me.lblSvrIP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrIP.ForeColor = System.Drawing.Color.White
+        Me.lblSvrIP.Location = New System.Drawing.Point(77, 33)
+        Me.lblSvrIP.Name = "lblSvrIP"
+        Me.lblSvrIP.Size = New System.Drawing.Size(94, 27)
+        Me.lblSvrIP.TabIndex = 2
+        Me.lblSvrIP.Text = "F006"
+        Me.lblSvrIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TableLayoutPanel2
         '
@@ -406,11 +406,11 @@ Partial Class frmSvrList
         'TableLayoutPanel5
         '
         Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel5.ColumnCount = 2
+        Me.TableLayoutPanel5.ColumnCount = 3
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.btnConSave, 1, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.btnConTest, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.btnConTest, 1, 0)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 546)
         Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -420,37 +420,16 @@ Partial Class frmSvrList
         Me.TableLayoutPanel5.Size = New System.Drawing.Size(880, 45)
         Me.TableLayoutPanel5.TabIndex = 0
         '
-        'btnConSave
-        '
-        Me.btnConSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnConSave.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnConSave.FixedHeight = False
-        Me.btnConSave.FixedWidth = False
-        Me.btnConSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnConSave.ForeColor = System.Drawing.Color.White
-        Me.btnConSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnConSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnConSave.Location = New System.Drawing.Point(443, 3)
-        Me.btnConSave.Name = "btnConSave"
-        Me.btnConSave.Radius = 10
-        Me.btnConSave.Size = New System.Drawing.Size(110, 39)
-        Me.btnConSave.TabIndex = 3
-        Me.btnConSave.Text = "F003"
-        Me.btnConSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnConSave.UseRound = True
-        Me.btnConSave.UseVisualStyleBackColor = True
-        '
         'btnConTest
         '
         Me.btnConTest.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnConTest.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnConTest.FixedHeight = False
         Me.btnConTest.FixedWidth = False
         Me.btnConTest.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnConTest.ForeColor = System.Drawing.Color.White
         Me.btnConTest.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConTest.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnConTest.Location = New System.Drawing.Point(327, 3)
+        Me.btnConTest.Location = New System.Drawing.Point(383, 3)
         Me.btnConTest.Name = "btnConTest"
         Me.btnConTest.Radius = 10
         Me.btnConTest.Size = New System.Drawing.Size(110, 39)
@@ -1126,6 +1105,27 @@ Partial Class frmSvrList
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
         '
+        'btnHistory
+        '
+        Me.btnHistory.BackColor = System.Drawing.Color.Silver
+        Me.btnHistory.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnHistory.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnHistory.FixedHeight = False
+        Me.btnHistory.FixedWidth = False
+        Me.btnHistory.Font = New System.Drawing.Font("Webdings", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.btnHistory.ForeColor = System.Drawing.Color.Yellow
+        Me.btnHistory.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnHistory.Image = CType(resources.GetObject("btnHistory.Image"), System.Drawing.Image)
+        Me.btnHistory.LineColor = System.Drawing.Color.LightGray
+        Me.btnHistory.Location = New System.Drawing.Point(843, 22)
+        Me.btnHistory.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnHistory.Name = "btnHistory"
+        Me.btnHistory.Radius = 5
+        Me.btnHistory.Size = New System.Drawing.Size(34, 31)
+        Me.btnHistory.TabIndex = 17
+        Me.btnHistory.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnHistory.UseVisualStyleBackColor = True
+        '
         'TableLayoutPanel4
         '
         Me.TableLayoutPanel4.ColumnCount = 2
@@ -1268,27 +1268,6 @@ Partial Class frmSvrList
         Me.DataGridViewTextBoxColumn6.ReadOnly = True
         Me.DataGridViewTextBoxColumn6.Visible = False
         '
-        'btnHistory
-        '
-        Me.btnHistory.BackColor = System.Drawing.Color.Silver
-        Me.btnHistory.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnHistory.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnHistory.FixedHeight = False
-        Me.btnHistory.FixedWidth = False
-        Me.btnHistory.Font = New System.Drawing.Font("Webdings", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
-        Me.btnHistory.ForeColor = System.Drawing.Color.Yellow
-        Me.btnHistory.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnHistory.Image = CType(resources.GetObject("btnHistory.Image"), System.Drawing.Image)
-        Me.btnHistory.LineColor = System.Drawing.Color.LightGray
-        Me.btnHistory.Location = New System.Drawing.Point(843, 22)
-        Me.btnHistory.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnHistory.Name = "btnHistory"
-        Me.btnHistory.Radius = 5
-        Me.btnHistory.Size = New System.Drawing.Size(34, 31)
-        Me.btnHistory.TabIndex = 17
-        Me.btnHistory.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnHistory.UseVisualStyleBackColor = True
-        '
         'frmSvrList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1399,7 +1378,6 @@ Partial Class frmSvrList
     Friend WithEvents txtSvrPort As eXperDB.BaseControls.TextBox
     Friend WithEvents txtSvrPwd As eXperDB.BaseControls.TextBox
     Friend WithEvents TableLayoutPanel5 As eXperDB.BaseControls.TableLayoutPanel
-    Friend WithEvents btnConSave As eXperDB.BaseControls.Button
     Friend WithEvents btnConTest As eXperDB.BaseControls.Button
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage

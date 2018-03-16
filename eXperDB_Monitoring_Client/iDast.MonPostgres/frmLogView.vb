@@ -48,9 +48,9 @@ Public Class frmLogView
     ''' <remarks></remarks>
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitForm()
-        Me.Invoke(New MethodInvoker(Sub()
-                                        btnRefresh.PerformClick()
-                                    End Sub))
+        'Me.Invoke(New MethodInvoker(Sub()
+        '                                btnRefresh.PerformClick()
+        '                            End Sub))
     End Sub
 
 
@@ -58,7 +58,7 @@ Public Class frmLogView
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
-        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        Me.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information
@@ -68,16 +68,19 @@ Public Class frmLogView
         coldgvLogFileListTime.HeaderText = p_clsMsgData.fn_GetData("F237")
         coldgvLogFileListSize.HeaderText = p_clsMsgData.fn_GetData("F238")
 
+
         ' Index Information
         grpLogview.Text = p_clsMsgData.fn_GetData("F236", 0)
         dgvLogData.AutoGenerateColumns = False
         dgvLogData.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 80)
         coldgvLogData.HeaderText = p_clsMsgData.fn_GetData("F239")
 
-        grpLogInfo.Text = p_clsMsgData.fn_GetData("F234")
 
-        btnRefresh.Text = p_clsMsgData.fn_GetData("F244")
-        btnMore.Text = p_clsMsgData.fn_GetData("F240")
+
+        'grpLogInfo.Text = p_clsMsgData.fn_GetData("F234")
+
+        'btnRefresh.Text = p_clsMsgData.fn_GetData("F244")
+        'btnMore.Text = p_clsMsgData.fn_GetData("F240")
         lblLogReadUnit.Text = p_clsMsgData.fn_GetData("F241")
         cboLogReadUnit.AddValue(5000, "5KB")
         cboLogReadUnit.AddValue(10000, "10KB")
@@ -90,13 +93,18 @@ Public Class frmLogView
 
         'btnRefresh.Text = p_clsMsgData.fn_GetData("F137")
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
-        modCommon.FontChange(Me, p_Font)
+        'modCommon.FontChange(Me, p_Font)
+        FileTotalCnt.Text = p_clsMsgData.fn_GetData("F900", 0)
+        FileTotalSize.Text = p_clsMsgData.fn_GetData("F901", 0)
+        RefreshTime.Text = p_clsMsgData.fn_GetData("F902", 0)
+        MsgLabel.Text = "데이터베이스 시스템 로그를 확인할 수 있습니다."
+
 
     End Sub
 
@@ -121,8 +129,8 @@ Public Class frmLogView
         grpLogFileList.Text = p_clsMsgData.fn_GetData("F235", dtView.Count)
         modCommon.sb_GridSortChg(dgvLogFileList)
         'dgvLogFileList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-        dgvLogFileList.AutoResizeColumns()
-        coldgvLogFileListSize.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        'dgvLogFileList.AutoResizeColumns()
+        'coldgvLogFileListSize.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
 
     End Sub
     ''' <summary>
@@ -152,6 +160,7 @@ Public Class frmLogView
 
         _frmWait = New frmWait
         _frmWait.TopMost = True
+        _frmWait.StartPosition = FormStartPosition.CenterParent
         _frmWait.Show(Me)
 
         dgvLogData.Rows.Clear()
@@ -170,6 +179,8 @@ Public Class frmLogView
         '    Return
         'End If
         'bckmanual.RunWorkerAsync()
+
+
 
     End Sub
 
@@ -203,8 +214,18 @@ Public Class frmLogView
                     Case Else
                 End Select
             End If
-            lblRefreshTime.Text = Now.ToString("yyyy-MM-dd HH:mm:ss")
+            RefreshTime_lv.Text = Now.ToString("yyyy-MM-dd HH:mm:ss")
+            FileTotalCnt_lv.Text = dgvLogFileList.Rows.Count
+
+            Dim fileSum As Integer = 0
+            For Each tmpRow As DataGridViewRow In dgvLogFileList.Rows
+                fileSum += Convert.ToInt32(tmpRow.Cells(2).Value)
+            Next
+
+            FileTotalSize_lv.Text = Convert.ToSingle(fileSum / 1024) & " MB"
         End If
+
+
 
         If _frmWait IsNot Nothing Then
             _frmWait.Close()
@@ -214,7 +235,10 @@ Public Class frmLogView
 
     Private Sub frmLogView_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
-        bckmanual.RunWorkerAsync()
+        'bckmanual.RunWorkerAsync()
+
+        btnRefresh.PerformClick()
+
 
     End Sub
 
@@ -344,9 +368,9 @@ Public Class frmLogView
             _currentOffset = 0
             grpLogview.Text = dgvLogFileList.Rows(e.RowIndex).Cells(1).Value
 
-            For i As Integer = 0 To dgvLogFileList.ColumnCount - 1
-                dgvLogFileList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 80)
-            Next
+            'For i As Integer = 0 To dgvLogFileList.ColumnCount - 1
+            '    dgvLogFileList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 80)
+            'Next
 
             '_AgentObject.SendDX006(Me.InstanceID, "6", "", "pg_log/postgresql-2017-05-11_174130.log", 10, 0, 1000)
             _AgentObject.SendDX006(Me.InstanceID, "6", "", dgvLogFileList.Rows(e.RowIndex).Cells(0).Value, 0, DEFAULTREADLENGTH)
@@ -369,5 +393,10 @@ Public Class frmLogView
             _AgentObject.Cancel()
             _AgentObject = Nothing
         End If
+    End Sub
+
+
+    Private Sub dgvLogFileList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLogFileList.CellContentClick
+
     End Sub
 End Class

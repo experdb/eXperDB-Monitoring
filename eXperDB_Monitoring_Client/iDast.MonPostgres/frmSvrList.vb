@@ -49,6 +49,13 @@
                 TabControl1.SelectedIndex = 1
             End If
 
+            If btnConTest.Tag IsNot Nothing AndAlso btnConTest.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then
+                modCommon.AgentInfoWrite(DirectCast(btnConTest.Tag, eXperDB.ODBC.DXODBC).ODBCConninfo)
+                'MsgBox(p_clsMsgData.fn_GetData("M021"))
+            Else
+                MsgBox(p_clsMsgData.fn_GetData("M022"))
+            End If
+
         Else
             MsgBox(p_clsMsgData.fn_GetData("M004"))
             sb_Ctlenabled(False)
@@ -314,22 +321,7 @@
 
     End Function
 
-    ''' <summary>
-    ''' Agent 서버 접속 정보 저장 
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub btnConSave_Click(sender As Object, e As EventArgs) Handles btnConSave.Click
 
-        If btnConTest.Tag IsNot Nothing AndAlso btnConTest.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then
-            modCommon.AgentInfoWrite(DirectCast(btnConTest.Tag, eXperDB.ODBC.DXODBC).ODBCConninfo)
-            MsgBox(p_clsMsgData.fn_GetData("M021"))
-        Else
-            MsgBox(p_clsMsgData.fn_GetData("M022"))
-        End If
-
-    End Sub
 #End Region
 
 
@@ -356,7 +348,7 @@
 
         'Me.grpAgentSVR.Text = p_clsMsgData.fn_GetData("F001")
         btnConTest.Text = p_clsMsgData.fn_GetData("F309")
-        btnConSave.Text = p_clsMsgData.fn_GetData("F003")
+        'btnConSave.Text = p_clsMsgData.fn_GetData("F003")
         lblSvrIP.Text = p_clsMsgData.fn_GetData("F006")
         lblSvrPort.Text = p_clsMsgData.fn_GetData("F007")
         lblSvrUsr.Text = p_clsMsgData.fn_GetData("F008")
@@ -424,7 +416,7 @@
     Private Sub sb_Ctlenabled(ByVal Bret As Boolean)
         'grpSvrLst.Enabled = Bret
         'pnlB.Enabled = Bret
-        btnConSave.Enabled = Bret
+        'btnConSave.Enabled = Bret
         'grpMonGrp.Enabled = Bret
         dgvSvrLst.Rows.Clear()
         btnStart.Enabled = Bret

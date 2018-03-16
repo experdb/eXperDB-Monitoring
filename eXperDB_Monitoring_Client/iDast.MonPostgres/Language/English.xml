@@ -2676,5 +2676,33 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+
+
+  <ROW ID="F900" PARAMS="0">
+    <DESC>파일 건수</DESC>
+    <DATA><![CDATA[File Count]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F901" PARAMS="0">
+    <DESC>파일 전체용량</DESC>
+    <DATA><![CDATA[File Total Size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F902" PARAMS="0">
+    <DESC>새로고침 시간</DESC>
+    <DATA><![CDATA[Refresh Time]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+
+
   alphanumeric characters and special characters.
 </ROWS>

@@ -43,7 +43,7 @@ Partial Class frmPassword
         Me.txtPw.FixedWidth = False
         Me.txtPw.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPw.impossibleinput = ""
-        Me.txtPw.Location = New System.Drawing.Point(111, 34)
+        Me.txtPw.Location = New System.Drawing.Point(105, 38)
         Me.txtPw.Name = "txtPw"
         Me.txtPw.Necessary = False
         Me.txtPw.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -68,7 +68,7 @@ Partial Class frmPassword
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(372, 30)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(372, 44)
         Me.TableLayoutPanel1.TabIndex = 16
         '
         'StatusLabel
@@ -80,7 +80,7 @@ Partial Class frmPassword
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(326, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(326, 44)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -93,7 +93,7 @@ Partial Class frmPassword
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.Size = New System.Drawing.Size(34, 44)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -106,26 +106,26 @@ Partial Class frmPassword
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001!))
         Me.TableLayoutPanel2.Controls.Add(Me.btnOK, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 122)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 150)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(372, 41)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(372, 44)
         Me.TableLayoutPanel2.TabIndex = 17
         '
         'btnOK
         '
-        Me.btnOK.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnOK.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnOK.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnOK.FixedHeight = False
         Me.btnOK.FixedWidth = False
-        Me.btnOK.ForeColor = System.Drawing.Color.LightGray
-        Me.btnOK.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnOK.ForeColor = System.Drawing.Color.White
+        Me.btnOK.GraColor = System.Drawing.Color.Gray
         Me.btnOK.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnOK.Location = New System.Drawing.Point(148, 3)
+        Me.btnOK.Location = New System.Drawing.Point(130, 3)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Radius = 10
-        Me.btnOK.Size = New System.Drawing.Size(74, 35)
+        Me.btnOK.Size = New System.Drawing.Size(110, 38)
         Me.btnOK.TabIndex = 1
         Me.btnOK.Text = "F005"
         Me.btnOK.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -135,28 +135,31 @@ Partial Class frmPassword
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(43, 37)
+        Me.Label2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(29, 41)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(62, 12)
+        Me.Label2.Size = New System.Drawing.Size(70, 12)
         Me.Label2.TabIndex = 11
         Me.Label2.Text = "Password"
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.Color.DarkGray
         Me.Panel1.Controls.Add(Me.txtPw)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 33)
+        Me.Panel1.Location = New System.Drawing.Point(3, 47)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(372, 89)
+        Me.Panel1.Size = New System.Drawing.Size(372, 103)
         Me.Panel1.TabIndex = 20
         '
         'frmPassword
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(378, 166)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(378, 197)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel1)
