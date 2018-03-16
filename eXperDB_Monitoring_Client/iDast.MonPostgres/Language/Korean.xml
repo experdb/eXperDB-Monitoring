@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ROWS>
   <ROW ID="ACTIVECONNECTION" PARAMS="0">
-    <DESC>현재 생성된 backend process 갯수를 점검합니다.\n max_connections 파라메터로 동시접속 제한수를 늘릴 수 있습니다.</DESC>
+    <DESC>현재 생성된 backend process 갯수를 점검합니다. max_connections 파라메터로 동시접속 제한수를 늘릴 수 있습니다.</DESC>
     <DATA><![CDATA[Backend PROC]]></DATA>
     <COMMENTS>max_connections,work_mem,superuser_reserved_connections</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -9,7 +9,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="BUFFERHITRATIO" PARAMS="0">
-    <DESC>shared_buffer 내의 데이터 히트율을 점검합니다. \nshared_buffers 영역을 증가함으로써 데이터 버퍼 적중율 향상을 기대할 수 있습니다.</DESC>
+    <DESC>shared_buffer 내의 데이터 히트율을 점검합니다. shared_buffers 영역을 증가함으로써 데이터 버퍼 적중율 향상을 기대할 수 있습니다.</DESC>
     <DATA><![CDATA[Buffer Hit Ratio]]></DATA>
     <COMMENTS>shared_buffers</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -17,7 +17,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="COMMITRATIO" PARAMS="0">
-    <DESC>트랜잭션 성공율을 데이터베이스별로 점검합니다.\n불필요한 ROLLBACK 트랜잭션을 개선하여 불필요한 자원낭비를\n 해소할 수 있습니다.</DESC>
+    <DESC>트랜잭션 성공율을 데이터베이스별로 점검합니다. 불필요한 ROLLBACK 트랜잭션을 개선하여 불필요한 자원낭비를\n 해소할 수 있습니다.</DESC>
     <DATA><![CDATA[트랜잭션 성공율]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -25,7 +25,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="CONNECTIONFAIL" PARAMS="0">
-    <DESC>수집주기별로 데이터베이스\n 접속정상여부를 점검합니다.</DESC>
+    <DESC>수집주기별로 데이터베이스 접속정상여부를 점검합니다.</DESC>
     <DATA><![CDATA[접속실패]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -2317,7 +2317,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
-    <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다.\n지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 \nAUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
+    <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
     <COMMENTS>autovacuum,autovacuum_analyze_threshold</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -2325,7 +2325,7 @@
     <VALUECAST>99999|미실행</VALUECAST>
   </ROW>
   <ROW ID="LASTVACUUM" PARAMS="0">
-    <DESC>사용자가 지정한 일수이상동안 VACUUM 이 실행되지 않은 테이블을 점검합니다.\nVACUUM 관련 파라메터로 데이터파일의 BLOATING 이슈를 예방할 수 있습니다.</DESC>
+    <DESC>사용자가 지정한 일수이상동안 VACUUM 이 실행되지 않은 테이블을 점검합니다. VACUUM 관련 파라메터로 데이터파일의 BLOATING 이슈를 예방할 수 있습니다.</DESC>
     <DATA><![CDATA[Vacuum 미실행]]></DATA>
     <COMMENTS>autovacuum,autovacuum_vacuum_threshold</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -2333,7 +2333,7 @@
     <VALUECAST>99999|미실행</VALUECAST>
   </ROW>
   <ROW ID="LOCKCNT" PARAMS="0">
-    <DESC>lock 트랜잭션을 점검합니다.\nlog_lock_waits 파라메터로 일정시간 이상 경합상태를 지속하는\n트랜잭션정보를 로그파일로 저장할 수 있습니다.</DESC>
+    <DESC>lock 트랜잭션을 점검합니다. log_lock_waits 파라메터로 일정시간 이상 경합상태를 지속하는 트랜잭션정보를 로그파일로 저장할 수 있습니다.</DESC>
     <DATA><![CDATA[LOCK]]></DATA>
     <COMMENTS>log_lock_waits</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -2341,7 +2341,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="LONGRUNSQL" PARAMS="0">
-    <DESC>사용자가 지정한 시간 이상동안 실행되는 SQL을 점검합니다.\nlog_min_duration_statement 파라메터로 특정시간 이상 실행되는 SQL 정보를 로그파일에 저장할 수 있습니다.</DESC>
+    <DESC>사용자가 지정한 시간 이상동안 실행되는 SQL을 점검합니다. log_min_duration_statement 파라메터로 특정시간 이상 실행되는 SQL 정보를 로그파일에 저장할 수 있습니다.</DESC>
     <DATA><![CDATA[Long Run SQL]]></DATA>
     <COMMENTS>log_min_duration_statement</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -2509,7 +2509,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="TRAXIDLECNT" PARAMS="0">
-    <DESC>다른 트랜잭션에 영향을 끼칠 수 있는 idle in transaction 현황을 출력합니다.\n 비정상적으로 종료되어 소멸되지 않을 경우 불필요한 경합이 발생할 수 있으며\n pg_terminate_backend 함수를 이용하여 강제종료할 수 있습니다.</DESC>
+    <DESC>다른 트랜잭션에 영향을 끼칠 수 있는 idle in transaction 현황을 출력합니다. 비정상적으로 종료되어 소멸되지 않을 경우 불필요한 경합이 발생할 수 있으며 pg_terminate_backend 함수를 이용하여 강제종료할 수 있습니다.</DESC>
     <DATA><![CDATA[유휴 트랜잭션]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>

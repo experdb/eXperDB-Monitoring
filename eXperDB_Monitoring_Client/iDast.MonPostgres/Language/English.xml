@@ -25,7 +25,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="CONNECTIONFAIL" PARAMS="0">
-    <DESC>Issues 'SELECT 1' and checks\nthe connection.</DESC>
+    <DESC>Issues 'SELECT 1' and checks the connection.</DESC>
     <DATA><![CDATA[Connection Fail]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
