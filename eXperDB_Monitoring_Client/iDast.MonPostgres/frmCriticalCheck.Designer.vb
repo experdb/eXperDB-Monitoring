@@ -27,16 +27,17 @@ Partial Class frmCriticalCheck
         Me.btnSave = New eXperDB.BaseControls.Button()
         Me.Panel2 = New eXperDB.BaseControls.Panel()
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.FormMovePanel1 = New eXperDB.Controls.FormMovePanel()
-        Me.FormControlBox1 = New eXperDB.Controls.FormControlBox()
         Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblPause = New eXperDB.BaseControls.Label()
         Me.cmbPauseTime = New eXperDB.BaseControls.ComboBox()
         Me.lblMsg = New eXperDB.BaseControls.Label()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.FormMovePanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnClose
@@ -48,11 +49,10 @@ Partial Class frmCriticalCheck
         Me.btnClose.ForeColor = System.Drawing.SystemColors.Control
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(328, 4)
-        Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClose.Location = New System.Drawing.Point(237, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(94, 28)
+        Me.btnClose.Size = New System.Drawing.Size(82, 35)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -65,14 +65,13 @@ Partial Class frmCriticalCheck
         Me.btnSave.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnSave.FixedHeight = False
         Me.btnSave.FixedWidth = False
-        Me.btnSave.ForeColor = System.Drawing.SystemColors.Control
+        Me.btnSave.ForeColor = System.Drawing.Color.LightGray
         Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnSave.Location = New System.Drawing.Point(228, 4)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnSave.Location = New System.Drawing.Point(144, 3)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Radius = 10
-        Me.btnSave.Size = New System.Drawing.Size(94, 28)
+        Me.btnSave.Size = New System.Drawing.Size(82, 35)
         Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "F014"
         Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -84,112 +83,65 @@ Partial Class frmCriticalCheck
         Me.Panel2.BackColor = System.Drawing.Color.Black
         Me.Panel2.Controls.Add(Me.TableLayoutPanel1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(3, 172)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Panel2.Location = New System.Drawing.Point(3, 191)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(425, 39)
+        Me.Panel2.Size = New System.Drawing.Size(463, 42)
         Me.Panel2.TabIndex = 3
         '
         'TableLayoutPanel1
         '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel1.ColumnCount = 5
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 4, 0)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 3, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 3)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 1)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(425, 36)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(463, 41)
         Me.TableLayoutPanel1.TabIndex = 0
-        '
-        'FormMovePanel1
-        '
-        Me.FormMovePanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormMovePanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FormMovePanel1.Controls.Add(Me.FormControlBox1)
-        Me.FormMovePanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FormMovePanel1.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.FormMovePanel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormMovePanel1.Location = New System.Drawing.Point(3, 4)
-        Me.FormMovePanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormMovePanel1.Name = "FormMovePanel1"
-        Me.FormMovePanel1.Size = New System.Drawing.Size(425, 31)
-        Me.FormMovePanel1.TabIndex = 8
-        Me.FormMovePanel1.Text = "F262"
-        '
-        'FormControlBox1
-        '
-        Me.FormControlBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormControlBox1.CloseBox = New System.Drawing.Rectangle(23, 1, 20, 20)
-        Me.FormControlBox1.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FormControlBox1.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormControlBox1.isCritical = False
-        Me.FormControlBox1.isLock = False
-        Me.FormControlBox1.isPower = False
-        Me.FormControlBox1.isRotation = True
-        Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
-        Me.FormControlBox1.Location = New System.Drawing.Point(378, 0)
-        Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
-        Me.FormControlBox1.Name = "FormControlBox1"
-        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox1.ShowRectCnt = 2
-        Me.FormControlBox1.Size = New System.Drawing.Size(45, 22)
-        Me.FormControlBox1.TabIndex = 1
-        Me.FormControlBox1.Text = "FormControlBox1"
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseDualBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseMaxBox = False
-        Me.FormControlBox1.UseMinBox = True
-        Me.FormControlBox1.UsePowerBox = False
-        Me.FormControlBox1.UseRotationBox = False
         '
         'TableLayoutPanel2
         '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 5
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 9.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 9.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.lblMsg, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblPause, 1, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.cmbPauseTime, 3, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblMsg, 1, 1)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 35)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 33)
+        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 5
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(425, 137)
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(463, 158)
         Me.TableLayoutPanel2.TabIndex = 9
         '
         'lblPause
         '
         Me.lblPause.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPause.FixedWidth = False
-        Me.lblPause.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblPause.Location = New System.Drawing.Point(13, 90)
-        Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 3, 3, 0)
+        Me.lblPause.ForeColor = System.Drawing.Color.White
+        Me.lblPause.Location = New System.Drawing.Point(12, 124)
+        Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblPause.Name = "lblPause"
-        Me.lblPause.Size = New System.Drawing.Size(186, 21)
+        Me.lblPause.Size = New System.Drawing.Size(207, 21)
         Me.lblPause.TabIndex = 14
         Me.lblPause.Text = "F263"
         Me.lblPause.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -202,61 +154,108 @@ Partial Class frmCriticalCheck
         Me.cmbPauseTime.FixedWidth = False
         Me.cmbPauseTime.FormattingEnabled = True
         Me.cmbPauseTime.Items.AddRange(New Object() {"Not Set", "5", "30", "60", "120"})
-        Me.cmbPauseTime.Location = New System.Drawing.Point(225, 91)
-        Me.cmbPauseTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbPauseTime.Location = New System.Drawing.Point(243, 125)
         Me.cmbPauseTime.Name = "cmbPauseTime"
         Me.cmbPauseTime.Necessary = False
-        Me.cmbPauseTime.Size = New System.Drawing.Size(100, 23)
+        Me.cmbPauseTime.Size = New System.Drawing.Size(88, 20)
         Me.cmbPauseTime.StatusTip = ""
         Me.cmbPauseTime.TabIndex = 15
         Me.cmbPauseTime.ValueText = ""
         '
         'lblMsg
         '
-        Me.TableLayoutPanel2.SetColumnSpan(Me.lblMsg, 3)
+        Me.lblMsg.BackColor = System.Drawing.Color.DarkGray
+        Me.TableLayoutPanel2.SetColumnSpan(Me.lblMsg, 5)
         Me.lblMsg.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMsg.FixedHeight = False
         Me.lblMsg.FixedWidth = False
-        Me.lblMsg.ForeColor = System.Drawing.Color.DarkGray
-        Me.lblMsg.Location = New System.Drawing.Point(13, 20)
+        Me.lblMsg.Font = New System.Drawing.Font("Gulim", 9.75!)
+        Me.lblMsg.ForeColor = System.Drawing.Color.White
+        Me.lblMsg.Location = New System.Drawing.Point(3, 0)
         Me.lblMsg.Name = "lblMsg"
-        Me.lblMsg.Size = New System.Drawing.Size(398, 47)
+        Me.TableLayoutPanel2.SetRowSpan(Me.lblMsg, 3)
+        Me.lblMsg.Size = New System.Drawing.Size(457, 122)
         Me.lblMsg.TabIndex = 16
         Me.lblMsg.Text = "Label1"
         Me.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.StatusLabel, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(463, 30)
+        Me.TableLayoutPanel3.TabIndex = 16
+        '
+        'StatusLabel
+        '
+        Me.StatusLabel.AutoSize = True
+        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.StatusLabel.ForeColor = System.Drawing.Color.White
+        Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
+        Me.StatusLabel.Name = "StatusLabel"
+        Me.StatusLabel.Size = New System.Drawing.Size(417, 30)
+        Me.StatusLabel.TabIndex = 0
+        Me.StatusLabel.Text = "Text"
+        Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
+        '
         'frmCriticalCheck
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(431, 215)
+        Me.ClientSize = New System.Drawing.Size(469, 236)
         Me.Controls.Add(Me.TableLayoutPanel2)
+        Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.FormMovePanel1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmCriticalCheck"
-        Me.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmConfig"
         Me.Panel2.ResumeLayout(False)
         Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.FormMovePanel1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
     Friend WithEvents btnClose As eXperDB.BaseControls.Button
     Friend WithEvents btnSave As eXperDB.BaseControls.Button
-    Friend WithEvents FormMovePanel1 As eXperDB.Controls.FormMovePanel
-    Friend WithEvents FormControlBox1 As eXperDB.Controls.FormControlBox
     Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents lblPause As eXperDB.BaseControls.Label
     Friend WithEvents cmbPauseTime As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblMsg As eXperDB.BaseControls.Label
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents StatusLabel As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class

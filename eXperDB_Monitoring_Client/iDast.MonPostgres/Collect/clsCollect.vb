@@ -289,6 +289,54 @@
         End Set
     End Property
 
+    Private _InfoDataDiskUsage As DataTable
+    ''' <summary>
+    ''' Disk 수집 데이터 정보 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property infoDataDiskUsage As DataTable
+        Get
+            Dim Rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            Rw.AcquireReaderLock(-1)
+
+            Try
+                If _InfoDataDiskUsage IsNot Nothing Then
+                    Return _InfoDataDiskUsage.Copy
+                Else
+                    Return Nothing
+                End If
+
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Disk Read Prop Exception Error" & ex.ToString)
+                GC.Collect()
+                Return Nothing
+            Finally
+                Rw.ReleaseReaderLock()
+
+            End Try
+
+        End Get
+        Set(value As DataTable)
+            Dim rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            rw.AcquireWriterLock(-1)
+            Try
+                _InfoDataDiskUsage = value
+            Catch ex As Threading.ThreadAbortException
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Disk Write Prop Thread Error" & ex.ToString)
+                GC.Collect()
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Disk Write Prop Exception Error" & ex.ToString)
+                GC.Collect()
+            Finally
+                rw.ReleaseWriterLock()
+
+            End Try
+
+        End Set
+    End Property
+
     'Private _InfoDataRequest As DataTable
     ' ''' <summary>
     ' ''' Disk 수집 데이터 정보 
@@ -1421,7 +1469,7 @@
                 Next
 
                 Me.infoDataDBinfo = lstThread.Item(0).rtnDtTable
-                Me.infoDataDisk = lstThread.Item(1).rtnDtTable
+                Me.infoDataDiskUsage = lstThread.Item(1).rtnDtTable
                 Me.infoDataTBspaceinfo = lstThread.Item(2).rtnDtTable
                 Me.infoDataTBinfo = lstThread.Item(3).rtnDtTable
                 Me.infoDataIndexinfo = lstThread.Item(4).rtnDtTable
