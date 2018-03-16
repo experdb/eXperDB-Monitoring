@@ -150,7 +150,7 @@ Partial Class frmLogView
         Me.coldgvLogFileListName.Name = "coldgvLogFileListName"
         Me.coldgvLogFileListName.ReadOnly = True
         Me.coldgvLogFileListName.Visible = False
-        Me.coldgvLogFileListName.Width = 55
+        Me.coldgvLogFileListName.Width = 64
         '
         'coldgvLogFileListTime
         '

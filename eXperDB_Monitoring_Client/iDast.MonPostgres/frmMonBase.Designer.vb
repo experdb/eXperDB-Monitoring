@@ -40,7 +40,7 @@ Partial Class frmMonBase
         Me.FormMovePanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FormMovePanel1.Controls.Add(Me.FormControlBox1)
         Me.FormMovePanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FormMovePanel1.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.FormMovePanel1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
         Me.FormMovePanel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FormMovePanel1.Location = New System.Drawing.Point(2, 2)
         Me.FormMovePanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -52,7 +52,11 @@ Partial Class frmMonBase
         'FormControlBox1
         '
         Me.FormControlBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.FormControlBox1.CloseBox = New System.Drawing.Rectangle(177, 1, 20, 20)
+        Me.FormControlBox1.ConfigBox = New System.Drawing.Rectangle(89, 1, 20, 20)
+        Me.FormControlBox1.CriticalBox = New System.Drawing.Rectangle(45, 1, 20, 20)
         Me.FormControlBox1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FormControlBox1.DualBox = New System.Drawing.Rectangle(155, 1, 20, 20)
         Me.FormControlBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FormControlBox1.isCritical = True
         Me.FormControlBox1.isLock = False
@@ -60,8 +64,13 @@ Partial Class frmMonBase
         Me.FormControlBox1.isRotation = False
         Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
         Me.FormControlBox1.Location = New System.Drawing.Point(1713, 0)
+        Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(67, 1, 20, 20)
         Me.FormControlBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(133, 1, 20, 20)
+        Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(111, 1, 20, 20)
         Me.FormControlBox1.Name = "FormControlBox1"
+        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(23, 1, 20, 20)
+        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.ShowRectCnt = 9
         Me.FormControlBox1.Size = New System.Drawing.Size(199, 22)
         Me.FormControlBox1.TabIndex = 1
@@ -77,7 +86,6 @@ Partial Class frmMonBase
         '
         'frmMonBase
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(1918, 1078)
