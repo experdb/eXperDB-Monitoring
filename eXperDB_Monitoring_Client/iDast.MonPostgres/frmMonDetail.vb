@@ -1,5 +1,5 @@
 ﻿Public Class frmMonDetail
-     
+
 #Region "Declares"
 
 #Region "Timer"
@@ -40,7 +40,7 @@
     Private Sub initControls(ByVal AgentStat As clsCollect.AgntState)
         Try
 
-        
+
             If AgentStat = clsCollect.AgntState.DeActivate Then
                 rndProgHealth.CpuGaugeColor = Color.DarkGray
                 dgvCPU.Rows.Clear()
@@ -118,7 +118,12 @@
 
         Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
         'FormMovePanel1.Text += " [" + String.Format("{0}(v{3}) : {1}[{2}] Started on {4} ", strHeader, ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.PGV, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss")) + "]"
-        FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), ServerInfo.PGV) + "]"
+        'FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), ServerInfo.PGV) + "]"
+
+        Me.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), ServerInfo.PGV) + "]"
+
+        ServerName_lv.Text = String.Format("Name : {0},  IP : {1}, Started on {2}", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
+
         TmCollect = New Timer()
         TmCollect.Interval = _Elapseinterval
         TmCollect.Start()
@@ -177,7 +182,6 @@
         Finally
             TmCollect.Start()
         End Try
-        rbmin30.Checked = True
 
     End Sub
 
@@ -256,13 +260,13 @@
 
 
         'EVENT Log
-        grpEventLog.Text = p_clsMsgData.fn_GetData("F094")
-        dgvEventLog.AutoGenerateColumns = False
-        coldgvEventLogIssueTime.HeaderText = p_clsMsgData.fn_GetData("F095")
-        coldgvEventLogCategory.HeaderText = p_clsMsgData.fn_GetData("F096")
-        coldgvEventLogValueUnit.HeaderText = p_clsMsgData.fn_GetData("F097")
-        coldgvEventLogServerity.HeaderText = p_clsMsgData.fn_GetData("F098")
-        'coldgvEventLogComments.HeaderText = p_clsMsgData.fn_GetData("F099")
+        'grpEventLog.Text = p_clsMsgData.fn_GetData("F094")
+        'dgvEventLog.AutoGenerateColumns = False
+        'coldgvEventLogIssueTime.HeaderText = p_clsMsgData.fn_GetData("F095")
+        'coldgvEventLogCategory.HeaderText = p_clsMsgData.fn_GetData("F096")
+        'coldgvEventLogValueUnit.HeaderText = p_clsMsgData.fn_GetData("F097")
+        'coldgvEventLogServerity.HeaderText = p_clsMsgData.fn_GetData("F098")
+        ''coldgvEventLogComments.HeaderText = p_clsMsgData.fn_GetData("F099")
 
 
         'Physical I/O      Logical I/O       Object    SQL Response Time
@@ -284,12 +288,12 @@
         'Sessin Lock View
         btnSessionLock.Text = p_clsMsgData.fn_GetData("F246")
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
-        Me.EspRight.Expand = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
+        'Me.EspRight.Expand = False
         'fit position of components
         Me.btnRefreshSession.Location = New System.Drawing.Point(Me.grpSessioninfo.Width - Me.btnRefreshSession.Width - Me.btnRefreshSession.Margin.Right, Me.btnRefreshSession.Margin.Top)
         Me.btnRefreshLogicaliO.Location = New System.Drawing.Point(Me.grpLogicalIO.Width - Me.btnRefreshLogicaliO.Width - Me.btnRefreshLogicaliO.Margin.Right, Me.btnRefreshLogicaliO.Margin.Top)
@@ -672,6 +676,7 @@
 
         '        Me.dgvResUtilPerBackProc.InvokeRowsClear()
 
+        dgvResUtilPerBackProc.Font = _TextFont
 
         Dim strQuery As String = ""
         Dim subQuery As String = IIf(chkIDLE.Checked, "", String.Format("AND SQL <> '{0}'", chkIDLE.Tag))
@@ -807,16 +812,18 @@
         dtBind.Columns.Add("HCHK_VALUE_STRING", GetType(String))
         dtBind.Columns.Add("COMMEMTS", GetType(String))
 
-        Dim tmpDtView As DataView = TryCast(dgvEventLog.DataSource, DataView)
+        'Dim tmpDtView As DataView = TryCast(dgvEventLog.DataSource, DataView)
 
-        If tmpDtView IsNot Nothing Then
-            If tmpDtView.Count > 5000 - dtTable.Rows.Count Then
-                Do Until tmpDtView.Count = 5000 - dtTable.Rows.Count
-                    tmpDtView.Delete(0)
-                Loop
-            End If
-            dtBind = tmpDtView.ToTable
-        End If
+        'If tmpDtView IsNot Nothing Then
+        '    If tmpDtView.Count > 5000 - dtTable.Rows.Count Then
+        '        Do Until tmpDtView.Count = 5000 - dtTable.Rows.Count
+        '            tmpDtView.Delete(0)
+        '        Loop
+        '    End If
+        '    dtBind = tmpDtView.ToTable
+        'End If
+
+
         Dim arrValue As New ArrayList
         If _ShowHchkNormal Then
             arrValue.Add("'" & 100 & "'")
@@ -841,12 +848,12 @@
         Next
         dtBind.AcceptChanges()
 
-        dgvEventLog.DataSource = dtBind.DefaultView
-        'dgvEventLog.TopLeftHeaderCell = dgvEventLog.(dgvEventLog.Rows.Count - 1).Cells(0)
-        If dgvEventLog.RowCount > 0 Then
-            dgvEventLog.Rows(dgvEventLog.Rows.Count - 1).Selected = True
-            dgvEventLog.FirstDisplayedScrollingRowIndex = dgvEventLog.Rows.Count - 1
-        End If
+        'dgvEventLog.DataSource = dtBind.DefaultView
+        ''dgvEventLog.TopLeftHeaderCell = dgvEventLog.(dgvEventLog.Rows.Count - 1).Cells(0)
+        'If dgvEventLog.RowCount > 0 Then
+        '    dgvEventLog.Rows(dgvEventLog.Rows.Count - 1).Selected = True
+        '    dgvEventLog.FirstDisplayedScrollingRowIndex = dgvEventLog.Rows.Count - 1
+        'End If
 
         Dim intMAxVal As Integer = dtTable.AsEnumerable.Where(Function(e) e.Field(Of Integer)("INSTANCE_ID") = Me.InstanceID).Max(Function(e) e.Field(Of Integer)("HCHK_VALUE"))
         lblHealth.Text = fn_GetHealthName(intMAxVal)
@@ -867,7 +874,7 @@
 #End Region
 
 
-    Private Sub rbHour1_CheckedChanged(sender As Object, e As EventArgs) Handles rbHour1.CheckedChanged, rbHour2.CheckedChanged, rbmin30.CheckedChanged
+    Private Sub rbHour1_CheckedChanged(sender As Object, e As EventArgs)
 
         If DirectCast(sender, BaseControls.RadioButton).Checked = True Then
             ' 현재 Tag로 넣었으나 3초 간격이고 실제 시간으로 계산하여 되어야 함. 
@@ -1120,7 +1127,7 @@
                   End Sub)
     End Sub
 
-    Private Sub grpHealth_Enter(sender As Object, e As EventArgs) Handles grpHealth.Enter
+    Private Sub grpHealth_Enter(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -1362,5 +1369,13 @@
             Dim frmQuery As New frmQueryView(dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcSQL.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcDB.Index).Value, InstanceID, _AgentInfo, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcUser.Index).Value)
             frmQuery.Show()
         End If
+    End Sub
+
+    Private Sub EspRight_SplitterMoved(sender As Object, e As SplitterEventArgs)
+
+    End Sub
+
+    Private Sub TableLayoutPanel3_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel3.Paint
+
     End Sub
 End Class

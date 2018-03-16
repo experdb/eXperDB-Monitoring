@@ -181,7 +181,7 @@ Partial Class frmConfig
         'nudGrpRotate
         '
         Me.nudGrpRotate.BackColor = System.Drawing.SystemColors.Window
-        Me.nudGrpRotate.Location = New System.Drawing.Point(114, 240)
+        Me.nudGrpRotate.Location = New System.Drawing.Point(114, 250)
         Me.nudGrpRotate.Maximum = New Decimal(New Integer() {1200, 0, 0, 0})
         Me.nudGrpRotate.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudGrpRotate.Name = "nudGrpRotate"
@@ -194,7 +194,7 @@ Partial Class frmConfig
         '
         'lbGrpRatate
         '
-        Me.lbGrpRatate.Location = New System.Drawing.Point(8, 240)
+        Me.lbGrpRatate.Location = New System.Drawing.Point(8, 250)
         Me.lbGrpRatate.Name = "lbGrpRatate"
         Me.lbGrpRatate.Size = New System.Drawing.Size(100, 21)
         Me.lbGrpRatate.TabIndex = 8
@@ -207,7 +207,7 @@ Partial Class frmConfig
         Me.rbAlias.AutoSize = True
         Me.rbAlias.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbAlias.LineColor = System.Drawing.Color.Gray
-        Me.rbAlias.Location = New System.Drawing.Point(215, 210)
+        Me.rbAlias.Location = New System.Drawing.Point(215, 220)
         Me.rbAlias.Name = "rbAlias"
         Me.rbAlias.Radius = 10
         Me.rbAlias.Size = New System.Drawing.Size(48, 16)
@@ -224,7 +224,7 @@ Partial Class frmConfig
         Me.rbHostnm.AutoSize = True
         Me.rbHostnm.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbHostnm.LineColor = System.Drawing.Color.Gray
-        Me.rbHostnm.Location = New System.Drawing.Point(114, 210)
+        Me.rbHostnm.Location = New System.Drawing.Point(114, 220)
         Me.rbHostnm.Name = "rbHostnm"
         Me.rbHostnm.Radius = 10
         Me.rbHostnm.Size = New System.Drawing.Size(48, 16)
@@ -242,7 +242,7 @@ Partial Class frmConfig
         Me.Button2.FixedWidth = False
         Me.Button2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Button2.LineColor = System.Drawing.Color.Gray
-        Me.Button2.Location = New System.Drawing.Point(310, 168)
+        Me.Button2.Location = New System.Drawing.Point(310, 178)
         Me.Button2.Name = "Button2"
         Me.Button2.Radius = 10
         Me.Button2.Size = New System.Drawing.Size(35, 27)
@@ -258,7 +258,7 @@ Partial Class frmConfig
         Me.Button1.FixedWidth = False
         Me.Button1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Button1.LineColor = System.Drawing.Color.Gray
-        Me.Button1.Location = New System.Drawing.Point(269, 168)
+        Me.Button1.Location = New System.Drawing.Point(269, 178)
         Me.Button1.Name = "Button1"
         Me.Button1.Radius = 10
         Me.Button1.Size = New System.Drawing.Size(35, 27)
@@ -274,7 +274,7 @@ Partial Class frmConfig
         Me.TextBox2.code = False
         Me.TextBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.TextBox2.impossibleinput = ""
-        Me.TextBox2.Location = New System.Drawing.Point(113, 169)
+        Me.TextBox2.Location = New System.Drawing.Point(113, 179)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Necessary = False
         Me.TextBox2.PossibleInput = ""
@@ -289,7 +289,7 @@ Partial Class frmConfig
         Me.chkNor.AutoSize = True
         Me.chkNor.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkNor.LineColor = System.Drawing.Color.Gray
-        Me.chkNor.Location = New System.Drawing.Point(114, 134)
+        Me.chkNor.Location = New System.Drawing.Point(114, 144)
         Me.chkNor.Name = "chkNor"
         Me.chkNor.Radius = 10
         Me.chkNor.Size = New System.Drawing.Size(49, 16)
@@ -303,7 +303,7 @@ Partial Class frmConfig
         Me.chkWar.AutoSize = True
         Me.chkWar.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkWar.LineColor = System.Drawing.Color.Gray
-        Me.chkWar.Location = New System.Drawing.Point(215, 134)
+        Me.chkWar.Location = New System.Drawing.Point(215, 144)
         Me.chkWar.Name = "chkWar"
         Me.chkWar.Radius = 10
         Me.chkWar.Size = New System.Drawing.Size(49, 16)
@@ -317,7 +317,7 @@ Partial Class frmConfig
         Me.chkCri.AutoSize = True
         Me.chkCri.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkCri.LineColor = System.Drawing.Color.Gray
-        Me.chkCri.Location = New System.Drawing.Point(318, 134)
+        Me.chkCri.Location = New System.Drawing.Point(318, 144)
         Me.chkCri.Name = "chkCri"
         Me.chkCri.Radius = 10
         Me.chkCri.Size = New System.Drawing.Size(49, 16)
@@ -334,7 +334,7 @@ Partial Class frmConfig
         Me.TextBox1.ForeColor = System.Drawing.Color.White
         Me.TextBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.TextBox1.impossibleinput = ""
-        Me.TextBox1.Location = New System.Drawing.Point(269, 90)
+        Me.TextBox1.Location = New System.Drawing.Point(269, 100)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Necessary = False
         Me.TextBox1.PossibleInput = ""
@@ -348,7 +348,7 @@ Partial Class frmConfig
         '
         'lblShowNm
         '
-        Me.lblShowNm.Location = New System.Drawing.Point(8, 207)
+        Me.lblShowNm.Location = New System.Drawing.Point(8, 217)
         Me.lblShowNm.Name = "lblShowNm"
         Me.lblShowNm.Size = New System.Drawing.Size(100, 21)
         Me.lblShowNm.TabIndex = 1
@@ -357,7 +357,7 @@ Partial Class frmConfig
         '
         'lblHealthCheck
         '
-        Me.lblHealthCheck.Location = New System.Drawing.Point(7, 130)
+        Me.lblHealthCheck.Location = New System.Drawing.Point(7, 140)
         Me.lblHealthCheck.Name = "lblHealthCheck"
         Me.lblHealthCheck.Size = New System.Drawing.Size(100, 21)
         Me.lblHealthCheck.TabIndex = 1
@@ -366,7 +366,7 @@ Partial Class frmConfig
         '
         'lblFont
         '
-        Me.lblFont.Location = New System.Drawing.Point(7, 90)
+        Me.lblFont.Location = New System.Drawing.Point(7, 100)
         Me.lblFont.Name = "lblFont"
         Me.lblFont.Size = New System.Drawing.Size(100, 21)
         Me.lblFont.TabIndex = 1
@@ -376,7 +376,7 @@ Partial Class frmConfig
         'nudCollect
         '
         Me.nudCollect.BackColor = System.Drawing.SystemColors.Window
-        Me.nudCollect.Location = New System.Drawing.Point(114, 48)
+        Me.nudCollect.Location = New System.Drawing.Point(114, 58)
         Me.nudCollect.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
         Me.nudCollect.Name = "nudCollect"
         Me.nudCollect.Necessary = False
@@ -387,7 +387,7 @@ Partial Class frmConfig
         '
         'lblCollect
         '
-        Me.lblCollect.Location = New System.Drawing.Point(7, 48)
+        Me.lblCollect.Location = New System.Drawing.Point(7, 58)
         Me.lblCollect.Name = "lblCollect"
         Me.lblCollect.Size = New System.Drawing.Size(100, 21)
         Me.lblCollect.TabIndex = 1
@@ -396,7 +396,7 @@ Partial Class frmConfig
         '
         'lblLang
         '
-        Me.lblLang.Location = New System.Drawing.Point(7, 8)
+        Me.lblLang.Location = New System.Drawing.Point(7, 18)
         Me.lblLang.Name = "lblLang"
         Me.lblLang.Size = New System.Drawing.Size(100, 21)
         Me.lblLang.TabIndex = 1
@@ -408,7 +408,7 @@ Partial Class frmConfig
         Me.cmbFont.BackColor = System.Drawing.SystemColors.Window
         Me.cmbFont.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbFont.FormattingEnabled = True
-        Me.cmbFont.Location = New System.Drawing.Point(113, 90)
+        Me.cmbFont.Location = New System.Drawing.Point(113, 100)
         Me.cmbFont.Name = "cmbFont"
         Me.cmbFont.Necessary = False
         Me.cmbFont.Size = New System.Drawing.Size(150, 20)
@@ -421,7 +421,7 @@ Partial Class frmConfig
         Me.cmbLang.BackColor = System.Drawing.SystemColors.Window
         Me.cmbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLang.FormattingEnabled = True
-        Me.cmbLang.Location = New System.Drawing.Point(114, 8)
+        Me.cmbLang.Location = New System.Drawing.Point(114, 18)
         Me.cmbLang.Name = "cmbLang"
         Me.cmbLang.Necessary = False
         Me.cmbLang.Size = New System.Drawing.Size(150, 20)
@@ -516,7 +516,7 @@ Partial Class frmConfig
         Me.grpRaider.TabIndex = 3
         Me.grpRaider.TabStop = False
         Me.grpRaider.Text = "F037"
-        Me.grpRaider.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
+        Me.grpRaider.TitleFont = New System.Drawing.Font("굴림", 9.0!)
         Me.grpRaider.TitleGraColor = System.Drawing.Color.DarkGray
         Me.grpRaider.UseGraColor = True
         Me.grpRaider.UseTitle = False
@@ -601,8 +601,8 @@ Partial Class frmConfig
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 550.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.Controls.Add(Me.StatusLabel, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -620,9 +620,9 @@ Partial Class frmConfig
         Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.StatusLabel.ForeColor = System.Drawing.Color.White
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StatusLabel.Location = New System.Drawing.Point(55, 0)
+        Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(544, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(556, 30)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -635,7 +635,7 @@ Partial Class frmConfig
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(46, 30)
+        Me.Label1.Size = New System.Drawing.Size(34, 30)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
