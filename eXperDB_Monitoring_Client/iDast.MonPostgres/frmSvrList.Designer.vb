@@ -471,7 +471,7 @@ Partial Class frmSvrList
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.TableLayoutPanel4)
         Me.SplitContainer2.Size = New System.Drawing.Size(880, 587)
-        Me.SplitContainer2.SplitterDistance = 551
+        Me.SplitContainer2.SplitterDistance = 540
         Me.SplitContainer2.TabIndex = 11
         '
         'SplitContainer1
@@ -491,7 +491,7 @@ Partial Class frmSvrList
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvMonLst)
         Me.SplitContainer1.Panel2.Controls.Add(Me.tlpMonList)
-        Me.SplitContainer1.Size = New System.Drawing.Size(880, 407)
+        Me.SplitContainer1.Size = New System.Drawing.Size(880, 396)
         Me.SplitContainer1.SplitterDistance = 588
         Me.SplitContainer1.TabIndex = 10
         '
@@ -541,7 +541,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvSvrLst.EnableHeadersVisualStyles = False
         Me.dgvSvrLst.GridColor = System.Drawing.Color.Gray
-        Me.dgvSvrLst.Location = New System.Drawing.Point(0, 54)
+        Me.dgvSvrLst.Location = New System.Drawing.Point(0, 45)
         Me.dgvSvrLst.MultiSelect = False
         Me.dgvSvrLst.Name = "dgvSvrLst"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -555,7 +555,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.RowHeadersVisible = False
         Me.dgvSvrLst.RowTemplate.Height = 23
         Me.dgvSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSvrLst.Size = New System.Drawing.Size(588, 353)
+        Me.dgvSvrLst.Size = New System.Drawing.Size(588, 351)
         Me.dgvSvrLst.TabIndex = 9
         Me.dgvSvrLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSvrLst.UseTagValueMatchColor = False
@@ -685,7 +685,7 @@ Partial Class frmSvrList
         Me.tlpSvrList.RowCount = 2
         Me.tlpSvrList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14.0!))
         Me.tlpSvrList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrList.Size = New System.Drawing.Size(588, 54)
+        Me.tlpSvrList.Size = New System.Drawing.Size(588, 45)
         Me.tlpSvrList.TabIndex = 6
         '
         'lblSvrList
@@ -698,7 +698,7 @@ Partial Class frmSvrList
         Me.lblSvrList.ForeColor = System.Drawing.Color.White
         Me.lblSvrList.Location = New System.Drawing.Point(3, 14)
         Me.lblSvrList.Name = "lblSvrList"
-        Me.lblSvrList.Size = New System.Drawing.Size(582, 40)
+        Me.lblSvrList.Size = New System.Drawing.Size(582, 31)
         Me.lblSvrList.TabIndex = 10
         Me.lblSvrList.Text = "F013"
         Me.lblSvrList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -733,7 +733,7 @@ Partial Class frmSvrList
         Me.dgvMonLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvMonLst.EnableHeadersVisualStyles = False
         Me.dgvMonLst.GridColor = System.Drawing.Color.Gray
-        Me.dgvMonLst.Location = New System.Drawing.Point(0, 54)
+        Me.dgvMonLst.Location = New System.Drawing.Point(0, 45)
         Me.dgvMonLst.MultiSelect = False
         Me.dgvMonLst.Name = "dgvMonLst"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -747,7 +747,7 @@ Partial Class frmSvrList
         Me.dgvMonLst.RowHeadersVisible = False
         Me.dgvMonLst.RowTemplate.Height = 23
         Me.dgvMonLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvMonLst.Size = New System.Drawing.Size(288, 353)
+        Me.dgvMonLst.Size = New System.Drawing.Size(288, 351)
         Me.dgvMonLst.TabIndex = 12
         Me.dgvMonLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvMonLst.UseTagValueMatchColor = False
@@ -864,7 +864,7 @@ Partial Class frmSvrList
         Me.tlpMonList.RowCount = 2
         Me.tlpMonList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14.0!))
         Me.tlpMonList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpMonList.Size = New System.Drawing.Size(288, 54)
+        Me.tlpMonList.Size = New System.Drawing.Size(288, 45)
         Me.tlpMonList.TabIndex = 7
         '
         'lblMonList
@@ -877,7 +877,7 @@ Partial Class frmSvrList
         Me.lblMonList.ForeColor = System.Drawing.Color.White
         Me.lblMonList.Location = New System.Drawing.Point(3, 14)
         Me.lblMonList.Name = "lblMonList"
-        Me.lblMonList.Size = New System.Drawing.Size(282, 40)
+        Me.lblMonList.Size = New System.Drawing.Size(282, 31)
         Me.lblMonList.TabIndex = 11
         Me.lblMonList.Text = "F311"
         Me.lblMonList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1140,7 +1140,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(880, 32)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(880, 43)
         Me.TableLayoutPanel4.TabIndex = 10
         '
         'btnStart
@@ -1158,7 +1158,7 @@ Partial Class frmSvrList
         Me.btnStart.Location = New System.Drawing.Point(443, 3)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Radius = 10
-        Me.btnStart.Size = New System.Drawing.Size(110, 26)
+        Me.btnStart.Size = New System.Drawing.Size(110, 37)
         Me.btnStart.TabIndex = 0
         Me.btnStart.Text = "F027"
         Me.btnStart.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1167,7 +1167,7 @@ Partial Class frmSvrList
         '
         'btnGrpSave
         '
-        Me.btnGrpSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnGrpSave.BackColor = System.Drawing.Color.Gray
         Me.btnGrpSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnGrpSave.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
         Me.btnGrpSave.Dock = System.Windows.Forms.DockStyle.Right
@@ -1180,12 +1180,12 @@ Partial Class frmSvrList
         Me.btnGrpSave.Location = New System.Drawing.Point(327, 3)
         Me.btnGrpSave.Name = "btnGrpSave"
         Me.btnGrpSave.Radius = 10
-        Me.btnGrpSave.Size = New System.Drawing.Size(110, 26)
+        Me.btnGrpSave.Size = New System.Drawing.Size(110, 37)
         Me.btnGrpSave.TabIndex = 0
         Me.btnGrpSave.Text = "F003"
         Me.btnGrpSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnGrpSave.UseRound = True
-        Me.btnGrpSave.UseVisualStyleBackColor = True
+        Me.btnGrpSave.UseVisualStyleBackColor = False
         '
         'DataGridViewTextBoxColumn1
         '

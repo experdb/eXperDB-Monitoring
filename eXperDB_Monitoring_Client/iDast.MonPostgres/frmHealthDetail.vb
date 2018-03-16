@@ -60,6 +60,9 @@
         lblParameter.Text = p_clsMsgData.fn_GetData("F205", p_clsMsgData.fn_GetSpecificData(_HealthItem, "COMMENTS"))
         lblCurTime.Text = p_clsMsgData.fn_GetData("F206", "0000-00-00 00:00:00")
 
+        Me.Text = "Health detail"
+        lblSubject.Text = "Health detail"
+
     End Sub
 
     Public Sub AddColumns(ByVal Dgv As BaseControls.DataGridView, ByVal PropNm As String, ByVal Caption As String, ByVal Type As String, ByVal strFormat As String, ByVal intWidth As Integer)
@@ -204,11 +207,11 @@
     End Sub
 
 
-    Private Sub lblitmNm_Click(sender As Object, e As EventArgs) Handles lblitmNm.Click, lblCurTime.Click
+    Private Sub lblitmNm_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub lblDesc_Click(sender As Object, e As EventArgs) Handles lblDesc.Click
+    Private Sub lblDesc_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -262,25 +265,25 @@
         _Th.Start()
     End Sub
 
-    Private Sub lblParameter_Click(sender As Object, e As EventArgs) Handles lblParameter.Click
+    Private Sub lblParameter_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub lblParameter_LocationChanged(sender As Object, e As EventArgs) Handles lblParameter.LocationChanged
+    Private Sub lblParameter_LocationChanged(sender As Object, e As EventArgs)
         Dim tmpCtl As Control = lblParameter.Parent
         Dim intHeight As Integer = lblParameter.Top + lblParameter.Height
-         Do Until tmpCtl Is Nothing
+        Do Until tmpCtl Is Nothing
             intHeight += tmpCtl.Padding.Bottom + tmpCtl.Padding.Top + 1
             tmpCtl = tmpCtl.Parent
         Loop
         Me.Height = intHeight + _HMargin
     End Sub
 
-    Private Sub dgvinfo_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvinfo.CellContentClick
+    Private Sub dgvinfo_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
 
     End Sub
 
-    Private Sub dgvinfo_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvinfo.CellContentDoubleClick
+    Private Sub dgvinfo_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
         'SQL POPUP 
         Dim Bret As Boolean = False
         Dim intSql As Integer = -1
@@ -304,9 +307,6 @@
 
             frmQuery.Show()
         End If
-
-
-
 
     End Sub
 End Class

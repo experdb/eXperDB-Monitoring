@@ -29,35 +29,35 @@ Partial Class frmHealthDetail
         Me.Panel2 = New eXperDB.BaseControls.Panel()
         Me.lblParameter = New eXperDB.BaseControls.Label()
         Me.dgvinfo = New eXperDB.BaseControls.DataGridView()
+        Me.Label1 = New eXperDB.BaseControls.Label()
         Me.lblinfo = New eXperDB.BaseControls.Label()
         Me.lblResult = New eXperDB.BaseControls.Label()
         Me.lblDesc = New eXperDB.BaseControls.Label()
         Me.lblitmNm = New eXperDB.BaseControls.Label()
         Me.lblCurTime = New eXperDB.BaseControls.Label()
-        Me.FormMovePanel2 = New eXperDB.Controls.FormMovePanel()
-        Me.FormControlBox2 = New eXperDB.Controls.FormControlBox()
-        Me.Label1 = New eXperDB.BaseControls.Label()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblSubject = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.dgvinfo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.FormMovePanel2.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Black
         Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Controls.Add(Me.FormMovePanel2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 4)
+        Me.Panel1.Location = New System.Drawing.Point(3, 44)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(704, 670)
+        Me.Panel1.Size = New System.Drawing.Size(704, 630)
         Me.Panel1.TabIndex = 0
         '
         'Panel2
         '
-        Me.Panel2.BackColor = System.Drawing.Color.Black
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Panel2.Controls.Add(Me.lblParameter)
         Me.Panel2.Controls.Add(Me.dgvinfo)
         Me.Panel2.Controls.Add(Me.Label1)
@@ -67,20 +67,21 @@ Partial Class frmHealthDetail
         Me.Panel2.Controls.Add(Me.lblitmNm)
         Me.Panel2.Controls.Add(Me.lblCurTime)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(0, 31)
+        Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(11, 12, 11, 12)
-        Me.Panel2.Size = New System.Drawing.Size(704, 639)
-        Me.Panel2.TabIndex = 1
+        Me.Panel2.Size = New System.Drawing.Size(704, 630)
+        Me.Panel2.TabIndex = 2
         '
         'lblParameter
         '
+        Me.lblParameter.BackColor = System.Drawing.Color.Gray
         Me.lblParameter.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblParameter.FixedHeight = False
         Me.lblParameter.FixedWidth = False
-        Me.lblParameter.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblParameter.Location = New System.Drawing.Point(11, 537)
+        Me.lblParameter.ForeColor = System.Drawing.Color.White
+        Me.lblParameter.Location = New System.Drawing.Point(11, 533)
         Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(682, 25)
@@ -93,59 +94,77 @@ Partial Class frmHealthDetail
         Me.dgvinfo.AllowUserToAddRows = False
         Me.dgvinfo.AllowUserToDeleteRows = False
         Me.dgvinfo.AllowUserToOrderColumns = True
+        Me.dgvinfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvinfo.ColumnHeadersHeight = 30
+        Me.dgvinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.Black
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvinfo.Dock = System.Windows.Forms.DockStyle.Top
         Me.dgvinfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvinfo.EnableHeadersVisualStyles = False
         Me.dgvinfo.GridColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.dgvinfo.Location = New System.Drawing.Point(11, 148)
+        Me.dgvinfo.Location = New System.Drawing.Point(11, 144)
         Me.dgvinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvinfo.Name = "dgvinfo"
         Me.dgvinfo.RowHeadersVisible = False
         Me.dgvinfo.RowTemplate.Height = 23
+        Me.dgvinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvinfo.Size = New System.Drawing.Size(682, 389)
         Me.dgvinfo.TabIndex = 7
         Me.dgvinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvinfo.UseTagValueMatchColor = False
         '
+        'Label1
+        '
+        Me.Label1.AutoSizeHeight = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label1.FixedHeight = False
+        Me.Label1.FixedWidth = False
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(11, 126)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(682, 18)
+        Me.Label1.TabIndex = 9
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'lblinfo
         '
         Me.lblinfo.AutoSizeHeight = True
+        Me.lblinfo.BackColor = System.Drawing.Color.Gray
         Me.lblinfo.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblinfo.FixedHeight = False
         Me.lblinfo.FixedWidth = False
-        Me.lblinfo.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblinfo.ForeColor = System.Drawing.Color.White
         Me.lblinfo.Location = New System.Drawing.Point(11, 112)
         Me.lblinfo.Name = "lblinfo"
-        Me.lblinfo.Size = New System.Drawing.Size(682, 18)
+        Me.lblinfo.Size = New System.Drawing.Size(682, 14)
         Me.lblinfo.TabIndex = 6
         Me.lblinfo.Text = "F204"
         Me.lblinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblResult
         '
+        Me.lblResult.BackColor = System.Drawing.Color.Gray
         Me.lblResult.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblResult.FixedHeight = False
         Me.lblResult.FixedWidth = False
-        Me.lblResult.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblResult.ForeColor = System.Drawing.Color.White
         Me.lblResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblResult.Location = New System.Drawing.Point(11, 87)
         Me.lblResult.Name = "lblResult"
@@ -157,10 +176,11 @@ Partial Class frmHealthDetail
         'lblDesc
         '
         Me.lblDesc.AutoSizeHeight = True
+        Me.lblDesc.BackColor = System.Drawing.Color.Gray
         Me.lblDesc.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblDesc.FixedHeight = False
         Me.lblDesc.FixedWidth = False
-        Me.lblDesc.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblDesc.ForeColor = System.Drawing.Color.White
         Me.lblDesc.Location = New System.Drawing.Point(11, 62)
         Me.lblDesc.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblDesc.Name = "lblDesc"
@@ -172,10 +192,11 @@ Partial Class frmHealthDetail
         'lblitmNm
         '
         Me.lblitmNm.AutoSizeHeight = True
+        Me.lblitmNm.BackColor = System.Drawing.Color.Gray
         Me.lblitmNm.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblitmNm.FixedHeight = False
         Me.lblitmNm.FixedWidth = False
-        Me.lblitmNm.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblitmNm.ForeColor = System.Drawing.Color.White
         Me.lblitmNm.Location = New System.Drawing.Point(11, 37)
         Me.lblitmNm.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblitmNm.Name = "lblitmNm"
@@ -187,10 +208,11 @@ Partial Class frmHealthDetail
         'lblCurTime
         '
         Me.lblCurTime.AutoSizeHeight = True
+        Me.lblCurTime.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblCurTime.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblCurTime.FixedHeight = False
         Me.lblCurTime.FixedWidth = False
-        Me.lblCurTime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblCurTime.ForeColor = System.Drawing.Color.White
         Me.lblCurTime.Location = New System.Drawing.Point(11, 12)
         Me.lblCurTime.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblCurTime.Name = "lblCurTime"
@@ -199,99 +221,81 @@ Partial Class frmHealthDetail
         Me.lblCurTime.Text = "F206"
         Me.lblCurTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'FormMovePanel2
+        'TableLayoutPanel2
         '
-        Me.FormMovePanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormMovePanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FormMovePanel2.Controls.Add(Me.FormControlBox2)
-        Me.FormMovePanel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FormMovePanel2.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.FormMovePanel2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormMovePanel2.Location = New System.Drawing.Point(0, 0)
-        Me.FormMovePanel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormMovePanel2.Name = "FormMovePanel2"
-        Me.FormMovePanel2.Size = New System.Drawing.Size(704, 31)
-        Me.FormMovePanel2.TabIndex = 20
-        Me.FormMovePanel2.Text = "eXperDB-Monitoring"
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel2.Controls.Add(Me.lblSubject, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label2, 0, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 4)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(704, 40)
+        Me.TableLayoutPanel2.TabIndex = 17
         '
-        'FormControlBox2
+        'lblSubject
         '
-        Me.FormControlBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.FormControlBox2.CloseBox = New System.Drawing.Rectangle(45, 1, 20, 20)
-        Me.FormControlBox2.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox2.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.FormControlBox2.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.FormControlBox2.isCritical = False
-        Me.FormControlBox2.isLock = False
-        Me.FormControlBox2.isPower = True
-        Me.FormControlBox2.isRotation = True
-        Me.FormControlBox2.LEDColor = System.Drawing.Color.Lime
-        Me.FormControlBox2.Location = New System.Drawing.Point(635, 0)
-        Me.FormControlBox2.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.FormControlBox2.MaxBox = New System.Drawing.Rectangle(23, 1, 20, 20)
-        Me.FormControlBox2.MinBox = New System.Drawing.Rectangle(1, 1, 20, 20)
-        Me.FormControlBox2.Name = "FormControlBox2"
-        Me.FormControlBox2.PowerBox = New System.Drawing.Rectangle(0, 0, 0, 0)
-        Me.FormControlBox2.RotationBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
-        Me.FormControlBox2.ShowRectCnt = 3
-        Me.FormControlBox2.Size = New System.Drawing.Size(67, 22)
-        Me.FormControlBox2.TabIndex = 1
-        Me.FormControlBox2.Text = "FormControlBox2"
-        Me.FormControlBox2.UseConfigBox = False
-        Me.FormControlBox2.UseCriticalBox = False
-        Me.FormControlBox2.UseDualBox = False
-        Me.FormControlBox2.UseLockBox = False
-        Me.FormControlBox2.UseMaxBox = True
-        Me.FormControlBox2.UseMinBox = True
-        Me.FormControlBox2.UsePowerBox = False
-        Me.FormControlBox2.UseRotationBox = True
+        Me.lblSubject.AutoSize = True
+        Me.lblSubject.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSubject.ForeColor = System.Drawing.Color.White
+        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSubject.Location = New System.Drawing.Point(43, 0)
+        Me.lblSubject.Name = "lblSubject"
+        Me.lblSubject.Size = New System.Drawing.Size(658, 40)
+        Me.lblSubject.TabIndex = 0
+        Me.lblSubject.Text = "Text"
+        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label1
+        'Label2
         '
-        Me.Label1.AutoSizeHeight = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label1.FixedHeight = False
-        Me.Label1.FixedWidth = False
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(11, 130)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(682, 18)
-        Me.Label1.TabIndex = 9
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label2.AutoSize = True
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label2.Image = CType(resources.GetObject("Label2.Image"), System.Drawing.Image)
+        Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label2.Location = New System.Drawing.Point(3, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(34, 40)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "      "
         '
         'frmHealthDetail
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(710, 678)
         Me.Controls.Add(Me.Panel1)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Controls.Add(Me.TableLayoutPanel2)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmHealthDetail"
         Me.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frmHealthDetail"
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         CType(Me.dgvinfo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.FormMovePanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents Panel1 As eXperDB.BaseControls.Panel
-    Friend WithEvents FormMovePanel2 As eXperDB.Controls.FormMovePanel
-    Friend WithEvents FormControlBox2 As eXperDB.Controls.FormControlBox
-    Friend WithEvents lblinfo As eXperDB.BaseControls.Label
-    Friend WithEvents lblitmNm As eXperDB.BaseControls.Label
-    Friend WithEvents dgvinfo As eXperDB.BaseControls.DataGridView
-    Friend WithEvents lblParameter As eXperDB.BaseControls.Label
-    Friend WithEvents lblCurTime As eXperDB.BaseControls.Label
-    Friend WithEvents lblDesc As eXperDB.BaseControls.Label
-    Friend WithEvents lblResult As eXperDB.BaseControls.Label
     Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
+    Friend WithEvents lblParameter As eXperDB.BaseControls.Label
+    Friend WithEvents dgvinfo As eXperDB.BaseControls.DataGridView
     Friend WithEvents Label1 As eXperDB.BaseControls.Label
+    Friend WithEvents lblinfo As eXperDB.BaseControls.Label
+    Friend WithEvents lblResult As eXperDB.BaseControls.Label
+    Friend WithEvents lblDesc As eXperDB.BaseControls.Label
+    Friend WithEvents lblitmNm As eXperDB.BaseControls.Label
+    Friend WithEvents lblCurTime As eXperDB.BaseControls.Label
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblSubject As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
 End Class
