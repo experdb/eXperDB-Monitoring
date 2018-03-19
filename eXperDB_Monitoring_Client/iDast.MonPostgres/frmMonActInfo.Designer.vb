@@ -220,7 +220,7 @@ Partial Class frmMonActInfo
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1882, 50)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1284, 50)
         Me.TableLayoutPanel2.TabIndex = 17
         '
         'btnExcel
@@ -235,7 +235,7 @@ Partial Class frmMonActInfo
         Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnExcel.Image = CType(resources.GetObject("btnExcel.Image"), System.Drawing.Image)
         Me.btnExcel.LineColor = System.Drawing.Color.LightGray
-        Me.btnExcel.Location = New System.Drawing.Point(1845, 15)
+        Me.btnExcel.Location = New System.Drawing.Point(1247, 15)
         Me.btnExcel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnExcel.Name = "btnExcel"
         Me.btnExcel.Radius = 5
@@ -253,7 +253,7 @@ Partial Class frmMonActInfo
         Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MsgLabel.Location = New System.Drawing.Point(43, 0)
         Me.MsgLabel.Name = "MsgLabel"
-        Me.MsgLabel.Size = New System.Drawing.Size(1616, 50)
+        Me.MsgLabel.Size = New System.Drawing.Size(1018, 50)
         Me.MsgLabel.TabIndex = 0
         Me.MsgLabel.Text = "Text"
         Me.MsgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -281,7 +281,7 @@ Partial Class frmMonActInfo
         Me.btnPause.ForeColor = System.Drawing.Color.Blue
         Me.btnPause.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPause.LineColor = System.Drawing.Color.LightGray
-        Me.btnPause.Location = New System.Drawing.Point(1805, 15)
+        Me.btnPause.Location = New System.Drawing.Point(1207, 15)
         Me.btnPause.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPause.Name = "btnPause"
         Me.btnPause.Radius = 5
@@ -305,8 +305,8 @@ Partial Class frmMonActInfo
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.SplitContainer3)
-        Me.SplitContainer2.Size = New System.Drawing.Size(1882, 954)
-        Me.SplitContainer2.SplitterDistance = 452
+        Me.SplitContainer2.Size = New System.Drawing.Size(1284, 732)
+        Me.SplitContainer2.SplitterDistance = 346
         Me.SplitContainer2.TabIndex = 19
         '
         'SplitContainer1
@@ -324,8 +324,8 @@ Partial Class frmMonActInfo
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvTblSpaceInfo)
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel3)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1882, 452)
-        Me.SplitContainer1.SplitterDistance = 935
+        Me.SplitContainer1.Size = New System.Drawing.Size(1284, 346)
+        Me.SplitContainer1.SplitterDistance = 637
         Me.SplitContainer1.TabIndex = 0
         '
         'dgvDBinfo
@@ -376,7 +376,7 @@ Partial Class frmMonActInfo
         Me.dgvDBinfo.RowHeadersVisible = False
         Me.dgvDBinfo.RowTemplate.Height = 23
         Me.dgvDBinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDBinfo.Size = New System.Drawing.Size(935, 412)
+        Me.dgvDBinfo.Size = New System.Drawing.Size(637, 306)
         Me.dgvDBinfo.TabIndex = 12
         Me.dgvDBinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvDBinfo.UseTagValueMatchColor = False
@@ -504,7 +504,7 @@ Partial Class frmMonActInfo
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(935, 40)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(637, 40)
         Me.TableLayoutPanel1.TabIndex = 1
         '
         'Label2
@@ -526,7 +526,7 @@ Partial Class frmMonActInfo
         Me.lblDBinfo.ForeColor = System.Drawing.Color.White
         Me.lblDBinfo.Location = New System.Drawing.Point(43, 0)
         Me.lblDBinfo.Name = "lblDBinfo"
-        Me.lblDBinfo.Size = New System.Drawing.Size(889, 40)
+        Me.lblDBinfo.Size = New System.Drawing.Size(591, 40)
         Me.lblDBinfo.TabIndex = 3
         Me.lblDBinfo.Text = "F313"
         Me.lblDBinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -577,7 +577,7 @@ Partial Class frmMonActInfo
         Me.dgvTblSpaceInfo.RowHeadersVisible = False
         Me.dgvTblSpaceInfo.RowTemplate.Height = 23
         Me.dgvTblSpaceInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTblSpaceInfo.Size = New System.Drawing.Size(943, 412)
+        Me.dgvTblSpaceInfo.Size = New System.Drawing.Size(643, 306)
         Me.dgvTblSpaceInfo.TabIndex = 13
         Me.dgvTblSpaceInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvTblSpaceInfo.UseTagValueMatchColor = False
@@ -705,7 +705,7 @@ Partial Class frmMonActInfo
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(943, 40)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(643, 40)
         Me.TableLayoutPanel3.TabIndex = 2
         '
         'Label3
@@ -727,7 +727,7 @@ Partial Class frmMonActInfo
         Me.lblTblSpaceInfo.ForeColor = System.Drawing.Color.White
         Me.lblTblSpaceInfo.Location = New System.Drawing.Point(43, 0)
         Me.lblTblSpaceInfo.Name = "lblTblSpaceInfo"
-        Me.lblTblSpaceInfo.Size = New System.Drawing.Size(897, 40)
+        Me.lblTblSpaceInfo.Size = New System.Drawing.Size(597, 40)
         Me.lblTblSpaceInfo.TabIndex = 3
         Me.lblTblSpaceInfo.Text = "F313"
         Me.lblTblSpaceInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -747,8 +747,8 @@ Partial Class frmMonActInfo
         '
         Me.SplitContainer3.Panel2.Controls.Add(Me.dgvIdxinfo)
         Me.SplitContainer3.Panel2.Controls.Add(Me.TableLayoutPanel5)
-        Me.SplitContainer3.Size = New System.Drawing.Size(1882, 498)
-        Me.SplitContainer3.SplitterDistance = 936
+        Me.SplitContainer3.Size = New System.Drawing.Size(1284, 382)
+        Me.SplitContainer3.SplitterDistance = 638
         Me.SplitContainer3.TabIndex = 10
         '
         'dgvTblinfo
@@ -797,7 +797,7 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.RowHeadersVisible = False
         Me.dgvTblinfo.RowTemplate.Height = 23
         Me.dgvTblinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvTblinfo.Size = New System.Drawing.Size(936, 458)
+        Me.dgvTblinfo.Size = New System.Drawing.Size(638, 342)
         Me.dgvTblinfo.TabIndex = 13
         Me.dgvTblinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvTblinfo.UseTagValueMatchColor = False
@@ -953,7 +953,7 @@ Partial Class frmMonActInfo
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(936, 40)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(638, 40)
         Me.TableLayoutPanel4.TabIndex = 2
         '
         'Label5
@@ -975,7 +975,7 @@ Partial Class frmMonActInfo
         Me.lblTblinfo.ForeColor = System.Drawing.Color.White
         Me.lblTblinfo.Location = New System.Drawing.Point(43, 0)
         Me.lblTblinfo.Name = "lblTblinfo"
-        Me.lblTblinfo.Size = New System.Drawing.Size(890, 40)
+        Me.lblTblinfo.Size = New System.Drawing.Size(592, 40)
         Me.lblTblinfo.TabIndex = 3
         Me.lblTblinfo.Text = "F313"
         Me.lblTblinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1018,7 +1018,7 @@ Partial Class frmMonActInfo
         Me.dgvIdxinfo.RowHeadersVisible = False
         Me.dgvIdxinfo.RowTemplate.Height = 23
         Me.dgvIdxinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvIdxinfo.Size = New System.Drawing.Size(942, 458)
+        Me.dgvIdxinfo.Size = New System.Drawing.Size(642, 342)
         Me.dgvIdxinfo.TabIndex = 14
         Me.dgvIdxinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvIdxinfo.UseTagValueMatchColor = False
@@ -1148,7 +1148,7 @@ Partial Class frmMonActInfo
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 1
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(942, 40)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(642, 40)
         Me.TableLayoutPanel5.TabIndex = 2
         '
         'Label7
@@ -1170,7 +1170,7 @@ Partial Class frmMonActInfo
         Me.lblidxinfo.ForeColor = System.Drawing.Color.White
         Me.lblidxinfo.Location = New System.Drawing.Point(43, 0)
         Me.lblidxinfo.Name = "lblidxinfo"
-        Me.lblidxinfo.Size = New System.Drawing.Size(896, 40)
+        Me.lblidxinfo.Size = New System.Drawing.Size(596, 40)
         Me.lblidxinfo.TabIndex = 3
         Me.lblidxinfo.Text = "F313"
         Me.lblidxinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1575,7 +1575,7 @@ Partial Class frmMonActInfo
         'frmMonActInfo
         '
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1882, 1004)
+        Me.ClientSize = New System.Drawing.Size(1284, 782)
         Me.Controls.Add(Me.SplitContainer2)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)

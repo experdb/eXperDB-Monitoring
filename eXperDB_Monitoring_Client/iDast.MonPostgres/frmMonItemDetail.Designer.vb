@@ -243,7 +243,7 @@ Partial Class frmMonItemDetail
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpBottom.Size = New System.Drawing.Size(1904, 1002)
+        Me.tlpBottom.Size = New System.Drawing.Size(1284, 782)
         Me.tlpBottom.TabIndex = 8
         '
         'SplitContainer1
@@ -269,8 +269,8 @@ Partial Class frmMonItemDetail
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel2)
         Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tlpBottom.SetRowSpan(Me.SplitContainer1, 2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1898, 996)
-        Me.SplitContainer1.SplitterDistance = 673
+        Me.SplitContainer1.Size = New System.Drawing.Size(1278, 776)
+        Me.SplitContainer1.SplitterDistance = 555
         Me.SplitContainer1.TabIndex = 0
         '
         'tlpChartArea
@@ -291,7 +291,7 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpChartArea.Size = New System.Drawing.Size(1898, 673)
+        Me.tlpChartArea.Size = New System.Drawing.Size(1278, 555)
         Me.tlpChartArea.TabIndex = 0
         '
         'TableLayoutPanel1
@@ -308,7 +308,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1892, 34)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1272, 34)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'Label2
@@ -330,7 +330,7 @@ Partial Class frmMonItemDetail
         Me.lblChart.ForeColor = System.Drawing.Color.White
         Me.lblChart.Location = New System.Drawing.Point(43, 0)
         Me.lblChart.Name = "lblChart"
-        Me.lblChart.Size = New System.Drawing.Size(1846, 34)
+        Me.lblChart.Size = New System.Drawing.Size(1226, 34)
         Me.lblChart.TabIndex = 3
         Me.lblChart.Text = "F268"
         Me.lblChart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -347,7 +347,7 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlChart.Location = New System.Drawing.Point(3, 129)
         Me.pnlChart.Name = "pnlChart"
-        Me.pnlChart.Size = New System.Drawing.Size(1892, 541)
+        Me.pnlChart.Size = New System.Drawing.Size(1272, 423)
         Me.pnlChart.TabIndex = 3
         '
         'tlpInput
@@ -381,7 +381,7 @@ Partial Class frmMonItemDetail
         Me.tlpInput.Name = "tlpInput"
         Me.tlpInput.RowCount = 1
         Me.tlpInput.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpInput.Size = New System.Drawing.Size(1892, 40)
+        Me.tlpInput.Size = New System.Drawing.Size(1272, 40)
         Me.tlpInput.TabIndex = 0
         '
         'btnChartMenu
@@ -396,7 +396,7 @@ Partial Class frmMonItemDetail
         Me.btnChartMenu.ForeColor = System.Drawing.Color.White
         Me.btnChartMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnChartMenu.LineColor = System.Drawing.Color.DimGray
-        Me.btnChartMenu.Location = New System.Drawing.Point(1785, 4)
+        Me.btnChartMenu.Location = New System.Drawing.Point(1165, 4)
         Me.btnChartMenu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnChartMenu.Name = "btnChartMenu"
         Me.btnChartMenu.Radius = 5
@@ -419,7 +419,7 @@ Partial Class frmMonItemDetail
         Me.btnRange.ForeColor = System.Drawing.Color.White
         Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnRange.LineColor = System.Drawing.Color.DimGray
-        Me.btnRange.Location = New System.Drawing.Point(1685, 4)
+        Me.btnRange.Location = New System.Drawing.Point(1065, 4)
         Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnRange.Name = "btnRange"
         Me.btnRange.Radius = 5
@@ -442,7 +442,7 @@ Partial Class frmMonItemDetail
         Me.btnQuery.ForeColor = System.Drawing.Color.White
         Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnQuery.LineColor = System.Drawing.Color.DimGray
-        Me.btnQuery.Location = New System.Drawing.Point(1585, 4)
+        Me.btnQuery.Location = New System.Drawing.Point(965, 4)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Radius = 5
@@ -462,7 +462,7 @@ Partial Class frmMonItemDetail
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 16)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 15)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -574,7 +574,7 @@ Partial Class frmMonItemDetail
         Me.tlpButton.Name = "tlpButton"
         Me.tlpButton.RowCount = 1
         Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpButton.Size = New System.Drawing.Size(1892, 34)
+        Me.tlpButton.Size = New System.Drawing.Size(1272, 34)
         Me.tlpButton.TabIndex = 2
         '
         'chkSQLResp
@@ -714,7 +714,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.RowHeadersVisible = False
         Me.dgvSessionList.RowTemplate.Height = 23
         Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionList.Size = New System.Drawing.Size(1898, 284)
+        Me.dgvSessionList.Size = New System.Drawing.Size(1278, 182)
         Me.dgvSessionList.TabIndex = 13
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
@@ -841,7 +841,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1898, 35)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1278, 35)
         Me.TableLayoutPanel2.TabIndex = 14
         '
         'Label1
@@ -863,7 +863,7 @@ Partial Class frmMonItemDetail
         Me.lslSession.ForeColor = System.Drawing.Color.White
         Me.lslSession.Location = New System.Drawing.Point(43, 0)
         Me.lslSession.Name = "lslSession"
-        Me.lslSession.Size = New System.Drawing.Size(1852, 35)
+        Me.lslSession.Size = New System.Drawing.Size(1232, 35)
         Me.lslSession.TabIndex = 3
         Me.lslSession.Text = "F313"
         Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -887,7 +887,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1904, 40)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1284, 40)
         Me.TableLayoutPanel3.TabIndex = 19
         '
         'lblSubject
@@ -899,7 +899,7 @@ Partial Class frmMonItemDetail
         Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblSubject.Location = New System.Drawing.Point(43, 0)
         Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(1638, 40)
+        Me.lblSubject.Size = New System.Drawing.Size(1018, 40)
         Me.lblSubject.TabIndex = 0
         Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -924,7 +924,7 @@ Partial Class frmMonItemDetail
         Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLogicalIO.MenuVisible = False
         Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1875, 362)
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
         Me.chtLogicalIO.TabIndex = 6
         Me.chtLogicalIO.Title = ""
         Me.chtLogicalIO.Visible = False
@@ -938,7 +938,7 @@ Partial Class frmMonItemDetail
         Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLResp.MenuVisible = False
         Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1875, 362)
+        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
         Me.chtSQLResp.TabIndex = 8
         Me.chtSQLResp.Title = ""
         Me.chtSQLResp.Visible = False
@@ -952,7 +952,7 @@ Partial Class frmMonItemDetail
         Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtPhysicalIO.MenuVisible = False
         Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1875, 362)
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
         Me.chtPhysicalIO.TabIndex = 7
         Me.chtPhysicalIO.Title = ""
         Me.chtPhysicalIO.Visible = False
@@ -966,7 +966,7 @@ Partial Class frmMonItemDetail
         Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSession.MenuVisible = False
         Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1875, 362)
+        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
         Me.chtSession.TabIndex = 5
         Me.chtSession.Title = ""
         Me.chtSession.Visible = False
@@ -980,7 +980,7 @@ Partial Class frmMonItemDetail
         Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtCPU.MenuVisible = False
         Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1875, 362)
+        Me.chtCPU.Size = New System.Drawing.Size(1255, 362)
         Me.chtCPU.TabIndex = 3
         Me.chtCPU.Title = ""
         '
@@ -988,13 +988,14 @@ Partial Class frmMonItemDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1904, 1042)
+        Me.ClientSize = New System.Drawing.Size(1284, 822)
         Me.Controls.Add(Me.tlpBottom)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmMonItemDetail"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Chart Detail"
         Me.tlpBottom.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(false)

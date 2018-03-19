@@ -784,6 +784,7 @@ Partial Class frmSessionLock
         'frmSessionLock
         '
         Me.AutoSize = True
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1019, 619)
         Me.Controls.Add(Me.SplitContainer2)

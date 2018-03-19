@@ -204,7 +204,6 @@
 
                                                 modCommon.sb_GridSortChg(dgvSessionList)
                                                 lslSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
-                                                'dgvSessionList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill)
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                                 GC.Collect()
@@ -212,32 +211,6 @@
 
                                         End Sub))
         End If
-
-
-
-
-        'Dim strQuery As String = ""
-
-        'strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
-        ''strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
-
-        'Dim dtView As DataView = New DataView(dtTable, strQuery, "CPU_USAGE DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
-
-        'Dim ShowDT As DataTable = Nothing
-        'If dtView.Count > 0 Then
-        '    ShowDT = dtView.ToTable.AsEnumerable.Take(100).CopyToDataTable
-        'End If
-
-        'If ShowDT Is Nothing Then
-        '    dgvSessionList.DataSource = Nothing
-        '    Return
-        'End If
-
-        'dgvSessionList.DataSource = ShowDT
-
-        'grpSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
-        'modCommon.sb_GridSortChg(dgvSessionList)
-        ''dgvSessionList.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill)
 
     End Sub
 
@@ -264,22 +237,6 @@
         End If
     End Sub
 
-    'Private Sub dgvSessionList_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
-    '    If dgvSessionList.RowCount <= 0 Then Return
-
-    '    _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
-    '    _SelectedGrid = 0
-    '    If e.RowIndex >= 0 Then
-    '        dgvSessionList.Cursor = Cursors.Hand
-    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-    '            dgvSessionList.ClearSelection()
-    '            dgvSessionList.Rows(e.RowIndex).Selected = True
-    '        End If
-    '        For i As Integer = 0 To dgvSessionList.ColumnCount - 1
-    '            dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
-    '        Next
-    '    End If
-    'End Sub
     Private Sub InitCharts()
 
         chkCpu.Tag = 0
@@ -351,7 +308,8 @@
             _chtCount -= 1
         End If
 
-        chtCPU.Height = _chtHeight * _chtCount
+        'chtCPU.Height = _chtHeight * _chtCount
+        chtCPU.Height = 2000 'fix Height of Chart
         'this.chartTracking.Focus();
         chtCPU.MainChart.Focus()
         QueryChartData(CheckBox.Tag + 1, CheckBox.Checked)
@@ -380,7 +338,7 @@
         Dim nCount As Integer = 0
         Dim MarginTop As Integer = 0
         Dim MarginBottom As Integer = 0
-        Dim AreaHeight As Integer = (100 / _chtCount)
+        Dim AreaHeight As Integer = (100 / 5)
         MarginTop = AreaHeight * 0.2
         AreaHeight = AreaHeight * 0.7
         MarginBottom = AreaHeight * 0.1
@@ -398,9 +356,29 @@
         Next
 
     End Sub
-    'Private Function InvokeMethod(ByVal method As [Delegate], ParamArray args As Object()) As Object
-    '    Return method.DynamicInvoke(args)
-    'End Function
+    'Private Sub ArrangeChartlayout()
+    '    Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
+    '    Dim nCount As Integer = 0
+    '    Dim MarginTop As Integer = 0
+    '    Dim MarginBottom As Integer = 0
+    '    Dim AreaHeight As Integer = (100 / _chtCount)
+    '    MarginTop = AreaHeight * 0.2
+    '    AreaHeight = AreaHeight * 0.7
+    '    MarginBottom = AreaHeight * 0.1
+    '    For i As Integer = 1 To _AreaCount
+    '        tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
+    '        If tmpChartArea.Visible = True Then
+    '            tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * (nCount + 1) + MarginBottom * nCount
+    '            tmpChartArea.Position.Height = AreaHeight
+    '            tmpChartArea.Position.X = 3
+    '            If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
+    '                tmpChartArea.Position.Width = tmpChartArea.Position.Width * (1 + CSng(100 / (Me.chtCPU.MainChart.Width)))
+    '            End If
+    '            nCount += 1
+    '        End If
+    '    Next
+
+    'End Sub
 
     Private Sub ShowDynamicChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
         Dim strLegend1 As String = ""
@@ -434,8 +412,8 @@
                 strLegend2 = "BACKENDACT"
                 strSeriesData1 = "TOT_BACKEND_CNT"
                 strSeriesData2 = "CUR_ACTV_BACKEND_CNT"
-                LineColor1 = Color.Yellow
-                LineColor2 = Color.Lime
+                LineColor1 = Color.Lime
+                LineColor2 = Color.Yellow
                 seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
             Case 3
                 strLegend1 = "Read"
@@ -526,13 +504,21 @@
                                                 Next
                                                 chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
                                                 chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData1)))
-                                                    If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData2)))
-                                                    If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData3)))
-                                                    If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData4)))
-                                                Next
+                                                If dtTable.Rows.Count > 0 Then
+                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                        Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
+                                                        If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData1)))
+                                                        If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData2)))
+                                                        If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData3)))
+                                                        If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData4)))
+                                                    Next
+                                                Else
+                                                    Dim tmpDate As Double = ConvOADate(Now())
+                                                    If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, 0.0)
+                                                    If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, 0.0)
+                                                    If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, 0.0)
+                                                    If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, 0.0)
+                                                End If
 
                                                 Me.chtCPU.ShowMaxValue(True)
                                                 chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
@@ -846,21 +832,6 @@
         'End If
     End Sub
 
-    'Private Sub dgvSessionList_CellMouseClick_1(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseClick
-    '    If dgvSessionList.RowCount <= 0 Then Return
-
-    '    If e.RowIndex >= 0 Then
-    '        dgvSessionList.Cursor = Cursors.Hand
-    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-    '            dgvSessionList.ClearSelection()
-    '            dgvSessionList.Rows(e.RowIndex).Selected = True
-    '        End If
-    '        For i As Integer = 0 To dgvSessionList.ColumnCount - 1
-    '            dgvSessionList.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 30, 60)
-    '        Next
-    '    End If
-    'End Sub
-
     Private Function fn_SearchBefCheck() As Boolean
         If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) < 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M014"))
@@ -886,27 +857,4 @@
         End If
 
     End Sub
-    'Private Sub dgvSessionList_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionList.CellMouseMove
-    '    If e.RowIndex >= 0 Then
-    '        dgvSessionList.Cursor = Cursors.Hand
-    '        If dgvSessionList.Rows(e.RowIndex).Selected = False Then
-    '            dgvSessionList.ClearSelection()
-    '            dgvSessionList.Rows(e.RowIndex).Selected = True
-    '        End If
-    '        dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
-    '    End If
-    'End Sub
-
-    'Private Sub dgvSessionList_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellMouseLeave
-    '    If e.RowIndex >= 0 Then
-    '        dgvSessionList.Cursor = Cursors.Arrow
-    '        If dgvSessionList.Rows(e.RowIndex).Selected = True Then
-    '            dgvSessionList.ClearSelection()
-    '            dgvSessionList.Rows(e.RowIndex).Selected = False
-    '        End If
-    '        dgvSessionList.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvSessionList.DefaultCellStyle.SelectionBackColor
-    '    End If
-    'End Sub
-
-
 End Class
