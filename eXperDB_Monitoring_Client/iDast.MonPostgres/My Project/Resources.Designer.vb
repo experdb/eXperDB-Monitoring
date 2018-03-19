@@ -71,6 +71,26 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property power_hibernate() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("power_hibernate", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property power_suspend() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("power_suspend", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         '''&lt;ROWS&gt;
         '''  &lt;ROW ID=&quot;CHECKPASSWORD&quot; PARAMS=&quot;2&quot;&gt;
