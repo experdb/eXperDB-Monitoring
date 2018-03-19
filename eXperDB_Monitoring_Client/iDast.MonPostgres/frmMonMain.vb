@@ -7,7 +7,7 @@
         Activate = 0
         DeActivate = 1
     End Enum
- 
+
 
     Private _GrpList As List(Of GroupInfo)
     ''' <summary>
@@ -202,7 +202,7 @@
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
-	' 그룹 라디오 감추고 그룹명을 타이틀에 초기화는 form load에서 
+        ' 그룹 라디오 감추고 그룹명을 타이틀에 초기화는 form load에서 
         sb_InitControl()
 
         'getData()
@@ -344,6 +344,12 @@
 
         Me.cmbLevel.Location = New System.Drawing.Point(Me.grpAlert.Width - Me.cmbLevel.Width - Me.cmbLevel.Margin.Right, Me.cmbLevel.Margin.Top)
         Me.cmbLevel.SelectedIndex = 0
+
+        Me.ttChart.SetToolTip(Me.btnPower, p_clsMsgData.fn_GetData("F308"))
+        Me.ttChart.SetToolTip(Me.btnCritical, p_clsMsgData.fn_GetData("F306"))
+        Me.ttChart.SetToolTip(Me.btnLock, p_clsMsgData.fn_GetData("F305"))
+        Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F300"))
+        Me.ttChart.SetToolTip(Me.btnAlertConfig, p_clsMsgData.fn_GetData("F199"))
 
         'modCommon.FontChange(Me, p_Font)
 
@@ -2453,6 +2459,11 @@
 
     Private Sub btnCritical_Click(sender As Object, e As EventArgs) Handles btnCritical.Click
         Me.ShowCritical = Not Me.ShowCritical
+        If Me.ShowCritical = True Then
+            btnCritical.Image = eXperDB.Monitoring.My.Resources.alert_on
+        Else
+            btnCritical.Image = eXperDB.Monitoring.My.Resources.alert_off
+        End If
     End Sub
 
     Private Sub btnLock_Click(sender As Object, e As EventArgs) Handles btnLock.Click
@@ -2560,8 +2571,10 @@
             Me._isLock = value
             If value.Equals(True) Then
                 tmLock.Enabled = False
+                btnLock.Image = eXperDB.Monitoring.My.Resources.lock_on
             Else
                 tmLock.Enabled = True
+                btnLock.Image = eXperDB.Monitoring.My.Resources.lock_off
             End If
         End Set
     End Property
@@ -2572,6 +2585,7 @@
                 Return True
             Else
                 Me.isLock = False
+
                 Return False
             End If
         Else

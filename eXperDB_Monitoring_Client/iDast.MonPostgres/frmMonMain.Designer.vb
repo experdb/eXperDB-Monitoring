@@ -281,7 +281,7 @@ Partial Class frmMonMain
         Me.lblNormal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblNormal.FixedHeight = False
         Me.lblNormal.FixedWidth = False
-        Me.lblNormal.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblNormal.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblNormal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblNormal.Location = New System.Drawing.Point(3, 0)
         Me.lblNormal.Name = "lblNormal"
@@ -296,7 +296,7 @@ Partial Class frmMonMain
         Me.lblWarning.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblWarning.FixedHeight = False
         Me.lblWarning.FixedWidth = False
-        Me.lblWarning.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblWarning.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblWarning.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblWarning.Location = New System.Drawing.Point(73, 0)
         Me.lblWarning.Name = "lblWarning"
@@ -311,7 +311,7 @@ Partial Class frmMonMain
         Me.lblCritical.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblCritical.FixedHeight = False
         Me.lblCritical.FixedWidth = False
-        Me.lblCritical.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblCritical.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblCritical.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblCritical.Location = New System.Drawing.Point(144, 0)
         Me.lblCritical.Name = "lblCritical"
@@ -414,7 +414,7 @@ Partial Class frmMonMain
         Me.radCpu.Areas.AddRange(New eXperDB.Controls.Areaitem() {Areaitem1, Areaitem2, Areaitem3, Areaitem4})
         Me.radCpu.BackColor = System.Drawing.Color.Black
         Me.radCpu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.radCpu.Font = New System.Drawing.Font("맑은 고딕", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.radCpu.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.radCpu.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.radCpu.ItemReverse = False
         Me.radCpu.LineColor = System.Drawing.Color.WhiteSmoke
@@ -470,7 +470,7 @@ Partial Class frmMonMain
         Me.dgvGrpCpuSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
@@ -482,7 +482,7 @@ Partial Class frmMonMain
         Me.dgvGrpCpuSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colGrpCpuSvrID, Me.colGrpCpuSvrNm, Me.colGrpCpuSvrUsage, Me.colGrpCpuSvrProg})
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -608,7 +608,7 @@ Partial Class frmMonMain
         Me.radMem.Areas.AddRange(New eXperDB.Controls.Areaitem() {Areaitem5, Areaitem6, Areaitem7, Areaitem8})
         Me.radMem.BackColor = System.Drawing.Color.Black
         Me.radMem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.radMem.Font = New System.Drawing.Font("맑은 고딕", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.radMem.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.radMem.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.radMem.ItemReverse = True
         Me.radMem.LineColor = System.Drawing.Color.WhiteSmoke
@@ -665,7 +665,7 @@ Partial Class frmMonMain
         Me.dgvGrpMemSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle19.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle19.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.DimGray
@@ -677,7 +677,7 @@ Partial Class frmMonMain
         Me.dgvGrpMemSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colGrpMemSvrID, Me.colGrpMemSvrNm, Me.colGrpMemSvrUsage, Me.colGrpMemSvrprog})
         DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle22.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -742,7 +742,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.DimGray
@@ -754,7 +754,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel10.SetColumnSpan(Me.dgvGrpDiskAccess, 2)
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle11.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -829,7 +829,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray
@@ -841,7 +841,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel12.SetColumnSpan(Me.dgvGrpDiskUsage, 2)
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -943,7 +943,7 @@ Partial Class frmMonMain
         Me.nudBackendcnt.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
         Me.nudBackendcnt.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nudBackendcnt.FixedWidth = False
-        Me.nudBackendcnt.Font = New System.Drawing.Font("바탕", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.nudBackendcnt.Font = New System.Drawing.Font("Batang", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.nudBackendcnt.Location = New System.Drawing.Point(367, 3)
         Me.nudBackendcnt.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.nudBackendcnt.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
@@ -967,7 +967,7 @@ Partial Class frmMonMain
         Me.dgvSessionInfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle12.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.DimGray
@@ -979,7 +979,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel9.SetColumnSpan(Me.dgvSessionInfo, 4)
         DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle18.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -1175,12 +1175,12 @@ Partial Class frmMonMain
         Legend1.Alignment = System.Drawing.StringAlignment.Far
         Legend1.BackColor = System.Drawing.Color.Black
         Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Legend1.Font = New System.Drawing.Font("Gulim", 9.0!)
         Legend1.ForeColor = System.Drawing.Color.White
         Legend1.IsTextAutoFit = False
         Legend1.Name = "Legend1"
         Legend2.BackColor = System.Drawing.Color.Black
-        Legend2.Font = New System.Drawing.Font("굴림", 9.0!)
+        Legend2.Font = New System.Drawing.Font("Gulim", 9.0!)
         Legend2.ForeColor = System.Drawing.Color.White
         Legend2.IsDockedInsideChartArea = False
         Legend2.IsTextAutoFit = False
@@ -1258,7 +1258,7 @@ Partial Class frmMonMain
         Me.lblAgentSvrState.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblAgentSvrState.FixedHeight = False
         Me.lblAgentSvrState.FixedWidth = False
-        Me.lblAgentSvrState.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAgentSvrState.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAgentSvrState.ForeColor = System.Drawing.Color.White
         Me.lblAgentSvrState.Location = New System.Drawing.Point(926, 13)
         Me.lblAgentSvrState.Name = "lblAgentSvrState"
@@ -1273,7 +1273,7 @@ Partial Class frmMonMain
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Label1.FixedHeight = False
         Me.Label1.FixedWidth = False
-        Me.Label1.Font = New System.Drawing.Font("맑은 고딕", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(817, 13)
         Me.Label1.Name = "Label1"
@@ -1345,7 +1345,7 @@ Partial Class frmMonMain
         Legend3.Alignment = System.Drawing.StringAlignment.Far
         Legend3.BackColor = System.Drawing.Color.Black
         Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend3.Font = New System.Drawing.Font("굴림", 9.0!)
+        Legend3.Font = New System.Drawing.Font("Gulim", 9.0!)
         Legend3.ForeColor = System.Drawing.Color.White
         Legend3.IsTextAutoFit = False
         Legend3.Name = "Legend1"
@@ -1372,7 +1372,7 @@ Partial Class frmMonMain
         Me.dgvAlert.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle24.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle24.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.White
@@ -1383,7 +1383,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel13.SetColumnSpan(Me.dgvAlert, 3)
         DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle27.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.White
@@ -1454,7 +1454,7 @@ Partial Class frmMonMain
         '
         Me.coldgvAlertMsg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("굴림", 8.0!)
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Gulim", 8.0!)
         DataGridViewCellStyle26.NullValue = Nothing
         DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.coldgvAlertMsg.DefaultCellStyle = DataGridViewCellStyle26
@@ -1485,7 +1485,7 @@ Partial Class frmMonMain
         Me.cmbLevel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLevel.FixedWidth = False
-        Me.cmbLevel.Font = New System.Drawing.Font("굴림", 9.2638!)
+        Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"Critical", "Warning"})
         Me.cmbLevel.Location = New System.Drawing.Point(94, 4)
@@ -1538,7 +1538,7 @@ Partial Class frmMonMain
         Me.btnAlertConfig.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnAlertConfig.FixedHeight = False
         Me.btnAlertConfig.FixedWidth = False
-        Me.btnAlertConfig.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnAlertConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.btnAlertConfig.ForeColor = System.Drawing.Color.Black
         Me.btnAlertConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAlertConfig.Image = CType(resources.GetObject("btnAlertConfig.Image"), System.Drawing.Image)
@@ -1559,7 +1559,7 @@ Partial Class frmMonMain
         Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnConfig.FixedHeight = False
         Me.btnConfig.FixedWidth = False
-        Me.btnConfig.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.btnConfig.ForeColor = System.Drawing.Color.Black
         Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
@@ -1580,7 +1580,7 @@ Partial Class frmMonMain
         Me.btnLock.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnLock.FixedHeight = False
         Me.btnLock.FixedWidth = False
-        Me.btnLock.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.btnLock.Font = New System.Drawing.Font("Gulim", 12.0!)
         Me.btnLock.ForeColor = System.Drawing.Color.Black
         Me.btnLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnLock.Image = CType(resources.GetObject("btnLock.Image"), System.Drawing.Image)
@@ -1601,7 +1601,7 @@ Partial Class frmMonMain
         Me.btnCritical.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnCritical.FixedHeight = False
         Me.btnCritical.FixedWidth = False
-        Me.btnCritical.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnCritical.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.btnCritical.ForeColor = System.Drawing.Color.Black
         Me.btnCritical.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCritical.Image = CType(resources.GetObject("btnCritical.Image"), System.Drawing.Image)
@@ -1622,7 +1622,7 @@ Partial Class frmMonMain
         Me.btnPower.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnPower.FixedHeight = False
         Me.btnPower.FixedWidth = False
-        Me.btnPower.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnPower.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnPower.ForeColor = System.Drawing.Color.Red
         Me.btnPower.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPower.Image = CType(resources.GetObject("btnPower.Image"), System.Drawing.Image)
@@ -1640,7 +1640,7 @@ Partial Class frmMonMain
         '
         Me.ServerName_lv.AutoSize = True
         Me.ServerName_lv.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ServerName_lv.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.ServerName_lv.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.ServerName_lv.ForeColor = System.Drawing.Color.White
         Me.ServerName_lv.Location = New System.Drawing.Point(90, 0)
         Me.ServerName_lv.Name = "ServerName_lv"
@@ -2160,55 +2160,55 @@ Partial Class frmMonMain
         Me.ClientSize = New System.Drawing.Size(1274, 591)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TableLayoutPanel2)
-        Me.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmMonMain"
         Me.Text = "eXperDB for Monitoring"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        Me.tlpHealth.ResumeLayout(false)
-        Me.tlpCPU.ResumeLayout(false)
-        CType(Me.dgvGrpCpuSvrLst,System.ComponentModel.ISupportInitialize).EndInit
-        Me.tlpMem.ResumeLayout(false)
-        CType(Me.dgvGrpMemSvrLst,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.dgvGrpDiskAccess,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.dgvGrpDiskUsage,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.nudBackendcnt,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.dgvSessionInfo,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.chrReqInfo,System.ComponentModel.ISupportInitialize).EndInit
-        Me.mnuPopup.ResumeLayout(false)
-        CType(Me.chtSessionStatus,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.dgvAlert,System.ComponentModel.ISupportInitialize).EndInit
-        Me.TableLayoutPanel2.ResumeLayout(false)
-        Me.TableLayoutPanel2.PerformLayout
-        Me.SplitContainer1.Panel1.ResumeLayout(false)
-        Me.SplitContainer1.Panel2.ResumeLayout(false)
-        CType(Me.SplitContainer1,System.ComponentModel.ISupportInitialize).EndInit
-        Me.SplitContainer1.ResumeLayout(false)
-        Me.tlpGroup.ResumeLayout(false)
-        Me.TableLayoutPanel12.ResumeLayout(false)
-        Me.TableLayoutPanel12.PerformLayout
-        Me.TableLayoutPanel10.ResumeLayout(false)
-        Me.TableLayoutPanel10.PerformLayout
-        Me.TableLayoutPanel9.ResumeLayout(false)
-        Me.TableLayoutPanel9.PerformLayout
-        Me.TableLayoutPanel8.ResumeLayout(false)
-        Me.TableLayoutPanel8.PerformLayout
-        Me.TableLayoutPanel7.ResumeLayout(false)
-        Me.TableLayoutPanel7.PerformLayout
-        Me.TableLayoutPanel6.ResumeLayout(false)
-        Me.TableLayoutPanel6.PerformLayout
-        Me.TableLayoutPanel5.ResumeLayout(false)
-        Me.TableLayoutPanel5.PerformLayout
-        Me.TableLayoutPanel1.ResumeLayout(false)
-        Me.TableLayoutPanel3.ResumeLayout(false)
-        Me.TableLayoutPanel11.ResumeLayout(false)
-        Me.TableLayoutPanel11.PerformLayout
-        Me.TableLayoutPanel4.ResumeLayout(false)
-        Me.TableLayoutPanel13.ResumeLayout(false)
-        Me.TableLayoutPanel13.PerformLayout
-        Me.ResumeLayout(false)
+        Me.tlpHealth.ResumeLayout(False)
+        Me.tlpCPU.ResumeLayout(False)
+        CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tlpMem.ResumeLayout(False)
+        CType(Me.dgvGrpMemSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvGrpDiskAccess, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvGrpDiskUsage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudBackendcnt, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvSessionInfo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chrReqInfo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.mnuPopup.ResumeLayout(False)
+        CType(Me.chtSessionStatus, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.tlpGroup.ResumeLayout(False)
+        Me.TableLayoutPanel12.ResumeLayout(False)
+        Me.TableLayoutPanel12.PerformLayout()
+        Me.TableLayoutPanel10.ResumeLayout(False)
+        Me.TableLayoutPanel10.PerformLayout()
+        Me.TableLayoutPanel9.ResumeLayout(False)
+        Me.TableLayoutPanel9.PerformLayout()
+        Me.TableLayoutPanel8.ResumeLayout(False)
+        Me.TableLayoutPanel8.PerformLayout()
+        Me.TableLayoutPanel7.ResumeLayout(False)
+        Me.TableLayoutPanel7.PerformLayout()
+        Me.TableLayoutPanel6.ResumeLayout(False)
+        Me.TableLayoutPanel6.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel5.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel11.ResumeLayout(False)
+        Me.TableLayoutPanel11.PerformLayout()
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel13.ResumeLayout(False)
+        Me.TableLayoutPanel13.PerformLayout()
+        Me.ResumeLayout(False)
 
-End Sub
+    End Sub
     Friend WithEvents radCpu As Controls.Raider
     Friend WithEvents dgvGrpMemSvrLst As BaseControls.DataGridView
     Friend WithEvents dgvSessionInfo As BaseControls.DataGridView

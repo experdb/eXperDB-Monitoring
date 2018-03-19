@@ -510,10 +510,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ico-source4.ico" />
+    <Content Include="Image\alert_off.png" />
+    <Content Include="Image\alert_on.png" />
     <Content Include="Image\DXMonforPGSQL.png" />
     <Content Include="Image\eXperDBMonitoring.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Image\lock_off.png" />
+    <Content Include="Image\lock_on.png" />
+    <Content Include="Image\power_hibernate.png" />
     <Content Include="Image\power_suspend.png" />
     <Content Include="Image\SplitBar_Collapse.png" />
     <Content Include="Image\SplitBar_Expand.png" />
