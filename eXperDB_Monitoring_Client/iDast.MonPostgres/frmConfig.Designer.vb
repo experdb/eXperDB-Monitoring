@@ -22,7 +22,6 @@ Partial Class frmConfig
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConfig))
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnSave = New eXperDB.BaseControls.Button()
@@ -52,24 +51,30 @@ Partial Class frmConfig
         Me.lblRegex = New eXperDB.BaseControls.Label()
         Me.txtRegex = New eXperDB.BaseControls.TextBox()
         Me.btnQueryInit = New eXperDB.BaseControls.Button()
-        Me.grpRaider = New eXperDB.BaseControls.GroupBox()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel3 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblRaider = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.chkMemItemReverse = New eXperDB.BaseControls.CheckBox()
         Me.chkCpuItemReverse = New eXperDB.BaseControls.CheckBox()
         Me.lblMemStyle = New eXperDB.BaseControls.Label()
         Me.lblCpuStyle = New eXperDB.BaseControls.Label()
         Me.cmbMemStyle = New eXperDB.BaseControls.ComboBox()
         Me.cmbCpuStyle = New eXperDB.BaseControls.ComboBox()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.StatusLabel = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.tbMain.SuspendLayout()
         Me.tp1.SuspendLayout()
         CType(Me.nudGrpRotate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCollect, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tp2.SuspendLayout()
-        Me.grpRaider.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -432,10 +437,10 @@ Partial Class frmConfig
         'tp2
         '
         Me.tp2.BackColor = System.Drawing.Color.Gray
+        Me.tp2.Controls.Add(Me.TableLayoutPanel3)
         Me.tp2.Controls.Add(Me.lblRegex)
         Me.tp2.Controls.Add(Me.txtRegex)
         Me.tp2.Controls.Add(Me.btnQueryInit)
-        Me.tp2.Controls.Add(Me.grpRaider)
         Me.tp2.ForeColor = System.Drawing.Color.White
         Me.tp2.Location = New System.Drawing.Point(4, 25)
         Me.tp2.Name = "tp2"
@@ -447,7 +452,7 @@ Partial Class frmConfig
         'lblRegex
         '
         Me.lblRegex.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblRegex.Location = New System.Drawing.Point(287, 181)
+        Me.lblRegex.Location = New System.Drawing.Point(287, 224)
         Me.lblRegex.Name = "lblRegex"
         Me.lblRegex.Size = New System.Drawing.Size(100, 21)
         Me.lblRegex.TabIndex = 8
@@ -462,7 +467,7 @@ Partial Class frmConfig
         Me.txtRegex.ControlLength = eXperDB.BaseControls.TextBox.enmLength.[Long]
         Me.txtRegex.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtRegex.impossibleinput = ""
-        Me.txtRegex.Location = New System.Drawing.Point(287, 205)
+        Me.txtRegex.Location = New System.Drawing.Point(287, 248)
         Me.txtRegex.Name = "txtRegex"
         Me.txtRegex.Necessary = False
         Me.txtRegex.PossibleInput = ""
@@ -481,7 +486,7 @@ Partial Class frmConfig
         Me.btnQueryInit.FixedWidth = False
         Me.btnQueryInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnQueryInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQueryInit.Location = New System.Drawing.Point(287, 226)
+        Me.btnQueryInit.Location = New System.Drawing.Point(287, 269)
         Me.btnQueryInit.Name = "btnQueryInit"
         Me.btnQueryInit.Radius = 10
         Me.btnQueryInit.Size = New System.Drawing.Size(273, 27)
@@ -491,111 +496,6 @@ Partial Class frmConfig
         Me.btnQueryInit.UseRound = True
         Me.btnQueryInit.UseVisualStyleBackColor = True
         Me.btnQueryInit.Visible = False
-        '
-        'grpRaider
-        '
-        Me.grpRaider.AlignLine = System.Drawing.StringAlignment.Center
-        Me.grpRaider.AlignString = System.Drawing.StringAlignment.Near
-        Me.grpRaider.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grpRaider.Controls.Add(Me.chkMemItemReverse)
-        Me.grpRaider.Controls.Add(Me.chkCpuItemReverse)
-        Me.grpRaider.Controls.Add(Me.lblMemStyle)
-        Me.grpRaider.Controls.Add(Me.lblCpuStyle)
-        Me.grpRaider.Controls.Add(Me.cmbMemStyle)
-        Me.grpRaider.Controls.Add(Me.cmbCpuStyle)
-        Me.grpRaider.Dock = System.Windows.Forms.DockStyle.Top
-        Me.grpRaider.EdgeRound = Edges1
-        Me.grpRaider.FillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grpRaider.ForeColor = System.Drawing.Color.DarkGray
-        Me.grpRaider.Icon = Nothing
-        Me.grpRaider.LineColor = System.Drawing.Color.DarkGray
-        Me.grpRaider.LineWidth = 1
-        Me.grpRaider.Location = New System.Drawing.Point(5, 5)
-        Me.grpRaider.Name = "grpRaider"
-        Me.grpRaider.Size = New System.Drawing.Size(584, 96)
-        Me.grpRaider.TabIndex = 3
-        Me.grpRaider.TabStop = False
-        Me.grpRaider.Text = "F037"
-        Me.grpRaider.TitleFont = New System.Drawing.Font("굴림", 9.0!)
-        Me.grpRaider.TitleGraColor = System.Drawing.Color.DarkGray
-        Me.grpRaider.UseGraColor = True
-        Me.grpRaider.UseTitle = False
-        '
-        'chkMemItemReverse
-        '
-        Me.chkMemItemReverse.AutoSize = True
-        Me.chkMemItemReverse.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.chkMemItemReverse.ForeColor = System.Drawing.Color.White
-        Me.chkMemItemReverse.LineColor = System.Drawing.Color.Gray
-        Me.chkMemItemReverse.Location = New System.Drawing.Point(405, 63)
-        Me.chkMemItemReverse.Name = "chkMemItemReverse"
-        Me.chkMemItemReverse.Radius = 10
-        Me.chkMemItemReverse.Size = New System.Drawing.Size(49, 16)
-        Me.chkMemItemReverse.TabIndex = 2
-        Me.chkMemItemReverse.Text = "F039"
-        Me.chkMemItemReverse.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.chkMemItemReverse.UseVisualStyleBackColor = True
-        '
-        'chkCpuItemReverse
-        '
-        Me.chkCpuItemReverse.AutoSize = True
-        Me.chkCpuItemReverse.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.chkCpuItemReverse.ForeColor = System.Drawing.Color.White
-        Me.chkCpuItemReverse.LineColor = System.Drawing.Color.Gray
-        Me.chkCpuItemReverse.Location = New System.Drawing.Point(112, 62)
-        Me.chkCpuItemReverse.Name = "chkCpuItemReverse"
-        Me.chkCpuItemReverse.Radius = 10
-        Me.chkCpuItemReverse.Size = New System.Drawing.Size(49, 16)
-        Me.chkCpuItemReverse.TabIndex = 2
-        Me.chkCpuItemReverse.Text = "F039"
-        Me.chkCpuItemReverse.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.chkCpuItemReverse.UseVisualStyleBackColor = True
-        '
-        'lblMemStyle
-        '
-        Me.lblMemStyle.ForeColor = System.Drawing.Color.White
-        Me.lblMemStyle.Location = New System.Drawing.Point(299, 37)
-        Me.lblMemStyle.Name = "lblMemStyle"
-        Me.lblMemStyle.Size = New System.Drawing.Size(100, 21)
-        Me.lblMemStyle.TabIndex = 1
-        Me.lblMemStyle.Text = "F036"
-        Me.lblMemStyle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblCpuStyle
-        '
-        Me.lblCpuStyle.ForeColor = System.Drawing.Color.White
-        Me.lblCpuStyle.Location = New System.Drawing.Point(6, 37)
-        Me.lblCpuStyle.Name = "lblCpuStyle"
-        Me.lblCpuStyle.Size = New System.Drawing.Size(100, 21)
-        Me.lblCpuStyle.TabIndex = 1
-        Me.lblCpuStyle.Text = "F035"
-        Me.lblCpuStyle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbMemStyle
-        '
-        Me.cmbMemStyle.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbMemStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbMemStyle.FormattingEnabled = True
-        Me.cmbMemStyle.Location = New System.Drawing.Point(405, 37)
-        Me.cmbMemStyle.Name = "cmbMemStyle"
-        Me.cmbMemStyle.Necessary = False
-        Me.cmbMemStyle.Size = New System.Drawing.Size(150, 20)
-        Me.cmbMemStyle.StatusTip = ""
-        Me.cmbMemStyle.TabIndex = 0
-        Me.cmbMemStyle.ValueText = ""
-        '
-        'cmbCpuStyle
-        '
-        Me.cmbCpuStyle.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbCpuStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbCpuStyle.FormattingEnabled = True
-        Me.cmbCpuStyle.Location = New System.Drawing.Point(112, 37)
-        Me.cmbCpuStyle.Name = "cmbCpuStyle"
-        Me.cmbCpuStyle.Necessary = False
-        Me.cmbCpuStyle.Size = New System.Drawing.Size(150, 20)
-        Me.cmbCpuStyle.StatusTip = ""
-        Me.cmbCpuStyle.TabIndex = 0
-        Me.cmbCpuStyle.ValueText = ""
         '
         'TableLayoutPanel2
         '
@@ -639,6 +539,155 @@ Partial Class frmConfig
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.ColumnCount = 1
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel4, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel1, 0, 1)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(5, 5)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 2
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(584, 144)
+        Me.TableLayoutPanel3.TabIndex = 9
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel4.ColumnCount = 2
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel4.Controls.Add(Me.lblRaider, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 1
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(578, 27)
+        Me.TableLayoutPanel4.TabIndex = 15
+        '
+        'lblRaider
+        '
+        Me.lblRaider.AutoSize = True
+        Me.lblRaider.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblRaider.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblRaider.ForeColor = System.Drawing.Color.White
+        Me.lblRaider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblRaider.Location = New System.Drawing.Point(189, 0)
+        Me.lblRaider.Name = "lblRaider"
+        Me.lblRaider.Size = New System.Drawing.Size(386, 30)
+        Me.lblRaider.TabIndex = 0
+        Me.lblRaider.Text = "Text"
+        Me.lblRaider.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
+        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label3.Location = New System.Drawing.Point(3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(180, 30)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "      "
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.Gray
+        Me.Panel1.Controls.Add(Me.chkMemItemReverse)
+        Me.Panel1.Controls.Add(Me.chkCpuItemReverse)
+        Me.Panel1.Controls.Add(Me.lblMemStyle)
+        Me.Panel1.Controls.Add(Me.lblCpuStyle)
+        Me.Panel1.Controls.Add(Me.cmbMemStyle)
+        Me.Panel1.Controls.Add(Me.cmbCpuStyle)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(3, 36)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(578, 105)
+        Me.Panel1.TabIndex = 16
+        '
+        'chkMemItemReverse
+        '
+        Me.chkMemItemReverse.AutoSize = True
+        Me.chkMemItemReverse.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkMemItemReverse.ForeColor = System.Drawing.Color.White
+        Me.chkMemItemReverse.LineColor = System.Drawing.Color.Gray
+        Me.chkMemItemReverse.Location = New System.Drawing.Point(374, 55)
+        Me.chkMemItemReverse.Name = "chkMemItemReverse"
+        Me.chkMemItemReverse.Radius = 10
+        Me.chkMemItemReverse.Size = New System.Drawing.Size(49, 16)
+        Me.chkMemItemReverse.TabIndex = 7
+        Me.chkMemItemReverse.Text = "F039"
+        Me.chkMemItemReverse.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkMemItemReverse.UseVisualStyleBackColor = True
+        '
+        'chkCpuItemReverse
+        '
+        Me.chkCpuItemReverse.AutoSize = True
+        Me.chkCpuItemReverse.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkCpuItemReverse.ForeColor = System.Drawing.Color.White
+        Me.chkCpuItemReverse.LineColor = System.Drawing.Color.Gray
+        Me.chkCpuItemReverse.Location = New System.Drawing.Point(110, 54)
+        Me.chkCpuItemReverse.Name = "chkCpuItemReverse"
+        Me.chkCpuItemReverse.Radius = 10
+        Me.chkCpuItemReverse.Size = New System.Drawing.Size(49, 16)
+        Me.chkCpuItemReverse.TabIndex = 8
+        Me.chkCpuItemReverse.Text = "F039"
+        Me.chkCpuItemReverse.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkCpuItemReverse.UseVisualStyleBackColor = True
+        '
+        'lblMemStyle
+        '
+        Me.lblMemStyle.ForeColor = System.Drawing.Color.White
+        Me.lblMemStyle.Location = New System.Drawing.Point(268, 29)
+        Me.lblMemStyle.Name = "lblMemStyle"
+        Me.lblMemStyle.Size = New System.Drawing.Size(100, 21)
+        Me.lblMemStyle.TabIndex = 5
+        Me.lblMemStyle.Text = "F036"
+        Me.lblMemStyle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblCpuStyle
+        '
+        Me.lblCpuStyle.ForeColor = System.Drawing.Color.White
+        Me.lblCpuStyle.Location = New System.Drawing.Point(4, 29)
+        Me.lblCpuStyle.Name = "lblCpuStyle"
+        Me.lblCpuStyle.Size = New System.Drawing.Size(100, 21)
+        Me.lblCpuStyle.TabIndex = 6
+        Me.lblCpuStyle.Text = "F035"
+        Me.lblCpuStyle.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbMemStyle
+        '
+        Me.cmbMemStyle.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbMemStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbMemStyle.FormattingEnabled = True
+        Me.cmbMemStyle.Location = New System.Drawing.Point(374, 29)
+        Me.cmbMemStyle.Name = "cmbMemStyle"
+        Me.cmbMemStyle.Necessary = False
+        Me.cmbMemStyle.Size = New System.Drawing.Size(150, 20)
+        Me.cmbMemStyle.StatusTip = ""
+        Me.cmbMemStyle.TabIndex = 3
+        Me.cmbMemStyle.ValueText = ""
+        '
+        'cmbCpuStyle
+        '
+        Me.cmbCpuStyle.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbCpuStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCpuStyle.FormattingEnabled = True
+        Me.cmbCpuStyle.Location = New System.Drawing.Point(110, 29)
+        Me.cmbCpuStyle.Name = "cmbCpuStyle"
+        Me.cmbCpuStyle.Necessary = False
+        Me.cmbCpuStyle.Size = New System.Drawing.Size(150, 20)
+        Me.cmbCpuStyle.StatusTip = ""
+        Me.cmbCpuStyle.TabIndex = 4
+        Me.cmbCpuStyle.ValueText = ""
+        '
         'frmConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -666,10 +715,13 @@ Partial Class frmConfig
         CType(Me.nudCollect, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tp2.ResumeLayout(False)
         Me.tp2.PerformLayout()
-        Me.grpRaider.ResumeLayout(False)
-        Me.grpRaider.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel4.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -701,14 +753,18 @@ Partial Class frmConfig
     Friend WithEvents lblRegex As eXperDB.BaseControls.Label
     Friend WithEvents txtRegex As eXperDB.BaseControls.TextBox
     Friend WithEvents btnQueryInit As eXperDB.BaseControls.Button
-    Friend WithEvents grpRaider As eXperDB.BaseControls.GroupBox
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents StatusLabel As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel3 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblRaider As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As eXperDB.BaseControls.Panel
     Friend WithEvents chkMemItemReverse As eXperDB.BaseControls.CheckBox
     Friend WithEvents chkCpuItemReverse As eXperDB.BaseControls.CheckBox
     Friend WithEvents lblMemStyle As eXperDB.BaseControls.Label
     Friend WithEvents lblCpuStyle As eXperDB.BaseControls.Label
     Friend WithEvents cmbMemStyle As eXperDB.BaseControls.ComboBox
     Friend WithEvents cmbCpuStyle As eXperDB.BaseControls.ComboBox
-    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents StatusLabel As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class
