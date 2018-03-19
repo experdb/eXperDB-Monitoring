@@ -2310,7 +2310,7 @@
   </ROW>
   <ROW ID="F311" PARAMS="0">
     <DESC>모니터링 서버 리스트 문구</DESC>
-    <DATA><![CDATA[모리터링 리스트]]></DATA>
+    <DATA><![CDATA[모니터링 리스트]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2720,5 +2720,51 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+
+  <ROW ID="F904" PARAMS="0">
+    <DESC>서버아이피 입력설명</DESC>
+    <DATA><![CDATA[(수집서버 아이피 입력)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+
+  <ROW ID="F905" PARAMS="0">
+    <DESC>사용자 입력설명</DESC>
+    <DATA><![CDATA[(수집서버 Repository 사용자 계정 입력)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+
+  <ROW ID="F906" PARAMS="0">
+    <DESC>데이터베이스 입력설명</DESC>
+    <DATA><![CDATA[(수집서버 Repository DB 계정 입력)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+
+  <ROW ID="F907" PARAMS="0">
+    <DESC>포트 입력설명</DESC>
+    <DATA><![CDATA[(수집서버 Repository DB 포트 입력)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+
+  <ROW ID="F908" PARAMS="0">
+    <DESC>비밀번호 입력설명</DESC>
+    <DATA><![CDATA[(수집서버 Repository DB 비밀번호 입력)]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  
   
 </ROWS>
