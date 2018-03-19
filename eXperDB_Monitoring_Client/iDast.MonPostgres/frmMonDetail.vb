@@ -277,16 +277,16 @@
         grpSQLResposeTime.Text = p_clsMsgData.fn_GetData("F103")
 
         'DB Activity Info
-        btnActInfo.Text = p_clsMsgData.fn_GetData("F075")
+        'btnActInfo.Text = p_clsMsgData.fn_GetData("F075")
 
         'Log View
-        btnLogView.Text = p_clsMsgData.fn_GetData("F233")
+        'btnLogView.Text = p_clsMsgData.fn_GetData("F233")
 
         'Query View
-        btnSqlPlan.Text = p_clsMsgData.fn_GetData("F245")
+        'btnSqlPlan.Text = p_clsMsgData.fn_GetData("F245")
 
         'Sessin Lock View
-        btnSessionLock.Text = p_clsMsgData.fn_GetData("F246")
+        'btnSessionLock.Text = p_clsMsgData.fn_GetData("F246")
 
         'Me.FormControlBox1.UseConfigBox = False
         'Me.FormControlBox1.UseLockBox = False
@@ -920,7 +920,7 @@
 
     End Sub
 
-    Private Sub btnLogView_Click(sender As Object, e As EventArgs) Handles btnLogView.Click
+    Private Sub btnLogView_Click(sender As Object, e As EventArgs) Handles btnPartView.Click
         Dim BretFrm As frmLogView = Nothing
 
         For Each tmpFrm As Form In My.Application.OpenForms

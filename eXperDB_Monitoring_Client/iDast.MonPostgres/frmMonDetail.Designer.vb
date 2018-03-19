@@ -128,12 +128,14 @@ Partial Class frmMonDetail
         Me.btnSessionLock = New eXperDB.BaseControls.Button()
         Me.btnSqlPlan = New eXperDB.BaseControls.Button()
         Me.btnActInfo = New eXperDB.BaseControls.Button()
-        Me.btnLogView = New eXperDB.BaseControls.Button()
+        Me.btnPartView = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.ServerName_lv = New System.Windows.Forms.Label()
+        Me.Button1 = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvDiskIO = New eXperDB.BaseControls.DataGridView()
         Me.colDgvDiskIODiskNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvDiskIOUpdtime = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -141,17 +143,12 @@ Partial Class frmMonDetail
         Me.colDgvDiskIOWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
         Me.colDgvDiskIOProg = New eXperDB.Controls.DataGridViewPercentageColumn()
         Me.colDgvDiskIOBusy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TableLayoutPanel7 = New System.Windows.Forms.TableLayoutPanel()
         Me.grpDiskIO = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel8 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel9 = New System.Windows.Forms.TableLayoutPanel()
         Me.grpResUtilPerBackProc = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.grpCpuMem = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel10 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel11 = New System.Windows.Forms.TableLayoutPanel()
         Me.grpCPU = New System.Windows.Forms.Label()
@@ -172,6 +169,10 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel19 = New System.Windows.Forms.TableLayoutPanel()
         Me.grpSQLResposeTime = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.grpCpuMem = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.chtSession, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtSQLRespTm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtLocalIO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -188,12 +189,10 @@ Partial Class frmMonDetail
         CType(Me.picLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel6.SuspendLayout()
-        CType(Me.dgvDiskIO, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel7.SuspendLayout()
+        CType(Me.dgvDiskIO, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel8.SuspendLayout()
         Me.TableLayoutPanel9.SuspendLayout()
-        Me.TableLayoutPanel5.SuspendLayout()
-        Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel10.SuspendLayout()
         Me.TableLayoutPanel11.SuspendLayout()
         Me.TableLayoutPanel12.SuspendLayout()
@@ -204,6 +203,8 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel17.SuspendLayout()
         Me.TableLayoutPanel18.SuspendLayout()
         Me.TableLayoutPanel19.SuspendLayout()
+        Me.TableLayoutPanel5.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshSession
@@ -1628,105 +1629,107 @@ Partial Class frmMonDetail
         '
         'btnSessionLock
         '
+        Me.btnSessionLock.BackColor = System.Drawing.Color.Silver
         Me.btnSessionLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSessionLock.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnSessionLock.FixedHeight = False
         Me.btnSessionLock.FixedWidth = False
         Me.btnSessionLock.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.btnSessionLock.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSessionLock.ForeColor = System.Drawing.Color.Red
         Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSessionLock.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btnSessionLock.Location = New System.Drawing.Point(902, 8)
+        Me.btnSessionLock.Image = CType(resources.GetObject("btnSessionLock.Image"), System.Drawing.Image)
+        Me.btnSessionLock.LineColor = System.Drawing.Color.LightGray
+        Me.btnSessionLock.Location = New System.Drawing.Point(1132, 11)
         Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSessionLock.Name = "btnSessionLock"
         Me.btnSessionLock.Radius = 5
-        Me.btnSessionLock.Size = New System.Drawing.Size(124, 34)
+        Me.btnSessionLock.Size = New System.Drawing.Size(34, 31)
         Me.btnSessionLock.TabIndex = 3
-        Me.btnSessionLock.Text = "F24"
-        Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.Black
-        Me.btnSessionLock.UseRound = True
+        Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSessionLock.UseVisualStyleBackColor = True
         '
         'btnSqlPlan
         '
+        Me.btnSqlPlan.BackColor = System.Drawing.Color.Silver
         Me.btnSqlPlan.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSqlPlan.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnSqlPlan.FixedHeight = False
         Me.btnSqlPlan.FixedWidth = False
         Me.btnSqlPlan.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.btnSqlPlan.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSqlPlan.ForeColor = System.Drawing.Color.Red
         Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSqlPlan.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btnSqlPlan.Location = New System.Drawing.Point(772, 8)
+        Me.btnSqlPlan.Image = CType(resources.GetObject("btnSqlPlan.Image"), System.Drawing.Image)
+        Me.btnSqlPlan.LineColor = System.Drawing.Color.LightGray
+        Me.btnSqlPlan.Location = New System.Drawing.Point(1092, 11)
         Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSqlPlan.Name = "btnSqlPlan"
         Me.btnSqlPlan.Radius = 5
-        Me.btnSqlPlan.Size = New System.Drawing.Size(124, 34)
+        Me.btnSqlPlan.Size = New System.Drawing.Size(34, 31)
         Me.btnSqlPlan.TabIndex = 2
-        Me.btnSqlPlan.Text = "F245"
-        Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.Black
-        Me.btnSqlPlan.UseRound = True
+        Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSqlPlan.UseVisualStyleBackColor = True
         '
         'btnActInfo
         '
+        Me.btnActInfo.BackColor = System.Drawing.Color.Silver
         Me.btnActInfo.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnActInfo.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnActInfo.FixedHeight = False
         Me.btnActInfo.FixedWidth = False
         Me.btnActInfo.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.btnActInfo.ForeColor = System.Drawing.Color.LightGray
+        Me.btnActInfo.ForeColor = System.Drawing.Color.Red
         Me.btnActInfo.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnActInfo.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btnActInfo.Location = New System.Drawing.Point(1032, 8)
+        Me.btnActInfo.Image = CType(resources.GetObject("btnActInfo.Image"), System.Drawing.Image)
+        Me.btnActInfo.LineColor = System.Drawing.Color.LightGray
+        Me.btnActInfo.Location = New System.Drawing.Point(1172, 11)
         Me.btnActInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnActInfo.Name = "btnActInfo"
         Me.btnActInfo.Radius = 5
-        Me.btnActInfo.Size = New System.Drawing.Size(124, 34)
+        Me.btnActInfo.Size = New System.Drawing.Size(34, 31)
         Me.btnActInfo.TabIndex = 1
-        Me.btnActInfo.Text = "F075"
-        Me.btnActInfo.UnCheckFillColor = System.Drawing.Color.Black
-        Me.btnActInfo.UseRound = True
+        Me.btnActInfo.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnActInfo.UseVisualStyleBackColor = True
         '
-        'btnLogView
+        'btnPartView
         '
-        Me.btnLogView.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnLogView.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnLogView.FixedHeight = False
-        Me.btnLogView.FixedWidth = False
-        Me.btnLogView.Font = New System.Drawing.Font("굴림", 10.0!)
-        Me.btnLogView.ForeColor = System.Drawing.Color.LightGray
-        Me.btnLogView.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnLogView.LineColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.btnLogView.Location = New System.Drawing.Point(1162, 8)
-        Me.btnLogView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnLogView.Name = "btnLogView"
-        Me.btnLogView.Radius = 5
-        Me.btnLogView.Size = New System.Drawing.Size(124, 34)
-        Me.btnLogView.TabIndex = 0
-        Me.btnLogView.Text = "F233"
-        Me.btnLogView.UnCheckFillColor = System.Drawing.Color.Black
-        Me.btnLogView.UseRound = True
-        Me.btnLogView.UseVisualStyleBackColor = True
+        Me.btnPartView.BackColor = System.Drawing.Color.Silver
+        Me.btnPartView.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnPartView.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnPartView.FixedHeight = False
+        Me.btnPartView.FixedWidth = False
+        Me.btnPartView.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnPartView.ForeColor = System.Drawing.Color.Red
+        Me.btnPartView.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnPartView.Image = CType(resources.GetObject("btnPartView.Image"), System.Drawing.Image)
+        Me.btnPartView.LineColor = System.Drawing.Color.LightGray
+        Me.btnPartView.Location = New System.Drawing.Point(1212, 11)
+        Me.btnPartView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnPartView.Name = "btnPartView"
+        Me.btnPartView.Radius = 5
+        Me.btnPartView.Size = New System.Drawing.Size(34, 31)
+        Me.btnPartView.TabIndex = 0
+        Me.btnPartView.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnPartView.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.ColumnCount = 8
+        Me.TableLayoutPanel2.ColumnCount = 9
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 587.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.picLogo, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnSessionLock, 5, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnLogView, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnPartView, 7, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnActInfo, 6, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnSqlPlan, 4, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.ServerName_lv, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Button1, 8, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -1760,6 +1763,27 @@ Partial Class frmMonDetail
         Me.ServerName_lv.TabIndex = 4
         Me.ServerName_lv.Text = "ServerInfo"
         Me.ServerName_lv.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.Silver
+        Me.Button1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.Button1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Button1.FixedHeight = False
+        Me.Button1.FixedWidth = False
+        Me.Button1.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.Button1.ForeColor = System.Drawing.Color.Red
+        Me.Button1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
+        Me.Button1.LineColor = System.Drawing.Color.LightGray
+        Me.Button1.Location = New System.Drawing.Point(1252, 11)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Radius = 5
+        Me.Button1.Size = New System.Drawing.Size(34, 31)
+        Me.Button1.TabIndex = 8
+        Me.Button1.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel3
         '
@@ -1798,6 +1822,24 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(394, 277)
         Me.TableLayoutPanel6.TabIndex = 20
+        '
+        'TableLayoutPanel7
+        '
+        Me.TableLayoutPanel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel7.ColumnCount = 2
+        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel7.Controls.Add(Me.dgvDiskIO, 0, 1)
+        Me.TableLayoutPanel7.Controls.Add(Me.grpDiskIO, 1, 0)
+        Me.TableLayoutPanel7.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
+        Me.TableLayoutPanel7.RowCount = 2
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(388, 271)
+        Me.TableLayoutPanel7.TabIndex = 17
         '
         'dgvDiskIO
         '
@@ -1916,24 +1958,6 @@ Partial Class frmMonDetail
         Me.colDgvDiskIOBusy.ReadOnly = True
         Me.colDgvDiskIOBusy.Width = 76
         '
-        'TableLayoutPanel7
-        '
-        Me.TableLayoutPanel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel7.ColumnCount = 2
-        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel7.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel7.Controls.Add(Me.dgvDiskIO, 0, 1)
-        Me.TableLayoutPanel7.Controls.Add(Me.grpDiskIO, 1, 0)
-        Me.TableLayoutPanel7.Controls.Add(Me.Label3, 0, 0)
-        Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
-        Me.TableLayoutPanel7.RowCount = 2
-        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(388, 271)
-        Me.TableLayoutPanel7.TabIndex = 17
-        '
         'grpDiskIO
         '
         Me.grpDiskIO.AutoSize = True
@@ -2020,63 +2044,6 @@ Partial Class frmMonDetail
         Me.Label5.Size = New System.Drawing.Size(34, 30)
         Me.Label5.TabIndex = 1
         Me.Label5.Text = "      "
-        '
-        'TableLayoutPanel5
-        '
-        Me.TableLayoutPanel5.ColumnCount = 1
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.TableLayoutPanel4, 0, 0)
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(403, 3)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 1
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(438, 334)
-        Me.TableLayoutPanel5.TabIndex = 12
-        '
-        'TableLayoutPanel4
-        '
-        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel4.ColumnCount = 2
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.grpCpuMem, 1, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.TableLayoutPanel1, 0, 1)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.RowCount = 2
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(432, 328)
-        Me.TableLayoutPanel4.TabIndex = 17
-        '
-        'grpCpuMem
-        '
-        Me.grpCpuMem.AutoSize = True
-        Me.grpCpuMem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.grpCpuMem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grpCpuMem.ForeColor = System.Drawing.Color.White
-        Me.grpCpuMem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.grpCpuMem.Location = New System.Drawing.Point(43, 0)
-        Me.grpCpuMem.Name = "grpCpuMem"
-        Me.grpCpuMem.Size = New System.Drawing.Size(386, 30)
-        Me.grpCpuMem.TabIndex = 0
-        Me.grpCpuMem.Text = "F139"
-        Me.grpCpuMem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
-        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 30)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "      "
         '
         'TableLayoutPanel10
         '
@@ -2373,6 +2340,63 @@ Partial Class frmMonDetail
         Me.Label15.TabIndex = 1
         Me.Label15.Text = "      "
         '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.ColumnCount = 1
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.TableLayoutPanel4, 0, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(403, 3)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(438, 334)
+        Me.TableLayoutPanel5.TabIndex = 12
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel4.ColumnCount = 2
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.grpCpuMem, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.TableLayoutPanel1, 0, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 2
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(432, 328)
+        Me.TableLayoutPanel4.TabIndex = 17
+        '
+        'grpCpuMem
+        '
+        Me.grpCpuMem.AutoSize = True
+        Me.grpCpuMem.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpCpuMem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpCpuMem.ForeColor = System.Drawing.Color.White
+        Me.grpCpuMem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.grpCpuMem.Location = New System.Drawing.Point(43, 0)
+        Me.grpCpuMem.Name = "grpCpuMem"
+        Me.grpCpuMem.Size = New System.Drawing.Size(386, 30)
+        Me.grpCpuMem.TabIndex = 0
+        Me.grpCpuMem.Text = "F139"
+        Me.grpCpuMem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
+        '
         'frmMonDetail
         '
         Me.BackColor = System.Drawing.Color.Black
@@ -2401,15 +2425,12 @@ Partial Class frmMonDetail
         CType(Me.picLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.TableLayoutPanel6.ResumeLayout(False)
-        CType(Me.dgvDiskIO, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel7.ResumeLayout(False)
         Me.TableLayoutPanel7.PerformLayout()
+        CType(Me.dgvDiskIO, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel8.ResumeLayout(False)
         Me.TableLayoutPanel9.ResumeLayout(False)
         Me.TableLayoutPanel9.PerformLayout()
-        Me.TableLayoutPanel5.ResumeLayout(False)
-        Me.TableLayoutPanel4.ResumeLayout(False)
-        Me.TableLayoutPanel4.PerformLayout()
         Me.TableLayoutPanel10.ResumeLayout(False)
         Me.TableLayoutPanel11.ResumeLayout(False)
         Me.TableLayoutPanel11.PerformLayout()
@@ -2425,6 +2446,9 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel18.ResumeLayout(False)
         Me.TableLayoutPanel19.ResumeLayout(False)
         Me.TableLayoutPanel19.PerformLayout()
+        Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2472,7 +2496,7 @@ Partial Class frmMonDetail
     Friend WithEvents lblMemSwapCached As eXperDB.BaseControls.Label
     Friend WithEvents chkIDLE As eXperDB.BaseControls.CheckBox
     Friend WithEvents nudBackendcnt As eXperDB.BaseControls.NumericUpDown
-    Friend WithEvents btnLogView As eXperDB.BaseControls.Button
+    Friend WithEvents btnPartView As eXperDB.BaseControls.Button
     Friend WithEvents btnRefreshSession As eXperDB.BaseControls.Button
     Friend WithEvents chtSession As System.Windows.Forms.DataVisualization.Charting.Chart
     Friend WithEvents btnSessionLock As eXperDB.BaseControls.Button
@@ -2537,5 +2561,6 @@ Partial Class frmMonDetail
     Friend WithEvents colDgvHealthStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
     Friend WithEvents picLogo As System.Windows.Forms.PictureBox
+    Friend WithEvents Button1 As eXperDB.BaseControls.Button
 
 End Class
