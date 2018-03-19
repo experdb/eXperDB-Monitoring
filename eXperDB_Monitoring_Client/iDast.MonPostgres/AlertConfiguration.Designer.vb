@@ -24,6 +24,7 @@ Partial Class AlertConfiguration
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AlertConfiguration))
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.dtbDiskusedratio = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.TableLayoutPanel10 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -42,12 +43,11 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.dtbSWAPusedratio = New eXperDB.Controls.DoubleTrackBarDraw()
-        Me.dtbDiskusedratio = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.dtbCPUwaitratio = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.dtbConnections = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.dtbCommitratio = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.dtbBufferhitratio = New eXperDB.Controls.DoubleTrackBarDraw()
+        Me.dtbSWAPusedratio = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblTxAlert = New System.Windows.Forms.Label()
@@ -93,31 +93,54 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.13587!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.86413!))
+        Me.TableLayoutPanel1.Controls.Add(Me.dtbDiskusedratio, 0, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel10, 1, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel9, 0, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel8, 2, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel7, 2, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel6, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel5, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtbSWAPusedratio, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.dtbDiskusedratio, 0, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.dtbCPUwaitratio, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.dtbConnections, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.dtbCommitratio, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.dtbBufferhitratio, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.dtbSWAPusedratio, 0, 5)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 6
+        Me.TableLayoutPanel1.RowCount = 7
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(736, 299)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(736, 294)
         Me.TableLayoutPanel1.TabIndex = 1
+        '
+        'dtbDiskusedratio
+        '
+        Me.dtbDiskusedratio.BackColor = System.Drawing.Color.Gray
+        Me.dtbDiskusedratio.BarBorderColor = System.Drawing.Color.DimGray
+        Me.dtbDiskusedratio.BarColor = System.Drawing.Color.WhiteSmoke
+        Me.dtbDiskusedratio.BarHighLight = System.Drawing.SystemColors.Highlight
+        Me.dtbDiskusedratio.BarMaxValue = 70
+        Me.dtbDiskusedratio.BarMinValue = 50
+        Me.dtbDiskusedratio.BarSize = New System.Drawing.Size(14, 18)
+        Me.dtbDiskusedratio.CaptionSpacing = 10
+        Me.dtbDiskusedratio.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dtbDiskusedratio.ForeColor = System.Drawing.Color.White
+        Me.dtbDiskusedratio.Location = New System.Drawing.Point(372, 221)
+        Me.dtbDiskusedratio.Name = "dtbDiskusedratio"
+        Me.dtbDiskusedratio.Size = New System.Drawing.Size(361, 64)
+        Me.dtbDiskusedratio.TabIndex = 51
+        Me.dtbDiskusedratio.Text = "DoubleTrackBarDraw1"
+        Me.dtbDiskusedratio.TickColor = System.Drawing.Color.Silver
+        Me.dtbDiskusedratio.TickSpacing = 20
+        Me.dtbDiskusedratio.TrackBorderColor = System.Drawing.Color.DimGray
+        Me.dtbDiskusedratio.TrackHeight = 6
+        Me.dtbDiskusedratio.YPosition = 10
         '
         'TableLayoutPanel10
         '
@@ -212,11 +235,11 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel8.Controls.Add(Me.Label8, 1, 0)
         Me.TableLayoutPanel8.Controls.Add(Me.Label9, 0, 0)
         Me.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel8.Location = New System.Drawing.Point(372, 99)
+        Me.TableLayoutPanel8.Location = New System.Drawing.Point(3, 99)
         Me.TableLayoutPanel8.Name = "TableLayoutPanel8"
         Me.TableLayoutPanel8.RowCount = 1
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(361, 20)
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(363, 20)
         Me.TableLayoutPanel8.TabIndex = 47
         '
         'Label8
@@ -228,7 +251,7 @@ Partial Class AlertConfiguration
         Me.Label8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Label8.Location = New System.Drawing.Point(43, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(315, 20)
+        Me.Label8.Size = New System.Drawing.Size(317, 20)
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "CPU wait ratio"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -254,11 +277,11 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel7.Controls.Add(Me.Label6, 1, 0)
         Me.TableLayoutPanel7.Controls.Add(Me.Label7, 0, 0)
         Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 99)
+        Me.TableLayoutPanel7.Location = New System.Drawing.Point(372, 99)
         Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
         Me.TableLayoutPanel7.RowCount = 1
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(363, 20)
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(361, 20)
         Me.TableLayoutPanel7.TabIndex = 46
         '
         'Label6
@@ -270,7 +293,7 @@ Partial Class AlertConfiguration
         Me.Label6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Label6.Location = New System.Drawing.Point(43, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(317, 20)
+        Me.Label6.Size = New System.Drawing.Size(315, 20)
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "Connections"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -371,52 +394,6 @@ Partial Class AlertConfiguration
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
         '
-        'dtbSWAPusedratio
-        '
-        Me.dtbSWAPusedratio.BackColor = System.Drawing.Color.Gray
-        Me.dtbSWAPusedratio.BarBorderColor = System.Drawing.Color.DimGray
-        Me.dtbSWAPusedratio.BarColor = System.Drawing.Color.WhiteSmoke
-        Me.dtbSWAPusedratio.BarHighLight = System.Drawing.SystemColors.Highlight
-        Me.dtbSWAPusedratio.BarMaxValue = 70
-        Me.dtbSWAPusedratio.BarMinValue = 50
-        Me.dtbSWAPusedratio.BarSize = New System.Drawing.Size(14, 18)
-        Me.dtbSWAPusedratio.CaptionSpacing = 10
-        Me.dtbSWAPusedratio.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dtbSWAPusedratio.ForeColor = System.Drawing.Color.White
-        Me.dtbSWAPusedratio.Location = New System.Drawing.Point(372, 221)
-        Me.dtbSWAPusedratio.Name = "dtbSWAPusedratio"
-        Me.dtbSWAPusedratio.Size = New System.Drawing.Size(361, 75)
-        Me.dtbSWAPusedratio.TabIndex = 43
-        Me.dtbSWAPusedratio.Text = "DoubleTrackBarDraw1"
-        Me.dtbSWAPusedratio.TickColor = System.Drawing.Color.Silver
-        Me.dtbSWAPusedratio.TickSpacing = 20
-        Me.dtbSWAPusedratio.TrackBorderColor = System.Drawing.Color.DimGray
-        Me.dtbSWAPusedratio.TrackHeight = 6
-        Me.dtbSWAPusedratio.YPosition = 10
-        '
-        'dtbDiskusedratio
-        '
-        Me.dtbDiskusedratio.BackColor = System.Drawing.Color.Gray
-        Me.dtbDiskusedratio.BarBorderColor = System.Drawing.Color.DimGray
-        Me.dtbDiskusedratio.BarColor = System.Drawing.Color.WhiteSmoke
-        Me.dtbDiskusedratio.BarHighLight = System.Drawing.SystemColors.Highlight
-        Me.dtbDiskusedratio.BarMaxValue = 70
-        Me.dtbDiskusedratio.BarMinValue = 50
-        Me.dtbDiskusedratio.BarSize = New System.Drawing.Size(14, 18)
-        Me.dtbDiskusedratio.CaptionSpacing = 10
-        Me.dtbDiskusedratio.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dtbDiskusedratio.ForeColor = System.Drawing.Color.White
-        Me.dtbDiskusedratio.Location = New System.Drawing.Point(3, 221)
-        Me.dtbDiskusedratio.Name = "dtbDiskusedratio"
-        Me.dtbDiskusedratio.Size = New System.Drawing.Size(363, 75)
-        Me.dtbDiskusedratio.TabIndex = 42
-        Me.dtbDiskusedratio.Text = "DoubleTrackBarDraw1"
-        Me.dtbDiskusedratio.TickColor = System.Drawing.Color.Silver
-        Me.dtbDiskusedratio.TickSpacing = 20
-        Me.dtbDiskusedratio.TrackBorderColor = System.Drawing.Color.DimGray
-        Me.dtbDiskusedratio.TrackHeight = 6
-        Me.dtbDiskusedratio.YPosition = 10
-        '
         'dtbCPUwaitratio
         '
         Me.dtbCPUwaitratio.BackColor = System.Drawing.Color.Gray
@@ -429,9 +406,9 @@ Partial Class AlertConfiguration
         Me.dtbCPUwaitratio.CaptionSpacing = 10
         Me.dtbCPUwaitratio.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dtbCPUwaitratio.ForeColor = System.Drawing.Color.White
-        Me.dtbCPUwaitratio.Location = New System.Drawing.Point(372, 125)
+        Me.dtbCPUwaitratio.Location = New System.Drawing.Point(3, 125)
         Me.dtbCPUwaitratio.Name = "dtbCPUwaitratio"
-        Me.dtbCPUwaitratio.Size = New System.Drawing.Size(361, 64)
+        Me.dtbCPUwaitratio.Size = New System.Drawing.Size(363, 64)
         Me.dtbCPUwaitratio.TabIndex = 40
         Me.dtbCPUwaitratio.Text = "DoubleTrackBarDraw1"
         Me.dtbCPUwaitratio.TickColor = System.Drawing.Color.Silver
@@ -452,9 +429,9 @@ Partial Class AlertConfiguration
         Me.dtbConnections.CaptionSpacing = 10
         Me.dtbConnections.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dtbConnections.ForeColor = System.Drawing.Color.White
-        Me.dtbConnections.Location = New System.Drawing.Point(3, 125)
+        Me.dtbConnections.Location = New System.Drawing.Point(372, 125)
         Me.dtbConnections.Name = "dtbConnections"
-        Me.dtbConnections.Size = New System.Drawing.Size(363, 64)
+        Me.dtbConnections.Size = New System.Drawing.Size(361, 64)
         Me.dtbConnections.TabIndex = 39
         Me.dtbConnections.Text = "DoubleTrackBarDraw1"
         Me.dtbConnections.TickColor = System.Drawing.Color.Silver
@@ -512,6 +489,29 @@ Partial Class AlertConfiguration
         Me.dtbBufferhitratio.TrackColor3 = System.Drawing.Color.Lime
         Me.dtbBufferhitratio.TrackHeight = 6
         Me.dtbBufferhitratio.YPosition = 10
+        '
+        'dtbSWAPusedratio
+        '
+        Me.dtbSWAPusedratio.BackColor = System.Drawing.Color.Gray
+        Me.dtbSWAPusedratio.BarBorderColor = System.Drawing.Color.DimGray
+        Me.dtbSWAPusedratio.BarColor = System.Drawing.Color.WhiteSmoke
+        Me.dtbSWAPusedratio.BarHighLight = System.Drawing.SystemColors.Highlight
+        Me.dtbSWAPusedratio.BarMaxValue = 70
+        Me.dtbSWAPusedratio.BarMinValue = 50
+        Me.dtbSWAPusedratio.BarSize = New System.Drawing.Size(14, 18)
+        Me.dtbSWAPusedratio.CaptionSpacing = 10
+        Me.dtbSWAPusedratio.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dtbSWAPusedratio.ForeColor = System.Drawing.Color.White
+        Me.dtbSWAPusedratio.Location = New System.Drawing.Point(3, 221)
+        Me.dtbSWAPusedratio.Name = "dtbSWAPusedratio"
+        Me.dtbSWAPusedratio.Size = New System.Drawing.Size(363, 64)
+        Me.dtbSWAPusedratio.TabIndex = 43
+        Me.dtbSWAPusedratio.Text = "DoubleTrackBarDraw1"
+        Me.dtbSWAPusedratio.TickColor = System.Drawing.Color.Silver
+        Me.dtbSWAPusedratio.TickSpacing = 20
+        Me.dtbSWAPusedratio.TrackBorderColor = System.Drawing.Color.DimGray
+        Me.dtbSWAPusedratio.TrackHeight = 6
+        Me.dtbSWAPusedratio.YPosition = 10
         '
         'TableLayoutPanel2
         '
@@ -720,7 +720,7 @@ Partial Class AlertConfiguration
         Me.Button1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.Button1.FixedHeight = False
         Me.Button1.FixedWidth = False
-        Me.Button1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Button1.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.Button1.GraColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer))
         Me.Button1.LineColor = System.Drawing.Color.Gray
         Me.Button1.Location = New System.Drawing.Point(368, 150)
@@ -863,7 +863,6 @@ End Sub
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents dtbSWAPusedratio As eXperDB.Controls.DoubleTrackBarDraw
-    Friend WithEvents dtbDiskusedratio As eXperDB.Controls.DoubleTrackBarDraw
     Friend WithEvents dtbCPUwaitratio As eXperDB.Controls.DoubleTrackBarDraw
     Friend WithEvents dtbConnections As eXperDB.Controls.DoubleTrackBarDraw
     Friend WithEvents dtbCommitratio As eXperDB.Controls.DoubleTrackBarDraw
@@ -894,5 +893,6 @@ End Sub
     Friend WithEvents TableLayoutPanel9 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents dtbDiskusedratio As eXperDB.Controls.DoubleTrackBarDraw
 
 End Class

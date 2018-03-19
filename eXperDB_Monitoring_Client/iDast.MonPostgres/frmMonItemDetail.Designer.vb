@@ -24,11 +24,6 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -38,6 +33,11 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Me.colDgvLockDB = New AdvancedDataGridView.TreeGridColumn()
         Me.colDgvLockBlockingPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -64,9 +64,7 @@ Partial Class frmMonItemDetail
         Me.btnQuery = New eXperDB.BaseControls.Button()
         Me.cmbInst = New eXperDB.BaseControls.ComboBox()
         Me.lblServer = New eXperDB.BaseControls.Label()
-        Me.dtpEd = New eXperDB.BaseControls.DateTimePicker()
         Me.lblDuration2 = New eXperDB.BaseControls.Label()
-        Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
         Me.lblDuration = New eXperDB.BaseControls.Label()
         Me.tlpButton = New eXperDB.BaseControls.TableLayoutPanel()
         Me.chkSQLResp = New eXperDB.BaseControls.CheckBox()
@@ -75,17 +73,6 @@ Partial Class frmMonItemDetail
         Me.chkSession = New eXperDB.BaseControls.CheckBox()
         Me.chkCpu = New eXperDB.BaseControls.CheckBox()
         Me.dgvSessionList = New eXperDB.BaseControls.DataGridView()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.lslSession = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblSubject = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.coldgvSessionListDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvSessionListPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvSessionListCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -97,6 +84,24 @@ Partial Class frmMonItemDetail
         Me.coldgvSessionListSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvSessionlistRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvSessionListActvRegSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lslSession = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblSubject = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.pnlSt = New eXperDB.BaseControls.Panel()
+        Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
+        Me.pnlEd = New eXperDB.BaseControls.Panel()
+        Me.dtpEd = New eXperDB.BaseControls.DateTimePicker()
+        Me.lblSt = New eXperDB.BaseControls.Label()
+        Me.lblEd = New eXperDB.BaseControls.Label()
+        Me.cmbDuration = New eXperDB.BaseControls.ComboBox()
+        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -110,6 +115,8 @@ Partial Class frmMonItemDetail
         CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
+        Me.pnlSt.SuspendLayout()
+        Me.pnlEd.SuspendLayout()
         Me.SuspendLayout()
         '
         'colDgvLockDB
@@ -370,14 +377,14 @@ Partial Class frmMonItemDetail
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.tlpInput.Controls.Add(Me.pnlEd, 5, 0)
+        Me.tlpInput.Controls.Add(Me.pnlSt, 3, 0)
         Me.tlpInput.Controls.Add(Me.btnChartMenu, 9, 0)
         Me.tlpInput.Controls.Add(Me.btnRange, 8, 0)
         Me.tlpInput.Controls.Add(Me.btnQuery, 7, 0)
         Me.tlpInput.Controls.Add(Me.cmbInst, 1, 0)
         Me.tlpInput.Controls.Add(Me.lblServer, 0, 0)
-        Me.tlpInput.Controls.Add(Me.dtpEd, 5, 0)
         Me.tlpInput.Controls.Add(Me.lblDuration2, 4, 0)
-        Me.tlpInput.Controls.Add(Me.dtpSt, 3, 0)
         Me.tlpInput.Controls.Add(Me.lblDuration, 2, 0)
         Me.tlpInput.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpInput.Font = New System.Drawing.Font("Gulim", 7.650974!)
@@ -467,7 +474,7 @@ Partial Class frmMonItemDetail
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 15)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 16)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -492,22 +499,6 @@ Partial Class frmMonItemDetail
         Me.lblServer.Text = "F033"
         Me.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'dtpEd
-        '
-        Me.dtpEd.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpEd.ControlLength = eXperDB.BaseControls.DateTimePicker.enmLength.MiddleLong
-        Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm:ss"
-        Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.2!)
-        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEd.Location = New System.Drawing.Point(483, 14)
-        Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpEd.Name = "dtpEd"
-        Me.dtpEd.Necessary = False
-        Me.dtpEd.Size = New System.Drawing.Size(170, 22)
-        Me.dtpEd.StatusTip = ""
-        Me.dtpEd.TabIndex = 22
-        '
         'lblDuration2
         '
         Me.lblDuration2.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
@@ -522,22 +513,6 @@ Partial Class frmMonItemDetail
         Me.lblDuration2.TabIndex = 28
         Me.lblDuration2.Text = "~"
         Me.lblDuration2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'dtpSt
-        '
-        Me.dtpSt.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpSt.ControlLength = eXperDB.BaseControls.DateTimePicker.enmLength.MiddleLong
-        Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm:ss"
-        Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.2!)
-        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSt.Location = New System.Drawing.Point(283, 14)
-        Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpSt.Name = "dtpSt"
-        Me.dtpSt.Necessary = False
-        Me.dtpSt.Size = New System.Drawing.Size(170, 22)
-        Me.dtpSt.StatusTip = ""
-        Me.dtpSt.TabIndex = 21
         '
         'lblDuration
         '
@@ -724,164 +699,6 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
         '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Gray
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lslSession, 1, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1278, 35)
-        Me.TableLayoutPanel2.TabIndex = 14
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
-        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 35)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "      "
-        '
-        'lslSession
-        '
-        Me.lslSession.AutoSize = True
-        Me.lslSession.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lslSession.ForeColor = System.Drawing.Color.White
-        Me.lslSession.Location = New System.Drawing.Point(43, 0)
-        Me.lslSession.Name = "lslSession"
-        Me.lslSession.Size = New System.Drawing.Size(1232, 35)
-        Me.lslSession.TabIndex = 3
-        Me.lslSession.Text = "F313"
-        Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TableLayoutPanel3
-        '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel3.ColumnCount = 8
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 1
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1284, 40)
-        Me.TableLayoutPanel3.TabIndex = 19
-        '
-        'lblSubject
-        '
-        Me.lblSubject.AutoSize = True
-        Me.lblSubject.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSubject.ForeColor = System.Drawing.Color.White
-        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSubject.Location = New System.Drawing.Point(43, 0)
-        Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(1018, 40)
-        Me.lblSubject.TabIndex = 0
-        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
-        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label3.Location = New System.Drawing.Point(3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(34, 40)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "      "
-        '
-        'chtLogicalIO
-        '
-        Me.chtLogicalIO.BorderSkin = BorderSkin1
-        Me.chtLogicalIO.DataSource = Nothing
-        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1448)
-        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLogicalIO.MenuVisible = False
-        Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
-        Me.chtLogicalIO.TabIndex = 6
-        Me.chtLogicalIO.Title = ""
-        Me.chtLogicalIO.Visible = False
-        '
-        'chtSQLResp
-        '
-        Me.chtSQLResp.BorderSkin = BorderSkin2
-        Me.chtSQLResp.DataSource = Nothing
-        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1086)
-        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSQLResp.MenuVisible = False
-        Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
-        Me.chtSQLResp.TabIndex = 8
-        Me.chtSQLResp.Title = ""
-        Me.chtSQLResp.Visible = False
-        '
-        'chtPhysicalIO
-        '
-        Me.chtPhysicalIO.BorderSkin = BorderSkin3
-        Me.chtPhysicalIO.DataSource = Nothing
-        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 724)
-        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtPhysicalIO.MenuVisible = False
-        Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
-        Me.chtPhysicalIO.TabIndex = 7
-        Me.chtPhysicalIO.Title = ""
-        Me.chtPhysicalIO.Visible = False
-        '
-        'chtSession
-        '
-        Me.chtSession.BorderSkin = BorderSkin4
-        Me.chtSession.DataSource = Nothing
-        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSession.Location = New System.Drawing.Point(0, 362)
-        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSession.MenuVisible = False
-        Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
-        Me.chtSession.TabIndex = 5
-        Me.chtSession.Title = ""
-        Me.chtSession.Visible = False
-        '
-        'chtCPU
-        '
-        Me.chtCPU.BorderSkin = BorderSkin5
-        Me.chtCPU.DataSource = Nothing
-        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
-        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPU.MenuVisible = False
-        Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1255, 362)
-        Me.chtCPU.TabIndex = 3
-        Me.chtCPU.Title = ""
-        '
         'coldgvSessionListDB
         '
         Me.coldgvSessionListDB.DataPropertyName = "DB_NAME"
@@ -1030,6 +847,269 @@ Partial Class frmMonItemDetail
         Me.colDgvSessionListActvRegSeq.Visible = False
         Me.colDgvSessionListActvRegSeq.Width = 136
         '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lslSession, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1278, 35)
+        Me.TableLayoutPanel2.TabIndex = 14
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 35)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "      "
+        '
+        'lslSession
+        '
+        Me.lslSession.AutoSize = True
+        Me.lslSession.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lslSession.ForeColor = System.Drawing.Color.White
+        Me.lslSession.Location = New System.Drawing.Point(43, 0)
+        Me.lslSession.Name = "lslSession"
+        Me.lslSession.Size = New System.Drawing.Size(1232, 35)
+        Me.lslSession.TabIndex = 3
+        Me.lslSession.Text = "F313"
+        Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.ColumnCount = 8
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1284, 40)
+        Me.TableLayoutPanel3.TabIndex = 19
+        '
+        'lblSubject
+        '
+        Me.lblSubject.AutoSize = True
+        Me.lblSubject.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSubject.ForeColor = System.Drawing.Color.White
+        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSubject.Location = New System.Drawing.Point(43, 0)
+        Me.lblSubject.Name = "lblSubject"
+        Me.lblSubject.Size = New System.Drawing.Size(1018, 40)
+        Me.lblSubject.TabIndex = 0
+        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
+        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label3.Location = New System.Drawing.Point(3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(34, 40)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "      "
+        '
+        'pnlSt
+        '
+        Me.pnlSt.Controls.Add(Me.lblSt)
+        Me.pnlSt.Controls.Add(Me.dtpSt)
+        Me.pnlSt.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSt.Location = New System.Drawing.Point(283, 3)
+        Me.pnlSt.Name = "pnlSt"
+        Me.pnlSt.Size = New System.Drawing.Size(174, 34)
+        Me.pnlSt.TabIndex = 34
+        '
+        'dtpSt
+        '
+        Me.dtpSt.BackColor = System.Drawing.SystemColors.Window
+        Me.dtpSt.ControlLength = eXperDB.BaseControls.DateTimePicker.enmLength.MiddleLong
+        Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm:ss"
+        Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpSt.Location = New System.Drawing.Point(0, 12)
+        Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtpSt.Name = "dtpSt"
+        Me.dtpSt.Necessary = False
+        Me.dtpSt.Size = New System.Drawing.Size(170, 22)
+        Me.dtpSt.StatusTip = ""
+        Me.dtpSt.TabIndex = 22
+        '
+        'pnlEd
+        '
+        Me.pnlEd.Controls.Add(Me.cmbDuration)
+        Me.pnlEd.Controls.Add(Me.lblEd)
+        Me.pnlEd.Controls.Add(Me.dtpEd)
+        Me.pnlEd.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlEd.Location = New System.Drawing.Point(483, 3)
+        Me.pnlEd.Name = "pnlEd"
+        Me.pnlEd.Size = New System.Drawing.Size(174, 34)
+        Me.pnlEd.TabIndex = 35
+        '
+        'dtpEd
+        '
+        Me.dtpEd.BackColor = System.Drawing.SystemColors.Window
+        Me.dtpEd.ControlLength = eXperDB.BaseControls.DateTimePicker.enmLength.MiddleLong
+        Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm:ss"
+        Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEd.Location = New System.Drawing.Point(0, 12)
+        Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtpEd.Name = "dtpEd"
+        Me.dtpEd.Necessary = False
+        Me.dtpEd.Size = New System.Drawing.Size(170, 22)
+        Me.dtpEd.StatusTip = ""
+        Me.dtpEd.TabIndex = 23
+        '
+        'lblSt
+        '
+        Me.lblSt.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblSt.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblSt.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSt.FixedHeight = False
+        Me.lblSt.FixedWidth = False
+        Me.lblSt.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.lblSt.ForeColor = System.Drawing.Color.White
+        Me.lblSt.Location = New System.Drawing.Point(0, -15)
+        Me.lblSt.Name = "lblSt"
+        Me.lblSt.Size = New System.Drawing.Size(174, 27)
+        Me.lblSt.TabIndex = 29
+        Me.lblSt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblSt.Visible = False
+        '
+        'lblEd
+        '
+        Me.lblEd.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblEd.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblEd.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblEd.FixedHeight = False
+        Me.lblEd.FixedWidth = False
+        Me.lblEd.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.lblEd.ForeColor = System.Drawing.Color.White
+        Me.lblEd.Location = New System.Drawing.Point(0, -15)
+        Me.lblEd.Name = "lblEd"
+        Me.lblEd.Size = New System.Drawing.Size(174, 27)
+        Me.lblEd.TabIndex = 30
+        Me.lblEd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblEd.Visible = False
+        '
+        'cmbDuration
+        '
+        Me.cmbDuration.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbDuration.DisplayMember = "All"
+        Me.cmbDuration.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbDuration.FixedWidth = False
+        Me.cmbDuration.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.cmbDuration.FormattingEnabled = True
+        Me.cmbDuration.Items.AddRange(New Object() {"~5min", "~10min", "~30min"})
+        Me.cmbDuration.Location = New System.Drawing.Point(0, -35)
+        Me.cmbDuration.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbDuration.Name = "cmbDuration"
+        Me.cmbDuration.Necessary = False
+        Me.cmbDuration.Size = New System.Drawing.Size(174, 20)
+        Me.cmbDuration.StatusTip = ""
+        Me.cmbDuration.TabIndex = 31
+        Me.cmbDuration.ValueText = ""
+        Me.cmbDuration.Visible = False
+        '
+        'chtLogicalIO
+        '
+        Me.chtLogicalIO.BorderSkin = BorderSkin1
+        Me.chtLogicalIO.DataSource = Nothing
+        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1448)
+        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLogicalIO.MenuVisible = False
+        Me.chtLogicalIO.Name = "chtLogicalIO"
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtLogicalIO.TabIndex = 6
+        Me.chtLogicalIO.Title = ""
+        Me.chtLogicalIO.Visible = False
+        '
+        'chtSQLResp
+        '
+        Me.chtSQLResp.BorderSkin = BorderSkin2
+        Me.chtSQLResp.DataSource = Nothing
+        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1086)
+        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSQLResp.MenuVisible = False
+        Me.chtSQLResp.Name = "chtSQLResp"
+        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSQLResp.TabIndex = 8
+        Me.chtSQLResp.Title = ""
+        Me.chtSQLResp.Visible = False
+        '
+        'chtPhysicalIO
+        '
+        Me.chtPhysicalIO.BorderSkin = BorderSkin3
+        Me.chtPhysicalIO.DataSource = Nothing
+        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 724)
+        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtPhysicalIO.MenuVisible = False
+        Me.chtPhysicalIO.Name = "chtPhysicalIO"
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtPhysicalIO.TabIndex = 7
+        Me.chtPhysicalIO.Title = ""
+        Me.chtPhysicalIO.Visible = False
+        '
+        'chtSession
+        '
+        Me.chtSession.BorderSkin = BorderSkin4
+        Me.chtSession.DataSource = Nothing
+        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSession.Location = New System.Drawing.Point(0, 362)
+        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSession.MenuVisible = False
+        Me.chtSession.Name = "chtSession"
+        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSession.TabIndex = 5
+        Me.chtSession.Title = ""
+        Me.chtSession.Visible = False
+        '
+        'chtCPU
+        '
+        Me.chtCPU.BorderSkin = BorderSkin5
+        Me.chtCPU.DataSource = Nothing
+        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
+        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPU.MenuVisible = False
+        Me.chtCPU.Name = "chtCPU"
+        Me.chtCPU.Size = New System.Drawing.Size(1255, 362)
+        Me.chtCPU.TabIndex = 3
+        Me.chtCPU.Title = ""
+        '
         'frmMonItemDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1040,29 +1120,32 @@ Partial Class frmMonItemDetail
         Me.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.MinimumSize = New System.Drawing.Size(1000, 0)
         Me.Name = "frmMonItemDetail"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Chart Detail"
         Me.tlpBottom.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.ResumeLayout(false)
-        Me.SplitContainer1.Panel2.ResumeLayout(false)
-        CType(Me.SplitContainer1,System.ComponentModel.ISupportInitialize).EndInit
-        Me.SplitContainer1.ResumeLayout(false)
-        Me.tlpChartArea.ResumeLayout(false)
-        Me.tlpChartArea.PerformLayout
-        Me.TableLayoutPanel1.ResumeLayout(false)
-        Me.TableLayoutPanel1.PerformLayout
-        Me.pnlChart.ResumeLayout(false)
-        Me.tlpInput.ResumeLayout(false)
-        Me.tlpButton.ResumeLayout(false)
-        CType(Me.dgvSessionList,System.ComponentModel.ISupportInitialize).EndInit
-        Me.TableLayoutPanel2.ResumeLayout(false)
-        Me.TableLayoutPanel2.PerformLayout
-        Me.TableLayoutPanel3.ResumeLayout(false)
-        Me.TableLayoutPanel3.PerformLayout
-        Me.ResumeLayout(false)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.tlpChartArea.ResumeLayout(False)
+        Me.tlpChartArea.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.pnlChart.ResumeLayout(False)
+        Me.tlpInput.ResumeLayout(False)
+        Me.tlpButton.ResumeLayout(False)
+        CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        Me.pnlSt.ResumeLayout(False)
+        Me.pnlEd.ResumeLayout(False)
+        Me.ResumeLayout(False)
 
-End Sub
+    End Sub
     Friend WithEvents colDgvLockDB As AdvancedDataGridView.TreeGridColumn
     Friend WithEvents colDgvLockBlockingPID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockBlockingUser As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1088,9 +1171,7 @@ End Sub
     Friend WithEvents tlpInput As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents cmbInst As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblServer As eXperDB.BaseControls.Label
-    Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
     Friend WithEvents lblDuration2 As eXperDB.BaseControls.Label
-    Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
     Friend WithEvents lblDuration As eXperDB.BaseControls.Label
     Friend WithEvents tlpButton As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents chkSQLResp As eXperDB.BaseControls.CheckBox
@@ -1122,5 +1203,12 @@ End Sub
     Friend WithEvents coldgvSessionListSQL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionlistRegDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionListActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents pnlSt As eXperDB.BaseControls.Panel
+    Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents pnlEd As eXperDB.BaseControls.Panel
+    Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents lblEd As eXperDB.BaseControls.Label
+    Friend WithEvents lblSt As eXperDB.BaseControls.Label
+    Friend WithEvents cmbDuration As eXperDB.BaseControls.ComboBox
 
 End Class

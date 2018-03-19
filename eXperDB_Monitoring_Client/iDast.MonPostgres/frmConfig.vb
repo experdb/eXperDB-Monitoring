@@ -79,13 +79,9 @@
         End If
 
 
-
-
-
-
         ' 스타일 탭
         tp2.Text = p_clsMsgData.fn_GetData("F038")
-        grpRaider.Text = p_clsMsgData.fn_GetData("F037")
+        lblRaider.Text = p_clsMsgData.fn_GetData("F037")
         lblCpuStyle.Text = p_clsMsgData.fn_GetData("F035")
         lblMemStyle.Text = p_clsMsgData.fn_GetData("F036")
         chkCpuItemReverse.Text = p_clsMsgData.fn_GetData("F039")

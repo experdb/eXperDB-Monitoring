@@ -50,6 +50,7 @@
         _AgentInfo = AgentInfo
         _AgentCn = AgentCn
         _chtOrder = chtOrder
+
         _clsQuery = New clsQuerys(_AgentCn)
         For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
             If tmpSvr.InstanceID = _InstanceID Then
@@ -57,10 +58,31 @@
             End If
             cmbInst.AddValue(tmpSvr.InstanceID, tmpSvr.ShowNm)
         Next
+
+
         dtpSt.Value = stDt.AddMinutes(-1)
         dtpEd.Value = edDt.AddMinutes(1)
         dtpSt.Tag = stDt
         dtpEd.Tag = edDt
+
+        If _chtOrder >= 0 Then
+            dtpSt.Visible = False
+            dtpEd.Visible = False
+            lblSt.Visible = True
+            lblEd.Visible = True
+            lblSt.Text = dtpSt.Value.ToString("yyyy-MM-dd HH:mm:ss")
+            lblEd.Text = dtpEd.Value.ToString("yyyy-MM-dd HH:mm:ss")
+            cmbDuration.Visible = False
+        Else
+            _chtOrder = 0
+            dtpSt.Visible = True
+            dtpEd.Visible = False
+            lblSt.Visible = False
+            lblEd.Visible = False
+            cmbDuration.Visible = True
+            cmbDuration.SelectedIndex = 0
+        End If
+
         InitForm()
         InitCharts()
     End Sub
@@ -111,7 +133,7 @@
         'lblTitle.Text = String.Format("{0} : {1} / IP : {2} / START : {3}", strHeader, _ServerInfo.HostNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
         'FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
         Me.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
-        lblSubject.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", _ServerInfo.ShowNm, _ServerInfo.IP, _ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), _ServerInfo.PGV) + "]"
+        lblSubject.Text = "Chart Detail"
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'label & Input
         lblServer.Text = p_clsMsgData.fn_GetData("F033")
@@ -856,5 +878,31 @@
                                         End Sub))
         End If
 
+    End Sub
+
+    Private Sub dtpSt_ValueChanged(sender As Object, e As EventArgs) Handles dtpSt.ValueChanged
+        If cmbDuration.Visible = True Then
+            Dim tempDt As Date = Now
+            If cmbDuration.SelectedIndex = 0 Then
+                tempDt = dtpSt.Value.AddMinutes(5)
+                If tempDt > Now Then
+                    tempDt = Now
+                End If
+                dtpEd.Value = tempDt
+            ElseIf cmbDuration.SelectedIndex = 1 Then
+                tempDt = dtpSt.Value.AddMinutes(10)
+                If tempDt > Now Then
+                    tempDt = Now
+                End If
+                dtpEd.Value = tempDt
+            ElseIf cmbDuration.SelectedIndex = 2 Then
+                tempDt = dtpSt.Value.AddMinutes(30)
+                If tempDt > Now Then
+                    tempDt = Now
+                End If
+                dtpEd.Value = tempDt
+            Else
+            End If
+        End If
     End Sub
 End Class

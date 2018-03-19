@@ -2256,6 +2256,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F278" PARAMS="0">
+    <DESC>차트상세</DESC>
+    <DATA><![CDATA[Chart Detail]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>

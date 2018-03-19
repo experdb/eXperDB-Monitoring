@@ -285,6 +285,9 @@
         'Query View
         btnSqlPlan.Text = p_clsMsgData.fn_GetData("F245")
 
+        'chart detail
+        'btnChartDetail.Text = p_clsMsgData.fn_GetData("F278")
+
         'Sessin Lock View
         btnSessionLock.Text = p_clsMsgData.fn_GetData("F246")
 
@@ -1386,4 +1389,12 @@
     Private Sub TableLayoutPanel3_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel3.Paint
 
     End Sub
+
+    'Private Sub btnChartDetail_Click(sender As Object, e As EventArgs) Handles btnChartDetail.Click
+    '    Dim stDt As DateTime = Now.AddMinutes(-5)
+    '    Dim edDt As DateTime = Now
+
+    '    Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
+    '    frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
+    'End Sub
 End Class
