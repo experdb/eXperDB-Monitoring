@@ -15,7 +15,7 @@
         Dim tmpFrm As Form = Nothing
         For Each tmpFrm In My.Application.OpenForms
             If tmpFrm.GetType.Equals(GetType(frmMonMain)) Then
-                'DirectCast(tmpFrm, frmMonMain).ShowCritical = False ''''goldnoh
+                DirectCast(tmpFrm, frmMonMain).ShowCritical = False
                 Exit For
             End If
         Next
@@ -24,7 +24,7 @@
         If frmCriticalCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
             frmCriticalCheck.rtnValue(intPauseTime)
         Else
-            'DirectCast(tmpFrm, frmMonMain).ShowCritical = True ''''goldnoh
+            DirectCast(tmpFrm, frmMonMain).ShowCritical = True
             frmCriticalCheck.Dispose()
             Return
         End If

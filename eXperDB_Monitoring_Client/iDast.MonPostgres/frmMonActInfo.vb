@@ -124,21 +124,21 @@
             dgvDBinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Next
 
-        For i As Integer = 0 To dgvDBinfo.ColumnCount - 1
+        For i As Integer = 0 To dgvTblSpaceInfo.ColumnCount - 1
             dgvTblSpaceInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
             dgvTblSpaceInfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
             dgvTblSpaceInfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
             dgvTblSpaceInfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Next
 
-        For i As Integer = 0 To dgvDBinfo.ColumnCount - 1
+        For i As Integer = 0 To dgvTblinfo.ColumnCount - 1
             dgvTblinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
             dgvTblinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
             dgvTblinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
             dgvTblinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Next
 
-        For i As Integer = 0 To dgvDBinfo.ColumnCount - 1
+        For i As Integer = 0 To dgvIdxinfo.ColumnCount - 1
             dgvIdxinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
             dgvIdxinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
             dgvIdxinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))

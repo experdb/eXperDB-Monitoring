@@ -84,9 +84,10 @@
         lblLevel.Text = p_clsMsgData.fn_GetData("F247")
         lblCheck.Text = p_clsMsgData.fn_GetData("F262")
         lblDuration.Text = p_clsMsgData.fn_GetData("F254")
+        btnConfig.Text = p_clsMsgData.fn_GetData("F264")
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
         btnCheck.Text = p_clsMsgData.fn_GetData("F262")
-        btnConfig.Text = p_clsMsgData.fn_GetData("F264")
+        lblSearchDay.Text = p_clsMsgData.fn_GetData("F277")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'grpAlertList.Text = p_clsMsgData.fn_GetData("F255")
@@ -103,6 +104,13 @@
         coldgvAlertComment.HeaderText = p_clsMsgData.fn_GetData("F260")
         coldgvAlertIP.HeaderText = p_clsMsgData.fn_GetData("F266")
         coldgvAlertDT.HeaderText = p_clsMsgData.fn_GetData("F261")
+
+        For i As Integer = 0 To dgvAlertList.ColumnCount - 1
+            dgvAlertList.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+            dgvAlertList.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+            dgvAlertList.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+            dgvAlertList.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        Next
 
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
@@ -165,7 +173,7 @@
         dgvAlertList.Rows.Clear()
         RemoveHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
 
-        dtTable = _clsQuery.SelectAlertSearch(dtpSt.Value, dtpEd.Value, cmbServer.SelectedValue, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
+        dtTable = _clsQuery.SelectAlertSearch(dtpDay.Value.ToString("yyyyMMdd"), dtpSt.Value.ToString("HH:mm:ss"), dtpEd.Value.ToString("HH:mm:ss"), cmbServer.SelectedValue, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
         If dtTable IsNot Nothing Then
             For Each tmpRow As DataRow In dtTable.Rows
                 Dim idxRow As Integer = dgvAlertList.Rows.Add()
@@ -213,6 +221,7 @@
 
             _cbCheckAll.Location = pt
             _cbCheckAll.Size = New Size(nChkBoxWidth, nChkBoxHeight)
+            _cbCheckAll.BackColor = Color.DimGray
             'AddHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
             'DirectCast(sender, BaseControls.DataGridView).Controls.Add(_cbCheckAll)
             AddHandler _cbCheckAll.Click, AddressOf dgvAlertListCheckBox_CheckedChanged
@@ -245,10 +254,8 @@
             Dim checkBox As DataGridViewCheckBoxCell = (TryCast(row.Cells(coldgvAlertSel.Index), DataGridViewCheckBoxCell))
             If checkBox.Value = True Then
                 i += 1
-                Exit For
             End If
         Next
-
 
         If i = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M034"))

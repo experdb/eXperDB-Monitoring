@@ -44,6 +44,9 @@
     Private _IsCollectRunning As Boolean = False
     Private _ElapseCount As Integer = 100
 
+
+    Private _isPower As Boolean = True
+
     Private _GrpListServerinfo As List(Of GroupInfo.ServerInfo)
     ''' <summary>
     ''' Group List Items 안에 서버 리스트가 있음. 
@@ -66,21 +69,21 @@
     End Property
 
 
-    'Private _ShowCritical As Boolean = True
-    'Property ShowCritical As Boolean
-    '    Get
-    '        Return _ShowCritical
-    '    End Get
-    '    Set(value As Boolean)
-    '        If Not _ShowCritical.Equals(value) Then
-    '            _ShowCritical = value
-    '            If _ShowCritical = False Then
-    '                sb_CriticalClose()
-    '            End If
+    Private _ShowCritical As Boolean = True
+    Property ShowCritical As Boolean
+        Get
+            Return _ShowCritical
+        End Get
+        Set(value As Boolean)
+            If Not _ShowCritical.Equals(value) Then
+                _ShowCritical = value
+                If _ShowCritical = False Then
+                    sb_CriticalClose()
+                End If
 
-    '        End If
-    '    End Set
-    'End Property
+            End If
+        End Set
+    End Property
     Private _QuiteCriticalTime As DateTime
     Property CriticalTime As Date
         Get
@@ -129,7 +132,7 @@
 
 
         _ElapseCount = (60000 / _ElapseInterval) * 60 / 12 ' 5분
-        'Me.ShowCritical = False
+        Me.ShowCritical = True
         'Noh -> Me.ShowCritical = True
 
 
@@ -319,7 +322,7 @@
         colDgvSessionInfoSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
 
         For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-            dgvSessionInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+            dgvSessionInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.Black
             dgvSessionInfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
             dgvSessionInfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
             dgvSessionInfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
@@ -768,7 +771,7 @@
     ''' <remarks></remarks>
     Private Sub prog3Dinst1_SelectedChanged(sender As Object, e As Progress3D.SelectEventArgs)
 
-        If modCommon.fn_FormisLock(Me, _AgentCn) = True Then
+        If fn_FormisLock(Me, _AgentCn) = True Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
             MsgBox(strMsg)
             e.Cancel = True
@@ -1736,22 +1739,18 @@
             Me.radCpu.AniColorin = Color.Red
             Me.radMem.AniColorin = Color.Red
 
-            'If Me._UseQuiteCriticalTime = True Then
-            '    If Me._QuiteCriticalTime > Now Then
-            '        Me.ShowCritical = False
-            '    Else
-            '        Me.ShowCritical = True
-            '        Me.UseCriticalTime = False
-            '    End If
-            'End If
+            If Me._UseQuiteCriticalTime = True Then
+                If Me._QuiteCriticalTime > Now Then
+                    Me.ShowCritical = False
+                Else
+                    Me.ShowCritical = True
+                    Me.UseCriticalTime = False
+                End If
+            End If
 
-            'If Me.ShowCritical = True Then
-
-
-
-
-            '    sb_CriticalShow(arrSvrIds)
-            'End If
+            If Me.ShowCritical = True Then
+                sb_CriticalShow(arrSvrIds)
+            End If
         Else
             Me.radCpu.AniColorin = Color.Lime
             Me.radMem.AniColorin = Color.Lime
@@ -1760,7 +1759,7 @@
             '        DirectCast(tmpCtl, BaseControls.RadioButton).Warning = False
             '    End If
             'Next
-            'sb_CriticalClose()
+            sb_CriticalClose()
         End If
 
 
@@ -2434,5 +2433,158 @@
             End If
         End If
     End Sub
+
+    Private Sub btnPower_Click(sender As Object, e As EventArgs) Handles btnPower.Click
+        Me._isPower = Not _isPower
+        Try
+            If _isPower = True Then
+                p_clsAgentCollect.Start(_AgentCn, _ElapseInterval, p_ShowName)
+                tmCollect.Start()
+            Else
+                tmCollect.Stop()
+                p_clsAgentCollect.Stop()
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub btnCritical_Click(sender As Object, e As EventArgs) Handles btnCritical.Click
+        Me.ShowCritical = Not Me.ShowCritical
+    End Sub
+
+    Private Sub btnLock_Click(sender As Object, e As EventArgs) Handles btnLock.Click
+        If Me.isLock = False Then
+            Me.isLock = True
+        End If
+    End Sub
+
+    Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
+        Dim frmConfig As New frmConfig
+        frmConfig.ShowDialog()
+        ReadConfig()
+    End Sub
+
+    Private Sub btnAlertConfig_Click(sender As Object, e As EventArgs) Handles btnAlertConfig.Click
+        Dim AlertConfig As New frmAlertConfig(GrpListServerinfo)
+        AlertConfig.ShowDialog()
+    End Sub
+
+    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
+        Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
+        frmReport.Show(Me)
+    End Sub
+
+#Region "Warning"
+    ''' <summary>
+    ''' 경고 메시지 공통 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public Sub sb_CriticalShow(ByVal svrLst As SortedList)
+        Dim arrFrms As New ArrayList
+        Dim hstWarning As New Hashtable
+        For Each tmpFrm As Form In Application.OpenForms
+            If TryCast(tmpFrm, frmCritical) IsNot Nothing AndAlso hstWarning.Item(DirectCast(tmpFrm, frmCritical).Tag.ToString) Is Nothing Then
+                hstWarning.Add(DirectCast(tmpFrm, frmCritical).Tag.ToString, DirectCast(tmpFrm, frmCritical).Tag.ToString)
+            End If
+        Next
+
+        For Each tmpFrm As Form In Application.OpenForms
+            If TryCast(tmpFrm, frmMonMain) IsNot Nothing Then
+                If hstWarning.Item(tmpFrm.Handle.ToString) Is Nothing Then
+                    Dim strSvrLst As String = ""
+                    If tmpFrm.GetType.Equals(GetType(frmMonMain)) Then
+                        For Each tmpStr As String In svrLst.Values
+                            If strSvrLst = "" Then
+                                strSvrLst = tmpStr
+                            Else
+                                strSvrLst += " , " & tmpStr
+                            End If
+                        Next
+                    ElseIf tmpFrm.GetType.Equals(GetType(frmMonDetail)) Then
+                        If svrLst.Item(DirectCast(tmpFrm, frmMonDetail).InstanceID) IsNot Nothing Then
+                            strSvrLst = svrLst.Item(DirectCast(tmpFrm, frmMonDetail).InstanceID)
+                        End If
+
+                    ElseIf tmpFrm.GetType.Equals(GetType(frmMonActInfo)) Then
+                        If svrLst.Item(DirectCast(tmpFrm, frmMonActInfo).InstanceID) IsNot Nothing Then
+                            strSvrLst = svrLst.Item(DirectCast(tmpFrm, frmMonActInfo).InstanceID)
+                        End If
+                    End If
+                    If strSvrLst <> "" Then
+                        Dim A As New frmCritical(strSvrLst)
+                        A.Location = tmpFrm.Location
+                        A.StartPosition = FormStartPosition.Manual
+                        A.Size = tmpFrm.Size
+                        A.Tag = tmpFrm.Handle.ToString
+                        arrFrms.Add(A)
+                    End If
+                End If
+
+            End If
+        Next
+
+        For Each tmpFrm As frmCritical In arrFrms
+            Dim sc As Screen = Screen.FromPoint(tmpFrm.Location)
+            tmpFrm.Show()
+        Next
+
+    End Sub
+
+    Public Sub sb_CriticalClose()
+        Dim arrFrms As New ArrayList
+        For Each tmpFrm As Form In Application.OpenForms
+            If TryCast(tmpFrm, frmCritical) IsNot Nothing Then
+                arrFrms.Add(tmpFrm)
+            End If
+        Next
+
+        For Each tmpFrm As frmCritical In arrFrms
+            tmpFrm.Close()
+        Next
+
+
+    End Sub
+
+#End Region
+
+#Region "lock"
+    Private _isLock As Boolean = False
+    Property isLock As Boolean
+        Get
+            Return Me._isLock
+        End Get
+        Set(value As Boolean)
+            Me._isLock = value
+            If value.Equals(True) Then
+                tmLock.Enabled = False
+            Else
+                tmLock.Enabled = True
+            End If
+        End Set
+    End Property
+    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.DXODBC) As Boolean
+        If Me.isLock Then
+            Dim frmPw As New frmPassword(odbcCN)
+            If frmPw.ShowDialog <> Windows.Forms.DialogResult.OK Then
+                Return True
+            Else
+                Me.isLock = False
+                Return False
+            End If
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Sub tmLock_Tick(sender As Object, e As EventArgs) Handles tmLock.Tick
+        If Me.isLock.Equals(False) Then
+            Me.isLock = True
+        End If
+        tmLock.Enabled = False
+    End Sub
+#End Region
+
+
 
 End Class

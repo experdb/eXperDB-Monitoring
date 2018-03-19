@@ -304,7 +304,7 @@
 
 
         For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
-            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.Black
             dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
             dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
             dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White

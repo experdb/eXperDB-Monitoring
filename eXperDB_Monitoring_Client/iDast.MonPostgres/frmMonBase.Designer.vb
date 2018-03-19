@@ -40,7 +40,7 @@ Partial Class frmMonBase
         Me.FormMovePanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FormMovePanel1.Controls.Add(Me.FormControlBox1)
         Me.FormMovePanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FormMovePanel1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.FormMovePanel1.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold)
         Me.FormMovePanel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.FormMovePanel1.Location = New System.Drawing.Point(2, 2)
         Me.FormMovePanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)

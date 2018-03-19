@@ -2248,6 +2248,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F277" PARAMS="0">
+    <DESC>일자</DESC>
+    <DATA><![CDATA[Day]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>

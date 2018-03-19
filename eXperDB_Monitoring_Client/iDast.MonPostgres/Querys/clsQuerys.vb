@@ -1142,8 +1142,9 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectAlertSearch(ByVal StDate As DateTime,
-                                      ByVal EdDate As DateTime,
+    Public Function SelectAlertSearch(ByVal strDay As String,
+                                      ByVal StDate As String,
+                                      ByVal EdDate As String,
                                       ByVal intInstanceID As Integer,
                                       ByVal intState As Integer,
                                       ByVal intChecked As Integer,
@@ -1170,7 +1171,7 @@
                 End If
 
                 subQuery += String.Format(" ORDER BY ALERT.reg_date DESC, COL.reg_time DESC")
-                strQuery = String.Format(strQuery, intInstanceID, StDate.ToString("yyyy-MM-dd HH:mm:ss"), EdDate.ToString("yyyy-MM-dd HH:mm:ss"), enmShowSvrNm)
+                strQuery = String.Format(strQuery, intInstanceID, strDay, StDate, EdDate, enmShowSvrNm)
                 strQuery += subQuery
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
