@@ -931,6 +931,13 @@
         tbServer.TabPages(0).BackColor = System.Drawing.Color.Gray
         tbServer.TabPages(1).BackColor = System.Drawing.Color.DimGray
         tbServer.SelectedIndex = 0
+
+        ServerIP_lv.Text = p_clsMsgData.fn_GetData("F904")
+        User_lv.Text = p_clsMsgData.fn_GetData("F905")
+        Database_lv.Text = p_clsMsgData.fn_GetData("F906")
+        Port_lv.Text = p_clsMsgData.fn_GetData("F907")
+        Password_lv.Text = p_clsMsgData.fn_GetData("F908")
+
     End Sub
 
     Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs) Handles pnlAgentInfo.Paint

@@ -197,7 +197,7 @@
         InitForm()
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         'sb_SetRbGrp(_GrpList)
-        ServerName_lv.Text += " [" + _GrpList.Item(0).GroupName + "]"
+        ServerName_lv.Text = _GrpList.Item(0).GroupName
         tmCollect.Interval = 500
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
@@ -345,7 +345,7 @@
         Me.cmbLevel.Location = New System.Drawing.Point(Me.grpAlert.Width - Me.cmbLevel.Width - Me.cmbLevel.Margin.Right, Me.cmbLevel.Margin.Top)
         Me.cmbLevel.SelectedIndex = 0
 
-        modCommon.FontChange(Me, p_Font)
+        'modCommon.FontChange(Me, p_Font)
 
     End Sub
 
