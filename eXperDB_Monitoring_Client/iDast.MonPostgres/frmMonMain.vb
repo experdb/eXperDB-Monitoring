@@ -318,6 +318,13 @@
         colDgvSessionInfoTmElapse.HeaderText = p_clsMsgData.fn_GetData("F051")
         colDgvSessionInfoSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
 
+        For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
+            dgvSessionInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+            dgvSessionInfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+            dgvSessionInfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+            dgvSessionInfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        Next
+
         chkIDLE.Text = p_clsMsgData.fn_GetData("F227")
         chkIDLE.Tag = p_clsMsgData.fn_GetSpecificData("F227", "COMMENTS")
 
@@ -2260,35 +2267,35 @@
         End If
     End Sub
 
-    Private Sub dgvSessionInfo_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionInfo.CellMouseMove
-        If e.RowIndex >= 0 Then
-            ' If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-            dgvSessionInfo.Cursor = Cursors.Hand
-            If dgvSessionInfo.Rows(e.RowIndex).Selected = False Then
-                dgvSessionInfo.ClearSelection()
-                dgvSessionInfo.Rows(e.RowIndex).Selected = True
-            End If
-            For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
-            Next
-            'End If
-        End If
-    End Sub
+    'Private Sub dgvSessionInfo_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionInfo.CellMouseMove
+    '    If e.RowIndex >= 0 Then
+    '        ' If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
+    '        dgvSessionInfo.Cursor = Cursors.Hand
+    '        If dgvSessionInfo.Rows(e.RowIndex).Selected = False Then
+    '            dgvSessionInfo.ClearSelection()
+    '            dgvSessionInfo.Rows(e.RowIndex).Selected = True
+    '        End If
+    '        For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
+    '            dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
+    '        Next
+    '        'End If
+    '    End If
+    'End Sub
 
-    Private Sub dgvSessionInfo_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellMouseLeave
-        If e.RowIndex >= 0 Then
-            'If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-            dgvSessionInfo.Cursor = Cursors.Arrow
-            If dgvSessionInfo.Rows(e.RowIndex).Selected = True Then
-                dgvSessionInfo.ClearSelection()
-                dgvSessionInfo.Rows(e.RowIndex).Selected = False
-            End If
-            For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-                dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvSessionInfo.DefaultCellStyle.SelectionBackColor
-            Next
-            'End If
-        End If
-    End Sub
+    'Private Sub dgvSessionInfo_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellMouseLeave
+    '    If e.RowIndex >= 0 Then
+    '        'If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
+    '        dgvSessionInfo.Cursor = Cursors.Arrow
+    '        If dgvSessionInfo.Rows(e.RowIndex).Selected = True Then
+    '            dgvSessionInfo.ClearSelection()
+    '            dgvSessionInfo.Rows(e.RowIndex).Selected = False
+    '        End If
+    '        For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
+    '            dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvSessionInfo.DefaultCellStyle.SelectionBackColor
+    '        Next
+    '        'End If
+    '    End If
+    'End Sub
 #Region "Ctl "
     ''' <summary>
     ''' Chart Point 등록 

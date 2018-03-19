@@ -302,6 +302,14 @@
         Me.btnRefreshPhysicaliO.Location = New System.Drawing.Point(Me.grpPhysicalIO.Width - Me.btnRefreshPhysicaliO.Width - Me.btnRefreshPhysicaliO.Margin.Right, Me.btnRefreshPhysicaliO.Margin.Top)
         Me.btnRefreshSqlResp.Location = New System.Drawing.Point(Me.grpSQLResposeTime.Width - Me.btnRefreshSqlResp.Width - Me.btnRefreshSqlResp.Margin.Right, Me.btnRefreshSqlResp.Margin.Top)
 
+
+        For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
+            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        Next
+
         modCommon.FontChange(Me, p_Font)
 
     End Sub
@@ -1265,31 +1273,31 @@
         End If
     End Sub
 
-    Private Sub dgvResUtilPerBackProc_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvResUtilPerBackProc.CellMouseMove
-        If e.RowIndex >= 0 Then
-            'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-            dgvResUtilPerBackProc.Cursor = Cursors.Hand
-            If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False Then
-                dgvResUtilPerBackProc.ClearSelection()
-                dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True
-            End If
-            dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
-            'End If
-        End If
-    End Sub
+    'Private Sub dgvResUtilPerBackProc_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvResUtilPerBackProc.CellMouseMove
+    '    If e.RowIndex >= 0 Then
+    '        'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
+    '        dgvResUtilPerBackProc.Cursor = Cursors.Hand
+    '        If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False Then
+    '            dgvResUtilPerBackProc.ClearSelection()
+    '            dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True
+    '        End If
+    '        dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+    '        'End If
+    '    End If
+    'End Sub
 
-    Private Sub dgvResUtilPerBackProc_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellMouseLeave
-        If e.RowIndex >= 0 Then
-            'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-            dgvResUtilPerBackProc.Cursor = Cursors.Arrow
-            If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True Then
-                dgvResUtilPerBackProc.ClearSelection()
-                dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False
-            End If
-            dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
-            'End If
-        End If
-    End Sub
+    'Private Sub dgvResUtilPerBackProc_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellMouseLeave
+    '    If e.RowIndex >= 0 Then
+    '        'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
+    '        dgvResUtilPerBackProc.Cursor = Cursors.Arrow
+    '        If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True Then
+    '            dgvResUtilPerBackProc.ClearSelection()
+    '            dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False
+    '        End If
+    '        dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
+    '        'End If
+    '    End If
+    'End Sub
 
     Private Sub btnSqlPlan_Click(sender As Object, e As EventArgs) Handles btnSqlPlan.Click
         Dim frmQuery As New frmQueryView("", "", InstanceID, _AgentInfo, "")
