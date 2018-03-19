@@ -22,7 +22,6 @@ Partial Class frmSvrList
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
         Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -38,6 +37,7 @@ Partial Class frmSvrList
         Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
         Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -1250,7 +1250,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel6.ColumnCount = 3
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57.0!))
         Me.TableLayoutPanel6.Controls.Add(Me.MsgLabel2, 1, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.Label3, 0, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.btnHistory, 2, 0)
@@ -1271,7 +1271,7 @@ Partial Class frmSvrList
         Me.MsgLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MsgLabel2.Location = New System.Drawing.Point(43, 0)
         Me.MsgLabel2.Name = "MsgLabel2"
-        Me.MsgLabel2.Size = New System.Drawing.Size(794, 57)
+        Me.MsgLabel2.Size = New System.Drawing.Size(777, 57)
         Me.MsgLabel2.TabIndex = 0
         Me.MsgLabel2.Text = "Text"
         Me.MsgLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1300,11 +1300,11 @@ Partial Class frmSvrList
         Me.btnHistory.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnHistory.Image = CType(resources.GetObject("btnHistory.Image"), System.Drawing.Image)
         Me.btnHistory.LineColor = System.Drawing.Color.LightGray
-        Me.btnHistory.Location = New System.Drawing.Point(843, 22)
+        Me.btnHistory.Location = New System.Drawing.Point(826, 4)
         Me.btnHistory.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnHistory.Name = "btnHistory"
         Me.btnHistory.Radius = 5
-        Me.btnHistory.Size = New System.Drawing.Size(34, 31)
+        Me.btnHistory.Size = New System.Drawing.Size(51, 49)
         Me.btnHistory.TabIndex = 17
         Me.btnHistory.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnHistory.UseVisualStyleBackColor = True

@@ -2472,10 +2472,10 @@
         AlertConfig.ShowDialog()
     End Sub
 
-    Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
-        Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
-        frmReport.Show(Me)
-    End Sub
+    'Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
+    '    Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
+    '    frmReport.Show(Me)
+    'End Sub
 
 #Region "Warning"
     ''' <summary>

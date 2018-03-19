@@ -23,13 +23,16 @@ Partial Class frmLogView
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.btnRefresh = New eXperDB.BaseControls.Button()
         Me.dgvLogFileList = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvLogFileListName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvLogFileListTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvLogFileListSize = New eXperDB.Controls.DataGridViewDataSizeColumn()
         Me.dgvLogData = New eXperDB.BaseControls.DataGridView()
         Me.coldgvLogData = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblLogReadUnit = New eXperDB.BaseControls.Label()
@@ -52,9 +55,6 @@ Partial Class frmLogView
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.grpLogview = New System.Windows.Forms.Label()
-        Me.coldgvLogFileListName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvLogFileListTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvLogFileListSize = New eXperDB.Controls.DataGridViewDataSizeColumn()
         CType(Me.dgvLogFileList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvLogData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -143,6 +143,48 @@ Partial Class frmLogView
         Me.dgvLogFileList.TabIndex = 12
         Me.dgvLogFileList.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvLogFileList.UseTagValueMatchColor = True
+        '
+        'coldgvLogFileListName
+        '
+        Me.coldgvLogFileListName.DataPropertyName = "LOGNAME"
+        Me.coldgvLogFileListName.HeaderText = "F237"
+        Me.coldgvLogFileListName.Name = "coldgvLogFileListName"
+        Me.coldgvLogFileListName.ReadOnly = True
+        Me.coldgvLogFileListName.Visible = False
+        Me.coldgvLogFileListName.Width = 64
+        '
+        'coldgvLogFileListTime
+        '
+        Me.coldgvLogFileListTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvLogFileListTime.DataPropertyName = "LOGTIME"
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvLogFileListTime.DefaultCellStyle = DataGridViewCellStyle2
+        Me.coldgvLogFileListTime.HeaderText = "F237"
+        Me.coldgvLogFileListTime.Name = "coldgvLogFileListTime"
+        Me.coldgvLogFileListTime.ReadOnly = True
+        '
+        'coldgvLogFileListSize
+        '
+        Me.coldgvLogFileListSize.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvLogFileListSize.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.Bytes
+        Me.coldgvLogFileListSize.DataPropertyName = "LOGLENGTH"
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.Format = "N1"
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvLogFileListSize.DefaultCellStyle = DataGridViewCellStyle3
+        Me.coldgvLogFileListSize.HeaderText = "F238"
+        Me.coldgvLogFileListSize.HeaderWord = ""
+        Me.coldgvLogFileListSize.Name = "coldgvLogFileListSize"
+        Me.coldgvLogFileListSize.ReadOnly = True
+        Me.coldgvLogFileListSize.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvLogFileListSize.ShowUnit = True
+        Me.coldgvLogFileListSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvLogFileListSize.TailWord = ""
         '
         'dgvLogData
         '
@@ -517,48 +559,6 @@ Partial Class frmLogView
         Me.grpLogview.TabIndex = 3
         Me.grpLogview.Text = "F236"
         Me.grpLogview.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'coldgvLogFileListName
-        '
-        Me.coldgvLogFileListName.DataPropertyName = "LOGNAME"
-        Me.coldgvLogFileListName.HeaderText = "F237"
-        Me.coldgvLogFileListName.Name = "coldgvLogFileListName"
-        Me.coldgvLogFileListName.ReadOnly = True
-        Me.coldgvLogFileListName.Visible = False
-        Me.coldgvLogFileListName.Width = 63
-        '
-        'coldgvLogFileListTime
-        '
-        Me.coldgvLogFileListTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvLogFileListTime.DataPropertyName = "LOGTIME"
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvLogFileListTime.DefaultCellStyle = DataGridViewCellStyle2
-        Me.coldgvLogFileListTime.HeaderText = "F237"
-        Me.coldgvLogFileListTime.Name = "coldgvLogFileListTime"
-        Me.coldgvLogFileListTime.ReadOnly = True
-        '
-        'coldgvLogFileListSize
-        '
-        Me.coldgvLogFileListSize.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvLogFileListSize.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.Bytes
-        Me.coldgvLogFileListSize.DataPropertyName = "LOGLENGTH"
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Format = "N1"
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvLogFileListSize.DefaultCellStyle = DataGridViewCellStyle3
-        Me.coldgvLogFileListSize.HeaderText = "F238"
-        Me.coldgvLogFileListSize.HeaderWord = ""
-        Me.coldgvLogFileListSize.Name = "coldgvLogFileListSize"
-        Me.coldgvLogFileListSize.ReadOnly = True
-        Me.coldgvLogFileListSize.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvLogFileListSize.ShowUnit = True
-        Me.coldgvLogFileListSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvLogFileListSize.TailWord = ""
         '
         'frmLogView
         '
