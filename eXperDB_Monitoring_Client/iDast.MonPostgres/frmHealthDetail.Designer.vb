@@ -22,8 +22,8 @@ Partial Class frmHealthDetail
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHealthDetail))
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.Panel2 = New eXperDB.BaseControls.Panel()
@@ -76,12 +76,12 @@ Partial Class frmHealthDetail
         '
         'lblParameter
         '
-        Me.lblParameter.BackColor = System.Drawing.Color.Gray
-        Me.lblParameter.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblParameter.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblParameter.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblParameter.FixedHeight = False
         Me.lblParameter.FixedWidth = False
         Me.lblParameter.ForeColor = System.Drawing.Color.White
-        Me.lblParameter.Location = New System.Drawing.Point(11, 533)
+        Me.lblParameter.Location = New System.Drawing.Point(11, 593)
         Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(682, 25)
@@ -97,25 +97,25 @@ Partial Class frmHealthDetail
         Me.dgvinfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvinfo.ColumnHeadersHeight = 30
         Me.dgvinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvinfo.Dock = System.Windows.Forms.DockStyle.Top
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvinfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvinfo.EnableHeadersVisualStyles = False
         Me.dgvinfo.GridColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
@@ -125,7 +125,7 @@ Partial Class frmHealthDetail
         Me.dgvinfo.RowHeadersVisible = False
         Me.dgvinfo.RowTemplate.Height = 23
         Me.dgvinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvinfo.Size = New System.Drawing.Size(682, 389)
+        Me.dgvinfo.Size = New System.Drawing.Size(682, 474)
         Me.dgvinfo.TabIndex = 7
         Me.dgvinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvinfo.UseTagValueMatchColor = False
@@ -146,7 +146,7 @@ Partial Class frmHealthDetail
         'lblinfo
         '
         Me.lblinfo.AutoSizeHeight = True
-        Me.lblinfo.BackColor = System.Drawing.Color.Gray
+        Me.lblinfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblinfo.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblinfo.FixedHeight = False
         Me.lblinfo.FixedWidth = False
@@ -160,7 +160,7 @@ Partial Class frmHealthDetail
         '
         'lblResult
         '
-        Me.lblResult.BackColor = System.Drawing.Color.Gray
+        Me.lblResult.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblResult.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblResult.FixedHeight = False
         Me.lblResult.FixedWidth = False
@@ -176,7 +176,7 @@ Partial Class frmHealthDetail
         'lblDesc
         '
         Me.lblDesc.AutoSizeHeight = True
-        Me.lblDesc.BackColor = System.Drawing.Color.Gray
+        Me.lblDesc.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblDesc.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblDesc.FixedHeight = False
         Me.lblDesc.FixedWidth = False
@@ -192,7 +192,7 @@ Partial Class frmHealthDetail
         'lblitmNm
         '
         Me.lblitmNm.AutoSizeHeight = True
-        Me.lblitmNm.BackColor = System.Drawing.Color.Gray
+        Me.lblitmNm.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lblitmNm.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblitmNm.FixedHeight = False
         Me.lblitmNm.FixedWidth = False
@@ -275,7 +275,7 @@ Partial Class frmHealthDetail
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmHealthDetail"
         Me.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmHealthDetail"
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)

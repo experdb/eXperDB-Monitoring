@@ -22,17 +22,22 @@ Partial Class frmMonItemDetail
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonItemDetail))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.colDgvLockDB = New AdvancedDataGridView.TreeGridColumn()
         Me.colDgvLockBlockingPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -70,17 +75,6 @@ Partial Class frmMonItemDetail
         Me.chkSession = New eXperDB.BaseControls.CheckBox()
         Me.chkCpu = New eXperDB.BaseControls.CheckBox()
         Me.dgvSessionList = New eXperDB.BaseControls.DataGridView()
-        Me.coldgvSessionListDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListStTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvSessionListUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListClient = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListApp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvSessionListSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionlistRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionListActvRegSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lslSession = New System.Windows.Forms.Label()
@@ -92,6 +86,17 @@ Partial Class frmMonItemDetail
         Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
         Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
         Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
+        Me.coldgvSessionListDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListStTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListElapsedTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvSessionListUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListClient = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListApp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvSessionListSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionlistRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionListActvRegSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -687,14 +692,14 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.ColumnHeadersHeight = 30
         Me.dgvSessionList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvSessionList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvSessionListDB, Me.coldgvSessionListPID, Me.coldgvSessionListCpuUsage, Me.coldgvSessionListStTime, Me.coldgvSessionListElapsedTime, Me.coldgvSessionListUser, Me.coldgvSessionListClient, Me.coldgvSessionListApp, Me.coldgvSessionListSQL, Me.colDgvSessionlistRegDate, Me.colDgvSessionListActvRegSeq})
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Gulim", 7.760073!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSessionList.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Gulim", 7.760073!)
+        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSessionList.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvSessionList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSessionList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvSessionList.EnableHeadersVisualStyles = False
@@ -703,14 +708,14 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.Location = New System.Drawing.Point(0, 35)
         Me.dgvSessionList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvSessionList.Name = "dgvSessionList"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Gulim", 9.2!)
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSessionList.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Gulim", 9.2!)
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSessionList.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvSessionList.RowHeadersVisible = False
         Me.dgvSessionList.RowTemplate.Height = 23
         Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -718,113 +723,6 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.TabIndex = 13
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
-        '
-        'coldgvSessionListDB
-        '
-        Me.coldgvSessionListDB.DataPropertyName = "DB_NAME"
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = "0"
-        Me.coldgvSessionListDB.DefaultCellStyle = DataGridViewCellStyle2
-        Me.coldgvSessionListDB.HeaderText = "F090"
-        Me.coldgvSessionListDB.Name = "coldgvSessionListDB"
-        Me.coldgvSessionListDB.ReadOnly = True
-        Me.coldgvSessionListDB.Width = 88
-        '
-        'coldgvSessionListPID
-        '
-        Me.coldgvSessionListPID.DataPropertyName = "PROCESS_ID"
-        Me.coldgvSessionListPID.HeaderText = "F082"
-        Me.coldgvSessionListPID.Name = "coldgvSessionListPID"
-        Me.coldgvSessionListPID.ReadOnly = True
-        Me.coldgvSessionListPID.Width = 76
-        '
-        'coldgvSessionListCpuUsage
-        '
-        Me.coldgvSessionListCpuUsage.DataPropertyName = "CPU_USAGE"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "P"
-        Me.coldgvSessionListCpuUsage.DefaultCellStyle = DataGridViewCellStyle3
-        Me.coldgvSessionListCpuUsage.HeaderText = "F092"
-        Me.coldgvSessionListCpuUsage.Name = "coldgvSessionListCpuUsage"
-        Me.coldgvSessionListCpuUsage.ReadOnly = True
-        Me.coldgvSessionListCpuUsage.Width = 76
-        '
-        'coldgvSessionListStTime
-        '
-        Me.coldgvSessionListStTime.DataPropertyName = "QUERY_START"
-        DataGridViewCellStyle4.Format = "HH:mm:ss"
-        Me.coldgvSessionListStTime.DefaultCellStyle = DataGridViewCellStyle4
-        Me.coldgvSessionListStTime.HeaderText = "F050"
-        Me.coldgvSessionListStTime.Name = "coldgvSessionListStTime"
-        Me.coldgvSessionListStTime.ReadOnly = True
-        Me.coldgvSessionListStTime.Width = 130
-        '
-        'coldgvSessionListElapsedTime
-        '
-        Me.coldgvSessionListElapsedTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.coldgvSessionListElapsedTime.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = "12"
-        Me.coldgvSessionListElapsedTime.DefaultCellStyle = DataGridViewCellStyle5
-        Me.coldgvSessionListElapsedTime.FillWeight = 150.0!
-        Me.coldgvSessionListElapsedTime.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
-        Me.coldgvSessionListElapsedTime.HeaderText = "F051"
-        Me.coldgvSessionListElapsedTime.MinimumWidth = 150
-        Me.coldgvSessionListElapsedTime.Name = "coldgvSessionListElapsedTime"
-        Me.coldgvSessionListElapsedTime.ReadOnly = True
-        Me.coldgvSessionListElapsedTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvSessionListElapsedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvSessionListElapsedTime.Width = 150
-        '
-        'coldgvSessionListUser
-        '
-        Me.coldgvSessionListUser.DataPropertyName = "USER_NAME"
-        Me.coldgvSessionListUser.HeaderText = "F008"
-        Me.coldgvSessionListUser.Name = "coldgvSessionListUser"
-        Me.coldgvSessionListUser.ReadOnly = True
-        Me.coldgvSessionListUser.Width = 120
-        '
-        'coldgvSessionListClient
-        '
-        Me.coldgvSessionListClient.DataPropertyName = "CLIENT_ADDR"
-        Me.coldgvSessionListClient.HeaderText = "F248"
-        Me.coldgvSessionListClient.Name = "coldgvSessionListClient"
-        Me.coldgvSessionListClient.ReadOnly = True
-        Me.coldgvSessionListClient.Width = 200
-        '
-        'coldgvSessionListApp
-        '
-        Me.coldgvSessionListApp.DataPropertyName = "CLIENT_APP"
-        Me.coldgvSessionListApp.HeaderText = "F249"
-        Me.coldgvSessionListApp.Name = "coldgvSessionListApp"
-        Me.coldgvSessionListApp.ReadOnly = True
-        Me.coldgvSessionListApp.Width = 200
-        '
-        'coldgvSessionListSQL
-        '
-        Me.coldgvSessionListSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvSessionListSQL.DataPropertyName = "SQL"
-        Me.coldgvSessionListSQL.HeaderText = "F052"
-        Me.coldgvSessionListSQL.Name = "coldgvSessionListSQL"
-        Me.coldgvSessionListSQL.ReadOnly = True
-        '
-        'colDgvSessionlistRegDate
-        '
-        Me.colDgvSessionlistRegDate.DataPropertyName = "REG_DATE"
-        Me.colDgvSessionlistRegDate.HeaderText = "REG_DATE"
-        Me.colDgvSessionlistRegDate.Name = "colDgvSessionlistRegDate"
-        Me.colDgvSessionlistRegDate.ReadOnly = True
-        Me.colDgvSessionlistRegDate.Visible = False
-        Me.colDgvSessionlistRegDate.Width = 102
-        '
-        'colDgvSessionListActvRegSeq
-        '
-        Me.colDgvSessionListActvRegSeq.DataPropertyName = "ACTV_REG_SEQ"
-        Me.colDgvSessionListActvRegSeq.HeaderText = "ACTV_REG_SEQ"
-        Me.colDgvSessionListActvRegSeq.Name = "colDgvSessionListActvRegSeq"
-        Me.colDgvSessionListActvRegSeq.ReadOnly = True
-        Me.colDgvSessionListActvRegSeq.Visible = False
-        Me.colDgvSessionListActvRegSeq.Width = 136
         '
         'TableLayoutPanel2
         '
@@ -984,6 +882,154 @@ Partial Class frmMonItemDetail
         Me.chtCPU.TabIndex = 3
         Me.chtCPU.Title = ""
         '
+        'coldgvSessionListDB
+        '
+        Me.coldgvSessionListDB.DataPropertyName = "DB_NAME"
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = "0"
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListDB.DefaultCellStyle = DataGridViewCellStyle2
+        Me.coldgvSessionListDB.HeaderText = "F090"
+        Me.coldgvSessionListDB.Name = "coldgvSessionListDB"
+        Me.coldgvSessionListDB.ReadOnly = True
+        Me.coldgvSessionListDB.Width = 88
+        '
+        'coldgvSessionListPID
+        '
+        Me.coldgvSessionListPID.DataPropertyName = "PROCESS_ID"
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListPID.DefaultCellStyle = DataGridViewCellStyle3
+        Me.coldgvSessionListPID.HeaderText = "F082"
+        Me.coldgvSessionListPID.Name = "coldgvSessionListPID"
+        Me.coldgvSessionListPID.ReadOnly = True
+        Me.coldgvSessionListPID.Width = 76
+        '
+        'coldgvSessionListCpuUsage
+        '
+        Me.coldgvSessionListCpuUsage.DataPropertyName = "CPU_USAGE"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.Format = "P"
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListCpuUsage.DefaultCellStyle = DataGridViewCellStyle4
+        Me.coldgvSessionListCpuUsage.HeaderText = "F092"
+        Me.coldgvSessionListCpuUsage.Name = "coldgvSessionListCpuUsage"
+        Me.coldgvSessionListCpuUsage.ReadOnly = True
+        Me.coldgvSessionListCpuUsage.Width = 76
+        '
+        'coldgvSessionListStTime
+        '
+        Me.coldgvSessionListStTime.DataPropertyName = "QUERY_START"
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.Format = "HH:mm:ss"
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListStTime.DefaultCellStyle = DataGridViewCellStyle5
+        Me.coldgvSessionListStTime.HeaderText = "F050"
+        Me.coldgvSessionListStTime.Name = "coldgvSessionListStTime"
+        Me.coldgvSessionListStTime.ReadOnly = True
+        Me.coldgvSessionListStTime.Width = 130
+        '
+        'coldgvSessionListElapsedTime
+        '
+        Me.coldgvSessionListElapsedTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.coldgvSessionListElapsedTime.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = "12"
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListElapsedTime.DefaultCellStyle = DataGridViewCellStyle6
+        Me.coldgvSessionListElapsedTime.FillWeight = 150.0!
+        Me.coldgvSessionListElapsedTime.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
+        Me.coldgvSessionListElapsedTime.HeaderText = "F051"
+        Me.coldgvSessionListElapsedTime.MinimumWidth = 150
+        Me.coldgvSessionListElapsedTime.Name = "coldgvSessionListElapsedTime"
+        Me.coldgvSessionListElapsedTime.ReadOnly = True
+        Me.coldgvSessionListElapsedTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvSessionListElapsedTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvSessionListElapsedTime.Width = 150
+        '
+        'coldgvSessionListUser
+        '
+        Me.coldgvSessionListUser.DataPropertyName = "USER_NAME"
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListUser.DefaultCellStyle = DataGridViewCellStyle7
+        Me.coldgvSessionListUser.HeaderText = "F008"
+        Me.coldgvSessionListUser.Name = "coldgvSessionListUser"
+        Me.coldgvSessionListUser.ReadOnly = True
+        Me.coldgvSessionListUser.Width = 120
+        '
+        'coldgvSessionListClient
+        '
+        Me.coldgvSessionListClient.DataPropertyName = "CLIENT_ADDR"
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListClient.DefaultCellStyle = DataGridViewCellStyle8
+        Me.coldgvSessionListClient.HeaderText = "F248"
+        Me.coldgvSessionListClient.Name = "coldgvSessionListClient"
+        Me.coldgvSessionListClient.ReadOnly = True
+        Me.coldgvSessionListClient.Width = 200
+        '
+        'coldgvSessionListApp
+        '
+        Me.coldgvSessionListApp.DataPropertyName = "CLIENT_APP"
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListApp.DefaultCellStyle = DataGridViewCellStyle9
+        Me.coldgvSessionListApp.HeaderText = "F249"
+        Me.coldgvSessionListApp.Name = "coldgvSessionListApp"
+        Me.coldgvSessionListApp.ReadOnly = True
+        Me.coldgvSessionListApp.Width = 200
+        '
+        'coldgvSessionListSQL
+        '
+        Me.coldgvSessionListSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvSessionListSQL.DataPropertyName = "SQL"
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvSessionListSQL.DefaultCellStyle = DataGridViewCellStyle10
+        Me.coldgvSessionListSQL.HeaderText = "F052"
+        Me.coldgvSessionListSQL.Name = "coldgvSessionListSQL"
+        Me.coldgvSessionListSQL.ReadOnly = True
+        '
+        'colDgvSessionlistRegDate
+        '
+        Me.colDgvSessionlistRegDate.DataPropertyName = "REG_DATE"
+        Me.colDgvSessionlistRegDate.HeaderText = "REG_DATE"
+        Me.colDgvSessionlistRegDate.Name = "colDgvSessionlistRegDate"
+        Me.colDgvSessionlistRegDate.ReadOnly = True
+        Me.colDgvSessionlistRegDate.Visible = False
+        Me.colDgvSessionlistRegDate.Width = 102
+        '
+        'colDgvSessionListActvRegSeq
+        '
+        Me.colDgvSessionListActvRegSeq.DataPropertyName = "ACTV_REG_SEQ"
+        Me.colDgvSessionListActvRegSeq.HeaderText = "ACTV_REG_SEQ"
+        Me.colDgvSessionListActvRegSeq.Name = "colDgvSessionListActvRegSeq"
+        Me.colDgvSessionListActvRegSeq.ReadOnly = True
+        Me.colDgvSessionListActvRegSeq.Visible = False
+        Me.colDgvSessionListActvRegSeq.Width = 136
+        '
         'frmMonItemDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1056,6 +1102,15 @@ End Sub
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblChart As System.Windows.Forms.Label
     Friend WithEvents dgvSessionList As eXperDB.BaseControls.DataGridView
+    Friend WithEvents btnChartMenu As eXperDB.BaseControls.Button
+    Friend WithEvents btnRange As eXperDB.BaseControls.Button
+    Friend WithEvents btnQuery As eXperDB.BaseControls.Button
+    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lslSession As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblSubject As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents coldgvSessionListDB As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvSessionListPID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvSessionListCpuUsage As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1067,14 +1122,5 @@ End Sub
     Friend WithEvents coldgvSessionListSQL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionlistRegDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionListActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents btnChartMenu As eXperDB.BaseControls.Button
-    Friend WithEvents btnRange As eXperDB.BaseControls.Button
-    Friend WithEvents btnQuery As eXperDB.BaseControls.Button
-    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents lslSession As System.Windows.Forms.Label
-    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents lblSubject As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
 
 End Class
