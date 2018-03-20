@@ -518,8 +518,32 @@
         Dim intPID As Integer
         Dim strRegDate As String
         Dim intActvRegSeq As Integer
+        Dim intCount As Integer = 0
 
-        If MsgBox(p_clsMsgData.fn_GetData("M030", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+        If _SelectedGrid = 1 Then
+            intCount = dgvLock.SelectedRows.Count
+            If intCount = 1 Then
+                intPID = dgvLock.SelectedRows(0).Cells(colDgvLockBlockingPID.Index).Value
+                If MsgBox(p_clsMsgData.fn_GetData("M030", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                    Return
+                End If
+            End If
+        Else
+            intCount = dgvSessionList.SelectedRows.Count
+            If intCount = 1 Then
+                intPID = dgvSessionList.SelectedRows(0).Cells(coldgvSessionListPID.Index).Value
+                If MsgBox(p_clsMsgData.fn_GetData("M030", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                    Return
+                End If
+            End If
+        End If
+
+        If intCount > 1 Then
+            If MsgBox(p_clsMsgData.fn_GetData("M038", intCount), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                Return
+            End If
+        ElseIf intCount <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M034"))
             Return
         End If
 
@@ -550,8 +574,34 @@
         Dim intPID As Integer
         Dim strRegDate As String
         Dim intActvRegSeq As Integer
+        Dim intCount As Integer = 0
 
-        If MsgBox(p_clsMsgData.fn_GetData("M031", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
+        If _SelectedGrid = 1 Then
+            intCount = dgvLock.SelectedRows.Count
+            If intCount = 1 Then
+                intPID = dgvLock.SelectedRows(0).Cells(colDgvLockBlockingPID.Index).Value
+                If MsgBox(p_clsMsgData.fn_GetData("M031", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                    Return
+                End If
+            End If
+        Else
+            intCount = dgvSessionList.SelectedRows.Count
+            If intCount = 1 Then
+                intPID = dgvSessionList.SelectedRows(0).Cells(coldgvSessionListPID.Index).Value
+                If MsgBox(p_clsMsgData.fn_GetData("M031", intPID), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                    Return
+                End If
+            End If
+        End If
+
+        If intCount > 1 Then
+            If MsgBox(p_clsMsgData.fn_GetData("M039", intCount), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                Return
+            End If
+        ElseIf intCount <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M034"))
+            Return
+        End If
 
         _frmWait = New frmWait
         _frmWait.TopMost = True

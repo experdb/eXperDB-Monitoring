@@ -2469,6 +2469,11 @@
     Private Sub btnLock_Click(sender As Object, e As EventArgs) Handles btnLock.Click
         If Me.isLock = False Then
             Me.isLock = True
+        Else
+            If fn_FormisLock(Me, _AgentCn) = True Then
+                Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
+                MsgBox(strMsg)
+            End If
         End If
     End Sub
 

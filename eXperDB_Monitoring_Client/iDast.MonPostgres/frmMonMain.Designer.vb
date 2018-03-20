@@ -233,10 +233,9 @@ Partial Class frmMonMain
         Me.tlpHealth.Location = New System.Drawing.Point(3, 3)
         Me.tlpHealth.Name = "tlpHealth"
         Me.tlpHealth.RowCount = 2
-        Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
-        Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.0!))
-        Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpHealth.Size = New System.Drawing.Size(213, 89)
+        Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.0!))
+        Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.0!))
+        Me.tlpHealth.Size = New System.Drawing.Size(213, 84)
         Me.tlpHealth.TabIndex = 13
         '
         'dgtNumC
@@ -245,9 +244,9 @@ Partial Class frmMonMain
         Me.dgtNumC.DigitBlankOpacity = 30
         Me.dgtNumC.DigitColor = System.Drawing.Color.Red
         Me.dgtNumC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumC.Location = New System.Drawing.Point(144, 16)
+        Me.dgtNumC.Location = New System.Drawing.Point(144, 18)
         Me.dgtNumC.Name = "dgtNumC"
-        Me.dgtNumC.Size = New System.Drawing.Size(66, 70)
+        Me.dgtNumC.Size = New System.Drawing.Size(66, 63)
         Me.dgtNumC.TabIndex = 8
         Me.dgtNumC.Value = "00"
         '
@@ -257,9 +256,9 @@ Partial Class frmMonMain
         Me.dgtNumW.DigitBlankOpacity = 30
         Me.dgtNumW.DigitColor = System.Drawing.Color.Orange
         Me.dgtNumW.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumW.Location = New System.Drawing.Point(73, 16)
+        Me.dgtNumW.Location = New System.Drawing.Point(73, 18)
         Me.dgtNumW.Name = "dgtNumW"
-        Me.dgtNumW.Size = New System.Drawing.Size(65, 70)
+        Me.dgtNumW.Size = New System.Drawing.Size(65, 63)
         Me.dgtNumW.TabIndex = 8
         Me.dgtNumW.Value = "00"
         '
@@ -269,9 +268,9 @@ Partial Class frmMonMain
         Me.dgtNumN.DigitBlankOpacity = 30
         Me.dgtNumN.DigitColor = System.Drawing.Color.Lime
         Me.dgtNumN.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumN.Location = New System.Drawing.Point(3, 16)
+        Me.dgtNumN.Location = New System.Drawing.Point(3, 18)
         Me.dgtNumN.Name = "dgtNumN"
-        Me.dgtNumN.Size = New System.Drawing.Size(64, 70)
+        Me.dgtNumN.Size = New System.Drawing.Size(64, 63)
         Me.dgtNumN.TabIndex = 7
         Me.dgtNumN.Value = "00"
         '
@@ -285,7 +284,7 @@ Partial Class frmMonMain
         Me.lblNormal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblNormal.Location = New System.Drawing.Point(3, 0)
         Me.lblNormal.Name = "lblNormal"
-        Me.lblNormal.Size = New System.Drawing.Size(64, 13)
+        Me.lblNormal.Size = New System.Drawing.Size(64, 15)
         Me.lblNormal.TabIndex = 5
         Me.lblNormal.Text = "F029"
         Me.lblNormal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -300,7 +299,7 @@ Partial Class frmMonMain
         Me.lblWarning.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblWarning.Location = New System.Drawing.Point(73, 0)
         Me.lblWarning.Name = "lblWarning"
-        Me.lblWarning.Size = New System.Drawing.Size(65, 13)
+        Me.lblWarning.Size = New System.Drawing.Size(65, 15)
         Me.lblWarning.TabIndex = 8
         Me.lblWarning.Text = "F030"
         Me.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -315,7 +314,7 @@ Partial Class frmMonMain
         Me.lblCritical.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblCritical.Location = New System.Drawing.Point(144, 0)
         Me.lblCritical.Name = "lblCritical"
-        Me.lblCritical.Size = New System.Drawing.Size(66, 13)
+        Me.lblCritical.Size = New System.Drawing.Size(66, 15)
         Me.lblCritical.TabIndex = 9
         Me.lblCritical.Text = "F031"
         Me.lblCritical.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -341,7 +340,7 @@ Partial Class frmMonMain
         Me.flpInstance.Location = New System.Drawing.Point(0, 25)
         Me.flpInstance.Margin = New System.Windows.Forms.Padding(0)
         Me.flpInstance.Name = "flpInstance"
-        Me.flpInstance.Size = New System.Drawing.Size(207, 405)
+        Me.flpInstance.Size = New System.Drawing.Size(207, 410)
         Me.flpInstance.TabIndex = 0
         '
         'tlpCPU
@@ -2026,7 +2025,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 95.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(219, 537)
         Me.TableLayoutPanel1.TabIndex = 0
@@ -2038,11 +2037,11 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel11, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 98)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 93)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 436.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(213, 436)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(213, 441)
         Me.TableLayoutPanel3.TabIndex = 14
         '
         'TableLayoutPanel11
@@ -2060,7 +2059,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel11.RowCount = 2
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(207, 430)
+        Me.TableLayoutPanel11.Size = New System.Drawing.Size(207, 435)
         Me.TableLayoutPanel11.TabIndex = 18
         '
         'grpInstSumInfo
@@ -2150,7 +2149,7 @@ Partial Class frmMonMain
         '
         'tmLock
         '
-        Me.tmLock.Interval = 30000
+        Me.tmLock.Interval = 300000
         '
         'frmMonMain
         '

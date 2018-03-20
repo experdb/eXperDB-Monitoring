@@ -1171,7 +1171,7 @@
                 End If
 
                 subQuery += String.Format(" ORDER BY ALERT.reg_date DESC, COL.reg_time DESC")
-                strQuery = String.Format(strQuery, intInstanceID, strDay, StDate, EdDate, enmShowSvrNm)
+                strQuery = String.Format(strQuery, enmShowSvrNm, strDay, StDate, EdDate)
                 strQuery += subQuery
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
