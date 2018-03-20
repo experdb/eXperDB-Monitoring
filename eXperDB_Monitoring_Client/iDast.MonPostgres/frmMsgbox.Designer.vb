@@ -43,10 +43,10 @@ Partial Class frmMsgbox
         Me.lblMessage.FixedWidth = False
         Me.lblMessage.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblMessage.ForeColor = System.Drawing.Color.White
-        Me.lblMessage.Location = New System.Drawing.Point(3, 33)
+        Me.lblMessage.Location = New System.Drawing.Point(3, 53)
         Me.lblMessage.Name = "lblMessage"
-        Me.lblMessage.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.lblMessage.Size = New System.Drawing.Size(463, 159)
+        Me.lblMessage.Padding = New System.Windows.Forms.Padding(3)
+        Me.lblMessage.Size = New System.Drawing.Size(463, 135)
         Me.lblMessage.TabIndex = 8
         Me.lblMessage.Text = "Message"
         Me.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -63,7 +63,7 @@ Partial Class frmMsgbox
         Me.btn1.Location = New System.Drawing.Point(114, 3)
         Me.btn1.Name = "btn1"
         Me.btn1.Radius = 10
-        Me.btn1.Size = New System.Drawing.Size(74, 35)
+        Me.btn1.Size = New System.Drawing.Size(74, 39)
         Me.btn1.TabIndex = 0
         Me.btn1.Text = "btn1"
         Me.btn1.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -82,7 +82,7 @@ Partial Class frmMsgbox
         Me.btn2.Location = New System.Drawing.Point(194, 3)
         Me.btn2.Name = "btn2"
         Me.btn2.Radius = 10
-        Me.btn2.Size = New System.Drawing.Size(74, 35)
+        Me.btn2.Size = New System.Drawing.Size(74, 39)
         Me.btn2.TabIndex = 1
         Me.btn2.Text = "btn2"
         Me.btn2.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -101,7 +101,7 @@ Partial Class frmMsgbox
         Me.btn3.Location = New System.Drawing.Point(274, 3)
         Me.btn3.Name = "btn3"
         Me.btn3.Radius = 10
-        Me.btn3.Size = New System.Drawing.Size(74, 35)
+        Me.btn3.Size = New System.Drawing.Size(74, 39)
         Me.btn3.TabIndex = 2
         Me.btn3.Text = "btn3"
         Me.btn3.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -119,11 +119,11 @@ Partial Class frmMsgbox
         Me.TableLayoutPanel2.Controls.Add(Me.btn2, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btn1, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 192)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 188)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(463, 41)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(463, 45)
         Me.TableLayoutPanel2.TabIndex = 14
         '
         'TableLayoutPanel1
@@ -139,7 +139,7 @@ Partial Class frmMsgbox
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(463, 30)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(463, 50)
         Me.TableLayoutPanel1.TabIndex = 15
         '
         'StatusLabel
@@ -151,7 +151,7 @@ Partial Class frmMsgbox
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(417, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(417, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -164,7 +164,7 @@ Partial Class frmMsgbox
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -182,7 +182,7 @@ Partial Class frmMsgbox
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmMsgbox"
-        Me.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Agent Message"
         Me.TopMost = True

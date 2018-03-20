@@ -46,8 +46,6 @@
         End If
 
 
-        lblFont.Text = p_clsMsgData.fn_GetData("F191")
-
         Dim strPath As String = System.IO.Path.GetDirectoryName(strFileLocaton)
         For Each LangFile As String In System.IO.Directory.GetFiles(strPath, "*.xml")
             cmbLang.Items.Add(System.IO.Path.GetFileNameWithoutExtension(LangFile))
@@ -98,13 +96,13 @@
 
 
 
-        Dim clsFonts As New System.Drawing.Text.InstalledFontCollection()
-        For Each tmpFont As FontFamily In clsFonts.Families
-            cmbFont.Items.Add(tmpFont.Name)
-        Next
+        'Dim clsFonts As New System.Drawing.Text.InstalledFontCollection()
+        'For Each tmpFont As FontFamily In clsFonts.Families
+        '    cmbFont.Items.Add(tmpFont.Name)
+        'Next
 
 
-        cmbFont.Text = p_Font
+        'cmbFont.Text = p_Font
 
         tp1.BackColor = System.Drawing.Color.Gray
         tp2.BackColor = System.Drawing.Color.DimGray
@@ -206,7 +204,7 @@
         ConfigIni.WriteValue("General", "GRPROTATE", nudGrpRotate.Value * 1000)
 
         'ConfigIni.WriteValue("General", "CRITICAL", NumericUpDown1.Value * 60000)
-        ConfigIni.WriteValue("General", "FONT", cmbFont.Text)
+        'ConfigIni.WriteValue("General", "FONT", cmbFont.Text)
 
         ConfigIni.WriteValue("General", "NORMAL_SHOW", IIf(chkNor.Checked, "TRUE", "FALSE"))
         ConfigIni.WriteValue("General", "WARNING_SHOW", IIf(chkWar.Checked, "TRUE", "FALSE"))
@@ -248,10 +246,10 @@
 
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFont.SelectedIndexChanged
-        If cmbFont.Text <> "" Then
-            TextBox1.Font = New Font(cmbFont.Text, TextBox1.Font.Size)
-        End If
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs)
+        'If cmbFont.Text <> "" Then
+        '    TextBox1.Font = New Font(cmbFont.Text, TextBox1.Font.Size)
+        'End If
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

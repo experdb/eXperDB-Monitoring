@@ -228,7 +228,7 @@ Partial Class frmSessionLock
         Me.cmbStatus.Font = New System.Drawing.Font("굴림", 9.065934!)
         Me.cmbStatus.FormattingEnabled = True
         Me.cmbStatus.Items.AddRange(New Object() {"All", "Active", "Idle"})
-        Me.cmbStatus.Location = New System.Drawing.Point(902, 16)
+        Me.cmbStatus.Location = New System.Drawing.Point(902, 15)
         Me.cmbStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbStatus.Name = "cmbStatus"
         Me.cmbStatus.Necessary = False

@@ -54,7 +54,7 @@ Partial Class frmAlertCheck
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(430, 30)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(430, 50)
         Me.TableLayoutPanel1.TabIndex = 14
         '
         'StatusLabel
@@ -66,7 +66,7 @@ Partial Class frmAlertCheck
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(41, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(386, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(386, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -79,7 +79,7 @@ Partial Class frmAlertCheck
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(32, 30)
+        Me.Label1.Size = New System.Drawing.Size(32, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -152,7 +152,7 @@ Partial Class frmAlertCheck
         Me.txtAlertComment.Multiline = True
         Me.txtAlertComment.Name = "txtAlertComment"
         Me.txtAlertComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAlertComment.Size = New System.Drawing.Size(324, 178)
+        Me.txtAlertComment.Size = New System.Drawing.Size(324, 154)
         Me.txtAlertComment.TabIndex = 16
         '
         'lblAlertComment
@@ -164,7 +164,7 @@ Partial Class frmAlertCheck
         Me.lblAlertComment.Location = New System.Drawing.Point(3, 71)
         Me.lblAlertComment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblAlertComment.Name = "lblAlertComment"
-        Me.lblAlertComment.Size = New System.Drawing.Size(94, 182)
+        Me.lblAlertComment.Size = New System.Drawing.Size(94, 158)
         Me.lblAlertComment.TabIndex = 9
         Me.lblAlertComment.Text = "F260"
         Me.lblAlertComment.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -182,14 +182,14 @@ Partial Class frmAlertCheck
         Me.TableLayoutPanel3.Controls.Add(Me.lblAlertUser, 0, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.txtAlertUser, 1, 1)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 33)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 53)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 4
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(430, 253)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(430, 229)
         Me.TableLayoutPanel3.TabIndex = 12
         '
         'btnClose
@@ -199,7 +199,7 @@ Partial Class frmAlertCheck
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
-        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.White
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -207,7 +207,7 @@ Partial Class frmAlertCheck
         Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 5
-        Me.btnClose.Size = New System.Drawing.Size(74, 33)
+        Me.btnClose.Size = New System.Drawing.Size(74, 37)
         Me.btnClose.TabIndex = 28
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
@@ -221,7 +221,7 @@ Partial Class frmAlertCheck
         Me.btnSave.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnSave.FixedHeight = False
         Me.btnSave.FixedWidth = False
-        Me.btnSave.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnSave.ForeColor = System.Drawing.Color.White
         Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -229,7 +229,7 @@ Partial Class frmAlertCheck
         Me.btnSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Radius = 5
-        Me.btnSave.Size = New System.Drawing.Size(74, 33)
+        Me.btnSave.Size = New System.Drawing.Size(74, 37)
         Me.btnSave.TabIndex = 27
         Me.btnSave.Text = "F014"
         Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
@@ -245,12 +245,12 @@ Partial Class frmAlertCheck
         Me.TableLayoutPanel2.Controls.Add(Me.btnSave, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnClose, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 286)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 282)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(430, 41)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(430, 45)
         Me.TableLayoutPanel2.TabIndex = 13
         '
         'frmAlertCheck

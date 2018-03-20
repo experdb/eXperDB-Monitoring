@@ -68,7 +68,7 @@ Partial Class frmPassword
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(372, 44)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(372, 50)
         Me.TableLayoutPanel1.TabIndex = 16
         '
         'StatusLabel
@@ -80,7 +80,7 @@ Partial Class frmPassword
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(326, 44)
+        Me.StatusLabel.Size = New System.Drawing.Size(326, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -93,7 +93,7 @@ Partial Class frmPassword
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 44)
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -106,11 +106,11 @@ Partial Class frmPassword
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001!))
         Me.TableLayoutPanel2.Controls.Add(Me.btnOK, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 150)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 149)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(372, 44)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(372, 45)
         Me.TableLayoutPanel2.TabIndex = 17
         '
         'btnOK
@@ -125,7 +125,7 @@ Partial Class frmPassword
         Me.btnOK.Location = New System.Drawing.Point(130, 3)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Radius = 10
-        Me.btnOK.Size = New System.Drawing.Size(110, 38)
+        Me.btnOK.Size = New System.Drawing.Size(110, 39)
         Me.btnOK.TabIndex = 1
         Me.btnOK.Text = "F005"
         Me.btnOK.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -149,9 +149,9 @@ Partial Class frmPassword
         Me.Panel1.Controls.Add(Me.txtPw)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 47)
+        Me.Panel1.Location = New System.Drawing.Point(3, 53)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(372, 103)
+        Me.Panel1.Size = New System.Drawing.Size(372, 96)
         Me.Panel1.TabIndex = 20
         '
         'frmPassword

@@ -40,32 +40,33 @@ Partial Class frmAlertConfig
         Me.tbMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tbMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
         Me.tbMain.ItemSize = New System.Drawing.Size(150, 21)
-        Me.tbMain.Location = New System.Drawing.Point(0, 30)
+        Me.tbMain.Location = New System.Drawing.Point(0, 50)
         Me.tbMain.myBackColor = System.Drawing.Color.Gray
         Me.tbMain.Name = "tbMain"
         Me.tbMain.SelectedIndex = 0
-        Me.tbMain.Size = New System.Drawing.Size(765, 581)
+        Me.tbMain.Size = New System.Drawing.Size(765, 557)
         Me.tbMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.tbMain.TabIndex = 4
         '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96.0!))
+        Me.TableLayoutPanel1.ColumnCount = 5
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.16667!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.88889!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.88889!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.88889!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.16667!))
         Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnHealthInit, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 2, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 611)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 607)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(765, 41)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(765, 45)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'btnClose
@@ -78,10 +79,10 @@ Partial Class frmAlertConfig
         Me.btnClose.ForeColor = System.Drawing.Color.White
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(672, 3)
+        Me.btnClose.Location = New System.Drawing.Point(438, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 5
-        Me.btnClose.Size = New System.Drawing.Size(90, 35)
+        Me.btnClose.Size = New System.Drawing.Size(100, 39)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
@@ -98,10 +99,10 @@ Partial Class frmAlertConfig
         Me.btnHealthInit.ForeColor = System.Drawing.Color.White
         Me.btnHealthInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnHealthInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnHealthInit.Location = New System.Drawing.Point(480, 3)
+        Me.btnHealthInit.Location = New System.Drawing.Point(226, 3)
         Me.btnHealthInit.Name = "btnHealthInit"
         Me.btnHealthInit.Radius = 5
-        Me.btnHealthInit.Size = New System.Drawing.Size(90, 35)
+        Me.btnHealthInit.Size = New System.Drawing.Size(100, 39)
         Me.btnHealthInit.TabIndex = 2
         Me.btnHealthInit.Text = "F226"
         Me.btnHealthInit.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
@@ -118,10 +119,10 @@ Partial Class frmAlertConfig
         Me.btnSave.ForeColor = System.Drawing.Color.White
         Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnSave.Location = New System.Drawing.Point(576, 3)
+        Me.btnSave.Location = New System.Drawing.Point(332, 3)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Radius = 5
-        Me.btnSave.Size = New System.Drawing.Size(90, 35)
+        Me.btnSave.Size = New System.Drawing.Size(100, 39)
         Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "F014"
         Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
@@ -141,7 +142,7 @@ Partial Class frmAlertConfig
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(765, 30)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(765, 50)
         Me.TableLayoutPanel2.TabIndex = 15
         '
         'StatusLabel
@@ -153,7 +154,7 @@ Partial Class frmAlertConfig
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(719, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(719, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -166,7 +167,7 @@ Partial Class frmAlertConfig
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '

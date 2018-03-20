@@ -533,7 +533,7 @@ Partial Class frmAdmin
         Me.btnAdminPW.FixedWidth = False
         Me.btnAdminPW.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAdminPW.ForeColor = System.Drawing.Color.White
-        Me.btnAdminPW.GraColor = System.Drawing.Color.Gray
+        Me.btnAdminPW.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAdminPW.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnAdminPW.Location = New System.Drawing.Point(364, 3)
         Me.btnAdminPW.Name = "btnAdminPW"
@@ -541,7 +541,7 @@ Partial Class frmAdmin
         Me.btnAdminPW.Size = New System.Drawing.Size(110, 38)
         Me.btnAdminPW.TabIndex = 0
         Me.btnAdminPW.Text = "F004"
-        Me.btnAdminPW.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnAdminPW.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnAdminPW.UseRound = True
         Me.btnAdminPW.UseVisualStyleBackColor = True
         '
@@ -555,7 +555,7 @@ Partial Class frmAdmin
         Me.btnClose.FixedWidth = False
         Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.Gray
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnClose.Location = New System.Drawing.Point(480, 3)
         Me.btnClose.Name = "btnClose"
@@ -563,7 +563,7 @@ Partial Class frmAdmin
         Me.btnClose.Size = New System.Drawing.Size(110, 38)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F004"
-        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnClose.UseRound = True
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -758,7 +758,7 @@ Partial Class frmAdmin
         Me.btnCreate.FixedWidth = False
         Me.btnCreate.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCreate.ForeColor = System.Drawing.Color.White
-        Me.btnCreate.GraColor = System.Drawing.Color.Gray
+        Me.btnCreate.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCreate.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnCreate.Location = New System.Drawing.Point(557, 9)
         Me.btnCreate.Name = "btnCreate"
@@ -766,7 +766,7 @@ Partial Class frmAdmin
         Me.btnCreate.Size = New System.Drawing.Size(94, 38)
         Me.btnCreate.TabIndex = 2
         Me.btnCreate.Text = "F140"
-        Me.btnCreate.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnCreate.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnCreate.UseRound = True
         Me.btnCreate.UseVisualStyleBackColor = True
         '
@@ -780,7 +780,7 @@ Partial Class frmAdmin
         Me.btnModify.FixedWidth = False
         Me.btnModify.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnModify.ForeColor = System.Drawing.Color.White
-        Me.btnModify.GraColor = System.Drawing.Color.Gray
+        Me.btnModify.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnModify.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnModify.Location = New System.Drawing.Point(657, 9)
         Me.btnModify.Name = "btnModify"
@@ -788,7 +788,7 @@ Partial Class frmAdmin
         Me.btnModify.Size = New System.Drawing.Size(94, 38)
         Me.btnModify.TabIndex = 3
         Me.btnModify.Text = "F141"
-        Me.btnModify.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnModify.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnModify.UseRound = True
         Me.btnModify.UseVisualStyleBackColor = True
         '
@@ -802,7 +802,7 @@ Partial Class frmAdmin
         Me.btnApply.FixedWidth = False
         Me.btnApply.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnApply.ForeColor = System.Drawing.Color.White
-        Me.btnApply.GraColor = System.Drawing.Color.Gray
+        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnApply.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnApply.Location = New System.Drawing.Point(757, 9)
         Me.btnApply.Name = "btnApply"
@@ -810,7 +810,7 @@ Partial Class frmAdmin
         Me.btnApply.Size = New System.Drawing.Size(94, 38)
         Me.btnApply.TabIndex = 4
         Me.btnApply.Text = "F014"
-        Me.btnApply.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnApply.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnApply.UseRound = True
         Me.btnApply.UseVisualStyleBackColor = True
         '
@@ -824,7 +824,7 @@ Partial Class frmAdmin
         Me.btnDelete.FixedWidth = False
         Me.btnDelete.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.GraColor = System.Drawing.Color.Gray
+        Me.btnDelete.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnDelete.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnDelete.Location = New System.Drawing.Point(857, 9)
         Me.btnDelete.Name = "btnDelete"
@@ -832,7 +832,7 @@ Partial Class frmAdmin
         Me.btnDelete.Size = New System.Drawing.Size(94, 38)
         Me.btnDelete.TabIndex = 5
         Me.btnDelete.Text = "F015"
-        Me.btnDelete.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnDelete.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnDelete.UseRound = True
         Me.btnDelete.UseVisualStyleBackColor = True
         '

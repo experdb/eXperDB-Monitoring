@@ -28,9 +28,9 @@ Partial Class frmCriticalCheck
         Me.Panel2 = New eXperDB.BaseControls.Panel()
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.lblMsg = New eXperDB.BaseControls.Label()
         Me.lblPause = New eXperDB.BaseControls.Label()
         Me.cmbPauseTime = New eXperDB.BaseControls.ComboBox()
-        Me.lblMsg = New eXperDB.BaseControls.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -83,9 +83,9 @@ Partial Class frmCriticalCheck
         Me.Panel2.BackColor = System.Drawing.Color.Black
         Me.Panel2.Controls.Add(Me.TableLayoutPanel1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(3, 191)
+        Me.Panel2.Location = New System.Drawing.Point(3, 188)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(463, 42)
+        Me.Panel2.Size = New System.Drawing.Size(463, 45)
         Me.Panel2.TabIndex = 3
         '
         'TableLayoutPanel1
@@ -100,7 +100,7 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnClose, 3, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 1)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 4)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
@@ -116,12 +116,12 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 9.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lblMsg, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblPause, 1, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.cmbPauseTime, 3, 3)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 33)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 53)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 5
@@ -130,15 +130,32 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(463, 158)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(463, 135)
         Me.TableLayoutPanel2.TabIndex = 9
+        '
+        'lblMsg
+        '
+        Me.lblMsg.BackColor = System.Drawing.Color.DarkGray
+        Me.TableLayoutPanel2.SetColumnSpan(Me.lblMsg, 5)
+        Me.lblMsg.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblMsg.FixedHeight = False
+        Me.lblMsg.FixedWidth = False
+        Me.lblMsg.Font = New System.Drawing.Font("굴림", 9.75!)
+        Me.lblMsg.ForeColor = System.Drawing.Color.White
+        Me.lblMsg.Location = New System.Drawing.Point(3, 0)
+        Me.lblMsg.Name = "lblMsg"
+        Me.TableLayoutPanel2.SetRowSpan(Me.lblMsg, 3)
+        Me.lblMsg.Size = New System.Drawing.Size(457, 99)
+        Me.lblMsg.TabIndex = 16
+        Me.lblMsg.Text = "Label1"
+        Me.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblPause
         '
         Me.lblPause.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPause.FixedWidth = False
         Me.lblPause.ForeColor = System.Drawing.Color.White
-        Me.lblPause.Location = New System.Drawing.Point(12, 124)
+        Me.lblPause.Location = New System.Drawing.Point(12, 101)
         Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblPause.Name = "lblPause"
         Me.lblPause.Size = New System.Drawing.Size(207, 21)
@@ -154,30 +171,13 @@ Partial Class frmCriticalCheck
         Me.cmbPauseTime.FixedWidth = False
         Me.cmbPauseTime.FormattingEnabled = True
         Me.cmbPauseTime.Items.AddRange(New Object() {"Not Set", "5", "30", "60", "120"})
-        Me.cmbPauseTime.Location = New System.Drawing.Point(243, 125)
+        Me.cmbPauseTime.Location = New System.Drawing.Point(243, 102)
         Me.cmbPauseTime.Name = "cmbPauseTime"
         Me.cmbPauseTime.Necessary = False
         Me.cmbPauseTime.Size = New System.Drawing.Size(88, 20)
         Me.cmbPauseTime.StatusTip = ""
         Me.cmbPauseTime.TabIndex = 15
         Me.cmbPauseTime.ValueText = ""
-        '
-        'lblMsg
-        '
-        Me.lblMsg.BackColor = System.Drawing.Color.DarkGray
-        Me.TableLayoutPanel2.SetColumnSpan(Me.lblMsg, 5)
-        Me.lblMsg.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblMsg.FixedHeight = False
-        Me.lblMsg.FixedWidth = False
-        Me.lblMsg.Font = New System.Drawing.Font("Gulim", 9.75!)
-        Me.lblMsg.ForeColor = System.Drawing.Color.White
-        Me.lblMsg.Location = New System.Drawing.Point(3, 0)
-        Me.lblMsg.Name = "lblMsg"
-        Me.TableLayoutPanel2.SetRowSpan(Me.lblMsg, 3)
-        Me.lblMsg.Size = New System.Drawing.Size(457, 122)
-        Me.lblMsg.TabIndex = 16
-        Me.lblMsg.Text = "Label1"
-        Me.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'TableLayoutPanel3
         '
@@ -192,7 +192,7 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(463, 30)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(463, 50)
         Me.TableLayoutPanel3.TabIndex = 16
         '
         'StatusLabel
@@ -204,7 +204,7 @@ Partial Class frmCriticalCheck
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(417, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(417, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -217,7 +217,7 @@ Partial Class frmCriticalCheck
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -236,7 +236,7 @@ Partial Class frmCriticalCheck
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmCriticalCheck"
-        Me.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmConfig"
         Me.Panel2.ResumeLayout(False)

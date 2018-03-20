@@ -22,8 +22,8 @@ Partial Class frmHealthDetail
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHealthDetail))
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.Panel2 = New eXperDB.BaseControls.Panel()
@@ -49,10 +49,10 @@ Partial Class frmHealthDetail
         Me.Panel1.BackColor = System.Drawing.Color.Black
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 44)
+        Me.Panel1.Location = New System.Drawing.Point(3, 54)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(704, 630)
+        Me.Panel1.Size = New System.Drawing.Size(704, 620)
         Me.Panel1.TabIndex = 0
         '
         'Panel2
@@ -71,7 +71,7 @@ Partial Class frmHealthDetail
         Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Padding = New System.Windows.Forms.Padding(11, 12, 11, 12)
-        Me.Panel2.Size = New System.Drawing.Size(704, 630)
+        Me.Panel2.Size = New System.Drawing.Size(704, 620)
         Me.Panel2.TabIndex = 2
         '
         'lblParameter
@@ -81,7 +81,7 @@ Partial Class frmHealthDetail
         Me.lblParameter.FixedHeight = False
         Me.lblParameter.FixedWidth = False
         Me.lblParameter.ForeColor = System.Drawing.Color.White
-        Me.lblParameter.Location = New System.Drawing.Point(11, 593)
+        Me.lblParameter.Location = New System.Drawing.Point(11, 583)
         Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblParameter.Name = "lblParameter"
         Me.lblParameter.Size = New System.Drawing.Size(682, 25)
@@ -97,24 +97,24 @@ Partial Class frmHealthDetail
         Me.dgvinfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvinfo.ColumnHeadersHeight = 30
         Me.dgvinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvinfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvinfo.EnableHeadersVisualStyles = False
@@ -125,7 +125,7 @@ Partial Class frmHealthDetail
         Me.dgvinfo.RowHeadersVisible = False
         Me.dgvinfo.RowTemplate.Height = 23
         Me.dgvinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvinfo.Size = New System.Drawing.Size(682, 474)
+        Me.dgvinfo.Size = New System.Drawing.Size(682, 464)
         Me.dgvinfo.TabIndex = 7
         Me.dgvinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvinfo.UseTagValueMatchColor = False
@@ -234,7 +234,7 @@ Partial Class frmHealthDetail
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(704, 40)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(704, 50)
         Me.TableLayoutPanel2.TabIndex = 17
         '
         'lblSubject
@@ -246,7 +246,7 @@ Partial Class frmHealthDetail
         Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblSubject.Location = New System.Drawing.Point(43, 0)
         Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(658, 40)
+        Me.lblSubject.Size = New System.Drawing.Size(658, 50)
         Me.lblSubject.TabIndex = 0
         Me.lblSubject.Text = "Text"
         Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -259,7 +259,7 @@ Partial Class frmHealthDetail
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label2.Location = New System.Drawing.Point(3, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(34, 40)
+        Me.Label2.Size = New System.Drawing.Size(34, 50)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "      "
         '

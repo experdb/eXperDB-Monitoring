@@ -315,7 +315,7 @@ Partial Class frmConnection
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(365, 30)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(365, 50)
         Me.TableLayoutPanel2.TabIndex = 16
         '
         'StatusLabel
@@ -327,7 +327,7 @@ Partial Class frmConnection
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(319, 30)
+        Me.StatusLabel.Size = New System.Drawing.Size(319, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -340,7 +340,7 @@ Partial Class frmConnection
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 30)
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -355,11 +355,11 @@ Partial Class frmConnection
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 429)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 425)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(365, 41)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(365, 45)
         Me.TableLayoutPanel3.TabIndex = 17
         '
         'btnClose
@@ -374,7 +374,7 @@ Partial Class frmConnection
         Me.btnClose.Location = New System.Drawing.Point(225, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(74, 35)
+        Me.btnClose.Size = New System.Drawing.Size(74, 39)
         Me.btnClose.TabIndex = 2
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -393,7 +393,7 @@ Partial Class frmConnection
         Me.btnAct.Location = New System.Drawing.Point(145, 3)
         Me.btnAct.Name = "btnAct"
         Me.btnAct.Radius = 10
-        Me.btnAct.Size = New System.Drawing.Size(74, 35)
+        Me.btnAct.Size = New System.Drawing.Size(74, 39)
         Me.btnAct.TabIndex = 1
         Me.btnAct.Text = "F140/F141"
         Me.btnAct.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -412,7 +412,7 @@ Partial Class frmConnection
         Me.btnTest.Location = New System.Drawing.Point(65, 3)
         Me.btnTest.Name = "btnTest"
         Me.btnTest.Radius = 10
-        Me.btnTest.Size = New System.Drawing.Size(74, 35)
+        Me.btnTest.Size = New System.Drawing.Size(74, 39)
         Me.btnTest.TabIndex = 0
         Me.btnTest.Text = "F002"
         Me.btnTest.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -443,7 +443,7 @@ Partial Class frmConnection
         Me.tlpSvrChk.Controls.Add(Me.txtIP, 1, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtPort, 1, 2)
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 33)
+        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 53)
         Me.tlpSvrChk.Name = "tlpSvrChk"
         Me.tlpSvrChk.RowCount = 10
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -456,7 +456,7 @@ Partial Class frmConnection
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 396)
+        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 372)
         Me.tlpSvrChk.TabIndex = 18
         '
         'frmConnection

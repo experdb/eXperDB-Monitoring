@@ -48,7 +48,7 @@ Partial Class frmUserConfig
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
-        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49.0!))
         Me.tlpSvrChk.Controls.Add(Me.lblAdminOldPassword, 1, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtAdminOldPassword, 2, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtAdminNewPassword, 2, 2)
@@ -56,7 +56,7 @@ Partial Class frmUserConfig
         Me.tlpSvrChk.Controls.Add(Me.lblAdminNewPassword, 1, 2)
         Me.tlpSvrChk.Controls.Add(Me.lblAdminRepeatPassword, 1, 3)
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 47)
+        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 53)
         Me.tlpSvrChk.Name = "tlpSvrChk"
         Me.tlpSvrChk.RowCount = 5
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
@@ -66,7 +66,7 @@ Partial Class frmUserConfig
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(377, 198)
+        Me.tlpSvrChk.Size = New System.Drawing.Size(377, 191)
         Me.tlpSvrChk.TabIndex = 11
         '
         'lblAdminOldPassword
@@ -78,7 +78,7 @@ Partial Class frmUserConfig
         Me.lblAdminOldPassword.ForeColor = System.Drawing.Color.White
         Me.lblAdminOldPassword.Location = New System.Drawing.Point(47, 40)
         Me.lblAdminOldPassword.Name = "lblAdminOldPassword"
-        Me.lblAdminOldPassword.Size = New System.Drawing.Size(122, 20)
+        Me.lblAdminOldPassword.Size = New System.Drawing.Size(121, 20)
         Me.lblAdminOldPassword.TabIndex = 0
         Me.lblAdminOldPassword.Text = "F006"
         Me.lblAdminOldPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -91,7 +91,7 @@ Partial Class frmUserConfig
         Me.txtAdminOldPassword.FixedWidth = False
         Me.txtAdminOldPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAdminOldPassword.impossibleinput = ""
-        Me.txtAdminOldPassword.Location = New System.Drawing.Point(175, 36)
+        Me.txtAdminOldPassword.Location = New System.Drawing.Point(174, 36)
         Me.txtAdminOldPassword.Name = "txtAdminOldPassword"
         Me.txtAdminOldPassword.Necessary = True
         Me.txtAdminOldPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -110,7 +110,7 @@ Partial Class frmUserConfig
         Me.txtAdminNewPassword.FixedWidth = False
         Me.txtAdminNewPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAdminNewPassword.impossibleinput = ""
-        Me.txtAdminNewPassword.Location = New System.Drawing.Point(175, 76)
+        Me.txtAdminNewPassword.Location = New System.Drawing.Point(174, 76)
         Me.txtAdminNewPassword.Name = "txtAdminNewPassword"
         Me.txtAdminNewPassword.Necessary = True
         Me.txtAdminNewPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -129,7 +129,7 @@ Partial Class frmUserConfig
         Me.txtAdminRepeatPassword.FixedWidth = False
         Me.txtAdminRepeatPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAdminRepeatPassword.impossibleinput = ""
-        Me.txtAdminRepeatPassword.Location = New System.Drawing.Point(175, 116)
+        Me.txtAdminRepeatPassword.Location = New System.Drawing.Point(174, 116)
         Me.txtAdminRepeatPassword.Name = "txtAdminRepeatPassword"
         Me.txtAdminRepeatPassword.Necessary = True
         Me.txtAdminRepeatPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -149,7 +149,7 @@ Partial Class frmUserConfig
         Me.lblAdminNewPassword.ForeColor = System.Drawing.Color.White
         Me.lblAdminNewPassword.Location = New System.Drawing.Point(47, 80)
         Me.lblAdminNewPassword.Name = "lblAdminNewPassword"
-        Me.lblAdminNewPassword.Size = New System.Drawing.Size(122, 20)
+        Me.lblAdminNewPassword.Size = New System.Drawing.Size(121, 20)
         Me.lblAdminNewPassword.TabIndex = 2
         Me.lblAdminNewPassword.Text = "F007"
         Me.lblAdminNewPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -163,7 +163,7 @@ Partial Class frmUserConfig
         Me.lblAdminRepeatPassword.ForeColor = System.Drawing.Color.White
         Me.lblAdminRepeatPassword.Location = New System.Drawing.Point(47, 120)
         Me.lblAdminRepeatPassword.Name = "lblAdminRepeatPassword"
-        Me.lblAdminRepeatPassword.Size = New System.Drawing.Size(122, 20)
+        Me.lblAdminRepeatPassword.Size = New System.Drawing.Size(121, 20)
         Me.lblAdminRepeatPassword.TabIndex = 4
         Me.lblAdminRepeatPassword.Text = "F008"
         Me.lblAdminRepeatPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -181,7 +181,7 @@ Partial Class frmUserConfig
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(377, 44)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(377, 50)
         Me.TableLayoutPanel2.TabIndex = 17
         '
         'StatusLabel
@@ -193,7 +193,7 @@ Partial Class frmUserConfig
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(331, 44)
+        Me.StatusLabel.Size = New System.Drawing.Size(331, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -206,7 +206,7 @@ Partial Class frmUserConfig
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label1.Location = New System.Drawing.Point(3, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 44)
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
@@ -218,11 +218,11 @@ Partial Class frmUserConfig
         Me.pnlB.Controls.Add(Me.btnAct, 0, 0)
         Me.pnlB.Controls.Add(Me.btnClose, 1, 0)
         Me.pnlB.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlB.Location = New System.Drawing.Point(3, 245)
+        Me.pnlB.Location = New System.Drawing.Point(3, 244)
         Me.pnlB.Name = "pnlB"
         Me.pnlB.RowCount = 1
         Me.pnlB.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pnlB.Size = New System.Drawing.Size(377, 44)
+        Me.pnlB.Size = New System.Drawing.Size(377, 45)
         Me.pnlB.TabIndex = 19
         '
         'btnAct
@@ -240,7 +240,7 @@ Partial Class frmUserConfig
         Me.btnAct.Location = New System.Drawing.Point(75, 3)
         Me.btnAct.Name = "btnAct"
         Me.btnAct.Radius = 10
-        Me.btnAct.Size = New System.Drawing.Size(110, 38)
+        Me.btnAct.Size = New System.Drawing.Size(110, 39)
         Me.btnAct.TabIndex = 0
         Me.btnAct.Text = "F003"
         Me.btnAct.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -262,7 +262,7 @@ Partial Class frmUserConfig
         Me.btnClose.Location = New System.Drawing.Point(191, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
-        Me.btnClose.Size = New System.Drawing.Size(110, 38)
+        Me.btnClose.Size = New System.Drawing.Size(110, 39)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
