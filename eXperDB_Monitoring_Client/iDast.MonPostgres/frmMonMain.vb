@@ -2446,11 +2446,11 @@
             If _isPower = True Then
                 p_clsAgentCollect.Start(_AgentCn, _ElapseInterval, p_ShowName)
                 tmCollect.Start()
-                btnPower.Image = eXperDB.Monitoring.My.Resources.power_hibernate
+                btnPower.Image = eXperDB.Monitoring.My.Resources.power_hib
             Else
                 tmCollect.Stop()
                 p_clsAgentCollect.Stop()
-                btnPower.Image = eXperDB.Monitoring.My.Resources.power_suspend
+                btnPower.Image = eXperDB.Monitoring.My.Resources.power_sus
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)

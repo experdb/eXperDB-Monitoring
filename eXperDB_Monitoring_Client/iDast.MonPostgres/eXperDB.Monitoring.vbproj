@@ -518,8 +518,8 @@
     </Content>
     <Content Include="Image\lock_off.png" />
     <Content Include="Image\lock_on.png" />
-    <Content Include="Image\power_hibernate.png" />
-    <Content Include="Image\power_suspend.png" />
+    <None Include="Image\power_hib.png" />
+    <None Include="Image\power_sus.png" />
     <Content Include="Image\SplitBar_Collapse.png" />
     <Content Include="Image\SplitBar_Expand.png" />
     <Content Include="Language\English.xml">
@@ -580,8 +580,6 @@
     <None Include="Resources\tablespace31.ico" />
     <None Include="Resources\currentlock31.ico" />
     <None Include="Resources\filelist.ico" />
-    <Content Include="Resources\power_hibernate.png" />
-    <Content Include="Resources\power_suspend.png" />
     <Content Include="Sounds\Siren.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
