@@ -44,7 +44,7 @@ Partial Class frmAlertConfig
         Me.tbMain.myBackColor = System.Drawing.Color.Gray
         Me.tbMain.Name = "tbMain"
         Me.tbMain.SelectedIndex = 0
-        Me.tbMain.Size = New System.Drawing.Size(765, 557)
+        Me.tbMain.Size = New System.Drawing.Size(765, 586)
         Me.tbMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.tbMain.TabIndex = 4
         '
@@ -61,7 +61,7 @@ Partial Class frmAlertConfig
         Me.TableLayoutPanel1.Controls.Add(Me.btnHealthInit, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnSave, 2, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 607)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 636)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
@@ -176,7 +176,7 @@ Partial Class frmAlertConfig
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(765, 652)
+        Me.ClientSize = New System.Drawing.Size(765, 681)
         Me.Controls.Add(Me.tbMain)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel1)

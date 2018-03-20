@@ -81,12 +81,8 @@ Partial Class frmAlertList
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.tlpHead.Controls.Add(Me.lblSearchDay, 0, 1)
         Me.tlpHead.Controls.Add(Me.dtpDay, 1, 1)
-        Me.tlpHead.Controls.Add(Me.btnConfig, 7, 0)
         Me.tlpHead.Controls.Add(Me.lblServer, 0, 0)
-        Me.tlpHead.Controls.Add(Me.btnExcel, 10, 0)
-        Me.tlpHead.Controls.Add(Me.btnQuery, 9, 0)
         Me.tlpHead.Controls.Add(Me.cmbServer, 1, 0)
-        Me.tlpHead.Controls.Add(Me.btnCheck, 8, 0)
         Me.tlpHead.Controls.Add(Me.lblLevel, 2, 0)
         Me.tlpHead.Controls.Add(Me.cmbLevel, 3, 0)
         Me.tlpHead.Controls.Add(Me.lblCheck, 4, 0)
@@ -103,7 +99,7 @@ Partial Class frmAlertList
         Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
-        Me.tlpHead.Size = New System.Drawing.Size(1033, 96)
+        Me.tlpHead.Size = New System.Drawing.Size(1095, 96)
         Me.tlpHead.TabIndex = 5
         '
         'lblSearchDay
@@ -140,25 +136,25 @@ Partial Class frmAlertList
         'btnConfig
         '
         Me.btnConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnConfig.CheckFillColor = System.Drawing.Color.White
-        Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnConfig.FixedHeight = False
         Me.btnConfig.FixedWidth = False
         Me.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnConfig.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnConfig.ForeColor = System.Drawing.Color.White
-        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnConfig.LineColor = System.Drawing.Color.DimGray
-        Me.btnConfig.Location = New System.Drawing.Point(716, 4)
+        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnConfig.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnConfig.Location = New System.Drawing.Point(698, 14)
         Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnConfig.Name = "btnConfig"
         Me.btnConfig.Radius = 5
-        Me.btnConfig.Size = New System.Drawing.Size(74, 32)
+        Me.btnConfig.Size = New System.Drawing.Size(94, 32)
         Me.btnConfig.TabIndex = 26
         Me.btnConfig.Text = "F264"
-        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnConfig.UseRound = True
-        Me.btnConfig.UseVisualStyleBackColor = False
+        Me.btnConfig.UseVisualStyleBackColor = True
         '
         'lblServer
         '
@@ -180,48 +176,48 @@ Partial Class frmAlertList
         'btnExcel
         '
         Me.btnExcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnExcel.CheckFillColor = System.Drawing.Color.White
-        Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
         Me.btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnExcel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnExcel.ForeColor = System.Drawing.Color.White
-        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnExcel.LineColor = System.Drawing.Color.DimGray
-        Me.btnExcel.Location = New System.Drawing.Point(956, 4)
+        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnExcel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnExcel.Location = New System.Drawing.Point(998, 14)
         Me.btnExcel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnExcel.Name = "btnExcel"
         Me.btnExcel.Radius = 5
-        Me.btnExcel.Size = New System.Drawing.Size(74, 32)
+        Me.btnExcel.Size = New System.Drawing.Size(94, 32)
         Me.btnExcel.TabIndex = 13
         Me.btnExcel.Text = "F142"
-        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnExcel.UseRound = True
-        Me.btnExcel.UseVisualStyleBackColor = False
+        Me.btnExcel.UseVisualStyleBackColor = True
         '
         'btnQuery
         '
         Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnQuery.CheckFillColor = System.Drawing.Color.White
-        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnQuery.FixedHeight = False
         Me.btnQuery.FixedWidth = False
         Me.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnQuery.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnQuery.ForeColor = System.Drawing.Color.White
-        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnQuery.LineColor = System.Drawing.Color.DimGray
-        Me.btnQuery.Location = New System.Drawing.Point(876, 4)
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.Location = New System.Drawing.Point(898, 14)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Radius = 5
-        Me.btnQuery.Size = New System.Drawing.Size(74, 32)
+        Me.btnQuery.Size = New System.Drawing.Size(94, 32)
         Me.btnQuery.TabIndex = 10
         Me.btnQuery.Text = "F151"
-        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnQuery.UseRound = True
-        Me.btnQuery.UseVisualStyleBackColor = False
+        Me.btnQuery.UseVisualStyleBackColor = True
         '
         'cmbServer
         '
@@ -232,7 +228,7 @@ Partial Class frmAlertList
         Me.cmbServer.FixedWidth = False
         Me.cmbServer.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
+        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -244,25 +240,25 @@ Partial Class frmAlertList
         'btnCheck
         '
         Me.btnCheck.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnCheck.CheckFillColor = System.Drawing.Color.White
-        Me.btnCheck.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnCheck.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnCheck.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnCheck.FixedHeight = False
         Me.btnCheck.FixedWidth = False
         Me.btnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCheck.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCheck.ForeColor = System.Drawing.Color.White
-        Me.btnCheck.GraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnCheck.LineColor = System.Drawing.Color.DimGray
-        Me.btnCheck.Location = New System.Drawing.Point(796, 4)
+        Me.btnCheck.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnCheck.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnCheck.Location = New System.Drawing.Point(798, 14)
         Me.btnCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCheck.Name = "btnCheck"
         Me.btnCheck.Radius = 5
-        Me.btnCheck.Size = New System.Drawing.Size(74, 32)
+        Me.btnCheck.Size = New System.Drawing.Size(94, 32)
         Me.btnCheck.TabIndex = 10
         Me.btnCheck.Text = "F262"
-        Me.btnCheck.UnCheckFillColor = System.Drawing.Color.Black
+        Me.btnCheck.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnCheck.UseRound = True
-        Me.btnCheck.UseVisualStyleBackColor = False
+        Me.btnCheck.UseVisualStyleBackColor = True
         '
         'lblLevel
         '
@@ -290,7 +286,7 @@ Partial Class frmAlertList
         Me.cmbLevel.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -325,7 +321,7 @@ Partial Class frmAlertList
         Me.cmbCheck.Font = New System.Drawing.Font("굴림", 9.2638!)
         Me.cmbCheck.FormattingEnabled = True
         Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(525, 15)
+        Me.cmbCheck.Location = New System.Drawing.Point(525, 16)
         Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCheck.Name = "cmbCheck"
         Me.cmbCheck.Necessary = False
@@ -438,7 +434,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvAlertList.RowTemplate.Height = 23
         Me.dgvAlertList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvAlertList.Size = New System.Drawing.Size(1033, 511)
+        Me.dgvAlertList.Size = New System.Drawing.Size(1095, 511)
         Me.dgvAlertList.TabIndex = 10
         Me.dgvAlertList.TagValueMatchColor = System.Drawing.Color.White
         Me.dgvAlertList.UseTagValueMatchColor = False
@@ -581,18 +577,22 @@ Partial Class frmAlertList
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.MsgLabel, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 4, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnExcel, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnQuery, 6, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnCheck, 5, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1033, 50)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1095, 50)
         Me.TableLayoutPanel2.TabIndex = 18
         '
         'MsgLabel
@@ -604,7 +604,7 @@ Partial Class frmAlertList
         Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MsgLabel.Location = New System.Drawing.Point(43, 0)
         Me.MsgLabel.Name = "MsgLabel"
-        Me.MsgLabel.Size = New System.Drawing.Size(767, 50)
+        Me.MsgLabel.Size = New System.Drawing.Size(589, 50)
         Me.MsgLabel.TabIndex = 0
         Me.MsgLabel.Text = "Text"
         Me.MsgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -625,7 +625,7 @@ Partial Class frmAlertList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1033, 657)
+        Me.ClientSize = New System.Drawing.Size(1095, 657)
         Me.Controls.Add(Me.dgvAlertList)
         Me.Controls.Add(Me.tlpHead)
         Me.Controls.Add(Me.TableLayoutPanel2)

@@ -115,12 +115,12 @@ Partial Class frmPassword
         '
         'btnOK
         '
-        Me.btnOK.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnOK.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnOK.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnOK.FixedHeight = False
         Me.btnOK.FixedWidth = False
         Me.btnOK.ForeColor = System.Drawing.Color.White
-        Me.btnOK.GraColor = System.Drawing.Color.Gray
+        Me.btnOK.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnOK.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         Me.btnOK.Location = New System.Drawing.Point(130, 3)
         Me.btnOK.Name = "btnOK"
@@ -128,7 +128,7 @@ Partial Class frmPassword
         Me.btnOK.Size = New System.Drawing.Size(110, 39)
         Me.btnOK.TabIndex = 1
         Me.btnOK.Text = "F005"
-        Me.btnOK.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnOK.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnOK.UseRound = True
         Me.btnOK.UseVisualStyleBackColor = True
         '

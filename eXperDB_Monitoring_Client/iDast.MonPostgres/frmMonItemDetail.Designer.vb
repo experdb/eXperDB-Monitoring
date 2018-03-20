@@ -21,6 +21,11 @@ Partial Class frmMonItemDetail
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonItemDetail))
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -33,11 +38,6 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Me.colDgvLockDB = New AdvancedDataGridView.TreeGridColumn()
         Me.colDgvLockBlockingPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -58,6 +58,11 @@ Partial Class frmMonItemDetail
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblChart = New System.Windows.Forms.Label()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
+        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.pnlEd = New eXperDB.BaseControls.Panel()
         Me.cmbDuration = New eXperDB.BaseControls.ComboBox()
@@ -66,9 +71,6 @@ Partial Class frmMonItemDetail
         Me.pnlSt = New eXperDB.BaseControls.Panel()
         Me.lblSt = New eXperDB.BaseControls.Label()
         Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
-        Me.btnChartMenu = New eXperDB.BaseControls.Button()
-        Me.btnRange = New eXperDB.BaseControls.Button()
-        Me.btnQuery = New eXperDB.BaseControls.Button()
         Me.cmbInst = New eXperDB.BaseControls.ComboBox()
         Me.lblServer = New eXperDB.BaseControls.Label()
         Me.lblDuration2 = New eXperDB.BaseControls.Label()
@@ -94,14 +96,12 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lslSession = New System.Windows.Forms.Label()
+        Me.btnChartMenu = New eXperDB.BaseControls.Button()
+        Me.btnRange = New eXperDB.BaseControls.Button()
+        Me.btnQuery = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSubject = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -282,7 +282,7 @@ Partial Class frmMonItemDetail
         Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("굴림", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tlpBottom.SetRowSpan(Me.SplitContainer1, 2)
         Me.SplitContainer1.Size = New System.Drawing.Size(1278, 766)
-        Me.SplitContainer1.SplitterDistance = 547
+        Me.SplitContainer1.SplitterDistance = 585
         Me.SplitContainer1.TabIndex = 0
         '
         'tlpChartArea
@@ -303,7 +303,7 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpChartArea.Size = New System.Drawing.Size(1278, 547)
+        Me.tlpChartArea.Size = New System.Drawing.Size(1278, 585)
         Me.tlpChartArea.TabIndex = 0
         '
         'TableLayoutPanel1
@@ -359,8 +359,77 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlChart.Location = New System.Drawing.Point(3, 129)
         Me.pnlChart.Name = "pnlChart"
-        Me.pnlChart.Size = New System.Drawing.Size(1272, 415)
+        Me.pnlChart.Size = New System.Drawing.Size(1272, 453)
         Me.pnlChart.TabIndex = 3
+        '
+        'chtLogicalIO
+        '
+        Me.chtLogicalIO.BorderSkin = BorderSkin1
+        Me.chtLogicalIO.DataSource = Nothing
+        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1448)
+        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLogicalIO.MenuVisible = False
+        Me.chtLogicalIO.Name = "chtLogicalIO"
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtLogicalIO.TabIndex = 6
+        Me.chtLogicalIO.Title = ""
+        Me.chtLogicalIO.Visible = False
+        '
+        'chtSQLResp
+        '
+        Me.chtSQLResp.BorderSkin = BorderSkin2
+        Me.chtSQLResp.DataSource = Nothing
+        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1086)
+        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSQLResp.MenuVisible = False
+        Me.chtSQLResp.Name = "chtSQLResp"
+        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSQLResp.TabIndex = 8
+        Me.chtSQLResp.Title = ""
+        Me.chtSQLResp.Visible = False
+        '
+        'chtPhysicalIO
+        '
+        Me.chtPhysicalIO.BorderSkin = BorderSkin3
+        Me.chtPhysicalIO.DataSource = Nothing
+        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 724)
+        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtPhysicalIO.MenuVisible = False
+        Me.chtPhysicalIO.Name = "chtPhysicalIO"
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtPhysicalIO.TabIndex = 7
+        Me.chtPhysicalIO.Title = ""
+        Me.chtPhysicalIO.Visible = False
+        '
+        'chtSession
+        '
+        Me.chtSession.BorderSkin = BorderSkin4
+        Me.chtSession.DataSource = Nothing
+        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSession.Location = New System.Drawing.Point(0, 362)
+        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSession.MenuVisible = False
+        Me.chtSession.Name = "chtSession"
+        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSession.TabIndex = 5
+        Me.chtSession.Title = ""
+        Me.chtSession.Visible = False
+        '
+        'chtCPU
+        '
+        Me.chtCPU.BorderSkin = BorderSkin5
+        Me.chtCPU.DataSource = Nothing
+        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
+        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPU.MenuVisible = False
+        Me.chtCPU.Name = "chtCPU"
+        Me.chtCPU.Size = New System.Drawing.Size(1255, 362)
+        Me.chtCPU.TabIndex = 3
+        Me.chtCPU.Title = ""
         '
         'tlpInput
         '
@@ -379,9 +448,6 @@ Partial Class frmMonItemDetail
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.tlpInput.Controls.Add(Me.pnlEd, 5, 0)
         Me.tlpInput.Controls.Add(Me.pnlSt, 3, 0)
-        Me.tlpInput.Controls.Add(Me.btnChartMenu, 9, 0)
-        Me.tlpInput.Controls.Add(Me.btnRange, 8, 0)
-        Me.tlpInput.Controls.Add(Me.btnQuery, 7, 0)
         Me.tlpInput.Controls.Add(Me.cmbInst, 1, 0)
         Me.tlpInput.Controls.Add(Me.lblServer, 0, 0)
         Me.tlpInput.Controls.Add(Me.lblDuration2, 4, 0)
@@ -501,72 +567,6 @@ Partial Class frmMonItemDetail
         Me.dtpSt.StatusTip = ""
         Me.dtpSt.TabIndex = 22
         '
-        'btnChartMenu
-        '
-        Me.btnChartMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnChartMenu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnChartMenu.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnChartMenu.FixedHeight = False
-        Me.btnChartMenu.FixedWidth = False
-        Me.btnChartMenu.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.btnChartMenu.ForeColor = System.Drawing.Color.White
-        Me.btnChartMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnChartMenu.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnChartMenu.Location = New System.Drawing.Point(1165, 4)
-        Me.btnChartMenu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnChartMenu.Name = "btnChartMenu"
-        Me.btnChartMenu.Radius = 5
-        Me.btnChartMenu.Size = New System.Drawing.Size(94, 32)
-        Me.btnChartMenu.TabIndex = 33
-        Me.btnChartMenu.Text = "F270"
-        Me.btnChartMenu.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnChartMenu.UseRound = True
-        Me.btnChartMenu.UseVisualStyleBackColor = True
-        '
-        'btnRange
-        '
-        Me.btnRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnRange.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnRange.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnRange.FixedHeight = False
-        Me.btnRange.FixedWidth = False
-        Me.btnRange.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.btnRange.ForeColor = System.Drawing.Color.White
-        Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnRange.Location = New System.Drawing.Point(1065, 4)
-        Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnRange.Name = "btnRange"
-        Me.btnRange.Radius = 5
-        Me.btnRange.Size = New System.Drawing.Size(94, 32)
-        Me.btnRange.TabIndex = 32
-        Me.btnRange.Text = "F269"
-        Me.btnRange.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnRange.UseRound = True
-        Me.btnRange.UseVisualStyleBackColor = True
-        '
-        'btnQuery
-        '
-        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnQuery.FixedHeight = False
-        Me.btnQuery.FixedWidth = False
-        Me.btnQuery.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.btnQuery.ForeColor = System.Drawing.Color.White
-        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQuery.Location = New System.Drawing.Point(965, 4)
-        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnQuery.Name = "btnQuery"
-        Me.btnQuery.Radius = 5
-        Me.btnQuery.Size = New System.Drawing.Size(94, 32)
-        Me.btnQuery.TabIndex = 31
-        Me.btnQuery.Text = "F151"
-        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnQuery.UseRound = True
-        Me.btnQuery.UseVisualStyleBackColor = True
-        '
         'cmbInst
         '
         Me.cmbInst.BackColor = System.Drawing.SystemColors.Window
@@ -576,7 +576,7 @@ Partial Class frmMonItemDetail
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("굴림", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 16)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 15)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -791,7 +791,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.RowHeadersVisible = False
         Me.dgvSessionList.RowTemplate.Height = 23
         Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionList.Size = New System.Drawing.Size(1278, 180)
+        Me.dgvSessionList.Size = New System.Drawing.Size(1278, 142)
         Me.dgvSessionList.TabIndex = 13
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
@@ -986,6 +986,72 @@ Partial Class frmMonItemDetail
         Me.lslSession.Text = "F313"
         Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'btnChartMenu
+        '
+        Me.btnChartMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnChartMenu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnChartMenu.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnChartMenu.FixedHeight = False
+        Me.btnChartMenu.FixedWidth = False
+        Me.btnChartMenu.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.btnChartMenu.ForeColor = System.Drawing.Color.White
+        Me.btnChartMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnChartMenu.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnChartMenu.Location = New System.Drawing.Point(1187, 14)
+        Me.btnChartMenu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnChartMenu.Name = "btnChartMenu"
+        Me.btnChartMenu.Radius = 5
+        Me.btnChartMenu.Size = New System.Drawing.Size(94, 32)
+        Me.btnChartMenu.TabIndex = 33
+        Me.btnChartMenu.Text = "F270"
+        Me.btnChartMenu.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnChartMenu.UseRound = True
+        Me.btnChartMenu.UseVisualStyleBackColor = True
+        '
+        'btnRange
+        '
+        Me.btnRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnRange.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnRange.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnRange.FixedHeight = False
+        Me.btnRange.FixedWidth = False
+        Me.btnRange.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.btnRange.ForeColor = System.Drawing.Color.White
+        Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnRange.Location = New System.Drawing.Point(1087, 14)
+        Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnRange.Name = "btnRange"
+        Me.btnRange.Radius = 5
+        Me.btnRange.Size = New System.Drawing.Size(94, 32)
+        Me.btnRange.TabIndex = 32
+        Me.btnRange.Text = "F269"
+        Me.btnRange.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnRange.UseRound = True
+        Me.btnRange.UseVisualStyleBackColor = True
+        '
+        'btnQuery
+        '
+        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnQuery.FixedHeight = False
+        Me.btnQuery.FixedWidth = False
+        Me.btnQuery.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.btnQuery.ForeColor = System.Drawing.Color.White
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.Location = New System.Drawing.Point(987, 14)
+        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnQuery.Name = "btnQuery"
+        Me.btnQuery.Radius = 5
+        Me.btnQuery.Size = New System.Drawing.Size(94, 32)
+        Me.btnQuery.TabIndex = 31
+        Me.btnQuery.Text = "F151"
+        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.UseRound = True
+        Me.btnQuery.UseVisualStyleBackColor = True
+        '
         'TableLayoutPanel3
         '
         Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -995,11 +1061,14 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnQuery, 5, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnRange, 6, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnChartMenu, 7, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
@@ -1017,7 +1086,7 @@ Partial Class frmMonItemDetail
         Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblSubject.Location = New System.Drawing.Point(43, 0)
         Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(1018, 50)
+        Me.lblSubject.Size = New System.Drawing.Size(838, 50)
         Me.lblSubject.TabIndex = 0
         Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1032,75 +1101,6 @@ Partial Class frmMonItemDetail
         Me.Label3.Size = New System.Drawing.Size(34, 50)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
-        '
-        'chtLogicalIO
-        '
-        Me.chtLogicalIO.BorderSkin = BorderSkin1
-        Me.chtLogicalIO.DataSource = Nothing
-        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1448)
-        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLogicalIO.MenuVisible = False
-        Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
-        Me.chtLogicalIO.TabIndex = 6
-        Me.chtLogicalIO.Title = ""
-        Me.chtLogicalIO.Visible = False
-        '
-        'chtSQLResp
-        '
-        Me.chtSQLResp.BorderSkin = BorderSkin2
-        Me.chtSQLResp.DataSource = Nothing
-        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1086)
-        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSQLResp.MenuVisible = False
-        Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
-        Me.chtSQLResp.TabIndex = 8
-        Me.chtSQLResp.Title = ""
-        Me.chtSQLResp.Visible = False
-        '
-        'chtPhysicalIO
-        '
-        Me.chtPhysicalIO.BorderSkin = BorderSkin3
-        Me.chtPhysicalIO.DataSource = Nothing
-        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 724)
-        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtPhysicalIO.MenuVisible = False
-        Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
-        Me.chtPhysicalIO.TabIndex = 7
-        Me.chtPhysicalIO.Title = ""
-        Me.chtPhysicalIO.Visible = False
-        '
-        'chtSession
-        '
-        Me.chtSession.BorderSkin = BorderSkin4
-        Me.chtSession.DataSource = Nothing
-        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSession.Location = New System.Drawing.Point(0, 362)
-        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSession.MenuVisible = False
-        Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
-        Me.chtSession.TabIndex = 5
-        Me.chtSession.Title = ""
-        Me.chtSession.Visible = False
-        '
-        'chtCPU
-        '
-        Me.chtCPU.BorderSkin = BorderSkin5
-        Me.chtCPU.DataSource = Nothing
-        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
-        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPU.MenuVisible = False
-        Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1255, 362)
-        Me.chtCPU.TabIndex = 3
-        Me.chtCPU.Title = ""
         '
         'frmMonItemDetail
         '
