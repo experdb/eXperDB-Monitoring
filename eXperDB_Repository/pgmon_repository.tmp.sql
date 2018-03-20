@@ -69,6 +69,7 @@ CREATE UNLOGGED TABLE tb_backend_rsc (
 CREATE TABLE tb_config (
     daily_batch_start_time time without time zone,
     hchk_period_sec integer,
+    objt_period_sec integer,
     log_keep_days integer,
     admin_user_id character varying(100),
     admin_password character varying(100),
@@ -284,7 +285,7 @@ CREATE UNLOGGED TABLE tb_sys_log (
     start_dt timestamp without time zone,
     status character varying(1),
     end_dt timestamp without time zone,
-    comments character varying(100)
+    comments character varying(100),
     driver_status character varying(3)
 );
 
@@ -606,6 +607,7 @@ INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 INSERT INTO tb_config(
 DAILY_BATCH_START_TIME
 ,HCHK_PERIOD_SEC
+,OBJT_PERIOD_SEC
 ,LOG_KEEP_DAYS
 ,ADMIN_USER_ID
 ,ADMIN_PASSWORD
@@ -615,7 +617,7 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_IP
 ,SERIAL_KEY
 ,VERSION
-) VALUES ('23:30:00', 30, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', 'EXPERDB_VERSION');
+) VALUES ('23:30:00', 30, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', 'EXPERDB_VERSION');
 
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (1, 'Group1', now(), '127.0.0.1');
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (2, 'Group2', now(), '127.0.0.1');
