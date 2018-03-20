@@ -82,7 +82,7 @@ public class DX001 implements SocketApplication{
 						log.error("", e);
 					}
 					
-					instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(String.valueOf(instanceMap.get("instance_id"))).get("pg_version");
+					instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(String.valueOf(instanceMap.get("instance_id"))).get("pg_version_min");
 					
 					List<HashMap<String, Object>> tablespaceSel = new ArrayList<HashMap<String,Object>>(); //TableSpace 수집
 					List<HashMap<String, Object>> tableSel = new ArrayList<HashMap<String,Object>>(); //Table 수집

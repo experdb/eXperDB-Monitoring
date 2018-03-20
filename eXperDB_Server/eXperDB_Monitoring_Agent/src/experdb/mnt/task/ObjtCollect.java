@@ -41,6 +41,7 @@ public class ObjtCollect extends TaskApplication {
 		long sleepTime;
 		long startTime;
 		long startExecuteTime = 0;
+		long startDeleteTime = 0;
 		long endTime;
 		int DelteTurn = 5;
 		
@@ -69,12 +70,13 @@ public class ObjtCollect extends TaskApplication {
 					startExecuteTime = System.currentTimeMillis() + collectObjectPeriod * 1000;
 				}
 				
-				if ( DelteTurn * startExecuteTime  <= startTime) {
+				if ( startDeleteTime  <= startTime) {
 					//OBJT 정보수집
 					en = MonitoringInfoManager.getInstance().getInstanceId();
 					while (en.hasMoreElements()) {
 						DeleteObject((String) en.nextElement());
-					}					
+					}
+					startDeleteTime = System.currentTimeMillis() + collectObjectPeriod * 1000 * DelteTurn ;
 				}
 
 				endTime =  System.currentTimeMillis();
