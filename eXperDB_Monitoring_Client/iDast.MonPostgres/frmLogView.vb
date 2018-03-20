@@ -361,6 +361,7 @@ Public Class frmLogView
     Private Sub dgvLogFileList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLogFileList.CellClick
         _frmWait = New frmWait
         _frmWait.TopMost = True
+        _frmWait.StartPosition = FormStartPosition.CenterParent
         _frmWait.Show(Me)
 
         If e.RowIndex >= 0 Then
