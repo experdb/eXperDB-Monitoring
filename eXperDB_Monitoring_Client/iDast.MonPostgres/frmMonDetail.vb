@@ -1369,8 +1369,22 @@
                 index = 4
         End Select
 
-        Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, index)
-        frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
+        Dim BretFrm As frmMonItemDetail = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmMonItemDetail = TryCast(tmpFrm, frmMonItemDetail)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, index)
+            BretFrm.Show(DirectCast(Me.Owner, frmMonMain))
+        Else
+            BretFrm.Activate()
+        End If
     End Sub
 
     Private Sub dgvResUtilPerBackProc_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellDoubleClick

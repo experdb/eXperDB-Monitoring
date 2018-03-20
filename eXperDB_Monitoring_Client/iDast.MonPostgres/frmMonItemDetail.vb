@@ -362,8 +362,8 @@
         Dim MarginBottom As Integer = 0
         Dim AreaHeight As Integer = (100 / 5)
         MarginTop = AreaHeight * 0.2
-        AreaHeight = AreaHeight * 0.7
-        MarginBottom = AreaHeight * 0.1
+        AreaHeight = AreaHeight * 0.6
+        MarginBottom = AreaHeight * 0.2
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
