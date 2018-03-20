@@ -570,6 +570,7 @@ Partial Class frmLogView
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmLogView"
         Me.Text = "Log Viewer"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         CType(Me.dgvLogFileList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvLogData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel3.ResumeLayout(False)

@@ -313,7 +313,13 @@
             dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
         Next
 
-        modCommon.FontChange(Me, p_Font)
+        Me.ttChart.SetToolTip(Me.btnSqlPlan, p_clsMsgData.fn_GetData("F245"))
+        Me.ttChart.SetToolTip(Me.btnSessionLock, p_clsMsgData.fn_GetData("F246"))
+        Me.ttChart.SetToolTip(Me.btnActInfo, p_clsMsgData.fn_GetData("F075"))
+        Me.ttChart.SetToolTip(Me.btnPartView, p_clsMsgData.fn_GetData("F233"))
+        Me.ttChart.SetToolTip(Me.btnChartDetail, p_clsMsgData.fn_GetData("F268"))
+
+        'modCommon.FontChange(Me, p_Font)
 
     End Sub
 

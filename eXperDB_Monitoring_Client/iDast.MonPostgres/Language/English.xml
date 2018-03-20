@@ -2298,7 +2298,7 @@
   </ROW>
   <ROW ID="F308" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
-    <DATA><![CDATA[Stop/Start Monitoring]]></DATA>
+    <DATA><![CDATA[Hold/Start Monitoring]]></DATA>
   </ROW>
   <ROW ID="F309" PARAMS="0">
     <DESC>Connecting Test</DESC>

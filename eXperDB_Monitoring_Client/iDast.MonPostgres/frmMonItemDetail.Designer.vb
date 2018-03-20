@@ -96,7 +96,6 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lslSession = New System.Windows.Forms.Label()
-        Me.btnChartMenu = New eXperDB.BaseControls.Button()
         Me.btnRange = New eXperDB.BaseControls.Button()
         Me.btnQuery = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -576,7 +575,7 @@ Partial Class frmMonItemDetail
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 15)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 16)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -986,28 +985,6 @@ Partial Class frmMonItemDetail
         Me.lslSession.Text = "F313"
         Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'btnChartMenu
-        '
-        Me.btnChartMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnChartMenu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnChartMenu.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnChartMenu.FixedHeight = False
-        Me.btnChartMenu.FixedWidth = False
-        Me.btnChartMenu.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.btnChartMenu.ForeColor = System.Drawing.Color.White
-        Me.btnChartMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnChartMenu.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnChartMenu.Location = New System.Drawing.Point(1187, 14)
-        Me.btnChartMenu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnChartMenu.Name = "btnChartMenu"
-        Me.btnChartMenu.Radius = 5
-        Me.btnChartMenu.Size = New System.Drawing.Size(94, 32)
-        Me.btnChartMenu.TabIndex = 33
-        Me.btnChartMenu.Text = "F270"
-        Me.btnChartMenu.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnChartMenu.UseRound = True
-        Me.btnChartMenu.UseVisualStyleBackColor = True
-        '
         'btnRange
         '
         Me.btnRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1019,7 +996,7 @@ Partial Class frmMonItemDetail
         Me.btnRange.ForeColor = System.Drawing.Color.White
         Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnRange.Location = New System.Drawing.Point(1087, 14)
+        Me.btnRange.Location = New System.Drawing.Point(1187, 14)
         Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnRange.Name = "btnRange"
         Me.btnRange.Radius = 5
@@ -1041,7 +1018,7 @@ Partial Class frmMonItemDetail
         Me.btnQuery.ForeColor = System.Drawing.Color.White
         Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQuery.Location = New System.Drawing.Point(987, 14)
+        Me.btnQuery.Location = New System.Drawing.Point(1087, 14)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Radius = 5
@@ -1066,9 +1043,8 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnQuery, 5, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnRange, 6, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnChartMenu, 7, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnQuery, 6, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnRange, 7, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
@@ -1175,7 +1151,6 @@ Partial Class frmMonItemDetail
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblChart As System.Windows.Forms.Label
     Friend WithEvents dgvSessionList As eXperDB.BaseControls.DataGridView
-    Friend WithEvents btnChartMenu As eXperDB.BaseControls.Button
     Friend WithEvents btnRange As eXperDB.BaseControls.Button
     Friend WithEvents btnQuery As eXperDB.BaseControls.Button
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel

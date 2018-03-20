@@ -151,7 +151,6 @@
         ' Button 
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
         btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
-        btnChartMenu.Text = p_clsMsgData.fn_GetData("F270", "Off")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information
@@ -760,20 +759,6 @@
         End If
     End Sub
 
-    Private Sub btnChartMenu_Click(sender As Object, e As EventArgs) Handles btnChartMenu.Click
-        If _bChartMenu = True Then
-            chtCPU.MenuVisible = False
-            btnChartMenu.Text = p_clsMsgData.fn_GetData("F270", "Off")
-            btnChartMenu.ForeColor = Color.LightGray
-            _bChartMenu = False
-        Else
-            chtCPU.MenuVisible = True
-            btnChartMenu.Text = p_clsMsgData.fn_GetData("F270", "On")
-            btnChartMenu.ForeColor = Color.Lime
-            _bChartMenu = True
-        End If
-    End Sub
-
     Private Sub chtCPU_AnnotationPositionChanged(sender As Object, e As EventArgs)
         Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
         Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
@@ -787,11 +772,11 @@
         SetAreaWithAnnotation()
 
         If chtCPU.MainChart.Annotations(0).X < chtCPU.GetMinimumAxisXChartArea(index) _
-            Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index)  Then
+            Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index) Then
             chtCPU.MainChart.Annotations(0).X = chtCPU.GetMinimumAxisXChartArea(index)
         End If
 
-        If  chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _
+        If chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _
             Or chtCPU.MainChart.Annotations(1).X > chtCPU.GetMaximumAxisXChartArea(index) Then
             chtCPU.MainChart.Annotations(1).X = chtCPU.GetMaximumAxisXChartArea(index)
         End If

@@ -19,6 +19,7 @@ Partial Class frmMonDetail
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
@@ -173,6 +174,7 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.grpCpuMem = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.chtSession, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtSQLRespTm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtLocalIO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2562,5 +2564,6 @@ Partial Class frmMonDetail
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
     Friend WithEvents picLogo As System.Windows.Forms.PictureBox
     Friend WithEvents btnChartDetail As eXperDB.BaseControls.Button
+    Friend WithEvents ttChart As System.Windows.Forms.ToolTip
 
 End Class

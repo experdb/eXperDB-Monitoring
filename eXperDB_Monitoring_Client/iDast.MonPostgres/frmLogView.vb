@@ -158,10 +158,10 @@ Public Class frmLogView
     End Sub
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
 
-        _frmWait = New frmWait
-        _frmWait.TopMost = True
-        _frmWait.StartPosition = FormStartPosition.CenterParent
-        _frmWait.Show(Me)
+        '_frmWait = New frmWait
+        '_frmWait.TopMost = True
+        '_frmWait.StartPosition = FormStartPosition.CenterParent
+        '_frmWait.Show(Me)
 
         dgvLogData.Rows.Clear()
         dgvLogFileList.DataSource = Nothing
@@ -186,9 +186,9 @@ Public Class frmLogView
 
 
     Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
-        If _frmWait IsNot Nothing Then
-            _frmWait.AddText("Data select start")
-        End If
+        'If _frmWait IsNot Nothing Then
+        '    _frmWait.AddText("Data select start")
+        'End If
 
         bckmanual.ReportProgress(100)
 
@@ -202,9 +202,9 @@ Public Class frmLogView
 
     Private Sub bckmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bckmanual.RunWorkerCompleted
         If e.Cancelled = False Then
-            If _frmWait IsNot Nothing Then
-                _frmWait.AddText("Loading log data")
-            End If
+            'If _frmWait IsNot Nothing Then
+            '    _frmWait.AddText("Loading log data")
+            'End If
             If _returnValue IsNot Nothing Then
                 Select Case _returnValue._tran_sub_cd
                     Case "5"
@@ -225,11 +225,9 @@ Public Class frmLogView
             FileTotalSize_lv.Text = Convert.ToSingle(fileSum / 1024) & " MB"
         End If
 
-
-
-        If _frmWait IsNot Nothing Then
-            _frmWait.Close()
-        End If
+        'If _frmWait IsNot Nothing Then
+        '    _frmWait.Close()
+        'End If
 
     End Sub
 
@@ -359,10 +357,10 @@ Public Class frmLogView
     End Function
 
     Private Sub dgvLogFileList_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLogFileList.CellClick
-        _frmWait = New frmWait
-        _frmWait.TopMost = True
-        _frmWait.StartPosition = FormStartPosition.CenterParent
-        _frmWait.Show(Me)
+        '_frmWait = New frmWait
+        '_frmWait.TopMost = True
+        '_frmWait.StartPosition = FormStartPosition.CenterParent
+        '_frmWait.Show(Me)
 
         If e.RowIndex >= 0 Then
             dgvLogData.Rows.Clear()
@@ -381,9 +379,9 @@ Public Class frmLogView
 
     Private Sub btnMore_Click(sender As Object, e As EventArgs) Handles btnMore.Click
         If dgvLogFileList.CurrentRow IsNot Nothing Then
-            _frmWait = New frmWait
-            _frmWait.TopMost = True
-            _frmWait.Show(Me)
+            '_frmWait = New frmWait
+            '_frmWait.TopMost = True
+            '_frmWait.Show(Me)
 
             _AgentObject.SendDX006(Me.InstanceID, "6", "", dgvLogFileList.CurrentRow.Cells(0).Value, _currentOffset, CInt(cboLogReadUnit.SelectedValue))
         End If
