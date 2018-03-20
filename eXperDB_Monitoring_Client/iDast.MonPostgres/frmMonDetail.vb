@@ -1393,8 +1393,22 @@
     Private Sub btnChartDetail_Click(sender As Object, e As EventArgs) Handles btnChartDetail.Click
         Dim stDt As DateTime = Now.AddMinutes(-5)
         Dim edDt As DateTime = Now
+        Dim BretFrm As frmMonItemDetail = Nothing
 
-        Dim frmRpt As New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
-        frmRpt.Show(DirectCast(Me.Owner, frmMonMain))
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmMonItemDetail = TryCast(tmpFrm, frmMonItemDetail)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
+            BretFrm.Show(DirectCast(Me.Owner, frmMonMain))
+        Else
+            BretFrm.Activate()
+        End If
+
     End Sub
 End Class
