@@ -2239,6 +2239,18 @@ Public Class ctlChartEx
 
     End Sub
 
+    Sub SetInnerPlotXPositionChartArea(ByVal AreaIndex As Integer, ByVal intCount As Integer)
+        Dim ChartBorderLeft As Integer = 100 'Pixels on the left
+        Dim ChartBorderRight As Integer = 100 'Pixels on the right
+
+        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.X = CSng(ChartBorderLeft / Me.MainChart.Width) * 100  'Left border 
+        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Width = CSng((Me.MainChart.Width - ChartBorderLeft - ChartBorderRight) / Me.MainChart.Width) * 100
+
+        Me.MainChart.ChartAreas(AreaIndex).Position.X = CSng(0 / Me.MainChart.Width) * 100  'Left border 
+        Me.MainChart.ChartAreas(AreaIndex).Position.Width = CSng((Me.MainChart.Width - 0 - 0) / Me.MainChart.Width) * 100
+    End Sub
+
+
     Private Sub MainChart_CursorPositionChanged(sender As Object, e As CursorEventArgs) Handles MainChart.CursorPositionChanged
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)

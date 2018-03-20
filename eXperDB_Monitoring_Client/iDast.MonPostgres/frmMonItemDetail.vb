@@ -376,7 +376,19 @@
                 nCount += 1
             End If
         Next
+        SetAreaWithAnnotation()
+    End Sub
 
+    Private Sub SetAreaWithAnnotation()
+        If _bRange = True Then
+            Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
+            Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
+            For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
+                If tmpChartArea.Visible = True Then
+                    tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
+                End If
+            Next
+        End If
     End Sub
     'Private Sub ArrangeChartlayout()
     '    Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
@@ -807,11 +819,7 @@
             End If
         Next
 
-        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
-            If tmpChartArea.Visible = True Then
-                tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
-            End If
-        Next
+        SetAreaWithAnnotation()
 
         If chtCPU.MainChart.Annotations(0).X < chtCPU.GetMinimumAxisXChartArea(index) _
             Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index) _
@@ -838,12 +846,7 @@
             End If
         End If
 
-        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
-            If tmpChartArea.Visible = True Then
-                tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
-            End If
-        Next
-
+        SetAreaWithAnnotation()
     End Sub
 
     Private Sub dgvSessionList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellDoubleClick
@@ -909,6 +912,15 @@
                 dtpEd.Value = tempDt
             Else
             End If
+        End If
+    End Sub
+
+    Private Sub frmMonItemDetail_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If _chtCount > 0 Then
+            For i As Integer = 1 To _AreaCount
+                chtCPU.SetInnerPlotXPositionChartArea(i, _chtCount)
+                chtCPU.MainChart.ChartAreas(i).RecalculateAxesScale()
+            Next
         End If
     End Sub
 End Class
