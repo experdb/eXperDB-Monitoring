@@ -204,7 +204,7 @@ Partial Class frmSessionLock
         Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
-        Me.btnExcel.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnExcel.ForeColor = System.Drawing.Color.Yellow
         Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnExcel.Image = CType(resources.GetObject("btnExcel.Image"), System.Drawing.Image)
@@ -225,7 +225,7 @@ Partial Class frmSessionLock
         Me.cmbStatus.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbStatus.FixedWidth = False
-        Me.cmbStatus.Font = New System.Drawing.Font("굴림", 9.065934!)
+        Me.cmbStatus.Font = New System.Drawing.Font("Gulim", 9.065934!)
         Me.cmbStatus.FormattingEnabled = True
         Me.cmbStatus.Items.AddRange(New Object() {"All", "Active", "Idle"})
         Me.cmbStatus.Location = New System.Drawing.Point(902, 15)
@@ -247,7 +247,7 @@ Partial Class frmSessionLock
         Me.dgvSessionList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 9.569597!)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.569597!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
@@ -258,7 +258,7 @@ Partial Class frmSessionLock
         Me.dgvSessionList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvSessionListDB, Me.coldgvSessionListPID, Me.coldgvSessionListCpuUsage, Me.coldgvSessionListStTime, Me.coldgvSessionListElapsedTime, Me.coldgvSessionListStatus, Me.coldgvSessionListUser, Me.coldgvSessionListClient, Me.coldgvSessionListApp, Me.coldgvSessionListRead, Me.coldgvSessionListWrite, Me.coldgvSessionListSQL, Me.colDgvSessionlistRegDate, Me.colDgvSessionListActvRegSeq})
         DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle14.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("굴림", 9.569597!)
+        DataGridViewCellStyle14.Font = New System.Drawing.Font("Gulim", 9.569597!)
         DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black
@@ -267,14 +267,14 @@ Partial Class frmSessionLock
         Me.dgvSessionList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSessionList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvSessionList.EnableHeadersVisualStyles = False
-        Me.dgvSessionList.Font = New System.Drawing.Font("굴림", 9.569597!)
+        Me.dgvSessionList.Font = New System.Drawing.Font("Gulim", 9.569597!)
         Me.dgvSessionList.GridColor = System.Drawing.Color.Gray
         Me.dgvSessionList.Location = New System.Drawing.Point(0, 40)
         Me.dgvSessionList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvSessionList.Name = "dgvSessionList"
         DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -517,7 +517,7 @@ Partial Class frmSessionLock
         Me.dgvLock.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle16.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("굴림", 10.07326!)
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("Gulim", 10.07326!)
         DataGridViewCellStyle16.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.DimGray
@@ -528,7 +528,7 @@ Partial Class frmSessionLock
         Me.dgvLock.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvLockDB, Me.colDgvLockBlockingPID, Me.colDgvLockBlockingUser, Me.colDgvLockBlockingQuery, Me.colDgvLockBlockedPID, Me.colDgvLockBlockedUser, Me.colDgvLockBlockedQuery, Me.colDgvLockMode, Me.colDgvLockElapse, Me.colDgvLockQueryStart, Me.colDgvLockXactStart, Me.colDgvLockRegDate, Me.colDgvLockActvRegSeq})
         DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle28.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("굴림", 10.07326!)
+        DataGridViewCellStyle28.Font = New System.Drawing.Font("Gulim", 10.07326!)
         DataGridViewCellStyle28.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.Black
@@ -537,7 +537,7 @@ Partial Class frmSessionLock
         Me.dgvLock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvLock.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvLock.EnableHeadersVisualStyles = False
-        Me.dgvLock.Font = New System.Drawing.Font("굴림", 10.07326!)
+        Me.dgvLock.Font = New System.Drawing.Font("Gulim", 10.07326!)
         Me.dgvLock.GridColor = System.Drawing.Color.Gray
         Me.dgvLock.ImageList = Nothing
         Me.dgvLock.Location = New System.Drawing.Point(0, 40)
@@ -545,7 +545,7 @@ Partial Class frmSessionLock
         Me.dgvLock.Name = "dgvLock"
         DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle29.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle29.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -561,7 +561,7 @@ Partial Class frmSessionLock
         Me.colDgvLockDB.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockDB.DataPropertyName = "DB_NAME"
         DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle17.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White
@@ -580,7 +580,7 @@ Partial Class frmSessionLock
         Me.colDgvLockBlockingPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockBlockingPID.DataPropertyName = "BLOCKING_PID"
         DataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle18.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White
@@ -598,7 +598,7 @@ Partial Class frmSessionLock
         Me.colDgvLockBlockingUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockBlockingUser.DataPropertyName = "BLOCKING_USER"
         DataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle19.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White
@@ -615,7 +615,7 @@ Partial Class frmSessionLock
         Me.colDgvLockBlockingQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colDgvLockBlockingQuery.DataPropertyName = "BLOCKING_QUERY"
         DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White
@@ -632,7 +632,7 @@ Partial Class frmSessionLock
         Me.colDgvLockBlockedPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockBlockedPID.DataPropertyName = "BLOCKED_PID"
         DataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle21.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.White
@@ -649,7 +649,7 @@ Partial Class frmSessionLock
         Me.colDgvLockBlockedUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.colDgvLockBlockedUser.DataPropertyName = "BLOCKED_USER"
         DataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle22.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White
@@ -665,7 +665,7 @@ Partial Class frmSessionLock
         Me.colDgvLockBlockedQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colDgvLockBlockedQuery.DataPropertyName = "BLOCKED_QUERY"
         DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.White
@@ -682,7 +682,7 @@ Partial Class frmSessionLock
         Me.colDgvLockMode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockMode.DataPropertyName = "LOCK_MODE"
         DataGridViewCellStyle24.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle24.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.White
@@ -699,7 +699,7 @@ Partial Class frmSessionLock
         Me.colDgvLockElapse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockElapse.DataPropertyName = "BLOCKED_DURATION"
         DataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle25.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle25.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.White
@@ -716,7 +716,7 @@ Partial Class frmSessionLock
         Me.colDgvLockQueryStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockQueryStart.DataPropertyName = "QUERY_START"
         DataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle26.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.White
@@ -733,7 +733,7 @@ Partial Class frmSessionLock
         Me.colDgvLockXactStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvLockXactStart.DataPropertyName = "XACT_START"
         DataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle27.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.White

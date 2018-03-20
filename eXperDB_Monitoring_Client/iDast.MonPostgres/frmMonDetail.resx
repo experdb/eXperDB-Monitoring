@@ -591,7 +591,7 @@
   <data name="btnSqlPlan.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAFzUkdCAK7O
-        HOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAAsRAAALEQF/ZF+RAAABbklEQVRYR+2VQU7EIBSG60YT
+        HOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAAsQAAALEAGtI711AAABbklEQVRYR+2VQU7EIBSG60YT
         t4XOzN5juPEEnsQDzGSgR5jFqKfQROMVjIkmXkXHiRvAtL6/pROGIES7ccGX/Cn89L1HgbZFJpPJZEKc
         XDRHTJorvlQfXJp2tCgP5Vsjry0RhwlzHUw0UpiELRGHS7UNJRgvtbEl4rhBTOjb6bzh8Kt5M+FC38Mv
         pb6Z1S2DP6mbikl9Bx99N94XxpO4ASjOl+a16wvz3E2C2ii+86V5wSTQ9uN9dQVSuAFdYirsepB/39D3
@@ -1130,10 +1130,10 @@
         AADoKzbZ5P8B4YRq/66f+iwAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="Button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnChartDetail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAFzUkdCAK7O
-        HOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAAsRAAALEQF/ZF+RAAACMklEQVRIS61Vz0sbURDef0Rt
+        HOkAAAAEZ0FNQQAAsY8L/GEFAAAACXBIWXMAAAsQAAALEAGtI711AAACMklEQVRIS61Vz0sbURDef0Rt
         7T/gqYemiEcLweZWrRLBgx48CKJUEy+lPQh6kB5akF6CIv46qDeDuL1UMRQEq7agLRbWJHb3vQ1UCy3o
         OPMyht34EpO4Ax95zJv5vrdvZl6McpbL5R5JR8aFEBuukBlhO/8JuE6TD/dirus+5PDKDYkbpZDLSHaF
         ZFAOFIOxiyj0gNPLG54qiol/i4kqwIWUsotp9IYBI5rEKiGGmM5vfHJNQvXAg3Yybd7oznGj7LW8NF9D

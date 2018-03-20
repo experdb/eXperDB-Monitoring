@@ -2638,7 +2638,7 @@
   </ROW>
   <ROW ID="M031" PARAMS="1">
     <DESC>선택한 세션을 종료하시겠습니까?</DESC>
-    <DATA><![CDATA[선택한 세션을 종료하시겠습니까?]]></DATA>
+    <DATA><![CDATA[선택한 세션을 종료하시겠습니까? (PID : {0})]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2689,6 +2689,22 @@
   <ROW ID="M037" PARAMS="2">
     <DESC>비밀번호길이</DESC>
     <DATA><![CDATA[비밀번호는 8자 ~ 16자의 영문, 숫자, 특수문자를 사용할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M038" PARAMS="1">
+    <DESC>선택한 쿼리를 취소하시겠습니까?</DESC>
+    <DATA><![CDATA[총 ({0})건의 선택한 쿼리를 취소하시겠습니까?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M039" PARAMS="1">
+    <DESC>선택한 세션을 종료하시겠습니까?</DESC>
+    <DATA><![CDATA[총 ({0})건의 선택한 세션을 종료하시겠습니까?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
