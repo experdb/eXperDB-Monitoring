@@ -17,7 +17,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="COMMITRATIO" PARAMS="0">
-    <DESC>트랜잭션 성공율을 데이터베이스별로 점검합니다. 불필요한 ROLLBACK 트랜잭션을 개선하여 불필요한 자원낭비를\n 해소할 수 있습니다.</DESC>
+    <DESC>트랜잭션 성공율을 데이터베이스별로 점검합니다. 불필요한 ROLLBACK 트랜잭션을 개선하여 불필요한 자원낭비를 해소할 수 있습니다.</DESC>
     <DATA><![CDATA[트랜잭션 성공율]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
@@ -1642,7 +1642,7 @@
   </ROW>
   <ROW ID="F201" PARAMS="1">
     <DESC>HEALTH DETAIL 항목명</DESC>
-    <DATA><![CDATA[● 항목명 : {0}]]></DATA>
+    <DATA><![CDATA[{0}]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

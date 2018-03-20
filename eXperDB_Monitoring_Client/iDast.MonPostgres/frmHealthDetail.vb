@@ -61,8 +61,8 @@
         lblCurTime.Text = p_clsMsgData.fn_GetData("F206", "0000-00-00 00:00:00")
 
         Me.Text = "Health detail"
-        lblSubject.Text = "Health detail"
 
+        btnClose.Text = p_clsMsgData.fn_GetData("F021")
     End Sub
 
     Public Sub AddColumns(ByVal Dgv As BaseControls.DataGridView, ByVal PropNm As String, ByVal Caption As String, ByVal Type As String, ByVal strFormat As String, ByVal intWidth As Integer)
@@ -223,14 +223,6 @@
     End Sub
 
 
-    Private Sub lblitmNm_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub lblDesc_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub frmHealthDetail_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
 
@@ -323,6 +315,15 @@
 
             frmQuery.Show()
         End If
+
+    End Sub
+
+    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+        Me.Close()
+    End Sub
+
+
+    Private Sub frmHealthDetail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class
