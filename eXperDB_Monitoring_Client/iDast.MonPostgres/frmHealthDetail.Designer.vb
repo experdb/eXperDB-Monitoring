@@ -26,68 +26,108 @@ Partial Class frmHealthDetail
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHealthDetail))
         Me.Panel1 = New eXperDB.BaseControls.Panel()
-        Me.Panel2 = New eXperDB.BaseControls.Panel()
-        Me.lblParameter = New eXperDB.BaseControls.Label()
-        Me.dgvinfo = New eXperDB.BaseControls.DataGridView()
-        Me.Label1 = New eXperDB.BaseControls.Label()
-        Me.lblinfo = New eXperDB.BaseControls.Label()
-        Me.lblResult = New eXperDB.BaseControls.Label()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblDesc = New eXperDB.BaseControls.Label()
-        Me.lblitmNm = New eXperDB.BaseControls.Label()
+        Me.lblResult = New eXperDB.BaseControls.Label()
+        Me.lblinfo = New eXperDB.BaseControls.Label()
+        Me.dgvinfo = New eXperDB.BaseControls.DataGridView()
+        Me.lblParameter = New eXperDB.BaseControls.Label()
+        Me.TableLayoutPanel5 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.btnClose = New eXperDB.BaseControls.Button()
         Me.lblCurTime = New eXperDB.BaseControls.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblSubject = New System.Windows.Forms.Label()
+        Me.lblitmNm = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.dgvinfo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel5.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Black
-        Me.Panel1.Controls.Add(Me.Panel2)
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel1)
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel5)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 54)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(704, 620)
+        Me.Panel1.Size = New System.Drawing.Size(704, 443)
         Me.Panel1.TabIndex = 0
         '
-        'Panel2
+        'TableLayoutPanel1
         '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Panel2.Controls.Add(Me.lblParameter)
-        Me.Panel2.Controls.Add(Me.dgvinfo)
-        Me.Panel2.Controls.Add(Me.Label1)
-        Me.Panel2.Controls.Add(Me.lblinfo)
-        Me.Panel2.Controls.Add(Me.lblResult)
-        Me.Panel2.Controls.Add(Me.lblDesc)
-        Me.Panel2.Controls.Add(Me.lblitmNm)
-        Me.Panel2.Controls.Add(Me.lblCurTime)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Padding = New System.Windows.Forms.Padding(11, 12, 11, 12)
-        Me.Panel2.Size = New System.Drawing.Size(704, 620)
-        Me.Panel2.TabIndex = 2
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.lblDesc, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblResult, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblinfo, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.dgvinfo, 1, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblParameter, 1, 5)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 7
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(704, 398)
+        Me.TableLayoutPanel1.TabIndex = 4
         '
-        'lblParameter
+        'lblDesc
         '
-        Me.lblParameter.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblParameter.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblParameter.FixedHeight = False
-        Me.lblParameter.FixedWidth = False
-        Me.lblParameter.ForeColor = System.Drawing.Color.White
-        Me.lblParameter.Location = New System.Drawing.Point(11, 583)
-        Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
-        Me.lblParameter.Name = "lblParameter"
-        Me.lblParameter.Size = New System.Drawing.Size(682, 25)
-        Me.lblParameter.TabIndex = 8
-        Me.lblParameter.Text = "F205"
-        Me.lblParameter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblDesc.AutoSizeHeight = True
+        Me.lblDesc.BackColor = System.Drawing.Color.Gray
+        Me.lblDesc.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblDesc.FixedHeight = False
+        Me.lblDesc.FixedWidth = False
+        Me.lblDesc.ForeColor = System.Drawing.Color.White
+        Me.lblDesc.Location = New System.Drawing.Point(23, 20)
+        Me.lblDesc.MinimumSize = New System.Drawing.Size(0, 25)
+        Me.lblDesc.Name = "lblDesc"
+        Me.lblDesc.Size = New System.Drawing.Size(658, 40)
+        Me.lblDesc.TabIndex = 3
+        Me.lblDesc.Text = "F202"
+        Me.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblResult
+        '
+        Me.lblResult.BackColor = System.Drawing.Color.Gray
+        Me.lblResult.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblResult.FixedHeight = False
+        Me.lblResult.FixedWidth = False
+        Me.lblResult.ForeColor = System.Drawing.Color.White
+        Me.lblResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblResult.Location = New System.Drawing.Point(23, 60)
+        Me.lblResult.Name = "lblResult"
+        Me.lblResult.Size = New System.Drawing.Size(658, 40)
+        Me.lblResult.TabIndex = 4
+        Me.lblResult.Text = "F203"
+        Me.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblinfo
+        '
+        Me.lblinfo.AutoSizeHeight = True
+        Me.lblinfo.BackColor = System.Drawing.Color.Gray
+        Me.lblinfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblinfo.FixedHeight = False
+        Me.lblinfo.FixedWidth = False
+        Me.lblinfo.ForeColor = System.Drawing.Color.White
+        Me.lblinfo.Location = New System.Drawing.Point(23, 100)
+        Me.lblinfo.Name = "lblinfo"
+        Me.lblinfo.Size = New System.Drawing.Size(658, 40)
+        Me.lblinfo.TabIndex = 6
+        Me.lblinfo.Text = "F204"
+        Me.lblinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'dgvinfo
         '
@@ -95,7 +135,8 @@ Partial Class frmHealthDetail
         Me.dgvinfo.AllowUserToDeleteRows = False
         Me.dgvinfo.AllowUserToOrderColumns = True
         Me.dgvinfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvinfo.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvinfo.BackgroundColor = System.Drawing.Color.Gray
+        Me.dgvinfo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
@@ -119,104 +160,81 @@ Partial Class frmHealthDetail
         Me.dgvinfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvinfo.EnableHeadersVisualStyles = False
         Me.dgvinfo.GridColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.dgvinfo.Location = New System.Drawing.Point(11, 144)
+        Me.dgvinfo.Location = New System.Drawing.Point(23, 144)
         Me.dgvinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvinfo.Name = "dgvinfo"
         Me.dgvinfo.RowHeadersVisible = False
         Me.dgvinfo.RowTemplate.Height = 23
         Me.dgvinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvinfo.Size = New System.Drawing.Size(682, 464)
+        Me.dgvinfo.Size = New System.Drawing.Size(658, 190)
         Me.dgvinfo.TabIndex = 7
         Me.dgvinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvinfo.UseTagValueMatchColor = False
         '
-        'Label1
+        'lblParameter
         '
-        Me.Label1.AutoSizeHeight = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Label1.FixedHeight = False
-        Me.Label1.FixedWidth = False
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(11, 126)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(682, 18)
-        Me.Label1.TabIndex = 9
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblParameter.BackColor = System.Drawing.Color.Gray
+        Me.lblParameter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblParameter.FixedHeight = False
+        Me.lblParameter.FixedWidth = False
+        Me.lblParameter.ForeColor = System.Drawing.Color.White
+        Me.lblParameter.Location = New System.Drawing.Point(23, 338)
+        Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
+        Me.lblParameter.Name = "lblParameter"
+        Me.lblParameter.Size = New System.Drawing.Size(658, 40)
+        Me.lblParameter.TabIndex = 8
+        Me.lblParameter.Text = "F205"
+        Me.lblParameter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'lblinfo
+        'TableLayoutPanel5
         '
-        Me.lblinfo.AutoSizeHeight = True
-        Me.lblinfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblinfo.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblinfo.FixedHeight = False
-        Me.lblinfo.FixedWidth = False
-        Me.lblinfo.ForeColor = System.Drawing.Color.White
-        Me.lblinfo.Location = New System.Drawing.Point(11, 112)
-        Me.lblinfo.Name = "lblinfo"
-        Me.lblinfo.Size = New System.Drawing.Size(682, 14)
-        Me.lblinfo.TabIndex = 6
-        Me.lblinfo.Text = "F204"
-        Me.lblinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel5.ColumnCount = 3
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.btnClose, 1, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 398)
+        Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(704, 45)
+        Me.TableLayoutPanel5.TabIndex = 3
         '
-        'lblResult
+        'btnClose
         '
-        Me.lblResult.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblResult.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblResult.FixedHeight = False
-        Me.lblResult.FixedWidth = False
-        Me.lblResult.ForeColor = System.Drawing.Color.White
-        Me.lblResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblResult.Location = New System.Drawing.Point(11, 87)
-        Me.lblResult.Name = "lblResult"
-        Me.lblResult.Size = New System.Drawing.Size(682, 25)
-        Me.lblResult.TabIndex = 4
-        Me.lblResult.Text = "F203"
-        Me.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblDesc
-        '
-        Me.lblDesc.AutoSizeHeight = True
-        Me.lblDesc.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblDesc.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblDesc.FixedHeight = False
-        Me.lblDesc.FixedWidth = False
-        Me.lblDesc.ForeColor = System.Drawing.Color.White
-        Me.lblDesc.Location = New System.Drawing.Point(11, 62)
-        Me.lblDesc.MinimumSize = New System.Drawing.Size(0, 25)
-        Me.lblDesc.Name = "lblDesc"
-        Me.lblDesc.Size = New System.Drawing.Size(682, 25)
-        Me.lblDesc.TabIndex = 3
-        Me.lblDesc.Text = "F202"
-        Me.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblitmNm
-        '
-        Me.lblitmNm.AutoSizeHeight = True
-        Me.lblitmNm.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblitmNm.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblitmNm.FixedHeight = False
-        Me.lblitmNm.FixedWidth = False
-        Me.lblitmNm.ForeColor = System.Drawing.Color.White
-        Me.lblitmNm.Location = New System.Drawing.Point(11, 37)
-        Me.lblitmNm.MinimumSize = New System.Drawing.Size(0, 25)
-        Me.lblitmNm.Name = "lblitmNm"
-        Me.lblitmNm.Size = New System.Drawing.Size(682, 25)
-        Me.lblitmNm.TabIndex = 0
-        Me.lblitmNm.Text = "F201"
-        Me.lblitmNm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClose.FixedHeight = False
+        Me.btnClose.FixedWidth = False
+        Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.ForeColor = System.Drawing.Color.White
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.Location = New System.Drawing.Point(295, 3)
+        Me.btnClose.Name = "btnClose"
+        Me.btnClose.Radius = 10
+        Me.btnClose.Size = New System.Drawing.Size(114, 39)
+        Me.btnClose.TabIndex = 3
+        Me.btnClose.Text = "F004"
+        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnClose.UseRound = True
+        Me.btnClose.UseVisualStyleBackColor = True
         '
         'lblCurTime
         '
         Me.lblCurTime.AutoSizeHeight = True
         Me.lblCurTime.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblCurTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblCurTime.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblCurTime.FixedHeight = False
         Me.lblCurTime.FixedWidth = False
         Me.lblCurTime.ForeColor = System.Drawing.Color.White
-        Me.lblCurTime.Location = New System.Drawing.Point(11, 12)
+        Me.lblCurTime.Location = New System.Drawing.Point(451, 0)
         Me.lblCurTime.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblCurTime.Name = "lblCurTime"
-        Me.lblCurTime.Size = New System.Drawing.Size(682, 25)
+        Me.lblCurTime.Size = New System.Drawing.Size(250, 50)
         Me.lblCurTime.TabIndex = 0
         Me.lblCurTime.Text = "F206"
         Me.lblCurTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -224,10 +242,12 @@ Partial Class frmHealthDetail
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSubject, 1, 0)
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.53846!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.46154!))
+        Me.TableLayoutPanel2.Controls.Add(Me.lblCurTime, 2, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblitmNm, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label2, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 4)
@@ -237,19 +257,19 @@ Partial Class frmHealthDetail
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(704, 50)
         Me.TableLayoutPanel2.TabIndex = 17
         '
-        'lblSubject
+        'lblitmNm
         '
-        Me.lblSubject.AutoSize = True
-        Me.lblSubject.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSubject.ForeColor = System.Drawing.Color.White
-        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSubject.Location = New System.Drawing.Point(43, 0)
-        Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(658, 50)
-        Me.lblSubject.TabIndex = 0
-        Me.lblSubject.Text = "Text"
-        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblitmNm.AutoSize = True
+        Me.lblitmNm.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblitmNm.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblitmNm.ForeColor = System.Drawing.Color.White
+        Me.lblitmNm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblitmNm.Location = New System.Drawing.Point(43, 0)
+        Me.lblitmNm.Name = "lblitmNm"
+        Me.lblitmNm.Size = New System.Drawing.Size(402, 50)
+        Me.lblitmNm.TabIndex = 0
+        Me.lblitmNm.Text = "F201"
+        Me.lblitmNm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label2
         '
@@ -267,35 +287,37 @@ Partial Class frmHealthDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(710, 678)
+        Me.ClientSize = New System.Drawing.Size(710, 501)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.TableLayoutPanel2)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmHealthDetail"
         Me.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmHealthDetail"
         Me.Panel1.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
         CType(Me.dgvinfo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents Panel1 As eXperDB.BaseControls.Panel
-    Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
     Friend WithEvents lblParameter As eXperDB.BaseControls.Label
     Friend WithEvents dgvinfo As eXperDB.BaseControls.DataGridView
-    Friend WithEvents Label1 As eXperDB.BaseControls.Label
     Friend WithEvents lblinfo As eXperDB.BaseControls.Label
     Friend WithEvents lblResult As eXperDB.BaseControls.Label
     Friend WithEvents lblDesc As eXperDB.BaseControls.Label
-    Friend WithEvents lblitmNm As eXperDB.BaseControls.Label
     Friend WithEvents lblCurTime As eXperDB.BaseControls.Label
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents lblSubject As System.Windows.Forms.Label
+    Friend WithEvents lblitmNm As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel5 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents btnClose As eXperDB.BaseControls.Button
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
 End Class

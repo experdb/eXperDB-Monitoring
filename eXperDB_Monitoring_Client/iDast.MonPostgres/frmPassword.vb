@@ -12,7 +12,7 @@
         btnOK.Text = p_clsMsgData.fn_GetData("F005")
 
 
-        modCommon.FontChange(Me, p_Font)
+        'modCommon.FontChange(Me, p_Font)
 
     End Sub
 

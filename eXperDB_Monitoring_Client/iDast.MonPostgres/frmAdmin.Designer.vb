@@ -562,7 +562,7 @@ Partial Class frmAdmin
         Me.btnClose.Radius = 10
         Me.btnClose.Size = New System.Drawing.Size(110, 38)
         Me.btnClose.TabIndex = 1
-        Me.btnClose.Text = "F004"
+        Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnClose.UseRound = True
         Me.btnClose.UseVisualStyleBackColor = True
