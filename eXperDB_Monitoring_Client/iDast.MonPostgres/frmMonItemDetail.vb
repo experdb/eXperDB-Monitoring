@@ -807,6 +807,12 @@
             End If
         Next
 
+        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
+            If tmpChartArea.Visible = True Then
+                tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
+            End If
+        Next
+
         If chtCPU.MainChart.Annotations(0).X < chtCPU.GetMinimumAxisXChartArea(index) _
             Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index) _
             Or chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _

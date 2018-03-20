@@ -1363,7 +1363,7 @@
                 index = 1
             Case "chtLocalIO"
                 index = 2
-            Case "chtPhysicalIO"
+            Case "chtPhysicaliO"
                 index = 3
             Case "chtSQLRespTm"
                 index = 4
