@@ -2224,8 +2224,8 @@ Public Class ctlChartEx
     Sub SetInnerPlotPositionChartArea(ByVal AreaIndex As Integer, ByVal intCount As Integer)
         Dim ChartBorderLeft As Integer = 100 'Pixels on the left
         Dim ChartBorderRight As Integer = 100 'Pixels on the right
-        Dim ChartBorderTop As Integer = 50 * intCount 'Pixels on the top
-        Dim ChartBorderBottom As Integer = 50 * intCount 'Pixels on the bottom
+        Dim ChartBorderTop As Integer = 100 * intCount 'Pixels on the top
+        Dim ChartBorderBottom As Integer = 120 * intCount 'Pixels on the bottom
 
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.X = CSng(ChartBorderLeft / Me.MainChart.Width) * 100  'Left border 
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Y = CSng(ChartBorderTop / Me.MainChart.Height) * 100  'Top Border

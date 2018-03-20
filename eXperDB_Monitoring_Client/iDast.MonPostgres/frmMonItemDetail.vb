@@ -10,6 +10,7 @@
     Private _clsQuery As clsQuerys
     Private _bChartMenu As Boolean = False
     Private _bRange As Boolean = False
+    Private _annotationIndex As Integer = -1
 
     Private _ThreadDetail As Threading.Thread
 
@@ -121,7 +122,7 @@
             Next
         End If
 
-        _chtCount = 1
+        '_chtCount = 1
         chtCPU.MainChart.Focus()
         SetDataSession(dtpSt.Value, dtpEd.Value)
         BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
@@ -330,10 +331,20 @@
             _chtCount -= 1
         End If
 
-        'chtCPU.Height = _chtHeight * _chtCount
+        If _chtCount <= 0 Then
+            CheckBox.Checked = True
+            Return
+        End If
         chtCPU.Height = 2000 'fix Height of Chart
-        'this.chartTracking.Focus();
         chtCPU.MainChart.Focus()
+
+        If CheckBox.Checked = False Then
+            If _annotationIndex = CheckBox.Tag + 1 Then
+                fn_DeleteAnnotaion()
+                SetDataSession(dtpSt.Value, dtpEd.Value)
+            End If
+        End If
+
         QueryChartData(CheckBox.Tag + 1, CheckBox.Checked)
     End Sub
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
@@ -361,9 +372,9 @@
         Dim MarginTop As Integer = 0
         Dim MarginBottom As Integer = 0
         Dim AreaHeight As Integer = (100 / 5)
-        MarginTop = AreaHeight * 0.2
-        AreaHeight = AreaHeight * 0.6
-        MarginBottom = AreaHeight * 0.2
+        MarginTop = AreaHeight * 0.18
+        AreaHeight = AreaHeight * 0.65
+        MarginBottom = AreaHeight * 0.17
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
@@ -664,16 +675,29 @@
                                                 chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
                                                 chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
 
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                    Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
-                                                    For j As Integer = 0 To arrPartition.Count - 1
-                                                        If strSeries = arrPartition.Item(j) Then
-                                                            Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
-                                                            Exit For
-                                                        End If
+                                                If dtTable.Rows.Count > 0 Then
+                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                        Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
+                                                        Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
+                                                        For j As Integer = 0 To arrPartition.Count - 1
+                                                            If strSeries = arrPartition.Item(j) Then
+                                                                Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
+                                                                Exit For
+                                                            End If
+                                                        Next
                                                     Next
-                                                Next
+                                                Else
+                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                        Dim tmpDate As Double = ConvOADate(Now())
+                                                        Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
+                                                        For j As Integer = 0 To arrPartition.Count - 1
+                                                            If strSeries = arrPartition.Item(j) Then
+                                                                Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
+                                                                Exit For
+                                                            End If
+                                                        Next
+                                                    Next
+                                                End If
                                                 Me.chtCPU.ShowMaxValue(True)
                                                 chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
                                             Catch ex As Exception
@@ -707,6 +731,10 @@
     End Sub
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
+        If _bRange = True Then
+            fn_DeleteAnnotaion()
+        End If
+
         For i As Integer = 1 To _AreaCount
             If chtCPU.MainChart.ChartAreas(i).Visible = True Then
                 QueryChartData(i, True)
@@ -717,80 +745,17 @@
 
     Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
         If _bRange = True Then
-
-            RemoveHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
-            RemoveHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
-
-            chtCPU.MainChart.Annotations(0).Visible = False
-            chtCPU.MainChart.Annotations(1).Visible = False
-
-            For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
-                If tmpChartArea.Visible = True Then
-                    tmpChartArea.CursorX.SetSelectionPosition(-1, -1)
-                End If
-            Next
-
+            fn_DeleteAnnotaion()
             SetDataSession(dtpSt.Value, dtpEd.Value)
-
-            btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
-            btnRange.ForeColor = Color.LightGray
-            _bRange = False
         Else
             Dim index As Integer
-            Dim dblRangeMax As Double = 0
-            Dim dblRangeMin As Double = 0
-            Dim dblXResolution As Double = 0.00003471
             For index = 1 To _AreaCount
                 If chtCPU.MainChart.ChartAreas(index).Visible = True Then
                     Exit For
                 End If
             Next
-
-            Dim stVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
-            Dim edVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
-            Dim stRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(2)
-            Dim edRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(3)
-
-            stVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
-            stVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
-            stVerticalAnnotation.X = chtCPU.GetMinimumAxisXChartArea(index)
-            stVerticalAnnotation.Visible = True
-            stVerticalAnnotation.AllowMoving = True
-            stVerticalAnnotation.IsInfinitive = True
-            'defVerticalAnnotation.ClipToChartArea = ChartArea1.Name
-            stVerticalAnnotation.Name = "StartTime"
-            stVerticalAnnotation.AnchorY = 200
-            stVerticalAnnotation.ToolTip = "StartTime"
-            stVerticalAnnotation.AllowTextEditing = True
-
-            'stRectAnnotation.AxisX = stVerticalAnnotation.AxisX
-            'stRectAnnotation.AxisY = stVerticalAnnotation.AxisY
-            'stRectAnnotation.IsSizeAlwaysRelative = False
-            'stRectAnnotation.Width = dblXResolution * 20
-            'stRectAnnotation.Height = 1 * 2
-            'stRectAnnotation.Name = "StartTimeText"
-            'stRectAnnotation.LineColor = Color.Red
-            'stRectAnnotation.BackColor = Color.Red
-            'stRectAnnotation.Y = stVerticalAnnotation.Y
-            'stRectAnnotation.X = chtCPU.MainChart.Series(0).Points(chtCPU.MainChart.Series(0).Points.Count / 2).XValue
-            'stRectAnnotation.Text = "StartTime"
-
-            edVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
-            edVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
-            edVerticalAnnotation.X = chtCPU.GetMaximumAxisXChartArea(index)
-            edVerticalAnnotation.Visible = True
-            edVerticalAnnotation.AllowMoving = True
-            edVerticalAnnotation.IsInfinitive = True
-            'defVerticalAnnotation.ClipToChartArea = ChartArea1.Name
-            edVerticalAnnotation.Name = "EndTime"
-            edVerticalAnnotation.AnchorY = 200
-            edVerticalAnnotation.ToolTip = "EndTime"
-
-            AddHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
-            AddHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
-
-            btnRange.Text = p_clsMsgData.fn_GetData("F269", "On")
-            btnRange.ForeColor = Color.Lime
+            fn_MakeAnnotation(index)
+            _annotationIndex = index
             _bRange = True
         End If
     End Sub
@@ -822,12 +787,15 @@
         SetAreaWithAnnotation()
 
         If chtCPU.MainChart.Annotations(0).X < chtCPU.GetMinimumAxisXChartArea(index) _
-            Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index) _
-            Or chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _
-            Or chtCPU.MainChart.Annotations(1).X > chtCPU.GetMaximumAxisXChartArea(index) Then
+            Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index)  Then
             chtCPU.MainChart.Annotations(0).X = chtCPU.GetMinimumAxisXChartArea(index)
+        End If
+
+        If  chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _
+            Or chtCPU.MainChart.Annotations(1).X > chtCPU.GetMaximumAxisXChartArea(index) Then
             chtCPU.MainChart.Annotations(1).X = chtCPU.GetMaximumAxisXChartArea(index)
         End If
+
         SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
     End Sub
 
@@ -914,6 +882,59 @@
             End If
         End If
     End Sub
+
+    Private Sub fn_MakeAnnotation(ByVal index As Integer)
+        Dim stVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
+        Dim edVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
+        Dim stRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(2)
+        Dim edRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(3)
+
+        stVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
+        stVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
+        stVerticalAnnotation.X = chtCPU.GetMinimumAxisXChartArea(index)
+        stVerticalAnnotation.Visible = True
+        stVerticalAnnotation.AllowMoving = True
+        stVerticalAnnotation.IsInfinitive = True
+        stVerticalAnnotation.Name = "StartTime"
+        stVerticalAnnotation.AnchorY = 200
+        stVerticalAnnotation.ToolTip = "StartTime"
+        stVerticalAnnotation.AllowTextEditing = True
+
+        edVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
+        edVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
+        edVerticalAnnotation.X = chtCPU.GetMaximumAxisXChartArea(index)
+        edVerticalAnnotation.Visible = True
+        edVerticalAnnotation.AllowMoving = True
+        edVerticalAnnotation.IsInfinitive = True
+        edVerticalAnnotation.Name = "EndTime"
+        edVerticalAnnotation.AnchorY = 200
+        edVerticalAnnotation.ToolTip = "EndTime"
+
+        AddHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
+        AddHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
+
+        btnRange.Text = p_clsMsgData.fn_GetData("F269", "On")
+        btnRange.ForeColor = Color.Lime
+    End Sub
+
+    Private Sub fn_DeleteAnnotaion()
+        RemoveHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
+        RemoveHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
+
+        chtCPU.MainChart.Annotations(0).Visible = False
+        chtCPU.MainChart.Annotations(1).Visible = False
+
+        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
+            If tmpChartArea.Visible = True Then
+                tmpChartArea.CursorX.SetSelectionPosition(-1, -1)
+            End If
+        Next
+
+        btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
+        btnRange.ForeColor = Color.LightGray
+        _bRange = False
+    End Sub
+
 
     Private Sub frmMonItemDetail_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         If _chtCount > 0 Then
