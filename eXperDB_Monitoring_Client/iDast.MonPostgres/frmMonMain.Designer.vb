@@ -21,57 +21,57 @@ Partial Class frmMonMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim Areaitem1 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim Areaitem2 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim Areaitem3 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim Areaitem4 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim RaiderRangeitem1 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
-        Dim RaiderRangeitem2 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
-        Dim RaiderRangeitem3 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim Areaitem5 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim Areaitem6 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim Areaitem7 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim Areaitem8 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
-        Dim RaiderRangeitem4 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
-        Dim RaiderRangeitem5 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
-        Dim RaiderRangeitem6 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim Areaitem33 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim Areaitem34 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim Areaitem35 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim Areaitem36 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim RaiderRangeitem25 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
+        Dim RaiderRangeitem26 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
+        Dim RaiderRangeitem27 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
+        Dim DataGridViewCellStyle113 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle116 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle114 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle115 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim Areaitem37 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim Areaitem38 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim Areaitem39 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim Areaitem40 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
+        Dim RaiderRangeitem28 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
+        Dim RaiderRangeitem29 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
+        Dim RaiderRangeitem30 As eXperDB.Controls.RaiderRangeitem = New eXperDB.Controls.RaiderRangeitem()
+        Dim DataGridViewCellStyle117 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle120 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle118 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle119 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle121 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle123 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle122 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle124 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle127 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle125 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle126 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle128 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle134 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle129 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle130 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle131 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle132 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle133 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea9 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend13 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Legend14 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series17 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series18 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series19 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series20 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea10 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend15 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim DataGridViewCellStyle135 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle136 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle139 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle140 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle137 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle138 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Me.tlpHealth = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgtNumC = New eXperDB.Controls.DigitalNumber()
@@ -340,7 +340,7 @@ Partial Class frmMonMain
         Me.flpInstance.Location = New System.Drawing.Point(0, 25)
         Me.flpInstance.Margin = New System.Windows.Forms.Padding(0)
         Me.flpInstance.Name = "flpInstance"
-        Me.flpInstance.Size = New System.Drawing.Size(207, 410)
+        Me.flpInstance.Size = New System.Drawing.Size(207, 741)
         Me.flpInstance.TabIndex = 0
         '
         'tlpCPU
@@ -357,7 +357,7 @@ Partial Class frmMonMain
         Me.tlpCPU.Name = "tlpCPU"
         Me.tlpCPU.RowCount = 1
         Me.tlpCPU.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpCPU.Size = New System.Drawing.Size(419, 177)
+        Me.tlpCPU.Size = New System.Drawing.Size(674, 310)
         Me.tlpCPU.TabIndex = 7
         '
         'radCpu
@@ -366,51 +366,51 @@ Partial Class frmMonMain
         Me.radCpu.AniColorOut = System.Drawing.Color.White
         Me.radCpu.AniOpacityIn = 128
         Me.radCpu.AniOpacityOut = 0
-        Areaitem1.ColorGraIn = System.Drawing.Color.Black
-        Areaitem1.ColorGraOut = System.Drawing.Color.Black
-        Areaitem1.ColorGraUse = False
-        Areaitem1.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem1.LineOpacity = 128
-        Areaitem1.LinePattern = New Single() {10.0!, 10.0!}
-        Areaitem1.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
-        Areaitem1.LineWidth = 2
-        Areaitem1.OpacityIn = 128
-        Areaitem1.OpacityOut = 128
-        Areaitem1.Value = 100
-        Areaitem2.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem2.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem2.ColorGraUse = False
-        Areaitem2.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem2.LineOpacity = 128
-        Areaitem2.LinePattern = New Single() {3.0!, 3.0!}
-        Areaitem2.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Areaitem2.LineWidth = 1
-        Areaitem2.OpacityIn = 128
-        Areaitem2.OpacityOut = 128
-        Areaitem2.Value = 75
-        Areaitem3.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem3.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem3.ColorGraUse = False
-        Areaitem3.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem3.LineOpacity = 128
-        Areaitem3.LinePattern = New Single() {10.0!, 10.0!}
-        Areaitem3.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
-        Areaitem3.LineWidth = 1
-        Areaitem3.OpacityIn = 128
-        Areaitem3.OpacityOut = 128
-        Areaitem3.Value = 50
-        Areaitem4.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem4.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem4.ColorGraUse = False
-        Areaitem4.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem4.LineOpacity = 128
-        Areaitem4.LinePattern = New Single() {3.0!, 3.0!}
-        Areaitem4.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Areaitem4.LineWidth = 1
-        Areaitem4.OpacityIn = 128
-        Areaitem4.OpacityOut = 128
-        Areaitem4.Value = 25
-        Me.radCpu.Areas.AddRange(New eXperDB.Controls.Areaitem() {Areaitem1, Areaitem2, Areaitem3, Areaitem4})
+        Areaitem33.ColorGraIn = System.Drawing.Color.Black
+        Areaitem33.ColorGraOut = System.Drawing.Color.Black
+        Areaitem33.ColorGraUse = False
+        Areaitem33.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem33.LineOpacity = 128
+        Areaitem33.LinePattern = New Single() {10.0!, 10.0!}
+        Areaitem33.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
+        Areaitem33.LineWidth = 2
+        Areaitem33.OpacityIn = 128
+        Areaitem33.OpacityOut = 128
+        Areaitem33.Value = 100
+        Areaitem34.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem34.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem34.ColorGraUse = False
+        Areaitem34.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem34.LineOpacity = 128
+        Areaitem34.LinePattern = New Single() {3.0!, 3.0!}
+        Areaitem34.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Areaitem34.LineWidth = 1
+        Areaitem34.OpacityIn = 128
+        Areaitem34.OpacityOut = 128
+        Areaitem34.Value = 75
+        Areaitem35.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem35.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem35.ColorGraUse = False
+        Areaitem35.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem35.LineOpacity = 128
+        Areaitem35.LinePattern = New Single() {10.0!, 10.0!}
+        Areaitem35.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
+        Areaitem35.LineWidth = 1
+        Areaitem35.OpacityIn = 128
+        Areaitem35.OpacityOut = 128
+        Areaitem35.Value = 50
+        Areaitem36.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem36.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem36.ColorGraUse = False
+        Areaitem36.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem36.LineOpacity = 128
+        Areaitem36.LinePattern = New Single() {3.0!, 3.0!}
+        Areaitem36.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Areaitem36.LineWidth = 1
+        Areaitem36.OpacityIn = 128
+        Areaitem36.OpacityOut = 128
+        Areaitem36.Value = 25
+        Me.radCpu.Areas.AddRange(New eXperDB.Controls.Areaitem() {Areaitem33, Areaitem34, Areaitem35, Areaitem36})
         Me.radCpu.BackColor = System.Drawing.Color.Black
         Me.radCpu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.radCpu.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -422,31 +422,31 @@ Partial Class frmMonMain
         Me.radCpu.LinePenStyle = System.Drawing.Drawing2D.DashStyle.DashDot
         Me.radCpu.Location = New System.Drawing.Point(3, 3)
         Me.radCpu.Name = "radCpu"
-        RaiderRangeitem1.EndValue = 60.0!
-        RaiderRangeitem1.GraColorin = System.Drawing.Color.Lime
-        RaiderRangeitem1.GraColorOut = System.Drawing.Color.Lime
-        RaiderRangeitem1.Name = "RaiderGauge1"
-        RaiderRangeitem1.OpacityIn = 128
-        RaiderRangeitem1.OpacityOut = 225
-        RaiderRangeitem1.StartValue = 0.0!
-        RaiderRangeitem2.EndValue = 90.0!
-        RaiderRangeitem2.GraColorin = System.Drawing.Color.Orange
-        RaiderRangeitem2.GraColorOut = System.Drawing.Color.Orange
-        RaiderRangeitem2.Name = "RaiderGauge2"
-        RaiderRangeitem2.OpacityIn = 128
-        RaiderRangeitem2.OpacityOut = 225
-        RaiderRangeitem2.StartValue = 60.0!
-        RaiderRangeitem3.EndValue = 100.0!
-        RaiderRangeitem3.GraColorin = System.Drawing.Color.Red
-        RaiderRangeitem3.GraColorOut = System.Drawing.Color.Red
-        RaiderRangeitem3.Name = "RaiderGauge3"
-        RaiderRangeitem3.OpacityIn = 128
-        RaiderRangeitem3.OpacityOut = 225
-        RaiderRangeitem3.StartValue = 90.0!
-        Me.radCpu.Ranges.Add(RaiderRangeitem1)
-        Me.radCpu.Ranges.Add(RaiderRangeitem2)
-        Me.radCpu.Ranges.Add(RaiderRangeitem3)
-        Me.radCpu.Size = New System.Drawing.Size(224, 171)
+        RaiderRangeitem25.EndValue = 60.0!
+        RaiderRangeitem25.GraColorin = System.Drawing.Color.Lime
+        RaiderRangeitem25.GraColorOut = System.Drawing.Color.Lime
+        RaiderRangeitem25.Name = "RaiderGauge1"
+        RaiderRangeitem25.OpacityIn = 128
+        RaiderRangeitem25.OpacityOut = 225
+        RaiderRangeitem25.StartValue = 0.0!
+        RaiderRangeitem26.EndValue = 90.0!
+        RaiderRangeitem26.GraColorin = System.Drawing.Color.Orange
+        RaiderRangeitem26.GraColorOut = System.Drawing.Color.Orange
+        RaiderRangeitem26.Name = "RaiderGauge2"
+        RaiderRangeitem26.OpacityIn = 128
+        RaiderRangeitem26.OpacityOut = 225
+        RaiderRangeitem26.StartValue = 60.0!
+        RaiderRangeitem27.EndValue = 100.0!
+        RaiderRangeitem27.GraColorin = System.Drawing.Color.Red
+        RaiderRangeitem27.GraColorOut = System.Drawing.Color.Red
+        RaiderRangeitem27.Name = "RaiderGauge3"
+        RaiderRangeitem27.OpacityIn = 128
+        RaiderRangeitem27.OpacityOut = 225
+        RaiderRangeitem27.StartValue = 90.0!
+        Me.radCpu.Ranges.Add(RaiderRangeitem25)
+        Me.radCpu.Ranges.Add(RaiderRangeitem26)
+        Me.radCpu.Ranges.Add(RaiderRangeitem27)
+        Me.radCpu.Size = New System.Drawing.Size(364, 304)
         Me.radCpu.SpinIncreageDegree = 3.6!
         Me.radCpu.Spininterval = 3000
         Me.radCpu.Style = eXperDB.Controls.Raider.RaiderStyle.CircleChart
@@ -467,38 +467,38 @@ Partial Class frmMonMain
         Me.dgvGrpCpuSvrLst.BackgroundColor = System.Drawing.Color.Black
         Me.dgvGrpCpuSvrLst.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvGrpCpuSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGrpCpuSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle113.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle113.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle113.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle113.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle113.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle113.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle113.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGrpCpuSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle113
         Me.dgvGrpCpuSvrLst.ColumnHeadersHeight = 25
         Me.dgvGrpCpuSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvGrpCpuSvrLst.ColumnHeadersVisible = False
         Me.dgvGrpCpuSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colGrpCpuSvrID, Me.colGrpCpuSvrNm, Me.colGrpCpuSvrUsage, Me.colGrpCpuSvrProg})
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGrpCpuSvrLst.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle116.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle116.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle116.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle116.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle116.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle116.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle116.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGrpCpuSvrLst.DefaultCellStyle = DataGridViewCellStyle116
         Me.dgvGrpCpuSvrLst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGrpCpuSvrLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvGrpCpuSvrLst.EnableHeadersVisualStyles = False
         Me.dgvGrpCpuSvrLst.GridColor = System.Drawing.Color.Black
-        Me.dgvGrpCpuSvrLst.Location = New System.Drawing.Point(233, 3)
+        Me.dgvGrpCpuSvrLst.Location = New System.Drawing.Point(373, 3)
         Me.dgvGrpCpuSvrLst.MultiSelect = False
         Me.dgvGrpCpuSvrLst.Name = "dgvGrpCpuSvrLst"
         Me.dgvGrpCpuSvrLst.RowHeadersVisible = False
         Me.dgvGrpCpuSvrLst.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvGrpCpuSvrLst.RowTemplate.Height = 43
         Me.dgvGrpCpuSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpCpuSvrLst.Size = New System.Drawing.Size(183, 171)
+        Me.dgvGrpCpuSvrLst.Size = New System.Drawing.Size(298, 304)
         Me.dgvGrpCpuSvrLst.TabIndex = 6
         Me.dgvGrpCpuSvrLst.TabStop = False
         Me.dgvGrpCpuSvrLst.TagValueMatchColor = System.Drawing.Color.Red
@@ -513,17 +513,17 @@ Partial Class frmMonMain
         '
         'colGrpCpuSvrNm
         '
-        DataGridViewCellStyle2.Format = "N"
-        Me.colGrpCpuSvrNm.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle114.Format = "N"
+        Me.colGrpCpuSvrNm.DefaultCellStyle = DataGridViewCellStyle114
         Me.colGrpCpuSvrNm.HeaderText = "F033"
         Me.colGrpCpuSvrNm.Name = "colGrpCpuSvrNm"
         Me.colGrpCpuSvrNm.ReadOnly = True
         '
         'colGrpCpuSvrUsage
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "P"
-        Me.colGrpCpuSvrUsage.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle115.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle115.Format = "P"
+        Me.colGrpCpuSvrUsage.DefaultCellStyle = DataGridViewCellStyle115
         Me.colGrpCpuSvrUsage.HeaderText = "F034"
         Me.colGrpCpuSvrUsage.Name = "colGrpCpuSvrUsage"
         Me.colGrpCpuSvrUsage.ReadOnly = True
@@ -551,7 +551,7 @@ Partial Class frmMonMain
         Me.tlpMem.RowCount = 1
         Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 177.0!))
-        Me.tlpMem.Size = New System.Drawing.Size(420, 177)
+        Me.tlpMem.Size = New System.Drawing.Size(675, 310)
         Me.tlpMem.TabIndex = 7
         '
         'radMem
@@ -560,51 +560,51 @@ Partial Class frmMonMain
         Me.radMem.AniColorOut = System.Drawing.Color.White
         Me.radMem.AniOpacityIn = 128
         Me.radMem.AniOpacityOut = 0
-        Areaitem5.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem5.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem5.ColorGraUse = False
-        Areaitem5.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem5.LineOpacity = 128
-        Areaitem5.LinePattern = New Single() {10.0!, 10.0!}
-        Areaitem5.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
-        Areaitem5.LineWidth = 2
-        Areaitem5.OpacityIn = 128
-        Areaitem5.OpacityOut = 128
-        Areaitem5.Value = 100
-        Areaitem6.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem6.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem6.ColorGraUse = False
-        Areaitem6.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem6.LineOpacity = 128
-        Areaitem6.LinePattern = New Single() {3.0!, 3.0!}
-        Areaitem6.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Areaitem6.LineWidth = 1
-        Areaitem6.OpacityIn = 128
-        Areaitem6.OpacityOut = 128
-        Areaitem6.Value = 75
-        Areaitem7.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem7.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem7.ColorGraUse = False
-        Areaitem7.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem7.LineOpacity = 128
-        Areaitem7.LinePattern = New Single() {10.0!, 10.0!}
-        Areaitem7.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
-        Areaitem7.LineWidth = 1
-        Areaitem7.OpacityIn = 128
-        Areaitem7.OpacityOut = 128
-        Areaitem7.Value = 50
-        Areaitem8.ColorGraIn = System.Drawing.Color.WhiteSmoke
-        Areaitem8.ColorGraOut = System.Drawing.Color.DarkBlue
-        Areaitem8.ColorGraUse = False
-        Areaitem8.Line = System.Drawing.Color.WhiteSmoke
-        Areaitem8.LineOpacity = 128
-        Areaitem8.LinePattern = New Single() {3.0!, 3.0!}
-        Areaitem8.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Areaitem8.LineWidth = 1
-        Areaitem8.OpacityIn = 128
-        Areaitem8.OpacityOut = 128
-        Areaitem8.Value = 25
-        Me.radMem.Areas.AddRange(New eXperDB.Controls.Areaitem() {Areaitem5, Areaitem6, Areaitem7, Areaitem8})
+        Areaitem37.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem37.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem37.ColorGraUse = False
+        Areaitem37.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem37.LineOpacity = 128
+        Areaitem37.LinePattern = New Single() {10.0!, 10.0!}
+        Areaitem37.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
+        Areaitem37.LineWidth = 2
+        Areaitem37.OpacityIn = 128
+        Areaitem37.OpacityOut = 128
+        Areaitem37.Value = 100
+        Areaitem38.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem38.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem38.ColorGraUse = False
+        Areaitem38.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem38.LineOpacity = 128
+        Areaitem38.LinePattern = New Single() {3.0!, 3.0!}
+        Areaitem38.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Areaitem38.LineWidth = 1
+        Areaitem38.OpacityIn = 128
+        Areaitem38.OpacityOut = 128
+        Areaitem38.Value = 75
+        Areaitem39.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem39.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem39.ColorGraUse = False
+        Areaitem39.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem39.LineOpacity = 128
+        Areaitem39.LinePattern = New Single() {10.0!, 10.0!}
+        Areaitem39.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Solid
+        Areaitem39.LineWidth = 1
+        Areaitem39.OpacityIn = 128
+        Areaitem39.OpacityOut = 128
+        Areaitem39.Value = 50
+        Areaitem40.ColorGraIn = System.Drawing.Color.WhiteSmoke
+        Areaitem40.ColorGraOut = System.Drawing.Color.DarkBlue
+        Areaitem40.ColorGraUse = False
+        Areaitem40.Line = System.Drawing.Color.WhiteSmoke
+        Areaitem40.LineOpacity = 128
+        Areaitem40.LinePattern = New Single() {3.0!, 3.0!}
+        Areaitem40.LinePenStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Areaitem40.LineWidth = 1
+        Areaitem40.OpacityIn = 128
+        Areaitem40.OpacityOut = 128
+        Areaitem40.Value = 25
+        Me.radMem.Areas.AddRange(New eXperDB.Controls.Areaitem() {Areaitem37, Areaitem38, Areaitem39, Areaitem40})
         Me.radMem.BackColor = System.Drawing.Color.Black
         Me.radMem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.radMem.Font = New System.Drawing.Font("Malgun Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -616,31 +616,31 @@ Partial Class frmMonMain
         Me.radMem.LinePenStyle = System.Drawing.Drawing2D.DashStyle.DashDot
         Me.radMem.Location = New System.Drawing.Point(3, 3)
         Me.radMem.Name = "radMem"
-        RaiderRangeitem4.EndValue = 60.0!
-        RaiderRangeitem4.GraColorin = System.Drawing.Color.Lime
-        RaiderRangeitem4.GraColorOut = System.Drawing.Color.Lime
-        RaiderRangeitem4.Name = "RaiderGauge1"
-        RaiderRangeitem4.OpacityIn = 128
-        RaiderRangeitem4.OpacityOut = 225
-        RaiderRangeitem4.StartValue = 0.0!
-        RaiderRangeitem5.EndValue = 90.0!
-        RaiderRangeitem5.GraColorin = System.Drawing.Color.Orange
-        RaiderRangeitem5.GraColorOut = System.Drawing.Color.Orange
-        RaiderRangeitem5.Name = "RaiderGauge2"
-        RaiderRangeitem5.OpacityIn = 128
-        RaiderRangeitem5.OpacityOut = 225
-        RaiderRangeitem5.StartValue = 60.0!
-        RaiderRangeitem6.EndValue = 100.0!
-        RaiderRangeitem6.GraColorin = System.Drawing.Color.Red
-        RaiderRangeitem6.GraColorOut = System.Drawing.Color.Red
-        RaiderRangeitem6.Name = "RaiderGauge3"
-        RaiderRangeitem6.OpacityIn = 128
-        RaiderRangeitem6.OpacityOut = 225
-        RaiderRangeitem6.StartValue = 90.0!
-        Me.radMem.Ranges.Add(RaiderRangeitem4)
-        Me.radMem.Ranges.Add(RaiderRangeitem5)
-        Me.radMem.Ranges.Add(RaiderRangeitem6)
-        Me.radMem.Size = New System.Drawing.Size(225, 171)
+        RaiderRangeitem28.EndValue = 60.0!
+        RaiderRangeitem28.GraColorin = System.Drawing.Color.Lime
+        RaiderRangeitem28.GraColorOut = System.Drawing.Color.Lime
+        RaiderRangeitem28.Name = "RaiderGauge1"
+        RaiderRangeitem28.OpacityIn = 128
+        RaiderRangeitem28.OpacityOut = 225
+        RaiderRangeitem28.StartValue = 0.0!
+        RaiderRangeitem29.EndValue = 90.0!
+        RaiderRangeitem29.GraColorin = System.Drawing.Color.Orange
+        RaiderRangeitem29.GraColorOut = System.Drawing.Color.Orange
+        RaiderRangeitem29.Name = "RaiderGauge2"
+        RaiderRangeitem29.OpacityIn = 128
+        RaiderRangeitem29.OpacityOut = 225
+        RaiderRangeitem29.StartValue = 60.0!
+        RaiderRangeitem30.EndValue = 100.0!
+        RaiderRangeitem30.GraColorin = System.Drawing.Color.Red
+        RaiderRangeitem30.GraColorOut = System.Drawing.Color.Red
+        RaiderRangeitem30.Name = "RaiderGauge3"
+        RaiderRangeitem30.OpacityIn = 128
+        RaiderRangeitem30.OpacityOut = 225
+        RaiderRangeitem30.StartValue = 90.0!
+        Me.radMem.Ranges.Add(RaiderRangeitem28)
+        Me.radMem.Ranges.Add(RaiderRangeitem29)
+        Me.radMem.Ranges.Add(RaiderRangeitem30)
+        Me.radMem.Size = New System.Drawing.Size(365, 304)
         Me.radMem.SpinIncreageDegree = 3.6!
         Me.radMem.Spininterval = 3000
         Me.radMem.Style = eXperDB.Controls.Raider.RaiderStyle.CirclePoint
@@ -662,37 +662,37 @@ Partial Class frmMonMain
         Me.dgvGrpMemSvrLst.BackgroundColor = System.Drawing.Color.Black
         Me.dgvGrpMemSvrLst.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvGrpMemSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle19.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle19.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGrpMemSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle117.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle117.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle117.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle117.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle117.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle117.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle117.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGrpMemSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle117
         Me.dgvGrpMemSvrLst.ColumnHeadersHeight = 25
         Me.dgvGrpMemSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvGrpMemSvrLst.ColumnHeadersVisible = False
         Me.dgvGrpMemSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colGrpMemSvrID, Me.colGrpMemSvrNm, Me.colGrpMemSvrUsage, Me.colGrpMemSvrprog})
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGrpMemSvrLst.DefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle120.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle120.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle120.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle120.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle120.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle120.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle120.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGrpMemSvrLst.DefaultCellStyle = DataGridViewCellStyle120
         Me.dgvGrpMemSvrLst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGrpMemSvrLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvGrpMemSvrLst.EnableHeadersVisualStyles = False
         Me.dgvGrpMemSvrLst.GridColor = System.Drawing.Color.Black
-        Me.dgvGrpMemSvrLst.Location = New System.Drawing.Point(234, 3)
+        Me.dgvGrpMemSvrLst.Location = New System.Drawing.Point(374, 3)
         Me.dgvGrpMemSvrLst.MultiSelect = False
         Me.dgvGrpMemSvrLst.Name = "dgvGrpMemSvrLst"
         Me.dgvGrpMemSvrLst.RowHeadersVisible = False
         Me.dgvGrpMemSvrLst.RowTemplate.Height = 23
         Me.dgvGrpMemSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpMemSvrLst.Size = New System.Drawing.Size(183, 171)
+        Me.dgvGrpMemSvrLst.Size = New System.Drawing.Size(298, 304)
         Me.dgvGrpMemSvrLst.TabIndex = 5
         Me.dgvGrpMemSvrLst.TabStop = False
         Me.dgvGrpMemSvrLst.TagValueMatchColor = System.Drawing.Color.Red
@@ -707,17 +707,17 @@ Partial Class frmMonMain
         '
         'colGrpMemSvrNm
         '
-        DataGridViewCellStyle20.Format = "N"
-        Me.colGrpMemSvrNm.DefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle118.Format = "N"
+        Me.colGrpMemSvrNm.DefaultCellStyle = DataGridViewCellStyle118
         Me.colGrpMemSvrNm.HeaderText = "F033"
         Me.colGrpMemSvrNm.Name = "colGrpMemSvrNm"
         Me.colGrpMemSvrNm.ReadOnly = True
         '
         'colGrpMemSvrUsage
         '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle21.Format = "P"
-        Me.colGrpMemSvrUsage.DefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle119.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle119.Format = "P"
+        Me.colGrpMemSvrUsage.DefaultCellStyle = DataGridViewCellStyle119
         Me.colGrpMemSvrUsage.HeaderText = "F034"
         Me.colGrpMemSvrUsage.Name = "colGrpMemSvrUsage"
         Me.colGrpMemSvrUsage.ReadOnly = True
@@ -739,26 +739,26 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.BackgroundColor = System.Drawing.Color.Black
         Me.dgvGrpDiskAccess.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvGrpDiskAccess.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGrpDiskAccess.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle121.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle121.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle121.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle121.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle121.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle121.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle121.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGrpDiskAccess.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle121
         Me.dgvGrpDiskAccess.ColumnHeadersHeight = 25
         Me.dgvGrpDiskAccess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvGrpDiskAccess.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvDiskAccessKey, Me.colDgvDiskAccessUpdTime, Me.colDgvDiskAccessSvrNm, Me.colDgvDiskAccessDiskNm, Me.colDgvDiskAccessProg, Me.colDgvDiskAccessRate})
         Me.TableLayoutPanel10.SetColumnSpan(Me.dgvGrpDiskAccess, 2)
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGrpDiskAccess.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle123.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle123.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle123.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle123.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle123.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle123.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle123.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGrpDiskAccess.DefaultCellStyle = DataGridViewCellStyle123
         Me.dgvGrpDiskAccess.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGrpDiskAccess.EnableHeadersVisualStyles = False
         Me.dgvGrpDiskAccess.GridColor = System.Drawing.Color.Black
@@ -768,7 +768,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.RowHeadersVisible = False
         Me.dgvGrpDiskAccess.RowTemplate.Height = 23
         Me.dgvGrpDiskAccess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpDiskAccess.Size = New System.Drawing.Size(203, 125)
+        Me.dgvGrpDiskAccess.Size = New System.Drawing.Size(331, 224)
         Me.dgvGrpDiskAccess.TabIndex = 6
         Me.dgvGrpDiskAccess.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpDiskAccess.UseTagValueMatchColor = False
@@ -809,9 +809,9 @@ Partial Class frmMonMain
         '
         'colDgvDiskAccessRate
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "P"
-        Me.colDgvDiskAccessRate.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle122.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle122.Format = "P"
+        Me.colDgvDiskAccessRate.DefaultCellStyle = DataGridViewCellStyle122
         Me.colDgvDiskAccessRate.HeaderText = "F043"
         Me.colDgvDiskAccessRate.Name = "colDgvDiskAccessRate"
         Me.colDgvDiskAccessRate.ReadOnly = True
@@ -826,26 +826,26 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.BackgroundColor = System.Drawing.Color.Black
         Me.dgvGrpDiskUsage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvGrpDiskUsage.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvGrpDiskUsage.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle124.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle124.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle124.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle124.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle124.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle124.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle124.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvGrpDiskUsage.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle124
         Me.dgvGrpDiskUsage.ColumnHeadersHeight = 25
         Me.dgvGrpDiskUsage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvGrpDiskUsage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvDiskUsageKey, Me.colDgvDiskUsageUpdTime, Me.colDgvDiskUsageSvrNm, Me.colDgvDiskUsageDiskNm, Me.colDgvDiskUsageTot, Me.colDgvDiskUsageProg, Me.colDgvDiskUsageRate})
         Me.TableLayoutPanel12.SetColumnSpan(Me.dgvGrpDiskUsage, 2)
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvGrpDiskUsage.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle127.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle127.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle127.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle127.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle127.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle127.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle127.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvGrpDiskUsage.DefaultCellStyle = DataGridViewCellStyle127
         Me.dgvGrpDiskUsage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGrpDiskUsage.EnableHeadersVisualStyles = False
         Me.dgvGrpDiskUsage.GridColor = System.Drawing.Color.Black
@@ -855,7 +855,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.RowHeadersVisible = False
         Me.dgvGrpDiskUsage.RowTemplate.Height = 23
         Me.dgvGrpDiskUsage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpDiskUsage.Size = New System.Drawing.Size(205, 125)
+        Me.dgvGrpDiskUsage.Size = New System.Drawing.Size(332, 224)
         Me.dgvGrpDiskUsage.TabIndex = 7
         Me.dgvGrpDiskUsage.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpDiskUsage.UseTagValueMatchColor = False
@@ -889,9 +889,9 @@ Partial Class frmMonMain
         'colDgvDiskUsageTot
         '
         Me.colDgvDiskUsageTot.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N1"
-        Me.colDgvDiskUsageTot.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle125.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle125.Format = "N1"
+        Me.colDgvDiskUsageTot.DefaultCellStyle = DataGridViewCellStyle125
         Me.colDgvDiskUsageTot.HeaderText = "F045"
         Me.colDgvDiskUsageTot.HeaderWord = ""
         Me.colDgvDiskUsageTot.Name = "colDgvDiskUsageTot"
@@ -910,9 +910,9 @@ Partial Class frmMonMain
         '
         'colDgvDiskUsageRate
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "P"
-        Me.colDgvDiskUsageRate.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle126.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle126.Format = "P"
+        Me.colDgvDiskUsageRate.DefaultCellStyle = DataGridViewCellStyle126
         Me.colDgvDiskUsageRate.HeaderText = "F046"
         Me.colDgvDiskUsageRate.Name = "colDgvDiskUsageRate"
         Me.colDgvDiskUsageRate.ReadOnly = True
@@ -925,7 +925,7 @@ Partial Class frmMonMain
         Me.chkIDLE.Dock = System.Windows.Forms.DockStyle.Right
         Me.chkIDLE.ForeColor = System.Drawing.Color.White
         Me.chkIDLE.LineColor = System.Drawing.Color.Gray
-        Me.chkIDLE.Location = New System.Drawing.Point(308, 3)
+        Me.chkIDLE.Location = New System.Drawing.Point(563, 3)
         Me.chkIDLE.Name = "chkIDLE"
         Me.chkIDLE.Radius = 10
         Me.chkIDLE.Size = New System.Drawing.Size(53, 19)
@@ -943,7 +943,7 @@ Partial Class frmMonMain
         Me.nudBackendcnt.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nudBackendcnt.FixedWidth = False
         Me.nudBackendcnt.Font = New System.Drawing.Font("Batang", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.nudBackendcnt.Location = New System.Drawing.Point(367, 3)
+        Me.nudBackendcnt.Location = New System.Drawing.Point(622, 3)
         Me.nudBackendcnt.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.nudBackendcnt.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.nudBackendcnt.Name = "nudBackendcnt"
@@ -964,26 +964,26 @@ Partial Class frmMonMain
         Me.dgvSessionInfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvSessionInfo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvSessionInfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvSessionInfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle128.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle128.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle128.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle128.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle128.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle128.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle128.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvSessionInfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle128
         Me.dgvSessionInfo.ColumnHeadersHeight = 25
         Me.dgvSessionInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvSessionInfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvSessionInfoInstID, Me.colDgvSessionInfoUser, Me.colDgvSessionInfoDBNm, Me.colDgvSessionInfoSvrNm, Me.colDgvSessionInfoRead, Me.colDgvSessioninfoWrite, Me.colDgvSessionInfoCpuUsage, Me.colDgvSessionInfoTmStart, Me.colDgvSessionInfoTmElapse, Me.colDgvSessionInfoSQL})
         Me.TableLayoutPanel9.SetColumnSpan(Me.dgvSessionInfo, 4)
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvSessionInfo.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle134.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle134.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle134.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle134.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle134.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle134.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        DataGridViewCellStyle134.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvSessionInfo.DefaultCellStyle = DataGridViewCellStyle134
         Me.dgvSessionInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSessionInfo.EnableHeadersVisualStyles = False
         Me.dgvSessionInfo.GridColor = System.Drawing.Color.Black
@@ -993,7 +993,7 @@ Partial Class frmMonMain
         Me.dgvSessionInfo.RowHeadersVisible = False
         Me.dgvSessionInfo.RowTemplate.Height = 23
         Me.dgvSessionInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionInfo.Size = New System.Drawing.Size(419, 125)
+        Me.dgvSessionInfo.Size = New System.Drawing.Size(674, 224)
         Me.dgvSessionInfo.TabIndex = 5
         Me.dgvSessionInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSessionInfo.UseTagValueMatchColor = False
@@ -1034,9 +1034,9 @@ Partial Class frmMonMain
         '
         Me.colDgvSessionInfoRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
         Me.colDgvSessionInfoRead.DataPropertyName = "CURRENT_PROC_READ_KB"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle13.Format = "N1"
-        Me.colDgvSessionInfoRead.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle129.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle129.Format = "N1"
+        Me.colDgvSessionInfoRead.DefaultCellStyle = DataGridViewCellStyle129
         Me.colDgvSessionInfoRead.HeaderText = "F048"
         Me.colDgvSessionInfoRead.HeaderWord = ""
         Me.colDgvSessionInfoRead.Name = "colDgvSessionInfoRead"
@@ -1051,9 +1051,9 @@ Partial Class frmMonMain
         '
         Me.colDgvSessioninfoWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
         Me.colDgvSessioninfoWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle14.Format = "N1"
-        Me.colDgvSessioninfoWrite.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle130.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle130.Format = "N1"
+        Me.colDgvSessioninfoWrite.DefaultCellStyle = DataGridViewCellStyle130
         Me.colDgvSessioninfoWrite.HeaderText = "F136"
         Me.colDgvSessioninfoWrite.HeaderWord = ""
         Me.colDgvSessioninfoWrite.Name = "colDgvSessioninfoWrite"
@@ -1067,9 +1067,9 @@ Partial Class frmMonMain
         'colDgvSessionInfoCpuUsage
         '
         Me.colDgvSessionInfoCpuUsage.DataPropertyName = "CPU_USAGE"
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle15.Format = "P"
-        Me.colDgvSessionInfoCpuUsage.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle131.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle131.Format = "P"
+        Me.colDgvSessionInfoCpuUsage.DefaultCellStyle = DataGridViewCellStyle131
         Me.colDgvSessionInfoCpuUsage.HeaderText = "F049"
         Me.colDgvSessionInfoCpuUsage.Name = "colDgvSessionInfoCpuUsage"
         Me.colDgvSessionInfoCpuUsage.ReadOnly = True
@@ -1078,9 +1078,9 @@ Partial Class frmMonMain
         'colDgvSessionInfoTmStart
         '
         Me.colDgvSessionInfoTmStart.DataPropertyName = "START_TIME"
-        DataGridViewCellStyle16.Format = "yyyy-MM-dd HH:mm:ss"
-        DataGridViewCellStyle16.NullValue = Nothing
-        Me.colDgvSessionInfoTmStart.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle132.Format = "yyyy-MM-dd HH:mm:ss"
+        DataGridViewCellStyle132.NullValue = Nothing
+        Me.colDgvSessionInfoTmStart.DefaultCellStyle = DataGridViewCellStyle132
         Me.colDgvSessionInfoTmStart.HeaderText = "F050"
         Me.colDgvSessionInfoTmStart.Name = "colDgvSessionInfoTmStart"
         Me.colDgvSessionInfoTmStart.ReadOnly = True
@@ -1090,9 +1090,9 @@ Partial Class frmMonMain
         '
         Me.colDgvSessionInfoTmElapse.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
         Me.colDgvSessionInfoTmElapse.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle17.Format = "N2"
-        DataGridViewCellStyle17.NullValue = "0"
-        Me.colDgvSessionInfoTmElapse.DefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle133.Format = "N2"
+        DataGridViewCellStyle133.NullValue = "0"
+        Me.colDgvSessionInfoTmElapse.DefaultCellStyle = DataGridViewCellStyle133
         Me.colDgvSessionInfoTmElapse.FillWeight = 150.0!
         Me.colDgvSessionInfoTmElapse.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
         Me.colDgvSessionInfoTmElapse.HeaderText = "F051"
@@ -1115,114 +1115,114 @@ Partial Class frmMonMain
         '
         Me.chrReqInfo.BackColor = System.Drawing.Color.Black
         Me.chrReqInfo.BackImageTransparentColor = System.Drawing.Color.White
-        ChartArea1.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea1.Area3DStyle.Inclination = 20
-        ChartArea1.Area3DStyle.IsClustered = True
-        ChartArea1.Area3DStyle.PointDepth = 30
-        ChartArea1.Area3DStyle.PointGapDepth = 10
-        ChartArea1.Area3DStyle.Rotation = 10
-        ChartArea1.Area3DStyle.WallWidth = 10
-        ChartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea1.AxisX.IsLabelAutoFit = False
-        ChartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea1.AxisX.LabelStyle.Interval = 1.0R
-        ChartArea1.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea1.AxisX.LineColor = System.Drawing.Color.White
-        ChartArea1.AxisX.MajorGrid.Enabled = False
-        ChartArea1.AxisX.MajorTickMark.Enabled = False
-        ChartArea1.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        ChartArea1.AxisX2.InterlacedColor = System.Drawing.Color.White
-        ChartArea1.AxisX2.LineColor = System.Drawing.Color.White
-        ChartArea1.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet
-        ChartArea1.AxisY.IsLabelAutoFit = False
-        ChartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea1.AxisY.LabelStyle.Format = "N0"
-        ChartArea1.AxisY.LabelStyle.TruncatedLabels = True
-        ChartArea1.AxisY.LineColor = System.Drawing.Color.White
-        ChartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea1.AxisY.MajorTickMark.Enabled = False
-        ChartArea1.AxisY.MaximumAutoSize = 90.0!
-        ChartArea1.AxisY.Title = "Tuples/s"
-        ChartArea1.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        ChartArea1.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea1.AxisY2.IsLabelAutoFit = False
-        ChartArea1.AxisY2.LabelStyle.Enabled = False
-        ChartArea1.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.Lime
-        ChartArea1.AxisY2.LabelStyle.Format = "N0"
-        ChartArea1.AxisY2.LabelStyle.TruncatedLabels = True
-        ChartArea1.AxisY2.LineColor = System.Drawing.Color.White
-        ChartArea1.AxisY2.MajorGrid.Enabled = False
-        ChartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime
-        ChartArea1.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea1.BackColor = System.Drawing.Color.Black
-        ChartArea1.BorderColor = System.Drawing.Color.Empty
-        ChartArea1.InnerPlotPosition.Auto = False
-        ChartArea1.InnerPlotPosition.Height = 80.0!
-        ChartArea1.InnerPlotPosition.Width = 82.0!
-        ChartArea1.InnerPlotPosition.X = 8.0!
-        ChartArea1.InnerPlotPosition.Y = 11.0!
-        ChartArea1.Name = "ChartArea1"
-        ChartArea1.Position.Auto = False
-        ChartArea1.Position.Height = 79.99083!
-        ChartArea1.Position.Width = 99.0!
-        ChartArea1.Position.X = 1.0!
-        ChartArea1.Position.Y = 10.0!
-        Me.chrReqInfo.ChartAreas.Add(ChartArea1)
+        ChartArea9.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea9.Area3DStyle.Inclination = 20
+        ChartArea9.Area3DStyle.IsClustered = True
+        ChartArea9.Area3DStyle.PointDepth = 30
+        ChartArea9.Area3DStyle.PointGapDepth = 10
+        ChartArea9.Area3DStyle.Rotation = 10
+        ChartArea9.Area3DStyle.WallWidth = 10
+        ChartArea9.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea9.AxisX.IsLabelAutoFit = False
+        ChartArea9.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea9.AxisX.LabelStyle.Interval = 1.0R
+        ChartArea9.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea9.AxisX.LineColor = System.Drawing.Color.White
+        ChartArea9.AxisX.MajorGrid.Enabled = False
+        ChartArea9.AxisX.MajorTickMark.Enabled = False
+        ChartArea9.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        ChartArea9.AxisX2.InterlacedColor = System.Drawing.Color.White
+        ChartArea9.AxisX2.LineColor = System.Drawing.Color.White
+        ChartArea9.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet
+        ChartArea9.AxisY.IsLabelAutoFit = False
+        ChartArea9.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea9.AxisY.LabelStyle.Format = "N0"
+        ChartArea9.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea9.AxisY.LineColor = System.Drawing.Color.White
+        ChartArea9.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea9.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea9.AxisY.MajorTickMark.Enabled = False
+        ChartArea9.AxisY.MaximumAutoSize = 90.0!
+        ChartArea9.AxisY.Title = "Tuples/s"
+        ChartArea9.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        ChartArea9.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea9.AxisY2.IsLabelAutoFit = False
+        ChartArea9.AxisY2.LabelStyle.Enabled = False
+        ChartArea9.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.Lime
+        ChartArea9.AxisY2.LabelStyle.Format = "N0"
+        ChartArea9.AxisY2.LabelStyle.TruncatedLabels = True
+        ChartArea9.AxisY2.LineColor = System.Drawing.Color.White
+        ChartArea9.AxisY2.MajorGrid.Enabled = False
+        ChartArea9.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime
+        ChartArea9.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea9.BackColor = System.Drawing.Color.Black
+        ChartArea9.BorderColor = System.Drawing.Color.Empty
+        ChartArea9.InnerPlotPosition.Auto = False
+        ChartArea9.InnerPlotPosition.Height = 80.0!
+        ChartArea9.InnerPlotPosition.Width = 82.0!
+        ChartArea9.InnerPlotPosition.X = 8.0!
+        ChartArea9.InnerPlotPosition.Y = 11.0!
+        ChartArea9.Name = "ChartArea1"
+        ChartArea9.Position.Auto = False
+        ChartArea9.Position.Height = 79.99083!
+        ChartArea9.Position.Width = 99.0!
+        ChartArea9.Position.X = 1.0!
+        ChartArea9.Position.Y = 10.0!
+        Me.chrReqInfo.ChartAreas.Add(ChartArea9)
         Me.TableLayoutPanel8.SetColumnSpan(Me.chrReqInfo, 2)
         Me.chrReqInfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend1.Alignment = System.Drawing.StringAlignment.Far
-        Legend1.BackColor = System.Drawing.Color.Black
-        Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend1.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend1.ForeColor = System.Drawing.Color.White
-        Legend1.IsTextAutoFit = False
-        Legend1.Name = "Legend1"
-        Legend2.BackColor = System.Drawing.Color.Black
-        Legend2.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend2.ForeColor = System.Drawing.Color.White
-        Legend2.IsDockedInsideChartArea = False
-        Legend2.IsTextAutoFit = False
-        Legend2.Name = "Legend2"
-        Legend2.Position.Auto = False
-        Legend2.Position.Height = 9.411765!
-        Legend2.Position.Width = 17.53731!
-        Legend2.Position.X = 79.46268!
-        Legend2.Position.Y = 3.0!
-        Me.chrReqInfo.Legends.Add(Legend1)
-        Me.chrReqInfo.Legends.Add(Legend2)
+        Legend13.Alignment = System.Drawing.StringAlignment.Far
+        Legend13.BackColor = System.Drawing.Color.Black
+        Legend13.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend13.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend13.ForeColor = System.Drawing.Color.White
+        Legend13.IsTextAutoFit = False
+        Legend13.Name = "Legend1"
+        Legend14.BackColor = System.Drawing.Color.Black
+        Legend14.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend14.ForeColor = System.Drawing.Color.White
+        Legend14.IsDockedInsideChartArea = False
+        Legend14.IsTextAutoFit = False
+        Legend14.Name = "Legend2"
+        Legend14.Position.Auto = False
+        Legend14.Position.Height = 9.411765!
+        Legend14.Position.Width = 17.53731!
+        Legend14.Position.X = 79.46268!
+        Legend14.Position.Y = 3.0!
+        Me.chrReqInfo.Legends.Add(Legend13)
+        Me.chrReqInfo.Legends.Add(Legend14)
         Me.chrReqInfo.Location = New System.Drawing.Point(3, 28)
         Me.chrReqInfo.Name = "chrReqInfo"
-        Series1.ChartArea = "ChartArea1"
-        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
-        Series1.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer))
-        Series1.LabelForeColor = System.Drawing.Color.WhiteSmoke
-        Series1.Legend = "Legend1"
-        Series1.Name = "INSERT"
-        Series2.ChartArea = "ChartArea1"
-        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
-        Series2.Color = System.Drawing.Color.Orange
-        Series2.LabelForeColor = System.Drawing.Color.WhiteSmoke
-        Series2.Legend = "Legend1"
-        Series2.Name = "UPDATE"
-        Series3.ChartArea = "ChartArea1"
-        Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
-        Series3.Color = System.Drawing.Color.Red
-        Series3.LabelForeColor = System.Drawing.Color.WhiteSmoke
-        Series3.Legend = "Legend1"
-        Series3.Name = "DELETE"
-        Series4.ChartArea = "ChartArea1"
-        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
-        Series4.Color = System.Drawing.Color.Lime
-        Series4.LabelForeColor = System.Drawing.Color.WhiteSmoke
-        Series4.Legend = "Legend1"
-        Series4.Name = "READ"
-        Series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary
-        Me.chrReqInfo.Series.Add(Series1)
-        Me.chrReqInfo.Series.Add(Series2)
-        Me.chrReqInfo.Series.Add(Series3)
-        Me.chrReqInfo.Series.Add(Series4)
-        Me.chrReqInfo.Size = New System.Drawing.Size(420, 124)
+        Series17.ChartArea = "ChartArea1"
+        Series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
+        Series17.Color = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer))
+        Series17.LabelForeColor = System.Drawing.Color.WhiteSmoke
+        Series17.Legend = "Legend1"
+        Series17.Name = "INSERT"
+        Series18.ChartArea = "ChartArea1"
+        Series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
+        Series18.Color = System.Drawing.Color.Orange
+        Series18.LabelForeColor = System.Drawing.Color.WhiteSmoke
+        Series18.Legend = "Legend1"
+        Series18.Name = "UPDATE"
+        Series19.ChartArea = "ChartArea1"
+        Series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
+        Series19.Color = System.Drawing.Color.Red
+        Series19.LabelForeColor = System.Drawing.Color.WhiteSmoke
+        Series19.Legend = "Legend1"
+        Series19.Name = "DELETE"
+        Series20.ChartArea = "ChartArea1"
+        Series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
+        Series20.Color = System.Drawing.Color.Lime
+        Series20.LabelForeColor = System.Drawing.Color.WhiteSmoke
+        Series20.Legend = "Legend1"
+        Series20.Name = "READ"
+        Series20.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary
+        Me.chrReqInfo.Series.Add(Series17)
+        Me.chrReqInfo.Series.Add(Series18)
+        Me.chrReqInfo.Series.Add(Series19)
+        Me.chrReqInfo.Series.Add(Series20)
+        Me.chrReqInfo.Size = New System.Drawing.Size(675, 223)
         Me.chrReqInfo.TabIndex = 0
         Me.chrReqInfo.Text = "Chart1"
         '
@@ -1259,7 +1259,7 @@ Partial Class frmMonMain
         Me.lblAgentSvrState.FixedWidth = False
         Me.lblAgentSvrState.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAgentSvrState.ForeColor = System.Drawing.Color.White
-        Me.lblAgentSvrState.Location = New System.Drawing.Point(926, 13)
+        Me.lblAgentSvrState.Location = New System.Drawing.Point(1436, 13)
         Me.lblAgentSvrState.Name = "lblAgentSvrState"
         Me.lblAgentSvrState.Size = New System.Drawing.Size(145, 33)
         Me.lblAgentSvrState.TabIndex = 7
@@ -1274,7 +1274,7 @@ Partial Class frmMonMain
         Me.Label1.FixedWidth = False
         Me.Label1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(817, 13)
+        Me.Label1.Location = New System.Drawing.Point(1327, 13)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(103, 33)
         Me.Label1.TabIndex = 6
@@ -1284,75 +1284,75 @@ Partial Class frmMonMain
         'chtSessionStatus
         '
         Me.chtSessionStatus.BackColor = System.Drawing.Color.Black
-        ChartArea2.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea2.AxisX.IsLabelAutoFit = False
-        ChartArea2.AxisX.IsMarginVisible = False
-        ChartArea2.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea2.AxisX.LabelStyle.Format = "HH:mm:ss"
-        ChartArea2.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea2.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea2.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea2.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea2.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea2.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea2.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea2.AxisX.MajorTickMark.Enabled = False
-        ChartArea2.AxisX.ScaleView.Zoomable = False
-        ChartArea2.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisX2.IsLabelAutoFit = False
-        ChartArea2.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisY.IsLabelAutoFit = False
-        ChartArea2.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea2.AxisY.LabelStyle.Format = "N0"
-        ChartArea2.AxisY.LabelStyle.TruncatedLabels = True
-        ChartArea2.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea2.AxisY.MajorTickMark.Enabled = False
-        ChartArea2.AxisY.Title = "Count"
-        ChartArea2.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea2.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea2.AxisY2.IsLabelAutoFit = False
-        ChartArea2.AxisY2.LabelStyle.Enabled = False
-        ChartArea2.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.Lime
-        ChartArea2.AxisY2.LabelStyle.Format = "N0"
-        ChartArea2.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea2.AxisY2.MajorGrid.Enabled = False
-        ChartArea2.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime
-        ChartArea2.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea2.AxisY2.MajorTickMark.Enabled = False
-        ChartArea2.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea2.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea2.BackColor = System.Drawing.Color.Black
-        ChartArea2.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea2.Name = "ChartArea1"
-        ChartArea2.Position.Auto = False
-        ChartArea2.Position.Height = 80.0!
-        ChartArea2.Position.Width = 97.0!
-        ChartArea2.Position.X = 1.0!
-        ChartArea2.Position.Y = 20.0!
-        Me.chtSessionStatus.ChartAreas.Add(ChartArea2)
+        ChartArea10.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea10.AxisX.IsLabelAutoFit = False
+        ChartArea10.AxisX.IsMarginVisible = False
+        ChartArea10.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea10.AxisX.LabelStyle.Format = "HH:mm:ss"
+        ChartArea10.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea10.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea10.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea10.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea10.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea10.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea10.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea10.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea10.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea10.AxisX.MajorTickMark.Enabled = False
+        ChartArea10.AxisX.ScaleView.Zoomable = False
+        ChartArea10.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisX2.IsLabelAutoFit = False
+        ChartArea10.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY.IsLabelAutoFit = False
+        ChartArea10.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea10.AxisY.LabelStyle.Format = "N0"
+        ChartArea10.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea10.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea10.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea10.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea10.AxisY.MajorTickMark.Enabled = False
+        ChartArea10.AxisY.Title = "Count"
+        ChartArea10.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea10.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea10.AxisY2.IsLabelAutoFit = False
+        ChartArea10.AxisY2.LabelStyle.Enabled = False
+        ChartArea10.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.Lime
+        ChartArea10.AxisY2.LabelStyle.Format = "N0"
+        ChartArea10.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea10.AxisY2.MajorGrid.Enabled = False
+        ChartArea10.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime
+        ChartArea10.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea10.AxisY2.MajorTickMark.Enabled = False
+        ChartArea10.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea10.BackColor = System.Drawing.Color.Black
+        ChartArea10.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea10.Name = "ChartArea1"
+        ChartArea10.Position.Auto = False
+        ChartArea10.Position.Height = 80.0!
+        ChartArea10.Position.Width = 97.0!
+        ChartArea10.Position.X = 1.0!
+        ChartArea10.Position.Y = 20.0!
+        Me.chtSessionStatus.ChartAreas.Add(ChartArea10)
         Me.TableLayoutPanel7.SetColumnSpan(Me.chtSessionStatus, 2)
         Me.chtSessionStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend3.Alignment = System.Drawing.StringAlignment.Far
-        Legend3.BackColor = System.Drawing.Color.Black
-        Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend3.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend3.ForeColor = System.Drawing.Color.White
-        Legend3.IsTextAutoFit = False
-        Legend3.Name = "Legend1"
-        Me.chtSessionStatus.Legends.Add(Legend3)
+        Legend15.Alignment = System.Drawing.StringAlignment.Far
+        Legend15.BackColor = System.Drawing.Color.Black
+        Legend15.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend15.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend15.ForeColor = System.Drawing.Color.White
+        Legend15.IsTextAutoFit = False
+        Legend15.Name = "Legend1"
+        Me.chtSessionStatus.Legends.Add(Legend15)
         Me.chtSessionStatus.Location = New System.Drawing.Point(3, 29)
         Me.chtSessionStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSessionStatus.Name = "chtSessionStatus"
-        Me.chtSessionStatus.Size = New System.Drawing.Size(419, 122)
+        Me.chtSessionStatus.Size = New System.Drawing.Size(674, 221)
         Me.chtSessionStatus.TabIndex = 2
         Me.chtSessionStatus.Text = "Chart2"
         '
@@ -1361,33 +1361,33 @@ Partial Class frmMonMain
         Me.dgvAlert.AllowUserToAddRows = False
         Me.dgvAlert.AllowUserToDeleteRows = False
         Me.dgvAlert.AllowUserToOrderColumns = True
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
-        Me.dgvAlert.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle135.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle135.ForeColor = System.Drawing.Color.White
+        Me.dgvAlert.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle135
         Me.dgvAlert.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvAlert.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvAlert.BackgroundColor = System.Drawing.Color.Black
         Me.dgvAlert.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvAlert.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlert.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle136.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle136.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle136.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle136.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle136.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle136.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle136.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlert.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle136
         Me.dgvAlert.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvAlert.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertID, Me.coldgvAlertStatus, Me.coldgvAlertStatusVal, Me.coldgvAlertHostname, Me.coldgvAlertMsg, Me.coldgvAlertCollectDt, Me.coldgvAlertHchkName})
         Me.TableLayoutPanel13.SetColumnSpan(Me.dgvAlert, 3)
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlert.DefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle139.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle139.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle139.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle139.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle139.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle139.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle139.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlert.DefaultCellStyle = DataGridViewCellStyle139
         Me.dgvAlert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvAlert.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvAlert.EnableHeadersVisualStyles = False
@@ -1397,15 +1397,15 @@ Partial Class frmMonMain
         Me.dgvAlert.Name = "dgvAlert"
         Me.dgvAlert.ReadOnly = True
         Me.dgvAlert.RowHeadersVisible = False
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlert.RowsDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle140.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle140.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle140.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle140.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle140.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlert.RowsDefaultCellStyle = DataGridViewCellStyle140
         Me.dgvAlert.RowTemplate.Height = 23
         Me.dgvAlert.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvAlert.Size = New System.Drawing.Size(176, 500)
+        Me.dgvAlert.Size = New System.Drawing.Size(176, 831)
         Me.dgvAlert.TabIndex = 7
         Me.dgvAlert.TabStop = False
         Me.dgvAlert.TagValueMatchColor = System.Drawing.Color.Red
@@ -1437,26 +1437,25 @@ Partial Class frmMonMain
         '
         'coldgvAlertHostname
         '
-        Me.coldgvAlertHostname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        DataGridViewCellStyle25.NullValue = Nothing
-        Me.coldgvAlertHostname.DefaultCellStyle = DataGridViewCellStyle25
+        Me.coldgvAlertHostname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle137.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle137.NullValue = Nothing
+        Me.coldgvAlertHostname.DefaultCellStyle = DataGridViewCellStyle137
         Me.coldgvAlertHostname.FillWeight = 50.0!
         Me.coldgvAlertHostname.HeaderText = ""
         Me.coldgvAlertHostname.MinimumWidth = 40
         Me.coldgvAlertHostname.Name = "coldgvAlertHostname"
         Me.coldgvAlertHostname.ReadOnly = True
         Me.coldgvAlertHostname.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvAlertHostname.Width = 40
         '
         'coldgvAlertMsg
         '
         Me.coldgvAlertMsg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Gulim", 8.0!)
-        DataGridViewCellStyle26.NullValue = Nothing
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvAlertMsg.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle138.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle138.Font = New System.Drawing.Font("Gulim", 8.0!)
+        DataGridViewCellStyle138.NullValue = Nothing
+        DataGridViewCellStyle138.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvAlertMsg.DefaultCellStyle = DataGridViewCellStyle138
         Me.coldgvAlertMsg.FillWeight = 130.0!
         Me.coldgvAlertMsg.HeaderText = ""
         Me.coldgvAlertMsg.MinimumWidth = 100
@@ -1527,7 +1526,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel2.RowCount = 2
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1274, 54)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1784, 54)
         Me.TableLayoutPanel2.TabIndex = 14
         '
         'btnAlertConfig
@@ -1542,7 +1541,7 @@ Partial Class frmMonMain
         Me.btnAlertConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAlertConfig.Image = CType(resources.GetObject("btnAlertConfig.Image"), System.Drawing.Image)
         Me.btnAlertConfig.LineColor = System.Drawing.Color.LightGray
-        Me.btnAlertConfig.Location = New System.Drawing.Point(1237, 11)
+        Me.btnAlertConfig.Location = New System.Drawing.Point(1747, 11)
         Me.btnAlertConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnAlertConfig.Name = "btnAlertConfig"
         Me.btnAlertConfig.Radius = 5
@@ -1563,7 +1562,7 @@ Partial Class frmMonMain
         Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
         Me.btnConfig.LineColor = System.Drawing.Color.LightGray
-        Me.btnConfig.Location = New System.Drawing.Point(1197, 11)
+        Me.btnConfig.Location = New System.Drawing.Point(1707, 11)
         Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnConfig.Name = "btnConfig"
         Me.btnConfig.Radius = 5
@@ -1584,7 +1583,7 @@ Partial Class frmMonMain
         Me.btnLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnLock.Image = CType(resources.GetObject("btnLock.Image"), System.Drawing.Image)
         Me.btnLock.LineColor = System.Drawing.Color.LightGray
-        Me.btnLock.Location = New System.Drawing.Point(1157, 11)
+        Me.btnLock.Location = New System.Drawing.Point(1667, 11)
         Me.btnLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnLock.Name = "btnLock"
         Me.btnLock.Radius = 5
@@ -1605,7 +1604,7 @@ Partial Class frmMonMain
         Me.btnCritical.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCritical.Image = CType(resources.GetObject("btnCritical.Image"), System.Drawing.Image)
         Me.btnCritical.LineColor = System.Drawing.Color.LightGray
-        Me.btnCritical.Location = New System.Drawing.Point(1117, 11)
+        Me.btnCritical.Location = New System.Drawing.Point(1627, 11)
         Me.btnCritical.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCritical.Name = "btnCritical"
         Me.btnCritical.Radius = 5
@@ -1626,7 +1625,7 @@ Partial Class frmMonMain
         Me.btnPower.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPower.Image = CType(resources.GetObject("btnPower.Image"), System.Drawing.Image)
         Me.btnPower.LineColor = System.Drawing.Color.LightGray
-        Me.btnPower.Location = New System.Drawing.Point(1077, 11)
+        Me.btnPower.Location = New System.Drawing.Point(1587, 11)
         Me.btnPower.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPower.Name = "btnPower"
         Me.btnPower.Radius = 5
@@ -1655,7 +1654,7 @@ Partial Class frmMonMain
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 49)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1268, 14)
+        Me.Panel1.Size = New System.Drawing.Size(1778, 14)
         Me.Panel1.TabIndex = 8
         '
         'SplitContainer1
@@ -1674,8 +1673,8 @@ Partial Class frmMonMain
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel4)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1274, 537)
-        Me.SplitContainer1.SplitterDistance = 1082
+        Me.SplitContainer1.Size = New System.Drawing.Size(1784, 868)
+        Me.SplitContainer1.SplitterDistance = 1592
         Me.SplitContainer1.TabIndex = 15
         '
         'tlpGroup
@@ -1698,7 +1697,7 @@ Partial Class frmMonMain
         Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
         Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
         Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.tlpGroup.Size = New System.Drawing.Size(863, 537)
+        Me.tlpGroup.Size = New System.Drawing.Size(1373, 868)
         Me.tlpGroup.TabIndex = 1
         '
         'TableLayoutPanel12
@@ -1711,12 +1710,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel12.Controls.Add(Me.grpDiskUsage, 1, 0)
         Me.TableLayoutPanel12.Controls.Add(Me.Label10, 0, 0)
         Me.TableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel12.Location = New System.Drawing.Point(649, 378)
+        Me.TableLayoutPanel12.Location = New System.Drawing.Point(1032, 610)
         Me.TableLayoutPanel12.Name = "TableLayoutPanel12"
         Me.TableLayoutPanel12.RowCount = 2
         Me.TableLayoutPanel12.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel12.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel12.Size = New System.Drawing.Size(211, 156)
+        Me.TableLayoutPanel12.Size = New System.Drawing.Size(338, 255)
         Me.TableLayoutPanel12.TabIndex = 25
         '
         'grpDiskUsage
@@ -1728,7 +1727,7 @@ Partial Class frmMonMain
         Me.grpDiskUsage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpDiskUsage.Location = New System.Drawing.Point(43, 0)
         Me.grpDiskUsage.Name = "grpDiskUsage"
-        Me.grpDiskUsage.Size = New System.Drawing.Size(165, 25)
+        Me.grpDiskUsage.Size = New System.Drawing.Size(292, 25)
         Me.grpDiskUsage.TabIndex = 0
         Me.grpDiskUsage.Text = "F044"
         Me.grpDiskUsage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1755,12 +1754,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel10.Controls.Add(Me.grpDiskAccess, 1, 0)
         Me.TableLayoutPanel10.Controls.Add(Me.Label9, 0, 0)
         Me.TableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel10.Location = New System.Drawing.Point(434, 378)
+        Me.TableLayoutPanel10.Location = New System.Drawing.Point(689, 610)
         Me.TableLayoutPanel10.Name = "TableLayoutPanel10"
         Me.TableLayoutPanel10.RowCount = 2
         Me.TableLayoutPanel10.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel10.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel10.Size = New System.Drawing.Size(209, 156)
+        Me.TableLayoutPanel10.Size = New System.Drawing.Size(337, 255)
         Me.TableLayoutPanel10.TabIndex = 24
         '
         'grpDiskAccess
@@ -1772,7 +1771,7 @@ Partial Class frmMonMain
         Me.grpDiskAccess.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpDiskAccess.Location = New System.Drawing.Point(43, 0)
         Me.grpDiskAccess.Name = "grpDiskAccess"
-        Me.grpDiskAccess.Size = New System.Drawing.Size(163, 25)
+        Me.grpDiskAccess.Size = New System.Drawing.Size(291, 25)
         Me.grpDiskAccess.TabIndex = 0
         Me.grpDiskAccess.Text = "F041"
         Me.grpDiskAccess.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1803,12 +1802,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel9.Controls.Add(Me.dgvSessionInfo, 0, 1)
         Me.TableLayoutPanel9.Controls.Add(Me.chkIDLE, 2, 0)
         Me.TableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel9.Location = New System.Drawing.Point(3, 378)
+        Me.TableLayoutPanel9.Location = New System.Drawing.Point(3, 610)
         Me.TableLayoutPanel9.Name = "TableLayoutPanel9"
         Me.TableLayoutPanel9.RowCount = 2
         Me.TableLayoutPanel9.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel9.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel9.Size = New System.Drawing.Size(425, 156)
+        Me.TableLayoutPanel9.Size = New System.Drawing.Size(680, 255)
         Me.TableLayoutPanel9.TabIndex = 23
         '
         'grpSessionInfo
@@ -1820,7 +1819,7 @@ Partial Class frmMonMain
         Me.grpSessionInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpSessionInfo.Location = New System.Drawing.Point(43, 0)
         Me.grpSessionInfo.Name = "grpSessionInfo"
-        Me.grpSessionInfo.Size = New System.Drawing.Size(240, 25)
+        Me.grpSessionInfo.Size = New System.Drawing.Size(495, 25)
         Me.grpSessionInfo.TabIndex = 0
         Me.grpSessionInfo.Text = "F312"
         Me.grpSessionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1848,12 +1847,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel8.Controls.Add(Me.grpReqInfo, 1, 0)
         Me.TableLayoutPanel8.Controls.Add(Me.Label6, 0, 0)
         Me.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel8.Location = New System.Drawing.Point(434, 217)
+        Me.TableLayoutPanel8.Location = New System.Drawing.Point(689, 350)
         Me.TableLayoutPanel8.Name = "TableLayoutPanel8"
         Me.TableLayoutPanel8.RowCount = 2
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(426, 155)
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(681, 254)
         Me.TableLayoutPanel8.TabIndex = 22
         '
         'grpReqInfo
@@ -1865,7 +1864,7 @@ Partial Class frmMonMain
         Me.grpReqInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpReqInfo.Location = New System.Drawing.Point(43, 0)
         Me.grpReqInfo.Name = "grpReqInfo"
-        Me.grpReqInfo.Size = New System.Drawing.Size(380, 25)
+        Me.grpReqInfo.Size = New System.Drawing.Size(635, 25)
         Me.grpReqInfo.TabIndex = 0
         Me.grpReqInfo.Text = "F040"
         Me.grpReqInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1892,12 +1891,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel7.Controls.Add(Me.grpSesionChart, 1, 0)
         Me.TableLayoutPanel7.Controls.Add(Me.Label5, 0, 0)
         Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 217)
+        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 350)
         Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
         Me.TableLayoutPanel7.RowCount = 2
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(425, 155)
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(680, 254)
         Me.TableLayoutPanel7.TabIndex = 21
         '
         'grpSesionChart
@@ -1909,7 +1908,7 @@ Partial Class frmMonMain
         Me.grpSesionChart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpSesionChart.Location = New System.Drawing.Point(43, 0)
         Me.grpSesionChart.Name = "grpSesionChart"
-        Me.grpSesionChart.Size = New System.Drawing.Size(379, 25)
+        Me.grpSesionChart.Size = New System.Drawing.Size(634, 25)
         Me.grpSesionChart.TabIndex = 0
         Me.grpSesionChart.Text = "F040"
         Me.grpSesionChart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1937,12 +1936,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel6.Controls.Add(Me.grpMem, 1, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.Label4, 0, 0)
         Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel6.Location = New System.Drawing.Point(434, 3)
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(689, 3)
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
         Me.TableLayoutPanel6.RowCount = 2
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.Size = New System.Drawing.Size(426, 208)
+        Me.TableLayoutPanel6.Size = New System.Drawing.Size(681, 341)
         Me.TableLayoutPanel6.TabIndex = 20
         '
         'grpMem
@@ -1954,7 +1953,7 @@ Partial Class frmMonMain
         Me.grpMem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpMem.Location = New System.Drawing.Point(43, 0)
         Me.grpMem.Name = "grpMem"
-        Me.grpMem.Size = New System.Drawing.Size(380, 25)
+        Me.grpMem.Size = New System.Drawing.Size(635, 25)
         Me.grpMem.TabIndex = 0
         Me.grpMem.Text = "F036"
         Me.grpMem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1986,7 +1985,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel5.RowCount = 2
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(425, 208)
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(680, 341)
         Me.TableLayoutPanel5.TabIndex = 19
         '
         'grpCPU
@@ -1998,7 +1997,7 @@ Partial Class frmMonMain
         Me.grpCPU.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpCPU.Location = New System.Drawing.Point(43, 0)
         Me.grpCPU.Name = "grpCPU"
-        Me.grpCPU.Size = New System.Drawing.Size(379, 25)
+        Me.grpCPU.Size = New System.Drawing.Size(634, 25)
         Me.grpCPU.TabIndex = 0
         Me.grpCPU.Text = "F035"
         Me.grpCPU.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2027,7 +2026,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(219, 537)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(219, 868)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TableLayoutPanel3
@@ -2040,8 +2039,8 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 93)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 436.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(213, 441)
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 441.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(213, 772)
         Me.TableLayoutPanel3.TabIndex = 14
         '
         'TableLayoutPanel11
@@ -2059,7 +2058,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel11.RowCount = 2
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(207, 435)
+        Me.TableLayoutPanel11.Size = New System.Drawing.Size(207, 766)
         Me.TableLayoutPanel11.TabIndex = 18
         '
         'grpInstSumInfo
@@ -2098,7 +2097,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(188, 537)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(188, 868)
         Me.TableLayoutPanel4.TabIndex = 20
         '
         'TableLayoutPanel13
@@ -2118,7 +2117,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel13.RowCount = 2
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel13.Size = New System.Drawing.Size(182, 531)
+        Me.TableLayoutPanel13.Size = New System.Drawing.Size(182, 862)
         Me.TableLayoutPanel13.TabIndex = 19
         '
         'grpAlert
@@ -2156,11 +2155,12 @@ Partial Class frmMonMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(1274, 591)
+        Me.ClientSize = New System.Drawing.Size(1784, 922)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MinimumSize = New System.Drawing.Size(1280, 720)
         Me.Name = "frmMonMain"
         Me.Text = "eXperDB for Monitoring"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -2269,13 +2269,6 @@ Partial Class frmMonMain
     Friend WithEvents ttChart As System.Windows.Forms.ToolTip
     Friend WithEvents chtSessionStatus As System.Windows.Forms.DataVisualization.Charting.Chart
     Friend WithEvents dgvAlert As eXperDB.BaseControls.DataGridView
-    Friend WithEvents coldgvAlertID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvAlertStatus As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvAlertStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvAlertHostname As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvAlertMsg As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvAlertCollectDt As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvAlertHchkName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents cmbLevel As eXperDB.BaseControls.ComboBox
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
@@ -2318,5 +2311,12 @@ Partial Class frmMonMain
     Friend WithEvents btnLock As eXperDB.BaseControls.Button
     Friend WithEvents btnCritical As eXperDB.BaseControls.Button
     Friend WithEvents tmLock As System.Windows.Forms.Timer
+    Friend WithEvents coldgvAlertID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertStatus As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertHostname As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertMsg As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCollectDt As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertHchkName As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

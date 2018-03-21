@@ -198,7 +198,7 @@
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         'sb_SetRbGrp(_GrpList)
         ServerName_lv.Text = _GrpList.Item(0).GroupName
-        tmCollect.Interval = 500
+        tmCollect.Interval = 2100
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
@@ -515,7 +515,7 @@
             index += 1
         Next
 
-        init_DataSessionStatsInfo()
+        init_DataSessionStatsInfo(svrLst)
     End Sub
 
     ''' <summary>
@@ -1414,7 +1414,7 @@
 
     End Sub
     '0202 add flow chart
-    Private Sub init_DataSessionStatsInfo()
+    Private Sub init_DataSessionStatsInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         '0202 change flow chart
         Dim dtTableSessionStatus As DataTable = Nothing
         Dim arrInstanceIDs As New ArrayList
@@ -1424,7 +1424,7 @@
         Dim clsQu As clsQuerys
         Try
             clsQu = New clsQuerys(_AgentCn)
-            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                 arrInstanceIDs.Add(tmpSvr.InstanceID)
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
@@ -1435,7 +1435,7 @@
                 For Each dtRow As DataRow In dtTableSessionStatus.Rows
                     dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     intInstID = dtRow.Item("INSTANCE_ID")
-                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                    For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
                             'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                             sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT")))
@@ -1887,15 +1887,15 @@
                     dgvAlert.Rows.RemoveAt(dgvAlert.Rows.Count - 1)
                 End While
 
-                Dim intAlertCnt As Integer = dgvAlert.Rows.Count - 1
-                Dim bExist As Boolean = False
-                For i As Integer = 0 To intAlertCnt
-                    If dgvAlert.Rows(0).Cells(coldgvAlertID.Index).Value = intInstanceID AndAlso _
-                       dgvAlert.Rows(0).Cells(coldgvAlertMsg.Index).Value.Equals(strShowValue) Then
-                        bExist = True
-                        Exit For
-                    End If
-                Next
+                'Dim intAlertCnt As Integer = dgvAlert.Rows.Count - 1
+                'Dim bExist As Boolean = False
+                'For i As Integer = 0 To intAlertCnt
+                '    If dgvAlert.Rows(i).Cells(coldgvAlertID.Index).Value = intInstanceID AndAlso _
+                '       dgvAlert.Rows(i).Cells(coldgvAlertMsg.Index).Value.Equals(strShowValue) Then
+                '        bExist = True
+                '        Exit For
+                '    End If
+                'Next
 
                 Dim tRow As DataGridViewRow = dgvAlert.FindFirstRow(strShowValue, coldgvAlertMsg.Index)
                 If IsNothing(tRow) Or _
@@ -1912,6 +1912,12 @@
 
                 ' 컨트롤 색상 변경
                 modCommon.sb_GridProgClrChg(dgvAlert, coldgvAlertStatusVal.Index, p_RageHealthClr)
+                'For Each tempRow As DataGridViewRow In dgvAlert.Rows
+                '    Dim tmpCellValue As Object = tempRow.Cells(coldgvAlertStatusVal.Index).Value
+                '    'If IsNumeric(tmpCellValue) AndAlso tmpCellValue <= 200 Then
+                '    tempRow.Cells(coldgvAlertHostname.Index).Style.ForeColor = Color.Green
+                '    'End If
+                'Next
                 sb_GridSortChg(dgvAlert, coldgvAlertStatus.Index)
             Next
 

@@ -26,6 +26,10 @@
                 For Each tmpRow As DataRow In dtTable.Rows
                     cmbGrp.Items.Add(tmpRow.Item("GROUP_NAME"))
                 Next
+            Else
+                MsgBox(p_clsMsgData.fn_GetData("M004"))
+                sb_Ctlenabled(False)
+                Return
             End If
 
             '커넥트 테스트 후 조회그룹을 선택 from ini
@@ -41,8 +45,8 @@
             'R-End
             btnConTest.Tag = tmpCn
 
-            '서버리스트 Tabpage Focus
-            tbServer.TabPages(0).Enabled = False
+            ''서버리스트 Tabpage Focus
+            'tbServer.TabPages(0).Enabled = False
 
             If tbServer.TabPages(1).Enabled = False Then
                 tbServer.TabPages(1).Enabled = True
