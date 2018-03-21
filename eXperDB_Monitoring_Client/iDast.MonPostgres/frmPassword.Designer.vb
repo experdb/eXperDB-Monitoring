@@ -145,7 +145,7 @@ Partial Class frmPassword
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.DarkGray
+        Me.Panel1.BackColor = System.Drawing.Color.Gray
         Me.Panel1.Controls.Add(Me.txtPw)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill

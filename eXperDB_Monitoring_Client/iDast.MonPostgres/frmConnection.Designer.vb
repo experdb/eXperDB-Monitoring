@@ -58,7 +58,7 @@ Partial Class frmConnection
         Me.lblIP.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblIP.FixedHeight = False
         Me.lblIP.FixedWidth = False
-        Me.lblIP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblIP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblIP.ForeColor = System.Drawing.Color.White
         Me.lblIP.Location = New System.Drawing.Point(3, 40)
         Me.lblIP.Name = "lblIP"
@@ -90,7 +90,7 @@ Partial Class frmConnection
         Me.lblPort.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblPort.FixedHeight = False
         Me.lblPort.FixedWidth = False
-        Me.lblPort.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPort.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPort.ForeColor = System.Drawing.Color.White
         Me.lblPort.Location = New System.Drawing.Point(3, 80)
         Me.lblPort.Name = "lblPort"
@@ -104,7 +104,7 @@ Partial Class frmConnection
         Me.lblUser.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblUser.FixedHeight = False
         Me.lblUser.FixedWidth = False
-        Me.lblUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblUser.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblUser.ForeColor = System.Drawing.Color.White
         Me.lblUser.Location = New System.Drawing.Point(3, 120)
         Me.lblUser.Name = "lblUser"
@@ -118,7 +118,7 @@ Partial Class frmConnection
         Me.lblPW.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblPW.FixedHeight = False
         Me.lblPW.FixedWidth = False
-        Me.lblPW.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPW.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPW.ForeColor = System.Drawing.Color.White
         Me.lblPW.Location = New System.Drawing.Point(3, 160)
         Me.lblPW.Name = "lblPW"
@@ -132,7 +132,7 @@ Partial Class frmConnection
         Me.lblSvrGatSDly.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSvrGatSDly.FixedHeight = False
         Me.lblSvrGatSDly.FixedWidth = False
-        Me.lblSvrGatSDly.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrGatSDly.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrGatSDly.ForeColor = System.Drawing.Color.White
         Me.lblSvrGatSDly.Location = New System.Drawing.Point(3, 280)
         Me.lblSvrGatSDly.Name = "lblSvrGatSDly"
@@ -146,7 +146,7 @@ Partial Class frmConnection
         Me.lblDB.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblDB.FixedHeight = False
         Me.lblDB.FixedWidth = False
-        Me.lblDB.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblDB.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDB.ForeColor = System.Drawing.Color.White
         Me.lblDB.Location = New System.Drawing.Point(3, 200)
         Me.lblDB.Name = "lblDB"
@@ -247,7 +247,7 @@ Partial Class frmConnection
         Me.lblSchema.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSchema.FixedHeight = False
         Me.lblSchema.FixedWidth = False
-        Me.lblSchema.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSchema.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSchema.ForeColor = System.Drawing.Color.White
         Me.lblSchema.Location = New System.Drawing.Point(3, 240)
         Me.lblSchema.Name = "lblSchema"
@@ -275,7 +275,7 @@ Partial Class frmConnection
         Me.lblAlias.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblAlias.FixedHeight = False
         Me.lblAlias.FixedWidth = False
-        Me.lblAlias.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAlias.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAlias.ForeColor = System.Drawing.Color.White
         Me.lblAlias.Location = New System.Drawing.Point(3, 320)
         Me.lblAlias.Name = "lblAlias"
@@ -421,7 +421,7 @@ Partial Class frmConnection
         '
         'tlpSvrChk
         '
-        Me.tlpSvrChk.BackColor = System.Drawing.Color.Black
+        Me.tlpSvrChk.BackColor = System.Drawing.Color.Gray
         Me.tlpSvrChk.ColumnCount = 3
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))

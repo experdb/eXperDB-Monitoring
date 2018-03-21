@@ -37,7 +37,7 @@ Partial Class frmMsgbox
         '
         'lblMessage
         '
-        Me.lblMessage.BackColor = System.Drawing.Color.DarkGray
+        Me.lblMessage.BackColor = System.Drawing.Color.Gray
         Me.lblMessage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMessage.FixedHeight = False
         Me.lblMessage.FixedWidth = False

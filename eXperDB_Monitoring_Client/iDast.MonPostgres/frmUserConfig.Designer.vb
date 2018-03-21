@@ -43,12 +43,12 @@ Partial Class frmUserConfig
         '
         'tlpSvrChk
         '
-        Me.tlpSvrChk.BackColor = System.Drawing.Color.DarkGray
+        Me.tlpSvrChk.BackColor = System.Drawing.Color.Gray
         Me.tlpSvrChk.ColumnCount = 4
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
-        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49.0!))
+        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.tlpSvrChk.Controls.Add(Me.lblAdminOldPassword, 1, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtAdminOldPassword, 2, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtAdminNewPassword, 2, 2)
@@ -97,7 +97,7 @@ Partial Class frmUserConfig
         Me.txtAdminOldPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtAdminOldPassword.PossibleInput = ""
         Me.txtAdminOldPassword.Prefix = ""
-        Me.txtAdminOldPassword.Size = New System.Drawing.Size(150, 21)
+        Me.txtAdminOldPassword.Size = New System.Drawing.Size(149, 21)
         Me.txtAdminOldPassword.StatusTip = ""
         Me.txtAdminOldPassword.TabIndex = 1
         Me.txtAdminOldPassword.Value = ""
@@ -116,7 +116,7 @@ Partial Class frmUserConfig
         Me.txtAdminNewPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtAdminNewPassword.PossibleInput = ""
         Me.txtAdminNewPassword.Prefix = ""
-        Me.txtAdminNewPassword.Size = New System.Drawing.Size(150, 21)
+        Me.txtAdminNewPassword.Size = New System.Drawing.Size(149, 21)
         Me.txtAdminNewPassword.StatusTip = ""
         Me.txtAdminNewPassword.TabIndex = 3
         Me.txtAdminNewPassword.Value = ""
@@ -135,7 +135,7 @@ Partial Class frmUserConfig
         Me.txtAdminRepeatPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtAdminRepeatPassword.PossibleInput = ""
         Me.txtAdminRepeatPassword.Prefix = ""
-        Me.txtAdminRepeatPassword.Size = New System.Drawing.Size(150, 21)
+        Me.txtAdminRepeatPassword.Size = New System.Drawing.Size(149, 21)
         Me.txtAdminRepeatPassword.StatusTip = ""
         Me.txtAdminRepeatPassword.TabIndex = 5
         Me.txtAdminRepeatPassword.Value = ""
