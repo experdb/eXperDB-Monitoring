@@ -49,7 +49,7 @@ Partial Class frmCriticalCheck
         Me.btnClose.ForeColor = System.Drawing.SystemColors.Control
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnClose.Location = New System.Drawing.Point(237, 3)
+        Me.btnClose.Location = New System.Drawing.Point(249, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
         Me.btnClose.Size = New System.Drawing.Size(82, 35)
@@ -68,7 +68,7 @@ Partial Class frmCriticalCheck
         Me.btnSave.ForeColor = System.Drawing.Color.LightGray
         Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnSave.Location = New System.Drawing.Point(144, 3)
+        Me.btnSave.Location = New System.Drawing.Point(156, 3)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Radius = 10
         Me.btnSave.Size = New System.Drawing.Size(82, 35)
@@ -83,9 +83,9 @@ Partial Class frmCriticalCheck
         Me.Panel2.BackColor = System.Drawing.Color.Black
         Me.Panel2.Controls.Add(Me.TableLayoutPanel1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(3, 188)
+        Me.Panel2.Location = New System.Drawing.Point(3, 197)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(463, 45)
+        Me.Panel2.Size = New System.Drawing.Size(488, 45)
         Me.Panel2.TabIndex = 3
         '
         'TableLayoutPanel1
@@ -105,7 +105,7 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(463, 41)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(488, 41)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'TableLayoutPanel2
@@ -130,12 +130,12 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(463, 135)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(488, 144)
         Me.TableLayoutPanel2.TabIndex = 9
         '
         'lblMsg
         '
-        Me.lblMsg.BackColor = System.Drawing.Color.DarkGray
+        Me.lblMsg.BackColor = System.Drawing.Color.Gray
         Me.TableLayoutPanel2.SetColumnSpan(Me.lblMsg, 5)
         Me.lblMsg.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMsg.FixedHeight = False
@@ -145,7 +145,7 @@ Partial Class frmCriticalCheck
         Me.lblMsg.Location = New System.Drawing.Point(3, 0)
         Me.lblMsg.Name = "lblMsg"
         Me.TableLayoutPanel2.SetRowSpan(Me.lblMsg, 3)
-        Me.lblMsg.Size = New System.Drawing.Size(457, 99)
+        Me.lblMsg.Size = New System.Drawing.Size(482, 108)
         Me.lblMsg.TabIndex = 16
         Me.lblMsg.Text = "Label1"
         Me.lblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -155,10 +155,10 @@ Partial Class frmCriticalCheck
         Me.lblPause.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPause.FixedWidth = False
         Me.lblPause.ForeColor = System.Drawing.Color.White
-        Me.lblPause.Location = New System.Drawing.Point(12, 101)
+        Me.lblPause.Location = New System.Drawing.Point(12, 110)
         Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblPause.Name = "lblPause"
-        Me.lblPause.Size = New System.Drawing.Size(207, 21)
+        Me.lblPause.Size = New System.Drawing.Size(219, 21)
         Me.lblPause.TabIndex = 14
         Me.lblPause.Text = "F263"
         Me.lblPause.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -171,7 +171,7 @@ Partial Class frmCriticalCheck
         Me.cmbPauseTime.FixedWidth = False
         Me.cmbPauseTime.FormattingEnabled = True
         Me.cmbPauseTime.Items.AddRange(New Object() {"Not Set", "5", "30", "60", "120"})
-        Me.cmbPauseTime.Location = New System.Drawing.Point(243, 102)
+        Me.cmbPauseTime.Location = New System.Drawing.Point(255, 111)
         Me.cmbPauseTime.Name = "cmbPauseTime"
         Me.cmbPauseTime.Necessary = False
         Me.cmbPauseTime.Size = New System.Drawing.Size(88, 20)
@@ -192,7 +192,7 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(463, 50)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(488, 50)
         Me.TableLayoutPanel3.TabIndex = 16
         '
         'StatusLabel
@@ -204,7 +204,7 @@ Partial Class frmCriticalCheck
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(417, 50)
+        Me.StatusLabel.Size = New System.Drawing.Size(442, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -227,7 +227,7 @@ Partial Class frmCriticalCheck
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(469, 236)
+        Me.ClientSize = New System.Drawing.Size(494, 245)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.Panel2)
