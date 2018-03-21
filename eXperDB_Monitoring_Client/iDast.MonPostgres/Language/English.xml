@@ -218,7 +218,7 @@
   </ROW>
   <ROW ID="F022" PARAMS="0">
     <DESC>환경설정</DESC>
-    <DATA><![CDATA[Configuration Setting]]></DATA>
+    <DATA><![CDATA[Configuration]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1626,7 +1626,7 @@
   </ROW>
   <ROW ID="F199" PARAMS="0">
     <DESC>알람 임계치 설정</DESC>
-    <DATA><![CDATA[Alert Configuration Setting]]></DATA>
+    <DATA><![CDATA[Alert Configuration]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

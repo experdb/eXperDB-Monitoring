@@ -218,7 +218,7 @@
   </ROW>
   <ROW ID="F022" PARAMS="0">
     <DESC>환경설정</DESC>
-    <DATA><![CDATA[환경 설정]]></DATA>
+    <DATA><![CDATA[Configuration]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1626,7 +1626,7 @@
   </ROW>
   <ROW ID="F199" PARAMS="0">
     <DESC>알람 임계치 설정</DESC>
-    <DATA><![CDATA[알람 임계치 설정]]></DATA>
+    <DATA><![CDATA[Alert Configuration]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2130,7 +2130,7 @@
   </ROW>
   <ROW ID="F262" PARAMS="0">
     <DESC>확인</DESC>
-    <DATA><![CDATA[확인]]></DATA>
+    <DATA><![CDATA[Check]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2454,7 +2454,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
+    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critical 보기를 활성화 하여주십시오]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

@@ -28,12 +28,8 @@ Partial Class frmAlertList
         Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblSearchDay = New eXperDB.BaseControls.Label()
         Me.dtpDay = New eXperDB.BaseControls.DateTimePicker()
-        Me.btnConfig = New eXperDB.BaseControls.Button()
         Me.lblServer = New eXperDB.BaseControls.Label()
-        Me.btnExcel = New eXperDB.BaseControls.Button()
-        Me.btnQuery = New eXperDB.BaseControls.Button()
         Me.cmbServer = New eXperDB.BaseControls.ComboBox()
-        Me.btnCheck = New eXperDB.BaseControls.Button()
         Me.lblLevel = New eXperDB.BaseControls.Label()
         Me.cmbLevel = New eXperDB.BaseControls.ComboBox()
         Me.lblCheck = New eXperDB.BaseControls.Label()
@@ -42,6 +38,10 @@ Partial Class frmAlertList
         Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
         Me.lblDuration2 = New eXperDB.BaseControls.Label()
         Me.dtpEd = New eXperDB.BaseControls.DateTimePicker()
+        Me.btnConfig = New eXperDB.BaseControls.Button()
+        Me.btnExcel = New eXperDB.BaseControls.Button()
+        Me.btnQuery = New eXperDB.BaseControls.Button()
+        Me.btnCheck = New eXperDB.BaseControls.Button()
         Me.dgvAlertList = New eXperDB.BaseControls.DataGridView()
         Me.coldgvAlertSel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.coldgvAlertHostName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -92,7 +92,7 @@ Partial Class frmAlertList
         Me.tlpHead.Controls.Add(Me.lblDuration2, 4, 1)
         Me.tlpHead.Controls.Add(Me.dtpEd, 5, 1)
         Me.tlpHead.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpHead.Font = New System.Drawing.Font("굴림", 12.27167!)
+        Me.tlpHead.Font = New System.Drawing.Font("Gulim", 12.27167!)
         Me.tlpHead.Location = New System.Drawing.Point(0, 50)
         Me.tlpHead.Name = "tlpHead"
         Me.tlpHead.RowCount = 3
@@ -108,7 +108,7 @@ Partial Class frmAlertList
         Me.lblSearchDay.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSearchDay.FixedHeight = False
         Me.lblSearchDay.FixedWidth = False
-        Me.lblSearchDay.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSearchDay.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSearchDay.ForeColor = System.Drawing.Color.White
         Me.lblSearchDay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblSearchDay.Location = New System.Drawing.Point(3, 51)
@@ -123,7 +123,7 @@ Partial Class frmAlertList
         Me.dtpDay.BackColor = System.Drawing.SystemColors.Window
         Me.dtpDay.CustomFormat = "yyyy-MM-dd"
         Me.dtpDay.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpDay.Font = New System.Drawing.Font("굴림", 9.2638!)
+        Me.dtpDay.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.dtpDay.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpDay.Location = New System.Drawing.Point(73, 54)
         Me.dtpDay.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -133,6 +133,175 @@ Partial Class frmAlertList
         Me.dtpDay.StatusTip = ""
         Me.dtpDay.TabIndex = 27
         '
+        'lblServer
+        '
+        Me.lblServer.BackColor = System.Drawing.Color.Transparent
+        Me.lblServer.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblServer.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblServer.FixedHeight = False
+        Me.lblServer.FixedWidth = False
+        Me.lblServer.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblServer.ForeColor = System.Drawing.Color.White
+        Me.lblServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblServer.Location = New System.Drawing.Point(3, 11)
+        Me.lblServer.Name = "lblServer"
+        Me.lblServer.Size = New System.Drawing.Size(64, 29)
+        Me.lblServer.TabIndex = 23
+        Me.lblServer.Text = "F033"
+        Me.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmbServer
+        '
+        Me.cmbServer.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbServer.DisplayMember = "All"
+        Me.cmbServer.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbServer.FixedWidth = False
+        Me.cmbServer.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbServer.FormattingEnabled = True
+        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
+        Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbServer.Name = "cmbServer"
+        Me.cmbServer.Necessary = False
+        Me.cmbServer.Size = New System.Drawing.Size(150, 20)
+        Me.cmbServer.StatusTip = ""
+        Me.cmbServer.TabIndex = 17
+        Me.cmbServer.ValueText = ""
+        '
+        'lblLevel
+        '
+        Me.lblLevel.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblLevel.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblLevel.FixedHeight = False
+        Me.lblLevel.FixedWidth = False
+        Me.lblLevel.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLevel.ForeColor = System.Drawing.Color.White
+        Me.lblLevel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblLevel.Location = New System.Drawing.Point(229, 11)
+        Me.lblLevel.Name = "lblLevel"
+        Me.lblLevel.Size = New System.Drawing.Size(64, 29)
+        Me.lblLevel.TabIndex = 23
+        Me.lblLevel.Text = "F247"
+        Me.lblLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmbLevel
+        '
+        Me.cmbLevel.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLevel.DisplayMember = "All"
+        Me.cmbLevel.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbLevel.FixedWidth = False
+        Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbLevel.FormattingEnabled = True
+        Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
+        Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbLevel.Name = "cmbLevel"
+        Me.cmbLevel.Necessary = False
+        Me.cmbLevel.Size = New System.Drawing.Size(150, 20)
+        Me.cmbLevel.StatusTip = ""
+        Me.cmbLevel.TabIndex = 17
+        Me.cmbLevel.ValueText = ""
+        '
+        'lblCheck
+        '
+        Me.lblCheck.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblCheck.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblCheck.FixedHeight = False
+        Me.lblCheck.FixedWidth = False
+        Me.lblCheck.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblCheck.ForeColor = System.Drawing.Color.White
+        Me.lblCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblCheck.Location = New System.Drawing.Point(455, 11)
+        Me.lblCheck.Name = "lblCheck"
+        Me.lblCheck.Size = New System.Drawing.Size(64, 29)
+        Me.lblCheck.TabIndex = 23
+        Me.lblCheck.Text = "F262"
+        Me.lblCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'cmbCheck
+        '
+        Me.cmbCheck.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbCheck.DisplayMember = "All"
+        Me.cmbCheck.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbCheck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCheck.FixedWidth = False
+        Me.cmbCheck.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbCheck.FormattingEnabled = True
+        Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
+        Me.cmbCheck.Location = New System.Drawing.Point(525, 15)
+        Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbCheck.Name = "cmbCheck"
+        Me.cmbCheck.Necessary = False
+        Me.cmbCheck.Size = New System.Drawing.Size(150, 20)
+        Me.cmbCheck.StatusTip = ""
+        Me.cmbCheck.TabIndex = 17
+        Me.cmbCheck.ValueText = ""
+        '
+        'lblDuration
+        '
+        Me.lblDuration.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblDuration.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblDuration.FixedHeight = False
+        Me.lblDuration.FixedWidth = False
+        Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblDuration.ForeColor = System.Drawing.Color.White
+        Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblDuration.Location = New System.Drawing.Point(229, 51)
+        Me.lblDuration.Name = "lblDuration"
+        Me.lblDuration.Size = New System.Drawing.Size(64, 29)
+        Me.lblDuration.TabIndex = 25
+        Me.lblDuration.Text = "F254"
+        Me.lblDuration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'dtpSt
+        '
+        Me.dtpSt.BackColor = System.Drawing.SystemColors.Window
+        Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm"
+        Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.dtpSt.Location = New System.Drawing.Point(299, 54)
+        Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtpSt.Name = "dtpSt"
+        Me.dtpSt.Necessary = False
+        Me.dtpSt.ShowUpDown = True
+        Me.dtpSt.Size = New System.Drawing.Size(150, 22)
+        Me.dtpSt.StatusTip = ""
+        Me.dtpSt.TabIndex = 19
+        Me.dtpSt.Value = New Date(2018, 3, 19, 15, 15, 0, 0)
+        '
+        'lblDuration2
+        '
+        Me.lblDuration2.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblDuration2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblDuration2.FixedHeight = False
+        Me.lblDuration2.FixedWidth = False
+        Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblDuration2.ForeColor = System.Drawing.Color.White
+        Me.lblDuration2.Location = New System.Drawing.Point(455, 51)
+        Me.lblDuration2.Name = "lblDuration2"
+        Me.lblDuration2.Size = New System.Drawing.Size(64, 29)
+        Me.lblDuration2.TabIndex = 20
+        Me.lblDuration2.Text = "~"
+        Me.lblDuration2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'dtpEd
+        '
+        Me.dtpEd.BackColor = System.Drawing.SystemColors.Window
+        Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm"
+        Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Time
+        Me.dtpEd.Location = New System.Drawing.Point(525, 54)
+        Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtpEd.Name = "dtpEd"
+        Me.dtpEd.Necessary = False
+        Me.dtpEd.ShowUpDown = True
+        Me.dtpEd.Size = New System.Drawing.Size(150, 22)
+        Me.dtpEd.StatusTip = ""
+        Me.dtpEd.TabIndex = 21
+        '
         'btnConfig
         '
         Me.btnConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -141,7 +310,7 @@ Partial Class frmAlertList
         Me.btnConfig.FixedHeight = False
         Me.btnConfig.FixedWidth = False
         Me.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnConfig.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnConfig.ForeColor = System.Drawing.Color.White
         Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConfig.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -156,23 +325,6 @@ Partial Class frmAlertList
         Me.btnConfig.UseRound = True
         Me.btnConfig.UseVisualStyleBackColor = True
         '
-        'lblServer
-        '
-        Me.lblServer.BackColor = System.Drawing.Color.Transparent
-        Me.lblServer.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblServer.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblServer.FixedHeight = False
-        Me.lblServer.FixedWidth = False
-        Me.lblServer.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblServer.ForeColor = System.Drawing.Color.White
-        Me.lblServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblServer.Location = New System.Drawing.Point(3, 11)
-        Me.lblServer.Name = "lblServer"
-        Me.lblServer.Size = New System.Drawing.Size(64, 29)
-        Me.lblServer.TabIndex = 23
-        Me.lblServer.Text = "F033"
-        Me.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'btnExcel
         '
         Me.btnExcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -181,7 +333,7 @@ Partial Class frmAlertList
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
         Me.btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExcel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnExcel.ForeColor = System.Drawing.Color.White
         Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnExcel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -204,7 +356,7 @@ Partial Class frmAlertList
         Me.btnQuery.FixedHeight = False
         Me.btnQuery.FixedWidth = False
         Me.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnQuery.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnQuery.ForeColor = System.Drawing.Color.White
         Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -219,24 +371,6 @@ Partial Class frmAlertList
         Me.btnQuery.UseRound = True
         Me.btnQuery.UseVisualStyleBackColor = True
         '
-        'cmbServer
-        '
-        Me.cmbServer.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbServer.DisplayMember = "All"
-        Me.cmbServer.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbServer.FixedWidth = False
-        Me.cmbServer.Font = New System.Drawing.Font("굴림", 9.2638!)
-        Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
-        Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbServer.Name = "cmbServer"
-        Me.cmbServer.Necessary = False
-        Me.cmbServer.Size = New System.Drawing.Size(150, 20)
-        Me.cmbServer.StatusTip = ""
-        Me.cmbServer.TabIndex = 17
-        Me.cmbServer.ValueText = ""
-        '
         'btnCheck
         '
         Me.btnCheck.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -245,7 +379,7 @@ Partial Class frmAlertList
         Me.btnCheck.FixedHeight = False
         Me.btnCheck.FixedWidth = False
         Me.btnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCheck.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnCheck.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCheck.ForeColor = System.Drawing.Color.White
         Me.btnCheck.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCheck.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -260,140 +394,6 @@ Partial Class frmAlertList
         Me.btnCheck.UseRound = True
         Me.btnCheck.UseVisualStyleBackColor = True
         '
-        'lblLevel
-        '
-        Me.lblLevel.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblLevel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblLevel.FixedHeight = False
-        Me.lblLevel.FixedWidth = False
-        Me.lblLevel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblLevel.ForeColor = System.Drawing.Color.White
-        Me.lblLevel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblLevel.Location = New System.Drawing.Point(229, 11)
-        Me.lblLevel.Name = "lblLevel"
-        Me.lblLevel.Size = New System.Drawing.Size(64, 29)
-        Me.lblLevel.TabIndex = 23
-        Me.lblLevel.Text = "F247"
-        Me.lblLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'cmbLevel
-        '
-        Me.cmbLevel.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbLevel.DisplayMember = "All"
-        Me.cmbLevel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbLevel.FixedWidth = False
-        Me.cmbLevel.Font = New System.Drawing.Font("굴림", 9.2638!)
-        Me.cmbLevel.FormattingEnabled = True
-        Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
-        Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbLevel.Name = "cmbLevel"
-        Me.cmbLevel.Necessary = False
-        Me.cmbLevel.Size = New System.Drawing.Size(150, 20)
-        Me.cmbLevel.StatusTip = ""
-        Me.cmbLevel.TabIndex = 17
-        Me.cmbLevel.ValueText = ""
-        '
-        'lblCheck
-        '
-        Me.lblCheck.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblCheck.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblCheck.FixedHeight = False
-        Me.lblCheck.FixedWidth = False
-        Me.lblCheck.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblCheck.ForeColor = System.Drawing.Color.White
-        Me.lblCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblCheck.Location = New System.Drawing.Point(455, 11)
-        Me.lblCheck.Name = "lblCheck"
-        Me.lblCheck.Size = New System.Drawing.Size(64, 29)
-        Me.lblCheck.TabIndex = 23
-        Me.lblCheck.Text = "F262"
-        Me.lblCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'cmbCheck
-        '
-        Me.cmbCheck.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbCheck.DisplayMember = "All"
-        Me.cmbCheck.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbCheck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbCheck.FixedWidth = False
-        Me.cmbCheck.Font = New System.Drawing.Font("굴림", 9.2638!)
-        Me.cmbCheck.FormattingEnabled = True
-        Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(525, 16)
-        Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbCheck.Name = "cmbCheck"
-        Me.cmbCheck.Necessary = False
-        Me.cmbCheck.Size = New System.Drawing.Size(150, 20)
-        Me.cmbCheck.StatusTip = ""
-        Me.cmbCheck.TabIndex = 17
-        Me.cmbCheck.ValueText = ""
-        '
-        'lblDuration
-        '
-        Me.lblDuration.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblDuration.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblDuration.FixedHeight = False
-        Me.lblDuration.FixedWidth = False
-        Me.lblDuration.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblDuration.ForeColor = System.Drawing.Color.White
-        Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblDuration.Location = New System.Drawing.Point(229, 51)
-        Me.lblDuration.Name = "lblDuration"
-        Me.lblDuration.Size = New System.Drawing.Size(64, 29)
-        Me.lblDuration.TabIndex = 25
-        Me.lblDuration.Text = "F254"
-        Me.lblDuration.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'dtpSt
-        '
-        Me.dtpSt.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm"
-        Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpSt.Font = New System.Drawing.Font("굴림", 9.2638!)
-        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.dtpSt.Location = New System.Drawing.Point(299, 54)
-        Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpSt.Name = "dtpSt"
-        Me.dtpSt.Necessary = False
-        Me.dtpSt.ShowUpDown = True
-        Me.dtpSt.Size = New System.Drawing.Size(150, 22)
-        Me.dtpSt.StatusTip = ""
-        Me.dtpSt.TabIndex = 19
-        Me.dtpSt.Value = New Date(2018, 3, 19, 15, 15, 0, 0)
-        '
-        'lblDuration2
-        '
-        Me.lblDuration2.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblDuration2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblDuration2.FixedHeight = False
-        Me.lblDuration2.FixedWidth = False
-        Me.lblDuration2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblDuration2.ForeColor = System.Drawing.Color.White
-        Me.lblDuration2.Location = New System.Drawing.Point(455, 51)
-        Me.lblDuration2.Name = "lblDuration2"
-        Me.lblDuration2.Size = New System.Drawing.Size(64, 29)
-        Me.lblDuration2.TabIndex = 20
-        Me.lblDuration2.Text = "~"
-        Me.lblDuration2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'dtpEd
-        '
-        Me.dtpEd.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm"
-        Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpEd.Font = New System.Drawing.Font("굴림", 9.2638!)
-        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.dtpEd.Location = New System.Drawing.Point(525, 54)
-        Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpEd.Name = "dtpEd"
-        Me.dtpEd.Necessary = False
-        Me.dtpEd.ShowUpDown = True
-        Me.dtpEd.Size = New System.Drawing.Size(150, 22)
-        Me.dtpEd.StatusTip = ""
-        Me.dtpEd.TabIndex = 21
-        '
         'dgvAlertList
         '
         Me.dgvAlertList.AllowUserToAddRows = False
@@ -404,7 +404,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 8.320187!)
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 8.320187!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
@@ -415,7 +415,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertSel, Me.coldgvAlertHostName, Me.coldgvAlertINSTANCEID, Me.coldgvAlertHCHKREGREQ, Me.coldgvAlertRegDate, Me.coldgvAlertTime, Me.coldgvAlertType, Me.coldgvAlertLevel, Me.coldgvAlertMessage, Me.coldgvAlertYN, Me.coldgvAlertComment, Me.coldgvAlertIP, Me.coldgvAlertDT})
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 8.320187!)
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 8.320187!)
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
@@ -424,7 +424,7 @@ Partial Class frmAlertList
         Me.dgvAlertList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvAlertList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvAlertList.EnableHeadersVisualStyles = False
-        Me.dgvAlertList.Font = New System.Drawing.Font("굴림", 8.320187!)
+        Me.dgvAlertList.Font = New System.Drawing.Font("Gulim", 8.320187!)
         Me.dgvAlertList.GridColor = System.Drawing.Color.Gray
         Me.dgvAlertList.Location = New System.Drawing.Point(0, 146)
         Me.dgvAlertList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)

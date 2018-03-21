@@ -48,7 +48,7 @@ Partial Class frmUserConfig
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
-        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51.0!))
         Me.tlpSvrChk.Controls.Add(Me.lblAdminOldPassword, 1, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtAdminOldPassword, 2, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtAdminNewPassword, 2, 2)
@@ -74,11 +74,11 @@ Partial Class frmUserConfig
         Me.lblAdminOldPassword.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblAdminOldPassword.FixedHeight = False
         Me.lblAdminOldPassword.FixedWidth = False
-        Me.lblAdminOldPassword.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAdminOldPassword.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAdminOldPassword.ForeColor = System.Drawing.Color.White
         Me.lblAdminOldPassword.Location = New System.Drawing.Point(47, 40)
         Me.lblAdminOldPassword.Name = "lblAdminOldPassword"
-        Me.lblAdminOldPassword.Size = New System.Drawing.Size(121, 20)
+        Me.lblAdminOldPassword.Size = New System.Drawing.Size(120, 20)
         Me.lblAdminOldPassword.TabIndex = 0
         Me.lblAdminOldPassword.Text = "F006"
         Me.lblAdminOldPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -91,7 +91,7 @@ Partial Class frmUserConfig
         Me.txtAdminOldPassword.FixedWidth = False
         Me.txtAdminOldPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAdminOldPassword.impossibleinput = ""
-        Me.txtAdminOldPassword.Location = New System.Drawing.Point(174, 36)
+        Me.txtAdminOldPassword.Location = New System.Drawing.Point(173, 36)
         Me.txtAdminOldPassword.Name = "txtAdminOldPassword"
         Me.txtAdminOldPassword.Necessary = True
         Me.txtAdminOldPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -110,7 +110,7 @@ Partial Class frmUserConfig
         Me.txtAdminNewPassword.FixedWidth = False
         Me.txtAdminNewPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAdminNewPassword.impossibleinput = ""
-        Me.txtAdminNewPassword.Location = New System.Drawing.Point(174, 76)
+        Me.txtAdminNewPassword.Location = New System.Drawing.Point(173, 76)
         Me.txtAdminNewPassword.Name = "txtAdminNewPassword"
         Me.txtAdminNewPassword.Necessary = True
         Me.txtAdminNewPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -129,7 +129,7 @@ Partial Class frmUserConfig
         Me.txtAdminRepeatPassword.FixedWidth = False
         Me.txtAdminRepeatPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAdminRepeatPassword.impossibleinput = ""
-        Me.txtAdminRepeatPassword.Location = New System.Drawing.Point(174, 116)
+        Me.txtAdminRepeatPassword.Location = New System.Drawing.Point(173, 116)
         Me.txtAdminRepeatPassword.Name = "txtAdminRepeatPassword"
         Me.txtAdminRepeatPassword.Necessary = True
         Me.txtAdminRepeatPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -145,11 +145,11 @@ Partial Class frmUserConfig
         Me.lblAdminNewPassword.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblAdminNewPassword.FixedHeight = False
         Me.lblAdminNewPassword.FixedWidth = False
-        Me.lblAdminNewPassword.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAdminNewPassword.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAdminNewPassword.ForeColor = System.Drawing.Color.White
         Me.lblAdminNewPassword.Location = New System.Drawing.Point(47, 80)
         Me.lblAdminNewPassword.Name = "lblAdminNewPassword"
-        Me.lblAdminNewPassword.Size = New System.Drawing.Size(121, 20)
+        Me.lblAdminNewPassword.Size = New System.Drawing.Size(120, 20)
         Me.lblAdminNewPassword.TabIndex = 2
         Me.lblAdminNewPassword.Text = "F007"
         Me.lblAdminNewPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -159,11 +159,11 @@ Partial Class frmUserConfig
         Me.lblAdminRepeatPassword.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblAdminRepeatPassword.FixedHeight = False
         Me.lblAdminRepeatPassword.FixedWidth = False
-        Me.lblAdminRepeatPassword.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAdminRepeatPassword.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAdminRepeatPassword.ForeColor = System.Drawing.Color.White
         Me.lblAdminRepeatPassword.Location = New System.Drawing.Point(47, 120)
         Me.lblAdminRepeatPassword.Name = "lblAdminRepeatPassword"
-        Me.lblAdminRepeatPassword.Size = New System.Drawing.Size(121, 20)
+        Me.lblAdminRepeatPassword.Size = New System.Drawing.Size(120, 20)
         Me.lblAdminRepeatPassword.TabIndex = 4
         Me.lblAdminRepeatPassword.Text = "F008"
         Me.lblAdminRepeatPassword.TextAlign = System.Drawing.ContentAlignment.BottomLeft
@@ -233,7 +233,7 @@ Partial Class frmUserConfig
         Me.btnAct.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnAct.FixedHeight = False
         Me.btnAct.FixedWidth = False
-        Me.btnAct.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnAct.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAct.ForeColor = System.Drawing.Color.White
         Me.btnAct.GraColor = System.Drawing.Color.Gray
         Me.btnAct.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -255,7 +255,7 @@ Partial Class frmUserConfig
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
-        Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.White
         Me.btnClose.GraColor = System.Drawing.Color.Gray
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -285,7 +285,7 @@ Partial Class frmUserConfig
         Me.Name = "frmUserConfig"
         Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Change Admin Password"
+        Me.Text = "Admin Password Management"
         Me.tlpSvrChk.ResumeLayout(False)
         Me.tlpSvrChk.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)

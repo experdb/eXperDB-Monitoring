@@ -942,11 +942,11 @@ Public Class DataGridView
                     '    Next
                     'End If
 
-
-
-
-
-                    dtRow.Item(tmpCol.HeaderText) = strValue
+                    If UseDataProperty = True Then
+                        dtRow.Item(tmpCol.DataPropertyName) = strValue
+                    Else
+                        dtRow.Item(tmpCol.HeaderText) = strValue
+                    End If
 
                 End If
 
@@ -967,7 +967,7 @@ Public Class DataGridView
 
         Dim dtTable As System.Data.DataTable = New System.Data.DataTable(strTblNm)
         For Each tmpCol As DataGridViewColumn In Me.Columns
-            If tmpCol.Visible = True Then
+            If tmpCol.Visible = True AndAlso tmpCol.HeaderText <> "" Then
                 dtTable.Columns.Add(tmpCol.HeaderText)
                 'If UseDataProperty = True Then
                 '    If tmpCol.DataPropertyName IsNot Nothing AndAlso tmpCol.DataPropertyName <> String.Empty Then

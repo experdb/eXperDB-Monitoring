@@ -82,6 +82,12 @@
                 End If
 
             End If
+
+            If value = True Then
+                btnCritical.Image = eXperDB.Monitoring.My.Resources.alert_on
+            Else
+                btnCritical.Image = eXperDB.Monitoring.My.Resources.alert_off
+            End If
         End Set
     End Property
     Private _QuiteCriticalTime As DateTime
@@ -1374,24 +1380,30 @@
         Dim dblRegDt As Double
         Dim intInstID As Integer
         If dtTableSessionStatus IsNot Nothing Then
-            dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
-            For Each dtRow As DataRow In dtTableSessionStatus.Rows
-                intInstID = dtRow.Item("INSTANCE_ID")
-                'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
-                For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
-                    If tmpSvr.InstanceID = intInstID Then
-                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
-                        'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
-                    Else
-                        Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
-                        If lastYPoint > 0 Then
-                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
-                            'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
-                            'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
+            If dtTableSessionStatus.Rows.Count > 0 Then
+                dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
+                For Each dtRow As DataRow In dtTableSessionStatus.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                            'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                        Else
+                            Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
+                            If lastYPoint > 0 Then
+                                sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
+                                'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
+                                'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
+                            End If
                         End If
-                    End If
+                    Next
                 Next
-            Next
+            Else
+                dblRegDt = ConvOADate(Now)
+                'sb_ChartAddPoint(Me.chtSessionStatus, "", dblRegDt, 0.0)
+                Me.chtSessionStatus.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            End If
             sb_ChartAlignYAxies(Me.chtSessionStatus)
         End If
 
@@ -2465,11 +2477,6 @@
 
     Private Sub btnCritical_Click(sender As Object, e As EventArgs) Handles btnCritical.Click
         Me.ShowCritical = Not Me.ShowCritical
-        If Me.ShowCritical = True Then
-            btnCritical.Image = eXperDB.Monitoring.My.Resources.alert_on
-        Else
-            btnCritical.Image = eXperDB.Monitoring.My.Resources.alert_off
-        End If
     End Sub
 
     Private Sub btnLock_Click(sender As Object, e As EventArgs) Handles btnLock.Click

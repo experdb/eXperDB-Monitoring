@@ -744,7 +744,7 @@
         Dim arrInstanceIDs As New ArrayList
 
         Dim grpIdx As Integer = 0
-        rtnSrt.Add(New GroupInfo(cmbGrp.SelectedIndex, cmbGrp.SelectedItem))
+        rtnSrt.Add(New GroupInfo(cmbGrp.SelectedIndex, txtGrp1.Text))
         grpIdx = rtnSrt.Count - 1
 
         For Each tmpRow As DataGridViewRow In Me.dgvMonLst.Rows

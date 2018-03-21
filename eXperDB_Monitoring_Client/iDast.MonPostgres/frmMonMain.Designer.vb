@@ -2162,7 +2162,7 @@ Partial Class frmMonMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(1280, 720)
         Me.Name = "frmMonMain"
-        Me.Text = "eXperDB for Monitoring"
+        Me.Text = "eXperDB Monitoring"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.tlpHealth.ResumeLayout(False)
         Me.tlpCPU.ResumeLayout(False)
