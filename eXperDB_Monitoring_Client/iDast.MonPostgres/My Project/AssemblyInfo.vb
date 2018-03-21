@@ -11,8 +11,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("iDast.Monitoring")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("iDast.Monitoring")> 
-<Assembly: AssemblyCopyright("Copyright ©  2014")> 
+<Assembly: AssemblyProduct("eXperDB Monitoring Tools")> 
+<Assembly: AssemblyCopyright("Copyright © 2017 K4M All rights reservied")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 지정되도록 할 수 있습니다.
 ' <Assembly: AssemblyVersion("1.1.1.91")> 
 
-<Assembly: AssemblyVersion("1.1.1.91")> 
-<Assembly: AssemblyFileVersion("1.1.1.91")> 
+<Assembly: AssemblyVersion("9.1.1.91")> 
+<Assembly: AssemblyFileVersion("9.1.1.91")> 
