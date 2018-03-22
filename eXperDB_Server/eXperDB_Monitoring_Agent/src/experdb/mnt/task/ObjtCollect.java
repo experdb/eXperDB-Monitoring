@@ -66,6 +66,7 @@ public class ObjtCollect extends TaskApplication {
 					en = MonitoringInfoManager.getInstance().getInstanceId();
 					while (en.hasMoreElements()) {
 						execute((String) en.nextElement());
+						log.info("gather object info");
 					}					
 					startExecuteTime = System.currentTimeMillis() + collectObjectPeriod * 1000;
 				}
@@ -75,6 +76,7 @@ public class ObjtCollect extends TaskApplication {
 					en = MonitoringInfoManager.getInstance().getInstanceId();
 					while (en.hasMoreElements()) {
 						DeleteObject((String) en.nextElement());
+						log.info("delete object info");
 					}
 					startDeleteTime = System.currentTimeMillis() + collectObjectPeriod * 1000 * DelteTurn ;
 				}
@@ -421,21 +423,23 @@ public class ObjtCollect extends TaskApplication {
 				///////////////////////////////////////////////////////////////////////////////
 				// TABLESPACE 정보 등록
 				for (HashMap<String, Object> map : tablespaceSel) {
-					sessionAgent.insert("app.TB_TABLESPACE_INFO_I001", map);
+					sessionAgent.insert("app.TB_TABLESPACE_INFO_I001", map);					
 				}
+				
 				///////////////////////////////////////////////////////////////////////////////			
 			
 				///////////////////////////////////////////////////////////////////////////////
 				// TABLE 정보 등록
 				for (HashMap<String, Object> map : tableSel) {
-					sessionAgent.insert("app.TB_TABLE_INFO_I001", map);
+					sessionAgent.insert("app.TB_TABLE_INFO_I001", map);					
 				}
+				
 				///////////////////////////////////////////////////////////////////////////////				
 				
 				///////////////////////////////////////////////////////////////////////////////
 				// INDEX 정보 등록
 				for (HashMap<String, Object> map : indexSel) {
-					sessionAgent.insert("app.TB_INDEX_INFO_I001", map);
+					sessionAgent.insert("app.TB_INDEX_INFO_I001", map);					
 				}
 				///////////////////////////////////////////////////////////////////////////////				
 				
