@@ -2366,7 +2366,7 @@
   </ROW>
   <ROW ID="M001" PARAMS="1">
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
-    <DATA><![CDATA[{0}를 입력하여주십시요]]></DATA>
+    <DATA><![CDATA[{0}를 입력하여주십시오]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2414,7 +2414,7 @@
   </ROW>
   <ROW ID="M007" PARAMS="1">
     <DESC>그룹선택여부</DESC>
-    <DATA><![CDATA[{0} 서버의 그룹을 선택하여 주십시요]]></DATA>
+    <DATA><![CDATA[{0} 서버의 그룹을 선택하여 주십시오]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2454,7 +2454,7 @@
   </ROW>
   <ROW ID="M012" PARAMS="0">
     <DESC>CRITIAL 잠금 해제 메시지</DESC>
-    <DATA><![CDATA[Critial 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critical 보기를 활성화 하여주십시오]]></DATA>
+    <DATA><![CDATA[Critical 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critical 보기를 활성화 하여주십시오]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2671,7 +2671,7 @@
   <ROW />
   <ROW ID="M035" PARAMS="0">
     <DESC>선택된 항목이 없습니다.</DESC>
-    <DATA><![CDATA[선택한 시간까지 Critial 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critial 보기를 활성화 하여주십시요]]></DATA>
+    <DATA><![CDATA[선택한 시간까지 Critical 메시지를 보지 않습니다.\n다시 보고자 하는 경우 메인화면의 Critical 보기를 활성화 하여주십시오]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2705,6 +2705,14 @@
   <ROW ID="M039" PARAMS="1">
     <DESC>선택한 세션을 종료하시겠습니까?</DESC>
     <DATA><![CDATA[총 ({0})건의 선택한 세션을 종료하시겠습니까?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M040" PARAMS="0">
+    <DESC>모니터링 잠금</DESC>
+    <DATA><![CDATA[서버별 상세화면이 열려있습니다. 모두 닫으시겠습니까?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

@@ -116,7 +116,7 @@ Partial Class frmCriticalCheck
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 11.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lblMsg, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblPause, 1, 3)
         Me.TableLayoutPanel2.Controls.Add(Me.cmbPauseTime, 3, 3)
@@ -140,7 +140,7 @@ Partial Class frmCriticalCheck
         Me.lblMsg.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMsg.FixedHeight = False
         Me.lblMsg.FixedWidth = False
-        Me.lblMsg.Font = New System.Drawing.Font("굴림", 9.75!)
+        Me.lblMsg.Font = New System.Drawing.Font("Gulim", 10.0!, System.Drawing.FontStyle.Bold)
         Me.lblMsg.ForeColor = System.Drawing.Color.White
         Me.lblMsg.Location = New System.Drawing.Point(3, 0)
         Me.lblMsg.Name = "lblMsg"

@@ -75,6 +75,6 @@
     End Sub
 
     Private Sub frmMsgbox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        StatusLabel.Text = "eXperDB 에이전트의 응답 메시지 입니다"
+        StatusLabel.Text = p_clsMsgData.fn_GetData("M230")
     End Sub
 End Class

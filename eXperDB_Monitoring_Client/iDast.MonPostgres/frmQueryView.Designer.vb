@@ -114,7 +114,7 @@ Partial Class frmQueryView
         Me.TreeGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
@@ -123,7 +123,7 @@ Partial Class frmQueryView
         Me.TreeGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPlain})
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
@@ -175,7 +175,7 @@ Partial Class frmQueryView
         Me.btnSearch.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
         Me.btnSearch.FixedHeight = False
         Me.btnSearch.FixedWidth = False
-        Me.btnSearch.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.btnSearch.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnSearch.ForeColor = System.Drawing.Color.LightGray
         Me.btnSearch.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSearch.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -209,7 +209,7 @@ Partial Class frmQueryView
         'lblPw
         '
         Me.lblPw.BackColor = System.Drawing.Color.Gray
-        Me.lblPw.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblPw.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.lblPw.ForeColor = System.Drawing.Color.White
         Me.lblPw.Location = New System.Drawing.Point(535, 3)
         Me.lblPw.Name = "lblPw"
@@ -237,7 +237,7 @@ Partial Class frmQueryView
         'lblID
         '
         Me.lblID.BackColor = System.Drawing.Color.Gray
-        Me.lblID.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblID.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.lblID.ForeColor = System.Drawing.Color.White
         Me.lblID.Location = New System.Drawing.Point(269, 3)
         Me.lblID.Name = "lblID"
@@ -265,7 +265,7 @@ Partial Class frmQueryView
         'lblDB
         '
         Me.lblDB.BackColor = System.Drawing.Color.Gray
-        Me.lblDB.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.lblDB.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.lblDB.ForeColor = System.Drawing.Color.White
         Me.lblDB.Location = New System.Drawing.Point(3, 3)
         Me.lblDB.Name = "lblDB"
@@ -285,7 +285,7 @@ Partial Class frmQueryView
         Me.dgvVariables.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("바탕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Batang", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
@@ -295,7 +295,7 @@ Partial Class frmQueryView
         Me.dgvVariables.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colVariable, Me.colValue, Me.colLine})
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("바탕", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Batang", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Gray
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
@@ -408,8 +408,8 @@ Partial Class frmQueryView
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmQueryView"
         Me.Padding = New System.Windows.Forms.Padding(3)
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frmQueryView"
-        Me.TopMost = True
         Me.Panel1.ResumeLayout(False)
         CType(Me.TreeGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)

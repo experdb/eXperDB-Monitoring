@@ -277,7 +277,7 @@ Public Class clsAgentEMsg
         Try
 
             _MsgThread = New Threading.Thread(Sub()
-                                                  Dim clsReq As New DX004_REQ(strIp, intPort, strUsrNm, "postgres", MakeBase64(strPW))
+                                                  Dim clsReq As New DX004_REQ(strIp, intPort, strUsrNm, "postgres", strPW)
 
                                                   Dim strReq As String = Newtonsoft.Json.JsonConvert.SerializeObject(clsReq)
 

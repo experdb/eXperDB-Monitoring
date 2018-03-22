@@ -731,7 +731,11 @@
         Next
 
         For Each tmpFrm As Form In ArrFrm
-            tmpFrm.Show()
+            If TryCast(tmpFrm, frmSvrList) IsNot Nothing Then
+                tmpFrm.Show()
+            Else
+                tmpFrm.Close()
+            End If
         Next
     End Sub
 
@@ -2481,6 +2485,41 @@
 
     Private Sub btnLock_Click(sender As Object, e As EventArgs) Handles btnLock.Click
         If Me.isLock = False Then
+
+            Dim bOpenChildForm As Boolean = False
+            For Each tmpFrm As Form In My.Application.OpenForms
+                If TryCast(tmpFrm, frmMonDetail) IsNot Nothing Or _
+                 TryCast(tmpFrm, frmLogView) IsNot Nothing Or _
+                 TryCast(tmpFrm, frmHealthDetail) IsNot Nothing Or _
+                 TryCast(tmpFrm, frmMonActInfo) IsNot Nothing Or _
+                 TryCast(tmpFrm, frmQueryView) IsNot Nothing Or _
+                 TryCast(tmpFrm, frmSessionLock) IsNot Nothing Or _
+                 TryCast(tmpFrm, frmSessionLockHist) IsNot Nothing Then
+                    bOpenChildForm = True
+                    Exit For
+                End If
+            Next
+
+            If bOpenChildForm = True Then
+                If MsgBox(p_clsMsgData.fn_GetData("M040"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then
+                    Return
+                Else
+                    Dim arrFrms As New ArrayList
+                    For Each tmpFrm As Form In Application.OpenForms
+                        If TryCast(tmpFrm, frmCritical) IsNot Nothing Or _
+                           TryCast(tmpFrm, frmSvrList) IsNot Nothing Or _
+                           TryCast(tmpFrm, frmAlertList) IsNot Nothing Or _
+                           TryCast(tmpFrm, frmMonMain) IsNot Nothing Then
+                        Else
+                            arrFrms.Add(tmpFrm)
+                        End If
+                    Next
+
+                    For Each tmpFrm As Form In arrFrms
+                        tmpFrm.Close()
+                    Next
+                End If
+            End If
             Me.isLock = True
         Else
             If fn_FormisLock(Me, _AgentCn, True) = True Then

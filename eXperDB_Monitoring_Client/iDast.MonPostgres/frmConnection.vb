@@ -355,6 +355,15 @@ Public Class frmConnection
             '    strBef = cmbDbnm.Text
             'End If
             ' ================== 예전에 프로그램에서 서버로 Direct 접속하는것 종료 
+            Dim strPw As String = ""
+            If _isChangedPW = 1 Then
+                _crypt.TDESImplementation(_strSerial.Substring(0, 24), _strSerial.Substring(0, 8))
+                strPw = _crypt.EncryptTDES(txtPW.Text)
+                txtPW.Text = strPw
+            Else
+                strPw = txtPW.Text
+            End If
+            _isChangedPW = 0
 
             If AgentMsgDbInfo Is Nothing Then
                 AgentMsgDbInfo = New clsAgentEMsg(_strAgentIP, _intAgentPort, 3000, 3000)
@@ -484,7 +493,9 @@ Public Class frmConnection
 
 
     Private Sub frmConnection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Dim strPw As String
+        strPw = _crypt.DecryptTDES(txtPW.Text)
+        txtPW.Text = strPw
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click

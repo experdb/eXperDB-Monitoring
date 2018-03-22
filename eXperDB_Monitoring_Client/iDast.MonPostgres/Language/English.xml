@@ -2692,7 +2692,30 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-
+  <ROW ID="M038" PARAMS="1">
+    <DESC>선택한 쿼리를 취소하시겠습니까?</DESC>
+    <DATA><![CDATA[Are you sure you want to cancel the total of ({0}) selected queries?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M039" PARAMS="1">
+    <DESC>선택한 세션을 종료하시겠습니까?</DESC>
+    <DATA><![CDATA[Are you sure you want to stop the total of ({0}) selected sessions?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M040" PARAMS="0">
+    <DESC>모니터링 잠금</DESC>
+    <DATA><![CDATA[The server details screen is opened. Do you want to close all of them?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
 
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
