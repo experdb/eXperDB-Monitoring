@@ -77,7 +77,7 @@
 
         lblLogBatch.Text = p_clsMsgData.fn_GetData("F143")
         lblLogBatchH.Text = p_clsMsgData.fn_GetData("F144")
-        'lblLogBatchM.Text = p_clsMsgData.fn_GetData("F145")
+        lblLogBatchM.Text = p_clsMsgData.fn_GetData("F145")
 
 
         For i As Integer = 0 To 23

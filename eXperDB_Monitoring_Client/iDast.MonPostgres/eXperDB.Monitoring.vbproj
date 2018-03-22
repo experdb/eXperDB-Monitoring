@@ -92,7 +92,10 @@
     <Reference Include="MdiTabControl">
       <HintPath>..\IDAST\Shared\lib\MdiTabControl.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\VisualBasic.PowerPacks.Vs.1.0.0\lib\Microsoft.VisualBasic.PowerPacks.Vs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
@@ -547,6 +550,7 @@
     <Content Include="Querys\Querys.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="packages.config" />
     <None Include="Resources\database.png" />
     <None Include="Resources\template.png" />
     <None Include="Resources\Watching.ico" />

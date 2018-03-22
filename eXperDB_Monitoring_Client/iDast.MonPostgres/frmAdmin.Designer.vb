@@ -59,11 +59,9 @@ Partial Class frmAdmin
         Me.colPWCH = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblHealthTime = New eXperDB.BaseControls.Label()
         Me.cmbHealthTime = New eXperDB.BaseControls.ComboBox()
-        Me.cmbLogBatchM = New eXperDB.BaseControls.ComboBox()
         Me.lblLogSaveDly = New eXperDB.BaseControls.Label()
         Me.lblLogBatchH = New eXperDB.BaseControls.Label()
         Me.nudLogSaveDly = New eXperDB.BaseControls.NumericUpDown()
-        Me.cmbLogBatchH = New eXperDB.BaseControls.ComboBox()
         Me.lblLogBatch = New eXperDB.BaseControls.Label()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -90,6 +88,9 @@ Partial Class frmAdmin
         Me.btnModify = New eXperDB.BaseControls.Button()
         Me.btnApply = New eXperDB.BaseControls.Button()
         Me.btnDelete = New eXperDB.BaseControls.Button()
+        Me.cmbLogBatchH = New eXperDB.BaseControls.ComboBox()
+        Me.cmbLogBatchM = New eXperDB.BaseControls.ComboBox()
+        Me.lblLogBatchM = New eXperDB.BaseControls.Label()
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudLogSaveDly, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlB.SuspendLayout()
@@ -338,7 +339,7 @@ Partial Class frmAdmin
         Me.lblHealthTime.ForeColor = System.Drawing.Color.White
         Me.lblHealthTime.Location = New System.Drawing.Point(3, 20)
         Me.lblHealthTime.Name = "lblHealthTime"
-        Me.lblHealthTime.Size = New System.Drawing.Size(144, 32)
+        Me.lblHealthTime.Size = New System.Drawing.Size(144, 28)
         Me.lblHealthTime.TabIndex = 2
         Me.lblHealthTime.Text = "F200"
         Me.lblHealthTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -359,21 +360,6 @@ Partial Class frmAdmin
         Me.cmbHealthTime.TabIndex = 13
         Me.cmbHealthTime.ValueText = ""
         '
-        'cmbLogBatchM
-        '
-        Me.cmbLogBatchM.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbLogBatchM.Dock = System.Windows.Forms.DockStyle.Top
-        Me.cmbLogBatchM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbLogBatchM.FixedWidth = False
-        Me.cmbLogBatchM.FormattingEnabled = True
-        Me.cmbLogBatchM.Location = New System.Drawing.Point(153, 143)
-        Me.cmbLogBatchM.Name = "cmbLogBatchM"
-        Me.cmbLogBatchM.Necessary = False
-        Me.cmbLogBatchM.Size = New System.Drawing.Size(77, 20)
-        Me.cmbLogBatchM.StatusTip = ""
-        Me.cmbLogBatchM.TabIndex = 13
-        Me.cmbLogBatchM.ValueText = ""
-        '
         'lblLogSaveDly
         '
         Me.lblLogSaveDly.Dock = System.Windows.Forms.DockStyle.Top
@@ -383,7 +369,7 @@ Partial Class frmAdmin
         Me.lblLogSaveDly.ForeColor = System.Drawing.Color.White
         Me.lblLogSaveDly.Location = New System.Drawing.Point(3, 60)
         Me.lblLogSaveDly.Name = "lblLogSaveDly"
-        Me.lblLogSaveDly.Size = New System.Drawing.Size(144, 32)
+        Me.lblLogSaveDly.Size = New System.Drawing.Size(144, 28)
         Me.lblLogSaveDly.TabIndex = 2
         Me.lblLogSaveDly.Text = "F012"
         Me.lblLogSaveDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -398,7 +384,7 @@ Partial Class frmAdmin
         Me.lblLogBatchH.ForeColor = System.Drawing.Color.White
         Me.lblLogBatchH.Location = New System.Drawing.Point(3, 140)
         Me.lblLogBatchH.Name = "lblLogBatchH"
-        Me.lblLogBatchH.Size = New System.Drawing.Size(144, 20)
+        Me.lblLogBatchH.Size = New System.Drawing.Size(144, 28)
         Me.lblLogBatchH.TabIndex = 14
         Me.lblLogBatchH.Text = "F144"
         Me.lblLogBatchH.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -420,21 +406,6 @@ Partial Class frmAdmin
         Me.nudLogSaveDly.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.nudLogSaveDly.ThousandsSeparator = True
         Me.nudLogSaveDly.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'cmbLogBatchH
-        '
-        Me.cmbLogBatchH.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbLogBatchH.Dock = System.Windows.Forms.DockStyle.Top
-        Me.cmbLogBatchH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbLogBatchH.FixedWidth = False
-        Me.cmbLogBatchH.FormattingEnabled = True
-        Me.cmbLogBatchH.Location = New System.Drawing.Point(153, 103)
-        Me.cmbLogBatchH.Name = "cmbLogBatchH"
-        Me.cmbLogBatchH.Necessary = False
-        Me.cmbLogBatchH.Size = New System.Drawing.Size(77, 20)
-        Me.cmbLogBatchH.StatusTip = ""
-        Me.cmbLogBatchH.TabIndex = 13
-        Me.cmbLogBatchH.ValueText = ""
         '
         'lblLogBatch
         '
@@ -618,10 +589,11 @@ Partial Class frmAdmin
         Me.TableLayoutPanel5.ColumnCount = 2
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.cmbLogBatchM, 1, 4)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblLogBatchM, 0, 5)
+        Me.TableLayoutPanel5.Controls.Add(Me.cmbLogBatchM, 1, 5)
         Me.TableLayoutPanel5.Controls.Add(Me.lblLogBatchH, 0, 4)
         Me.TableLayoutPanel5.Controls.Add(Me.lblLogBatch, 0, 3)
-        Me.TableLayoutPanel5.Controls.Add(Me.cmbLogBatchH, 1, 3)
+        Me.TableLayoutPanel5.Controls.Add(Me.cmbLogBatchH, 1, 4)
         Me.TableLayoutPanel5.Controls.Add(Me.lblLogSaveDly, 0, 2)
         Me.TableLayoutPanel5.Controls.Add(Me.nudLogSaveDly, 1, 2)
         Me.TableLayoutPanel5.Controls.Add(Me.lblHealthTime, 0, 1)
@@ -629,8 +601,9 @@ Partial Class frmAdmin
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 40)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 6
+        Me.TableLayoutPanel5.RowCount = 7
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -859,6 +832,51 @@ Partial Class frmAdmin
         Me.btnDelete.UseRound = True
         Me.btnDelete.UseVisualStyleBackColor = True
         '
+        'cmbLogBatchH
+        '
+        Me.cmbLogBatchH.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLogBatchH.Dock = System.Windows.Forms.DockStyle.Top
+        Me.cmbLogBatchH.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbLogBatchH.FixedWidth = False
+        Me.cmbLogBatchH.FormattingEnabled = True
+        Me.cmbLogBatchH.Location = New System.Drawing.Point(153, 143)
+        Me.cmbLogBatchH.Name = "cmbLogBatchH"
+        Me.cmbLogBatchH.Necessary = False
+        Me.cmbLogBatchH.Size = New System.Drawing.Size(77, 20)
+        Me.cmbLogBatchH.StatusTip = ""
+        Me.cmbLogBatchH.TabIndex = 13
+        Me.cmbLogBatchH.ValueText = ""
+        '
+        'cmbLogBatchM
+        '
+        Me.cmbLogBatchM.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLogBatchM.Dock = System.Windows.Forms.DockStyle.Top
+        Me.cmbLogBatchM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbLogBatchM.FixedWidth = False
+        Me.cmbLogBatchM.FormattingEnabled = True
+        Me.cmbLogBatchM.Location = New System.Drawing.Point(153, 183)
+        Me.cmbLogBatchM.Name = "cmbLogBatchM"
+        Me.cmbLogBatchM.Necessary = False
+        Me.cmbLogBatchM.Size = New System.Drawing.Size(77, 20)
+        Me.cmbLogBatchM.StatusTip = ""
+        Me.cmbLogBatchM.TabIndex = 13
+        Me.cmbLogBatchM.ValueText = ""
+        '
+        'lblLogBatchM
+        '
+        Me.lblLogBatchM.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
+        Me.lblLogBatchM.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblLogBatchM.FixedHeight = False
+        Me.lblLogBatchM.FixedWidth = False
+        Me.lblLogBatchM.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogBatchM.ForeColor = System.Drawing.Color.White
+        Me.lblLogBatchM.Location = New System.Drawing.Point(3, 180)
+        Me.lblLogBatchM.Name = "lblLogBatchM"
+        Me.lblLogBatchM.Size = New System.Drawing.Size(144, 28)
+        Me.lblLogBatchM.TabIndex = 15
+        Me.lblLogBatchM.Text = "F145"
+        Me.lblLogBatchM.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frmAdmin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -902,8 +920,6 @@ Partial Class frmAdmin
     Friend WithEvents DataGridViewPasswordTextBoxColumn1 As eXperDB.Controls.DataGridViewPasswordTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents lblLogBatchH As eXperDB.BaseControls.Label
-    Friend WithEvents cmbLogBatchM As eXperDB.BaseControls.ComboBox
-    Friend WithEvents cmbLogBatchH As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblLogBatch As eXperDB.BaseControls.Label
     Friend WithEvents cmbHealthTime As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblHealthTime As eXperDB.BaseControls.Label
@@ -938,4 +954,7 @@ Partial Class frmAdmin
     Friend WithEvents colPW As eXperDB.Controls.DataGridViewPasswordTextBoxColumn
     Friend WithEvents colLstIP As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPWCH As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents lblLogBatchM As eXperDB.BaseControls.Label
+    Friend WithEvents cmbLogBatchM As eXperDB.BaseControls.ComboBox
+    Friend WithEvents cmbLogBatchH As eXperDB.BaseControls.ComboBox
 End Class

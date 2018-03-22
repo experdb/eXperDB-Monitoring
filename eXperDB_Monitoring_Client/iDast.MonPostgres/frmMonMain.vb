@@ -2483,7 +2483,7 @@
         If Me.isLock = False Then
             Me.isLock = True
         Else
-            If fn_FormisLock(Me, _AgentCn) = True Then
+            If fn_FormisLock(Me, _AgentCn, True) = True Then
                 Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
                 MsgBox(strMsg)
             End If
@@ -2596,13 +2596,15 @@
             End If
         End Set
     End Property
-    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.DXODBC) As Boolean
+    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.DXODBC, Optional ByVal isSet As Boolean = False) As Boolean
         If Me.isLock Then
             Dim frmPw As New frmPassword(odbcCN)
             If frmPw.ShowDialog <> Windows.Forms.DialogResult.OK Then
                 Return True
             Else
-                Me.isLock = False
+                If isSet = True Then
+                    Me.isLock = False
+                End If
 
                 Return False
             End If
