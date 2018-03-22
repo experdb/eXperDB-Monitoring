@@ -1318,7 +1318,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!--	add to update ha_info by robin 201712  -->
 	<select id="EXPERDBMA_BT_UPTIME_MAXCONN_002" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		<choose>
-			<when test="instance_db_version >= '9.6'">
+			<when test="instance_db_version >= 9.6">
 				<![CDATA[
 					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_002 24e9ab7301ff1966da4fb30dc1538882 */
 					        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
@@ -1360,7 +1360,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	<select id="EXPERDBMA_BT_GET_PGVERSION_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		       SELECT /* EXPERDBMA_BT_GET_PGVERSION_001 24e9ab7301ff1966da4fb30dc1538882 */ 
-		       		SUBSTRING(SPLIT_PART(VERSION(), ' ', 2) FROM 1 FOR 3) AS pg_version;
+		       		SPLIT_PART(SPLIT_PART(VERSION(), ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(VERSION(), ' ', 2), '.', 2) AS pg_version;
 	</select>
 <!--	add to update ha_info by robin 201712  end -->
 	<update id="TB_INSTANCE_INFO_U001" parameterType="hashmap" >
@@ -1611,7 +1611,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="DX004_002" parameterType="hashmap" resultType="hashmap" flushCache="true">
 		<![CDATA[
-		select nspname from pg_namespace where nspname not like 'pg_%' and nspname<>'information_schema';
+		select nspname from pg_namespace where nspname not like 'pg\_%' and nspname<>'information_schema';
 		]]>
 	</select>
 	
@@ -1709,7 +1709,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		SELECT pg_file_length(DIR||'/'||FL) AS len
 		FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
 		   	(SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
-		WHERE FL = replace(#{filename},'pg_log/','')
+		WHERE FL = SPLIT_PART(#{filename}, '/', 2)
 	</select>
 		
 	<select id="PG_GET_LOGFILES_003" parameterType="hashmap" resultType="hashmap">

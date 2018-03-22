@@ -13,6 +13,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 public class DX004 implements SocketApplication{
@@ -26,7 +27,9 @@ public class DX004 implements SocketApplication{
 		JSONArray resDataArray = new JSONArray();
 		JSONObject resDataObj = new JSONObject();
 		
-		SqlSessionFactory sqlSessionFactory = null;
+		SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
+		SqlSession session = sqlSessionFactory.openSession();		
+		
 		Connection connection = null;
 		SqlSession sessionCollect = null;
 		
@@ -38,15 +41,18 @@ public class DX004 implements SocketApplication{
 				Class.forName("org.postgresql.Driver");
 				
 				dbPass = (String) jReqDataObj.get("password");
-				byte[] decoded = Base64.decodeBase64(dbPass.getBytes());
-				dbPass =  new String(decoded);				
+				HashMap<String, Object> configMapForKey = new HashMap<String, Object>();
+				configMapForKey = session.selectOne("system.TB_CONFIG_R002");
+				String cryptokey = (String)configMapForKey.get("serial_key");
+				cryptokey = cryptokey.substring(0, 24);			
+				dbPass = LicenseInfoManager.decryptTDES(cryptokey, dbPass);
 				
 				connection = DriverManager.getConnection(
 						"jdbc:postgresql://" + jReqDataObj.get("targetip") + ":" + jReqDataObj.get("targetport") + "/" + jReqDataObj.get("database"), 
 						(String) jReqDataObj.get("username"),
 						dbPass);
 				
-				sqlSessionFactory = SqlSessionManager.getInstance();
+				//sqlSessionFactory = SqlSessionManager.getInstance();
 				sessionCollect = sqlSessionFactory.openSession(connection);
 			} catch (Exception e) {
 				resDataObj.put("_error_cd", "DX003_E01");
