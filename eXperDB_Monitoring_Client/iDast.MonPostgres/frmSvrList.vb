@@ -51,6 +51,8 @@
             If tbServer.TabPages(1).Enabled = False Then
                 tbServer.TabPages(1).Enabled = True
                 tbServer.SelectedIndex = 1
+            Else
+                tbServer.SelectedIndex = 1
             End If
 
             If btnConTest.Tag IsNot Nothing AndAlso btnConTest.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then

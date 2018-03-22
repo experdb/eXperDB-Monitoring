@@ -230,7 +230,7 @@ Partial Class frmSvrList
         Me.txtSvrPwd.Prefix = ""
         Me.txtSvrPwd.Size = New System.Drawing.Size(150, 21)
         Me.txtSvrPwd.StatusTip = ""
-        Me.txtSvrPwd.TabIndex = 4
+        Me.txtSvrPwd.TabIndex = 9
         Me.txtSvrPwd.Value = ""
         '
         'txtSvrPort
@@ -247,7 +247,7 @@ Partial Class frmSvrList
         Me.txtSvrPort.Prefix = ""
         Me.txtSvrPort.Size = New System.Drawing.Size(150, 21)
         Me.txtSvrPort.StatusTip = ""
-        Me.txtSvrPort.TabIndex = 2
+        Me.txtSvrPort.TabIndex = 8
         Me.txtSvrPort.Value = ""
         '
         'cmbSvrDBNm
@@ -264,7 +264,7 @@ Partial Class frmSvrList
         Me.cmbSvrDBNm.Prefix = ""
         Me.cmbSvrDBNm.Size = New System.Drawing.Size(150, 21)
         Me.cmbSvrDBNm.StatusTip = ""
-        Me.cmbSvrDBNm.TabIndex = 5
+        Me.cmbSvrDBNm.TabIndex = 7
         Me.cmbSvrDBNm.Value = ""
         '
         'txtSvrUsr
@@ -281,7 +281,7 @@ Partial Class frmSvrList
         Me.txtSvrUsr.Prefix = ""
         Me.txtSvrUsr.Size = New System.Drawing.Size(150, 21)
         Me.txtSvrUsr.StatusTip = ""
-        Me.txtSvrUsr.TabIndex = 3
+        Me.txtSvrUsr.TabIndex = 6
         Me.txtSvrUsr.Value = ""
         '
         'txtSvrIP
@@ -298,7 +298,7 @@ Partial Class frmSvrList
         Me.txtSvrIP.Prefix = ""
         Me.txtSvrIP.Size = New System.Drawing.Size(150, 21)
         Me.txtSvrIP.StatusTip = ""
-        Me.txtSvrIP.TabIndex = 1
+        Me.txtSvrIP.TabIndex = 5
         Me.txtSvrIP.Value = ""
         '
         'lblSvrPwd
@@ -524,7 +524,7 @@ Partial Class frmSvrList
         Me.btnConTest.Name = "btnConTest"
         Me.btnConTest.Radius = 10
         Me.btnConTest.Size = New System.Drawing.Size(114, 39)
-        Me.btnConTest.TabIndex = 3
+        Me.btnConTest.TabIndex = 0
         Me.btnConTest.Text = "F309"
         Me.btnConTest.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnConTest.UseRound = True
@@ -542,7 +542,7 @@ Partial Class frmSvrList
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(852, 485)
+        Me.TabPage2.Size = New System.Drawing.Size(852, 520)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Monitoring Server List"
         '
@@ -563,7 +563,7 @@ Partial Class frmSvrList
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvMonLst)
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel8)
-        Me.SplitContainer1.Size = New System.Drawing.Size(846, 307)
+        Me.SplitContainer1.Size = New System.Drawing.Size(846, 342)
         Me.SplitContainer1.SplitterDistance = 565
         Me.SplitContainer1.TabIndex = 10
         '
@@ -611,7 +611,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.RowHeadersVisible = False
         Me.dgvSvrLst.RowTemplate.Height = 23
         Me.dgvSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSvrLst.Size = New System.Drawing.Size(565, 267)
+        Me.dgvSvrLst.Size = New System.Drawing.Size(565, 302)
         Me.dgvSvrLst.TabIndex = 9
         Me.dgvSvrLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSvrLst.UseTagValueMatchColor = True
@@ -863,7 +863,7 @@ Partial Class frmSvrList
         Me.dgvMonLst.RowHeadersVisible = False
         Me.dgvMonLst.RowTemplate.Height = 23
         Me.dgvMonLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvMonLst.Size = New System.Drawing.Size(277, 267)
+        Me.dgvMonLst.Size = New System.Drawing.Size(277, 302)
         Me.dgvMonLst.TabIndex = 12
         Me.dgvMonLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvMonLst.UseTagValueMatchColor = False
@@ -1032,7 +1032,7 @@ Partial Class frmSvrList
         Me.TableLayoutPanel4.Controls.Add(Me.btnStart, 1, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.btnGrpSave, 0, 0)
         Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 437)
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 472)
         Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
