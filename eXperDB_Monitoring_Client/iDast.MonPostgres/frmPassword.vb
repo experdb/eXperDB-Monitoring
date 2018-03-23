@@ -68,7 +68,7 @@
     End Sub
 
     Private Sub frmPassword_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        StatusLabel.Text = "관리자 패스워드를 입력하세요"
+        StatusLabel.Text = p_clsMsgData.fn_GetData("M052")
 
     End Sub
 

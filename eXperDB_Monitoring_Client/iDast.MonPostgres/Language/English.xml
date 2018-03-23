@@ -2264,6 +2264,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F279" PARAMS="0">
+    <DESC>관리자 패스워드 변경</DESC>
+    <DATA><![CDATA[Change Password]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F280" PARAMS="0">
+    <DESC>기본설정</DESC>
+    <DATA><![CDATA[Basic Configuration]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>
@@ -2716,7 +2732,135 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-
+  <ROW ID="M041" PARAMS="0">
+    <DESC>SQL Plan</DESC>
+    <DATA><![CDATA[You can see the execution plan for the SQL being executed in BackendProcess.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M042" PARAMS="0">
+    <DESC>Session Management</DESC>
+    <DATA><![CDATA[atabase transaction lists and cancellation/lock management of specific sessions.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M043" PARAMS="0">
+    <DESC>Object Information</DESC>
+    <DATA><![CDATA[You can query statistical information about the objects created in the database instance.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M044" PARAMS="0">
+    <DESC>Log Viewer</DESC>
+    <DATA><![CDATA[You can check the database system log.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M045" PARAMS="0">
+    <DESC>Chart Detail</DESC>
+    <DATA><![CDATA[You can look up detailed information about the monitoring items by period.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M046" PARAMS="0">
+    <DESC>Session History Management</DESC>
+    <DATA><![CDATA[View the history of forced termination of session and cancel of query by period and save to file.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M047" PARAMS="0">
+    <DESC>Configuration Setting</DESC>
+    <DATA><![CDATA[Customize your preferences.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M048" PARAMS="0">
+    <DESC>Alert Configuration Setting</DESC>
+    <DATA><![CDATA[Set user threshold for key performance indicators.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M049" PARAMS="0">
+    <DESC>Alert List</DESC>
+    <DATA><![CDATA[View system alarms and manage actions.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M050" PARAMS="0">
+    <DESC>Database Server Setting(Collection Server Information)</DESC>
+    <DATA><![CDATA[Enter the eXperDB collection server information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M051" PARAMS="0">
+    <DESC>Database Server Setting(Monitoring Server List)</DESC>
+    <DATA><![CDATA[Managed by assigning a monitored server to group.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M052" PARAMS="0">
+    <DESC>Admin Password</DESC>
+    <DATA><![CDATA[Enter the administrator password.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M053" PARAMS="0">
+    <DESC>DBMS Mangement</DESC>
+    <DATA><![CDATA[Register, modify or delete monitored servers and set collection options.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M054" PARAMS="0">
+    <DESC>DBMS Information Control(Create)</DESC>
+    <DATA><![CDATA[Register new server to monitor.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M055" PARAMS="0">
+    <DESC>DBMS Information Control(Modify)</DESC>
+    <DATA><![CDATA[Change monitored server information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M056" PARAMS="0">
+    <DESC>DBMS Information Control(Modify)</DESC>
+    <DATA><![CDATA[Change password for Administrator.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>

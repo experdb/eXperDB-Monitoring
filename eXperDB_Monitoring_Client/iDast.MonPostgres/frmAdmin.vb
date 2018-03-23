@@ -35,8 +35,7 @@
 
         lblLogSaveDly.Text = p_clsMsgData.fn_GetData("F012")
         grpSvrLst.Text = p_clsMsgData.fn_GetData("F013")
-
-
+        lblBasicConfig.Text = p_clsMsgData.fn_GetData("F280")
 
 
         colCheck.HeaderText = p_clsMsgData.fn_GetData("F017")
@@ -55,7 +54,7 @@
         btnDelete.Text = p_clsMsgData.fn_GetData("F015")
 
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
-        btnAdminPW.Text = p_clsMsgData.fn_GetData("F004")
+        btnAdminPW.Text = p_clsMsgData.fn_GetData("F279")
 
         sb_Ctlenabled(False)
 
@@ -136,7 +135,7 @@
 
 
     Private Sub frmAdmin_Load(sender As Object, e As EventArgs) Handles Me.Load
-        MsgLabel.Text = "모니터링 대상 서버 선정 및 관리를 할수 있습니다"
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M053")
 
     End Sub
 

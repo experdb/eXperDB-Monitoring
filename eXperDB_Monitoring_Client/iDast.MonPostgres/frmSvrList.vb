@@ -930,8 +930,8 @@
 
 
     Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        MsgLabel.Text = "eXperDB 수집서버 정보를 입력하세요."
-        MsgLabel2.Text = "모니터링 대상 서버를 선택하여 그룹관리를 하십시요."
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M050")
+        MsgLabel2.Text = p_clsMsgData.fn_GetData("M051")
         tbServer.TabPages(0).Enabled = True
         tbServer.TabPages(1).Enabled = False
         tbServer.TabPages(0).BackColor = System.Drawing.Color.Gray

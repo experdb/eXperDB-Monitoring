@@ -48,7 +48,7 @@
         'Me.FormControlBox1.UsePowerBox = False
 
         Me.Text = "SQL Plan"
-        lblSubject.Text = Me.Text
+        lblSubject.Text = p_clsMsgData.fn_GetData("M041")
 
     End Sub
 

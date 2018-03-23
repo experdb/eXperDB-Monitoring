@@ -2264,6 +2264,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F279" PARAMS="0">
+    <DESC>관리자 패스워드 변경</DESC>
+    <DATA><![CDATA[비밀번호 변경]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F280" PARAMS="0">
+    <DESC>기본설정</DESC>
+    <DATA><![CDATA[기본 설정]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>
@@ -2718,7 +2734,134 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-
+  <ROW ID="M041" PARAMS="0">
+    <DESC>SQL Plan</DESC>
+    <DATA><![CDATA[백엔드 프로세스에서 수행되고 있는 SQL에 대하여 실행계획을 확인할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M042" PARAMS="0">
+    <DESC>Session Management</DESC>
+    <DATA><![CDATA[데이터베이스 트랜잭션 리스트 및 특정 세션의 취소/락 관리를 할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M043" PARAMS="0">
+    <DESC>Object Information</DESC>
+    <DATA><![CDATA[데이터베이스 인스턴스에 생성된 오브젝트 통계 정보를 조회할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M044" PARAMS="0">
+    <DESC>Log Viewer</DESC>
+    <DATA><![CDATA[데이터베이스 시스템 로그를 확인할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M045" PARAMS="0">
+    <DESC>Chart Detail</DESC>
+    <DATA><![CDATA[모니터링 항목에 대하여 기간별 상세 정보를 조회할 수 있습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M046" PARAMS="0">
+    <DESC>Session History Management</DESC>
+    <DATA><![CDATA[기간별 세션 강제 종료 및 SQL 실행 중지 이력을 조회하고 파일로 저장합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M047" PARAMS="0">
+    <DESC>Configuration Setting</DESC>
+    <DATA><![CDATA[사용자 정의 환경설정을 합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M048" PARAMS="0">
+    <DESC>Alert Configuration Setting</DESC>
+    <DATA><![CDATA[주요 성능지표 항목에 대한 사용자 임계값을 설정합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M049" PARAMS="0">
+    <DESC>Alert List</DESC>
+    <DATA><![CDATA[시스템 알람을 조회하고 조치 사항을 관리합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M050" PARAMS="0">
+    <DESC>Database Server Setting(Collection Server Information)</DESC>
+    <DATA><![CDATA[eXperDB 수집 서버 정보를 입력하세요.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M051" PARAMS="0">
+    <DESC>Database Server Setting(Monitoring Server List)</DESC>
+    <DATA><![CDATA[모니터링 대상 서버를 그룹에 할당하여 관리합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M052" PARAMS="0">
+    <DESC>Admin Password</DESC>
+    <DATA><![CDATA[관리자 패스워드를 입력하세요.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M053" PARAMS="0">
+    <DESC>DBMS Mangement</DESC>
+    <DATA><![CDATA[모니터링 대상 서버를 등록, 수정 또는 삭제하고 수집 옵션을 설정합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M054" PARAMS="0">
+    <DESC>DBMS Information Control(Create)</DESC>
+    <DATA><![CDATA[모니터링 대상 서버를 신규로 등록합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M055" PARAMS="0">
+    <DESC>DBMS Information Control(Modify)</DESC>
+    <DATA><![CDATA[모니터링 대상 서버 정보를 변경합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M056" PARAMS="0">
+    <DESC>DBMS Information Control(Modify)</DESC>
+    <DATA><![CDATA[관리자 패스워드를 변경합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
 
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>

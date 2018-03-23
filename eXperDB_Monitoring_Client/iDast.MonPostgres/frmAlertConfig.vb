@@ -14,7 +14,7 @@ Public Class frmAlertConfig
 
         ' 일반설정 탭 
         Me.Text = p_clsMsgData.fn_GetData("F199")
-        Me.StatusLabel.Text = p_clsMsgData.fn_GetData("F199")
+        Me.StatusLabel.Text = p_clsMsgData.fn_GetData("M048")
 
         ' Me.tbMain.TabPages.Clear()
 

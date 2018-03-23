@@ -47,10 +47,10 @@ Public Class frmConnection
         _idxROw = idxRow
         If idxRow >= 0 Then
             btnAct.Text = p_clsMsgData.fn_GetData("F141")
-            StatusLabel.Text = "DBMS 정보를 수정합니다."
+            StatusLabel.Text = p_clsMsgData.fn_GetData("M055")
         Else
             btnAct.Text = p_clsMsgData.fn_GetData("F140")
-            StatusLabel.Text = "DBMS 정보를 새롭게 등록합니다."
+            StatusLabel.Text = p_clsMsgData.fn_GetData("M054")
         End If
     End Sub
 

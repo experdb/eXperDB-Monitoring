@@ -127,6 +127,6 @@ Public Class frmUserConfig
     End Sub
 
     Private Sub frmUserConfig_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        StatusLabel.Text = "관리자 패스워드를 변경합니다."
+        StatusLabel.Text = p_clsMsgData.fn_GetData("M056")
     End Sub
 End Class

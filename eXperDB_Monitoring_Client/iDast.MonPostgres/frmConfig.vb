@@ -15,7 +15,7 @@
     Private Sub initForm()
         btnSave.Text = p_clsMsgData.fn_GetData("F014")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
-
+        StatusLabel.Text = p_clsMsgData.fn_GetData("M047")
 
 
         ' 일반설정 탭 

@@ -125,7 +125,7 @@
         cmbType.SelectedIndex = 0
 
         ' modCommon.FontChange(Me, p_Font)
-        MsgLabel.Text = "세션 이력 관리를 합니다."
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M046")
     End Sub
 
     Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataRow)

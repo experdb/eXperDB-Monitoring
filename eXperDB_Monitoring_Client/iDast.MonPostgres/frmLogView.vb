@@ -103,7 +103,7 @@ Public Class frmLogView
         FileTotalCnt.Text = p_clsMsgData.fn_GetData("F900", 0)
         FileTotalSize.Text = p_clsMsgData.fn_GetData("F901", 0)
         RefreshTime.Text = p_clsMsgData.fn_GetData("F902", 0)
-        MsgLabel.Text = "데이터베이스 시스템 로그를 확인할 수 있습니다."
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M044")
 
 
     End Sub

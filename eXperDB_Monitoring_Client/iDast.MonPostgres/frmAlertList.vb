@@ -144,7 +144,7 @@
         modCommon.FontChange(Me, p_Font)
 
         'CountStatusLabel1.Text = "(0/0)"
-        MsgLabel.Text = "시스템 알람에 대해 조치 관리를 합니다."
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M049")
 
     End Sub
 

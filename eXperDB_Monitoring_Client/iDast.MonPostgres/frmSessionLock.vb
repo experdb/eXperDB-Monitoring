@@ -138,7 +138,7 @@
         'Me.cmbStatus.Location = New System.Drawing.Point(Me.grpSession.Width - Me.cmbStatus.Width - Me.cmbStatus.Margin.Right, Me.cmbStatus.Margin.Top)
         'modCommon.FontChange(Me, p_Font)
 
-        MsgLabel.Text = "데이터베이스 트랜젝션 리스트 및 특정 세션의 취소/락 관리를 할수 있습니다. "
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M042")
 
     End Sub
     ''' <summary>
