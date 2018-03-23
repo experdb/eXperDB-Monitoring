@@ -493,9 +493,7 @@ Public Class frmConnection
 
 
     Private Sub frmConnection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim strPw As String
-        strPw = _crypt.DecryptTDES(txtPW.Text)
-        txtPW.Text = strPw
+
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
