@@ -987,4 +987,23 @@
             End If
         Next
     End Sub
+
+    Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
+        Dim frmConfig As New frmConfig
+        frmConfig.ShowDialog()
+        ReadConfig()
+    End Sub
+
+    Private Sub ReadConfig()
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        '_ShowHchkNormal = clsIni.ReadValue("General", "NORMAL_SHOW", True)
+        '_ShowHchkWarning = clsIni.ReadValue("General", "WARNING_SHOW", True)
+        '_ShowHchkCritical = clsIni.ReadValue("General", "CRITICAL_SHOW", True)
+
+
+        'nudBackendcnt.Value = clsIni.ReadValue("FORM", "SESSIONMAIN", 30)
+
+        'chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEMAIN", "False")
+
+    End Sub
 End Class

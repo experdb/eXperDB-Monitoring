@@ -180,7 +180,7 @@ Partial Class frmConfig
         'nudGrpRotate
         '
         Me.nudGrpRotate.BackColor = System.Drawing.SystemColors.Window
-        Me.nudGrpRotate.Location = New System.Drawing.Point(114, 211)
+        Me.nudGrpRotate.Location = New System.Drawing.Point(114, 171)
         Me.nudGrpRotate.Maximum = New Decimal(New Integer() {1200, 0, 0, 0})
         Me.nudGrpRotate.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudGrpRotate.Name = "nudGrpRotate"
@@ -193,7 +193,7 @@ Partial Class frmConfig
         '
         'lbGrpRatate
         '
-        Me.lbGrpRatate.Location = New System.Drawing.Point(8, 211)
+        Me.lbGrpRatate.Location = New System.Drawing.Point(8, 173)
         Me.lbGrpRatate.Name = "lbGrpRatate"
         Me.lbGrpRatate.Size = New System.Drawing.Size(100, 21)
         Me.lbGrpRatate.TabIndex = 8
@@ -206,7 +206,7 @@ Partial Class frmConfig
         Me.rbAlias.AutoSize = True
         Me.rbAlias.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbAlias.LineColor = System.Drawing.Color.Gray
-        Me.rbAlias.Location = New System.Drawing.Point(215, 181)
+        Me.rbAlias.Location = New System.Drawing.Point(215, 141)
         Me.rbAlias.Name = "rbAlias"
         Me.rbAlias.Radius = 10
         Me.rbAlias.Size = New System.Drawing.Size(48, 16)
@@ -223,7 +223,7 @@ Partial Class frmConfig
         Me.rbHostnm.AutoSize = True
         Me.rbHostnm.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.rbHostnm.LineColor = System.Drawing.Color.Gray
-        Me.rbHostnm.Location = New System.Drawing.Point(114, 181)
+        Me.rbHostnm.Location = New System.Drawing.Point(114, 141)
         Me.rbHostnm.Name = "rbHostnm"
         Me.rbHostnm.Radius = 10
         Me.rbHostnm.Size = New System.Drawing.Size(48, 16)
@@ -241,7 +241,7 @@ Partial Class frmConfig
         Me.Button2.FixedWidth = False
         Me.Button2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Button2.LineColor = System.Drawing.Color.Gray
-        Me.Button2.Location = New System.Drawing.Point(310, 139)
+        Me.Button2.Location = New System.Drawing.Point(310, 99)
         Me.Button2.Name = "Button2"
         Me.Button2.Radius = 10
         Me.Button2.Size = New System.Drawing.Size(35, 27)
@@ -257,7 +257,7 @@ Partial Class frmConfig
         Me.Button1.FixedWidth = False
         Me.Button1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Button1.LineColor = System.Drawing.Color.Gray
-        Me.Button1.Location = New System.Drawing.Point(269, 139)
+        Me.Button1.Location = New System.Drawing.Point(269, 99)
         Me.Button1.Name = "Button1"
         Me.Button1.Radius = 10
         Me.Button1.Size = New System.Drawing.Size(35, 27)
@@ -273,7 +273,7 @@ Partial Class frmConfig
         Me.TextBox2.code = False
         Me.TextBox2.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.TextBox2.impossibleinput = ""
-        Me.TextBox2.Location = New System.Drawing.Point(113, 140)
+        Me.TextBox2.Location = New System.Drawing.Point(113, 100)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Necessary = False
         Me.TextBox2.PossibleInput = ""
@@ -288,7 +288,7 @@ Partial Class frmConfig
         Me.chkNor.AutoSize = True
         Me.chkNor.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkNor.LineColor = System.Drawing.Color.Gray
-        Me.chkNor.Location = New System.Drawing.Point(114, 105)
+        Me.chkNor.Location = New System.Drawing.Point(320, 254)
         Me.chkNor.Name = "chkNor"
         Me.chkNor.Radius = 10
         Me.chkNor.Size = New System.Drawing.Size(49, 16)
@@ -296,13 +296,14 @@ Partial Class frmConfig
         Me.chkNor.Text = "F029"
         Me.chkNor.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.chkNor.UseVisualStyleBackColor = True
+        Me.chkNor.Visible = False
         '
         'chkWar
         '
         Me.chkWar.AutoSize = True
         Me.chkWar.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkWar.LineColor = System.Drawing.Color.Gray
-        Me.chkWar.Location = New System.Drawing.Point(215, 105)
+        Me.chkWar.Location = New System.Drawing.Point(421, 254)
         Me.chkWar.Name = "chkWar"
         Me.chkWar.Radius = 10
         Me.chkWar.Size = New System.Drawing.Size(49, 16)
@@ -310,13 +311,14 @@ Partial Class frmConfig
         Me.chkWar.Text = "F030"
         Me.chkWar.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.chkWar.UseVisualStyleBackColor = True
+        Me.chkWar.Visible = False
         '
         'chkCri
         '
         Me.chkCri.AutoSize = True
         Me.chkCri.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkCri.LineColor = System.Drawing.Color.Gray
-        Me.chkCri.Location = New System.Drawing.Point(318, 105)
+        Me.chkCri.Location = New System.Drawing.Point(524, 254)
         Me.chkCri.Name = "chkCri"
         Me.chkCri.Radius = 10
         Me.chkCri.Size = New System.Drawing.Size(49, 16)
@@ -324,24 +326,26 @@ Partial Class frmConfig
         Me.chkCri.Text = "F031"
         Me.chkCri.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.chkCri.UseVisualStyleBackColor = True
+        Me.chkCri.Visible = False
         '
         'lblShowNm
         '
-        Me.lblShowNm.Location = New System.Drawing.Point(8, 178)
+        Me.lblShowNm.Location = New System.Drawing.Point(8, 143)
         Me.lblShowNm.Name = "lblShowNm"
         Me.lblShowNm.Size = New System.Drawing.Size(100, 21)
         Me.lblShowNm.TabIndex = 1
         Me.lblShowNm.Text = "F228"
-        Me.lblShowNm.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblShowNm.TextAlign = System.Drawing.ContentAlignment.BottomRight
         '
         'lblHealthCheck
         '
-        Me.lblHealthCheck.Location = New System.Drawing.Point(7, 101)
+        Me.lblHealthCheck.Location = New System.Drawing.Point(213, 250)
         Me.lblHealthCheck.Name = "lblHealthCheck"
         Me.lblHealthCheck.Size = New System.Drawing.Size(100, 21)
         Me.lblHealthCheck.TabIndex = 1
         Me.lblHealthCheck.Text = "F189"
         Me.lblHealthCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblHealthCheck.Visible = False
         '
         'nudCollect
         '
@@ -397,7 +401,7 @@ Partial Class frmConfig
         Me.tp2.Location = New System.Drawing.Point(4, 25)
         Me.tp2.Name = "tp2"
         Me.tp2.Padding = New System.Windows.Forms.Padding(5)
-        Me.tp2.Size = New System.Drawing.Size(594, 300)
+        Me.tp2.Size = New System.Drawing.Size(594, 276)
         Me.tp2.TabIndex = 1
         Me.tp2.Text = "F038"
         '
@@ -587,7 +591,7 @@ Partial Class frmConfig
         Me.btnQueryInit.FixedWidth = False
         Me.btnQueryInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnQueryInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQueryInit.Location = New System.Drawing.Point(287, 269)
+        Me.btnQueryInit.Location = New System.Drawing.Point(287, 245)
         Me.btnQueryInit.Name = "btnQueryInit"
         Me.btnQueryInit.Radius = 10
         Me.btnQueryInit.Size = New System.Drawing.Size(273, 27)

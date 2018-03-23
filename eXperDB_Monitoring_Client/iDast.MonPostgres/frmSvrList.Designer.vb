@@ -113,6 +113,7 @@ Partial Class frmSvrList
         Me.btnStart = New eXperDB.BaseControls.Button()
         Me.btnGrpSave = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnConfig = New eXperDB.BaseControls.Button()
         Me.MsgLabel2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnHistory = New eXperDB.BaseControls.Button()
@@ -1086,20 +1087,44 @@ Partial Class frmSvrList
         'TableLayoutPanel6
         '
         Me.TableLayoutPanel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel6.ColumnCount = 3
+        Me.TableLayoutPanel6.ColumnCount = 4
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57.0!))
+        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 57.0!))
+        Me.TableLayoutPanel6.Controls.Add(Me.btnConfig, 3, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.MsgLabel2, 1, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.Label3, 0, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.btnHistory, 2, 0)
         Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel6.Location = New System.Drawing.Point(3, 80)
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
-        Me.TableLayoutPanel6.RowCount = 1
+        Me.TableLayoutPanel6.RowCount = 2
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(846, 50)
         Me.TableLayoutPanel6.TabIndex = 16
+        '
+        'btnConfig
+        '
+        Me.btnConfig.BackColor = System.Drawing.Color.Silver
+        Me.btnConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnConfig.FixedHeight = False
+        Me.btnConfig.FixedWidth = False
+        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnConfig.ForeColor = System.Drawing.Color.Black
+        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
+        Me.btnConfig.LineColor = System.Drawing.Color.LightGray
+        Me.btnConfig.Location = New System.Drawing.Point(792, 4)
+        Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnConfig.Name = "btnConfig"
+        Me.btnConfig.Radius = 5
+        Me.btnConfig.Size = New System.Drawing.Size(51, 41)
+        Me.btnConfig.TabIndex = 22
+        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.UseVisualStyleBackColor = True
         '
         'MsgLabel2
         '
@@ -1110,7 +1135,7 @@ Partial Class frmSvrList
         Me.MsgLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MsgLabel2.Location = New System.Drawing.Point(43, 0)
         Me.MsgLabel2.Name = "MsgLabel2"
-        Me.MsgLabel2.Size = New System.Drawing.Size(743, 50)
+        Me.MsgLabel2.Size = New System.Drawing.Size(686, 49)
         Me.MsgLabel2.TabIndex = 0
         Me.MsgLabel2.Text = "Text"
         Me.MsgLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1123,7 +1148,7 @@ Partial Class frmSvrList
         Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label3.Location = New System.Drawing.Point(3, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(34, 50)
+        Me.Label3.Size = New System.Drawing.Size(34, 49)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
         '
@@ -1131,7 +1156,7 @@ Partial Class frmSvrList
         '
         Me.btnHistory.BackColor = System.Drawing.Color.Silver
         Me.btnHistory.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnHistory.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnHistory.FixedHeight = False
         Me.btnHistory.FixedWidth = False
         Me.btnHistory.Font = New System.Drawing.Font("Webdings", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
@@ -1139,11 +1164,11 @@ Partial Class frmSvrList
         Me.btnHistory.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnHistory.Image = CType(resources.GetObject("btnHistory.Image"), System.Drawing.Image)
         Me.btnHistory.LineColor = System.Drawing.Color.LightGray
-        Me.btnHistory.Location = New System.Drawing.Point(792, 4)
+        Me.btnHistory.Location = New System.Drawing.Point(735, 4)
         Me.btnHistory.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnHistory.Name = "btnHistory"
         Me.btnHistory.Radius = 5
-        Me.btnHistory.Size = New System.Drawing.Size(51, 42)
+        Me.btnHistory.Size = New System.Drawing.Size(51, 41)
         Me.btnHistory.TabIndex = 17
         Me.btnHistory.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnHistory.UseVisualStyleBackColor = True
@@ -1525,5 +1550,6 @@ Partial Class frmSvrList
     Friend WithEvents colMonHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonPGV As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonCollectPeriod As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents btnConfig As eXperDB.BaseControls.Button
 
 End Class

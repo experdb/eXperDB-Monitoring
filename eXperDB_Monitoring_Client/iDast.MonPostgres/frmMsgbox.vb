@@ -75,6 +75,6 @@
     End Sub
 
     Private Sub frmMsgbox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        StatusLabel.Text = p_clsMsgData.fn_GetData("M230")
+        StatusLabel.Text = "eXperDB-Monitoring Message"
     End Sub
 End Class

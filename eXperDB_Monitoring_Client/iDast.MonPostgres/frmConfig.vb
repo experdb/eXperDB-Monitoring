@@ -165,7 +165,12 @@
 
         sb_SaveSQL()
 
-        MsgBox("저장이 완료되었습니다. 모니터링을 재시작하여 주십시오.")
+        If cmbLang.Text.Equals("Korean") Then
+            MsgBox("저장이 완료되었습니다. 모니터링을 재시작하여 주십시오.")
+        Else
+            MsgBox("Saving is complete. Please restart to apply the settings.")
+        End If
+
     End Sub
 
     Private Sub sb_SaveSQL()

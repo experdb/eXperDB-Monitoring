@@ -354,7 +354,7 @@
         Me.ttChart.SetToolTip(Me.btnPower, p_clsMsgData.fn_GetData("F308"))
         Me.ttChart.SetToolTip(Me.btnCritical, p_clsMsgData.fn_GetData("F306"))
         Me.ttChart.SetToolTip(Me.btnLock, p_clsMsgData.fn_GetData("F305"))
-        Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F300"))
+        'Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F300"))
         Me.ttChart.SetToolTip(Me.btnAlertConfig, p_clsMsgData.fn_GetData("F199"))
 
         'modCommon.FontChange(Me, p_Font)
@@ -2529,11 +2529,6 @@
         End If
     End Sub
 
-    Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
-        Dim frmConfig As New frmConfig
-        frmConfig.ShowDialog()
-        ReadConfig()
-    End Sub
 
     Private Sub btnAlertConfig_Click(sender As Object, e As EventArgs) Handles btnAlertConfig.Click
         Dim AlertConfig As New frmAlertConfig(GrpListServerinfo)
