@@ -22,6 +22,7 @@ Partial Class frmAddSvrList
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -57,6 +58,7 @@ Partial Class frmAddSvrList
         Me.btnAdd = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel7 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgvSvrLst = New AdvancedDataGridView.TreeGridView()
+        Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.colHostNm = New AdvancedDataGridView.TreeGridColumn()
         Me.colAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -272,7 +274,7 @@ Partial Class frmAddSvrList
         Me.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnCancel.FixedHeight = False
         Me.btnCancel.FixedWidth = False
-        Me.btnCancel.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnCancel.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCancel.ForeColor = System.Drawing.Color.White
         Me.btnCancel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCancel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -292,7 +294,7 @@ Partial Class frmAddSvrList
         Me.btnAdd.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnAdd.FixedHeight = False
         Me.btnAdd.FixedWidth = False
-        Me.btnAdd.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnAdd.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAdd.ForeColor = System.Drawing.Color.White
         Me.btnAdd.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAdd.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -333,9 +335,9 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.AllowUserToResizeRows = False
         Me.dgvSvrLst.BackgroundColor = System.Drawing.Color.Black
         Me.dgvSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle8.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.DimGray
@@ -346,7 +348,7 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colHostNm, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colPGV, Me.colCollectPeriod})
         DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle15.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle15.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black
@@ -361,7 +363,7 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.Name = "dgvSvrLst"
         DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle16.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -369,11 +371,20 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.RowHeadersDefaultCellStyle = DataGridViewCellStyle16
         Me.dgvSvrLst.RowHeadersVisible = False
         Me.dgvSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvSvrLst.ShowLines = False
         Me.dgvSvrLst.Size = New System.Drawing.Size(768, 342)
         Me.dgvSvrLst.TabIndex = 19
         '
+        'dbmsImgLst
+        '
+        Me.dbmsImgLst.ImageStream = CType(resources.GetObject("dbmsImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.dbmsImgLst.TransparentColor = System.Drawing.Color.Transparent
+        Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
+        Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
+        '
         'colHostNm
         '
+        Me.colHostNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colHostNm.DataPropertyName = "HOST_NAME"
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
@@ -381,12 +392,12 @@ Partial Class frmAddSvrList
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White
         Me.colHostNm.DefaultCellStyle = DataGridViewCellStyle9
         Me.colHostNm.DefaultNodeImage = Nothing
+        Me.colHostNm.FillWeight = 250.0!
         Me.colHostNm.HeaderText = "HOST_NAME"
-        Me.colHostNm.MinimumWidth = 150
+        Me.colHostNm.MinimumWidth = 100
         Me.colHostNm.Name = "colHostNm"
         Me.colHostNm.ReadOnly = True
         Me.colHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colHostNm.Width = 150
         '
         'colAliasNm
         '
@@ -398,6 +409,7 @@ Partial Class frmAddSvrList
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
         Me.colAliasNm.DefaultCellStyle = DataGridViewCellStyle10
         Me.colAliasNm.HeaderText = "F019"
+        Me.colAliasNm.MinimumWidth = 80
         Me.colAliasNm.Name = "colAliasNm"
         Me.colAliasNm.ReadOnly = True
         Me.colAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -406,12 +418,14 @@ Partial Class frmAddSvrList
         '
         Me.colDBNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colDBNm.DataPropertyName = "CONN_DB_NAME"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White
         Me.colDBNm.DefaultCellStyle = DataGridViewCellStyle11
         Me.colDBNm.HeaderText = "F010"
+        Me.colDBNm.MinimumWidth = 80
         Me.colDBNm.Name = "colDBNm"
         Me.colDBNm.ReadOnly = True
         Me.colDBNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -420,12 +434,14 @@ Partial Class frmAddSvrList
         '
         Me.colUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colUser.DataPropertyName = "CONN_USER_ID"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White
         Me.colUser.DefaultCellStyle = DataGridViewCellStyle12
         Me.colUser.HeaderText = "F008"
+        Me.colUser.MinimumWidth = 50
         Me.colUser.Name = "colUser"
         Me.colUser.ReadOnly = True
         Me.colUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -434,12 +450,14 @@ Partial Class frmAddSvrList
         '
         Me.colIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colIP.DataPropertyName = "SERVER_IP"
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle13.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White
         Me.colIP.DefaultCellStyle = DataGridViewCellStyle13
         Me.colIP.HeaderText = "F006"
+        Me.colIP.MinimumWidth = 50
         Me.colIP.Name = "colIP"
         Me.colIP.ReadOnly = True
         Me.colIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -448,12 +466,15 @@ Partial Class frmAddSvrList
         '
         Me.colPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colPort.DataPropertyName = "SERVICE_PORT"
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White
         Me.colPort.DefaultCellStyle = DataGridViewCellStyle14
+        Me.colPort.FillWeight = 80.0!
         Me.colPort.HeaderText = "F007"
+        Me.colPort.MinimumWidth = 50
         Me.colPort.Name = "colPort"
         Me.colPort.ReadOnly = True
         Me.colPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -581,6 +602,7 @@ Partial Class frmAddSvrList
     Friend WithEvents dgvSvrLst As AdvancedDataGridView.TreeGridView
     'Friend WithEvents colHostNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnCancel As eXperDB.BaseControls.Button
+    Friend WithEvents dbmsImgLst As System.Windows.Forms.ImageList
     Friend WithEvents colHostNm As AdvancedDataGridView.TreeGridColumn
     Friend WithEvents colAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDBNm As System.Windows.Forms.DataGridViewTextBoxColumn

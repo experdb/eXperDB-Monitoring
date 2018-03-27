@@ -111,8 +111,6 @@
                 End If
 
 
-
-
             Next
 
 
@@ -152,14 +150,16 @@
                 For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'M'")
                     Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpRow.Item("HOST_NAME"))
                     topNode.Tag = tmpRow.Item("INSTANCE_ID")
-                    Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
-                    topNode.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
+                    topNode.Image = dbmsImgLst.Images(0)
+
                     sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
                     For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
                         If (tmpChild.Item("HA_HOST") Like (topNode.Cells(colMonHostNm.Index).Value + "*")) = True Or _
                             topNode.Cells(colMonIP.Index).Value = tmpChild.Item("SERVER_IP") Then
                             Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
                             cNOde.Tag = tmpChild.Item("INSTANCE_ID")
+                            cNOde.Image = dbmsImgLst.Images(1)
+
                             sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
                         End If
                     Next
@@ -301,7 +301,9 @@
         colCollectYN.HeaderText = p_clsMsgData.fn_GetData("F018")
         colDBNm.HeaderText = p_clsMsgData.fn_GetData("F010")
         colAliasNm.HeaderText = p_clsMsgData.fn_GetData("F019")
+        colMonDBNm.HeaderText = p_clsMsgData.fn_GetData("F010")
         colUser.HeaderText = p_clsMsgData.fn_GetData("F008")
+        colMonUser.HeaderText = p_clsMsgData.fn_GetData("F008")
         colIP.HeaderText = p_clsMsgData.fn_GetData("F006")
         colPort.HeaderText = p_clsMsgData.fn_GetData("F007")
         colPW.HeaderText = p_clsMsgData.fn_GetData("F009")
@@ -862,13 +864,13 @@
             If tmpNode.Selected = True Then
                 Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpNode.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
                 sb_AddTreeGridDatas(topNode, HashTbl, tmpNode)
-                Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
-                topNode.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
+                topNode.Image = dbmsImgLst.Images(0)
                 topNode.Tag = tmpNode.Tag
                 If tmpNode.HasChildren = True Then
                     For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
                         Dim childNode As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(cNode.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
                         childNode.Tag = cNode.Tag
+                        childNode.Image = dbmsImgLst.Images(1)
                         sb_AddTreeGridDatas(childNode, HashTbl, cNode)
                     Next
                 End If
