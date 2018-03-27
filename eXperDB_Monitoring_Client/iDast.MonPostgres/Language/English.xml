@@ -2356,6 +2356,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F314" PARAMS="0">
+    <DESC>ACTIVE SESSION LIST</DESC>
+    <DATA><![CDATA[Active Session list(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -2871,6 +2879,14 @@
   <ROW ID="M057" PARAMS="0">
     <DESC>존재하는 그룹명입니다.</DESC>
     <DATA><![CDATA[The group name already exists.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M058" PARAMS="1">
+    <DESC>총 건이 선택되어 알람조치 합니다.</DESC>
+    <DATA><![CDATA[Do you want to take a check the total of ({0}) selected alerts?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

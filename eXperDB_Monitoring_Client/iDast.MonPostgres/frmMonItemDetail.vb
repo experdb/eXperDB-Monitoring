@@ -158,7 +158,7 @@
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information
 
-        lslSession.Text = p_clsMsgData.fn_GetData("F313", 0)
+        lslSession.Text = p_clsMsgData.fn_GetData("F314", 0)
         dgvSessionList.AutoGenerateColumns = False
         coldgvSessionListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
         coldgvSessionListPID.HeaderText = p_clsMsgData.fn_GetData("F082")
@@ -228,7 +228,7 @@
                                                 dgvSessionList.DataSource = ShowDT
 
                                                 modCommon.sb_GridSortChg(dgvSessionList)
-                                                lslSession.Text = p_clsMsgData.fn_GetData("F313", dtView.Count)
+                                                lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                                 GC.Collect()

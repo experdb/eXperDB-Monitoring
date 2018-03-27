@@ -143,19 +143,19 @@
     End Sub
 
     Private Sub dgvSvrLst_SelectionChanged(sender As Object, e As EventArgs) Handles dgvSvrLst.SelectionChanged
-        If dgvSvrLst.Nodes.Count > 0 Then
-            For Each tmpRow As DataGridViewRow In dgvSvrLst.SelectedRows
-                If dgvSvrLst.Nodes(tmpRow.Index).HasChildren Then
-                    For Each tempRow As DataGridViewRow In dgvSvrLst.Rows
-                        If (tempRow.Cells(colHAHost.Index).Value Like (tmpRow.Cells(colHostNm.Index).Value + "*")) = True Or _
-                            tempRow.Cells(colIP.Index).Value = tmpRow.Cells(colHAHost.Index).Value Then
-                            If tempRow.Cells(colPort.Index).Value = tmpRow.Cells(colPort.Index).Value Then
-                                tempRow.Selected = True
-                            End If
-                        End If
-                    Next
-                End If
-            Next
-        End If
+        'If dgvSvrLst.Nodes.Count > 0 Then
+        '    For Each tmpRow As DataGridViewRow In dgvSvrLst.SelectedRows
+        '        If dgvSvrLst.Nodes(tmpRow.Index).HasChildren Then
+        '            For Each tempRow As DataGridViewRow In dgvSvrLst.Rows
+        '                If (tempRow.Cells(colHAHost.Index).Value Like (tmpRow.Cells(colHostNm.Index).Value + "*")) = True Or _
+        '                    tempRow.Cells(colIP.Index).Value = tmpRow.Cells(colHAHost.Index).Value Then
+        '                    If tempRow.Cells(colPort.Index).Value = tmpRow.Cells(colPort.Index).Value Then
+        '                        tempRow.Selected = True
+        '                    End If
+        '                End If
+        '            Next
+        '        End If
+        '    Next
+        'End If
     End Sub
 End Class

@@ -262,7 +262,7 @@
             Return
         End If
 
-        frmAlertCheck.StatusLabel.Text = "총 (" & i & ") 건이 선택되어 알람 조치 합니다."
+        frmAlertCheck.StatusLabel.Text = p_clsMsgData.fn_GetData("M038", i)
         If frmAlertCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
             frmAlertCheck.rtnValue(intPauseTime, strCheckComment, strCheckUser)
         Else
