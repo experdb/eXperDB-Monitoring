@@ -82,8 +82,7 @@ Public Class frmAlertConfig
         ClsQuery.UpdateHealthLimited(InstanceID, "LASTANALYZE", HealtLimited.LastAnalyzeDay, 0, HealtLimited.LastAnalyzedayBool, LastIp)
         ClsQuery.UpdateHealthLimited(InstanceID, "CONNECTIONFAIL", 0, HealtLimited.ConFailedCnt, HealtLimited.ConfailedcntBool, LastIp)
 
-        MsgBox("적용완료되었습니다")
-
+        MsgBox(p_clsMsgData.fn_GetData("M028"))
 
     End Sub
 

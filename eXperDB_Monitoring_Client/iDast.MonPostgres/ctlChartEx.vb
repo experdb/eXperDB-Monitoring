@@ -2227,10 +2227,15 @@ Public Class ctlChartEx
         Dim ChartBorderTop As Integer = 100 * intCount 'Pixels on the top
         Dim ChartBorderBottom As Integer = 120 * intCount 'Pixels on the bottom
 
+        'Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.X = CSng(ChartBorderLeft / Me.MainChart.Width) * 100  'Left border 
+        'Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Y = CSng(ChartBorderTop / Me.MainChart.Height) * 100  'Top Border
+        'Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Width = CSng((Me.MainChart.Width - ChartBorderLeft - ChartBorderRight) / Me.MainChart.Width) * 100
+        'Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Height = CSng((Me.MainChart.Height - ChartBorderTop - ChartBorderBottom) / Me.MainChart.Height) * 100
+
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.X = CSng(ChartBorderLeft / Me.MainChart.Width) * 100  'Left border 
-        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Y = CSng(ChartBorderTop / Me.MainChart.Height) * 100  'Top Border
+        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Y = 10  'Top Border
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Width = CSng((Me.MainChart.Width - ChartBorderLeft - ChartBorderRight) / Me.MainChart.Width) * 100
-        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Height = CSng((Me.MainChart.Height - ChartBorderTop - ChartBorderBottom) / Me.MainChart.Height) * 100
+        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Height = 80
 
         Me.MainChart.ChartAreas(AreaIndex).Position.X = CSng(0 / Me.MainChart.Width) * 100  'Left border 
         Me.MainChart.ChartAreas(AreaIndex).Position.Y = CSng(0 / Me.MainChart.Height) * 100  'Top Border

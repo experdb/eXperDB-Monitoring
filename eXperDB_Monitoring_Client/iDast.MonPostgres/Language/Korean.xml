@@ -2288,6 +2288,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F282" PARAMS="0">
+    <DESC>현재상태</DESC>
+    <DATA><![CDATA[현재 상태]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F283" PARAMS="0">
+    <DESC>상태누적</DESC>
+    <DATA><![CDATA[누적 정보]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>

@@ -123,7 +123,7 @@
 
         Me.Text = "eXperDB Monitoring" + " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), ServerInfo.PGV) + "]"
 
-        ServerName_lv.Text = String.Format("Name : {0},  IP : {1}, Started on {2}", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
+        ServerName_lv.Text = String.Format("{0},  IP : {1}, Started on {2}", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
 
         TmCollect = New Timer()
         TmCollect.Interval = _Elapseinterval

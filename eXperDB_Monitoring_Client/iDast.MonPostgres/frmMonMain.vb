@@ -357,6 +357,8 @@
         'Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F300"))
         Me.ttChart.SetToolTip(Me.btnAlertConfig, p_clsMsgData.fn_GetData("F199"))
 
+        rbCurrent.Text = p_clsMsgData.fn_GetData("F282")
+        rbHistory.Text = p_clsMsgData.fn_GetData("F283")
         'modCommon.FontChange(Me, p_Font)
 
     End Sub
@@ -368,7 +370,6 @@
     ' ''' <param name="grpLst"></param>
     ' ''' <remarks></remarks>
     'Private Sub sb_SetRbGrp(ByVal grpLst As List(Of GroupInfo))
-
     '    If grpLst Is Nothing Then Return
 
     '    ' 그룹 버튼을 Visible을 끈다. 
@@ -451,6 +452,8 @@
         ' Session Stats
         sb_SetSessionStatus(grpInfo.Items)
 
+        'check radio button current 
+        rbCurrent.Checked = True
         '서버 Alert ServerInfo
         _GrpListServerinfo = grpInfo.Items
     End Sub
@@ -1879,12 +1882,19 @@
         If dtTable Is Nothing Then Return
         Try
             'dgvAlert
-            Dim tmpCondition As String
+
+            If rbCurrent.Checked = True Then
+                dgvAlert.Rows.Clear()
+            End If
+
+            Dim tmpCondition As String = String.Empty
+
             If _SelectedAlertLevel = 0 Then
                 tmpCondition = "STATE > 200"
             Else
                 tmpCondition = ""
             End If
+
             For Each tmpRow As DataRow In dtTable.Select(tmpCondition)
                 Dim intInstanceID As Integer = tmpRow.Item("INSTANCE_ID")
                 Dim intHchkVal As Integer = tmpRow.Item("STATE")
@@ -2657,5 +2667,36 @@
 #End Region
 
 
+    Private Sub dgvAlert_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvAlert.CellMouseMove
+        If e.RowIndex >= 0 Then
+            dgvAlert.Cursor = Cursors.Hand
+            If dgvAlert.Rows(e.RowIndex).Selected = False Then
+                dgvAlert.ClearSelection()
+                dgvAlert.Rows(e.RowIndex).Selected = True
+            End If
+        End If
+    End Sub
 
+    Private Sub dgvAlert_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlert.CellMouseLeave
+        If e.RowIndex >= 0 Then
+            dgvAlert.Cursor = Cursors.Arrow
+            If dgvAlert.Rows(e.RowIndex).Selected = True Then
+                dgvAlert.ClearSelection()
+                dgvAlert.Rows(e.RowIndex).Selected = False
+            End If
+        End If
+    End Sub
+
+    Private Sub rbCurrent_CheckedChanged(sender As Object, e As EventArgs) Handles rbCurrent.CheckedChanged, rbHistory.CheckedChanged
+        Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If rbTemp.Name = "rbCurrent" Then
+            If rbTemp.Checked = True Then
+
+            End If
+        Else
+            If rbTemp.Checked = True Then
+
+            End If
+        End If
+    End Sub
 End Class
