@@ -76,6 +76,7 @@
     Private _ShowHchkCritical As Boolean = True
     Private _AgentCn As eXperDB.ODBC.DXODBC
     Private _clsQuery As clsQuerys  ' Main Thread용
+    Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
 
     ReadOnly Property AgentCn As DXODBC
@@ -581,13 +582,13 @@
 
             If dtRowsSession.Count = 0 Then
                 Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, 0)
-                sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtSession, "Active", dblRegDt, 0)
+                sb_ChartAddPoint(Me.chtSession, "Total", dblRegDt, 0)
             Else
                 For Each tmpRow As DataRow In dtRowsSession
                     Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-                    sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
-                    sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
+                    sb_ChartAddPoint(Me.chtSession, "Active", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
+                    sb_ChartAddPoint(Me.chtSession, "Total", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
                 Next
             End If
         End If
@@ -722,30 +723,33 @@
 
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
+
+
         Dim strDiskNm As String = ""
-        If cmbPhysical.SelectedIndex >= 0 Then
+        If _cmbPhysicalSelected >= 0 Then
             strDiskNm = cmbPhysical.Text
         End If
 
-        cmbPhysical.Items.Clear()
+        If cmbPhysical.SelectedIndex < 0 Or _cmbPhysicalSelected = cmbPhysical.SelectedIndex Then
+            cmbPhysical.Items.Clear()
 
-        For Each dtRow As DataRow In dtRows
-            cmbPhysical.Items.Add(dtRow.Item("DISK_NAME"))
-        Next
+            For Each dtRow As DataRow In dtRows
+                cmbPhysical.Items.Add(dtRow.Item("DISK_NAME"))
+            Next
 
-        cmbPhysical.Tag = dtTable
+            cmbPhysical.Tag = dtTable
 
-        If cmbPhysical.Items.Count > 0 Then
-            If strDiskNm = "" Then
-                cmbPhysical.SelectedIndex = 0
-                strDiskNm = cmbPhysical.Text
-            Else
-                cmbPhysical.Text = strDiskNm
+            If cmbPhysical.Items.Count > 0 Then
+                If strDiskNm = "" Then
+                    cmbPhysical.SelectedIndex = 0
+                    strDiskNm = cmbPhysical.Text
+                Else
+                    cmbPhysical.Text = strDiskNm
+                End If
+                Me.chtPhysicaliO.Tag = strDiskNm
             End If
-            Me.chtPhysicaliO.Tag = strDiskNm
+
         End If
-
-
 
 
 
@@ -988,7 +992,7 @@
             SetPhysical(strDiskNm, dtTable)
 
         End If
-
+        _cmbPhysicalSelected = cmbPhysical.SelectedIndex
 
 
     End Sub
@@ -1099,13 +1103,13 @@
                           Dim dtRowsSession As DataRow() = dtTableSession.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRowsSession.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                              sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, 0)
-                              sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtSession, "Active", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtSession, "Total", dblRegDt, 0)
                           Else
                               For Each tmpRow As DataRow In dtRowsSession
                                   Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-                                  sb_ChartAddPoint(Me.chtSession, "BACKENDACT", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
-                                  sb_ChartAddPoint(Me.chtSession, "BACKENDTOT", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
+                                  sb_ChartAddPoint(Me.chtSession, "Active", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
+                                  sb_ChartAddPoint(Me.chtSession, "Total", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
                               Next
                           End If
 
@@ -1169,7 +1173,7 @@
 
     End Sub
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click, btnRefreshSession.Click
         Select Case DirectCast(sender, BaseControls.Button).Name.ToUpper
             Case "BTNREFRESHSESSION"
                 ChartClear(chtSession)

@@ -43,7 +43,7 @@
     Private _GroupRotateinterval As Integer = 120000
     Private _IsCollectRunning As Boolean = False
     Private _ElapseCount As Integer = 100
-
+    Private _SelectedAlertLevel As Integer = 0
 
     Private _isPower As Boolean = True
 
@@ -1880,7 +1880,7 @@
         Try
             'dgvAlert
             Dim tmpCondition As String
-            If cmbLevel.SelectedIndex = 0 Then
+            If _SelectedAlertLevel = 0 Then
                 tmpCondition = "STATE > 200"
             Else
                 tmpCondition = ""
@@ -2460,6 +2460,7 @@
                 Next
             End If
         End If
+        _SelectedAlertLevel = cmbLevel.SelectedIndex
     End Sub
 
     Private Sub btnPower_Click(sender As Object, e As EventArgs) Handles btnPower.Click
