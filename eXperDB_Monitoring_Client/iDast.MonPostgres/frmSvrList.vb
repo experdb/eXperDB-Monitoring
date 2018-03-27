@@ -3,7 +3,7 @@
 
 #Region "Agent"
 
-    Private Sub btnConTest_Click(sender As Object, e As EventArgs) Handles btnConTest.Click
+    Private Sub btnConTest_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
 
         If fn_ChkTestBef() = False Then Return
         Dim strIp As String = txtSvrIP.Text
@@ -43,7 +43,7 @@
             ReadSvrListbyGroup(tmpCn, groupIndex + 1)
             LoadMonList(groupIndex + 1)
             'R-End
-            btnConTest.Tag = tmpCn
+            btnAdd.Tag = tmpCn
 
             ''서버리스트 Tabpage Focus
             'tbServer.TabPages(0).Enabled = False
@@ -55,8 +55,8 @@
                 tbServer.SelectedIndex = 1
             End If
 
-            If btnConTest.Tag IsNot Nothing AndAlso btnConTest.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then
-                modCommon.AgentInfoWrite(DirectCast(btnConTest.Tag, eXperDB.ODBC.DXODBC).ODBCConninfo)
+            If btnAdd.Tag IsNot Nothing AndAlso btnAdd.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then
+                modCommon.AgentInfoWrite(DirectCast(btnAdd.Tag, eXperDB.ODBC.DXODBC).ODBCConninfo)
                 'MsgBox(p_clsMsgData.fn_GetData("M021"))
             Else
                 MsgBox(p_clsMsgData.fn_GetData("M022"))
@@ -125,8 +125,9 @@
 
     End Sub
     'R-Start ReadSvrListbyGroup
+
     Private Sub ReadSvrListbyGroup(ByVal conODBC As eXperDB.ODBC.DXODBC, ByVal groupIndex As Integer)
-        dgvSvrLst.Rows.Clear()
+        dgvMonLst.Rows.Clear()
 
         If conODBC Is Nothing Then Return
 
@@ -139,48 +140,41 @@
             txtGrp1.Text = IIf(IsDBNull(dtTable.Rows(0).Item("GROUP_NAME")), "", dtTable.Rows(0).Item("GROUP_NAME"))
         End If
 
-        dtTable = ClsQuery.SelectServerListByGroup()
-        If dtTable IsNot Nothing Then
-            For Each tmpRow As DataRow In dtTable.Rows
-                Dim idxRow As Integer = dgvSvrLst.Rows.Add()
-                ' Tag에는 Instance ID를 넣은다. 
-                ' Add시에는 Instance ID = -1 
-                ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
-                dgvSvrLst.Rows(idxRow).Tag = tmpRow.Item("INSTANCE_ID")
-                ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
-                'dgvSvrLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.White
-                'dgvSvrLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.White
-                If IsDBNull(tmpRow.Item("MON_GROUP")) Then
-                    dgvSvrLst.fn_DataCellADD(idxRow, colCollectYN.Index, "N")
-                ElseIf tmpRow.Item("MON_GROUP") = 0 Then
-                    dgvSvrLst.fn_DataCellADD(idxRow, colCollectYN.Index, "N")
-                ElseIf tmpRow.Item("MON_GROUP") = groupIndex Then
-                    dgvSvrLst.fn_DataCellADD(idxRow, colCollectYN.Index, "Y")
-                Else
-                    dgvSvrLst.fn_DataCellADD(idxRow, colCollectYN.Index, "Y")
-                    dgvSvrLst.Rows(idxRow).ReadOnly = True
-                    dgvSvrLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.Gray
-                    dgvSvrLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.Gray
-                End If
+        Dim HashTbl As New Hashtable
+        For Each tmpCol As DataGridViewColumn In dgvMonLst.Columns
+            If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) And _
+               Not tmpCol.GetType.Equals(GetType(DataGridViewImageColumn)) Then
+                HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+            End If
+        Next
 
-                dgvSvrLst.fn_DataCellADD(idxRow, colIP.Index, tmpRow.Item("SERVER_IP"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colPort.Index, tmpRow.Item("SERVICE_PORT"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colUser.Index, tmpRow.Item("CONN_USER_ID"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colPW.Index, tmpRow.Item("CONN_USER_PWD"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colDBNm.Index, tmpRow.Item("CONN_DB_NAME"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colAliasNm.Index, tmpRow.Item("CONN_NAME"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colLstIP.Index, tmpRow.Item("LAST_MOD_IP"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colHostNm.Index, IIf(IsDBNull(tmpRow.Item("HOST_NAME")), "", tmpRow.Item("HOST_NAME")))
-                dgvSvrLst.fn_DataCellADD(idxRow, colStartTime.Index, IIf(IsDBNull(tmpRow.Item("INSTANCE_UPTIME")), DateTime.MinValue, tmpRow.Item("INSTANCE_UPTIME")))
-                dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, tmpRow.Item("HA_ROLE"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, tmpRow.Item("HA_PORT"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colPGV.Index, tmpRow.Item("PG_VERSION"))
-                dgvSvrLst.fn_DataCellADD(idxRow, colCollectPeriod.Index, tmpRow.Item("COLLECT_PERIOD_SEC"))
-            Next
-        End If
+        Try
+            dtTable = ClsQuery.SelectMonListByGroup(groupIndex)
+            If dtTable IsNot Nothing Then
+                Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
+                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'M'")
+                    Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpRow.Item("HOST_NAME"))
+                    topNode.Tag = tmpRow.Item("INSTANCE_ID")
+                    sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+                    For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
+                        If (tmpChild.Item("HA_HOST") Like (topNode.Cells(colMonHostNm.Index).Value + "*")) = True Or _
+                            topNode.Cells(colMonIP.Index).Value = tmpChild.Item("SERVER_IP") Then
+                            Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
+                            cNOde.Tag = tmpChild.Item("INSTANCE_ID")
+                            sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+                        End If
+                    Next
+                    topNode.Expand()
+                    'topNode.Cells(0).Value = tmpRow.Item("HOST_NAME") & " (" & topNode.Nodes.Count & ")"
+                    topNode.Cells(0).Value = tmpRow.Item("HOST_NAME")
+                Next
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
     Private Sub LoadMonList(ByVal groupIndex As Integer)
+        Return
         dgvMonLst.Rows.Clear()
 
         'Master node를 먼저 add
@@ -197,24 +191,24 @@
             Dim strHARole = tmpRow.Cells(colHARole.Index).Value
             If strHARole = "M" Then
                 ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
-                Dim idxRow As Integer = dgvMonLst.Rows.Add()
-                dgvMonLst.Rows(idxRow).Tag = tmpRow.Tag
+                'Dim idxRow As Integer = dgvMonLst.Rows.Add()
+                'dgvMonLst.Rows(idxRow).Tag = tmpRow.Tag
                 'dgvMonLst.Rows(idxRow).DefaultCellStyle.ForeColor = Color.White
                 'dgvMonLst.Rows(idxRow).DefaultCellStyle.SelectionForeColor = Color.White
-                dgvMonLst.fn_DataCellADD(idxRow, colMonIP.Index, tmpRow.Cells(colIP.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonPort.Index, tmpRow.Cells(colPort.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonUser.Index, tmpRow.Cells(colUser.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonPW.Index, tmpRow.Cells(colPW.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonDBNm.Index, tmpRow.Cells(colDBNm.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonAliasNm.Index, tmpRow.Cells(colAliasNm.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonLstIP.Index, tmpRow.Cells(colLstIP.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonHostNm.Index, IIf(IsDBNull(tmpRow.Cells(colHostNm.Index).Value), "", tmpRow.Cells(colHostNm.Index).Value))
-                dgvMonLst.fn_DataCellADD(idxRow, colMonStartTime.Index, IIf(IsDBNull(tmpRow.Cells(colStartTime.Index).Value), DateTime.MinValue, tmpRow.Cells(colStartTime.Index).Value))
-                dgvMonLst.fn_DataCellADD(idxRow, colMonHARole.Index, tmpRow.Cells(colHARole.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonHAHost.Index, tmpRow.Cells(colHAHost.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonPGV.Index, tmpRow.Cells(colPGV.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxRow, colMonCollectPeriod.Index, tmpRow.Cells(colCollectPeriod.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonIP.Index, tmpRow.Cells(colIP.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonPort.Index, tmpRow.Cells(colPort.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonUser.Index, tmpRow.Cells(colUser.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonPW.Index, tmpRow.Cells(colPW.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonDBNm.Index, tmpRow.Cells(colDBNm.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonAliasNm.Index, tmpRow.Cells(colAliasNm.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonLstIP.Index, tmpRow.Cells(colLstIP.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonHostNm.Index, IIf(IsDBNull(tmpRow.Cells(colHostNm.Index).Value), "", tmpRow.Cells(colHostNm.Index).Value))
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonStartTime.Index, IIf(IsDBNull(tmpRow.Cells(colStartTime.Index).Value), DateTime.MinValue, tmpRow.Cells(colStartTime.Index).Value))
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonHARole.Index, tmpRow.Cells(colHARole.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonHAHost.Index, tmpRow.Cells(colHAHost.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonPGV.Index, tmpRow.Cells(colPGV.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxRow, colMonCollectPeriod.Index, tmpRow.Cells(colCollectPeriod.Index).Value)
             End If
         Next
 
@@ -238,7 +232,7 @@
                     If IsDBNull(tmpRow.Cells(colHAHost.Index).Value) Or IsDBNull(tmpRow.Cells(colHAHost.Index).Value) Then
                         Continue For
                     End If
-                    If tmpMonRow.Cells(colMonHostNm.Index).Value = tmpRow.Cells(colHAHost.Index).Value Or _
+                    If (tmpRow.Cells(colHAHost.Index).Value Like (tmpMonRow.Cells(colMonHostNm.Index).Value + "*")) = True Or _
                        tmpMonRow.Cells(colMonIP.Index).Value = tmpRow.Cells(colHAHost.Index).Value Then
                         If tmpMonRow.Cells(colMonPort.Index).Value = tmpRow.Cells(colHAPort.Index).Value Then
                             idxMonRow = tmpMonRow.Index
@@ -252,22 +246,22 @@
                     Exit For
                 End If
                 idxMonRow += 1
-                dgvMonLst.Rows.Insert(idxMonRow)
-                dgvMonLst.Rows(idxMonRow).Tag = tmpRow.Tag
+                'dgvMonLst.Rows.Insert(idxMonRow)
+                'dgvMonLst.Rows(idxMonRow).Tag = tmpRow.Tag
                 'dgvMonLst.Rows(idxMonRow).DefaultCellStyle.ForeColor = Color.White
                 'dgvMonLst.Rows(idxMonRow).DefaultCellStyle.SelectionForeColor = Color.White
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonIP.Index, tmpRow.Cells(colIP.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonPort.Index, tmpRow.Cells(colPort.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonUser.Index, tmpRow.Cells(colUser.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonPW.Index, tmpRow.Cells(colPW.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonDBNm.Index, tmpRow.Cells(colDBNm.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonAliasNm.Index, tmpRow.Cells(colAliasNm.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonLstIP.Index, tmpRow.Cells(colLstIP.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonHostNm.Index, IIf(IsDBNull(tmpRow.Cells(colHostNm.Index).Value), "", tmpRow.Cells(colHostNm.Index).Value))
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonStartTime.Index, IIf(IsDBNull(tmpRow.Cells(colStartTime.Index).Value), DateTime.MinValue, tmpRow.Cells(colStartTime.Index).Value))
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonHARole.Index, tmpRow.Cells(colHARole.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAHost.Index, tmpRow.Cells(colHAHost.Index).Value)
-                dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonIP.Index, tmpRow.Cells(colIP.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonPort.Index, tmpRow.Cells(colPort.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonUser.Index, tmpRow.Cells(colUser.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonPW.Index, tmpRow.Cells(colPW.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonDBNm.Index, tmpRow.Cells(colDBNm.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonAliasNm.Index, tmpRow.Cells(colAliasNm.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonLstIP.Index, tmpRow.Cells(colLstIP.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonHostNm.Index, IIf(IsDBNull(tmpRow.Cells(colHostNm.Index).Value), "", tmpRow.Cells(colHostNm.Index).Value))
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonStartTime.Index, IIf(IsDBNull(tmpRow.Cells(colStartTime.Index).Value), DateTime.MinValue, tmpRow.Cells(colStartTime.Index).Value))
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonHARole.Index, tmpRow.Cells(colHARole.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAHost.Index, tmpRow.Cells(colHAHost.Index).Value)
+                'dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAPort.Index, tmpRow.Cells(colHAPort.Index).Value)
             End If
         Next
 
@@ -291,7 +285,6 @@
                 Return False
             End If
         End If
-
 
         If txtSvrPort.Text = "" Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M001", "PORT")
@@ -353,7 +346,7 @@
         End If
 
         'Me.grpAgentSVR.Text = p_clsMsgData.fn_GetData("F001")
-        btnConTest.Text = p_clsMsgData.fn_GetData("F309")
+        btnAdd.Text = p_clsMsgData.fn_GetData("F309")
         'btnConSave.Text = p_clsMsgData.fn_GetData("F003")
         lblSvrIP.Text = p_clsMsgData.fn_GetData("F006")
         lblSvrPort.Text = p_clsMsgData.fn_GetData("F007")
@@ -418,8 +411,13 @@
         colMonAliasNm.HeaderText = p_clsMsgData.fn_GetData("F019")
         colMonIP.HeaderText = p_clsMsgData.fn_GetData("F006")
         colMonPort.HeaderText = p_clsMsgData.fn_GetData("F007")
+        colMonHostNm.HeaderText = p_clsMsgData.fn_GetData("F229")
 
-        modCommon.FontChange(Me, p_Font)
+        Me.ttChart.SetToolTip(Me.btnRegister, p_clsMsgData.fn_GetData("F001"))
+        Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F022"))
+        Me.ttChart.SetToolTip(Me.btnAddSvr, p_clsMsgData.fn_GetData("F016"))
+
+        'modCommon.FontChange(Me, p_Font)
     End Sub
 
 
@@ -434,40 +432,6 @@
     End Sub
 
 #End Region
-
-#Region "Form Event"
-
-    Private Sub FormControlBox1_ButtonConfigClick(sender As Object, e As Rectangle)
-
-        If btnConTest.Tag Is Nothing OrElse TryCast(btnConTest.Tag, eXperDB.ODBC.DXODBC) Is Nothing Then
-            Dim strMsg As String = p_clsMsgData.fn_GetData("M010")
-            MsgBox(strMsg)
-        Else
-            Dim frmPw As New frmPassword(DirectCast(btnConTest.Tag, eXperDB.ODBC.DXODBC))
-            If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
-                Dim frmAdmin As New frmAdmin
-                frmAdmin.ShowDialog(Me)
-            End If
-            'ReadSvrList(btnConTest.Tag)
-            '커넥트 테스트 후 조회그룹을 선택 from ini
-            'Dim tmpCtl As BaseControls.RadioButton
-            Dim clsIni As New Common.IniFile(p_AppConfigIni)
-            Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
-            'tmpCtl = grpMonGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
-            'tmpCtl.Checked = True
-            cmbGrp.SelectedIndex = groupIndex
-            sb_Ctlenabled(True)
-            'ReadSvrList(tmpCn)
-            ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
-            LoadMonList(groupIndex + 1)
-            'btnConTest.PerformClick()
-        End If
-
-
-    End Sub
-
-#End Region
-
 
     Private Sub ReadGrpComboList()
         Dim tmpValDesc As New BaseControls.ValueDescription()
@@ -493,15 +457,7 @@
 
 
     End Sub
-
     Private Sub btnGrpSave_Click(sender As Object, e As EventArgs) Handles btnGrpSave.Click
-
-        'Dim clsIni As New Common.IniFile(p_AppConfigIni)
-        'clsIni.WriteValue("GROUP", "GROUP1", txtGrp1.Text)
-        ''clsIni.WriteValue("GROUP", "GROUP2", txtGrp2.Text)
-        ''clsIni.WriteValue("GROUP", "GROUP3", txtGrp3.Text)
-        ''clsIni.WriteValue("GROUP", "GROUP4", txtGrp4.Text)
-        'ReadGrpComboList()
 
         ' 추가적으로 모두 업데이트에 대한 로직 필요 
         Try
@@ -649,7 +605,7 @@
     ''' <remarks></remarks>
     Private Function sb_SaveGrpMonLst() As Boolean
         ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(btnConTest.Tag, eXperDB.ODBC.DXODBC)
+        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(btnAdd.Tag, eXperDB.ODBC.DXODBC)
 
         ' 추가적으로 모두 업데이트에 대한 로직 필요 
         Try
@@ -668,19 +624,17 @@
                 Next
 
                 ' Instance 별 조회 그룹을 업데이트 한다. 
-                For Each tmpRow As DataGridViewRow In dgvSvrLst.Rows
-                    Dim intInstID As Integer = IIf(tmpRow.Tag Is Nothing, -1, tmpRow.Tag)
-                    If tmpRow.Cells(colCollectYN.Index).Value = "N" Then
-                        ClsQuery.UpdateMonGroup(intInstID, 0, strLocIP)
-                    Else
-                        If tmpRow.ReadOnly = False Then
-                            ClsQuery.UpdateMonGroup(intInstID, groupId, strLocIP)
-                        End If
-                    End If
-                Next
+                ClsQuery.UpdateGroup(groupId, groupName, strLocIP)
 
                 ' Instance 별 조회 그룹을 업데이트 한다. 
-                ClsQuery.UpdateGroup(groupId, groupName, strLocIP)
+
+                ClsQuery.DeleteMonGroup(groupId)
+
+                ' Instance 별 조회 그룹을 업데이트 한다. 
+                For Each tmpRow As DataGridViewRow In dgvMonLst.Rows
+                    Dim intInstID As Integer = IIf(tmpRow.Tag Is Nothing, -1, tmpRow.Tag)
+                    ClsQuery.InsertMonGroup(intInstID, groupId, strLocIP)
+                Next
 
                 Return True
             Else
@@ -692,7 +646,7 @@
         End Try
     End Function
     Private Function sb_ReloadcmbGrp() As Boolean
-        Dim conODBC As eXperDB.ODBC.DXODBC = btnConTest.Tag
+        Dim conODBC As eXperDB.ODBC.DXODBC = btnAdd.Tag
         Dim ClsQuery As New clsQuerys(conODBC)
         Dim groupIndex As Integer = cmbGrp.SelectedIndex
         cmbGrp.Items.Clear()
@@ -732,7 +686,7 @@
         sb_SaveGrpSvrLst()
 
         ' 최초 Connection 시에 해당 Connection 정보를 테스트 버튼에 넣어 두었음. 
-        Dim AgentCn As eXperDB.ODBC.DXODBC = btnConTest.Tag
+        Dim AgentCn As eXperDB.ODBC.DXODBC = btnAdd.Tag
         ' 붙어 있는 서버 정보가 없을 경우 종료 
         If AgentCn Is Nothing Then Return
 
@@ -884,8 +838,10 @@
 
         Dim RadioButton As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
         If RadioButton.Checked = True Then
-            ReadSvrListbyGroup(btnConTest.Tag, RadioButton.Tag)
-            LoadMonList(RadioButton.Tag)
+            ReadSvrListbyGroup(btnAdd.Tag, RadioButton.Tag)
+            'LoadMonList(RadioButton.Tag)
+        Else
+            dgvMonLst.Nodes.Clear()
         End If
 
         'ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
@@ -905,32 +861,42 @@
         'End If
     End Sub
 
-    Private Sub dgvSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSvrLst.CellContentClick
-        If dgvSvrLst.CurrentCell.GetType = GetType(DataGridViewCheckBoxCell) Then
-            If dgvSvrLst.CurrentCell.IsInEditMode = True Then
-                If dgvSvrLst.IsCurrentCellDirty = True Then
-                    dgvSvrLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
-                    If dgvSvrLst.Rows(e.RowIndex).Cells(colCollectYN.Index).Value = "Y" Then
-                        If IsDBNull(dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value) = False AndAlso _
-                           (dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value) = "S" Then
-                            If dgvMonLst.Rows.Count <= 0 Then
-                                MsgBox(p_clsMsgData.fn_GetData("M026"))
-                                dgvSvrLst.CurrentCell.Value = "N"
-                                dgvSvrLst.CurrentCell.Tag = "N"
-                                dgvSvrLst.RefreshEdit()
-                                Return
-                            End If
-                        End If
-                    End If
-                    LoadMonList(cmbGrp.SelectedIndex + 1)
-                End If
-            End If
+    'Private Sub dgvSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSvrLst.CellContentClick, dgvMonLst.CellClick
+    '    If dgvSvrLst.CurrentCell.GetType = GetType(DataGridViewCheckBoxCell) Then
+    '        If dgvSvrLst.CurrentCell.IsInEditMode = True Then
+    '            If dgvSvrLst.IsCurrentCellDirty = True Then
+    '                dgvSvrLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
+    '                If dgvSvrLst.Rows(e.RowIndex).Cells(colCollectYN.Index).Value = "Y" Then
+    '                    If IsDBNull(dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value) = False AndAlso _
+    '                       (dgvSvrLst.Rows(e.RowIndex).Cells(colHARole.Index).Value) = "S" Then
+    '                        If dgvMonLst.Rows.Count <= 0 Then
+    '                            MsgBox(p_clsMsgData.fn_GetData("M026"))
+    '                            dgvSvrLst.CurrentCell.Value = "N"
+    '                            dgvSvrLst.CurrentCell.Tag = "N"
+    '                            dgvSvrLst.RefreshEdit()
+    '                            Return
+    '                        End If
+    '                    End If
+    '                End If
+    '                LoadMonList(cmbGrp.SelectedIndex + 1)
+    '            End If
+    '        End If
+    '    End If
+    'End Sub
+
+    Private Sub dgvMonLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMonLst.CellClick
+        If dgvMonLst.CurrentCell.GetType = GetType(DataGridViewImageCell) Then
+            'dgvMonLst.Rows.Remove(dgvMonLst.CurrentRow)
+
+            dgvMonLst.RefreshEdit()
+            dgvMonLst.Nodes.Remove(dgvMonLst.CurrentNode)
+            dgvMonLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
         End If
     End Sub
 
 
     Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        MsgLabel.Text = p_clsMsgData.fn_GetData("M050")
+        lblSubject.Text = p_clsMsgData.fn_GetData("M050")
         MsgLabel2.Text = p_clsMsgData.fn_GetData("M051")
         tbServer.TabPages(0).Enabled = True
         tbServer.TabPages(1).Enabled = False
@@ -950,12 +916,12 @@
 
     End Sub
 
-    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
-        If btnConTest.Tag Is Nothing OrElse TryCast(btnConTest.Tag, eXperDB.ODBC.DXODBC) Is Nothing Then
+    Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
+        If btnAdd.Tag Is Nothing OrElse TryCast(btnAdd.Tag, eXperDB.ODBC.DXODBC) Is Nothing Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M010")
             MsgBox(strMsg)
         Else
-            Dim frmPw As New frmPassword(DirectCast(btnConTest.Tag, eXperDB.ODBC.DXODBC))
+            Dim frmPw As New frmPassword(DirectCast(btnAdd.Tag, eXperDB.ODBC.DXODBC))
             If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
                 Dim frmAdmin As New frmAdmin
                 frmAdmin.ShowDialog(Me)
@@ -970,7 +936,7 @@
             cmbGrp.SelectedIndex = groupIndex
             sb_Ctlenabled(True)
             'ReadSvrList(tmpCn)
-            ReadSvrListbyGroup(btnConTest.Tag, groupIndex + 1)
+            ReadSvrListbyGroup(btnAdd.Tag, groupIndex + 1)
             LoadMonList(groupIndex + 1)
             'btnConTest.PerformClick()
         End If
@@ -996,14 +962,187 @@
 
     Private Sub ReadConfig()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
-        '_ShowHchkNormal = clsIni.ReadValue("General", "NORMAL_SHOW", True)
-        '_ShowHchkWarning = clsIni.ReadValue("General", "WARNING_SHOW", True)
-        '_ShowHchkCritical = clsIni.ReadValue("General", "CRITICAL_SHOW", True)
-
-
-        'nudBackendcnt.Value = clsIni.ReadValue("FORM", "SESSIONMAIN", 30)
-
-        'chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEMAIN", "False")
-
     End Sub
+
+#Region "Add Severs by Group"
+
+
+    Private Sub btnAddSvr_Click(sender As Object, e As EventArgs) Handles btnAddSvr.Click
+        'Dim frmConfig As New frmAddSvrList(btnAdd.Tag, dgvMonLst)
+        Dim frmSL As New frmAddSvrList(btnAdd.Tag)
+        If frmSL.ShowDialog = Windows.Forms.DialogResult.OK Then
+            LoadMonGrid(frmSL.dgvSvrLst)
+        Else
+            frmSL.Dispose()
+            Return
+        End If
+    End Sub
+
+    Private Function searchKeyColumnIndex(ByRef dgv As AdvancedDataGridView.TreeGridView, ByVal colNm As String) As Integer
+        For Each sColumn As DataGridViewColumn In dgv.Columns
+            If sColumn.Name.Equals(colNm) Then
+                Return sColumn.Index
+            End If
+        Next
+    End Function
+
+    Private Sub LoadMonGrid(ByRef dgv As AdvancedDataGridView.TreeGridView)
+
+        Dim index As Integer = searchKeyColumnIndex(dgv, "colHARole")
+
+        'Master node를 먼저 add
+        For Each tmpRow As DataGridViewRow In dgv.Rows
+            If IsDBNull(tmpRow.Cells(index).Value) Then
+                Continue For
+            End If
+            If tmpRow.Selected = False Then
+                Continue For
+            End If
+
+            Dim HashTbl As New Hashtable
+            For Each tmpCol As DataGridViewColumn In dgvMonLst.Columns
+                If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) And _
+                   Not tmpCol.GetType.Equals(GetType(DataGridViewImageColumn)) Then
+                    HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+                End If
+            Next
+
+            ' Tag에는 Instance ID를 넣은다. 
+            ' Add시에는 Instance ID = -1 
+            ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
+            Dim strHARole = tmpRow.Cells(index).Value
+            If strHARole = "M" Then
+                ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
+                'Dim idxRow As Integer = dgvMonLst.Rows.Add()
+                'dgvMonLst.Rows(idxRow).Tag = tmpRow.Tag
+
+                Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpRow.Cells(searchKeyColumnIndex(dgv, "colMonHostNm")).Value)
+                topNode.Tag = tmpRow.Tag
+                sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+                'For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
+                For Each tmpChild As DataGridViewRow In dgv.Rows
+                    If tmpChild.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value = "S" Then
+                        Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
+                        cNOde.Tag = tmpChild.Tag
+                        sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+                    End If
+                Next
+                topNode.Expand()
+                'topNode.Cells(0).Value = tmpRow.Item("HOST_NAME") & " (" & topNode.Nodes.Count & ")"
+                topNode.Cells(0).Value = tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value
+            End If
+        Next
+
+        lblMonList.Text = p_clsMsgData.fn_GetData("F311") + "(" + dgvMonLst.RowCount.ToString + ")"
+    End Sub
+
+    Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataGridViewRow)
+        For Each tmpColIdx As Integer In ColHashSet.Keys
+            tvNode.Cells(tmpColIdx).Value = DtRow.Cells(tmpColIdx).Value
+        Next
+    End Sub
+
+    Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataRow)
+        For Each tmpColIdx As Integer In ColHashSet.Keys
+            tvNode.Cells(tmpColIdx).Value = DtRow.Item(ColHashSet.Item(tmpColIdx))
+        Next
+    End Sub
+    'Private Sub LoadMonGrid(ByRef dgv As AdvancedDataGridView.TreeGridView)
+
+    '    Dim index As Integer = searchKeyColumnIndex(dgv, "colHARole")
+
+    '    'Master node를 먼저 add
+    '    For Each tmpRow As DataGridViewRow In dgv.Rows
+    '        If IsDBNull(tmpRow.Cells(index).Value) Then
+    '            Continue For
+    '        End If
+    '        If tmpRow.Selected = False Then
+    '            Continue For
+    '        End If
+    '        ' Tag에는 Instance ID를 넣은다. 
+    '        ' Add시에는 Instance ID = -1 
+    '        ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
+    '        Dim strHARole = tmpRow.Cells(index).Value
+    '        If strHARole = "M" Then
+    '            ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
+    '            Dim idxRow As Integer = dgvMonLst.Rows.Add()
+    '            dgvMonLst.Rows(idxRow).Tag = tmpRow.Tag
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonIP.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colIP")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonPort.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colPort")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonUser.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colUser")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonPW.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colPW")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonDBNm.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colDBNm")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonAliasNm.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colAliasNm")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonLstIP.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colLstIP")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonHostNm.Index, IIf(IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value), "", tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value))
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonStartTime.Index, IIf(IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colStartTime")).Value), DateTime.MinValue, tmpRow.Cells(searchKeyColumnIndex(dgv, "colStartTime")).Value))
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonHARole.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonHAHost.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonHAPort.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAPort")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonPGV.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colPGV")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxRow, colMonCollectPeriod.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colCollectPeriod")).Value)
+    '        End If
+    '    Next
+
+    '    'Slave node를 insert
+    '    For Each tmpRow As DataGridViewRow In dgv.Rows
+    '        If tmpRow.ReadOnly = True Or tmpRow.Cells(searchKeyColumnIndex(dgv, "colCollectYN")).Value = "N" Then
+    '            Continue For
+    '        End If
+    '        If IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value) Then
+    '            Continue For
+    '        End If
+    '        ' Tag에는 Instance ID를 넣은다. 
+    '        ' Add시에는 Instance ID = -1 
+    '        ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
+    '        Dim strHARole = tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value
+    '        If strHARole = "S" Then
+    '            Dim idxRow As Integer = tmpRow.Index
+    '            Dim idxMonRow As Integer = -1
+    '            'tmpRow.Cells(colHAPort.Index).Value
+    '            For Each tmpMonRow As DataGridViewRow In dgvMonLst.Rows
+    '                If IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value) Or IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value) Then
+    '                    Continue For
+    '                End If
+    '                If tmpMonRow.Cells(colMonHostNm.Index).Value = tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value Or _
+    '                   tmpMonRow.Cells(colMonIP.Index).Value = tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value Then
+    '                    If tmpMonRow.Cells(colMonPort.Index).Value = tmpRow.Cells(searchKeyColumnIndex(dgv, "colPort")).Value Then
+    '                        idxMonRow = tmpMonRow.Index
+    '                        Exit For
+    '                    End If
+    '                End If
+    '            Next
+    '            ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
+    '            If idxMonRow < 0 Then
+    '                'MsgBox(p_clsMsgData.fn_GetData("M026"))
+    '                Exit For
+    '            End If
+    '            idxMonRow += 1
+    '            dgvMonLst.Rows.Insert(idxMonRow)
+    '            dgvMonLst.Rows(idxMonRow).Tag = tmpRow.Tag
+
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonIP.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colIP")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonPort.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colPort")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonUser.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colUser")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonPW.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colPW")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonDBNm.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colDBNm")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonAliasNm.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colAliasNm")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonLstIP.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colLstIP")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonHostNm.Index, IIf(IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value), "", tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value))
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonStartTime.Index, IIf(IsDBNull(tmpRow.Cells(searchKeyColumnIndex(dgv, "colStartTime")).Value), DateTime.MinValue, tmpRow.Cells(searchKeyColumnIndex(dgv, "colStartTime")).Value))
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonHARole.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAHost.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonHAPort.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAPort")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonPGV.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colPGV")).Value)
+    '            dgvMonLst.fn_DataCellADD(idxMonRow, colMonCollectPeriod.Index, tmpRow.Cells(searchKeyColumnIndex(dgv, "colCollectPeriod")).Value)
+
+
+    '        End If
+    '    Next
+
+    '    lblMonList.Text = p_clsMsgData.fn_GetData("F311") + "(" + dgvMonLst.RowCount.ToString + ")"
+    'End Sub
+
+#End Region
+
 End Class

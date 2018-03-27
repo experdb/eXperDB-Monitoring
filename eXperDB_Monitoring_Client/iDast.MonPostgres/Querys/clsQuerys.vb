@@ -164,6 +164,31 @@
             Return Nothing
         End Try
     End Function
+
+    'Robin-Start SelectMonListByGroup for Monitoring group
+    ''' <summary>
+    ''' 수집서버 목록 
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function SelectMonListByGroup(ByVal groupId As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+
+            Dim strQuery = p_clsQueryData.fn_GetData("SELECTMONLISTBYGROUP")
+            strQuery = String.Format(strQuery, groupId)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
     ''' <summary>
     ''' 수집서버 목록 
     ''' </summary>
@@ -233,6 +258,34 @@
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEMONGROUP")
             strQuery = String.Format(strQuery, InstanceID, MonGroup_1, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+
+    End Function
+    Public Function DeleteMonGroup(ByVal groupId As Integer) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("DELETEMONLIST")
+            strQuery = String.Format(strQuery, groupId)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+
+    End Function
+    Public Function InsertMonGroup(ByVal InstanceID As Integer, ByVal groupId As Integer, ByVal LstIp As String) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTMONLIST")
+            strQuery = String.Format(strQuery, groupId, InstanceID, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
 

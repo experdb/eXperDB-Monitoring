@@ -74,6 +74,7 @@
             lblSt.Text = dtpSt.Value.ToString("yyyy-MM-dd HH:mm:ss")
             lblEd.Text = dtpEd.Value.ToString("yyyy-MM-dd HH:mm:ss")
             cmbDuration.Visible = False
+            btnQuery.Visible = False
         Else
             _chtOrder = 0
             dtpSt.Visible = True
@@ -82,6 +83,7 @@
             lblEd.Visible = False
             cmbDuration.Visible = True
             cmbDuration.SelectedIndex = 0
+            btnQuery.Visible = True
         End If
 
         InitForm()

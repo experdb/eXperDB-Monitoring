@@ -2280,6 +2280,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F281" PARAMS="0">
+    <DESC>서버 리스트 문구</DESC>
+    <DATA><![CDATA[List of server list being collect information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>
@@ -2742,7 +2750,7 @@
   </ROW>
   <ROW ID="M042" PARAMS="0">
     <DESC>Session Management</DESC>
-    <DATA><![CDATA[atabase transaction lists and cancellation/lock management of specific sessions.]]></DATA>
+    <DATA><![CDATA[The database transaction lists and cancellation/lock management of specific sessions.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

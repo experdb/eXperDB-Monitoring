@@ -1866,7 +1866,7 @@
   </ROW>
   <ROW ID="F229" PARAMS="0">
     <DESC>HOST NAME</DESC>
-    <DATA><![CDATA[Host Name]]></DATA>
+    <DATA><![CDATA[호스트명]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2275,6 +2275,14 @@
   <ROW ID="F280" PARAMS="0">
     <DESC>기본설정</DESC>
     <DATA><![CDATA[기본 설정]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F281" PARAMS="0">
+    <DESC>서버 리스트 문구</DESC>
+    <DATA><![CDATA[수집 대상 서버 리스트]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
