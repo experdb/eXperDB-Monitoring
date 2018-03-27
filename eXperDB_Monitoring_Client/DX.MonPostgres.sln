@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.Monitoring", "iDast.MonPostgres\eXperDB.Monitoring.vbproj", "{385A18F2-80ED-40F5-87A3-6EF8BD694C5B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7F98F809-CE14-43D5-B3DF-40D8F0B7A1AF} = {7F98F809-CE14-43D5-B3DF-40D8F0B7A1AF}
@@ -100,5 +98,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

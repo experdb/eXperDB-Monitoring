@@ -752,6 +752,17 @@
 
     End Sub
 
+    Friend Function BlankImage() As Image
+        Try
+            Dim oBM As New Bitmap(1, 1)
+            oBM.SetPixel(0, 0, Color.Transparent)
+            Return oBM
+        Catch ex As Exception
+            Return Nothing
+        End Try
+
+    End Function
+
     Private Sub SetDataHealth(ByVal dtTable As DataTable)
         'Dim InstanceMaxVals = _
         '  dtTable.AsEnumerable().GroupBy( _
@@ -799,7 +810,13 @@
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthSeq.Index).Value = intSeq
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthRegDate.Index).Value = strRegDt
                     dgvGrpHealth.Rows(intIDx).Tag = p_clsMsgData.fn_GetSpecificData(strItm, "COLUMNS")
+
+                    If dgvGrpHealth.Rows(intIDx).Tag = "" Then
+                        dgvGrpHealth.Rows(intIDx).Cells(ImgCol.Index).Value = BlankImage()
+                    End If
+
                 Else
+
                     If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
                         dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
                     Else
@@ -810,7 +827,11 @@
                     dgvHealthRow.Cells(colDgvHealthUnit.Index).Value = strUnit
                     dgvHealthRow.Cells(colDgvHealthSeq.Index).Value = intSeq
                     dgvHealthRow.Cells(colDgvHealthRegDate.Index).Value = strRegDt
+
                 End If
+
+
+
 
             End Using
 
