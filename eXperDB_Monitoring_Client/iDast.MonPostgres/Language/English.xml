@@ -2868,7 +2868,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  
+  <ROW ID="M057" PARAMS="0">
+    <DESC>존재하는 그룹명입니다.</DESC>
+    <DATA><![CDATA[The group name already exists.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
