@@ -243,6 +243,13 @@ CREATE TABLE tb_group_info (
     last_mod_dt timestamp without time zone
 );
 
+CREATE TABLE tb_group_instance_info
+(
+  group_id integer NOT NULL,
+  instance_id integer NOT NULL,
+  last_mod_ip character varying(15),
+  last_mod_dt timestamp without time zone
+);
 
 CREATE UNLOGGED TABLE tb_memory_stat (
     reg_date character varying(8) NOT NULL,
@@ -399,7 +406,10 @@ ALTER TABLE ONLY tb_instance_info
     ADD CONSTRAINT pk_instance_info PRIMARY KEY (instance_id);
 
 ALTER TABLE ONLY tb_group_info
-    ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id);
+    ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id, group_name);
+    
+ALTER TABLE ONLY tb_group_instance_info
+    ADD CONSTRAINT pk_group_instance_info PRIMARY KEY (group_id, instance_id);
 
 ALTER TABLE ONLY tb_memory_stat
     ADD CONSTRAINT pk_memory_stat PRIMARY KEY (reg_date,rsc_reg_seq);
