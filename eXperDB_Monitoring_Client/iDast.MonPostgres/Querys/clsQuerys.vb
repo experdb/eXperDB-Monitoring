@@ -295,17 +295,16 @@
         End Try
 
     End Function
-    Public Function UpdateGroup(ByVal groupID As Integer, ByVal groupName As String, ByVal LstIp As String) As Boolean
+    Public Function UpdateGroup(ByVal groupID As Integer, ByVal groupName As String, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEGROUP")
             strQuery = String.Format(strQuery, groupID, groupName, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
-
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            Return False
+            Return -1
         End Try
 
     End Function
