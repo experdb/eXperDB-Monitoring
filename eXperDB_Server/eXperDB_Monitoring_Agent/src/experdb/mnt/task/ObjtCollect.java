@@ -66,7 +66,6 @@ public class ObjtCollect extends TaskApplication {
 					en = MonitoringInfoManager.getInstance().getInstanceId();
 					while (en.hasMoreElements()) {
 						execute((String) en.nextElement());
-						log.info("gather object info");
 					}					
 					startExecuteTime = System.currentTimeMillis() + collectObjectPeriod * 1000;
 				}
@@ -76,7 +75,6 @@ public class ObjtCollect extends TaskApplication {
 					en = MonitoringInfoManager.getInstance().getInstanceId();
 					while (en.hasMoreElements()) {
 						DeleteObject((String) en.nextElement());
-						log.info("delete object info");
 					}
 					startDeleteTime = System.currentTimeMillis() + collectObjectPeriod * 1000 * DelteTurn ;
 				}
