@@ -378,7 +378,7 @@
           AND B.REG_DATE = C.REG_DATE
           AND A.INSTANCE_ID = B.INSTANCE_ID
           AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
-          AND C.COLLECT_DT BETWEEN now() - interval '10 minute' AND now()
+          AND C.COLLECT_DT > now() - interval '10 minute'
           ORDER BY C.COLLECT_DT
       ]]>
     </DATA>
@@ -532,7 +532,7 @@
            AND A.DELETE_YN = 'N'
            AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
            AND B.REG_DATE = C.REG_DATE
-           AND C.COLLECT_DT BETWEEN now() - interval '10 minute' AND now()
+           AND C.COLLECT_DT > now() - interval '10 minute'
            GROUP BY A.INSTANCE_ID, C.COLLECT_DT
            ORDER BY A.INSTANCE_ID, C.COLLECT_DT
      ]]>
@@ -729,7 +729,7 @@
           AND B.RSC_REG_SEQ = E.RSC_REG_SEQ
           AND B.INSTANCE_ID = A.INSTANCE_ID
           AND A.INSTANCE_ID IN ({0})
-          AND E.COLLECT_DT BETWEEN now() - interval '10 minute' AND now()
+          AND E.COLLECT_DT > now() - interval '10 minute'
           AND A.COLLECT_YN = 'Y' 
           AND A.DELETE_YN = 'N'  
           ORDER BY A.INSTANCE_ID, B.RSC_REG_SEQ
@@ -1033,7 +1033,7 @@
 	       AND BAK.ACTV_REG_SEQ=COL.ACTV_REG_SEQ
          AND IST.INSTANCE_ID IN ({0})
 	       AND COL.INSTANCE_ID=IST.INSTANCE_ID
-         AND BAK.COLLECT_DT BETWEEN {2} AND {3}
+         AND BAK.COLLECT_DT {2} 
          AND IST.COLLECT_YN = 'Y'
          AND IST.DELETE_YN = 'N'
        GROUP BY IST.INSTANCE_ID,BAK.COLLECT_DT

@@ -1449,7 +1449,6 @@
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
             dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs, New Date(), New Date(), False)
-            'dtTableSessionStatus = clsQu.SelectInitSessionInfoChart("1,2")
             If dtTableSessionStatus IsNot Nothing Then
                 For Each dtRow As DataRow In dtTableSessionStatus.Rows
                     dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))

@@ -1,12 +1,23 @@
 ﻿Imports System.Net
 
 Public Class frmAlertConfig
-
+    Private _setInitTap = -1
     Public Sub New(ByVal svrLst As List(Of GroupInfo.ServerInfo))
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
+        initform(svrLst)
+    End Sub
 
+    Public Sub New(ByVal svrLst As List(Of GroupInfo.ServerInfo), ByVal initTabIndex As Integer)
+
+        ' 이 호출은 디자이너에 필요합니다.
+        InitializeComponent()
+        initform(svrLst)
+        _setInitTap = initTabIndex
+    End Sub
+
+    Public Sub initform(ByVal svrLst As List(Of GroupInfo.ServerInfo))
 
         btnSave.Text = p_clsMsgData.fn_GetData("F014")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
@@ -209,5 +220,11 @@ Public Class frmAlertConfig
                 tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
             End If
         Next
+    End Sub
+
+    Private Sub frmAlertConfig_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If _setInitTap > 0 Then
+            tbMain.SelectedIndex = _setInitTap
+        End If
     End Sub
 End Class

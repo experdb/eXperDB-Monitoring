@@ -339,7 +339,7 @@
 
 
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
-        Dim AlertConfig As New frmAlertConfig(_SvrpList)
+        Dim AlertConfig As New frmAlertConfig(_SvrpList, cmbServer.SelectedIndex - 1)
         AlertConfig.ShowDialog()
     End Sub
 End Class
