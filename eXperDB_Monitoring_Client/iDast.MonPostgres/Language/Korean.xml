@@ -2304,6 +2304,30 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F284" PARAMS="0">
+    <DESC>NORMAL</DESC>
+    <DATA><![CDATA[정상]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F285" PARAMS="0">
+    <DESC>WARNING</DESC>
+    <DATA><![CDATA[경고]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F286" PARAMS="0">
+    <DESC>CRITIAL</DESC>
+    <DATA><![CDATA[위험]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>

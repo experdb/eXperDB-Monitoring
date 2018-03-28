@@ -307,9 +307,9 @@
 
     Public Function fn_GetHealthName(ByVal Value As Integer) As String
         Select Case Value
-            Case 200 : Return p_clsMsgData.fn_GetData("F030")
-            Case 300 : Return p_clsMsgData.fn_GetData("F031")
-            Case Else : Return p_clsMsgData.fn_GetData("F029")
+            Case 200 : Return p_clsMsgData.fn_GetData("F285")
+            Case 300 : Return p_clsMsgData.fn_GetData("F286")
+            Case Else : Return p_clsMsgData.fn_GetData("F284")
         End Select
     End Function
 

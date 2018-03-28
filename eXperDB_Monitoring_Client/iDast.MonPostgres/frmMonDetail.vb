@@ -816,7 +816,10 @@
                     dgvGrpHealth.Rows(intIDx).Tag = p_clsMsgData.fn_GetSpecificData(strItm, "COLUMNS")
 
                     If dgvGrpHealth.Rows(intIDx).Tag = "" Then
-                        dgvGrpHealth.Rows(intIDx).Cells(ImgCol.Index).Value = BlankImage()
+                        'dgvGrpHealth.Rows(intIDx).Cells(ImgCol.Index).Value = BlankImage()
+                        'dgvGrpHealth.Rows(intIDx).DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9)
+                    Else
+                        dgvGrpHealth.Rows(intIDx).DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9, System.Drawing.FontStyle.Underline)
                     End If
 
                 Else
@@ -1287,12 +1290,15 @@
 
     Private Sub dgvGrpHealth_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvGrpHealth.CellMouseMove
         If e.RowIndex >= 0 Then
-            dgvGrpHealth.Cursor = Cursors.Hand
             If dgvGrpHealth.Rows(e.RowIndex).Selected = False Then
                 dgvGrpHealth.ClearSelection()
                 dgvGrpHealth.Rows(e.RowIndex).Selected = True
             End If
-            dgvGrpHealth.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
+
+            If dgvGrpHealth.Rows(e.RowIndex).Tag <> "" Then
+                dgvGrpHealth.Cursor = Cursors.Hand
+                dgvGrpHealth.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(50, 50, 50)
+            End If
         End If
     End Sub
 

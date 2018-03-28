@@ -135,6 +135,7 @@ Partial Class frmSvrList
         Me.colMonPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMonPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
         Me.colMonLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonGrp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMonStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMonHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMonHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -318,7 +319,7 @@ Partial Class frmSvrList
         Me.lblSvrPwd.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSvrPwd.FixedHeight = False
         Me.lblSvrPwd.FixedWidth = False
-        Me.lblSvrPwd.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrPwd.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPwd.ForeColor = System.Drawing.Color.White
         Me.lblSvrPwd.Location = New System.Drawing.Point(77, 193)
         Me.lblSvrPwd.Name = "lblSvrPwd"
@@ -333,7 +334,7 @@ Partial Class frmSvrList
         Me.lblSvrPort.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSvrPort.FixedHeight = False
         Me.lblSvrPort.FixedWidth = False
-        Me.lblSvrPort.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPort.ForeColor = System.Drawing.Color.White
         Me.lblSvrPort.Location = New System.Drawing.Point(77, 151)
         Me.lblSvrPort.Name = "lblSvrPort"
@@ -348,7 +349,7 @@ Partial Class frmSvrList
         Me.lblSvrDBNm.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSvrDBNm.FixedHeight = False
         Me.lblSvrDBNm.FixedWidth = False
-        Me.lblSvrDBNm.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrDBNm.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrDBNm.ForeColor = System.Drawing.Color.White
         Me.lblSvrDBNm.Location = New System.Drawing.Point(77, 113)
         Me.lblSvrDBNm.Name = "lblSvrDBNm"
@@ -363,7 +364,7 @@ Partial Class frmSvrList
         Me.lblSvrUsr.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSvrUsr.FixedHeight = False
         Me.lblSvrUsr.FixedWidth = False
-        Me.lblSvrUsr.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrUsr.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrUsr.ForeColor = System.Drawing.Color.White
         Me.lblSvrUsr.Location = New System.Drawing.Point(77, 73)
         Me.lblSvrUsr.Name = "lblSvrUsr"
@@ -378,7 +379,7 @@ Partial Class frmSvrList
         Me.lblSvrIP.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblSvrIP.FixedHeight = False
         Me.lblSvrIP.FixedWidth = False
-        Me.lblSvrIP.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrIP.ForeColor = System.Drawing.Color.White
         Me.lblSvrIP.Location = New System.Drawing.Point(77, 33)
         Me.lblSvrIP.Name = "lblSvrIP"
@@ -393,7 +394,7 @@ Partial Class frmSvrList
         Me.ServerIP_lv.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ServerIP_lv.FixedHeight = False
         Me.ServerIP_lv.FixedWidth = False
-        Me.ServerIP_lv.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.ServerIP_lv.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.ServerIP_lv.ForeColor = System.Drawing.Color.White
         Me.ServerIP_lv.Location = New System.Drawing.Point(340, 33)
         Me.ServerIP_lv.Name = "ServerIP_lv"
@@ -408,7 +409,7 @@ Partial Class frmSvrList
         Me.User_lv.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.User_lv.FixedHeight = False
         Me.User_lv.FixedWidth = False
-        Me.User_lv.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.User_lv.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.User_lv.ForeColor = System.Drawing.Color.White
         Me.User_lv.Location = New System.Drawing.Point(340, 73)
         Me.User_lv.Name = "User_lv"
@@ -423,7 +424,7 @@ Partial Class frmSvrList
         Me.Database_lv.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Database_lv.FixedHeight = False
         Me.Database_lv.FixedWidth = False
-        Me.Database_lv.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Database_lv.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Database_lv.ForeColor = System.Drawing.Color.White
         Me.Database_lv.Location = New System.Drawing.Point(340, 113)
         Me.Database_lv.Name = "Database_lv"
@@ -438,7 +439,7 @@ Partial Class frmSvrList
         Me.Port_lv.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Port_lv.FixedHeight = False
         Me.Port_lv.FixedWidth = False
-        Me.Port_lv.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Port_lv.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Port_lv.ForeColor = System.Drawing.Color.White
         Me.Port_lv.Location = New System.Drawing.Point(340, 153)
         Me.Port_lv.Name = "Port_lv"
@@ -453,7 +454,7 @@ Partial Class frmSvrList
         Me.Password_lv.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Password_lv.FixedHeight = False
         Me.Password_lv.FixedWidth = False
-        Me.Password_lv.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Password_lv.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Password_lv.ForeColor = System.Drawing.Color.White
         Me.Password_lv.Location = New System.Drawing.Point(340, 193)
         Me.Password_lv.Name = "Password_lv"
@@ -527,7 +528,7 @@ Partial Class frmSvrList
         Me.btnAdd.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnAdd.FixedHeight = False
         Me.btnAdd.FixedWidth = False
-        Me.btnAdd.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnAdd.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAdd.ForeColor = System.Drawing.Color.White
         Me.btnAdd.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAdd.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -577,7 +578,7 @@ Partial Class frmSvrList
         Me.dgvMonLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
@@ -585,10 +586,10 @@ Partial Class frmSvrList
         Me.dgvMonLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvMonLst.ColumnHeadersHeight = 30
         Me.dgvMonLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvMonLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMonHostNm, Me.colMonAliasNm, Me.colMonDBNm, Me.colMonUser, Me.colMonIP, Me.colMonPort, Me.colMonPW, Me.colMonLstIP, Me.colMonStartTime, Me.colMonHARole, Me.colMonHAHost, Me.colMonHAPort, Me.colMonPGV, Me.colMonCollectPeriod, Me.colDelete})
+        Me.dgvMonLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMonHostNm, Me.colMonAliasNm, Me.colMonDBNm, Me.colMonUser, Me.colMonIP, Me.colMonPort, Me.colMonPW, Me.colMonLstIP, Me.colMonGrp, Me.colMonStartTime, Me.colMonHARole, Me.colMonHAHost, Me.colMonHAPort, Me.colMonPGV, Me.colMonCollectPeriod, Me.colDelete})
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
@@ -604,7 +605,7 @@ Partial Class frmSvrList
         Me.dgvMonLst.Name = "dgvMonLst"
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle10.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
@@ -706,7 +707,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle11.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.DimGray
@@ -717,7 +718,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCollectYN, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colHostNm, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colPGV, Me.colCollectPeriod})
         DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle18.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle18.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle18.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle18.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.Black
@@ -732,7 +733,7 @@ Partial Class frmSvrList
         Me.dgvSvrLst.Name = "dgvSvrLst"
         DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText
         DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.Black
         DataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText
@@ -751,7 +752,7 @@ Partial Class frmSvrList
         '
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle12.NullValue = False
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -975,7 +976,7 @@ Partial Class frmSvrList
         Me.btnStart.Enabled = False
         Me.btnStart.FixedHeight = False
         Me.btnStart.FixedWidth = False
-        Me.btnStart.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnStart.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnStart.ForeColor = System.Drawing.Color.White
         Me.btnStart.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnStart.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -997,7 +998,7 @@ Partial Class frmSvrList
         Me.btnGrpSave.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnGrpSave.FixedHeight = False
         Me.btnGrpSave.FixedWidth = False
-        Me.btnGrpSave.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnGrpSave.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnGrpSave.ForeColor = System.Drawing.Color.White
         Me.btnGrpSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnGrpSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -1039,7 +1040,7 @@ Partial Class frmSvrList
         Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnConfig.FixedHeight = False
         Me.btnConfig.FixedWidth = False
-        Me.btnConfig.Font = New System.Drawing.Font("굴림", 10.0!)
+        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
         Me.btnConfig.ForeColor = System.Drawing.Color.Black
         Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
@@ -1236,7 +1237,7 @@ Partial Class frmSvrList
         Me.lblGroupName.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGroupName.FixedHeight = False
         Me.lblGroupName.FixedWidth = False
-        Me.lblGroupName.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblGroupName.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblGroupName.ForeColor = System.Drawing.Color.White
         Me.lblGroupName.Location = New System.Drawing.Point(3, 0)
         Me.lblGroupName.Name = "lblGroupName"
@@ -1396,7 +1397,7 @@ Partial Class frmSvrList
         Me.colMonDBNm.DataPropertyName = "CONN_DB_NAME"
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
@@ -1414,7 +1415,7 @@ Partial Class frmSvrList
         Me.colMonUser.DataPropertyName = "CONN_USER_ID"
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
@@ -1478,6 +1479,14 @@ Partial Class frmSvrList
         Me.colMonLstIP.ReadOnly = True
         Me.colMonLstIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colMonLstIP.Visible = False
+        '
+        'colMonGrp
+        '
+        Me.colMonGrp.DataPropertyName = "GROUP_ID"
+        Me.colMonGrp.HeaderText = "GROUP"
+        Me.colMonGrp.Name = "colMonGrp"
+        Me.colMonGrp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonGrp.Visible = False
         '
         'colMonStartTime
         '
@@ -1673,6 +1682,7 @@ Partial Class frmSvrList
     Friend WithEvents colMonPort As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonPW As eXperDB.Controls.DataGridViewPasswordTextBoxColumn
     Friend WithEvents colMonLstIP As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonGrp As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonStartTime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonHARole As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colMonHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
