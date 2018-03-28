@@ -21,11 +21,6 @@ Partial Class frmMonItemDetail
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonItemDetail))
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -38,6 +33,11 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Me.colDgvLockDB = New AdvancedDataGridView.TreeGridColumn()
         Me.colDgvLockBlockingPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -58,11 +58,6 @@ Partial Class frmMonItemDetail
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblChart = New System.Windows.Forms.Label()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
-        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.pnlEd = New eXperDB.BaseControls.Panel()
         Me.cmbDuration = New eXperDB.BaseControls.ComboBox()
@@ -101,6 +96,11 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSubject = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -360,75 +360,6 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Name = "pnlChart"
         Me.pnlChart.Size = New System.Drawing.Size(1272, 453)
         Me.pnlChart.TabIndex = 3
-        '
-        'chtLogicalIO
-        '
-        Me.chtLogicalIO.BorderSkin = BorderSkin1
-        Me.chtLogicalIO.DataSource = Nothing
-        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1448)
-        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLogicalIO.MenuVisible = False
-        Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
-        Me.chtLogicalIO.TabIndex = 6
-        Me.chtLogicalIO.Title = ""
-        Me.chtLogicalIO.Visible = False
-        '
-        'chtSQLResp
-        '
-        Me.chtSQLResp.BorderSkin = BorderSkin2
-        Me.chtSQLResp.DataSource = Nothing
-        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1086)
-        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSQLResp.MenuVisible = False
-        Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
-        Me.chtSQLResp.TabIndex = 8
-        Me.chtSQLResp.Title = ""
-        Me.chtSQLResp.Visible = False
-        '
-        'chtPhysicalIO
-        '
-        Me.chtPhysicalIO.BorderSkin = BorderSkin3
-        Me.chtPhysicalIO.DataSource = Nothing
-        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 724)
-        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtPhysicalIO.MenuVisible = False
-        Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
-        Me.chtPhysicalIO.TabIndex = 7
-        Me.chtPhysicalIO.Title = ""
-        Me.chtPhysicalIO.Visible = False
-        '
-        'chtSession
-        '
-        Me.chtSession.BorderSkin = BorderSkin4
-        Me.chtSession.DataSource = Nothing
-        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSession.Location = New System.Drawing.Point(0, 362)
-        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSession.MenuVisible = False
-        Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
-        Me.chtSession.TabIndex = 5
-        Me.chtSession.Title = ""
-        Me.chtSession.Visible = False
-        '
-        'chtCPU
-        '
-        Me.chtCPU.BorderSkin = BorderSkin5
-        Me.chtCPU.DataSource = Nothing
-        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
-        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPU.MenuVisible = False
-        Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1255, 362)
-        Me.chtCPU.TabIndex = 3
-        Me.chtCPU.Title = ""
         '
         'tlpInput
         '
@@ -1077,6 +1008,79 @@ Partial Class frmMonItemDetail
         Me.Label3.Size = New System.Drawing.Size(34, 50)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
+        '
+        'chtLogicalIO
+        '
+        Me.chtLogicalIO.BorderSkin = BorderSkin1
+        Me.chtLogicalIO.DataSource = Nothing
+        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLogicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1376)
+        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLogicalIO.MenuVisible = False
+        Me.chtLogicalIO.Name = "chtLogicalIO"
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtLogicalIO.TabIndex = 6
+        Me.chtLogicalIO.Title = ""
+        Me.chtLogicalIO.Visible = False
+        '
+        'chtSQLResp
+        '
+        Me.chtSQLResp.BorderSkin = BorderSkin2
+        Me.chtSQLResp.DataSource = Nothing
+        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSQLResp.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1014)
+        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSQLResp.MenuVisible = False
+        Me.chtSQLResp.Name = "chtSQLResp"
+        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSQLResp.TabIndex = 8
+        Me.chtSQLResp.Title = ""
+        Me.chtSQLResp.Visible = False
+        '
+        'chtPhysicalIO
+        '
+        Me.chtPhysicalIO.BorderSkin = BorderSkin3
+        Me.chtPhysicalIO.DataSource = Nothing
+        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 652)
+        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtPhysicalIO.MenuVisible = False
+        Me.chtPhysicalIO.Name = "chtPhysicalIO"
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtPhysicalIO.TabIndex = 7
+        Me.chtPhysicalIO.Title = ""
+        Me.chtPhysicalIO.Visible = False
+        '
+        'chtSession
+        '
+        Me.chtSession.BorderSkin = BorderSkin4
+        Me.chtSession.DataSource = Nothing
+        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSession.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtSession.Location = New System.Drawing.Point(0, 290)
+        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSession.MenuVisible = False
+        Me.chtSession.Name = "chtSession"
+        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSession.TabIndex = 5
+        Me.chtSession.Title = ""
+        Me.chtSession.Visible = False
+        '
+        'chtCPU
+        '
+        Me.chtCPU.BorderSkin = BorderSkin5
+        Me.chtCPU.DataSource = Nothing
+        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPU.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
+        Me.chtCPU.MenuVisible = False
+        Me.chtCPU.Name = "chtCPU"
+        Me.chtCPU.Size = New System.Drawing.Size(1255, 290)
+        Me.chtCPU.TabIndex = 3
+        Me.chtCPU.Title = ""
         '
         'frmMonItemDetail
         '

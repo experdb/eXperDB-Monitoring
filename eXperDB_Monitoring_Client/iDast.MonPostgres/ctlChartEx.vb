@@ -1303,6 +1303,8 @@ Public Class ctlChartEx
 
         ChartArea1.AxisY.StripLines.Add(StripLine1)
         ChartArea1.AxisY.TitleForeColor = defChartArea.AxisY.TitleForeColor
+        ChartArea1.AxisX.TitleForeColor = Color.Yellow
+        ChartArea1.AxisX.TitleFont = New Font("Gulim", 10.0!, System.Drawing.FontStyle.Regular)
         'ChartArea1.AxisY.Enabled = AxisEnabled.Auto
         ChartArea1.AxisY2.Enabled = AxisEnabled.Auto
         ChartArea1.BackColor = defChartArea.BackColor

@@ -279,10 +279,10 @@
         SetDefaultTitle(chkSQLResp, chtSQLResp, False, "")
 
         chtCPU.MainChart.ChartAreas(0).Visible = False
-        chtCPU.AddAreaEx("CPU USAGE", "RATE(%)", True, "CPUAREA")
+        chtCPU.AddAreaEx("CPU Usage", "RATE(%)", True, "CPUAREA")
         chtCPU.AddAreaEx("Session", "Count", True, "SESSIONAREA")
-        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F040"), "TUPLES/sec", True, "LOGICALAREA")
-        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F100"), "BUSY(%)", True, "PHYSICALAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F040"), "Tuples/sec", True, "LOGICALAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F100"), "Busy(%)", True, "PHYSICALAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F103"), "SEC", True, "SQLRESPAREA")
 
         chtCPU.MainChart.ChartAreas("CPUAREA").Visible = False

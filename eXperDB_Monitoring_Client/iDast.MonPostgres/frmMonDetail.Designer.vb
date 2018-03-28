@@ -287,6 +287,7 @@ Partial Class frmMonDetail
         Legend1.Alignment = System.Drawing.StringAlignment.Far
         Legend1.BackColor = System.Drawing.Color.Black
         Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Legend1.ForeColor = System.Drawing.Color.White
         Legend1.IsTextAutoFit = false
         Legend1.Name = "Legend1"
@@ -387,7 +388,7 @@ Partial Class frmMonDetail
         Legend2.Alignment = System.Drawing.StringAlignment.Far
         Legend2.BackColor = System.Drawing.Color.Black
         Legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Legend2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Legend2.ForeColor = System.Drawing.Color.White
         Legend2.IsTextAutoFit = false
         Legend2.Name = "Legend1"
@@ -498,13 +499,13 @@ Partial Class frmMonDetail
         Legend3.Alignment = System.Drawing.StringAlignment.Far
         Legend3.BackColor = System.Drawing.Color.Black
         Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Legend3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Legend3.ForeColor = System.Drawing.Color.White
         Legend3.IsTextAutoFit = false
         Legend3.Name = "Legend1"
         Legend4.BackColor = System.Drawing.Color.Black
         Legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left
-        Legend4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Legend4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Legend4.ForeColor = System.Drawing.Color.White
         Legend4.IsTextAutoFit = false
         Legend4.Name = "Legend2"
@@ -521,7 +522,7 @@ Partial Class frmMonDetail
         Series5.ChartArea = "ChartArea1"
         Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series5.Color = System.Drawing.Color.Lime
-        Series5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Series5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Series5.Legend = "Legend1"
         Series5.Name = "READ"
         Series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -530,7 +531,7 @@ Partial Class frmMonDetail
         Series6.ChartArea = "ChartArea1"
         Series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series6.Color = System.Drawing.Color.FromArgb(CType(CType(0,Byte),Integer), CType(CType(112,Byte),Integer), CType(CType(192,Byte),Integer))
-        Series6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Series6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Series6.Legend = "Legend1"
         Series6.Name = "INSERT"
         Series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -538,7 +539,7 @@ Partial Class frmMonDetail
         Series7.ChartArea = "ChartArea1"
         Series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series7.Color = System.Drawing.Color.Orange
-        Series7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Series7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Series7.Legend = "Legend1"
         Series7.Name = "UPDATE"
         Series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -546,7 +547,7 @@ Partial Class frmMonDetail
         Series8.ChartArea = "ChartArea1"
         Series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series8.Color = System.Drawing.Color.Red
-        Series8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Series8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Series8.Legend = "Legend1"
         Series8.Name = "DELETE"
         Series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -649,7 +650,7 @@ Partial Class frmMonDetail
         Legend5.Alignment = System.Drawing.StringAlignment.Far
         Legend5.BackColor = System.Drawing.Color.Black
         Legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Legend5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         Legend5.ForeColor = System.Drawing.Color.White
         Legend5.IsTextAutoFit = false
         Legend5.Name = "Legend1"
