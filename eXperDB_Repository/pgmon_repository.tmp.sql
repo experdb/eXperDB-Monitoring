@@ -406,7 +406,10 @@ ALTER TABLE ONLY tb_instance_info
     ADD CONSTRAINT pk_instance_info PRIMARY KEY (instance_id);
 
 ALTER TABLE ONLY tb_group_info
-    ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id, group_name);
+    ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id);
+
+ALTER TABLE ONLY tb_group_info
+    ADD CONSTRAINT uk_group_info UNIQUE (group_name);
     
 ALTER TABLE ONLY tb_group_instance_info
     ADD CONSTRAINT pk_group_instance_info PRIMARY KEY (group_id, instance_id);
