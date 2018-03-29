@@ -604,6 +604,10 @@
     <None Include="Resources\tablespace31.ico" />
     <None Include="Resources\currentlock31.ico" />
     <None Include="Resources\filelist.ico" />
+    <None Include="Resources\iconinfo.ico" />
+    <None Include="Resources\iconwarn.ico" />
+    <None Include="Resources\iconcrit.ico" />
+    <None Include="Resources\iconfine.ico" />
     <Content Include="Sounds\Siren.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

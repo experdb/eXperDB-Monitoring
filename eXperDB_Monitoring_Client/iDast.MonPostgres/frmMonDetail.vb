@@ -815,13 +815,19 @@
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthRegDate.Index).Value = strRegDt
                     dgvGrpHealth.Rows(intIDx).Tag = p_clsMsgData.fn_GetSpecificData(strItm, "COLUMNS")
 
-                    If dgvGrpHealth.Rows(intIDx).Tag = "" Then
-                        'dgvGrpHealth.Rows(intIDx).Cells(ImgCol.Index).Value = BlankImage()
-                        'dgvGrpHealth.Rows(intIDx).DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9)
+                    If intHchkVal >= 300 Then
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthStatusImage.Index).Value = statusImgLst.Images(2)
+                    ElseIf intHchkVal >= 200 Then
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthStatusImage.Index).Value = statusImgLst.Images(1)
                     Else
-                        dgvGrpHealth.Rows(intIDx).DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9, System.Drawing.FontStyle.Underline)
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthStatusImage.Index).Value = statusImgLst.Images(0)
                     End If
 
+                    If dgvGrpHealth.Rows(intIDx).Tag = "" Then
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthInfoImage.Index).Value = BlankImage()
+                    Else
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthInfoImage.Index).Value = statusImgLst.Images(3)
+                    End If
                 Else
 
                     If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
@@ -834,6 +840,21 @@
                     dgvHealthRow.Cells(colDgvHealthUnit.Index).Value = strUnit
                     dgvHealthRow.Cells(colDgvHealthSeq.Index).Value = intSeq
                     dgvHealthRow.Cells(colDgvHealthRegDate.Index).Value = strRegDt
+
+
+                    If intHchkVal >= 300 Then
+                        dgvHealthRow.Cells(colDgvHealthStatusImage.Index).Value = statusImgLst.Images(2)
+                    ElseIf intHchkVal >= 200 Then
+                        dgvHealthRow.Cells(colDgvHealthStatusImage.Index).Value = statusImgLst.Images(1)
+                    Else
+                        dgvHealthRow.Cells(colDgvHealthStatusImage.Index).Value = statusImgLst.Images(0)
+                    End If
+
+                    If dgvHealthRow.Tag = "" Then
+                        dgvHealthRow.Cells(colDgvHealthInfoImage.Index).Value = BlankImage()
+                    Else
+                        dgvHealthRow.Cells(colDgvHealthInfoImage.Index).Value = statusImgLst.Images(3)
+                    End If
 
                 End If
 
@@ -1296,7 +1317,9 @@
             End If
 
             If dgvGrpHealth.Rows(e.RowIndex).Tag <> "" Then
-                dgvGrpHealth.Cursor = Cursors.Hand
+                If e.ColumnIndex = colDgvHealthInfoImage.Index Then
+                    dgvGrpHealth.Cursor = Cursors.Hand
+                End If
                 dgvGrpHealth.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(50, 50, 50)
             End If
         End If

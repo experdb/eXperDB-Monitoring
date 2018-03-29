@@ -156,7 +156,11 @@
 
         chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEMAIN", "False")
 
-
+        If clsIni.ReadValue("FORM", "ALERTLISTTYPE", "rbCurrent").Equals("rbCurrent") Then
+            rbCurrent.Checked = True
+        Else
+            rbHistory.Checked = True
+        End If
 
     End Sub
 
@@ -452,8 +456,6 @@
         ' Session Stats
         sb_SetSessionStatus(grpInfo.Items)
 
-        'check radio button current 
-        rbCurrent.Checked = True
         '서버 Alert ServerInfo
         _GrpListServerinfo = grpInfo.Items
     End Sub
@@ -2690,11 +2692,13 @@
         Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
         If rbTemp.Name = "rbCurrent" Then
             If rbTemp.Checked = True Then
-
+                Dim clsIni As New Common.IniFile(p_AppConfigIni)
+                clsIni.WriteValue("FORM", "ALERTLISTTYPE", "rbCurrent")
             End If
         Else
             If rbTemp.Checked = True Then
-
+                Dim clsIni As New Common.IniFile(p_AppConfigIni)
+                clsIni.WriteValue("FORM", "ALERTLISTTYPE", "rbHistory")
             End If
         End If
     End Sub

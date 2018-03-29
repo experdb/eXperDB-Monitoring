@@ -2306,7 +2306,7 @@
   </ROW>
   <ROW ID="F284" PARAMS="0">
     <DESC>NORMAL Abbr</DESC>
-    <DATA><![CDATA[Norm]]></DATA>
+    <DATA><![CDATA[Normal]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2314,7 +2314,7 @@
   </ROW>
   <ROW ID="F285" PARAMS="0">
     <DESC>WARNING Abbr</DESC>
-    <DATA><![CDATA[Warn]]></DATA>
+    <DATA><![CDATA[Warning]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2322,7 +2322,7 @@
   </ROW>
   <ROW ID="F286" PARAMS="0">
     <DESC>CRITICAL Abbr</DESC>
-    <DATA><![CDATA[Crit]]></DATA>
+    <DATA><![CDATA[Critical]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
