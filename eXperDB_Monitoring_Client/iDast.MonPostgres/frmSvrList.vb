@@ -168,6 +168,8 @@
                     topNode.Cells(0).Value = tmpRow.Item("HOST_NAME")
                 Next
             End If
+
+            lblMonList.Text = p_clsMsgData.fn_GetData("F311") + " ( " + dgvMonLst.RowCount.ToString + " ) "
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
@@ -925,7 +927,7 @@
         '    End If
         'Next
 
-        lblMonList.Text = p_clsMsgData.fn_GetData("F311") + "(" + dgvMonLst.RowCount.ToString + ")"
+        lblMonList.Text = p_clsMsgData.fn_GetData("F311") + " ( " + dgvMonLst.RowCount.ToString + " ) "
     End Sub
 
     Private Sub sb_AddTreeGridDatas(ByVal tvNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtRow As DataGridViewRow)

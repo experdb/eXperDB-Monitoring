@@ -34,7 +34,7 @@
         'lblSvrDBNm.Text = p_clsMsgData.fn_GetData("F010")
 
         lblLogSaveDly.Text = p_clsMsgData.fn_GetData("F012")
-        grpSvrLst.Text = p_clsMsgData.fn_GetData("F013")
+        lblSvrLst.Text = p_clsMsgData.fn_GetData("F013")
         lblBasicConfig.Text = p_clsMsgData.fn_GetData("F280")
 
 
@@ -116,11 +116,11 @@
             ' 현재 Agent 접속 정보를 저장한다. 
             ' 추후 Tag 값으로 Agent 서버의 등록 서버 정보를 관리한다. 
             ' 상단의 접속 테스트 정보를 변경하여도 테스트를 하지 않는한 계속 같은 정보를 바라본다. 
-            grpSvrLst.Tag = tmpCn
+            lblSvrLst.Tag = tmpCn
             ' 접속 성공시 Agent 서버에서 기등록된 데이터를 불러온다. 
             ReadSvrList(tmpCn)
         Else
-            grpSvrLst.Enabled = False
+            lblSvrLst.Enabled = False
             sb_Ctlenabled(False)
             btnApply.Tag = Nothing
 
@@ -142,7 +142,7 @@
 
     Private Sub sb_Ctlenabled(ByVal Bret As Boolean)
 
-        grpSvrLst.Enabled = Bret
+        lblSvrLst.Enabled = Bret
         pnlB.Enabled = Bret
 
     End Sub
@@ -217,7 +217,19 @@
         If _AgentIP.Trim = "" Or _AgentPort = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M016"))
         End If
+
+        Dim nCount As Integer = 0
+        For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
+            If tmpRow.Visible = True Then
+                nCount += 1
+            End If
+        Next
+
+        lblSvrLst.Text = p_clsMsgData.fn_GetData("F013") + " ( " + nCount.ToString + " ) "
+
     End Sub
+
+
 #End Region
 
 
@@ -254,7 +266,7 @@
 
     End Sub
 
- 
+
 
 
     ''' <summary>
@@ -296,8 +308,8 @@
 
     End Sub
 
-  
-    
+
+
     ''' <summary>
     ''' 적용 버튼을 클릭 하엿을 경우 해당 복록을 DB에 저장한다. 
     ''' </summary>
@@ -390,7 +402,7 @@
     Private Function fn_GetSerial() As String
         Dim strKey As String
         Try
-            Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
+            Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.DXODBC)
             Dim ClsQuery As New clsQuerys(odbcCon)
             Dim dtTable As DataTable = ClsQuery.SelectSerialKey()
             If dtTable IsNot Nothing Then
@@ -419,7 +431,7 @@
             MsgBox(p_clsMsgData.fn_GetData("M029"))
             Return
         End If
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
+        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.DXODBC)
         If _startDt.CompareTo(fn_ChkServer(odbcCon)) < 0 Then
             CircularProgressControl1.Stop()
             CircularProgressControl1.Visible = False
@@ -436,7 +448,7 @@
 
     Private Sub btnAdminPW_Click(sender As Object, e As EventArgs) Handles btnAdminPW.Click
         Dim strkey = fn_GetSerial()
-        Dim frmUserConf As New frmUserConfig(grpSvrLst.Tag, strkey)
+        Dim frmUserConf As New frmUserConfig(lblSvrLst.Tag, strkey)
         frmUserConf.ShowDialog()
     End Sub
 
@@ -467,6 +479,16 @@
             AddData(-1, struct, strSchema, intCollect, strAlias)
 
         End If
+
+        Dim nCount As Integer = 0
+        For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
+            If tmpRow.Visible = True Then
+                nCount += 1
+            End If
+        Next
+
+        lblSvrLst.Text = p_clsMsgData.fn_GetData("F013") + " ( " + nCount.ToString + " ) "
+
     End Sub
 
     Private Sub btnModify_Click(sender As Object, e As EventArgs) Handles btnModify.Click
@@ -516,7 +538,7 @@
 
 
         ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(grpSvrLst.Tag, eXperDB.ODBC.DXODBC)
+        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.DXODBC)
 
 
 
@@ -610,11 +632,15 @@
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Dim nCount As Integer = 0
         For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
             If tmpRow.Cells(colCheck.Index).Value = "Y" Then
                 tmpRow.Visible = False
+            Else
+                nCount += 1
             End If
         Next
+        lblSvrLst.Text = p_clsMsgData.fn_GetData("F013") + " ( " + nCount.ToString + " ) "
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click

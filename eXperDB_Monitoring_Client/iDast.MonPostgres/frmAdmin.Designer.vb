@@ -83,7 +83,7 @@ Partial Class frmAdmin
         Me.lblBasicConfig = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.grpSvrLst = New System.Windows.Forms.Label()
+        Me.lblSvrLst = New System.Windows.Forms.Label()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.MsgLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -128,7 +128,7 @@ Partial Class frmAdmin
         Me.dgvSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
@@ -139,7 +139,7 @@ Partial Class frmAdmin
         Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCheck, Me.colCollectYN, Me.colAliasNm, Me.colCollectSecond, Me.colDBNm, Me.colIP, Me.colPort, Me.colSchema, Me.colUser, Me.colPW, Me.colLstIP, Me.colPWCH})
         DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle13.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle13.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.LightGray
         DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black
@@ -336,7 +336,7 @@ Partial Class frmAdmin
         Me.lblHealthTime.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblHealthTime.FixedHeight = False
         Me.lblHealthTime.FixedWidth = False
-        Me.lblHealthTime.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHealthTime.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHealthTime.ForeColor = System.Drawing.Color.White
         Me.lblHealthTime.Location = New System.Drawing.Point(3, 20)
         Me.lblHealthTime.Name = "lblHealthTime"
@@ -366,7 +366,7 @@ Partial Class frmAdmin
         Me.lblLogSaveDly.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblLogSaveDly.FixedHeight = False
         Me.lblLogSaveDly.FixedWidth = False
-        Me.lblLogSaveDly.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogSaveDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLogSaveDly.ForeColor = System.Drawing.Color.White
         Me.lblLogSaveDly.Location = New System.Drawing.Point(3, 60)
         Me.lblLogSaveDly.Name = "lblLogSaveDly"
@@ -381,7 +381,7 @@ Partial Class frmAdmin
         Me.lblLogBatchH.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblLogBatchH.FixedHeight = False
         Me.lblLogBatchH.FixedWidth = False
-        Me.lblLogBatchH.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogBatchH.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLogBatchH.ForeColor = System.Drawing.Color.White
         Me.lblLogBatchH.Location = New System.Drawing.Point(3, 140)
         Me.lblLogBatchH.Name = "lblLogBatchH"
@@ -414,7 +414,7 @@ Partial Class frmAdmin
         Me.lblLogBatch.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblLogBatch.FixedHeight = False
         Me.lblLogBatch.FixedWidth = False
-        Me.lblLogBatch.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogBatch.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLogBatch.ForeColor = System.Drawing.Color.White
         Me.lblLogBatch.Location = New System.Drawing.Point(3, 100)
         Me.lblLogBatch.Name = "lblLogBatch"
@@ -526,7 +526,7 @@ Partial Class frmAdmin
         Me.btnAdminPW.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnAdminPW.FixedHeight = False
         Me.btnAdminPW.FixedWidth = False
-        Me.btnAdminPW.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnAdminPW.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAdminPW.ForeColor = System.Drawing.Color.White
         Me.btnAdminPW.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAdminPW.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -548,7 +548,7 @@ Partial Class frmAdmin
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
-        Me.btnClose.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.White
         Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -619,7 +619,7 @@ Partial Class frmAdmin
         Me.lblLogBatchM.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblLogBatchM.FixedHeight = False
         Me.lblLogBatchM.FixedWidth = False
-        Me.lblLogBatchM.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLogBatchM.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLogBatchM.ForeColor = System.Drawing.Color.White
         Me.lblLogBatchM.Location = New System.Drawing.Point(3, 180)
         Me.lblLogBatchM.Name = "lblLogBatchM"
@@ -705,7 +705,7 @@ Partial Class frmAdmin
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.grpSvrLst, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSvrLst, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -726,17 +726,17 @@ Partial Class frmAdmin
         Me.Label4.TabIndex = 2
         Me.Label4.Text = "      "
         '
-        'grpSvrLst
+        'lblSvrLst
         '
-        Me.grpSvrLst.AutoSize = True
-        Me.grpSvrLst.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grpSvrLst.ForeColor = System.Drawing.Color.White
-        Me.grpSvrLst.Location = New System.Drawing.Point(43, 0)
-        Me.grpSvrLst.Name = "grpSvrLst"
-        Me.grpSvrLst.Size = New System.Drawing.Size(671, 40)
-        Me.grpSvrLst.TabIndex = 3
-        Me.grpSvrLst.Text = "F077"
-        Me.grpSvrLst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSvrLst.AutoSize = True
+        Me.lblSvrLst.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSvrLst.ForeColor = System.Drawing.Color.White
+        Me.lblSvrLst.Location = New System.Drawing.Point(43, 0)
+        Me.lblSvrLst.Name = "lblSvrLst"
+        Me.lblSvrLst.Size = New System.Drawing.Size(671, 40)
+        Me.lblSvrLst.TabIndex = 3
+        Me.lblSvrLst.Text = "F077"
+        Me.lblSvrLst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TableLayoutPanel3
         '
@@ -798,7 +798,7 @@ Partial Class frmAdmin
         Me.btnCreate.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnCreate.FixedHeight = False
         Me.btnCreate.FixedWidth = False
-        Me.btnCreate.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnCreate.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCreate.ForeColor = System.Drawing.Color.White
         Me.btnCreate.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCreate.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -820,7 +820,7 @@ Partial Class frmAdmin
         Me.btnModify.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnModify.FixedHeight = False
         Me.btnModify.FixedWidth = False
-        Me.btnModify.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnModify.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnModify.ForeColor = System.Drawing.Color.White
         Me.btnModify.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnModify.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -842,7 +842,7 @@ Partial Class frmAdmin
         Me.btnApply.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnApply.FixedHeight = False
         Me.btnApply.FixedWidth = False
-        Me.btnApply.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnApply.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnApply.ForeColor = System.Drawing.Color.White
         Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnApply.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -864,7 +864,7 @@ Partial Class frmAdmin
         Me.btnDelete.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnDelete.FixedHeight = False
         Me.btnDelete.FixedWidth = False
-        Me.btnDelete.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnDelete.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnDelete.ForeColor = System.Drawing.Color.White
         Me.btnDelete.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnDelete.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -887,29 +887,29 @@ Partial Class frmAdmin
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.pnlB)
-        Me.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmAdmin"
         Me.Padding = New System.Windows.Forms.Padding(2)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Database Management"
-        CType(Me.dgvSvrLst,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.nudLogSaveDly,System.ComponentModel.ISupportInitialize).EndInit
-        Me.pnlB.ResumeLayout(false)
-        Me.SplitContainer1.Panel1.ResumeLayout(false)
-        Me.SplitContainer1.Panel2.ResumeLayout(false)
-        CType(Me.SplitContainer1,System.ComponentModel.ISupportInitialize).EndInit
-        Me.SplitContainer1.ResumeLayout(false)
-        Me.TableLayoutPanel5.ResumeLayout(false)
-        Me.TableLayoutPanel2.ResumeLayout(false)
-        Me.TableLayoutPanel2.PerformLayout
-        Me.TableLayoutPanel1.ResumeLayout(false)
-        Me.TableLayoutPanel1.PerformLayout
-        Me.TableLayoutPanel3.ResumeLayout(false)
-        Me.TableLayoutPanel3.PerformLayout
-        Me.ResumeLayout(false)
+        CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudLogSaveDly, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlB.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        Me.TableLayoutPanel5.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        Me.ResumeLayout(False)
 
-End Sub
+    End Sub
     Friend WithEvents lblLogSaveDly As eXperDB.BaseControls.Label
     Friend WithEvents dgvSvrLst As eXperDB.BaseControls.DataGridView
     Friend WithEvents nudLogSaveDly As eXperDB.BaseControls.NumericUpDown
@@ -934,7 +934,7 @@ End Sub
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents grpSvrLst As System.Windows.Forms.Label
+    Friend WithEvents lblSvrLst As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents lblBasicConfig As System.Windows.Forms.Label

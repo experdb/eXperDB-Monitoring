@@ -7,7 +7,7 @@ SCRIPT_DIR=`pwd`
 EXPERDB_AGENT=eXperDB_Agent
 EXPERDB_AGENT_HOME=$SCRIPT_DIR
 export EXPERDB_AGENT_HOME
-EXPERDB_INSTALL_DIR=$EXPERDB_AGENT_HOME/install
+EXPERDB_INSTALL_DIR=$EXPERDB_AGENT_HOME/install/eXperDB_Server
 EMA=eXperDB_Monitoring_Agent
 EMAM=eXperDB_Monitoring_Agent_Manager
 EMA_DIR_NAME=eXperDBMA
@@ -22,8 +22,8 @@ do_packing()
   cp -a ${EXPERDB_AGENT_HOME}/${EMAM}/build/${EMAM_DIR_NAME} ${EXPERDB_INSTALL_DIR}
   dos2unix ${EXPERDB_INSTALL_DIR}/${EMA_DIR_NAME}/bin/*
   dos2unix ${EXPERDB_INSTALL_DIR}/${EMAM_DIR_NAME}/bin/*
-  tar zcvf ${EXPERDB_AGENT}_${VERSION}.tar.gz ${EMA_DIR_NAME} ${EMAM_DIR_NAME}
-  rm -rf ${EMA_DIR_NAME} ${EMAM_DIR_NAME}
+  #tar zcvf ${EXPERDB_AGENT}_${VERSION}.tar.gz ${EMA_DIR_NAME} ${EMAM_DIR_NAME}
+  #rm -rf ${EMA_DIR_NAME} ${EMAM_DIR_NAME}
 }
 
 build_agent()
