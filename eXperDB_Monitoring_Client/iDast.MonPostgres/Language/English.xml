@@ -656,7 +656,7 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="F077" PARAMS="0">
+  <ROW ID="F077" PARAMS="1">
     <DESC>LOCK INFORMATION</DESC>
     <DATA><![CDATA[Current Lock(Count : {0})]]></DATA>
     <COMMENTS />
@@ -2388,7 +2388,7 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="F313" PARAMS="0">
+  <ROW ID="F313" PARAMS="1">
     <DESC>SESSION DETAIL</DESC>
     <DATA><![CDATA[Session list(Count : {0})]]></DATA>
     <COMMENTS />

@@ -6,33 +6,57 @@
     Private WithEvents TmCollect As Timer
     Private Sub TmCollect_Tick(sender As Object, e As EventArgs) Handles TmCollect.Tick
         If Me.IsHandleCreated Then
+            If _initConnect = True Then
+                _initConnect = False
+                Try
+                    initControls(p_clsAgentCollect.AgentState)
 
-            TmCollect.Stop()
-            Try
-                initControls(p_clsAgentCollect.AgentState)
+                    If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
+                        SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
+                        initDataCpu()
+                        'SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
+                        SetDataDisk(p_clsAgentCollect.infoDataDisk)
+                        initDataSQLRespTm()
+                        'SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm)
+                        initDataRequest()
+                        'SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
+                        'SetDataObject(p_clsAgentCollect.infoDataObject)
+                        SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
+                        'SetDataHealth(p_clsAgentCollect.infoDataHealth)
+                        _clsQuery.CancelCommand()
+                    End If
 
-                If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
-                    SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
-                    SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem) 'accumulate
-                    SetDataDisk(p_clsAgentCollect.infoDataDisk)     'accumulate
-                    SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm) 'accumulate
-                    SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo) 'accumulate
-                    'This chart will move to object view 20180125
-                    'SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
-                    SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
-                    SetDataHealth(p_clsAgentCollect.infoDataHealth)
-                End If
+                Catch ex As Exception
+                    p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                Finally
+                    TmCollect.Start()
+                End Try
+            Else
+                TmCollect.Stop()
+                Try
+                    initControls(p_clsAgentCollect.AgentState)
 
-            Catch ex As Exception
-                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            Finally
-                TmCollect.Start()
-            End Try
+                    If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
+                        SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
+                        SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem) 'accumulate
+                        SetDataDisk(p_clsAgentCollect.infoDataDisk)     'accumulate
+                        SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm) 'accumulate
+                        SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo) 'accumulate
+                        'This chart will move to object view 20180125
+                        'SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
+                        SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
+                        SetDataHealth(p_clsAgentCollect.infoDataHealth)
+                    End If
 
-
+                Catch ex As Exception
+                    p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                Finally
+                    TmCollect.Interval = _Elapseinterval
+                    TmCollect.Start()
+                End Try
+            End If
 
         End If
-
 
     End Sub
 
@@ -78,6 +102,7 @@
     Private _clsQuery As clsQuerys  ' Main Thread용
     Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+    Private _initConnect As Boolean = True
 
     ReadOnly Property AgentCn As DXODBC
         Get
@@ -159,31 +184,7 @@
     Private Sub frmMonDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' 폼 초기화 
         InitForm()
-
-        Try
-            initControls(p_clsAgentCollect.AgentState)
-
-            If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
-                SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
-                initDataCpu()
-                'SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
-                SetDataDisk(p_clsAgentCollect.infoDataDisk)
-                initDataSQLRespTm()
-                'SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm)
-                initDataRequest()
-                'SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                'SetDataObject(p_clsAgentCollect.infoDataObject)
-                SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
-                'SetDataHealth(p_clsAgentCollect.infoDataHealth)
-                _clsQuery.CancelCommand()
-            End If
-
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-        Finally
-            TmCollect.Start()
-        End Try
-
+        _initConnect = True
     End Sub
 
     Private Sub InitForm()
