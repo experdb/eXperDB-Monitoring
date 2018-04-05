@@ -6,36 +6,16 @@
     Private WithEvents TmCollect As Timer
     Private Sub TmCollect_Tick(sender As Object, e As EventArgs) Handles TmCollect.Tick
         If Me.IsHandleCreated Then
-            If _initConnect = True Then
-                _initConnect = False
-                Try
-                    initControls(p_clsAgentCollect.AgentState)
-
-                    If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
-                        SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
-                        initDataCpu()
-                        'SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
-                        SetDataDisk(p_clsAgentCollect.infoDataDisk)
-                        initDataSQLRespTm()
-                        'SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm)
-                        initDataRequest()
-                        'SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                        'SetDataObject(p_clsAgentCollect.infoDataObject)
-                        SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
-                        'SetDataHealth(p_clsAgentCollect.infoDataHealth)
-                        _clsQuery.CancelCommand()
-                    End If
-
-                Catch ex As Exception
-                    p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                Finally
-                    TmCollect.Start()
-                End Try
+            If _initConnect = False Then
+                If bckmanual.IsBusy = True Then
+                    bckmanual.CancelAsync()
+                    Return
+                End If
+                bckmanual.RunWorkerAsync()
             Else
                 TmCollect.Stop()
                 Try
                     initControls(p_clsAgentCollect.AgentState)
-
                     If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
                         SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
                         SetDataCpuMem(p_clsAgentCollect.infoDataCpuMem) 'accumulate
@@ -47,7 +27,6 @@
                         SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
                         SetDataHealth(p_clsAgentCollect.infoDataHealth)
                     End If
-
                 Catch ex As Exception
                     p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                 Finally
@@ -102,7 +81,7 @@
     Private _clsQuery As clsQuerys  ' Main Thread용
     Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-    Private _initConnect As Boolean = True
+    Private _initConnect As Boolean = False
 
     ReadOnly Property AgentCn As DXODBC
         Get
@@ -151,7 +130,7 @@
         ServerName_lv.Text = String.Format("{0},  IP : {1}, Started on {2}", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
 
         TmCollect = New Timer()
-        TmCollect.Interval = _Elapseinterval
+        TmCollect.Interval = 100
         TmCollect.Start()
 
         _ElapseCount = (60000 / _Elapseinterval) * 60 / 6 ' 10분
@@ -184,7 +163,7 @@
     Private Sub frmMonDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' 폼 초기화 
         InitForm()
-        _initConnect = True
+        initControls(p_clsAgentCollect.AgentState)
     End Sub
 
     Private Sub InitForm()
@@ -716,6 +695,50 @@
 
     End Sub
 
+    ''' <summary>
+    ''' CPU / MEM 정보 초기 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDataCpu()
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectInitCPUChart(InstanceID, p_ShowName.ToString("d"))
+
+                          Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+
+                          If dtRows.Count > 0 Then
+                              Dim dblRegDate As Double
+                              Dim dblCpuMain As Integer
+                              Dim dblCpuWait As Integer
+
+                              ' Cpu Information 
+                              Using dgvAvgRow As DataGridViewRow = dgvCPU.FindFirstRow("AVG", colDgvCPUCPU.Index)
+                                  If dgvAvgRow IsNot Nothing Then
+                                      dgvAvgRow.Cells(colDgvCpuProg.Index).Value = dblCpuMain
+                                      dgvAvgRow.Cells(colDgvCpuUtil.Index).Value = dblCpuMain / 100
+                                  End If
+
+                              End Using
+
+                              Dim lastRow As Integer = 0
+                              For Each tmpRow As DataRow In dtRows
+                                  dblRegDate = ConvOADate(tmpRow.Item("REG_DATE"))
+                                  dblCpuMain = ConvDBL(tmpRow.Item("CPU_MAIN"))
+                                  dblCpuWait = ConvDBL(tmpRow.Item("WAIT_UTIL_RATE"))
+                                  sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
+                                  sb_ChartAddPoint(Me.chtCPU, "POSTGRES", dblRegDate, ConvULong(dblCpuWait))
+                              Next
+
+                              modCommon.sb_GridProgClrChg(dgvCPU)
+                              sb_ChartAlignYAxies(Me.chtCPU)
+                          End If
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
+
 
     Private Sub SetDataPhysicaliO(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
@@ -1042,49 +1065,49 @@
 
         sb_ChartAlignYAxies(Me.chtPhysicaliO)
     End Sub
-    ''' <summary>
-    ''' CPU / MEM 정보 초기 등록 
-    ''' </summary>
-    ''' <remarks></remarks>
-    Private Sub initDataCpu()
-        Me.Invoke(Sub()
-                      Dim dtTable As DataTable = Nothing
-                      Try
-                          dtTable = _clsQuery.SelectInitCPUChart(InstanceID, p_ShowName.ToString("d"))
+    ' ''' <summary>
+    ' ''' CPU / MEM 정보 초기 등록 
+    ' ''' </summary>
+    ' ''' <remarks></remarks>
+    'Private Sub initDataCpu()
+    '    Me.Invoke(Sub()
+    '                  Dim dtTable As DataTable = Nothing
+    '                  Try
+    '                      dtTable = _clsQuery.SelectInitCPUChart(InstanceID, p_ShowName.ToString("d"))
 
-                          Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+    '                      Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
-                          If dtRows.Count > 0 Then
-                              Dim dblRegDate As Double
-                              Dim dblCpuMain As Integer
-                              Dim dblCpuWait As Integer
+    '                      If dtRows.Count > 0 Then
+    '                          Dim dblRegDate As Double
+    '                          Dim dblCpuMain As Integer
+    '                          Dim dblCpuWait As Integer
 
-                              ' Cpu Information 
-                              Using dgvAvgRow As DataGridViewRow = dgvCPU.FindFirstRow("AVG", colDgvCPUCPU.Index)
-                                  If dgvAvgRow IsNot Nothing Then
-                                      dgvAvgRow.Cells(colDgvCpuProg.Index).Value = dblCpuMain
-                                      dgvAvgRow.Cells(colDgvCpuUtil.Index).Value = dblCpuMain / 100
-                                  End If
+    '                          ' Cpu Information 
+    '                          Using dgvAvgRow As DataGridViewRow = dgvCPU.FindFirstRow("AVG", colDgvCPUCPU.Index)
+    '                              If dgvAvgRow IsNot Nothing Then
+    '                                  dgvAvgRow.Cells(colDgvCpuProg.Index).Value = dblCpuMain
+    '                                  dgvAvgRow.Cells(colDgvCpuUtil.Index).Value = dblCpuMain / 100
+    '                              End If
 
-                              End Using
+    '                          End Using
 
-                              Dim lastRow As Integer = 0
-                              For Each tmpRow As DataRow In dtRows
-                                  dblRegDate = ConvOADate(tmpRow.Item("REG_DATE"))
-                                  dblCpuMain = ConvDBL(tmpRow.Item("CPU_MAIN"))
-                                  dblCpuWait = ConvDBL(tmpRow.Item("WAIT_UTIL_RATE"))
-                                  sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
-                                  sb_ChartAddPoint(Me.chtCPU, "POSTGRES", dblRegDate, ConvULong(dblCpuWait))
-                              Next
+    '                          Dim lastRow As Integer = 0
+    '                          For Each tmpRow As DataRow In dtRows
+    '                              dblRegDate = ConvOADate(tmpRow.Item("REG_DATE"))
+    '                              dblCpuMain = ConvDBL(tmpRow.Item("CPU_MAIN"))
+    '                              dblCpuWait = ConvDBL(tmpRow.Item("WAIT_UTIL_RATE"))
+    '                              sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
+    '                              sb_ChartAddPoint(Me.chtCPU, "POSTGRES", dblRegDate, ConvULong(dblCpuWait))
+    '                          Next
 
-                              modCommon.sb_GridProgClrChg(dgvCPU)
-                              sb_ChartAlignYAxies(Me.chtCPU)
-                          End If
-                      Catch ex As Exception
-                          GC.Collect()
-                      End Try
-                  End Sub)
-    End Sub
+    '                          modCommon.sb_GridProgClrChg(dgvCPU)
+    '                          sb_ChartAlignYAxies(Me.chtCPU)
+    '                      End If
+    '                  Catch ex As Exception
+    '                      GC.Collect()
+    '                  End Try
+    '              End Sub)
+    'End Sub
     ''' <summary>
     ''' SQL Response Time 정보 초기 등록 
     ''' </summary>
@@ -1486,4 +1509,31 @@
         End If
 
     End Sub
+
+    Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
+        If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
+            'Threading.Thread.Sleep(100)
+            initDataCpu()
+            initDataSQLRespTm()
+            initDataRequest()
+            _clsQuery.CancelCommand()
+        End If
+        bckmanual.ReportProgress(100)
+    End Sub
+
+    Private Sub bckmanual_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bckmanual.ProgressChanged
+
+    End Sub
+
+    Private Sub bckmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bckmanual.RunWorkerCompleted
+        If e.Cancelled = False Then
+            _initConnect = True
+            SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
+            SetDataDisk(p_clsAgentCollect.infoDataDisk)
+            SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
+            SetDataHealth(p_clsAgentCollect.infoDataHealth)
+            _clsQuery.CancelCommand()
+        End If
+    End Sub
+
 End Class

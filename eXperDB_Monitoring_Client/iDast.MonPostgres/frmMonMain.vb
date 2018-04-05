@@ -137,7 +137,7 @@
         ReadConfig()
 
 
-        _ElapseCount = (60000 / _ElapseInterval) * 60 / 12 ' 5분
+        _ElapseCount = (60000 / _ElapseInterval) * _GrpList.First.Items.Count * 3 ' 5분
         Me.ShowCritical = True
         'Noh -> Me.ShowCritical = True
 
@@ -208,35 +208,13 @@
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         'sb_SetRbGrp(_GrpList)
         ServerName_lv.Text = _GrpList.Item(0).GroupName
-        tmCollect.Interval = 2100
+        tmCollect.Interval = 500
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
         ' 그룹 라디오 감추고 그룹명을 타이틀에 초기화는 form load에서 
         sb_InitControl()
-
-        'getData()
     End Sub
-
-    Private Sub getData()
-
-        Dim grpInfo As GroupInfo = _GrpList.Item(0)
-
-        sb_SetInstanceStatus(grpInfo.Items)
-        ' CPU 관련 목록을 변경한다. 
-        sb_SetGrpCPU(grpInfo.Items)
-        ' 메모리 관련 목록을 변경한다. 
-        sb_SetGrpMem(grpInfo.Items)
-        ' Disk Access , Disk Usage
-        sb_setGrpDiskInfos()
-        ' Request Info 
-        sb_SetGrpReqinfo(grpInfo.Items)
-
-        '서버 Alert ServerInfo
-        _GrpListServerinfo = grpInfo.Items
-
-    End Sub
-
 
     ''' <summary>
     ''' 화면 언어 및 컨트롤 초기화 실행 
@@ -455,6 +433,11 @@
         sb_SetGrpReqinfo(grpInfo.Items)
         ' Session Stats
         sb_SetSessionStatus(grpInfo.Items)
+        If bckmanual.IsBusy = True Then
+            bckmanual.CancelAsync()
+            Return
+        End If
+        bckmanual.RunWorkerAsync()
 
         '서버 Alert ServerInfo
         _GrpListServerinfo = grpInfo.Items
@@ -526,7 +509,7 @@
             index += 1
         Next
 
-        init_DataSessionStatsInfo(svrLst)
+        ' init_DataSessionStatsInfo(svrLst)
     End Sub
 
     ''' <summary>
@@ -1435,12 +1418,51 @@
 
     End Sub
     '0202 add flow chart
-    Private Sub init_DataSessionStatsInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+    'Private Sub init_DataSessionStatsInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+    '    '0202 change flow chart
+    '    Dim dtTableSessionStatus As DataTable = Nothing
+    '    Dim arrInstanceIDs As New ArrayList
+    '    Dim dblRegDt As Double
+    '    Dim intInstID As Integer
+    '    Dim strInstancIDs As String
+    '    Dim clsQu As clsQuerys
+    '    Try
+    '        clsQu = New clsQuerys(_AgentCn)
+    '        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+    '            arrInstanceIDs.Add(tmpSvr.InstanceID)
+    '        Next
+    '        Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+    '        strInstancIDs = String.Join(",", Instance)
+    '        dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs, New Date(), New Date(), False)
+    '        If dtTableSessionStatus IsNot Nothing Then
+    '            For Each dtRow As DataRow In dtTableSessionStatus.Rows
+    '                dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+    '                intInstID = dtRow.Item("INSTANCE_ID")
+    '                For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+    '                    If tmpSvr.InstanceID = intInstID Then
+    '                        'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+    '                        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT")))
+    '                    Else
+    '                        Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
+    '                        If lastYPoint > 0 Then
+    '                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
+
+    '                        End If
+    '                    End If
+    '                Next
+    '            Next
+    '            sb_ChartAlignYAxies(Me.chtSessionStatus)
+    '        End If
+    '    Catch ex As Exception
+    '        GC.Collect()
+    '    Finally
+    '        clsQu = Nothing
+    '    End Try
+    'End Sub
+    Private _dtTableSessionStatus As DataTable = Nothing
+    Private Sub getinitDataSessionStatsInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         '0202 change flow chart
-        Dim dtTableSessionStatus As DataTable = Nothing
         Dim arrInstanceIDs As New ArrayList
-        Dim dblRegDt As Double
-        Dim intInstID As Integer
         Dim strInstancIDs As String
         Dim clsQu As clsQuerys
         Try
@@ -1450,9 +1472,23 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs, New Date(), New Date(), False)
-            If dtTableSessionStatus IsNot Nothing Then
-                For Each dtRow As DataRow In dtTableSessionStatus.Rows
+            _dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs, New Date(), New Date(), False)
+        Catch ex As Exception
+            GC.Collect()
+            _dtTableSessionStatus = Nothing
+        Finally
+            clsQu = Nothing
+        End Try
+    End Sub
+    Private Sub drawDataSessionStatsInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        '0202 change flow chart
+        Dim dtTableSessionStatus As DataTable = Nothing
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Try
+            If _dtTableSessionStatus IsNot Nothing Then
+                For Each dtRow As DataRow In _dtTableSessionStatus.Rows
                     dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
@@ -1473,7 +1509,7 @@
         Catch ex As Exception
             GC.Collect()
         Finally
-            clsQu = Nothing
+
         End Try
     End Sub
     Private Sub clsAgentCollect_GetDataObjectInfo(ByVal dtTableObject As DataTable, ByVal dtTableSession As DataTable)
@@ -2349,6 +2385,7 @@
             Dim rtnValue As Integer = MSChart.Series(strSeries).Points.AddXY(Date.FromOADate(dblX), dblY)
 
             Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
+
             If NowCnt >= _ElapseCount Then '5분간 유지 10분 200
                 For i As Integer = 0 To NowCnt - _ElapseCount
                     MSChart.Series(strSeries).Points.RemoveAt(0)
@@ -2699,6 +2736,23 @@
             If rbTemp.Checked = True Then
                 Dim clsIni As New Common.IniFile(p_AppConfigIni)
                 clsIni.WriteValue("FORM", "ALERTLISTTYPE", "rbHistory")
+            End If
+        End If
+    End Sub
+
+    Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
+        getinitDataSessionStatsInfo(_GrpListServerinfo)
+        bckmanual.ReportProgress(100)
+    End Sub
+
+    Private Sub bckmanual_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bckmanual.ProgressChanged
+
+    End Sub
+
+    Private Sub bckmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bckmanual.RunWorkerCompleted
+        If e.Cancelled = False Then
+            If _dtTableSessionStatus IsNot Nothing Then
+                drawDataSessionStatsInfo(_GrpListServerinfo)
             End If
         End If
     End Sub

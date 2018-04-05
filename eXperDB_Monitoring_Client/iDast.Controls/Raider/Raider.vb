@@ -480,7 +480,8 @@ Public Class Raider
             ' String 
 
 
-            Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 5)
+            'Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 5)
+            Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 9)
             Dim CentPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height / 2)
             pGr.DrawRectangle(New Pen(Brushes.Green), New Rectangle(CentPt.X, CentPt.Y, 2, 2))
             Dim dblCos As Double = Math.Cos((incDegree / 2 + (incDegree * i)) * Math.PI / 180)

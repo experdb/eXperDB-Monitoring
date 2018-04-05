@@ -195,9 +195,7 @@ Public Class frmLogView
     End Sub
 
     Private Sub bckmanual_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bckmanual.ProgressChanged
-        If p_clsAgentCollect.ThreadManual(Me.InstanceID, 60000) = True Then
 
-        End If
     End Sub
 
     Private Sub bckmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bckmanual.RunWorkerCompleted

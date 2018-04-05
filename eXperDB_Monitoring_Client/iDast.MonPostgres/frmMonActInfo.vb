@@ -442,15 +442,15 @@
         'If _frmWait IsNot Nothing Then
         '    _frmWait.AddText("Data select start")
         'End If
+        If p_clsAgentCollect.ThreadManual(Me.InstanceID, 60000) = True Then
 
+        End If
         bckmanual.ReportProgress(100)
 
     End Sub
 
     Private Sub bckmanual_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bckmanual.ProgressChanged
-        If p_clsAgentCollect.ThreadManual(Me.InstanceID, 60000) = True Then
 
-        End If
     End Sub
 
     Private Sub bckmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bckmanual.RunWorkerCompleted

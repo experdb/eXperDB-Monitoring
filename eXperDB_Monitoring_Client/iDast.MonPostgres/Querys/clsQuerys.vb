@@ -1135,7 +1135,6 @@
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCPUMEMINFOBEFORE")
-
                 strQuery = String.Format(strQuery, intInstanceID, strName)
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

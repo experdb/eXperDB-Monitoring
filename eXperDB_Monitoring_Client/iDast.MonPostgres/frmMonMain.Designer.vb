@@ -185,6 +185,7 @@ Partial Class frmMonMain
         Me.rbCurrent = New eXperDB.BaseControls.RadioButton()
         Me.rbHistory = New eXperDB.BaseControls.RadioButton()
         Me.tmLock = New System.Windows.Forms.Timer(Me.components)
+        Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.tlpHealth.SuspendLayout()
         Me.tlpCPU.SuspendLayout()
         CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2180,6 +2181,11 @@ Partial Class frmMonMain
         '
         Me.tmLock.Interval = 300000
         '
+        'bckmanual
+        '
+        Me.bckmanual.WorkerReportsProgress = True
+        Me.bckmanual.WorkerSupportsCancellation = True
+        '
         'frmMonMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -2352,5 +2358,6 @@ Partial Class frmMonMain
     Friend WithEvents pnlRb As eXperDB.BaseControls.Panel
     Friend WithEvents rbCurrent As eXperDB.BaseControls.RadioButton
     Friend WithEvents rbHistory As eXperDB.BaseControls.RadioButton
+    Friend WithEvents bckmanual As System.ComponentModel.BackgroundWorker
 
 End Class
