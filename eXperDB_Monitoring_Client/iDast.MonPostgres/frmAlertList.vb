@@ -173,7 +173,21 @@
         dgvAlertList.Rows.Clear()
         RemoveHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
 
-        dtTable = _clsQuery.SelectAlertSearch(dtpDay.Value.ToString("yyyyMMdd"), dtpSt.Value.ToString("HH:mm:ss"), dtpEd.Value.ToString("HH:mm:ss"), cmbServer.SelectedValue, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
+        Dim strInstances As String = ""
+
+        If cmbServer.SelectedValue = 0 Then
+            Dim arrInstanceIDs As New ArrayList
+            For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstances = String.Join(",", Instance)
+        Else
+            strInstances = cmbServer.SelectedValue
+        End If
+
+
+        dtTable = _clsQuery.SelectAlertSearch(dtpDay.Value.ToString("yyyyMMdd"), dtpSt.Value.ToString("HH:mm:ss"), dtpEd.Value.ToString("HH:mm:ss"), strInstances, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
         If dtTable IsNot Nothing Then
             For Each tmpRow As DataRow In dtTable.Rows
                 Dim idxRow As Integer = dgvAlertList.Rows.Add()
@@ -262,7 +276,7 @@
             Return
         End If
 
-        frmAlertCheck.StatusLabel.Text = p_clsMsgData.fn_GetData("M038", i)
+        frmAlertCheck.lblCheck.Text = p_clsMsgData.fn_GetData("M058", i)
         If frmAlertCheck.ShowDialog = Windows.Forms.DialogResult.OK Then
             frmAlertCheck.rtnValue(intPauseTime, strCheckComment, strCheckUser)
         Else

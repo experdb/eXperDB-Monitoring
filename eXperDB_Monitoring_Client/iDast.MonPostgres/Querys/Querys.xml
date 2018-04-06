@@ -1752,6 +1752,7 @@
           AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
           AND B.ACTV_REG_SEQ = D.ACTV_REG_SEQ
           AND D.CONTROL_TYPE = '1'
+          AND D.PROCESS_ID = C.BLOCKING_PID 
        ORDER BY ORDER_NO;
       ]]>
     </DATA>

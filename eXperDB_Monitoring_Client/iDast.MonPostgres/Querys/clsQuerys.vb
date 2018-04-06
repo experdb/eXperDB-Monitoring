@@ -1196,7 +1196,7 @@
     Public Function SelectAlertSearch(ByVal strDay As String,
                                       ByVal StDate As String,
                                       ByVal EdDate As String,
-                                      ByVal intInstanceID As Integer,
+                                      ByVal intInstanceID As String,
                                       ByVal intState As Integer,
                                       ByVal intChecked As Integer,
                                       ByVal enmShowSvrNm As String
@@ -1207,9 +1207,8 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTALERTSEARCH")
                 Dim subQuery As String = ""
 
-                If intInstanceID > 0 Then
-                    subQuery = String.Format("AND ALERT.instance_id = {0}", intInstanceID)
-                End If
+                subQuery = String.Format("AND ALERT.instance_id in ({0})", intInstanceID)
+
                 If intState = 1 Then
                     subQuery += String.Format(" AND ALERT.state = {0}", 300)
                 ElseIf intState = 2 Then

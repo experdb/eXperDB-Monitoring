@@ -24,7 +24,7 @@ Partial Class frmAlertCheck
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertCheck))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.StatusLabel = New System.Windows.Forms.Label()
+        Me.lblCheck = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtAlertUser = New eXperDB.BaseControls.TextBox()
         Me.lblAlertUser = New eXperDB.BaseControls.Label()
@@ -47,7 +47,7 @@ Partial Class frmAlertCheck
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 392.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.StatusLabel, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblCheck, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 3)
@@ -57,19 +57,19 @@ Partial Class frmAlertCheck
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(430, 50)
         Me.TableLayoutPanel1.TabIndex = 14
         '
-        'StatusLabel
+        'lblCheck
         '
-        Me.StatusLabel.AutoSize = True
-        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.StatusLabel.ForeColor = System.Drawing.Color.White
-        Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StatusLabel.Location = New System.Drawing.Point(41, 0)
-        Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(386, 50)
-        Me.StatusLabel.TabIndex = 0
-        Me.StatusLabel.Text = "Text"
-        Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblCheck.AutoSize = True
+        Me.lblCheck.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblCheck.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblCheck.ForeColor = System.Drawing.Color.White
+        Me.lblCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblCheck.Location = New System.Drawing.Point(41, 0)
+        Me.lblCheck.Name = "lblCheck"
+        Me.lblCheck.Size = New System.Drawing.Size(386, 50)
+        Me.lblCheck.TabIndex = 0
+        Me.lblCheck.Text = "Text"
+        Me.lblCheck.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label1
         '
@@ -279,7 +279,6 @@ Partial Class frmAlertCheck
 
     End Sub
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents StatusLabel As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtAlertUser As eXperDB.BaseControls.TextBox
     Friend WithEvents lblAlertUser As eXperDB.BaseControls.Label
@@ -291,4 +290,5 @@ Partial Class frmAlertCheck
     Friend WithEvents btnClose As eXperDB.BaseControls.Button
     Friend WithEvents btnSave As eXperDB.BaseControls.Button
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblCheck As System.Windows.Forms.Label
 End Class

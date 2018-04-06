@@ -2328,6 +2328,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F287" PARAMS="0">
+    <DESC>수집대상서버등록</DESC>
+    <DATA><![CDATA[수집대상서버설정]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[설정]]></DATA>

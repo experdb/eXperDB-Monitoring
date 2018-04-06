@@ -218,7 +218,7 @@
   </ROW>
   <ROW ID="F022" PARAMS="0">
     <DESC>환경설정</DESC>
-    <DATA><![CDATA[Configuration]]></DATA>
+    <DATA><![CDATA[환경설정]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2323,6 +2323,14 @@
   <ROW ID="F286" PARAMS="0">
     <DESC>CRITICAL Abbr</DESC>
     <DATA><![CDATA[Critical]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F287" PARAMS="0">
+    <DESC>수집대상서버등록</DESC>
+    <DATA><![CDATA[Monitoring server setting]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

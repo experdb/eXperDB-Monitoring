@@ -36,7 +36,7 @@
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmSessionLockHist_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitForm()
         Me.Invoke(New MethodInvoker(Sub()
                                         btnQuery.PerformClick()
@@ -74,6 +74,8 @@
         colDgvLockMode.HeaderText = p_clsMsgData.fn_GetData("F222")
         colDgvLockQueryStart.HeaderText = p_clsMsgData.fn_GetData("F223")
         colDgvLockXactStart.HeaderText = p_clsMsgData.fn_GetData("F224")
+
+        dgvLock.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.5!)
 
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
