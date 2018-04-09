@@ -219,8 +219,13 @@ Public Class frmLogView
             For Each tmpRow As DataGridViewRow In dgvLogFileList.Rows
                 fileSum += Convert.ToInt32(tmpRow.Cells(2).Value)
             Next
-
-            FileTotalSize_lv.Text = Convert.ToSingle(fileSum / 1024) & " MB"
+            If fileSum < 1024 Then
+                FileTotalSize_lv.Text = Convert.ToSingle(fileSum) & "B"
+            ElseIf fileSum < 1024 * 1024 Then
+                FileTotalSize_lv.Text = Convert.ToSingle(fileSum / 1024) & " kB"
+            Else
+                FileTotalSize_lv.Text = Convert.ToSingle(fileSum / (1024 * 1024)) & " MB"
+            End If
         End If
 
         'If _frmWait IsNot Nothing Then

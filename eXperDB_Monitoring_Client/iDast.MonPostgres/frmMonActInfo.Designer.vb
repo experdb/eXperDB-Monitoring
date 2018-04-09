@@ -33,6 +33,10 @@ Partial Class frmMonActInfo
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -74,10 +78,6 @@ Partial Class frmMonActInfo
         Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnExcel = New eXperDB.BaseControls.Button()
@@ -98,6 +98,14 @@ Partial Class frmMonActInfo
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblDBinfo = New System.Windows.Forms.Label()
         Me.dgvTblSpaceInfo = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvTblSpaceInfoFileSystem = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblSpaceInfoDISKSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvTblSpaceInfoDISKUSED = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblSpaceInfoAvail = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvTblSpaceInfoMountPoint = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblSpaceInfoTABLESPACE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblSpaceInfoSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvTblSpaceInfoLOCATION = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblTblSpaceInfo = New System.Windows.Forms.Label()
@@ -163,14 +171,6 @@ Partial Class frmMonActInfo
         Me.DataGridViewTextBoxColumn23 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn25 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblSpaceInfoFileSystem = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblSpaceInfoDISKSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvTblSpaceInfoDISKUSED = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblSpaceInfoAvail = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvTblSpaceInfoMountPoint = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblSpaceInfoTABLESPACE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblSpaceInfoSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvTblSpaceInfoLOCATION = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -581,6 +581,116 @@ Partial Class frmMonActInfo
         Me.dgvTblSpaceInfo.TabIndex = 13
         Me.dgvTblSpaceInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvTblSpaceInfo.UseTagValueMatchColor = False
+        '
+        'coldgvTblSpaceInfoFileSystem
+        '
+        Me.coldgvTblSpaceInfoFileSystem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoFileSystem.DataPropertyName = "DISK_NAME"
+        Me.coldgvTblSpaceInfoFileSystem.HeaderText = "F271"
+        Me.coldgvTblSpaceInfoFileSystem.MinimumWidth = 160
+        Me.coldgvTblSpaceInfoFileSystem.Name = "coldgvTblSpaceInfoFileSystem"
+        Me.coldgvTblSpaceInfoFileSystem.ReadOnly = True
+        Me.coldgvTblSpaceInfoFileSystem.Width = 160
+        '
+        'coldgvTblSpaceInfoDISKSIZE
+        '
+        Me.coldgvTblSpaceInfoDISKSIZE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoDISKSIZE.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvTblSpaceInfoDISKSIZE.DataPropertyName = "DISK SIZE"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle11.Format = "N1"
+        Me.coldgvTblSpaceInfoDISKSIZE.DefaultCellStyle = DataGridViewCellStyle11
+        Me.coldgvTblSpaceInfoDISKSIZE.HeaderText = "F114"
+        Me.coldgvTblSpaceInfoDISKSIZE.HeaderWord = ""
+        Me.coldgvTblSpaceInfoDISKSIZE.MinimumWidth = 85
+        Me.coldgvTblSpaceInfoDISKSIZE.Name = "coldgvTblSpaceInfoDISKSIZE"
+        Me.coldgvTblSpaceInfoDISKSIZE.ReadOnly = True
+        Me.coldgvTblSpaceInfoDISKSIZE.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvTblSpaceInfoDISKSIZE.ShowUnit = True
+        Me.coldgvTblSpaceInfoDISKSIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvTblSpaceInfoDISKSIZE.TailWord = ""
+        Me.coldgvTblSpaceInfoDISKSIZE.Width = 85
+        '
+        'coldgvTblSpaceInfoDISKUSED
+        '
+        Me.coldgvTblSpaceInfoDISKUSED.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoDISKUSED.DataPropertyName = "DISK USED"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "P"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.coldgvTblSpaceInfoDISKUSED.DefaultCellStyle = DataGridViewCellStyle12
+        Me.coldgvTblSpaceInfoDISKUSED.HeaderText = "F115"
+        Me.coldgvTblSpaceInfoDISKUSED.MinimumWidth = 85
+        Me.coldgvTblSpaceInfoDISKUSED.Name = "coldgvTblSpaceInfoDISKUSED"
+        Me.coldgvTblSpaceInfoDISKUSED.ReadOnly = True
+        Me.coldgvTblSpaceInfoDISKUSED.Width = 85
+        '
+        'coldgvTblSpaceInfoAvail
+        '
+        Me.coldgvTblSpaceInfoAvail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoAvail.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvTblSpaceInfoAvail.DataPropertyName = "AVAIL_KB"
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "N1"
+        Me.coldgvTblSpaceInfoAvail.DefaultCellStyle = DataGridViewCellStyle13
+        Me.coldgvTblSpaceInfoAvail.HeaderText = "F272"
+        Me.coldgvTblSpaceInfoAvail.HeaderWord = ""
+        Me.coldgvTblSpaceInfoAvail.MinimumWidth = 80
+        Me.coldgvTblSpaceInfoAvail.Name = "coldgvTblSpaceInfoAvail"
+        Me.coldgvTblSpaceInfoAvail.ReadOnly = True
+        Me.coldgvTblSpaceInfoAvail.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvTblSpaceInfoAvail.ShowUnit = True
+        Me.coldgvTblSpaceInfoAvail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvTblSpaceInfoAvail.TailWord = ""
+        Me.coldgvTblSpaceInfoAvail.Width = 80
+        '
+        'coldgvTblSpaceInfoMountPoint
+        '
+        Me.coldgvTblSpaceInfoMountPoint.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoMountPoint.DataPropertyName = "DEVICE_NAME"
+        Me.coldgvTblSpaceInfoMountPoint.HeaderText = "F273"
+        Me.coldgvTblSpaceInfoMountPoint.MinimumWidth = 110
+        Me.coldgvTblSpaceInfoMountPoint.Name = "coldgvTblSpaceInfoMountPoint"
+        Me.coldgvTblSpaceInfoMountPoint.ReadOnly = True
+        Me.coldgvTblSpaceInfoMountPoint.Width = 110
+        '
+        'coldgvTblSpaceInfoTABLESPACE
+        '
+        Me.coldgvTblSpaceInfoTABLESPACE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoTABLESPACE.DataPropertyName = "TABLESPACE"
+        Me.coldgvTblSpaceInfoTABLESPACE.HeaderText = "F111"
+        Me.coldgvTblSpaceInfoTABLESPACE.MinimumWidth = 105
+        Me.coldgvTblSpaceInfoTABLESPACE.Name = "coldgvTblSpaceInfoTABLESPACE"
+        Me.coldgvTblSpaceInfoTABLESPACE.ReadOnly = True
+        Me.coldgvTblSpaceInfoTABLESPACE.Width = 105
+        '
+        'coldgvTblSpaceInfoSIZE
+        '
+        Me.coldgvTblSpaceInfoSIZE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblSpaceInfoSIZE.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvTblSpaceInfoSIZE.DataPropertyName = "SIZE"
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle14.Format = "N1"
+        Me.coldgvTblSpaceInfoSIZE.DefaultCellStyle = DataGridViewCellStyle14
+        Me.coldgvTblSpaceInfoSIZE.HeaderText = "F112"
+        Me.coldgvTblSpaceInfoSIZE.HeaderWord = ""
+        Me.coldgvTblSpaceInfoSIZE.MinimumWidth = 85
+        Me.coldgvTblSpaceInfoSIZE.Name = "coldgvTblSpaceInfoSIZE"
+        Me.coldgvTblSpaceInfoSIZE.ReadOnly = True
+        Me.coldgvTblSpaceInfoSIZE.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvTblSpaceInfoSIZE.ShowUnit = True
+        Me.coldgvTblSpaceInfoSIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvTblSpaceInfoSIZE.TailWord = ""
+        Me.coldgvTblSpaceInfoSIZE.Width = 85
+        '
+        'coldgvTblSpaceInfoLOCATION
+        '
+        Me.coldgvTblSpaceInfoLOCATION.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvTblSpaceInfoLOCATION.DataPropertyName = "LOCATION"
+        Me.coldgvTblSpaceInfoLOCATION.HeaderText = "F113"
+        Me.coldgvTblSpaceInfoLOCATION.MinimumWidth = 150
+        Me.coldgvTblSpaceInfoLOCATION.Name = "coldgvTblSpaceInfoLOCATION"
+        Me.coldgvTblSpaceInfoLOCATION.ReadOnly = True
         '
         'TableLayoutPanel3
         '
@@ -1463,116 +1573,6 @@ Partial Class frmMonActInfo
         Me.DataGridViewTextBoxColumn25.ReadOnly = True
         Me.DataGridViewTextBoxColumn25.Width = 76
         '
-        'coldgvTblSpaceInfoFileSystem
-        '
-        Me.coldgvTblSpaceInfoFileSystem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoFileSystem.DataPropertyName = "DISK_NAME"
-        Me.coldgvTblSpaceInfoFileSystem.HeaderText = "F271"
-        Me.coldgvTblSpaceInfoFileSystem.MinimumWidth = 160
-        Me.coldgvTblSpaceInfoFileSystem.Name = "coldgvTblSpaceInfoFileSystem"
-        Me.coldgvTblSpaceInfoFileSystem.ReadOnly = True
-        Me.coldgvTblSpaceInfoFileSystem.Width = 160
-        '
-        'coldgvTblSpaceInfoDISKSIZE
-        '
-        Me.coldgvTblSpaceInfoDISKSIZE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoDISKSIZE.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvTblSpaceInfoDISKSIZE.DataPropertyName = "DISK SIZE"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle11.Format = "N1"
-        Me.coldgvTblSpaceInfoDISKSIZE.DefaultCellStyle = DataGridViewCellStyle11
-        Me.coldgvTblSpaceInfoDISKSIZE.HeaderText = "F114"
-        Me.coldgvTblSpaceInfoDISKSIZE.HeaderWord = ""
-        Me.coldgvTblSpaceInfoDISKSIZE.MinimumWidth = 85
-        Me.coldgvTblSpaceInfoDISKSIZE.Name = "coldgvTblSpaceInfoDISKSIZE"
-        Me.coldgvTblSpaceInfoDISKSIZE.ReadOnly = True
-        Me.coldgvTblSpaceInfoDISKSIZE.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvTblSpaceInfoDISKSIZE.ShowUnit = True
-        Me.coldgvTblSpaceInfoDISKSIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvTblSpaceInfoDISKSIZE.TailWord = ""
-        Me.coldgvTblSpaceInfoDISKSIZE.Width = 85
-        '
-        'coldgvTblSpaceInfoDISKUSED
-        '
-        Me.coldgvTblSpaceInfoDISKUSED.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoDISKUSED.DataPropertyName = "DISK USED"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "P"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.coldgvTblSpaceInfoDISKUSED.DefaultCellStyle = DataGridViewCellStyle12
-        Me.coldgvTblSpaceInfoDISKUSED.HeaderText = "F115"
-        Me.coldgvTblSpaceInfoDISKUSED.MinimumWidth = 85
-        Me.coldgvTblSpaceInfoDISKUSED.Name = "coldgvTblSpaceInfoDISKUSED"
-        Me.coldgvTblSpaceInfoDISKUSED.ReadOnly = True
-        Me.coldgvTblSpaceInfoDISKUSED.Width = 85
-        '
-        'coldgvTblSpaceInfoAvail
-        '
-        Me.coldgvTblSpaceInfoAvail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoAvail.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvTblSpaceInfoAvail.DataPropertyName = "AVAIL_KB"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle13.Format = "N1"
-        Me.coldgvTblSpaceInfoAvail.DefaultCellStyle = DataGridViewCellStyle13
-        Me.coldgvTblSpaceInfoAvail.HeaderText = "F272"
-        Me.coldgvTblSpaceInfoAvail.HeaderWord = ""
-        Me.coldgvTblSpaceInfoAvail.MinimumWidth = 80
-        Me.coldgvTblSpaceInfoAvail.Name = "coldgvTblSpaceInfoAvail"
-        Me.coldgvTblSpaceInfoAvail.ReadOnly = True
-        Me.coldgvTblSpaceInfoAvail.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvTblSpaceInfoAvail.ShowUnit = True
-        Me.coldgvTblSpaceInfoAvail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvTblSpaceInfoAvail.TailWord = ""
-        Me.coldgvTblSpaceInfoAvail.Width = 80
-        '
-        'coldgvTblSpaceInfoMountPoint
-        '
-        Me.coldgvTblSpaceInfoMountPoint.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoMountPoint.DataPropertyName = "DEVICE_NAME"
-        Me.coldgvTblSpaceInfoMountPoint.HeaderText = "F273"
-        Me.coldgvTblSpaceInfoMountPoint.MinimumWidth = 110
-        Me.coldgvTblSpaceInfoMountPoint.Name = "coldgvTblSpaceInfoMountPoint"
-        Me.coldgvTblSpaceInfoMountPoint.ReadOnly = True
-        Me.coldgvTblSpaceInfoMountPoint.Width = 110
-        '
-        'coldgvTblSpaceInfoTABLESPACE
-        '
-        Me.coldgvTblSpaceInfoTABLESPACE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoTABLESPACE.DataPropertyName = "TABLESPACE"
-        Me.coldgvTblSpaceInfoTABLESPACE.HeaderText = "F111"
-        Me.coldgvTblSpaceInfoTABLESPACE.MinimumWidth = 105
-        Me.coldgvTblSpaceInfoTABLESPACE.Name = "coldgvTblSpaceInfoTABLESPACE"
-        Me.coldgvTblSpaceInfoTABLESPACE.ReadOnly = True
-        Me.coldgvTblSpaceInfoTABLESPACE.Width = 105
-        '
-        'coldgvTblSpaceInfoSIZE
-        '
-        Me.coldgvTblSpaceInfoSIZE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvTblSpaceInfoSIZE.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvTblSpaceInfoSIZE.DataPropertyName = "SIZE"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle14.Format = "N1"
-        Me.coldgvTblSpaceInfoSIZE.DefaultCellStyle = DataGridViewCellStyle14
-        Me.coldgvTblSpaceInfoSIZE.HeaderText = "F112"
-        Me.coldgvTblSpaceInfoSIZE.HeaderWord = ""
-        Me.coldgvTblSpaceInfoSIZE.MinimumWidth = 85
-        Me.coldgvTblSpaceInfoSIZE.Name = "coldgvTblSpaceInfoSIZE"
-        Me.coldgvTblSpaceInfoSIZE.ReadOnly = True
-        Me.coldgvTblSpaceInfoSIZE.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvTblSpaceInfoSIZE.ShowUnit = True
-        Me.coldgvTblSpaceInfoSIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvTblSpaceInfoSIZE.TailWord = ""
-        Me.coldgvTblSpaceInfoSIZE.Width = 85
-        '
-        'coldgvTblSpaceInfoLOCATION
-        '
-        Me.coldgvTblSpaceInfoLOCATION.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvTblSpaceInfoLOCATION.DataPropertyName = "LOCATION"
-        Me.coldgvTblSpaceInfoLOCATION.HeaderText = "F113"
-        Me.coldgvTblSpaceInfoLOCATION.MinimumWidth = 150
-        Me.coldgvTblSpaceInfoLOCATION.Name = "coldgvTblSpaceInfoLOCATION"
-        Me.coldgvTblSpaceInfoLOCATION.ReadOnly = True
-        '
         'frmMonActInfo
         '
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1583,6 +1583,7 @@ Partial Class frmMonActInfo
         Me.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.Name = "frmMonActInfo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Object View"
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.SplitContainer2.Panel1.ResumeLayout(False)
@@ -1610,6 +1611,7 @@ Partial Class frmMonActInfo
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
         Me.ResumeLayout(False)
+        Me.Text = "Object Viewer"
 
     End Sub
     Friend WithEvents bckmanual As System.ComponentModel.BackgroundWorker

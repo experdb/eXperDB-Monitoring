@@ -261,9 +261,9 @@
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs)
 
-        _frmWait = New frmWait
-        _frmWait.TopMost = True
-        _frmWait.Show(Me)
+        '_frmWait = New frmWait
+        '_frmWait.TopMost = True
+        '_frmWait.Show(Me)
 
         _AgentObject = New clsAgentEMsg(AgentInfo.AgentIP, AgentInfo.AgentPort)
         _AgentObject.SendDX001(Me.InstanceID)
@@ -545,9 +545,9 @@
             Return
         End If
 
-        _frmWait = New frmWait
-        _frmWait.TopMost = True
-        _frmWait.Show(Me)
+        '_frmWait = New frmWait
+        '_frmWait.TopMost = True
+        '_frmWait.Show(Me)
 
         If _SelectedGrid = 1 Then
             For Each row As DataGridViewRow In dgvLock.SelectedRows
@@ -601,9 +601,9 @@
             Return
         End If
 
-        _frmWait = New frmWait
-        _frmWait.TopMost = True
-        _frmWait.Show(Me)
+        '_frmWait = New frmWait
+        '_frmWait.TopMost = True
+        '_frmWait.Show(Me)
 
         If _SelectedGrid = 1 Then
             For Each row As DataGridViewRow In dgvLock.SelectedRows
