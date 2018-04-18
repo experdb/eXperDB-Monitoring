@@ -232,9 +232,25 @@ CREATE TABLE tb_instance_info (
     ha_role character varying(1),
     ha_host character varying(100),
     ha_port character varying(10),
+    ha_repl_host character varying(100),
+    ha_group integer,
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
+
+CREATE TABLE tb_replication_info (
+        reg_date character varying(8) NOT NULL,
+        repl_reg_seq integer NOT NULL,
+    instance_id integer NOT NULL,
+    is_collect_ok character varying(1),
+    failed_collect_type character varying(1),
+    ha_role character varying(1),
+    ha_host character varying(100),
+    ha_port character varying(10),
+    ha_group integer,
+        collect_dt timestamp without time zone
+);
+
 
 CREATE TABLE tb_group_info (
     group_id integer NOT NULL,
@@ -405,6 +421,9 @@ ALTER TABLE ONLY tb_index_info
 ALTER TABLE ONLY tb_instance_info
     ADD CONSTRAINT pk_instance_info PRIMARY KEY (instance_id);
 
+ALTER TABLE ONLY tb_replication_info
+    ADD CONSTRAINT pk_ha_info PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+
 ALTER TABLE ONLY tb_group_info
     ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id);
 
@@ -514,6 +533,13 @@ CREATE SEQUENCE rsc_reg_seq
     NO MAXVALUE
     CACHE 1;
 
+CREATE SEQUENCE repl_reg_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 ALTER TABLE tb_access_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_access_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_access_info SET (autovacuum_vacuum_scale_factor = 0.0);
@@ -566,6 +592,10 @@ ALTER TABLE tb_instance_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_instance_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_instance_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_instance_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_replication_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_replication_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_replication_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_replication_info SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_memory_stat SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_memory_stat SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_memory_stat SET (autovacuum_vacuum_scale_factor = 0.0);
@@ -614,6 +644,7 @@ INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'LASTVACUUM', 'DAY', '0', 7.00, 0.00, '1', NULL, NULL);
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'LASTANALYZE', 'DAY', '0', 7.00, 0.00, '1', NULL, NULL);
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'ACTIVECONNECTION', '%', '0', 80.00, 90.00, '0', NULL, NULL);
+INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'HASTATUS', 'LVL', '0', 1.00, 2.00, '0', NULL, NULL);
 
 --INSERT INTO tb_config VALUES ('23:30:00', 30, 7, 'ADMIN', 'webcash', '', '5964', '', '', '');
 
@@ -630,7 +661,7 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_IP
 ,SERIAL_KEY
 ,VERSION
-) VALUES ('23:30:00', 30, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', 'EXPERDB_VERSION');
+) VALUES ('23:30:00', 30, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '9.6.1.174');
 
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (1, 'Group1', now(), '127.0.0.1');
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (2, 'Group2', now(), '127.0.0.1');

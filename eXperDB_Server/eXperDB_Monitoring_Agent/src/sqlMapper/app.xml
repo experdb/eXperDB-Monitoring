@@ -1518,7 +1518,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		DELETE /* PGMONTB_BATCH_CONTROL_PROCESS_HIST_001 */ FROM TB_CONTROL_PROCESS_HIST WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_CONTROL_PROCESS_HIST) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
 	</delete>
-	<delete id="PGMONTB_BATCH_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
+	<delete id="PGMONTB_BATCH_HCHK_ALERT_INFO_001" parameterType="hashmap" >
 		<![CDATA[
 		DELETE /* PGMONTB_BATCH_HCHK_ALERT_INFO_I001 */ FROM TB_HCHK_ALERT_INFO WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_HCHK_ALERT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
@@ -1526,6 +1526,19 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 <!-- ********************************************************** -->
 <!-- for Alert Start-->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!-- for Replication Start-->
+<!-- ********************************************************** -->
+	<delete id="PGMONTB_BATCH_HCHK_REPLICATION_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONTB_BATCH_HCHK_REPLICATION_INFO_001 */ FROM TB_REPLICATION_INFO WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_REPLICATION_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	
+<!-- ********************************************************** -->
+<!-- for Replication Start-->
 <!-- ********************************************************** -->
 
 
@@ -1594,6 +1607,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="VACUUM_ANALYZE_U024" parameterType="hashmap" >		
 		vacuum analyze TB_CONTROL_PROCESS_HIST ;
+	</update>
+	<update id="VACUUM_ANALYZE_U025" parameterType="hashmap" >		
+		vacuum analyze TB_REPLICATION_INFO ;
 	</update>
 <!-- ********************************************************** -->
 <!-- DailyBatchTask END -->

@@ -83,8 +83,8 @@ public class DailyBatchTask {
 				
 				sessionAgent.delete("app.PGMONBT_BATCH_HCHK_COLLECT_INFO_001");
 				sessionAgent.delete("app.PGMONTB_BATCH_CONTROL_PROCESS_HIST_001");//robin 0207 delete Lock history
-				sessionAgent.delete("app.PGMONTB_BATCH_HCHK_ALERT_INFO_I001");//robin 0208 delete Alert history
-				
+				sessionAgent.delete("app.PGMONTB_BATCH_HCHK_ALERT_INFO_001");//robin 0208 delete Alert history
+				sessionAgent.delete("app.PGMONTB_BATCH_HCHK_REPLICATION_INFO_001");//robin 0418 delete Alert history				
 				
 				//Commit
 				sessionAgent.commit();
@@ -120,6 +120,10 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U019");
 				sessionAgent.update("app.VACUUM_ANALYZE_U020");
 				sessionAgent.update("app.VACUUM_ANALYZE_U021");
+				sessionAgent.update("app.VACUUM_ANALYZE_U022");
+				sessionAgent.update("app.VACUUM_ANALYZE_U023");
+				sessionAgent.update("app.VACUUM_ANALYZE_U024");
+				sessionAgent.update("app.VACUUM_ANALYZE_U025");
 			} catch (Exception e) {
 				log.error("", e);
 				
