@@ -4,8 +4,8 @@
 
 SET "PATH=%PATH%;%PROGRAMFILES%\Git\bin;C:\apache-ant-1.9.9-bin;C:\Program Files (x86)\Inno Setup 5;"
 
-set BASE_VER=9.6.1
-set BASE_VER_UDERSCORE=9_6_1
+set BASE_VER=9.6.2
+set BASE_VER_UDERSCORE=9_6_2
 For /F %%i in ('git rev-list HEAD ^| find /c /v ""') Do Set GIT_COMMIT_CNT=%%i
 
 SET CLI=t
