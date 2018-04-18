@@ -23,22 +23,6 @@ Partial Class frmConnection
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmConnection))
-        Me.lblIP = New eXperDB.BaseControls.Label()
-        Me.nudCollectSecond = New eXperDB.BaseControls.NumericUpDown()
-        Me.lblPort = New eXperDB.BaseControls.Label()
-        Me.lblUser = New eXperDB.BaseControls.Label()
-        Me.lblPW = New eXperDB.BaseControls.Label()
-        Me.lblSvrGatSDly = New eXperDB.BaseControls.Label()
-        Me.lblDB = New eXperDB.BaseControls.Label()
-        Me.txtIP = New eXperDB.BaseControls.TextBox()
-        Me.txtPort = New eXperDB.BaseControls.TextBox()
-        Me.txtUsr = New eXperDB.BaseControls.TextBox()
-        Me.txtPW = New eXperDB.BaseControls.TextBox()
-        Me.cmbDbnm = New eXperDB.BaseControls.ComboBox()
-        Me.lblSchema = New eXperDB.BaseControls.Label()
-        Me.cmbSchema = New eXperDB.BaseControls.ComboBox()
-        Me.lblAlias = New eXperDB.BaseControls.Label()
-        Me.txtAlias = New eXperDB.BaseControls.TextBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -46,261 +30,44 @@ Partial Class frmConnection
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.btnTest = New eXperDB.BaseControls.Button()
+        Me.splSlave = New eXperDB.BaseControls.SplitContainer()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
-        CType(Me.nudCollectSecond, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmbHARole = New eXperDB.BaseControls.ComboBox()
+        Me.lblHARole = New eXperDB.BaseControls.Label()
+        Me.nudCollectSecond = New eXperDB.BaseControls.NumericUpDown()
+        Me.txtAlias = New eXperDB.BaseControls.TextBox()
+        Me.lblAlias = New eXperDB.BaseControls.Label()
+        Me.lblUser = New eXperDB.BaseControls.Label()
+        Me.lblSvrGatSDly = New eXperDB.BaseControls.Label()
+        Me.lblPW = New eXperDB.BaseControls.Label()
+        Me.cmbSchema = New eXperDB.BaseControls.ComboBox()
+        Me.lblSchema = New eXperDB.BaseControls.Label()
+        Me.cmbDbnm = New eXperDB.BaseControls.ComboBox()
+        Me.lblDB = New eXperDB.BaseControls.Label()
+        Me.txtPW = New eXperDB.BaseControls.TextBox()
+        Me.lblIP = New eXperDB.BaseControls.Label()
+        Me.txtUsr = New eXperDB.BaseControls.TextBox()
+        Me.lblPort = New eXperDB.BaseControls.Label()
+        Me.txtIP = New eXperDB.BaseControls.TextBox()
+        Me.txtPort = New eXperDB.BaseControls.TextBox()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblPrimary = New eXperDB.BaseControls.Label()
+        Me.txtHAREPLHost = New eXperDB.BaseControls.TextBox()
+        Me.txtHAPort = New eXperDB.BaseControls.TextBox()
+        Me.txtHAHost = New eXperDB.BaseControls.TextBox()
+        Me.lblHAREPLHost = New eXperDB.BaseControls.Label()
+        Me.lblHAPort = New eXperDB.BaseControls.Label()
+        Me.lblHAHost = New eXperDB.BaseControls.Label()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
+        CType(Me.splSlave, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.splSlave.Panel1.SuspendLayout()
+        Me.splSlave.Panel2.SuspendLayout()
+        Me.splSlave.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
+        CType(Me.nudCollectSecond, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'lblIP
-        '
-        Me.lblIP.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblIP.FixedHeight = False
-        Me.lblIP.FixedWidth = False
-        Me.lblIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblIP.ForeColor = System.Drawing.Color.White
-        Me.lblIP.Location = New System.Drawing.Point(3, 40)
-        Me.lblIP.Name = "lblIP"
-        Me.lblIP.Size = New System.Drawing.Size(127, 20)
-        Me.lblIP.TabIndex = 0
-        Me.lblIP.Text = "F006"
-        Me.lblIP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'nudCollectSecond
-        '
-        Me.nudCollectSecond.BackColor = System.Drawing.SystemColors.Window
-        Me.nudCollectSecond.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
-        Me.nudCollectSecond.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.nudCollectSecond.FixedWidth = False
-        Me.nudCollectSecond.Location = New System.Drawing.Point(136, 276)
-        Me.nudCollectSecond.Maximum = New Decimal(New Integer() {1800, 0, 0, 0})
-        Me.nudCollectSecond.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudCollectSecond.Name = "nudCollectSecond"
-        Me.nudCollectSecond.Necessary = False
-        Me.nudCollectSecond.Size = New System.Drawing.Size(193, 21)
-        Me.nudCollectSecond.StatusTip = ""
-        Me.nudCollectSecond.TabIndex = 13
-        Me.nudCollectSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.nudCollectSecond.ThousandsSeparator = True
-        Me.nudCollectSecond.Value = New Decimal(New Integer() {3, 0, 0, 0})
-        '
-        'lblPort
-        '
-        Me.lblPort.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblPort.FixedHeight = False
-        Me.lblPort.FixedWidth = False
-        Me.lblPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblPort.ForeColor = System.Drawing.Color.White
-        Me.lblPort.Location = New System.Drawing.Point(3, 80)
-        Me.lblPort.Name = "lblPort"
-        Me.lblPort.Size = New System.Drawing.Size(127, 20)
-        Me.lblPort.TabIndex = 2
-        Me.lblPort.Text = "F007"
-        Me.lblPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblUser
-        '
-        Me.lblUser.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblUser.FixedHeight = False
-        Me.lblUser.FixedWidth = False
-        Me.lblUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblUser.ForeColor = System.Drawing.Color.White
-        Me.lblUser.Location = New System.Drawing.Point(3, 120)
-        Me.lblUser.Name = "lblUser"
-        Me.lblUser.Size = New System.Drawing.Size(127, 20)
-        Me.lblUser.TabIndex = 4
-        Me.lblUser.Text = "F008"
-        Me.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblPW
-        '
-        Me.lblPW.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblPW.FixedHeight = False
-        Me.lblPW.FixedWidth = False
-        Me.lblPW.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblPW.ForeColor = System.Drawing.Color.White
-        Me.lblPW.Location = New System.Drawing.Point(3, 160)
-        Me.lblPW.Name = "lblPW"
-        Me.lblPW.Size = New System.Drawing.Size(127, 20)
-        Me.lblPW.TabIndex = 6
-        Me.lblPW.Text = "F009"
-        Me.lblPW.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSvrGatSDly
-        '
-        Me.lblSvrGatSDly.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblSvrGatSDly.FixedHeight = False
-        Me.lblSvrGatSDly.FixedWidth = False
-        Me.lblSvrGatSDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSvrGatSDly.ForeColor = System.Drawing.Color.White
-        Me.lblSvrGatSDly.Location = New System.Drawing.Point(3, 280)
-        Me.lblSvrGatSDly.Name = "lblSvrGatSDly"
-        Me.lblSvrGatSDly.Size = New System.Drawing.Size(127, 20)
-        Me.lblSvrGatSDly.TabIndex = 12
-        Me.lblSvrGatSDly.Text = "F011"
-        Me.lblSvrGatSDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblDB
-        '
-        Me.lblDB.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblDB.FixedHeight = False
-        Me.lblDB.FixedWidth = False
-        Me.lblDB.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblDB.ForeColor = System.Drawing.Color.White
-        Me.lblDB.Location = New System.Drawing.Point(3, 200)
-        Me.lblDB.Name = "lblDB"
-        Me.lblDB.Size = New System.Drawing.Size(127, 20)
-        Me.lblDB.TabIndex = 8
-        Me.lblDB.Text = "F010"
-        Me.lblDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtIP
-        '
-        Me.txtIP.BackColor = System.Drawing.SystemColors.Window
-        Me.txtIP.code = False
-        Me.txtIP.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtIP.FixedWidth = False
-        Me.txtIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtIP.impossibleinput = ""
-        Me.txtIP.Location = New System.Drawing.Point(136, 36)
-        Me.txtIP.Name = "txtIP"
-        Me.txtIP.Necessary = False
-        Me.txtIP.PossibleInput = "0123456789."
-        Me.txtIP.Prefix = ""
-        Me.txtIP.Size = New System.Drawing.Size(193, 21)
-        Me.txtIP.StatusTip = ""
-        Me.txtIP.TabIndex = 1
-        Me.txtIP.Value = ""
-        '
-        'txtPort
-        '
-        Me.txtPort.BackColor = System.Drawing.SystemColors.Window
-        Me.txtPort.code = False
-        Me.txtPort.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtPort.FixedWidth = False
-        Me.txtPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtPort.impossibleinput = ""
-        Me.txtPort.Location = New System.Drawing.Point(136, 76)
-        Me.txtPort.Name = "txtPort"
-        Me.txtPort.Necessary = False
-        Me.txtPort.PossibleInput = "0123456789"
-        Me.txtPort.Prefix = ""
-        Me.txtPort.Size = New System.Drawing.Size(193, 21)
-        Me.txtPort.StatusTip = ""
-        Me.txtPort.TabIndex = 3
-        Me.txtPort.Value = ""
-        '
-        'txtUsr
-        '
-        Me.txtUsr.BackColor = System.Drawing.SystemColors.Window
-        Me.txtUsr.code = False
-        Me.txtUsr.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtUsr.FixedWidth = False
-        Me.txtUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtUsr.impossibleinput = ""
-        Me.txtUsr.Location = New System.Drawing.Point(136, 116)
-        Me.txtUsr.Name = "txtUsr"
-        Me.txtUsr.Necessary = False
-        Me.txtUsr.PossibleInput = ""
-        Me.txtUsr.Prefix = ""
-        Me.txtUsr.Size = New System.Drawing.Size(193, 21)
-        Me.txtUsr.StatusTip = ""
-        Me.txtUsr.TabIndex = 5
-        Me.txtUsr.Value = ""
-        '
-        'txtPW
-        '
-        Me.txtPW.BackColor = System.Drawing.SystemColors.Window
-        Me.txtPW.code = False
-        Me.txtPW.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtPW.FixedWidth = False
-        Me.txtPW.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtPW.impossibleinput = ""
-        Me.txtPW.Location = New System.Drawing.Point(136, 156)
-        Me.txtPW.Name = "txtPW"
-        Me.txtPW.Necessary = False
-        Me.txtPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPW.PossibleInput = ""
-        Me.txtPW.Prefix = ""
-        Me.txtPW.Size = New System.Drawing.Size(193, 21)
-        Me.txtPW.StatusTip = ""
-        Me.txtPW.TabIndex = 7
-        Me.txtPW.Value = ""
-        '
-        'cmbDbnm
-        '
-        Me.cmbDbnm.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbDbnm.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbDbnm.FixedWidth = False
-        Me.cmbDbnm.FormattingEnabled = True
-        Me.cmbDbnm.Location = New System.Drawing.Point(136, 197)
-        Me.cmbDbnm.Name = "cmbDbnm"
-        Me.cmbDbnm.Necessary = False
-        Me.cmbDbnm.Size = New System.Drawing.Size(193, 20)
-        Me.cmbDbnm.StatusTip = ""
-        Me.cmbDbnm.TabIndex = 9
-        Me.cmbDbnm.ValueText = ""
-        '
-        'lblSchema
-        '
-        Me.lblSchema.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblSchema.FixedHeight = False
-        Me.lblSchema.FixedWidth = False
-        Me.lblSchema.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSchema.ForeColor = System.Drawing.Color.White
-        Me.lblSchema.Location = New System.Drawing.Point(3, 240)
-        Me.lblSchema.Name = "lblSchema"
-        Me.lblSchema.Size = New System.Drawing.Size(127, 20)
-        Me.lblSchema.TabIndex = 10
-        Me.lblSchema.Text = "F074"
-        Me.lblSchema.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbSchema
-        '
-        Me.cmbSchema.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSchema.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbSchema.FixedWidth = False
-        Me.cmbSchema.FormattingEnabled = True
-        Me.cmbSchema.Location = New System.Drawing.Point(136, 237)
-        Me.cmbSchema.Name = "cmbSchema"
-        Me.cmbSchema.Necessary = False
-        Me.cmbSchema.Size = New System.Drawing.Size(193, 20)
-        Me.cmbSchema.StatusTip = ""
-        Me.cmbSchema.TabIndex = 11
-        Me.cmbSchema.ValueText = ""
-        '
-        'lblAlias
-        '
-        Me.lblAlias.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblAlias.FixedHeight = False
-        Me.lblAlias.FixedWidth = False
-        Me.lblAlias.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblAlias.ForeColor = System.Drawing.Color.White
-        Me.lblAlias.Location = New System.Drawing.Point(3, 320)
-        Me.lblAlias.Name = "lblAlias"
-        Me.lblAlias.Size = New System.Drawing.Size(127, 20)
-        Me.lblAlias.TabIndex = 14
-        Me.lblAlias.Text = "F019"
-        Me.lblAlias.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'txtAlias
-        '
-        Me.txtAlias.BackColor = System.Drawing.SystemColors.Window
-        Me.txtAlias.code = False
-        Me.txtAlias.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtAlias.FixedWidth = False
-        Me.txtAlias.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtAlias.impossibleinput = ""
-        Me.txtAlias.Location = New System.Drawing.Point(136, 316)
-        Me.txtAlias.Name = "txtAlias"
-        Me.txtAlias.Necessary = False
-        Me.txtAlias.PossibleInput = ""
-        Me.txtAlias.Prefix = ""
-        Me.txtAlias.Size = New System.Drawing.Size(193, 21)
-        Me.txtAlias.StatusTip = ""
-        Me.txtAlias.TabIndex = 15
-        Me.txtAlias.Value = ""
         '
         'TableLayoutPanel2
         '
@@ -355,7 +122,7 @@ Partial Class frmConnection
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 425)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 550)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -419,6 +186,27 @@ Partial Class frmConnection
         Me.btnTest.UseRound = True
         Me.btnTest.UseVisualStyleBackColor = True
         '
+        'splSlave
+        '
+        Me.splSlave.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.splSlave.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.splSlave.Location = New System.Drawing.Point(3, 53)
+        Me.splSlave.Name = "splSlave"
+        Me.splSlave.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'splSlave.Panel1
+        '
+        Me.splSlave.Panel1.Controls.Add(Me.tlpSvrChk)
+        '
+        'splSlave.Panel2
+        '
+        Me.splSlave.Panel2.Controls.Add(Me.TableLayoutPanel1)
+        Me.splSlave.Panel2.Enabled = False
+        Me.splSlave.Size = New System.Drawing.Size(365, 497)
+        Me.splSlave.SplitterDistance = 342
+        Me.splSlave.TabIndex = 18
+        Me.splSlave.TabStop = False
+        '
         'tlpSvrChk
         '
         Me.tlpSvrChk.BackColor = System.Drawing.Color.Gray
@@ -426,6 +214,8 @@ Partial Class frmConnection
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
+        Me.tlpSvrChk.Controls.Add(Me.cmbHARole, 1, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblHARole, 0, 9)
         Me.tlpSvrChk.Controls.Add(Me.nudCollectSecond, 1, 7)
         Me.tlpSvrChk.Controls.Add(Me.txtAlias, 1, 8)
         Me.tlpSvrChk.Controls.Add(Me.lblAlias, 0, 8)
@@ -443,29 +233,451 @@ Partial Class frmConnection
         Me.tlpSvrChk.Controls.Add(Me.txtIP, 1, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtPort, 1, 2)
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 53)
+        Me.tlpSvrChk.Location = New System.Drawing.Point(0, 0)
         Me.tlpSvrChk.Name = "tlpSvrChk"
-        Me.tlpSvrChk.RowCount = 10
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tlpSvrChk.RowCount = 11
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 372)
-        Me.tlpSvrChk.TabIndex = 18
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 342)
+        Me.tlpSvrChk.TabIndex = 19
+        '
+        'cmbHARole
+        '
+        Me.cmbHARole.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbHARole.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbHARole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbHARole.FixedWidth = False
+        Me.cmbHARole.FormattingEnabled = True
+        Me.cmbHARole.Items.AddRange(New Object() {"Single", "Primary", "Stand by"})
+        Me.cmbHARole.Location = New System.Drawing.Point(136, 307)
+        Me.cmbHARole.Name = "cmbHARole"
+        Me.cmbHARole.Necessary = False
+        Me.cmbHARole.Size = New System.Drawing.Size(193, 20)
+        Me.cmbHARole.StatusTip = ""
+        Me.cmbHARole.TabIndex = 17
+        Me.cmbHARole.ValueText = ""
+        '
+        'lblHARole
+        '
+        Me.lblHARole.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHARole.FixedHeight = False
+        Me.lblHARole.FixedWidth = False
+        Me.lblHARole.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHARole.ForeColor = System.Drawing.Color.White
+        Me.lblHARole.Location = New System.Drawing.Point(3, 310)
+        Me.lblHARole.Name = "lblHARole"
+        Me.lblHARole.Size = New System.Drawing.Size(127, 20)
+        Me.lblHARole.TabIndex = 16
+        Me.lblHARole.Text = "F288"
+        Me.lblHARole.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'nudCollectSecond
+        '
+        Me.nudCollectSecond.BackColor = System.Drawing.SystemColors.Window
+        Me.nudCollectSecond.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
+        Me.nudCollectSecond.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.nudCollectSecond.FixedWidth = False
+        Me.nudCollectSecond.Location = New System.Drawing.Point(136, 236)
+        Me.nudCollectSecond.Maximum = New Decimal(New Integer() {1800, 0, 0, 0})
+        Me.nudCollectSecond.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudCollectSecond.Name = "nudCollectSecond"
+        Me.nudCollectSecond.Necessary = False
+        Me.nudCollectSecond.Size = New System.Drawing.Size(193, 21)
+        Me.nudCollectSecond.StatusTip = ""
+        Me.nudCollectSecond.TabIndex = 13
+        Me.nudCollectSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.nudCollectSecond.ThousandsSeparator = True
+        Me.nudCollectSecond.Value = New Decimal(New Integer() {3, 0, 0, 0})
+        '
+        'txtAlias
+        '
+        Me.txtAlias.BackColor = System.Drawing.SystemColors.Window
+        Me.txtAlias.code = False
+        Me.txtAlias.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtAlias.FixedWidth = False
+        Me.txtAlias.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtAlias.impossibleinput = ""
+        Me.txtAlias.Location = New System.Drawing.Point(136, 271)
+        Me.txtAlias.Name = "txtAlias"
+        Me.txtAlias.Necessary = False
+        Me.txtAlias.PossibleInput = ""
+        Me.txtAlias.Prefix = ""
+        Me.txtAlias.Size = New System.Drawing.Size(193, 21)
+        Me.txtAlias.StatusTip = ""
+        Me.txtAlias.TabIndex = 15
+        Me.txtAlias.Value = ""
+        '
+        'lblAlias
+        '
+        Me.lblAlias.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblAlias.FixedHeight = False
+        Me.lblAlias.FixedWidth = False
+        Me.lblAlias.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblAlias.ForeColor = System.Drawing.Color.White
+        Me.lblAlias.Location = New System.Drawing.Point(3, 275)
+        Me.lblAlias.Name = "lblAlias"
+        Me.lblAlias.Size = New System.Drawing.Size(127, 20)
+        Me.lblAlias.TabIndex = 14
+        Me.lblAlias.Text = "F019"
+        Me.lblAlias.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblUser
+        '
+        Me.lblUser.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblUser.FixedHeight = False
+        Me.lblUser.FixedWidth = False
+        Me.lblUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblUser.ForeColor = System.Drawing.Color.White
+        Me.lblUser.Location = New System.Drawing.Point(3, 100)
+        Me.lblUser.Name = "lblUser"
+        Me.lblUser.Size = New System.Drawing.Size(127, 20)
+        Me.lblUser.TabIndex = 4
+        Me.lblUser.Text = "F008"
+        Me.lblUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSvrGatSDly
+        '
+        Me.lblSvrGatSDly.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrGatSDly.FixedHeight = False
+        Me.lblSvrGatSDly.FixedWidth = False
+        Me.lblSvrGatSDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSvrGatSDly.ForeColor = System.Drawing.Color.White
+        Me.lblSvrGatSDly.Location = New System.Drawing.Point(3, 240)
+        Me.lblSvrGatSDly.Name = "lblSvrGatSDly"
+        Me.lblSvrGatSDly.Size = New System.Drawing.Size(127, 20)
+        Me.lblSvrGatSDly.TabIndex = 12
+        Me.lblSvrGatSDly.Text = "F011"
+        Me.lblSvrGatSDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblPW
+        '
+        Me.lblPW.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblPW.FixedHeight = False
+        Me.lblPW.FixedWidth = False
+        Me.lblPW.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPW.ForeColor = System.Drawing.Color.White
+        Me.lblPW.Location = New System.Drawing.Point(3, 135)
+        Me.lblPW.Name = "lblPW"
+        Me.lblPW.Size = New System.Drawing.Size(127, 20)
+        Me.lblPW.TabIndex = 6
+        Me.lblPW.Text = "F009"
+        Me.lblPW.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbSchema
+        '
+        Me.cmbSchema.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSchema.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbSchema.FixedWidth = False
+        Me.cmbSchema.FormattingEnabled = True
+        Me.cmbSchema.Location = New System.Drawing.Point(136, 202)
+        Me.cmbSchema.Name = "cmbSchema"
+        Me.cmbSchema.Necessary = False
+        Me.cmbSchema.Size = New System.Drawing.Size(193, 20)
+        Me.cmbSchema.StatusTip = ""
+        Me.cmbSchema.TabIndex = 11
+        Me.cmbSchema.ValueText = ""
+        '
+        'lblSchema
+        '
+        Me.lblSchema.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSchema.FixedHeight = False
+        Me.lblSchema.FixedWidth = False
+        Me.lblSchema.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSchema.ForeColor = System.Drawing.Color.White
+        Me.lblSchema.Location = New System.Drawing.Point(3, 205)
+        Me.lblSchema.Name = "lblSchema"
+        Me.lblSchema.Size = New System.Drawing.Size(127, 20)
+        Me.lblSchema.TabIndex = 10
+        Me.lblSchema.Text = "F074"
+        Me.lblSchema.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbDbnm
+        '
+        Me.cmbDbnm.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbDbnm.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbDbnm.FixedWidth = False
+        Me.cmbDbnm.FormattingEnabled = True
+        Me.cmbDbnm.Location = New System.Drawing.Point(136, 167)
+        Me.cmbDbnm.Name = "cmbDbnm"
+        Me.cmbDbnm.Necessary = False
+        Me.cmbDbnm.Size = New System.Drawing.Size(193, 20)
+        Me.cmbDbnm.StatusTip = ""
+        Me.cmbDbnm.TabIndex = 9
+        Me.cmbDbnm.ValueText = ""
+        '
+        'lblDB
+        '
+        Me.lblDB.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblDB.FixedHeight = False
+        Me.lblDB.FixedWidth = False
+        Me.lblDB.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblDB.ForeColor = System.Drawing.Color.White
+        Me.lblDB.Location = New System.Drawing.Point(3, 170)
+        Me.lblDB.Name = "lblDB"
+        Me.lblDB.Size = New System.Drawing.Size(127, 20)
+        Me.lblDB.TabIndex = 8
+        Me.lblDB.Text = "F010"
+        Me.lblDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtPW
+        '
+        Me.txtPW.BackColor = System.Drawing.SystemColors.Window
+        Me.txtPW.code = False
+        Me.txtPW.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtPW.FixedWidth = False
+        Me.txtPW.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtPW.impossibleinput = ""
+        Me.txtPW.Location = New System.Drawing.Point(136, 131)
+        Me.txtPW.Name = "txtPW"
+        Me.txtPW.Necessary = False
+        Me.txtPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPW.PossibleInput = ""
+        Me.txtPW.Prefix = ""
+        Me.txtPW.Size = New System.Drawing.Size(193, 21)
+        Me.txtPW.StatusTip = ""
+        Me.txtPW.TabIndex = 7
+        Me.txtPW.Value = ""
+        '
+        'lblIP
+        '
+        Me.lblIP.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblIP.FixedHeight = False
+        Me.lblIP.FixedWidth = False
+        Me.lblIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblIP.ForeColor = System.Drawing.Color.White
+        Me.lblIP.Location = New System.Drawing.Point(3, 30)
+        Me.lblIP.Name = "lblIP"
+        Me.lblIP.Size = New System.Drawing.Size(127, 20)
+        Me.lblIP.TabIndex = 0
+        Me.lblIP.Text = "F006"
+        Me.lblIP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtUsr
+        '
+        Me.txtUsr.BackColor = System.Drawing.SystemColors.Window
+        Me.txtUsr.code = False
+        Me.txtUsr.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtUsr.FixedWidth = False
+        Me.txtUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtUsr.impossibleinput = ""
+        Me.txtUsr.Location = New System.Drawing.Point(136, 96)
+        Me.txtUsr.Name = "txtUsr"
+        Me.txtUsr.Necessary = False
+        Me.txtUsr.PossibleInput = ""
+        Me.txtUsr.Prefix = ""
+        Me.txtUsr.Size = New System.Drawing.Size(193, 21)
+        Me.txtUsr.StatusTip = ""
+        Me.txtUsr.TabIndex = 5
+        Me.txtUsr.Value = ""
+        '
+        'lblPort
+        '
+        Me.lblPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblPort.FixedHeight = False
+        Me.lblPort.FixedWidth = False
+        Me.lblPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPort.ForeColor = System.Drawing.Color.White
+        Me.lblPort.Location = New System.Drawing.Point(3, 65)
+        Me.lblPort.Name = "lblPort"
+        Me.lblPort.Size = New System.Drawing.Size(127, 20)
+        Me.lblPort.TabIndex = 2
+        Me.lblPort.Text = "F007"
+        Me.lblPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtIP
+        '
+        Me.txtIP.BackColor = System.Drawing.SystemColors.Window
+        Me.txtIP.code = False
+        Me.txtIP.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtIP.FixedWidth = False
+        Me.txtIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtIP.impossibleinput = ""
+        Me.txtIP.Location = New System.Drawing.Point(136, 26)
+        Me.txtIP.Name = "txtIP"
+        Me.txtIP.Necessary = False
+        Me.txtIP.PossibleInput = "0123456789."
+        Me.txtIP.Prefix = ""
+        Me.txtIP.Size = New System.Drawing.Size(193, 21)
+        Me.txtIP.StatusTip = ""
+        Me.txtIP.TabIndex = 1
+        Me.txtIP.Value = ""
+        '
+        'txtPort
+        '
+        Me.txtPort.BackColor = System.Drawing.SystemColors.Window
+        Me.txtPort.code = False
+        Me.txtPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtPort.FixedWidth = False
+        Me.txtPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtPort.impossibleinput = ""
+        Me.txtPort.Location = New System.Drawing.Point(136, 61)
+        Me.txtPort.Name = "txtPort"
+        Me.txtPort.Necessary = False
+        Me.txtPort.PossibleInput = "0123456789"
+        Me.txtPort.Prefix = ""
+        Me.txtPort.Size = New System.Drawing.Size(193, 21)
+        Me.txtPort.StatusTip = ""
+        Me.txtPort.TabIndex = 3
+        Me.txtPort.Value = "0"
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.lblPrimary, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtHAREPLHost, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtHAPort, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtHAHost, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblHAREPLHost, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblHAPort, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblHAHost, 0, 1)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 5
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(365, 151)
+        Me.TableLayoutPanel1.TabIndex = 19
+        '
+        'lblPrimary
+        '
+        Me.TableLayoutPanel1.SetColumnSpan(Me.lblPrimary, 3)
+        Me.lblPrimary.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblPrimary.FixedHeight = False
+        Me.lblPrimary.FixedWidth = False
+        Me.lblPrimary.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblPrimary.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblPrimary.Location = New System.Drawing.Point(3, 10)
+        Me.lblPrimary.Name = "lblPrimary"
+        Me.lblPrimary.Size = New System.Drawing.Size(359, 20)
+        Me.lblPrimary.TabIndex = 27
+        Me.lblPrimary.Text = "F292"
+        Me.lblPrimary.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'txtHAREPLHost
+        '
+        Me.txtHAREPLHost.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHAREPLHost.code = False
+        Me.txtHAREPLHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtHAREPLHost.FixedWidth = False
+        Me.txtHAREPLHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtHAREPLHost.impossibleinput = ""
+        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 103)
+        Me.txtHAREPLHost.Name = "txtHAREPLHost"
+        Me.txtHAREPLHost.Necessary = False
+        Me.txtHAREPLHost.PossibleInput = ""
+        Me.txtHAREPLHost.Prefix = ""
+        Me.txtHAREPLHost.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAREPLHost.StatusTip = ""
+        Me.txtHAREPLHost.TabIndex = 26
+        Me.txtHAREPLHost.Value = ""
+        Me.txtHAREPLHost.Visible = False
+        '
+        'txtHAPort
+        '
+        Me.txtHAPort.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHAPort.code = False
+        Me.txtHAPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtHAPort.FixedWidth = False
+        Me.txtHAPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtHAPort.impossibleinput = ""
+        Me.txtHAPort.Location = New System.Drawing.Point(136, 76)
+        Me.txtHAPort.Name = "txtHAPort"
+        Me.txtHAPort.Necessary = False
+        Me.txtHAPort.PossibleInput = "0123456789"
+        Me.txtHAPort.Prefix = ""
+        Me.txtHAPort.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAPort.StatusTip = ""
+        Me.txtHAPort.TabIndex = 25
+        Me.txtHAPort.Value = ""
+        '
+        'txtHAHost
+        '
+        Me.txtHAHost.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHAHost.code = False
+        Me.txtHAHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtHAHost.FixedWidth = False
+        Me.txtHAHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtHAHost.impossibleinput = ""
+        Me.txtHAHost.Location = New System.Drawing.Point(136, 41)
+        Me.txtHAHost.Name = "txtHAHost"
+        Me.txtHAHost.Necessary = False
+        Me.txtHAHost.PossibleInput = ""
+        Me.txtHAHost.Prefix = ""
+        Me.txtHAHost.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAHost.StatusTip = ""
+        Me.txtHAHost.TabIndex = 24
+        Me.txtHAHost.Value = ""
+        '
+        'lblHAREPLHost
+        '
+        Me.lblHAREPLHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHAREPLHost.FixedHeight = False
+        Me.lblHAREPLHost.FixedWidth = False
+        Me.lblHAREPLHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHAREPLHost.ForeColor = System.Drawing.Color.White
+        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 100)
+        Me.lblHAREPLHost.Name = "lblHAREPLHost"
+        Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 2)
+        Me.lblHAREPLHost.TabIndex = 23
+        Me.lblHAREPLHost.Text = "F291"
+        Me.lblHAREPLHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblHAREPLHost.Visible = False
+        '
+        'lblHAPort
+        '
+        Me.lblHAPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHAPort.FixedHeight = False
+        Me.lblHAPort.FixedWidth = False
+        Me.lblHAPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHAPort.ForeColor = System.Drawing.Color.White
+        Me.lblHAPort.Location = New System.Drawing.Point(3, 80)
+        Me.lblHAPort.Name = "lblHAPort"
+        Me.lblHAPort.Size = New System.Drawing.Size(127, 20)
+        Me.lblHAPort.TabIndex = 21
+        Me.lblHAPort.Text = "F290"
+        Me.lblHAPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblHAHost
+        '
+        Me.lblHAHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHAHost.FixedHeight = False
+        Me.lblHAHost.FixedWidth = False
+        Me.lblHAHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHAHost.ForeColor = System.Drawing.Color.White
+        Me.lblHAHost.Location = New System.Drawing.Point(3, 45)
+        Me.lblHAHost.Name = "lblHAHost"
+        Me.lblHAHost.Size = New System.Drawing.Size(127, 20)
+        Me.lblHAHost.TabIndex = 19
+        Me.lblHAHost.Text = "F289"
+        Me.lblHAHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frmConnection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(371, 473)
-        Me.Controls.Add(Me.tlpSvrChk)
+        Me.ClientSize = New System.Drawing.Size(371, 598)
+        Me.Controls.Add(Me.splSlave)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -476,31 +688,21 @@ Partial Class frmConnection
         Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Database Information"
-        CType(Me.nudCollectSecond, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.splSlave.Panel1.ResumeLayout(False)
+        Me.splSlave.Panel2.ResumeLayout(False)
+        CType(Me.splSlave, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.splSlave.ResumeLayout(False)
         Me.tlpSvrChk.ResumeLayout(False)
         Me.tlpSvrChk.PerformLayout()
+        CType(Me.nudCollectSecond, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents lblIP As eXperDB.BaseControls.Label
-    Friend WithEvents nudCollectSecond As eXperDB.BaseControls.NumericUpDown
-    Friend WithEvents lblPort As eXperDB.BaseControls.Label
-    Friend WithEvents lblUser As eXperDB.BaseControls.Label
-    Friend WithEvents lblPW As eXperDB.BaseControls.Label
-    Friend WithEvents lblSvrGatSDly As eXperDB.BaseControls.Label
-    Friend WithEvents lblDB As eXperDB.BaseControls.Label
-    Friend WithEvents txtIP As eXperDB.BaseControls.TextBox
-    Friend WithEvents txtPort As eXperDB.BaseControls.TextBox
-    Friend WithEvents txtUsr As eXperDB.BaseControls.TextBox
-    Friend WithEvents txtPW As eXperDB.BaseControls.TextBox
-    Friend WithEvents cmbDbnm As eXperDB.BaseControls.ComboBox
-    Friend WithEvents lblSchema As eXperDB.BaseControls.Label
-    Friend WithEvents cmbSchema As eXperDB.BaseControls.ComboBox
-    Friend WithEvents lblAlias As eXperDB.BaseControls.Label
-    Friend WithEvents txtAlias As eXperDB.BaseControls.TextBox
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -508,5 +710,32 @@ Partial Class frmConnection
     Friend WithEvents btnClose As eXperDB.BaseControls.Button
     Friend WithEvents btnAct As eXperDB.BaseControls.Button
     Friend WithEvents btnTest As eXperDB.BaseControls.Button
+    Friend WithEvents splSlave As eXperDB.BaseControls.SplitContainer
     Friend WithEvents tlpSvrChk As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents cmbHARole As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblHARole As eXperDB.BaseControls.Label
+    Friend WithEvents nudCollectSecond As eXperDB.BaseControls.NumericUpDown
+    Friend WithEvents txtAlias As eXperDB.BaseControls.TextBox
+    Friend WithEvents lblAlias As eXperDB.BaseControls.Label
+    Friend WithEvents lblUser As eXperDB.BaseControls.Label
+    Friend WithEvents lblSvrGatSDly As eXperDB.BaseControls.Label
+    Friend WithEvents lblPW As eXperDB.BaseControls.Label
+    Friend WithEvents cmbSchema As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblSchema As eXperDB.BaseControls.Label
+    Friend WithEvents cmbDbnm As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblDB As eXperDB.BaseControls.Label
+    Friend WithEvents txtPW As eXperDB.BaseControls.TextBox
+    Friend WithEvents lblIP As eXperDB.BaseControls.Label
+    Friend WithEvents txtUsr As eXperDB.BaseControls.TextBox
+    Friend WithEvents lblPort As eXperDB.BaseControls.Label
+    Friend WithEvents txtIP As eXperDB.BaseControls.TextBox
+    Friend WithEvents txtPort As eXperDB.BaseControls.TextBox
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents txtHAREPLHost As eXperDB.BaseControls.TextBox
+    Friend WithEvents txtHAPort As eXperDB.BaseControls.TextBox
+    Friend WithEvents txtHAHost As eXperDB.BaseControls.TextBox
+    Friend WithEvents lblHAREPLHost As eXperDB.BaseControls.Label
+    Friend WithEvents lblHAPort As eXperDB.BaseControls.Label
+    Friend WithEvents lblHAHost As eXperDB.BaseControls.Label
+    Friend WithEvents lblPrimary As eXperDB.BaseControls.Label
 End Class

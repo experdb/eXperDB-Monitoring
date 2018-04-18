@@ -182,6 +182,10 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, tmpRow.Item("CONN_SCHEMA_NAME"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, tmpRow.Item("COLLECT_PERIOD_SEC"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
+                dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, tmpRow.Item("HA_ROLE"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, tmpRow.Item("HA_PORT"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colHAREPLHost.Index, tmpRow.Item("HA_REPL_HOST"))
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, IIf(tmpRow.Item("LOG_KEEP_DAYS") < Me.nudLogSaveDly.Minimum, Me.nudLogSaveDly.Minimum, tmpRow.Item("LOG_KEEP_DAYS")))
 
             Next
@@ -317,7 +321,7 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
 
-    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal strAliasNm As String)
+    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
 
 
 
@@ -339,6 +343,11 @@
             tmpRow.Cells(colPW.Index).Value = tmpStruct.Password
             tmpRow.Cells(colSchema.Index).Value = strSChema
             tmpRow.Cells(colCollectSecond.Index).Value = intCollect
+            tmpRow.Cells(colHARole.Index).Value = strHARole
+            tmpRow.Cells(colHAHost.Index).Value = strHAHost
+            tmpRow.Cells(colHAPort.Index).Value = CInt(strHAPort)
+            tmpRow.Cells(colHAREPLHost.Index).Value = strHAREPLHost
+
             'dgvSvrLst.fn_DataCellADD(tmpRow.Index, colLogSave.Index, nudLogSaveDly.Value)
 
         Else
@@ -362,6 +371,10 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, strSChema)
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, intCollect)
                 dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
+                dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, strHARole)
+                dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, strHAHost)
+                dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, CInt(strHAPort))
+                dgvSvrLst.fn_DataCellADD(idxRow, colHAREPLHost.Index, strHAREPLHost)
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, nudLogSaveDly.Value)
                 ' 신규 삽입된 코드의 경우 -1로 처리하여 신규 추기인지 확인한다. 
                 ' 기존에 있던 데이터들은 Row Tag 가 Instance ID로 되어있음. 
@@ -474,9 +487,13 @@
             Dim strSchema As String = ""
             Dim intCollect As Integer = 0
             Dim strAlias As String = ""
-            frmConn.rtnValue(-1, struct, strSchema, intCollect, strAlias)
+            Dim strHARole As String = ""
+            Dim strHAHost As String = ""
+            Dim intHAPort As Integer = 0
+            Dim strHAREPLHost As String = ""
+            frmConn.rtnValue(-1, struct, strSchema, intCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
 
-            AddData(-1, struct, strSchema, intCollect, strAlias)
+            AddData(-1, struct, strSchema, intCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
 
         End If
 
@@ -497,6 +514,12 @@
             MsgBox(p_clsMsgData.fn_GetData("M016"))
             Return
         End If
+
+        If dgvSvrLst.SelectedRows.Count <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M034"))
+            Return
+        End If
+
         Dim tmpRow As DataGridViewRow = dgvSvrLst.SelectedRows(0)
         Dim intSelRow As Integer = tmpRow.Index
         Dim strIP As String = tmpRow.Cells(colIP.Index).Value
@@ -509,6 +532,10 @@
         Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
         Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
         Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
+        Dim strHARole As String = tmpRow.Cells(colHARole.Index).Value
+        Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
+        Dim intHAPort As Integer = tmpRow.Cells(colHAPort.Index).Value
+        Dim strHAREPLHost As String = tmpRow.Cells(colHAREPLHost.Index).Value
 
         Dim intCnt As Integer = 0
         For Each cntRow As DataGridViewRow In Me.dgvSvrLst.Rows
@@ -518,15 +545,16 @@
         Next
 
         Dim strKey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt, strKey)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt, strKey, strHARole, strHAHost, intHAPort, strHAREPLHost)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnStruct As structConnection = Nothing
             Dim rtnSchema As String = ""
             Dim rtnCollect As Integer = 0
             Dim strAlias As String = ""
-            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, strAlias)
 
-            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, strAlias)
+            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+
+            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
         End If
 
 
@@ -566,6 +594,10 @@
                 Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
                 Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
                 Dim intPwch As Integer = tmpRow.Cells(colPWCH.Index).Value
+                Dim strHARole As String = tmpRow.Cells(colHARole.Index).Value
+                Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
+                Dim intHAPort As Integer = tmpRow.Cells(colHAPort.Index).Value
+                Dim strHAREPLHost As String = tmpRow.Cells(colHAREPLHost.Index).Value
                 ' Dim intLogDay As Integer = tmpRow.Cells(colLogSave.Index).Value
 
                 Try
@@ -589,10 +621,10 @@
                     ' 기존 데이터가 아닐경우 
                     Dim tmpInst As Integer = ClsQuery.ExistsServer(strIP, strPort)
                     If tmpInst < 0 Then
-                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
+                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     Else
                         tmpRow.Tag = tmpInst
-                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
+                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     End If
 
                 ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
@@ -602,7 +634,7 @@
                 Else
                     ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
                     If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
-                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema)
+                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     End If
 
                 End If

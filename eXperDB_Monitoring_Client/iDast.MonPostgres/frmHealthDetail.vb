@@ -179,6 +179,8 @@
                                   dtTable = clsQuery.SelectHCHKTranxIDLECnt(_RegDate, _HealthSeq)
                               Case "UNUSEDINDEX"
                                   dtTable = clsQuery.SelectHCHKUnusedIndex(_RegDate, _HealthSeq)
+                              Case "HASTATUS"
+                                  dtTable = clsQuery.SelectHCHKHAStatus(_IntInstanceID, _RegDate)
                               Case Else
                                   lblitmNm.Text += " - ERROR"
 
@@ -262,7 +264,7 @@
                 tmpCtl = tmpCtl.Parent
             Loop
 
-            Me.Width = dgvWidth + _WMargin
+            Me.Width = dgvWidth + _WMargin + 40
 
         End If
 

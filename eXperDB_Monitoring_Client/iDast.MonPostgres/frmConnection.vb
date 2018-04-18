@@ -8,7 +8,12 @@ Public Class frmConnection
     Private _strSerial As String = ""
     Private _OldPWValue As String = ""
     Private _crypt As New eXperDB.Common.ClsCrypt
-    Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal strAliasNm As String, ByVal InstanceCnt As Integer, ByVal strSerial As String)
+    Private _strSvrQuery = p_clsQueryData.fn_GetData("SELECTREPLICATION")
+    Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, _
+                   ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, _
+                   ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal strAliasNm As String, _
+                   ByVal InstanceCnt As Integer, ByVal strSerial As String, _
+                   Optional ByVal strHARole As String = "P", Optional ByVal strHAHost As String = "-", Optional ByVal intHAPort As Integer = 0, Optional ByVal strHAREPLHost As String = "-")
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -33,6 +38,11 @@ Public Class frmConnection
         btnTest.Text = p_clsMsgData.fn_GetData("F002")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
 
+        lblHARole.Text = p_clsMsgData.fn_GetData("F288")
+        lblHAHost.Text = p_clsMsgData.fn_GetData("F289")
+        lblHAPort.Text = p_clsMsgData.fn_GetData("F290")
+        lblHAREPLHost.Text = p_clsMsgData.fn_GetData("F291")
+        lblPrimary.Text = p_clsMsgData.fn_GetData("F292")
 
         txtUsr.Text = strUser
         txtPW.Text = strPw
@@ -52,6 +62,23 @@ Public Class frmConnection
             btnAct.Text = p_clsMsgData.fn_GetData("F140")
             StatusLabel.Text = p_clsMsgData.fn_GetData("M054")
         End If
+
+        If _idxROw < 0 Then
+            'cmbHARole.SelectedIndex = 0
+        Else
+            If strHARole = "S" Then
+                cmbHARole.SelectedIndex = 0
+            ElseIf strHARole = "P" Then
+                cmbHARole.SelectedIndex = 1
+            ElseIf strHARole = "A" Then
+                cmbHARole.SelectedIndex = 2
+            Else
+                cmbHARole.SelectedIndex = 0
+            End If
+        End If
+        txtHAHost.Text = strHAHost
+        txtHAPort.Text = intHAPort
+        txtHAREPLHost.Text = strHAREPLHost
     End Sub
 
     ''' <summary>
@@ -187,6 +214,11 @@ Public Class frmConnection
     Private Sub cmbDbnm_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDbnm.SelectedIndexChanged
         Dim strBef As String = cmbSchema.Text
         btnAct.Enabled = False
+        ' HA info 201804
+        cmbHARole.Enabled = False
+        txtHAHost.Enabled = False
+        txtHAPort.Enabled = False
+        txtHAREPLHost.Enabled = False
         cmbSchema.Items.Clear()
         If txtUsr.Text.Trim <> "" _
             AndAlso txtPW.Text.Trim <> "" _
@@ -229,20 +261,37 @@ Public Class frmConnection
 
 
 
-    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef strAliasNm As String)
+    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
         intRow = _idxROw
         ODBCConnect = btnTest.Tag
 
         StrSchema = cmbSchema.Text
         intCollect = nudCollectSecond.Value
-
         strAliasNm = txtAlias.Text
+
+        Select Case CInt(cmbHARole.SelectedIndex)
+            Case 1
+                strHARole = "P"
+            Case 2
+                strHARole = "S"
+            Case Else
+                strHARole = "P"
+        End Select
+        strHAHost = txtHAHost.Text
+        strHAPort = txtHAPort.Text
+        strHAREPLHost = txtHAREPLHost.Text
     End Sub
 
 
     Private Sub btnAct_Click(sender As Object, e As EventArgs) Handles btnAct.Click
         If txtAlias.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", "Alias Name"))
+            Return
+        End If
+
+        If cmbHARole.SelectedIndex < 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F288")))
+            cmbHARole.Focus()
             Return
         End If
 
@@ -335,6 +384,11 @@ Public Class frmConnection
         Dim strBef As String = cmbDbnm.Text
         cmbDbnm.Items.Clear()
         btnAct.Enabled = False
+        ' HA info 201804
+        cmbHARole.Enabled = False
+        txtHAHost.Enabled = False
+        txtHAPort.Enabled = False
+        txtHAREPLHost.Enabled = False
         If txtUsr.Text.Trim <> "" _
             AndAlso txtPW.Text.Trim <> "" _
             AndAlso txtIP.Text.Trim <> "" _
@@ -391,7 +445,18 @@ Public Class frmConnection
 
             End If
         End If
-        AgentMsgDbInfo = Nothing
+        If e.GetType.Equals(GetType(clsAgentEMsg.DX008_REP)) Then
+            Dim rtnValue As clsAgentEMsg.DX008_REP = DirectCast(e, clsAgentEMsg.DX008_REP)
+            If rtnValue IsNot Nothing Then
+                Me.Invoke(New MethodInvoker(Sub()
+                                                txtHAHost.Text = rtnValue.DATAS.HAHost
+                                                txtHAREPLHost.Text = rtnValue.DATAS.HAHost
+                                                txtHAPort.Text = rtnValue.DATAS.HAPort
+                                            End Sub))
+
+            End If
+        End If
+            AgentMsgDbInfo = Nothing
     End Sub
 
 
@@ -413,6 +478,13 @@ Public Class frmConnection
                                                 ' 추가 버튼을 활성화 
                                                 ' 정보 컨트롤에서 입력 값을 변경 하였을 경우 TextChange Evevt에서 Disable을 처리한다.  
                                                 btnAct.Enabled = True
+
+                                                ' HA info 201804
+                                                cmbHARole.Enabled = True
+                                                'txtHAHost.Enabled = True
+                                                'txtHAPort.Enabled = True
+                                                'txtHAREPLHost.Enabled = True
+
                                                 ' 접속 성공시 Tag에 정보를 추가한다. 
                                                 Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
                                                 Dim tmpCn As New DXODBC(dbType, txtIP.Text, CInt(txtPort.Text), txtUsr.Text, txtPW.Text, cmbDbnm.Text)
@@ -426,6 +498,11 @@ Public Class frmConnection
                 Me.Invoke(New MethodInvoker(Sub()
                                                 ' 추가 버튼 컨트롤 비활성화 
                                                 btnAct.Enabled = False
+                                                ' HA info 201804
+                                                cmbHARole.Enabled = False
+                                                txtHAHost.Enabled = False
+                                                txtHAPort.Enabled = False
+                                                txtHAREPLHost.Enabled = False
                                                 ' 접속 정보Tag도 삭제한다. 
                                                 btnTest.Tag = Nothing
                                                 ' 접속 실패시 
@@ -440,6 +517,11 @@ Public Class frmConnection
             Me.Invoke(New MethodInvoker(Sub()
                                             ' 추가 버튼 컨트롤 비활성화 
                                             btnAct.Enabled = False
+                                            ' HA info 201804
+                                            cmbHARole.Enabled = False
+                                            txtHAHost.Enabled = False
+                                            txtHAPort.Enabled = False
+                                            txtHAREPLHost.Enabled = False
                                             ' 접속 정보Tag도 삭제한다. 
                                             btnTest.Tag = Nothing
                                             ' 접속 실패시 
@@ -456,6 +538,11 @@ Public Class frmConnection
             Me.Invoke(New MethodInvoker(Sub()
                                             ' 추가 버튼 컨트롤 비활성화 
                                             btnAct.Enabled = False
+                                            ' HA info 201804
+                                            cmbHARole.Enabled = False
+                                            txtHAHost.Enabled = False
+                                            txtHAPort.Enabled = False
+                                            txtHAREPLHost.Enabled = False
                                             ' 접속 정보Tag도 삭제한다. 
                                             btnTest.Tag = Nothing
                                             ' 접속 실패시 
@@ -493,11 +580,64 @@ Public Class frmConnection
 
 
     Private Sub frmConnection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        txtHAHost.Enabled = False
+        txtHAPort.Enabled = False
+        txtHAREPLHost.Enabled = False
+        Me.Size = New Size(387, 480)
+        Me.splSlave.FixedPanel = FixedPanel.Panel1
+        Me.splSlave.Panel1Collapsed = False
+        Me.splSlave.Panel2Collapsed = True
+        Me.splSlave.Panel2.Enabled = False
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.Close()
 
+    End Sub
+
+    Private Sub cmbHARole_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbHARole.SelectedIndexChanged
+        Dim comboBox As eXperDB.BaseControls.ComboBox = CType(sender, eXperDB.BaseControls.ComboBox)
+
+        Dim role As Integer = comboBox.SelectedIndex
+
+        If role = 2 Then
+            txtHAHost.Enabled = True
+            txtHAPort.Enabled = True
+            txtHAREPLHost.Enabled = True
+            Me.Size = New Size(387, 634)
+            Me.splSlave.SplitterDistance = 340
+            Me.splSlave.Panel1Collapsed = False
+            Me.splSlave.Panel2Collapsed = False
+            Me.splSlave.FixedPanel = FixedPanel.Panel1
+            Me.splSlave.Panel2.Enabled = True
+            GetPrimaryInfo()
+        Else
+            txtHAHost.Enabled = False
+            txtHAPort.Enabled = False
+            txtHAREPLHost.Enabled = False
+            Me.Size = New Size(387, 480)
+            Me.splSlave.FixedPanel = FixedPanel.Panel1
+            Me.splSlave.Panel1Collapsed = False
+            Me.splSlave.Panel2Collapsed = True
+            Me.splSlave.Panel2.Enabled = False
+        End If
+
+    End Sub
+
+    Private Sub GetPrimaryInfo()
+        Dim strPw As String = ""
+        If _isChangedPW = 1 Then
+            _crypt.TDESImplementation(_strSerial.Substring(0, 24), _strSerial.Substring(0, 8))
+            strPw = _crypt.EncryptTDES(txtPW.Text)
+            txtPW.Text = strPw
+        Else
+            strPw = txtPW.Text
+        End If
+        _isChangedPW = 0
+
+        If AgentMsgDbInfo Is Nothing Then
+            AgentMsgDbInfo = New clsAgentEMsg(_strAgentIP, _intAgentPort, 3000, 3000)
+            AgentMsgDbInfo.SendDX008(txtIP.Text, txtPort.Text, txtUsr.Text, txtPW.Text, _strSvrQuery)
+        End If
     End Sub
 End Class

@@ -70,6 +70,7 @@ public class HchkCollect extends TaskApplication {
 				queryList.add("EXPERDBMA_BT_HCHK_DISKUSAGE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_CPUWAIT_001");
 				queryList.add("EXPERDBMA_BT_HCHK_SWAPUSAGE_001");
+				queryList.add("EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001");
 				
 				for (String s : queryList) {
 					selectList.clear();
@@ -243,11 +244,8 @@ public class HchkCollect extends TaskApplication {
 					
 					select.put("instance_id", Integer.valueOf(reqInstanceId));
 					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
-					select.put("ha_role", select.get("ha_role"));
-					select.put("ha_host", select.get("ha_host"));
-					select.put("ha_port", select.get("ha_port"));
 					
-					sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
+					sessionAgent.update("app.TB_INSTANCE_INFO_U001", select);
 					/*add to update ha_info by robin 201712 end*/
 					
 					sessionAgent.commit();

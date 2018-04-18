@@ -103,13 +103,16 @@ public class MonitoringInfoManager {
 					/* add to update ha info by robin 201712*/
 					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");						
 					select.put("instance_db_version", instance_db_version);	
-					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
-					
+					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001", select);
 					select.put("instance_id", map.get("instance_id"));
+					
+					/* update ha group 서버 다시띄우면 변경됨 */
+					HashMap<String, Object> select_group = new HashMap<String, Object>();
+					select_group = session.selectOne("app.EXPERDBMA_BT_SELECT_HA_GROUP_001", select);					
+					
+					/* update  */
 					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
-					select.put("ha_role", select.get("ha_role"));
-					select.put("ha_host", select.get("ha_host"));
-					select.put("ha_port", select.get("ha_port"));
+					select.put("ha_group",      select_group.get("ha_group")); 
 					
 					session.update("app.TB_INSTANCE_INFO_U002", select);
 				    /* add to update ha info by robin 201712 end*/

@@ -48,6 +48,14 @@
     <COLUMNS>DEVICE_NAME|DISK NAME|TEXT||200;MOUNT_POINT_DIR|MOUNTED|TEXT||200;TOTAL_KB|TOTAL SIZE|DATASIZE|N2|100;USED|USED|DATASIZE|N2|100;USED_RATE|USED RATE|NUMBER|P2|100</COLUMNS>
     <VALUECAST />
   </ROW>
+  <ROW ID="HASTATUS" PARAMS="0">
+    <DESC>HA 상태를 점검합니다.</DESC>
+    <DATA><![CDATA[HA상태]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>ALERT_NAME|ALERT NAME|TEXT||180;CURRENT_STATUS|Status|TEXT||220;CONFIGURATION|Configured|TEXT||220;DESCRIPTION|Description|TEXT||200</COLUMNS>
+    <VALUECAST />
+  </ROW>
   <ROW ID="F001" PARAMS="0">
     <DESC>수집서버설정 표시내용</DESC>
     <DATA><![CDATA[수집서버정보설정]]></DATA>
@@ -2331,6 +2339,46 @@
   <ROW ID="F287" PARAMS="0">
     <DESC>수집대상서버등록</DESC>
     <DATA><![CDATA[수집대상서버설정]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F288" PARAMS="0">
+    <DESC>HA Role</DESC>
+    <DATA><![CDATA[클러스터구성]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F289" PARAMS="0">
+    <DESC>HA Host</DESC>
+    <DATA><![CDATA[호스트명]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F290" PARAMS="0">
+    <DESC>HA Port</DESC>
+    <DATA><![CDATA[포트]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F291" PARAMS="0">
+    <DESC>HA Repl Host</DESC>
+    <DATA><![CDATA[복제 호스트명]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F292" PARAMS="0">
+    <DESC>HA Repl Host</DESC>
+    <DATA><![CDATA[프라이머리 서버 정보]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

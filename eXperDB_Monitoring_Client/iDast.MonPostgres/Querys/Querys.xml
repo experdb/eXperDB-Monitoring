@@ -112,7 +112,11 @@
       ,LAST_MOD_IP
       ,LAST_MOD_DT
       ,CONN_SCHEMA_NAME
-      ,DELETE_YN)
+      ,DELETE_YN
+      ,HA_ROLE
+      ,HA_HOST
+      ,HA_PORT
+      ,HA_REPL_HOST)
       VALUES
       ('{0}'   
       ,'{1}'
@@ -126,8 +130,12 @@
       ,'{9}'
       ,'{10}'
       ,NOW()
-      ,'{11}'
-      ,'N')
+      ,'{11}'      
+      ,'N'
+      ,'{12}'
+      ,'{13}'
+      ,'{14}'
+      ,'{15}')
     ]]>
     </DATA>
     <COMMENTS />
@@ -244,6 +252,10 @@
         ,CONN_SCHEMA_NAME
         ,HOST_NAME
         ,INSTANCE_UPTIME::TIMESTAMP(0) AS INSTANCE_UPTIME
+        ,HA_ROLE
+        ,HA_HOST
+        ,HA_PORT
+        ,HA_REPL_HOST
       FROM TB_INSTANCE_INFO 
       WHERE DELETE_YN = 'N' 
    ORDER BY INSTANCE_ID
@@ -269,6 +281,10 @@
         ,LAST_MOD_DT = NOW()
         ,CONN_SCHEMA_NAME = '{11}'
         ,DELETE_YN='N'
+        ,HA_ROLE = '{12}'
+        ,HA_HOST = '{13}'
+        ,HA_PORT = '{14}'
+        ,HA_REPL_PORT = '{15}'
       WHERE INSTANCE_ID = {0}
     ]]>
     </DATA>
@@ -1636,6 +1652,86 @@
     </DATA>
     <COMMENTS />
   </ROW>
+  <!--ROW ID="HASTATUS" PARAMS="6">
+    <DESC>HEALTH CHECK HA Status</DESC>
+    <DATA>
+      <![CDATA[
+	      SELECT REPL.INSTANCE_ID, REPL.HA_ROLE AS HA_ROLE_S, REPL.HA_HOST AS HA_HOST_S, REPL.HA_PORT AS HA_PORT_S,
+				       IST.HA_ROLE, IST.HA_HOST, IST.HA_PORT,	
+				       MP.INSTANCE_ID MULTI_PRIMARY_INSTANCE_ID,
+				       PRIMARY_LIST.PRIMARY_CNT,
+				       '4'                        AS COLLECT_GROUP,
+				       REPL.REG_DATE              AS COLLECT_REG_DATE,
+				       REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+				       REPL.COLLECT_DT::time      AS REG_TIME          
+	       FROM  TB_INSTANCE_INFO AS IST 
+				      ,TB_REPLICATION_INFO AS REPL inner join TB_REPLICATION_INFO AS MP on MP.HA_GROUP = REPL.HA_GROUP
+				      ,(SELECT MSS.ha_group HG, SUM(CASE WHEN MSS.HA_ROLE = 'S' THEN 0 ELSE 1 END) AS PRIMARY_CNT
+		    	        FROM TB_REPLICATION_INFO MSS
+				      ,(SELECT INSTANCE_ID, MAX(C.REPL_REG_SEQ) REG_SEQ from TB_REPLICATION_INFO C WHERE C.REG_DATE='{0}' GROUP BY INSTANCE_ID) MAX_SEQ	        
+			  	       WHERE MSS.REPL_REG_SEQ = MAX_SEQ.REG_SEQ
+			  		       AND MSS.REG_DATE = '{0}'
+		   		       GROUP BY MSS.HA_GROUP) AS PRIMARY_LIST
+	      WHERE REPL.REG_DATE     = '{0}'
+          AND REPL.INSTANCE_ID  = {1}
+	        AND REPL.INSTANCE_ID  = IST.INSTANCE_ID   
+	        AND IST.COLLECT_YN    = 'Y'             
+	        AND IST.DELETE_YN     = 'N'	
+	        AND (IST.HA_ROLE != REPL.HA_ROLE OR IST.HA_HOST != REPL.HA_HOST OR IST.HA_PORT != REPL.HA_PORT OR REPL.HA_ROLE is null OR REPL.HA_HOST is null OR REPL.HA_PORT is null)
+	        AND REPL.REPL_REG_SEQ = (SELECT MAX(A.REPL_REG_SEQ) from TB_REPLICATION_INFO A WHERE A.REG_DATE='{0}' AND A.INSTANCE_ID = REPL.INSTANCE_ID)
+	        AND MP.INSTANCE_ID != REPL.INSTANCE_ID 
+	        AND MP.REPL_REG_SEQ = (SELECT MAX(C.REPL_REG_SEQ) from TB_REPLICATION_INFO C WHERE C.REG_DATE='{0}' AND C.INSTANCE_ID = MP.INSTANCE_ID)
+	        AND REPL.HA_GROUP = PRIMARY_LIST.HG
+	      ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID	
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW-->
+  <ROW ID="HASTATUS" PARAMS="6">
+    <DESC>HEALTH CHECK HA Status</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT  REPL.INSTANCE_ID,
+				        (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary.'
+				              WHEN PRIMARY_CNT <= 0 THEN 'NO Primary.'
+						          WHEN IST.HA_ROLE != REPL.HA_ROLE THEN 'Role changed.'
+						          WHEN IST.HA_HOST != REPL.HA_HOST THEN 'Primary Host changed.'
+					            WHEN IST.HA_PORT != REPL.HA_PORT THEN 'Primary Port changed.'
+				              ELSE 'Normal State.' END) ALERT_NAME,
+          			'Role : '|| REPL.HA_ROLE ||', Primary Server : '|| REPL.HA_HOST ||': '|| REPL.HA_PORT AS CURRENT_STATUS,
+          			'Role : '|| IST.HA_ROLE  ||', Primary Server : '|| IST.HA_HOST  ||': '|| IST.HA_PORT AS CONFIGURATION,
+          			(CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary Server : ' || IST2.HOST_NAME ||':'|| IST2.SERVICE_PORT
+          			 ELSE '' END) AS DESCRIPTION,
+          			'4'                        AS COLLECT_GROUP,
+          			REPL.REG_DATE              AS COLLECT_REG_DATE,
+          			REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+          			REPL.COLLECT_DT::time      AS REG_TIME
+          FROM  TB_INSTANCE_INFO AS IST
+          		 ,TB_REPLICATION_INFO AS REPL inner join TB_REPLICATION_INFO AS MP on MP.HA_GROUP = REPL.HA_GROUP
+          		 ,(SELECT MSS.ha_group HG, SUM(CASE WHEN MSS.HA_ROLE = 'S' THEN 0 ELSE 1 END) AS PRIMARY_CNT
+          				 FROM TB_REPLICATION_INFO MSS
+          		 ,(SELECT INSTANCE_ID, MAX(C.REPL_REG_SEQ) REG_SEQ from TB_REPLICATION_INFO C WHERE C.REG_DATE='{0}' GROUP BY INSTANCE_ID) MAX_SEQ
+          				WHERE MSS.REPL_REG_SEQ = MAX_SEQ.REG_SEQ
+          					AND MSS.REG_DATE = '{0}'
+          GROUP BY MSS.HA_GROUP) AS PRIMARY_LIST, TB_INSTANCE_INFO IST2
+          WHERE REPL.REG_DATE     = '{0}'
+            AND REPL.INSTANCE_ID  = {1}
+	          AND REPL.INSTANCE_ID  = IST.INSTANCE_ID
+	          AND IST.COLLECT_YN    = 'Y'
+	          AND IST.DELETE_YN     = 'N'
+	          --AND (IST.HA_ROLE != REPL.HA_ROLE OR IST.HA_HOST != REPL.HA_HOST OR IST.HA_PORT != REPL.HA_PORT OR REPL.HA_ROLE is null OR REPL.HA_HOST is null OR REPL.HA_PORT is null)
+	          AND REPL.REPL_REG_SEQ = (SELECT MAX(A.REPL_REG_SEQ) from TB_REPLICATION_INFO A WHERE A.REG_DATE='{0}' AND A.INSTANCE_ID = REPL.INSTANCE_ID)
+	          AND MP.INSTANCE_ID != REPL.INSTANCE_ID /*싱글은 조회 대상이 아님*/
+	          AND MP.REPL_REG_SEQ = (SELECT MAX(C.REPL_REG_SEQ) from TB_REPLICATION_INFO C WHERE C.REG_DATE='{0}' AND C.INSTANCE_ID = MP.INSTANCE_ID)
+	          AND MP.INSTANCE_ID = IST2.INSTANCE_ID
+	          AND REPL.HA_GROUP = PRIMARY_LIST.HG
+          ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID
+    ]]>
+    </DATA>
+    <COMMENTS />
+    </ROW>
+  
+  
   <ROW ID="SELECTSERIALKEY" PARAMS="0">
     <DESC>SELECT SERIAL KEY</DESC>
     <DATA>
@@ -1963,4 +2059,24 @@
       ]]>
     </DATA>
   </ROW>
+
+
+  <ROW ID="SELECTREPLICATION" PARAMS="0">
+    <DESC>PT_05_04_001(TABLESPACE INFO)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT 
+            (SELECT substring(ARR_COL, length('host=')+1) 
+              FROM 
+                (SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
+                  FROM pg_stat_wal_receiver) ARR2 WHERE ARR_COL LIKE 'host=%' ORDER BY arr_col) Host, 
+            (SELECT substring(ARR_COL, length('port=')+1) 
+              FROM 
+                (SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
+                  FROM pg_stat_wal_receiver) ARR2 WHERE ARR_COL LIKE 'port=%' ORDER BY arr_col) Port
+        ]]>
+  </DATA>
+  </ROW>
+  
+  
 </ROWS>

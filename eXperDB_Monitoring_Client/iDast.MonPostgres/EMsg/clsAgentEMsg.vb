@@ -22,6 +22,20 @@ Public Class clsAgentEMsg
                 Case "DX001" : rtnObj = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX001_REP)(rtnMsg)
                 Case "DX003" : rtnObj = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX003_REP)(rtnMsg)
                 Case "DX007" : rtnObj = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX007_REP)(rtnMsg)
+                Case "DX008"
+                    Dim rtntmpCls As DX008_REP_TMP = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX008_REP_TMP)(rtnMsg)
+                    Dim rtnCls As New DX008_REP
+                    If rtntmpCls._tran_res_data IsNot Nothing Then
+                        Dim jArr As Newtonsoft.Json.Linq.JArray = DirectCast(rtntmpCls._tran_res_data, Newtonsoft.Json.Linq.JArray)
+                        If DirectCast(rtntmpCls._tran_res_data, Newtonsoft.Json.Linq.JArray)(0)("_error_cd") Is Nothing Then
+                            Dim strhost As String = DirectCast(rtntmpCls._tran_res_data, Newtonsoft.Json.Linq.JArray)(0)("ha_host")
+                            Dim strport As String = DirectCast(rtntmpCls._tran_res_data, Newtonsoft.Json.Linq.JArray)(0)("ha_port")
+                            rtnCls.DATAS = New HAINFO(strhost, strport)
+                        Else
+                            rtnCls.ERRORS = New ErrorResponse(jArr(0)("_error_cd"), jArr(0)("_error_msg"))
+                        End If
+                    End If
+                    rtnObj = rtnCls
                 Case "DX004"
                     Dim rtntmpCls As DX004_REP_TMP = Newtonsoft.Json.JsonConvert.DeserializeObject(Of DX004_REP_TMP)(rtnMsg)
                     Dim rtnCls As New DX004_REP
@@ -543,6 +557,80 @@ Public Class clsAgentEMsg
     End Sub
 
 #End Region
+
+#Region "DX008 쿼리수행"
+
+
+    Public Class DX008_REQ
+        Property _tran_cd As String = "DX008"
+        Property _tran_req_data As New List(Of DX008_InstanceInfo)
+        Public Sub New(ByVal strIP As String, ByVal intPort As Integer, ByVal strUserNm As String, ByVal DBNm As String, ByVal strPW As String, ByVal strQuery As String)
+            _tran_req_data.Add(New DX008_InstanceInfo(strIP, intPort, strUserNm, DBNm, strPW, strQuery))
+        End Sub
+
+    End Class
+
+    Public Class DX008_InstanceInfo
+        Property targetip As String
+        Property targetport As String
+        Property username As String
+        Property database As String
+        Property password As String
+        Property query As String
+        Public Sub New(ByVal strIP As String, ByVal intPort As Integer, ByVal strUserNm As String, ByVal DBNm As String, ByVal strPW As String, ByVal strQuery As String)
+            targetip = strIP
+            targetport = intPort
+            username = strUserNm
+            database = DBNm
+            password = strPW
+            query = strQuery
+        End Sub
+    End Class
+
+    Private Class DX008_REP_TMP
+        Property _tran_cd As String
+        Property _tran_res_data As Object
+    End Class
+
+    Public Class DX008_REP
+        Property _tran_cd As String = "DX008"
+        Property ERRORS As ErrorResponse
+        Property DATAS As HAINFO
+    End Class
+
+    Public Class HAINFO
+        Property HAHost As String
+        Property HAPort As String
+        Public Sub New(ByVal strHAHost As String, ByVal strHAPort As String)
+            HAHost = strHAHost
+            HAPort = strHAPort
+        End Sub
+    End Class
+
+
+
+    <Description("DX008 : 쿼리수행")> _
+    Public Sub SendDX008(ByVal strIP As String, ByVal intPort As Integer, ByVal strUserID As String, ByVal strPW As String, ByVal strQuery As String)
+        Try
+            _MsgThread = New Threading.Thread(Sub()
+                                                  Dim clsReq As New DX008_REQ(strIP, intPort, strUserID, "postgres", strPW, strQuery)
+
+                                                  Dim strReq As String = Newtonsoft.Json.JsonConvert.SerializeObject(clsReq)
+
+                                                  strReq = MakeFullEMsg(strReq)
+                                                  clsSck.SendMessage(strReq)
+                                              End Sub)
+            _MsgThread.Start()
+
+        Catch ex As Exception
+            RaiseEvent Complete(Me, New clsSocket.Results(clsSocket.enumResult.Error, "", "", ex.ToString, clsSck.SvrIP, clsSck.SvrPort))
+
+        End Try
+
+    End Sub
+
+#End Region
+
 #Region "DX005 DB 목록 요청 "
 
     Public Class DX005_REQ

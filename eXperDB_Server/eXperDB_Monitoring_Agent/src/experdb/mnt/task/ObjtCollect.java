@@ -108,6 +108,9 @@ public class ObjtCollect extends TaskApplication {
 		SqlSession sessionAgent  = null;
 		String instance_db_version = "";
 		
+		is_collect_ok = "Y";
+		failed_collect_type = "";	
+		
 		try {
 			//수집 DB의 버젼을 가져온다
 			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(reqInstanceId).get("pg_version_min");
@@ -127,30 +130,30 @@ public class ObjtCollect extends TaskApplication {
 			
 			sessionAgent = sqlSessionFactory.openSession();
 			
-			// 인스턴스정보를 가져와 UPDATE 한다.
-			if(is_collect_ok.equals("Y"))
-			{	
-				try {
-					HashMap<String, Object> select = new HashMap<String, Object>();
-					/*add to update ha_info by robin 201712 */
-					select.put("instance_db_version", instance_db_version);	
-					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
-					
-					select.put("instance_id", Integer.valueOf(reqInstanceId));
-					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
-					select.put("ha_role", select.get("ha_role"));
-					select.put("ha_host", select.get("ha_host"));
-					select.put("ha_port", select.get("ha_port"));
-					
-					sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
-					/*add to update ha_info by robin 201712 end*/
-					
-					sessionAgent.commit();
-				} catch (Exception e) {
-					sessionAgent.rollback();
-					log.error("", e);
-				}			
-			}
+//			// 인스턴스정보를 가져와 UPDATE 한다.
+//			if(is_collect_ok.equals("Y"))
+//			{	
+//				try {
+//					HashMap<String, Object> select = new HashMap<String, Object>();
+//					/*add to update ha_info by robin 201712 */
+//					select.put("instance_db_version", instance_db_version);	
+//					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
+//					
+//					select.put("instance_id", Integer.valueOf(reqInstanceId));
+//					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
+//					select.put("ha_role", select.get("ha_role"));
+//					select.put("ha_host", select.get("ha_host"));
+//					select.put("ha_port", select.get("ha_port"));
+//					
+//					sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
+//					/*add to update ha_info by robin 201712 end*/
+//					
+//					sessionAgent.commit();
+//				} catch (Exception e) {
+//					sessionAgent.rollback();
+//					log.error("", e);
+//				}			
+//			}
 			
 			//List<HashMap<String, Object>> accessSel = new ArrayList<HashMap<String,Object>>(); //Access 수집
 			List<HashMap<String, Object>> tableSel = new ArrayList<HashMap<String,Object>>(); //Table 수집
@@ -507,6 +510,8 @@ public class ObjtCollect extends TaskApplication {
 		SqlSession sessionCollect = null;
 		SqlSession sessionAgent  = null;
 		String instance_db_version = "";
+		is_collect_ok = "Y";
+		failed_collect_type = "";	
 		
 		try {
 			//수집 DB의 버젼을 가져온다
@@ -534,15 +539,13 @@ public class ObjtCollect extends TaskApplication {
 					HashMap<String, Object> select = new HashMap<String, Object>();
 					/*add to update ha_info by robin 201712 */
 					select.put("instance_db_version", instance_db_version);	
-					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", select);
-					
+					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001", select);
 					select.put("instance_id", Integer.valueOf(reqInstanceId));
 					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
-					select.put("ha_role", select.get("ha_role"));
-					select.put("ha_host", select.get("ha_host"));
-					select.put("ha_port", select.get("ha_port"));
-					
-					sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
+					//select.put("ha_role", select.get("ha_role"));
+					//select.put("ha_host", select.get("ha_host"));
+					//select.put("ha_port", select.get("ha_port"));
+					sessionAgent.update("app.TB_INSTANCE_INFO_U001", select);	
 					/*add to update ha_info by robin 201712 end*/
 					
 					sessionAgent.commit();

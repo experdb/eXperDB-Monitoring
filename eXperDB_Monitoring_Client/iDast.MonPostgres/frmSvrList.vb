@@ -147,7 +147,7 @@
             dtTable = ClsQuery.SelectMonListByGroup(groupIndex)
             If dtTable IsNot Nothing Then
                 Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
-                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'M'")
+                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'P'")
                     Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpRow.Item("HOST_NAME"))
                     topNode.Tag = tmpRow.Item("INSTANCE_ID")
                     topNode.Image = dbmsImgLst.Images(0)
