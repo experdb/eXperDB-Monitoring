@@ -1329,7 +1329,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
 					        GET_HOSTNAME() AS HOST_NAME,
 					        VERSION() AS PG_VERSION,
-					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE 'P' END AS HA_ROLE, 
+					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE (CASE WHEN (SELECT COUNT(*) FROM PG_STAT_REPLICATION) <= 0 THEN 'A' ELSE 'P' END) END AS HA_ROLE, 
 					        CASE WHEN pg_is_in_recovery() THEN 
 								COALESCE((SELECT substring(ARR_COL, length('host=')+1) FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
@@ -1341,7 +1341,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
 								   		FROM pg_stat_wal_receiver) ARR2 
 							  	  WHERE ARR_COL LIKE 'port=%' 
-							  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT
+							  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
+							CASE WHEN pg_is_in_recovery() THEN 
+								CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
+								     ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) END
+								 ELSE '0' END AS REPLAY_LAG
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
 					 ]]>
@@ -1699,19 +1703,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		CREATE EXTENSION adminpack
 	</update>
 	<select id="PG_SHOW_LOGLINE_001" parameterType="hashmap" resultType="hashmap">
-		SELECT setting FROM pg_settings WHERE name = 'log_line_prefix'
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ setting FROM pg_settings WHERE name = 'log_line_prefix'
 	</select>
 	
 	<select id="PG_SHOW_DIRECTORY_001" parameterType="hashmap" resultType="hashmap">
-		SELECT setting FROM pg_settings WHERE  name = 'log_directory'
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ setting FROM pg_settings WHERE  name = 'log_directory'
 	</select>
 	
 	<select id="PG_LOG_DESTINATION_001" parameterType="hashmap" resultType="String">
-		SELECT setting FROM pg_settings WHERE  name = 'log_destination'
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ setting FROM pg_settings WHERE  name = 'log_destination'
 	</select>
 	
 	<select id="PG_GET_LOGFILES_001" parameterType="hashmap" resultType="hashmap">
-		SELECT DIR||'/'||FL AS filename, 
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
+				DIR||'/'||FL AS filename, 
 		       (pg_stat_file(DIR||'/'||FL)).modification::TIMESTAMP WITHOUT TIME ZONE::TEXT AS filetime,
 		       pg_file_length(DIR||'/'||FL) AS len
 		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
@@ -1721,14 +1726,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	
 	<select id="PG_GET_LOGFILE_LEN_001" parameterType="hashmap" resultType="String">
-		SELECT pg_file_length(DIR||'/'||FL) AS len
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
+				pg_file_length(DIR||'/'||FL) AS len
 		FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
 		   	(SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
 		WHERE FL = SPLIT_PART(#{filename}, '/', 2)
 	</select>
 		
 	<select id="PG_GET_LOGFILES_003" parameterType="hashmap" resultType="hashmap">
- 		SELECT DIR||'/'||FL AS filename, 
+ 		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
+ 				DIR||'/'||FL AS filename, 
 		       (pg_stat_file(DIR||'/'||FL)).modification::TIMESTAMP WITHOUT TIME ZONE::TEXT AS filetime,
 		       pg_file_length(DIR||'/'||FL) AS len
 		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
@@ -1738,7 +1745,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	
 	<select id="PG_GET_LOGFILES_004" parameterType="hashmap" resultType="String">
-		SELECT pg_file_length(PGCSV.filename) AS len 
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
+				pg_file_length(PGCSV.filename) AS len 
 		FROM
 		(SELECT filename FROM pg_logdir_ls() AS A(filetime timestamp, filename text)) AS PGLOG
 		JOIN
@@ -1823,11 +1831,24 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>	
 
 	<insert id="TB_REPL_COLLECT_INFO_I001" parameterType="hashmap" >
-		INSERT INTO TB_REPLICATION_INFO	
+		INSERT INTO TB_REPLICATION_INFO
+		(	
+			REG_DATE,
+			REPL_REG_SEQ,
+			INSTANCE_ID,
+			IS_COLLECT_OK,
+			FAILED_COLLECT_TYPE,
+			HA_ROLE,
+			HA_HOST,
+			HA_PORT,
+			HA_GROUP,
+			REPLAY_LAG,
+			COLLECT_DT
+		)
 		VALUES 
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
-			NEXTVAL('OBJT_REG_SEQ'),
+			NEXTVAL('REPL_REG_SEQ'),
 			#{instance_id},
 			#{is_collect_ok},			
 			#{failed_collect_type},
@@ -1835,6 +1856,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
   			#{ha_host},
   			#{ha_port},  
   			(select ha_group from TB_INSTANCE_INFO where INSTANCE_ID = #{instance_id}),
+  			#{replay_lag},
 			NOW()
 		)
 	</insert>
@@ -1867,7 +1889,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 */
+			SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 24e9ab7301ff1966da4fb30dc1538882*/
 				  REPL.INSTANCE_ID, 
 				 CASE WHEN MM.MC > 0 THEN 2 ELSE 
 				 (CASE WHEN IST.HA_ROLE = REPL.HA_ROLE THEN 0 ELSE 1 END |
@@ -1906,7 +1928,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="EXPERDBMA_BT_SELECT_HA_MULTI_MASTER_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		  SELECT /* EXPERDBMA_BT_SELECT_HA_MULTI_MASTER_001 */
+		  SELECT /* EXPERDBMA_BT_SELECT_HA_MULTI_MASTER_001 24e9ab7301ff1966da4fb30dc1538882*/
 		      MIST.INSTANCE_ID
 		  FROM (SELECT REPL.REG_DATE, IST.HA_GROUP, COUNT(REPL.HA_ROLE) AS MC
 						   FROM TB_REPLICATION_INFO AS REPL, 
@@ -1927,6 +1949,30 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		  WHERE MM.HA_GROUP = MIST.HA_GROUP
 		  ]]>
 	</select>
+	<select id="EXPERDBMA_BT_CHECKPOINT_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT /* EXPERDBMA_BT_CHECKPOINT_001 24e9ab7301ff1966da4fb30dc1538882 */
+				CHECKPOINTS_TIMED, CHECKPOINTS_REQ, CHECKPOINT_WRITE_TIME+CHECKPOINT_SYNC_TIME::NUMERIC AS CHECKPOINT_TIME 
+			  FROM PG_STAT_BGWRITER
+		  ]]>
+	</select>
+	<insert id="TB_CHECKPOINT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_CHECKPOINT_INFO
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('REPL_REG_SEQ'),
+			#{instance_id},
+			#{checkpoints_timed},
+			#{checkpoints_req},
+			#{checkpoint_time},
+			#{checkpoints_timed_delta},
+			#{checkpoints_req_delta},
+			#{checkpoints_timed_time_delta},
+			#{checkpoints_req_time_delta},
+			NOW()
+		)
+	</insert>	
 <!-- ********************************************************** -->
 <!-- ReplCollect End -->
 <!-- ********************************************************** -->

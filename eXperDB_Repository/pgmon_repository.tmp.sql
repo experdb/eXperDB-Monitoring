@@ -248,9 +248,23 @@ CREATE TABLE tb_replication_info (
     ha_host character varying(100),
     ha_port character varying(10),
     ha_group integer,
+    replay_lag integer,
         collect_dt timestamp without time zone
 );
 
+CREATE TABLE tb_checkpoint_info (
+    reg_date character varying(8) NOT NULL,
+    repl_reg_seq integer NOT NULL,
+    instance_id integer NOT NULL,
+    checkpoints_timed integer,
+    checkpoints_req integer,
+    checkpoint_time numeric(20,0),
+    checkpoints_timed_delta integer,
+    checkpoints_req_delta integer,
+    checkpoints_timed_time_delta numeric(20,0),
+    checkpoints_req_time_delta numeric(20,0),
+    collect_dt timestamp without time zone
+);
 
 CREATE TABLE tb_group_info (
     group_id integer NOT NULL,
@@ -424,6 +438,9 @@ ALTER TABLE ONLY tb_instance_info
 ALTER TABLE ONLY tb_replication_info
     ADD CONSTRAINT pk_ha_info PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
 
+ALTER TABLE ONLY tb_checkpoint_info
+    ADD CONSTRAINT pk_checkpoint_info PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+
 ALTER TABLE ONLY tb_group_info
     ADD CONSTRAINT pk_group_info PRIMARY KEY (group_id);
 
@@ -596,6 +613,10 @@ ALTER TABLE tb_replication_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_replication_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_replication_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_replication_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_checkpoint_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_checkpoint_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_checkpoint_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_checkpoint_info SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_memory_stat SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_memory_stat SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_memory_stat SET (autovacuum_vacuum_scale_factor = 0.0);

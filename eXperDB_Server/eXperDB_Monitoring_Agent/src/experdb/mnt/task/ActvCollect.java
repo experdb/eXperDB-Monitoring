@@ -131,6 +131,8 @@ public class ActvCollect extends TaskApplication {
 				if(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_BACKEND_RSC) == null)
 				{
 					HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
+					if (instance_db_version.isEmpty())
+						instance_db_version = "9.6";
 					dbVerMap.put("instance_db_version", instance_db_version);					
 					
 					preList.clear();
