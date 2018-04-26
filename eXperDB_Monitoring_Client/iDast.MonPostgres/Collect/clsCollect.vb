@@ -1,6 +1,7 @@
 ﻿Public Class clsCollect
     Private _ThreadMsgQueue As New Queue(Of String)
     Private _InstanceIDs As String = ""
+    Private _isRunning As Boolean = False
 
 
 
@@ -240,6 +241,53 @@
         End Set
     End Property
 
+    Private _infoDatalockCount As New DataTable
+    ''' <summary>
+    ''' Lock 수집 데이터 정보 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property infoDatalockCount As DataTable
+        Get
+            Dim Rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            Rw.AcquireReaderLock(-1)
+
+            Try
+                If _infoDatalockCount IsNot Nothing Then
+                    Return _infoDatalockCount.Copy
+                Else
+                    Return Nothing
+                End If
+
+
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Lock Read Prop Exception Error" & ex.ToString)
+                GC.Collect()
+                Return Nothing
+            Finally
+                Rw.ReleaseReaderLock()
+
+            End Try
+
+        End Get
+        Set(value As DataTable)
+            Dim rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            rw.AcquireWriterLock(-1)
+            Try
+                _infoDatalockCount = value
+            Catch ex As Threading.ThreadAbortException
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Lock Write Prop Thread Error" & ex.ToString)
+                GC.Collect()
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Lock Write Prop Exception Error" & ex.ToString)
+                GC.Collect()
+            Finally
+                rw.ReleaseWriterLock()
+            End Try
+
+        End Set
+    End Property
 
     Private _InfoDataDisk As DataTable
     ''' <summary>
@@ -1098,6 +1146,11 @@
     ''' <remarks></remarks>
     Private Sub threadTimer1_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles threadTimer.Elapsed
         threadTimer.Stop()
+        If _isRunning = True Then
+            Return
+        Else
+            _isRunning = True
+        End If
         Try
             ' infoAgentSvrState = Nothing
             If _AgentCn.ConnectionCheck() = True Then
@@ -1133,6 +1186,8 @@
                         'StartLock(_intPeriod)
                         infoDatalock = StartThread("SELECTLOCKINFO", _intPeriod)
 
+                        'StartLockCount(_intPeriod)
+                        infoDatalockCount = StartThread("SELECTLOCKCURRENT", _intPeriod)
 
                         ' Disk
                         'StartDisk(_intPeriod)
@@ -1214,6 +1269,7 @@
             GC.Collect()
         End Try
 
+        _isRunning = False
         threadTimer.Interval = _intPeriod
         threadTimer.Start()
 

@@ -425,13 +425,13 @@ Public Class Progress3D
                         _Items(i).SetEffect(30)
                     End If
                 Else
-                    Gr.FillPath(New SolidBrush(Color.FromArgb(tmpItm.FillOpacity, tmpItm.FillColor)), FillPath)
                     Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
-                    Dim intDiameter As Integer = _Radius * 2
                     initRect.Inflate(-2, -2)
                     Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
                     grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "M", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
+                    'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "P", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
+                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "P", IIf(Me._HeadText = "S", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
+                    Gr.FillPath(New SolidBrush(Color.FromArgb(tmpItm.FillOpacity, tmpItm.FillColor)), FillPath)
                 End If
 
                 Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, tmpItm.LineColor)), LinePath)
@@ -443,7 +443,12 @@ Public Class Progress3D
                     End If
                     Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, _BorderColor)), LinePath)
                 Else
-
+                    Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
+                    initRect.Inflate(-2, -2)
+                    Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
+                    grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+                    'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "P", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
+                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "P", IIf(Me._HeadText = "S", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
                     Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, _BorderColor)), LinePath)
                 End If
 

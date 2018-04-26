@@ -53,7 +53,7 @@
     <DATA><![CDATA[HA상태]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
-    <COLUMNS>ALERT_NAME|ALERT NAME|TEXT||200;CURRENT_STATUS|Status|TEXT||200;CONFIGURATION|Configured|TEXT||200;DESCRIPTION|Description|TEXT||200</COLUMNS>
+    <COLUMNS>ALERT_NAME|ALERT NAME|TEXT||130;CURRENT_STATUS|Status|TEXT||350;CONFIGURATION|Configured|TEXT||350;DESCRIPTION|Description|TEXT||200</COLUMNS>
     <VALUECAST />
   </ROW>
   <ROW ID="F001" PARAMS="0">
@@ -2379,6 +2379,30 @@
   <ROW ID="F292" PARAMS="0">
     <DESC>HA Repl Host</DESC>
     <DATA><![CDATA[Primary Server info]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F293" PARAMS="0">
+    <DESC>Locks</DESC>
+    <DATA><![CDATA[Locks]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F294" PARAMS="0">
+    <DESC>Replication</DESC>
+    <DATA><![CDATA[Replication delay]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F295" PARAMS="0">
+    <DESC>Checkpoint</DESC>
+    <DATA><![CDATA[Checkpoint]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

@@ -1441,7 +1441,7 @@
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData("HASTATUS")
-            strQuery = String.Format(strQuery, RegDate, InstanceID)
+            strQuery = String.Format(strQuery, InstanceID)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                 Return dtSet.Tables(0)
@@ -1712,6 +1712,130 @@
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
                 strQuery = String.Format(strQuery, InstanceID, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectInitLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKACCUM")
+                Dim subQuery As String = ""
+
+                If HaveDuration = True Then
+                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                        subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                    Else
+                        subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                    End If
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
+                Else
+                    subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time")
+                End If
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectReplicationSlave(ByVal InstanceID As String, ByVal isMaster As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTANDBY")
+                Dim subQuery As String = ""
+
+                If isMaster = True Then
+                    strQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONMASTER")
+                Else
+                    strQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTANDBY")
+                End If
+
+                strQuery = String.Format(strQuery, InstanceID, subQuery)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectReplication(ByVal InstanceID As String, ByVal isLatest As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPLICATION")
+                Dim subQuery As String = ""
+
+                subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                If isLatest = True Then
+                    subQuery += vbCrLf
+                    subQuery += "AND B.REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_REPLICATION_INFO C WHERE A.INSTANCE_ID = C.INSTANCE_ID AND B.REG_DATE = C.REG_DATE)"
+                End If
+
+                strQuery = String.Format(strQuery, InstanceID, subQuery)
+
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectCheckpoint(ByVal InstanceID As String, ByVal isLatest As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCHECKPOINT")
+                Dim subQuery As String = ""
+
+                subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+
+                If isLatest = True Then
+                    subQuery += vbCrLf
+                    subQuery += "AND B.REPL_REG_SEQ = (SELECT MAX(D.REPL_REG_SEQ) FROM TB_CHECKPOINT_INFO D WHERE A.INSTANCE_ID = D.INSTANCE_ID AND B.REG_DATE = D.REG_DATE)"
+                End If
+
+                strQuery = String.Format(strQuery, InstanceID, subQuery)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

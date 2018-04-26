@@ -8,12 +8,12 @@ Public Class frmConnection
     Private _strSerial As String = ""
     Private _OldPWValue As String = ""
     Private _crypt As New eXperDB.Common.ClsCrypt
-    Private _strSvrQuery = p_clsQueryData.fn_GetData("SELECTREPLICATION")
+    Private _strSvrQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTATE")
     Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, _
                    ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, _
                    ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal strAliasNm As String, _
                    ByVal InstanceCnt As Integer, ByVal strSerial As String, _
-                   Optional ByVal strHARole As String = "P", Optional ByVal strHAHost As String = "-", Optional ByVal intHAPort As Integer = 0, Optional ByVal strHAREPLHost As String = "-")
+                   Optional ByVal strHARole As String = "A", Optional ByVal strHAHost As String = "-", Optional ByVal intHAPort As Integer = 0, Optional ByVal strHAREPLHost As String = "-")
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -66,11 +66,11 @@ Public Class frmConnection
         If _idxROw < 0 Then
             'cmbHARole.SelectedIndex = 0
         Else
-            If strHARole = "S" Then
+            If strHARole = "A" Then
                 cmbHARole.SelectedIndex = 0
             ElseIf strHARole = "P" Then
                 cmbHARole.SelectedIndex = 1
-            ElseIf strHARole = "A" Then
+            ElseIf strHARole = "S" Then
                 cmbHARole.SelectedIndex = 2
             Else
                 cmbHARole.SelectedIndex = 0
@@ -275,7 +275,7 @@ Public Class frmConnection
             Case 2
                 strHARole = "S"
             Case Else
-                strHARole = "P"
+                strHARole = "A"
         End Select
         strHAHost = txtHAHost.Text
         strHAPort = txtHAPort.Text
@@ -588,6 +588,11 @@ Public Class frmConnection
         Me.splSlave.Panel1Collapsed = False
         Me.splSlave.Panel2Collapsed = True
         Me.splSlave.Panel2.Enabled = False
+
+        Dim cmbIndex As Integer = cmbHARole.SelectedIndex
+        cmbHARole.SelectedIndex = -1
+        cmbHARole.SelectedIndex = cmbIndex
+        
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click

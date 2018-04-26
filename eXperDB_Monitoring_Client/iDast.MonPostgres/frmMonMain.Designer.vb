@@ -1148,7 +1148,7 @@ Partial Class frmMonMain
         ChartArea1.AxisY.MajorTickMark.Enabled = False
         ChartArea1.AxisY.MaximumAutoSize = 90.0!
         ChartArea1.AxisY.Title = "Tuples/s"
-        ChartArea1.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        ChartArea1.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
         ChartArea1.AxisY.TitleForeColor = System.Drawing.Color.White
         ChartArea1.AxisY2.IsLabelAutoFit = False
         ChartArea1.AxisY2.LabelStyle.Enabled = False

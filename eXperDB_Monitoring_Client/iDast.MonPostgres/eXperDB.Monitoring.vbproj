@@ -159,6 +159,12 @@
     </Compile>
     <Compile Include="EMsg\clsAgentEMsg.vb" />
     <Compile Include="EMsg\clsSocket.vb" />
+    <Compile Include="frmMonDetailCopy.Designer.vb">
+      <DependentUpon>frmMonDetailCopy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMonDetailCopy.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMonMain.Designer.vb">
       <DependentUpon>frmMonMain.vb</DependentUpon>
     </Compile>
@@ -356,6 +362,9 @@
     <EmbeddedResource Include="ctlChart.resx">
       <DependentUpon>ctlChart.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMonDetailCopy.resx">
+      <DependentUpon>frmMonDetailCopy.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonMain.resx">
       <DependentUpon>frmMonMain.vb</DependentUpon>

@@ -22,10 +22,17 @@
                         SetDataDisk(p_clsAgentCollect.infoDataDisk)     'accumulate
                         SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm) 'accumulate
                         SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo) 'accumulate
-                        'This chart will move to object view 20180125
-                        'SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
+                        SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
+                        SetDataLockCount(p_clsAgentCollect.infoDatalockCount) 'accumulate
                         SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
+                        'SetDataReplication() 'accumulate
+                        'SetDataCheckpoint() 'accumulate
                         SetDataHealth(p_clsAgentCollect.infoDataHealth)
+                        If bckquerymanual.IsBusy = True Then
+                            bckquerymanual.CancelAsync()
+                            Return
+                        End If
+                        bckquerymanual.RunWorkerAsync()
                     End If
                 Catch ex As Exception
                     p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -129,10 +136,6 @@
 
         ServerName_lv.Text = String.Format("{0},  IP : {1}, Started on {2}", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"))
 
-        TmCollect = New Timer()
-        TmCollect.Interval = 100
-        TmCollect.Start()
-
         _ElapseCount = (60000 / _Elapseinterval) * 60 / 6 ' 10분
 
         ReadConfig()
@@ -152,18 +155,43 @@
     End Sub
 
     Private Sub frmMonDetail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        Me.chtCPU.Dispose()
+
+        TmCollect.Stop()
+
         _clsQuery = Nothing
         Dim monMain As frmMonMain = TryCast(Me.Owner, frmMonMain)
         If monMain IsNot Nothing Then
             monMain.InstanceSelectedChange(_InstanceID, False)
         End If
+
+        If Me.bckmanual.IsBusy = True Then
+            Me.bckmanual.CancelAsync()
+        End If
+
+        If Me.bckquerymanual.IsBusy = True Then
+            Me.bckquerymanual.CancelAsync()
+        End If
+
+        Me.chtCPU.Dispose()
+        Me.chtLocalIO.Dispose()
+        Me.chtCheckpoint.Dispose()
+        Me.chtObject.Dispose()
+        Me.chtPhysicaliO.Dispose()
+        Me.chtReplication.Dispose()
+        Me.chtLock.Dispose()
+        Me.chtSession.Dispose()
+        Me.chtSQLRespTm.Dispose()
+
     End Sub
 
     Private Sub frmMonDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' 폼 초기화 
         InitForm()
         initControls(p_clsAgentCollect.AgentState)
+
+        TmCollect = New Timer()
+        TmCollect.Interval = 100
+        TmCollect.Start()
     End Sub
 
     Private Sub InitForm()
@@ -254,9 +282,11 @@
         grpPhysicalIO.Text = p_clsMsgData.fn_GetData("F100")
         grpLogicalIO.Text = p_clsMsgData.fn_GetData("F101")
         'Will move to object view
-        'grpObject.Text = p_clsMsgData.fn_GetData("F102")
+        grpObject.Text = p_clsMsgData.fn_GetData("F102")
         grpSQLResposeTime.Text = p_clsMsgData.fn_GetData("F103")
-
+        grpLock.Text = p_clsMsgData.fn_GetData("F293")
+        grpReplication.Text = p_clsMsgData.fn_GetData("F294")
+        grpCheckpoint.Text = p_clsMsgData.fn_GetData("F295")
         'DB Activity Info
         'btnActInfo.Text = p_clsMsgData.fn_GetData("F075")
 
@@ -583,10 +613,10 @@
 
 
             ' Logical I/O Info   
-            sb_ChartAddPoint(Me.chtLocalIO, "READ", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
-            sb_ChartAddPoint(Me.chtLocalIO, "INSERT", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
-            sb_ChartAddPoint(Me.chtLocalIO, "UPDATE", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
-            sb_ChartAddPoint(Me.chtLocalIO, "DELETE", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
+            sb_ChartAddPoint(Me.chtLocalIO, "Read", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
+            sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
+            sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
+            sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
 
 
 
@@ -654,14 +684,43 @@
 
 
 
-            'sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan) 'Will move to object view
-            'sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan) 'Will move to object view
+            sb_ChartAddPoint(Me.chtObject, "Index", dblRegDate, dblIndexScan) 'Will move to object view
+            sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDate, dblSqlScan) 'Will move to object view
         Next
 
-        'sb_ChartAlignYAxies(Me.chtObject) 'Will move to object view
+        sb_ChartAlignYAxies(Me.chtObject) 'Will move to object view
 
     End Sub
 
+    ''' <summary>
+    ''' Lock count 정보 등록 
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <remarks></remarks>
+    Private Sub SetDataLockCount(ByVal dtTable As DataTable)
+        ' 전체 목록중 내것만 추출 
+        ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
+        Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+
+
+        ' Chart 데이터는 Invoke 로 넣어야 한다. 
+
+        If dtRows.Count = 0 Then
+            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+            sb_ChartAddPoint(Me.chtLock, "Wait", dblRegDt, 0)
+            sb_ChartAddPoint(Me.chtLock, "Total", dblRegDt, 0)
+        Else
+            For Each tmpRow As DataRow In dtRows
+                Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                Dim dblTotal As Double = ConvULong(tmpRow.Item("LOCK_TOTAL"))
+                Dim dblWait As Double = ConvULong(tmpRow.Item("LOCK_WAIT"))
+
+                sb_ChartAddPoint(Me.chtLock, "Wait", dblRegDate, dblWait)
+                sb_ChartAddPoint(Me.chtLock, "Total", dblRegDate, dblTotal)
+            Next
+        End If
+        sb_ChartAlignYAxies(Me.chtLock) 'Will move to object view
+    End Sub
     ''' <summary>
     ''' BackEnd 정보 등록 
     ''' </summary>
@@ -1059,8 +1118,8 @@
             Dim dblPhyRead As Double = ConvULong(tmpRow.Item("PHY_READ"))
             Dim dblPhyWrite As Double = ConvULong(tmpRow.Item("PHY_WRITE"))
 
-            sb_ChartAddPoint(Me.chtPhysicaliO, "READ", dblRegDate, dblPhyRead)
-            sb_ChartAddPoint(Me.chtPhysicaliO, "WRITE", dblRegDate, dblPhyWrite)
+            sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDate, dblPhyRead)
+            sb_ChartAddPoint(Me.chtPhysicaliO, "Write", dblRegDate, dblPhyWrite)
         Next
 
         sb_ChartAlignYAxies(Me.chtPhysicaliO)
@@ -1142,6 +1201,223 @@
                       End Try
                   End Sub)
     End Sub
+    ''' <summary>
+    ''' LockCount 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDataLockCount()
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectInitLockCount(InstanceID, New Date(), New Date(), False)
+                          If dtTable IsNot Nothing Then
+                              Dim dtRowsSession As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+                              If dtRowsSession.Count = 0 Then
+                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                  sb_ChartAddPoint(Me.chtLock, "Wait", dblRegDt, 0)
+                                  sb_ChartAddPoint(Me.chtLock, "Total", dblRegDt, 0)
+                              Else
+                                  For Each tmpRow As DataRow In dtRowsSession
+                                      Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                      sb_ChartAddPoint(Me.chtLock, "Wait", dblRegDt, ConvULong(tmpRow.Item("LOCK_WAIT")))
+                                      sb_ChartAddPoint(Me.chtLock, "Total", dblRegDt, ConvULong(tmpRow.Item("LOCK_TOTAL")))
+                                  Next
+                              End If
+                          Else
+                              Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                              sb_ChartAddPoint(Me.chtLock, "Wait", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtLock, "Total", dblRegDt, 0)
+                          End If
+                          sb_ChartAlignYAxies(Me.chtLock)
+
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
+    ''' <summary>
+    ''' Replication 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDataReplication()
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, _ServerInfo.HARole = "P")
+            Me.Invoke(Sub()
+                          AddReplicationSeries(dtTable)
+                      End Sub)
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        Dim dtRows As DataRow() = dtTable.Select()
+        Dim InstanceIDs As String = ""
+        For Each instRow As DataRow In dtRows
+            InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))
+        Next
+
+        Me.Invoke(Sub()
+                      dtTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectReplication(InstanceIDs, False)
+                          For Each instRow As DataRow In dtRows
+                              If dtTable IsNot Nothing Then
+                                  Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & instRow.Item("INSTANCE_ID"))
+
+                                  If dtRowsReplication.Count = 0 Then
+                                      Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                      sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM"), dblRegDt, 0)
+                                  Else
+                                      For Each replRow As DataRow In dtRowsReplication
+                                          Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
+                                          sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG")))
+                                      Next
+                                  End If
+                              Else
+                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                  sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM"), dblRegDt, 0)
+                              End If
+                          Next
+                          sb_ChartAlignYAxies(Me.chtReplication)
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
+
+    Private Sub AddReplicationSeries(ByRef dtTable As DataTable)
+
+
+
+        Dim colors() As Color = {System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                                 System.Drawing.Color.Orange,
+                                 System.Drawing.Color.Brown,
+                                 System.Drawing.Color.Green,
+                                 System.Drawing.Color.Purple,
+                                 System.Drawing.Color.Yellow,
+                                 System.Drawing.Color.Blue,
+                                 System.Drawing.Color.Pink,
+                                 System.Drawing.Color.Lime,
+                                 System.Drawing.Color.Red,
+                                 System.Drawing.Color.PowderBlue,
+                                 System.Drawing.Color.SkyBlue,
+                                 System.Drawing.Color.SpringGreen,
+                                 System.Drawing.Color.YellowGreen,
+                                 System.Drawing.Color.Violet,
+                                 System.Drawing.Color.Salmon}
+        Dim index As Integer = 0
+        If dtTable Is Nothing Then
+            AddSeries(Me.chtReplication, _ServerInfo.ShowNm + ":" + _ServerInfo.Port, _ServerInfo.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column)
+        Else
+            Dim dtRows As DataRow() = dtTable.Select()
+
+            For Each tmpRow As DataRow In dtRows
+                AddSeries(Me.chtReplication, tmpRow.Item("SHOWNM") + ":" + tmpRow.Item("PORT"), tmpRow.Item("SHOWNM"), colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column)
+                index += 1
+            Next
+        End If
+        '            Me.chtReplication.series["PixelPointWidth"]
+
+
+    End Sub
+    ''' <summary>
+    ''' Checkpoint 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDataCheckpoint()
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectCheckpoint(InstanceID, False)
+                          If dtTable IsNot Nothing Then
+                              Dim dtRowsCheckpoint As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+                              If dtRowsCheckpoint.Count = 0 Then
+                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                  sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, 0)
+                                  sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, 0)
+                              Else
+                                  For Each tmpRow As DataRow In dtRowsCheckpoint
+                                      Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                      sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")))
+                                      sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")))
+                                  Next
+                              End If
+                          Else
+                              Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                              sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, 0)
+                          End If
+
+                          sb_ChartAlignYAxies(Me.chtCheckpoint)
+
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
+    ''' <summary>
+    ''' Replication 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub SetDataReplication()
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectReplication(InstanceID, True)
+                          Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+                          If dtRowsReplication.Count = 0 Then
+                              Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                              sb_ChartAddPoint(Me.chtReplication, "Delay", dblRegDt, 0)
+                          Else
+                              For Each tmpRow As DataRow In dtRowsReplication
+                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                  sb_ChartAddPoint(Me.chtReplication, "Delay", dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG")))
+                              Next
+                          End If
+
+                          sb_ChartAlignYAxies(Me.chtReplication)
+
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
+    ''' <summary>
+    ''' Checkpoint 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub SetDataCheckpoint()
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectCheckpoint(InstanceID, True)
+                          Dim dtRowsCheckpoint As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+                          If dtRowsCheckpoint.Count = 0 Then
+                              Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                              sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, 0)
+                          Else
+                              For Each tmpRow As DataRow In dtRowsCheckpoint
+                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                  If Me.chtCheckpoint.Series(0).Points.Count = 0 Then
+                                      sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")))
+                                      sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")))
+                                  Else
+                                      If Me.chtCheckpoint.Series(0).Points.Last.XValue < dblRegDt Then
+                                          sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")))
+                                          sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")))
+                                      End If
+                                  End If
+                              Next
+                          End If
+
+                          sb_ChartAlignYAxies(Me.chtCheckpoint)
+
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
     Private Sub initDataRequest()
         Me.Invoke(Sub()
                       Dim dtTableSession As DataTable = Nothing
@@ -1165,28 +1441,28 @@
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRows.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                              sb_ChartAddPoint(Me.chtLocalIO, "READ", dblRegDt, 0)
-                              sb_ChartAddPoint(Me.chtLocalIO, "INSERT", dblRegDt, 0)
-                              sb_ChartAddPoint(Me.chtLocalIO, "UPDATE", dblRegDt, 0)
-                              sb_ChartAddPoint(Me.chtLocalIO, "DELETE", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtLocalIO, "Read", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, 0)
                           Else
                               For Each tmpRow As DataRow In dtRows
                                   Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
                                   ' Logical I/O Info   
-                                  sb_ChartAddPoint(Me.chtLocalIO, "READ", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
-                                  sb_ChartAddPoint(Me.chtLocalIO, "INSERT", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
-                                  sb_ChartAddPoint(Me.chtLocalIO, "UPDATE", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
-                                  sb_ChartAddPoint(Me.chtLocalIO, "DELETE", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
+                                  sb_ChartAddPoint(Me.chtLocalIO, "Read", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
+                                  sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
+                                  sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
+                                  sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
                                   'This chart will move to object view 20180125
-                                  'Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-                                  'Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
-                                  'Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
-                                  'sb_ChartAddPoint(Me.chtObject, "INDEX", dblRegDate, dblIndexScan)
-                                  'sb_ChartAddPoint(Me.chtObject, "SEQUENTIAL", dblRegDate, dblSqlScan)
+                                  Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                  Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
+                                  Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
+                                  sb_ChartAddPoint(Me.chtObject, "Index", dblRegDate, dblIndexScan)
+                                  sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDate, dblSqlScan)
                               Next
                           End If
 
-                          'sb_ChartAlignYAxies(Me.chtObject) 'This chart will move to object view 20180125
+                          sb_ChartAlignYAxies(Me.chtObject) 'This chart will move to object view 20180125
                           sb_ChartAlignYAxies(Me.chtSession)
                           sb_ChartAlignYAxies(Me.chtLocalIO)
                       Catch ex As Exception
@@ -1201,16 +1477,16 @@
                       Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm))
                       If dtRows.Count = 0 Then
                           Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                          sb_ChartAddPoint(Me.chtPhysicaliO, "READ", dblRegDt, 0)
-                          sb_ChartAddPoint(Me.chtPhysicaliO, "WRITE", dblRegDt, 0)
+                          sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDt, 0)
+                          sb_ChartAddPoint(Me.chtPhysicaliO, "Write", dblRegDt, 0)
                       Else
                           For Each tmpRow As DataRow In dtRows
                               Dim dblRegDate As Double = ConvOADate(tmpRow.Item("REG_DATE"))
                               Dim dblPhyRead As Double = ConvULong(tmpRow.Item("PHY_READ"))
                               Dim dblPhyWrite As Double = ConvULong(tmpRow.Item("PHY_WRITE"))
 
-                              sb_ChartAddPoint(Me.chtPhysicaliO, "READ", dblRegDate, dblPhyRead)
-                              sb_ChartAddPoint(Me.chtPhysicaliO, "WRITE", dblRegDate, dblPhyWrite)
+                              sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDate, dblPhyRead)
+                              sb_ChartAddPoint(Me.chtPhysicaliO, "Write", dblRegDate, dblPhyWrite)
                           Next
                       End If
                       sb_ChartAlignYAxies(Me.chtPhysicaliO)
@@ -1221,7 +1497,7 @@
 
     End Sub
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click, btnRefreshSession.Click
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click, btnRefreshObject.Click, btnRefreshSession.Click, btnRefreshLock.Click, btnRefreshCheckpoint.Click, btnRefreshReplication.Click
         Select Case DirectCast(sender, BaseControls.Button).Name.ToUpper
             Case "BTNREFRESHSESSION"
                 ChartClear(chtSession)
@@ -1229,11 +1505,16 @@
                 ChartClear(chtPhysicaliO)
             Case "BTNREFRESHLOGICALIO"
                 ChartClear(chtLocalIO)
-                'This chart will move to object view 20180125
-                'Case "BTNREFRESHOBJECT"
-                '    ChartClear(chtObject)
+            Case "BTNREFRESHOBJECT"
+                ChartClear(chtObject)
             Case "BTNREFRESHSQLRESP"
                 ChartClear(chtSQLRespTm)
+            Case "BTNREFRESHLOCK"
+                ChartClear(chtLock)
+            Case "BTNREFRESHCHECKPOINT"
+                ChartClear(chtCheckpoint)
+            Case "BTNREFRESHREPLICATION"
+                ChartClear(chtReplication)
         End Select
 
     End Sub
@@ -1309,8 +1590,8 @@
                 Dim HealthItem As String = dgvRow.Cells(colDgvHealthItm.Index).Value
                 Dim HealthSeq As String = dgvRow.Cells(colDgvHealthSeq.Index).Value
                 Dim strValue As String = String.Format("{0} {1}[{2}]", dgvRow.Cells(colDgvHealthIVal.Index).Value, dgvRow.Cells(colDgvHealthUnit.Index).Value, dgvRow.Cells(colDgvHealthStatus.Index).Value)
-
-                Dim frmHealthDtl As New frmHealthDetail(AgentCn, InstanceID, RegDt, HealthItem, HealthSeq, strValue, _AgentInfo)
+                Dim intLevel As Integer = dgvRow.Cells(colDgvHealthStatusVal.Index).Value
+                Dim frmHealthDtl As New frmHealthDetail(AgentCn, InstanceID, RegDt, HealthItem, HealthSeq, strValue, _AgentInfo, intLevel)
                 frmHealthDtl.Show(Me)
             End If
 
@@ -1484,10 +1765,6 @@
 
     End Sub
 
-    Private Sub TableLayoutPanel3_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanel3.Paint
-
-    End Sub
-
     Private Sub btnChartDetail_Click(sender As Object, e As EventArgs) Handles btnChartDetail.Click
         Dim stDt As DateTime = Now.AddMinutes(-5)
         Dim edDt As DateTime = Now
@@ -1516,6 +1793,9 @@
             initDataCpu()
             initDataSQLRespTm()
             initDataRequest()
+            initDataLockCount()
+            initDataReplication()
+            initDataCheckpoint()
             _clsQuery.CancelCommand()
         End If
         bckmanual.ReportProgress(100)
@@ -1536,4 +1816,98 @@
         End If
     End Sub
 
+    Private Sub chtCheckpoint_GetToolTipText(sender As Object, e As DataVisualization.Charting.ToolTipEventArgs) Handles chtCheckpoint.GetToolTipText
+
+        Select Case e.HitTestResult.ChartElementType
+            Case DataVisualization.Charting.ChartElementType.Axis, DataVisualization.Charting.ChartElementType.TickMarks
+                'Dim result As DataVisualization.Charting.HitTestResult = chrReqInfo.HitTest(e.X, e.Y, DataVisualization.Charting.ChartElementType.DataPoint)
+                'If result.ChartElementType = DataVisualization.Charting.ChartElementType.DataPoint Then
+                '    e.Text = result.Series.Points(result.PointIndex).AxisLabel & vbCrLf & result.Series.Name & vbCrLf & result.Series.Points(result.PointIndex).XValue.ToString & " : " & result.Series.Points(result.PointIndex).YValues(0).ToString
+                'End If
+
+                'Exit Select
+
+            Case DataVisualization.Charting.ChartElementType.AxisLabels
+
+                If e.HitTestResult.Object.GetType.Equals(GetType(DataVisualization.Charting.CustomLabel)) Then
+                    e.Text = DirectCast(e.HitTestResult.Object, DataVisualization.Charting.CustomLabel).Text
+                End If
+
+
+            Case DataVisualization.Charting.ChartElementType.DataPoint
+                If e.HitTestResult.Object.GetType.Equals(GetType(DataVisualization.Charting.DataPoint)) Then
+                    Dim tmpDtp As DataVisualization.Charting.DataPoint = DirectCast(e.HitTestResult.Object, DataVisualization.Charting.DataPoint)
+                    ' 메모리 공유 문제 인듯 디버그 시 보이나 ToString 사용하지 않으면 값이 나오지 않음 
+                    Dim strServer As String = tmpDtp.AxisLabel.ToString
+
+                    e.Text = String.Format("[{0}] : {1}", e.HitTestResult.Series.Name, tmpDtp.YValues(0).ToString("N0"))
+                End If
+
+
+        End Select
+
+    End Sub
+
+    Private Sub bckquerymanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckquerymanual.DoWork
+        SetDataReplication()
+        SetDataCheckpoint()
+    End Sub
+
+    Private Sub btnSessionLockS_Click(sender As Object, e As EventArgs) Handles btnSessionLockS.Click
+        Dim BretFrm As frmSessionLock = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmSessionLock(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+    End Sub
+
+    Private Sub btnActInfoS_Click(sender As Object, e As EventArgs) Handles btnActInfoS.Click
+        Dim BretFrm As frmMonActInfo = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmMonActInfo = TryCast(tmpFrm, frmMonActInfo)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmMonActInfo(_ServerInfo, _Elapseinterval, AgentInfo)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+
+    End Sub
+
+    Public Sub AddSeries(ByVal chtName As System.Windows.Forms.DataVisualization.Charting.Chart,
+                     ByVal SeriesName As String,
+                     ByVal strTitle As String,
+                     Optional ByVal LineColor As System.Drawing.Color = Nothing,
+                     Optional ByVal ChartType As System.Windows.Forms.DataVisualization.Charting.SeriesChartType = DataVisualization.Charting.SeriesChartType.Line)
+        Dim Series As System.Windows.Forms.DataVisualization.Charting.Series = chtName.Series.Add(SeriesName.ToUpper)
+        Series.BorderWidth = 2
+        Series.ChartArea = "ChartArea1"
+        Series.ChartType = ChartType
+        Series.Legend = "Legend1"
+        Series.Name = SeriesName
+        Series.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
+        Series.CustomProperties = "PixelPointWidth=5"
+        If Not IsNothing(LineColor) Then
+            Series.Color = LineColor
+        End If
+    End Sub
 End Class

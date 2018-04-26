@@ -485,16 +485,16 @@ Public Class CircleProgressbar
                                     End If
 
                                     If (CenterStr) Then
-                                        szf = g.MeasureString(Gubun, New Font("Arial", Convert.ToInt32(BaseRect.Width * 0.1), FontStyle.Bold, GraphicsUnit.Pixel))
-                                        g.DrawString(Gubun, New Font("Arial", Convert.ToInt32(BaseRect.Width * 0.1),
+                                        szf = g.MeasureString(Gubun, New Font("Arial", Convert.ToInt32(BaseRect.Width * 0.12), FontStyle.Bold, GraphicsUnit.Pixel))
+                                        g.DrawString(Gubun, New Font("Arial", Convert.ToInt32(BaseRect.Width * 0.12),
                                                                  FontStyle.Bold, GraphicsUnit.Pixel), CenterColor, New Point(bmp.Width / 2 - szf.Width / 2, bmp.Height / 2 - szf.Height / 2)) '98, 87
                                     Else
                                         If Cpu_textUse = True Then
                                             szf = g.MeasureString(Cpu_text, New Font("Arial",
-                                                                    Convert.ToInt32(BaseRect.Width * 0.1),
+                                                                    Convert.ToInt32(BaseRect.Width * 0.12),
                                                                      FontStyle.Bold, GraphicsUnit.Pixel))
                                             g.DrawString(Cpu_text, New Font("Arial",
-                                                                    Convert.ToInt32(BaseRect.Width * 0.1),
+                                                                    Convert.ToInt32(BaseRect.Width * 0.12),
                                                                      FontStyle.Bold, GraphicsUnit.Pixel), Cpu_Gauge_Color, New Point(bmp.Width / 2 - szf.Width - 2, bmp.Height / 2 - szf.Height / 2)) '59, 87
                                         End If
 
@@ -511,7 +511,7 @@ Public Class CircleProgressbar
 
                                         If Postgres_textUse = True Then
                                             g.DrawString(Postgres_text, New Font("Arial",
-                                                                    Convert.ToInt32(BaseRect.Width * 0.1),
+                                                                    Convert.ToInt32(BaseRect.Width * 0.12),
                                                                      FontStyle.Bold, GraphicsUnit.Pixel), postgres_Gauge_Color, New Point(bmp.Width / 2 + szf.Width / 4, bmp.Height / 2 - szf.Height / 2))  '106, 87
 
                                         End If

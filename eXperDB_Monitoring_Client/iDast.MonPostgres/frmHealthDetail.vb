@@ -9,6 +9,7 @@
     Private _AgentInfo As structAgent = Nothing
     Private _WMargin As Integer = 50
     Private _HMargin As Integer = 50
+    Private _HealthLevel As Integer = 0
     Private Class SQLInfo
         Dim _SQL As Integer
         ReadOnly Property SQL As Integer
@@ -37,7 +38,7 @@
 
 
 
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal intInstance As Integer, ByVal RegDate As String, ByVal HealthItem As String, ByVal HealthSeq As String, ByVal ShowValue As String, ByVal AgentInfo As structAgent)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal intInstance As Integer, ByVal RegDate As String, ByVal HealthItem As String, ByVal HealthSeq As String, ByVal ShowValue As String, ByVal AgentInfo As structAgent, ByVal intLevel As Integer)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -49,7 +50,7 @@
         _RegDate = RegDate
         _AgentCn = New DXODBC(AgentCn.ODBCConninfo, 30)
         _AgentInfo = AgentInfo
-
+        _HealthLevel = intLevel
         dgvinfo.AutoGenerateColumns = False
 
         lblitmNm.Text = p_clsMsgData.fn_GetData("F201", p_clsMsgData.fn_GetData(_HealthItem))

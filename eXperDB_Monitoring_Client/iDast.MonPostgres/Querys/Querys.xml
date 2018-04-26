@@ -434,6 +434,136 @@
     </DATA>
     <COMMENTS />
   </ROW>
+  <ROW ID="SELECTLOCKCURRENT" PARAMS="1">
+    <DESC>PT_05_02_002 (Lock Info)</DESC>
+    <DATA>
+      <![CDATA[       
+      SELECT /* SELECTLOCKCURRENT */ 
+         B.INSTANCE_ID,
+         C.COLLECT_DT,
+         SUM(CASE WHEN C.ACTV_REG_SEQ IS NOT NULL then 1 ELSE 0 END) AS LOCK_TOTAL,
+         SUM(CASE WHEN BLOCKED_PID IS NOT NULL then 1 ELSE 0 END) AS LOCK_WAIT
+      FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_CURRENT_LOCK C
+      WHERE B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+        AND B.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = A.INSTANCE_ID  )
+        AND A.INSTANCE_ID = B.INSTANCE_ID
+        AND A.INSTANCE_ID IN ({0})
+        AND B.REG_DATE = C.REG_DATE
+        AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+        AND A.COLLECT_YN = 'Y'
+        AND A.DELETE_YN = 'N'
+      GROUP BY B.INSTANCE_ID, C.ACTV_REG_SEQ, C.COLLECT_DT
+      ORDER BY B.INSTANCE_ID, C.ACTV_REG_SEQ;
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTLOCKACCUM" PARAMS="1">
+    <DESC>PT_05_02_003 (Lock Info)</DESC>
+    <DATA>
+      <![CDATA[       
+      SELECT /* SELECTLOCKACCUM */ 
+         B.INSTANCE_ID,
+         TO_CHAR(NOW(),'YYYY-MM-DD') || ' ' || B.REG_TIME AS COLLECT_DT,
+         SUM(CASE WHEN C.ACTV_REG_SEQ IS NOT NULL then 1 ELSE 0 END) AS LOCK_TOTAL,
+         SUM(CASE WHEN BLOCKED_PID IS NOT NULL then 1 ELSE 0 END) AS LOCK_WAIT
+      FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B LEFT OUTER JOIN TB_CURRENT_LOCK C on B.REG_DATE = C.REG_DATE AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+      WHERE B.REG_DATE {1}
+        AND B.REG_TIME {2}
+        AND A.INSTANCE_ID = B.INSTANCE_ID
+        AND A.INSTANCE_ID IN ({0})
+        AND A.COLLECT_YN = 'Y'
+        AND A.DELETE_YN = 'N'
+      GROUP BY B.INSTANCE_ID, C.ACTV_REG_SEQ, B.REG_TIME
+      ORDER BY B.INSTANCE_ID, C.ACTV_REG_SEQ;
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTREPLICATION" PARAMS="1">
+    <DESC>PT_05_02_004 (Replication)</DESC>
+    <DATA>
+      <![CDATA[       
+         SELECT /* SELECTREPLICATION */ 
+             B.INSTANCE_ID,
+             B.COLLECT_DT,
+             B.REPLAY_LAG
+          FROM TB_INSTANCE_INFO A, TB_REPLICATION_INFO B
+          WHERE B.REG_DATE {1}
+            AND B.COLLECT_DT >= (now() - interval '10 minute')
+            AND A.INSTANCE_ID = B.INSTANCE_ID
+            AND A.INSTANCE_ID IN ({0})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+          ORDER BY B.INSTANCE_ID, B.REPL_REG_SEQ;
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTREPLICATIONMASTER" PARAMS="1">
+    <DESC>PT_05_02_004 (SELECTREPLICATIONSTANDBY)</DESC>
+    <DATA>
+      <![CDATA[       
+          SELECT  INS.INSTANCE_ID, 
+                  CASE WHEN 0=0 THEN INS.HOST_NAME ELSE INS.CONN_NAME END AS SHOWNM, 
+                  INS.SERVICE_PORT PORT
+            FROM  TB_INSTANCE_INFO INS, TB_REPLICATION_INFO REPL
+           WHERE  INS.INSTANCE_ID = REPL.INSTANCE_ID
+             AND  INS.HA_GROUP = {0}
+             AND  INS.INSTANCE_ID <> {0}
+             AND  REPL.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+             AND  REPL.REPL_REG_SEQ = (SELECT MAX(A.REPL_REG_SEQ) MAX_REG_SEQ 
+				                                 FROM TB_REPLICATION_INFO A 
+				                                WHERE A.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+				                                  AND A.INSTANCE_ID = INS.INSTANCE_ID)
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTREPLICATIONSTANDBY" PARAMS="1">
+    <DESC>PT_05_02_004 (SELECTREPLICATIONSTANDBY)</DESC>
+    <DATA>
+      <![CDATA[       
+          SELECT  INS.INSTANCE_ID, 
+                  CASE WHEN 0=0 THEN INS.HOST_NAME ELSE INS.CONN_NAME END AS SHOWNM, 
+                  INS.SERVICE_PORT PORT
+            FROM  TB_INSTANCE_INFO INS
+           WHERE  INS.INSTANCE_ID = {0}
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTCHECKPOINT" PARAMS="1">
+    <DESC>PT_05_02_005 (Checkpoint)</DESC>
+    <DATA>
+      <![CDATA[       
+        SELECT /* SELECTCHECKPOINT */
+             C.INSTANCE_ID,
+             C.COLLECT_DT,
+             C.CHECKPOINTS_TIMED_DELTA,
+             C.CHECKPOINTS_REQ_DELTA,
+             C.REPL_REG_SEQ,
+             C.CHECKPOINTS_TIMED_TIME_DELTA CHECKPOINTS_TIMED_TIME_DELTA,
+             C.CHECKPOINTS_REQ_TIME_DELTA CHECKPOINTS_REQ_TIME_DELTA
+          FROM TB_INSTANCE_INFO A 
+              JOIN TB_REPLICATION_INFO B 
+		            ON A.INSTANCE_ID = B.INSTANCE_ID 
+		           AND A.INSTANCE_ID IN ({0})
+		           AND A.COLLECT_YN = 'Y' 
+		           AND A.DELETE_YN = 'N'
+              JOIN TB_CHECKPOINT_INFO C 
+                ON B.REPL_REG_SEQ = C.REPL_REG_SEQ 
+               AND B.INSTANCE_ID = C.INSTANCE_ID 
+               AND B.REG_DATE  = C.REG_DATE
+          WHERE B.REG_DATE {1}         
+            AND B.COLLECT_DT >= (now() - interval '120 minute')
+            AND A.INSTANCE_ID = C.INSTANCE_ID
+            AND A.INSTANCE_ID = B.INSTANCE_ID   
+        ORDER BY C.REPL_REG_SEQ
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
   <ROW ID="SELECTDISKINFO" PARAMS="2">
     <DESC>PT_03_04_001(인스턴스별 DISK IO/USAGE 정보)</DESC>
     <DATA>
@@ -1691,38 +1821,57 @@
     <DESC>HEALTH CHECK HA Status</DESC>
     <DATA>
       <![CDATA[
-        SELECT  REPL.INSTANCE_ID,
-				        (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary.'
-				              WHEN PRIMARY_CNT <= 0 THEN 'NO Primary.'
-						          WHEN IST.HA_ROLE != REPL.HA_ROLE THEN 'Role changed.'
-						          WHEN IST.HA_HOST != REPL.HA_HOST THEN 'Primary Host changed.'
-					            WHEN IST.HA_PORT != REPL.HA_PORT THEN 'Primary Port changed.'
-				              ELSE 'Normal State.' END) ALERT_NAME,
-          			'Role : '|| REPL.HA_ROLE ||', Primary Server : '|| REPL.HA_HOST ||': '|| REPL.HA_PORT AS CURRENT_STATUS,
-          			'Role : '|| IST.HA_ROLE  ||', Primary Server : '|| IST.HA_HOST  ||': '|| IST.HA_PORT AS CONFIGURATION,
-          			(CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary Server : ' || IST2.HOST_NAME ||':'|| IST2.SERVICE_PORT
-          			 ELSE '' END) AS DESCRIPTION,
-          			'4'                        AS COLLECT_GROUP,
-          			REPL.REG_DATE              AS COLLECT_REG_DATE,
-          			REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
-          			REPL.COLLECT_DT::time      AS REG_TIME
-          FROM  TB_INSTANCE_INFO AS IST
-          		 ,TB_REPLICATION_INFO AS REPL inner join TB_REPLICATION_INFO AS MP on MP.HA_GROUP = REPL.HA_GROUP
-          		 ,(SELECT MSS.ha_group HG, SUM(CASE WHEN MSS.HA_ROLE = 'S' THEN 0 ELSE 1 END) AS PRIMARY_CNT
-          				 FROM TB_REPLICATION_INFO MSS
-          		 ,(SELECT INSTANCE_ID, MAX(C.REPL_REG_SEQ) REG_SEQ from TB_REPLICATION_INFO C WHERE C.REG_DATE='{0}' GROUP BY INSTANCE_ID) MAX_SEQ
-          				WHERE MSS.REPL_REG_SEQ = MAX_SEQ.REG_SEQ
-          					AND MSS.REG_DATE = '{0}'
-          GROUP BY MSS.HA_GROUP) AS PRIMARY_LIST, TB_INSTANCE_INFO IST2
-          WHERE REPL.REG_DATE     = '{0}'
-            AND REPL.INSTANCE_ID  = {1}
+	      WITH  TEMP_MAX_SEQ AS ( 
+		      SELECT A.INSTANCE_ID, MAX(A.REPL_REG_SEQ) MAX_REG_SEQ 
+		      FROM   TB_REPLICATION_INFO A 
+		      WHERE  A.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+		      GROUP BY A.INSTANCE_ID
+	      )
+              SELECT  REPL.INSTANCE_ID,
+		      (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary.'
+		            WHEN PRIMARY_CNT <= 0 THEN 'NO Primary.'
+		            WHEN IST.HA_ROLE != REPL.HA_ROLE THEN 'Role changed.'
+		            WHEN IST.HA_HOST != REPL.HA_HOST THEN 'Primary Host changed.'
+		            WHEN IST.HA_PORT != REPL.HA_PORT THEN 'Primary Port changed.'
+		            ELSE 'Normal State.' END) ALERT_NAME,
+          	            --'Role : '|| REPL.HA_ROLE ||', Primary Server : '|| REPL.HA_HOST ||': '|| REPL.HA_PORT AS CURRENT_STATUS,
+          	            --'Role : '|| IST.HA_ROLE  ||', Primary Server : '|| IST.HA_HOST  ||': '|| IST.HA_PORT AS CONFIGURATION,
+             	      (CASE WHEN REPL.HA_ROLE = 'P' THEN 'HA Role = '|| '[HA Primary]' 
+                            WHEN REPL.HA_ROLE = 'A' THEN 'HA Role = '|| '[Single]' 
+            	            ELSE 'HA Role = '|| '[HA Stand by]'  ||', Primary Server host = ['|| REPL.HA_HOST ||':'|| REPL.HA_PORT ||']' END) AS CURRENT_STATUS,
+		      (CASE WHEN IST.HA_ROLE = 'P' THEN 'HA Role : '|| '[HA Primary]' 
+                            WHEN IST.HA_ROLE = 'A' THEN 'HA Role = '|| '[Single]' 
+		            ELSE 'HA Role : '|| '[HA Stand by]'  ||', Primary Server host : ['|| IST.HA_HOST ||':'|| IST.HA_PORT ||']' END) AS CONFIGURATION,
+          	      (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary Server : ' || IST2.HOST_NAME ||':'|| IST2.SERVICE_PORT
+          	            ELSE '' END) AS DESCRIPTION,
+          	      '4'                        AS COLLECT_GROUP,
+          	      REPL.REG_DATE              AS COLLECT_REG_DATE,
+          	      REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+          	      REPL.COLLECT_DT      AS COLLECT_DT
+                FROM  TB_INSTANCE_INFO AS IST
+          	      ,TB_REPLICATION_INFO AS REPL inner join TB_REPLICATION_INFO AS MP on MP.HA_GROUP = REPL.HA_GROUP
+          	      ,(SELECT MSS.HA_GROUP HG, SUM(CASE WHEN MSS.HA_ROLE = 'P' THEN 1 ELSE 0 END) AS PRIMARY_CNT FROM TB_REPLICATION_INFO MSS
+			      --,(SELECT INSTANCE_ID, MAX(C.REPL_REG_SEQ) REG_SEQ from TB_REPLICATION_INFO C WHERE C.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID) MAX_SEQ
+		         --WHERE MSS.REPL_REG_SEQ = MAX_SEQ.REG_SEQ
+			      ,TEMP_MAX_SEQ MAX_SEQ
+		         WHERE MSS.REPL_REG_SEQ = MAX_SEQ.MAX_REG_SEQ
+		           AND MSS.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+                         GROUP BY MSS.HA_GROUP) AS PRIMARY_LIST
+                      ,TB_INSTANCE_INFO IST2
+                      ,TEMP_MAX_SEQ TMS
+                WHERE REPL.REG_DATE     = TO_CHAR(NOW(), 'YYYYMMDD')
+                  AND REPL.INSTANCE_ID  = {0}
 	          AND REPL.INSTANCE_ID  = IST.INSTANCE_ID
 	          AND IST.COLLECT_YN    = 'Y'
 	          AND IST.DELETE_YN     = 'N'
 	          --AND (IST.HA_ROLE != REPL.HA_ROLE OR IST.HA_HOST != REPL.HA_HOST OR IST.HA_PORT != REPL.HA_PORT OR REPL.HA_ROLE is null OR REPL.HA_HOST is null OR REPL.HA_PORT is null)
-	          AND REPL.REPL_REG_SEQ = (SELECT MAX(A.REPL_REG_SEQ) from TB_REPLICATION_INFO A WHERE A.REG_DATE='{0}' AND A.INSTANCE_ID = REPL.INSTANCE_ID)
+	          --AND REPL.REPL_REG_SEQ = (SELECT MAX(A.REPL_REG_SEQ) from TB_REPLICATION_INFO A WHERE A.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') AND A.INSTANCE_ID = REPL.INSTANCE_ID)
+	          AND REPL.REPL_REG_SEQ = (SELECT MAX_REG_SEQ from TEMP_MAX_SEQ D WHERE D.INSTANCE_ID = REPL.INSTANCE_ID)
+	          AND MP.HA_GROUP = REPL.HA_GROUP
 	          AND MP.INSTANCE_ID != REPL.INSTANCE_ID /*싱글은 조회 대상이 아님*/
-	          AND MP.REPL_REG_SEQ = (SELECT MAX(C.REPL_REG_SEQ) from TB_REPLICATION_INFO C WHERE C.REG_DATE='{0}' AND C.INSTANCE_ID = MP.INSTANCE_ID)
+	          --AND MP.REPL_REG_SEQ = (SELECT MAX(C.REPL_REG_SEQ) from TB_REPLICATION_INFO C WHERE C.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') AND C.INSTANCE_ID = MP.INSTANCE_ID)
+	          AND MP.REPL_REG_SEQ = TMS.MAX_REG_SEQ
+	          AND MP.INSTANCE_ID = TMS.INSTANCE_ID
 	          AND MP.INSTANCE_ID = IST2.INSTANCE_ID
 	          AND REPL.HA_GROUP = PRIMARY_LIST.HG
           ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID
@@ -1872,7 +2021,7 @@
              TB_INSTANCE_INFO INS ,
              TB_HCHK_COLLECT_INFO COL,
              TB_HCHK_THRD_LIST TH
-        WHERE ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO WHERE reg_date = ALERT.reg_date)
+        WHERE ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO WHERE reg_date = TO_CHAR(NOW(), 'YYYYMMDD'))
         AND ALERT.instance_id = INS.instance_id
         AND ALERT.instance_id = COL.instance_id
         AND ALERT.reg_date = COL.reg_date 
@@ -2061,7 +2210,7 @@
   </ROW>
 
 
-  <ROW ID="SELECTREPLICATION" PARAMS="0">
+  <ROW ID="SELECTREPLICATIONSTATE" PARAMS="0">
     <DESC>PT_05_04_001(TABLESPACE INFO)</DESC>
     <DATA>
       <![CDATA[

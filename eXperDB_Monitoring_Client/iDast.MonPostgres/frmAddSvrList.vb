@@ -72,7 +72,7 @@
             Dim dtTable As DataTable = ClsQuery.SelectServerListByGroup()
             If dtTable IsNot Nothing Then
                 Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
-                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'P'")
+                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'P' OR HA_ROLE = 'A'")
                     Dim bFoundSvr As Boolean = False
                     For Each tmpMonRow As DataGridViewRow In _dgvMon.Rows
                         If tmpMonRow.Cells(_intHostIndex).Value = tmpRow.Item("HOST_NAME") AndAlso _
