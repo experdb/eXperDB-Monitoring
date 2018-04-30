@@ -376,7 +376,9 @@
     Private Sub AgentObject_Progress(sender As Object, e As clsSocket.ProgArgs) Handles _AgentObject.Progress
         If e.Status = clsSocket.enumStatus.Start Then
             Me.Invoke(New MethodInvoker(Sub()
-                                            _frmWait.AddText("Agent Running")
+                                            If _frmWait IsNot Nothing Then
+                                                _frmWait.AddText("Agent Running")
+                                            End If
                                         End Sub))
         End If
     End Sub

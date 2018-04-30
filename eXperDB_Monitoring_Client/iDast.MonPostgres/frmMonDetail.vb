@@ -648,7 +648,7 @@
         ' Chart 데이터는 Invoke 로 넣어야 한다. 
 
         If dtRows.Count = 0 Then
-            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm"))
+            Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
             sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, 0)
             sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, 0)
         Else
@@ -1266,7 +1266,7 @@
 
                                   If dtRowsReplication.Count = 0 Then
                                       Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                                      sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM"), dblRegDt, 0)
+                                      sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                                   Else
                                       For Each replRow As DataRow In dtRowsReplication
                                           Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
@@ -1275,7 +1275,7 @@
                                   End If
                               Else
                                   Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                                  sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM"), dblRegDt, 0)
+                                  sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                               End If
                           Next
                           sb_ChartAlignYAxies(Me.chtReplication)
@@ -1360,21 +1360,41 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetDataReplication()
+
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, _ServerInfo.HARole = "P")
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        Dim dtRows As DataRow() = dtTable.Select()
+        Dim InstanceIDs As String = ""
+        For Each instRow As DataRow In dtRows
+            InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))
+        Next
+
         Me.Invoke(Sub()
-                      Dim dtTable As DataTable = Nothing
+                      dtTable = Nothing
                       Try
                           dtTable = _clsQuery.SelectReplication(InstanceID, True)
-                          Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
-                          If dtRowsReplication.Count = 0 Then
-                              Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                              sb_ChartAddPoint(Me.chtReplication, "Delay", dblRegDt, 0)
-                          Else
-                              For Each tmpRow As DataRow In dtRowsReplication
-                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-                                  sb_ChartAddPoint(Me.chtReplication, "Delay", dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG")))
-                              Next
-                          End If
-
+                          For Each instRow As DataRow In dtRows
+                              If dtTable IsNot Nothing Then
+                                  Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+                                  If dtRowsReplication.Count = 0 Then
+                                      Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                      sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                  Else
+                                      For Each tmpRow As DataRow In dtRowsReplication
+                                          Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                          sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG")))
+                                      Next
+                                  End If
+                              Else
+                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                  sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                              End If
+                          Next
                           sb_ChartAlignYAxies(Me.chtReplication)
 
                       Catch ex As Exception
@@ -1445,6 +1465,8 @@
                               sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtObject, "Index", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDt, 0)
                           Else
                               For Each tmpRow As DataRow In dtRows
                                   Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))

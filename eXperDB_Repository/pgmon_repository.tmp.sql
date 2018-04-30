@@ -239,8 +239,8 @@ CREATE TABLE tb_instance_info (
 );
 
 CREATE TABLE tb_replication_info (
-        reg_date character varying(8) NOT NULL,
-        repl_reg_seq integer NOT NULL,
+    reg_date character varying(8) NOT NULL,
+    repl_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
     is_collect_ok character varying(1),
     failed_collect_type character varying(1),
@@ -249,7 +249,7 @@ CREATE TABLE tb_replication_info (
     ha_port character varying(10),
     ha_group integer,
     replay_lag integer,
-        collect_dt timestamp without time zone
+    collect_dt timestamp without time zone
 );
 
 CREATE TABLE tb_checkpoint_info (

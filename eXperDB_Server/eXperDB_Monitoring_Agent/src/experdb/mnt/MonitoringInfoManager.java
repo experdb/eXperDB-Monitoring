@@ -112,7 +112,10 @@ public class MonitoringInfoManager {
 					
 					/* update  */
 					select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
-					select.put("ha_group",      select_group.get("ha_group")); 
+					if (select_group != null)
+						select.put("ha_group",      select_group.get("ha_group"));
+					else
+						select.put("ha_group",      select.get("instance_id"));
 					
 					session.update("app.TB_INSTANCE_INFO_U002", select);
 				    /* add to update ha info by robin 201712 end*/
