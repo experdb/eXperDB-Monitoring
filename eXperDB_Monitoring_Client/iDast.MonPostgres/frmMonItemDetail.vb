@@ -352,20 +352,23 @@
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
 
         If fn_SearchBefCheck() = False Then Return
-
+        'Threading.Thread.Sleep(10)
         If index = 4 Then
-            _ThreadDetail = New Threading.Thread(Sub()
-                                                     Threading.Thread.Sleep(50)
-                                                     ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
-                                                 End Sub)
+            '_ThreadDetail = New Threading.Thread(Sub()
+            '                                         Threading.Thread.Sleep(50)
+            '                                         ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
+            '                                     End Sub)
+            ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
         Else
-            _ThreadDetail = New Threading.Thread(Sub()
-                                                     Threading.Thread.Sleep(50)
-                                                     ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
-                                                 End Sub)
+            '_ThreadDetail = New Threading.Thread(Sub()
+            '                                         Threading.Thread.Sleep(50)
+            '                                         ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
+            '                                     End Sub)
+            ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
         End If
 
-        _ThreadDetail.Start()
+        ' _ThreadDetail.Start()
+        ' _ThreadDetail.Join()
         'modCommon.FontChange(Me, p_Font)
     End Sub
     Private Sub ArrangeChartlayout()
