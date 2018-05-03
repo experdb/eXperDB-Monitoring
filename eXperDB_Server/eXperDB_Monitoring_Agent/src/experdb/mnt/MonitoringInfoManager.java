@@ -101,10 +101,15 @@ public class MonitoringInfoManager {
 					HashMap<String, Object> select = new HashMap<String, Object>();
 					
 					/* add to update ha info by robin 201712*/
-					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");						
-					select.put("instance_db_version", instance_db_version);	
-					select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001", select);
-					select.put("instance_id", map.get("instance_id"));
+					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");		
+					try {
+						select.put("instance_db_version", instance_db_version);	
+						select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001", select);
+						select.put("instance_id", map.get("instance_id"));
+					} catch (Exception e) {
+						log.error(e);
+						continue;
+					}
 					
 					/* update ha group 서버 다시띄우면 변경됨 */
 					HashMap<String, Object> select_group = new HashMap<String, Object>();

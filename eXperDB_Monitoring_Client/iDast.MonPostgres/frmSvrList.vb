@@ -153,19 +153,21 @@
                     topNode.Image = dbmsImgLst.Images(0)
 
                     sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-                    For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
-                        If (tmpChild.Item("HA_HOST") Like (topNode.Cells(colMonHostNm.Index).Value + "*")) = True Or _
-                            topNode.Cells(colMonIP.Index).Value = tmpChild.Item("SERVER_IP") Then
-                            Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
-                            cNOde.Tag = tmpChild.Item("INSTANCE_ID")
-                            cNOde.Image = dbmsImgLst.Images(1)
+                    If topNode.Cells(colMonHostNm.Index).Value <> "" Then
+                        For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
+                            If (tmpChild.Item("HA_HOST") Like (topNode.Cells(colMonHostNm.Index).Value + "*")) = True Or _
+                                topNode.Cells(colMonIP.Index).Value = tmpChild.Item("SERVER_IP") Then
+                                Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
+                                cNOde.Tag = tmpChild.Item("INSTANCE_ID")
+                                cNOde.Image = dbmsImgLst.Images(1)
 
-                            sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
-                        End If
-                    Next
-                    topNode.Expand()
-                    'topNode.Cells(0).Value = tmpRow.Item("HOST_NAME") & " (" & topNode.Nodes.Count & ")"
-                    topNode.Cells(0).Value = tmpRow.Item("HOST_NAME")
+                                sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+                            End If
+                        Next
+                        topNode.Expand()
+                        'topNode.Cells(0).Value = tmpRow.Item("HOST_NAME") & " (" & topNode.Nodes.Count & ")"
+                        topNode.Cells(0).Value = tmpRow.Item("HOST_NAME")
+                    End If
                 Next
             End If
 
