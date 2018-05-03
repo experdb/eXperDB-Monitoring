@@ -194,6 +194,10 @@
                           lblCurTime.Text = p_clsMsgData.fn_GetData("F206", strCurDate)
                           Me.dgvinfo.DataSource = dtTable
 
+                          If _HealthItem.ToUpper = "HASTATUS" Then
+                              dgvinfo.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                              dgvinfo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+                          End If
 
                           Dim intRows As Integer = Me.dgvinfo.DisplayedRowCount(False)
                           Dim DisplayHeight As Integer = 0

@@ -1828,29 +1828,32 @@
 		      GROUP BY A.INSTANCE_ID
 	      )
               SELECT  REPL.INSTANCE_ID,
-		      (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary.'
-		            WHEN PRIMARY_CNT <= 0 THEN 'NO Primary.'
-		            WHEN IST.HA_ROLE != REPL.HA_ROLE THEN 'Role changed.'
-		            WHEN IST.HA_HOST != REPL.HA_HOST THEN 'Primary Host changed.'
-		            WHEN IST.HA_PORT != REPL.HA_PORT THEN 'Primary Port changed.'
-		            ELSE 'Normal State.' END) ALERT_NAME,
-          	            --'Role : '|| REPL.HA_ROLE ||', Primary Server : '|| REPL.HA_HOST ||': '|| REPL.HA_PORT AS CURRENT_STATUS,
-          	            --'Role : '|| IST.HA_ROLE  ||', Primary Server : '|| IST.HA_HOST  ||': '|| IST.HA_PORT AS CONFIGURATION,
-             	      (CASE WHEN REPL.HA_ROLE = 'P' THEN 'HA Role = '|| '[HA Primary]' 
-                            WHEN REPL.HA_ROLE = 'A' THEN 'HA Role = '|| '[Single]' 
-            	            ELSE 'HA Role = '|| '[HA Stand by]'  ||', Primary Server host = ['|| REPL.HA_HOST ||':'|| REPL.HA_PORT ||']' END) AS CURRENT_STATUS,
-		      (CASE WHEN IST.HA_ROLE = 'P' THEN 'HA Role : '|| '[HA Primary]' 
-                            WHEN IST.HA_ROLE = 'A' THEN 'HA Role = '|| '[Single]' 
-		            ELSE 'HA Role : '|| '[HA Stand by]'  ||', Primary Server host : ['|| IST.HA_HOST ||':'|| IST.HA_PORT ||']' END) AS CONFIGURATION,
-          	      (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary Server : ' || IST2.HOST_NAME ||':'|| IST2.SERVICE_PORT
-          	            ELSE '' END) AS DESCRIPTION,
-          	      '4'                        AS COLLECT_GROUP,
-          	      REPL.REG_DATE              AS COLLECT_REG_DATE,
-          	      REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
-          	      REPL.COLLECT_DT      AS COLLECT_DT
+		                  (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary.'
+		                        WHEN PRIMARY_CNT <= 0 THEN 'NO Primary.'
+		                        WHEN IST.HA_ROLE != REPL.HA_ROLE THEN 'Role changed.'
+		                        WHEN IST.HA_REPL_HOST != REPL.HA_HOST THEN 'Primary Host changed.'
+		                        WHEN IST.HA_PORT != REPL.HA_PORT THEN 'Primary Port changed.'
+ 		                        WHEN REPL.HA_ROLE IS NULL THEN 'Role changed.'
+		                        WHEN REPL.HA_HOST IS NULL THEN 'Primary Host changed.'
+		                        WHEN REPL.HA_PORT IS NULL THEN 'Primary Port changed.'
+		                        ELSE 'Normal State.' END) ALERT_NAME,
+          	                        --'Role : '|| REPL.HA_ROLE ||', Primary Server : '|| REPL.HA_HOST ||': '|| REPL.HA_PORT AS CURRENT_STATUS,
+          	                        --'Role : '|| IST.HA_ROLE  ||', Primary Server : '|| IST.HA_HOST  ||': '|| IST.HA_PORT AS CONFIGURATION,
+             	        (CASE WHEN REPL.HA_ROLE = 'P' THEN 'HA Role :                  '|| '"HA Primary"' 
+                            WHEN REPL.HA_ROLE = 'A' THEN 'HA Role :                  '|| '"Single"' 
+            	              ELSE 'HA Role                  : '|| '"HA Stand by"'  || '\n\n' || 'Primary Server host : "'|| REPL.HA_HOST || '"\n\n' ||'Primary Server port  : "'|| REPL.HA_PORT ||'"' END) AS CURRENT_STATUS,
+		                  (CASE WHEN IST.HA_ROLE = 'P' THEN 'HA Role :                  '|| '"HA Primary"' 
+                            WHEN IST.HA_ROLE = 'A' THEN 'HA Role :                  '|| '"Single"' 
+		                        ELSE 'HA Role                  : '|| '"HA Stand by"'  || '\n\n' || 'Primary Server host : "'|| IST.HA_HOST || '"\n\n' ||'Primary Server port  : "'|| IST.HA_PORT ||'"' END) AS CONFIGURATION,
+          	          (CASE WHEN PRIMARY_LIST.PRIMARY_CNT > 1 THEN 'Multi Primary Server : ' || IST2.HOST_NAME ||':'|| IST2.SERVICE_PORT
+          	                ELSE '' END) AS DESCRIPTION,
+          	          '4'                        AS COLLECT_GROUP,
+          	          REPL.REG_DATE              AS COLLECT_REG_DATE,
+          	          REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+          	          REPL.COLLECT_DT      AS COLLECT_DT
                 FROM  TB_INSTANCE_INFO AS IST
           	      ,TB_REPLICATION_INFO AS REPL inner join TB_REPLICATION_INFO AS MP on MP.HA_GROUP = REPL.HA_GROUP
-          	      ,(SELECT MSS.HA_GROUP HG, SUM(CASE WHEN MSS.HA_ROLE = 'P' THEN 1 ELSE 0 END) AS PRIMARY_CNT FROM TB_REPLICATION_INFO MSS
+          	      ,(SELECT MSS.HA_GROUP HG, SUM(CASE WHEN MSS.HA_ROLE = 'P' THEN 1  WHEN MSS.HA_ROLE = 'A' THEN 1 ELSE 0 END) AS PRIMARY_CNT FROM TB_REPLICATION_INFO MSS
 			      --,(SELECT INSTANCE_ID, MAX(C.REPL_REG_SEQ) REG_SEQ from TB_REPLICATION_INFO C WHERE C.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID) MAX_SEQ
 		         --WHERE MSS.REPL_REG_SEQ = MAX_SEQ.REG_SEQ
 			      ,TEMP_MAX_SEQ MAX_SEQ
@@ -1874,7 +1877,7 @@
 	          AND MP.INSTANCE_ID = TMS.INSTANCE_ID
 	          AND MP.INSTANCE_ID = IST2.INSTANCE_ID
 	          AND REPL.HA_GROUP = PRIMARY_LIST.HG
-          ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID
+          ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID LIMIT 1;
     ]]>
     </DATA>
     <COMMENTS />

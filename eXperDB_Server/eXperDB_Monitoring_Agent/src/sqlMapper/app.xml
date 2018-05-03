@@ -1331,11 +1331,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					        VERSION() AS PG_VERSION,
 					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE (CASE WHEN (SELECT COUNT(*) FROM PG_STAT_REPLICATION) <= 0 THEN 'A' ELSE 'P' END) END AS HA_ROLE, 
 					        CASE WHEN pg_is_in_recovery() THEN 
-								COALESCE((SELECT substring(ARR_COL, length('host=')+1) FROM 
+								TRIM(BOTH FROM COALESCE((SELECT substring(ARR_COL, length('host=')+1) FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
 								   	   FROM pg_stat_wal_receiver) ARR 
 							  	  WHERE ARR_COL LIKE 'host=%' 
-							  	  ORDER BY arr_col), '-') ELSE '-' END AS HA_HOST, 
+							  	  ORDER BY arr_col), '-'), '''') ELSE '-' END AS HA_HOST, 
 					        CASE WHEN pg_is_in_recovery() THEN 
 								COALESCE((SELECT substring(ARR_COL, length('port=')+1) FROM 
 									(SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
@@ -1925,11 +1925,67 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
+			WITH TMP_MAX_SEQ AS 
+			(
+				SELECT INSTANCE_ID, MAX(A.REPL_REG_SEQ) AS MAX_REG_SEQ 
+			 	  FROM   TB_REPLICATION_INFO A 
+			 	 WHERE  A.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+			 	 GROUP BY INSTANCE_ID 
+			)
+			  SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 24E9AB7301FF1966DA4FB30DC1538882*/
+			            REPL.INSTANCE_ID,
+			          CASE WHEN MM.MC > 1 THEN 2  
+			               --when MM.MC = 0 then 2 ELSE
+			               WHEN MM.MC = 0 THEN CASE WHEN IST.HA_ROLE = 'A' THEN 0 ELSE 2 END ELSE  
+			          (CASE WHEN IST.HA_ROLE = REPL.HA_ROLE THEN 0 ELSE 1 END |
+			           CASE WHEN IST.HA_REPL_HOST = REPL.HA_HOST THEN 0 ELSE 1 END |
+			           CASE WHEN IST.HA_PORT = REPL.HA_PORT THEN 0 ELSE 1 END) END AS HASTATUS,        
+			           '4' AS COLLECT_GROUP,
+			          REPL.REG_DATE AS COLLECT_REG_DATE,
+			          REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+			          REPL.COLLECT_DT::TIME AS REG_TIME          
+			    FROM  TB_REPLICATION_INFO AS REPL INNER JOIN TB_INSTANCE_INFO    AS IST
+			          ON  REPL.REG_DATE      = TO_CHAR(NOW(), 'YYYYMMDD')
+			          AND REPL.INSTANCE_ID  = IST.INSTANCE_ID
+			          AND IST.COLLECT_YN    = 'Y'             
+			          AND IST.DELETE_YN     = 'N' 
+			          INNER JOIN TMP_MAX_SEQ T 
+			          ON   REPL.INSTANCE_ID = T.INSTANCE_ID 
+			          AND  REPL.REPL_REG_SEQ = T.MAX_REG_SEQ
+			          LEFT OUTER JOIN
+			         (SELECT IST.HA_GROUP,  
+			                 --SUM(CASE WHEN REPL.HA_ROLE IN ('A','S') THEN 0 
+			                 SUM(CASE WHEN REPL.HA_ROLE IN ('S') THEN 0 
+			                    	  WHEN REPL.HA_ROLE IS NULL THEN 0
+			                     ELSE
+			                         CASE WHEN REPL.HA_ROLE = 'P' THEN 1
+			                         ELSE 1 END
+			                     END ) AS MC    
+			          FROM   TB_REPLICATION_INFO AS REPL, 
+			                 (SELECT INSTANCE_ID, HA_GROUP, HA_ROLE  
+			                  FROM   TB_INSTANCE_INFO
+			                  --WHERE  HA_ROLE = 'P' AND COLLECT_YN   = 'Y' AND DELETE_YN    = 'N' 
+			                  WHERE  COLLECT_YN   = 'Y' AND DELETE_YN    = 'N' 
+			                  ) AS IST,
+			                  TMP_MAX_SEQ 
+			          WHERE   REPL.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+			          AND     REPL.INSTANCE_ID = IST.INSTANCE_ID
+			          AND     REPL.INSTANCE_ID = TMP_MAX_SEQ.INSTANCE_ID
+			          AND     REPL.REPL_REG_SEQ = TMP_MAX_SEQ.MAX_REG_SEQ
+			          GROUP BY IST.HA_GROUP  
+			         ) AS MM 
+			         ON    IST.HA_GROUP =  MM.HA_GROUP
+			  ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID;
+			]]>
+	</select>
+	
+		<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001_PREV" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
 			SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 24e9ab7301ff1966da4fb30dc1538882*/
 				  REPL.INSTANCE_ID, 
 				 CASE WHEN MM.MC > 0 THEN 2 ELSE 
 				 (CASE WHEN IST.HA_ROLE = REPL.HA_ROLE THEN 0 ELSE 1 END |
-				 CASE WHEN IST.HA_HOST = REPL.HA_HOST THEN 0 ELSE 1 END |
+				 CASE WHEN IST.HA_REPL_HOST = REPL.HA_HOST THEN 0 ELSE 1 END |
 				 CASE WHEN IST.HA_PORT = REPL.HA_PORT THEN 0 ELSE 1 END) END AS HASTATUS, 	  
 				 '4' AS COLLECT_GROUP,
 				 REPL.REG_DATE AS COLLECT_REG_DATE,

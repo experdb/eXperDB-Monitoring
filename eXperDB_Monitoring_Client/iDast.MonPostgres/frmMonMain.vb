@@ -1984,7 +1984,7 @@
                 sb_GridSortChg(dgvAlert, coldgvAlertStatus.Index)
             Next
 
-            Dim intAlertCount As Integer = dgvAlert.Rows.Count - 1
+            Dim intAlertCount As Integer = dgvAlert.Rows.Count
             Dim RemoveDt As Date = Now
             RemoveDt = RemoveDt.AddMinutes(-120)
             For i As Integer = intAlertCount To 0 Step -1
