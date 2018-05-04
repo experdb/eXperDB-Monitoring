@@ -1780,7 +1780,7 @@
          SCHEMA_NAME,
          INDEX_NAME,
          TABLE_NAME,
-         INDEX_SIZE_KB,
+         INDEX_SIZE_KB /1024 AS INDEX_SIZE_KB,
          COLUMNS_CNT,
 		 COLLECT_DT
        FROM TB_INDEX_INFO 
