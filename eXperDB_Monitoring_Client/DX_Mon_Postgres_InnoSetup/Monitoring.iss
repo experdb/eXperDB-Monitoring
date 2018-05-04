@@ -70,7 +70,7 @@ Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgres_ODB
 Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgres_ODBC\win64\*"; DestDir: "{app}\Shared\Lib\Postgres\win64\"; Flags: ignoreversion; Components: postgre\win64; Check: IsWin64
 
 ;Framework 
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\Framework\dotNetFx40_Full_x86_X64.exe"; DestDir: "{tmp}"; Check : not IsRequiredDotNetDetected; 
+Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\Framework\dotNetFx45_Full_x86_X64.exe"; DestDir: "{tmp}"; Check : not IsRequiredDotNetDetected; 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -81,7 +81,7 @@ Name: "{group}\uninstall"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyPgName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{tmp}\dotNetFx40_Full_x86_X64.exe"; Parameters: "/q" ; Check : not IsRequiredDotNetDetected; StatusMsg: "Microsoft Framework 4.0 is being Installed. Please wait..." 
+Filename: "{tmp}\dotNetFx45_Full_x86_X64.exe"; Parameters: "/q" ; Check : not IsRequiredDotNetDetected; StatusMsg: "Microsoft Framework 4.5 is being Installed. Please wait..." 
                                                                                                                                                                                 
 Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 ;Postgres ODBC Install
@@ -156,8 +156,8 @@ end;
 
 function InitializeSetup(): Boolean;
 begin
-    if not IsDotNetDetected('v4\Full', 0) then begin
-        MsgBox('{#MyAppName} 은 Mivrosoft .NET Framework 4.0 Client Profile의 설치를 필요합니다.'#13#13'본 프로그램은 Microsoft .NET Framework 4.0 Clicnt Profile의 설치를 포함하고 있습니다', mbInformation, MB_OK);        
+    if not IsDotNetDetected('v4.5', 0) then begin
+        MsgBox('{#MyAppName} 은 Mivrosoft .NET Framework 4.5 Client Profile의 설치를 필요합니다.'#13#13'본 프로그램은 Microsoft .NET Framework 4.5 Client Profile의 설치를 포함하고 있습니다', mbInformation, MB_OK);        
     end;
     
     result := true;
