@@ -89,7 +89,7 @@
                     topNode.Image = dbmsImgLst.Images(0)
 
                     sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-                    If topNode.Cells(colHostNm.Index).Value <> "" Then
+                    If topNode.Cells(colHostNm.Index).Value.ToString() <> "" Then
                         For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
                             If (tmpChild.Item("HA_HOST") Like (topNode.Cells(colHostNm.Index).Value + "*")) = True Or _
                                 topNode.Cells(colIP.Index).Value = tmpChild.Item("SERVER_IP") Then
