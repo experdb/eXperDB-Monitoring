@@ -1381,13 +1381,13 @@
                         If tmpSvr.InstanceID = intInstID Then
                             sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
                             'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
-                        Else
-                            Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
-                            If lastYPoint > 0 Then
-                                sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
-                                'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
-                                'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
-                            End If
+                            'Else
+                            '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
+                            '    If lastYPoint > 0 Then
+                            '        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
+                            '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
+                            '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
+                            '    End If
                         End If
                     Next
                 Next
@@ -1495,12 +1495,12 @@
                         If tmpSvr.InstanceID = intInstID Then
                             'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                             sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT")))
-                        Else
-                            Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
-                            If lastYPoint > 0 Then
-                                sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
+                            'Else
+                            '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
+                            '    If lastYPoint > 0 Then
+                            '        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
 
-                            End If
+                            '    End If
                         End If
                     Next
                 Next
