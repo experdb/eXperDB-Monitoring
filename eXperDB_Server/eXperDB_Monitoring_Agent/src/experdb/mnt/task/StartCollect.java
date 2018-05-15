@@ -46,7 +46,17 @@ public class StartCollect extends TaskApplication {
 			
 			log.debug("=====>>>" + select);
 			
-			sessionAgent.update("app.TB_INSTANCE_INFO_U001", select);
+			/* update ha group 서버 다시띄우면 변경됨 */
+			HashMap<String, Object> select_group = new HashMap<String, Object>();
+			select_group = sessionAgent.selectOne("app.EXPERDBMA_BT_SELECT_HA_GROUP_001", select);					
+			
+			/* update  */
+			if (select_group != null)
+				select.put("ha_group",      select_group.get("ha_group"));
+			else
+				select.put("ha_group",      select.get("instance_id"));
+			
+			sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
 			/*add to update ha_info by robin 201712 end*/
 			
 			
