@@ -103,7 +103,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DX.LogUtil\eXperDB.LogUtil.vbproj">
+    <ProjectReference Include="..\eXperDB.LogUtil\eXperDB.LogUtil.vbproj">
       <Project>{2f02e955-6dd9-49f6-ab94-c0856ed4d836}</Project>
       <Name>eXperDB.LogUtil</Name>
     </ProjectReference>

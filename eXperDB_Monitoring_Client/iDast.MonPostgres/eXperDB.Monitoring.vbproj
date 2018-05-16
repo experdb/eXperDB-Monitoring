@@ -13,7 +13,7 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>..\DX_Mon_Postgres_InnoSetup\Bin\</PublishUrl>
+    <PublishUrl>..\eXperDB_Mon_Postgres_InnoSetup\Bin\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -481,15 +481,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DX.LogUtil\eXperDB.LogUtil.vbproj">
+    <ProjectReference Include="..\eXperDB.LogUtil\eXperDB.LogUtil.vbproj">
       <Project>{2f02e955-6dd9-49f6-ab94-c0856ed4d836}</Project>
       <Name>eXperDB.LogUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DX.ODBC\eXperDB.ODBC.vbproj">
+    <ProjectReference Include="..\eXperDB.ODBC\eXperDB.ODBC.vbproj">
       <Project>{43a2eee6-0fbe-4aad-a5d2-1d178706df90}</Project>
       <Name>eXperDB.ODBC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FlatTabControl\FlatTabControl.csproj">
+    <ProjectReference Include="..\DefCtl\FlatTabControl\FlatTabControl.csproj">
       <Project>{96002ca1-d295-4ed5-9b08-92346c1bfa18}</Project>
       <Name>FlatTabControl</Name>
     </ProjectReference>
@@ -521,7 +521,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4%28x86 및 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
