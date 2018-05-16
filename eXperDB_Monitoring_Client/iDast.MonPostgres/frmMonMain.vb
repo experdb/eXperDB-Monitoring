@@ -137,7 +137,7 @@
         ReadConfig()
 
 
-        _ElapseCount = (60000 / _ElapseInterval) * _GrpList.First.Items.Count * 3 ' 5분
+        _ElapseCount = (60000 / _ElapseInterval) * _GrpList.First.Items.Count * 5 ' 5분
         Me.ShowCritical = True
         'Noh -> Me.ShowCritical = True
 
@@ -1399,6 +1399,21 @@
             sb_ChartAlignYAxies(Me.chtSessionStatus)
         End If
 
+        Try
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                Dim NowCnt As Integer = 3
+                If Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
 
         'Dim dtTableSession As DataTable = Nothing
         'Dim dtTable As DataTable = Nothing
@@ -2386,11 +2401,19 @@
 
             Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
 
-            If NowCnt >= _ElapseCount Then '5분간 유지 10분 200
-                For i As Integer = 0 To NowCnt - _ElapseCount
-                    MSChart.Series(strSeries).Points.RemoveAt(0)
-                Next
-            End If
+            'Do While CDate(Now.AddMinutes(-6)).ToOADate > MSChart.Series(strSeries).Points.First.XValue
+            '    MSChart.Series(strSeries).Points.RemoveAt(0)
+            '    If MSChart.Series(strSeries).Points.Count <= 0 Then
+            '        Exit Do
+            '    End If
+            'Loop
+
+
+            'If NowCnt >= _ElapseCount Then '5분간 유지 10분 200
+            '    For i As Integer = 0 To NowCnt - _ElapseCount
+            '        MSChart.Series(strSeries).Points.RemoveAt(0)
+            '    Next
+            'End If
             Return rtnValue
         Catch ex As Exception
             Return -1

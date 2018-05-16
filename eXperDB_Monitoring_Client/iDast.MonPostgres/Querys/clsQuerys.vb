@@ -1593,7 +1593,7 @@
                     strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
                 Else
                     subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time")
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '5 minute')::time")
                 End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)

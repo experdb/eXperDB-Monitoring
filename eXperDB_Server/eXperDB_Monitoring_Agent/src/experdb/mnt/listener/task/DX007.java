@@ -98,8 +98,9 @@ public class DX007 implements SocketApplication{
 		} catch (Exception e) {
 			log.error("", e);
 			resDataObj.put("_error_cd", "DX007_E03");
-			resDataObj.put("_error_msg", "Failed to run control query.");				
+			resDataObj.put("_error_msg", "Failed to run control query.");
 			resDataArray.add(resDataObj);
+			sessionAgent.rollback();
 			return resDataArray;
 		} finally {
 			if(connection != null) connection.close();
