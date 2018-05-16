@@ -44,21 +44,21 @@
     Private threadTimer As Threading.Timer
     Private threadTimerCallBack As Threading.TimerCallback
     Private _intPeriod As Integer = 3000
-    Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
 
     Private _clsQuery As clsQuerys_MultiConnection = Nothing
 
 #Region "Thread Connection"
-    Private _CnCPU As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnLock As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnDisk As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnRequest As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnSqlRespTm As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnCurrentAct As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnObject As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnBackEnd As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnPhysicaliO As eXperDB.ODBC.DXODBC = Nothing
-    Private _cnHealth As eXperDB.ODBC.DXODBC = Nothing
+    Private _CnCPU As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnLock As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnDisk As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnRequest As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnSqlRespTm As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnCurrentAct As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnObject As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnBackEnd As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnPhysicaliO As eXperDB.ODBC.eXperDBODBC = Nothing
+    Private _cnHealth As eXperDB.ODBC.eXperDBODBC = Nothing
 #End Region
 
     ''' <summary>
@@ -68,23 +68,23 @@
     ''' <param name="intPeriod"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Start(ByVal AgentCn As eXperDB.ODBC.DXODBC, Optional ByVal intPeriod As Integer = 3000) As Boolean
+    Public Function Start(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, Optional ByVal intPeriod As Integer = 3000) As Boolean
         Try
             If threadTimer IsNot Nothing Then
                 Return False
             Else
                 _intPeriod = intPeriod
                 _AgentCn = AgentCn
-                _CnCPU = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnLock = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnDisk = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnRequest = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnSqlRespTm = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnCurrentAct = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnObject = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnBackEnd = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnPhysicaliO = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
-                _cnHealth = New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _CnCPU = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnLock = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnDisk = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnRequest = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnSqlRespTm = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnCurrentAct = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnObject = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnBackEnd = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnPhysicaliO = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
+                _cnHealth = New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo, intPeriod)
 
                 _clsQuery = New clsQuerys_MultiConnection(_AgentCn)
                 threadTimerCallBack = New Threading.TimerCallback(AddressOf threadTm_Tick)
@@ -945,7 +945,7 @@
 #Region "Thread Main"
 
 
-    Private Function StartThread(ByVal OdbcCn As eXperDB.ODBC.DXODBC, ByVal QueryXmlID As String, ByVal intPeriod As Integer) As DataTable
+    Private Function StartThread(ByVal OdbcCn As eXperDB.ODBC.eXperDBODBC, ByVal QueryXmlID As String, ByVal intPeriod As Integer) As DataTable
         Dim rtnDtTable As DataTable = Nothing
         Dim tmpThread As New Threading.Thread(Sub()
                                                   Try
@@ -988,7 +988,7 @@
         Public rtnDtTable As DataTable
         Public ManualThread As Threading.Thread
         Public QueueMsg As String = ""
-        Public Sub New(ByVal ODbcCn As eXperDB.ODBC.DXODBC, ByVal XMLSQLID As String, ByVal clsQuery As clsQuerys_MultiConnection)
+        Public Sub New(ByVal ODbcCn As eXperDB.ODBC.eXperDBODBC, ByVal XMLSQLID As String, ByVal clsQuery As clsQuerys_MultiConnection)
             ManualThread = New Threading.Thread(Sub()
                                                     Try
                                                         rtnDtTable = clsQuery.SelectData(ODbcCn, XMLSQLID)

@@ -33,8 +33,8 @@
         Dim strIP As String = clsConfigIni.ReadValue("AGENT", "IP", "")
         Dim strPort As String = clsConfigIni.ReadValue("AGENT", "PORT", "0")
         Dim strDB As String = clsConfigIni.ReadValue("AGENT", "DATABASE", "")
-        Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-        Dim enmODBC As DXODBC.enumODBCType = clsConfigIni.ReadValue("AGENT", "ODBC", dbType)
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        Dim enmODBC As eXperDBODBC.enumODBCType = clsConfigIni.ReadValue("AGENT", "ODBC", dbType)
 
         Dim rtnStruct As New eXperDB.ODBC.structConnection(enmODBC, strIP, IIf(strPort = "", 0, CInt(strPort)), strUsr, strDB, strPw)
         Return rtnStruct
@@ -159,7 +159,7 @@
     End Function
 
 
-    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.DXODBC) As Boolean
+    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.eXperDBODBC) As Boolean
 
         If TryCast(frm, frmMonBase) IsNot Nothing Then
             If DirectCast(frm, frmMonBase).isLock Then

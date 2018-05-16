@@ -1,6 +1,6 @@
 ﻿Public Class frmPassword
-    Private _Odbc As eXperDB.ODBC.DXODBC = Nothing
-    Public Sub New(ByVal objCn As eXperDB.ODBC.DXODBC)
+    Private _Odbc As eXperDB.ODBC.eXperDBODBC = Nothing
+    Public Sub New(ByVal objCn As eXperDB.ODBC.eXperDBODBC)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()

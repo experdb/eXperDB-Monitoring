@@ -2,7 +2,7 @@
 
 Public Class frmReports
 
-    Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
     Private _GrpLst As List(Of GroupInfo)
 
     Private _ShownSearch As Boolean = False
@@ -16,7 +16,7 @@ Public Class frmReports
     Private _dtSql As DataTable = Nothing
 
 
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal GrpLst As List(Of GroupInfo), ByVal AgentInfo As structAgent)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal GrpLst As List(Of GroupInfo), ByVal AgentInfo As structAgent)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -31,7 +31,7 @@ Public Class frmReports
         Next
         _GrpLst = GrpLst
         '_AgentCn = AgentCn
-        _AgentCn = New DXODBC(AgentCn.ODBCConninfo, 30)
+        _AgentCn = New eXperDBODBC(AgentCn.ODBCConninfo, 30)
         _clsQuery = New clsQuerys(_AgentCn)
         _clsQuerySub = New clsQuerys(_AgentCn)
         _AgentInfo = AgentInfo
@@ -49,7 +49,7 @@ Public Class frmReports
 
     End Sub
 
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal GrpLst As List(Of GroupInfo), ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, ByVal AgentInfo As structAgent)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal GrpLst As List(Of GroupInfo), ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, ByVal AgentInfo As structAgent)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -64,7 +64,7 @@ Public Class frmReports
         Next
         _GrpLst = GrpLst
         '_AgentCn = AgentCn
-        _AgentCn = New DXODBC(AgentCn.ODBCConninfo, 30)
+        _AgentCn = New eXperDBODBC(AgentCn.ODBCConninfo, 30)
         _clsQuery = New clsQuerys(_AgentCn)
         _clsQuerySub = New clsQuerys(_AgentCn)
         dtpSt.Value = stDt.AddMinutes(-1)

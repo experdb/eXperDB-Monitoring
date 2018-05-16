@@ -159,12 +159,6 @@
     </Compile>
     <Compile Include="EMsg\clsAgentEMsg.vb" />
     <Compile Include="EMsg\clsSocket.vb" />
-    <Compile Include="frmMonDetailCopy.Designer.vb">
-      <DependentUpon>frmMonDetailCopy.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMonDetailCopy.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmMonMain.Designer.vb">
       <DependentUpon>frmMonMain.vb</DependentUpon>
     </Compile>
@@ -363,9 +357,6 @@
       <DependentUpon>ctlChart.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMonDetailCopy.resx">
-      <DependentUpon>frmMonDetailCopy.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmMonMain.resx">
       <DependentUpon>frmMonMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -509,11 +500,11 @@
       <Project>{ae6992f9-1f54-45c4-be7a-ccf6a9a1409b}</Project>
       <Name>eXperDB.Resources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProgressControl\ProgressControl.csproj">
+    <ProjectReference Include="..\DefCtl\ProgressControl\ProgressControl.csproj">
       <Project>{bb31a4a7-a194-4683-a801-3a693aed9f88}</Project>
       <Name>ProgressControl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TreeGridView\ExpandableGridView.csproj">
+    <ProjectReference Include="..\DefCtl\TreeGridView\ExpandableGridView.csproj">
       <Project>{2efe526f-79b3-49bc-9575-a7b258c59bb5}</Project>
       <Name>ExpandableGridView</Name>
     </ProjectReference>

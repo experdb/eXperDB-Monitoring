@@ -486,8 +486,8 @@ Public Class frmConnection
                                                 'txtHAREPLHost.Enabled = True
 
                                                 ' 접속 성공시 Tag에 정보를 추가한다. 
-                                                Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-                                                Dim tmpCn As New DXODBC(dbType, txtIP.Text, CInt(txtPort.Text), txtUsr.Text, txtPW.Text, cmbDbnm.Text)
+                                                Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+                                                Dim tmpCn As New eXperDBODBC(dbType, txtIP.Text, CInt(txtPort.Text), txtUsr.Text, txtPW.Text, cmbDbnm.Text)
                                                 btnTest.Tag = tmpCn.ODBCConninfo
 
                                                 '접속이 성공 하였을 경우 

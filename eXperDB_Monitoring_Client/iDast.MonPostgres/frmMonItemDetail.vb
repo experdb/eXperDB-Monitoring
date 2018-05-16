@@ -30,15 +30,15 @@
             Return _AgentInfo
         End Get
     End Property
-    Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
 
-    ReadOnly Property AgentCn As DXODBC
+    ReadOnly Property AgentCn As eXperDBODBC
         Get
             Return _AgentCn
         End Get
     End Property
 
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal ServerInfo As List(Of GroupInfo.ServerInfo), ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, ByVal AgentInfo As structAgent, ByVal chtOrder As Integer)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal ServerInfo As List(Of GroupInfo.ServerInfo), ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, ByVal AgentInfo As structAgent, ByVal chtOrder As Integer)
         'Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.DXODBC)
 
         ' 이 호출은 디자이너에 필요합니다.

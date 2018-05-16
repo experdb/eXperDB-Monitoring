@@ -21,7 +21,7 @@
 
     Private _cbCheckAll As New eXperDB.BaseControls.CheckBox()
 
-    Public Sub New(ByVal GrpLst As List(Of GroupInfo.ServerInfo), ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal InstanceID As Integer, ByVal intAlertLevel As Integer, ByVal strCollectDt As String)
+    Public Sub New(ByVal GrpLst As List(Of GroupInfo.ServerInfo), ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal InstanceID As Integer, ByVal intAlertLevel As Integer, ByVal strCollectDt As String)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -159,7 +159,7 @@
             Dim tmpDtSet As New DataSet
 
             tmpDtSet.Tables.Add(dgvAlertList.GetDataTable2("ALERT_LIST"))
-            eXperDB.ODBC.DXOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
+            eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
 
             If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
                 System.Diagnostics.Process.Start(strExcelFile)

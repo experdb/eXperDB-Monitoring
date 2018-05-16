@@ -22,14 +22,14 @@
         End Get
     End Property
 
-    Private _AgentCn As eXperDB.ODBC.DXODBC = Nothing
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC = Nothing
     ''' <summary>
     ''' 정책 서버 Connection 
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    ReadOnly Property AgentCn As eXperDB.ODBC.DXODBC
+    ReadOnly Property AgentCn As eXperDB.ODBC.eXperDBODBC
         Get
             Return _AgentCn
         End Get
@@ -118,7 +118,7 @@
     ''' 초기화 
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal GrpLst As List(Of GroupInfo), ByVal Elapseinterval As Integer, ByVal GroupRotateinterval As Integer, ByVal clsAgentInfo As structAgent)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal GrpLst As List(Of GroupInfo), ByVal Elapseinterval As Integer, ByVal GroupRotateinterval As Integer, ByVal clsAgentInfo As structAgent)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -2702,7 +2702,7 @@
             End If
         End Set
     End Property
-    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.DXODBC, Optional ByVal isSet As Boolean = False) As Boolean
+    Public Function fn_FormisLock(ByVal frm As Form, ByVal odbcCN As eXperDB.ODBC.eXperDBODBC, Optional ByVal isSet As Boolean = False) As Boolean
         If Me.isLock Then
             Dim frmPw As New frmPassword(odbcCN)
             If frmPw.ShowDialog <> Windows.Forms.DialogResult.OK Then

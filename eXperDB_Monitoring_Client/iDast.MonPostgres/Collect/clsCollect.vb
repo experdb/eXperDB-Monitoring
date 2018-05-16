@@ -56,7 +56,7 @@
     'Private threadTimerCallBack As Threading.TimerCallback
     Private WithEvents threadTimer As System.Timers.Timer
     Private _intPeriod As Integer = 3000
-    Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
     Private _enmSvrNm As clsEnums.ShowName = clsEnums.ShowName.HostName
 
     Private _clsQuery As clsQuerys = Nothing
@@ -75,13 +75,13 @@
     ''' <param name="intPeriod"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function Start(ByVal AgentCn As eXperDB.ODBC.DXODBC, Optional ByVal intPeriod As Integer = 3000, Optional ByVal enmSvrNm As clsEnums.ShowName = clsEnums.ShowName.HostName) As Boolean
+    Public Function Start(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, Optional ByVal intPeriod As Integer = 3000, Optional ByVal enmSvrNm As clsEnums.ShowName = clsEnums.ShowName.HostName) As Boolean
         Try
             _intPeriod = intPeriod
-            _AgentCn = New eXperDB.ODBC.DXODBC(AgentCn.ODBCConninfo, _intPeriod)
+            _AgentCn = New eXperDB.ODBC.eXperDBODBC(AgentCn.ODBCConninfo, _intPeriod)
             _enmSvrNm = enmSvrNm
 
-            _clsQuery = New clsQuerys(New eXperDB.ODBC.DXODBC(AgentCn.ODBCConninfo, _intPeriod))
+            _clsQuery = New clsQuerys(New eXperDB.ODBC.eXperDBODBC(AgentCn.ODBCConninfo, _intPeriod))
             If threadTimer Is Nothing Then
                 'threadTimer = New System.Timers.Timer(_intPeriod)
                 threadTimer = New System.Timers.Timer(500)
@@ -1138,7 +1138,7 @@
 
 #Region "Main Thread"
 
-   
+
 
     ''' <summary>
     ''' 메인 스레드 
@@ -1155,7 +1155,7 @@
             ' infoAgentSvrState = Nothing
             If _AgentCn.ConnectionCheck() = True Then
                 If _AgentCn.State.Equals(ConnectionState.Open) Then
-                  
+
                     Dim tmpDtTable As DataTable = Nothing
                     tmpDtTable = StartThread("AGENTSVRSTATE", _intPeriod)
                     If tmpDtTable Is Nothing Then
@@ -1275,7 +1275,7 @@
 
     End Sub
 
-     
+
     ' ''' <summary>
     ' ''' 메인 스레드 
     ' ''' </summary>
@@ -1502,14 +1502,14 @@
                 'lstThread.Add(New ManualThread("SELECTTBSPACEINFO", _clsQuery, _InstanceIDs))
                 'lstThread.Add(New ManualThread("SELECTTBINFO", _clsQuery, _InstanceIDs))
                 'lstThread.Add(New ManualThread("SELECTINDEXINFO", _clsQuery, _InstanceIDs))
-                Dim clsQry As New clsQuerys(New eXperDB.ODBC.DXODBC(_AgentCn.ODBCConninfo))
+                Dim clsQry As New clsQuerys(New eXperDB.ODBC.eXperDBODBC(_AgentCn.ODBCConninfo))
                 lstThread.Add(New ManualThread("SELECTDBINFO", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTDISKUSAGE", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTTBSPACEINFO", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTTBINFO", clsQry, instanceID))
                 lstThread.Add(New ManualThread("SELECTINDEXINFO", clsQry, instanceID))
 
-            
+
 
                 For Each tmpThread As ManualThread In lstThread
                     tmpThread.ManualThread.Start()

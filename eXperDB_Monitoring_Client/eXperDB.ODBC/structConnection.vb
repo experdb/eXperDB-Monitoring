@@ -11,14 +11,14 @@ Public Structure structConnection
     End Property
 
     
-    Private _ODBCType As DXODBC.enumODBCType
+    Private _ODBCType As eXperDBODBC.enumODBCType
     <ComponentModel.Description("대상 서버 유형 Oracle , SYBASE , MSSQL , DB2 ...")> _
-    ReadOnly Property ODBCType As DXODBC.enumODBCType
+    ReadOnly Property ODBCType As eXperDBODBC.enumODBCType
         Get
             Return _ODBCType
         End Get
     End Property
- 
+
 
     Private _Port As Integer
     <ComponentModel.Description("접속포트")> _
@@ -28,7 +28,7 @@ Public Structure structConnection
             Return _Port
         End Get
     End Property
-    
+
 
     Private _DBName As String
     <ComponentModel.Description("데이터베이스명")> _
@@ -38,7 +38,7 @@ Public Structure structConnection
             Return _DBName
         End Get
     End Property
-   
+
 
     Private _UserID As String
     <ComponentModel.Description("접속 계정"), _
@@ -75,7 +75,7 @@ Public Structure structConnection
 
     'End Sub
 
-    Public Sub Initialize(ByVal enmODBCType As DXODBC.enumODBCType, ByVal strIP As String, ByVal intPort As Integer, ByVal strUserID As String, ByVal strSID As String, ByVal strPassword As String)
+    Public Sub Initialize(ByVal enmODBCType As eXperDBODBC.enumODBCType, ByVal strIP As String, ByVal intPort As Integer, ByVal strUserID As String, ByVal strSID As String, ByVal strPassword As String)
         _ODBCType = enmODBCType
         '_AliasName = strAliasName
         _IP = strIP
@@ -86,14 +86,14 @@ Public Structure structConnection
     End Sub
 
     Public Sub New(ByVal enmODBCName As String, ByVal strIP As String, ByVal intPort As Integer, ByVal strUserID As String, ByVal strSID As String, ByVal strPassword As String)
-        Dim enmOdbcType As DXODBC.enumODBCType
+        Dim enmOdbcType As eXperDBODBC.enumODBCType
         If System.Enum.TryParse(enmODBCName, enmOdbcType) = True Then
             Initialize(enmOdbcType, strIP, intPort, strUserID, strSID, strPassword)
         End If
 
 
     End Sub
-    Public Sub New(ByVal enmOdbcType As DXODBC.enumODBCType, ByVal strIP As String, ByVal intPort As Integer, ByVal strUserID As String, ByVal strSID As String, ByVal strPassword As String)
+    Public Sub New(ByVal enmOdbcType As eXperDBODBC.enumODBCType, ByVal strIP As String, ByVal intPort As Integer, ByVal strUserID As String, ByVal strSID As String, ByVal strPassword As String)
         Initialize(enmOdbcType, strIP, intPort, strUserID, strSID, strPassword)
 
     End Sub

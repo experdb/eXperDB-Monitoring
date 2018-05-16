@@ -1,6 +1,6 @@
 ﻿Public Class clsQuerys_MultiConnection
-    Private _ODBC As eXperDB.ODBC.DXODBC = Nothing
-    Public Sub New(ByVal ODBC As eXperDB.ODBC.DXODBC)
+    Private _ODBC As eXperDB.ODBC.eXperDBODBC = Nothing
+    Public Sub New(ByVal ODBC As eXperDB.ODBC.eXperDBODBC)
         _ODBC = ODBC
     End Sub
 
@@ -173,7 +173,7 @@
 
     End Function
 
-    Public Function SelectData(ByVal ODBCCn As eXperDB.ODBC.DXODBC, ByVal XMLID As String) As DataTable
+    Public Function SelectData(ByVal ODBCCn As eXperDB.ODBC.eXperDBODBC, ByVal XMLID As String) As DataTable
         Try
             If ODBCCn Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData(XMLID)

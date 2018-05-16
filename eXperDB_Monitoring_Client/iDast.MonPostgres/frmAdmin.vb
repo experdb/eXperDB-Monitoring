@@ -105,8 +105,8 @@
 
         Dim tmpStruct As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
 
-        Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New DXODBC(dbType, tmpStruct.HostIP, tmpStruct.Port, tmpStruct.UserID, tmpStruct.Password, tmpStruct.DBName)
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        Dim tmpCn As New eXperDBODBC(dbType, tmpStruct.HostIP, tmpStruct.Port, tmpStruct.UserID, tmpStruct.Password, tmpStruct.DBName)
 
 
 
@@ -155,7 +155,7 @@
     ''' </summary>
     ''' <param name="conODBC"></param>
     ''' <remarks></remarks>
-    Private Sub ReadSvrList(ByVal conODBC As eXperDB.ODBC.DXODBC)
+    Private Sub ReadSvrList(ByVal conODBC As eXperDB.ODBC.eXperDBODBC)
         dgvSvrLst.Rows.Clear()
 
         If conODBC Is Nothing Then Return
@@ -398,7 +398,7 @@
     Private Sub AgentMsg_Complete(sender As Object, e As Object) Handles AgentMsg.Complete
 
     End Sub
-    Private Function fn_ChkServer(ByVal conODBC As eXperDB.ODBC.DXODBC) As String
+    Private Function fn_ChkServer(ByVal conODBC As eXperDB.ODBC.eXperDBODBC) As String
 
         Dim clsQry As New clsQuerys(conODBC)
         Dim strStartDt As String = ""
@@ -415,7 +415,7 @@
     Private Function fn_GetSerial() As String
         Dim strKey As String
         Try
-            Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.DXODBC)
+            Dim odbcCon As eXperDB.ODBC.eXperDBODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.eXperDBODBC)
             Dim ClsQuery As New clsQuerys(odbcCon)
             Dim dtTable As DataTable = ClsQuery.SelectSerialKey()
             If dtTable IsNot Nothing Then
@@ -444,7 +444,7 @@
             MsgBox(p_clsMsgData.fn_GetData("M029"))
             Return
         End If
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.DXODBC)
+        Dim odbcCon As eXperDB.ODBC.eXperDBODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.eXperDBODBC)
         If _startDt.CompareTo(fn_ChkServer(odbcCon)) < 0 Then
             CircularProgressControl1.Stop()
             CircularProgressControl1.Visible = False
@@ -566,7 +566,7 @@
 
 
         ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.DXODBC)
+        Dim odbcCon As eXperDB.ODBC.eXperDBODBC = TryCast(lblSvrLst.Tag, eXperDB.ODBC.eXperDBODBC)
 
 
 
@@ -585,7 +585,7 @@
 
                 Dim strIP As String = tmpRow.Cells(colIP.Index).Value
                 Dim strPort As String = tmpRow.Cells(colPort.Index).Value
-                Dim strDBType As String = System.Enum.GetName(GetType(eXperDB.ODBC.DXODBC.enumODBCType), odbcCon.ODBCConninfo.ODBCType)
+                Dim strDBType As String = System.Enum.GetName(GetType(eXperDB.ODBC.eXperDBODBC.enumODBCType), odbcCon.ODBCConninfo.ODBCType)
                 Dim strUser As String = tmpRow.Cells(colUser.Index).Value
                 Dim strPw As String = tmpRow.Cells(colPW.Index).Value
                 Dim strCollectYN As String = tmpRow.Cells(colCollectYN.Index).Value

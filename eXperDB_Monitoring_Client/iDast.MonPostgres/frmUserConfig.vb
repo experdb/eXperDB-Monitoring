@@ -2,8 +2,8 @@
 Public Class frmUserConfig
     Private _strSerial As String = ""
 
-    Private _odbcConn As eXperDB.ODBC.DXODBC
-    Public Sub New(ByVal odbcConn As eXperDB.ODBC.DXODBC, ByVal strSerial As String)
+    Private _odbcConn As eXperDB.ODBC.eXperDBODBC
+    Public Sub New(ByVal odbcConn As eXperDB.ODBC.eXperDBODBC, ByVal strSerial As String)
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
         _odbcConn = odbcConn

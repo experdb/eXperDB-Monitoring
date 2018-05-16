@@ -4,7 +4,7 @@
     Private _HealthItem As String = ""
     Private _Th As Threading.Thread = Nothing
     Private _RegDate As String = Now.ToString("yyyyMMdd")
-    Private _AgentCn As eXperDB.ODBC.DXODBC = Nothing
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC = Nothing
     Private _SQLCols As New List(Of SQLInfo)
     Private _AgentInfo As structAgent = Nothing
     Private _WMargin As Integer = 50
@@ -38,7 +38,7 @@
 
 
 
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.DXODBC, ByVal intInstance As Integer, ByVal RegDate As String, ByVal HealthItem As String, ByVal HealthSeq As String, ByVal ShowValue As String, ByVal AgentInfo As structAgent, ByVal intLevel As Integer)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal intInstance As Integer, ByVal RegDate As String, ByVal HealthItem As String, ByVal HealthSeq As String, ByVal ShowValue As String, ByVal AgentInfo As structAgent, ByVal intLevel As Integer)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -48,7 +48,7 @@
         _HealthSeq = HealthSeq
         _HealthItem = HealthItem
         _RegDate = RegDate
-        _AgentCn = New DXODBC(AgentCn.ODBCConninfo, 30)
+        _AgentCn = New eXperDBODBC(AgentCn.ODBCConninfo, 30)
         _AgentInfo = AgentInfo
         _HealthLevel = intLevel
         dgvinfo.AutoGenerateColumns = False

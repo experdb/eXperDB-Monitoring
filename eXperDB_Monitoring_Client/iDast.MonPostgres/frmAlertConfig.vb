@@ -30,8 +30,8 @@ Public Class frmAlertConfig
         ' Me.tbMain.TabPages.Clear()
 
         Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
-        Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New DXODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        Dim tmpCn As New eXperDBODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
         Dim ClsQuery As New clsQuerys(tmpCn)
         Dim dt1 As DataTable = ClsQuery.SelectIniFixedThreshold()
 
@@ -65,8 +65,8 @@ Public Class frmAlertConfig
 
 
         Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
-        Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New DXODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        Dim tmpCn As New eXperDBODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
         Dim ClsQuery As New clsQuerys(tmpCn)
         Dim dt1 As DataTable = ClsQuery.SelectIniFixedThreshold()
 
@@ -199,8 +199,8 @@ Public Class frmAlertConfig
 
     Private Sub btnHealthInit_Click(sender As Object, e As EventArgs) Handles btnHealthInit.Click
         Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
-        Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New DXODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        Dim tmpCn As New eXperDBODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
         Dim ClsQuery As New clsQuerys(tmpCn)
         Dim dt As DataTable = ClsQuery.SelectHealthLimited(-1)
 

@@ -1,7 +1,7 @@
 ﻿Public Class frmAddSvrList
 
     Private _dgvMon As AdvancedDataGridView.TreeGridView
-    Private _conODBC As eXperDB.ODBC.DXODBC = Nothing
+    Private _conODBC As eXperDB.ODBC.eXperDBODBC = Nothing
     Private _intHostIndex As Integer = 0
     Private _intPortIndex As Integer = 0
 
@@ -17,7 +17,7 @@
     End Sub
 
     'Public Sub New(ByVal conODBC As eXperDB.ODBC.DXODBC, ByRef dgvMon As eXperDB.BaseControls.DataGridView)
-    Public Sub New(ByVal conODBC As eXperDB.ODBC.DXODBC)
+    Public Sub New(ByVal conODBC As eXperDB.ODBC.eXperDBODBC)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()

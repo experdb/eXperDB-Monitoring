@@ -17,7 +17,7 @@
         End Get
     End Property
 
-    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.DXODBC)
+    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.eXperDBODBC)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -150,7 +150,7 @@
 
             tmpDtSet.Tables.Add(dgvSessionList.GetDataTable2("SESSION_HISTORY"))
             tmpDtSet.Tables.Add(GetTreeDataTable2("LOCK_HISTORY"))
-            eXperDB.ODBC.DXOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
+            eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
 
             If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
                 System.Diagnostics.Process.Start(strExcelFile)

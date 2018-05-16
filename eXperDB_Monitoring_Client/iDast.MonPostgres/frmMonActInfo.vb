@@ -506,7 +506,7 @@
             tmpDtSet.Tables.Add(dgvDBinfo.GetDataTable("DATABASE_INFO"))
             tmpDtSet.Tables.Add(dgvTblinfo.GetDataTable("TABLE_INFO"))
             tmpDtSet.Tables.Add(dgvIdxinfo.GetDataTable("INDEX_INFO"))
-            eXperDB.ODBC.DXOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
+            eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
 
             If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
                 System.Diagnostics.Process.Start(strExcelFile)

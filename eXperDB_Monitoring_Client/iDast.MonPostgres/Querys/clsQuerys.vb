@@ -1,6 +1,6 @@
 ﻿Public Class clsQuerys
-    Private _ODBC As eXperDB.ODBC.DXODBC = Nothing
-    Public Sub New(ByVal ODBC As eXperDB.ODBC.DXODBC)
+    Private _ODBC As eXperDB.ODBC.eXperDBODBC = Nothing
+    Public Sub New(ByVal ODBC As eXperDB.ODBC.eXperDBODBC)
         _ODBC = ODBC
     End Sub
 

@@ -13,8 +13,8 @@
         Dim DBName As String = cmbSvrDBNm.Text
         Dim tmpCtl As BaseControls.RadioButton
 
-        Dim dbType As DXODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.DXODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New DXODBC(dbtype, strIp, strPort, strID, strPw, DBName)
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        Dim tmpCn As New eXperDBODBC(dbtype, strIp, strPort, strID, strPw, DBName)
         If tmpCn.ConnectionCheck = True Then
             'MsgBox(p_clsMsgData.fn_GetData("M003"))
             ' R-Start 그룹명 조회
@@ -52,8 +52,8 @@
                 tbServer.SelectedIndex = 1
             End If
 
-            If btnAdd.Tag IsNot Nothing AndAlso btnAdd.Tag.GetType Is GetType(eXperDB.ODBC.DXODBC) Then
-                modCommon.AgentInfoWrite(DirectCast(btnAdd.Tag, eXperDB.ODBC.DXODBC).ODBCConninfo)
+            If btnAdd.Tag IsNot Nothing AndAlso btnAdd.Tag.GetType Is GetType(eXperDB.ODBC.eXperDBODBC) Then
+                modCommon.AgentInfoWrite(DirectCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC).ODBCConninfo)
                 'MsgBox(p_clsMsgData.fn_GetData("M021"))
             Else
                 MsgBox(p_clsMsgData.fn_GetData("M022"))
@@ -73,7 +73,7 @@
     ''' </summary>
     ''' <param name="conODBC"></param>
     ''' <remarks></remarks>
-    Private Sub ReadSvrList(ByVal conODBC As eXperDB.ODBC.DXODBC)
+    Private Sub ReadSvrList(ByVal conODBC As eXperDB.ODBC.eXperDBODBC)
         dgvSvrLst.Rows.Clear()
 
         If conODBC Is Nothing Then Return
@@ -121,7 +121,7 @@
     End Sub
     'R-Start ReadSvrListbyGroup
 
-    Private Sub ReadSvrListbyGroup(ByVal conODBC As eXperDB.ODBC.DXODBC, ByVal groupIndex As Integer)
+    Private Sub ReadSvrListbyGroup(ByVal conODBC As eXperDB.ODBC.eXperDBODBC, ByVal groupIndex As Integer)
         'dgvMonLst.Rows.Clear()
         dgvMonLst.Nodes.Clear()
         If conODBC Is Nothing Then Return
@@ -503,7 +503,7 @@
     ''' <remarks></remarks>
     Private Function sb_SaveGrpMonLst() As Boolean
         ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
-        Dim odbcCon As eXperDB.ODBC.DXODBC = TryCast(btnAdd.Tag, eXperDB.ODBC.DXODBC)
+        Dim odbcCon As eXperDB.ODBC.eXperDBODBC = TryCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC)
 
         ' 추가적으로 모두 업데이트에 대한 로직 필요 
         Try
@@ -545,7 +545,7 @@
         End Try
     End Function
     Private Function sb_ReloadcmbGrp() As Boolean
-        Dim conODBC As eXperDB.ODBC.DXODBC = btnAdd.Tag
+        Dim conODBC As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
         Dim ClsQuery As New clsQuerys(conODBC)
         Dim groupIndex As Integer = cmbGrp.SelectedIndex
         cmbGrp.Items.Clear()
@@ -585,7 +585,7 @@
         sb_SaveGrpSvrLst()
 
         ' 최초 Connection 시에 해당 Connection 정보를 테스트 버튼에 넣어 두었음. 
-        Dim AgentCn As eXperDB.ODBC.DXODBC = btnAdd.Tag
+        Dim AgentCn As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
         ' 붙어 있는 서버 정보가 없을 경우 종료 
         If AgentCn Is Nothing Then Return
 
@@ -781,11 +781,11 @@
     End Sub
 
     Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
-        If btnAdd.Tag Is Nothing OrElse TryCast(btnAdd.Tag, eXperDB.ODBC.DXODBC) Is Nothing Then
+        If btnAdd.Tag Is Nothing OrElse TryCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC) Is Nothing Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M010")
             MsgBox(strMsg)
         Else
-            Dim frmPw As New frmPassword(DirectCast(btnAdd.Tag, eXperDB.ODBC.DXODBC))
+            Dim frmPw As New frmPassword(DirectCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC))
             If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
                 Dim frmAdmin As New frmAdmin
                 frmAdmin.ShowDialog(Me)

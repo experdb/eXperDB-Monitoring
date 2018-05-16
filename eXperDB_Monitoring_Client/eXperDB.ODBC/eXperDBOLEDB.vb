@@ -1,4 +1,4 @@
-﻿Public Class DXOLEDB
+﻿Public Class eXperDBOLEDB
 
     Public Shared Sub SaveExcelData(ByVal FileName As String, ByVal dtSet As DataSet, ByVal Overwrite As Boolean, Optional ByVal srtLstConvert As SortedList = Nothing)
         Try

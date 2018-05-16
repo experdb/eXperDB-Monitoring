@@ -19,16 +19,16 @@
             Return _AgentInfo
         End Get
     End Property
-    Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
 
-    ReadOnly Property AgentCn As DXODBC
+    ReadOnly Property AgentCn As eXperDBODBC
         Get
             Return _AgentCn
         End Get
     End Property
 
 
-    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.DXODBC)
+    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.eXperDBODBC)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -320,7 +320,7 @@
             Dim tmpDtSet As New DataSet
 
             tmpDtSet.Tables.Add(dgvSessionList.GetDataTable("TABLE_INFO"))
-            eXperDB.ODBC.DXOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
+            eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
 
             If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
                 System.Diagnostics.Process.Start(strExcelFile)

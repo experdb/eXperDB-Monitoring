@@ -1,6 +1,6 @@
 ﻿Imports System.Data
 
-Public Class DXODBC
+Public Class eXperDBODBC
     Private _Log As New clsLog4Net
     Private _ODBCConnInfo As structConnection
 
@@ -372,7 +372,7 @@ Public Class DXODBC
 
 
 
-    
+
 End Class
 
  

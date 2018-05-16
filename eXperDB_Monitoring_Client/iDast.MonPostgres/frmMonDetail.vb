@@ -84,13 +84,13 @@
     Private _ShowHchkNormal As Boolean = True
     Private _ShowHchkWarning As Boolean = True
     Private _ShowHchkCritical As Boolean = True
-    Private _AgentCn As eXperDB.ODBC.DXODBC
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
     Private _clsQuery As clsQuerys  ' Main Thread용
     Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
     Private _initConnect As Boolean = False
 
-    ReadOnly Property AgentCn As DXODBC
+    ReadOnly Property AgentCn As eXperDBODBC
         Get
             Return _AgentCn
         End Get
@@ -113,7 +113,7 @@
 #End Region
 
 #Region "Initialize & Dispose"
-    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.DXODBC)
+    Public Sub New(ByVal ServerInfo As GroupInfo.ServerInfo, ByVal ElapseInterval As Integer, ByVal clsAgentInfo As structAgent, ByVal AgentCn As eXperDB.ODBC.eXperDBODBC)
 
 
         ' 이 호출은 디자이너에 필요합니다.
