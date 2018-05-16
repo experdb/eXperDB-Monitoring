@@ -16,15 +16,15 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.Controls", "iDast.C
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.Common", "iDast.Common\eXperDB.Common.vbproj", "{621EA082-BF79-4029-898F-7DC8903F4DDB}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.LogUtil", "DX.LogUtil\eXperDB.LogUtil.vbproj", "{2F02E955-6DD9-49F6-AB94-C0856ED4D836}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.LogUtil", "eXperDB.LogUtil\eXperDB.LogUtil.vbproj", "{2F02E955-6DD9-49F6-AB94-C0856ED4D836}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.ODBC", "DX.ODBC\eXperDB.ODBC.vbproj", "{43A2EEE6-0FBE-4AAD-A5D2-1D178706DF90}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.ODBC", "eXperDB.ODBC\eXperDB.ODBC.vbproj", "{43A2EEE6-0FBE-4AAD-A5D2-1D178706DF90}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "eXperDB.Resources", "iDast.Resources\eXperDB.Resources.vbproj", "{AE6992F9-1F54-45C4-BE7A-CCF6A9A1409B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpandableGridView", "TreeGridView\ExpandableGridView.csproj", "{2EFE526F-79B3-49BC-9575-A7B258C59BB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpandableGridView", "DefCtl\TreeGridView\ExpandableGridView.csproj", "{2EFE526F-79B3-49BC-9575-A7B258C59BB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatTabControl", "FlatTabControl\FlatTabControl.csproj", "{96002CA1-D295-4ED5-9B08-92346C1BFA18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatTabControl", "DefCtl\FlatTabControl\FlatTabControl.csproj", "{96002CA1-D295-4ED5-9B08-92346C1BFA18}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MakeLanguages", "MakeLanguages\MakeLanguages.vbproj", "{57E93778-99A8-4B27-B5FC-482A7E21720E}"
 EndProject
@@ -34,7 +34,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MdiTabControl", "DefCtl\MDI
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CalendarColumn", "DefCtl\CalendarColumn\CalendarColumn.vbproj", "{31359076-0974-4A02-B8F2-E7BB7AAAD295}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressControl", "ProgressControl\ProgressControl.csproj", "{BB31A4A7-A194-4683-A801-3A693AED9F88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressControl", "DefCtl\ProgressControl\ProgressControl.csproj", "{BB31A4A7-A194-4683-A801-3A693AED9F88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
