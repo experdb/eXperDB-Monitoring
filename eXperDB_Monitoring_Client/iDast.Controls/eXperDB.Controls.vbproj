@@ -48,14 +48,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CalendarColumn">
-      <HintPath>..\IDAST\Shared\lib\CalendarColumn.dll</HintPath>
+      <HintPath>..\DefCtl\CalendarColumn\obj\Debug\CalendarColumn.dll</HintPath>
     </Reference>
     <Reference Include="ExpandableGridView">
-      <HintPath>..\IDAST\Shared\lib\ExpandableGridView.dll</HintPath>
+      <HintPath>..\DefCtl\TreeGridView\obj\Debug\ExpandableGridView.dll</HintPath>
     </Reference>
     <Reference Include="FastColoredTextBox, Version=2.9.14.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\IDAST\Shared\lib\FastColoredTextBox.dll</HintPath>
+      <HintPath>..\DefCtl\FastColoredTextBox\obj\Debug\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="gudusoft.gsqlparser">
       <HintPath>..\IDAST\Shared\lib\gudusoft.gsqlparser.dll</HintPath>
@@ -242,6 +242,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\iDast.BaseControls\eXperDB.BaseControls.vbproj">
+      <Project>{d7d507a3-590a-46f2-8ecd-b93a75f51c62}</Project>
+      <Name>eXperDB.BaseControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\iDast.Common\eXperDB.Common.vbproj">
       <Project>{621ea082-bf79-4029-898f-7dc8903f4ddb}</Project>
       <Name>eXperDB.Common</Name>
