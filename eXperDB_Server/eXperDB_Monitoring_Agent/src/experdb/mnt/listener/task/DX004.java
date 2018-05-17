@@ -113,6 +113,8 @@ public class DX004 implements SocketApplication{
 			throw e;
 		} finally {
 			if(sessionCollect != null)	sessionCollect.close();
+			if(session != null) session.close();
+			if(connection != null) connection.close();
 		}
 		
 		resDataArray.add(resDataObj);

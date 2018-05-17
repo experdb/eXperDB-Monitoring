@@ -103,6 +103,7 @@ public class DX007 implements SocketApplication{
 			sessionAgent.rollback();
 			return resDataArray;
 		} finally {
+			if(sessionCollect != null) sessionCollect.close();
 			if(connection != null) connection.close();
 		}
 		resDataArray.add(resDataObj);

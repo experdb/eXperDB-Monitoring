@@ -88,6 +88,8 @@ public class DX008 implements SocketApplication{
 			resDataArray.add(resDataObj);
 			return resDataArray;
 		} finally {
+			if(sessionCollect != null) sessionCollect.close();
+			if(session != null)	session.close();
 			if(connection != null) connection.close();
 		}		
 		resDataArray.add(resDataObj);

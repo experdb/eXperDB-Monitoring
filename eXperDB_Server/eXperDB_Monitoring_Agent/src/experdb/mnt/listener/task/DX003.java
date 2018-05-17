@@ -90,8 +90,8 @@ public class DX003 implements SocketApplication{
 			log.error("", e);
 			throw e;
 		} finally {
-			if(connection != null) connection.close();
 			if(session != null)	session.close();
+			if(connection != null) connection.close();
 		}
 		
 		resDataArray.add(resDataObj);

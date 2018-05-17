@@ -230,6 +230,7 @@ public class DX006 implements SocketApplication{
 				return resDataArray;
 			} finally {
 				if(sessionCollect != null)	sessionCollect.close();
+				if(connection != null) connection.close();
 			}
 			
 		} catch (Exception e) {
