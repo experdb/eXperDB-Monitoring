@@ -34,6 +34,7 @@ Partial Class frmQueryView
         Me.TreeGridView1 = New AdvancedDataGridView.TreeGridView()
         Me.colPlain = New AdvancedDataGridView.TreeGridColumn()
         Me.Panel2 = New eXperDB.BaseControls.Panel()
+        Me.cmbDb = New eXperDB.BaseControls.ComboBox()
         Me.btnSearch = New eXperDB.BaseControls.Button()
         Me.txtPW = New eXperDB.BaseControls.TextBox()
         Me.lblPw = New eXperDB.BaseControls.Label()
@@ -155,6 +156,7 @@ Partial Class frmQueryView
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.Gray
+        Me.Panel2.Controls.Add(Me.cmbDb)
         Me.Panel2.Controls.Add(Me.btnSearch)
         Me.Panel2.Controls.Add(Me.txtPW)
         Me.Panel2.Controls.Add(Me.lblPw)
@@ -167,6 +169,23 @@ Partial Class frmQueryView
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(894, 28)
         Me.Panel2.TabIndex = 11
+        '
+        'cmbDb
+        '
+        Me.cmbDb.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbDb.DisplayMember = "All"
+        Me.cmbDb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbDb.FixedWidth = False
+        Me.cmbDb.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.cmbDb.FormattingEnabled = True
+        Me.cmbDb.Location = New System.Drawing.Point(109, 4)
+        Me.cmbDb.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbDb.Name = "cmbDb"
+        Me.cmbDb.Necessary = False
+        Me.cmbDb.Size = New System.Drawing.Size(150, 20)
+        Me.cmbDb.StatusTip = ""
+        Me.cmbDb.TabIndex = 21
+        Me.cmbDb.ValueText = ""
         '
         'btnSearch
         '
@@ -441,4 +460,5 @@ Partial Class frmQueryView
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents lblSubject As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents cmbDb As eXperDB.BaseControls.ComboBox
 End Class

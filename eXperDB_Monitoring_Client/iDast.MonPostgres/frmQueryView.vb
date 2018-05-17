@@ -12,6 +12,7 @@
         Me.RichTextBoxQuery1.Text = strText
         _intInstanceID = intInstID
 
+        cmbDb.Visible = False
         lblDB.Text = p_clsMsgData.fn_GetData("F010")
         lblID.Text = p_clsMsgData.fn_GetData("F008")
         lblPw.Text = p_clsMsgData.fn_GetData("F009")
@@ -52,6 +53,64 @@
 
     End Sub
 
+
+    Public Sub New(ByVal strDBNm As List(Of String), ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent)
+
+        ' 이 호출은 디자이너에 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
+
+        _intInstanceID = intInstID
+
+        lblDB.Text = p_clsMsgData.fn_GetData("F010")
+        lblID.Text = p_clsMsgData.fn_GetData("F008")
+        lblPw.Text = p_clsMsgData.fn_GetData("F009")
+        btnSearch.Text = p_clsMsgData.fn_GetData("F151")
+        If clsAgentInfo Is Nothing Then
+            Panel1.Visible = False
+            Splitter1.Visible = False
+        Else
+            clsEMsg = New clsAgentEMsg(clsAgentInfo.AgentIP, clsAgentInfo.AgentPort)
+        End If
+
+        For Each tmpSvr As String In strDBNm
+            cmbDb.AddValue(tmpSvr, tmpSvr)
+        Next
+
+        txtDB.Visible = False
+        cmbDb.Visible = True
+
+        ' 설정 정보 읽어 오기 
+        Sb_ReadIni()
+
+        Dim rgxVariable As New System.Text.RegularExpressions.Regex(Me.RichTextBoxQuery1.VariableRegex)
+        Dim rgxMatches As System.Text.RegularExpressions.MatchCollection = rgxVariable.Matches("")
+        If rgxMatches.Count = 0 Then
+            spnlVariables.Visible = False
+            dgvVariables.Visible = False
+        Else
+            spnlVariables.Visible = True
+            dgvVariables.Visible = True
+            For Each tmpMatch As System.Text.RegularExpressions.Match In rgxMatches
+                Dim intIndex As Integer = Me.RichTextBoxQuery1.Find(tmpMatch.Value, RichTextBoxFinds.MatchCase And RichTextBoxFinds.WholeWord)
+                Dim intLine As Integer = Me.RichTextBoxQuery1.GetLineFromCharIndex(intIndex)
+                Dim intLineIdx As Integer = intIndex - intLine
+                dgvVariables.Rows.Add(tmpMatch.Value, "", intLine)
+            Next
+        End If
+
+
+
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
+
+        Me.Text = "SQL Plan"
+        lblSubject.Text = p_clsMsgData.fn_GetData("M041")
+
+    End Sub
+
     Private Sub Sb_ReadIni()
 
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
@@ -73,8 +132,11 @@
     End Sub
 
     Private Sub frmQueryView_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-        'Me.RichTextBoxQuery1.RegexClrChg()
+        If cmbDb.Visible = True Then
+            cmbDb.SelectedIndex = 0
+            txtDB.Text = cmbDb.Text
+        End If
+        Me.RichTextBoxQuery1.RegexClrChg()
     End Sub
 
     Private WithEvents clsEMsg As clsAgentEMsg
@@ -243,4 +305,7 @@
         End If
     End Sub
      
+    Private Sub cmbDb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDb.SelectedIndexChanged
+        txtDB.Text = cmbDb.Text
+    End Sub
 End Class

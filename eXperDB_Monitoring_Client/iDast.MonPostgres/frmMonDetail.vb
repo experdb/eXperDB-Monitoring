@@ -1691,7 +1691,26 @@
     'End Sub
 
     Private Sub btnSqlPlan_Click(sender As Object, e As EventArgs) Handles btnSqlPlan.Click
-        Dim frmQuery As New frmQueryView("", "", InstanceID, _AgentInfo, "")
+        Dim dbName As New List(Of String)
+
+
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectDBinfo(InstanceID)
+
+                          Dim dtRows As DataRow() = dtTable.Select()
+
+                          If dtRows.Count > 0 Then
+                              For Each tmpRow As DataRow In dtRows
+                                  dbName.Add(tmpRow.Item("DB"))
+                              Next
+                          End If
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+        Dim frmQuery As New frmQueryView(dbName, InstanceID, _AgentInfo)
         frmQuery.Show()
     End Sub
 
