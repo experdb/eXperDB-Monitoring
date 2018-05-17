@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <log4net>
+    <appender name="Logging_Matrix" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_Matrix" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_SgaStat" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_SgaStat" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+    
+    <appender name="Logging_ShardPool" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_ShardPool" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_ResourceLimit" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_ResourceLimit" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_WaitClassInfo" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_WaitClassInfo" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_WaitClassDetail" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_WaitClassDetail" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_WaitEvent" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_WaitEvent" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_TableSpace" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_TableSpace" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_Lock" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_Lock" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_SharedServer" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_SharedServer" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_Dispatcher" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_Dispatcher" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_SharedServerSessionList" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_SharedServerSessionList" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_DispAndShardWaitTime" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_DispAndShardWaitTime" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_SharedServerSessionStatus" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_SharedServerSessionStatus" />
+      <appendToFile value="true" />
+      <rollingStyle value="Date" />
+      <maxSizeRollBackups value="7" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{yyyy/MM/dd HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="Logging_Threshold" type="log4net.Appender.RollingFileAppender">
+      <file value="Logging_Threshold" />
+      <appendToFile value="true" />
+      <rollingStyle value="Size" />
+      <maxSizeRollBackups value="3" />
+      <maximumFileSize value="5000KB" />
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date{HH:mm:ss}|%message%newline" />
+      </layout>
+    </appender>
+    
+    <logger name="Logging_Matrix">
+      <level value="INFO" />
+      <appender-ref ref="Logging_Matrix" />
+    </logger>
+
+    <logger name="Logging_SgaStat">
+      <level value="INFO" />
+      <appender-ref ref="Logging_SgaStat" />
+    </logger>
+
+    <logger name="Logging_ShardPool">
+      <level value="INFO" />
+      <appender-ref ref="Logging_ShardPool" />
+    </logger>
+
+    <logger name="Logging_ResourceLimit">
+      <level value="INFO" />
+      <appender-ref ref="Logging_ResourceLimit" />
+    </logger>
+
+    <logger name="Logging_WaitClassInfo">
+      <level value="INFO" />
+      <appender-ref ref="Logging_WaitClassInfo" />
+    </logger>
+
+    <logger name="Logging_WaitClassDetail">
+      <level value="INFO" />
+      <appender-ref ref="Logging_WaitClassDetail" />
+    </logger>
+
+    <logger name="Logging_WaitEvent">
+      <level value="INFO" />
+      <appender-ref ref="Logging_WaitEvent" />
+    </logger>
+
+    <logger name="Logging_TableSpace">
+      <level value="INFO" />
+      <appender-ref ref="Logging_TableSpace" />
+    </logger>
+
+    <logger name="Logging_Lock">
+      <level value="INFO" />
+      <appender-ref ref="Logging_Lock" />
+    </logger>
+
+    <logger name="Logging_SharedServer">
+      <level value="INFO" />
+      <appender-ref ref="Logging_SharedServer" />
+    </logger>
+
+    <logger name="Logging_Dispatcher">
+      <level value="INFO" />
+      <appender-ref ref="Logging_Dispatcher" />
+    </logger>
+
+    <logger name="Logging_SharedServerSessionList">
+      <level value="INFO" />
+      <appender-ref ref="Logging_SharedServerSessionList" />
+    </logger>
+
+    <logger name="Logging_DispAndShardWaitTime">
+      <level value="INFO" />
+      <appender-ref ref="Logging_DispAndShardWaitTime" />
+    </logger>
+
+    <logger name="Logging_SharedServerSessionStatus">
+      <level value="INFO" />
+      <appender-ref ref="Logging_SharedServerSessionStatus" />
+    </logger>
+
+		<logger name="Logging_Threshold">
+      <level value="INFO" />
+      <appender-ref ref="Logging_Threshold" />
+    </logger>
+
+  </log4net>
+</configuration>

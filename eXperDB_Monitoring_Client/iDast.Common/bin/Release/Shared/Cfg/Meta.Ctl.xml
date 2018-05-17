@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <public>
+    <appender name="Meta_Alarm">
+      <Alarm_Cycle value="10" />
+    </appender>
+  </public>
+</configuration>
