@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "eXperDB Monitoring"
-#define MyAppVersion "1.1.1.43"
-#define MyAppVersionDir "1_1_1_43"
+#define MyAppVersion "9.6.2.209"
+#define MyAppVersionDir "9_6_2_209"
 #define MyAppPublisher "K4M"
 #define MyAppURL "http://www.k4m.com"
 #define MyAppExeName "eXperDB.Monitoring.exe"
@@ -55,22 +55,22 @@ Name: "postgre\win64"; Description: "ODBC for x64(64bit)"; Types: full win64; Ch
 
 [Files]
 ; IDast Program File
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\{#MyPgName}.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\image\*.*"; DestDir: "{app}\image"; Flags: ignoreversion
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\language\*.*"; DestDir: "{app}\language"; Flags: ignoreversion
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\Sounds\*.*"; DestDir: "{app}\Sounds"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\{#MyPgName}.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\image\*.*"; DestDir: "{app}\image"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\language\*.*"; DestDir: "{app}\language"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\Sounds\*.*"; DestDir: "{app}\Sounds"; Flags: ignoreversion
 ; iDast DLL File
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\*.DLL"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\*.DLL"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Log Configuration File
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\*.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\*.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 ; ODBC Driver Postgres
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgres_ODBC\win32\*"; DestDir: "{app}\Shared\Lib\Postgres\win32\"; Flags: ignoreversion; Components: postgre\win32
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgres_ODBC\win64\*"; DestDir: "{app}\Shared\Lib\Postgres\win64\"; Flags: ignoreversion; Components: postgre\win64; Check: IsWin64
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgres_ODBC\win32\*"; DestDir: "{app}\Shared\Lib\Postgres\win32\"; Flags: ignoreversion; Components: postgre\win32
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgres_ODBC\win64\*"; DestDir: "{app}\Shared\Lib\Postgres\win64\"; Flags: ignoreversion; Components: postgre\win64; Check: IsWin64
 
 ;Framework 
-Source: "{#SourcePath}\DX_Mon_Postgres_InnoSetup\stage\Framework\dotNetFx45_Full_x86_X64.exe"; DestDir: "{tmp}"; Check : not IsRequiredDotNetDetected; 
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\stage\Framework\dotNetFx45_Full_x86_X64.exe"; DestDir: "{tmp}"; Check : not IsRequiredDotNetDetected; 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

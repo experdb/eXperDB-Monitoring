@@ -24,10 +24,10 @@ set_version_installer()
 
 (cd "iDast.MonPostgres/My Project/" && gen_version_assemblyinfo $1)
 
-msbuild.exe DX.MonPostgres.sln -t:Clean -p:Configuration=Release
-msbuild.exe DX.MonPostgres.sln -t:Rebuild -p:Configuration=Release
-msbuild.exe DX.MonPostgres.sln -t:Publish -p:Configuration=Release -p:PublishDir=../DX_Mon_Postgres_InnoSetup/Bin/ -p:ApplicationVersion=$1
+msbuild.exe eXperDB.MonPostgres.sln -t:Clean -p:Configuration=Release
+msbuild.exe eXperDB.MonPostgres.sln -t:Rebuild -p:Configuration=Release
+msbuild.exe eXperDB.MonPostgres.sln -t:Publish -p:Configuration=Release -p:PublishDir=../eXperDB_Mon_Postgres_InnoSetup/Bin/ -p:ApplicationVersion=$1
 
-(cd "DX_Mon_Postgres_InnoSetup" && set_version_installer $1 $2)
+(cd "eXperDB_Mon_Postgres_InnoSetup" && set_version_installer $1 $2)
 
-ISCC.exe DX_Mon_Postgres_InnoSetup/Monitoring.iss
+ISCC.exe eXperDB_Mon_Postgres_InnoSetup/Monitoring.iss

@@ -56,7 +56,7 @@ IF "%DST%"=="t" (
 md install
 
 IF "%CLI%"=="t" (
-	copy "eXperDB_Monitoring_Client\DX_Mon_Postgres_InnoSetup\Output\eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe" install
+	copy "eXperDB_Monitoring_Client\eXperDB_Mon_Postgres_InnoSetup\Output\eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe" install
 )
 REM IF "%SVR%"=="t" (
 REM	copy eXperDB_Server\install\eXperDB_Agent_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.tar.gz install
