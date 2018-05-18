@@ -4,9 +4,13 @@
 
 SET "PATH=%PATH%;%PROGRAMFILES%\Git\bin;C:\apache-ant-1.9.9-bin;C:\Program Files (x86)\Inno Setup 5;"
 
+For /F %%g in ('git rev-parse HEAD ^| cut -b 1-7') Do (Set GIT_COMMIT_HASH=%%g)
+
 set BASE_VER=9.6.2
 set BASE_VER_UDERSCORE=9_6_2
 For /F %%i in ('git rev-list HEAD ^| find /c /v ""') Do Set GIT_COMMIT_CNT=%%i
+
+
 
 SET CLI=t
 SET SVR=t
@@ -42,15 +46,15 @@ IF "%CLI%"=="t" (
 )
 IF "%SVR%"=="t" (
 	ECHO "Build Server"
-	sh -e eXperDB_Server\build-agent.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%
+	sh -e eXperDB_Server\build-agent.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
 )
 IF "%REP%"=="t" (
 	ECHO "Build Repository"
-	sh -e eXperDB_Repository\set_version_repo.sh %BASE_VER%.%GIT_COMMIT_CNT% %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%
+	sh -e eXperDB_Repository\set_version_repo.sh %BASE_VER%.%GIT_COMMIT_CNT%.%GIT_COMMIT_HASH% %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
 )
 IF "%DST%"=="t" (
 	ECHO "Build DSTension"
-	sh -e eXperDB_PGMON\set_version_ext.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%
+	sh -e eXperDB_PGMON\set_version_ext.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
 )
 
 md install
@@ -59,20 +63,20 @@ IF "%CLI%"=="t" (
 	copy "eXperDB_Monitoring_Client\eXperDB_Mon_Postgres_InnoSetup\Output\eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe" install
 )
 REM IF "%SVR%"=="t" (
-REM	copy eXperDB_Server\install\eXperDB_Agent_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.tar.gz install
+REM	copy eXperDB_Server\install\eXperDB_Agent_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%.tar.gz install
 REM )
 REM IF "%REP%"=="t" (
-REM	copy eXperDB_Repository\eXperDB_Repository_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.tar.gz install
+REM	copy eXperDB_Repository\eXperDB_Repository_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%.tar.gz install
 REM )
 
 IF "%REP%"=="t" (
-	sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%
+	sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
 ) else (
 	IF "%SVR%"=="t" (
-		sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%
+		sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
 	)
 )
 IF "%DST%"=="t" (
-	copy eXperDB_PGMON\eXperDB_PGMON_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.tar.gz install
+	copy eXperDB_PGMON\eXperDB_PGMON_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%.tar.gz install
 )
 @endlocal
