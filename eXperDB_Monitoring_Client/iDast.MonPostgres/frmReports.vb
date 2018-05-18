@@ -36,13 +36,15 @@ Public Class frmReports
         _clsQuerySub = New clsQuerys(_AgentCn)
         _AgentInfo = AgentInfo
 
-        dtpEd.Value = dtpSt.Value.AddMinutes(1)
+        'dtpEd.Value = dtpSt.Value.AddMinutes(1)
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        dtpSt.Value = dtpSt.Value.AddMinutes(-120)
+
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
         initChart()
 
@@ -73,11 +75,11 @@ Public Class frmReports
         _AgentInfo = AgentInfo
 
 
-        Me.FormControlBox1.UseConfigBox = False
-        Me.FormControlBox1.UseCriticalBox = False
-        Me.FormControlBox1.UseLockBox = False
-        Me.FormControlBox1.UseRotationBox = False
-        Me.FormControlBox1.UsePowerBox = False
+        'Me.FormControlBox1.UseConfigBox = False
+        'Me.FormControlBox1.UseCriticalBox = False
+        'Me.FormControlBox1.UseLockBox = False
+        'Me.FormControlBox1.UseRotationBox = False
+        'Me.FormControlBox1.UsePowerBox = False
 
         initChart()
 

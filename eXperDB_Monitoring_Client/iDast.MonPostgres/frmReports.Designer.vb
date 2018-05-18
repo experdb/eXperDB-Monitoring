@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmReports
-    Inherits frmMonBase
+    'Inherits frmMonBase
+    Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -100,7 +101,7 @@ Partial Class frmReports
         Me.grpRptCpu.MinimumSize = New System.Drawing.Size(0, 250)
         Me.grpRptCpu.Name = "grpRptCpu"
         Me.grpRptCpu.Padding = New System.Windows.Forms.Padding(3, 17, 3, 3)
-        Me.grpRptCpu.Size = New System.Drawing.Size(1801, 425)
+        Me.grpRptCpu.Size = New System.Drawing.Size(1805, 425)
         Me.grpRptCpu.TabIndex = 9
         Me.grpRptCpu.TabStop = False
         Me.grpRptCpu.Text = "F164"
@@ -117,13 +118,13 @@ Partial Class frmReports
         Me.chtRptCpu.DataSource = Nothing
         Me.chtRptCpu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptCpu.Location = New System.Drawing.Point(3, 39)
+        Me.chtRptCpu.Location = New System.Drawing.Point(3, 34)
         Me.chtRptCpu.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.chtRptCpu.MaximumSize = New System.Drawing.Size(0, 375)
         Me.chtRptCpu.MenuVisible = True
         Me.chtRptCpu.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtRptCpu.Name = "chtRptCpu"
-        Me.chtRptCpu.Size = New System.Drawing.Size(1795, 375)
+        Me.chtRptCpu.Size = New System.Drawing.Size(1799, 375)
         Me.chtRptCpu.TabIndex = 15
         Me.chtRptCpu.Title = ""
         '
@@ -202,7 +203,7 @@ Partial Class frmReports
         Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEd.Name = "dtpEd"
         Me.dtpEd.Necessary = False
-        Me.dtpEd.Size = New System.Drawing.Size(180, 29)
+        Me.dtpEd.Size = New System.Drawing.Size(180, 24)
         Me.dtpEd.StatusTip = ""
         Me.dtpEd.TabIndex = 5
         '
@@ -233,7 +234,7 @@ Partial Class frmReports
         Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpSt.Name = "dtpSt"
         Me.dtpSt.Necessary = False
-        Me.dtpSt.Size = New System.Drawing.Size(180, 29)
+        Me.dtpSt.Size = New System.Drawing.Size(180, 24)
         Me.dtpSt.StatusTip = ""
         Me.dtpSt.TabIndex = 3
         '
@@ -261,7 +262,7 @@ Partial Class frmReports
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
-        Me.cmbInst.Size = New System.Drawing.Size(150, 26)
+        Me.cmbInst.Size = New System.Drawing.Size(150, 23)
         Me.cmbInst.StatusTip = ""
         Me.cmbInst.TabIndex = 1
         Me.cmbInst.ValueText = ""
@@ -298,7 +299,7 @@ Partial Class frmReports
         Me.grpRptDisk.MinimumSize = New System.Drawing.Size(0, 250)
         Me.grpRptDisk.Name = "grpRptDisk"
         Me.grpRptDisk.Padding = New System.Windows.Forms.Padding(3, 17, 3, 3)
-        Me.grpRptDisk.Size = New System.Drawing.Size(1801, 838)
+        Me.grpRptDisk.Size = New System.Drawing.Size(1805, 838)
         Me.grpRptDisk.TabIndex = 11
         Me.grpRptDisk.TabStop = False
         Me.grpRptDisk.Text = "F165"
@@ -314,13 +315,13 @@ Partial Class frmReports
         Me.chtRptDisk.DataSource = Nothing
         Me.chtRptDisk.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDisk.Location = New System.Drawing.Point(3, 439)
+        Me.chtRptDisk.Location = New System.Drawing.Point(3, 434)
         Me.chtRptDisk.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.chtRptDisk.MaximumSize = New System.Drawing.Size(0, 375)
         Me.chtRptDisk.MenuVisible = True
         Me.chtRptDisk.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtRptDisk.Name = "chtRptDisk"
-        Me.chtRptDisk.Size = New System.Drawing.Size(1795, 375)
+        Me.chtRptDisk.Size = New System.Drawing.Size(1799, 375)
         Me.chtRptDisk.TabIndex = 18
         Me.chtRptDisk.Title = ""
         '
@@ -330,13 +331,13 @@ Partial Class frmReports
         Me.chtRptDiskRate.DataSource = Nothing
         Me.chtRptDiskRate.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtRptDiskRate.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDiskRate.Location = New System.Drawing.Point(3, 64)
+        Me.chtRptDiskRate.Location = New System.Drawing.Point(3, 59)
         Me.chtRptDiskRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.chtRptDiskRate.MaximumSize = New System.Drawing.Size(0, 375)
         Me.chtRptDiskRate.MenuVisible = True
         Me.chtRptDiskRate.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtRptDiskRate.Name = "chtRptDiskRate"
-        Me.chtRptDiskRate.Size = New System.Drawing.Size(1795, 375)
+        Me.chtRptDiskRate.Size = New System.Drawing.Size(1799, 375)
         Me.chtRptDiskRate.TabIndex = 19
         Me.chtRptDiskRate.Title = ""
         '
@@ -346,11 +347,11 @@ Partial Class frmReports
         Me.flpDisk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpDisk.Dock = System.Windows.Forms.DockStyle.Top
         Me.flpDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.flpDisk.Location = New System.Drawing.Point(3, 39)
+        Me.flpDisk.Location = New System.Drawing.Point(3, 34)
         Me.flpDisk.Margin = New System.Windows.Forms.Padding(1)
         Me.flpDisk.MinimumSize = New System.Drawing.Size(0, 25)
         Me.flpDisk.Name = "flpDisk"
-        Me.flpDisk.Size = New System.Drawing.Size(1795, 25)
+        Me.flpDisk.Size = New System.Drawing.Size(1799, 25)
         Me.flpDisk.TabIndex = 20
         '
         'grpRptTimeLine
@@ -371,7 +372,7 @@ Partial Class frmReports
         Me.grpRptTimeLine.MinimumSize = New System.Drawing.Size(0, 250)
         Me.grpRptTimeLine.Name = "grpRptTimeLine"
         Me.grpRptTimeLine.Padding = New System.Windows.Forms.Padding(3, 17, 3, 3)
-        Me.grpRptTimeLine.Size = New System.Drawing.Size(1801, 1061)
+        Me.grpRptTimeLine.Size = New System.Drawing.Size(1805, 1061)
         Me.grpRptTimeLine.TabIndex = 17
         Me.grpRptTimeLine.TabStop = False
         Me.grpRptTimeLine.Text = "F155"
@@ -393,10 +394,10 @@ Partial Class frmReports
         Me.Panel1.Controls.Add(Me.chtSession)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Font = New System.Drawing.Font("Gulim", 13.49338!)
-        Me.Panel1.Location = New System.Drawing.Point(3, 64)
+        Me.Panel1.Location = New System.Drawing.Point(3, 59)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1795, 994)
+        Me.Panel1.Size = New System.Drawing.Size(1799, 999)
         Me.Panel1.TabIndex = 31
         '
         'dgvRptSQL
@@ -437,7 +438,7 @@ Partial Class frmReports
         Me.dgvRptSQL.RowHeadersVisible = False
         Me.dgvRptSQL.RowTemplate.Height = 23
         Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvRptSQL.Size = New System.Drawing.Size(1774, 50)
+        Me.dgvRptSQL.Size = New System.Drawing.Size(1782, 50)
         Me.dgvRptSQL.TabIndex = 31
         Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvRptSQL.UseTagValueMatchColor = False
@@ -505,7 +506,7 @@ Partial Class frmReports
         Me.chtBufferrate.MenuVisible = True
         Me.chtBufferrate.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtBufferrate.Name = "chtBufferrate"
-        Me.chtBufferrate.Size = New System.Drawing.Size(1774, 375)
+        Me.chtBufferrate.Size = New System.Drawing.Size(1782, 375)
         Me.chtBufferrate.TabIndex = 30
         Me.chtBufferrate.Title = ""
         '
@@ -521,7 +522,7 @@ Partial Class frmReports
         Me.chtBuffer.MenuVisible = True
         Me.chtBuffer.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtBuffer.Name = "chtBuffer"
-        Me.chtBuffer.Size = New System.Drawing.Size(1774, 375)
+        Me.chtBuffer.Size = New System.Drawing.Size(1782, 375)
         Me.chtBuffer.TabIndex = 29
         Me.chtBuffer.Title = ""
         '
@@ -537,7 +538,7 @@ Partial Class frmReports
         Me.chtObjectRate.MenuVisible = True
         Me.chtObjectRate.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtObjectRate.Name = "chtObjectRate"
-        Me.chtObjectRate.Size = New System.Drawing.Size(1774, 375)
+        Me.chtObjectRate.Size = New System.Drawing.Size(1782, 375)
         Me.chtObjectRate.TabIndex = 28
         Me.chtObjectRate.Title = ""
         '
@@ -553,7 +554,7 @@ Partial Class frmReports
         Me.chtObjectTuple.MenuVisible = True
         Me.chtObjectTuple.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtObjectTuple.Name = "chtObjectTuple"
-        Me.chtObjectTuple.Size = New System.Drawing.Size(1774, 375)
+        Me.chtObjectTuple.Size = New System.Drawing.Size(1782, 375)
         Me.chtObjectTuple.TabIndex = 27
         Me.chtObjectTuple.Title = ""
         '
@@ -569,7 +570,7 @@ Partial Class frmReports
         Me.chtLogical.MenuVisible = True
         Me.chtLogical.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtLogical.Name = "chtLogical"
-        Me.chtLogical.Size = New System.Drawing.Size(1774, 375)
+        Me.chtLogical.Size = New System.Drawing.Size(1782, 375)
         Me.chtLogical.TabIndex = 25
         Me.chtLogical.Title = ""
         '
@@ -585,7 +586,7 @@ Partial Class frmReports
         Me.chtSession.MenuVisible = True
         Me.chtSession.MinimumSize = New System.Drawing.Size(0, 375)
         Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1774, 375)
+        Me.chtSession.Size = New System.Drawing.Size(1782, 375)
         Me.chtSession.TabIndex = 20
         Me.chtSession.Title = ""
         '
@@ -595,11 +596,11 @@ Partial Class frmReports
         Me.flpDB.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpDB.Dock = System.Windows.Forms.DockStyle.Top
         Me.flpDB.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.flpDB.Location = New System.Drawing.Point(3, 39)
+        Me.flpDB.Location = New System.Drawing.Point(3, 34)
         Me.flpDB.Margin = New System.Windows.Forms.Padding(1)
         Me.flpDB.MinimumSize = New System.Drawing.Size(0, 25)
         Me.flpDB.Name = "flpDB"
-        Me.flpDB.Size = New System.Drawing.Size(1795, 25)
+        Me.flpDB.Size = New System.Drawing.Size(1799, 25)
         Me.flpDB.TabIndex = 21
         '
         'colDgvRptSqlInstID
@@ -655,15 +656,15 @@ Partial Class frmReports
         Me.pnlMain.Location = New System.Drawing.Point(2, 63)
         Me.pnlMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1822, 1035)
+        Me.pnlMain.Size = New System.Drawing.Size(1822, 1033)
         Me.pnlMain.TabIndex = 19
         '
         'frmReports
         '
         Me.AutoScroll = True
         Me.BackColor = System.Drawing.Color.Black
-        Me.BaseHeight = 1102
-        Me.ClientSize = New System.Drawing.Size(1826, 1100)
+        'Me.BaseHeight = 1100
+        Me.ClientSize = New System.Drawing.Size(1826, 1098)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.pnlSearch)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
