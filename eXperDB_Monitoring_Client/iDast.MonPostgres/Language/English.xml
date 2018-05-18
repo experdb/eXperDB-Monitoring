@@ -2408,6 +2408,10 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F296" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[Report]]></DATA>
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>

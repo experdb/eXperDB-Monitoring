@@ -338,6 +338,7 @@
         Me.ttChart.SetToolTip(Me.btnLock, p_clsMsgData.fn_GetData("F305"))
         'Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F300"))
         Me.ttChart.SetToolTip(Me.btnAlertConfig, p_clsMsgData.fn_GetData("F199"))
+        Me.ttChart.SetToolTip(Me.btnReport, p_clsMsgData.fn_GetData("F296"))
 
         rbCurrent.Text = p_clsMsgData.fn_GetData("F282")
         rbHistory.Text = p_clsMsgData.fn_GetData("F283")
