@@ -2003,7 +2003,7 @@
             Dim intAlertCount As Integer = dgvAlert.Rows.Count
             Dim RemoveDt As Date = Now
             RemoveDt = RemoveDt.AddMinutes(-120)
-            For i As Integer = intAlertCount To 0 Step -1
+            For i As Integer = intAlertCount - 1 To 0 Step -1
                 Dim AlertDt As Date = dgvAlert.Rows(i).Cells(coldgvAlertCollectDt.Index).Value
                 If RemoveDt >= AlertDt Then
                     dgvAlert.Rows.RemoveAt(i)

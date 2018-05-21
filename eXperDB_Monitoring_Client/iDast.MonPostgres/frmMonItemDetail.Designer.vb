@@ -33,6 +33,14 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
@@ -76,6 +84,8 @@ Partial Class frmMonItemDetail
         Me.chkLogicalIO = New eXperDB.BaseControls.CheckBox()
         Me.chkSession = New eXperDB.BaseControls.CheckBox()
         Me.chkCpu = New eXperDB.BaseControls.CheckBox()
+        Me.tabSession = New FlatTabControl.FlatTabControl()
+        Me.tabWhole = New System.Windows.Forms.TabPage()
         Me.dgvSessionList = New eXperDB.BaseControls.DataGridView()
         Me.coldgvSessionListDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvSessionListPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -88,6 +98,14 @@ Partial Class frmMonItemDetail
         Me.coldgvSessionListSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvSessionlistRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvSessionListActvRegSeq = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabStats = New System.Windows.Forms.TabPage()
+        Me.dgvRptSQL = New eXperDB.BaseControls.DataGridView()
+        Me.colDgvRptSqlDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlElapsedMax = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.colDgvRptSqlCpuTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.colDgvRptSqlCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlSql = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlUserName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lslSession = New System.Windows.Forms.Label()
@@ -113,7 +131,11 @@ Partial Class frmMonItemDetail
         Me.pnlEd.SuspendLayout()
         Me.pnlSt.SuspendLayout()
         Me.tlpButton.SuspendLayout()
+        Me.tabSession.SuspendLayout()
+        Me.tabWhole.SuspendLayout()
         CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabStats.SuspendLayout()
+        CType(Me.dgvRptSQL, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
@@ -254,7 +276,7 @@ Partial Class frmMonItemDetail
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpBottom.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpBottom.Size = New System.Drawing.Size(1284, 772)
+        Me.tlpBottom.Size = New System.Drawing.Size(1304, 836)
         Me.tlpBottom.TabIndex = 8
         '
         'SplitContainer1
@@ -276,12 +298,12 @@ Partial Class frmMonItemDetail
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.Black
-        Me.SplitContainer1.Panel2.Controls.Add(Me.dgvSessionList)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.tabSession)
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel2)
         Me.SplitContainer1.Panel2.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tlpBottom.SetRowSpan(Me.SplitContainer1, 2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1278, 766)
-        Me.SplitContainer1.SplitterDistance = 585
+        Me.SplitContainer1.Size = New System.Drawing.Size(1298, 830)
+        Me.SplitContainer1.SplitterDistance = 586
         Me.SplitContainer1.TabIndex = 0
         '
         'tlpChartArea
@@ -302,7 +324,7 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpChartArea.Size = New System.Drawing.Size(1278, 585)
+        Me.tlpChartArea.Size = New System.Drawing.Size(1298, 586)
         Me.tlpChartArea.TabIndex = 0
         '
         'TableLayoutPanel1
@@ -319,7 +341,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1272, 34)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1292, 34)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'Label2
@@ -341,7 +363,7 @@ Partial Class frmMonItemDetail
         Me.lblChart.ForeColor = System.Drawing.Color.White
         Me.lblChart.Location = New System.Drawing.Point(43, 0)
         Me.lblChart.Name = "lblChart"
-        Me.lblChart.Size = New System.Drawing.Size(1226, 34)
+        Me.lblChart.Size = New System.Drawing.Size(1246, 34)
         Me.lblChart.TabIndex = 3
         Me.lblChart.Text = "F268"
         Me.lblChart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -358,7 +380,7 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlChart.Location = New System.Drawing.Point(3, 129)
         Me.pnlChart.Name = "pnlChart"
-        Me.pnlChart.Size = New System.Drawing.Size(1272, 453)
+        Me.pnlChart.Size = New System.Drawing.Size(1292, 454)
         Me.pnlChart.TabIndex = 3
         '
         'tlpInput
@@ -389,7 +411,7 @@ Partial Class frmMonItemDetail
         Me.tlpInput.Name = "tlpInput"
         Me.tlpInput.RowCount = 1
         Me.tlpInput.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpInput.Size = New System.Drawing.Size(1272, 40)
+        Me.tlpInput.Size = New System.Drawing.Size(1292, 40)
         Me.tlpInput.TabIndex = 0
         '
         'pnlEd
@@ -581,7 +603,7 @@ Partial Class frmMonItemDetail
         Me.tlpButton.Name = "tlpButton"
         Me.tlpButton.RowCount = 1
         Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpButton.Size = New System.Drawing.Size(1272, 34)
+        Me.tlpButton.Size = New System.Drawing.Size(1292, 34)
         Me.tlpButton.TabIndex = 2
         '
         'chkSQLResp
@@ -592,10 +614,10 @@ Partial Class frmMonItemDetail
         Me.chkSQLResp.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkSQLResp.ForeColor = System.Drawing.Color.White
         Me.chkSQLResp.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkSQLResp.Location = New System.Drawing.Point(1019, 3)
+        Me.chkSQLResp.Location = New System.Drawing.Point(1035, 3)
         Me.chkSQLResp.Name = "chkSQLResp"
         Me.chkSQLResp.Radius = 8
-        Me.chkSQLResp.Size = New System.Drawing.Size(250, 28)
+        Me.chkSQLResp.Size = New System.Drawing.Size(254, 28)
         Me.chkSQLResp.TabIndex = 27
         Me.chkSQLResp.Text = "F103"
         Me.chkSQLResp.UnCheckFillColor = System.Drawing.Color.Black
@@ -610,10 +632,10 @@ Partial Class frmMonItemDetail
         Me.chkPhysicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkPhysicalIO.ForeColor = System.Drawing.Color.White
         Me.chkPhysicalIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkPhysicalIO.Location = New System.Drawing.Point(765, 3)
+        Me.chkPhysicalIO.Location = New System.Drawing.Point(777, 3)
         Me.chkPhysicalIO.Name = "chkPhysicalIO"
         Me.chkPhysicalIO.Radius = 8
-        Me.chkPhysicalIO.Size = New System.Drawing.Size(248, 28)
+        Me.chkPhysicalIO.Size = New System.Drawing.Size(252, 28)
         Me.chkPhysicalIO.TabIndex = 26
         Me.chkPhysicalIO.Text = "F100"
         Me.chkPhysicalIO.UnCheckFillColor = System.Drawing.Color.Black
@@ -628,10 +650,10 @@ Partial Class frmMonItemDetail
         Me.chkLogicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkLogicalIO.ForeColor = System.Drawing.Color.White
         Me.chkLogicalIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkLogicalIO.Location = New System.Drawing.Point(511, 3)
+        Me.chkLogicalIO.Location = New System.Drawing.Point(519, 3)
         Me.chkLogicalIO.Name = "chkLogicalIO"
         Me.chkLogicalIO.Radius = 8
-        Me.chkLogicalIO.Size = New System.Drawing.Size(248, 28)
+        Me.chkLogicalIO.Size = New System.Drawing.Size(252, 28)
         Me.chkLogicalIO.TabIndex = 25
         Me.chkLogicalIO.Text = "F101"
         Me.chkLogicalIO.UnCheckFillColor = System.Drawing.Color.Black
@@ -646,10 +668,10 @@ Partial Class frmMonItemDetail
         Me.chkSession.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkSession.ForeColor = System.Drawing.Color.White
         Me.chkSession.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkSession.Location = New System.Drawing.Point(257, 3)
+        Me.chkSession.Location = New System.Drawing.Point(261, 3)
         Me.chkSession.Name = "chkSession"
         Me.chkSession.Radius = 8
-        Me.chkSession.Size = New System.Drawing.Size(248, 28)
+        Me.chkSession.Size = New System.Drawing.Size(252, 28)
         Me.chkSession.TabIndex = 24
         Me.chkSession.Text = "F047"
         Me.chkSession.UnCheckFillColor = System.Drawing.Color.Black
@@ -667,12 +689,36 @@ Partial Class frmMonItemDetail
         Me.chkCpu.Location = New System.Drawing.Point(3, 3)
         Me.chkCpu.Name = "chkCpu"
         Me.chkCpu.Radius = 8
-        Me.chkCpu.Size = New System.Drawing.Size(248, 28)
+        Me.chkCpu.Size = New System.Drawing.Size(252, 28)
         Me.chkCpu.TabIndex = 23
         Me.chkCpu.Text = "F035"
         Me.chkCpu.UnCheckFillColor = System.Drawing.Color.Black
         Me.chkCpu.UseRound = True
         Me.chkCpu.UseVisualStyleBackColor = True
+        '
+        'tabSession
+        '
+        Me.tabSession.Controls.Add(Me.tabWhole)
+        Me.tabSession.Controls.Add(Me.tabStats)
+        Me.tabSession.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabSession.Location = New System.Drawing.Point(0, 35)
+        Me.tabSession.myBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tabSession.Name = "tabSession"
+        Me.tabSession.SelectedIndex = 0
+        Me.tabSession.Size = New System.Drawing.Size(1298, 205)
+        Me.tabSession.TabIndex = 15
+        '
+        'tabWhole
+        '
+        Me.tabWhole.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tabWhole.Controls.Add(Me.dgvSessionList)
+        Me.tabWhole.ForeColor = System.Drawing.Color.White
+        Me.tabWhole.Location = New System.Drawing.Point(4, 26)
+        Me.tabWhole.Name = "tabWhole"
+        Me.tabWhole.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabWhole.Size = New System.Drawing.Size(1290, 175)
+        Me.tabWhole.TabIndex = 0
+        Me.tabWhole.Text = "F045"
         '
         'dgvSessionList
         '
@@ -682,6 +728,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.AllowUserToResizeColumns = False
         Me.dgvSessionList.AllowUserToResizeRows = False
         Me.dgvSessionList.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvSessionList.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvSessionList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
@@ -707,7 +754,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.EnableHeadersVisualStyles = False
         Me.dgvSessionList.Font = New System.Drawing.Font("Gulim", 7.760073!)
         Me.dgvSessionList.GridColor = System.Drawing.Color.Gray
-        Me.dgvSessionList.Location = New System.Drawing.Point(0, 35)
+        Me.dgvSessionList.Location = New System.Drawing.Point(3, 3)
         Me.dgvSessionList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvSessionList.Name = "dgvSessionList"
         DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -721,7 +768,7 @@ Partial Class frmMonItemDetail
         Me.dgvSessionList.RowHeadersVisible = False
         Me.dgvSessionList.RowTemplate.Height = 23
         Me.dgvSessionList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSessionList.Size = New System.Drawing.Size(1278, 142)
+        Me.dgvSessionList.Size = New System.Drawing.Size(1284, 169)
         Me.dgvSessionList.TabIndex = 13
         Me.dgvSessionList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSessionList.UseTagValueMatchColor = False
@@ -739,7 +786,6 @@ Partial Class frmMonItemDetail
         Me.coldgvSessionListDB.HeaderText = "F090"
         Me.coldgvSessionListDB.Name = "coldgvSessionListDB"
         Me.coldgvSessionListDB.ReadOnly = True
-        Me.coldgvSessionListDB.Width = 88
         '
         'coldgvSessionListPID
         '
@@ -874,6 +920,152 @@ Partial Class frmMonItemDetail
         Me.colDgvSessionListActvRegSeq.Visible = False
         Me.colDgvSessionListActvRegSeq.Width = 136
         '
+        'tabStats
+        '
+        Me.tabStats.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tabStats.Controls.Add(Me.dgvRptSQL)
+        Me.tabStats.ForeColor = System.Drawing.Color.White
+        Me.tabStats.Location = New System.Drawing.Point(4, 26)
+        Me.tabStats.Name = "tabStats"
+        Me.tabStats.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabStats.Size = New System.Drawing.Size(1270, 159)
+        Me.tabStats.TabIndex = 1
+        Me.tabStats.Text = "F297"
+        '
+        'dgvRptSQL
+        '
+        Me.dgvRptSQL.AllowUserToAddRows = False
+        Me.dgvRptSQL.AllowUserToDeleteRows = False
+        Me.dgvRptSQL.AllowUserToOrderColumns = True
+        Me.dgvRptSQL.AllowUserToResizeColumns = False
+        Me.dgvRptSQL.AllowUserToResizeRows = False
+        Me.dgvRptSQL.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvRptSQL.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvRptSQL.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRptSQL.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
+        Me.dgvRptSQL.ColumnHeadersHeight = 30
+        Me.dgvRptSQL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvRptSQL.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvRptSqlDBNm, Me.colDgvRptSqlElapsedMax, Me.colDgvRptSqlCpuTime, Me.colDgvRptSqlCount, Me.colDgvRptSqlSql, Me.colDgvRptSqlUserName})
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle19.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle19.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRptSQL.DefaultCellStyle = DataGridViewCellStyle19
+        Me.dgvRptSQL.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvRptSQL.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
+        Me.dgvRptSQL.EnableHeadersVisualStyles = False
+        Me.dgvRptSQL.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.dgvRptSQL.GridColor = System.Drawing.Color.Gray
+        Me.dgvRptSQL.Location = New System.Drawing.Point(3, 3)
+        Me.dgvRptSQL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dgvRptSQL.Name = "dgvRptSQL"
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRptSQL.RowHeadersDefaultCellStyle = DataGridViewCellStyle20
+        Me.dgvRptSQL.RowHeadersVisible = False
+        Me.dgvRptSQL.RowTemplate.Height = 23
+        Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvRptSQL.Size = New System.Drawing.Size(1264, 153)
+        Me.dgvRptSQL.TabIndex = 32
+        Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Black
+        Me.dgvRptSQL.UseTagValueMatchColor = False
+        '
+        'colDgvRptSqlDBNm
+        '
+        Me.colDgvRptSqlDBNm.DataPropertyName = "DB_NAME"
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvRptSqlDBNm.DefaultCellStyle = DataGridViewCellStyle14
+        Me.colDgvRptSqlDBNm.HeaderText = "F090"
+        Me.colDgvRptSqlDBNm.Name = "colDgvRptSqlDBNm"
+        Me.colDgvRptSqlDBNm.ReadOnly = True
+        '
+        'colDgvRptSqlElapsedMax
+        '
+        Me.colDgvRptSqlElapsedMax.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.colDgvRptSqlElapsedMax.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.Format = "N2"
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvRptSqlElapsedMax.DefaultCellStyle = DataGridViewCellStyle15
+        Me.colDgvRptSqlElapsedMax.FormatString = "hh\:mm\:ss"
+        Me.colDgvRptSqlElapsedMax.HeaderText = "F183"
+        Me.colDgvRptSqlElapsedMax.Name = "colDgvRptSqlElapsedMax"
+        Me.colDgvRptSqlElapsedMax.ReadOnly = True
+        Me.colDgvRptSqlElapsedMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvRptSqlElapsedMax.Width = 160
+        '
+        'colDgvRptSqlCpuTime
+        '
+        Me.colDgvRptSqlCpuTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.colDgvRptSqlCpuTime.DataPropertyName = "OCCUPIED_TIME"
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle16.Format = "N2"
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvRptSqlCpuTime.DefaultCellStyle = DataGridViewCellStyle16
+        Me.colDgvRptSqlCpuTime.FormatString = "hh\:mm\:ss\.ff"
+        Me.colDgvRptSqlCpuTime.HeaderText = "F231"
+        Me.colDgvRptSqlCpuTime.Name = "colDgvRptSqlCpuTime"
+        Me.colDgvRptSqlCpuTime.ReadOnly = True
+        Me.colDgvRptSqlCpuTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvRptSqlCpuTime.Visible = False
+        Me.colDgvRptSqlCpuTime.Width = 160
+        '
+        'colDgvRptSqlCount
+        '
+        Me.colDgvRptSqlCount.DataPropertyName = "SQL_COUNT"
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvRptSqlCount.DefaultCellStyle = DataGridViewCellStyle17
+        Me.colDgvRptSqlCount.HeaderText = "F232"
+        Me.colDgvRptSqlCount.Name = "colDgvRptSqlCount"
+        Me.colDgvRptSqlCount.ReadOnly = True
+        '
+        'colDgvRptSqlSql
+        '
+        Me.colDgvRptSqlSql.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvRptSqlSql.DataPropertyName = "SQL"
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvRptSqlSql.DefaultCellStyle = DataGridViewCellStyle18
+        Me.colDgvRptSqlSql.HeaderText = "F185"
+        Me.colDgvRptSqlSql.Name = "colDgvRptSqlSql"
+        Me.colDgvRptSqlSql.ReadOnly = True
+        '
+        'colDgvRptSqlUserName
+        '
+        Me.colDgvRptSqlUserName.DataPropertyName = "USER_NAME"
+        Me.colDgvRptSqlUserName.HeaderText = "DBUSERNM"
+        Me.colDgvRptSqlUserName.Name = "colDgvRptSqlUserName"
+        Me.colDgvRptSqlUserName.Visible = False
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Gray
@@ -889,7 +1081,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1278, 35)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1298, 35)
         Me.TableLayoutPanel2.TabIndex = 14
         '
         'Label1
@@ -911,7 +1103,7 @@ Partial Class frmMonItemDetail
         Me.lslSession.ForeColor = System.Drawing.Color.White
         Me.lslSession.Location = New System.Drawing.Point(43, 0)
         Me.lslSession.Name = "lslSession"
-        Me.lslSession.Size = New System.Drawing.Size(1232, 35)
+        Me.lslSession.Size = New System.Drawing.Size(1252, 35)
         Me.lslSession.TabIndex = 3
         Me.lslSession.Text = "F313"
         Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -927,7 +1119,7 @@ Partial Class frmMonItemDetail
         Me.btnRange.ForeColor = System.Drawing.Color.White
         Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnRange.Location = New System.Drawing.Point(1187, 14)
+        Me.btnRange.Location = New System.Drawing.Point(1207, 14)
         Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnRange.Name = "btnRange"
         Me.btnRange.Radius = 5
@@ -949,7 +1141,7 @@ Partial Class frmMonItemDetail
         Me.btnQuery.ForeColor = System.Drawing.Color.White
         Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQuery.Location = New System.Drawing.Point(1087, 14)
+        Me.btnQuery.Location = New System.Drawing.Point(1107, 14)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
         Me.btnQuery.Radius = 5
@@ -981,7 +1173,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1284, 50)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1304, 50)
         Me.TableLayoutPanel3.TabIndex = 19
         '
         'lblSubject
@@ -993,7 +1185,7 @@ Partial Class frmMonItemDetail
         Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblSubject.Location = New System.Drawing.Point(43, 0)
         Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(838, 50)
+        Me.lblSubject.Size = New System.Drawing.Size(858, 50)
         Me.lblSubject.TabIndex = 0
         Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1019,7 +1211,7 @@ Partial Class frmMonItemDetail
         Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLogicalIO.MenuVisible = False
         Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1275, 362)
         Me.chtLogicalIO.TabIndex = 6
         Me.chtLogicalIO.Title = ""
         Me.chtLogicalIO.Visible = False
@@ -1034,7 +1226,7 @@ Partial Class frmMonItemDetail
         Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLResp.MenuVisible = False
         Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSQLResp.Size = New System.Drawing.Size(1275, 362)
         Me.chtSQLResp.TabIndex = 8
         Me.chtSQLResp.Title = ""
         Me.chtSQLResp.Visible = False
@@ -1049,7 +1241,7 @@ Partial Class frmMonItemDetail
         Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtPhysicalIO.MenuVisible = False
         Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1255, 362)
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1275, 362)
         Me.chtPhysicalIO.TabIndex = 7
         Me.chtPhysicalIO.Title = ""
         Me.chtPhysicalIO.Visible = False
@@ -1064,7 +1256,7 @@ Partial Class frmMonItemDetail
         Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSession.MenuVisible = False
         Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1255, 362)
+        Me.chtSession.Size = New System.Drawing.Size(1275, 362)
         Me.chtSession.TabIndex = 5
         Me.chtSession.Title = ""
         Me.chtSession.Visible = False
@@ -1078,7 +1270,7 @@ Partial Class frmMonItemDetail
         Me.chtCPU.Location = New System.Drawing.Point(0, 0)
         Me.chtCPU.MenuVisible = False
         Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1255, 290)
+        Me.chtCPU.Size = New System.Drawing.Size(1275, 290)
         Me.chtCPU.TabIndex = 3
         Me.chtCPU.Title = ""
         '
@@ -1086,7 +1278,7 @@ Partial Class frmMonItemDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1284, 822)
+        Me.ClientSize = New System.Drawing.Size(1304, 886)
         Me.Controls.Add(Me.tlpBottom)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1110,7 +1302,11 @@ Partial Class frmMonItemDetail
         Me.pnlEd.ResumeLayout(False)
         Me.pnlSt.ResumeLayout(False)
         Me.tlpButton.ResumeLayout(False)
+        Me.tabSession.ResumeLayout(False)
+        Me.tabWhole.ResumeLayout(False)
         CType(Me.dgvSessionList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabStats.ResumeLayout(False)
+        CType(Me.dgvRptSQL, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
@@ -1163,6 +1359,17 @@ Partial Class frmMonItemDetail
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents lblSubject As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents pnlSt As eXperDB.BaseControls.Panel
+    Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents pnlEd As eXperDB.BaseControls.Panel
+    Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents lblEd As eXperDB.BaseControls.Label
+    Friend WithEvents lblSt As eXperDB.BaseControls.Label
+    Friend WithEvents cmbDuration As eXperDB.BaseControls.ComboBox
+    Friend WithEvents tabSession As FlatTabControl.FlatTabControl
+    Friend WithEvents tabWhole As System.Windows.Forms.TabPage
+    Friend WithEvents tabStats As System.Windows.Forms.TabPage
+    Friend WithEvents dgvRptSQL As eXperDB.BaseControls.DataGridView
     Friend WithEvents coldgvSessionListDB As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvSessionListPID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvSessionListCpuUsage As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1174,12 +1381,11 @@ Partial Class frmMonItemDetail
     Friend WithEvents coldgvSessionListSQL As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionlistRegDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionListActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents pnlSt As eXperDB.BaseControls.Panel
-    Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
-    Friend WithEvents pnlEd As eXperDB.BaseControls.Panel
-    Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
-    Friend WithEvents lblEd As eXperDB.BaseControls.Label
-    Friend WithEvents lblSt As eXperDB.BaseControls.Label
-    Friend WithEvents cmbDuration As eXperDB.BaseControls.ComboBox
+    Friend WithEvents colDgvRptSqlDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvRptSqlElapsedMax As eXperDB.Controls.DataGridViewTimespanColumn
+    Friend WithEvents colDgvRptSqlCpuTime As eXperDB.Controls.DataGridViewTimespanColumn
+    Friend WithEvents colDgvRptSqlCount As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvRptSqlSql As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvRptSqlUserName As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

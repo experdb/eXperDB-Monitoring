@@ -410,7 +410,7 @@
   </ROW>
   <ROW ID="F045" PARAMS="0">
     <DESC>TOTAL</DESC>
-    <DATA><![CDATA[Total]]></DATA>
+    <DATA><![CDATA[전체]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2411,6 +2411,10 @@
   <ROW ID="F296" PARAMS="0">
     <DESC>Report</DESC>
     <DATA><![CDATA[리포트]]></DATA>
+  </ROW>
+  <ROW ID="F297" PARAMS="0">
+    <DESC>통계</DESC>
+    <DATA><![CDATA[통계]]></DATA>
   </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>

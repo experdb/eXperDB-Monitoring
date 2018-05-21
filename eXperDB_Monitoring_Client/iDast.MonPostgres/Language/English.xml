@@ -2412,6 +2412,10 @@
     <DESC>Report</DESC>
     <DATA><![CDATA[Report]]></DATA>
   </ROW>
+  <ROW ID="F297" PARAMS="0">
+    <DESC>Statistics</DESC>
+    <DATA><![CDATA[Statistics]]></DATA>
+  </ROW>
   <ROW ID="F300" PARAMS="0">
     <DESC>Control ConfigBox</DESC>
     <DATA><![CDATA[Configuration]]></DATA>

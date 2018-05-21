@@ -126,7 +126,7 @@
 
         '_chtCount = 1
         chtCPU.MainChart.Focus()
-        SetDataSession(dtpSt.Value, dtpEd.Value)
+        'SetDataSession(dtpSt.Value, dtpEd.Value)
         BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
     End Sub
 
@@ -156,7 +156,7 @@
         btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        ' Talble Information
+        ' Talble Information (whole)
 
         lslSession.Text = p_clsMsgData.fn_GetData("F314", 0)
         dgvSessionList.AutoGenerateColumns = False
@@ -172,6 +172,23 @@
 
         dgvSessionList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvSessionList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
+
+
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        ' Talble Information (statistics)
+
+        dgvRptSQL.AutoGenerateColumns = False
+        colDgvRptSqlDBNm.HeaderText = p_clsMsgData.fn_GetData("F090")
+        colDgvRptSqlCpuTime.HeaderText = p_clsMsgData.fn_GetData("F231")
+        colDgvRptSqlCount.HeaderText = p_clsMsgData.fn_GetData("F232")
+        colDgvRptSqlElapsedMax.HeaderText = p_clsMsgData.fn_GetData("F183")
+        colDgvRptSqlSql.HeaderText = p_clsMsgData.fn_GetData("F185")
+
+        tabWhole.Text = p_clsMsgData.fn_GetData("F045")
+        tabStats.Text = p_clsMsgData.fn_GetData("F297")
+
+        dgvRptSQL.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
+        dgvRptSQL.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
 
         chtCPU.Visible = False
         chtSession.Visible = False
@@ -229,6 +246,47 @@
 
                                                 modCommon.sb_GridSortChg(dgvSessionList)
                                                 lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
+                                            Catch ex As Exception
+                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                GC.Collect()
+                                            End Try
+
+                                        End Sub))
+        End If
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        ' Statistics
+        Dim dtTableStats As DataTable = Nothing
+        Dim tmpStatsTh As Threading.Thread = New Threading.Thread(Sub()
+                                                                      Try
+                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt)
+                                                                      Catch ex As Exception
+                                                                          GC.Collect()
+                                                                      End Try
+                                                                  End Sub)
+        tmpStatsTh.Start()
+        tmpStatsTh.Join()
+        If dtTableStats IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            Try
+                                                Dim strQuery As String = ""
+
+                                                'strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
+
+                                                Dim dtView As DataView = New DataView(dtTableStats, strQuery, "OCCUPIED_TIME DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
+
+                                                Dim ShowDT As DataTable = Nothing
+                                                If dtView.Count > 0 Then
+                                                    ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
+                                                End If
+
+                                                If ShowDT Is Nothing Then
+                                                    dgvRptSQL.DataSource = Nothing
+                                                    Return
+                                                End If
+
+                                                dgvRptSQL.DataSource = ShowDT
+
+                                                modCommon.sb_GridSortChg(dgvRptSQL)
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                                 GC.Collect()
@@ -817,6 +875,21 @@
         strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
         strQuery = dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value
         strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
+        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        frmQuery.ShowDialog(Me)
+        'End If
+    End Sub
+
+
+    Private Sub dgvRptSql_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRptSQL.CellDoubleClick
+        Dim strDb As String = ""
+        Dim strUser As String = ""
+        Dim strQuery As String = ""
+        If dgvRptSQL.RowCount <= 0 Then Return
+        'If e.ColumnIndex = coldgvSessionListSQL.Index Then
+        strDb = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlDBNm.Index).Value
+        strQuery = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlSql.Index).Value
+        strUser = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlUserName.Index).Value
         Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
         frmQuery.ShowDialog(Me)
         'End If
