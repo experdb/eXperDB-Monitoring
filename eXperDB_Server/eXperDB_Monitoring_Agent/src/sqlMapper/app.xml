@@ -1380,6 +1380,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					 ]]>
 			</when>
 			<otherwise>
+			<![CDATA[
 					 SELECT /* EXPERDBMA_BT_UPTIME_MAXCONN_002 24e9ab7301ff1966da4fb30dc1538882 */
 					        PG_POSTMASTER_START_TIME() AS INSTANCE_UPTIME, 
 					        SETTING AS MAX_CONN_CNT, 
@@ -1402,7 +1403,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 								           ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) END
 								 ELSE '0' END AS REPLAY_LAG
 					   FROM PG_SETTINGS 
-					   WHERE NAME='max_connections'
+					   WHERE NAME='max_connections'					   
+					]]>
 			</otherwise>
 		</choose>
 	</select>
