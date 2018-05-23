@@ -1386,9 +1386,21 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
 					        GET_HOSTNAME() AS HOST_NAME,
 					        VERSION() AS PG_VERSION,
-					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE 'P' END AS HA_ROLE, 
-		       				CASE WHEN pg_is_in_recovery() THEN '-' ELSE '-' END AS HA_HOST, 
-		       				CASE WHEN pg_is_in_recovery() THEN '-' ELSE '0' END AS HA_PORT       
+					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE (CASE WHEN (SELECT COUNT(*) FROM PG_STAT_REPLICATION) <= 0 THEN 'A' ELSE 'P' END) END AS HA_ROLE, 
+							CASE WHEN pg_is_in_recovery() THEN 
+								TRIM(BOTH FROM COALESCE((SELECT SUBSTRING(ARR_COL, length('host=')+1) FROM 
+									(SELECT regexp_split_to_table(pg_file_read('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR
+								      WHERE ARR_COL LIKE 'host=%' 
+								      ORDER BY arr_col), '-'), '''') ELSE '-' END AS HA_HOST,  
+							CASE WHEN pg_is_in_recovery() THEN 
+								COALESCE((SELECT substring(ARR_COL, length('port=')+1) FROM 
+									(SELECT regexp_split_to_table(pg_file_read('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR2
+								  	  WHERE ARR_COL LIKE 'port=%' 
+								  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
+		       				CASE WHEN pg_is_in_recovery() THEN 
+								      CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
+								           ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) END
+								 ELSE '0' END AS REPLAY_LAG
 					   FROM PG_SETTINGS 
 					   WHERE NAME='max_connections'
 			</otherwise>

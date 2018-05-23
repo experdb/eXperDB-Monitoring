@@ -2798,7 +2798,7 @@
   </ROW>
   <ROW ID="M031" PARAMS="1">
     <DESC>선택한 세션을 종료하시겠습니까?</DESC>
-    <DATA><![CDATA[Do you wish to terminate the selected session?]]></DATA>
+    <DATA><![CDATA[Do you wish to terminate the selected session? (PID : {0})]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

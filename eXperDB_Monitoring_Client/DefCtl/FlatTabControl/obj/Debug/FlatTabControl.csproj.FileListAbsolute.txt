@@ -1,7 +1,0 @@
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\bin\Debug\FlatTabControl.dll
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\bin\Debug\FlatTabControl.pdb
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\obj\Debug\FlatTabControl.csprojResolveAssemblyReference.cache
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\obj\Debug\FlatTabControl.FlatTabControl.resources
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\obj\Debug\FlatTabControl.csproj.GenerateResource.Cache
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\obj\Debug\FlatTabControl.dll
-D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github_reconfigure\eXperDB_Monitoring_Client\DefCtl\FlatTabControl\obj\Debug\FlatTabControl.pdb
