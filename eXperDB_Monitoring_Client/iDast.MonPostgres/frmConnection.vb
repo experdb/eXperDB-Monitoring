@@ -645,4 +645,10 @@ Public Class frmConnection
             AgentMsgDbInfo.SendDX008(txtIP.Text, txtPort.Text, txtUsr.Text, txtPW.Text, _strSvrQuery)
         End If
     End Sub
+
+    Private Sub txtHAHost_Leave(sender As Object, e As EventArgs) Handles txtHAHost.Leave
+        If txtHAREPLHost.Text = "-" Then
+            txtHAREPLHost.Text = txtHAHost.Text
+        End If
+    End Sub
 End Class
