@@ -3,7 +3,7 @@
 eXperDB-Monitoring for PostgreSQL provide real time monitoring for PostgreSQL It enables various types of monitoring such as session, alive, resource, performance, and so on. It supports to monitoring not only Streaming Replication but also HA status. You can use eXperDB-Monitoring for PostgreSQL to quickly find various troubles, analyze troubles, and tune performance of PostgreSQL.
 
 
-![Dashboard](./Images/introduction.png "Introduce eXperDB-Monitoring")
+![intro](./Images/introduction.png "Introduce eXperDB-Monitoring")
 
 
 ## characteristic
@@ -23,7 +23,7 @@ eXperDB-Monitoring for PostgreSQL provide real time monitoring for PostgreSQL It
 
 eXperDB-Monitoring for postgreSQL consists of a server for collecting database information, extension on PostgreSQL server, and a control screen as an integrated console.
 
-![Dashboard](./Images/consist.png "eXperDB-Monitoring components")
+![consist](./Images/consist.png "eXperDB-Monitoring components")
 
 # Features
 
