@@ -4,6 +4,7 @@ eXperDB-Monitoring for PostgreSQL provide real time monitoring for PostgreSQL It
 
 
 ![intro](./images/introduction.png "Introduce eXperDB-Monitoring")
+![intro2](./images/introduction2.png "Introduce eXperDB-Monitoring")
 
 
 ## characteristic
