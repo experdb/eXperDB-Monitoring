@@ -3,7 +3,7 @@
 eXperDB-Monitoring for PostgreSQL provide real time monitoring for PostgreSQL It enables various types of monitoring such as session, alive, resource, performance, and so on. It supports to monitoring not only Streaming Replication but also HA status. You can use eXperDB-Monitoring for PostgreSQL to quickly find various troubles, analyze troubles, and tune performance of PostgreSQL.
 
 
-![intro](./Images/introduction.png "Introduce eXperDB-Monitoring")
+![intro](./images/introduction.png "Introduce eXperDB-Monitoring")
 
 
 ## characteristic
@@ -23,7 +23,7 @@ eXperDB-Monitoring for PostgreSQL provide real time monitoring for PostgreSQL It
 
 eXperDB-Monitoring for postgreSQL consists of a server for collecting database information, extension on PostgreSQL server, and a control screen as an integrated console.
 
-![consist](./Images/consist.png "eXperDB-Monitoring components")
+![consist](./images/consist.png "eXperDB-Monitoring components")
 
 # Features
 
@@ -75,25 +75,51 @@ eXperDB-Monitoring for postgreSQL consists of a server for collecting database i
 * JDK : JDK 1.7 or later
 * CPU : At least 4core, recommended 8core
 * HDD : 100GB or more
+
+### Installation procedure
 1.Preparation
+eXperDB-Monitoring for PostgreSQL using PostgreSQL as as repository. so PostgreSQL must be installed on your linux machine before installing eXperDB-Monitoring-Server.
+<pre>  
+tar zxvf eXperDB_Server_xxx.tar.gz
+</pre>
+  
 2.Run install script
+<pre>  
+cd eXperDB_Server
+./install.sh -h 127.0.0.1 -d postgres -p 5432 -U postgres -W postgres
+</pre>
 
 ## Installing eXperDB-Monitoring-Extension
 ### System Requirements
 * OS : Linux
 * PostgreSQL : Ver 9.1 or later
+
+### Installation procedure
 1.Preparation
+<pre>
+# tar zxvf eXperDB_PGMON_xxx.tar
+</pre>
 2.Build
+<pre>
+# tar zxvf eXperDB_PGMON_xxx.tar
+# cd eXperDB_PGMON
+# make USE_PGXS=1 install
+</pre>
 3.Create extension.
 - Create the database for monitoring.
 - Create the role with super privileges for monitoring
 - Create extension
+<pre>
+postgres=# create extension experdb_mon;
+</pre>
 
 ## Installing eXperDB-Monitoring-Client
 ### System Requirements
 * OS : Windows 7 or later
 * .Net Framwork : 4.5.1 or later (already contained in the installation package)
 * Resolution : 1920x1080
+
+### Installation procedure
 1. Run eXperDB.Monitoring_XXX.exe
 
 
