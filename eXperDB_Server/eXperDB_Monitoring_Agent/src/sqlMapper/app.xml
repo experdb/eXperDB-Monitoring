@@ -359,6 +359,7 @@
 		          --B.IDX_SCAN - ? AS CURRENT_INDEX_SCAN_CNT, --@이전값
 		          --B.IDX_TUP_FETCH - ? AS CURRENT_INDEX_TUPLES, --@이전값
 		          B.N_LIVE_TUP AS LIVE_TUPLE_CNT,
+		          B.N_DEAD_TUP AS DEAD_TUPLE_CNT,
 		          --CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN NULL
 		          CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN '1000-01-01 00:00:00'::TIMESTAMP 
 		               WHEN LAST_VACUUM IS NULL THEN LAST_AUTOVACUUM 
@@ -408,6 +409,7 @@
 			#{current_index_scan_cnt},
 			#{current_index_tuples},			
 			#{live_tuple_cnt},
+			#{dead_tuple_cnt},
 			#{last_vacuum},
 			#{last_analyze},
 			#{collect_dt}

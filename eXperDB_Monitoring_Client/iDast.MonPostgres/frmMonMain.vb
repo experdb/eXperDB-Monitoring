@@ -616,7 +616,14 @@
         For i As Integer = 0 To svrLst.Count - 1
             Dim tmpCtl As Progress3D = CreateProgress3D("prog3Dinst" & i + 1)
             ' 인스턴스 정보 문자 출력
-            tmpCtl.HeadText = svrLst.Item(i).HARole
+            Dim strHARole As String = "Single"
+            Select Case svrLst.Item(i).HARole
+                Case "P"
+                    strHARole = "Primary"
+                Case "S"
+                    strHARole = "Standby"
+            End Select
+            tmpCtl.HeadText = strHARole
             tmpCtl.Text = " "
             tmpCtl.Text += svrLst.Item(i).ShowNm
             tmpCtl.SubText = svrLst.Item(i).IP & " / " & svrLst.Item(i).Port
@@ -1672,7 +1679,8 @@
                               Key .Name = r.Field(Of String)("HOST_NAME"), _
                               Key .HARole = r.Field(Of String)("HA_ROLE"), _
                               Key .HAHost = r.Field(Of String)("HA_HOST"), _
-                              Key .HAPort = r.Field(Of String)("HA_PORT")} _
+                              Key .HAPort = r.Field(Of String)("HA_PORT"), _
+                              Key .HARoleS = r.Field(Of String)("HA_ROLE_S")} _
                          ).[Select]( _
                          Function(grp) _
                              New With {Key .InstanceID = grp.Key.InstanceID, _
@@ -1682,6 +1690,7 @@
                                        Key .HARole = grp.Key.HARole, _
                                        Key .HAHost = grp.Key.HAHost, _
                                        Key .HAPort = grp.Key.HAPort, _
+                                       Key .HARoleS = grp.Key.HARoleS, _
                                        Key .MaxVal = grp.Max(Function(e) e.Field(Of Integer)("HCHK_VALUE"))} _
                                    )
 
@@ -1733,8 +1742,23 @@
                     Dim intInstID As Integer = DirectCast(tmpCtl.Tag, GroupInfo.ServerInfo).InstanceID
                     If InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID).Count > 0 Then
                         DirectCast(tmpCtl, Progress3D).Value = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100
-                        ' HA 롤 구분 문자 출력 M or S
-                        DirectCast(tmpCtl, Progress3D).HeadText = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARole
+                        ' HA 롤 구분 문자 출력 P or S
+                        Dim strHARole As String = "Single"
+                        Select Case InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARole
+                            Case "P"
+                                strHARole = "Primary"
+                            Case "S"
+                                strHARole = "Standby"
+                        End Select
+                        DirectCast(tmpCtl, Progress3D).HeadText = strHARole
+                        strHARole = "Single"
+                        Select Case InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
+                            Case "P"
+                                strHARole = "Primary"
+                            Case "S"
+                                strHARole = "Standby"
+                        End Select
+                        DirectCast(tmpCtl, Progress3D).HeadText2 = strHARole
                         tmpCtl.Text = " "
                         tmpCtl.Text += InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Name
                         If DirectCast(tmpCtl, Progress3D).Value > 2 Then

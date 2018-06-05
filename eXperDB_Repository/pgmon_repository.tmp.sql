@@ -345,6 +345,7 @@ CREATE UNLOGGED TABLE tb_table_info (
     current_index_scan_cnt numeric(20,0),
     current_index_tuples numeric(20,0),
     live_tuple_cnt numeric(20,0),
+    dead_tuple_cnt numeric(20,0),
     last_vacuum timestamp without time zone,
     last_analyze timestamp without time zone,
     collect_dt timestamp without time zone
@@ -682,7 +683,7 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_IP
 ,SERIAL_KEY
 ,VERSION
-) VALUES ('23:30:00', 30, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '9.6.1.174');
+) VALUES ('23:30:00', 30, 300, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '9.6.1.174');
 
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (1, 'Group1', now(), '127.0.0.1');
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (2, 'Group2', now(), '127.0.0.1');

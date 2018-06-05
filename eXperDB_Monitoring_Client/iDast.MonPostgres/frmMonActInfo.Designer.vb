@@ -91,8 +91,8 @@ Partial Class frmMonActInfo
         Me.coldgvDBinfoSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
         Me.coldgvDBinfoTABLECNT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvDBinfoINDEXCNT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvDBinfoDISKREAD = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvDBinfoBUFFERREAD = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvDBinfoDISKREAD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvDBinfoBUFFERREAD = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvDBinfoHITRATIO = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -120,6 +120,8 @@ Partial Class frmMonActInfo
         Me.coldgvTblinfoSEQSCAN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvTblinfoINDEXSCAN = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvTblinfoLIVETUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoDEADTUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoDEADTUPLERATE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvTblinfoLASTVACUUM = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -134,6 +136,7 @@ Partial Class frmMonActInfo
         Me.coldgvIdxinfoUPDATEDTUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvIdxinfoDELETEDTUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvIdxinfoLiveTuples = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvIdxinfoDeadTuples = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.lblidxinfo = New System.Windows.Forms.Label()
@@ -441,40 +444,32 @@ Partial Class frmMonActInfo
         'coldgvDBinfoDISKREAD
         '
         Me.coldgvDBinfoDISKREAD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.coldgvDBinfoDISKREAD.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
         Me.coldgvDBinfoDISKREAD.DataPropertyName = "DISK READ"
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N1"
+        DataGridViewCellStyle5.Format = "N0"
         Me.coldgvDBinfoDISKREAD.DefaultCellStyle = DataGridViewCellStyle5
         Me.coldgvDBinfoDISKREAD.FillWeight = 14.0!
         Me.coldgvDBinfoDISKREAD.HeaderText = "F108"
-        Me.coldgvDBinfoDISKREAD.HeaderWord = ""
         Me.coldgvDBinfoDISKREAD.MinimumWidth = 100
         Me.coldgvDBinfoDISKREAD.Name = "coldgvDBinfoDISKREAD"
         Me.coldgvDBinfoDISKREAD.ReadOnly = True
         Me.coldgvDBinfoDISKREAD.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvDBinfoDISKREAD.ShowUnit = True
         Me.coldgvDBinfoDISKREAD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvDBinfoDISKREAD.TailWord = ""
         '
         'coldgvDBinfoBUFFERREAD
         '
         Me.coldgvDBinfoBUFFERREAD.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.coldgvDBinfoBUFFERREAD.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
         Me.coldgvDBinfoBUFFERREAD.DataPropertyName = "BUFFER READ"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N1"
+        DataGridViewCellStyle6.Format = "N0"
         Me.coldgvDBinfoBUFFERREAD.DefaultCellStyle = DataGridViewCellStyle6
         Me.coldgvDBinfoBUFFERREAD.FillWeight = 14.0!
         Me.coldgvDBinfoBUFFERREAD.HeaderText = "F109"
-        Me.coldgvDBinfoBUFFERREAD.HeaderWord = ""
         Me.coldgvDBinfoBUFFERREAD.MinimumWidth = 100
         Me.coldgvDBinfoBUFFERREAD.Name = "coldgvDBinfoBUFFERREAD"
         Me.coldgvDBinfoBUFFERREAD.ReadOnly = True
         Me.coldgvDBinfoBUFFERREAD.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvDBinfoBUFFERREAD.ShowUnit = True
         Me.coldgvDBinfoBUFFERREAD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvDBinfoBUFFERREAD.TailWord = ""
         '
         'coldgvDBinfoHITRATIO
         '
@@ -770,7 +765,7 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.dgvTblinfo.ColumnHeadersHeight = 30
         Me.dgvTblinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvTblinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvTblinfoDB, Me.coldgvTblinfoTABLE, Me.coldgvTblinfoTABLESIZE, Me.coldgvTblinfoINDEXSIZE, Me.coldgvTblinfoINDEXCNT, Me.coldgvTblinfoISTOAST, Me.coldgvTblinfoSEQSCAN, Me.coldgvTblinfoINDEXSCAN, Me.coldgvTblinfoLIVETUPLES, Me.coldgvTblinfoLASTVACUUM})
+        Me.dgvTblinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvTblinfoDB, Me.coldgvTblinfoTABLE, Me.coldgvTblinfoTABLESIZE, Me.coldgvTblinfoINDEXSIZE, Me.coldgvTblinfoINDEXCNT, Me.coldgvTblinfoISTOAST, Me.coldgvTblinfoSEQSCAN, Me.coldgvTblinfoINDEXSCAN, Me.coldgvTblinfoLIVETUPLES, Me.coldgvTblinfoDEADTUPLES, Me.coldgvTblinfoDEADTUPLERATE, Me.coldgvTblinfoLASTVACUUM})
         DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle26.BackColor = System.Drawing.Color.Black
         DataGridViewCellStyle26.Font = New System.Drawing.Font("Gulim", 10.0!)
@@ -928,6 +923,34 @@ Partial Class frmMonActInfo
         Me.coldgvTblinfoLIVETUPLES.ReadOnly = True
         Me.coldgvTblinfoLIVETUPLES.Width = 85
         '
+        'coldgvTblinfoDEADTUPLES
+        '
+        Me.coldgvTblinfoDEADTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblinfoDEADTUPLES.DataPropertyName = "DEAD TUPLES"
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle24.Format = "N0"
+        DataGridViewCellStyle24.NullValue = Nothing
+        Me.coldgvTblinfoDEADTUPLES.DefaultCellStyle = DataGridViewCellStyle24
+        Me.coldgvTblinfoDEADTUPLES.HeaderText = "F124"
+        Me.coldgvTblinfoDEADTUPLES.MinimumWidth = 85
+        Me.coldgvTblinfoDEADTUPLES.Name = "coldgvTblinfoDEADTUPLES"
+        Me.coldgvTblinfoDEADTUPLES.ReadOnly = True
+        Me.coldgvTblinfoDEADTUPLES.Width = 85
+        '
+        'coldgvTblinfoDEADTUPLERATE
+        '
+        Me.coldgvTblinfoDEADTUPLERATE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvTblinfoDEADTUPLERATE.DataPropertyName = "DEAD TUPLE RATE"
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle24.Format = "N0"
+        DataGridViewCellStyle24.NullValue = Nothing
+        Me.coldgvTblinfoDEADTUPLERATE.DefaultCellStyle = DataGridViewCellStyle24
+        Me.coldgvTblinfoDEADTUPLERATE.HeaderText = "F299"
+        Me.coldgvTblinfoDEADTUPLERATE.MinimumWidth = 80
+        Me.coldgvTblinfoDEADTUPLERATE.Name = "coldgvTblinfoDEADTUPLERATE"
+        Me.coldgvTblinfoDEADTUPLERATE.ReadOnly = True
+        Me.coldgvTblinfoDEADTUPLERATE.Width = 80
+        '
         'coldgvTblinfoLASTVACUUM
         '
         Me.coldgvTblinfoLASTVACUUM.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
@@ -999,7 +1022,7 @@ Partial Class frmMonActInfo
         Me.dgvIdxinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle28
         Me.dgvIdxinfo.ColumnHeadersHeight = 30
         Me.dgvIdxinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvIdxinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvIdxinfoDB, Me.coldgvIdxinfoINDEX, Me.coldgvIdxinfoTABLE, Me.coldgvIdxinfoINDEXSIZE, Me.coldgvIdxinfoINDEXSCANCOUNT, Me.coldgvIdxinfoINDEXFETCHEDTUPLES, Me.coldgvIdxinfoUPDATEDTUPLES, Me.coldgvIdxinfoDELETEDTUPLES, Me.coldgvIdxinfoLiveTuples})
+        Me.dgvIdxinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvIdxinfoDB, Me.coldgvIdxinfoINDEX, Me.coldgvIdxinfoTABLE, Me.coldgvIdxinfoINDEXSIZE, Me.coldgvIdxinfoINDEXSCANCOUNT, Me.coldgvIdxinfoINDEXFETCHEDTUPLES, Me.coldgvIdxinfoUPDATEDTUPLES, Me.coldgvIdxinfoDELETEDTUPLES, Me.coldgvIdxinfoLiveTuples, Me.coldgvIdxinfoDeadTuples})
         DataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle34.BackColor = System.Drawing.Color.Black
         DataGridViewCellStyle34.Font = New System.Drawing.Font("Gulim", 10.0!)
@@ -1131,9 +1154,22 @@ Partial Class frmMonActInfo
         Me.coldgvIdxinfoLiveTuples.DefaultCellStyle = DataGridViewCellStyle33
         Me.coldgvIdxinfoLiveTuples.HeaderText = "F124"
         Me.coldgvIdxinfoLiveTuples.MinimumWidth = 85
-        Me.coldgvIdxinfoLiveTuples.Name = "coldgvIdxinfoLiveTuples"
+        Me.coldgvIdxinfoLiveTuples.Name = "coldgvIdxinfoTuples"
         Me.coldgvIdxinfoLiveTuples.ReadOnly = True
         Me.coldgvIdxinfoLiveTuples.Width = 85
+        '
+        'coldgvIdxinfoDeadTuples
+        '
+        Me.coldgvIdxinfoDeadTuples.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoDeadTuples.DataPropertyName = "DEAD TUPLES"
+        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle33.Format = "N0"
+        Me.coldgvIdxinfoDeadTuples.DefaultCellStyle = DataGridViewCellStyle33
+        Me.coldgvIdxinfoDeadTuples.HeaderText = "F124"
+        Me.coldgvIdxinfoDeadTuples.MinimumWidth = 85
+        Me.coldgvIdxinfoDeadTuples.Name = "coldgvIdxinfoDeadTuples"
+        Me.coldgvIdxinfoDeadTuples.ReadOnly = True
+        Me.coldgvIdxinfoDeadTuples.Width = 85
         '
         'TableLayoutPanel5
         '
@@ -1677,8 +1713,8 @@ Partial Class frmMonActInfo
     Friend WithEvents coldgvDBinfoSIZE As eXperDB.Controls.DataGridViewDataSizeColumn
     Friend WithEvents coldgvDBinfoTABLECNT As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvDBinfoINDEXCNT As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvDBinfoDISKREAD As eXperDB.Controls.DataGridViewDataSizeColumn
-    Friend WithEvents coldgvDBinfoBUFFERREAD As eXperDB.Controls.DataGridViewDataSizeColumn
+    Friend WithEvents coldgvDBinfoDISKREAD As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvDBinfoBUFFERREAD As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvDBinfoHITRATIO As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoDB As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoTABLE As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1689,6 +1725,8 @@ Partial Class frmMonActInfo
     Friend WithEvents coldgvTblinfoSEQSCAN As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoINDEXSCAN As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoLIVETUPLES As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvTblinfoDEADTUPLES As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvTblinfoDEADTUPLERATE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoLASTVACUUM As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvIdxinfoDB As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvIdxinfoINDEX As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1699,6 +1737,7 @@ Partial Class frmMonActInfo
     Friend WithEvents coldgvIdxinfoUPDATEDTUPLES As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvIdxinfoDELETEDTUPLES As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvIdxinfoLiveTuples As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvIdxinfoDeadTuples As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblSpaceInfoFileSystem As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblSpaceInfoDISKSIZE As eXperDB.Controls.DataGridViewDataSizeColumn
     Friend WithEvents coldgvTblSpaceInfoDISKUSED As System.Windows.Forms.DataGridViewTextBoxColumn

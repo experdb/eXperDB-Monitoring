@@ -12,6 +12,8 @@ Public Class Progress3D
 
     Private _HeadText As String = ""
 
+    Private _HeadText2 As String = ""
+
     Private _SubText As String = ""
 
     Private _SubText2 As String = ""
@@ -38,6 +40,14 @@ Public Class Progress3D
         End Get
         Set(value As String)
             _HeadText = value
+        End Set
+    End Property
+    Public Property HeadText2() As String
+        Get
+            Return _HeadText2
+        End Get
+        Set(value As String)
+            _HeadText2 = value
         End Set
     End Property
     Public Property SubText() As String
@@ -340,9 +350,10 @@ Public Class Progress3D
         If _UseTitle Then
             szf = pGr.MeasureString(MyBase.Text, MyBase.Font)
             'grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 2, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 20, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 2)), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height / 2)))
-            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 3 / 5)), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 1, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 - 3, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 1 / 3) + 4), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height * 1 / 3) + 4))
+            'grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 2 / 3)), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height * 2 / 3)))
+            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 3 / 4)), System.Drawing.StringFormat.GenericDefault)
             'grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5 + (BaseRect.Height / 4)), System.Drawing.StringFormat.GenericDefault)
 
         End If
@@ -425,12 +436,12 @@ Public Class Progress3D
                         _Items(i).SetEffect(30)
                     End If
                 Else
-                    Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
-                    initRect.Inflate(-2, -2)
-                    Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
-                    grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-                    'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "P", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
-                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "P", IIf(Me._HeadText = "S", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
+                    'Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
+                    'initRect.Inflate(-2, -2)
+                    'Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
+                    'grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+                    ''Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "P", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
+                    'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "P", IIf(Me._HeadText = "S", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
                     Gr.FillPath(New SolidBrush(Color.FromArgb(tmpItm.FillOpacity, tmpItm.FillColor)), FillPath)
                 End If
 
@@ -443,15 +454,27 @@ Public Class Progress3D
                     End If
                     Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, _BorderColor)), LinePath)
                 Else
-                    Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
-                    initRect.Inflate(-2, -2)
-                    Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
-                    grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-                    'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "P", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
-                    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "P", IIf(Me._HeadText = "S", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
+                    'Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
+                    'initRect.Inflate(-2, -2)
+                    'Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
+                    'grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(initRect.X + _Radius + initRect.Width / 4 + 2, initRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+                    ''Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText = "P", Color.FromArgb(255, 0, 255, 0), Color.FromArgb(255, 255, 255, 0)))), grPath)
+                    'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "P", IIf(Me._HeadText = "S", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
                     Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.LineOpacity, _BorderColor)), LinePath)
                 End If
 
+            End If
+
+            Dim initRect As Rectangle = New Rectangle(0, 0, MyBase.Width, MyBase.Height)
+            initRect.Inflate(-2, -2)
+            Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
+            grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
+            Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
+            Dim grPath2 As New System.Drawing.Drawing2D.GraphicsPath
+            initRect.Inflate(-90, 0)
+            If _HeadText <> _HeadText2 Then
+                grPath2.AddString(Me._HeadText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
+                Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText2 <> "Primary", IIf(Me._HeadText2 = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath2)
             End If
 
             ' 변경뒤에 다음 값을 위하여 OFFSET 

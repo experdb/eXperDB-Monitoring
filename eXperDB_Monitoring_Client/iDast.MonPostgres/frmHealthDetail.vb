@@ -224,7 +224,7 @@
 
                   End Sub)
 
-
+        Me.StartPosition = FormStartPosition.CenterScreen
 
 
     End Sub
@@ -330,7 +330,9 @@
     End Sub
 
 
-    Private Sub frmHealthDetail_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+    Private Sub frmHealthDetail_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        Dim rect As Rectangle = Screen.PrimaryScreen.WorkingArea
+        Me.Top = (rect.Height / 2) - (Me.Height / 2)
+        Me.Left = (rect.Width / 2) - (Me.Width / 2)
     End Sub
 End Class

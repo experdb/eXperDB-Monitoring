@@ -96,6 +96,8 @@
         coldgvTblinfoSEQSCAN.HeaderText = p_clsMsgData.fn_GetData("F122")
         coldgvTblinfoINDEXSCAN.HeaderText = p_clsMsgData.fn_GetData("F123")
         coldgvTblinfoLIVETUPLES.HeaderText = p_clsMsgData.fn_GetData("F124")
+        coldgvTblinfoDEADTUPLES.HeaderText = p_clsMsgData.fn_GetData("F298")
+        coldgvTblinfoDEADTUPLERATE.HeaderText = p_clsMsgData.fn_GetData("F299")
         coldgvTblinfoLASTVACUUM.HeaderText = p_clsMsgData.fn_GetData("F125")
 
 
@@ -114,6 +116,7 @@
         coldgvIdxinfoUPDATEDTUPLES.HeaderText = p_clsMsgData.fn_GetData("F132")
         coldgvIdxinfoDELETEDTUPLES.HeaderText = p_clsMsgData.fn_GetData("F133")
         coldgvIdxinfoLiveTuples.HeaderText = p_clsMsgData.fn_GetData("F124")
+        coldgvIdxinfoDeadTuples.HeaderText = p_clsMsgData.fn_GetData("F298")
 
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
