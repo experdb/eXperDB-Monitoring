@@ -6,9 +6,12 @@ import java.net.NetworkInterface;
 import java.security.spec.KeySpec;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -40,7 +43,8 @@ public class LicenseInfoManager {
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000E8:11:32:32:BF:8B"); //my vm
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000E8:11:32:32:BF:8B");// 162 (E8:11:32:32:BF:8B)
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000064:00:6A:59:72:12");// my pc
-			String plainSerialKey = "EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000" + args[0];
+			//String plainSerialKey = "EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000" + args[0];
+			String plainSerialKey   = "EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000" + args[1] + "2017110700000000" + args[0];
 			String encSerialKey = LicenseInfoManager.encrypt(plainSerialKey);
 			
 			
@@ -57,6 +61,12 @@ public class LicenseInfoManager {
 			System.out.println(serialKey.substring(62, 70));; //라이선스 생성일자(00000000)
 			System.out.println(serialKey.substring(70, 78));; //라이선스 만료일자(00000000) 
 			System.out.println(serialKey.substring(78, 95)); //AGENT MAC (--:--:--:--:--:--)
+			
+			
+			Date from = new Date();
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String to = transFormat.format(from);
+			System.out.println(to);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

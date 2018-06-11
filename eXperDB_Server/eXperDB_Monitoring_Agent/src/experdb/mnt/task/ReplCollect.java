@@ -2,8 +2,10 @@ package experdb.mnt.task;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +23,8 @@ import experdb.mnt.db.mybatis.SqlSessionManager;
 
 public class ReplCollect extends TaskApplication {
 
-	private static final String RESOURCE_KEY_CHECKPOINT = "CHECKPOINT";	
+	private static final String RESOURCE_KEY_CHECKPOINT = "CHECKPOINT";
+	private static final String RESOURCE_KEY_REPLICATIONDELAY = "REPLICATIONDELAY";
 
 	private String is_collect_ok = "Y";
 	private String failed_collect_type = "";
@@ -107,6 +110,10 @@ public class ReplCollect extends TaskApplication {
 		Connection connection = null;
 		SqlSession sessionCollect = null;
 		SqlSession sessionAgent  = null;
+		
+		Date from = null;
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String startDelay = "";
 						
 		try {
 			// DB Connection을 가져온다
@@ -130,8 +137,24 @@ public class ReplCollect extends TaskApplication {
 			// Replication 정보 수집
 			if(is_collect_ok.equals("Y")) {
 				try {
+					HashMap<String, Object> preList = new HashMap<String,Object>();			
+					if(ResourceInfo.getInstance().get(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY) == null)
+					{
+						from = new Date();
+						startDelay = transFormat.format(from);
+						preList.put("start_delay", startDelay);
+						ResourceInfo.getInstance().put(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY, preList);
+					}
+
 					HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
-					dbVerMap.put("instance_db_version", instance_db_version);							
+					dbVerMap.put("instance_db_version", instance_db_version);
+					
+					Map<String, Object> preValue = new HashMap<String, Object>();
+					preValue = (Map<String, Object>) ResourceInfo.getInstance().get(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY);
+					
+					startDelay = preValue.get("start_delay").toString();
+					dbVerMap.put("start_delay", startDelay);
+					
 					replSel = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", dbVerMap);
 				} catch (Exception e) {
 					failed_collect_type = "1";
@@ -189,7 +212,17 @@ public class ReplCollect extends TaskApplication {
 				{
 					//금일자에 등록된 거래가 없는경우 시퀀스 초기화
 					sessionAgent.selectList("app.SEQ_SETVAL_REPL");
-				}				
+				}
+				
+				
+				if(Double.parseDouble(replSel.get("replay_lag").toString()) == 0){
+					from = new Date();
+					startDelay = transFormat.format(from);
+					
+					HashMap<String, Object> preList = new HashMap<String,Object>();		
+					preList.put("start_delay", startDelay);
+					ResourceInfo.getInstance().put(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY, preList);
+				}
 				
 				Map<String, Object> parameObjt = new HashMap<String, Object>();
 				parameObjt.put("instance_id", Integer.valueOf(instanceId));

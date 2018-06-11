@@ -335,7 +335,7 @@
 			TB_TABLESPACE_INFO        
 		WHERE 
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
-			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - 1 FROM TB_TABLESPACE_INFO)
+			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - (SELECT COUNT(1) FROM TB_INSTANCE_INFO A WHERE A.COLLECT_YN = 'Y' AND DELETE_YN='N') FROM TB_TABLESPACE_INFO)
 		]]>	
 	</delete>	
 	
@@ -425,7 +425,7 @@
 		WHERE 
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 			--AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
-			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - 1 FROM TB_TABLE_INFO)
+			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - (SELECT COUNT(1) FROM TB_INSTANCE_INFO A WHERE A.COLLECT_YN = 'Y' AND DELETE_YN='N') FROM TB_TABLE_INFO)
 		]]>	
 	</delete>
 
@@ -456,7 +456,7 @@
 		WHERE 
 			REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
 			--AND OBJT_REG_SEQ < CURRVAL('OBJT_REG_SEQ') - 1
-			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - 1 FROM TB_INDEX_INFO)
+			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - (SELECT COUNT(1) FROM TB_INSTANCE_INFO A WHERE A.COLLECT_YN = 'Y' AND DELETE_YN='N') FROM TB_INDEX_INFO)
 		]]>	
 	</delete>
 	
@@ -1346,8 +1346,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
 							CASE WHEN pg_is_in_recovery() THEN 
 								CASE WHEN pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn() THEN 0
-								     ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) END
-								 ELSE '0' END AS REPLAY_LAG
+								     ELSE EXTRACT (EPOCH FROM now() - #{start_delay}::timestamp) END
+							 ELSE '0' END AS REPLAY_LAG		
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
 					 ]]>
@@ -1375,8 +1375,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
 							CASE WHEN pg_is_in_recovery() THEN 
 								CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
-								     ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) END
-								 ELSE '0' END AS REPLAY_LAG
+								     ELSE EXTRACT (EPOCH FROM now() - #{start_delay}::timestamp) END
+							 ELSE '0' END AS REPLAY_LAG		
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
 					 ]]>
@@ -1400,10 +1400,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 									(SELECT regexp_split_to_table(pg_file_read('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR2
 								  	  WHERE ARR_COL LIKE 'port=%' 
 								  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
-		       				CASE WHEN pg_is_in_recovery() THEN 
-								      CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
-								           ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) END
-								 ELSE '0' END AS REPLAY_LAG
+							CASE WHEN pg_is_in_recovery() THEN 
+									  CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
+									     ELSE EXTRACT (EPOCH FROM now() - #{start_delay}::timestamp) END
+								 ELSE '0' END AS REPLAY_LAG	
 					   FROM PG_SETTINGS 
 					   WHERE NAME='max_connections'					   
 					]]>
