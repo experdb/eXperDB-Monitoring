@@ -553,7 +553,7 @@ Partial Class frmConnection
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(365, 151)
         Me.TableLayoutPanel1.TabIndex = 19
@@ -581,7 +581,7 @@ Partial Class frmConnection
         Me.txtHAREPLHost.FixedWidth = False
         Me.txtHAREPLHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtHAREPLHost.impossibleinput = ""
-        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 103)
+        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 111)
         Me.txtHAREPLHost.Name = "txtHAREPLHost"
         Me.txtHAREPLHost.Necessary = False
         Me.txtHAREPLHost.PossibleInput = ""
@@ -635,9 +635,9 @@ Partial Class frmConnection
         Me.lblHAREPLHost.FixedWidth = False
         Me.lblHAREPLHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAREPLHost.ForeColor = System.Drawing.Color.White
-        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 100)
+        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 115)
         Me.lblHAREPLHost.Name = "lblHAREPLHost"
-        Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 2)
+        Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 20)
         Me.lblHAREPLHost.TabIndex = 23
         Me.lblHAREPLHost.Text = "F291"
         Me.lblHAREPLHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight

@@ -449,9 +449,16 @@ Public Class frmConnection
             Dim rtnValue As clsAgentEMsg.DX008_REP = DirectCast(e, clsAgentEMsg.DX008_REP)
             If rtnValue IsNot Nothing Then
                 Me.Invoke(New MethodInvoker(Sub()
-                                                txtHAHost.Text = rtnValue.DATAS.HAHost
-                                                txtHAREPLHost.Text = rtnValue.DATAS.HAHost
-                                                txtHAPort.Text = rtnValue.DATAS.HAPort
+                                                If rtnValue.DATAS IsNot Nothing Then
+                                                    txtHAHost.Text = rtnValue.DATAS.HAHost
+                                                    txtHAREPLHost.Text = rtnValue.DATAS.HAHost
+                                                    txtHAPort.Text = rtnValue.DATAS.HAPort
+                                                    txtHAREPLHost.Visible = False
+                                                    lblHAREPLHost.Visible = False
+                                                Else
+                                                    txtHAREPLHost.Visible = True
+                                                    lblHAREPLHost.Visible = True
+                                                End If
                                             End Sub))
 
             End If

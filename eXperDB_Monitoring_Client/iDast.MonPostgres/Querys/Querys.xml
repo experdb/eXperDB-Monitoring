@@ -2294,11 +2294,11 @@
     <DATA>
       <![CDATA[
         SELECT 
-            (SELECT substring(ARR_COL, length('host=')+1) 
+            (SELECT trim(substring(ARR_COL, length('host=')+1), E'\'')  
               FROM 
                 (SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
                   FROM pg_stat_wal_receiver) ARR2 WHERE ARR_COL LIKE 'host=%' ORDER BY arr_col) Host, 
-            (SELECT substring(ARR_COL, length('port=')+1) 
+            (SELECT substring(ARR_COL, length('port=')+1)
               FROM 
                 (SELECT regexp_split_to_table(conninfo, E'\\s+') ARR_COL 
                   FROM pg_stat_wal_receiver) ARR2 WHERE ARR_COL LIKE 'port=%' ORDER BY arr_col) Port
