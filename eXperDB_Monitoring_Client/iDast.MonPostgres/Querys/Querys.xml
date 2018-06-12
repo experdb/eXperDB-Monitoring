@@ -24,7 +24,7 @@
     ]]>
     </DATA>
   </ROW>
-  <ROW ID="UPDATECONFIG" PARAMS="4">
+  <ROW ID="UPDATECONFIG" PARAMS="5">
     <DESC>Server Batch Log Keep Days</DESC>
     <DATA>
       <![CDATA[
@@ -34,6 +34,7 @@
             , LAST_MOD_DT = NOW() 
             , DAILY_BATCH_START_TIME = '{2}'
             , HCHK_PERIOD_SEC = '{3}'
+            , OBJT_PERIOD_SEC = '{4}'
         WHERE ADMIN_USER_ID='ADMIN'
       ]]>
     </DATA>
@@ -57,6 +58,7 @@
            ,AGENT_IP
            ,AGENT_PORT
            ,HCHK_PERIOD_SEC
+           ,OBJT_PERIOD_SEC
         FROM TB_CONFIG 
         WHERE ADMIN_USER_ID='ADMIN'
       ]]>

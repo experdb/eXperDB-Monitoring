@@ -100,8 +100,20 @@
 
         Next
 
+        strValue = p_clsMsgData.fn_GetData("F316")
+        tmpArr = strValue.Split(";")
+        For Each tmpStr As String In tmpArr
+            If tmpStr.Trim <> "" Then
+                Dim subArr As String() = tmpStr.Split("|")
+                Dim strDesc As String = subArr(0)
+                Dim intSec As Integer = subArr(1)
+                cmbObjectTime.AddValue(intSec, strDesc)
+            End If
+
+        Next
 
         lblHealthTime.Text = p_clsMsgData.fn_GetData("F200")
+        lblObjectTime.Text = p_clsMsgData.fn_GetData("F315")
 
         Dim tmpStruct As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
 
@@ -210,14 +222,22 @@
         _AgentPort = IIf(IsDBNull(dtConfig.Rows(0).Item("AGENT_PORT")), 0, dtConfig.Rows(0).Item("AGENT_PORT"))
 
         Dim intHchkPeriodSec As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("HCHK_PERIOD_SEC")), 3, dtConfig.Rows(0).Item("HCHK_PERIOD_SEC"))
+        Dim intObjtPeriodSec As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("OBJT_PERIOD_SEC")), 3, dtConfig.Rows(0).Item("OBJT_PERIOD_SEC"))
 
         cmbHealthTime.SelectedValue = intHchkPeriodSec
         cmbHealthTime.Tag = intHchkPeriodSec
 
+        cmbObjectTime.SelectedValue = intObjtPeriodSec
+        cmbObjectTime.Tag = intObjtPeriodSec
 
         If cmbHealthTime.SelectedIndex < 0 Then
             cmbHealthTime.SelectedIndex = 0
         End If
+
+        If cmbObjectTime.SelectedIndex < 0 Then
+            cmbObjectTime.SelectedIndex = 0
+        End If
+
         If _AgentIP.Trim = "" Or _AgentPort = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M016"))
         End If
@@ -643,8 +663,9 @@
             If Not nudLogSaveDly.Value.Equals(nudLogSaveDly.Tag) _
                 Or Not cmbLogBatchH.SelectedIndex.Equals(cmbLogBatchH.Tag) _
                 Or Not cmbLogBatchM.SelectedIndex.Equals(cmbLogBatchM.Tag) _
-                Or Not cmbHealthTime.SelectedValue.Equals(cmbHealthTime.Tag) Then
-                ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue)
+                Or Not cmbHealthTime.SelectedValue.Equals(cmbHealthTime.Tag) _
+                Or Not cmbObjectTime.SelectedValue.Equals(cmbObjectTime.Tag) Then
+                ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue, cmbObjectTime.SelectedValue)
             End If
 
         End If

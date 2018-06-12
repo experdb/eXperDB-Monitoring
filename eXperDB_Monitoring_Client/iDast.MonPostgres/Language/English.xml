@@ -2500,6 +2500,19 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F315" PARAMS="0">
+    <DESC>오브젝트수집주기</DESC>
+    <DATA><![CDATA[Object time]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F316" PARAMS="0">
+    <DESC>OBJECT LIST</DESC>
+    <DATA><![CDATA[2 m|120;5 m|300;30 m|1800;1 h|3600;6 h|21600;12 h|43200]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
