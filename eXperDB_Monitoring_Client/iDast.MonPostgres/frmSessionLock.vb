@@ -224,13 +224,14 @@
         If btnPause.ForeColor = Color.LightGray Then Return
 
         Dim strQuery As String = ""
-        Dim subQuery As String = IIf(cmbStatus.SelectedIndex, "", String.Format("AND SQL <> '{0}'", "<IDLE>"))
+        'Dim subQuery As String = IIf(cmbStatus.SelectedIndex, "", String.Format("AND SQL <> '{0}'", "<IDLE>"))
+        Dim subQuery As String = IIf(cmbStatus.SelectedIndex, "", String.Format("AND STATE = '{0}'", "active"))
         If cmbStatus.SelectedIndex = 0 Then
             subQuery = ""
         ElseIf cmbStatus.SelectedIndex = 1 Then
-            subQuery = String.Format("AND SQL <> '{0}'", "<IDLE>")
+            subQuery = String.Format("AND STATE = '{0}'", "active")
         Else
-            subQuery = String.Format("AND SQL = '{0}'", "<IDLE>")
+            subQuery = String.Format("AND STATE = '{0}'", "idle")
         End If
 
         strQuery = String.Format("INSTANCE_ID = {0} {1}", Me.InstanceID, subQuery)

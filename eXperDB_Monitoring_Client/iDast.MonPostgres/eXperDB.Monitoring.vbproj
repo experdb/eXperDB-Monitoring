@@ -472,6 +472,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eXperDB.Launcher\eXperDB.Launcher.vbproj">
+      <Project>{e3340b2f-baf7-4195-97bc-d7a653a5c273}</Project>
+      <Name>eXperDB.Launcher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eXperDB.LogUtil\eXperDB.LogUtil.vbproj">
       <Project>{2f02e955-6dd9-49f6-ab94-c0856ed4d836}</Project>
       <Name>eXperDB.LogUtil</Name>

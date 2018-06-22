@@ -344,39 +344,50 @@ public class ActvCollect extends TaskApplication {
 					tempMap = (HashMap<String, Object>) preValue.get(String.valueOf(map.get("process_id")));
 
 					//이전값이 없는경우(새로생성된 프로세스)
+//					if(tempMap == null) {
+//						preSaveBackendRsc.put(String.valueOf(map.get("process_id")), map);
+//						
+//						continue;
+//					}
+					
 					if(tempMap == null) {
 						preSaveBackendRsc.put(String.valueOf(map.get("process_id")), map);
+					
+						map.put("current_proc_utime", 0);
+						map.put("current_proc_stime", 0);
+						map.put("current_proc_read_kb", 0);
+						map.put("current_proc_write_kb", 0);
 						
-						continue;
+						map.put("proc_cpu_util", 0);
+					} else {				
+					
+						double current_proc_utime = Double.valueOf(map.get("agg_proc_utime").toString()) - Double.valueOf(tempMap.get("agg_proc_utime").toString());
+						double current_proc_stime = Double.valueOf(map.get("agg_proc_stime").toString()) - Double.valueOf(tempMap.get("agg_proc_stime").toString());
+						double current_proc_read_kb = Double.valueOf(map.get("agg_proc_read_kb").toString()) - Double.valueOf(tempMap.get("agg_proc_read_kb").toString());
+						double current_proc_write_kb = Double.valueOf(map.get("agg_proc_write_kb").toString()) - Double.valueOf(tempMap.get("agg_proc_write_kb").toString());
+						
+						double current_sec_from_epoch = Double.valueOf(map.get("sec_from_epoch").toString()) - Double.valueOf(tempMap.get("sec_from_epoch").toString());
+						
+						double proc_cpu_util = 0;
+						
+						double cpu_clock = Double.valueOf(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU_CLOCKS).toString());
+	
+				
+						if(cpu_clock != 0)
+						{
+							proc_cpu_util = Math.round((((current_proc_utime + current_proc_stime) / (cpu_clock * current_sec_from_epoch)) * 100 ) * Math.pow(10, 2)) / Math.pow(10, 2);
+							
+							
+							//if(proc_cpu_util > 100)		proc_cpu_util = 100.0;
+						}
+	
+						map.put("current_proc_utime", current_proc_utime);
+						map.put("current_proc_stime", current_proc_stime);
+						map.put("current_proc_read_kb", current_proc_read_kb);
+						map.put("current_proc_write_kb", current_proc_write_kb);
+						
+						map.put("proc_cpu_util", proc_cpu_util);
 					}
-					
-					double current_proc_utime = Double.valueOf(map.get("agg_proc_utime").toString()) - Double.valueOf(tempMap.get("agg_proc_utime").toString());
-					double current_proc_stime = Double.valueOf(map.get("agg_proc_stime").toString()) - Double.valueOf(tempMap.get("agg_proc_stime").toString());
-					double current_proc_read_kb = Double.valueOf(map.get("agg_proc_read_kb").toString()) - Double.valueOf(tempMap.get("agg_proc_read_kb").toString());
-					double current_proc_write_kb = Double.valueOf(map.get("agg_proc_write_kb").toString()) - Double.valueOf(tempMap.get("agg_proc_write_kb").toString());
-					
-					double current_sec_from_epoch = Double.valueOf(map.get("sec_from_epoch").toString()) - Double.valueOf(tempMap.get("sec_from_epoch").toString());
-					
-					double proc_cpu_util = 0;
-					
-					double cpu_clock = Double.valueOf(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU_CLOCKS).toString());
-
-			
-					if(cpu_clock != 0)
-					{
-						proc_cpu_util = Math.round((((current_proc_utime + current_proc_stime) / (cpu_clock * current_sec_from_epoch)) * 100 ) * Math.pow(10, 2)) / Math.pow(10, 2);
-						
-						
-						//if(proc_cpu_util > 100)		proc_cpu_util = 100.0;
-					}
-
-					map.put("current_proc_utime", current_proc_utime);
-					map.put("current_proc_stime", current_proc_stime);
-					map.put("current_proc_read_kb", current_proc_read_kb);
-					map.put("current_proc_write_kb", current_proc_write_kb);
-					
-					map.put("proc_cpu_util", proc_cpu_util);
-					
 					sessionAgent.insert("app.TB_BACKEND_RSC_I001", map);
 
 					preSaveBackendRsc.put(String.valueOf(map.get("process_id")), map);

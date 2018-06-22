@@ -35,8 +35,9 @@ Namespace My
             Me.MainForm = Global.eXperDB.Monitoring.frmSvrList
         End Sub
         
-        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateSplashScreen()
+            Me.MinimumSplashScreenDisplayTime = 1000
             Me.SplashScreen = Global.eXperDB.Monitoring.frmSplashScreen
         End Sub
     End Class

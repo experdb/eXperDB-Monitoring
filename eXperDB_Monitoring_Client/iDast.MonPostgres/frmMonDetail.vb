@@ -736,7 +736,8 @@
         dgvResUtilPerBackProc.Font = _TextFont
 
         Dim strQuery As String = ""
-        Dim subQuery As String = IIf(chkIDLE.Checked, "", String.Format("AND SQL <> '{0}'", chkIDLE.Tag))
+        'Dim subQuery As String = IIf(chkIDLE.Checked, "", String.Format("AND SQL <> '{0}'", chkIDLE.Tag))
+        Dim subQuery As String = IIf(chkIDLE.Checked, "", String.Format("AND STATE = '{0}'", "active"))
 
         strQuery = String.Format("INSTANCE_ID = {0} {1}", Me.InstanceID, subQuery)
 

@@ -1028,7 +1028,8 @@
         Dim subQuery As String = ""
         If chkIDLE.Checked = False Then
             Dim tmpStr As String = chkIDLE.Tag
-            subQuery = String.Format(" AND SQL <> '{0}'", tmpStr)
+            'subQuery = String.Format(" AND SQL <> '{0}'", tmpStr)
+            subQuery = String.Format(" AND STATE = '{0}'", "active")
         End If
 
         Dim dtView As DataView = New DataView(dtTable, String.Format("INSTANCE_ID IN ({0}) {1}", strSvrIDInQuery, subQuery), "CPU_USAGE DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
