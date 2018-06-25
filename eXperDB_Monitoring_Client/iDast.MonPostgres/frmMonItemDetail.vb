@@ -615,10 +615,10 @@
                                                 If dtTable.Rows.Count > 0 Then
                                                     For i As Integer = 0 To dtTable.Rows.Count - 1
                                                         Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                        If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData1)))
-                                                        If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData2)))
-                                                        If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData3)))
-                                                        If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvULong(dtTable.Rows(i).Item(strSeriesData4)))
+                                                        If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData1)))
+                                                        If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData2)))
+                                                        If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData3)))
+                                                        If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData4)))
                                                     Next
                                                 Else
                                                     Dim tmpDate As Double = ConvOADate(Now())

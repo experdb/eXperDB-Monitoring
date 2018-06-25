@@ -848,12 +848,12 @@
 				          CASE WHEN B.CURRENT_QUERY='<IDLE>' THEN 'idle' 
 					       WHEN B.CURRENT_QUERY='<IDLE> in transaction' THEN 'idle in transaction' 
 					       WHEN B.CURRENT_QUERY='<IDLE> in transaction (aborted)' THEN 'idle in transaction (aborted)' 
-					       ELSE 'active' AS STATE, --add state
+					       ELSE 'active' END AS STATE, --add state
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
 				          NOW() AS COLLECT_DT
 				  --FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
-		  		  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
-		  		 WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  		  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.CURRENT_QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  		 --WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 				]]>
 			</when>		
 			<when test="instance_db_version.equals('9.1')">
@@ -884,12 +884,12 @@
 				          CASE WHEN B.CURRENT_QUERY='<IDLE>' THEN 'idle' 
 					       WHEN B.CURRENT_QUERY='<IDLE> in transaction' THEN 'idle in transaction' 
 					       WHEN B.CURRENT_QUERY='<IDLE> in transaction (aborted)' THEN 'idle in transaction (aborted)' 
-					       ELSE 'active' AS STATE, --add state
+					       ELSE 'active' END AS STATE, --add state
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
 				          NOW() AS COLLECT_DT
-				  --FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID
+				  --FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.CURRENT_QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  		  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID 
-           WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+          -- WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  		  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리
 				]]>
 			</when>
@@ -2083,11 +2083,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		  ]]>
 	</select>
 	<select id="EXPERDBMA_BT_CHECKPOINT_001" parameterType="hashmap" resultType="hashmap">
-		<![CDATA[
-			SELECT /* EXPERDBMA_BT_CHECKPOINT_001 24e9ab7301ff1966da4fb30dc1538882 */
-				CHECKPOINTS_TIMED, CHECKPOINTS_REQ, CHECKPOINT_WRITE_TIME+CHECKPOINT_SYNC_TIME::NUMERIC AS CHECKPOINT_TIME 
-			  FROM PG_STAT_BGWRITER
-		  ]]>
+		<choose>
+			<when test="instance_db_version >= 9.2">
+				<![CDATA[
+					SELECT /* EXPERDBMA_BT_CHECKPOINT_001 24e9ab7301ff1966da4fb30dc1538882 */
+						CHECKPOINTS_TIMED, CHECKPOINTS_REQ, CHECKPOINT_WRITE_TIME+CHECKPOINT_SYNC_TIME::NUMERIC AS CHECKPOINT_TIME 
+					  FROM PG_STAT_BGWRITER
+				  ]]>
+			</when>
+            <otherwise>
+					SELECT /* EXPERDBMA_BT_CHECKPOINT_001 24e9ab7301ff1966da4fb30dc1538882 */
+						CHECKPOINTS_TIMED, CHECKPOINTS_REQ, 0::NUMERIC AS CHECKPOINT_TIME 
+					  FROM PG_STAT_BGWRITER
+            </otherwise>
+		</choose>		  
 	</select>
 	<insert id="TB_CHECKPOINT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_CHECKPOINT_INFO
