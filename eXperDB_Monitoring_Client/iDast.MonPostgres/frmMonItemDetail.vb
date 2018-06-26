@@ -126,7 +126,7 @@
 
         '_chtCount = 1
         chtCPU.MainChart.Focus()
-        'SetDataSession(dtpSt.Value, dtpEd.Value)
+        SetDataSession(dtpSt.Value, dtpEd.Value)
         BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
     End Sub
 
@@ -874,7 +874,7 @@
         'If e.ColumnIndex = coldgvSessionListSQL.Index Then
         strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
         strQuery = dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value
-        strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
+        strUser = IIf(IsDBNull(dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value), "", dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value)
         Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
         frmQuery.ShowDialog(Me)
         'End If
@@ -889,7 +889,7 @@
         'If e.ColumnIndex = coldgvSessionListSQL.Index Then
         strDb = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlDBNm.Index).Value
         strQuery = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlSql.Index).Value
-        strUser = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlUserName.Index).Value
+        strUser = IIf(IsDBNull(dgvRptSQL.CurrentRow.Cells(colDgvRptSqlUserName.Index).Value), "", dgvRptSQL.CurrentRow.Cells(colDgvRptSqlUserName.Index).Value)
         Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
         frmQuery.ShowDialog(Me)
         'End If
