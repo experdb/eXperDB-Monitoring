@@ -215,7 +215,7 @@ public class ReplCollect extends TaskApplication {
 				}
 				
 				
-				if(Double.parseDouble(replSel.get("replay_lag").toString()) == 0){
+				if(replSel.size() > 0 && Double.parseDouble(replSel.get("replay_lag").toString()) == 0){
 					from = new Date();
 					startDelay = transFormat.format(from);
 					

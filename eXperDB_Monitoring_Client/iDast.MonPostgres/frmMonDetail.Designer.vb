@@ -2251,6 +2251,7 @@ Partial Class frmMonDetail
         Me.chtLock.Location = New System.Drawing.Point(3, 34)
         Me.chtLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLock.Name = "chtLock"
+        Me.tlpLock.SetRowSpan(Me.chtLock, 2)
         Series15.BorderWidth = 2
         Series15.ChartArea = "ChartArea1"
         Series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine
@@ -2271,7 +2272,7 @@ Partial Class frmMonDetail
         Series16.YValuesPerPoint = 2
         Me.chtLock.Series.Add(Series15)
         Me.chtLock.Series.Add(Series16)
-        Me.chtLock.Size = New System.Drawing.Size(312, 171)
+        Me.chtLock.Size = New System.Drawing.Size(312, 191)
         Me.chtLock.TabIndex = 2
         Me.chtLock.Text = "Chart5"
         '
