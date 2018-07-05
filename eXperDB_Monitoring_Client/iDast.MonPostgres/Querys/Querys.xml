@@ -1457,7 +1457,7 @@
            --, SUM(CASE WHEN (BAK.SQL <> '<IDLE>' AND BAK.SQL <> '<IDLE> in transaction') THEN 1 ELSE 0 END) AS CUR_ACTV_BACKEND_CNT 
            --, SUM(CASE WHEN (BAK.SQL = '<IDLE>') THEN 1 ELSE 0 END) AS IDLE_BACKEND_CNT 
            --, SUM(CASE WHEN (BAK.SQL = '<IDLE> in transaction') THEN 1 ELSE 0 END) AS IDLE_IN_TRC_BACKEND_CNT 
-           , SUM(CASE WHEN (BAK.STATE = 'active' THEN 1 ELSE 0 END) AS CUR_ACTV_BACKEND_CNT 
+           , SUM(CASE WHEN (BAK.STATE = 'active') THEN 1 ELSE 0 END) AS CUR_ACTV_BACKEND_CNT 
            , SUM(CASE WHEN (BAK.STATE = 'idle') THEN 1 ELSE 0 END) AS IDLE_BACKEND_CNT 
            , SUM(CASE WHEN (BAK.STATE = 'idle in transaction') THEN 1 WHEN (BAK.STATE = 'idle in transaction (aborted)') THEN 1 ELSE 0 END) AS IDLE_IN_TRC_BACKEND_CNT 
            , DB_NAME 
