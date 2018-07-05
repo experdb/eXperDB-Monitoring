@@ -92,7 +92,7 @@ Public Class clsAgentEMsg
                                     For i As Integer = 1 To jArr.Count - 1
                                         Dim strFileName As String = DirectCast(jArr(i), Newtonsoft.Json.Linq.JObject)("filename")
                                         Dim strFileTime As String = DirectCast(jArr(i), Newtonsoft.Json.Linq.JObject)("filetime")
-                                        Dim fileLength As Integer = DirectCast(jArr(i), Newtonsoft.Json.Linq.JObject)("len")
+                                        Dim fileLength As ULong = DirectCast(jArr(i), Newtonsoft.Json.Linq.JObject)("len")
                                         rtnCls.DATAS.Add(New DATALIST(strFileName, strFileTime, fileLength))
                                     Next
                                 Case "6"
@@ -463,8 +463,8 @@ Public Class clsAgentEMsg
     Public Class DATALIST
         Property LOGNAME As String
         Property LOGTIME As String
-        Property LOGLENGTH As Integer
-        Public Sub New(ByVal logFileName As String, ByVal logFileTime As String, ByVal logFileLength As Integer)
+        Property LOGLENGTH As ULong
+        Public Sub New(ByVal logFileName As String, ByVal logFileTime As String, ByVal logFileLength As ULong)
             LOGNAME = logFileName
             LOGTIME = logFileTime
             LOGLENGTH = logFileLength

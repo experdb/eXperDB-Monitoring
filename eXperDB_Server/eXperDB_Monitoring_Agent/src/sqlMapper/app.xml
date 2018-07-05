@@ -198,6 +198,7 @@
 		          MT_DIR AS MOUNT_POINT_DIR,
 		          NOW() AS COLLECT_DT
 		  FROM GET_STAT_DISK_USGE()
+		  WHERE DEV_NAME NOT LIKE '%loop%'
 		  group by MT_DIR;
 	</select>
 	<insert id="TB_DISK_USAGE_I001" parameterType="hashmap" >

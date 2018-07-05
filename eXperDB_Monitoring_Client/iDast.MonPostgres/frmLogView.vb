@@ -215,9 +215,9 @@ Public Class frmLogView
             RefreshTime_lv.Text = Now.ToString("yyyy-MM-dd HH:mm:ss")
             FileTotalCnt_lv.Text = dgvLogFileList.Rows.Count
 
-            Dim fileSum As Integer = 0
+            Dim fileSum As ULong = 0
             For Each tmpRow As DataGridViewRow In dgvLogFileList.Rows
-                fileSum += Convert.ToInt32(tmpRow.Cells(2).Value)
+                fileSum += Convert.ToInt64(tmpRow.Cells(2).Value)
             Next
             If fileSum < 1024 Then
                 FileTotalSize_lv.Text = Convert.ToSingle(fileSum) & "B"

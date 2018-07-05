@@ -62,7 +62,7 @@ CREATE UNLOGGED TABLE tb_backend_rsc (
     current_proc_write_kb numeric(20,0),
     query_start timestamp without time zone,
     elapsed_time numeric(20,5),
-    state character varying(24),
+    state character varying(30),
     sql text,
     collect_dt timestamp without time zone
 );
