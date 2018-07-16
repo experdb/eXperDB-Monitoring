@@ -247,9 +247,16 @@ public class ReplCollect extends TaskApplication {
 				// TB_CHECKPOINT_COLLECT_INFO 정보 등록
 					Map<String, Object> preValue = new HashMap<String, Object>();
 					preValue = (Map<String, Object>) ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CHECKPOINT);
-					long checkpoints_timed_delta = Long.parseLong(checkpointSel.get("checkpoints_timed").toString()) - Long.parseLong(preValue.get("checkpoints_timed").toString());
-					long checkpoints_req_delta = Long.parseLong(checkpointSel.get("checkpoints_req").toString()) - Long.parseLong(preValue.get("checkpoints_req").toString());
-					double timediff = Double.parseDouble(checkpointSel.get("checkpoint_time").toString()) - Double.parseDouble(preValue.get("checkpoint_time").toString());
+					
+					long checkpoints_timed_delta = 0;
+					long checkpoints_req_delta = 0;
+					double timediff = 0;
+					if(checkpointSel.size() > 0) {
+						checkpoints_timed_delta = Long.parseLong(checkpointSel.get("checkpoints_timed").toString()) - Long.parseLong(preValue.get("checkpoints_timed").toString());
+						checkpoints_req_delta = Long.parseLong(checkpointSel.get("checkpoints_req").toString()) - Long.parseLong(preValue.get("checkpoints_req").toString());
+						timediff = Double.parseDouble(checkpointSel.get("checkpoint_time").toString()) - Double.parseDouble(preValue.get("checkpoint_time").toString());
+					} 
+							
 					double checkpoints_timed_time_delta = 0;
 					double checkpoints_req_time_delta = 0;
 					if ((checkpoints_timed_delta + checkpoints_req_delta) > 0) {
@@ -269,8 +276,8 @@ public class ReplCollect extends TaskApplication {
 					parameObjt.put("checkpoints_req_time_delta", checkpoints_req_time_delta);
 					
 					sessionAgent.insert("app.TB_CHECKPOINT_INFO_I001", parameObjt);				
-				
-					ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_CHECKPOINT, checkpointSel);
+					if(checkpointSel.size() > 0) 
+						ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_CHECKPOINT, checkpointSel);
 					bInsertCheckpoint = false;
 				///////////////////////////////////////////////////////////////////////////////	
 				}

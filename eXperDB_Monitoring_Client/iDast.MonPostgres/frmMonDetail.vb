@@ -76,7 +76,7 @@
 
 #End Region
 
-
+    Public OwnerForm As Windows.Forms.Form
     Private _Elapseinterval As Integer = 3000
     Private _ElapseCount As Integer = 200  ' 10을 기본으로 설정 
     Private _InstanceID As Integer = -1
@@ -127,8 +127,11 @@
         _AgentInfo = clsAgentInfo
         _AgentCn = AgentCn
         _clsQuery = New clsQuerys(_AgentCn)
-
-        Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
+        Try
+            Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
+        Catch ex As Exception
+            GC.Collect()
+        End Try
         'FormMovePanel1.Text += " [" + String.Format("{0}(v{3}) : {1}[{2}] Started on {4} ", strHeader, ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.PGV, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss")) + "]"
         'FormMovePanel1.Text += " [ " + String.Format("{0}({1}) Started on {2}, Ver:{3} ", ServerInfo.ShowNm, ServerInfo.IP, ServerInfo.StartTime.ToString("yyyy-MM-dd HH:mm:ss"), ServerInfo.PGV) + "]"
 
@@ -159,7 +162,7 @@
         TmCollect.Stop()
 
         _clsQuery = Nothing
-        Dim monMain As frmMonMain = TryCast(Me.Owner, frmMonMain)
+        Dim monMain As frmMonMain = TryCast(Me.OwnerForm, frmMonMain)
         If monMain IsNot Nothing Then
             monMain.InstanceSelectedChange(_InstanceID, False)
         End If
@@ -1851,11 +1854,15 @@
     Private Sub bckmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bckmanual.RunWorkerCompleted
         If e.Cancelled = False Then
             _initConnect = True
-            SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
-            SetDataDisk(p_clsAgentCollect.infoDataDisk)
-            SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
-            SetDataHealth(p_clsAgentCollect.infoDataHealth)
-            _clsQuery.CancelCommand()
+            Try
+                SetDataBackEnd(p_clsAgentCollect.infoDataBackend)
+                SetDataDisk(p_clsAgentCollect.infoDataDisk)
+                SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
+                SetDataHealth(p_clsAgentCollect.infoDataHealth)
+                _clsQuery.CancelCommand()
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            End Try
         End If
     End Sub
 

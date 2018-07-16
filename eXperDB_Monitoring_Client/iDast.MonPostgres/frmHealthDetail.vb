@@ -156,10 +156,10 @@
                                   dtTable = clsQuery.SelectHCHKCommitRatio(_RegDate, _HealthSeq)
                               Case "CONNECTIONFAIL"
                                   Dim arrValues As String() = _HealthSeq.Split(",")
-                                  If arrValues.Length < 3 Then
+                                  If arrValues.Length < 2 Then
                                       lblitmNm.Text += " - ERROR"
                                   Else
-                                      dtTable = clsQuery.SelectHCHKConnectionFail(_IntInstanceID, _RegDate, arrValues(0), arrValues(1), arrValues(2))
+                                      dtTable = clsQuery.SelectHCHKConnectionFail(_IntInstanceID, _RegDate, arrValues(0), arrValues(1))
                                   End If
                               Case "DISKUSAGE"
                                   dtTable = clsQuery.SelectHCHKDiskUsage(_RegDate, _HealthSeq)

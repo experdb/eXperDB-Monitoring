@@ -1642,43 +1642,43 @@
     <DATA>
       <![CDATA[
         SELECT CASE WHEN IS_COLLECT_OK='Y' THEN 'OK' ELSE 'FAIL' END AS IS_OK, REG_TIME::TIME(0),  LAST_OK_DT, COLLECT_DT FROM (
-        SELECT IS_COLLECT_OK, 
-                 REG_TIME,
-                 CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
-                                                                   FROM TB_OBJT_COLLECT_INFO 
-                                                                 WHERE (REG_DATE = '{1}' AND OBJT_REG_SEQ < {2})  --(A,B,C) 중 A
-                                                                      OR REG_DATE < '{1}' 
-                                                                    AND IS_COLLECT_OK = 'Y' 
-                                                                 ORDER BY REG_DATE DESC, OBJT_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
-         FROM TB_OBJT_COLLECT_INFO 
-        WHERE REG_DATE='{1}'
-           AND OBJT_REG_SEQ={2}
-           AND INSTANCE_ID={0}
-        UNION ALL
+       -- SELECT IS_COLLECT_OK, 
+       --          REG_TIME,
+       --          CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
+       --                                                            FROM TB_OBJT_COLLECT_INFO 
+       --                                                          WHERE (REG_DATE = '{1}' AND OBJT_REG_SEQ < {2})  --(A,B,C) 중 A
+       --                                                               OR REG_DATE < '{1}' 
+       --                                                             AND IS_COLLECT_OK = 'Y' 
+       --                                                          ORDER BY REG_DATE DESC, OBJT_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
+       --  FROM TB_OBJT_COLLECT_INFO 
+       -- WHERE REG_DATE='{1}'
+       --    AND OBJT_REG_SEQ={2}
+       --    AND INSTANCE_ID={0}
+       -- UNION ALL
         SELECT IS_COLLECT_OK, 
                  REG_TIME,
                  CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
                                                                    FROM TB_ACTV_COLLECT_INFO 
-                                                                 WHERE (REG_DATE = '{1}' AND ACTV_REG_SEQ < {3} ) --(A,B,C) 중 B
+                                                                 WHERE (REG_DATE = '{1}' AND ACTV_REG_SEQ < {2} ) --(A,B,C) 중 B
                                                                       OR REG_DATE < '{1}' 
                                                                     AND IS_COLLECT_OK = 'Y' 
                                                                  ORDER BY REG_DATE DESC, ACTV_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
          FROM TB_ACTV_COLLECT_INFO 
         WHERE REG_DATE='{1}'
-           AND ACTV_REG_SEQ={3} 
+           AND ACTV_REG_SEQ={2} 
            AND INSTANCE_ID={0}
         UNION ALL
         SELECT IS_COLLECT_OK, 
                  REG_TIME,
                  CASE WHEN IS_COLLECT_OK='N' THEN (SELECT REG_DATE::DATE||' '||REG_TIME AS LAST_OK_DT 
                                                                    FROM TB_RSC_COLLECT_INFO 
-                                                                  WHERE (REG_DATE = '{1}' AND RSC_REG_SEQ < {4}) --(A,B,C) 중 C
+                                                                  WHERE (REG_DATE = '{1}' AND RSC_REG_SEQ < {3}) --(A,B,C) 중 C
                                                                        OR REG_DATE < '{1}' 
                                                                      AND IS_COLLECT_OK = 'Y' 
                                                                   ORDER BY REG_DATE DESC, RSC_REG_SEQ DESC LIMIT 1) ELSE '-' END AS LAST_OK_DT, reg_date::DATE + reg_time AS COLLECT_DT
          FROM TB_RSC_COLLECT_INFO   
         WHERE REG_DATE='{1}' 
-           AND RSC_REG_SEQ={4}
+           AND RSC_REG_SEQ={3}
            AND INSTANCE_ID={0}) AS A
         ORDER BY IS_COLLECT_OK, REG_TIME DESC LIMIT 1;
 

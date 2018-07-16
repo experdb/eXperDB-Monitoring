@@ -1299,12 +1299,12 @@
         End Try
     End Function
 
-    Public Function SelectHCHKConnectionFail(ByVal InstanceID As Integer, ByVal RegDate As String, ByVal ObjSeq As Integer, ByVal ActvSeq As Integer, ByVal RscSeq As Integer) As DataTable
+    Public Function SelectHCHKConnectionFail(ByVal InstanceID As Integer, ByVal RegDate As String, ByVal ActvSeq As Integer, ByVal RscSeq As Integer) As DataTable
 
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData("CONNECTIONFAIL")
-            strQuery = String.Format(strQuery, InstanceID, RegDate, ObjSeq, ActvSeq, RscSeq)
+            strQuery = String.Format(strQuery, InstanceID, RegDate, ActvSeq, RscSeq)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                 Return dtSet.Tables(0)

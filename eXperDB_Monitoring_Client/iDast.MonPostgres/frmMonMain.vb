@@ -805,15 +805,17 @@
 
         If e.Selected = True Then
             Dim FrmSub As New frmMonDetail(svrInfo, _ElapseInterval, AgentInfo, AgentCn)
-            FrmSub.Owner = Me
+            'FrmSub.Owner = Me
+            FrmSub.OwnerForm = Me
             FrmSub.Show()
         Else
-
-
             For Each tmpFrm As Form In My.Application.OpenForms
                 Dim frmDtl As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
                 If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = svrInfo.InstanceID Then
-                    tmpFrm.Activate()
+                    If frmDtl.WindowState = FormWindowState.Minimized Then
+                        frmDtl.WindowState = FormWindowState.Maximized
+                    End If
+                    frmDtl.Activate()
                     Exit For
                 End If
             Next
@@ -2538,7 +2540,7 @@
 
             If BretFrm Is Nothing Then
                 BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, InstanceID, AlertLevel, strCollectDt)
-                BretFrm.Owner = Me
+                'BretFrm.Owner = Me
                 BretFrm.Show()
             Else
                 BretFrm.Activate()

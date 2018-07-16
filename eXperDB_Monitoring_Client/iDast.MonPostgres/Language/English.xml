@@ -226,7 +226,7 @@
   </ROW>
   <ROW ID="F022" PARAMS="0">
     <DESC>환경설정</DESC>
-    <DATA><![CDATA[환경설정]]></DATA>
+    <DATA><![CDATA[Configuration]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
