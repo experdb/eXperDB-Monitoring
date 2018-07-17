@@ -2236,6 +2236,8 @@ Partial Class frmMonDetail
         ChartArea8.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea8.BackColor = System.Drawing.Color.Black
         ChartArea8.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea8.CursorX.IsUserEnabled = True
+        ChartArea8.CursorX.IsUserSelectionEnabled = True
         ChartArea8.Name = "ChartArea1"
         Me.chtLock.ChartAreas.Add(ChartArea8)
         Me.tlpLock.SetColumnSpan(Me.chtLock, 4)

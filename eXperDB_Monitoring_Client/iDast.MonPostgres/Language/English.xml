@@ -2513,6 +2513,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F317" PARAMS="0">
+    <DESC>Lock</DESC>
+    <DATA><![CDATA[Lock]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

@@ -1595,7 +1595,7 @@
                     strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
                 Else
                     subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '5 minute')::time")
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '5 minute')::time AND COL.REG_TIME < (now())::time")
                 End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1730,10 +1730,44 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectInitLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+    Public Function SelectLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKACCUM")
+                Dim subQuery As String = ""
+
+                If HaveDuration = True Then
+                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                        subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                    Else
+                        subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                    End If
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
+                Else
+                    subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time")
+                End If
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectLockInfoAccum(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKINFOACCUM")
                 Dim subQuery As String = ""
 
                 If HaveDuration = True Then

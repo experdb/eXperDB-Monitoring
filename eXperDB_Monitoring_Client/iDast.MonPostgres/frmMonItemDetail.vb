@@ -4,7 +4,7 @@
     Private _SelectedIndex As String
     Private _SelectedGrid As String
     Private _chtOrder As Integer = -1
-    Private _AreaCount As Integer = 5
+    Private _AreaCount As Integer = 6
     Private _chtCount As Integer = 0
     Private _chtHeight As Integer
     Private _clsQuery As clsQuerys
@@ -101,6 +101,8 @@
                 Case 2 : SetDefaultTitle(chkLogicalIO, chtLogicalIO, True, "")
                 Case 3 : SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, True, "")
                 Case 4 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
+                Case 5 : SetDefaultTitle(chkLock, chtLock, True, "")
+                    tabSession.SelectedIndex = 2
             End Select
         End If
     End Sub 'InvokeMethod
@@ -127,6 +129,7 @@
         '_chtCount = 1
         chtCPU.MainChart.Focus()
         SetDataSession(dtpSt.Value, dtpEd.Value)
+        SetDataLock(dtpSt.Value, dtpEd.Value)
         BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
     End Sub
 
@@ -150,6 +153,7 @@
         chkLogicalIO.Text = p_clsMsgData.fn_GetData("F101")
         chkPhysicalIO.Text = p_clsMsgData.fn_GetData("F100")
         chkSQLResp.Text = p_clsMsgData.fn_GetData("F267")
+        chkLock.Text = p_clsMsgData.fn_GetData("F317")
 
         ' Button 
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
@@ -190,11 +194,34 @@
         dgvRptSQL.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvRptSQL.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
 
+        '''''''''''''''''''''''''''''''''''''''''
+        ' Lock Information 
+
+        colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
+        colDgvLockBlockedPID.HeaderText = p_clsMsgData.fn_GetData("F195")
+        colDgvLockBlockedUser.HeaderText = p_clsMsgData.fn_GetData("F196")
+        colDgvLockBlockingPID.HeaderText = p_clsMsgData.fn_GetData("F197")
+        colDgvLockBlockingUser.HeaderText = p_clsMsgData.fn_GetData("F198")
+        colDgvLockElapse.HeaderText = p_clsMsgData.fn_GetData("F135")
+        colDgvLockBlockingQuery.HeaderText = p_clsMsgData.fn_GetData("F225")
+        colDgvLockBlockedQuery.HeaderText = p_clsMsgData.fn_GetData("F221")
+        colDgvLockMode.HeaderText = p_clsMsgData.fn_GetData("F222")
+        colDgvLockQueryStart.HeaderText = p_clsMsgData.fn_GetData("F223")
+        colDgvLockXactStart.HeaderText = p_clsMsgData.fn_GetData("F224")
+
+        tabLock.Text = p_clsMsgData.fn_GetData("F317")
+
+
+        dgvLock.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
+        dgvLock.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
+
+
         chtCPU.Visible = False
         chtSession.Visible = False
         chtLogicalIO.Visible = False
         chtPhysicalIO.Visible = False
         chtSQLResp.Visible = False
+        chtLock.Visible = False
 
         'modCommon.FontChange(Me, p_Font)
     End Sub
@@ -304,19 +331,77 @@
 
     End Sub
 
-    Private Sub dgvSessionList_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
-        Dim strDb As String = ""
-        Dim strUser As String = ""
-        Dim strQuery As String = ""
-        If dgvSessionList.RowCount <= 0 Then Return
-        _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
-        _SelectedGrid = 0
-        If e.ColumnIndex = coldgvSessionListSQL.Index Then
-            strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
-            strQuery = dgvSessionList.CurrentCell.Value
-            strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
-            frmQuery.ShowDialog(Me)
+    'Private Sub dgvSessionList_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
+    '    Dim strDb As String = ""
+    '    Dim strUser As String = ""
+    '    Dim strQuery As String = ""
+    '    If dgvSessionList.RowCount <= 0 Then Return
+    '    _SelectedIndex = dgvSessionList.CurrentRow.Cells(coldgvSessionListPID.Index).Value
+    '    _SelectedGrid = 0
+    '    If e.ColumnIndex = coldgvSessionListSQL.Index Then
+    '        strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
+    '        strQuery = dgvSessionList.CurrentCell.Value
+    '        strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
+    '        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+    '        frmQuery.ShowDialog(Me)
+    '    End If
+    'End Sub
+
+
+    ''' <summary>
+    ''' Lock 정보 등록 
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <remarks></remarks>
+    Public Sub SetDataLock(ByVal starDt As DateTime, ByVal endDt As DateTime)
+
+        Dim dtTable As DataTable = Nothing
+        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
+                                                                 Try
+                                                                     dtTable = _clsQuery.SelectLockInfoAccum(_InstanceID, starDt, endDt, True)
+                                                                 Catch ex As Exception
+                                                                     GC.Collect()
+                                                                 End Try
+                                                             End Sub)
+        tmpTh.Start()
+        tmpTh.Join()
+        If dtTable IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            Try
+                                                Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
+                                                Dgv.Nodes.Clear()
+                                                Dim intLockCount As Integer = 0
+                                                Dim HashTbl As New Hashtable
+                                                For Each tmpCol As DataGridViewColumn In Dgv.Columns
+
+                                                    If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
+                                                        HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+                                                    End If
+                                                Next
+
+                                                Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
+                                                For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
+                                                    Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
+                                                    sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+                                                    intLockCount += 1
+                                                    For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0} AND ACTV_REG_SEQ = {1}", tmpRow.Item("BLOCKING_PID"), tmpRow.Item("ACTV_REG_SEQ")), "ORDER_NO ASC")
+                                                        Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
+                                                        sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+
+                                                    Next
+                                                    topNode.Expand()
+                                                    topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
+
+                                                Next
+
+                                                'grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", intLockCount)
+                                                lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
+                                            Catch ex As Exception
+                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                GC.Collect()
+                                            End Try
+
+                                        End Sub))
         End If
     End Sub
 
@@ -327,6 +412,7 @@
         chkLogicalIO.Tag = 2
         chkPhysicalIO.Tag = 3
         chkSQLResp.Tag = 4
+        chkLock.Tag = 5
 
         _chtHeight = chtCPU.Height + 30
 
@@ -335,6 +421,7 @@
         SetDefaultTitle(chkLogicalIO, chtLogicalIO, False, "")
         SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, False, "")
         SetDefaultTitle(chkSQLResp, chtSQLResp, False, "")
+        SetDefaultTitle(chkLock, chtLock, False, "")
 
         chtCPU.MainChart.ChartAreas(0).Visible = False
         chtCPU.AddAreaEx("CPU Usage", "RATE(%)", True, "CPUAREA")
@@ -342,12 +429,14 @@
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F040"), "Tuples/sec", True, "LOGICALAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F100"), "Busy(%)", True, "PHYSICALAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F103"), "SEC", True, "SQLRESPAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F317"), "Count", True, "LOCKAREA")
 
         chtCPU.MainChart.ChartAreas("CPUAREA").Visible = False
         chtCPU.MainChart.ChartAreas("SESSIONAREA").Visible = False
         chtCPU.MainChart.ChartAreas("LOGICALAREA").Visible = False
         chtCPU.MainChart.ChartAreas("PHYSICALAREA").Visible = False
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("LOCKAREA").Visible = False
 
         Me.chtCPU.Visible = True
 
@@ -376,12 +465,15 @@
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
 
+        chtCPU.MainChart.ChartAreas("LOCKAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("LOCKAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+
     End Sub
     Private Sub SetDefaultTitle(ByRef chkBox As eXperDB.BaseControls.CheckBox, ByRef chart As eXperDB.Monitoring.ctlChartEx, ByVal chtEnable As Boolean, ByVal chtTitle As String)
         chkBox.Checked = chtEnable
     End Sub
 
-    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkPhysicalIO.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkPhysicalIO.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged, chkLock.CheckedChanged
 
         Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
@@ -402,6 +494,7 @@
             If _annotationIndex = CheckBox.Tag + 1 Then
                 fn_DeleteAnnotaion()
                 SetDataSession(dtpSt.Value, dtpEd.Value)
+                SetDataLock(dtpSt.Value, dtpEd.Value)
             End If
         End If
 
@@ -429,15 +522,39 @@
         ' _ThreadDetail.Join()
         'modCommon.FontChange(Me, p_Font)
     End Sub
+    'Private Sub ArrangeChartlayout()
+    '    Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
+    '    Dim nCount As Integer = 0
+    '    Dim MarginTop As Integer = 0
+    '    Dim MarginBottom As Integer = 0
+    '    Dim AreaHeight As Integer = (100 / 5)
+    '    MarginTop = AreaHeight * 0.18
+    '    AreaHeight = AreaHeight * 0.65
+    '    MarginBottom = AreaHeight * 0.17
+    '    For i As Integer = 1 To _AreaCount
+    '        tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
+    '        If tmpChartArea.Visible = True Then
+    '            tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * (nCount + 1) + MarginBottom * nCount
+    '            tmpChartArea.Position.Height = AreaHeight
+    '            tmpChartArea.Position.X = 3
+    '            If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
+    '                tmpChartArea.Position.Width = tmpChartArea.Position.Width * (1 + CSng(100 / (Me.chtCPU.MainChart.Width)))
+    '            End If
+    '            nCount += 1
+    '        End If
+    '    Next
+    '    SetAreaWithAnnotation()
+    'End Sub
+
     Private Sub ArrangeChartlayout()
         Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
         Dim nCount As Integer = 0
-        Dim MarginTop As Integer = 0
-        Dim MarginBottom As Integer = 0
-        Dim AreaHeight As Integer = (100 / 5)
+        Dim MarginTop As Double = 0
+        Dim MarginBottom As Double = 0
+        Dim AreaHeight As Double = (100 / 6)
         MarginTop = AreaHeight * 0.18
-        AreaHeight = AreaHeight * 0.65
-        MarginBottom = AreaHeight * 0.17
+        MarginBottom = AreaHeight * 0.18
+        AreaHeight = AreaHeight * 0.64
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
@@ -447,11 +564,15 @@
                 If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
                     tmpChartArea.Position.Width = tmpChartArea.Position.Width * (1 + CSng(100 / (Me.chtCPU.MainChart.Width)))
                 End If
+                'If i = 4 Then
+                '    tmpChartArea.Position.Y = tmpChartArea.Position.Y + 1
+                'End If
                 nCount += 1
             End If
         Next
         SetAreaWithAnnotation()
     End Sub
+
 
     Private Sub SetAreaWithAnnotation()
         If _bRange = True Then
@@ -544,6 +665,14 @@
                 strSeriesData1 = "SQL_ELAPSED_SEC"
                 LineColor1 = Color.Lime
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Point
+            Case 6
+                strLegend1 = "LOCKTOT"
+                strLegend2 = "LOCKWAIT"
+                strSeriesData1 = "LOCK_TOTAL"
+                strSeriesData2 = "LOCK_WAIT"
+                LineColor1 = Color.RoyalBlue
+                LineColor2 = Color.Crimson
+                seriesChartType = DataVisualization.Charting.SeriesChartType.Line
         End Select
 
         If ShowChart = False Then
@@ -593,6 +722,8 @@
                                                                          Case 4
                                                                          Case 5
                                                                              dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)
+                                                                         Case 6
+                                                                             dtTable = _clsQuery.SelectLockCount(_InstanceID, stDate, edDate, True)
                                                                      End Select
 
                                                                  Catch ex As Exception
@@ -785,12 +916,18 @@
         End If
     End Sub
 
-    Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCPU.VisibleChanged, chtSQLResp.VisibleChanged, chtSession.VisibleChanged, chtPhysicalIO.VisibleChanged, chtLogicalIO.VisibleChanged
-        pnlChart.Controls.SetChildIndex(chtCPU, 4)
-        pnlChart.Controls.SetChildIndex(chtSession, 3)
-        pnlChart.Controls.SetChildIndex(chtLogicalIO, 2)
-        pnlChart.Controls.SetChildIndex(chtPhysicalIO, 1)
-        pnlChart.Controls.SetChildIndex(chtSQLResp, 0)
+    Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCPU.VisibleChanged, chtSQLResp.VisibleChanged, chtSession.VisibleChanged, chtPhysicalIO.VisibleChanged, chtLogicalIO.VisibleChanged, chtLock.VisibleChanged
+        'pnlChart.Controls.SetChildIndex(chtCPU, 4)
+        'pnlChart.Controls.SetChildIndex(chtSession, 3)
+        'pnlChart.Controls.SetChildIndex(chtLogicalIO, 2)
+        'pnlChart.Controls.SetChildIndex(chtPhysicalIO, 1)
+        'pnlChart.Controls.SetChildIndex(chtSQLResp, 0)
+        pnlChart.Controls.SetChildIndex(chtCPU, 5)
+        pnlChart.Controls.SetChildIndex(chtSession, 4)
+        pnlChart.Controls.SetChildIndex(chtLogicalIO, 3)
+        pnlChart.Controls.SetChildIndex(chtPhysicalIO, 2)
+        pnlChart.Controls.SetChildIndex(chtSQLResp, 1)
+        pnlChart.Controls.SetChildIndex(chtLock, 0)
     End Sub
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
@@ -804,12 +941,14 @@
             End If
         Next
         SetDataSession(dtpSt.Value, dtpEd.Value)
+        SetDataLock(dtpSt.Value, dtpEd.Value)
     End Sub
 
     Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
         If _bRange = True Then
             fn_DeleteAnnotaion()
             SetDataSession(dtpSt.Value, dtpEd.Value)
+            SetDataLock(dtpSt.Value, dtpEd.Value)
         Else
             Dim index As Integer
             For index = 1 To _AreaCount
@@ -846,6 +985,7 @@
         End If
 
         SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
+        SetDataLock(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
     End Sub
 
     Private Sub chtCPU_AnnotationPositionChanging(sender As Object, e As EventArgs)
@@ -893,6 +1033,27 @@
         Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
         frmQuery.ShowDialog(Me)
         'End If
+    End Sub
+
+    Private Sub dgvLock_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellDoubleClick
+        Dim strDb As String = ""
+        Dim strUser As String = ""
+        Dim strQuery As String = ""
+        If dgvLock.RowCount <= 0 Then Return
+
+        If e.ColumnIndex = colDgvLockBlockedQuery.Index Then
+            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
+            strQuery = dgvLock.CurrentCell.Value
+            strUser = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value)
+            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            frmQuery.ShowDialog(Me)
+        ElseIf e.ColumnIndex = colDgvLockBlockingQuery.Index Then
+            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
+            strQuery = dgvLock.CurrentCell.Value
+            strUser = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value)
+            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            frmQuery.ShowDialog(Me)
+        End If
     End Sub
 
     Private Function fn_SearchBefCheck() As Boolean

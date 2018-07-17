@@ -208,7 +208,7 @@
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         'sb_SetRbGrp(_GrpList)
         ServerName_lv.Text = _GrpList.Item(0).GroupName
-        tmCollect.Interval = 500
+        tmCollect.Interval = 1000
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 

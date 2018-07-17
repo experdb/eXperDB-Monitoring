@@ -1213,7 +1213,7 @@
         Me.Invoke(Sub()
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTable = _clsQuery.SelectInitLockCount(InstanceID, New Date(), New Date(), False)
+                          dtTable = _clsQuery.SelectLockCount(InstanceID, New Date(), New Date(), False)
                           If dtTable IsNot Nothing Then
                               Dim dtRowsSession As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
                               If dtRowsSession.Count = 0 Then
@@ -1741,7 +1741,8 @@
                                                                                                                         , chtCPU.CursorPositionChanged _
                                                                                                                         , chtLocalIO.CursorPositionChanged _
                                                                                                                         , chtPhysicaliO.CursorPositionChanged _
-                                                                                                                        , chtSQLRespTm.CursorPositionChanged
+                                                                                                                        , chtSQLRespTm.CursorPositionChanged _
+                                                                                                                        , chtLock.CursorPositionChanged
 
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
@@ -1778,6 +1779,8 @@
                 index = 3
             Case "chtSQLRespTm"
                 index = 4
+            Case "chtLock"
+                index = 5
         End Select
 
         Dim BretFrm As frmMonItemDetail = Nothing
@@ -1791,8 +1794,9 @@
         Next
 
         If BretFrm Is Nothing Then
-            BretFrm = New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, index)
-            BretFrm.Show(DirectCast(Me.Owner, frmMonMain))
+            BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, index)
+            'BretFrm.Show(DirectCast(Me.OwnerForm, frmMonMain))
+            BretFrm.Show()
         Else
             BretFrm.Activate()
         End If
@@ -1825,8 +1829,9 @@
         Next
 
         If BretFrm Is Nothing Then
-            BretFrm = New frmMonItemDetail(DirectCast(Me.Owner, frmMonMain).AgentCn, DirectCast(Me.Owner, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
-            BretFrm.Show(DirectCast(Me.Owner, frmMonMain))
+            BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
+            'BretFrm.Show(DirectCast(Me.OwnerForm, frmMonMain))
+            BretFrm.Show()
         Else
             BretFrm.Activate()
         End If
