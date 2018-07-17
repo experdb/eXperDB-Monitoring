@@ -1,0 +1,12 @@
+#!/bin/sh
+
+MANAGERPATH=eXperDBMA_MANAGER
+SERVERPATH=eXperDBMA
+MANAGERBIN=${MANAGERPATH}/bin
+SERVERBIN=${SERVERPATH}/bin
+
+
+${SERVERBIN}/experdbma.sh $@
+${MANAGERBIN}/experdbma.sh $@
+
+exit 0
