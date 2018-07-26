@@ -438,7 +438,7 @@
 		    schema_name,
 		    table_name,
 		    table_size_kb,
-			blot_size_kb,
+			bloat_size_kb,
 		    tot_index_size_kb,
 		    index_cnt,
 		    toast_yn,
