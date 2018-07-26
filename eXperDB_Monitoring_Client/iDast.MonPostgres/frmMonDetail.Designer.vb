@@ -79,6 +79,17 @@ Partial Class frmMonDetail
         Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.chtSession = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.btnRefreshSqlResp = New eXperDB.BaseControls.Button()
         Me.chtSQLRespTm = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -213,6 +224,32 @@ Partial Class frmMonDetail
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.tlpLeft = New eXperDB.BaseControls.TableLayoutPanel()
         Me.bckquerymanual = New System.ComponentModel.BackgroundWorker()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewDataSizeColumn1 = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.DataGridViewDataSizeColumn2 = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.DataGridViewPercentageColumn1 = New eXperDB.Controls.DataGridViewPercentageColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewPercentageColumn2 = New eXperDB.Controls.DataGridViewPercentageColumn()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewDataSizeColumn3 = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.DataGridViewDataSizeColumn4 = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTimespanColumn1 = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.DataGridViewTextBoxColumn19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.chtSession, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtSQLRespTm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtLocalIO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -315,14 +352,14 @@ Partial Class frmMonDetail
         Me.chtSession.Name = "chtSession"
         Series1.ChartArea = "ChartArea1"
         Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea
-        Series1.Color = System.Drawing.Color.Lime
+        Series1.Color = System.Drawing.Color.YellowGreen
         Series1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series1.Legend = "Legend1"
         Series1.Name = "Total"
         Series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Series2.ChartArea = "ChartArea1"
         Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea
-        Series2.Color = System.Drawing.Color.Yellow
+        Series2.Color = System.Drawing.Color.Gold
         Series2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series2.Legend = "Legend1"
         Series2.Name = "Active"
@@ -541,7 +578,7 @@ Partial Class frmMonDetail
         Series5.BorderWidth = 2
         Series5.ChartArea = "ChartArea1"
         Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series5.Color = System.Drawing.Color.Lime
+        Series5.Color = System.Drawing.Color.YellowGreen
         Series5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
         Series5.Legend = "Legend1"
         Series5.Name = "Read"
@@ -1349,13 +1386,13 @@ Partial Class frmMonDetail
         'rndProgCPU
         '
         Me.rndProgCPU.BufferGauge_value = 0
-        Me.rndProgCPU.BufferGaugeColor = System.Drawing.Color.Yellow
+        Me.rndProgCPU.BufferGaugeColor = System.Drawing.Color.Gold
         Me.rndProgCPU.CacheGauge_value = 0
         Me.rndProgCPU.CacheGaugeColor = System.Drawing.Color.Black
         Me.rndProgCPU.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgCPU.Cpu_textUse = True
         Me.rndProgCPU.CpuGauge_value = 0
-        Me.rndProgCPU.CpuGaugeColor = System.Drawing.Color.Lime
+        Me.rndProgCPU.CpuGaugeColor = System.Drawing.Color.YellowGreen
         Me.rndProgCPU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rndProgCPU.Font = New System.Drawing.Font("Gulim", 20.0!)
         Me.rndProgCPU.Gauge_Interval = 3000
@@ -1369,7 +1406,7 @@ Partial Class frmMonDetail
         Me.rndProgCPU.Name = "rndProgCPU"
         Me.rndProgCPU.Postgres_textUse = True
         Me.rndProgCPU.Postgres_value = 0
-        Me.rndProgCPU.PostgresGaugeColor = System.Drawing.Color.Yellow
+        Me.rndProgCPU.PostgresGaugeColor = System.Drawing.Color.Gold
         Me.rndProgCPU.Size = New System.Drawing.Size(87, 110)
         Me.rndProgCPU.TabIndex = 0
         Me.rndProgCPU.TitlePt = New System.Drawing.Point(10, 10)
@@ -1433,13 +1470,13 @@ Partial Class frmMonDetail
         Me.chtCPU.Name = "chtCPU"
         Series11.ChartArea = "ChartArea1"
         Series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea
-        Series11.Color = System.Drawing.Color.Lime
+        Series11.Color = System.Drawing.Color.YellowGreen
         Series11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series11.Name = "MAIN"
         Series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Series12.ChartArea = "ChartArea1"
         Series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea
-        Series12.Color = System.Drawing.Color.Yellow
+        Series12.Color = System.Drawing.Color.Gold
         Series12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series12.Name = "POSTGRES"
         Series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -1458,7 +1495,7 @@ Partial Class frmMonDetail
         Me.rndProgMEM.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgMEM.Cpu_textUse = True
         Me.rndProgMEM.CpuGauge_value = 0
-        Me.rndProgMEM.CpuGaugeColor = System.Drawing.Color.Lime
+        Me.rndProgMEM.CpuGaugeColor = System.Drawing.Color.YellowGreen
         Me.rndProgMEM.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rndProgMEM.Font = New System.Drawing.Font("Gulim", 12.0!)
         Me.rndProgMEM.Gauge_Interval = 3000
@@ -1472,7 +1509,7 @@ Partial Class frmMonDetail
         Me.rndProgMEM.Name = "rndProgMEM"
         Me.rndProgMEM.Postgres_textUse = False
         Me.rndProgMEM.Postgres_value = 0
-        Me.rndProgMEM.PostgresGaugeColor = System.Drawing.Color.Yellow
+        Me.rndProgMEM.PostgresGaugeColor = System.Drawing.Color.Gold
         Me.rndProgMEM.Size = New System.Drawing.Size(87, 110)
         Me.rndProgMEM.TabIndex = 1
         Me.rndProgMEM.TitlePt = New System.Drawing.Point(10, 10)
@@ -1507,7 +1544,7 @@ Partial Class frmMonDetail
         Me.rndProgHealth.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgHealth.Cpu_textUse = False
         Me.rndProgHealth.CpuGauge_value = 100
-        Me.rndProgHealth.CpuGaugeColor = System.Drawing.Color.Lime
+        Me.rndProgHealth.CpuGaugeColor = System.Drawing.Color.YellowGreen
         Me.rndProgHealth.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rndProgHealth.Font = New System.Drawing.Font("Gulim", 13.3451!)
         Me.rndProgHealth.Gauge_Interval = 3000
@@ -3093,6 +3130,273 @@ Partial Class frmMonDetail
         Me.bckquerymanual.WorkerReportsProgress = True
         Me.bckquerymanual.WorkerSupportsCancellation = True
         '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "F085"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 72
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "UPDTIME"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Visible = False
+        Me.DataGridViewTextBoxColumn2.Width = 109
+        '
+        'DataGridViewDataSizeColumn1
+        '
+        Me.DataGridViewDataSizeColumn1.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle23.Format = "N1"
+        Me.DataGridViewDataSizeColumn1.DefaultCellStyle = DataGridViewCellStyle23
+        Me.DataGridViewDataSizeColumn1.HeaderText = "F087"
+        Me.DataGridViewDataSizeColumn1.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn1.Name = "DataGridViewDataSizeColumn1"
+        Me.DataGridViewDataSizeColumn1.ReadOnly = True
+        Me.DataGridViewDataSizeColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn1.ShowUnit = True
+        Me.DataGridViewDataSizeColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn1.TailWord = ""
+        Me.DataGridViewDataSizeColumn1.Width = 68
+        '
+        'DataGridViewDataSizeColumn2
+        '
+        Me.DataGridViewDataSizeColumn2.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle24.Format = "N1"
+        Me.DataGridViewDataSizeColumn2.DefaultCellStyle = DataGridViewCellStyle24
+        Me.DataGridViewDataSizeColumn2.HeaderText = "F088"
+        Me.DataGridViewDataSizeColumn2.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn2.Name = "DataGridViewDataSizeColumn2"
+        Me.DataGridViewDataSizeColumn2.ReadOnly = True
+        Me.DataGridViewDataSizeColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn2.ShowUnit = True
+        Me.DataGridViewDataSizeColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn2.TailWord = ""
+        Me.DataGridViewDataSizeColumn2.Width = 68
+        '
+        'DataGridViewPercentageColumn1
+        '
+        Me.DataGridViewPercentageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewPercentageColumn1.HeaderText = ""
+        Me.DataGridViewPercentageColumn1.Name = "DataGridViewPercentageColumn1"
+        Me.DataGridViewPercentageColumn1.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle25.Format = "P"
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle25
+        Me.DataGridViewTextBoxColumn3.HeaderText = "F043"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 68
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn4.HeaderText = "ITEM"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Visible = False
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "REG_DATE"
+        Me.DataGridViewTextBoxColumn5.HeaderText = "REGDATE"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Visible = False
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn6.DataPropertyName = "REG_SEQ"
+        Me.DataGridViewTextBoxColumn6.HeaderText = "SEQ"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Visible = False
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn7.HeaderText = "F059"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle26.Format = "N0"
+        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle26
+        Me.DataGridViewTextBoxColumn8.FillWeight = 80.0!
+        Me.DataGridViewTextBoxColumn8.HeaderText = "F060"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn9.FillWeight = 50.0!
+        Me.DataGridViewTextBoxColumn9.HeaderText = "F061"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.DataGridViewTextBoxColumn10.HeaderText = "F062"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        Me.DataGridViewTextBoxColumn10.Visible = False
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn11.HeaderText = "STATUSVAL"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Visible = False
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.HeaderText = "F035"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        Me.DataGridViewTextBoxColumn12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.DataGridViewTextBoxColumn12.Width = 76
+        '
+        'DataGridViewPercentageColumn2
+        '
+        Me.DataGridViewPercentageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewPercentageColumn2.HeaderText = ""
+        Me.DataGridViewPercentageColumn2.Name = "DataGridViewPercentageColumn2"
+        Me.DataGridViewPercentageColumn2.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle27.Format = "P"
+        Me.DataGridViewTextBoxColumn13.DefaultCellStyle = DataGridViewCellStyle27
+        Me.DataGridViewTextBoxColumn13.HeaderText = "F063"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        Me.DataGridViewTextBoxColumn13.Width = 76
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.DataPropertyName = "DB_NAME"
+        DataGridViewCellStyle28.Format = "N2"
+        DataGridViewCellStyle28.NullValue = "0"
+        Me.DataGridViewTextBoxColumn14.DefaultCellStyle = DataGridViewCellStyle28
+        Me.DataGridViewTextBoxColumn14.HeaderText = "F090"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        Me.DataGridViewTextBoxColumn14.Width = 76
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.DataPropertyName = "USER_NAME"
+        Me.DataGridViewTextBoxColumn15.HeaderText = "USER"
+        Me.DataGridViewTextBoxColumn15.MinimumWidth = 81
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        Me.DataGridViewTextBoxColumn15.Visible = False
+        Me.DataGridViewTextBoxColumn15.Width = 81
+        '
+        'DataGridViewTextBoxColumn16
+        '
+        Me.DataGridViewTextBoxColumn16.DataPropertyName = "PROCESS_ID"
+        Me.DataGridViewTextBoxColumn16.HeaderText = "F082"
+        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
+        Me.DataGridViewTextBoxColumn16.ReadOnly = True
+        Me.DataGridViewTextBoxColumn16.Width = 76
+        '
+        'DataGridViewDataSizeColumn3
+        '
+        Me.DataGridViewDataSizeColumn3.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn3.DataPropertyName = "CURRENT_PROC_READ_KB"
+        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle29.Format = "N1"
+        Me.DataGridViewDataSizeColumn3.DefaultCellStyle = DataGridViewCellStyle29
+        Me.DataGridViewDataSizeColumn3.HeaderText = "F048"
+        Me.DataGridViewDataSizeColumn3.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn3.Name = "DataGridViewDataSizeColumn3"
+        Me.DataGridViewDataSizeColumn3.ReadOnly = True
+        Me.DataGridViewDataSizeColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn3.ShowUnit = True
+        Me.DataGridViewDataSizeColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn3.TailWord = ""
+        Me.DataGridViewDataSizeColumn3.Visible = False
+        Me.DataGridViewDataSizeColumn3.Width = 76
+        '
+        'DataGridViewDataSizeColumn4
+        '
+        Me.DataGridViewDataSizeColumn4.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn4.DataPropertyName = "CURRENT_PROC_WRITE_KB"
+        DataGridViewCellStyle30.Format = "N1"
+        Me.DataGridViewDataSizeColumn4.DefaultCellStyle = DataGridViewCellStyle30
+        Me.DataGridViewDataSizeColumn4.HeaderText = "F136"
+        Me.DataGridViewDataSizeColumn4.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn4.Name = "DataGridViewDataSizeColumn4"
+        Me.DataGridViewDataSizeColumn4.ReadOnly = True
+        Me.DataGridViewDataSizeColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn4.ShowUnit = True
+        Me.DataGridViewDataSizeColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn4.TailWord = ""
+        Me.DataGridViewDataSizeColumn4.Visible = False
+        Me.DataGridViewDataSizeColumn4.Width = 76
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.DataPropertyName = "CPU_USAGE"
+        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle31.Format = "P"
+        Me.DataGridViewTextBoxColumn17.DefaultCellStyle = DataGridViewCellStyle31
+        Me.DataGridViewTextBoxColumn17.HeaderText = "F092"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        Me.DataGridViewTextBoxColumn17.Width = 76
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.DataPropertyName = "START_TIME"
+        DataGridViewCellStyle32.Format = "HH:mm:ss"
+        Me.DataGridViewTextBoxColumn18.DefaultCellStyle = DataGridViewCellStyle32
+        Me.DataGridViewTextBoxColumn18.HeaderText = "F050"
+        Me.DataGridViewTextBoxColumn18.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        '
+        'DataGridViewTimespanColumn1
+        '
+        Me.DataGridViewTimespanColumn1.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.DataGridViewTimespanColumn1.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle33.Format = "N2"
+        DataGridViewCellStyle33.NullValue = "12"
+        Me.DataGridViewTimespanColumn1.DefaultCellStyle = DataGridViewCellStyle33
+        Me.DataGridViewTimespanColumn1.FillWeight = 150.0!
+        Me.DataGridViewTimespanColumn1.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
+        Me.DataGridViewTimespanColumn1.HeaderText = "F051"
+        Me.DataGridViewTimespanColumn1.MinimumWidth = 150
+        Me.DataGridViewTimespanColumn1.Name = "DataGridViewTimespanColumn1"
+        Me.DataGridViewTimespanColumn1.ReadOnly = True
+        Me.DataGridViewTimespanColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewTimespanColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewTimespanColumn1.Width = 150
+        '
+        'DataGridViewTextBoxColumn19
+        '
+        Me.DataGridViewTextBoxColumn19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn19.DataPropertyName = "SQL"
+        Me.DataGridViewTextBoxColumn19.HeaderText = "F052"
+        Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
+        Me.DataGridViewTextBoxColumn19.ReadOnly = True
+        '
         'frmMonDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
@@ -3292,5 +3596,31 @@ Partial Class frmMonDetail
     Friend WithEvents colDgvCpuUtil As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnSessionLockS As eXperDB.BaseControls.Button
     Friend WithEvents btnActInfoS As eXperDB.BaseControls.Button
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewDataSizeColumn1 As eXperDB.Controls.DataGridViewDataSizeColumn
+    Friend WithEvents DataGridViewDataSizeColumn2 As eXperDB.Controls.DataGridViewDataSizeColumn
+    Friend WithEvents DataGridViewPercentageColumn1 As eXperDB.Controls.DataGridViewPercentageColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn11 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn12 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewPercentageColumn2 As eXperDB.Controls.DataGridViewPercentageColumn
+    Friend WithEvents DataGridViewTextBoxColumn13 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn14 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn15 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn16 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewDataSizeColumn3 As eXperDB.Controls.DataGridViewDataSizeColumn
+    Friend WithEvents DataGridViewDataSizeColumn4 As eXperDB.Controls.DataGridViewDataSizeColumn
+    Friend WithEvents DataGridViewTextBoxColumn17 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn18 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTimespanColumn1 As eXperDB.Controls.DataGridViewTimespanColumn
+    Friend WithEvents DataGridViewTextBoxColumn19 As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

@@ -99,7 +99,8 @@
         coldgvTblinfoDEADTUPLES.HeaderText = p_clsMsgData.fn_GetData("F298")
         coldgvTblinfoDEADTUPLERATE.HeaderText = p_clsMsgData.fn_GetData("F299")
         coldgvTblinfoLASTVACUUM.HeaderText = p_clsMsgData.fn_GetData("F125")
-
+        coldgvTblinfoBloatsize.HeaderText = p_clsMsgData.fn_GetData("F318")
+        coldgvTblinfoBloatrate.HeaderText = p_clsMsgData.fn_GetData("F319")
 
 
 
@@ -311,9 +312,28 @@
         dgvTblinfo.DataSource = dtView
         lblTblinfo.Text = p_clsMsgData.fn_GetData("F080", dtView.Count)
         modCommon.sb_GridSortChg(dgvTblinfo)
+        sb_GridClrChange(dgvTblinfo)
         dgvTblinfo.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
     End Sub
+
+    Public Function sb_GridClrChange(ByVal Dgv As Windows.Forms.DataGridView) As Boolean
+        Threading.Thread.Sleep(1)
+
+        For Each tmpRow As DataGridViewRow In Dgv.Rows
+
+            Dim tmpCellValue As Integer = tmpRow.Cells(coldgvTblinfoBloatTable.Index).Value
+
+            If tmpCellValue > 0 Then
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+            Else
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+            End If
+        Next
+
+    End Function
 
 
     ' ''' <summary>
@@ -596,4 +616,12 @@
 
     End Sub
 
+    Private Sub cbxCheckTableBloat_CheckedChanged(sender As Object, e As EventArgs) Handles cbxCheckTableBloat.CheckedChanged
+        If cbxCheckTableBloat.Checked = True Then
+            DirectCast(dgvTblinfo.DataSource, DataView).RowFilter = String.Format("bloat_table = '1'")
+        Else
+            DirectCast(dgvTblinfo.DataSource, DataView).RowFilter = Nothing
+        End If
+        sb_GridClrChange(dgvTblinfo)
+    End Sub
 End Class

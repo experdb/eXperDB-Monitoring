@@ -342,54 +342,120 @@
 	
 	<select id="BT_TABLE_INFO_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
 		<![CDATA[
-		SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
-		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
-		          --? AS OBJT_REG_SEQ, -- @NEXTVAL('OBJT_REG_SEQ'),
-		          B.SCHEMANAME AS SCHEMA_NAME,
-		          A.RELNAME AS TABLE_NAME,
-		          PG_RELATION_SIZE(A.RELID) AS TABLE_SIZE_KB,
-		          COALESCE(A.TOT_IDX_SIZE, 0) AS TOT_INDEX_SIZE_KB,
-		          A.IDX_CNT AS INDEX_CNT,
-		          (SELECT CASE WHEN RELTOASTRELID=0 THEN 'N' ELSE 'Y' END FROM PG_CLASS PGC WHERE PGC.OID = A.RELID) AS TOAST_YN,
-		          B.SEQ_SCAN AS AGG_SEQ_SCAN_CNT,
-		          B.SEQ_TUP_READ AS AGG_SEQ_TUPLES,
-		          COALESCE(B.IDX_SCAN, 0) AS AGG_INDEX_SCAN_CNT,
-		          COALESCE(B.IDX_TUP_FETCH, 0) AS AGG_INDEX_TUPLES,
-		          --B.SEQ_SCAN - ? AS CURRENT_SEQ_SCAN_CNT, --@이전값
-		          --B.SEQ_TUP_READ - ? AS CURRENT_SEQ_TUPLES, --@이전값
-		          --B.IDX_SCAN - ? AS CURRENT_INDEX_SCAN_CNT, --@이전값
-		          --B.IDX_TUP_FETCH - ? AS CURRENT_INDEX_TUPLES, --@이전값
-		          B.N_LIVE_TUP AS LIVE_TUPLE_CNT,
-		          B.N_DEAD_TUP AS DEAD_TUPLE_CNT,
-		          --CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN NULL
-		          CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN '1000-01-01 00:00:00'::TIMESTAMP 
-		               WHEN LAST_VACUUM IS NULL THEN LAST_AUTOVACUUM 
-     		               WHEN LAST_AUTOVACUUM IS NULL THEN LAST_VACUUM 
-		               WHEN LAST_VACUUM>LAST_AUTOVACUUM THEN LAST_VACUUM 
-		               ELSE LAST_AUTOVACUUM END AS LAST_VACUUM,
-		          --CASE WHEN LAST_VACUUM IS NULL AND LAST_AUTOVACUUM IS NULL THEN NULL
-		          CASE WHEN LAST_ANALYZE IS NULL AND LAST_AUTOANALYZE IS NULL THEN '1000-01-01 00:00:00'::TIMESTAMP 
-		               WHEN LAST_ANALYZE IS NULL THEN LAST_AUTOANALYZE 
-		               WHEN LAST_AUTOANALYZE IS NULL THEN LAST_ANALYZE 
- 		               WHEN LAST_ANALYZE>LAST_AUTOANALYZE THEN LAST_ANALYZE 
-		               ELSE LAST_AUTOANALYZE END AS LAST_ANALYZE,
-		          NOW() AS COLLECT_DT
-		  FROM (SELECT UTB.RELNAME,
-		                    UTB.SCHEMANAME,
-		                    UTB.RELID,
-		                    SUM(PG_RELATION_SIZE(UDX.INDEXRELID)) AS TOT_IDX_SIZE,
-		                    COUNT(UDX.INDEXRELID) AS IDX_CNT 
-		            FROM PG_STAT_USER_TABLES UTB LEFT OUTER JOIN PG_STAT_USER_INDEXES UDX ON UTB.RELNAME=UDX.RELNAME
-           		   WHERE UTB.RELID NOT IN (SELECT RELATION FROM PG_LOCKS WHERE MODE='AccessExclusiveLock')
-		          GROUP BY UTB.SCHEMANAME, UTB.RELNAME, UTB.RELID) A,
-		          PG_STAT_USER_TABLES B
-		 WHERE A.SCHEMANAME = B.SCHEMANAME
-		    AND A.RELNAME=B.RELNAME
+		SELECT schema_name, table_name, bs*tblpages AS table_size_kb,
+		 			 tot_index_size_kb, index_cnt,
+					 CASE WHEN reltoastrelid=0 THEN 'N' ELSE 'Y' END AS TOAST_YN,
+					 agg_seq_scan_cnt,agg_seq_tuples,agg_index_scan_cnt,agg_index_tuples,live_tuple_cnt,dead_tuple_cnt,last_vacuum,last_analyze,
+					 now() AS collect_dt,  
+					 (tblpages-est_tblpages)*bs AS extra_size,
+					 CASE WHEN tblpages - est_tblpages > 0
+					   		THEN 100 * (tblpages - est_tblpages)/tblpages::float
+					   		ELSE 0
+					 END AS extra_ratio, 
+					 fillfactor, (tblpages-est_tblpages_ff)*bs AS bloat_size_kb,
+					 CASE WHEN tblpages - est_tblpages_ff > 0
+						    THEN 100 * (tblpages - est_tblpages_ff)/tblpages::float
+						    ELSE 0
+					 END AS bloat_ratio, is_na
+		 FROM (
+				   SELECT ceil( reltuples / ( (bs-page_hdr)/tpl_size ) ) + ceil( toasttuples / 4 ) AS est_tblpages,
+							    ceil( reltuples / ( (bs-page_hdr)*fillfactor/(tpl_size*100) ) ) + ceil( toasttuples / 4 ) AS est_tblpages_ff,
+							    tblpages, fillfactor, bs, tblid, schema_name, table_name, heappages, toastpages, is_na,
+							    reltoastrelid, AGG_SEQ_SCAN_CNT, AGG_SEQ_TUPLES, AGG_INDEX_SCAN_CNT, AGG_INDEX_TUPLES, LIVE_TUPLE_CNT,
+							    DEAD_TUPLE_CNT, LAST_VACUUM,LAST_ANALYZE,tot_index_size_kb,index_cnt
+				     FROM (
+						       SELECT ( 4 + tpl_hdr_size + tpl_data_size + (2*ma)
+									           - CASE WHEN tpl_hdr_size%ma = 0 THEN ma ELSE tpl_hdr_size%ma END
+									           - CASE WHEN ceil(tpl_data_size)::int%ma = 0 THEN ma ELSE ceil(tpl_data_size)::int%ma END
+									         ) AS tpl_size, bs - page_hdr AS size_per_block, (heappages + toastpages) AS tblpages, heappages,
+									         toastpages, reltuples, toasttuples, bs, page_hdr, tblid, s.schemaname as schema_name, tblname as table_name, fillfactor, is_na,
+									 	       reltoastrelid 
+									            ,utb.seq_scan AS agg_seq_scan_cnt
+									            ,utb.seq_tup_read AS agg_seq_tuples
+									            ,coalesce(utb.idx_scan, 0) AS agg_index_scan_cnt
+									            ,coalesce(utb.idx_tup_fetch, 0) AS agg_index_tuples
+									            ,utb.n_live_tup AS live_tuple_cnt
+									            ,utb.n_dead_tup AS dead_tuple_cnt
+									 	       ,CASE WHEN last_vacuum is null AND last_autovacuum is null then '1000-01-01 00:00:00'::timestamp 
+									 	             WHEN last_vacuum is null THEN last_autovacuum 
+									 	             WHEN last_autovacuum is null THEN last_vacuum 
+									 	             WHEN last_vacuum>last_autovacuum THEN last_vacuum 
+									 	             ELSE last_autovacuum END AS last_vacuum
+									 	       ,CASE WHEN last_analyze is null AND last_autoanalyze is null THEN '1000-01-01 00:00:00'::timestamp 
+									 	             WHEN last_analyze is null THEN last_autoanalyze 
+									 	             WHEN last_autoanalyze is null THEN last_analyze 
+									 	             WHEN last_analyze>last_autoanalyze THEN last_analyze 
+									 	             ELSE last_autoanalyze END AS last_analyze
+									 	       ,coalesce(UDX.TOT_IDX_SIZE, 0) tot_index_size_kb 
+									 	       ,coalesce(UDX.IDX_CNT, 0) index_cnt
+							       FROM (
+										         SELECT  tbl.oid AS tblid, ns.nspname AS schemaname, tbl.relname AS tblname, tbl.reltuples,
+													           tbl.relpages AS heappages, coalesce(toast.relpages, 0) AS toastpages,
+													           coalesce(toast.reltuples, 0) AS toasttuples,
+													           coalesce(substring(
+													             array_to_string(tbl.reloptions, ' ')
+													             FROM '%fillfactor=#"__#"%' FOR '#')::smallint, 100) AS fillfactor,
+													           current_setting('block_size')::numeric AS bs,
+													           CASE WHEN version()~'mingw32' OR version()~'64-bit|x86_64|ppc64|ia64|amd64' THEN 8 ELSE 4 END AS ma,
+													           24 AS page_hdr,
+													           23 + CASE WHEN MAX(coalesce(null_frac,0)) > 0 THEN ( 7 + count(*) ) / 8 ELSE 0::int END
+													             + CASE WHEN tbl.relhasoids THEN 4 ELSE 0 END AS tpl_hdr_size,
+													           sum( (1-coalesce(s.null_frac, 0)) * coalesce(s.avg_width, 1024) ) AS tpl_data_size,
+													           bool_or(att.atttypid = 'pg_catalog.name'::regtype)
+													                OR count(att.attname) <> count(s.attname) AS is_na,
+													           tbl.reltoastrelid AS reltoastrelid
+										           FROM pg_attribute AS att
+												            JOIN pg_class AS tbl ON att.attrelid = tbl.oid
+												            JOIN pg_namespace AS ns ON ns.oid = tbl.relnamespace
+												            LEFT JOIN pg_stats AS s ON s.schemaname=ns.nspname
+												                                    AND s.tablename = tbl.relname 
+												                                    AND s.inherited=false 
+												                                    AND s.attname=att.attname
+												            LEFT JOIN pg_class AS toast ON tbl.reltoastrelid = toast.oid
+										          WHERE att.attnum > 0 AND NOT att.attisdropped
+										            AND tbl.relkind = 'r'
+										          GROUP BY 1,2,3,4,5,6,7,8,9,10, tbl.relhasoids,15
+										          ORDER BY 2,3
+				       ) AS s 
+				       JOIN PG_STAT_USER_TABLES UTB ON UTB.relname=s.tblname AND UTB.schemaname = s.schemaname
+				 	     LEFT OUTER JOIN (
+										   SELECT relname, SCHEMANAME, sum(pg_relation_size(indexrelid)) AS tot_idx_size, count(indexrelid) AS idx_cnt
+										     FROM pg_stat_user_indexes
+										    GROUP BY schemaname, relname, relid
+				 		  				 ) AS UDX
+				 		  			ON utb.relnamE=udx.relname AND utb.schemaname = udx.schemaname 
+				   ) AS s2
+		 ) AS s3
 		]]>
 	</select>
 		
 	<insert id="TB_TABLE_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_TABLE_INFO
+		(
+		    reg_date,
+		    objt_reg_seq,
+		    db_name,
+		    schema_name,
+		    table_name,
+		    table_size_kb,
+			blot_size_kb,
+		    tot_index_size_kb,
+		    index_cnt,
+		    toast_yn,
+		    agg_seq_scan_cnt,
+		    agg_seq_tuples,
+		    agg_index_scan_cnt,
+		    agg_index_tuples,
+		    current_seq_scan_cnt,
+		    current_seq_tuples,
+		    current_index_scan_cnt,
+		    current_index_tuples,
+		    live_tuple_cnt,
+		    dead_tuple_cnt,
+		    last_vacuum,
+		    last_analyze,
+		    collect_dt
+	    )
 		VALUES 
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -398,6 +464,7 @@
 			#{schema_name},
 			#{table_name},
 			#{table_size_kb},
+			#{bloat_size_kb},
 			#{tot_index_size_kb},
 			#{index_cnt},
 			#{toast_yn},

@@ -633,16 +633,16 @@
                 strLegend2 = "WAIT"
                 strSeriesData1 = "USED_UTIL_RATE"
                 strSeriesData2 = "WAIT_UTIL_RATE"
-                LineColor1 = Color.Lime
-                LineColor2 = Color.Yellow
+                LineColor1 = Color.YellowGreen
+                LineColor2 = Color.Gold
                 seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
             Case 2
                 strLegend1 = "BACKENDTOT"
                 strLegend2 = "BACKENDACT"
                 strSeriesData1 = "TOT_BACKEND_CNT"
                 strSeriesData2 = "CUR_ACTV_BACKEND_CNT"
-                LineColor1 = Color.Lime
-                LineColor2 = Color.Yellow
+                LineColor1 = Color.YellowGreen
+                LineColor2 = Color.Gold
                 seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
             Case 3
                 strLegend1 = "Read"
@@ -653,7 +653,7 @@
                 strSeriesData2 = "INSERT_TUPLES_PER_SEC"
                 strSeriesData3 = "UPDATE_TUPLES_PER_SEC"
                 strSeriesData4 = "DELETE_TUPLES_PER_SEC"
-                LineColor1 = Color.Lime
+                LineColor1 = Color.YellowGreen
                 LineColor2 = Color.Blue
                 LineColor3 = Color.Orange
                 LineColor4 = Color.Red
@@ -663,7 +663,7 @@
             Case 5
                 strLegend1 = p_clsMsgData.fn_GetData("F103")
                 strSeriesData1 = "SQL_ELAPSED_SEC"
-                LineColor1 = Color.Lime
+                LineColor1 = Color.LimeGreen
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Point
             Case 6
                 strLegend1 = "LOCKTOT"
@@ -695,7 +695,7 @@
                                         If strLegend1 <> "" AndAlso chtCPU.GetSeries(strLegend1) = False Then
                                             chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend1, strLegend1, LineColor1, seriesChartType, yAxisType)
                                             If yAxisType = DataVisualization.Charting.AxisType.Secondary Then
-                                                chtCPU.SetAxisY2ChartArea(Color.Lime, index)
+                                                chtCPU.SetAxisY2ChartArea(Color.YellowGreen, index)
                                             End If
                                         End If
                                         If strLegend2 <> "" AndAlso chtCPU.GetSeries(strLegend2) = False Then
@@ -778,7 +778,7 @@
     End Sub
     Private Sub ShowPhysicalIOChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
         Dim arrPartition As New ArrayList
-        Dim colors() As Color = {System.Drawing.Color.Lime,
+        Dim colors() As Color = {System.Drawing.Color.LimeGreen,
                          System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
                          System.Drawing.Color.Orange,
                          System.Drawing.Color.Red,

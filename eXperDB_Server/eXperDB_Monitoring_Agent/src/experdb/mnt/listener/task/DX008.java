@@ -72,7 +72,7 @@ public class DX008 implements SocketApplication{
 							
 			ResultMap = sessionCollect.selectOne("app.DX005_001", inputParam);
 			
-			if (ResultMap.get("host") == null || ResultMap.get("port") == null){
+			if (ResultMap.get("host") == null){
 				resDataObj.put("_error_cd", "DX008_E02");
 				resDataObj.put("_error_msg", "Failed to execute the query.");				
 				resDataArray.add(resDataObj);
@@ -80,7 +80,7 @@ public class DX008 implements SocketApplication{
 			}
 			
 			resDataObj.put("ha_host", ResultMap.get("host").toString());
-			resDataObj.put("ha_port", ResultMap.get("port").toString());
+			resDataObj.put("ha_port", (ResultMap.get("port") == null) ? "" : ResultMap.get("port").toString());
 		} catch (Exception e) {
 			log.error("", e);
 			resDataObj.put("_error_cd", "DX008_E03");

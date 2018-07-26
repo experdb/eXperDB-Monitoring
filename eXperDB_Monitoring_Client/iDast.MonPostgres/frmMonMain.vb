@@ -488,7 +488,7 @@
         'Me.chrSessionStat.Tag = srtLSt
         'chrSessionStat.Invalidate()
 
-        Dim colors() As Color = {System.Drawing.Color.Lime,
+        Dim colors() As Color = {System.Drawing.Color.YellowGreen,
                                  System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
                                  System.Drawing.Color.Orange,
                                  System.Drawing.Color.Red,
@@ -501,7 +501,7 @@
                                  System.Drawing.Color.PowderBlue,
                                  System.Drawing.Color.SkyBlue,
                                  System.Drawing.Color.SpringGreen,
-                                 System.Drawing.Color.YellowGreen,
+                                 System.Drawing.Color.GreenYellow,
                                  System.Drawing.Color.Violet,
                                  System.Drawing.Color.Salmon}
         Dim index As Integer = 0
@@ -1857,8 +1857,8 @@
                 sb_CriticalShow(arrSvrIds)
             End If
         Else
-            Me.radCpu.AniColorin = Color.Lime
-            Me.radMem.AniColorin = Color.Lime
+            Me.radCpu.AniColorin = Color.LimeGreen
+            Me.radMem.AniColorin = Color.LimeGreen
             'For Each tmpCtl As Control In tlpGroup.Controls
             '    If TryCast(tmpCtl, BaseControls.RadioButton) IsNot Nothing Then
             '        DirectCast(tmpCtl, BaseControls.RadioButton).Warning = False
@@ -2078,7 +2078,7 @@
             lblAgentSvrState.Text = TryCast(p_clsAgentCollect.AgentState.GetType().GetMember(p_clsAgentCollect.AgentState.ToString)(0).GetCustomAttributes(GetType(System.ComponentModel.DescriptionAttribute), False)(0), System.ComponentModel.DescriptionAttribute).Description
 
             If AgentStat = clsCollect.AgntState.Activate Then
-                lblAgentSvrState.ForeColor = Color.Lime
+                lblAgentSvrState.ForeColor = Color.LimeGreen
                 radCpu.UseAnimation = True
                 radMem.UseAnimation = True
             Else

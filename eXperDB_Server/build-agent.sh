@@ -22,6 +22,7 @@ do_packing()
   cp -a ${EXPERDB_AGENT_HOME}/${EMAM}/build/${EMAM_DIR_NAME} ${EXPERDB_INSTALL_DIR}
   dos2unix ${EXPERDB_INSTALL_DIR}/${EMA_DIR_NAME}/bin/*
   dos2unix ${EXPERDB_INSTALL_DIR}/${EMAM_DIR_NAME}/bin/*
+  dos2unix ${EXPERDB_INSTALL_DIR}/*.sh
   #tar zcvf ${EXPERDB_AGENT}_${VERSION}.tar.gz ${EMA_DIR_NAME} ${EMAM_DIR_NAME}
   #rm -rf ${EMA_DIR_NAME} ${EMAM_DIR_NAME}
 }

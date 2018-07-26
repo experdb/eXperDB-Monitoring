@@ -2521,6 +2521,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F318" PARAMS="0">
+    <DESC>Bloat size</DESC>
+    <DATA><![CDATA[Bloat size]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F319" PARAMS="0">
+    <DESC>Bloat rate</DESC>
+    <DATA><![CDATA[Bloat rate]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

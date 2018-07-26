@@ -334,6 +334,7 @@ CREATE UNLOGGED TABLE tb_table_info (
     schema_name character varying(100) NOT NULL,
     table_name character varying(100) NOT NULL,
     table_size_kb numeric(20,0),
+		bloat_size_kb numeric(20,0),
     tot_index_size_kb numeric(20,0),
     index_cnt integer,
     toast_yn character varying(1),

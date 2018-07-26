@@ -797,8 +797,15 @@
 	            , C.agg_index_scan_cnt AS "INDEX SCAN COUNT"  --PT_05_05_001(TABLE INFO : INDEX SCAN COUNT)
 	            , C.LIVE_TUPLE_CNT AS "LIVE TUPLES"                    --PT_05_05_001(TABLE INFO : LIVE_TUPLE_COUNT)
 	            , C.DEAD_TUPLE_CNT AS "DEAD TUPLES"                    --PT_05_05_001(TABLE INFO : DEAD_TUPLE_COUNT)
-              , CASE WHEN (C.LIVE_TUPLE_CNT + C.DEAD_TUPLE_CNT) > 0 THEN ROUND(100 * C.DEAD_TUPLE_CNT / (C.LIVE_TUPLE_CNT + C.DEAD_TUPLE_CNT) ,2) ELSE 0 END AS "DEAD TUPLE RATE"        
+              , CASE WHEN (C.LIVE_TUPLE_CNT + C.DEAD_TUPLE_CNT) > 0 THEN ROUND(C.DEAD_TUPLE_CNT / (C.LIVE_TUPLE_CNT + C.DEAD_TUPLE_CNT) ,2) ELSE 0 END AS "DEAD TUPLE RATE"        
 	            , CASE WHEN C.last_vacuum::DATE = '10000101'::DATE THEN NULL ELSE C.last_vacuum END AS "LAST VACUUM"                      --PT_05_05_001(TABLE INFO : LAST VACUUM DAYS)
+              , ROUND(C.blot_size_kb / 1024, 0) AS BLOAT_SIZE
+				      , CASE WHEN C.table_size_kb > 0 THEN round(C.blot_size_kb/C.table_size_kb,2) ELSE 0 END  AS BLOAT_RATIO
+				      , CASE WHEN C.table_size_kb/1024 > 1000
+				             THEN (CASE WHEN C.blot_size_kb/C.table_size_kb * 100 > 25 THEN 1 ELSE 0 END)   
+				             WHEN C.table_size_kb/1024 > 20 
+				             THEN CASE WHEN round(C.blot_size_kb/C.table_size_kb * 100,2) > 50 THEN 1 ELSE 0 END   
+				        ELSE 0 END AS bloat_table
             FROM (SELECT INSTANCE_ID FROM TB_INSTANCE_INFO WHERE DELETE_YN='N' AND COLLECT_YN='Y' AND INSTANCE_ID IN ({0})) A,
                (SELECT MAX(REG_DATE) AS REG_DATE, MAX(OBJT_REG_SEQ) AS OBJT_REG_SEQ, INSTANCE_ID FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B,
                TB_TABLE_INFO C
