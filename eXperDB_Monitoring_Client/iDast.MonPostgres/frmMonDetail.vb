@@ -23,6 +23,7 @@
                         SetDataSQLRespTm(p_clsAgentCollect.infoDataSQLRespTm) 'accumulate
                         SetDataRequest(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo) 'accumulate
                         SetDataObject(p_clsAgentCollect.infoDataObject) 'accumulate
+                        SetDataTPS(p_clsAgentCollect.infoDataObject) 'accumulate
                         SetDataLockCount(p_clsAgentCollect.infoDatalockCount) 'accumulate
                         SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
                         'SetDataReplication() 'accumulate
@@ -89,6 +90,7 @@
     Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
     Private _initConnect As Boolean = False
+    Private _invisibleChartMap As String = "TPS"
 
     ReadOnly Property AgentCn As eXperDBODBC
         Get
@@ -126,6 +128,7 @@
         _ServerInfo = ServerInfo
         _AgentInfo = clsAgentInfo
         _AgentCn = AgentCn
+
         _clsQuery = New clsQuerys(_AgentCn)
         Try
             Dim strHeader As String = Common.ClsConfigure.fn_rtnComponentDescription(p_ShowName.GetType.GetMember(p_ShowName.ToString)(0))
@@ -154,6 +157,30 @@
 
         chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEDETAIL", "False")
 
+        Dim positionObject As Integer = clsIni.ReadValue("CHART", "OBJECT", "0")
+        Dim positionCheckpotint As Integer = clsIni.ReadValue("CHART", "CHECKPOINT", "1")
+        Dim positionReplication As Integer = clsIni.ReadValue("CHART", "REPLICATION", "2")
+        Dim positionTransaction As Integer = clsIni.ReadValue("CHART", "TRANSACTION", "3")
+
+        tlpMain.SetRow(tlpObject, positionObject)
+        tlpMain.SetRow(tlpCheckpoint, positionCheckpotint)
+        tlpMain.SetRow(tlpReplication, positionReplication)
+        tlpMain.SetRow(tlpTPS, positionTransaction)
+
+        mnuChart.Text = 3
+
+        If positionObject = 3 Then
+            mnuChart.Text = 0
+        ElseIf positionCheckpotint = 3 Then
+            mnuChart.Text = 1
+        ElseIf positionReplication = 3 Then
+            mnuChart.Text = 2
+        ElseIf positionTransaction = 3 Then
+            mnuChart.Text = 3
+        Else
+            mnuChart.Text = 3
+        End If
+
 
     End Sub
 
@@ -179,6 +206,7 @@
         Me.chtLocalIO.Dispose()
         Me.chtCheckpoint.Dispose()
         Me.chtObject.Dispose()
+        Me.chtTPS.Dispose()
         Me.chtPhysicaliO.Dispose()
         Me.chtReplication.Dispose()
         Me.chtLock.Dispose()
@@ -290,6 +318,7 @@
         grpLock.Text = p_clsMsgData.fn_GetData("F293")
         grpReplication.Text = p_clsMsgData.fn_GetData("F294")
         grpCheckpoint.Text = p_clsMsgData.fn_GetData("F295")
+        grpTPS.Text = p_clsMsgData.fn_GetData("F320")
         'DB Activity Info
         'btnActInfo.Text = p_clsMsgData.fn_GetData("F075")
 
@@ -332,6 +361,10 @@
         Me.ttChart.SetToolTip(Me.btnActInfo, p_clsMsgData.fn_GetData("F075"))
         Me.ttChart.SetToolTip(Me.btnPartView, p_clsMsgData.fn_GetData("F233"))
         Me.ttChart.SetToolTip(Me.btnChartDetail, p_clsMsgData.fn_GetData("F268"))
+        Me.ttChart.SetToolTip(Me.lblObject, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblCheckpoint, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblReplication, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblTPS, p_clsMsgData.fn_GetData("F321"))
 
         'modCommon.FontChange(Me, p_Font)
 
@@ -692,6 +725,34 @@
         Next
 
         sb_ChartAlignYAxies(Me.chtObject) 'Will move to object view
+
+    End Sub
+    ''' <summary>
+    ''' SQL Response Time 정보 등록 
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <remarks></remarks>
+    Private Sub SetDataTPS(ByVal dtTable As DataTable)
+        ' 전체 목록중 내것만 추출 
+        ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
+        Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+
+
+        ' Chart 데이터는 Invoke 로 넣어야 한다. 
+
+
+        For Each tmpRow As DataRow In dtRows
+            Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+            Dim dblCommit As Double = ConvULong(tmpRow.Item("COMMIT_TUPLES_PER_SEC"))
+            Dim dblRollback As Double = ConvULong(tmpRow.Item("ROLLBACK_TUPLES_PER_SEC"))
+            Dim dblTransaction As Double = ConvULong(tmpRow.Item("COMMIT_TUPLES_PER_SEC")) + ConvULong(tmpRow.Item("ROLLBACK_TUPLES_PER_SEC"))
+
+            sb_ChartAddPoint(Me.chtTPS, "Commit", dblRegDate, dblCommit) 'Will move to object view
+            sb_ChartAddPoint(Me.chtTPS, "Rollback", dblRegDate, dblRollback) 'Will move to object view
+            sb_ChartAddPoint(Me.chtTPS, "Transaction", dblRegDate, dblTransaction) 'Will move to object view
+        Next
+
+        sb_ChartAlignYAxies(Me.chtTPS) 'Will move to object view
 
     End Sub
 
@@ -1472,6 +1533,9 @@
                               sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtObject, "Index", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtTPS, "Commit", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtTPS, "Rollback", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtTPS, "Transaction", dblRegDt, 0)
                           Else
                               For Each tmpRow As DataRow In dtRows
                                   Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
@@ -1484,8 +1548,16 @@
                                   Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
                                   Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
                                   Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
+
+                                  Dim dblCommit As Double = ConvULong(tmpRow.Item("COMMIT_TUPLES_PER_SEC"))
+                                  Dim dblRollback As Double = ConvULong(tmpRow.Item("ROLLBACK_TUPLES_PER_SEC"))
+                                  Dim dblTransaction As Double = ConvULong(tmpRow.Item("COMMIT_TUPLES_PER_SEC")) + ConvULong(tmpRow.Item("ROLLBACK_TUPLES_PER_SEC"))
+
                                   sb_ChartAddPoint(Me.chtObject, "Index", dblRegDate, dblIndexScan)
                                   sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDate, dblSqlScan)
+                                  sb_ChartAddPoint(Me.chtTPS, "Commit", dblRegDt, dblCommit)
+                                  sb_ChartAddPoint(Me.chtTPS, "Rollback", dblRegDt, dblRollback)
+                                  sb_ChartAddPoint(Me.chtTPS, "Transaction", dblRegDt, dblTransaction)
                               Next
                           End If
 
@@ -1964,5 +2036,63 @@
         If Not IsNothing(LineColor) Then
             Series.Color = LineColor
         End If
+    End Sub
+
+    Private Sub lblCheckpoint_MouseClick(sender As Object, e As MouseEventArgs) Handles lblObject.MouseClick, lblCheckpoint.MouseClick, lblReplication.MouseClick, lblTPS.MouseClick
+        '        mnuChart.Show(New Point(e.X, e.Y), ToolStripDropDownDirection.Default)
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        mnuChart.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
+        mnuChart.Tag = lblTemp.Parent
+        mnuObject.Enabled = False
+        mnuCheckpoint.Enabled = False
+        mnuReplication.Enabled = False
+        mnuTPS.Enabled = False
+
+        For i As Integer = 0 To mnuChart.Items.Count - 1
+            If mnuChart.Text = i Then
+                mnuChart.Items(i).Enabled = True
+            Else
+                mnuChart.Items(i).Enabled = False
+            End If
+        Next
+    End Sub
+
+    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click
+        Dim tlpTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        Dim intTlprow = tlpMain.GetRow(tlpTemp)
+
+        If sender.Name = "mnuObject" Then
+            tlpMain.SetRow(tlpObject, intTlprow)
+        ElseIf sender.Name = "mnuCheckpoint" Then
+            tlpMain.SetRow(tlpCheckpoint, intTlprow)
+        ElseIf sender.Name = "mnuReplication" Then
+            tlpMain.SetRow(tlpReplication, intTlprow)
+        ElseIf sender.Name = "mnuTPS" Then
+            tlpMain.SetRow(tlpTPS, intTlprow)
+        End If
+
+        If tlpTemp.Name = "tlpObject" Then
+            mnuChart.Text = 0
+        ElseIf tlpTemp.Name = "tlpCheckpoint" Then
+            mnuChart.Text = 1
+        ElseIf tlpTemp.Name = "tlpReplication" Then
+            mnuChart.Text = 2
+        ElseIf tlpTemp.Name = "tlpTPS" Then
+            mnuChart.Text = 3
+        End If
+
+        'mnuChart.Text = intTlprow
+        tlpMain.SetRow(tlpTemp, 3)
+
+        WriteChartPosition()
+
+    End Sub
+
+    Private Sub WriteChartPosition()
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("CHART", "OBJECT", tlpMain.GetRow(tlpObject))
+        clsIni.WriteValue("CHART", "CHECKPOINT", tlpMain.GetRow(tlpCheckpoint))
+        clsIni.WriteValue("CHART", "REPLICATION", tlpMain.GetRow(tlpReplication))
+        clsIni.WriteValue("CHART", "TRANSACTION", tlpMain.GetRow(tlpTPS))
     End Sub
 End Class

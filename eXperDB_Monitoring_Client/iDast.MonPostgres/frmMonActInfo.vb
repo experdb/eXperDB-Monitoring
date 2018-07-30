@@ -325,8 +325,12 @@
             Dim tmpCellValue As Integer = tmpRow.Cells(coldgvTblinfoBloatTable.Index).Value
 
             If tmpCellValue > 0 Then
-                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
-                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+                'tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+                'tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(92, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
+                'tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(183, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(56, Byte), Integer))
+                'tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(56, Byte), Integer))
             Else
                 tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
                 tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))

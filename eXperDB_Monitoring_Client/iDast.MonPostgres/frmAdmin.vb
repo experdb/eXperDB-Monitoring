@@ -501,7 +501,7 @@
         Next
 
         Dim strkey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5433, "", "", 3, "", intCnt + 1, strkey)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, "", intCnt + 1, strkey)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim struct As structConnection = Nothing
             Dim strSchema As String = ""

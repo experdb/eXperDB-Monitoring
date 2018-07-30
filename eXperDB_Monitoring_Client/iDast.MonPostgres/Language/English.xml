@@ -2537,6 +2537,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F320" PARAMS="0">
+    <DESC>Transaction per second</DESC>
+    <DATA><![CDATA[Transaction per second]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F321" PARAMS="0">
+    <DESC>Change Item</DESC>
+    <DATA><![CDATA[Change Item]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

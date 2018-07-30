@@ -658,4 +658,8 @@ Public Class frmConnection
             txtHAREPLHost.Text = txtHAHost.Text
         End If
     End Sub
+
+    Private Sub frmConnection_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        txtIP.Focus()
+    End Sub
 End Class

@@ -159,6 +159,12 @@
     </Compile>
     <Compile Include="EMsg\clsAgentEMsg.vb" />
     <Compile Include="EMsg\clsSocket.vb" />
+    <Compile Include="frmMonDetail.Designer.vb">
+      <DependentUpon>frmMonDetail.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMonDetail.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMonMain.Designer.vb">
       <DependentUpon>frmMonMain.vb</DependentUpon>
     </Compile>
@@ -253,12 +259,6 @@
       <DependentUpon>frmMonBase.vb</DependentUpon>
     </Compile>
     <Compile Include="frmMonBase.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMonDetail.Designer.vb">
-      <DependentUpon>frmMonDetail.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmMonDetail.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMsgbox.Designer.vb">
@@ -357,6 +357,9 @@
       <DependentUpon>ctlChart.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMonDetail.resx">
+      <DependentUpon>frmMonDetail.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMonMain.resx">
       <DependentUpon>frmMonMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -414,9 +417,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonBase.resx">
       <DependentUpon>frmMonBase.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMonDetail.resx">
-      <DependentUpon>frmMonDetail.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMsgbox.resx">
       <DependentUpon>frmMsgbox.vb</DependentUpon>
