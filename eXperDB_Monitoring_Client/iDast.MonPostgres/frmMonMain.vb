@@ -503,7 +503,15 @@
                                  System.Drawing.Color.SpringGreen,
                                  System.Drawing.Color.GreenYellow,
                                  System.Drawing.Color.Violet,
-                                 System.Drawing.Color.Salmon}
+                                 System.Drawing.Color.Salmon,
+                                 System.Drawing.Color.Aqua,
+                                 System.Drawing.Color.Olive,
+                                 System.Drawing.Color.Orchid,
+                                 System.Drawing.Color.PeachPuff,
+                                 System.Drawing.Color.Navy,
+                                 System.Drawing.Color.OrangeRed,
+                                 System.Drawing.Color.PaleGreen,
+                                 System.Drawing.Color.Plum}
         Dim index As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
             AddSeries(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
@@ -646,9 +654,9 @@
         Dim ctlHeight As Integer = (BaseCTl.Height - (2 * 12)) / 12 - 1 'add vertical margin
 
         For Each tmpCtl As Progress3D In BaseCTl.Controls
-            tmpCtl.Width = ctlWidth
+            tmpCtl.Width = ctlWidth * 494 / 1000
             tmpCtl.Height = ctlHeight
-            tmpCtl.Margin = New System.Windows.Forms.Padding(1)
+            tmpCtl.Margin = New System.Windows.Forms.Padding(2)
         Next
 
 
@@ -670,19 +678,20 @@
         Progress3DItem1.LineColor = System.Drawing.Color.Lime
         Progress3DItem1.LineOpacity = 50
         Progress3DItem1.Name = Nothing
-        Progress3DItem2.Checked = False
-        Progress3DItem2.FillColor = System.Drawing.Color.Orange
-        Progress3DItem2.FillOpacity = 180
-        Progress3DItem2.LineColor = System.Drawing.Color.Orange
-        Progress3DItem2.LineOpacity = 50
-        Progress3DItem2.Name = Nothing
-        Progress3DItem3.Checked = False
-        Progress3DItem3.FillColor = System.Drawing.Color.Red
-        Progress3DItem3.FillOpacity = 180
-        Progress3DItem3.LineColor = System.Drawing.Color.Red
-        Progress3DItem3.LineOpacity = 50
-        Progress3DItem3.Name = Nothing
-        tmpCtl.Items.AddRange(New eXperDB.Controls.Progress3D.Progress3DItem() {Progress3DItem1, Progress3DItem2, Progress3DItem3})
+        'Progress3DItem2.Checked = False
+        'Progress3DItem2.FillColor = System.Drawing.Color.Orange
+        'Progress3DItem2.FillOpacity = 180
+        'Progress3DItem2.LineColor = System.Drawing.Color.Orange
+        'Progress3DItem2.LineOpacity = 50
+        'Progress3DItem2.Name = Nothing
+        'Progress3DItem3.Checked = False
+        'Progress3DItem3.FillColor = System.Drawing.Color.Red
+        'Progress3DItem3.FillOpacity = 180
+        'Progress3DItem3.LineColor = System.Drawing.Color.Red
+        'Progress3DItem3.LineOpacity = 50
+        'Progress3DItem3.Name = Nothing
+        ''        tmpCtl.Items.AddRange(New eXperDB.Controls.Progress3D.Progress3DItem() {Progress3DItem1, Progress3DItem2, Progress3DItem3})
+        tmpCtl.Items.AddRange(New eXperDB.Controls.Progress3D.Progress3DItem() {Progress3DItem1})
 
         tmpCtl.Width = 78 ' Size = New System.Drawing.Size(78, 123)
         tmpCtl.Height = 123
@@ -1764,13 +1773,19 @@
                         DirectCast(tmpCtl, Progress3D).HeadText2 = strHARole
                         tmpCtl.Text = " "
                         tmpCtl.Text += InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Name
-                        If DirectCast(tmpCtl, Progress3D).Value > 2 Then
-                            DirectCast(tmpCtl, Progress3D).Warning = True
+                        Dim tmpProgress3D As Progress3D = DirectCast(tmpCtl, Progress3D)
+                        If tmpProgress3D.Value > 2 Then
+                            tmpProgress3D.Warning = True
+                            tmpProgress3D.Items(0).FillColor = Color.Red
+                        ElseIf tmpProgress3D.Value > 1 Then
+                            tmpProgress3D.Warning = False
+                            tmpProgress3D.Items(0).FillColor = Color.Orange
                         Else
-                            DirectCast(tmpCtl, Progress3D).Warning = False
+                            tmpProgress3D.Warning = False
+                            tmpProgress3D.Items(0).FillColor = Color.Lime
                         End If
                     End If
-                End If
+                    End If
             Next
             'For Each tmpCtl As Control In tlpInstance.Controls
             '    If tmpCtl.Visible = True AndAlso tmpCtl.GetType.Equals(GetType(Progress3D)) Then

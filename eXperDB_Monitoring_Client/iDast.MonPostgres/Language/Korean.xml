@@ -2714,8 +2714,8 @@
     <VALUECAST />
   </ROW>
   <ROW ID="M017" PARAMS="0">
-    <DESC>그룹당 제한은 8개로 됩니다.</DESC>
-    <DATA><![CDATA[한 그룹당 8개를 초과 할 수 없습니다.]]></DATA>
+    <DESC>그룹당 제한은 24개로 됩니다.</DESC>
+    <DATA><![CDATA[한 그룹당 24개를 초과 할 수 없습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

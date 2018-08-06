@@ -242,9 +242,9 @@ Public Class Progress3D
         End Get
         Set(value As Integer)
             If Not _Value.Equals(value) Then
-                If value >= _Items.Count Then
-                    value = Items.Count
-                End If
+                'If value >= _Items.Count Then
+                '    value = Items.Count
+                'End If
                 _BefValue = _Value
                 _Value = value
                 SetItemChecked(value)
@@ -350,10 +350,11 @@ Public Class Progress3D
         If _UseTitle Then
             szf = pGr.MeasureString(MyBase.Text, MyBase.Font)
             'grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 + 2, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 1, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 - 3, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
-            grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 1 / 3) + 4), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height * 1 / 3) + 4))
+            '            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 1, New Point(BaseRect.X + _Radius + BaseRect.Width / 4 - 3, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddString(MyBase.Text, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius - 3, BaseRect.Y + 5), System.Drawing.StringFormat.GenericDefault)
+            grPath.AddLine(New Point(BaseRect.X + _Radius, BaseRect.Y + (BaseRect.Height * 1 / 3) + 4), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height * 1 / 3) + 4))
             'grPath.AddLine(New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 2 / 3)), New Point(BaseRect.X + BaseRect.Width - _Radius, BaseRect.Y + (BaseRect.Height * 2 / 3)))
-            grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 3 / 4)), System.Drawing.StringFormat.GenericDefault)
+            'grPath.AddString(Me._SubText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height * 3 / 4)), System.Drawing.StringFormat.GenericDefault)
             'grPath.AddString(Me._SubText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 3, New Point(BaseRect.X + _Radius + BaseRect.Width / 4, BaseRect.Y + (BaseRect.Height / 3 + 1) + 5 + (BaseRect.Height / 4)), System.Drawing.StringFormat.GenericDefault)
 
         End If
@@ -410,19 +411,26 @@ Public Class Progress3D
 
         Dim FillPath As New Drawing2D.GraphicsPath
         'FillPath.AddArc(El1, 0, 180)
-        FillPath.AddLine(New Point(El1.Right, El1.Top + El1.Height / 2), New Point(El1.Left, El1.Top + El1.Height / 2))
-        FillPath.AddLine(New Point(El1.Left, El1.Top + El1.Height / 2), New Point(El2.Left, El2.Top + El2.Height / 2))
-        FillPath.AddLine(New Point(El2.Right, El2.Top + El2.Height / 2), New Point(El1.Right, El1.Top + El1.Height / 2))
+        'FillPath.AddLine(New Point(El1.Right, El1.Top + El1.Height / 2), New Point(El1.Left, El1.Top + El1.Height / 2))
+        'FillPath.AddLine(New Point(El1.Left, El1.Top + El1.Height / 2), New Point(El2.Left, El2.Top + El2.Height / 2))
+        'FillPath.AddLine(New Point(El2.Right, El2.Top + El2.Height / 2), New Point(El1.Right, El1.Top + El1.Height / 2))
+        FillPath.AddLine(New Point(El1.Right, El1.Top + El1.Height), New Point(El1.Left, El1.Top + El1.Height))
+        FillPath.AddLine(New Point(El1.Left, El1.Top + El1.Height), New Point(El2.Left, El2.Top + El2.Height + _Radius * 2))
+        FillPath.AddLine(New Point(El2.Right, El2.Top + El2.Height + _Radius * 2), New Point(El1.Right, El1.Top + El1.Height))
         'FillPath.AddEllipse(El2)
         FillPath.FillMode = Drawing2D.FillMode.Winding
         FillPath.Flatten()
 
         Dim LinePath As New Drawing2D.GraphicsPath
         'LinePath.AddArc(El1, 0, 180)
-        LinePath.AddLine(New Point(El1.Right, El1.Top + El1.Height / 2), New Point(El1.Left, El1.Top + El1.Height / 2))
-        LinePath.AddLine(New Point(El1.Left, El1.Top + El1.Height / 2), New Point(El2.Left, El2.Top + El2.Height / 2))
+        'LinePath.AddLine(New Point(El1.Right, El1.Top + El1.Height / 2), New Point(El1.Left, El1.Top + El1.Height / 2))
+        'LinePath.AddLine(New Point(El1.Left, El1.Top + El1.Height / 2), New Point(El2.Left, El2.Top + El2.Height / 2))
+        ''LinePath.AddEllipse(El2)
+        'LinePath.AddLine(New Point(El2.Right, El2.Top + El2.Height / 2), New Point(El1.Right, El1.Top + El1.Height / 2))
+        LinePath.AddLine(New Point(El1.Right, El1.Top + El1.Height), New Point(El1.Left, El1.Top + El1.Height))
+        LinePath.AddLine(New Point(El1.Left, El1.Top + El1.Height), New Point(El2.Left, El2.Top + El2.Height + _Radius * 2))
         'LinePath.AddEllipse(El2)
-        LinePath.AddLine(New Point(El2.Right, El2.Top + El2.Height / 2), New Point(El1.Right, El1.Top + El1.Height / 2))
+        LinePath.AddLine(New Point(El2.Right, El2.Top + El2.Height + _Radius * 2), New Point(El1.Right, El1.Top + El1.Height))
         Dim OffsetMatrix As New Drawing2D.Matrix
         OffsetMatrix.Translate(0, -1 * (LvHeight + _Spacing))
 
@@ -471,9 +479,9 @@ Public Class Progress3D
             grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
             Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
             Dim grPath2 As New System.Drawing.Drawing2D.GraphicsPath
-            initRect.Inflate(-90, 0)
+            'initRect.Inflate(-90, 0)
             If _HeadText <> _HeadText2 Then
-                grPath2.AddString(Me._HeadText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
+                grPath2.AddString(Me._HeadText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32 + MyBase.Font.Size), System.Drawing.StringFormat.GenericDefault)
                 Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText2 <> "Primary", IIf(Me._HeadText2 = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath2)
             End If
 

@@ -626,7 +626,7 @@
             Return
         Else
             For Each tmpGrp As GroupInfo In rtnSrt
-                If tmpGrp.Items.Count > 16 Then
+                If tmpGrp.Items.Count > 24 Then
                     MsgBox(p_clsMsgData.fn_GetData("M017"))
                     Return
                 End If
