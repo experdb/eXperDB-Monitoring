@@ -158,8 +158,12 @@
 
         If clsIni.ReadValue("FORM", "ALERTLISTTYPE", "rbCurrent").Equals("rbCurrent") Then
             rbCurrent.Checked = True
+            dgvAlertCurr.Visible = True
+            dgvAlert.Visible = False
         Else
             rbHistory.Checked = True
+            dgvAlertCurr.Visible = False
+            dgvAlert.Visible = True
         End If
 
     End Sub
@@ -339,6 +343,7 @@
         'Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F300"))
         Me.ttChart.SetToolTip(Me.btnAlertConfig, p_clsMsgData.fn_GetData("F199"))
         Me.ttChart.SetToolTip(Me.btnReport, p_clsMsgData.fn_GetData("F296"))
+        Me.ttChart.SetToolTip(Me.grpAlert, "Alert List")
 
         rbCurrent.Text = p_clsMsgData.fn_GetData("F282")
         rbHistory.Text = p_clsMsgData.fn_GetData("F283")
@@ -1747,27 +1752,31 @@
                         DirectCast(tmpCtl, Progress3D).Value = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100
                         ' HA 롤 구분 문자 출력 P or S
                         Dim strHARole As String = "Single"
-                        Select Case InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARole
-                            Case "P"
-                                strHARole = "Primary"
-                            Case "S"
-                                strHARole = "Standby"
-                        End Select
-                        DirectCast(tmpCtl, Progress3D).HeadText = strHARole
-                        strHARole = "Single"
                         Select Case InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
                             Case "P"
                                 strHARole = "Primary"
                             Case "S"
                                 strHARole = "Standby"
                         End Select
-                        DirectCast(tmpCtl, Progress3D).HeadText2 = strHARole
+                        Dim strHARolePrev As String = DirectCast(tmpCtl, Progress3D).HeadText
+                        DirectCast(tmpCtl, Progress3D).HeadText = strHARole
+                        'strHARole = "Single"
+                        'Select Case InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
+                        '    Case "P"
+                        '        strHARole = "Primary"
+                        '    Case "S"
+                        '        strHARole = "Standby"
+                        'End Select
+                        'DirectCast(tmpCtl, Progress3D).HeadText2 = strHARole
                         tmpCtl.Text = " "
                         tmpCtl.Text += InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Name
                         If DirectCast(tmpCtl, Progress3D).Value > 2 Then
                             DirectCast(tmpCtl, Progress3D).Warning = True
                         Else
                             DirectCast(tmpCtl, Progress3D).Warning = False
+                        End If
+                        If strHARolePrev <> strHARole Then
+                            tmpCtl.Invalidate()
                         End If
                     End If
                 End If
@@ -1963,8 +1972,12 @@
         Try
             'dgvAlert
 
+            'If rbCurrent.Checked = True Then
+            '    dgvAlert.Rows.Clear()
+            'End If
+
             If rbCurrent.Checked = True Then
-                dgvAlert.Rows.Clear()
+                dgvAlertCurr.Rows.Clear()
             End If
 
             Dim tmpCondition As String = String.Empty
@@ -2025,6 +2038,26 @@
                 '    'End If
                 'Next
                 sb_GridSortChg(dgvAlert, coldgvAlertStatus.Index)
+
+
+                If rbCurrent.Checked = True Then
+                    Dim tCurrAlertRow As DataGridViewRow = dgvAlertCurr.FindFirstRow(strShowValue, coldgvAlertCurrMsg.Index)
+                    If IsNothing(tCurrAlertRow) Or _
+                         tRow IsNot Nothing AndAlso tRow.Cells(coldgvAlertCurrID.Index).Value <> intInstanceID Then
+                        Dim tempRow = New DataGridViewRow()
+                        dgvAlertCurr.Rows.Insert(0, tempRow)
+                        dgvAlertCurr.Rows(0).Cells(coldgvAlertCurrID.Index).Value = intInstanceID
+                        dgvAlertCurr.Rows(0).Cells(coldgvAlertCurrStatusVal.Index).Value = intHchkVal
+                        dgvAlertCurr.Rows(0).Cells(coldgvAlertCurrHostname.Index).Value = strHost
+                        dgvAlertCurr.Rows(0).Cells(coldgvAlertCurrMsg.Index).Value = strShowValue
+                        dgvAlertCurr.Rows(0).Cells(coldgvAlertCurrCollectDt.Index).Value = strRegDt
+                        dgvAlertCurr.Rows(0).Cells(coldgvAlertCurrHchkName.Index).Value = strHchkNm
+                    End If
+
+                    ' 컨트롤 색상 변경
+                    modCommon.sb_GridProgClrChg(dgvAlertCurr, coldgvAlertCurrStatusVal.Index, p_RageHealthClr)
+                    sb_GridSortChg(dgvAlertCurr, coldgvAlertCurrStatus.Index)
+                End If
             Next
 
             Dim intAlertCount As Integer = dgvAlert.Rows.Count
@@ -2548,6 +2581,38 @@
         End If
     End Sub
 
+
+    Private Sub dgvAlertCurr_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlertCurr.CellClick
+
+        If e.RowIndex >= 0 Then
+            Dim InstanceID = dgvAlertCurr.Rows(e.RowIndex).Cells(coldgvAlertCurrID.Index).Value
+            Dim strCollectDt = dgvAlertCurr.Rows(e.RowIndex).Cells(coldgvAlertCurrCollectDt.Index).Value
+            Dim AlertLevel = dgvAlertCurr.Rows(e.RowIndex).Cells(coldgvAlertCurrStatusVal.Index).Value
+            Dim tmpSvr As GroupInfo.ServerInfo = Nothing
+            Dim BretFrm As frmAlertList = Nothing
+
+            For Each tmpSvr In _GrpListServerinfo
+                If tmpSvr.InstanceID = InstanceID Then Exit For
+            Next
+
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmAlertList = TryCast(tmpFrm, frmAlertList)
+                If frmDtl IsNot Nothing Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, InstanceID, AlertLevel, strCollectDt)
+                'BretFrm.Owner = Me
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        End If
+    End Sub
+
     Private Sub cmbLevel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLevel.SelectedIndexChanged
         If cmbLevel.SelectedIndex = 0 Then
             Dim RowCount As Integer = dgvAlert.Rows.Count - 1
@@ -2755,38 +2820,27 @@
     End Sub
 #End Region
 
-
-    Private Sub dgvAlert_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvAlert.CellMouseMove
-        If e.RowIndex >= 0 Then
-            dgvAlert.Cursor = Cursors.Hand
-            If dgvAlert.Rows(e.RowIndex).Selected = False Then
-                dgvAlert.ClearSelection()
-                dgvAlert.Rows(e.RowIndex).Selected = True
-            End If
-        End If
-    End Sub
-
-    Private Sub dgvAlert_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlert.CellMouseLeave
-        If e.RowIndex >= 0 Then
-            dgvAlert.Cursor = Cursors.Arrow
-            If dgvAlert.Rows(e.RowIndex).Selected = True Then
-                dgvAlert.ClearSelection()
-                dgvAlert.Rows(e.RowIndex).Selected = False
-            End If
-        End If
-    End Sub
-
     Private Sub rbCurrent_CheckedChanged(sender As Object, e As EventArgs) Handles rbCurrent.CheckedChanged, rbHistory.CheckedChanged
         Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
         If rbTemp.Name = "rbCurrent" Then
             If rbTemp.Checked = True Then
                 Dim clsIni As New Common.IniFile(p_AppConfigIni)
                 clsIni.WriteValue("FORM", "ALERTLISTTYPE", "rbCurrent")
+                dgvAlertCurr.Visible = True
+                dgvAlert.Visible = False
+            Else
+                dgvAlertCurr.Visible = False
+                dgvAlert.Visible = True
             End If
         Else
             If rbTemp.Checked = True Then
                 Dim clsIni As New Common.IniFile(p_AppConfigIni)
                 clsIni.WriteValue("FORM", "ALERTLISTTYPE", "rbHistory")
+                dgvAlertCurr.Visible = False
+                dgvAlert.Visible = True
+            Else
+                dgvAlertCurr.Visible = True
+                dgvAlert.Visible = False
             End If
         End If
     End Sub
@@ -2805,6 +2859,25 @@
             If _dtTableSessionStatus IsNot Nothing Then
                 drawDataSessionStatsInfo(_GrpListServerinfo)
             End If
+        End If
+    End Sub
+
+    Private Sub grpAlert_Click(sender As Object, e As EventArgs) Handles grpAlert.Click
+        Dim BretFrm As frmAlertList = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmAlertList = TryCast(tmpFrm, frmAlertList)
+            If frmDtl IsNot Nothing Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, 0, 0, Now)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
         End If
     End Sub
 End Class

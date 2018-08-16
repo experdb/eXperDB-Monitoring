@@ -472,10 +472,10 @@ Public Class Progress3D
             Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
             Dim grPath2 As New System.Drawing.Drawing2D.GraphicsPath
             initRect.Inflate(-90, 0)
-            If _HeadText <> _HeadText2 Then
-                grPath2.AddString(Me._HeadText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
-                Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText2 <> "Primary", IIf(Me._HeadText2 = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath2)
-            End If
+            'If _HeadText <> _HeadText2 Then
+            '    grPath2.AddString(Me._HeadText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
+            '    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText2 <> "Primary", IIf(Me._HeadText2 = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath2)
+            'End If
 
             ' 변경뒤에 다음 값을 위하여 OFFSET 
             FillPath.Transform(OffsetMatrix)

@@ -687,7 +687,7 @@
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Dim nCount As Integer = 0
         For Each tmpRow As DataGridViewRow In Me.dgvSvrLst.Rows
-            If tmpRow.Cells(colCheck.Index).Value = "Y" Then
+            If tmpRow.Cells(colCheck.Index).RowIndex = dgvSvrLst.SelectedRows(0).Index Then
                 tmpRow.Visible = False
             Else
                 nCount += 1

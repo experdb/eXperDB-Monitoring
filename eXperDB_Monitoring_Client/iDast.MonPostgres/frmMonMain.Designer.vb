@@ -66,13 +66,19 @@ Partial Class frmMonMain
         Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpHealth = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgtNumC = New eXperDB.Controls.DigitalNumber()
         Me.dgtNumW = New eXperDB.Controls.DigitalNumber()
@@ -133,14 +139,6 @@ Partial Class frmMonMain
         Me.Label1 = New eXperDB.BaseControls.Label()
         Me.chtSessionStatus = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
-        Me.dgvAlert = New eXperDB.BaseControls.DataGridView()
-        Me.coldgvAlertID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertStatusVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertHostname = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertMsg = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertCollectDt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertHchkName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.cmbLevel = New eXperDB.BaseControls.ComboBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnReport = New eXperDB.BaseControls.Button()
@@ -180,11 +178,27 @@ Partial Class frmMonMain
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel13 = New System.Windows.Forms.TableLayoutPanel()
-        Me.grpAlert = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.grpAlert = New eXperDB.BaseControls.Button()
         Me.pnlRb = New eXperDB.BaseControls.Panel()
         Me.rbCurrent = New eXperDB.BaseControls.RadioButton()
         Me.rbHistory = New eXperDB.BaseControls.RadioButton()
+        Me.pnlAlertList = New eXperDB.BaseControls.Panel()
+        Me.dgvAlertCurr = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvAlertCurrID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCurrStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCurrStatusVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCurrHostname = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCurrMsg = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCurrCollectDt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCurrHchkName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgvAlert = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvAlertID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertStatusVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertHostname = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertMsg = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertCollectDt = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertHchkName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tmLock = New System.Windows.Forms.Timer(Me.components)
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.tlpHealth.SuspendLayout()
@@ -199,7 +213,6 @@ Partial Class frmMonMain
         CType(Me.chrReqInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuPopup.SuspendLayout()
         CType(Me.chtSessionStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -219,6 +232,9 @@ Partial Class frmMonMain
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel13.SuspendLayout()
         Me.pnlRb.SuspendLayout()
+        Me.pnlAlertList.SuspendLayout()
+        CType(Me.dgvAlertCurr, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tlpHealth
@@ -1361,126 +1377,6 @@ Partial Class frmMonMain
         Me.chtSessionStatus.TabIndex = 2
         Me.chtSessionStatus.Text = "Chart2"
         '
-        'dgvAlert
-        '
-        Me.dgvAlert.AllowUserToAddRows = False
-        Me.dgvAlert.AllowUserToDeleteRows = False
-        Me.dgvAlert.AllowUserToOrderColumns = True
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
-        Me.dgvAlert.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle23
-        Me.dgvAlert.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvAlert.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.dgvAlert.BackgroundColor = System.Drawing.Color.Black
-        Me.dgvAlert.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvAlert.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle24.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlert.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle24
-        Me.dgvAlert.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvAlert.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertID, Me.coldgvAlertStatus, Me.coldgvAlertStatusVal, Me.coldgvAlertHostname, Me.coldgvAlertMsg, Me.coldgvAlertCollectDt, Me.coldgvAlertHchkName})
-        Me.TableLayoutPanel13.SetColumnSpan(Me.dgvAlert, 3)
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle27.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
-        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlert.DefaultCellStyle = DataGridViewCellStyle27
-        Me.dgvAlert.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvAlert.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvAlert.EnableHeadersVisualStyles = False
-        Me.dgvAlert.GridColor = System.Drawing.Color.Black
-        Me.dgvAlert.Location = New System.Drawing.Point(3, 58)
-        Me.dgvAlert.MultiSelect = False
-        Me.dgvAlert.Name = "dgvAlert"
-        Me.dgvAlert.ReadOnly = True
-        Me.dgvAlert.RowHeadersVisible = False
-        DataGridViewCellStyle28.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlert.RowsDefaultCellStyle = DataGridViewCellStyle28
-        Me.dgvAlert.RowTemplate.Height = 23
-        Me.dgvAlert.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvAlert.Size = New System.Drawing.Size(176, 801)
-        Me.dgvAlert.TabIndex = 7
-        Me.dgvAlert.TabStop = False
-        Me.dgvAlert.TagValueMatchColor = System.Drawing.Color.Red
-        Me.dgvAlert.UseTagValueMatchColor = False
-        '
-        'coldgvAlertID
-        '
-        Me.coldgvAlertID.FillWeight = 1.0!
-        Me.coldgvAlertID.HeaderText = "ID"
-        Me.coldgvAlertID.Name = "coldgvAlertID"
-        Me.coldgvAlertID.ReadOnly = True
-        Me.coldgvAlertID.Visible = False
-        '
-        'coldgvAlertStatus
-        '
-        Me.coldgvAlertStatus.FillWeight = 1.0!
-        Me.coldgvAlertStatus.HeaderText = "Status"
-        Me.coldgvAlertStatus.Name = "coldgvAlertStatus"
-        Me.coldgvAlertStatus.ReadOnly = True
-        Me.coldgvAlertStatus.Visible = False
-        '
-        'coldgvAlertStatusVal
-        '
-        Me.coldgvAlertStatusVal.FillWeight = 1.0!
-        Me.coldgvAlertStatusVal.HeaderText = "StautsValue"
-        Me.coldgvAlertStatusVal.Name = "coldgvAlertStatusVal"
-        Me.coldgvAlertStatusVal.ReadOnly = True
-        Me.coldgvAlertStatusVal.Visible = False
-        '
-        'coldgvAlertHostname
-        '
-        Me.coldgvAlertHostname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        DataGridViewCellStyle25.NullValue = Nothing
-        Me.coldgvAlertHostname.DefaultCellStyle = DataGridViewCellStyle25
-        Me.coldgvAlertHostname.FillWeight = 50.0!
-        Me.coldgvAlertHostname.HeaderText = ""
-        Me.coldgvAlertHostname.MinimumWidth = 40
-        Me.coldgvAlertHostname.Name = "coldgvAlertHostname"
-        Me.coldgvAlertHostname.ReadOnly = True
-        Me.coldgvAlertHostname.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'coldgvAlertMsg
-        '
-        Me.coldgvAlertMsg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Gulim", 8.0!)
-        DataGridViewCellStyle26.NullValue = Nothing
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvAlertMsg.DefaultCellStyle = DataGridViewCellStyle26
-        Me.coldgvAlertMsg.FillWeight = 130.0!
-        Me.coldgvAlertMsg.HeaderText = ""
-        Me.coldgvAlertMsg.MinimumWidth = 100
-        Me.coldgvAlertMsg.Name = "coldgvAlertMsg"
-        Me.coldgvAlertMsg.ReadOnly = True
-        '
-        'coldgvAlertCollectDt
-        '
-        Me.coldgvAlertCollectDt.HeaderText = "coldgvAlertCollectDt"
-        Me.coldgvAlertCollectDt.Name = "coldgvAlertCollectDt"
-        Me.coldgvAlertCollectDt.ReadOnly = True
-        Me.coldgvAlertCollectDt.Visible = False
-        '
-        'coldgvAlertHchkName
-        '
-        Me.coldgvAlertHchkName.HeaderText = "coldgvAlertHchkName"
-        Me.coldgvAlertHchkName.Name = "coldgvAlertHchkName"
-        Me.coldgvAlertHchkName.ReadOnly = True
-        Me.coldgvAlertHchkName.Visible = False
-        '
         'cmbLevel
         '
         Me.cmbLevel.BackColor = System.Drawing.SystemColors.Window
@@ -2115,45 +2011,45 @@ Partial Class frmMonMain
         Me.TableLayoutPanel13.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel13.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91.0!))
         Me.TableLayoutPanel13.Controls.Add(Me.cmbLevel, 2, 0)
-        Me.TableLayoutPanel13.Controls.Add(Me.dgvAlert, 0, 2)
-        Me.TableLayoutPanel13.Controls.Add(Me.grpAlert, 1, 0)
-        Me.TableLayoutPanel13.Controls.Add(Me.Label11, 0, 0)
+        Me.TableLayoutPanel13.Controls.Add(Me.grpAlert, 0, 0)
         Me.TableLayoutPanel13.Controls.Add(Me.pnlRb, 0, 1)
+        Me.TableLayoutPanel13.Controls.Add(Me.pnlAlertList, 0, 2)
         Me.TableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel13.Location = New System.Drawing.Point(3, 3)
         Me.TableLayoutPanel13.Name = "TableLayoutPanel13"
-        Me.TableLayoutPanel13.RowCount = 3
-        Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel13.RowCount = 4
+        Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel13.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel13.Size = New System.Drawing.Size(182, 862)
         Me.TableLayoutPanel13.TabIndex = 19
         '
         'grpAlert
         '
         Me.grpAlert.AutoSize = True
-        Me.grpAlert.BackColor = System.Drawing.Color.Transparent
+        Me.grpAlert.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpAlert.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.TableLayoutPanel13.SetColumnSpan(Me.grpAlert, 2)
         Me.grpAlert.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grpAlert.ForeColor = System.Drawing.Color.White
+        Me.grpAlert.FixedHeight = False
+        Me.grpAlert.FixedWidth = False
+        Me.grpAlert.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.grpAlert.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.grpAlert.ForeColor = System.Drawing.Color.LightGray
+        Me.grpAlert.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.grpAlert.Image = CType(resources.GetObject("grpAlert.Image"), System.Drawing.Image)
         Me.grpAlert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.grpAlert.Location = New System.Drawing.Point(43, 0)
+        Me.grpAlert.LineColor = System.Drawing.Color.Gray
+        Me.grpAlert.Location = New System.Drawing.Point(3, 3)
         Me.grpAlert.Name = "grpAlert"
-        Me.grpAlert.Size = New System.Drawing.Size(45, 25)
+        Me.grpAlert.Radius = 10
+        Me.grpAlert.Size = New System.Drawing.Size(85, 24)
         Me.grpAlert.TabIndex = 0
-        Me.grpAlert.Text = "Alert"
-        Me.grpAlert.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label11.Image = CType(resources.GetObject("Label11.Image"), System.Drawing.Image)
-        Me.Label11.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label11.Location = New System.Drawing.Point(3, 0)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(34, 25)
-        Me.Label11.TabIndex = 1
-        Me.Label11.Text = "      "
+        Me.grpAlert.Text = "Alert  "
+        Me.grpAlert.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.grpAlert.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpAlert.UseVisualStyleBackColor = False
         '
         'pnlRb
         '
@@ -2161,7 +2057,7 @@ Partial Class frmMonMain
         Me.pnlRb.Controls.Add(Me.rbCurrent)
         Me.pnlRb.Controls.Add(Me.rbHistory)
         Me.pnlRb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlRb.Location = New System.Drawing.Point(3, 28)
+        Me.pnlRb.Location = New System.Drawing.Point(3, 33)
         Me.pnlRb.Name = "pnlRb"
         Me.pnlRb.Size = New System.Drawing.Size(176, 24)
         Me.pnlRb.TabIndex = 25
@@ -2202,6 +2098,258 @@ Partial Class frmMonMain
         Me.rbHistory.Warning = False
         Me.rbHistory.WarningColor = System.Drawing.Color.Red
         '
+        'pnlAlertList
+        '
+        Me.pnlAlertList.BackColor = System.Drawing.Color.Black
+        Me.TableLayoutPanel13.SetColumnSpan(Me.pnlAlertList, 3)
+        Me.pnlAlertList.Controls.Add(Me.dgvAlertCurr)
+        Me.pnlAlertList.Controls.Add(Me.dgvAlert)
+        Me.pnlAlertList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlAlertList.Location = New System.Drawing.Point(3, 63)
+        Me.pnlAlertList.Name = "pnlAlertList"
+        Me.pnlAlertList.Size = New System.Drawing.Size(176, 776)
+        Me.pnlAlertList.TabIndex = 26
+        '
+        'dgvAlertCurr
+        '
+        Me.dgvAlertCurr.AllowUserToAddRows = False
+        Me.dgvAlertCurr.AllowUserToDeleteRows = False
+        Me.dgvAlertCurr.AllowUserToOrderColumns = True
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
+        Me.dgvAlertCurr.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle23
+        Me.dgvAlertCurr.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvAlertCurr.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvAlertCurr.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvAlertCurr.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvAlertCurr.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle24.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlertCurr.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle24
+        Me.dgvAlertCurr.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAlertCurr.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertCurrID, Me.coldgvAlertCurrStatus, Me.coldgvAlertCurrStatusVal, Me.coldgvAlertCurrHostname, Me.coldgvAlertCurrMsg, Me.coldgvAlertCurrCollectDt, Me.coldgvAlertCurrHchkName})
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle27.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlertCurr.DefaultCellStyle = DataGridViewCellStyle27
+        Me.dgvAlertCurr.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvAlertCurr.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvAlertCurr.EnableHeadersVisualStyles = False
+        Me.dgvAlertCurr.GridColor = System.Drawing.Color.Black
+        Me.dgvAlertCurr.Location = New System.Drawing.Point(0, 0)
+        Me.dgvAlertCurr.MultiSelect = False
+        Me.dgvAlertCurr.Name = "dgvAlertCurr"
+        Me.dgvAlertCurr.ReadOnly = True
+        Me.dgvAlertCurr.RowHeadersVisible = False
+        DataGridViewCellStyle28.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlertCurr.RowsDefaultCellStyle = DataGridViewCellStyle28
+        Me.dgvAlertCurr.RowTemplate.Height = 23
+        Me.dgvAlertCurr.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvAlertCurr.Size = New System.Drawing.Size(176, 776)
+        Me.dgvAlertCurr.TabIndex = 28
+        Me.dgvAlertCurr.TabStop = False
+        Me.dgvAlertCurr.TagValueMatchColor = System.Drawing.Color.Red
+        Me.dgvAlertCurr.UseTagValueMatchColor = False
+        Me.dgvAlertCurr.Visible = False
+        '
+        'coldgvAlertCurrID
+        '
+        Me.coldgvAlertCurrID.FillWeight = 1.0!
+        Me.coldgvAlertCurrID.HeaderText = "ID"
+        Me.coldgvAlertCurrID.Name = "coldgvAlertCurrID"
+        Me.coldgvAlertCurrID.ReadOnly = True
+        Me.coldgvAlertCurrID.Visible = False
+        '
+        'coldgvAlertCurrStatus
+        '
+        Me.coldgvAlertCurrStatus.FillWeight = 1.0!
+        Me.coldgvAlertCurrStatus.HeaderText = "Status"
+        Me.coldgvAlertCurrStatus.Name = "coldgvAlertCurrStatus"
+        Me.coldgvAlertCurrStatus.ReadOnly = True
+        Me.coldgvAlertCurrStatus.Visible = False
+        '
+        'coldgvAlertCurrStatusVal
+        '
+        Me.coldgvAlertCurrStatusVal.FillWeight = 1.0!
+        Me.coldgvAlertCurrStatusVal.HeaderText = "StautsValue"
+        Me.coldgvAlertCurrStatusVal.Name = "coldgvAlertCurrStatusVal"
+        Me.coldgvAlertCurrStatusVal.ReadOnly = True
+        Me.coldgvAlertCurrStatusVal.Visible = False
+        '
+        'coldgvAlertCurrHostname
+        '
+        Me.coldgvAlertCurrHostname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle25.NullValue = Nothing
+        Me.coldgvAlertCurrHostname.DefaultCellStyle = DataGridViewCellStyle25
+        Me.coldgvAlertCurrHostname.FillWeight = 50.0!
+        Me.coldgvAlertCurrHostname.HeaderText = ""
+        Me.coldgvAlertCurrHostname.MinimumWidth = 40
+        Me.coldgvAlertCurrHostname.Name = "coldgvAlertCurrHostname"
+        Me.coldgvAlertCurrHostname.ReadOnly = True
+        Me.coldgvAlertCurrHostname.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'coldgvAlertCurrMsg
+        '
+        Me.coldgvAlertCurrMsg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Gulim", 8.0!)
+        DataGridViewCellStyle26.NullValue = Nothing
+        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvAlertCurrMsg.DefaultCellStyle = DataGridViewCellStyle26
+        Me.coldgvAlertCurrMsg.FillWeight = 130.0!
+        Me.coldgvAlertCurrMsg.HeaderText = ""
+        Me.coldgvAlertCurrMsg.MinimumWidth = 100
+        Me.coldgvAlertCurrMsg.Name = "coldgvAlertCurrMsg"
+        Me.coldgvAlertCurrMsg.ReadOnly = True
+        '
+        'coldgvAlertCurrCollectDt
+        '
+        Me.coldgvAlertCurrCollectDt.HeaderText = "coldgvAlertCollectDt"
+        Me.coldgvAlertCurrCollectDt.Name = "coldgvAlertCurrCollectDt"
+        Me.coldgvAlertCurrCollectDt.ReadOnly = True
+        Me.coldgvAlertCurrCollectDt.Visible = False
+        '
+        'coldgvAlertCurrHchkName
+        '
+        Me.coldgvAlertCurrHchkName.HeaderText = "coldgvAlertHchkName"
+        Me.coldgvAlertCurrHchkName.Name = "coldgvAlertCurrHchkName"
+        Me.coldgvAlertCurrHchkName.ReadOnly = True
+        Me.coldgvAlertCurrHchkName.Visible = False
+        '
+        'dgvAlert
+        '
+        Me.dgvAlert.AllowUserToAddRows = False
+        Me.dgvAlert.AllowUserToDeleteRows = False
+        Me.dgvAlert.AllowUserToOrderColumns = True
+        DataGridViewCellStyle29.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle29.ForeColor = System.Drawing.Color.White
+        Me.dgvAlert.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
+        Me.dgvAlert.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvAlert.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvAlert.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvAlert.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvAlert.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlert.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle30
+        Me.dgvAlert.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAlert.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertID, Me.coldgvAlertStatus, Me.coldgvAlertStatusVal, Me.coldgvAlertHostname, Me.coldgvAlertMsg, Me.coldgvAlertCollectDt, Me.coldgvAlertHchkName})
+        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
+        DataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlert.DefaultCellStyle = DataGridViewCellStyle33
+        Me.dgvAlert.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvAlert.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvAlert.EnableHeadersVisualStyles = False
+        Me.dgvAlert.GridColor = System.Drawing.Color.Black
+        Me.dgvAlert.Location = New System.Drawing.Point(0, 0)
+        Me.dgvAlert.MultiSelect = False
+        Me.dgvAlert.Name = "dgvAlert"
+        Me.dgvAlert.ReadOnly = True
+        Me.dgvAlert.RowHeadersVisible = False
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle34.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlert.RowsDefaultCellStyle = DataGridViewCellStyle34
+        Me.dgvAlert.RowTemplate.Height = 23
+        Me.dgvAlert.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvAlert.Size = New System.Drawing.Size(176, 776)
+        Me.dgvAlert.TabIndex = 27
+        Me.dgvAlert.TabStop = False
+        Me.dgvAlert.TagValueMatchColor = System.Drawing.Color.Red
+        Me.dgvAlert.UseTagValueMatchColor = False
+        Me.dgvAlert.Visible = False
+        '
+        'coldgvAlertID
+        '
+        Me.coldgvAlertID.FillWeight = 1.0!
+        Me.coldgvAlertID.HeaderText = "ID"
+        Me.coldgvAlertID.Name = "coldgvAlertID"
+        Me.coldgvAlertID.ReadOnly = True
+        Me.coldgvAlertID.Visible = False
+        '
+        'coldgvAlertStatus
+        '
+        Me.coldgvAlertStatus.FillWeight = 1.0!
+        Me.coldgvAlertStatus.HeaderText = "Status"
+        Me.coldgvAlertStatus.Name = "coldgvAlertStatus"
+        Me.coldgvAlertStatus.ReadOnly = True
+        Me.coldgvAlertStatus.Visible = False
+        '
+        'coldgvAlertStatusVal
+        '
+        Me.coldgvAlertStatusVal.FillWeight = 1.0!
+        Me.coldgvAlertStatusVal.HeaderText = "StautsValue"
+        Me.coldgvAlertStatusVal.Name = "coldgvAlertStatusVal"
+        Me.coldgvAlertStatusVal.ReadOnly = True
+        Me.coldgvAlertStatusVal.Visible = False
+        '
+        'coldgvAlertHostname
+        '
+        Me.coldgvAlertHostname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle31.NullValue = Nothing
+        Me.coldgvAlertHostname.DefaultCellStyle = DataGridViewCellStyle31
+        Me.coldgvAlertHostname.FillWeight = 50.0!
+        Me.coldgvAlertHostname.HeaderText = ""
+        Me.coldgvAlertHostname.MinimumWidth = 40
+        Me.coldgvAlertHostname.Name = "coldgvAlertHostname"
+        Me.coldgvAlertHostname.ReadOnly = True
+        Me.coldgvAlertHostname.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'coldgvAlertMsg
+        '
+        Me.coldgvAlertMsg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Gulim", 8.0!)
+        DataGridViewCellStyle32.NullValue = Nothing
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvAlertMsg.DefaultCellStyle = DataGridViewCellStyle32
+        Me.coldgvAlertMsg.FillWeight = 130.0!
+        Me.coldgvAlertMsg.HeaderText = ""
+        Me.coldgvAlertMsg.MinimumWidth = 100
+        Me.coldgvAlertMsg.Name = "coldgvAlertMsg"
+        Me.coldgvAlertMsg.ReadOnly = True
+        '
+        'coldgvAlertCollectDt
+        '
+        Me.coldgvAlertCollectDt.HeaderText = "coldgvAlertCollectDt"
+        Me.coldgvAlertCollectDt.Name = "coldgvAlertCollectDt"
+        Me.coldgvAlertCollectDt.ReadOnly = True
+        Me.coldgvAlertCollectDt.Visible = False
+        '
+        'coldgvAlertHchkName
+        '
+        Me.coldgvAlertHchkName.HeaderText = "coldgvAlertHchkName"
+        Me.coldgvAlertHchkName.Name = "coldgvAlertHchkName"
+        Me.coldgvAlertHchkName.ReadOnly = True
+        Me.coldgvAlertHchkName.Visible = False
+        '
         'tmLock
         '
         Me.tmLock.Interval = 300000
@@ -2237,7 +2385,6 @@ Partial Class frmMonMain
         CType(Me.chrReqInfo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnuPopup.ResumeLayout(False)
         CType(Me.chtSessionStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -2268,6 +2415,9 @@ Partial Class frmMonMain
         Me.TableLayoutPanel13.PerformLayout()
         Me.pnlRb.ResumeLayout(False)
         Me.pnlRb.PerformLayout()
+        Me.pnlAlertList.ResumeLayout(False)
+        CType(Me.dgvAlertCurr, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2331,7 +2481,6 @@ Partial Class frmMonMain
     Friend WithEvents chkIDLE As eXperDB.BaseControls.CheckBox
     Friend WithEvents ttChart As System.Windows.Forms.ToolTip
     Friend WithEvents chtSessionStatus As System.Windows.Forms.DataVisualization.Charting.Chart
-    Friend WithEvents dgvAlert As eXperDB.BaseControls.DataGridView
     Friend WithEvents cmbLevel As eXperDB.BaseControls.ComboBox
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
@@ -2364,8 +2513,7 @@ Partial Class frmMonMain
     Friend WithEvents grpDiskUsage As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel13 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents grpAlert As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents grpAlert As eXperDB.BaseControls.Button
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents btnPower As eXperDB.BaseControls.Button
@@ -2373,6 +2521,14 @@ Partial Class frmMonMain
     Friend WithEvents btnLock As eXperDB.BaseControls.Button
     Friend WithEvents btnCritical As eXperDB.BaseControls.Button
     Friend WithEvents tmLock As System.Windows.Forms.Timer
+    Friend WithEvents pnlRb As eXperDB.BaseControls.Panel
+    Friend WithEvents rbCurrent As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbHistory As eXperDB.BaseControls.RadioButton
+    Friend WithEvents bckmanual As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btnReport As eXperDB.BaseControls.Button
+    Friend WithEvents pnlAlertList As eXperDB.BaseControls.Panel
+    Friend WithEvents dgvAlertCurr As eXperDB.BaseControls.DataGridView
+    Friend WithEvents dgvAlert As eXperDB.BaseControls.DataGridView
     Friend WithEvents coldgvAlertID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -2380,10 +2536,12 @@ Partial Class frmMonMain
     Friend WithEvents coldgvAlertMsg As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertCollectDt As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvAlertHchkName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents pnlRb As eXperDB.BaseControls.Panel
-    Friend WithEvents rbCurrent As eXperDB.BaseControls.RadioButton
-    Friend WithEvents rbHistory As eXperDB.BaseControls.RadioButton
-    Friend WithEvents bckmanual As System.ComponentModel.BackgroundWorker
-    Friend WithEvents btnReport As eXperDB.BaseControls.Button
+    Friend WithEvents coldgvAlertCurrID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCurrStatus As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCurrStatusVal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCurrHostname As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCurrMsg As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCurrCollectDt As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAlertCurrHchkName As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class
