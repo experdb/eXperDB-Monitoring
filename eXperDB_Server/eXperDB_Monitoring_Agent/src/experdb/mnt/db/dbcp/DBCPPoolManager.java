@@ -78,6 +78,6 @@ public class DBCPPoolManager {
         PoolingDriver driver = (PoolingDriver) DriverManager.getDriver("jdbc:apache:commons:dbcp:");
         ObjectPool connectionPool = driver.getConnectionPool(poolName);
         
-        log.debug("["+poolName+"] NumActive: [" + connectionPool.getNumActive() + "] NumIdle: [" + connectionPool.getNumIdle() + "]");
+        log.info("["+poolName+"] NumActive: [" + connectionPool.getNumActive() + "] NumIdle: [" + connectionPool.getNumIdle() + "]");
     }
 }
