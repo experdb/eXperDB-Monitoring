@@ -642,8 +642,8 @@
                 strSeriesData1 = "TOT_BACKEND_CNT"
                 strSeriesData2 = "CUR_ACTV_BACKEND_CNT"
                 LineColor1 = Color.YellowGreen
-                LineColor2 = Color.Gold
-                seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
+                LineColor2 = Color.Violet
+                seriesChartType = DataVisualization.Charting.SeriesChartType.Line
             Case 3
                 strLegend1 = "Read"
                 strLegend2 = "Insert"
