@@ -225,7 +225,8 @@ Partial Class ctlChart
         ChartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         ChartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
         ChartArea1.AxisX.ScrollBar.ButtonColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        ChartArea1.AxisX.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        ChartArea1.AxisX.TitleFont = New System.Drawing.Font("Gulim", 10.0!)
+        ChartArea1.AxisX.TitleForeColor = System.Drawing.Color.Red
         ChartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         ChartArea1.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         ChartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
@@ -242,6 +243,11 @@ Partial Class ctlChart
         ChartArea1.BackColor = System.Drawing.Color.Black
         ChartArea1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         ChartArea1.Name = "DEFAREA"
+        ChartArea1.Position.Auto = False
+        ChartArea1.Position.Height = 80.0!
+        ChartArea1.Position.Width = 94.0!
+        ChartArea1.Position.X = 3.0!
+        ChartArea1.Position.Y = 18.67681!
         Me.MainChart.ChartAreas.Add(ChartArea1)
         Me.MainChart.ContextMenuStrip = Me.mnuPopUpLegend
         Me.MainChart.Cursor = System.Windows.Forms.Cursors.Arrow
@@ -411,6 +417,7 @@ Partial Class ctlChart
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.mnuChartMenu)
         Me.Controls.Add(Me.MainChart)
+        Me.DoubleBuffered = True
         Me.Name = "ctlChart"
         Me.Size = New System.Drawing.Size(824, 330)
         Me.mnuChartMenu.ResumeLayout(False)

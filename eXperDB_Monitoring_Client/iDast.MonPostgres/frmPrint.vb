@@ -128,6 +128,7 @@ Public Class frmPrint
                         If flp IsNot Nothing Then
                             If flp.Controls.Count > 0 Then
                                 Dim bretChk As Boolean = False
+                                Dim strControl As String = ""
                                 If flp.Controls(0).GetType.Equals(GetType(BaseControls.CheckBox)) Then
                                     bretChk = True
                                 Else
@@ -136,6 +137,7 @@ Public Class frmPrint
                                 Dim arrGrpTitles As New ArrayList
                                 If bretChk = False Then
                                     ' RadioButton 
+                                    strControl = "Databases - "
                                     For Each ctlRb As BaseControls.RadioButton In flp.Controls
                                         If ctlRb.Checked Then
                                             arrGrpTitles.Add(ctlRb.Text)
@@ -144,16 +146,48 @@ Public Class frmPrint
                                     Next
                                 Else
                                     ' CheckBox
-
+                                    strControl = "Disks - "
                                     For Each ctlChk As BaseControls.CheckBox In flp.Controls
                                         If ctlChk.Checked Then
                                             arrGrpTitles.Add(ctlChk.Text)
                                         End If
                                     Next
                                 End If
-                                strTItle += " - " & String.Join(" , ", arrGrpTitles.ToArray())
+
+                                strControl += " [ " & String.Join(" , ", arrGrpTitles.ToArray()) & " ] "
+                                arrDatas.Add(CreateHtmlCell(strControl).ToString)
                             End If
                         End If
+
+                        'If flp IsNot Nothing Then
+                        '    If flp.Controls.Count > 0 Then
+                        '        Dim bretChk As Boolean = False
+                        '        If flp.Controls(0).GetType.Equals(GetType(BaseControls.CheckBox)) Then
+                        '            bretChk = True
+                        '        Else
+                        '            bretChk = False
+                        '        End If
+                        '        Dim arrGrpTitles As New ArrayList
+                        '        If bretChk = False Then
+                        '            ' RadioButton 
+                        '            For Each ctlRb As BaseControls.RadioButton In flp.Controls
+                        '                If ctlRb.Checked Then
+                        '                    arrGrpTitles.Add(ctlRb.Text)
+                        '                    Exit For
+                        '                End If
+                        '            Next
+                        '        Else
+                        '            ' CheckBox
+
+                        '            For Each ctlChk As BaseControls.CheckBox In flp.Controls
+                        '                If ctlChk.Checked Then
+                        '                    arrGrpTitles.Add(ctlChk.Text)
+                        '                End If
+                        '            Next
+                        '        End If
+                        '        strTItle += " - " & String.Join(" , ", arrGrpTitles.ToArray())
+                        '    End If
+                        'End If
                 End Select
             Next
         End If
@@ -449,6 +483,24 @@ Public Class frmPrint
                 strBuilder.AppendLine("</tr>")
             Next
             strBuilder.AppendLine("</table>")
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+        End Try
+
+        Return strBuilder
+
+    End Function
+
+    Public Function CreateHtmlCell(ByRef strString As String) As System.Text.StringBuilder
+        Dim strBuilder As New System.Text.StringBuilder
+
+        Try
+            strBuilder.AppendLine("<table width=""100%"" border=""1"" cellpadding=""0"" bordercolor=""black""  cellspacing=""1"" bgcolor=""cacaca"">")
+
+            strBuilder.AppendLine("<tr>")
+            strBuilder.Append("<td class=""bg2"" >" & strString.Replace(" ", "<font color='#C0C0C0'>_</font>").Replace(vbCrLf, "<font color='#C0C0C0'>$<br></font>").Replace(vbLf, "<font color='#C0C0C0'>$<br></font>").Replace(vbCr, "<font color='#C0C0C0'>$<br></font>") & "</td>")
+            strBuilder.AppendLine("</tr>")
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             GC.Collect()

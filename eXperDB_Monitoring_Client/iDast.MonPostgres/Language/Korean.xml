@@ -1218,7 +1218,7 @@
   </ROW>
   <ROW ID="F146" PARAMS="0">
     <DESC>HOST NAME</DESC>
-    <DATA><![CDATA[Server]]></DATA>
+    <DATA><![CDATA[Cluster]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1273,16 +1273,16 @@
     <VALUECAST />
   </ROW>
   <ROW ID="F153" PARAMS="0">
-    <DESC>READ/WRITE</DESC>
-    <DATA><![CDATA[Read/Write]]></DATA>
+    <DESC>Disk Read/Write(MAX)</DESC>
+    <DATA><![CDATA[Disk Read/Write(MAX)]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
     <VALUECAST />
   </ROW>
   <ROW ID="F154" PARAMS="0">
-    <DESC>READ/WRITE BUSY</DESC>
-    <DATA><![CDATA[Read/Write Busy]]></DATA>
+    <DESC>Disk Read/Write Busy(AVG)</DESC>
+    <DATA><![CDATA[Disk Read/Write Busy(AVG)]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -1306,7 +1306,7 @@
   </ROW>
   <ROW ID="F157" PARAMS="0">
     <DESC>조회일시</DESC>
-    <DATA><![CDATA[스냅샷범위]]></DATA>
+    <DATA><![CDATA[Range]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2699,7 +2699,7 @@
   </ROW>
   <ROW ID="M015" PARAMS="1">
     <DESC>Report Chech</DESC>
-    <DATA><![CDATA[{0}시간 이상은 조회 하실 수 없습니다.]]></DATA>
+    <DATA><![CDATA[{0}일 이상은 조회 하실 수 없습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

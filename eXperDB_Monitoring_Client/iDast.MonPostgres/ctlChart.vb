@@ -2021,8 +2021,8 @@ Public Class ctlChart
     Sub SetInnerPlotPosition()
         Dim ChartBorderLeft As Integer = 100 'Pixels on the left
         Dim ChartBorderRight As Integer = 100 'Pixels on the right
-        Dim ChartBorderTop As Integer = 0 'Pixels on the top
-        Dim ChartBorderBottom As Integer = 40 'Pixels on the bottom
+        Dim ChartBorderTop As Integer = 20 'Pixels on the top
+        Dim ChartBorderBottom As Integer = 50 'Pixels on the bottom
 
         Me.MainChart.ChartAreas(0).InnerPlotPosition.X = CSng(ChartBorderLeft / Me.MainChart.Width) * 100 'Left border
         Me.MainChart.ChartAreas(0).InnerPlotPosition.Y = CSng(ChartBorderTop / Me.MainChart.Height) * 100 'Top Border

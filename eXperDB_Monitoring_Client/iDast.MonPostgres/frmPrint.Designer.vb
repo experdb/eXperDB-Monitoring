@@ -39,7 +39,7 @@ Partial Class frmPrint
         Me.mnuChartMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripDropDownButton1})
         Me.mnuChartMenu.Location = New System.Drawing.Point(0, 0)
         Me.mnuChartMenu.Name = "mnuChartMenu"
-        Me.mnuChartMenu.Size = New System.Drawing.Size(825, 27)
+        Me.mnuChartMenu.Size = New System.Drawing.Size(722, 27)
         Me.mnuChartMenu.TabIndex = 3
         Me.mnuChartMenu.Text = "ToolStrip1"
         '
@@ -49,52 +49,51 @@ Partial Class frmPrint
         Me.ToolStripDropDownButton1.Image = CType(resources.GetObject("ToolStripDropDownButton1.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripDropDownButton1.Name = "ToolStripDropDownButton1"
-        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(115, 24)
+        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(98, 24)
         Me.ToolStripDropDownButton1.Text = "인쇄&&저장"
         '
         'tsmiPrint
         '
         Me.tsmiPrint.Name = "tsmiPrint"
-        Me.tsmiPrint.Size = New System.Drawing.Size(164, 26)
+        Me.tsmiPrint.Size = New System.Drawing.Size(138, 22)
         Me.tsmiPrint.Text = "인쇄"
         '
         'tsmiPageSetup
         '
         Me.tsmiPageSetup.Name = "tsmiPageSetup"
-        Me.tsmiPageSetup.Size = New System.Drawing.Size(164, 26)
+        Me.tsmiPageSetup.Size = New System.Drawing.Size(138, 22)
         Me.tsmiPageSetup.Text = "페이지 설정"
         '
         'tsmiPreview
         '
         Me.tsmiPreview.Name = "tsmiPreview"
-        Me.tsmiPreview.Size = New System.Drawing.Size(164, 26)
+        Me.tsmiPreview.Size = New System.Drawing.Size(138, 22)
         Me.tsmiPreview.Text = "미리보기"
         '
         'tsmiSave
         '
         Me.tsmiSave.Name = "tsmiSave"
-        Me.tsmiSave.Size = New System.Drawing.Size(164, 26)
+        Me.tsmiSave.Size = New System.Drawing.Size(138, 22)
         Me.tsmiSave.Text = "저장하기"
         '
         'WebBrowser1
         '
         Me.WebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.WebBrowser1.Location = New System.Drawing.Point(0, 27)
-        Me.WebBrowser1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(23, 25)
+        Me.WebBrowser1.MinimumSize = New System.Drawing.Size(20, 20)
         Me.WebBrowser1.Name = "WebBrowser1"
-        Me.WebBrowser1.Size = New System.Drawing.Size(825, 729)
+        Me.WebBrowser1.Size = New System.Drawing.Size(722, 578)
         Me.WebBrowser1.TabIndex = 4
+        Me.WebBrowser1.Url = New System.Uri("http://www.k4m.com", System.UriKind.Absolute)
         '
         'frmPrint
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(825, 756)
+        Me.ClientSize = New System.Drawing.Size(722, 605)
         Me.Controls.Add(Me.WebBrowser1)
         Me.Controls.Add(Me.mnuChartMenu)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmPrint"
         Me.Text = "frmPrint"
         Me.mnuChartMenu.ResumeLayout(False)

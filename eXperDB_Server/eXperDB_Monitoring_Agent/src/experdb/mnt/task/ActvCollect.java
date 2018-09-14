@@ -10,8 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbcp.PoolingDriver;
+import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.postgresql.util.PSQLException;
+import org.postgresql.util.PSQLState;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
@@ -169,11 +172,30 @@ public class ActvCollect extends TaskApplication {
 						HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
 						dbVerMap.put("instance_db_version", instance_db_version);						
 						
-					 	backendRscSel = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);
+						backendRscSel = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);											 	
+//					} catch (Exception e) {
+//						failed_collect_type = "2";
+//						throw e;
+//					}						
 					} catch (Exception e) {
-						failed_collect_type = "2";
-						throw e;
-					}				
+						if(e instanceof PersistenceException){
+							PersistenceException pe = (PersistenceException)e;
+							if( pe.getCause() instanceof PSQLException) {
+								PSQLException psqle = (PSQLException)pe.getCause();
+								//if (!PSQLState.SYNTAX_ERROR.getState().equals(psqle.getSQLState())){
+								if (!PSQLState.DATA_ERROR.getState().equals(psqle.getSQLState())){
+									failed_collect_type = "2";
+									throw e;									
+								}
+							} else {
+								failed_collect_type = "2";
+								throw e;									
+							}
+						} else {
+							failed_collect_type = "2";
+							throw e;									
+						}
+					}	
 					
 //					// SESSION_STATS 정보 수집
 //					try {

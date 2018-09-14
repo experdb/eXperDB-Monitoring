@@ -849,6 +849,54 @@
         End Try
     End Function
 
+    Public Function SelectReportCPUChartStats(ByVal intInstanceID As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim minutes As Long = DateDiff(DateInterval.Minute, stDate, edDate)
+                Dim strQuery As String = ""
+                Dim subQuery As String = ""
+                Dim interval As String = ""
+
+                strQuery = p_clsQueryData.fn_GetData("SELECTREPORTCPUCHARTSTATS")
+
+                If minutes <= 60 Then 'collect period
+                    interval = "1" '1 min
+                ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                    interval = "60" '1 min
+                ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                    interval = "120" '2 min
+                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                    interval = "300" '5 min
+                Else
+                    interval = "1200"
+                End If
+
+                If DateDiff(DateInterval.Day, stDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", stDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, intInstanceID, subQuery, stDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), interval)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+
+
+            End If
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
     Public Function SelectReportDisk(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
 
 
@@ -888,14 +936,29 @@
 
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTDISKCHART")
+                Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
+                Dim interval As String = ""
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTDISKCHARTSTATS")
+
+                If minutes <= 60 Then 'collect period
+                    interval = "1" '1 min
+                ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                    interval = "60" '1 min
+                ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                    interval = "120" '2 min
+                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                    interval = "300" '5 min
+                Else
+                    interval = "1200"
+                End If
+
                 Dim subQuery As String = ""
                 If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
-                strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), DiskName)
+                strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), DiskName, interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -979,6 +1042,52 @@
         End Try
     End Function
 
+
+    Public Function SelectReportTBAccessStats(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal enmShowSvrNm As clsEnums.ShowName) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
+                Dim interval As String = ""
+
+                If minutes <= 60 Then 'collect period
+                    interval = "1" '1 min
+                ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                    interval = "60" '1 min
+                ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                    interval = "120" '2 min
+                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                    interval = "300" '5 min
+                Else
+                    interval = "1200"
+                End If
+
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTTBACCESSSTATS")
+                Dim subQuery As String = ""
+                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), enmShowSvrNm.ToString("d"), interval)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
     'Public Function SelectReportSession(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
 
 
@@ -1024,6 +1133,53 @@
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"))
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+
+
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectReportSessionChartStats(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
+                Dim interval As String = ""
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTSESSIONCHARTSTATS")
+                Dim subQuery As String = ""
+
+                If minutes <= 60 Then 'collect period
+                    interval = "1" '1 min
+                ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                    interval = "60" '1 min
+                ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                    interval = "120" '2 min
+                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                    interval = "300" '5 min
+                Else
+                    interval = "1200"
+                End If
+
+                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1583,7 +1739,7 @@
     Public Function SelectInitSessionInfoChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSESSIONINFOBEFORE")
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSESSIONINFOPREV")
                 Dim subQuery As String = ""
 
                 If HaveDuration = True Then

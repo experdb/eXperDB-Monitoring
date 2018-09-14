@@ -99,12 +99,12 @@ Public Class frmReports
         '
         rtnRB.Appearance = System.Windows.Forms.Appearance.Button
         rtnRB.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        rtnRB.Font = New System.Drawing.Font("Gulim", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        rtnRB.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         rtnRB.ForeColor = System.Drawing.Color.White
         rtnRB.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         rtnRB.Location = New System.Drawing.Point(3, 3)
         rtnRB.Radius = 10
-        rtnRB.Size = New System.Drawing.Size(150, 35)
+        rtnRB.Size = New System.Drawing.Size(120, 30)
         rtnRB.TabIndex = 5
         rtnRB.Text = Title
         rtnRB.UnCheckFillColor = System.Drawing.Color.Black
@@ -123,12 +123,12 @@ Public Class frmReports
         '
         rtnChk.Appearance = System.Windows.Forms.Appearance.Button
         rtnChk.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        rtnChk.Font = New System.Drawing.Font("Gulim", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        rtnChk.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         rtnChk.ForeColor = System.Drawing.Color.White
         rtnChk.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
         rtnChk.Location = New System.Drawing.Point(3, 3)
         rtnChk.Radius = 10
-        rtnChk.Size = New System.Drawing.Size(150, 35)
+        rtnChk.Size = New System.Drawing.Size(100, 23)
         rtnChk.TabIndex = 5
         rtnChk.Text = Title
         rtnChk.UnCheckFillColor = System.Drawing.Color.Black
@@ -147,7 +147,7 @@ Public Class frmReports
         btnSearch.Text = p_clsMsgData.fn_GetData("F151")
 
         ' Grid CPU
-        grpRptCpu.Text = p_clsMsgData.fn_GetData("F164")
+        'grpRptCpu.Text = p_clsMsgData.fn_GetData("F164")
         'dgvRptCpu.AutoGenerateColumns = False
         '' colDgvRptCpuHostNm.HeaderText = p_clsMsgData.fn_GetData("F146")
         'colDgvRptCpuUser.HeaderText = p_clsMsgData.fn_GetData("F147")
@@ -159,15 +159,9 @@ Public Class frmReports
         ' Chart CPU 
         Me.chtRptCpu.AddSeries("USED", "USED", Color.Red)
         Me.chtRptCpu.AddSeries("WAIT", "WAIT", Color.Lime)
-        'Me.chtRptCpu.SetAxisXTitle("CPU USAGE")
+        Me.chtRptCpu.SetAxisXTitle("CPU Usage(MAX)")
         Me.chtRptCpu.SetAxisYTitle("RATE(%)")
         Me.chtRptCpu.SetDefaultMean("USED")
-
-
-        ' Disk 
-        grpRptDisk.Text = p_clsMsgData.fn_GetData("F165")
-        'dgvRptDisk.AutoGenerateColumns = False
-
 
 
         chtRptDisk.SetAxisXTitle(p_clsMsgData.fn_GetData("F153"))
@@ -198,7 +192,7 @@ Public Class frmReports
 
 
         ' Session 
-        grpRptTimeLine.Text = p_clsMsgData.fn_GetData("F155")
+        'grpRptTimeLine.Text = p_clsMsgData.fn_GetData("F155")
         'dgvRptSession.AutoGenerateColumns = False
         'colDgvRptSessionActive.HeaderText = p_clsMsgData.fn_GetData("F168")
         'colDgvRptSessionIDLE.HeaderText = p_clsMsgData.fn_GetData("F169")
@@ -343,7 +337,7 @@ Public Class frmReports
         RaiseEvent WaitMag("CPU Information")
         tmpTh = New Threading.Thread(Sub()
                                          Try
-                                             dtTable = _clsQuery.SelectReportCPUChart(intInstance, stDate, edDate)
+                                             dtTable = _clsQuery.SelectReportCPUChartStats(intInstance, stDate, edDate)
                                          Catch ex As Exception
                                              GC.Collect()
                                          End Try
@@ -356,7 +350,7 @@ Public Class frmReports
                                                        chtRptCpu.SetMinimumAxisX(ConvOADate(stDate))
                                                        chtRptCpu.SetMaximumAxisX(ConvOADate(edDate))
                                                        For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                           Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
+                                                           Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DATE"))
                                                            Me.chtRptCpu.AddPoints("USED", tmpDate, ConvULong(dtTable.Rows(i).Item("USED_UTIL_RATE")))
                                                            Me.chtRptCpu.AddPoints("WAIT", tmpDate, ConvULong(dtTable.Rows(i).Item("WAIT_UTIL_RATE")))
                                                        Next
@@ -451,7 +445,8 @@ Public Class frmReports
         RaiseEvent WaitMag("Session Chart Information")
         tmpTh = New Threading.Thread(Sub()
                                          Try
-                                             dtTable = _clsQuery.SelectReportSessionChart(intInstance, stDate, edDate)
+                                             'dtTable = _clsQuery.SelectReportSessionChart(intInstance, stDate, edDate)
+                                             dtTable = _clsQuery.SelectReportSessionChartStats(intInstance, stDate, edDate)
                                          Catch ex As Exception
                                              p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                              GC.Collect()
@@ -471,8 +466,8 @@ Public Class frmReports
         RaiseEvent WaitMag("Logical I/O , Object Access , Buffer HIT Information")
         tmpTh = New Threading.Thread(Sub()
                                          Try
-                                             dtTable = _clsQuery.SelectReportTBAccess(intInstance, stDate, edDate, enmSvrNm)
-
+                                             'dtTable = _clsQuery.SelectReportTBAccess(intInstance, stDate, edDate, enmSvrNm)
+                                             dtTable = _clsQuery.SelectReportTBAccessStats(intInstance, stDate, edDate, enmSvrNm)
 
                                          Catch ex As Exception
                                              p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -637,8 +632,8 @@ Public Class frmReports
             MsgBox(p_clsMsgData.fn_GetData("M014"))
             Return False
         Else
-            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 120 Then
-                MsgBox(p_clsMsgData.fn_GetData("M015", "2"))
+            If DateDiff(DateInterval.Hour, dtpSt.Value, dtpEd.Value) > 24 Then
+                MsgBox(p_clsMsgData.fn_GetData("M015", "7"))
                 Return False
             End If
         End If
@@ -822,7 +817,7 @@ Public Class frmReports
                 If dtTable IsNot Nothing Then
                     Me.Invoke(New MethodInvoker(Sub()
                                                     For Each tmpRow As DataRow In dtTable.Rows
-                                                        Dim tmpDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                                        Dim tmpDate As Double = ConvOADate(tmpRow.Item("COLLECT_DATE"))
                                                         If bretAddRead = True Then
 
                                                             'Me.chtRptDisk.AddPoints(strRead, tmpDate, ConvULong(dtTable.Rows(i).Item("READ_KB_PER_SEC")))
@@ -891,9 +886,9 @@ Public Class frmReports
 
     Private Sub chtRptCpu_LocationChanged(sender As Object, e As EventArgs) Handles chtRptCpu.LocationChanged, chtRptDisk.LocationChanged
 
-        Dim grp As BaseControls.GroupBox = DirectCast(sender, Control).Parent
-        Dim grpheight As Integer = grp.Padding.Top + grp.Padding.Bottom + 2
-        grp.Height = grpheight + DirectCast(sender, Control).Top + DirectCast(sender, Control).MinimumSize.Height
+        'Dim grp As BaseControls.GroupBox = DirectCast(sender, Control).Parent
+        'Dim grpheight As Integer = grp.Padding.Top + grp.Padding.Bottom + 2
+        'grp.Height = grpheight + DirectCast(sender, Control).Top + DirectCast(sender, Control).MinimumSize.Height
 
 
 
@@ -960,7 +955,7 @@ Public Class frmReports
 
         'If (dgvRptCpu.RowCount > 0) Then
         Dim str As String = dtpSt.Value & " ~ " & dtpEd.Value
-        Dim frmP As New frmPrint(cmbInst.Text.ToString, str, grpRptCpu, grpRptDisk, grpRptTimeLine)
+        Dim frmP As New frmPrint(cmbInst.Text.ToString, str, grpRptCpu, grpRptTimeLine, grpRptSQL)
         'dtpSt.Value = stDt.AddMinutes(-1)
         'dtpEd.Value = edDt.AddMinutes(1)
 
@@ -1139,10 +1134,10 @@ Public Class frmReports
                                         Next
                                         Try
                                             Dim tmpDtTable As DataTable = dtSessionInfo.Select(String.Format("DB_NAME = '{0}'", strDBNm.Replace("'", "''")) _
-                                                                                            , "COLLECT_DT ASC").CopyToDataTable
+                                                                                            , "COLLECT_DATE ASC").CopyToDataTable
                                             If tmpDtTable IsNot Nothing Then
                                                 For Each tmpRow As DataRow In tmpDtTable.Rows
-                                                    Dim tmpDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                                    Dim tmpDate As Double = ConvOADate(tmpRow.Item("COLLECT_DATE"))
                                                     For Each tmpSeriesColumn As SeriesColumn In SerCol
                                                         ctlChart.AddPoints(tmpSeriesColumn.SeriesNm, tmpDate, ConvULong(tmpRow.Item(tmpSeriesColumn.ColumnNm)))
                                                     Next
@@ -1182,37 +1177,37 @@ Public Class frmReports
     End Sub
 
 
-    Private Sub dgvRptSQL_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvRptSQL.CellMouseMove
-        If e.RowIndex >= 0 Then
-            If e.ColumnIndex = &H4 Then
-                dgvRptSQL.Cursor = Cursors.Hand
-                If dgvRptSQL.Rows(e.RowIndex).Selected = False Then
-                    dgvRptSQL.ClearSelection()
-                    dgvRptSQL.Rows(e.RowIndex).Selected = True
-                End If
-                For i As Integer = 0 To dgvRptSQL.ColumnCount - 1
-                    dgvRptSQL.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 20, 30)
-                Next
+    Private Sub chkLogicalIO_CheckedChanged(sender As Object, e As EventArgs) Handles rb1H.CheckedChanged, rb2H.CheckedChanged, rb4H.CheckedChanged, rb12H.CheckedChanged, rb1D.CheckedChanged
+        Dim Rb As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If Rb.Checked = True Then
+            dtpDay.Checked = False
+            dtpEd.Value = DateTime.Now
+            If Rb.Text.Equals("~1H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-1)
+            ElseIf Rb.Text.Equals("~2H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-2)
+            ElseIf Rb.Text.Equals("~4H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-4)
+            ElseIf Rb.Text.Equals("~12H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-12)
+            ElseIf Rb.Text.Equals("~1D") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-24)
             End If
+
+            btnSearch.PerformClick()
         End If
     End Sub
 
-    Private Sub dgvRptSQL_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRptSQL.CellMouseLeave
-        If e.RowIndex >= 0 Then
-            If e.ColumnIndex = &H4 Then
-                dgvRptSQL.Cursor = Cursors.Arrow
-                If dgvRptSQL.Rows(e.RowIndex).Selected = True Then
-                    dgvRptSQL.ClearSelection()
-                    dgvRptSQL.Rows(e.RowIndex).Selected = False
-                End If
-                For i As Integer = 0 To dgvRptSQL.ColumnCount - 1
-                    dgvRptSQL.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvRptSQL.DefaultCellStyle.SelectionBackColor
-                Next
-            End If
+    Private Sub dtpDay_ValueChanged(sender As Object, e As EventArgs) Handles dtpDay.ValueChanged
+        If dtpDay.Checked = True Then
+            dtpSt.Value = New Date(dtpDay.Value.Year, dtpDay.Value.Month, dtpDay.Value.Day, 0, 0, 0, 0)
+            dtpEd.Value = dtpSt.Value.AddHours(24)
+
+            rb1H.Checked = False
+            rb2H.Checked = False
+            rb4H.Checked = False
+            rb12H.Checked = False
+            rb1D.Checked = False
         End If
-    End Sub
-
-    Private Sub dgvRptSQL_MouseHover(sender As Object, e As EventArgs)
-
     End Sub
 End Class

@@ -1255,11 +1255,11 @@
       ]]>
     </DATA>
   </ROW>
-    <ROW ID="SELECTSESSIONINFOBEFORE" PARAMS="0">
+    <ROW ID="SELECTSESSIONINFOPREV" PARAMS="0">
     <DESC>SESSEIONINFO</DESC>
     <DATA>
       <![CDATA[         
-      SELECT /* SELECTSESSIONINFOBEFORE */ 
+      SELECT /* SELECTSESSIONINFOPREV */ 
              IST.INSTANCE_ID,
              TO_CHAR(COL.REG_DATE::DATE, 'YYYY-MM-DD') ||' ' || COL.REG_TIME AS COLLECT_DT
              --, BAK.COLLECT_DT AS COLLECT_DT
@@ -1281,11 +1281,11 @@
       ]]>
     </DATA>
   </ROW>
-      <ROW ID="SELECTSESSIONINFOBEFORE_BAK" PARAMS="0">
+      <ROW ID="SELECTSESSIONINFOPREV_BAK" PARAMS="0">
     <DESC>SESSEIONINFO</DESC>
     <DATA>
       <![CDATA[         
-    	SELECT /* SELECTSESSIONINFOBEFORE */ 
+    	SELECT /* SELECTSESSIONINFOPREV */ 
              IST.INSTANCE_ID
              , BAK.COLLECT_DT AS COLLECT_DT
 	           --, ROUND(SUM(CASE WHEN (BAK.SQL <> '<IDLE>') THEN 1 ELSE 0 END)::numeric / MAX(IST.MAX_CONN_CNT) * 100, 2) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
@@ -1373,9 +1373,9 @@
         <DATA>
           <![CDATA[
         --Report (cpu info chart)         
-        SELECT /* SELECTCPUMEMINFO */ 
+        SELECT /* SELECTREPORTCPUCHART */ 
 	        A.INSTANCE_ID
-	        , C.COLLECT_DT
+	        , C.COLLECT_DT COLLECT_DT
           , CASE WHEN C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE > 100 THEN 100.00 ELSE ROUND((C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE),2) END AS USED_UTIL_RATE
           , ROUND((C.WAIT_UTIL_RATE),2) AS WAIT_UTIL_RATE                                           
         FROM TB_INSTANCE_INFO A
@@ -1393,30 +1393,75 @@
       ]]>
         </DATA>
       </ROW>
-      <ROW ID="SELECTREPORTDISK" PARAMS="4">
-        <DESC>SELECTREPORTCPUCHART</DESC>
+      <ROW ID="SELECTREPORTCPUCHARTSTATS" PARAMS="5">
+        <DESC>SELECTREPORTCPUCHARTSTATS</DESC>
         <DATA>
           <![CDATA[
-    
-      SELECT /* SELECTDISKINFO */ 
-	      A.INSTANCE_ID
-        , C.DISK_NAME           --PT_06_04(Report disk info:DISK_NAME)
-      FROM TB_INSTANCE_INFO A
-        , TB_RSC_COLLECT_INFO B
-        , TB_DISK_IO C
-      WHERE A.INSTANCE_ID =  {0}
-        AND ((B.REG_DATE = '{1}' AND C.COLLECT_DT BETWEEN '{2}' AND '{2}'::timestamp + interval '6 minutes' )
-              OR (B.REG_DATE = '{3}' AND C.COLLECT_DT BETWEEN '{4}'::timestamp - interval '6 minutes' AND '{4}'))
-        AND A.COLLECT_YN = 'Y'
-        AND A.DELETE_YN = 'N'
-        AND A.INSTANCE_ID = B.INSTANCE_ID
-        AND B.REG_DATE = C.REG_DATE
-        AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
-      GROUP BY A.INSTANCE_ID, C.DISK_NAME;
-      
-      
-      
+        --Report (cpu info chart)         
+        SELECT /* SELECTREPORTCPUCHARTSTATS */ 
+	        MAX(A.INSTANCE_ID) INSTANCE_ID
+	        --, to_char(COLLECT_DT, 'YYYY-MM-DD HH24:MI')::timestamp COLLECT_DT
+          , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {4} )) * {4}) AT TIME ZONE 'UTC' AS COLLECT_DATE
+          , CASE WHEN max(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE) > 100 THEN 100.00 ELSE ROUND((max(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE)),2) END AS USED_UTIL_RATE
+          , ROUND((max(C.WAIT_UTIL_RATE)),2) AS WAIT_UTIL_RATE                                           
+        FROM TB_INSTANCE_INFO A
+          , TB_RSC_COLLECT_INFO B
+          , TB_CPU_STAT_MASTER C
+        WHERE A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'     
+          AND A.INSTANCE_ID = {0}
+          AND B.REG_DATE {1}   -- Dynamic('IN' or '=' )
+	        AND C.COLLECT_DT BETWEEN '{2}' AND '{3}'
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+          --GROUP BY TO_CHAR(COLLECT_DT, 'YYYY-MM-DD HH24:MI')::TIMESTAMP
+          GROUP BY COLLECT_DATE
+          ORDER BY INSTANCE_ID, COLLECT_DATE ASC; 
       ]]>
+        </DATA>
+      </ROW>
+      <ROW ID="SELECTREPORTDISK" PARAMS="4">
+        <DESC>SELECTREPORTDISK</DESC>
+        <DATA>
+          <![CDATA[    
+            SELECT /* SELECTREPORTDISK */ 
+	            A.INSTANCE_ID
+              , C.DISK_NAME           --PT_06_04(Report disk info:DISK_NAME)
+            FROM TB_INSTANCE_INFO A
+              , TB_RSC_COLLECT_INFO B
+              , TB_DISK_IO C
+            WHERE A.INSTANCE_ID =  {0}
+              AND ((B.REG_DATE = '{1}' AND C.COLLECT_DT BETWEEN '{2}' AND '{2}'::timestamp + interval '6 minutes' )
+                    OR (B.REG_DATE = '{3}' AND C.COLLECT_DT BETWEEN '{4}'::timestamp - interval '6 minutes' AND '{4}'))
+              AND A.COLLECT_YN = 'Y'
+              AND A.DELETE_YN = 'N'
+              AND A.INSTANCE_ID = B.INSTANCE_ID
+              AND B.REG_DATE = C.REG_DATE
+              AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+            GROUP BY A.INSTANCE_ID, C.DISK_NAME;      
+      ]]>
+        </DATA>
+      </ROW>
+      <ROW ID="SELECTREPORTDISKSTATS" PARAMS="4">
+        <DESC>SELECTREPORTDISKSTATS</DESC>
+        <DATA>
+          <![CDATA[    
+                SELECT /* SELECTREPORTDISKSTATS */ 
+	                A.INSTANCE_ID
+                  , C.DISK_NAME           --PT_06_04(Report disk info:DISK_NAME)
+                FROM TB_INSTANCE_INFO A
+                  , TB_RSC_COLLECT_INFO B
+                  , TB_DISK_IO C
+                WHERE A.INSTANCE_ID =  {0}
+                  AND ((B.REG_DATE = '{1}' AND C.COLLECT_DT BETWEEN '{2}' AND '{2}'::timestamp + interval '6 minutes' )
+                        OR (B.REG_DATE = '{3}' AND C.COLLECT_DT BETWEEN '{4}'::timestamp - interval '6 minutes' AND '{4}'))
+                  AND A.COLLECT_YN = 'Y'
+                  AND A.DELETE_YN = 'N'
+                  AND A.INSTANCE_ID = B.INSTANCE_ID
+                  AND B.REG_DATE = C.REG_DATE
+                  AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+                GROUP BY A.INSTANCE_ID, C.DISK_NAME;      
+          ]]>
         </DATA>
       </ROW>
       <ROW ID="SELECTREPORTDISKCHART" PARAMS="5">
@@ -1448,7 +1493,37 @@
       ]]>
         </DATA>
       </ROW>
-    
+  <ROW ID="SELECTREPORTDISKCHARTSTATS" PARAMS="6">
+    <DESC>SELECTREPORTDISKCHARTSTATS</DESC>
+    <DATA>
+      <![CDATA[
+         --Report (disk info chart)
+          SELECT /* SELECTREPORTDISKCHARTSTATS */ MAX(A.INSTANCE_ID) INSTANCE_ID
+            --, C.COLLECT_DT AS COLLECT_DT
+            , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {5} )) * {5}) AT TIME ZONE 'UTC' AS COLLECT_DATE
+            , C.DISK_NAME                                           --PT_06_04(Report disk info:DISK_NAME)
+            , ROUND(MAX(C.READ_BUSY_RATE),2) AS READ_BUSY_RATE           --PT_06_04(Report disk info:READ_BUSY_RATE)
+            , ROUND(MAX(C.WRITE_BUSY_RATE),2) AS WRITE_BUSY_RATE         --PT_06_04(Report disk info:WRITE_BUSY_RATE)
+            , ROUND(AVG(C.CURRENT_READ_KB / DELTA_TIME),2) AS READ_KB_PER_SEC            --PT_04_03_001(DISK IO READ_KB)
+            , ROUND(AVG(C.CURRENT_WRITE_KB / DELTA_TIME),2) AS WRITE_KB_PER_SEC          --PT_04_03_001(DISK IO WRITE_KB)
+            , A.CONN_NAME AS CONN_NAME
+          FROM TB_INSTANCE_INFO A
+            , TB_RSC_COLLECT_INFO B
+            , TB_DISK_IO C
+          WHERE A.INSTANCE_ID = {0}
+            AND B.REG_DATE {1}   -- Dynamic('IN' or '=' )
+            AND C.COLLECT_DT BETWEEN  '{2}' AND '{3}'
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+            AND A.INSTANCE_ID = B.INSTANCE_ID
+            AND C.DISK_NAME = '{4}'
+            AND B.REG_DATE = C.REG_DATE
+            AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+          GROUP BY COLLECT_DATE, C.DISK_NAME, A.CONN_NAME
+          ORDER BY INSTANCE_ID, COLLECT_DATE
+      ]]>
+    </DATA>
+  </ROW>
   <ROW ID="SELECTREPORTTBACCESS" PARAMS="4">
     <DESC>SELECTREPORTTBACCESS</DESC>
     <DATA>
@@ -1498,7 +1573,59 @@
         ]]>
     </DATA>
   </ROW>
-  
+  <ROW ID="SELECTREPORTTBACCESSSTATS" PARAMS="5">
+    <DESC>SELECTREPORTTBACCESSSTATS</DESC>
+    <DATA>
+      <![CDATA[
+           SELECT /* SELECTREPORTTBACCESSSTATS */
+		             STATS.instance_id AS instance_id 
+	               , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {5} )) * {5}) AT TIME ZONE 'UTC' AS COLLECT_DATE
+	               , MAX(HOST_NAME) AS HOST_NAME
+	               , MAX(DB_NAME) AS DB_NAME 
+	               , AVG(DISK_READ_KB) AS DISK_READ_KB 
+	               , AVG(BUFFER_READ_KB) AS BUFFER_READ_KB
+	               , AVG(HIT_RATIO) HIT_RATIO   
+	               , AVG(INSERT_TUPLES_PER_SEC) AS INSERT_TUPLES_PER_SEC
+	               , AVG(UPDATE_TUPLES_PER_SEC) AS UPDATE_TUPLES_PER_SEC
+	               , AVG(DELETE_TUPLES_PER_SEC) AS DELETE_TUPLES_PER_SEC
+	               , AVG(SELECT_TUPLES_PER_SEC) AS SELECT_TUPLES_PER_SEC
+	               , AVG(SEQ_TUPLES) AS SEQ_TUPLES
+	               , AVG(INDEX_TUPLES) AS INDEX_TUPLES 
+	               , AVG(SEQ_SCAN) AS SEQ_SCAN
+	               , AVG(INDEX_SCAN) AS INDEX_SCAN            
+	         FROM (
+		         	 SELECT A.INSTANCE_ID
+			               	, C.COLLECT_DT AS COLLECT_DT
+			               	, CASE WHEN 0=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+			               	, C.DB_NAME AS DB_NAME --PT_05_03_001(DB INFO : DB) 
+			               	, ROUND((C.CURRENT_HEAP_BLKS_READ_KB),2) AS DISK_READ_KB --PT_05_03_001(DB INFO : DISK READ(KB)) 
+			               	, ROUND((C.CURRENT_HEAP_BLKS_HIT_KB),2) AS BUFFER_READ_KB --PT_05_03_001(DB INFO : BUFFER READ(KB)) 
+			               	, ROUND( C.CURRENT_HEAP_BLKS_HIT_KB::NUMERIC / (CASE WHEN ((C.CURRENT_HEAP_BLKS_HIT_KB)+(C.CURRENT_HEAP_BLKS_READ_KB)) = 0 THEN 1 ELSE ((C.CURRENT_HEAP_BLKS_HIT_KB)+(C.CURRENT_HEAP_BLKS_READ_KB)) END),4)*100 AS HIT_RATIO --PT_05_03_001(DB INFO : HIT RATIO)  
+			               	, ROUND((C.CURRENT_INSERT_TUPLES), 2) AS INSERT_TUPLES_PER_SEC --PT_04_09_001(Object : INSERT_TUPLES)
+			               	, ROUND((C.CURRENT_UPDATE_TUPLES), 2) AS UPDATE_TUPLES_PER_SEC --PT_04_09_001(Object : UPDATE_TUPLES)
+			               	, ROUND((C.CURRENT_DELETE_TUPLES), 2) AS DELETE_TUPLES_PER_SEC --PT_04_09_001(Object : DELETE_TUPLES)
+			               	, ROUND(((C.CURRENT_SEQ_READ_TUPLES) + (C.CURRENT_IDX_FETCH_TUPLES) - (C.CURRENT_UPDATE_TUPLES) - (C.CURRENT_DELETE_TUPLES)) , 2) AS SELECT_TUPLES_PER_SEC --PT_04_09_001(Object : READ_TUPLES)
+			               	, ROUND((C.CURRENT_SEQ_READ_TUPLES)::NUMERIC, 2) AS SEQ_TUPLES --PT_06_06(TABLE ACCESS INFO : SEQ_TUPLES COUNT)
+			               	, ROUND((C.CURRENT_IDX_FETCH_TUPLES)::NUMERIC, 2) AS INDEX_TUPLES --PT_06_06(TABLE ACCESS INFO : INDEX_TUPLES COUNT) 
+			               	, ROUND((C.CURRENT_SEQ_READ_TUPLES)::NUMERIC / (CASE WHEN ((C.CURRENT_SEQ_READ_TUPLES)+(C.CURRENT_IDX_FETCH_TUPLES)) = 0 THEN 1 ELSE ((C.CURRENT_SEQ_READ_TUPLES)+(C.CURRENT_IDX_FETCH_TUPLES)) END)*100 ,2) AS SEQ_SCAN --PT_06_06(TABLE ACCESS INFO : SEQ_SCAN COUNT)
+			               	, ROUND((C.CURRENT_IDX_FETCH_TUPLES)::NUMERIC / (CASE WHEN ((C.CURRENT_SEQ_READ_TUPLES)+(C.CURRENT_IDX_FETCH_TUPLES)) = 0 THEN 1 ELSE ((C.CURRENT_SEQ_READ_TUPLES)+(C.CURRENT_IDX_FETCH_TUPLES)) END)*100 ,2) AS INDEX_SCAN --PT_06_06(TABLE ACCESS INFO : INDEX_SCAN COUNT) 
+			           FROM TB_INSTANCE_INFO A
+			               , TB_ACTV_COLLECT_INFO B
+			               , TB_ACCESS_INFO C
+			           WHERE A.INSTANCE_ID =  {0}
+			           AND B.REG_DATE {1}  -- Dynamic('IN' or '=' )
+			           AND C.COLLECT_DT  BETWEEN '{2}' AND '{3}'
+			           AND A.INSTANCE_ID = B.INSTANCE_ID
+			           AND B.REG_DATE = C.REG_DATE
+			           AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+			           AND A.COLLECT_YN = 'Y'
+			           AND A.DELETE_YN = 'N'
+			           ORDER BY DB_NAME
+		           ) STATS
+        	GROUP BY instance_id, DB_NAME, COLLECT_DATE
+        ]]>
+    </DATA>
+  </ROW>
   <ROW ID="SELECTREPORTSESSIONCHART" PARAMS="4">
     <DESC>SELECTREPORTSESSIONCHART</DESC>
     <DATA>
@@ -1528,10 +1655,45 @@
          AND IST.DELETE_YN = 'N'
          AND IST.INSTANCE_ID = ACT.INSTANCE_ID
          GROUP BY BAK.ACTV_REG_SEQ , DB_NAME ;
-       
-  
-
         ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTREPORTSESSIONCHARTSTATS" PARAMS="5">
+    <DESC>SELECTREPORTSESSIONCHARTSTATS</DESC>
+    <DATA>
+      <![CDATA[
+              --Report (session info chart)
+              SELECT /*SELECTREPORTSESSIONCHARTSTATS*/
+                      MAX(INSTANCE_ID) AS INSTANCE_ID
+                    , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {4} )) * {4}) AT TIME ZONE 'UTC' AS COLLECT_DATE
+                    , MAX(CUR_ACTV_BACKEND_CNT) AS CUR_ACTV_BACKEND_CNT
+                    , MAX(IDLE_BACKEND_CNT) AS IDLE_BACKEND_CNT
+                    , MAX(IDLE_IN_TRC_BACKEND_CNT) AS IDLE_IN_TRC_BACKEND_CNT
+                    , MAX(DB_NAME) AS DB_NAME
+              FROM (SELECT  MAX(IST.INSTANCE_ID) AS INSTANCE_ID
+                            , MAX(BAK.COLLECT_DT) AS COLLECT_DT
+                            , BAK.ACTV_REG_SEQ
+                            , SUM(CASE WHEN (BAK.STATE = 'active') THEN 1 ELSE 0 END) AS CUR_ACTV_BACKEND_CNT
+                            , SUM(CASE WHEN (BAK.STATE = 'idle') THEN 1 ELSE 0 END) AS IDLE_BACKEND_CNT
+                            , SUM(CASE WHEN (BAK.STATE = 'idle in transaction') THEN 1 WHEN (BAK.STATE = 'idle in transaction (aborted)') THEN 1 ELSE 0 END) AS IDLE_IN_TRC_BACKEND_CNT
+                            , DB_NAME
+                      FROM TB_INSTANCE_INFO IST
+                            , TB_BACKEND_RSC BAK
+                            , TB_ACTV_COLLECT_INFO ACT
+                     WHERE IST.INSTANCE_ID =  {0}
+                       AND BAK.REG_DATE {1}  -- Dynamic('IN' or '=' )
+                       AND BAK.COLLECT_DT BETWEEN '{2}' AND '{3}'
+                       AND BAK.REG_DATE = ACT.REG_DATE
+                       AND ACT.ACTV_REG_SEQ = BAK.ACTV_REG_SEQ
+                       AND IST.COLLECT_YN = 'Y'
+                       AND IST.DELETE_YN = 'N'
+                       AND IST.INSTANCE_ID = ACT.INSTANCE_ID
+                     GROUP BY BAK.ACTV_REG_SEQ , DB_NAME
+                    ) BYSEQ
+              GROUP BY DB_NAME, COLLECT_DATE
+              ORDER BY DB_NAME, COLLECT_DATE
+          ]]>
     </DATA>
   </ROW>
   <ROW ID="SELECTREPORTSQL" PARAMS="4">
