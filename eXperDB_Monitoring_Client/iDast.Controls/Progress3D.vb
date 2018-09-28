@@ -18,6 +18,8 @@ Public Class Progress3D
 
     Private _SubText2 As String = ""
 
+    Private _IconColor As Color = Drawing.Color.WhiteSmoke
+
     Private _Margin As Integer = 10
 
     Private _Radius As Integer = 10
@@ -64,6 +66,17 @@ Public Class Progress3D
         End Get
         Set(value As String)
             _SubText2 = value
+        End Set
+    End Property
+    Property IconColor As Color
+        Get
+            Return _IconColor
+        End Get
+        Set(value As Color)
+            If Not _IconColor.Equals(value) Then
+                _IconColor = value
+                'If _parent IsNot Nothing Then _parent.Invalidate()
+            End If
         End Set
     End Property
 
@@ -470,12 +483,16 @@ Public Class Progress3D
             Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
             grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
             Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
-            Dim grPath2 As New System.Drawing.Drawing2D.GraphicsPath
-            initRect.Inflate(-90, 0)
+            Dim grIcon As New System.Drawing.Drawing2D.GraphicsPath
+            'initRect.Inflate(-90, 0)
             'If _HeadText <> _HeadText2 Then
             '    grPath2.AddString(Me._HeadText2, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
             '    Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText2 <> "Primary", IIf(Me._HeadText2 = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath2)
             'End If
+
+            Dim AreaRect As New Rectangle(initRect.Right - 16, initRect.Top + 6, 10, 10)
+            grIcon.AddEllipse(AreaRect)
+            Gr.FillPath(New SolidBrush(Color.FromArgb(tmpItm.FillOpacity, IconColor)), grIcon)
 
             ' 변경뒤에 다음 값을 위하여 OFFSET 
             FillPath.Transform(OffsetMatrix)

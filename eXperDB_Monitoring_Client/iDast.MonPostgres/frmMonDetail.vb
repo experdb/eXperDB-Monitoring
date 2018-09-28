@@ -90,7 +90,6 @@
     Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
     Private _initConnect As Boolean = False
-    Private _invisibleChartMap As String = "TPS"
 
     ReadOnly Property AgentCn As eXperDBODBC
         Get
@@ -1240,7 +1239,7 @@
         Me.Invoke(Sub()
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID)
+                          dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID, 10)
 
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 

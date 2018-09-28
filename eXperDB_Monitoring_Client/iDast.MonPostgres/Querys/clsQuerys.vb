@@ -1289,10 +1289,10 @@
 
     End Function
     ' Add Functions for accumulated chart in detail view
-    Public Function SelectInitCPUChart(ByVal intInstanceID As Integer, ByVal strName As String) As DataTable
+    Public Function SelectInitCPUChart(ByVal intInstanceID As String, ByVal strName As String) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCPUMEMINFOBEFORE")
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCPUMEMINFOPREV")
                 strQuery = String.Format(strQuery, intInstanceID, strName)
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1309,10 +1309,13 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectInitSQLRespTmChart(ByVal intInstanceID As Integer) As DataTable
+
+    Public Function SelectInitSQLRespTmChart(ByVal strInstanceID As String, ByVal intDuration As Integer) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSQLRESPTIMEBEFORE")
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSQLRESPTIMEPREV")
+
+                strQuery = String.Format(strQuery, strInstanceID, "now() - interval '" + intDuration.ToString() + " minute'")
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1751,7 +1754,7 @@
                     strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
                 Else
                     subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '5 minute')::time AND COL.REG_TIME < (now())::time")
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time AND COL.REG_TIME < (now())::time")
                 End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1772,7 +1775,7 @@
     Public Function SelectInitObjectChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTOBJECTBEFORE")
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTOBJECTPREV")
                 Dim subQuery As String = ""
 
                 If HaveDuration = True Then
@@ -1886,7 +1889,7 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+    Public Function SelectLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean, Optional ByVal intDuration As Integer = 10) As DataTable
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKACCUM")
@@ -1901,7 +1904,7 @@
                     strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
                 Else
                     subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time")
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '" + intDuration.ToString + " minute')::time")
                 End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)

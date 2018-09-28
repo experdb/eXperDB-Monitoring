@@ -2539,7 +2539,7 @@
   </ROW>
   <ROW ID="F320" PARAMS="0">
     <DESC>Transaction per second</DESC>
-    <DATA><![CDATA[Transaction per second]]></DATA>
+    <DATA><![CDATA[TPS]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2548,6 +2548,14 @@
   <ROW ID="F321" PARAMS="0">
     <DESC>Change Item</DESC>
     <DATA><![CDATA[Change Item]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F322" PARAMS="0">
+    <DESC>LOCK WAIT</DESC>
+    <DATA><![CDATA[Lock Wait]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

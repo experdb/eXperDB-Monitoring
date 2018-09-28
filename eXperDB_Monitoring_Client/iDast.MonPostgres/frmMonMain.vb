@@ -47,6 +47,23 @@
 
     Private _isPower As Boolean = True
 
+    Private _instanceColors() As Color = {System.Drawing.Color.YellowGreen,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.Orange,
+                         System.Drawing.Color.Red,
+                         System.Drawing.Color.Blue,
+                         System.Drawing.Color.Brown,
+                         System.Drawing.Color.Green,
+                         System.Drawing.Color.Purple,
+                         System.Drawing.Color.Yellow,
+                         System.Drawing.Color.Pink,
+                         System.Drawing.Color.PowderBlue,
+                         System.Drawing.Color.SkyBlue,
+                         System.Drawing.Color.SpringGreen,
+                         System.Drawing.Color.GreenYellow,
+                         System.Drawing.Color.Violet,
+                         System.Drawing.Color.Salmon}
+
     Private _GrpListServerinfo As List(Of GroupInfo.ServerInfo)
     ''' <summary>
     ''' Group List Items 안에 서버 리스트가 있음. 
@@ -165,40 +182,52 @@
             dgvAlertCurr.Visible = False
             dgvAlert.Visible = True
         End If
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        tlpCPUUtil.Tag = clsIni.ReadValue("CHART", "CPUUTIL", "1")
+        tlpSessionActive.Tag = clsIni.ReadValue("CHART", "SESSIONACTIVE", "2")
+        tlpLogicalRead.Tag = clsIni.ReadValue("CHART", "LOGICALREAD", "3")
+        tlpSQLRespTmMAX.Tag = clsIni.ReadValue("CHART", "SQLRESPTMMAX", "4")
+        tlpLockWait.Tag = clsIni.ReadValue("CHART", "LOCKWAIT", "5")
+        tlpTPSTotal.Tag = clsIni.ReadValue("CHART", "TPSTOTAL", "6")
+        tlpCPUWait.Tag = clsIni.ReadValue("CHART", "CPUWAIT", "0")
+        tlpLogicalWrite.Tag = clsIni.ReadValue("CHART", "LOGICALWRITE", "0")
+        tlpSessionTotal.Tag = clsIni.ReadValue("CHART", "SESSIONTOTAL", "0")
+        tlpTPSCommit.Tag = clsIni.ReadValue("CHART", "TPSCOMMIT", "0")
+        tlpTPSRollback.Tag = clsIni.ReadValue("CHART", "TPSROLLBACK", "0")
+        tlpSQLRespTmAVG.Tag = clsIni.ReadValue("CHART", "SQLRESPTMAVG", "0")
 
+        mnuCPUUtil.Tag = tlpCPUUtil
+        mnuSessionActive.Tag = tlpSessionActive
+        mnuLogicalRead.Tag = tlpLogicalRead
+        mnuSQLRespTmMAX.Tag = tlpSQLRespTmMAX
+        mnuLockWait.Tag = tlpLockWait
+        mnuTPSTotal.Tag = tlpTPSTotal
+        mnuCPUWait.Tag = tlpCPUWait
+        mnuLogicalWrite.Tag = tlpLogicalWrite
+        mnuSessionTotal.Tag = tlpSessionTotal
+        mnuTPSCommit.Tag = tlpTPSCommit
+        mnuTPSRollback.Tag = tlpTPSRollback
+        mnuSQLRespTmAVG.Tag = tlpSQLRespTmAVG
+
+        setTLPPosition(tlpCPUUtil)
+        setTLPPosition(tlpCPUWait)
+        setTLPPosition(tlpLogicalRead)
+        setTLPPosition(tlpLogicalWrite)
+        setTLPPosition(tlpSessionActive)
+        setTLPPosition(tlpSessionTotal)
+        setTLPPosition(tlpLockWait)
+        setTLPPosition(tlpTPSTotal)
+        setTLPPosition(tlpTPSCommit)
+        setTLPPosition(tlpTPSRollback)
+        setTLPPosition(tlpSQLRespTmMAX)
+        setTLPPosition(tlpSQLRespTmAVG)
+
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     End Sub
-
-
-    'Noh ->
-    'Private Sub frmMonMain_FormControlRotation(e As Boolean) Handles Me.FormControlRotation
-    '    Try
-    '        If e = True Then
-    '            tmRotateGroup.Start()
-    '        Else
-    '            tmRotateGroup.Stop()
-    '        End If
-    '    Catch ex As Exception
-    '        p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-    '    End Try
-    'End Sub
-    'Private Sub frmMonMain_FormControlPower(e As Boolean) Handles Me.FormControlPower
-    '    Try
-
-
-    '        If e = True Then
-
-    '            p_clsAgentCollect.Start(_AgentCn, _ElapseInterval, p_ShowName)
-    '            tmCollect.Start()
-    '        Else
-    '            tmCollect.Stop()
-    '            p_clsAgentCollect.Stop()
-    '        End If
-    '    Catch ex As Exception
-    '        p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-    '    End Try
-    'End Sub
-
-    '/<-noh
 
     ''' <summary>
     ''' Form Load 
@@ -243,7 +272,14 @@
         grpCPU.Text = p_clsMsgData.fn_GetData("F035")
         colGrpCpuSvrNm.HeaderText = p_clsMsgData.fn_GetData("F033")
         colGrpCpuSvrUsage.HeaderText = p_clsMsgData.fn_GetData("F034")
-
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        lblCPUUtil.Text = grpCPU.Text + " Util"
+        lblCPUWait.Text = grpCPU.Text + " Wait"
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         radCpu.Style = iniConfig.ReadValue("STYLE", "CPU", 2)
         radCpu.ItemReverse = iniConfig.ReadValue("STYLE", "CPUREVERSE", False)
 
@@ -257,6 +293,14 @@
         ''Remove 0202
         '' Request Information
         grpReqInfo.Text = p_clsMsgData.fn_GetData("F040")
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        lblLogicalRead.Text = grpReqInfo.Text + " Read"
+        lblLogicalWrite.Text = grpReqInfo.Text + " Write"
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'colDgvReqInfoSvrNm.HeaderText = p_clsMsgData.fn_GetData("F033")
         'colDgvReqInfoInsert.HeaderText = p_clsMsgData.fn_GetData("F053")
         'colDgvReqInfoInsert.HeaderCell.Style.ForeColor = chrReqInfo.Series("INSERT").Color
@@ -299,7 +343,21 @@
 
         ' Session Chart
 
-        grpSesionChart.Text = p_clsMsgData.fn_GetData("F167")
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        lblSessionStatus.Text = p_clsMsgData.fn_GetData("F167")
+        lblSesionActive.Text = lblSessionStatus.Text + " Active"
+        lblSesionTotal.Text = lblSessionStatus.Text + " Total"
+        lblLockWait.Text = p_clsMsgData.fn_GetData("F322")
+        lblTPSTotal.Text = p_clsMsgData.fn_GetData("F320")
+        lblTPSCommit.Text = p_clsMsgData.fn_GetData("F320") + " Commit"
+        lblTPSRollback.Text = p_clsMsgData.fn_GetData("F320") + " Rollback"
+        lblSQLRespTmMAX.Text = p_clsMsgData.fn_GetData("F103") + " Max"
+        lblSQLRespTmAVG.Text = p_clsMsgData.fn_GetData("F103") + " Avg"
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         ' Session Information
 
@@ -437,6 +495,12 @@
         sb_setGrpDiskInfos()
         ' Request Info 
         sb_SetGrpReqinfo(grpInfo.Items)
+        ' Lock Info 
+        sb_SetGrpLockinfo(grpInfo.Items)
+        ' TPS
+        sb_SetGrpTPSinfo(grpInfo.Items)
+        ' SQL Resp
+        sb_SetGrpSQLRespInfo(grpInfo.Items)
         ' Session Stats
         sb_SetSessionStatus(grpInfo.Items)
         If bckmanual.IsBusy = True Then
@@ -462,9 +526,6 @@
             Next
         Next
 
-
-
-
         Me.chrReqInfo.Tag = srtLSt
 
 
@@ -472,46 +533,76 @@
 
         'dgvReqInfo.Rows.Clear() '0202
 
-
-
-    End Sub
-    Private Sub sb_SetSessionStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        '0202 change flow chart
-        'For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
-        '    tmpSeries.Points.Clear()
-        'Next
-        'Dim srtLSt As New SortedList
-
-        'For i As Integer = 0 To svrLst.Count - 1
-        '    srtLSt.Add(svrLst.Item(i).InstanceID, i)
-        '    For Each tmpSeries As DataVisualization.Charting.Series In Me.chrSessionStat.Series
-        '        Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
-        '        tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
-        '    Next
-        'Next
-
-        'Me.chrSessionStat.Tag = srtLSt
-        'chrSessionStat.Invalidate()
-
-        Dim colors() As Color = {System.Drawing.Color.YellowGreen,
-                                 System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
-                                 System.Drawing.Color.Orange,
-                                 System.Drawing.Color.Red,
-                                 System.Drawing.Color.Blue,
-                                 System.Drawing.Color.Brown,
-                                 System.Drawing.Color.Green,
-                                 System.Drawing.Color.Purple,
-                                 System.Drawing.Color.Yellow,
-                                 System.Drawing.Color.Pink,
-                                 System.Drawing.Color.PowderBlue,
-                                 System.Drawing.Color.SkyBlue,
-                                 System.Drawing.Color.SpringGreen,
-                                 System.Drawing.Color.GreenYellow,
-                                 System.Drawing.Color.Violet,
-                                 System.Drawing.Color.Salmon}
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim index As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            index += 1
+        Next
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    End Sub
+
+
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Private Sub sb_SetGrpLockinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            index += 1
+        Next
+    End Sub
+
+    Private Sub sb_SetGrpTPSinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            index += 1
+        Next
+    End Sub
+    Private Sub sb_SetGrpSQLRespInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            index += 1
+        Next
+    End Sub
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    Private Sub sb_SetSessionStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+
+        For i As Integer = 0 To svrLst.Count - 1
+            srtLSt.Add(svrLst.Item(i).InstanceID, i)
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+            Next
+        Next
+
+        Me.chtSessionStatus.Tag = srtLSt
+        chtSessionStatus.Invalidate()
+
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
             index += 1
         Next
 
@@ -559,6 +650,20 @@
 
         DgvRowHeightFill(dgvGrpCpuSvrLst)
         AddHandler dgvGrpCpuSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
+
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            index += 1
+        Next
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
     End Sub
     ''' <summary>
     ''' GrpMem 컨트롤 초기화 
@@ -632,6 +737,7 @@
             tmpCtl.Text = " "
             tmpCtl.Text += svrLst.Item(i).ShowNm
             tmpCtl.SubText = svrLst.Item(i).IP & " / " & svrLst.Item(i).Port
+            tmpCtl.IconColor = _instanceColors(i)
             'tmpCtl.SubText = "IP :" & svrLst.Item(i).IP
             'tmpCtl.SubText2 = "Port :" & svrLst.Item(i).Port
             tmpCtl.Tag = svrLst.Item(i)
@@ -896,7 +1002,8 @@
                 clsAgentCollect_GetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
                 clsAgentCollect_GetDataDiskInfo(p_clsAgentCollect.infoDataDisk)
                 clsAgentCollect_GetDataLockinfo(p_clsAgentCollect.infoDatalock)
-                'clsAgentCollect_GetDataSQLRespTmInfo(p_clsAgentCollect.infoDataSQLRespTm)
+                clsAgentCollect_GetDataLockCount(p_clsAgentCollect.infoDatalockCount)
+                clsAgentCollect_GetDataSQLRespTmInfo(p_clsAgentCollect.infoDataSQLRespTm)
                 clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
                 'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
                 clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
@@ -954,7 +1061,7 @@
             Dim tmpCtl As BaseControls.RadioButton
             Dim CurrentCheckedIndex As Integer = 0
             For i As Integer = 0 To _GrpList.Count - 1
-                tmpCtl = tlpGroup.Controls.Find("rbGrp" & i + 1, True)(0)
+                tmpCtl = tlpCurrent.Controls.Find("rbGrp" & i + 1, True)(0)
                 If tmpCtl.Checked Then
                     CurrentCheckedIndex = i
                     Exit For
@@ -964,7 +1071,7 @@
             If CurrentCheckedIndex > _GrpList.Count - 1 Then
                 CurrentCheckedIndex = 0
             End If
-            tmpCtl = tlpGroup.Controls.Find("rbGrp" & CurrentCheckedIndex + 1, True)(0)
+            tmpCtl = tlpCurrent.Controls.Find("rbGrp" & CurrentCheckedIndex + 1, True)(0)
             tmpCtl.Tag = GrpList.Item(CurrentCheckedIndex)
             tmpCtl.Checked = True
 
@@ -1066,10 +1173,10 @@
     ''' <remarks></remarks>
     Private Sub clsAgentCollect_GetDataCpuMem(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
-
+        Dim intInstID As Integer
         For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "MEM_USED_RATE", "HOST_NAME").Rows
             ' GRP CPU
-            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID")
+            intInstID = dtRow.Item("INSTANCE_ID")
             Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
             Dim strInstNm As String = dtRow.Item("HOST_NAME")
             If cpuidx >= 0 Then
@@ -1108,14 +1215,61 @@
         modCommon.sb_GridProgClrChg(dgvGrpMemSvrLst)
         sb_GridSortChg(dgvGrpMemSvrLst, colGrpMemSvrUsage.Index)
 
-        ' 하위폼이 있을 경우 하위폼에 던진다. 
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Dim dblRegDt As Double
+        Dim MaxPri As Double = 0
+        If dtTable IsNot Nothing Then
+            If dtTable.Rows.Count > 0 Then
+                dblRegDt = ConvOADate(dtTable.Rows(0).Item("REG_DATE"))
+                For Each dtRow As DataRow In dtTable.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("CPU_MAIN")))
+                            sb_ChartAddPoint(Me.chtCPUWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("WAIT_UTIL_RATE")))
+                        End If
+                    Next
+                Next
+            Else
+                dblRegDt = ConvOADate(Now)
+                Me.chtCPUUtil.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtCPUWait.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            End If
+            sb_ChartAlignYAxies(Me.chtCPUUtil)
+            sb_ChartAlignYAxies(Me.chtCPUWait)
+        End If
 
-        'For Each tmpFrm As Form In My.Application.OpenForms
-        '    Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
-        '    If subFrm IsNot Nothing Then
-        '        subFrm.SetDataCpuMem(dtTable)
-        '    End If
-        'Next
+        Try
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                Dim NowCnt As Integer = 3
+                If Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        Me.chtCPUUtil.ChartAreas(0).RecalculateAxesScale()
+        Me.chtCPUWait.ChartAreas(0).RecalculateAxesScale()
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     End Sub
 
@@ -1278,6 +1432,67 @@
 
     End Sub
 
+    ''' <summary>
+    ''' Lock Wait
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub clsAgentCollect_GetDataLockCount(ByVal dtTable As DataTable)
+
+        '0202 change flow chart
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Dim MaxPri As Double = 0
+        If dtTable IsNot Nothing Then
+            If dtTable.Rows.Count > 0 Then
+                dblRegDt = ConvOADate(dtTable.Rows(0).Item("COLLECT_DT"))
+                For Each dtRow As DataRow In dtTable.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            Dim lngActiveSessions As Long = ConvULong(dtRow.Item("LOCK_WAIT"))
+                            sb_ChartAddPoint(Me.chtLockWait, tmpSvr.ShowSeriesNm, dblRegDt, lngActiveSessions)
+                            Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
+                            Me.chtLockWait.Series(0).Points(idx).SetValueY(lngActiveSessions)
+                            MaxPri = Math.Max(lngActiveSessions, MaxPri)
+                        End If
+                    Next
+                Next
+            Else
+                dblRegDt = ConvOADate(Now)
+                Me.chtLockWait.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            End If
+            sb_ChartAlignYAxies(Me.chtLockWait)
+        End If
+
+        Try
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                Dim NowCnt As Integer = 3
+                If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        If MaxPri > 0 Then
+
+            Dim intPri As Integer = MaxPri \ 5
+            intPri += 1
+            Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum = intPri * 5
+            Me.chtSessionStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            Me.chtSessionStatus.ChartAreas(0).AxisY.Interval = Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum / 5
+        End If
+
+        Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+    End Sub
+
     ' ''' <summary>
     ' ''' SQL Response Time 값이 변경 되었을 경우 
     ' ''' </summary>
@@ -1387,6 +1602,7 @@
         '0202 change flow chart
         Dim dblRegDt As Double
         Dim intInstID As Integer
+        Dim MaxPri As Double = 0
         If dtTableSessionStatus IsNot Nothing Then
             If dtTableSessionStatus.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
@@ -1395,8 +1611,8 @@
                     'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
-                            'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                            sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                             'Else
                             '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
                             '    If lastYPoint > 0 Then
@@ -1404,24 +1620,42 @@
                             '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
                             '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
                             '    End If
+                            Dim lngActiveSessions As Long = ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))
+                            Dim lngTotalSessions As Long = ConvULong(dtRow.Item("TOT_BACKEND_CNT"))
+
+                            Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
+                            Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
+                            Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
+
+                            MaxPri = Math.Max(lngTotalSessions, MaxPri)
                         End If
                     Next
                 Next
             Else
                 dblRegDt = ConvOADate(Now)
                 'sb_ChartAddPoint(Me.chtSessionStatus, "", dblRegDt, 0.0)
-                Me.chtSessionStatus.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtSessionActive.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtSessionTotal.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
             End If
-            sb_ChartAlignYAxies(Me.chtSessionStatus)
+            sb_ChartAlignYAxies(Me.chtSessionActive)
+            sb_ChartAlignYAxies(Me.chtSessionTotal)
         End If
 
         Try
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 Dim NowCnt As Integer = 3
-                If Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
-                        Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
-                        If Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                If Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
                         End If
                     Loop
@@ -1446,6 +1680,73 @@
         'Catch ex As Exception
         '    GC.Collect()
         'End Try
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        If MaxPri > 0 Then
+
+            Dim intPri As Integer = MaxPri \ 5
+            intPri += 1
+            Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum = intPri * 5
+            Me.chtSessionStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            Me.chtSessionStatus.ChartAreas(0).AxisY.Interval = Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum / 5
+        End If
+
+        Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+
+    End Sub
+
+
+    Private Sub clsAgentCollect_GetDataSQLRespTmInfo(ByVal dtTableDataSQLRespTm As DataTable)
+
+        '0202 change flow chart
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Dim MaxPri As Double = 0
+        If dtTableDataSQLRespTm IsNot Nothing Then
+            If dtTableDataSQLRespTm.Rows.Count > 0 Then
+                dblRegDt = ConvOADate(dtTableDataSQLRespTm.Rows(0).Item("REG_DATE"))
+                For Each dtRow As DataRow In dtTableDataSQLRespTm.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("MAX_SQL_ELAPSED_SEC"))) 'Active 세션만
+                            sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("AVG_SQL_ELAPSED_SEC")))
+                        End If
+                    Next
+                Next
+            Else
+                dblRegDt = ConvOADate(Now)
+                Me.chtSQLRespTmMAX.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtSQLRespTmAVG.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            End If
+            sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
+            sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
+        End If
+
+        Try
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                If Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
 
     End Sub
     '0202 add flow chart
@@ -1511,6 +1812,117 @@
             clsQu = Nothing
         End Try
     End Sub
+
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Private _dtTableCpu As DataTable = Nothing
+    Private Sub getinitDataCpu(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        '0202 change flow chart
+        Dim arrInstanceIDs As New ArrayList
+        Dim strInstancIDs As String
+        Dim clsQu As clsQuerys
+        Try
+            clsQu = New clsQuerys(_AgentCn)
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstancIDs = String.Join(",", Instance)
+            _dtTableCpu = clsQu.SelectInitCPUChart(strInstancIDs, p_ShowName.ToString("d"))
+
+        Catch ex As Exception
+            GC.Collect()
+            _dtTableSessionStatus = Nothing
+        Finally
+            clsQu = Nothing
+        End Try
+    End Sub
+
+    Private _dtTableLogical As DataTable = Nothing
+    Private Sub getinitDataLogical(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        '0202 change flow chart
+        Dim arrInstanceIDs As New ArrayList
+        Dim strInstancIDs As String
+        Dim clsQu As clsQuerys
+        Try
+            clsQu = New clsQuerys(_AgentCn)
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstancIDs = String.Join(",", Instance)
+            _dtTableLogical = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), False)
+        Catch ex As Exception
+            GC.Collect()
+            _dtTableSessionStatus = Nothing
+        Finally
+            clsQu = Nothing
+        End Try
+    End Sub
+    Private _dtTableLock As DataTable = Nothing
+    Private Sub getinitDataLock(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        '0202 change flow chart
+        Dim arrInstanceIDs As New ArrayList
+        Dim strInstancIDs As String
+        Dim clsQu As clsQuerys
+        Try
+            clsQu = New clsQuerys(_AgentCn)
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstancIDs = String.Join(",", Instance)
+            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 5)
+        Catch ex As Exception
+            GC.Collect()
+            _dtTableSessionStatus = Nothing
+        Finally
+            clsQu = Nothing
+        End Try
+    End Sub
+    Private _dtTableTPS As DataTable = Nothing
+    Private Sub getinitDataTPS(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim arrInstanceIDs As New ArrayList
+        Dim strInstancIDs As String
+        Dim clsQu As clsQuerys
+        Try
+            clsQu = New clsQuerys(_AgentCn)
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstancIDs = String.Join(",", Instance)
+            _dtTableTPS = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), False)
+        Catch ex As Exception
+            GC.Collect()
+            _dtTableSessionStatus = Nothing
+        Finally
+            clsQu = Nothing
+        End Try
+    End Sub
+
+    Private _dtTableSQLResp As DataTable = Nothing
+    Private Sub getinitDataSQLResp(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim arrInstanceIDs As New ArrayList
+        Dim strInstancIDs As String
+        Dim clsQu As clsQuerys
+        Try
+            clsQu = New clsQuerys(_AgentCn)
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                arrInstanceIDs.Add(tmpSvr.InstanceID)
+            Next
+            Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
+            strInstancIDs = String.Join(",", Instance)
+            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 5)
+        Catch ex As Exception
+            GC.Collect()
+            _dtTableSessionStatus = Nothing
+        Finally
+            clsQu = Nothing
+        End Try
+    End Sub
+
     Private Sub drawDataSessionStatsInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         '0202 change flow chart
         Dim dtTableSessionStatus As DataTable = Nothing
@@ -1524,18 +1936,13 @@
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
-                            'sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
-                            sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT")))
-                            'Else
-                            '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
-                            '    If lastYPoint > 0 Then
-                            '        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
-
-                            '    End If
+                            sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT")))
+                            sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
                         End If
                     Next
                 Next
-                sb_ChartAlignYAxies(Me.chtSessionStatus)
+                sb_ChartAlignYAxies(Me.chtSessionActive)
+                sb_ChartAlignYAxies(Me.chtSessionTotal)
             End If
         Catch ex As Exception
             GC.Collect()
@@ -1543,18 +1950,149 @@
 
         End Try
     End Sub
+
+    Private Sub drawDataCpu(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim dtTableCpu As DataTable = Nothing
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Try
+            If _dtTableCpu IsNot Nothing Then
+                For Each dtRow As DataRow In _dtTableCpu.Rows
+                    dblRegDt = ConvOADate(dtRow.Item("REG_DATE"))
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("CPU_MAIN")))
+                            sb_ChartAddPoint(Me.chtCPUWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("WAIT_UTIL_RATE")))
+                        End If
+                    Next
+                Next
+                sb_ChartAlignYAxies(Me.chtCPUUtil)
+                sb_ChartAlignYAxies(Me.chtCPUWait)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        Finally
+
+        End Try
+    End Sub
+    Private Sub drawDataLogical(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Try
+            If _dtTableLogical IsNot Nothing Then
+                For Each dtRow As DataRow In _dtTableLogical.Rows
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("SELECT_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, dblRegDt, _
+                                             ConvULong(dtRow.Item("INSERT_TUPLES_PER_SEC")) _
+                                           + ConvULong(dtRow.Item("UPDATE_TUPLES_PER_SEC")) _
+                                           + ConvULong(dtRow.Item("DELETE_TUPLES_PER_SEC")))
+                        End If
+                    Next
+                Next
+                sb_ChartAlignYAxies(Me.chtLogicalRead)
+                sb_ChartAlignYAxies(Me.chtLogicalWrite)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        Finally
+
+        End Try
+    End Sub
+    Private Sub drawDataLock(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Try
+            If _dtTableLock IsNot Nothing Then
+                For Each dtRow As DataRow In _dtTableLock.Rows
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtLockWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("LOCK_WAIT")))
+                        End If
+                    Next
+                Next
+                sb_ChartAlignYAxies(Me.chtLockWait)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        Finally
+        End Try
+    End Sub
+    Private Sub drawDataTPS(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Try
+            If _dtTableTPS IsNot Nothing Then
+                For Each dtRow As DataRow In _dtTableTPS.Rows
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("COMMIT_TUPLES_PER_SEC")) + ConvULong(dtRow.Item("ROLLBACK_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("COMMIT_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("ROLLBACK_TUPLES_PER_SEC")))
+                        End If
+                    Next
+                Next
+                sb_ChartAlignYAxies(Me.chtTPSTotal)
+                sb_ChartAlignYAxies(Me.chtTPSCommit)
+                sb_ChartAlignYAxies(Me.chtTPSRollback)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        Finally
+        End Try
+    End Sub
+
+    Private Sub drawDataSQLResp(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim arrInstanceIDs As New ArrayList
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Try
+            If _dtTableSQLResp IsNot Nothing Then
+                For Each dtRow As DataRow In _dtTableSQLResp.Rows
+                    dblRegDt = ConvOADate(dtRow.Item("REG_DATE"))
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("MAX_SQL_ELAPSED_SEC")))
+                            sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("AVG_SQL_ELAPSED_SEC")))
+                        End If
+                    Next
+                Next
+                sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
+                sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        Finally
+        End Try
+    End Sub
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub clsAgentCollect_GetDataObjectInfo(ByVal dtTableObject As DataTable, ByVal dtTableSession As DataTable)
 
 
         If dtTableObject Is Nothing Then Return
         Dim tmpSrtLst As SortedList = TryCast(Me.chrReqInfo.Tag, SortedList)
-
+        Dim intInstID As Integer = 0
         Dim MaxPri As Double = 0 ' lngInsertTuples + lngDeleteTuples + lngUpdatetTuples
         Dim MaxSec As Double = 0 ' lngReadtTuples
         For Each dtRow As DataRow In dtTableObject.Rows
             ' GRP Reqinfo
             ' DgvreqInfo 
-            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID")
+            intInstID = dtRow.Item("INSTANCE_ID")
             ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
             ' 추후 개선할 것 
             Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
@@ -1634,27 +2172,101 @@
 
         Me.chrReqInfo.ChartAreas(0).RecalculateAxesScale()
 
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Dim dblRegDt As Double
+        If dtTableObject IsNot Nothing Then
+            If dtTableObject.Rows.Count > 0 Then
+                dblRegDt = ConvOADate(dtTableObject.Rows(0).Item("COLLECT_DT"))
+                For Each dtRow As DataRow In dtTableObject.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("SELECT_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, dblRegDt, _
+                                                 ConvULong(dtRow.Item("INSERT_TUPLES_PER_SEC")) _
+                                               + ConvULong(dtRow.Item("UPDATE_TUPLES_PER_SEC")) _
+                                               + ConvULong(dtRow.Item("DELETE_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, dblRegDt, _
+                                                 ConvULong(dtRow.Item("COMMIT_TUPLES_PER_SEC")) + ConvULong(dtRow.Item("ROLLBACK_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("COMMIT_TUPLES_PER_SEC")))
+                            sb_ChartAddPoint(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("ROLLBACK_TUPLES_PER_SEC")))
+                        End If
+                    Next
+                Next
+            Else
+                dblRegDt = ConvOADate(Now)
+                Me.chtLogicalRead.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtLogicalWrite.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtTPSTotal.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtTPSCommit.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtTPSRollback.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            End If
+            sb_ChartAlignYAxies(Me.chtLogicalRead)
+            sb_ChartAlignYAxies(Me.chtLogicalWrite)
+            sb_ChartAlignYAxies(Me.chtTPSTotal)
+            sb_ChartAlignYAxies(Me.chtTPSCommit)
+            sb_ChartAlignYAxies(Me.chtTPSRollback)
+        End If
 
-        '' 하위폼에 값을 던진다. 
-        'For Each tmpFrm As Form In My.Application.OpenForms
-        '    Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
-        '    If subFrm IsNot Nothing Then
-        '        subFrm.SetDataRequest(dtTableObject, dtTableSession)
-        '    End If
-        'Next
+        Try
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                Dim NowCnt As Integer = 3
+                If Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
 
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
 
-
-
-
-        'For Each tmpFrm As Form In My.Application.OpenForms
-        '    Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
-        '    If subFrm IsNot Nothing Then
-        '        subFrm.SetDataObject(dtTableObject)
-        '    End If
-        'Next
-
-
+        Me.chtLogicalRead.ChartAreas(0).RecalculateAxesScale()
+        Me.chtLogicalWrite.ChartAreas(0).RecalculateAxesScale()
+        Me.chtTPSTotal.ChartAreas(0).RecalculateAxesScale()
+        Me.chtTPSCommit.ChartAreas(0).RecalculateAxesScale()
+        Me.chtTPSRollback.ChartAreas(0).RecalculateAxesScale()
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     End Sub
 
@@ -2078,7 +2690,7 @@
 
     Private Sub SetGrpWarning(ByVal arrLst As SortedList)
 
-        For Each tmpOpt As Control In tlpGroup.Controls
+        For Each tmpOpt As Control In tlpCurrent.Controls
             If tmpOpt.GetType.Equals(GetType(BaseControls.RadioButton)) AndAlso tmpOpt.Visible = True Then
                 Dim rdBtn As BaseControls.RadioButton = tmpOpt
                 Dim grpInfos As GroupInfo = rdBtn.Tag
@@ -2417,35 +3029,6 @@
         End If
     End Sub
 
-    'Private Sub dgvSessionInfo_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvSessionInfo.CellMouseMove
-    '    If e.RowIndex >= 0 Then
-    '        ' If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-    '        dgvSessionInfo.Cursor = Cursors.Hand
-    '        If dgvSessionInfo.Rows(e.RowIndex).Selected = False Then
-    '            dgvSessionInfo.ClearSelection()
-    '            dgvSessionInfo.Rows(e.RowIndex).Selected = True
-    '        End If
-    '        For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-    '            dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
-    '        Next
-    '        'End If
-    '    End If
-    'End Sub
-
-    'Private Sub dgvSessionInfo_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellMouseLeave
-    '    If e.RowIndex >= 0 Then
-    '        'If e.ColumnIndex = colDgvSessionInfoSQL.Index Then
-    '        dgvSessionInfo.Cursor = Cursors.Arrow
-    '        If dgvSessionInfo.Rows(e.RowIndex).Selected = True Then
-    '            dgvSessionInfo.ClearSelection()
-    '            dgvSessionInfo.Rows(e.RowIndex).Selected = False
-    '        End If
-    '        For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-    '            dgvSessionInfo.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = dgvSessionInfo.DefaultCellStyle.SelectionBackColor
-    '        Next
-    '        'End If
-    '    End If
-    'End Sub
 #Region "Ctl "
     ''' <summary>
     ''' Chart Point 등록 
@@ -2527,7 +3110,7 @@
         Series.BorderWidth = 2
         Series.ChartArea = "ChartArea1"
         Series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series.Legend = "Legend1"
+        'Series.Legend = "Legend1"
         Series.Name = SeriesName
         Series.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -2847,6 +3430,11 @@
 
     Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
         getinitDataSessionStatsInfo(_GrpListServerinfo)
+        getinitDataCpu(_GrpListServerinfo)
+        getinitDataLogical(_GrpListServerinfo)
+        getinitDataLock(_GrpListServerinfo)
+        getinitDataTPS(_GrpListServerinfo)
+        getinitDataSQLResp(_GrpListServerinfo)
         bckmanual.ReportProgress(100)
     End Sub
 
@@ -2858,6 +3446,21 @@
         If e.Cancelled = False Then
             If _dtTableSessionStatus IsNot Nothing Then
                 drawDataSessionStatsInfo(_GrpListServerinfo)
+            End If
+            If _dtTableCpu IsNot Nothing Then
+                drawDataCpu(_GrpListServerinfo)
+            End If
+            If _dtTableLogical IsNot Nothing Then
+                drawDataLogical(_GrpListServerinfo)
+            End If
+            If _dtTableLock IsNot Nothing Then
+                drawDataLock(_GrpListServerinfo)
+            End If
+            If _dtTableTPS IsNot Nothing Then
+                drawDataTPS(_GrpListServerinfo)
+            End If
+            If _dtTableSQLResp IsNot Nothing Then
+                drawDataSQLResp(_GrpListServerinfo)
             End If
         End If
     End Sub
@@ -2880,4 +3483,140 @@
             BretFrm.Activate()
         End If
     End Sub
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Private Sub btnCPUUtil_MouseClick(sender As Object, e As MouseEventArgs) Handles btnCPUUtil.MouseClick, _
+                                                                                     btnCPUWait.MouseClick, _
+                                                                                     btnSessionActive.MouseClick, _
+                                                                                     btnSessionTotal.MouseClick, _
+                                                                                     btnLogicalRead.MouseClick, _
+                                                                                     btnLogicalWrite.MouseClick, _
+                                                                                     btnLockWait.MouseClick, _
+                                                                                     btnTPSTotal.MouseClick, _
+                                                                                     btnTPSCommit.MouseClick, _
+                                                                                     btnTPSRollback.MouseClick, _
+                                                                                     btnSQLRespTmMAX.MouseClick, _
+                                                                                     btnSQLRespTmAVG.MouseClick
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+
+        ' dilplaying menu image
+        For i As Integer = 0 To mnuChart.Items.Count - 1
+            Dim tlpSub = DirectCast(mnuChart.Items(i).Tag, System.Windows.Forms.TableLayoutPanel)
+            If tlpSub.Visible = True Then
+                mnuChart.Items(i).Image = monTypeImgLst.Images(2)
+            Else
+                mnuChart.Items(i).Image = Nothing
+            End If
+        Next
+
+        mnuChart.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
+        mnuChart.Tag = lblTemp.Parent
+
+    End Sub
+
+    Private Sub mnuCPUUtil_Click(sender As Object, e As EventArgs) Handles mnuCPUUtil.Click, mnuCPUWait.Click, _
+                                                                           mnuSessionActive.Click, mnuSessionTotal.Click, _
+                                                                           mnuLogicalRead.Click, mnuLogicalWrite.Click, _
+                                                                           mnuLockWait.Click, mnuTPSTotal.Click, _
+                                                                           mnuTPSCommit.Click, mnuTPSRollback.Click, _
+                                                                           mnuSQLRespTmMAX.Click, mnuSQLRespTmAVG.Click
+        Dim tlpTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        Dim tlpSwap = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        Dim selectmenu = DirectCast(sender, System.Windows.Forms.ToolStripMenuItem)
+        Dim index As Integer = tlpTemp.Tag 'old
+
+        If sender.Name = "mnuCPUUtil" Then
+            tlpSwap = tlpCPUUtil
+        ElseIf sender.Name = "mnuCPUWait" Then
+            tlpSwap = tlpCPUWait
+        ElseIf sender.Name = "mnuSessionActive" Then
+            tlpSwap = tlpSessionActive
+        ElseIf sender.Name = "mnuSessionTotal" Then
+            tlpSwap = tlpSessionTotal
+        ElseIf sender.Name = "mnuLogicalRead" Then
+            tlpSwap = tlpLogicalRead
+        ElseIf sender.Name = "mnuLogicalWrite" Then
+            tlpSwap = tlpLogicalWrite
+        ElseIf sender.Name = "mnuLockWait" Then
+            tlpSwap = tlpLockWait
+        ElseIf sender.Name = "mnuTPSTotal" Then
+            tlpSwap = tlpTPSTotal
+        ElseIf sender.Name = "mnuTPSCommit" Then
+            tlpSwap = tlpTPSCommit
+        ElseIf sender.Name = "mnuTPSRollback" Then
+            tlpSwap = tlpTPSRollback
+        ElseIf sender.Name = "mnuSQLRespTmMAX" Then
+            tlpSwap = tlpSQLRespTmMAX
+        ElseIf sender.Name = "mnuSQLRespTmAVG" Then
+            tlpSwap = tlpSQLRespTmAVG
+        End If
+
+        tlpTemp.Tag = tlpSwap.Tag 'old
+        tlpSwap.Tag = index ' new
+        setTLPPosition(tlpTemp)
+        setTLPPosition(tlpSwap)
+
+        If tlpCPUUtil.Tag <> 0 Then mnuCPUUtil.Image = monTypeImgLst.Images(2)
+        If tlpCPUWait.Tag <> 0 Then mnuCPUWait.Image = monTypeImgLst.Images(2)
+        If tlpSessionActive.Tag <> 0 Then mnuSessionActive.Image = monTypeImgLst.Images(2)
+        If tlpSessionTotal.Tag <> 0 Then mnuSessionTotal.Image = monTypeImgLst.Images(2)
+        If tlpLogicalRead.Tag <> 0 Then mnuLogicalRead.Image = monTypeImgLst.Images(2)
+        If tlpLogicalWrite.Tag <> 0 Then mnuLogicalWrite.Image = monTypeImgLst.Images(2)
+        If tlpTPSTotal.Tag <> 0 Then mnuTPSTotal.Image = monTypeImgLst.Images(2)
+        If tlpTPSCommit.Tag <> 0 Then mnuTPSCommit.Image = monTypeImgLst.Images(2)
+        If tlpTPSRollback.Tag <> 0 Then mnuTPSRollback.Image = monTypeImgLst.Images(2)
+        If tlpSQLRespTmMAX.Tag <> 0 Then mnuSQLRespTmMAX.Image = monTypeImgLst.Images(2)
+        If tlpSQLRespTmAVG.Tag <> 0 Then mnuSQLRespTmAVG.Image = monTypeImgLst.Images(2)
+
+        WriteChartPosition()
+    End Sub
+
+    Private Sub WriteChartPosition()
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("CHART", "CPUUTIL", tlpCPUUtil.Tag)
+        clsIni.WriteValue("CHART", "CPUWAIT", tlpCPUWait.Tag)
+        clsIni.WriteValue("CHART", "LOGICALREAD", tlpSessionActive.Tag)
+        clsIni.WriteValue("CHART", "LOGICALWRITE", tlpSessionTotal.Tag)
+        clsIni.WriteValue("CHART", "SESSIONACTIVE", tlpLogicalRead.Tag)
+        clsIni.WriteValue("CHART", "SESSIONTOTAL", tlpLogicalWrite.Tag)
+        clsIni.WriteValue("CHART", "LOCKWAIT", tlpLockWait.Tag)
+        clsIni.WriteValue("CHART", "TPSTOTAL", tlpTPSTotal.Tag)
+        clsIni.WriteValue("CHART", "TPSCOMMIT", tlpTPSCommit.Tag)
+        clsIni.WriteValue("CHART", "TPSROLLBACK", tlpTPSRollback.Tag)
+        clsIni.WriteValue("CHART", "SQLRESPTMMAX ", tlpSQLRespTmMAX.Tag)
+        clsIni.WriteValue("CHART", "SQLRESPTMAVG", tlpSQLRespTmAVG.Tag)
+    End Sub
+
+    Private Sub setTLPPosition(ByRef tlp As System.Windows.Forms.TableLayoutPanel)
+        Dim index As Integer = tlp.Tag
+        tlp.Visible = True
+        Select Case index
+            Case 0
+                tlpTrend.SetRow(tlp, 0)
+                tlpTrend.SetColumn(tlp, 0)
+                tlp.Visible = False
+            Case 1
+                tlpTrend.SetRow(tlp, 1)
+                tlpTrend.SetColumn(tlp, 0)
+            Case 2
+                tlpTrend.SetRow(tlp, 1)
+                tlpTrend.SetColumn(tlp, 1)
+            Case 3
+                tlpTrend.SetRow(tlp, 1)
+                tlpTrend.SetColumn(tlp, 2)
+            Case 4
+                tlpTrend.SetRow(tlp, 2)
+                tlpTrend.SetColumn(tlp, 0)
+            Case 5
+                tlpTrend.SetRow(tlp, 2)
+                tlpTrend.SetColumn(tlp, 1)
+            Case 6
+                tlpTrend.SetRow(tlp, 2)
+                tlpTrend.SetColumn(tlp, 2)
+        End Select
+    End Sub
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 End Class
