@@ -99,12 +99,15 @@ public class MonitoringInfoManager {
 					select_prev = sessionCollect.selectOne("app.EXPERDBMA_BT_GET_PGVERSION_001");
 					instance_db_version = (String)select_prev.get("pg_version");
 					HashMap<String, Object> select = new HashMap<String, Object>();
+					HashMap<String, Object> selectext = new HashMap<String, Object>();
 					
 					/* add to update ha info by robin 201712*/
 					//select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001");		
 					try {
 						select.put("instance_db_version", instance_db_version);	
 						select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001", select);
+						selectext = sessionCollect.selectOne("app.PG_CHECK_EXTENSION_003");
+						if (selectext != null) select.put("extensions", selectext.get("extensions"));
 						select.put("instance_id", map.get("instance_id"));
 					} catch (Exception e) {
 						log.error(e);

@@ -4,10 +4,17 @@
     Private _isRunning As Boolean = False
 
 
+    Private _AgentInfo As structAgent
+    ReadOnly Property AgentInfo As structAgent
+        Get
+            Return _AgentInfo
+        End Get
+    End Property
 
-    Public Sub New(ByVal Instance As Integer())
+    Public Sub New(ByVal Instance As Integer(), ByVal clsAgentInfo As structAgent)
 
         _InstanceIDs = String.Join(",", Instance)
+        _AgentInfo = clsAgentInfo
     End Sub
 
 
@@ -1216,8 +1223,12 @@
                         ' Back End 
                         'StartBackEnd(_intPeriod)
                         'infoDataBackend = StartThread("SELECTBACKEND", _intPeriod)
-                        infoDataBackend = StartThread("SELECTBACKEND", _intPeriod, _enmSvrNm)
-
+                        If ConvDBL(AgentInfo.AgentVer) >= 10.4 Then
+                            infoDataBackend = StartThread("SELECTBACKENDEXT", _intPeriod, _enmSvrNm)
+                        Else
+                            infoDataBackend = StartThread("SELECTBACKEND", _intPeriod, _enmSvrNm)
+                        End If
+                        
                         ' Physical io
                         'StartPhysicaliO(_intPeriod)
                         infoDataPhysicaliO = StartThread("SELECTPHYSICALIO", _intPeriod)

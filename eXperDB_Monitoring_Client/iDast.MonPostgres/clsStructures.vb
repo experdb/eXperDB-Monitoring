@@ -303,9 +303,17 @@ Public Class structAgent
         End Get
     End Property
 
-    Public Sub New(ByVal strIP As String, ByVal intPort As Integer)
+    Private _AgentVer As String = ""
+    ReadOnly Property AgentVer As String
+        Get
+            Return _AgentVer
+        End Get
+    End Property
+
+    Public Sub New(ByVal strIP As String, ByVal intPort As Integer, ByVal strVersion As String)
         _AgentIP = strIP
         _AgentPort = intPort
+        _AgentVer = strVersion
     End Sub
 End Class
 

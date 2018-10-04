@@ -11,6 +11,7 @@
 		       COLLECT_PERIOD_SEC, 
 		       CONN_DB_NAME,
 		       PG_VERSION, 
+		       EXTENSIONS,
 		       SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 2) AS PG_VERSION_MIN,
 		       LAST_MOD_DT
 		  from TB_INSTANCE_INFO

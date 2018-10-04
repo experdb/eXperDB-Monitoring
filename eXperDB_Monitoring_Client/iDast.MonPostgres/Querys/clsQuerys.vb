@@ -1232,12 +1232,17 @@
     '    End Try
     'End Function
 
-    Public Function SelectReportSQL(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+    Public Function SelectReportSQL(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal strAgentVer As String) As DataTable
 
 
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTSQL")
+                Dim strQuery As String = ""
+                If ConvDBL(strAgentVer) >= 10.4 Then
+                    strQuery = p_clsQueryData.fn_GetData("SELECTREPORTSQLEXT")
+                Else
+                    strQuery = p_clsQueryData.fn_GetData("SELECTREPORTSQL")
+                End If
                 Dim subQuery As String = ""
                 If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
@@ -1833,10 +1838,16 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectDetailSQLListChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+    Public Function SelectDetailSQLListChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal strAgentVer As String) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSQLLIST")
+                Dim strQuery As String = ""
+                If ConvDBL(strAgentVer) >= 10.4 Then
+                    strQuery = p_clsQueryData.fn_GetData("SELECTDETAILSQLLISTEXT")
+                Else
+                    strQuery = p_clsQueryData.fn_GetData("SELECTDETAILSQLLIST")
+                End If
+
                 Dim subQuery As String = ""
 
                 If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then

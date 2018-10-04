@@ -648,7 +648,8 @@
                 MsgBox(p_clsMsgData.fn_GetData("M016"))
                 Return
             Else
-                AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort)
+                Dim SplitStr() As String = dtTable.Rows(0).Item("VERSION").Split(".")
+                AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort, SplitStr(0) + "." + SplitStr(1))
             End If
 
         Else
@@ -658,7 +659,7 @@
         ' Server Configuration  End 
 
 
-        p_clsAgentCollect = New clsCollect(arrInstanceIDs.ToArray(GetType(Integer)))
+        p_clsAgentCollect = New clsCollect(arrInstanceIDs.ToArray(GetType(Integer)), AgentInfo)
         p_clsAgentCollect.Start(AgentCn, tmpElapseInterval, p_ShowName)
 
 

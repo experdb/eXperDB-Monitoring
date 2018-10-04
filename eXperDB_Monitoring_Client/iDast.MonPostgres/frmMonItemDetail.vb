@@ -243,7 +243,7 @@
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
                                                                  Try
-                                                                     dtTable = _clsQuery.SelectDetailSQLListChart(_InstanceID, p_ShowName.ToString("d"), starDt, endDt)
+                                                                     dtTable = _clsQuery.SelectDetailSQLListChart(_InstanceID, p_ShowName.ToString("d"), starDt, endDt, AgentInfo.AgentVer)
                                                                  Catch ex As Exception
                                                                      GC.Collect()
                                                                  End Try
@@ -285,7 +285,7 @@
         Dim dtTableStats As DataTable = Nothing
         Dim tmpStatsTh As Threading.Thread = New Threading.Thread(Sub()
                                                                       Try
-                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt)
+                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt, AgentInfo.AgentVer)
                                                                       Catch ex As Exception
                                                                           GC.Collect()
                                                                       End Try
@@ -1013,7 +1013,7 @@
         If dgvSessionList.RowCount <= 0 Then Return
         'If e.ColumnIndex = coldgvSessionListSQL.Index Then
         strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
-        strQuery = dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value
+        strQuery = IIf(IsDBNull(dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value), "", dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value)
         strUser = IIf(IsDBNull(dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value), "", dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value)
         Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
         frmQuery.ShowDialog(Me)

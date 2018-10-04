@@ -521,7 +521,7 @@ Public Class frmReports
         RaiseEvent WaitMag("SQL Information Information")
         tmpTh = New Threading.Thread(Sub()
                                          Try
-                                             dtTable = _clsQuery.SelectReportSQL(intInstance, stDate, edDate)
+                                             dtTable = _clsQuery.SelectReportSQL(intInstance, stDate, edDate, _AgentInfo.AgentVer)
                                              If dtTable IsNot Nothing Then
                                                  _dtSql = dtTable
                                              End If

@@ -37,10 +37,12 @@ public class StartCollect extends TaskApplication {
 			
 			
 			HashMap<String, Object> select = new HashMap<String, Object>();
+			HashMap<String, Object> selectext = new HashMap<String, Object>();
 			/*add to update ha_info by robin 201712 */
 			select.put("instance_db_version", instance_db_version);	
 			select = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_001", select);
-			
+			selectext = sessionCollect.selectOne("app.PG_CHECK_EXTENSION_003");
+			if (selectext != null) select.put("extensions", selectext.get("extensions"));
 			select.put("instance_id", Integer.valueOf(instanceId));
 			select.put("max_conn_cnt", Integer.valueOf((String) select.get("max_conn_cnt")));
 			

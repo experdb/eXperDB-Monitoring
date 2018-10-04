@@ -63,6 +63,7 @@ CREATE UNLOGGED TABLE tb_backend_rsc (
     query_start timestamp without time zone,
     elapsed_time numeric(20,5),
     state character varying(30),
+    queryid varying(41),
     sql text,
     collect_dt timestamp without time zone
 );
@@ -229,6 +230,7 @@ CREATE TABLE tb_instance_info (
     log_keep_days integer,
     home_dir character varying(100),
     pg_version character varying(1000),
+    extensions integer,
     mon_group integer,
     ha_role character varying(1),
     ha_host character varying(100),
@@ -389,6 +391,15 @@ CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
   check_dt timestamp without time zone NULL
 );
 
+CREATE UNLOGGED TABLE TB_QUERY_INFO (
+		instance_id integer NOT NULL,
+    queryid character varying(41) NOT NULL,
+    stmt_queryid integer,
+    query text,
+    collect_dt timestamp without time zone
+);
+
+
 ALTER TABLE ONLY tb_access_info
     ADD CONSTRAINT pk_access_info PRIMARY KEY (reg_date,actv_reg_seq,db_name);
 
@@ -480,6 +491,9 @@ ALTER TABLE ONLY TB_CONTROL_PROCESS_HIST
 
 ALTER TABLE ONLY TB_HCHK_ALERT_INFO
     ADD CONSTRAINT pk_hchk_alert_info PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
+    
+ALTER TABLE ONLY TB_QUERY_INFO
+    ADD CONSTRAINT pk_query_info PRIMARY KEY (instance_id, queryid);
 
 CREATE INDEX idx01_access_info ON tb_access_info USING btree (collect_dt DESC);
 
@@ -652,7 +666,10 @@ ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_threshold = 5000);
-
+ALTER TABLE tb_query_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_query_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_query_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_query_info SET (autovacuum_vacuum_threshold = 5000);
 
 
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'DISKUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);

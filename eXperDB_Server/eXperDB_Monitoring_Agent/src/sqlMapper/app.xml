@@ -961,7 +961,7 @@
 		  		  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리
 				]]>
 			</when>
-			<when test="instance_db_version >= 9.2">
+			<when test="instance_db_version >= 9.2 and instance_db_version lt 10.0">
 				<![CDATA[
 				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
 				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -996,6 +996,32 @@
 				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
 				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
+				]]>
+			</when>
+			<when test="instance_db_version >= 10.0">
+				<![CDATA[
+				  SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
+				          A.PROC_ID AS PROCESS_ID,
+				          B.DATNAME AS DB_NAME,
+				          HOST(B.CLIENT_ADDR::inet) AS CLIENT_ADDR, -- 2014-04-28 추가          
+				          B.USENAME AS USER_NAME,-- 2014-04-28 추가
+				          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가
+				          A.CPU_UTIME AS AGG_PROC_UTIME,
+				          A.CPU_STIME AS AGG_PROC_STIME,
+				          A.DISK_READ AS AGG_PROC_READ_KB,
+				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
+				          CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
+				          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
+				          C.QUERYID AS QUERYID,
+				          CASE WHEN C.QUERYID IS NULL THEN B.QUERY ELSE D.QUERY END AS SQL, 
+				          B.STATE AS STATE,
+				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+				          NOW() AS COLLECT_DT
+				  FROM GET_BACKEND_RSC A 
+				  	   JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID 
+				  	   LEFT OUTER JOIN (select * from PG_ACTIVE_SESSION_HISTORY where ash_time = (select max(ash_time) from PG_ACTIVE_SESSION_HISTORY)) C ON B.PID=C.PID
+				  	   left outer join pg_stat_statements D on C.queryid = d.queryid
+				  WHERE B.state is not null AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';		
 				]]>
 			</when>
 			<otherwise>
@@ -1035,8 +1061,110 @@
 			#{collect_dt}
 		)
 	</insert>
-	
-	
+		<insert id="TB_BACKEND_RSC_I002" parameterType="hashmap" >
+		INSERT INTO TB_BACKEND_RSC	
+		(	
+		    REG_DATE,
+		    ACTV_REG_SEQ,
+		    PROCESS_ID,
+		    DB_NAME,
+		    CLIENT_ADDR,
+		    USER_NAME,
+		    CLIENT_APP,
+		    AGG_PROC_UTIME,
+		    AGG_PROC_STIME,
+		    CURRENT_PROC_UTIME,
+		    CURRENT_PROC_STIME,
+		    PROC_CPU_UTIL,
+		    AGG_PROC_READ_KB,
+		    AGG_PROC_WRITE_KB,
+		    CURRENT_PROC_READ_KB,
+		    CURRENT_PROC_WRITE_KB,
+		    QUERY_START,
+		    ELAPSED_TIME,
+		    STATE,
+		    QUERYID,
+		    SQL,
+		    COLLECT_DT
+		)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('ACTV_REG_SEQ'),
+			#{process_id},
+			#{db_name},
+			#{client_addr},
+			#{user_name},
+			#{application_name},
+			#{agg_proc_utime},
+			#{agg_proc_stime},
+			#{current_proc_utime},
+			#{current_proc_stime},
+			#{proc_cpu_util},
+			#{agg_proc_read_kb},
+			#{agg_proc_write_kb},
+			#{current_proc_read_kb},
+			#{current_proc_write_kb},
+			#{query_start},
+			#{elapsed_time},
+			#{state},
+			#{queryid},
+			'',
+			#{collect_dt}
+		)
+	</insert>
+	<insert id="TB_BACKEND_RSC_I003" parameterType="hashmap" >
+		INSERT INTO TB_BACKEND_RSC	
+		(	
+		    REG_DATE,
+		    ACTV_REG_SEQ,
+		    PROCESS_ID,
+		    DB_NAME,
+		    CLIENT_ADDR,
+		    USER_NAME,
+		    CLIENT_APP,
+		    AGG_PROC_UTIME,
+		    AGG_PROC_STIME,
+		    CURRENT_PROC_UTIME,
+		    CURRENT_PROC_STIME,
+		    PROC_CPU_UTIL,
+		    AGG_PROC_READ_KB,
+		    AGG_PROC_WRITE_KB,
+		    CURRENT_PROC_READ_KB,
+		    CURRENT_PROC_WRITE_KB,
+		    QUERY_START,
+		    ELAPSED_TIME,
+		    STATE,
+		    QUERYID,
+		    SQL,
+		    COLLECT_DT
+		)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('ACTV_REG_SEQ'),
+			#{process_id},
+			#{db_name},
+			#{client_addr},
+			#{user_name},
+			#{application_name},
+			#{agg_proc_utime},
+			#{agg_proc_stime},
+			#{current_proc_utime},
+			#{current_proc_stime},
+			#{proc_cpu_util},
+			#{agg_proc_read_kb},
+			#{agg_proc_write_kb},
+			#{current_proc_read_kb},
+			#{current_proc_write_kb},
+			#{query_start},
+			#{elapsed_time},
+			#{state},
+			MD5(#{sql}),
+			'',
+			#{collect_dt}
+		)
+	</insert>
 	
 	<select id="PG_STAT_DATABASE_INFO_001" parameterType="hashmap" resultType="hashmap">
 		SELECT /* EXPERDBMABT_PG_STAT_DATABASE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
@@ -1511,7 +1639,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   CPU_CLOCKS = #{cpu_clocks},
 			   HOST_NAME = #{host_name},
 			   PG_VERSION = #{pg_version},
-			   HA_GROUP = #{ha_group}
+			   HA_GROUP = #{ha_group},
+			   EXTENSIONS = #{extensions}
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 
@@ -1836,6 +1965,14 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	<select id="PG_CHECK_EXTENSION_002" parameterType="hashmap" resultType="hashmap">
 		SELECT 1 from pg_extension WHERE extname = 'adminpack'
+	</select>	
+	<select id="PG_CHECK_EXTENSION_003" parameterType="hashmap" resultType="hashmap">
+		SELECT SUM(CASE WHEN EXTNAME = 'experdb_pgmon' THEN 1
+		            WHEN EXTNAME = 'pg_stat_statements' THEN 2
+					WHEN EXTNAME = 'pgsentinel' THEN 4
+					WHEN EXTNAME = 'adminpack' THEN 8
+					ELSE 0 END) AS EXTENSIONS 
+		FROM PG_EXTENSION;
 	</select>	
 	<update id="PG_CREATE_EXTENSION_001" parameterType="hashmap">
 		CREATE EXTENSION adminpack
@@ -2182,6 +2319,27 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			#{checkpoints_req_time_delta},
 			NOW()
 		)
+	</insert>	
+	
+	<select id="TB_QUERY_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT /* EXPERDBMA_TB_QUERY_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
+					QUERYID 
+			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND QUERYID = MD5(#{sql})
+		  ]]>	  
+	</select>
+	<insert id="TB_QUERY_INFO_I001" parameterType="hashmap" >
+		WITH UPSERT AS (
+		UPDATE TB_QUERY_INFO QU
+		   SET STMT_QUERYID = #{stmt_queryid},
+		       QUERY = #{query},
+		       COLLECT_DT = NOW()		  
+		 WHERE QU.INSTANCE_ID = #{instance_id}
+		   AND QU.QUERYID = MD5(coalesce(#{queryid}, ''))
+		RETURNING *)
+		INSERT INTO TB_QUERY_INFO
+		SELECT #{instance_id}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
+		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 	</insert>	
 <!-- ********************************************************** -->
 <!-- ReplCollect End -->

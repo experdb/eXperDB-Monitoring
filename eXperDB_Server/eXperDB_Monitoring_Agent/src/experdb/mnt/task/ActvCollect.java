@@ -410,8 +410,33 @@ public class ActvCollect extends TaskApplication {
 						
 						map.put("proc_cpu_util", proc_cpu_util);
 					}
-					sessionAgent.insert("app.TB_BACKEND_RSC_I001", map);
+					
+					double dbl_instance_db_version = Double.parseDouble(instance_db_version);
+					
+					int extensions = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("extensions");
+					
+					extensions &= 0x04;
+					
+					if ((dbl_instance_db_version >= 10.0) && (extensions > 0 ) )
+					{
+						HashMap<String, Object> inputParam = new HashMap<String, Object>();
+						inputParam.put("instance_id", 				Integer.parseInt(instanceId));
+						inputParam.put("queryid", 					map.get("sql"));
 
+						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);
+						inputParam.put("stmt_queryid", 				map.get("queryid"));
+						inputParam.put("query", 					map.get("sql"));
+						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+						if (queryIdMap == null){
+							sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
+						}else{
+							map.put("queryid", queryIdMap.get("queryid"));
+							sessionAgent.insert("app.TB_BACKEND_RSC_I002", map);
+						}
+					}else{
+						sessionAgent.insert("app.TB_BACKEND_RSC_I001", map);
+					}
+					
 					preSaveBackendRsc.put(String.valueOf(map.get("process_id")), map);
 				}
 				
