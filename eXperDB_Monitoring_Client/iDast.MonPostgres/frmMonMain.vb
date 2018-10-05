@@ -1220,7 +1220,8 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim dblRegDt As Double
         Dim MaxPri As Double = 0
-        If dtTable IsNot Nothing Then
+        If dtTable IsNot Nothing _
+            AndAlso Me.chtCPUUtil.Series(0).Points.Count > 0 Then
             If dtTable.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTable.Rows(0).Item("REG_DATE"))
                 For Each dtRow As DataRow In dtTable.Rows
@@ -1611,8 +1612,10 @@
                     'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
-                            sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            If chtSessionActive.Series(0).Points.Count > 0 Then
+                                sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                                sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            End If
                             'Else
                             '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
                             '    If lastYPoint > 0 Then
@@ -1632,10 +1635,12 @@
                     Next
                 Next
             Else
-                dblRegDt = ConvOADate(Now)
-                'sb_ChartAddPoint(Me.chtSessionStatus, "", dblRegDt, 0.0)
-                Me.chtSessionActive.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
-                Me.chtSessionTotal.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                If chtSessionActive.Series(0).Points.Count > 0 Then
+                    dblRegDt = ConvOADate(Now)
+                    'sb_ChartAddPoint(Me.chtSessionStatus, "", dblRegDt, 0.0)
+                    Me.chtSessionActive.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                    Me.chtSessionTotal.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                End If
             End If
             sb_ChartAlignYAxies(Me.chtSessionActive)
             sb_ChartAlignYAxies(Me.chtSessionTotal)
@@ -1702,7 +1707,8 @@
         Dim dblRegDt As Double
         Dim intInstID As Integer
         Dim MaxPri As Double = 0
-        If dtTableDataSQLRespTm IsNot Nothing Then
+        If dtTableDataSQLRespTm IsNot Nothing _
+            AndAlso chtSQLRespTmAVG.Series(0).Points.Count > 0 Then
             If dtTableDataSQLRespTm.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableDataSQLRespTm.Rows(0).Item("REG_DATE"))
                 For Each dtRow As DataRow In dtTableDataSQLRespTm.Rows
@@ -2176,7 +2182,8 @@
         '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim dblRegDt As Double
-        If dtTableObject IsNot Nothing Then
+        If dtTableObject IsNot Nothing _
+           AndAlso Me.chtTPSTotal.Series(0).Points.Count > 0 Then
             If dtTableObject.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableObject.Rows(0).Item("COLLECT_DT"))
                 For Each dtRow As DataRow In dtTableObject.Rows

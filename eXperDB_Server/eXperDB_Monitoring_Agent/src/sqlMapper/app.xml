@@ -1109,7 +1109,7 @@
 			#{elapsed_time},
 			#{state},
 			#{queryid},
-			'',
+			#{sql},
 			#{collect_dt}
 		)
 	</insert>
@@ -1161,7 +1161,7 @@
 			#{elapsed_time},
 			#{state},
 			MD5(#{sql}),
-			'',
+			#{sql},
 			#{collect_dt}
 		)
 	</insert>
