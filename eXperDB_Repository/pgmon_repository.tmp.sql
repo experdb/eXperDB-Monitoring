@@ -399,6 +399,12 @@ CREATE UNLOGGED TABLE TB_QUERY_INFO (
     collect_dt timestamp without time zone
 );
 
+CREATE UNLOGGED TABLE TB_PG_STAT_STATEMENTS (
+    reg_date character varying(8) COLLATE pg_catalog."default" NOT NULL,
+    collect_dt timestamp without time zone,
+    instance_id integer NOT NULL,
+    pgss jsonb NOT NULL
+);
 
 ALTER TABLE ONLY tb_access_info
     ADD CONSTRAINT pk_access_info PRIMARY KEY (reg_date,actv_reg_seq,db_name);
@@ -495,6 +501,9 @@ ALTER TABLE ONLY TB_HCHK_ALERT_INFO
 ALTER TABLE ONLY TB_QUERY_INFO
     ADD CONSTRAINT pk_query_info PRIMARY KEY (instance_id, queryid);
 
+ALTER TABLE ONLY TB_PG_STAT_STATEMENTS
+    ADD CONSTRAINT pk_pg_stat_statements PRIMARY KEY (reg_date, collect_dt, instance_id);
+    
 CREATE INDEX idx01_access_info ON tb_access_info USING btree (collect_dt DESC);
 
 
@@ -670,6 +679,10 @@ ALTER TABLE tb_query_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_query_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_query_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_query_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_threshold = 5000);
 
 
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'DISKUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);

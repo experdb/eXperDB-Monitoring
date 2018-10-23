@@ -423,7 +423,6 @@ Partial Class frmQueryView
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.TableLayoutPanel3)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmQueryView"
         Me.Padding = New System.Windows.Forms.Padding(3)

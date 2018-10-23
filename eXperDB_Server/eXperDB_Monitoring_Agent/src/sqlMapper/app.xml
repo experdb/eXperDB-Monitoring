@@ -2325,7 +2325,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			SELECT /* EXPERDBMA_TB_QUERY_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
 					QUERYID 
-			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND QUERYID = MD5(#{sql})
+			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND QUERYID = MD5(#{query})
+			 ORDER BY STMT_QUERYID ASC LIMIT 1
 		  ]]>	  
 	</select>
 	<insert id="TB_QUERY_INFO_I001" parameterType="hashmap" >
@@ -2341,6 +2342,34 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		SELECT #{instance_id}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 	</insert>	
+	<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
+        		   U.USENAME USERNAME, D.DATNAME AS DBNAME, PGS.* 
+			  FROM PG_STAT_STATEMENTS AS PGS
+              JOIN PG_USER U ON PGS.USERID=U.USESYSID JOIN PG_DATABASE D ON PGS.DBID = D.OID;
+		  ]]>	  
+	</select>
+	<insert id="TB_PGSS_INFO_I001" parameterType="hashmap" >
+		<![CDATA[
+		INSERT INTO TB_PG_STAT_STATEMENTS
+		(
+		    REG_DATE,
+		    COLLECT_DT,
+		    INSTANCE_ID,
+		    PGSS
+	    )
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			now(),
+			#{instance_id},
+			#{pgss}::jsonb
+		)
+		]]>	  
+	</insert>	
+	
+	
 <!-- ********************************************************** -->
 <!-- ReplCollect End -->
 <!-- ********************************************************** -->

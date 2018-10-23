@@ -161,7 +161,7 @@ Public Class frmReports
         Me.chtRptCpu.AddSeries("WAIT", "WAIT", Color.Lime)
         Me.chtRptCpu.SetAxisXTitle("CPU Usage(MAX)")
         Me.chtRptCpu.SetAxisYTitle("RATE(%)")
-        Me.chtRptCpu.SetDefaultMean("USED")
+        'Me.chtRptCpu.SetDefaultMean("USED")
 
 
         chtRptDisk.SetAxisXTitle(p_clsMsgData.fn_GetData("F153"))

@@ -1909,6 +1909,28 @@
 
     End Sub
 
+    Private Sub btnStatements_Click(sender As Object, e As EventArgs) Handles btnStatements.Click
+        Dim stDt As DateTime = Now.AddMinutes(-60)
+        Dim edDt As DateTime = Now
+        Dim BretFrm As frmStatements = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmStatements = TryCast(tmpFrm, frmStatements)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            'BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, _AgentInfo)
+            BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+    End Sub
+
     Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
         If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
             'Threading.Thread.Sleep(100)
@@ -2094,4 +2116,6 @@
         clsIni.WriteValue("CHART", "REPLICATION", tlpMain.GetRow(tlpReplication))
         clsIni.WriteValue("CHART", "TRANSACTION", tlpMain.GetRow(tlpTPS))
     End Sub
+
+
 End Class

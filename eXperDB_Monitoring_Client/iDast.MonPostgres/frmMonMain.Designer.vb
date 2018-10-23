@@ -239,6 +239,7 @@ Partial Class frmMonMain
         Me.chtSessionActive = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.lblSesionActive = New System.Windows.Forms.Label()
         Me.btnSessionActive = New System.Windows.Forms.Button()
+        Me.monTypeImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.tlpDiskAccess = New System.Windows.Forms.TableLayoutPanel()
         Me.grpDiskAccess = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -289,7 +290,6 @@ Partial Class frmMonMain
         Me.mnuTPSRollback = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSQLRespTmMAX = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSQLRespTmAVG = New System.Windows.Forms.ToolStripMenuItem()
-        Me.monTypeImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.tlpHealth.SuspendLayout()
         Me.tlpCPU.SuspendLayout()
         CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2047,12 +2047,12 @@ Partial Class frmMonMain
         Me.tlpTrend.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpTrend.Location = New System.Drawing.Point(3, 3)
         Me.tlpTrend.Name = "tlpTrend"
-        Me.tlpTrend.RowCount = 4
-        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.00249!))
-        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.99751!))
-        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpTrend.RowCount = 5
+        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
+        Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.tlpTrend.Size = New System.Drawing.Size(1353, 600)
         Me.tlpTrend.TabIndex = 0
         '
@@ -2066,12 +2066,12 @@ Partial Class frmMonMain
         Me.tlpSQLRespTmMAX.Controls.Add(Me.lblSQLRespTmMAX, 1, 0)
         Me.tlpSQLRespTmMAX.Controls.Add(Me.btnSQLRespTmMAX, 0, 0)
         Me.tlpSQLRespTmMAX.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSQLRespTmMAX.Location = New System.Drawing.Point(453, 43)
+        Me.tlpSQLRespTmMAX.Location = New System.Drawing.Point(453, 8)
         Me.tlpSQLRespTmMAX.Name = "tlpSQLRespTmMAX"
         Me.tlpSQLRespTmMAX.RowCount = 2
         Me.tlpSQLRespTmMAX.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSQLRespTmMAX.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSQLRespTmMAX.Size = New System.Drawing.Size(445, 254)
+        Me.tlpSQLRespTmMAX.Size = New System.Drawing.Size(445, 190)
         Me.tlpSQLRespTmMAX.TabIndex = 33
         '
         'chtSQLRespTmMAX
@@ -2147,7 +2147,7 @@ Partial Class frmMonMain
         Me.chtSQLRespTmMAX.Location = New System.Drawing.Point(3, 29)
         Me.chtSQLRespTmMAX.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLRespTmMAX.Name = "chtSQLRespTmMAX"
-        Me.chtSQLRespTmMAX.Size = New System.Drawing.Size(439, 221)
+        Me.chtSQLRespTmMAX.Size = New System.Drawing.Size(439, 157)
         Me.chtSQLRespTmMAX.TabIndex = 2
         Me.chtSQLRespTmMAX.Text = "Chart2"
         '
@@ -2189,12 +2189,12 @@ Partial Class frmMonMain
         Me.tlpSQLRespTmAVG.Controls.Add(Me.lblSQLRespTmAVG, 1, 0)
         Me.tlpSQLRespTmAVG.Controls.Add(Me.btnSQLRespTmAVG, 0, 0)
         Me.tlpSQLRespTmAVG.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSQLRespTmAVG.Location = New System.Drawing.Point(453, 303)
+        Me.tlpSQLRespTmAVG.Location = New System.Drawing.Point(453, 204)
         Me.tlpSQLRespTmAVG.Name = "tlpSQLRespTmAVG"
         Me.tlpSQLRespTmAVG.RowCount = 2
         Me.tlpSQLRespTmAVG.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSQLRespTmAVG.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSQLRespTmAVG.Size = New System.Drawing.Size(445, 253)
+        Me.tlpSQLRespTmAVG.Size = New System.Drawing.Size(445, 190)
         Me.tlpSQLRespTmAVG.TabIndex = 32
         '
         'chtSQLRespTmAVG
@@ -2270,7 +2270,7 @@ Partial Class frmMonMain
         Me.chtSQLRespTmAVG.Location = New System.Drawing.Point(3, 29)
         Me.chtSQLRespTmAVG.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLRespTmAVG.Name = "chtSQLRespTmAVG"
-        Me.chtSQLRespTmAVG.Size = New System.Drawing.Size(439, 220)
+        Me.chtSQLRespTmAVG.Size = New System.Drawing.Size(439, 157)
         Me.chtSQLRespTmAVG.TabIndex = 2
         Me.chtSQLRespTmAVG.Text = "Chart2"
         '
@@ -2312,12 +2312,12 @@ Partial Class frmMonMain
         Me.tlpTPSRollback.Controls.Add(Me.btnTPSRollback, 0, 0)
         Me.tlpTPSRollback.Controls.Add(Me.lblTPSRollback, 1, 0)
         Me.tlpTPSRollback.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTPSRollback.Location = New System.Drawing.Point(453, 562)
+        Me.tlpTPSRollback.Location = New System.Drawing.Point(453, 400)
         Me.tlpTPSRollback.Name = "tlpTPSRollback"
         Me.tlpTPSRollback.RowCount = 2
         Me.tlpTPSRollback.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpTPSRollback.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTPSRollback.Size = New System.Drawing.Size(445, 14)
+        Me.tlpTPSRollback.Size = New System.Drawing.Size(445, 190)
         Me.tlpTPSRollback.TabIndex = 31
         '
         'chtTPSRollback
@@ -2381,7 +2381,7 @@ Partial Class frmMonMain
         Me.chtTPSRollback.Location = New System.Drawing.Point(3, 29)
         Me.chtTPSRollback.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtTPSRollback.Name = "chtTPSRollback"
-        Me.chtTPSRollback.Size = New System.Drawing.Size(439, 1)
+        Me.chtTPSRollback.Size = New System.Drawing.Size(439, 157)
         Me.chtTPSRollback.TabIndex = 4
         Me.chtTPSRollback.Text = "Chart5"
         '
@@ -2423,12 +2423,12 @@ Partial Class frmMonMain
         Me.tlpTPSCommit.Controls.Add(Me.btnTPSCommit, 0, 0)
         Me.tlpTPSCommit.Controls.Add(Me.lblTPSCommit, 1, 0)
         Me.tlpTPSCommit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTPSCommit.Location = New System.Drawing.Point(904, 303)
+        Me.tlpTPSCommit.Location = New System.Drawing.Point(904, 204)
         Me.tlpTPSCommit.Name = "tlpTPSCommit"
         Me.tlpTPSCommit.RowCount = 2
         Me.tlpTPSCommit.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpTPSCommit.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTPSCommit.Size = New System.Drawing.Size(446, 253)
+        Me.tlpTPSCommit.Size = New System.Drawing.Size(446, 190)
         Me.tlpTPSCommit.TabIndex = 30
         '
         'chtTPSCommit
@@ -2492,7 +2492,7 @@ Partial Class frmMonMain
         Me.chtTPSCommit.Location = New System.Drawing.Point(3, 29)
         Me.chtTPSCommit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtTPSCommit.Name = "chtTPSCommit"
-        Me.chtTPSCommit.Size = New System.Drawing.Size(440, 220)
+        Me.chtTPSCommit.Size = New System.Drawing.Size(440, 157)
         Me.chtTPSCommit.TabIndex = 4
         Me.chtTPSCommit.Text = "Chart5"
         '
@@ -2534,12 +2534,12 @@ Partial Class frmMonMain
         Me.tlpTPSTotal.Controls.Add(Me.btnTPSTotal, 0, 0)
         Me.tlpTPSTotal.Controls.Add(Me.lblTPSTotal, 1, 0)
         Me.tlpTPSTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTPSTotal.Location = New System.Drawing.Point(904, 43)
+        Me.tlpTPSTotal.Location = New System.Drawing.Point(904, 8)
         Me.tlpTPSTotal.Name = "tlpTPSTotal"
         Me.tlpTPSTotal.RowCount = 2
         Me.tlpTPSTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpTPSTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTPSTotal.Size = New System.Drawing.Size(446, 254)
+        Me.tlpTPSTotal.Size = New System.Drawing.Size(446, 190)
         Me.tlpTPSTotal.TabIndex = 29
         '
         'chtTPSTotal
@@ -2603,7 +2603,7 @@ Partial Class frmMonMain
         Me.chtTPSTotal.Location = New System.Drawing.Point(3, 29)
         Me.chtTPSTotal.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtTPSTotal.Name = "chtTPSTotal"
-        Me.chtTPSTotal.Size = New System.Drawing.Size(440, 221)
+        Me.chtTPSTotal.Size = New System.Drawing.Size(440, 157)
         Me.chtTPSTotal.TabIndex = 4
         Me.chtTPSTotal.Text = "Chart5"
         '
@@ -2645,12 +2645,12 @@ Partial Class frmMonMain
         Me.tlpLockWait.Controls.Add(Me.btnLockWait, 0, 0)
         Me.tlpLockWait.Controls.Add(Me.lblLockWait, 1, 0)
         Me.tlpLockWait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpLockWait.Location = New System.Drawing.Point(3, 43)
+        Me.tlpLockWait.Location = New System.Drawing.Point(3, 8)
         Me.tlpLockWait.Name = "tlpLockWait"
         Me.tlpLockWait.RowCount = 2
         Me.tlpLockWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpLockWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpLockWait.Size = New System.Drawing.Size(444, 254)
+        Me.tlpLockWait.Size = New System.Drawing.Size(444, 190)
         Me.tlpLockWait.TabIndex = 28
         '
         'chtLockWait
@@ -2714,7 +2714,7 @@ Partial Class frmMonMain
         Me.chtLockWait.Location = New System.Drawing.Point(3, 29)
         Me.chtLockWait.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLockWait.Name = "chtLockWait"
-        Me.chtLockWait.Size = New System.Drawing.Size(438, 221)
+        Me.chtLockWait.Size = New System.Drawing.Size(438, 157)
         Me.chtLockWait.TabIndex = 4
         Me.chtLockWait.Text = "Chart5"
         '
@@ -2756,12 +2756,12 @@ Partial Class frmMonMain
         Me.tlpSessionTotal.Controls.Add(Me.lblSesionTotal, 1, 0)
         Me.tlpSessionTotal.Controls.Add(Me.btnSessionTotal, 0, 0)
         Me.tlpSessionTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSessionTotal.Location = New System.Drawing.Point(3, 582)
+        Me.tlpSessionTotal.Location = New System.Drawing.Point(3, 596)
         Me.tlpSessionTotal.Name = "tlpSessionTotal"
         Me.tlpSessionTotal.RowCount = 2
         Me.tlpSessionTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSessionTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSessionTotal.Size = New System.Drawing.Size(444, 15)
+        Me.tlpSessionTotal.Size = New System.Drawing.Size(444, 1)
         Me.tlpSessionTotal.TabIndex = 27
         '
         'chtSessionTotal
@@ -2879,12 +2879,12 @@ Partial Class frmMonMain
         Me.tlpLogicalWrite.Controls.Add(Me.btnLogicalWrite, 0, 0)
         Me.tlpLogicalWrite.Controls.Add(Me.lblLogicalWrite, 1, 0)
         Me.tlpLogicalWrite.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpLogicalWrite.Location = New System.Drawing.Point(904, 562)
+        Me.tlpLogicalWrite.Location = New System.Drawing.Point(904, 400)
         Me.tlpLogicalWrite.Name = "tlpLogicalWrite"
         Me.tlpLogicalWrite.RowCount = 2
         Me.tlpLogicalWrite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpLogicalWrite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpLogicalWrite.Size = New System.Drawing.Size(446, 14)
+        Me.tlpLogicalWrite.Size = New System.Drawing.Size(446, 190)
         Me.tlpLogicalWrite.TabIndex = 26
         '
         'chtLogicalWrite
@@ -2947,7 +2947,7 @@ Partial Class frmMonMain
         Me.chtLogicalWrite.Location = New System.Drawing.Point(3, 29)
         Me.chtLogicalWrite.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLogicalWrite.Name = "chtLogicalWrite"
-        Me.chtLogicalWrite.Size = New System.Drawing.Size(440, 1)
+        Me.chtLogicalWrite.Size = New System.Drawing.Size(440, 157)
         Me.chtLogicalWrite.TabIndex = 4
         Me.chtLogicalWrite.Text = "Chart5"
         '
@@ -2992,13 +2992,13 @@ Partial Class frmMonMain
         Me.tlpCPUWait.Controls.Add(Me.chtCPUWait, 0, 1)
         Me.tlpCPUWait.Controls.Add(Me.lblCPUWait, 1, 0)
         Me.tlpCPUWait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpCPUWait.Location = New System.Drawing.Point(3, 562)
+        Me.tlpCPUWait.Location = New System.Drawing.Point(3, 400)
         Me.tlpCPUWait.Name = "tlpCPUWait"
         Me.tlpCPUWait.RowCount = 3
         Me.tlpCPUWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpCPUWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpCPUWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpCPUWait.Size = New System.Drawing.Size(444, 14)
+        Me.tlpCPUWait.Size = New System.Drawing.Size(444, 190)
         Me.tlpCPUWait.TabIndex = 25
         '
         'btnCPUWait
@@ -3076,7 +3076,7 @@ Partial Class frmMonMain
         Me.chtCPUWait.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtCPUWait.Name = "chtCPUWait"
         Me.tlpCPUWait.SetRowSpan(Me.chtCPUWait, 2)
-        Me.chtCPUWait.Size = New System.Drawing.Size(438, 1)
+        Me.chtCPUWait.Size = New System.Drawing.Size(438, 157)
         Me.chtCPUWait.TabIndex = 2
         Me.chtCPUWait.Text = "Chart5"
         '
@@ -3109,7 +3109,7 @@ Partial Class frmMonMain
         Me.tlpLogicalRead.RowCount = 2
         Me.tlpLogicalRead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpLogicalRead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpLogicalRead.Size = New System.Drawing.Size(445, 34)
+        Me.tlpLogicalRead.Size = New System.Drawing.Size(445, 1)
         Me.tlpLogicalRead.TabIndex = 24
         '
         'chtLogicalRead
@@ -3224,7 +3224,7 @@ Partial Class frmMonMain
         Me.tlpCPUUtil.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpCPUUtil.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpCPUUtil.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpCPUUtil.Size = New System.Drawing.Size(444, 34)
+        Me.tlpCPUUtil.Size = New System.Drawing.Size(444, 1)
         Me.tlpCPUUtil.TabIndex = 23
         '
         'btnCPUUtil
@@ -3330,12 +3330,12 @@ Partial Class frmMonMain
         Me.tlpSessionActive.Controls.Add(Me.lblSesionActive, 1, 0)
         Me.tlpSessionActive.Controls.Add(Me.btnSessionActive, 0, 0)
         Me.tlpSessionActive.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSessionActive.Location = New System.Drawing.Point(3, 303)
+        Me.tlpSessionActive.Location = New System.Drawing.Point(3, 204)
         Me.tlpSessionActive.Name = "tlpSessionActive"
         Me.tlpSessionActive.RowCount = 2
         Me.tlpSessionActive.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSessionActive.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSessionActive.Size = New System.Drawing.Size(444, 253)
+        Me.tlpSessionActive.Size = New System.Drawing.Size(444, 190)
         Me.tlpSessionActive.TabIndex = 22
         '
         'chtSessionActive
@@ -3411,7 +3411,7 @@ Partial Class frmMonMain
         Me.chtSessionActive.Location = New System.Drawing.Point(3, 29)
         Me.chtSessionActive.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSessionActive.Name = "chtSessionActive"
-        Me.chtSessionActive.Size = New System.Drawing.Size(438, 220)
+        Me.chtSessionActive.Size = New System.Drawing.Size(438, 157)
         Me.chtSessionActive.TabIndex = 2
         Me.chtSessionActive.Text = "Chart2"
         '
@@ -3442,6 +3442,17 @@ Partial Class frmMonMain
         Me.btnSessionActive.Size = New System.Drawing.Size(34, 19)
         Me.btnSessionActive.TabIndex = 1
         Me.btnSessionActive.Text = "      "
+        '
+        'monTypeImgLst
+        '
+        Me.monTypeImgLst.ImageStream = CType(resources.GetObject("monTypeImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.monTypeImgLst.TransparentColor = System.Drawing.Color.Transparent
+        Me.monTypeImgLst.Images.SetKeyName(0, "Watching16.ico")
+        Me.monTypeImgLst.Images.SetKeyName(1, "Trends3.png")
+        Me.monTypeImgLst.Images.SetKeyName(2, "if_view-01_186381.png")
+        Me.monTypeImgLst.Images.SetKeyName(3, "if_12_SEO_Benchmark_1688863.png")
+        Me.monTypeImgLst.Images.SetKeyName(4, "Trends.png")
+        Me.monTypeImgLst.Images.SetKeyName(5, "Trends2.png")
         '
         'tlpDiskAccess
         '
@@ -4106,14 +4117,6 @@ Partial Class frmMonMain
         Me.mnuSQLRespTmAVG.Name = "mnuSQLRespTmAVG"
         Me.mnuSQLRespTmAVG.Size = New System.Drawing.Size(205, 22)
         Me.mnuSQLRespTmAVG.Text = "SQL Response time Avg"
-        '
-        'monTypeImgLst
-        '
-        Me.monTypeImgLst.ImageStream = CType(resources.GetObject("monTypeImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.monTypeImgLst.TransparentColor = System.Drawing.Color.Transparent
-        Me.monTypeImgLst.Images.SetKeyName(0, "Watching16.ico")
-        Me.monTypeImgLst.Images.SetKeyName(1, "if_12_SEO_Benchmark_1688863.png")
-        Me.monTypeImgLst.Images.SetKeyName(2, "if_view-01_186381.png")
         '
         'frmMonMain
         '

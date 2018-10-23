@@ -422,13 +422,14 @@ public class ActvCollect extends TaskApplication {
 						HashMap<String, Object> inputParam = new HashMap<String, Object>();
 						inputParam.put("instance_id", 				Integer.parseInt(instanceId));
 						inputParam.put("queryid", 					map.get("sql"));
-
-						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);
-						inputParam.put("stmt_queryid", 				map.get("queryid"));
 						inputParam.put("query", 					map.get("sql"));
-						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+
+						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
 						if (queryIdMap == null){
 							sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
+							inputParam.put("stmt_queryid", 				map.get("queryid"));
+							inputParam.put("query", 					map.get("sql"));
+							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
 						}else{
 							map.put("queryid", queryIdMap.get("queryid"));
 							sessionAgent.insert("app.TB_BACKEND_RSC_I002", map);

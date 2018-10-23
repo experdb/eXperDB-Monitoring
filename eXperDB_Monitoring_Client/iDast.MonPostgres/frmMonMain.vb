@@ -189,14 +189,14 @@
         tlpSessionActive.Tag = clsIni.ReadValue("CHART", "SESSIONACTIVE", "2")
         tlpLogicalRead.Tag = clsIni.ReadValue("CHART", "LOGICALREAD", "3")
         tlpSQLRespTmMAX.Tag = clsIni.ReadValue("CHART", "SQLRESPTMMAX", "4")
-        tlpLockWait.Tag = clsIni.ReadValue("CHART", "LOCKWAIT", "5")
-        tlpTPSTotal.Tag = clsIni.ReadValue("CHART", "TPSTOTAL", "6")
-        tlpCPUWait.Tag = clsIni.ReadValue("CHART", "CPUWAIT", "0")
-        tlpLogicalWrite.Tag = clsIni.ReadValue("CHART", "LOGICALWRITE", "0")
-        tlpSessionTotal.Tag = clsIni.ReadValue("CHART", "SESSIONTOTAL", "0")
-        tlpTPSCommit.Tag = clsIni.ReadValue("CHART", "TPSCOMMIT", "0")
+        tlpSessionTotal.Tag = clsIni.ReadValue("CHART", "SESSIONTOTAL", "5")
+        tlpLogicalWrite.Tag = clsIni.ReadValue("CHART", "LOGICALWRITE", "6")
+        tlpSQLRespTmAVG.Tag = clsIni.ReadValue("CHART", "SQLRESPTMAVG", "7")
+        tlpLockWait.Tag = clsIni.ReadValue("CHART", "LOCKWAIT", "8")
+        tlpTPSTotal.Tag = clsIni.ReadValue("CHART", "TPSTOTAL", "9")
         tlpTPSRollback.Tag = clsIni.ReadValue("CHART", "TPSROLLBACK", "0")
-        tlpSQLRespTmAVG.Tag = clsIni.ReadValue("CHART", "SQLRESPTMAVG", "0")
+        tlpCPUWait.Tag = clsIni.ReadValue("CHART", "CPUWAIT", "0")
+        tlpTPSCommit.Tag = clsIni.ReadValue("CHART", "TPSCOMMIT", "0")
 
         mnuCPUUtil.Tag = tlpCPUUtil
         mnuSessionActive.Tag = tlpSessionActive
@@ -3620,6 +3620,15 @@
                 tlpTrend.SetColumn(tlp, 1)
             Case 6
                 tlpTrend.SetRow(tlp, 2)
+                tlpTrend.SetColumn(tlp, 2)
+            Case 7
+                tlpTrend.SetRow(tlp, 3)
+                tlpTrend.SetColumn(tlp, 0)
+            Case 8
+                tlpTrend.SetRow(tlp, 3)
+                tlpTrend.SetColumn(tlp, 1)
+            Case 9
+                tlpTrend.SetRow(tlp, 3)
                 tlpTrend.SetColumn(tlp, 2)
         End Select
     End Sub

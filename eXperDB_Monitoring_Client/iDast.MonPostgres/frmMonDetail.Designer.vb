@@ -163,6 +163,7 @@ Partial Class frmMonDetail
         Me.btnActInfo = New eXperDB.BaseControls.Button()
         Me.btnPartView = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnStatements = New eXperDB.BaseControls.Button()
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.ServerName_lv = New System.Windows.Forms.Label()
         Me.btnChartDetail = New eXperDB.BaseControls.Button()
@@ -1748,7 +1749,7 @@ Partial Class frmMonDetail
         Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSessionLock.Image = CType(resources.GetObject("btnSessionLock.Image"), System.Drawing.Image)
         Me.btnSessionLock.LineColor = System.Drawing.Color.LightGray
-        Me.btnSessionLock.Location = New System.Drawing.Point(1207, 11)
+        Me.btnSessionLock.Location = New System.Drawing.Point(1167, 11)
         Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSessionLock.Name = "btnSessionLock"
         Me.btnSessionLock.Radius = 5
@@ -1769,7 +1770,7 @@ Partial Class frmMonDetail
         Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSqlPlan.Image = CType(resources.GetObject("btnSqlPlan.Image"), System.Drawing.Image)
         Me.btnSqlPlan.LineColor = System.Drawing.Color.LightGray
-        Me.btnSqlPlan.Location = New System.Drawing.Point(1167, 11)
+        Me.btnSqlPlan.Location = New System.Drawing.Point(1127, 11)
         Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSqlPlan.Name = "btnSqlPlan"
         Me.btnSqlPlan.Radius = 5
@@ -1790,7 +1791,7 @@ Partial Class frmMonDetail
         Me.btnActInfo.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnActInfo.Image = CType(resources.GetObject("btnActInfo.Image"), System.Drawing.Image)
         Me.btnActInfo.LineColor = System.Drawing.Color.LightGray
-        Me.btnActInfo.Location = New System.Drawing.Point(1247, 11)
+        Me.btnActInfo.Location = New System.Drawing.Point(1207, 11)
         Me.btnActInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnActInfo.Name = "btnActInfo"
         Me.btnActInfo.Radius = 5
@@ -1811,7 +1812,7 @@ Partial Class frmMonDetail
         Me.btnPartView.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPartView.Image = CType(resources.GetObject("btnPartView.Image"), System.Drawing.Image)
         Me.btnPartView.LineColor = System.Drawing.Color.LightGray
-        Me.btnPartView.Location = New System.Drawing.Point(1287, 11)
+        Me.btnPartView.Location = New System.Drawing.Point(1247, 11)
         Me.btnPartView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPartView.Name = "btnPartView"
         Me.btnPartView.Radius = 5
@@ -1822,7 +1823,7 @@ Partial Class frmMonDetail
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.ColumnCount = 9
+        Me.TableLayoutPanel2.ColumnCount = 10
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 965.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46.0!))
@@ -1832,6 +1833,8 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnStatements, 9, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.picLogo, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnSessionLock, 5, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnPartView, 7, 0)
@@ -1847,6 +1850,27 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(1364, 54)
         Me.TableLayoutPanel2.TabIndex = 13
+        '
+        'btnStatements
+        '
+        Me.btnStatements.BackColor = System.Drawing.Color.Silver
+        Me.btnStatements.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnStatements.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnStatements.FixedHeight = False
+        Me.btnStatements.FixedWidth = False
+        Me.btnStatements.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnStatements.ForeColor = System.Drawing.Color.Red
+        Me.btnStatements.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnStatements.Image = CType(resources.GetObject("btnStatements.Image"), System.Drawing.Image)
+        Me.btnStatements.LineColor = System.Drawing.Color.LightGray
+        Me.btnStatements.Location = New System.Drawing.Point(1327, 11)
+        Me.btnStatements.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnStatements.Name = "btnStatements"
+        Me.btnStatements.Radius = 5
+        Me.btnStatements.Size = New System.Drawing.Size(34, 31)
+        Me.btnStatements.TabIndex = 9
+        Me.btnStatements.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnStatements.UseVisualStyleBackColor = True
         '
         'picLogo
         '
@@ -1885,7 +1909,7 @@ Partial Class frmMonDetail
         Me.btnChartDetail.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnChartDetail.Image = CType(resources.GetObject("btnChartDetail.Image"), System.Drawing.Image)
         Me.btnChartDetail.LineColor = System.Drawing.Color.LightGray
-        Me.btnChartDetail.Location = New System.Drawing.Point(1327, 11)
+        Me.btnChartDetail.Location = New System.Drawing.Point(1287, 11)
         Me.btnChartDetail.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnChartDetail.Name = "btnChartDetail"
         Me.btnChartDetail.Radius = 5
@@ -3834,5 +3858,6 @@ Partial Class frmMonDetail
     Friend WithEvents chtTPS As System.Windows.Forms.DataVisualization.Charting.Chart
     Friend WithEvents grpTPS As System.Windows.Forms.Label
     Friend WithEvents lblTPS As System.Windows.Forms.Button
+    Friend WithEvents btnStatements As eXperDB.BaseControls.Button
 
 End Class

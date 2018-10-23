@@ -1250,10 +1250,10 @@ Public Class ctlChartEx
     ''' <param name="AreaName">영역명을 지칭 지칭하지 않을 경우 AREA + 순번으로 자동으로 됨.</param>
     ''' <returns>생성된 영역명칭</returns>
     ''' <remarks>멀티차트에서 사용하는 것으로 각각 개별 그리기 영역에 설정됨</remarks>
-    Public Function AddAreaEx(ByVal xTitle As String, ByVal yTitle As String, Optional ByVal AreaVisible As Boolean = False, Optional ByVal AreaName As String = "") As String
+    Public Function AddAreaEx(ByVal xTitle As String, ByVal yTitle As String, Optional ByVal AreaVisible As Boolean = False, Optional ByVal AreaName As String = "", Optional ByVal LegendFull As Boolean = True) As String
         ' 영역 생성 
         Dim strNewAreaNm As String = AddArea(AreaVisible, AreaName, xTitle, yTitle)
-        Dim defLegend As System.Windows.Forms.DataVisualization.Charting.Legend = Me.MainChart.Legends(0)
+        Dim defLegend As System.Windows.Forms.DataVisualization.Charting.Legend = Me.MainChart.Legends(IIf(LegendFull = True, 0, 1))
         Dim defChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea = Me.MainChart.ChartAreas(0)
         Dim StripLine1 As System.Windows.Forms.DataVisualization.Charting.StripLine = defChartArea.AxisY.StripLines(0)
         'Dim defVerticalAnnotation As System.Windows.Forms.DataVisualization.Charting.VerticalLineAnnotation = Me.MainChart.Annotations(0)
@@ -1311,17 +1311,19 @@ Public Class ctlChartEx
         ChartArea1.BorderColor = defChartArea.BorderColor
 
         ' 영역에 표시될 범례 생성 
-        Dim strNewLegendNm As String = AddLegend(strNewAreaNm)
+        Dim strNewLegendNm As String = AddLegend(strNewAreaNm, LegendFull)
         Dim tmpLegend As System.Windows.Forms.DataVisualization.Charting.Legend = Me.MainChart.Legends(strNewLegendNm)
         tmpLegend.Alignment = defLegend.Alignment
         tmpLegend.Alignment = System.Drawing.StringAlignment.Far
         tmpLegend.BackColor = System.Drawing.Color.Black
         tmpLegend.CellColumns(0) = defLegend.CellColumns(0)
         tmpLegend.CellColumns(1) = defLegend.CellColumns(1)
-        tmpLegend.CellColumns(2) = defLegend.CellColumns(2)
-        tmpLegend.CellColumns(3) = defLegend.CellColumns(3)
-        tmpLegend.CellColumns(4) = defLegend.CellColumns(4)
-        tmpLegend.CellColumns(5) = defLegend.CellColumns(5)
+        If LegendFull = True Then
+            tmpLegend.CellColumns(2) = defLegend.CellColumns(2)
+            tmpLegend.CellColumns(3) = defLegend.CellColumns(3)
+            tmpLegend.CellColumns(4) = defLegend.CellColumns(4)
+            tmpLegend.CellColumns(5) = defLegend.CellColumns(5)
+        End If
         tmpLegend.Docking = defLegend.Docking
         tmpLegend.ForeColor = defLegend.ForeColor
         tmpLegend.HeaderSeparator = defLegend.HeaderSeparator
@@ -1514,42 +1516,44 @@ Public Class ctlChartEx
     ''' <param name="strArea">그리기 영역 명칭</param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function AddLegend(ByVal strArea As String) As String
+    Private Function AddLegend(ByVal strArea As String, Optional LegendFull As Boolean = True) As String
         ' LEG 로 PREFIX 
         Dim tmpLegend As New System.Windows.Forms.DataVisualization.Charting.Legend("LEG" & strArea.ToUpper)
         With tmpLegend
 
             Dim LegendCellColumn1 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
             Dim LegendCellColumn2 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
-            Dim LegendCellColumn3 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
-            Dim LegendCellColumn4 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
-            Dim LegendCellColumn5 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
-            Dim LegendCellColumn6 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
 
             LegendCellColumn1.ColumnType = System.Windows.Forms.DataVisualization.Charting.LegendCellColumnType.SeriesSymbol
             LegendCellColumn1.HeaderText = "Color"
             LegendCellColumn1.Name = "colColor"
             LegendCellColumn2.HeaderText = "Title"
             LegendCellColumn2.Name = "colNm"
-            LegendCellColumn3.HeaderText = "Min."
-            LegendCellColumn3.Name = "colMin"
-            LegendCellColumn3.Text = "#MIN{N1}"
-            LegendCellColumn4.HeaderText = "Max."
-            LegendCellColumn4.Name = "colMax"
-            LegendCellColumn4.Text = "#MAX{N1}"
-            LegendCellColumn5.HeaderText = "Avg."
-            LegendCellColumn5.Name = "colMean"
-            LegendCellColumn5.Text = "#AVG{N1}"
-            LegendCellColumn6.HeaderText = "Value"
-            LegendCellColumn6.MaximumWidth = 0
-            LegendCellColumn6.Name = "colValue"
-            LegendCellColumn6.Text = "#LAST"
             .CellColumns.Add(LegendCellColumn1)
             .CellColumns.Add(LegendCellColumn2)
-            .CellColumns.Add(LegendCellColumn3)
-            .CellColumns.Add(LegendCellColumn4)
-            .CellColumns.Add(LegendCellColumn5)
-            .CellColumns.Add(LegendCellColumn6)
+            If LegendFull = True Then
+                Dim LegendCellColumn3 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
+                Dim LegendCellColumn4 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
+                Dim LegendCellColumn5 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
+                Dim LegendCellColumn6 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
+                LegendCellColumn3.HeaderText = "Min."
+                LegendCellColumn3.Name = "colMin"
+                LegendCellColumn3.Text = "#MIN{N1}"
+                LegendCellColumn4.HeaderText = "Max."
+                LegendCellColumn4.Name = "colMax"
+                LegendCellColumn4.Text = "#MAX{N1}"
+                LegendCellColumn5.HeaderText = "Avg."
+                LegendCellColumn5.Name = "colMean"
+                LegendCellColumn5.Text = "#AVG{N1}"
+                LegendCellColumn6.HeaderText = "Value"
+                LegendCellColumn6.MaximumWidth = 0
+                LegendCellColumn6.Name = "colValue"
+                LegendCellColumn6.Text = "#LAST"
+                .CellColumns.Add(LegendCellColumn3)
+                .CellColumns.Add(LegendCellColumn4)
+                .CellColumns.Add(LegendCellColumn5)
+                .CellColumns.Add(LegendCellColumn6)
+            End If
 
             tmpLegend.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
             tmpLegend.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.GradientLine

@@ -1234,7 +1234,6 @@
 
     Public Function SelectReportSQL(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal strAgentVer As String) As DataTable
 
-
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = ""
@@ -2043,6 +2042,95 @@
 
                 strQuery = String.Format(strQuery, InstanceID, subQuery)
 
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectStatementsList(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = ""
+                strQuery = p_clsQueryData.fn_GetData("SELECTSTATEMENTLIST")
+
+                Dim subQuery As String = ""
+                Dim subQuery2 As String = ""
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                subQuery2 = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                strQuery = String.Format(strQuery, InstanceID, subQuery, subQuery2)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectStatementsTop(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal sortType As Integer, ByVal rank As Integer) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = ""
+                strQuery = p_clsQueryData.fn_GetData("SELECTSTATEMENTSTOP")
+
+                Dim subQuery As String = ""
+                Dim subQuery2 As String = ""
+                Dim subQuery3 As String = ""
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                subQuery2 = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                Select Case sortType
+                    Case 1 : subQuery3 = "CALLS DESC"
+                    Case 2 : subQuery3 = "TOTAL_TIME DESC"
+                    Case 3 : subQuery3 = "CPU_TIME DESC, TOTAL_TIME DESC"
+                    Case 4 : subQuery3 = "IO_TIME, CPU_TIME DESC, TOTAL_TIME DESC"
+                End Select
+                strQuery = String.Format(strQuery, InstanceID, subQuery, subQuery2, subQuery3, rank)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectStatementsCalls(ByVal InstanceID As String, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal strQueries As String) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSTATEMENTSCALLS")
+                Dim subQuery As String = ""
+                Dim subQuery2 As String = ""
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                subQuery2 = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                strQuery = String.Format(strQuery, InstanceID, subQuery, subQuery2, strQueries)
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                     Return dtSet.Tables(0)

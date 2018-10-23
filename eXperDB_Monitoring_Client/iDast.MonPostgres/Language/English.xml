@@ -2561,6 +2561,22 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F323" PARAMS="1">
+    <DESC>Stat_Statements</DESC>
+    <DATA><![CDATA[Statements(Count : {0})]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F324" PARAMS="0">
+    <DESC>Chart Statements</DESC>
+    <DATA><![CDATA[Chart Statements]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3084,6 +3100,14 @@
   <ROW ID="M058" PARAMS="1">
     <DESC>총 건이 선택되어 알람조치 합니다.</DESC>
     <DATA><![CDATA[Do you want to take a check the total of ({0}) selected alerts?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M059" PARAMS="0">
+    <DESC>Chart Statements</DESC>
+    <DATA><![CDATA[You can view statistical information for Statments by period.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

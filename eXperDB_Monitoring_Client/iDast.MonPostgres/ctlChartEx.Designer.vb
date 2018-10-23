@@ -23,6 +23,7 @@ Partial Class ctlChartEx
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ctlChartEx))
         Dim VerticalLineAnnotation1 As System.Windows.Forms.DataVisualization.Charting.VerticalLineAnnotation = New System.Windows.Forms.DataVisualization.Charting.VerticalLineAnnotation()
         Dim VerticalLineAnnotation2 As System.Windows.Forms.DataVisualization.Charting.VerticalLineAnnotation = New System.Windows.Forms.DataVisualization.Charting.VerticalLineAnnotation()
         Dim RectangleAnnotation1 As System.Windows.Forms.DataVisualization.Charting.RectangleAnnotation = New System.Windows.Forms.DataVisualization.Charting.RectangleAnnotation()
@@ -36,9 +37,15 @@ Partial Class ctlChartEx
         Dim LegendCellColumn4 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
         Dim LegendCellColumn5 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
         Dim LegendCellColumn6 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim LegendCellColumn7 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
+        Dim LegendCellColumn8 As System.Windows.Forms.DataVisualization.Charting.LegendCellColumn = New System.Windows.Forms.DataVisualization.Charting.LegendCellColumn()
         Dim Title1 As System.Windows.Forms.DataVisualization.Charting.Title = New System.Windows.Forms.DataVisualization.Charting.Title()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ctlChartEx))
         Me.mnuChartMenu = New System.Windows.Forms.ToolStrip()
+        Me.tsCharts = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.mnuZoomType = New System.Windows.Forms.ToolStripComboBox()
+        Me.mnuZoomReset = New System.Windows.Forms.ToolStripButton()
+        Me.mnuPause = New System.Windows.Forms.ToolStripButton()
         Me.tsShowValue = New System.Windows.Forms.ToolStripDropDownButton()
         Me.tsShowValueDeSel = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsShowValueSep1 = New System.Windows.Forms.ToolStripSeparator()
@@ -62,10 +69,6 @@ Partial Class ctlChartEx
         Me.mnuPopupMEAN = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPopupVAL = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPopupHidden = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuPause = New System.Windows.Forms.ToolStripButton()
-        Me.mnuZoomReset = New System.Windows.Forms.ToolStripButton()
-        Me.mnuZoomType = New System.Windows.Forms.ToolStripComboBox()
-        Me.tsCharts = New System.Windows.Forms.ToolStripDropDownButton()
         Me.tsGRPDEFAREA = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuChartMenu.SuspendLayout()
         CType(Me.MainChart, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -79,12 +82,55 @@ Partial Class ctlChartEx
         Me.mnuChartMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.mnuChartMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsCharts, Me.mnuZoomType, Me.mnuZoomReset, Me.mnuPause, Me.tsShowValue, Me.tsShowLegend, Me.tsShowMean, Me.tsPrints})
         Me.mnuChartMenu.Location = New System.Drawing.Point(0, 0)
-        Me.mnuChartMenu.Margin = New System.Windows.Forms.Padding(0, 0, 0, 100)
+        Me.mnuChartMenu.Margin = New System.Windows.Forms.Padding(0, 0, 0, 80)
         Me.mnuChartMenu.Name = "mnuChartMenu"
-        Me.mnuChartMenu.Size = New System.Drawing.Size(690, 28)
+        Me.mnuChartMenu.Size = New System.Drawing.Size(259, 27)
         Me.mnuChartMenu.TabIndex = 0
         Me.mnuChartMenu.Text = "ToolStrip1"
         Me.mnuChartMenu.Visible = False
+        '
+        'tsCharts
+        '
+        Me.tsCharts.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.tsCharts.Image = CType(resources.GetObject("tsCharts.Image"), System.Drawing.Image)
+        Me.tsCharts.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsCharts.Name = "tsCharts"
+        Me.tsCharts.Size = New System.Drawing.Size(74, 24)
+        Me.tsCharts.Text = "Charts"
+        Me.tsCharts.Visible = False
+        '
+        'mnuZoomType
+        '
+        Me.mnuZoomType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.mnuZoomType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.mnuZoomType.Items.AddRange(New Object() {"None", "ALL", "X", "Y"})
+        Me.mnuZoomType.Name = "mnuZoomType"
+        Me.mnuZoomType.Size = New System.Drawing.Size(75, 23)
+        Me.mnuZoomType.ToolTipText = "Select zoom type"
+        Me.mnuZoomType.Visible = False
+        '
+        'mnuZoomReset
+        '
+        Me.mnuZoomReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.mnuZoomReset.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.mnuZoomReset.Image = CType(resources.GetObject("mnuZoomReset.Image"), System.Drawing.Image)
+        Me.mnuZoomReset.ImageTransparentColor = System.Drawing.Color.White
+        Me.mnuZoomReset.Name = "mnuZoomReset"
+        Me.mnuZoomReset.Size = New System.Drawing.Size(24, 24)
+        Me.mnuZoomReset.Text = "Reset Zoom"
+        Me.mnuZoomReset.ToolTipText = "Reset Zoom"
+        Me.mnuZoomReset.Visible = False
+        '
+        'mnuPause
+        '
+        Me.mnuPause.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.mnuPause.Image = CType(resources.GetObject("mnuPause.Image"), System.Drawing.Image)
+        Me.mnuPause.ImageTransparentColor = System.Drawing.Color.White
+        Me.mnuPause.Name = "mnuPause"
+        Me.mnuPause.Size = New System.Drawing.Size(62, 24)
+        Me.mnuPause.Tag = "0"
+        Me.mnuPause.Text = "Pause"
+        Me.mnuPause.Visible = False
         '
         'tsShowValue
         '
@@ -93,21 +139,21 @@ Partial Class ctlChartEx
         Me.tsShowValue.Image = CType(resources.GetObject("tsShowValue.Image"), System.Drawing.Image)
         Me.tsShowValue.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsShowValue.Name = "tsShowValue"
-        Me.tsShowValue.Size = New System.Drawing.Size(89, 25)
+        Me.tsShowValue.Size = New System.Drawing.Size(75, 24)
         Me.tsShowValue.Text = "Values"
         Me.tsShowValue.ToolTipText = "값 보기"
         '
         'tsShowValueDeSel
         '
         Me.tsShowValueDeSel.Name = "tsShowValueDeSel"
-        Me.tsShowValueDeSel.Size = New System.Drawing.Size(174, 26)
+        Me.tsShowValueDeSel.Size = New System.Drawing.Size(146, 22)
         Me.tsShowValueDeSel.Tag = "FIX"
         Me.tsShowValueDeSel.Text = "모두선택해제"
         '
         'tsShowValueSep1
         '
         Me.tsShowValueSep1.Name = "tsShowValueSep1"
-        Me.tsShowValueSep1.Size = New System.Drawing.Size(171, 6)
+        Me.tsShowValueSep1.Size = New System.Drawing.Size(143, 6)
         '
         'tsShowLegend
         '
@@ -115,7 +161,7 @@ Partial Class ctlChartEx
         Me.tsShowLegend.Image = CType(resources.GetObject("tsShowLegend.Image"), System.Drawing.Image)
         Me.tsShowLegend.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsShowLegend.Name = "tsShowLegend"
-        Me.tsShowLegend.Size = New System.Drawing.Size(100, 25)
+        Me.tsShowLegend.Size = New System.Drawing.Size(84, 24)
         Me.tsShowLegend.Text = "Legends"
         Me.tsShowLegend.ToolTipText = "범례 보기"
         '
@@ -125,7 +171,7 @@ Partial Class ctlChartEx
         Me.tsShowMean.Image = CType(resources.GetObject("tsShowMean.Image"), System.Drawing.Image)
         Me.tsShowMean.ImageTransparentColor = System.Drawing.Color.White
         Me.tsShowMean.Name = "tsShowMean"
-        Me.tsShowMean.Size = New System.Drawing.Size(105, 25)
+        Me.tsShowMean.Size = New System.Drawing.Size(88, 24)
         Me.tsShowMean.Text = "Averages"
         '
         'tsPrints
@@ -135,7 +181,7 @@ Partial Class ctlChartEx
         Me.tsPrints.Image = CType(resources.GetObject("tsPrints.Image"), System.Drawing.Image)
         Me.tsPrints.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsPrints.Name = "tsPrints"
-        Me.tsPrints.Size = New System.Drawing.Size(73, 25)
+        Me.tsPrints.Size = New System.Drawing.Size(64, 24)
         Me.tsPrints.Text = "인쇄"
         Me.tsPrints.ToolTipText = "Prints"
         Me.tsPrints.Visible = False
@@ -143,25 +189,25 @@ Partial Class ctlChartEx
         'tsPrint
         '
         Me.tsPrint.Name = "tsPrint"
-        Me.tsPrint.Size = New System.Drawing.Size(164, 26)
+        Me.tsPrint.Size = New System.Drawing.Size(138, 22)
         Me.tsPrint.Text = "인쇄"
         '
         'tsPrintPageSetup
         '
         Me.tsPrintPageSetup.Name = "tsPrintPageSetup"
-        Me.tsPrintPageSetup.Size = New System.Drawing.Size(164, 26)
+        Me.tsPrintPageSetup.Size = New System.Drawing.Size(138, 22)
         Me.tsPrintPageSetup.Text = "페이지 설정"
         '
         'tsPrintPreview
         '
         Me.tsPrintPreview.Name = "tsPrintPreview"
-        Me.tsPrintPreview.Size = New System.Drawing.Size(164, 26)
+        Me.tsPrintPreview.Size = New System.Drawing.Size(138, 22)
         Me.tsPrintPreview.Text = "미리보기"
         '
         'tsPrintMultiPage
         '
         Me.tsPrintMultiPage.Name = "tsPrintMultiPage"
-        Me.tsPrintMultiPage.Size = New System.Drawing.Size(164, 26)
+        Me.tsPrintMultiPage.Size = New System.Drawing.Size(138, 22)
         Me.tsPrintMultiPage.Text = "분할인쇄"
         Me.tsPrintMultiPage.Visible = False
         '
@@ -268,9 +314,33 @@ Partial Class ctlChartEx
         Legend1.Name = "DEFLEGEND"
         Legend1.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend1.TitleSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Legend2.Alignment = System.Drawing.StringAlignment.Far
+        Legend2.BackColor = System.Drawing.Color.Black
+        LegendCellColumn7.ColumnType = System.Windows.Forms.DataVisualization.Charting.LegendCellColumnType.SeriesSymbol
+        LegendCellColumn7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn7.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        LegendCellColumn7.HeaderText = "Color"
+        LegendCellColumn7.Name = "colColor"
+        LegendCellColumn8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn8.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        LegendCellColumn8.HeaderText = "Title"
+        LegendCellColumn8.Name = "colNM"
+        Legend2.CellColumns.Add(LegendCellColumn7)
+        Legend2.CellColumns.Add(LegendCellColumn8)
+        Legend2.DockedToChartArea = "DEFAREA"
+        Legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Legend2.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.GradientLine
+        Legend2.HeaderSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Legend2.IsDockedInsideChartArea = False
+        Legend2.ItemColumnSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.DotLine
+        Legend2.ItemColumnSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Legend2.Name = "DEFLEGEND2"
+        Legend2.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Legend2.TitleSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.MainChart.Legends.Add(Legend1)
+        Me.MainChart.Legends.Add(Legend2)
         Me.MainChart.Location = New System.Drawing.Point(0, 0)
-        Me.MainChart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MainChart.Name = "MainChart"
         Me.MainChart.Size = New System.Drawing.Size(942, 412)
         Me.MainChart.TabIndex = 1
@@ -287,20 +357,20 @@ Partial Class ctlChartEx
         Me.mnuPopUpLegend.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.mnuPopUpLegend.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuPopupAligns, Me.범ToolStripMenuItem, Me.mnuPopupHidden})
         Me.mnuPopUpLegend.Name = "mnuPopUpLegend"
-        Me.mnuPopUpLegend.Size = New System.Drawing.Size(188, 76)
+        Me.mnuPopUpLegend.Size = New System.Drawing.Size(161, 70)
         '
         'mnuPopupAligns
         '
         Me.mnuPopupAligns.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuPopupAlignTop, Me.mnuPopupAlignLeft, Me.mnuPopupAlignRght, Me.mnuPopupAlignBottom})
         Me.mnuPopupAligns.Name = "mnuPopupAligns"
-        Me.mnuPopupAligns.Size = New System.Drawing.Size(187, 24)
+        Me.mnuPopupAligns.Size = New System.Drawing.Size(160, 22)
         Me.mnuPopupAligns.Text = "Legend Align"
         '
         'mnuPopupAlignTop
         '
         Me.mnuPopupAlignTop.CheckOnClick = True
         Me.mnuPopupAlignTop.Name = "mnuPopupAlignTop"
-        Me.mnuPopupAlignTop.Size = New System.Drawing.Size(134, 26)
+        Me.mnuPopupAlignTop.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignTop.Tag = "0"
         Me.mnuPopupAlignTop.Text = "Top"
         '
@@ -308,7 +378,7 @@ Partial Class ctlChartEx
         '
         Me.mnuPopupAlignLeft.CheckOnClick = True
         Me.mnuPopupAlignLeft.Name = "mnuPopupAlignLeft"
-        Me.mnuPopupAlignLeft.Size = New System.Drawing.Size(134, 26)
+        Me.mnuPopupAlignLeft.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignLeft.Tag = "3"
         Me.mnuPopupAlignLeft.Text = "Left"
         '
@@ -316,7 +386,7 @@ Partial Class ctlChartEx
         '
         Me.mnuPopupAlignRght.CheckOnClick = True
         Me.mnuPopupAlignRght.Name = "mnuPopupAlignRght"
-        Me.mnuPopupAlignRght.Size = New System.Drawing.Size(134, 26)
+        Me.mnuPopupAlignRght.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignRght.Tag = "1"
         Me.mnuPopupAlignRght.Text = "Right"
         '
@@ -324,7 +394,7 @@ Partial Class ctlChartEx
         '
         Me.mnuPopupAlignBottom.CheckOnClick = True
         Me.mnuPopupAlignBottom.Name = "mnuPopupAlignBottom"
-        Me.mnuPopupAlignBottom.Size = New System.Drawing.Size(134, 26)
+        Me.mnuPopupAlignBottom.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignBottom.Tag = "2"
         Me.mnuPopupAlignBottom.Text = "Bottom"
         '
@@ -332,7 +402,7 @@ Partial Class ctlChartEx
         '
         Me.범ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuPopupMin, Me.mnuPopupMax, Me.mnuPopupMEAN, Me.mnuPopupVAL})
         Me.범ToolStripMenuItem.Name = "범ToolStripMenuItem"
-        Me.범ToolStripMenuItem.Size = New System.Drawing.Size(187, 24)
+        Me.범ToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.범ToolStripMenuItem.Text = "Legend Column"
         '
         'mnuPopupMin
@@ -341,7 +411,7 @@ Partial Class ctlChartEx
         Me.mnuPopupMin.CheckOnClick = True
         Me.mnuPopupMin.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuPopupMin.Name = "mnuPopupMin"
-        Me.mnuPopupMin.Size = New System.Drawing.Size(155, 26)
+        Me.mnuPopupMin.Size = New System.Drawing.Size(129, 22)
         Me.mnuPopupMin.Tag = "2"
         Me.mnuPopupMin.Text = "Min"
         '
@@ -351,7 +421,7 @@ Partial Class ctlChartEx
         Me.mnuPopupMax.CheckOnClick = True
         Me.mnuPopupMax.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuPopupMax.Name = "mnuPopupMax"
-        Me.mnuPopupMax.Size = New System.Drawing.Size(155, 26)
+        Me.mnuPopupMax.Size = New System.Drawing.Size(129, 22)
         Me.mnuPopupMax.Tag = "3"
         Me.mnuPopupMax.Text = "Max"
         '
@@ -361,7 +431,7 @@ Partial Class ctlChartEx
         Me.mnuPopupMEAN.CheckOnClick = True
         Me.mnuPopupMEAN.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuPopupMEAN.Name = "mnuPopupMEAN"
-        Me.mnuPopupMEAN.Size = New System.Drawing.Size(155, 26)
+        Me.mnuPopupMEAN.Size = New System.Drawing.Size(129, 22)
         Me.mnuPopupMEAN.Tag = "4"
         Me.mnuPopupMEAN.Text = "Avg"
         '
@@ -369,7 +439,7 @@ Partial Class ctlChartEx
         '
         Me.mnuPopupVAL.CheckOnClick = True
         Me.mnuPopupVAL.Name = "mnuPopupVAL"
-        Me.mnuPopupVAL.Size = New System.Drawing.Size(155, 26)
+        Me.mnuPopupVAL.Size = New System.Drawing.Size(129, 22)
         Me.mnuPopupVAL.Tag = "5"
         Me.mnuPopupVAL.Text = "Last Value"
         '
@@ -377,51 +447,8 @@ Partial Class ctlChartEx
         '
         Me.mnuPopupHidden.CheckOnClick = True
         Me.mnuPopupHidden.Name = "mnuPopupHidden"
-        Me.mnuPopupHidden.Size = New System.Drawing.Size(187, 24)
+        Me.mnuPopupHidden.Size = New System.Drawing.Size(160, 22)
         Me.mnuPopupHidden.Text = "Legend Hidden"
-        '
-        'mnuPause
-        '
-        Me.mnuPause.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.mnuPause.Image = CType(resources.GetObject("mnuPause.Image"), System.Drawing.Image)
-        Me.mnuPause.ImageTransparentColor = System.Drawing.Color.White
-        Me.mnuPause.Name = "mnuPause"
-        Me.mnuPause.Size = New System.Drawing.Size(74, 25)
-        Me.mnuPause.Tag = "0"
-        Me.mnuPause.Text = "Pause"
-        Me.mnuPause.Visible = False
-        '
-        'mnuZoomReset
-        '
-        Me.mnuZoomReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.mnuZoomReset.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.mnuZoomReset.Image = CType(resources.GetObject("mnuZoomReset.Image"), System.Drawing.Image)
-        Me.mnuZoomReset.ImageTransparentColor = System.Drawing.Color.White
-        Me.mnuZoomReset.Name = "mnuZoomReset"
-        Me.mnuZoomReset.Size = New System.Drawing.Size(24, 25)
-        Me.mnuZoomReset.Text = "Reset Zoom"
-        Me.mnuZoomReset.ToolTipText = "Reset Zoom"
-        Me.mnuZoomReset.Visible = False
-        '
-        'mnuZoomType
-        '
-        Me.mnuZoomType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.mnuZoomType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.mnuZoomType.Items.AddRange(New Object() {"None", "ALL", "X", "Y"})
-        Me.mnuZoomType.Name = "mnuZoomType"
-        Me.mnuZoomType.Size = New System.Drawing.Size(85, 28)
-        Me.mnuZoomType.ToolTipText = "Select zoom type"
-        Me.mnuZoomType.Visible = False
-        '
-        'tsCharts
-        '
-        Me.tsCharts.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.tsCharts.Image = CType(resources.GetObject("tsCharts.Image"), System.Drawing.Image)
-        Me.tsCharts.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsCharts.Name = "tsCharts"
-        Me.tsCharts.Size = New System.Drawing.Size(87, 25)
-        Me.tsCharts.Text = "Charts"
-        Me.tsCharts.Visible = False
         '
         'tsGRPDEFAREA
         '
@@ -434,7 +461,7 @@ Partial Class ctlChartEx
         '
         'ctlChartEx
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.mnuChartMenu)
         Me.Controls.Add(Me.MainChart)

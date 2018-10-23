@@ -87,7 +87,7 @@ public class TaskExecutor implements Runnable{
 				{
 					int collectPeriod = 0;
 					
-					if(instanceId.equals("HCHK_COLLECT") || instanceId.equals("OBJT_COLLECT")){
+					if(instanceId.equals("HCHK_COLLECT") || instanceId.equals("OBJT_COLLECT") || instanceId.equals("STATEMENT_COLLECT")){
 						collectPeriod =(Integer) MonitoringInfoManager.getInstance().getConfig("hchk_period_sec");
 					} else{
 						collectPeriod =Integer.valueOf(TaskInfoManager.getInstance().getAtt(instanceId, "collectPeriod"));
