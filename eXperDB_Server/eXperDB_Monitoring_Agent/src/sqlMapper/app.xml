@@ -961,9 +961,10 @@
 		  		  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리
 				]]>
 			</when>
-			<when test="instance_db_version >= 9.2 and instance_db_version lt 10.0">
+			<!-- when test="instance_db_version >= 9.2 and instance_db_version lt 10.0"-->
+			<when test="instance_db_version >= 9.2">
 				<![CDATA[
-				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
+				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2 to 9.6) 24e9ab7301ff1966da4fb30dc1538882 */
 				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
 				          --? AS ACTV_REG_SEQ, -- @NEXTVAL('ACTV_REG_SEQ'),
 				          A.PROC_ID AS PROCESS_ID,
@@ -998,9 +999,15 @@
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
 			</when>
-			<when test="instance_db_version >= 10.0">
+			<otherwise>
+				SELECT ERROR
+			</otherwise>
+		</choose>	
+	</select>
+	
+	<select id="BT_BACKEND_RSC_002" parameterType="hashmap" resultType="hashmap" flushCache="true">
 				<![CDATA[
-				  SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2) 24e9ab7301ff1966da4fb30dc1538882 */
+				  SELECT /* EXPERDBMABT_BACKEND_RSC_001 (10.0) 24e9ab7301ff1966da4fb30dc1538882 */
 				          A.PROC_ID AS PROCESS_ID,
 				          B.DATNAME AS DB_NAME,
 				          HOST(B.CLIENT_ADDR::inet) AS CLIENT_ADDR, -- 2014-04-28 추가          
@@ -1023,15 +1030,6 @@
 				  	   left outer join pg_stat_statements D on C.queryid = d.queryid
 				  WHERE B.state is not null AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';		
 				]]>
-			</when>
-			<otherwise>
-				SELECT ERROR
-			</otherwise>
-		</choose>	
-	
-	
-	
-    		
 	</select>
 	
 	<insert id="TB_BACKEND_RSC_I001" parameterType="hashmap" >

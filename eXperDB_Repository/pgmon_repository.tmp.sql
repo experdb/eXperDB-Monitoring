@@ -63,7 +63,7 @@ CREATE UNLOGGED TABLE tb_backend_rsc (
     query_start timestamp without time zone,
     elapsed_time numeric(20,5),
     state character varying(30),
-    queryid varying(41),
+    queryid character varying(41),
     sql text,
     collect_dt timestamp without time zone
 );
@@ -394,7 +394,7 @@ CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
 CREATE UNLOGGED TABLE TB_QUERY_INFO (
 		instance_id integer NOT NULL,
     queryid character varying(41) NOT NULL,
-    stmt_queryid integer,
+    stmt_queryid int8,
     query text,
     collect_dt timestamp without time zone
 );

@@ -122,7 +122,9 @@ public class ActvCollect extends TaskApplication {
 				}
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 							
-				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				int extensions = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("extensions");
+				extensions &= 0x04;
 				
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// 이전값 확인
@@ -139,7 +141,10 @@ public class ActvCollect extends TaskApplication {
 					dbVerMap.put("instance_db_version", instance_db_version);					
 					
 					preList.clear();
-					preList = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);
+					if (extensions > 0 )
+						preList = sessionCollect.selectList("app.BT_BACKEND_RSC_002", dbVerMap);
+					else
+						preList = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);
 					
 					HashMap<String, Object> tempCpu = new HashMap<String, Object>();
 					for (HashMap<String, Object> map : preList) {
@@ -172,7 +177,10 @@ public class ActvCollect extends TaskApplication {
 						HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
 						dbVerMap.put("instance_db_version", instance_db_version);						
 						
-						backendRscSel = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);											 	
+						if (extensions > 0 )
+							preList = sessionCollect.selectList("app.BT_BACKEND_RSC_002", dbVerMap);
+						else
+							preList = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);	 	
 //					} catch (Exception e) {
 //						failed_collect_type = "2";
 //						throw e;
