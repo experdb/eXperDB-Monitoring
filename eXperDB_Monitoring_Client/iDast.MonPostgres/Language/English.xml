@@ -2577,6 +2577,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F325" PARAMS="0">
+    <DESC>Sort by</DESC>
+    <DATA><![CDATA[Sort by]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

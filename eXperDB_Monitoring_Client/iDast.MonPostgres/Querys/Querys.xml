@@ -2114,16 +2114,19 @@
          CLIENT_ADDR,
          USER_NAME,
          QUERY_START,
-         SQL,
+         --SQL,
+	       CASE WHEN (A.SQL = '') THEN Q.QUERY ELSE A.SQL END AS SQL,
          PROC_CPU_UTIL,
          ELAPSED_TIME,
-         COLLECT_DT
+         --COLLECT_DT
+         A.COLLECT_DT
        FROM (
               SELECT MAX(PROCESS_ID) AS PROCESS_ID,
                        MAX(DB_NAME) AS DB_NAME,
                        MAX(CLIENT_ADDR) AS CLIENT_ADDR,
                        MAX(USER_NAME) AS USER_NAME,
                        QUERY_START,
+                       QUERYID,
                        SQL,
                        ROUND(MAX(PROC_CPU_UTIL)/100, 2) AS PROC_CPU_UTIL,
                        MAX(ELAPSED_TIME) AS ELAPSED_TIME ,
@@ -2131,7 +2134,8 @@
                FROM TB_BACKEND_RSC 
               WHERE REG_DATE='{1}'
                AND ACTV_REG_SEQ={2}
-              GROUP BY SQL, QUERY_START) AS A
+              --GROUP BY SQL, QUERY_START) AS A
+              GROUP BY SQL, QUERY_START, QUERYID) AS A LEFT OUTER JOIN TB_QUERY_INFO Q ON A.QUERYID = Q.QUERYID
       WHERE ELAPSED_TIME > (SELECT WARNING_THRESHOLD FROM TB_HCHK_THRD_LIST WHERE INSTANCE_ID={0} AND HCHK_NAME='LONGRUNSQL')
     ]]>
     </DATA>
@@ -2900,7 +2904,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 	           ROUND(100*PGS.ROWS/SUM_ROWS,2) AS ROWS
 					  FROM MAXD PGS JOIN STATS ON PGS.COLLECT_DT = STATS.COLLECT_DT AND PGS.DBID = STATS.DBID
 	  WHERE PGS.DBID::TEXT || QUERYID::TEXT IN ({3})
-	  ORDER BY PGS.COLLECT_DT, CALLS DESC
+	  ORDER BY PGS.COLLECT_DT, {4}
       ]]>
     </DATA>
   </ROW>

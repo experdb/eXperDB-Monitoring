@@ -41,21 +41,37 @@
         End Get
     End Property
 
-    Private _queryColors() As Color = {System.Drawing.Color.YellowGreen,
-                     System.Drawing.Color.Salmon,
-                     System.Drawing.Color.Violet,
-                     System.Drawing.Color.Aqua,
-                     System.Drawing.Color.SpringGreen,
+    'Private _queryColors() As Color = {System.Drawing.Color.YellowGreen,
+    '                 System.Drawing.Color.Salmon,
+    '                 System.Drawing.Color.Violet,
+    '                 System.Drawing.Color.Aqua,
+    '                 System.Drawing.Color.SpringGreen,
+    '                 System.Drawing.Color.SkyBlue,
+    '                 System.Drawing.Color.Yellow,
+    '                 System.Drawing.Color.Pink,
+    '                 System.Drawing.Color.Purple,
+    '                 System.Drawing.Color.PowderBlue,
+    '                 System.Drawing.Color.Green,
+    '                 System.Drawing.Color.Brown,
+    '                 System.Drawing.Color.Blue,
+    '                 System.Drawing.Color.Red,
+    '                 System.Drawing.Color.Orange,
+    '                 System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer))}
+    Private _queryColors() As Color = {System.Drawing.Color.OrangeRed,
+                     System.Drawing.Color.Orange,
+                     System.Drawing.Color.Gold,
+                     System.Drawing.Color.YellowGreen,
                      System.Drawing.Color.SkyBlue,
-                     System.Drawing.Color.PowderBlue,
+                     System.Drawing.Color.DodgerBlue,
+                     System.Drawing.Color.Violet,
                      System.Drawing.Color.Pink,
-                     System.Drawing.Color.Yellow,
                      System.Drawing.Color.Purple,
-                     System.Drawing.Color.Green,
+                     System.Drawing.Color.Tan,
+                     System.Drawing.Color.SpringGreen,
                      System.Drawing.Color.Brown,
                      System.Drawing.Color.Blue,
                      System.Drawing.Color.Red,
-                     System.Drawing.Color.Orange,
+                     System.Drawing.Color.Aqua,
                      System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer))}
 
     Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal ServerInfo As List(Of GroupInfo.ServerInfo), ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, ByVal AgentInfo As structAgent)
@@ -139,26 +155,15 @@
         ' Talble Information (whole)
 
         lslSession.Text = p_clsMsgData.fn_GetData("F323", 0)
+        lblSort.Text = p_clsMsgData.fn_GetData("F325")
+        cmbSort.SelectedIndex = 0
+        cmbTop.SelectedIndex = 0
         dgvStmtList.AutoGenerateColumns = False
         dgvStmtList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvStmtList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
 
 
         '''''''''''''''''''''''''''''''''''''''''
-        ' Lock Information 
-
-        colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
-        colDgvLockBlockedPID.HeaderText = p_clsMsgData.fn_GetData("F195")
-        colDgvLockBlockedUser.HeaderText = p_clsMsgData.fn_GetData("F196")
-        colDgvLockBlockingPID.HeaderText = p_clsMsgData.fn_GetData("F197")
-        colDgvLockBlockingUser.HeaderText = p_clsMsgData.fn_GetData("F198")
-        colDgvLockElapse.HeaderText = p_clsMsgData.fn_GetData("F135")
-        colDgvLockBlockingQuery.HeaderText = p_clsMsgData.fn_GetData("F225")
-        colDgvLockBlockedQuery.HeaderText = p_clsMsgData.fn_GetData("F221")
-        colDgvLockMode.HeaderText = p_clsMsgData.fn_GetData("F222")
-        colDgvLockQueryStart.HeaderText = p_clsMsgData.fn_GetData("F223")
-        colDgvLockXactStart.HeaderText = p_clsMsgData.fn_GetData("F224")
-
         chtCalls.Visible = False
         chtTotalTime.Visible = False
         chtIOTime.Visible = False
@@ -255,7 +260,7 @@
     End Sub
 
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
-        SetTopQueryIDs(index, 5)
+        SetTopQueryIDs(index)
         ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
     End Sub
 
@@ -302,7 +307,8 @@
         Dim strSeriesName As String = ""
         Dim strPrevData As New ArrayList
 
-        Dim seriesChartType As DataVisualization.Charting.SeriesChartType = DataVisualization.Charting.SeriesChartType.Line
+        Dim seriesChartType As DataVisualization.Charting.SeriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
+
         Dim yAxisType As DataVisualization.Charting.AxisType = DataVisualization.Charting.AxisType.Primary
 
         Dim arrColors As New ArrayList
@@ -311,6 +317,7 @@
         'Dim Queries As Long() = _arrQueryIDs.ToArray(GetType(Long))
         'Dim DBs As Long() = _arrDBIDs.ToArray(GetType(Long))
         Dim strTopQueryIDs = ""
+        Dim strTopQueryIDsOrder = "CASE PGS.DBID::TEXT || QUERYID::TEXT "
 
         For j As Integer = 0 To _arrQueryIDs.Count - 1
             arrColors.Add(_queryColors(arrIndex))
@@ -318,8 +325,10 @@
             arrIndex += 1
             If j = _arrQueryIDs.Count - 1 Then
                 strTopQueryIDs += "'" + _arrDBIDs(j).ToString + _arrQueryIDs(j).ToString + "'"
+                strTopQueryIDsOrder += "WHEN '" + _arrDBIDs(j).ToString + _arrQueryIDs(j).ToString + "' THEN " + j.ToString + " END"
             Else
                 strTopQueryIDs += "'" + _arrDBIDs(j).ToString + _arrQueryIDs(j).ToString + "',"
+                strTopQueryIDsOrder += "WHEN '" + _arrDBIDs(j).ToString + _arrQueryIDs(j).ToString + "' THEN " + j.ToString + " "
             End If
         Next
 
@@ -370,7 +379,7 @@
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
                                                                  Try
-                                                                     dtTable = _clsQuery.SelectStatementsCalls(_InstanceID, stDate, edDate, strTopQueryIDs)
+                                                                     dtTable = _clsQuery.SelectStatementsCalls(_InstanceID, stDate, edDate, strTopQueryIDs, strTopQueryIDsOrder)
                                                                  Catch ex As Exception
                                                                      GC.Collect()
                                                                  End Try
@@ -466,12 +475,19 @@
     'End Sub
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
-        If _bRange = True Then
-            fn_DeleteAnnotaion()
-        End If
+        txtQueryID.Text = ""
+        txtSQL.Text = ""
+        Try
+            chtCalls.SeriesClear()
 
-        If fn_SearchBefCheck() = False Then Return
+            If _bRange = True Then
+                fn_DeleteAnnotaion()
+            End If
 
+            If fn_SearchBefCheck() = False Then Return
+        Catch ex As Exception
+            GC.Collect()
+        End Try
         For i As Integer = 1 To _AreaCount
             If chtCalls.MainChart.ChartAreas(i).Visible = True Then
                 QueryChartData(i, True)
@@ -647,9 +663,9 @@
         End If
     End Sub
 
-    Private Sub SetTopQueryIDs(ByVal index As Integer, ByVal countTop As Integer)
+    Private Sub SetTopQueryIDs(ByVal index As Integer)
         Dim dtTable As DataTable = Nothing
-        dtTable = _clsQuery.SelectStatementsTop(_InstanceID, dtpSt.Value, dtpEd.Value, index, 5)
+        dtTable = _clsQuery.SelectStatementsTop(_InstanceID, dtpSt.Value, dtpEd.Value, index, cmbTop.Items(cmbTop.SelectedIndex))
         _arrQueryIDs.Clear()
         _arrDBIDs.Clear()
         If dtTable IsNot Nothing Then
@@ -714,4 +730,41 @@
             btnQuery.PerformClick()
         End If
     End Sub
+
+    Private Sub cmbSort_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSort.SelectedIndexChanged
+        Dim cbo As BaseControls.ComboBox = DirectCast(sender, BaseControls.ComboBox)
+        Select Case cbo.SelectedIndex
+            Case 0
+                dgvStmtList.Sort(coldgvStmtCalls, System.ComponentModel.ListSortDirection.Descending)
+            Case 1
+                dgvStmtList.Sort(coldgvStmtTotalTime, System.ComponentModel.ListSortDirection.Descending)
+            Case 2
+                dgvStmtList.Sort(coldgvStmtCPUTimeRate, System.ComponentModel.ListSortDirection.Descending)
+            Case 3
+                dgvStmtList.Sort(coldgvStmtIOTimeRate, System.ComponentModel.ListSortDirection.Descending)
+        End Select
+    End Sub
+
+    Private Sub txtQueryID_TextChanged(sender As Object, e As EventArgs) Handles txtQueryID.TextChanged
+        Try
+            Dim rowFilter As String = String.Format("Convert([{0}], System.String) LIKE '%{1}%'", coldgvStmtQueryID.HeaderText, txtQueryID.Text)
+            Dim dt As DataTable
+            dt = dgvStmtList.DataSource
+            dt.DefaultView.RowFilter = rowFilter
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+
+    Private Sub txtSQL_TextChanged(sender As Object, e As EventArgs) Handles txtSQL.TextChanged
+        Try
+            Dim rowFilter As String = String.Format("Convert([{0}], System.String) LIKE '%{1}%'", coldgvStmtQuery.HeaderText, txtSQL.Text)
+            Dim dt As DataTable
+            dt = dgvStmtList.DataSource
+            dt.DefaultView.RowFilter = rowFilter
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+
 End Class

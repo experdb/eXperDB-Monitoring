@@ -1707,8 +1707,8 @@
         Dim dblRegDt As Double
         Dim intInstID As Integer
         Dim MaxPri As Double = 0
-        If dtTableDataSQLRespTm IsNot Nothing _
-            AndAlso chtSQLRespTmAVG.Series(0).Points.Count > 0 Then
+        If dtTableDataSQLRespTm IsNot Nothing Then
+            'AndAlso chtSQLRespTmAVG.Series(0).Points.Count > 0 Then
             If dtTableDataSQLRespTm.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableDataSQLRespTm.Rows(0).Item("REG_DATE"))
                 For Each dtRow As DataRow In dtTableDataSQLRespTm.Rows
