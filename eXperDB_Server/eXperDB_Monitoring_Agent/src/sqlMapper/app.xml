@@ -342,7 +342,8 @@
 	
 	<select id="BT_TABLE_INFO_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
 		<![CDATA[
-		SELECT schema_name, table_name, bs*tblpages AS table_size_kb,
+		SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
+				schema_name, table_name, bs*tblpages AS table_size_kb,
 		 			 tot_index_size_kb, index_cnt,
 					 CASE WHEN reltoastrelid=0 THEN 'N' ELSE 'Y' END AS TOAST_YN,
 					 agg_seq_scan_cnt,agg_seq_tuples,agg_index_scan_cnt,agg_index_tuples,live_tuple_cnt,dead_tuple_cnt,last_vacuum,last_analyze,
@@ -1890,7 +1891,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!-- SocketTask START -->
 <!-- ********************************************************** -->
 	<select id="DX004_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
-		SELECT DATID, DATNAME FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1');--WHERE DATNAME NOT IN ('template0','template1','postgres');
+		SELECT /* EXPERDBMADX004_001 24e9ab7301ff1966da4fb30dc1538882 */
+				DATID, DATNAME FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1'); --WHERE DATNAME NOT IN ('template0','template1','postgres');
 	</select>
 	
 	<select id="DX004_002" parameterType="hashmap" resultType="hashmap" flushCache="true">
@@ -2345,7 +2347,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
         		   U.USENAME USERNAME, D.DATNAME AS DBNAME, PGS.* 
 			  FROM PG_STAT_STATEMENTS AS PGS
-              JOIN PG_USER U ON PGS.USERID=U.USESYSID JOIN PG_DATABASE D ON PGS.DBID = D.OID;
+              JOIN PG_USER U ON PGS.USERID=U.USESYSID JOIN PG_DATABASE D ON PGS.DBID = D.OID
+              WHERE PGS.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>	  
 	</select>
 	<insert id="TB_PGSS_INFO_I001" parameterType="hashmap" >

@@ -2764,11 +2764,11 @@
 					,MAX(TEMP_BLKS_WRITTEN)   - MIN(TEMP_BLKS_WRITTEN)   AS TEMP_BLKS_WRITTEN  
 					,MAX(BLK_READ_TIME)       - MIN(BLK_READ_TIME)       AS BLK_READ_TIME
 					,MAX(BLK_WRITE_TIME)      - MIN(BLK_WRITE_TIME)      AS BLK_WRITE_TIME
-					,ROUND((100*(MAX(TOTAL_TIME)-MIN(TOTAL_TIME))/(select MAX(SUM_TOTAL_TIME)-MIN(SUM_TOTAL_TIME) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric,2) AS TIME_PERCENT
+					,ROUND((100*(MAX(TOTAL_TIME)-MIN(TOTAL_TIME))/(select GREATEST(MAX(SUM_TOTAL_TIME)-MIN(SUM_TOTAL_TIME),1) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric,2) AS TIME_PERCENT
 					,ROUND((100*(MAX(BLK_READ_TIME)-MIN(BLK_READ_TIME)+MAX(BLK_WRITE_TIME)-MIN(BLK_WRITE_TIME))/(SELECT GREATEST(MAX(IO_TIME)-MIN(IO_TIME),1) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric,2) AS IO_TIME_PERCENT
-					,ROUND((100*((MAX(TOTAL_TIME)-MIN(TOTAL_TIME))-(MAX(BLK_READ_TIME)-MIN(BLK_READ_TIME))-(MAX(BLK_WRITE_TIME)-MIN(BLK_WRITE_TIME)))/(SELECT GREATEST(MAX(CPU_TIME)-MIN(CPU_TIME)) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric,2) AS CPU_TIME_PERCENT
-					,(100*(MAX(CALLS)-MIN(CALLS))/(SELECT MAX(SUM_CALLS)-MIN(SUM_CALLS) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric(20, 2) AS CALLS_PERCENT
-					,(100*(MAX(ROWS)-MIN(ROWS))/(SELECT MAX(SUM_ROWS)-MIN(SUM_ROWS) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric(20, 2) AS ROW_PERCENT
+					,ROUND((100*((MAX(TOTAL_TIME)-MIN(TOTAL_TIME))-(MAX(BLK_READ_TIME)-MIN(BLK_READ_TIME))-(MAX(BLK_WRITE_TIME)-MIN(BLK_WRITE_TIME)))/(SELECT GREATEST(MAX(CPU_TIME)-MIN(CPU_TIME),1) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric,2) AS CPU_TIME_PERCENT
+					,(100*(MAX(CALLS)-MIN(CALLS))/(SELECT GREATEST(MAX(SUM_CALLS)-MIN(SUM_CALLS),1) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric(20, 2) AS CALLS_PERCENT
+					,(100*(MAX(ROWS)-MIN(ROWS))/(SELECT GREATEST(MAX(SUM_ROWS)-MIN(SUM_ROWS),1) FROM STATS WHERE STATS.DBID = MAXD.DBID))::numeric(20, 2) AS ROW_PERCENT
 	      	 ,MAX(QI.QUERY) AS QUERY
 	     FROM TB_QUERY_INFO QI
 	          LEFT OUTER JOIN MAXD  
@@ -2785,7 +2785,28 @@
     <DATA>
       <![CDATA[               
 WITH MAXD AS (   /* SELECTSTATEMENTSTOP */  
-	    SELECT T.INSTANCE_ID, T.REG_DATE, T.COLLECT_DT,AA.* 
+	    SELECT T.INSTANCE_ID, T.COLLECT_DT
+      	     	,AA.DBID
+	   				  ,AA.QUERYID
+							,SUM(AA.CALLS)					CALLS              
+							,SUM(AA.TOTAL_TIME)             TOTAL_TIME         
+							,MIN(AA.MIN_TIME)               MIN_TIME           
+							,MAX(AA.MAX_TIME )              MAX_TIME           
+							,AVG(AA.MEAN_TIME)              MEAN_TIME          
+							,SUM(AA.STDDEV_TIME)            STDDEV_TIME        
+							,SUM(AA.ROWS)                AS ROWS               
+							,SUM(AA.SHARED_BLKS_HIT)        SHARED_BLKS_HIT    
+							,SUM(AA.SHARED_BLKS_READ)       SHARED_BLKS_READ   
+							,SUM(AA.SHARED_BLKS_DIRTIED)    SHARED_BLKS_DIRTIED
+							,SUM(AA.SHARED_BLKS_WRITTEN)    SHARED_BLKS_WRITTEN
+							,SUM(AA.LOCAL_BLKS_HIT)         LOCAL_BLKS_HIT     
+							,SUM(AA.LOCAL_BLKS_READ)        LOCAL_BLKS_READ    
+							,SUM(AA.LOCAL_BLKS_DIRTIED)     LOCAL_BLKS_DIRTIED 
+							,SUM(AA.LOCAL_BLKS_WRITTEN)     LOCAL_BLKS_WRITTEN 
+							,SUM(AA.TEMP_BLKS_READ)         TEMP_BLKS_READ     
+							,SUM(AA.TEMP_BLKS_WRITTEN)      TEMP_BLKS_WRITTEN  
+							,SUM(AA.BLK_READ_TIME)          BLK_READ_TIME      
+							,SUM(AA.BLK_WRITE_TIME)         BLK_WRITE_TIME
 				FROM TB_PG_STAT_STATEMENTS T
 				LEFT   JOIN LATERAL (
 					  SELECT 	elem->>'userid' AS USERID 
@@ -2814,12 +2835,12 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 				   ) AA ON TRUE                              -- PRESERVE ALL ROWS FROM T
 		        WHERE COLLECT_DT {1}
 				      AND REG_DATE {2}
-	            AND T.INSTANCE_ID IN ({0})            
+	            AND T.INSTANCE_ID IN ({0})  
+            GROUP BY T.INSTANCE_ID, T.COLLECT_DT, AA.DBID, AA.QUERYID
      )
     , STATS AS (
            	SELECT  
-	          		MAXD.INSTANCE_ID, 
-	          		MAXD.REG_DATE, 
+	          		MAXD.INSTANCE_ID,
 	          		MAXD.COLLECT_DT,
 					      MAXD.DBID,
                 GREATEST(SUM(MAXD.CALLS),1) AS SUM_CALLS,
@@ -2828,7 +2849,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
                 GREATEST(SUM(MAXD.TOTAL_TIME-MAXD.BLK_READ_TIME-MAXD.BLK_WRITE_TIME),1) AS CPU_TIME,
                 GREATEST(SUM(MAXD.ROWS),1)  AS SUM_ROWS
 	         FROM   MAXD
-	         GROUP BY INSTANCE_ID, REG_DATE, COLLECT_DT, DBID
+	         GROUP BY INSTANCE_ID, COLLECT_DT, DBID
    )    
       SELECT
   		         PGS.DBID, PGS.QUERYID 
@@ -2848,42 +2869,63 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DESC>PT_04_10_001(SELECTSTATEMENTSCALLS)</DESC>
     <DATA>
       <![CDATA[
-               WITH MAXD AS (   /* SELECTSTATEMENTSCALLS */  
- 				    SELECT T.INSTANCE_ID, T.REG_DATE, T.COLLECT_DT,AA.* 
-							FROM TB_PG_STAT_STATEMENTS T
-							LEFT   JOIN LATERAL (
-								   SELECT 	elem->>'userid' AS USERID 
-											,elem->>'dbid'AS DBID 
-											,(elem->>'queryid')::int8 AS QUERYID
-											,(elem->>'calls')::int8 AS CALLS
-											,(elem->>'total_time')::NUMERIC(20,2) AS TOTAL_TIME 
-											,(elem->>'min_time')::NUMERIC(20,2) AS MIN_TIME 
-											,(elem->>'max_time')::NUMERIC(20,2) AS MAX_TIME 
-											,(elem->>'mean_time')::NUMERIC(20,2) AS MEAN_TIME
-											,(elem->>'stddev_time')::NUMERIC(20,2) AS STDDEV_TIME
-											,(elem->>'rows')::int8 AS ROWS 
-											,(elem->>'shared_blks_hit')::int8 AS SHARED_BLKS_HIT
-											,(elem->>'shared_blks_read')::int8 AS SHARED_BLKS_READ 
-											,(elem->>'shared_blks_dirtied')::int8 AS SHARED_BLKS_DIRTIED
-											,(elem->>'shared_blks_written')::int8 AS SHARED_BLKS_WRITTEN
-											,(elem->>'local_blks_hit')::int8 AS LOCAL_BLKS_HIT 
-											,(elem->>'local_blks_read')::int8 AS LOCAL_BLKS_READ
-											,(elem->>'local_blks_dirtied')::int8 AS LOCAL_BLKS_DIRTIED 
-											,(elem->>'local_blks_written')::int8 AS LOCAL_BLKS_WRITTEN 
-											,(elem->>'temp_blks_read')::int8 AS TEMP_BLKS_READ 
-											,(elem->>'temp_blks_written')::int8 AS TEMP_BLKS_WRITTEN
-											,(elem->>'blk_read_time')::NUMERIC(20,2) AS BLK_READ_TIME
-											,(elem->>'blk_write_time')::NUMERIC(20,2) AS BLK_WRITE_TIME 
-								   FROM   JSONB_ARRAY_ELEMENTS(T.PGSS) A(ELEM)   
-							   ) AA ON TRUE
-					 WHERE COLLECT_DT {1}
-             AND REG_DATE {2}
-             AND T.INSTANCE_ID IN ({0})
+      WITH MAXD AS (   /* SELECTSTATEMENTSCALLS */  
+ 				        SELECT T.INSTANCE_ID, T.COLLECT_DT
+ 				    			  ,AA.DBID
+	   				        ,AA.QUERYID
+								    ,SUM(AA.CALLS)					CALLS              
+								    ,SUM(AA.TOTAL_TIME)             TOTAL_TIME         
+								    ,MIN(AA.MIN_TIME)               MIN_TIME           
+								    ,MAX(AA.MAX_TIME )              MAX_TIME           
+								    ,AVG(AA.MEAN_TIME)              MEAN_TIME          
+								    ,SUM(AA.STDDEV_TIME)            STDDEV_TIME        
+								    ,SUM(AA.ROWS)                AS ROWS               
+								    ,SUM(AA.SHARED_BLKS_HIT)        SHARED_BLKS_HIT    
+								    ,SUM(AA.SHARED_BLKS_READ)       SHARED_BLKS_READ   
+								    ,SUM(AA.SHARED_BLKS_DIRTIED)    SHARED_BLKS_DIRTIED
+								    ,SUM(AA.SHARED_BLKS_WRITTEN)    SHARED_BLKS_WRITTEN
+								    ,SUM(AA.LOCAL_BLKS_HIT)         LOCAL_BLKS_HIT     
+								    ,SUM(AA.LOCAL_BLKS_READ)        LOCAL_BLKS_READ    
+								    ,SUM(AA.LOCAL_BLKS_DIRTIED)     LOCAL_BLKS_DIRTIED 
+								    ,SUM(AA.LOCAL_BLKS_WRITTEN)     LOCAL_BLKS_WRITTEN 
+								    ,SUM(AA.TEMP_BLKS_READ)         TEMP_BLKS_READ     
+								    ,SUM(AA.TEMP_BLKS_WRITTEN)      TEMP_BLKS_WRITTEN  
+								    ,SUM(AA.BLK_READ_TIME)          BLK_READ_TIME      
+								    ,SUM(AA.BLK_WRITE_TIME)         BLK_WRITE_TIME     
+							    FROM TB_PG_STAT_STATEMENTS T
+							    LEFT   JOIN LATERAL (
+								       SELECT 	elem->>'userid' AS USERID 
+											    ,elem->>'dbid'AS DBID 
+											    ,(elem->>'queryid')::int8 AS QUERYID
+											    ,(elem->>'calls')::int8 AS CALLS
+											    ,(elem->>'total_time')::NUMERIC(20,2) AS TOTAL_TIME 
+											    ,(elem->>'min_time')::NUMERIC(20,2) AS MIN_TIME 
+											    ,(elem->>'max_time')::NUMERIC(20,2) AS MAX_TIME 
+											    ,(elem->>'mean_time')::NUMERIC(20,2) AS MEAN_TIME
+											    ,(elem->>'stddev_time')::NUMERIC(20,2) AS STDDEV_TIME
+											    ,(elem->>'rows')::int8 AS ROWS 
+											    ,(elem->>'shared_blks_hit')::int8 AS SHARED_BLKS_HIT
+											    ,(elem->>'shared_blks_read')::int8 AS SHARED_BLKS_READ 
+											    ,(elem->>'shared_blks_dirtied')::int8 AS SHARED_BLKS_DIRTIED
+											    ,(elem->>'shared_blks_written')::int8 AS SHARED_BLKS_WRITTEN
+											    ,(elem->>'local_blks_hit')::int8 AS LOCAL_BLKS_HIT 
+											    ,(elem->>'local_blks_read')::int8 AS LOCAL_BLKS_READ
+											    ,(elem->>'local_blks_dirtied')::int8 AS LOCAL_BLKS_DIRTIED 
+											    ,(elem->>'local_blks_written')::int8 AS LOCAL_BLKS_WRITTEN 
+											    ,(elem->>'temp_blks_read')::int8 AS TEMP_BLKS_READ 
+											    ,(elem->>'temp_blks_written')::int8 AS TEMP_BLKS_WRITTEN
+											    ,(elem->>'blk_read_time')::NUMERIC(20,2) AS BLK_READ_TIME
+											    ,(elem->>'blk_write_time')::NUMERIC(20,2) AS BLK_WRITE_TIME 
+								       FROM   JSONB_ARRAY_ELEMENTS(T.PGSS) A(ELEM)   
+							       ) AA ON TRUE
+					     WHERE COLLECT_DT {1}
+                 AND REG_DATE {2}
+                 AND T.INSTANCE_ID IN ({0})
+               GROUP BY T.INSTANCE_ID, T.COLLECT_DT, AA.DBID, AA.QUERYID
      )
      , STATS AS (
            	SELECT  
 	          		MAXD.INSTANCE_ID, 
-	          		MAXD.REG_DATE, 
 	          		MAXD.COLLECT_DT,
 					      MAXD.DBID,
                 GREATEST(SUM(MAXD.CALLS),1) AS SUM_CALLS,
@@ -2892,7 +2934,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
                 GREATEST(SUM(MAXD.TOTAL_TIME-MAXD.BLK_READ_TIME-MAXD.BLK_WRITE_TIME),1) AS CPU_TIME,
                 GREATEST(SUM(MAXD.ROWS),1)  AS SUM_ROWS
 	         FROM   MAXD
-	         GROUP BY INSTANCE_ID, REG_DATE, COLLECT_DT, DBID
+	         GROUP BY INSTANCE_ID, COLLECT_DT, DBID
     )    
 	  SELECT 
 	           PGS.COLLECT_DT, PGS.DBID, PGS.QUERYID, 
