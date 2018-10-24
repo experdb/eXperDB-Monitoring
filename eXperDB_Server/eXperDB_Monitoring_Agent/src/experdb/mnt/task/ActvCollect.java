@@ -178,9 +178,9 @@ public class ActvCollect extends TaskApplication {
 						dbVerMap.put("instance_db_version", instance_db_version);						
 						
 						if (extensions > 0 )
-							preList = sessionCollect.selectList("app.BT_BACKEND_RSC_002", dbVerMap);
+							backendRscSel = sessionCollect.selectList("app.BT_BACKEND_RSC_002", dbVerMap);
 						else
-							preList = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);	 	
+							backendRscSel = sessionCollect.selectList("app.BT_BACKEND_RSC_001", dbVerMap);	 	
 //					} catch (Exception e) {
 //						failed_collect_type = "2";
 //						throw e;

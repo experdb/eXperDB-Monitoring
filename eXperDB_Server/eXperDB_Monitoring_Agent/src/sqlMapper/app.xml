@@ -1035,6 +1035,30 @@
 	
 	<insert id="TB_BACKEND_RSC_I001" parameterType="hashmap" >
 		INSERT INTO TB_BACKEND_RSC	
+		(	
+		    REG_DATE,
+		    ACTV_REG_SEQ,
+		    PROCESS_ID,
+		    DB_NAME,
+		    CLIENT_ADDR,
+		    USER_NAME,
+		    CLIENT_APP,
+		    AGG_PROC_UTIME,
+		    AGG_PROC_STIME,
+		    CURRENT_PROC_UTIME,
+		    CURRENT_PROC_STIME,
+		    PROC_CPU_UTIL,
+		    AGG_PROC_READ_KB,
+		    AGG_PROC_WRITE_KB,
+		    CURRENT_PROC_READ_KB,
+		    CURRENT_PROC_WRITE_KB,
+		    QUERY_START,
+		    ELAPSED_TIME,
+		    STATE,
+		    QUERYID,
+		    SQL,
+		    COLLECT_DT
+		)
 		VALUES 
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -1056,6 +1080,7 @@
 			#{query_start},
 			#{elapsed_time},
 			#{state},
+			'0',
 			#{sql},
 			#{collect_dt}
 		)
