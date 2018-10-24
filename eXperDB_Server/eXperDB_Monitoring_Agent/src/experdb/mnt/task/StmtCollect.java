@@ -110,76 +110,19 @@ public class StmtCollect extends TaskApplication {
 			HashMap<String, Object> pgssCollect = new HashMap<String,Object>();
 
 			if(is_collect_ok.equals("Y"))
-			{			
-				//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// DB connection 정보
-				List<HashMap<String, Object>> dbConnList = new ArrayList<HashMap<String,Object>>();
-				dbConnList = sessionCollect.selectList("app.PG_STAT_DATABASE_INFO_001");
-	
-				// pool 네임정보를 가져온다.
-				PoolingDriver driver = (PoolingDriver) DriverManager.getDriver("jdbc:apache:commons:dbcp:");
-				String[] poolNames = driver.getPoolNames();
-				
-				log.debug("이전 pool ==>> " + Arrays.toString(poolNames));
-		
-				for (HashMap<String, Object> mapDB : dbConnList) {
-					String poolName = reqInstanceId + "." + taskId + "." + mapDB.get("db_name");
-					
-					//풀 생성여부를 확인하여 없으면 생성한다.
-					boolean isPool = false;
-					for (int i = 0; i < poolNames.length; i++){
-						if(poolNames[i].equals(poolName)){
-							isPool = true;
-							break;
-						}
-					}				
-					
-					if(!isPool)
-					{
-						//pool이 없는경우 폴을 생성한다.
-						HashMap instanceMap = MonitoringInfoManager.getInstanceMap(reqInstanceId);
-						
-						DBCPPoolManager.setupDriver(
-								"org.postgresql.Driver",
-								"jdbc:postgresql://"+ instanceMap.get("server_ip") +":"+ instanceMap.get("service_port") +"/"+ mapDB.get("db_name"),
-								(String)instanceMap.get("conn_user_id"),
-								(String)instanceMap.get("conn_user_pwd"),
-								poolName,
-								20
-						);					
-					}
-					/////////////////////////////////////////////////////////
-
-					Connection connDB = null;
-					SqlSession sessDB = null;
-					
-					try {
-						//DB 컨넥션을 가져온다.
-						connDB = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + poolName);
-						sessDB = sqlSessionFactory.openSession(connDB);
-
-						///////////////////////////////////////////////////////////////////////////////
-						// STATEMENT 정보수집						
-						try {					
-							pgssSel = sessDB.selectList("app.TB_PGSS_INFO_S001");
-						} catch (Exception e) {
-							failed_collect_type = "3";
-							throw e;
-						}					
-						///////////////////////////////////////////////////////////////////////////////
-						
-						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
-					} catch (Exception e1) {
-						is_collect_ok = "N";
-						log.error("", e1);
-						break;
-					} finally {
-						sessDB.close();
-					}
-				}	
+			{						
+				///////////////////////////////////////////////////////////////////////////////
+				// STATEMENT 정보수집						
+				try {					
+					pgssSel = sessionCollect.selectList("app.TB_PGSS_INFO_S001");
+				} catch (Exception e) {
+					failed_collect_type = "3";
+					log.error("instanceid=[" + reqInstanceId + "]", e);
+					throw e;
+				}					
+				///////////////////////////////////////////////////////////////////////////////
 			}
-			
-			
+						
 			try {
 				
 				///////////////////////////////////////////////////////////////////////////////
