@@ -50,8 +50,6 @@
 
     Private Sub initControls(ByVal AgentStat As clsCollect.AgntState)
         Try
-
-
             If AgentStat = clsCollect.AgntState.DeActivate Then
                 rndProgHealth.CpuGaugeColor = Color.DarkGray
                 dgvCPU.Rows.Clear()
@@ -111,6 +109,15 @@
         End Get
     End Property
 
+    Private _retainTime As Integer = -30
+    Property retainTime As Integer
+        Get
+            Return _retainTime
+        End Get
+        Set(value As Integer)
+            _retainTime = value
+        End Set
+    End Property
 #End Region
 
 #Region "Initialize & Dispose"
@@ -161,10 +168,10 @@
         Dim positionReplication As Integer = clsIni.ReadValue("CHART", "REPLICATION", "2")
         Dim positionTransaction As Integer = clsIni.ReadValue("CHART", "TRANSACTION", "3")
 
-        tlpMain.SetRow(tlpObject, positionObject)
-        tlpMain.SetRow(tlpCheckpoint, positionCheckpotint)
-        tlpMain.SetRow(tlpReplication, positionReplication)
-        tlpMain.SetRow(tlpTPS, positionTransaction)
+        tlpCharts.SetRow(tlpObject, positionObject)
+        tlpCharts.SetRow(tlpCheckpoint, positionCheckpotint)
+        tlpCharts.SetRow(tlpReplication, positionReplication)
+        tlpCharts.SetRow(tlpTPS, positionTransaction)
 
         mnuChart.Text = 3
 
@@ -180,7 +187,8 @@
             mnuChart.Text = 3
         End If
 
-
+        cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
+        retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
     End Sub
 
     Private Sub frmMonDetail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -265,7 +273,7 @@
         lblMemSwapUsed.Text = p_clsMsgData.fn_GetData("F072")
         lblMemSwapFree.Text = p_clsMsgData.fn_GetData("F073")
         lblMemSwapCached.Text = p_clsMsgData.fn_GetData("F152")
-
+        lblRetention.Text = p_clsMsgData.fn_GetData("F326")
 
 
 
@@ -396,17 +404,26 @@
     ''' <param name="dblY"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function sb_ChartAddPoint(ByVal MSChart As DataVisualization.Charting.Chart, ByVal strSeries As String, ByVal dblX As Double, ByVal dblY As Double) As Integer
+    Private Function sb_ChartAddPoint(ByVal MSChart As DataVisualization.Charting.Chart, ByVal strSeries As String, ByVal dblX As Double, ByVal dblY As Double, Optional intRetainTime As Integer = 0) As Integer
         Try
             Dim rtnValue As Integer = MSChart.Series(strSeries).Points.AddXY(Date.FromOADate(dblX), dblY)
-
-            Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
-            If NowCnt >= _ElapseCount Then
-                For i As Integer = 0 To NowCnt - _ElapseCount
+            'Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+            If MSChart.Series(strSeries).Points.Count > 0 Then
+                Do While CDate(Now.AddMinutes(IIf(intRetainTime = 0, retainTime, intRetainTime))).ToOADate > MSChart.Series(strSeries).Points.First.XValue
                     MSChart.Series(strSeries).Points.RemoveAt(0)
-                Next
-
+                    If MSChart.Series(strSeries).Points.Count <= 0 Then
+                        Exit Do
+                    End If
+                Loop
             End If
+
+            'Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
+            'If NowCnt >= _ElapseCount Then
+            '    For i As Integer = 0 To NowCnt - _ElapseCount
+            '        MSChart.Series(strSeries).Points.RemoveAt(0)
+            '    Next
+
+            'End If
 
 
             Return rtnValue
@@ -1479,18 +1496,18 @@
                           Dim dtRowsCheckpoint As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRowsCheckpoint.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                              sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, 0)
-                              sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, 0, -60)
+                              sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, 0, -60)
                           Else
                               For Each tmpRow As DataRow In dtRowsCheckpoint
                                   Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
                                   If Me.chtCheckpoint.Series(0).Points.Count = 0 Then
-                                      sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")))
-                                      sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")))
+                                      sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")), -60)
+                                      sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")), -60)
                                   Else
                                       If Me.chtCheckpoint.Series(0).Points.Last.XValue < dblRegDt Then
-                                          sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")))
-                                          sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")))
+                                          sb_ChartAddPoint(Me.chtCheckpoint, "Timed", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_TIMED_TIME_DELTA")), -60)
+                                          sb_ChartAddPoint(Me.chtCheckpoint, "Req", dblRegDt, ConvULong(tmpRow.Item("CHECKPOINTS_REQ_TIME_DELTA")), -60)
                                       End If
                                   End If
                               Next
@@ -1887,7 +1904,7 @@
     End Sub
 
     Private Sub btnChartDetail_Click(sender As Object, e As EventArgs) Handles btnChartDetail.Click
-        Dim stDt As DateTime = Now.AddMinutes(-5)
+        Dim stDt As DateTime = Now.AddMinutes(-10)
         Dim edDt As DateTime = Now
         Dim BretFrm As frmMonItemDetail = Nothing
 
@@ -1924,6 +1941,7 @@
 
         If BretFrm Is Nothing Then
             'BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, _AgentInfo)
+            '            BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, Nothing, Nothing, _AgentInfo)
             BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo)
             BretFrm.Show()
         Else
@@ -2080,16 +2098,16 @@
 
     Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click
         Dim tlpTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
-        Dim intTlprow = tlpMain.GetRow(tlpTemp)
+        Dim intTlprow = tlpCharts.GetRow(tlpTemp)
 
         If sender.Name = "mnuObject" Then
-            tlpMain.SetRow(tlpObject, intTlprow)
+            tlpCharts.SetRow(tlpObject, intTlprow)
         ElseIf sender.Name = "mnuCheckpoint" Then
-            tlpMain.SetRow(tlpCheckpoint, intTlprow)
+            tlpCharts.SetRow(tlpCheckpoint, intTlprow)
         ElseIf sender.Name = "mnuReplication" Then
-            tlpMain.SetRow(tlpReplication, intTlprow)
+            tlpCharts.SetRow(tlpReplication, intTlprow)
         ElseIf sender.Name = "mnuTPS" Then
-            tlpMain.SetRow(tlpTPS, intTlprow)
+            tlpCharts.SetRow(tlpTPS, intTlprow)
         End If
 
         If tlpTemp.Name = "tlpObject" Then
@@ -2103,7 +2121,7 @@
         End If
 
         'mnuChart.Text = intTlprow
-        tlpMain.SetRow(tlpTemp, 3)
+        tlpCharts.SetRow(tlpTemp, 3)
 
         WriteChartPosition()
 
@@ -2111,11 +2129,15 @@
 
     Private Sub WriteChartPosition()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
-        clsIni.WriteValue("CHART", "OBJECT", tlpMain.GetRow(tlpObject))
-        clsIni.WriteValue("CHART", "CHECKPOINT", tlpMain.GetRow(tlpCheckpoint))
-        clsIni.WriteValue("CHART", "REPLICATION", tlpMain.GetRow(tlpReplication))
-        clsIni.WriteValue("CHART", "TRANSACTION", tlpMain.GetRow(tlpTPS))
+        clsIni.WriteValue("CHART", "OBJECT", tlpCharts.GetRow(tlpObject))
+        clsIni.WriteValue("CHART", "CHECKPOINT", tlpCharts.GetRow(tlpCheckpoint))
+        clsIni.WriteValue("CHART", "REPLICATION", tlpCharts.GetRow(tlpReplication))
+        clsIni.WriteValue("CHART", "TRANSACTION", tlpCharts.GetRow(tlpTPS))
     End Sub
 
-
+    Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged
+        retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("General", "RTIME_DETAIL", cmbRetention.SelectedIndex)
+    End Sub
 End Class

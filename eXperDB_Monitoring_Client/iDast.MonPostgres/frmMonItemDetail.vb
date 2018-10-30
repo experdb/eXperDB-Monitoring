@@ -60,12 +60,6 @@
             cmbInst.AddValue(tmpSvr.InstanceID, tmpSvr.ShowNm)
         Next
 
-
-        dtpSt.Value = stDt.AddMinutes(-1)
-        dtpEd.Value = edDt.AddMinutes(1)
-        dtpSt.Tag = stDt
-        dtpEd.Tag = edDt
-
         If _chtOrder >= 0 Then
             dtpSt.Visible = False
             dtpEd.Visible = False
@@ -85,6 +79,11 @@
             cmbDuration.SelectedIndex = 0
             btnQuery.Visible = True
         End If
+
+        dtpSt.Value = stDt.AddMinutes(-1)
+        dtpEd.Value = edDt.AddMinutes(1)
+        dtpSt.Tag = stDt
+        dtpEd.Tag = edDt
 
         InitForm()
         InitCharts()
@@ -128,6 +127,53 @@
 
         '_chtCount = 1
         chtCPU.MainChart.Focus()
+        SetDataSession(dtpSt.Value, dtpEd.Value)
+        SetDataLock(dtpSt.Value, dtpEd.Value)
+        BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
+    End Sub
+
+    ''' <summary>
+    ''' 화면 초기화 
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Public Sub frmMonItemDetail_ReLoad(ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, Optional chtOrder As Integer = 1)
+        _InstanceID = intInstanceID
+
+        _chtOrder = chtOrder
+
+        _chtOrder = 0
+        dtpSt.Visible = True
+        dtpEd.Visible = False
+        lblSt.Visible = False
+        lblEd.Visible = False
+        cmbDuration.Visible = True
+        cmbDuration.SelectedIndex = 0
+        btnQuery.Visible = True
+        Dim prevStdt As DateTime = dtpSt.Value
+        Dim prevInstanceIndex = cmbInst.SelectedIndex
+        dtpSt.Value = stDt.AddMinutes(0)
+        dtpSt.Tag = stDt
+
+        chtCPU.MainChart.Focus()
+        If _InstanceID > 0 Then
+            Dim comboSource As New Dictionary(Of String, String)()
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
+                If tmpSvr.InstanceID = _InstanceID Then
+                    cmbInst.SelectedIndex = index
+                End If
+                index += 1
+            Next
+        End If
+
+        If prevInstanceIndex = cmbInst.SelectedIndex AndAlso prevStdt <> dtpSt.Value Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            btnQuery.PerformClick()
+                                        End Sub))
+        End If
+
         SetDataSession(dtpSt.Value, dtpEd.Value)
         SetDataLock(dtpSt.Value, dtpEd.Value)
         BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
@@ -1086,19 +1132,19 @@
         If cmbDuration.Visible = True Then
             Dim tempDt As Date = Now
             If cmbDuration.SelectedIndex = 0 Then
-                tempDt = dtpSt.Value.AddMinutes(5)
-                If tempDt > Now Then
-                    tempDt = Now
-                End If
-                dtpEd.Value = tempDt
-            ElseIf cmbDuration.SelectedIndex = 1 Then
                 tempDt = dtpSt.Value.AddMinutes(10)
                 If tempDt > Now Then
                     tempDt = Now
                 End If
                 dtpEd.Value = tempDt
-            ElseIf cmbDuration.SelectedIndex = 2 Then
+            ElseIf cmbDuration.SelectedIndex = 1 Then
                 tempDt = dtpSt.Value.AddMinutes(30)
+                If tempDt > Now Then
+                    tempDt = Now
+                End If
+                dtpEd.Value = tempDt
+            ElseIf cmbDuration.SelectedIndex = 2 Then
+                tempDt = dtpSt.Value.AddMinutes(60)
                 If tempDt > Now Then
                     tempDt = Now
                 End If

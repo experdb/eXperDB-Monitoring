@@ -15,7 +15,6 @@
     Private _arrQueryIDs As New ArrayList
     Private _arrDBIDs As New ArrayList
 
-
     Private _ThreadDetail As Threading.Thread
 
 
@@ -132,8 +131,36 @@
 
         '_chtCount = 1
         chtCalls.MainChart.Focus()
-        rb1H.Checked = True
-        'SetDataSession(dtpSt.Value, dtpEd.Value)
+
+        btnQuery.PerformClick()
+    End Sub
+
+    Public Sub frmStatements_ReLoad(ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime)
+        Dim prevStdt As DateTime = dtpSt.Value
+        Dim prevInstanceIndex = cmbInst.SelectedIndex
+
+        chtCalls.MainChart.Focus()
+
+        _InstanceID = intInstanceID
+
+        dtpSt.Value = stDt.AddMinutes(0)
+        dtpEd.Value = edDt.AddMinutes(0)
+        dtpSt.Tag = stDt
+        dtpEd.Tag = edDt
+
+        cmbInst.SelectedValue = intInstanceID
+
+        rb1H.Checked = False
+        rb2H.Checked = False
+        rb4H.Checked = False
+        rb12H.Checked = False
+        rb1D.Checked = False
+
+        If prevInstanceIndex = cmbInst.SelectedIndex AndAlso prevStdt <> dtpSt.Value Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            btnQuery.PerformClick()
+                                        End Sub))
+        End If
     End Sub
 
     Private Sub InitForm()
@@ -467,13 +494,6 @@
         End If
     End Sub
 
-    'Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCalls.VisibleChanged, chtCPUTime.VisibleChanged, chtTotalTime.VisibleChanged, chtIOTime.VisibleChanged
-    '    pnlChart.Controls.SetChildIndex(chtCalls, 5)
-    '    pnlChart.Controls.SetChildIndex(chtTotalTime, 4)
-    '    pnlChart.Controls.SetChildIndex(chtIOTime, 3)
-    '    pnlChart.Controls.SetChildIndex(chtCPUTime, 1)
-    'End Sub
-
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
         txtQueryID.Text = ""
         txtSQL.Text = ""
@@ -697,6 +717,26 @@
     End Sub
 
     Private Sub rb1H_CheckedChanged(sender As Object, e As EventArgs) Handles rb1H.CheckedChanged, rb2H.CheckedChanged, rb4H.CheckedChanged, rb12H.CheckedChanged, rb1D.CheckedChanged
+        'Dim Rb As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        'If Rb.Checked = True Then
+        '    dtpDay.Checked = False
+        '    dtpEd.Value = DateTime.Now
+        '    If Rb.Text.Equals("~1H") Then
+        '        dtpSt.Value = dtpEd.Value.AddHours(-1)
+        '    ElseIf Rb.Text.Equals("~2H") Then
+        '        dtpSt.Value = dtpEd.Value.AddHours(-2)
+        '    ElseIf Rb.Text.Equals("~4H") Then
+        '        dtpSt.Value = dtpEd.Value.AddHours(-4)
+        '    ElseIf Rb.Text.Equals("~12H") Then
+        '        dtpSt.Value = dtpEd.Value.AddHours(-12)
+        '    ElseIf Rb.Text.Equals("~1D") Then
+        '        dtpSt.Value = dtpEd.Value.AddHours(-24)
+        '    End If
+        'End If
+    End Sub
+
+
+    Private Sub rb1H_Click(sender As Object, e As EventArgs) Handles rb1H.Click, rb2H.Click, rb4H.Click, rb12H.Click, rb1D.Click
         Dim Rb As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
         If Rb.Checked = True Then
             dtpDay.Checked = False
@@ -712,9 +752,8 @@
             ElseIf Rb.Text.Equals("~1D") Then
                 dtpSt.Value = dtpEd.Value.AddHours(-24)
             End If
-
-            btnQuery.PerformClick()
         End If
+        btnQuery.PerformClick()
     End Sub
 
     Private Sub dtpDay_ValueChanged(sender As Object, e As EventArgs) Handles dtpDay.ValueChanged

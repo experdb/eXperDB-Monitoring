@@ -137,10 +137,14 @@ public class StmtCollect extends TaskApplication {
 					inputParam.put("queryid", 					map.get("query"));
 					inputParam.put("query", 						map.get("query"));
 					HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);
-					if (queryIdMap == null){
-						inputParam.put("stmt_queryid", 				map.get("queryid"));
-						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
-					}
+//					if (queryIdMap == null){
+//						inputParam.put("stmt_queryid", 				map.get("queryid"));
+//						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+//					}
+					
+					inputParam.put("stmt_queryid", 				map.get("queryid"));
+					sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+					
 					JSONObject stmtObj = new JSONObject();
 					//stmtObj.put("userid"			 ,map.get("userid"));
 					//stmtObj.put("dbid"               ,map.get("dbid"));

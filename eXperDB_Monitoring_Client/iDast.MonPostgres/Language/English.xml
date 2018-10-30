@@ -2185,8 +2185,8 @@
     <VALUECAST />
   </ROW>
   <ROW ID="F268" PARAMS="0">
-    <DESC>Chart details</DESC>
-    <DATA><![CDATA[Chart details]]></DATA>
+    <DESC>Cluster details</DESC>
+    <DATA><![CDATA[Cluster details]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2266,7 +2266,7 @@
   </ROW>
   <ROW ID="F278" PARAMS="0">
     <DESC>차트상세</DESC>
-    <DATA><![CDATA[Chart Detail]]></DATA>
+    <DATA><![CDATA[Cluster Detail]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2580,6 +2580,14 @@
   <ROW ID="F325" PARAMS="0">
     <DESC>Sort by</DESC>
     <DATA><![CDATA[Sort by]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F326" PARAMS="0">
+    <DESC>Retention history</DESC>
+    <DATA><![CDATA[Retention history]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3002,7 +3010,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="M045" PARAMS="0">
-    <DESC>Chart Detail</DESC>
+    <DESC>Cluster Detail</DESC>
     <DATA><![CDATA[You can look up detailed information about the monitoring items by period.]]></DATA>
     <COMMENTS />
     <CATEGORY />
@@ -3116,6 +3124,14 @@
   <ROW ID="M059" PARAMS="0">
     <DESC>Chart Statements</DESC>
     <DATA><![CDATA[You can view statistical information for Statments by period.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M060" PARAMS="0">
+    <DESC>Select Cluster</DESC>
+    <DATA><![CDATA[You can select the cluster you want to observe.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

@@ -125,6 +125,15 @@
             Me._UseQuiteCriticalTime = value
         End Set
     End Property
+    Private _retainTime As Integer = -30
+    Property retainTime As Integer
+        Get
+            Return _retainTime
+        End Get
+        Set(value As Integer)
+            _retainTime = value
+        End Set
+    End Property
 #End Region
 
 
@@ -227,6 +236,9 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME", "0")
+        retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
+
     End Sub
 
     ''' <summary>
@@ -355,6 +367,7 @@
         lblTPSRollback.Text = p_clsMsgData.fn_GetData("F320") + " Rollback"
         lblSQLRespTmMAX.Text = p_clsMsgData.fn_GetData("F103") + " Max"
         lblSQLRespTmAVG.Text = p_clsMsgData.fn_GetData("F103") + " Avg"
+        lblRetention.Text = p_clsMsgData.fn_GetData("F326")
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -555,7 +568,7 @@
     Private Sub sb_SetGrpLockinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         Dim index As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
             index += 1
         Next
     End Sub
@@ -563,17 +576,17 @@
     Private Sub sb_SetGrpTPSinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         Dim index As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
-            AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
-            AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
             index += 1
         Next
     End Sub
     Private Sub sb_SetGrpSQLRespInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         Dim index As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
-            AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line)
+            AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
             index += 1
         Next
     End Sub
@@ -1246,7 +1259,7 @@
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 Dim NowCnt As Integer = 3
                 If Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1254,7 +1267,7 @@
                     Loop
                 End If
                 If Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtCPUWait.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1470,7 +1483,7 @@
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 Dim NowCnt As Integer = 3
                 If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1650,7 +1663,7 @@
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 Dim NowCnt As Integer = 3
                 If Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtSessionActive.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1658,7 +1671,7 @@
                     Loop
                 End If
                 If Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1732,7 +1745,7 @@
         Try
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 If Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1740,7 +1753,7 @@
                     Loop
                 End If
                 If Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -1879,7 +1892,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 5)
+            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 10)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -1920,7 +1933,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 5)
+            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 10)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -2221,7 +2234,7 @@
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 Dim NowCnt As Integer = 3
                 If Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -2229,7 +2242,7 @@
                     Loop
                 End If
                 If Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -2237,7 +2250,7 @@
                     Loop
                 End If
                 If Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -2245,7 +2258,7 @@
                     Loop
                 End If
                 If Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -2253,7 +2266,7 @@
                     Loop
                 End If
                 If Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(-6)).ToOADate > Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
                         Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
                         If Me.chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
                             Exit Do
@@ -3116,7 +3129,7 @@
         Dim Series As System.Windows.Forms.DataVisualization.Charting.Series = chtName.Series.Add(SeriesName.ToUpper)
         Series.BorderWidth = 2
         Series.ChartArea = "ChartArea1"
-        Series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series.ChartType = ChartType
         'Series.Legend = "Legend1"
         Series.Name = SeriesName
         Series.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -3163,7 +3176,7 @@
 
             If BretFrm Is Nothing Then
                 BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, InstanceID, AlertLevel, strCollectDt)
-                'BretFrm.Owner = Me
+                BretFrm.OwnerForm = Me
                 BretFrm.Show()
             Else
                 BretFrm.Activate()
@@ -3195,7 +3208,7 @@
 
             If BretFrm Is Nothing Then
                 BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, InstanceID, AlertLevel, strCollectDt)
-                'BretFrm.Owner = Me
+                BretFrm.OwnerForm = Me
                 BretFrm.Show()
             Else
                 BretFrm.Activate()
@@ -3485,6 +3498,7 @@
 
         If BretFrm Is Nothing Then
             BretFrm = New frmAlertList(_GrpListServerinfo, AgentInfo, _AgentCn, 0, 0, Now)
+            BretFrm.OwnerForm = Me
             BretFrm.Show()
         Else
             BretFrm.Activate()
@@ -3635,4 +3649,56 @@
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    Private Sub btnClusterShow_Click(sender As Object, e As EventArgs) Handles btnClusterShow.Click
+        Dim frmCS As New frmClusterShow(_GrpListServerinfo, _instanceColors)
+        If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim rtnStruct As structConnection = Nothing
+            Dim rtnSchema As String = ""
+            Dim rtnCollect As Integer = 0
+            Dim strAlias As String = ""
+
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                tmpSvr.Reserved = frmCS.SvrpList(index).Reserved
+                If tmpSvr.Reserved = True Then
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                Else
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                End If
+                index += 1
+            Next
+        End If
+
+        frmCS.Dispose()
+    End Sub
+
+    Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged
+        retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("General", "RTIME", cmbRetention.SelectedIndex)
+    End Sub
 End Class

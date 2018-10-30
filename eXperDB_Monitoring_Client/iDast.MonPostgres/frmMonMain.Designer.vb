@@ -100,6 +100,18 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle47 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle48 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle49 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpHealth = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgtNumC = New eXperDB.Controls.DigitalNumber()
         Me.dgtNumW = New eXperDB.Controls.DigitalNumber()
@@ -190,6 +202,7 @@ Partial Class frmMonMain
         Me.grpCPU = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.tabTrend = New System.Windows.Forms.TabPage()
+        Me.tlpTrendWrapper = New eXperDB.BaseControls.TableLayoutPanel()
         Me.tlpTrend = New eXperDB.BaseControls.TableLayoutPanel()
         Me.tlpSQLRespTmMAX = New System.Windows.Forms.TableLayoutPanel()
         Me.chtSQLRespTmMAX = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -239,6 +252,11 @@ Partial Class frmMonMain
         Me.chtSessionActive = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.lblSesionActive = New System.Windows.Forms.Label()
         Me.btnSessionActive = New System.Windows.Forms.Button()
+        Me.tlpButtonTrends = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblRetention = New System.Windows.Forms.Label()
+        Me.cmbRetention = New eXperDB.BaseControls.ComboBox()
+        Me.btnClusterShow = New eXperDB.BaseControls.Button()
         Me.monTypeImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.tlpDiskAccess = New System.Windows.Forms.TableLayoutPanel()
         Me.grpDiskAccess = New System.Windows.Forms.Label()
@@ -290,6 +308,43 @@ Partial Class frmMonMain
         Me.mnuTPSRollback = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSQLRespTmMAX = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSQLRespTmAVG = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn16 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn17 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn18 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn19 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn20 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn21 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn22 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn23 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn25 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn26 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn27 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn28 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn29 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn30 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn31 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn32 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn33 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn34 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tlpHealth.SuspendLayout()
         Me.tlpCPU.SuspendLayout()
         CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -317,6 +372,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel6.SuspendLayout()
         Me.TableLayoutPanel5.SuspendLayout()
         Me.tabTrend.SuspendLayout()
+        Me.tlpTrendWrapper.SuspendLayout()
         Me.tlpTrend.SuspendLayout()
         Me.tlpSQLRespTmMAX.SuspendLayout()
         CType(Me.chtSQLRespTmMAX, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -342,6 +398,7 @@ Partial Class frmMonMain
         CType(Me.chtCPUUtil, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpSessionActive.SuspendLayout()
         CType(Me.chtSessionActive, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tlpButtonTrends.SuspendLayout()
         Me.tlpDiskAccess.SuspendLayout()
         Me.tlpSessionlist.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -2016,7 +2073,7 @@ Partial Class frmMonMain
         'tabTrend
         '
         Me.tabTrend.BackColor = System.Drawing.Color.Black
-        Me.tabTrend.Controls.Add(Me.tlpTrend)
+        Me.tabTrend.Controls.Add(Me.tlpTrendWrapper)
         Me.tabTrend.ForeColor = System.Drawing.Color.White
         Me.tabTrend.ImageIndex = 1
         Me.tabTrend.Location = New System.Drawing.Point(4, 26)
@@ -2026,9 +2083,26 @@ Partial Class frmMonMain
         Me.tabTrend.TabIndex = 1
         Me.tabTrend.Text = "Trend"
         '
+        'tlpTrendWrapper
+        '
+        Me.tlpTrendWrapper.ColumnCount = 2
+        Me.tlpTrendWrapper.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tlpTrendWrapper.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tlpTrendWrapper.Controls.Add(Me.tlpTrend, 0, 1)
+        Me.tlpTrendWrapper.Controls.Add(Me.tlpButtonTrends, 1, 0)
+        Me.tlpTrendWrapper.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpTrendWrapper.Location = New System.Drawing.Point(3, 3)
+        Me.tlpTrendWrapper.Name = "tlpTrendWrapper"
+        Me.tlpTrendWrapper.RowCount = 1
+        Me.tlpTrendWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpTrendWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpTrendWrapper.Size = New System.Drawing.Size(1353, 600)
+        Me.tlpTrendWrapper.TabIndex = 1
+        '
         'tlpTrend
         '
         Me.tlpTrend.ColumnCount = 3
+        Me.tlpTrendWrapper.SetColumnSpan(Me.tlpTrend, 2)
         Me.tlpTrend.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33332!))
         Me.tlpTrend.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334!))
         Me.tlpTrend.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334!))
@@ -2045,7 +2119,8 @@ Partial Class frmMonMain
         Me.tlpTrend.Controls.Add(Me.tlpCPUUtil, 0, 0)
         Me.tlpTrend.Controls.Add(Me.tlpSessionActive, 2, 1)
         Me.tlpTrend.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTrend.Location = New System.Drawing.Point(3, 3)
+        Me.tlpTrend.Location = New System.Drawing.Point(0, 30)
+        Me.tlpTrend.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpTrend.Name = "tlpTrend"
         Me.tlpTrend.RowCount = 5
         Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
@@ -2053,7 +2128,7 @@ Partial Class frmMonMain
         Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
         Me.tlpTrend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
-        Me.tlpTrend.Size = New System.Drawing.Size(1353, 600)
+        Me.tlpTrend.Size = New System.Drawing.Size(1353, 570)
         Me.tlpTrend.TabIndex = 0
         '
         'tlpSQLRespTmMAX
@@ -2071,7 +2146,7 @@ Partial Class frmMonMain
         Me.tlpSQLRespTmMAX.RowCount = 2
         Me.tlpSQLRespTmMAX.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSQLRespTmMAX.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSQLRespTmMAX.Size = New System.Drawing.Size(445, 190)
+        Me.tlpSQLRespTmMAX.Size = New System.Drawing.Size(445, 180)
         Me.tlpSQLRespTmMAX.TabIndex = 33
         '
         'chtSQLRespTmMAX
@@ -2147,7 +2222,7 @@ Partial Class frmMonMain
         Me.chtSQLRespTmMAX.Location = New System.Drawing.Point(3, 29)
         Me.chtSQLRespTmMAX.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLRespTmMAX.Name = "chtSQLRespTmMAX"
-        Me.chtSQLRespTmMAX.Size = New System.Drawing.Size(439, 157)
+        Me.chtSQLRespTmMAX.Size = New System.Drawing.Size(439, 147)
         Me.chtSQLRespTmMAX.TabIndex = 2
         Me.chtSQLRespTmMAX.Text = "Chart2"
         '
@@ -2189,12 +2264,12 @@ Partial Class frmMonMain
         Me.tlpSQLRespTmAVG.Controls.Add(Me.lblSQLRespTmAVG, 1, 0)
         Me.tlpSQLRespTmAVG.Controls.Add(Me.btnSQLRespTmAVG, 0, 0)
         Me.tlpSQLRespTmAVG.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSQLRespTmAVG.Location = New System.Drawing.Point(453, 204)
+        Me.tlpSQLRespTmAVG.Location = New System.Drawing.Point(453, 194)
         Me.tlpSQLRespTmAVG.Name = "tlpSQLRespTmAVG"
         Me.tlpSQLRespTmAVG.RowCount = 2
         Me.tlpSQLRespTmAVG.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSQLRespTmAVG.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSQLRespTmAVG.Size = New System.Drawing.Size(445, 190)
+        Me.tlpSQLRespTmAVG.Size = New System.Drawing.Size(445, 180)
         Me.tlpSQLRespTmAVG.TabIndex = 32
         '
         'chtSQLRespTmAVG
@@ -2270,7 +2345,7 @@ Partial Class frmMonMain
         Me.chtSQLRespTmAVG.Location = New System.Drawing.Point(3, 29)
         Me.chtSQLRespTmAVG.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLRespTmAVG.Name = "chtSQLRespTmAVG"
-        Me.chtSQLRespTmAVG.Size = New System.Drawing.Size(439, 157)
+        Me.chtSQLRespTmAVG.Size = New System.Drawing.Size(439, 147)
         Me.chtSQLRespTmAVG.TabIndex = 2
         Me.chtSQLRespTmAVG.Text = "Chart2"
         '
@@ -2312,12 +2387,12 @@ Partial Class frmMonMain
         Me.tlpTPSRollback.Controls.Add(Me.btnTPSRollback, 0, 0)
         Me.tlpTPSRollback.Controls.Add(Me.lblTPSRollback, 1, 0)
         Me.tlpTPSRollback.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTPSRollback.Location = New System.Drawing.Point(453, 400)
+        Me.tlpTPSRollback.Location = New System.Drawing.Point(453, 380)
         Me.tlpTPSRollback.Name = "tlpTPSRollback"
         Me.tlpTPSRollback.RowCount = 2
         Me.tlpTPSRollback.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpTPSRollback.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTPSRollback.Size = New System.Drawing.Size(445, 190)
+        Me.tlpTPSRollback.Size = New System.Drawing.Size(445, 180)
         Me.tlpTPSRollback.TabIndex = 31
         '
         'chtTPSRollback
@@ -2381,7 +2456,7 @@ Partial Class frmMonMain
         Me.chtTPSRollback.Location = New System.Drawing.Point(3, 29)
         Me.chtTPSRollback.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtTPSRollback.Name = "chtTPSRollback"
-        Me.chtTPSRollback.Size = New System.Drawing.Size(439, 157)
+        Me.chtTPSRollback.Size = New System.Drawing.Size(439, 147)
         Me.chtTPSRollback.TabIndex = 4
         Me.chtTPSRollback.Text = "Chart5"
         '
@@ -2423,12 +2498,12 @@ Partial Class frmMonMain
         Me.tlpTPSCommit.Controls.Add(Me.btnTPSCommit, 0, 0)
         Me.tlpTPSCommit.Controls.Add(Me.lblTPSCommit, 1, 0)
         Me.tlpTPSCommit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTPSCommit.Location = New System.Drawing.Point(904, 204)
+        Me.tlpTPSCommit.Location = New System.Drawing.Point(904, 194)
         Me.tlpTPSCommit.Name = "tlpTPSCommit"
         Me.tlpTPSCommit.RowCount = 2
         Me.tlpTPSCommit.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpTPSCommit.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTPSCommit.Size = New System.Drawing.Size(446, 190)
+        Me.tlpTPSCommit.Size = New System.Drawing.Size(446, 180)
         Me.tlpTPSCommit.TabIndex = 30
         '
         'chtTPSCommit
@@ -2492,7 +2567,7 @@ Partial Class frmMonMain
         Me.chtTPSCommit.Location = New System.Drawing.Point(3, 29)
         Me.chtTPSCommit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtTPSCommit.Name = "chtTPSCommit"
-        Me.chtTPSCommit.Size = New System.Drawing.Size(440, 157)
+        Me.chtTPSCommit.Size = New System.Drawing.Size(440, 147)
         Me.chtTPSCommit.TabIndex = 4
         Me.chtTPSCommit.Text = "Chart5"
         '
@@ -2539,7 +2614,7 @@ Partial Class frmMonMain
         Me.tlpTPSTotal.RowCount = 2
         Me.tlpTPSTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpTPSTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTPSTotal.Size = New System.Drawing.Size(446, 190)
+        Me.tlpTPSTotal.Size = New System.Drawing.Size(446, 180)
         Me.tlpTPSTotal.TabIndex = 29
         '
         'chtTPSTotal
@@ -2603,7 +2678,7 @@ Partial Class frmMonMain
         Me.chtTPSTotal.Location = New System.Drawing.Point(3, 29)
         Me.chtTPSTotal.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtTPSTotal.Name = "chtTPSTotal"
-        Me.chtTPSTotal.Size = New System.Drawing.Size(440, 157)
+        Me.chtTPSTotal.Size = New System.Drawing.Size(440, 147)
         Me.chtTPSTotal.TabIndex = 4
         Me.chtTPSTotal.Text = "Chart5"
         '
@@ -2650,7 +2725,7 @@ Partial Class frmMonMain
         Me.tlpLockWait.RowCount = 2
         Me.tlpLockWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpLockWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpLockWait.Size = New System.Drawing.Size(444, 190)
+        Me.tlpLockWait.Size = New System.Drawing.Size(444, 180)
         Me.tlpLockWait.TabIndex = 28
         '
         'chtLockWait
@@ -2714,7 +2789,7 @@ Partial Class frmMonMain
         Me.chtLockWait.Location = New System.Drawing.Point(3, 29)
         Me.chtLockWait.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLockWait.Name = "chtLockWait"
-        Me.chtLockWait.Size = New System.Drawing.Size(438, 157)
+        Me.chtLockWait.Size = New System.Drawing.Size(438, 147)
         Me.chtLockWait.TabIndex = 4
         Me.chtLockWait.Text = "Chart5"
         '
@@ -2756,7 +2831,7 @@ Partial Class frmMonMain
         Me.tlpSessionTotal.Controls.Add(Me.lblSesionTotal, 1, 0)
         Me.tlpSessionTotal.Controls.Add(Me.btnSessionTotal, 0, 0)
         Me.tlpSessionTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSessionTotal.Location = New System.Drawing.Point(3, 596)
+        Me.tlpSessionTotal.Location = New System.Drawing.Point(3, 566)
         Me.tlpSessionTotal.Name = "tlpSessionTotal"
         Me.tlpSessionTotal.RowCount = 2
         Me.tlpSessionTotal.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
@@ -2879,12 +2954,12 @@ Partial Class frmMonMain
         Me.tlpLogicalWrite.Controls.Add(Me.btnLogicalWrite, 0, 0)
         Me.tlpLogicalWrite.Controls.Add(Me.lblLogicalWrite, 1, 0)
         Me.tlpLogicalWrite.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpLogicalWrite.Location = New System.Drawing.Point(904, 400)
+        Me.tlpLogicalWrite.Location = New System.Drawing.Point(904, 380)
         Me.tlpLogicalWrite.Name = "tlpLogicalWrite"
         Me.tlpLogicalWrite.RowCount = 2
         Me.tlpLogicalWrite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpLogicalWrite.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpLogicalWrite.Size = New System.Drawing.Size(446, 190)
+        Me.tlpLogicalWrite.Size = New System.Drawing.Size(446, 180)
         Me.tlpLogicalWrite.TabIndex = 26
         '
         'chtLogicalWrite
@@ -2947,7 +3022,7 @@ Partial Class frmMonMain
         Me.chtLogicalWrite.Location = New System.Drawing.Point(3, 29)
         Me.chtLogicalWrite.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtLogicalWrite.Name = "chtLogicalWrite"
-        Me.chtLogicalWrite.Size = New System.Drawing.Size(440, 157)
+        Me.chtLogicalWrite.Size = New System.Drawing.Size(440, 147)
         Me.chtLogicalWrite.TabIndex = 4
         Me.chtLogicalWrite.Text = "Chart5"
         '
@@ -2992,13 +3067,13 @@ Partial Class frmMonMain
         Me.tlpCPUWait.Controls.Add(Me.chtCPUWait, 0, 1)
         Me.tlpCPUWait.Controls.Add(Me.lblCPUWait, 1, 0)
         Me.tlpCPUWait.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpCPUWait.Location = New System.Drawing.Point(3, 400)
+        Me.tlpCPUWait.Location = New System.Drawing.Point(3, 380)
         Me.tlpCPUWait.Name = "tlpCPUWait"
         Me.tlpCPUWait.RowCount = 3
         Me.tlpCPUWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpCPUWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpCPUWait.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpCPUWait.Size = New System.Drawing.Size(444, 190)
+        Me.tlpCPUWait.Size = New System.Drawing.Size(444, 180)
         Me.tlpCPUWait.TabIndex = 25
         '
         'btnCPUWait
@@ -3076,7 +3151,7 @@ Partial Class frmMonMain
         Me.chtCPUWait.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtCPUWait.Name = "chtCPUWait"
         Me.tlpCPUWait.SetRowSpan(Me.chtCPUWait, 2)
-        Me.chtCPUWait.Size = New System.Drawing.Size(438, 157)
+        Me.chtCPUWait.Size = New System.Drawing.Size(438, 147)
         Me.chtCPUWait.TabIndex = 2
         Me.chtCPUWait.Text = "Chart5"
         '
@@ -3330,12 +3405,12 @@ Partial Class frmMonMain
         Me.tlpSessionActive.Controls.Add(Me.lblSesionActive, 1, 0)
         Me.tlpSessionActive.Controls.Add(Me.btnSessionActive, 0, 0)
         Me.tlpSessionActive.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSessionActive.Location = New System.Drawing.Point(3, 204)
+        Me.tlpSessionActive.Location = New System.Drawing.Point(3, 194)
         Me.tlpSessionActive.Name = "tlpSessionActive"
         Me.tlpSessionActive.RowCount = 2
         Me.tlpSessionActive.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpSessionActive.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSessionActive.Size = New System.Drawing.Size(444, 190)
+        Me.tlpSessionActive.Size = New System.Drawing.Size(444, 180)
         Me.tlpSessionActive.TabIndex = 22
         '
         'chtSessionActive
@@ -3411,7 +3486,7 @@ Partial Class frmMonMain
         Me.chtSessionActive.Location = New System.Drawing.Point(3, 29)
         Me.chtSessionActive.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSessionActive.Name = "chtSessionActive"
-        Me.chtSessionActive.Size = New System.Drawing.Size(438, 157)
+        Me.chtSessionActive.Size = New System.Drawing.Size(438, 147)
         Me.chtSessionActive.TabIndex = 2
         Me.chtSessionActive.Text = "Chart2"
         '
@@ -3442,6 +3517,96 @@ Partial Class frmMonMain
         Me.btnSessionActive.Size = New System.Drawing.Size(34, 19)
         Me.btnSessionActive.TabIndex = 1
         Me.btnSessionActive.Text = "      "
+        '
+        'tlpButtonTrends
+        '
+        Me.tlpButtonTrends.ColumnCount = 4
+        Me.tlpButtonTrends.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpButtonTrends.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.tlpButtonTrends.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpButtonTrends.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.tlpButtonTrends.Controls.Add(Me.Label5, 2, 0)
+        Me.tlpButtonTrends.Controls.Add(Me.lblRetention, 0, 0)
+        Me.tlpButtonTrends.Controls.Add(Me.cmbRetention, 1, 0)
+        Me.tlpButtonTrends.Controls.Add(Me.btnClusterShow, 3, 0)
+        Me.tlpButtonTrends.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpButtonTrends.Location = New System.Drawing.Point(679, 0)
+        Me.tlpButtonTrends.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
+        Me.tlpButtonTrends.Name = "tlpButtonTrends"
+        Me.tlpButtonTrends.RowCount = 1
+        Me.tlpButtonTrends.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpButtonTrends.Size = New System.Drawing.Size(671, 30)
+        Me.tlpButtonTrends.TabIndex = 1
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label5.Location = New System.Drawing.Point(519, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(29, 30)
+        Me.Label5.TabIndex = 27
+        Me.Label5.Text = "Min"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblRetention
+        '
+        Me.lblRetention.AutoSize = True
+        Me.lblRetention.BackColor = System.Drawing.Color.Transparent
+        Me.lblRetention.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblRetention.ForeColor = System.Drawing.Color.White
+        Me.lblRetention.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblRetention.Location = New System.Drawing.Point(3, 0)
+        Me.lblRetention.Name = "lblRetention"
+        Me.lblRetention.Size = New System.Drawing.Size(460, 30)
+        Me.lblRetention.TabIndex = 26
+        Me.lblRetention.Text = "F326"
+        Me.lblRetention.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbRetention
+        '
+        Me.cmbRetention.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbRetention.DisplayMember = "All"
+        Me.cmbRetention.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmbRetention.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbRetention.FixedWidth = False
+        Me.cmbRetention.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbRetention.FormattingEnabled = True
+        Me.cmbRetention.Items.AddRange(New Object() {"10", "20", "30"})
+        Me.cmbRetention.Location = New System.Drawing.Point(469, 4)
+        Me.cmbRetention.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbRetention.Name = "cmbRetention"
+        Me.cmbRetention.Necessary = False
+        Me.cmbRetention.Size = New System.Drawing.Size(44, 20)
+        Me.cmbRetention.StatusTip = ""
+        Me.cmbRetention.TabIndex = 25
+        Me.cmbRetention.ValueText = ""
+        '
+        'btnClusterShow
+        '
+        Me.btnClusterShow.AutoSize = True
+        Me.btnClusterShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClusterShow.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClusterShow.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClusterShow.FixedHeight = False
+        Me.btnClusterShow.FixedWidth = False
+        Me.btnClusterShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnClusterShow.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnClusterShow.ForeColor = System.Drawing.Color.LightGray
+        Me.btnClusterShow.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnClusterShow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnClusterShow.LineColor = System.Drawing.Color.Gray
+        Me.btnClusterShow.Location = New System.Drawing.Point(554, 3)
+        Me.btnClusterShow.Name = "btnClusterShow"
+        Me.btnClusterShow.Radius = 10
+        Me.btnClusterShow.Size = New System.Drawing.Size(114, 24)
+        Me.btnClusterShow.TabIndex = 1
+        Me.btnClusterShow.Text = "Clusters"
+        Me.btnClusterShow.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClusterShow.UseVisualStyleBackColor = False
         '
         'monTypeImgLst
         '
@@ -4118,6 +4283,308 @@ Partial Class frmMonMain
         Me.mnuSQLRespTmAVG.Size = New System.Drawing.Size(205, 22)
         Me.mnuSQLRespTmAVG.Text = "SQL Response time Avg"
         '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "KEY"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Visible = False
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "UPDTIME"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Visible = False
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "F033"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 67
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "F193"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 67
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle38.Format = "P"
+        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle38
+        Me.DataGridViewTextBoxColumn5.HeaderText = "F046"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 67
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Visible = False
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        DataGridViewCellStyle39.Format = "N"
+        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle39
+        Me.DataGridViewTextBoxColumn7.HeaderText = "F033"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        DataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle40.Format = "P"
+        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle40
+        Me.DataGridViewTextBoxColumn8.HeaderText = "F034"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.Width = 55
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        Me.DataGridViewTextBoxColumn9.Visible = False
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        DataGridViewCellStyle41.Format = "N"
+        Me.DataGridViewTextBoxColumn10.DefaultCellStyle = DataGridViewCellStyle41
+        Me.DataGridViewTextBoxColumn10.HeaderText = "F033"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle42.Format = "P"
+        Me.DataGridViewTextBoxColumn11.DefaultCellStyle = DataGridViewCellStyle42
+        Me.DataGridViewTextBoxColumn11.HeaderText = "F034"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Width = 55
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.HeaderText = "KEY"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        Me.DataGridViewTextBoxColumn12.Visible = False
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.HeaderText = "UPDTIME"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        Me.DataGridViewTextBoxColumn13.Visible = False
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.HeaderText = "F033"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.HeaderText = "F085"
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        Me.DataGridViewTextBoxColumn15.Width = 50
+        '
+        'DataGridViewTextBoxColumn16
+        '
+        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle43.Format = "P"
+        Me.DataGridViewTextBoxColumn16.DefaultCellStyle = DataGridViewCellStyle43
+        Me.DataGridViewTextBoxColumn16.HeaderText = "F043"
+        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
+        Me.DataGridViewTextBoxColumn16.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.DataPropertyName = "INSTANCE_ID"
+        Me.DataGridViewTextBoxColumn17.HeaderText = "INSTID"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        Me.DataGridViewTextBoxColumn17.Visible = False
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.DataPropertyName = "USER_NAME"
+        Me.DataGridViewTextBoxColumn18.HeaderText = "USER"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        Me.DataGridViewTextBoxColumn18.Visible = False
+        '
+        'DataGridViewTextBoxColumn19
+        '
+        Me.DataGridViewTextBoxColumn19.DataPropertyName = "DB_NAME"
+        Me.DataGridViewTextBoxColumn19.HeaderText = "DBNM"
+        Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
+        Me.DataGridViewTextBoxColumn19.ReadOnly = True
+        Me.DataGridViewTextBoxColumn19.Visible = False
+        '
+        'DataGridViewTextBoxColumn20
+        '
+        Me.DataGridViewTextBoxColumn20.DataPropertyName = "HOST_NAME"
+        Me.DataGridViewTextBoxColumn20.HeaderText = "F033"
+        Me.DataGridViewTextBoxColumn20.Name = "DataGridViewTextBoxColumn20"
+        Me.DataGridViewTextBoxColumn20.ReadOnly = True
+        Me.DataGridViewTextBoxColumn20.Width = 55
+        '
+        'DataGridViewTextBoxColumn21
+        '
+        Me.DataGridViewTextBoxColumn21.DataPropertyName = "CPU_USAGE"
+        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle44.Format = "P"
+        Me.DataGridViewTextBoxColumn21.DefaultCellStyle = DataGridViewCellStyle44
+        Me.DataGridViewTextBoxColumn21.HeaderText = "F049"
+        Me.DataGridViewTextBoxColumn21.Name = "DataGridViewTextBoxColumn21"
+        Me.DataGridViewTextBoxColumn21.ReadOnly = True
+        Me.DataGridViewTextBoxColumn21.Width = 55
+        '
+        'DataGridViewTextBoxColumn22
+        '
+        Me.DataGridViewTextBoxColumn22.DataPropertyName = "START_TIME"
+        DataGridViewCellStyle45.Format = "yyyy-MM-dd HH:mm:ss"
+        DataGridViewCellStyle45.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn22.DefaultCellStyle = DataGridViewCellStyle45
+        Me.DataGridViewTextBoxColumn22.HeaderText = "F050"
+        Me.DataGridViewTextBoxColumn22.Name = "DataGridViewTextBoxColumn22"
+        Me.DataGridViewTextBoxColumn22.ReadOnly = True
+        Me.DataGridViewTextBoxColumn22.Width = 55
+        '
+        'DataGridViewTextBoxColumn23
+        '
+        Me.DataGridViewTextBoxColumn23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn23.DataPropertyName = "SQL"
+        Me.DataGridViewTextBoxColumn23.HeaderText = "F052"
+        Me.DataGridViewTextBoxColumn23.Name = "DataGridViewTextBoxColumn23"
+        Me.DataGridViewTextBoxColumn23.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn24
+        '
+        Me.DataGridViewTextBoxColumn24.FillWeight = 1.0!
+        Me.DataGridViewTextBoxColumn24.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn24.Name = "DataGridViewTextBoxColumn24"
+        Me.DataGridViewTextBoxColumn24.Visible = False
+        '
+        'DataGridViewTextBoxColumn25
+        '
+        Me.DataGridViewTextBoxColumn25.FillWeight = 1.0!
+        Me.DataGridViewTextBoxColumn25.HeaderText = "Status"
+        Me.DataGridViewTextBoxColumn25.Name = "DataGridViewTextBoxColumn25"
+        Me.DataGridViewTextBoxColumn25.Visible = False
+        '
+        'DataGridViewTextBoxColumn26
+        '
+        Me.DataGridViewTextBoxColumn26.FillWeight = 1.0!
+        Me.DataGridViewTextBoxColumn26.HeaderText = "StautsValue"
+        Me.DataGridViewTextBoxColumn26.Name = "DataGridViewTextBoxColumn26"
+        Me.DataGridViewTextBoxColumn26.Visible = False
+        '
+        'DataGridViewTextBoxColumn27
+        '
+        Me.DataGridViewTextBoxColumn27.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle46.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn27.DefaultCellStyle = DataGridViewCellStyle46
+        Me.DataGridViewTextBoxColumn27.FillWeight = 50.0!
+        Me.DataGridViewTextBoxColumn27.HeaderText = ""
+        Me.DataGridViewTextBoxColumn27.MinimumWidth = 40
+        Me.DataGridViewTextBoxColumn27.Name = "DataGridViewTextBoxColumn27"
+        Me.DataGridViewTextBoxColumn27.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'DataGridViewTextBoxColumn28
+        '
+        Me.DataGridViewTextBoxColumn28.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle47.Font = New System.Drawing.Font("Gulim", 8.0!)
+        DataGridViewCellStyle47.NullValue = Nothing
+        DataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewTextBoxColumn28.DefaultCellStyle = DataGridViewCellStyle47
+        Me.DataGridViewTextBoxColumn28.FillWeight = 130.0!
+        Me.DataGridViewTextBoxColumn28.HeaderText = ""
+        Me.DataGridViewTextBoxColumn28.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn28.Name = "DataGridViewTextBoxColumn28"
+        '
+        'DataGridViewTextBoxColumn29
+        '
+        Me.DataGridViewTextBoxColumn29.HeaderText = "coldgvAlertCollectDt"
+        Me.DataGridViewTextBoxColumn29.Name = "DataGridViewTextBoxColumn29"
+        Me.DataGridViewTextBoxColumn29.Visible = False
+        '
+        'DataGridViewTextBoxColumn30
+        '
+        Me.DataGridViewTextBoxColumn30.HeaderText = "coldgvAlertHchkName"
+        Me.DataGridViewTextBoxColumn30.Name = "DataGridViewTextBoxColumn30"
+        Me.DataGridViewTextBoxColumn30.Visible = False
+        '
+        'DataGridViewTextBoxColumn31
+        '
+        Me.DataGridViewTextBoxColumn31.FillWeight = 1.0!
+        Me.DataGridViewTextBoxColumn31.HeaderText = "ID"
+        Me.DataGridViewTextBoxColumn31.Name = "DataGridViewTextBoxColumn31"
+        Me.DataGridViewTextBoxColumn31.Visible = False
+        '
+        'DataGridViewTextBoxColumn32
+        '
+        Me.DataGridViewTextBoxColumn32.FillWeight = 1.0!
+        Me.DataGridViewTextBoxColumn32.HeaderText = "Status"
+        Me.DataGridViewTextBoxColumn32.Name = "DataGridViewTextBoxColumn32"
+        Me.DataGridViewTextBoxColumn32.Visible = False
+        '
+        'DataGridViewTextBoxColumn33
+        '
+        Me.DataGridViewTextBoxColumn33.FillWeight = 1.0!
+        Me.DataGridViewTextBoxColumn33.HeaderText = "StautsValue"
+        Me.DataGridViewTextBoxColumn33.Name = "DataGridViewTextBoxColumn33"
+        Me.DataGridViewTextBoxColumn33.Visible = False
+        '
+        'DataGridViewTextBoxColumn34
+        '
+        Me.DataGridViewTextBoxColumn34.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle48.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn34.DefaultCellStyle = DataGridViewCellStyle48
+        Me.DataGridViewTextBoxColumn34.FillWeight = 50.0!
+        Me.DataGridViewTextBoxColumn34.HeaderText = ""
+        Me.DataGridViewTextBoxColumn34.MinimumWidth = 40
+        Me.DataGridViewTextBoxColumn34.Name = "DataGridViewTextBoxColumn34"
+        Me.DataGridViewTextBoxColumn34.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'DataGridViewTextBoxColumn35
+        '
+        Me.DataGridViewTextBoxColumn35.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        DataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        DataGridViewCellStyle49.Font = New System.Drawing.Font("Gulim", 8.0!)
+        DataGridViewCellStyle49.NullValue = Nothing
+        DataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewTextBoxColumn35.DefaultCellStyle = DataGridViewCellStyle49
+        Me.DataGridViewTextBoxColumn35.FillWeight = 130.0!
+        Me.DataGridViewTextBoxColumn35.HeaderText = ""
+        Me.DataGridViewTextBoxColumn35.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn35.Name = "DataGridViewTextBoxColumn35"
+        '
+        'DataGridViewTextBoxColumn36
+        '
+        Me.DataGridViewTextBoxColumn36.HeaderText = "coldgvAlertCollectDt"
+        Me.DataGridViewTextBoxColumn36.Name = "DataGridViewTextBoxColumn36"
+        Me.DataGridViewTextBoxColumn36.Visible = False
+        '
+        'DataGridViewTextBoxColumn37
+        '
+        Me.DataGridViewTextBoxColumn37.HeaderText = "coldgvAlertHchkName"
+        Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
+        Me.DataGridViewTextBoxColumn37.Visible = False
+        '
         'frmMonMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -4165,6 +4632,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel5.ResumeLayout(False)
         Me.TableLayoutPanel5.PerformLayout()
         Me.tabTrend.ResumeLayout(False)
+        Me.tlpTrendWrapper.ResumeLayout(False)
         Me.tlpTrend.ResumeLayout(False)
         Me.tlpSQLRespTmMAX.ResumeLayout(False)
         Me.tlpSQLRespTmMAX.PerformLayout()
@@ -4202,6 +4670,8 @@ Partial Class frmMonMain
         Me.tlpSessionActive.ResumeLayout(False)
         Me.tlpSessionActive.PerformLayout()
         CType(Me.chtSessionActive, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tlpButtonTrends.ResumeLayout(False)
+        Me.tlpButtonTrends.PerformLayout()
         Me.tlpDiskAccess.ResumeLayout(False)
         Me.tlpDiskAccess.PerformLayout()
         Me.tlpSessionlist.ResumeLayout(False)
@@ -4413,5 +4883,48 @@ Partial Class frmMonMain
     Friend WithEvents mnuSQLRespTmMAX As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuSQLRespTmAVG As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents monTypeImgLst As System.Windows.Forms.ImageList
+    Friend WithEvents tlpTrendWrapper As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents tlpButtonTrends As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn11 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn12 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn13 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn14 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn15 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn16 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn17 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn18 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn19 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn20 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn21 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn22 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn23 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn24 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn25 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn26 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn27 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn28 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn29 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn30 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn31 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn32 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn33 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn34 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn35 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn36 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn37 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents btnClusterShow As eXperDB.BaseControls.Button
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents lblRetention As System.Windows.Forms.Label
+    Friend WithEvents cmbRetention As eXperDB.BaseControls.ComboBox
 
 End Class

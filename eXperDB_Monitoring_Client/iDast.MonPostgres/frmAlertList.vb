@@ -4,8 +4,13 @@
     Private _intInstanceID As Integer = -1
     Private _strCollectDt As String = ""
     Private _intAlertLevel As Integer = -1
-
-
+    Public OwnerForm As Windows.Forms.Form
+    Private _AgentInfo As structAgent
+    ReadOnly Property AgentInfo As structAgent
+        Get
+            Return _AgentInfo
+        End Get
+    End Property
     Private _SvrpList As List(Of GroupInfo.ServerInfo)
     ''' <summary>
     ''' Group List Items 안에 서버 리스트가 있음. 
@@ -34,6 +39,7 @@
         _intInstanceID = InstanceID
         _strCollectDt = strCollectDt
         _intAlertLevel = intAlertLevel
+        _AgentInfo = clsAgentInfo
         _clsQuery = New clsQuerys(AgentCn)
     End Sub
     ''' <summary>
@@ -355,5 +361,86 @@
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
         Dim AlertConfig As New frmAlertConfig(_SvrpList, cmbServer.SelectedIndex - 1)
         AlertConfig.ShowDialog()
+    End Sub
+
+
+    Private Sub dgvAlertList_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvAlertList.CellMouseDown
+        If e.ColumnIndex <> -1 AndAlso e.Button = Windows.Forms.MouseButtons.Right AndAlso e.RowIndex >= 0 Then
+            dgvAlertList.ClearSelection()
+            dgvAlertList.Rows(e.RowIndex).Selected = True
+            dgvAlertList.CurrentCell = dgvAlertList.Item(e.ColumnIndex, e.RowIndex)
+            mnuGoto.Show(MousePosition)
+        End If
+    End Sub
+
+    Private Sub mnuGoto_Click(sender As Object, e As EventArgs) Handles mnuGotoClusterDetails.Click, mnuGotoStatementsStats.Click, mnuGotoReports.Click
+        Dim stDt As DateTime
+        Dim edDt As DateTime
+        Dim index As Integer = 0
+        Dim instanceID = dgvAlertList.CurrentRow.Tag
+
+
+        If sender.Name = "mnuGotoClusterDetails" Then
+            stDt = Convert.ToDateTime(dgvAlertList.CurrentRow.Cells(coldgvAlertTime.Index).Value).AddMinutes(-5)
+            edDt = stDt.AddMinutes(10)
+
+            Dim BretFrm As frmMonItemDetail = Nothing
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmMonItemDetail = TryCast(tmpFrm, frmMonItemDetail)
+                If frmDtl IsNot Nothing Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, instanceID, stDt, edDt, _AgentInfo, -1) 'index)
+                BretFrm.Show()
+            Else
+                BretFrm.frmMonItemDetail_ReLoad(instanceID, stDt, edDt, -1)
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuGotoStatementsStats" Then
+            Dim BretFrm As frmStatements = Nothing
+            stDt = Convert.ToDateTime(dgvAlertList.CurrentRow.Cells(coldgvAlertTime.Index).Value).AddMinutes(-30)
+            edDt = stDt.AddMinutes(60)
+
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmStatements = TryCast(tmpFrm, frmStatements)
+                If frmDtl IsNot Nothing Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, instanceID, stDt, edDt, _AgentInfo)
+                BretFrm.Show()
+            Else
+                BretFrm.frmStatements_ReLoad(instanceID, stDt, edDt)
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuGotoReports" Then
+            Dim BretFrm As frmReports = Nothing
+            stDt = Convert.ToDateTime(dgvAlertList.CurrentRow.Cells(coldgvAlertTime.Index).Value).AddMinutes(-30)
+            edDt = stDt.AddMinutes(60)
+
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmReports = TryCast(tmpFrm, frmReports)
+                If frmDtl IsNot Nothing Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmReports(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, instanceID, stDt, edDt, _AgentInfo)
+                BretFrm.Show()
+            Else
+                BretFrm.frmReports_ReLoad(instanceID, stDt, edDt)
+                BretFrm.Activate()
+            End If
+
+        End If
     End Sub
 End Class

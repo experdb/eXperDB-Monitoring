@@ -19,11 +19,11 @@ Partial Class frmAlertList
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
         Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblSearchDay = New eXperDB.BaseControls.Label()
@@ -59,9 +59,14 @@ Partial Class frmAlertList
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.MsgLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.mnuGoto = New eXperDB.BaseControls.ContextMenuStrip()
+        Me.mnuGotoClusterDetails = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuGotoStatementsStats = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuGotoReports = New System.Windows.Forms.ToolStripMenuItem()
         Me.tlpHead.SuspendLayout()
         CType(Me.dgvAlertList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
+        Me.mnuGoto.SuspendLayout()
         Me.SuspendLayout()
         '
         'tlpHead
@@ -402,25 +407,25 @@ Partial Class frmAlertList
         Me.dgvAlertList.AllowUserToResizeRows = False
         Me.dgvAlertList.BackgroundColor = System.Drawing.Color.Black
         Me.dgvAlertList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAlertList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Gulim", 8.320187!)
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAlertList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvAlertList.ColumnHeadersHeight = 30
         Me.dgvAlertList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvAlertList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertSel, Me.coldgvAlertHostName, Me.coldgvAlertINSTANCEID, Me.coldgvAlertHCHKREGREQ, Me.coldgvAlertRegDate, Me.coldgvAlertTime, Me.coldgvAlertType, Me.coldgvAlertLevel, Me.coldgvAlertMessage, Me.coldgvAlertYN, Me.coldgvAlertComment, Me.coldgvAlertIP, Me.coldgvAlertDT})
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvAlertList.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Gulim", 8.320187!)
+        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LightGray
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvAlertList.DefaultCellStyle = DataGridViewCellStyle10
         Me.dgvAlertList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvAlertList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvAlertList.EnableHeadersVisualStyles = False
@@ -454,9 +459,9 @@ Partial Class frmAlertList
         'coldgvAlertHostName
         '
         Me.coldgvAlertHostName.DataPropertyName = "HOST_NAME"
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = "0"
-        Me.coldgvAlertHostName.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle7.Format = "N2"
+        DataGridViewCellStyle7.NullValue = "0"
+        Me.coldgvAlertHostName.DefaultCellStyle = DataGridViewCellStyle7
         Me.coldgvAlertHostName.FillWeight = 131.1306!
         Me.coldgvAlertHostName.HeaderText = "F033"
         Me.coldgvAlertHostName.MinimumWidth = 130
@@ -491,8 +496,8 @@ Partial Class frmAlertList
         'coldgvAlertTime
         '
         Me.coldgvAlertTime.DataPropertyName = "COLLECT_TIME"
-        DataGridViewCellStyle3.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.coldgvAlertTime.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle8.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.coldgvAlertTime.DefaultCellStyle = DataGridViewCellStyle8
         Me.coldgvAlertTime.FillWeight = 171.0869!
         Me.coldgvAlertTime.HeaderText = "F257"
         Me.coldgvAlertTime.MinimumWidth = 170
@@ -513,9 +518,9 @@ Partial Class frmAlertList
         'coldgvAlertLevel
         '
         Me.coldgvAlertLevel.DataPropertyName = "STATE"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "P"
-        Me.coldgvAlertLevel.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "P"
+        Me.coldgvAlertLevel.DefaultCellStyle = DataGridViewCellStyle9
         Me.coldgvAlertLevel.HeaderText = "F247"
         Me.coldgvAlertLevel.MinimumWidth = 100
         Me.coldgvAlertLevel.Name = "coldgvAlertLevel"
@@ -621,6 +626,32 @@ Partial Class frmAlertList
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
         '
+        'mnuGoto
+        '
+        Me.mnuGoto.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.mnuGoto.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuGotoClusterDetails, Me.mnuGotoStatementsStats, Me.mnuGotoReports})
+        Me.mnuGoto.Name = "mnuPopup"
+        Me.mnuGoto.Size = New System.Drawing.Size(186, 92)
+        '
+        'mnuGotoClusterDetails
+        '
+        Me.mnuGotoClusterDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.mnuGotoClusterDetails.Name = "mnuGotoClusterDetails"
+        Me.mnuGotoClusterDetails.Size = New System.Drawing.Size(185, 22)
+        Me.mnuGotoClusterDetails.Text = "Cluster Details"
+        '
+        'mnuGotoStatementsStats
+        '
+        Me.mnuGotoStatementsStats.Name = "mnuGotoStatementsStats"
+        Me.mnuGotoStatementsStats.Size = New System.Drawing.Size(185, 22)
+        Me.mnuGotoStatementsStats.Text = "Statements Statistics"
+        '
+        'mnuGotoReports
+        '
+        Me.mnuGotoReports.Name = "mnuGotoReports"
+        Me.mnuGotoReports.Size = New System.Drawing.Size(185, 22)
+        Me.mnuGotoReports.Text = "Cluster Reports"
+        '
         'frmAlertList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
@@ -640,6 +671,7 @@ Partial Class frmAlertList
         CType(Me.dgvAlertList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
+        Me.mnuGoto.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -677,5 +709,9 @@ Partial Class frmAlertList
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents dtpDay As eXperDB.BaseControls.DateTimePicker
     Friend WithEvents lblSearchDay As eXperDB.BaseControls.Label
+    Friend WithEvents mnuGoto As eXperDB.BaseControls.ContextMenuStrip
+    Friend WithEvents mnuGotoClusterDetails As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuGotoStatementsStats As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuGotoReports As System.Windows.Forms.ToolStripMenuItem
 
 End Class

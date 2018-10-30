@@ -90,7 +90,7 @@ Public Class GroupInfo
             _HAHost = strHAHost
             _HAPort = strHAPort
             _PGV = strPGV
-            _Reserved = HostName
+            _Reserved = True
             'Robin-End add HA info end
         End Sub
 
@@ -269,17 +269,20 @@ Public Class GroupInfo
                 Return _PGV
             End Get
         End Property
-        Private _Reserved As String = ""
+        Private _Reserved As Boolean = True
         ''' <summary>
         ''' Reserved
         ''' </summary>
         ''' <value></value>
         ''' <returns></returns>
         ''' <remarks></remarks>
-        ReadOnly Property Reserved As String
+        Property Reserved As Boolean
             Get
                 Return _Reserved
             End Get
+            Set(value As Boolean)
+                _Reserved = value
+            End Set
         End Property
    'Robin-end add HA info end
     End Class

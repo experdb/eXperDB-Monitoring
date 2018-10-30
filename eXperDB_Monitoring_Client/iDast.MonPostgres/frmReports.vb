@@ -14,6 +14,8 @@ Public Class frmReports
     Private _dtDB As DataTable = Nothing
     Private _dtSession As DataTable = Nothing
     Private _dtSql As DataTable = Nothing
+    Private _ServerInfo As GroupInfo.ServerInfo = Nothing
+    Private _SvrpList As List(Of GroupInfo.ServerInfo)
 
 
     Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal GrpLst As List(Of GroupInfo), ByVal AgentInfo As structAgent)
@@ -74,22 +76,56 @@ Public Class frmReports
         cmbInst.SelectedValue = intInstanceID
         _AgentInfo = AgentInfo
 
-
-        'Me.FormControlBox1.UseConfigBox = False
-        'Me.FormControlBox1.UseCriticalBox = False
-        'Me.FormControlBox1.UseLockBox = False
-        'Me.FormControlBox1.UseRotationBox = False
-        'Me.FormControlBox1.UsePowerBox = False
-
         initChart()
-
 
         _ShownSearch = True
 
+    End Sub
+
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal ServerInfo As List(Of GroupInfo.ServerInfo), ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime, ByVal AgentInfo As structAgent)
+
+        ' 이 호출은 디자이너에 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
+        ' Form Default
+
+        _SvrpList = ServerInfo
+
+        cmbInst.Items.Clear()
+
+        For Each tmpSvr As GroupInfo.ServerInfo In ServerInfo
+            cmbInst.AddValue(tmpSvr.InstanceID, tmpSvr.ShowNm)
+        Next
+
+        '_AgentCn = AgentCn
+        _AgentCn = New eXperDBODBC(AgentCn.ODBCConninfo, 30)
+        _clsQuery = New clsQuerys(_AgentCn)
+        _clsQuerySub = New clsQuerys(_AgentCn)
+        dtpSt.Value = stDt.AddMinutes(-1)
+        dtpEd.Value = edDt.AddMinutes(1)
+        cmbInst.SelectedValue = intInstanceID
+        _AgentInfo = AgentInfo
+
+        initChart()
+
+        _ShownSearch = True
 
     End Sub
 
+    Public Sub frmReports_ReLoad(ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime)
+        Dim prevStdt As DateTime = dtpSt.Value
+        Dim prevInstanceIndex = cmbInst.SelectedIndex
 
+        dtpSt.Value = stDt
+        dtpEd.Value = edDt
+        dtpSt.Tag = stDt
+        dtpEd.Tag = edDt
+
+        cmbInst.SelectedValue = intInstanceID
+
+        btnSearch.PerformClick()
+    End Sub
 
     Public Function MakeBaseRBCtl(ByVal Title As String) As BaseControls.RadioButton
 
