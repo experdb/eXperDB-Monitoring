@@ -507,6 +507,10 @@
             _frmWait.Close()
         End If
 
+        If cbxCheckTableBloat.Checked = True Then
+            cbxCheckTableBloat.Checked = False
+            cbxCheckTableBloat.Checked = True
+        End If
     End Sub
 
     Private Sub frmMonActInfo_Shown(sender As Object, e As EventArgs) Handles Me.Shown

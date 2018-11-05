@@ -729,11 +729,11 @@
         End Try
     End Function
 
-    Public Function UpdateConfig(ByVal intLogSaveDays As Integer, ByVal LstIP As String, ByVal BatchTime As String, ByVal Hchk_Period_sec As String, ByVal Objt_Period_sec As String) As Integer
+    Public Function UpdateConfig(ByVal intLogSaveDays As Integer, ByVal LstIP As String, ByVal BatchTime As String, ByVal Hchk_Period_sec As String, ByVal Objt_Period_sec As String, ByVal Stmt_Period_sec As String) As Integer
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATECONFIG")
-                strQuery = String.Format(strQuery, intLogSaveDays, LstIP, BatchTime, Hchk_Period_sec, Objt_Period_sec)
+                strQuery = String.Format(strQuery, intLogSaveDays, LstIP, BatchTime, Hchk_Period_sec, Objt_Period_sec, Stmt_Period_sec)
                 Return _ODBC.dbExecuteNonQuery(strQuery)
             Else
                 Return -1

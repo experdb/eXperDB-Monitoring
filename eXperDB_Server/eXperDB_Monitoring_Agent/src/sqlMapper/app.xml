@@ -1020,7 +1020,7 @@
 				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
 				          CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
 				          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
-				          C.QUERYID AS QUERYID,
+				          C.QUERYID AS STMT_QUERYID,
 				          CASE WHEN C.QUERYID IS NULL THEN B.QUERY ELSE D.QUERY END AS SQL, 
 				          B.STATE AS STATE,
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
@@ -1830,9 +1830,19 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</delete>
 	
 <!-- ********************************************************** -->
-<!-- for Replication Start-->
+<!-- Additional tables-->
 <!-- ********************************************************** -->
-
+	<delete id="PGMONTB_BATCH_QEURY_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONTB_BATCH_QEURY_INFO_001 */ FROM TB_QUERY_INFO WHERE To_char(COLLECT_DT::DATE, 'YYYYMMDD') <= TO_CHAR((SELECT MAX(COLLECT_DT)::DATE FROM TB_QUERY_INFO)-(SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
+	
+	<delete id="PGMONTB_BATCH_PG_STAT_STATEMENT_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONTB_BATCH_PG_STAT_STATEMENT_001 */ FROM TB_PG_STAT_STATEMENTS WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_PG_STAT_STATEMENTS) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
+		]]>	
+	</delete>
 
 	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
 		vacuum analyze TB_INSTANCE_INFO    ;
@@ -1905,6 +1915,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="VACUUM_ANALYZE_U026" parameterType="hashmap" >		
 		vacuum analyze TB_CHECKPOINT_INFO ;
+	</update>
+	<update id="VACUUM_ANALYZE_U027" parameterType="hashmap" >		
+		vacuum analyze TB_QUERY_INFO ;
+	</update>
+	<update id="VACUUM_ANALYZE_U028" parameterType="hashmap" >		
+		vacuum analyze TB_PG_STAT_STATEMENTS ;
 	</update>
 <!-- ********************************************************** -->
 <!-- DailyBatchTask END -->
@@ -2350,7 +2366,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			SELECT /* EXPERDBMA_TB_QUERY_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
 					QUERYID 
-			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND QUERYID = MD5(#{query})
+			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND QUERYID = MD5(#{query}) AND DB_NAME = #{db_name}
 			 ORDER BY STMT_QUERYID ASC LIMIT 1
 		  ]]>	  
 	</select>
@@ -2362,18 +2378,43 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		       COLLECT_DT = NOW()		  
 		 WHERE QU.INSTANCE_ID = #{instance_id}
 		   AND QU.QUERYID = MD5(coalesce(#{queryid}, ''))
+		   AND DB_NAME = #{db_name}
 		RETURNING *)
 		INSERT INTO TB_QUERY_INFO
-		SELECT #{instance_id}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
+		SELECT #{instance_id}, #{db_name}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 	</insert>	
 	<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
-        		   U.USENAME USERNAME, D.DATNAME AS DBNAME, PGS.* 
-			  FROM PG_STAT_STATEMENTS AS PGS
-              JOIN PG_USER U ON PGS.USERID=U.USESYSID JOIN PG_DATABASE D ON PGS.DBID = D.OID
-              WHERE PGS.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+         	SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
+     		   U.USENAME USERNAME, D.DATNAME AS DB_NAME,
+     		   MAX(USERID) USERID,	
+     		   MAX(DBID) DBID,	
+     		   MAX(PGS.QUERYID) QUERYID, 
+     		   MAX(PGS.QUERY ) QUERY,
+     		   SUM(CALLS) CALLS,
+     		   SUM(TOTAL_TIME) TOTAL_TIME,
+     		   MIN(MIN_TIME) MIN_TIME,
+     		   MAX(MAX_TIME) MAX_TIME,
+     		   AVG(MEAN_TIME) MEAN_TIME,
+     		   AVG(STDDEV_TIME) STDDEV_TIME,
+     		   SUM(ROWS) AS ROWS,
+     		   SUM(SHARED_BLKS_HIT)		SHARED_BLKS_HIT,	  	
+     		   SUM(SHARED_BLKS_READ)    SHARED_BLKS_READ,  
+     		   SUM(SHARED_BLKS_DIRTIED) SHARED_BLKS_DIRTIED,
+     		   SUM(SHARED_BLKS_WRITTEN) SHARED_BLKS_WRITTEN,
+     		   SUM(LOCAL_BLKS_HIT)      LOCAL_BLKS_HIT,    
+     		   SUM(LOCAL_BLKS_READ)     LOCAL_BLKS_READ,   
+     		   SUM(LOCAL_BLKS_DIRTIED)  LOCAL_BLKS_DIRTIED,
+     		   SUM(LOCAL_BLKS_WRITTEN)  LOCAL_BLKS_WRITTEN,
+     		   SUM(TEMP_BLKS_READ)      TEMP_BLKS_READ,    
+     		   SUM(TEMP_BLKS_WRITTEN)   TEMP_BLKS_WRITTEN, 
+     		   SUM(BLK_READ_TIME)       BLK_READ_TIME,     
+     		   SUM(BLK_WRITE_TIME)      BLK_WRITE_TIME
+		  FROM PG_STAT_STATEMENTS AS PGS
+		           JOIN PG_USER U ON PGS.USERID=U.USESYSID JOIN PG_DATABASE D ON PGS.DBID = D.OID
+		           WHERE PGS.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+		           GROUP BY U.USENAME, D.DATNAME , MD5(QUERY);
 		  ]]>	  
 	</select>
 	<insert id="TB_PGSS_INFO_I001" parameterType="hashmap" >

@@ -267,7 +267,7 @@ Partial Class frmStatements
         Me.cmbTop.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbTop.FormattingEnabled = True
         Me.cmbTop.Items.AddRange(New Object() {"5", "10"})
-        Me.cmbTop.Location = New System.Drawing.Point(1295, 9)
+        Me.cmbTop.Location = New System.Drawing.Point(1295, 10)
         Me.cmbTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbTop.Name = "cmbTop"
         Me.cmbTop.Necessary = False
@@ -643,7 +643,7 @@ Partial Class frmStatements
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 6)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 7)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -1308,7 +1308,7 @@ Partial Class frmStatements
         Me.cmbSort.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbSort.FormattingEnabled = True
         Me.cmbSort.Items.AddRange(New Object() {"Calls", "Total time", "CPU time rate", "IO time rate"})
-        Me.cmbSort.Location = New System.Drawing.Point(1301, 11)
+        Me.cmbSort.Location = New System.Drawing.Point(1301, 10)
         Me.cmbSort.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbSort.Name = "cmbSort"
         Me.cmbSort.Necessary = False

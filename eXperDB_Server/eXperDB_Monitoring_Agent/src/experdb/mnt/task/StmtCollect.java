@@ -36,13 +36,12 @@ public class StmtCollect extends TaskApplication {
 
 	@Override
 	public void run() {
-		long collectObjectPeriod = (Integer) MonitoringInfoManager.getInstance().getConfig("objt_period_sec");
+		long collectStmtPeriod = (Integer) MonitoringInfoManager.getInstance().getConfig("stmt_period_sec");
 		long sleepTime;
 		long startTime;
 		long nextExecuteTime = 0;
 		long startDeleteTime = 0;
 		long endTime;
-		collectObjectPeriod = collectObjectPeriod * 2;
 		
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
@@ -58,7 +57,7 @@ public class StmtCollect extends TaskApplication {
 					while (en.hasMoreElements()) {
 						execute((String) en.nextElement());
 					}
-					nextExecuteTime = System.currentTimeMillis() + collectObjectPeriod * 1000;
+					nextExecuteTime = System.currentTimeMillis() + collectStmtPeriod * 1000;
 				}
 				
 				endTime =  System.currentTimeMillis();
@@ -134,6 +133,7 @@ public class StmtCollect extends TaskApplication {
 				for (HashMap<String, Object> map : pgssSel) {
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
 					inputParam.put("instance_id", 				Integer.parseInt(reqInstanceId));
+					inputParam.put("db_name", 					map.get("db_name"));
 					inputParam.put("queryid", 					map.get("query"));
 					inputParam.put("query", 						map.get("query"));
 					HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);
@@ -149,7 +149,7 @@ public class StmtCollect extends TaskApplication {
 					//stmtObj.put("userid"			 ,map.get("userid"));
 					//stmtObj.put("dbid"               ,map.get("dbid"));
 					stmtObj.put("userid"			 ,map.get("username"));
-					stmtObj.put("dbid"               ,map.get("dbname"));
+					stmtObj.put("dbid"               ,map.get("db_name"));
 					stmtObj.put("queryid"		     ,map.get("queryid"));
 					stmtObj.put("calls"		         ,map.get("calls"));
 					stmtObj.put("total_time"         ,map.get("total_time"));

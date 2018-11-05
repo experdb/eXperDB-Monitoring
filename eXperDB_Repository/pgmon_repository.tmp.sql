@@ -72,6 +72,7 @@ CREATE TABLE tb_config (
     daily_batch_start_time time without time zone,
     hchk_period_sec integer,
     objt_period_sec integer,
+    stmt_period_sec integer,
     log_keep_days integer,
     admin_user_id character varying(100),
     admin_password character varying(100),
@@ -393,6 +394,7 @@ CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
 
 CREATE UNLOGGED TABLE TB_QUERY_INFO (
 		instance_id integer NOT NULL,
+		db_name character varying(100) NOT NULL,
     queryid character varying(41) NOT NULL,
     stmt_queryid int8,
     query text,
@@ -499,7 +501,7 @@ ALTER TABLE ONLY TB_HCHK_ALERT_INFO
     ADD CONSTRAINT pk_hchk_alert_info PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
     
 ALTER TABLE ONLY TB_QUERY_INFO
-    ADD CONSTRAINT pk_query_info PRIMARY KEY (instance_id, queryid);
+    ADD CONSTRAINT pk_query_info PRIMARY KEY (instance_id, db_name, queryid);
 
 ALTER TABLE ONLY TB_PG_STAT_STATEMENTS
     ADD CONSTRAINT pk_pg_stat_statements PRIMARY KEY (reg_date, collect_dt, instance_id);
@@ -706,6 +708,7 @@ INSERT INTO tb_config(
 DAILY_BATCH_START_TIME
 ,HCHK_PERIOD_SEC
 ,OBJT_PERIOD_SEC
+,STMT_PERIOD_SEC
 ,LOG_KEEP_DAYS
 ,ADMIN_USER_ID
 ,ADMIN_PASSWORD
@@ -715,7 +718,7 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_IP
 ,SERIAL_KEY
 ,VERSION
-) VALUES ('23:30:00', 30, 300, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '9.6.1.174');
+) VALUES ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '10.4.2.265');
 
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (1, 'Group1', now(), '127.0.0.1');
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (2, 'Group2', now(), '127.0.0.1');

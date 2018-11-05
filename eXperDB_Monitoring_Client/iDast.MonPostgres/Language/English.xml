@@ -2593,6 +2593,16 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F327" PARAMS="0">
+   <DESC>STMT collect time</DESC>
+   <DATA><![CDATA[Statements time]]></DATA>
+   <VALUECAST />
+  </ROW>
+  <ROW ID="F328" PARAMS="0">
+    <DESC>STMT PERIOD LIST</DESC>
+    <DATA><![CDATA[5 m|300;10 m|600;30 m|1800;1 h|3600;6 h|21600;12 h|43200]]></DATA>
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
