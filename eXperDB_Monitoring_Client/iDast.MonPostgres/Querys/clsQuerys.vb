@@ -2030,14 +2030,15 @@
     Public Function SelectCheckpoint(ByVal InstanceID As String, ByVal isLatest As Boolean) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCHECKPOINT")
+                Dim strQuery As String = ""
                 Dim subQuery As String = ""
 
                 subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
 
                 If isLatest = True Then
-                    subQuery += vbCrLf
-                    subQuery += "AND B.REPL_REG_SEQ = (SELECT MAX(D.REPL_REG_SEQ) FROM TB_CHECKPOINT_INFO D WHERE A.INSTANCE_ID = D.INSTANCE_ID AND B.REG_DATE = D.REG_DATE)"
+                    strQuery = p_clsQueryData.fn_GetData("SELECTCHECKPOINTLATEST")
+                Else
+                    strQuery = p_clsQueryData.fn_GetData("SELECTCHECKPOINT")
                 End If
 
                 strQuery = String.Format(strQuery, InstanceID, subQuery)

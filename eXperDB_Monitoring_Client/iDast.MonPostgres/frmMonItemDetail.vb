@@ -61,23 +61,17 @@
         Next
 
         If _chtOrder >= 0 Then
-            dtpSt.Visible = False
-            dtpEd.Visible = False
-            lblSt.Visible = True
-            lblEd.Visible = True
-            lblSt.Text = dtpSt.Value.ToString("yyyy-MM-dd HH:mm:ss")
-            lblEd.Text = dtpEd.Value.ToString("yyyy-MM-dd HH:mm:ss")
+            dtpSt.Visible = True
+            dtpEd.Visible = True
             cmbDuration.Visible = False
-            btnQuery.Visible = False
+            'btnQuery.Visible = False
         Else
             _chtOrder = 0
             dtpSt.Visible = True
             dtpEd.Visible = False
-            lblSt.Visible = False
-            lblEd.Visible = False
             cmbDuration.Visible = True
             cmbDuration.SelectedIndex = 0
-            btnQuery.Visible = True
+            'btnQuery.Visible = True
         End If
 
         dtpSt.Value = stDt.AddMinutes(-1)
@@ -146,8 +140,6 @@
         _chtOrder = 0
         dtpSt.Visible = True
         dtpEd.Visible = False
-        lblSt.Visible = False
-        lblEd.Visible = False
         cmbDuration.Visible = True
         cmbDuration.SelectedIndex = 0
         btnQuery.Visible = True
@@ -523,6 +515,8 @@
 
         Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
+        If fn_SearchBefCheck() = False Then Return
+
         If CheckBox.Checked = True Then
             _chtCount += 1
         Else
@@ -548,7 +542,6 @@
     End Sub
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
 
-        If fn_SearchBefCheck() = False Then Return
         'Threading.Thread.Sleep(10)
         If index = 4 Then
             '_ThreadDetail = New Threading.Thread(Sub()
@@ -977,6 +970,9 @@
     End Sub
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
+        'check duration
+        If fn_SearchBefCheck() = False Then Return
+
         If _bRange = True Then
             fn_DeleteAnnotaion()
         End If

@@ -65,7 +65,8 @@ CREATE TYPE utype_get_stat_disk_io AS
         --wr_agg_millisec   numeric, 
         io_agg_millisec   numeric, 
         sec_from_epoch   numeric, 
-        seq int
+        seq int,
+        mountpoint varchar(100)
 );
 
 CREATE OR REPLACE FUNCTION get_stat_disk_io()

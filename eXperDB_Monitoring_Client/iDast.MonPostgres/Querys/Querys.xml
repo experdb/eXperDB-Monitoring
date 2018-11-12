@@ -622,6 +622,39 @@
     </DATA>
     <COMMENTS />
   </ROW>
+    <ROW ID="SELECTCHECKPOINTLATEST" PARAMS="1">
+    <DESC>PT_05_02_005 (Checkpoint)</DESC>
+    <DATA>
+      <![CDATA[
+        WITH REPLSEQ AS (
+        	 SELECT reg_date, MAX(REPL_REG_SEQ) REPL_REG_SEQ FROM TB_CHECKPOINT_INFO WHERE INSTANCE_ID IN ({0}) AND REG_DATE {1} GROUP BY REG_DATE, INSTANCE_ID
+        )
+        SELECT /* SELECTCHECKPOINT */
+             C.INSTANCE_ID,
+             C.COLLECT_DT,
+             C.CHECKPOINTS_TIMED_DELTA,
+             C.CHECKPOINTS_REQ_DELTA,
+             C.REPL_REG_SEQ,
+             C.CHECKPOINTS_TIMED_TIME_DELTA CHECKPOINTS_TIMED_TIME_DELTA,
+             C.CHECKPOINTS_REQ_TIME_DELTA CHECKPOINTS_REQ_TIME_DELTA
+          FROM TB_INSTANCE_INFO A 
+              JOIN TB_REPLICATION_INFO B 
+		        ON A.INSTANCE_ID = B.INSTANCE_ID
+              JOIN REPLSEQ D
+                on D.REG_DATE = B.REG_DATE
+               and D.REPL_REG_SEQ = B.REPL_REG_SEQ
+              JOIN TB_CHECKPOINT_INFO C 
+                ON B.REPL_REG_SEQ = C.REPL_REG_SEQ 
+               AND B.INSTANCE_ID = C.INSTANCE_ID 
+               AND B.REG_DATE  = C.REG_DATE
+          WHERE B.COLLECT_DT >= (now() - interval '120 minute')
+            AND A.COLLECT_YN = 'Y' 
+		    AND A.DELETE_YN = 'N'               
+        ORDER BY C.REPL_REG_SEQ
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
   <ROW ID="SELECTDISKINFO" PARAMS="2">
     <DESC>PT_03_04_001(인스턴스별 DISK IO/USAGE 정보)</DESC>
     <DATA>
@@ -981,6 +1014,7 @@
             , DISK_NAME
  	          , READ_BUSY_RATE AS "PHY_READ"          --PT_04_07_001(PHYSICAL IO : PHY_READ)
 	          , WRITE_BUSY_RATE AS "PHY_WRITE"        --PT_04_07_001(PHYSICAL IO : PHY_WRITE)
+            , MOUNTPOINT
           FROM TB_INSTANCE_INFO A,
           	(SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME 
                FROM TB_RSC_COLLECT_INFO 

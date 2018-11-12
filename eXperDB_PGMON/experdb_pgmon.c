@@ -27,6 +27,7 @@
 
 #define DISKSTAT    "/proc/diskstats"
 #define PARTITIONS  "/proc/partitions"
+#define MOUNTINFO  "/proc/self/mountinfo"
 #define MAX_DISKNM_LEN 128
 #define MAX_DISK_CNT 512
 
@@ -79,6 +80,7 @@ typedef struct _diskioinfo {
     unsigned long long io_c_prc;
     unsigned long long io_comp;
     unsigned long long io_mils;
+	char mountpoint[MAX_MNTDIR_LEN ];
     struct timeval  tv;
 } DSKST_P;
 
@@ -552,6 +554,7 @@ v1c_get_stat_disk_io(PG_FUNCTION_ARGS) {
         values[8] = (char *) palloc(32 * sizeof(char));
         values[9] = (char *) palloc(32 * sizeof(char));
         values[10]= (char *) palloc(32 * sizeof(char));
+		values[11]= (char *) palloc(32 * sizeof(char));
 
         snprintf( values[0], 32, "%s",   DSKSTP[gi_disk_io_counter_idx].diskname  );
         snprintf( values[1], 32, "%llu",  DSKSTP[gi_disk_io_counter_idx].red_compl );
@@ -565,6 +568,7 @@ v1c_get_stat_disk_io(PG_FUNCTION_ARGS) {
         snprintf( values[8], 32, "%llu",  DSKSTP[gi_disk_io_counter_idx].io_comp  );
         snprintf( values[9], 32, "%ld.%03ld", DSKSTP[gi_disk_io_counter_idx].tv.tv_sec,DSKSTP[gi_counter_idx].tv.tv_usec);
         snprintf( values[10],32, "%d", gi_disk_io_counter_idx+1);      
+		snprintf( values[11],32, "%s",   DSKSTP[gi_disk_io_counter_idx].mountpoint );
 
         /* build a tuple */
         tuple = BuildTupleFromCStrings(attinmeta, values);
@@ -584,6 +588,7 @@ v1c_get_stat_disk_io(PG_FUNCTION_ARGS) {
         pfree(values[8]);
         pfree(values[9]);
         pfree(values[10]);
+		pfree(values[11]);
         pfree(values);
 	gi_disk_io_counter_idx++;
         SRF_RETURN_NEXT(funcctx, result);
@@ -613,13 +618,22 @@ int fill_diskio_node(void) {
     unsigned long li_io_c_prc=0;
     unsigned long li_io_comp=0;
     unsigned long li_io_mils=0;
+/* 20181109 Add mountpoint for disk io*/
+	int major_number=0;
+	int minor_number=0;
+	char ls_sdevno[10];
+	char sdevno[10];
+	char ls_stemp[10];
+	char ls_mountpoint[64];
+	int i = 0;
 	
     FILE *dskst_fp=fopen(DISKSTAT, "r");
     FILE *prt_fp=fopen(PARTITIONS, "r");
+	FILE *mi_fp=fopen(MOUNTINFO, "r"); 
     if( !dskst_fp || !prt_fp ) return 0;
 	
     while(fgets(ls_buf, sizeof(ls_buf), prt_fp)) {   
-        sscanf(ls_buf, "%d %d %d %s", &li_temp, &li_temp, &li_temp, ls_partname );
+		sscanf(ls_buf, "%d %d %d %s", &major_number, &minor_number, &li_temp, ls_partname );
         while(fgets(buf, sizeof(buf), dskst_fp)) {    
              sscanf(buf, "%d %d %s", &li_temp, &li_temp, ls_diskname);
              //if(strcmp(ls_diskname,ls_partname)==0)
@@ -645,7 +659,23 @@ int fill_diskio_node(void) {
              }
         }
         rewind(dskst_fp);
-    }
+		if(mi_fp){
+			sprintf(sdevno, "%d:%d", major_number, minor_number);
+			while(fgets(buf, sizeof(buf), mi_fp)) {    
+				sscanf(buf, "%d %d %s %s %s", &li_temp, &li_temp, ls_sdevno, ls_stemp, ls_mountpoint);
+				if(strcmp(sdevno,ls_sdevno)==0) {
+					for(i = 0; i < li_counter_outer; i++){
+						if(strcmp(DSKSTP[i].diskname,ls_partname)==0) {    
+							strcpy(DSKSTP[i].mountpoint, ls_mountpoint);
+						}
+					}
+				}
+			}
+			rewind(mi_fp);
+		}
+	}
+
+	if(mi_fp)fclose(mi_fp);
     if( 0 != fclose(dskst_fp) ) return 0;
     if( 0 != fclose(prt_fp)   ) return 0;
     return li_counter_outer;

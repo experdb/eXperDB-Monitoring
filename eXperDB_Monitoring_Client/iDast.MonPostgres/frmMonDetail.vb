@@ -898,7 +898,11 @@
             cmbPhysical.Items.Clear()
 
             For Each dtRow As DataRow In dtRows
-                cmbPhysical.Items.Add(dtRow.Item("DISK_NAME"))
+                If dtRow.Item("MOUNTPOINT").Equals("") Then
+                    cmbPhysical.Items.Add(dtRow.Item("DISK_NAME"))
+                Else
+                    cmbPhysical.Items.Add(dtRow.Item("DISK_NAME") + " : " + dtRow.Item("MOUNTPOINT"))
+                End If
             Next
 
             cmbPhysical.Tag = dtTable
@@ -1169,7 +1173,7 @@
     Private Sub cmbPhysical_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPhysical.SelectedIndexChanged
         If cmbPhysical.Tag IsNot Nothing AndAlso cmbPhysical.Tag.GetType.Equals(GetType(DataTable)) Then
             Dim dtTable As DataTable = TryCast(cmbPhysical.Tag, DataTable)
-            Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text
+            Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text.Split(" :")(0)
             If Me.chtPhysicaliO.Tag Is Nothing OrElse Not Me.chtPhysicaliO.Tag.Equals(strDiskNm) Then
                 For Each tmpSeries As DataVisualization.Charting.Series In Me.chtPhysicaliO.Series
                     tmpSeries.Points.Clear()

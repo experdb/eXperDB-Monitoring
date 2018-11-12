@@ -1,4 +1,4 @@
-CREATE UNLOGGED TABLE tb_access_info (
+CREATE TABLE tb_access_info (
     reg_date character varying(8) NOT NULL,
     actv_reg_seq integer NOT NULL,
     db_name character varying(100) NOT NULL,
@@ -33,7 +33,7 @@ CREATE UNLOGGED TABLE tb_access_info (
 );
 
 
-CREATE UNLOGGED TABLE tb_actv_collect_info (
+CREATE TABLE tb_actv_collect_info (
     reg_date character varying(8) NOT NULL,
     actv_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
@@ -43,7 +43,7 @@ CREATE UNLOGGED TABLE tb_actv_collect_info (
 );
 
 
-CREATE UNLOGGED TABLE tb_backend_rsc (
+CREATE TABLE tb_backend_rsc (
     reg_date character varying(8) NOT NULL,
     actv_reg_seq integer NOT NULL,
     process_id integer NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE tb_config (
     last_mod_ip character varying(15)
 );
 
-CREATE UNLOGGED TABLE tb_cpu_stat_detail (
+CREATE TABLE tb_cpu_stat_detail (
     reg_date character varying(8) NOT NULL,
     rsc_reg_seq integer NOT NULL,
     cpu_logical_id integer NOT NULL,
@@ -105,7 +105,7 @@ CREATE UNLOGGED TABLE tb_cpu_stat_detail (
     wait_util_rate numeric(5,2)
 );
 
-CREATE UNLOGGED TABLE tb_cpu_stat_master (
+CREATE TABLE tb_cpu_stat_master (
     reg_date character varying(8) NOT NULL,
     rsc_reg_seq integer NOT NULL,
     agg_user_util numeric(20,0),
@@ -126,7 +126,7 @@ CREATE UNLOGGED TABLE tb_cpu_stat_master (
     collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_current_lock (    
+CREATE TABLE tb_current_lock (    
     reg_date character varying(8) NOT NULL,
     actv_reg_seq integer NOT NULL,
     db_name character varying(100),
@@ -143,7 +143,7 @@ CREATE UNLOGGED TABLE tb_current_lock (
     order_no integer,
     collect_dt timestamp without time zone);
 
-CREATE UNLOGGED TABLE tb_disk_io (
+CREATE TABLE tb_disk_io (
     reg_date character varying(8) NOT NULL,
     rsc_reg_seq integer NOT NULL,
     disk_name character varying(100) NOT NULL,
@@ -159,7 +159,7 @@ CREATE UNLOGGED TABLE tb_disk_io (
     delta_time numeric(10,3)
 );
 
-CREATE UNLOGGED TABLE tb_disk_usage (
+CREATE TABLE tb_disk_usage (
     reg_date character varying(8) NOT NULL,
     rsc_reg_seq integer NOT NULL,
     device_name character varying(100) NOT NULL,
@@ -170,7 +170,7 @@ CREATE UNLOGGED TABLE tb_disk_usage (
     collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_hchk_collect_info (
+CREATE TABLE tb_hchk_collect_info (
     reg_date character varying(8) NOT NULL,
     hchk_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE tb_hchk_thrd_list (
     pause_collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_index_info (
+CREATE TABLE tb_index_info (
     reg_date character varying(8) NOT NULL,
     objt_reg_seq integer NOT NULL,
     db_name character varying(100) NOT NULL,
@@ -285,7 +285,7 @@ CREATE TABLE tb_group_instance_info
   last_mod_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_memory_stat (
+CREATE TABLE tb_memory_stat (
     reg_date character varying(8) NOT NULL,
     rsc_reg_seq integer NOT NULL,
     mem_total_kb numeric(20,0),
@@ -302,7 +302,7 @@ CREATE UNLOGGED TABLE tb_memory_stat (
     collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_objt_collect_info (
+CREATE TABLE tb_objt_collect_info (
     reg_date character varying(8) NOT NULL,
     objt_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
@@ -311,7 +311,7 @@ CREATE UNLOGGED TABLE tb_objt_collect_info (
     reg_time time without time zone
 );
 
-CREATE UNLOGGED TABLE tb_rsc_collect_info (
+CREATE TABLE tb_rsc_collect_info (
     reg_date character varying(8) NOT NULL,
     rsc_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
@@ -320,7 +320,7 @@ CREATE UNLOGGED TABLE tb_rsc_collect_info (
     reg_time time without time zone
 );
 
-CREATE UNLOGGED TABLE tb_sys_log (
+CREATE TABLE tb_sys_log (
     reg_date character varying(8) NOT NULL,
     task_cd character varying(1) NOT NULL,
     start_dt timestamp without time zone,
@@ -330,7 +330,7 @@ CREATE UNLOGGED TABLE tb_sys_log (
     driver_status character varying(3)
 );
 
-CREATE UNLOGGED TABLE tb_table_info (
+CREATE TABLE tb_table_info (
     reg_date character varying(8) NOT NULL,
     objt_reg_seq integer NOT NULL,
     db_name character varying(100) NOT NULL,
@@ -356,7 +356,7 @@ CREATE UNLOGGED TABLE tb_table_info (
     collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE tb_tablespace_info (
+CREATE TABLE tb_tablespace_info (
     reg_date character varying(8) NOT NULL,
     objt_reg_seq integer NOT NULL,
     tablespace_name character varying(100) NOT NULL,
@@ -369,7 +369,7 @@ CREATE UNLOGGED TABLE tb_tablespace_info (
     collect_dt date
 );
 
-CREATE UNLOGGED TABLE TB_CONTROL_PROCESS_HIST (
+CREATE TABLE TB_CONTROL_PROCESS_HIST (
     reg_date character varying(8) NOT NULL,
     actv_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
@@ -379,7 +379,7 @@ CREATE UNLOGGED TABLE TB_CONTROL_PROCESS_HIST (
     control_time timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
+CREATE TABLE TB_HCHK_ALERT_INFO
 (
   reg_date character varying(8) NOT NULL,
   hchk_reg_seq integer NOT NULL,
@@ -392,7 +392,7 @@ CREATE UNLOGGED TABLE TB_HCHK_ALERT_INFO
   check_dt timestamp without time zone NULL
 );
 
-CREATE UNLOGGED TABLE TB_QUERY_INFO (
+CREATE TABLE TB_QUERY_INFO (
 		instance_id integer NOT NULL,
 		db_name character varying(100) NOT NULL,
     queryid character varying(41) NOT NULL,
@@ -401,7 +401,7 @@ CREATE UNLOGGED TABLE TB_QUERY_INFO (
     collect_dt timestamp without time zone
 );
 
-CREATE UNLOGGED TABLE TB_PG_STAT_STATEMENTS (
+CREATE TABLE TB_PG_STAT_STATEMENTS (
     reg_date character varying(8) COLLATE pg_catalog."default" NOT NULL,
     collect_dt timestamp without time zone,
     instance_id integer NOT NULL,
