@@ -2,8 +2,10 @@ package experdb.mnt.task;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -49,6 +51,7 @@ public class HchkCollect extends TaskApplication {
 			List<HashMap<String, Object>> insertList = new ArrayList<HashMap<String,Object>>();
 			// Alert 수집 robin 201802
 			List<HashMap<String, Object>> insertAlertList = new ArrayList<HashMap<String,Object>>();
+			List<HashMap<String, Object>> updateList = new ArrayList<HashMap<String,Object>>();
 			
 			// Threshold 정보수집 robin 201802
 			List<HashMap<String, Object>> selectTholdList = new ArrayList<HashMap<String,Object>>();
@@ -97,8 +100,7 @@ public class HchkCollect extends TaskApplication {
 				            	tempMap.put("collect_reg_date",	map.get("collect_reg_date"));
 				            	tempMap.put("collect_reg_seq", 	map.get("collect_reg_seq"));
 				            	tempMap.put("reg_time", 		map.get("reg_time"));
-				            	
-				            	insertList.add(tempMap);
+				            	int nState = 0;
 				            	//add alert list into TB_HCHK_ALERT_INFO robin 201802
 								for (HashMap<String, Object> tholdMap : selectTholdList) {									
 						            if(tholdMap.get("instance_id").equals(tempMap.get("instance_id")) && 
@@ -112,6 +114,7 @@ public class HchkCollect extends TaskApplication {
 						            	double dWarnThold = Double.parseDouble(tholdMap.get("warning_threshold").toString());
 						            	double dCritThold = Double.parseDouble(tholdMap.get("critical_threshold").toString());
 						            	double dValue = Double.parseDouble(tempMap.get("value").toString());
+						            	tempMap.put("critical_start_time", 		tholdMap.get("critical_start_time"));
 						            	if(nPause == 1) break;
 						            	if(nThreshold == 0) {
 							            	if(nIsHigher == 0) {
@@ -141,15 +144,67 @@ public class HchkCollect extends TaskApplication {
 							            			break;
 							            	}
 						            		alertMap.put("state", 300);	
-										} else	break;	
+										} else	break;
+			            	
+						            	nState =  Integer.parseInt(alertMap.get("state").toString());
 						            	
-						            	alertMap.put("instance_id",tempMap.get("instance_id"));
-						            	alertMap.put("hchk_name",  tempMap.get("hchk_name"));
-						            	
-						            	insertAlertList.add(alertMap);
+						            	if (alertMap.get("state").toString().equals("300")){
+						            		/* check whether retention_time set or not */
+							            	if (tholdMap.get("retention_time") == null) {
+								            	alertMap.put("instance_id",tempMap.get("instance_id"));
+								            	alertMap.put("hchk_name",  tempMap.get("hchk_name"));								            	
+								            	insertAlertList.add(alertMap);
+							            	} else if (Integer.parseInt(tholdMap.get("retention_time").toString()) == 0) {
+									            alertMap.put("instance_id",tempMap.get("instance_id"));
+									            alertMap.put("hchk_name",  tempMap.get("hchk_name"));
+									            insertAlertList.add(alertMap);
+							            	} else {							            		
+							            		/* check that the alert state is retained for the duration of the alert. */
+							            		if (tempMap.get("critical_start_time") != null){
+								            		long retention_time = Integer.parseInt(tholdMap.get("retention_time").toString()) * 60 * 1000;
+								            		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+								            		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+									            	Date criticalTime = sdf.parse(tempMap.get("critical_start_time").toString());
+									            	Date regTime = sdf2.parse(tempMap.get("collect_reg_date") + " "+ tempMap.get("reg_time"));
+
+									            	long timediff = regTime.getTime() - (criticalTime.getTime() + retention_time) ;
+									        		
+									            	if (timediff >= 0){
+										            	alertMap.put("instance_id",tempMap.get("instance_id"));
+										            	alertMap.put("hchk_name",  tempMap.get("hchk_name"));
+										            	insertAlertList.add(alertMap);
+									            	}							            			
+							            		}
+							            	}						            	
+						            	} else {
+							            	alertMap.put("instance_id",tempMap.get("instance_id"));
+							            	alertMap.put("hchk_name",  tempMap.get("hchk_name"));
+							            	insertAlertList.add(alertMap);
+						            	}
 						            	break;						            	
 						            }
-								}								
+								}
+								
+								HashMap<String, Object> updateMap = new HashMap<String, Object>();
+								if (tempMap.get("critical_start_time") == null ){
+									if (nState >= 300){
+										updateMap.put("instance_id", tempMap.get("instance_id"));
+										updateMap.put("hchk_name", tempMap.get("hchk_name"));
+										SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+						            	Date criticalTime = sdf.parse(tempMap.get("collect_reg_date") + " "+ tempMap.get("reg_time"));
+						            	updateMap.put("critical_start_time", criticalTime);
+										updateList.add(updateMap);
+									} 								
+								} else {
+									if (nState < 300){
+										updateMap.put("instance_id", tempMap.get("instance_id"));
+										updateMap.put("hchk_name", tempMap.get("hchk_name"));
+										updateMap.put("critical_start_time", null);
+										updateList.add(updateMap);
+									} 								
+								}
+									
+				            	insertList.add(tempMap);
 				            }
 				        }				        
 					}
@@ -169,6 +224,10 @@ public class HchkCollect extends TaskApplication {
 				//HCHK_REG_SEQ 증가
 				sessionAgent.selectOne("app.HCHK_REG_SEQ_001");
 				
+				//update
+				for (HashMap<String, Object> map : updateList) {
+					sessionAgent.update("app.TB_HCHK_THRD_LIST_U001", map);
+				}
 				//insert
 				for (HashMap<String, Object> map : insertList) {
 					sessionAgent.insert("app.TB_HCHK_COLLECT_INFO_I001", map);

@@ -151,6 +151,7 @@
 		         ,IO_AGG_MILLISEC AS AGG_IO_MSEC
 		         ,SEC_FROM_EPOCH 
 		         ,NOW() AS COLLECT_DT
+		         ,MOUNTPOINT
 		         --,EXTRACT(EPOCH FROM DATE_TRUNC('MILLISECONDS', NOW())) * 1000 - EXTRACT(EPOCH FROM DATE_TRUNC('MILLISECONDS', ?::TIMESTAMP)) * 1000)::NUMERIC AS MIL_SEC_DIFF
 		   FROM GET_STAT_DISK_IO
 	</select>
@@ -172,7 +173,8 @@
 			#{agg_io_msec},
 			#{current_io_msec},
 			#{collect_dt},
-			#{delta_time}
+			#{delta_time},
+			#{mountpoint}
 		)
 	</insert>
 
@@ -199,7 +201,8 @@
 		          NOW() AS COLLECT_DT
 		  FROM GET_STAT_DISK_USGE()
 		  WHERE DEV_NAME NOT LIKE '%loop%'
-		  group by MT_DIR;
+		  AND DEV_NAME NOT LIKE '%rootfs%'
+		  GROUP BY MT_DIR;
 	</select>
 	<insert id="TB_DISK_USAGE_I001" parameterType="hashmap" >
 		INSERT INTO TB_DISK_USAGE	
@@ -353,7 +356,8 @@
 					   		THEN 100 * (tblpages - est_tblpages)/tblpages::float
 					   		ELSE 0
 					 END AS extra_ratio, 
-					 fillfactor, (tblpages-est_tblpages_ff)*bs AS bloat_size_kb,
+					 fillfactor, 
+					 CASE WHEN (tblpages-est_tblpages_ff) < 0 THEN 0 ELSE (tblpages-est_tblpages_ff)*bs END AS bloat_size_kb,
 					 CASE WHEN tblpages - est_tblpages_ff > 0
 						    THEN 100 * (tblpages - est_tblpages_ff)/tblpages::float
 						    ELSE 0
@@ -395,7 +399,7 @@
 													           coalesce(toast.reltuples, 0) AS toasttuples,
 													           coalesce(substring(
 													             array_to_string(tbl.reloptions, ' ')
-													             FROM '%fillfactor=#"__#"%' FOR '#')::smallint, 100) AS fillfactor,
+													             FROM 'fillfactor=([0-9]+)')::smallint, 100) AS fillfactor,
 													           current_setting('block_size')::numeric AS bs,
 													           CASE WHEN version()~'mingw32' OR version()~'64-bit|x86_64|ppc64|ia64|amd64' THEN 8 ELSE 4 END AS ma,
 													           24 AS page_hdr,
@@ -1311,7 +1315,11 @@
 			#{reg_time}
 		)
 	</insert>
-
+	
+	<update id="TB_HCHK_THRD_LIST_U001" parameterType="hashmap" >
+	 	UPDATE TB_HCHK_THRD_LIST SET CRITICAL_START_TIME = #{critical_start_time}
+	 	 WHERE INSTANCE_ID = #{instance_id} AND HCHK_NAME = #{hchk_name};
+	</update>
 
 	<select id="EXPERDBMA_BT_HCHK_BUFFERHITRATIO_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[		
@@ -2110,8 +2118,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="TB_HCHK_THOLD_INFO_001" parameterType="hashmap" resultType="hashmap">
 		   SELECT /* EXPERDBMA_TB_HCHK_THOLD_INFO_001 */
 		           INSTANCE_ID, HCHK_NAME, IS_HIGHER, WARNING_THRESHOLD, CRITICAL_THRESHOLD, FIXED_THRESHOLD, 
-   				   (CASE WHEN ((PAUSE_COLLECT_DT - now()) > interval '00:00:00') then 1 else 0 end) AS PAUSE
+   				   (CASE WHEN ((PAUSE_COLLECT_DT - now()) > interval '00:00:00') then 1 else 0 end) AS PAUSE,
+   				   RETENTION_TIME, CRITICAL_START_TIME
 		     FROM TB_HCHK_THRD_LIST
+		     WHERE INSTANCE_ID <> -1;
 	</select>	
 	<insert id="TB_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_HCHK_ALERT_INFO	

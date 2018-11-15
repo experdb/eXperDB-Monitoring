@@ -77,12 +77,12 @@ Public Class frmAlertConfig
         Dim LastIp As String = GetLocalIP()
 
         'Dim Fixed_NULL As String = "NULL"
-        ClsQuery.UpdateHealthLimited(InstanceID, "BUFFERHITRATIO", HealtLimited.BufferRatioWarning, HealtLimited.BufferRatioNormal, GetCriticalThreshold_2(HealtLimited.BufferRatioWarning, HealtLimited.BufferRatioNormal), LastIp)
-        ClsQuery.UpdateHealthLimited(InstanceID, "COMMITRATIO", HealtLimited.CommitRatioWarning, HealtLimited.CommitRatioNormal, GetCriticalThreshold_2(HealtLimited.CommitRatioWarning, HealtLimited.CommitRatioNormal), LastIp)
-        ClsQuery.UpdateHealthLimited(InstanceID, "ACTIVECONNECTION", HealtLimited.ConnectionsNormal, HealtLimited.ConnectionsWarning, GetCriticalThreshold_1(HealtLimited.ConnectionsNormal, HealtLimited.ConnectionsWarning), LastIp)
-        ClsQuery.UpdateHealthLimited(InstanceID, "CPUWAIT", HealtLimited.CPUwaitRatioNormal, HealtLimited.CPUwaitRatioWarning, GetCriticalThreshold_1(HealtLimited.CPUwaitRatioNormal, HealtLimited.CPUwaitRatioWarning), LastIp)
-        ClsQuery.UpdateHealthLimited(InstanceID, "SWAPUSAGE", HealtLimited.SWAPusedRatioNormal, HealtLimited.SWAPusedRatioWarning, GetCriticalThreshold_1(HealtLimited.SWAPusedRatioNormal, HealtLimited.SWAPusedRatioWarning), LastIp)
-        ClsQuery.UpdateHealthLimited(InstanceID, "DISKUSAGE", HealtLimited.DiskusedRatioNormal, HealtLimited.DiskusedRatioWarning, GetCriticalThreshold_1(HealtLimited.DiskusedRatioNormal, HealtLimited.DiskusedRatioWarning), LastIp)
+        ClsQuery.UpdateHealthLimited(InstanceID, "BUFFERHITRATIO", HealtLimited.BufferRatioWarning, HealtLimited.BufferRatioNormal, GetCriticalThreshold_2(HealtLimited.BufferRatioWarning, HealtLimited.BufferRatioNormal), LastIp, HealtLimited.BufferRatioRTime)
+        ClsQuery.UpdateHealthLimited(InstanceID, "COMMITRATIO", HealtLimited.CommitRatioWarning, HealtLimited.CommitRatioNormal, GetCriticalThreshold_2(HealtLimited.CommitRatioWarning, HealtLimited.CommitRatioNormal), LastIp, HealtLimited.CommitRatioRTime)
+        ClsQuery.UpdateHealthLimited(InstanceID, "ACTIVECONNECTION", HealtLimited.ConnectionsNormal, HealtLimited.ConnectionsWarning, GetCriticalThreshold_1(HealtLimited.ConnectionsNormal, HealtLimited.ConnectionsWarning), LastIp, HealtLimited.ConnectionsRTime)
+        ClsQuery.UpdateHealthLimited(InstanceID, "CPUWAIT", HealtLimited.CPUwaitRatioNormal, HealtLimited.CPUwaitRatioWarning, GetCriticalThreshold_1(HealtLimited.CPUwaitRatioNormal, HealtLimited.CPUwaitRatioWarning), LastIp, HealtLimited.CPUwaitRatioRTime)
+        ClsQuery.UpdateHealthLimited(InstanceID, "SWAPUSAGE", HealtLimited.SWAPusedRatioNormal, HealtLimited.SWAPusedRatioWarning, GetCriticalThreshold_1(HealtLimited.SWAPusedRatioNormal, HealtLimited.SWAPusedRatioWarning), LastIp, HealtLimited.SWAPusedRatioRTime)
+        ClsQuery.UpdateHealthLimited(InstanceID, "DISKUSAGE", HealtLimited.DiskusedRatioNormal, HealtLimited.DiskusedRatioWarning, GetCriticalThreshold_1(HealtLimited.DiskusedRatioNormal, HealtLimited.DiskusedRatioWarning), LastIp, HealtLimited.DiskusedRatioRTime)
 
         'Dim Fixed As Integer = 1
         ClsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, 0, HealtLimited.LockedtranccntBool, LastIp)

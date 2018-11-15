@@ -28,6 +28,8 @@ Partial Class frmConfig
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.tbMain = New FlatTabControl.FlatTabControl()
         Me.tp1 = New System.Windows.Forms.TabPage()
+        Me.lblSQLPlan = New eXperDB.BaseControls.Label()
+        Me.chkUseDefaultAccount = New eXperDB.BaseControls.CheckBox()
         Me.nudGrpRotate = New eXperDB.BaseControls.NumericUpDown()
         Me.lbGrpRatate = New eXperDB.BaseControls.Label()
         Me.rbAlias = New eXperDB.BaseControls.RadioButton()
@@ -153,6 +155,8 @@ Partial Class frmConfig
         'tp1
         '
         Me.tp1.BackColor = System.Drawing.Color.Gray
+        Me.tp1.Controls.Add(Me.lblSQLPlan)
+        Me.tp1.Controls.Add(Me.chkUseDefaultAccount)
         Me.tp1.Controls.Add(Me.nudGrpRotate)
         Me.tp1.Controls.Add(Me.lbGrpRatate)
         Me.tp1.Controls.Add(Me.rbAlias)
@@ -177,10 +181,35 @@ Partial Class frmConfig
         Me.tp1.TabIndex = 0
         Me.tp1.Text = "F024"
         '
+        'lblSQLPlan
+        '
+        Me.lblSQLPlan.Location = New System.Drawing.Point(7, 171)
+        Me.lblSQLPlan.Name = "lblSQLPlan"
+        Me.lblSQLPlan.Size = New System.Drawing.Size(100, 21)
+        Me.lblSQLPlan.TabIndex = 14
+        Me.lblSQLPlan.Text = "F329"
+        Me.lblSQLPlan.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'chkUseDefaultAccount
+        '
+        Me.chkUseDefaultAccount.AutoSize = True
+        Me.chkUseDefaultAccount.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkUseDefaultAccount.ForeColor = System.Drawing.Color.White
+        Me.chkUseDefaultAccount.LineColor = System.Drawing.Color.Gray
+        Me.chkUseDefaultAccount.Location = New System.Drawing.Point(113, 174)
+        Me.chkUseDefaultAccount.Name = "chkUseDefaultAccount"
+        Me.chkUseDefaultAccount.Radius = 10
+        Me.chkUseDefaultAccount.Size = New System.Drawing.Size(49, 16)
+        Me.chkUseDefaultAccount.TabIndex = 13
+        Me.chkUseDefaultAccount.Text = "F330"
+        Me.chkUseDefaultAccount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.chkUseDefaultAccount.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkUseDefaultAccount.UseVisualStyleBackColor = True
+        '
         'nudGrpRotate
         '
         Me.nudGrpRotate.BackColor = System.Drawing.SystemColors.Window
-        Me.nudGrpRotate.Location = New System.Drawing.Point(114, 171)
+        Me.nudGrpRotate.Location = New System.Drawing.Point(114, 233)
         Me.nudGrpRotate.Maximum = New Decimal(New Integer() {1200, 0, 0, 0})
         Me.nudGrpRotate.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.nudGrpRotate.Name = "nudGrpRotate"
@@ -193,7 +222,7 @@ Partial Class frmConfig
         '
         'lbGrpRatate
         '
-        Me.lbGrpRatate.Location = New System.Drawing.Point(8, 173)
+        Me.lbGrpRatate.Location = New System.Drawing.Point(8, 235)
         Me.lbGrpRatate.Name = "lbGrpRatate"
         Me.lbGrpRatate.Size = New System.Drawing.Size(100, 21)
         Me.lbGrpRatate.TabIndex = 8
@@ -720,4 +749,6 @@ Partial Class frmConfig
     Friend WithEvents lblCpuStyle As eXperDB.BaseControls.Label
     Friend WithEvents cmbMemStyle As eXperDB.BaseControls.ComboBox
     Friend WithEvents cmbCpuStyle As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblSQLPlan As eXperDB.BaseControls.Label
+    Friend WithEvents chkUseDefaultAccount As eXperDB.BaseControls.CheckBox
 End Class

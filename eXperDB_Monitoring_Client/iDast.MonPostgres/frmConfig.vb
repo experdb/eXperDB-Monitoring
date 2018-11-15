@@ -76,6 +76,8 @@
             rbAlias.Checked = True
         End If
 
+        lblSQLPlan.Text = p_clsMsgData.fn_GetData("F329")
+        chkUseDefaultAccount.Text = p_clsMsgData.fn_GetData("F330")
 
         ' 스타일 탭
         tp2.Text = p_clsMsgData.fn_GetData("F038")
@@ -94,7 +96,7 @@
         chkCpuItemReverse.Checked = clsIni.ReadValue("STYLE", "CPUREVERSE", False)
         chkMemItemReverse.Checked = clsIni.ReadValue("STYLE", "MEMREVERSE", False)
 
-
+        chkUseDefaultAccount.Checked = clsIni.ReadValue("General", "USEDEFAULTACCOUNT", False)
 
         'Dim clsFonts As New System.Drawing.Text.InstalledFontCollection()
         'For Each tmpFont As FontFamily In clsFonts.Families
@@ -187,6 +189,8 @@
         'ConfigIni.WriteValue("SQL", "VARIABLES", cmbVariables.Text)
         'ConfigIni.WriteValue("SQL", "STRINGS", cmbStrings.Text)
         'ConfigIni.WriteValue("SQL", "NORMAL", cmbNormal.Text)
+
+        ConfigIni.WriteValue("General", "USEDEFAULTACCOUNT", chkUseDefaultAccount.Checked)
     End Sub
 
 

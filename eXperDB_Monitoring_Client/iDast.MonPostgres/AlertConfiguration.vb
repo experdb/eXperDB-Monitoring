@@ -70,6 +70,7 @@
             Dim ValueRight As Integer = 0
             Dim nudValue As Integer = 0
             Dim nudValue_ As Integer = 0
+            Dim retentionTime As Integer = 0
 
             Dim Check As Boolean = False
 
@@ -86,6 +87,10 @@
 
             If Not IsDBNull(DT.Rows(index)("CRITICAL_THRESHOLD")) Then
                 nudValue_ = Convert.ToInt32(DT.Rows(index)("CRITICAL_THRESHOLD"))
+            End If
+
+            If Not IsDBNull(DT.Rows(index)("RETENTION_TIME")) Then
+                retentionTime = Convert.ToInt32(DT.Rows(index)("RETENTION_TIME"))
             End If
 
             If Not IsDBNull(DT.Rows(index)("FIXED_THRESHOLD")) Then
@@ -107,25 +112,48 @@
                     ' Buffer 는 적을 수록 위험 일반적인 것과 반대 
                     dtbBufferhitratio.BarMinValue = ValueRight
                     dtbBufferhitratio.BarMaxValue = valueLeft
+                    If retentionTime > 0 Then
+                        cbxDuration1.Checked = True
+                        nudDuration1.Value = retentionTime
+                    End If
                 Case "COMMITRATIO"
                     ' Buffer 는 적을 수록 위험 일반적인 것과 반대 
                     dtbCommitratio.BarMinValue = ValueRight
                     dtbCommitratio.BarMaxValue = valueLeft
-                Case "ACTIVECONNECTION"
-                    dtbConnections.BarMinValue = valueLeft
-                    dtbConnections.BarMaxValue = ValueRight
-
-                Case "CPUWAIT"
-                    dtbCPUwaitratio.BarMinValue = valueLeft
-                    dtbCPUwaitratio.BarMaxValue = ValueRight
-
+                    If retentionTime > 0 Then
+                        cbxDuration2.Checked = True
+                        nudDuration2.Value = retentionTime
+                    End If
                 Case "SWAPUSAGE"
                     dtbSWAPusedratio.BarMinValue = valueLeft
                     dtbSWAPusedratio.BarMaxValue = ValueRight
-
+                    If retentionTime > 0 Then
+                        cbxDuration3.Checked = True
+                        nudDuration3.Value = retentionTime
+                    End If
                 Case "DISKUSAGE"
                     dtbDiskusedratio.BarMinValue = valueLeft
                     dtbDiskusedratio.BarMaxValue = ValueRight
+                    If retentionTime > 0 Then
+                        cbxDuration4.Checked = True
+                        nudDuration4.Value = retentionTime
+                    End If
+                Case "ACTIVECONNECTION"
+                    dtbConnections.BarMinValue = valueLeft
+                    dtbConnections.BarMaxValue = ValueRight
+                    If retentionTime > 0 Then
+                        cbxDuration5.Checked = True
+                        nudDuration5.Value = retentionTime
+                    End If
+                Case "CPUWAIT"
+                    dtbCPUwaitratio.BarMinValue = valueLeft
+                    dtbCPUwaitratio.BarMaxValue = ValueRight
+                    If retentionTime > 0 Then
+                        cbxDuration6.Checked = True
+                        nudDuration6.Value = retentionTime
+                    End If
+
+
 
                 Case "LOCKCNT"
                     cbxLockedtranccnt.Checked = Check
@@ -269,6 +297,15 @@
         tmpClass.DiskusedRatioNormal = dtbDiskusedratio.BarMinValue
         tmpClass.DiskusedRatioWarning = dtbDiskusedratio.BarMaxValue
 
+
+        tmpClass.BufferRatioRTime = nudDuration1.Value
+        tmpClass.CommitRatioRTime = nudDuration2.Value
+        tmpClass.SWAPusedRatioRTime = nudDuration3.Value
+        tmpClass.DiskusedRatioRTime = nudDuration4.Value
+        tmpClass.ConnectionsRTime = nudDuration5.Value
+        tmpClass.CPUwaitRatioRTime = nudDuration6.Value
+
+
         tmpClass.LockedTrancCnt = nudLockedtranccnt.Value
         tmpClass.IdleTransCnt = nudIdletranscnt.Value
         tmpClass.LongRunSqlSec = nudLongrunsqlsec.Value
@@ -307,21 +344,27 @@
         Public InstanceID As Integer
         Public BufferRatioNormal As Integer
         Public BufferRatioWarning As Integer
+        Public BufferRatioRTime As Integer
 
         Public CommitRatioNormal As Integer
         Public CommitRatioWarning As Integer
+        Public CommitRatioRTime As Integer
 
         Public ConnectionsNormal As Integer
         Public ConnectionsWarning As Integer
+        Public ConnectionsRTime As Integer
 
         Public CPUwaitRatioNormal As Integer
         Public CPUwaitRatioWarning As Integer
+        Public CPUwaitRatioRTime As Integer
 
         Public SWAPusedRatioNormal As Integer
         Public SWAPusedRatioWarning As Integer
+        Public SWAPusedRatioRTime As Integer
 
         Public DiskusedRatioNormal As Integer
         Public DiskusedRatioWarning As Integer
+        Public DiskusedRatioRTime As Integer
 
 
         Public LockedTrancCnt As Integer
@@ -382,4 +425,27 @@
     End Sub
 
 
+    Private Sub cbxDuration1_CheckedChanged(sender As Object, e As EventArgs) Handles cbxDuration1.CheckedChanged, cbxDuration2.CheckedChanged, cbxDuration3.CheckedChanged, cbxDuration4.CheckedChanged, cbxDuration5.CheckedChanged, cbxDuration6.CheckedChanged
+        Dim chkTemp As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
+        Select Case chkTemp.Name
+            Case "cbxDuration1"
+                nudDuration1.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration1.Value = 0
+            Case "cbxDuration2"
+                nudDuration2.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration2.Value = 0
+            Case "cbxDuration3"
+                nudDuration3.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration3.Value = 0
+            Case "cbxDuration4"
+                nudDuration4.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration4.Value = 0
+            Case "cbxDuration5"
+                nudDuration5.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration5.Value = 0
+            Case "cbxDuration6"
+                nudDuration6.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration6.Value = 0
+        End Select
+    End Sub
 End Class

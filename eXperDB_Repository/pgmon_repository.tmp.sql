@@ -156,7 +156,8 @@ CREATE TABLE tb_disk_io (
     agg_io_msec numeric(20,0),
     current_io_msec numeric(20,0),
     collect_dt timestamp without time zone,
-    delta_time numeric(10,3)
+    delta_time numeric(10,3),
+    mountpoint character varying(100)    
 );
 
 CREATE TABLE tb_disk_usage (
@@ -192,7 +193,9 @@ CREATE TABLE tb_hchk_thrd_list (
     fixed_threshold character varying(1),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone,
-    pause_collect_dt timestamp without time zone
+    pause_collect_dt timestamp without time zone,
+    retention_time integer,
+    critical_start_time timestamp without time zone
 );
 
 CREATE TABLE tb_index_info (

@@ -1,6 +1,19 @@
 ﻿Public Class frmQueryView
     Private _intInstanceID As Integer
 
+    Private _useDefaultAccount As Boolean
+
+#Region "Property"
+    Property useDefaultAccount As Boolean
+        Get
+            Return Me._useDefaultAccount
+        End Get
+        Set(value As Boolean)
+            Me._useDefaultAccount = value
+        End Set
+    End Property
+#End Region
+
     Public Sub New(ByVal strText As String, ByVal strDBNm As String, ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent, ByVal strUser As String)
 
         ' 이 호출은 디자이너에 필요합니다.
@@ -129,6 +142,13 @@
 
         Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.FromName(clsIni.ReadValue("SQL", "NORMAL", "GRAY"))
 
+        useDefaultAccount = clsIni.ReadValue("General", "USEDEFAULTACCOUNT", False)
+        If useDefaultAccount = True Then
+            lblID.Visible = False
+            txtID.Visible = False
+            lblPw.Visible = False
+            txtPW.Visible = False
+        End If
     End Sub
 
     Private Sub frmQueryView_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -205,15 +225,19 @@
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
 
         If txtID.Text = "" Then
-            MsgBox(p_clsMsgData.fn_GetData("M001", lblID.Text))
-            txtID.Focus()
-            Return
+            If useDefaultAccount = False Then
+                MsgBox(p_clsMsgData.fn_GetData("M001", lblID.Text))
+                txtID.Focus()
+                Return
+            End If
         End If
 
         If txtPW.Text = "" Then
-            MsgBox(p_clsMsgData.fn_GetData("M001", lblPw.Text))
-            txtPW.Focus()
-            Return
+            If useDefaultAccount = False Then
+                MsgBox(p_clsMsgData.fn_GetData("M001", lblPw.Text))
+                txtPW.Focus()
+                Return
+            End If
         End If
 
         If txtDB.Text = "" Then
@@ -232,7 +256,7 @@
             Next
         End If
 
-        clsEMsg.SendDX005(_intInstanceID, txtID.Text, txtDB.Text, txtPW.Text, RichTextBoxQuery1.Text)
+        clsEMsg.SendDX005(_intInstanceID, txtID.Text, txtDB.Text, IIf(useDefaultAccount = True, "useDefaultAccount", txtPW.Text), RichTextBoxQuery1.Text)
     End Sub
  
 

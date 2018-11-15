@@ -1094,6 +1094,7 @@
        , CRITICAL_THRESHOLD= {3}
        , FIXED_THRESHOLD = '{4}'
        , LAST_MOD_IP='{5}'
+       , RETENTION_TIME='{6}'
        , LAST_MOD_DT= NOW()
       WHERE 
           INSTANCE_ID = {0}
@@ -1146,6 +1147,7 @@
       , WARNING_THRESHOLD
       , CRITICAL_THRESHOLD
       , FIXED_THRESHOLD
+      , RETENTION_TIME
       FROM TB_HCHK_THRD_LIST
       WHERE INSTANCE_ID = {0}
       ORDER BY HCHK_NAME

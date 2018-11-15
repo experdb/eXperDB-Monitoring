@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
@@ -45,24 +46,22 @@ public class DX005 implements SocketApplication{
 			sessionAgent = sqlSessionFactory.openSession();
 
 			String instance_id = (String)jReqDataObj.get("instance_id");
+			HashMap instanceMap = MonitoringInfoManager.getInstanceMap(instance_id);
 			
-			List<Integer> inputParam = new ArrayList<Integer>();
-			inputParam.add(Integer.valueOf(instance_id));
-			
-			HashMap<String, Object> selectMap = sessionAgent.selectOne("app.DX001_001", inputParam);			
-			
-
-			try {
+			try {			
 				String dbPass = "";
-				dbPass = (String) jReqDataObj.get("password");
-				//byte[] decoded = Base64.decodeBase64(dbPass.getBytes());
-				//dbPass =  new String(decoded);
 				
-				connection = DriverManager.getConnection(
-						"jdbc:postgresql://" + selectMap.get("server_ip") + ":" + selectMap.get("service_port") + "/" + jReqDataObj.get("database"), 
-						(String) jReqDataObj.get("username"),
-						dbPass);
-				
+				if (jReqDataObj.get("password").equals("useDefaultAccount")){
+					connection = DriverManager.getConnection(
+							"jdbc:postgresql://" + instanceMap.get("server_ip") + ":" + instanceMap.get("service_port") + "/" + jReqDataObj.get("database"), 
+							(String)instanceMap.get("conn_user_id"),
+							(String)instanceMap.get("conn_user_pwd"));
+				} else {
+					connection = DriverManager.getConnection(
+							"jdbc:postgresql://" + instanceMap.get("server_ip") + ":" + instanceMap.get("service_port") + "/" + jReqDataObj.get("database"), 
+							(String) jReqDataObj.get("username"), 
+							(String) jReqDataObj.get("password"));
+				}			
 			} catch (Exception e) {
 				resDataObj.put("_error_cd", "DX005_E01");
 				resDataObj.put("_error_msg", "DB에 접속할 수 없습니다.");

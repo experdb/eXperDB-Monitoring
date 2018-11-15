@@ -2485,8 +2485,8 @@
             Me.radCpu.AniColorin = Color.Red
             Me.radMem.AniColorin = Color.Red
 
-            If Me._UseQuiteCriticalTime = True Then
-                If Me._QuiteCriticalTime > Now Then
+            If Me.UseCriticalTime = True Then
+                If Me.CriticalTime > Now Then
                     Me.ShowCritical = False
                 Else
                     Me.ShowCritical = True
