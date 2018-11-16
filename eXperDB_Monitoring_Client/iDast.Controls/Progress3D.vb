@@ -24,6 +24,10 @@ Public Class Progress3D
 
     Private _Radius As Integer = 10
 
+    Private _SubLong As Long = 0
+
+    Private _PrimaryId As Integer = 0
+
     Private _isSelected As Boolean = False
     Property isSelected As Boolean
         Get
@@ -66,6 +70,23 @@ Public Class Progress3D
         End Get
         Set(value As String)
             _SubText2 = value
+        End Set
+    End Property
+    Public Property SubLong() As Long
+        Get
+            Return _SubLong
+        End Get
+        Set(value As Long)
+            _SubLong = value
+        End Set
+    End Property
+
+    Public Property PrimaryId() As Long
+        Get
+            Return _PrimaryId
+        End Get
+        Set(value As Long)
+            _PrimaryId = value
         End Set
     End Property
     Property IconColor As Color

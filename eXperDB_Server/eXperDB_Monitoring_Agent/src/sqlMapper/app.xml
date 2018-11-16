@@ -2121,8 +2121,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
    				   (CASE WHEN ((PAUSE_COLLECT_DT - now()) > interval '00:00:00') then 1 else 0 end) AS PAUSE,
    				   RETENTION_TIME, CRITICAL_START_TIME
 		     FROM TB_HCHK_THRD_LIST
-		     WHERE INSTANCE_ID <> -1;
+		     WHERE INSTANCE_ID > 0
 	</select>	
+	
 	<insert id="TB_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_HCHK_ALERT_INFO	
 		VALUES 

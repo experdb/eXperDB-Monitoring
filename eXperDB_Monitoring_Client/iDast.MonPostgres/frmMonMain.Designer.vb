@@ -266,7 +266,8 @@ Partial Class frmMonMain
         Me.Label8 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TableLayoutPanel11 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlpInstanceList = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnSort = New eXperDB.BaseControls.Button()
         Me.grpInstSumInfo = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
@@ -345,6 +346,12 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.mnuSort = New eXperDB.BaseControls.ContextMenuStrip()
+        Me.mnuNameAsc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuNameDesc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuIPAsc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuIPDesc = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDefaultOrder = New System.Windows.Forms.ToolStripMenuItem()
         Me.tlpHealth.SuspendLayout()
         Me.tlpCPU.SuspendLayout()
         CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -403,7 +410,7 @@ Partial Class frmMonMain
         Me.tlpSessionlist.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
-        Me.TableLayoutPanel11.SuspendLayout()
+        Me.tlpInstanceList.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel13.SuspendLayout()
         Me.pnlRb.SuspendLayout()
@@ -412,6 +419,7 @@ Partial Class frmMonMain
         CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvLock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuChart.SuspendLayout()
+        Me.mnuSort.SuspendLayout()
         Me.SuspendLayout()
         '
         'tlpHealth
@@ -533,12 +541,12 @@ Partial Class frmMonMain
         '
         Me.flpInstance.AutoScroll = True
         Me.flpInstance.BackColor = System.Drawing.Color.Black
-        Me.TableLayoutPanel11.SetColumnSpan(Me.flpInstance, 2)
+        Me.tlpInstanceList.SetColumnSpan(Me.flpInstance, 3)
         Me.flpInstance.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpInstance.Location = New System.Drawing.Point(0, 25)
         Me.flpInstance.Margin = New System.Windows.Forms.Padding(0)
         Me.flpInstance.Name = "flpInstance"
-        Me.flpInstance.Size = New System.Drawing.Size(207, 741)
+        Me.flpInstance.Size = New System.Drawing.Size(207, 721)
         Me.flpInstance.TabIndex = 0
         '
         'tlpCPU
@@ -3733,7 +3741,7 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel3.ColumnCount = 1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.TableLayoutPanel11, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.tlpInstanceList, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 93)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
@@ -3742,23 +3750,50 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(213, 772)
         Me.TableLayoutPanel3.TabIndex = 14
         '
-        'TableLayoutPanel11
+        'tlpInstanceList
         '
-        Me.TableLayoutPanel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel11.ColumnCount = 2
-        Me.TableLayoutPanel11.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel11.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel11.Controls.Add(Me.flpInstance, 0, 1)
-        Me.TableLayoutPanel11.Controls.Add(Me.grpInstSumInfo, 1, 0)
-        Me.TableLayoutPanel11.Controls.Add(Me.Label7, 0, 0)
-        Me.TableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel11.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel11.Name = "TableLayoutPanel11"
-        Me.TableLayoutPanel11.RowCount = 2
-        Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.TableLayoutPanel11.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel11.Size = New System.Drawing.Size(207, 766)
-        Me.TableLayoutPanel11.TabIndex = 18
+        Me.tlpInstanceList.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpInstanceList.ColumnCount = 3
+        Me.tlpInstanceList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tlpInstanceList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpInstanceList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpInstanceList.Controls.Add(Me.btnSort, 2, 0)
+        Me.tlpInstanceList.Controls.Add(Me.flpInstance, 0, 1)
+        Me.tlpInstanceList.Controls.Add(Me.grpInstSumInfo, 1, 0)
+        Me.tlpInstanceList.Controls.Add(Me.Label7, 0, 0)
+        Me.tlpInstanceList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpInstanceList.Location = New System.Drawing.Point(3, 3)
+        Me.tlpInstanceList.Name = "tlpInstanceList"
+        Me.tlpInstanceList.RowCount = 3
+        Me.tlpInstanceList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tlpInstanceList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpInstanceList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpInstanceList.Size = New System.Drawing.Size(207, 766)
+        Me.tlpInstanceList.TabIndex = 18
+        '
+        'btnSort
+        '
+        Me.btnSort.AutoSize = True
+        Me.btnSort.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnSort.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnSort.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnSort.FixedHeight = False
+        Me.btnSort.FixedWidth = False
+        Me.btnSort.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnSort.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnSort.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSort.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnSort.Image = CType(resources.GetObject("btnSort.Image"), System.Drawing.Image)
+        Me.btnSort.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnSort.LineColor = System.Drawing.Color.Gray
+        Me.btnSort.Location = New System.Drawing.Point(175, 3)
+        Me.btnSort.Name = "btnSort"
+        Me.btnSort.Radius = 10
+        Me.btnSort.Size = New System.Drawing.Size(29, 19)
+        Me.btnSort.TabIndex = 2
+        Me.btnSort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnSort.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnSort.UseVisualStyleBackColor = False
         '
         'grpInstSumInfo
         '
@@ -3769,7 +3804,7 @@ Partial Class frmMonMain
         Me.grpInstSumInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpInstSumInfo.Location = New System.Drawing.Point(43, 0)
         Me.grpInstSumInfo.Name = "grpInstSumInfo"
-        Me.grpInstSumInfo.Size = New System.Drawing.Size(161, 25)
+        Me.grpInstSumInfo.Size = New System.Drawing.Size(126, 25)
         Me.grpInstSumInfo.TabIndex = 0
         Me.grpInstSumInfo.Text = "F032"
         Me.grpInstSumInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -4585,6 +4620,44 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
         Me.DataGridViewTextBoxColumn37.Visible = False
         '
+        'mnuSort
+        '
+        Me.mnuSort.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.mnuSort.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNameAsc, Me.mnuNameDesc, Me.mnuIPAsc, Me.mnuIPDesc, Me.mnuDefaultOrder})
+        Me.mnuSort.Name = "mnuPopup"
+        Me.mnuSort.Size = New System.Drawing.Size(182, 114)
+        '
+        'mnuNameAsc
+        '
+        Me.mnuNameAsc.Name = "mnuNameAsc"
+        Me.mnuNameAsc.Size = New System.Drawing.Size(181, 22)
+        Me.mnuNameAsc.Text = "Host/Alias Name ▲"
+        '
+        'mnuNameDesc
+        '
+        Me.mnuNameDesc.Name = "mnuNameDesc"
+        Me.mnuNameDesc.ShortcutKeyDisplayString = ""
+        Me.mnuNameDesc.Size = New System.Drawing.Size(181, 22)
+        Me.mnuNameDesc.Text = "Host/Alias Name ▼"
+        '
+        'mnuIPAsc
+        '
+        Me.mnuIPAsc.Name = "mnuIPAsc"
+        Me.mnuIPAsc.Size = New System.Drawing.Size(181, 22)
+        Me.mnuIPAsc.Text = "IP Address ▲"
+        '
+        'mnuIPDesc
+        '
+        Me.mnuIPDesc.Name = "mnuIPDesc"
+        Me.mnuIPDesc.Size = New System.Drawing.Size(181, 22)
+        Me.mnuIPDesc.Text = "IP Address ▼"
+        '
+        'mnuDefaultOrder
+        '
+        Me.mnuDefaultOrder.Name = "mnuDefaultOrder"
+        Me.mnuDefaultOrder.Size = New System.Drawing.Size(181, 22)
+        Me.mnuDefaultOrder.Text = "default order"
+        '
         'frmMonMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -4678,8 +4751,8 @@ Partial Class frmMonMain
         Me.tlpSessionlist.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.TableLayoutPanel11.ResumeLayout(False)
-        Me.TableLayoutPanel11.PerformLayout()
+        Me.tlpInstanceList.ResumeLayout(False)
+        Me.tlpInstanceList.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel13.ResumeLayout(False)
         Me.TableLayoutPanel13.PerformLayout()
@@ -4690,6 +4763,7 @@ Partial Class frmMonMain
         CType(Me.dgvAlert, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvLock, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnuChart.ResumeLayout(False)
+        Me.mnuSort.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -4757,7 +4831,7 @@ Partial Class frmMonMain
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TableLayoutPanel11 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpInstanceList As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents grpInstSumInfo As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
@@ -4926,5 +5000,12 @@ Partial Class frmMonMain
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents lblRetention As System.Windows.Forms.Label
     Friend WithEvents cmbRetention As eXperDB.BaseControls.ComboBox
+    Friend WithEvents btnSort As eXperDB.BaseControls.Button
+    Friend WithEvents mnuSort As eXperDB.BaseControls.ContextMenuStrip
+    Friend WithEvents mnuNameAsc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuNameDesc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIPAsc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIPDesc As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuDefaultOrder As System.Windows.Forms.ToolStripMenuItem
 
 End Class

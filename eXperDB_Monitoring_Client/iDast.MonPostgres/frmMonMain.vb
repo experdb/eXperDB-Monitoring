@@ -238,7 +238,6 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
-
     End Sub
 
     ''' <summary>
@@ -740,17 +739,22 @@
             Dim tmpCtl As Progress3D = CreateProgress3D("prog3Dinst" & i + 1)
             ' 인스턴스 정보 문자 출력
             Dim strHARole As String = "Single"
+            Dim PrimaryID As Integer = 0
             Select Case svrLst.Item(i).HARole
                 Case "P"
                     strHARole = "Primary"
                 Case "S"
                     strHARole = "Standby"
+                    PrimaryID = svrLst.Item(i - 1).InstanceID
             End Select
             tmpCtl.HeadText = strHARole
+            tmpCtl.PrimaryID = PrimaryID
             tmpCtl.Text = " "
             tmpCtl.Text += svrLst.Item(i).ShowNm
             tmpCtl.SubText = svrLst.Item(i).IP & " / " & svrLst.Item(i).Port
             tmpCtl.IconColor = _instanceColors(i)
+            Dim ipaddr As System.Net.IPAddress = System.Net.IPAddress.Parse(svrLst.Item(i).IP)
+            tmpCtl.SubLong = ipaddr.Address
             'tmpCtl.SubText = "IP :" & svrLst.Item(i).IP
             'tmpCtl.SubText2 = "Port :" & svrLst.Item(i).Port
             tmpCtl.Tag = svrLst.Item(i)
@@ -776,6 +780,9 @@
         Next
 
 
+        '''''''''''''''''''''''''< instance order >''''''''''''''''''''''''''''''
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        setInstanceOrder(clsIni.ReadValue("General", "INSTANCEORDER", 4))
     End Sub
 
 
@@ -783,7 +790,6 @@
     Private Function CreateProgress3D(ByVal CtlNm As String) As Progress3D
         Dim tmpCtl As New Progress3D
         tmpCtl.Name = CtlNm
-
 
         Dim Progress3DItem1 As New Progress3D.Progress3DItem
         Dim Progress3DItem2 As New Progress3D.Progress3DItem
@@ -3700,5 +3706,166 @@
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("General", "RTIME", cmbRetention.SelectedIndex)
+    End Sub
+
+
+    Private Sub btnSort_Click(sender As Object, e As EventArgs) Handles btnSort.Click
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+
+        mnuSort.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
+        mnuSort.Tag = lblTemp.Parent
+    End Sub
+
+    Private Sub mnuNameAsc_Click(sender As Object, e As EventArgs) Handles mnuNameAsc.Click, mnuNameDesc.Click, _
+                                                                       mnuIPAsc.Click, mnuIPDesc.Click, mnuDefaultOrder.Click
+        Dim intOrder As Integer = 0
+        If sender.Name = "mnuNameAsc" Then
+            intOrder = 0
+        ElseIf sender.Name = "mnuNameDesc" Then
+            intOrder = 1
+        ElseIf sender.Name = "mnuIPAsc" Then
+            intOrder = 2
+        ElseIf sender.Name = "mnuIPDesc" Then
+            intOrder = 3
+        ElseIf sender.Name = "mnuDefaultOrder" Then
+            intOrder = 4
+        End If
+
+        setInstanceOrder(intOrder)
+
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("General", "INSTANCEORDER", intOrder)
+    End Sub
+
+
+    Private Sub setInstanceOrder(ByVal selectOrder As Integer)
+        Try
+            Select selectOrder
+                Case 0
+                    Dim TheList =
+                    (
+                        From this In flpInstance.Controls.OfType(Of Progress3D)() _
+                        .Select(Function(item) _
+                                New With
+                                {
+                                    .Progress3D = item,
+                                    .text = item.Tag.ShowNm,
+                                    .primary = item.PrimaryId
+                                })
+                    ).OrderBy(Function(x) x.primary) _
+                     .ThenBy(Function(x) x.text)
+
+                    For index = 0 To TheList.Count - 1
+                        If TheList(index).primary = 0 Then
+                            flpInstance.Controls.SetChildIndex( _
+                                    TheList(index).Progress3D, index)
+                        Else
+                            Dim idx = 0
+                            For idx = 0 To flpInstance.Controls.Count - 1
+                                If flpInstance.Controls(idx).Tag.InstanceID = TheList(index).primary Then
+                                    flpInstance.Controls.SetChildIndex(TheList(index).Progress3D, idx + 1)
+                                    Exit For
+                                End If
+                            Next
+                        End If
+                    Next
+                Case 1
+                    Dim TheList =
+                    (
+                        From this In flpInstance.Controls.OfType(Of Progress3D) _
+                        .Select(Function(item) _
+                                New With
+                                {
+                                    .Progress3D = item,
+                                    .text = item.Tag.ShowNm,
+                                    .primary = item.PrimaryId
+                                })
+                    ).OrderBy(Function(x) x.primary) _
+                    .ThenByDescending(Function(x) x.text)
+
+                    For index = 0 To TheList.Count - 1
+                        If TheList(index).primary = 0 Then
+                            flpInstance.Controls.SetChildIndex( _
+                                    TheList(index).Progress3D, index)
+                        Else
+                            Dim idx As Integer = 0
+                            For idx = 0 To flpInstance.Controls.Count - 1
+                                If flpInstance.Controls(idx).Tag.InstanceID = TheList(index).primary Then
+                                    flpInstance.Controls.SetChildIndex(TheList(index).Progress3D, idx + 1)
+                                    Exit For
+                                End If
+                            Next
+                        End If
+                    Next
+                Case 2
+                    Dim TheList =
+                    (
+                        From this In flpInstance.Controls.OfType(Of Progress3D) _
+                        .Select(Function(item) _
+                                New With
+                                {
+                                    .Progress3D = item,
+                                    .number = item.SubLong,
+                                    .primary = item.PrimaryId
+                                })
+                    ).OrderBy(Function(x) x.primary) _
+                    .ThenBy(Function(x) x.number)
+
+                    For index = 0 To TheList.Count - 1
+                        If TheList(index).primary = 0 Then
+                            flpInstance.Controls.SetChildIndex( _
+                                    TheList(index).Progress3D, index)
+                        Else
+                            Dim idx = 0
+                            For idx = 0 To flpInstance.Controls.Count - 1
+                                If flpInstance.Controls(idx).Tag.InstanceID = TheList(index).primary Then
+                                    flpInstance.Controls.SetChildIndex(TheList(index).Progress3D, idx + 1)
+                                    Exit For
+                                End If
+                            Next
+                        End If
+                    Next
+                Case 3
+                    Dim TheList =
+                    (
+                        From this In flpInstance.Controls.OfType(Of Progress3D) _
+                        .Select(Function(item) _
+                                New With
+                                {
+                                    .Progress3D = item,
+                                    .number = item.SubLong,
+                                    .primary = item.PrimaryId
+                                })
+                    ).OrderBy(Function(x) x.primary) _
+                    .ThenByDescending(Function(x) x.number)
+
+                    For index = 0 To TheList.Count - 1
+                        If TheList(index).primary = 0 Then
+                            flpInstance.Controls.SetChildIndex( _
+                                    TheList(index).Progress3D, index)
+                        Else
+                            Dim idx As Integer = 0
+                            For idx = 0 To flpInstance.Controls.Count - 1
+                                If flpInstance.Controls(idx).Tag.InstanceID = TheList(index).primary Then
+                                    flpInstance.Controls.SetChildIndex(TheList(index).Progress3D, idx + 1)
+                                    Exit For
+                                End If
+                            Next
+                        End If
+                    Next
+                Case 4
+                    Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+                    For i As Integer = 0 To svrLst.Count - 1
+                        For Each tmpCtl As Controls.Progress3D In Me.flpInstance.Controls
+                            If DirectCast(tmpCtl.Tag, GroupInfo.ServerInfo).InstanceID.Equals(svrLst.Item(i).InstanceID) Then
+                                flpInstance.Controls.SetChildIndex(tmpCtl, i)
+                                Exit For
+                            End If
+                        Next
+                    Next
+            End Select
+        Catch ex As Exception
+            GC.Collect()
+        End Try
     End Sub
 End Class
