@@ -440,9 +440,10 @@ public class ActvCollect extends TaskApplication {
 							sessionAgent.insert("app.TB_BACKEND_RSC_I002", map);
 						}else{
 							sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
-							if (extensions > 0)
+							if (extensions > 0 )
 								inputParam.put("stmt_queryid", 				map.get("stmt_queryid"));
-							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+							if (map.get("db_name") != null)
+								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
 						}
 					}else{
 						sessionAgent.insert("app.TB_BACKEND_RSC_I001", map);

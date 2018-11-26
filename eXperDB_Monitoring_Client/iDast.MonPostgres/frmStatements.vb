@@ -16,6 +16,8 @@
     Private _arrDBIDs As New ArrayList
 
     Private _ThreadDetail As Threading.Thread
+    Private _ListStatements As New List(Of String)
+    Private _UseFilter As Boolean
 
 
     ReadOnly Property InstanceID As Integer
@@ -106,6 +108,7 @@
 
         InitForm()
         InitCharts()
+        ReadConfig()
     End Sub
 
     ''' <summary>
@@ -121,6 +124,11 @@
             For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
                 If tmpSvr.InstanceID = _InstanceID Then
                     cmbInst.SelectedIndex = index
+                    If cmbInst.SelectedIndex = 0 Then
+                        Me.Invoke(New MethodInvoker(Sub()
+                                                        btnQuery.PerformClick()
+                                                    End Sub))
+                    End If
                 End If
                 index += 1
             Next
@@ -132,7 +140,7 @@
         '_chtCount = 1
         chtCalls.MainChart.Focus()
 
-        btnQuery.PerformClick()
+        'btnQuery.PerformClick()
     End Sub
 
     Public Sub frmStatements_ReLoad(ByVal intInstanceID As Integer, ByVal stDt As DateTime, ByVal edDt As DateTime)
@@ -183,6 +191,8 @@
 
         lslSession.Text = p_clsMsgData.fn_GetData("F323", 0)
         lblSort.Text = p_clsMsgData.fn_GetData("F325")
+        cbxHideSysSQL.Text = p_clsMsgData.fn_GetData("F331")
+        btnEditFiltering.Text = p_clsMsgData.fn_GetData("F333")
         cmbSort.SelectedIndex = 0
         cmbTop.SelectedIndex = 0
         dgvStmtList.AutoGenerateColumns = False
@@ -262,7 +272,7 @@
 
         chtCalls.MainChart.ChartAreas(0).Visible = False
         chtCalls.AddAreaEx("Calls", "Count", True, "CALLAREA", False)
-        chtCalls.AddAreaEx("Total time", "MSEC", True, "TOTALTIMEAREA", False)
+        chtCalls.AddAreaEx("Total time", "MilliSEC", True, "TOTALTIMEAREA", False)
         chtCalls.AddAreaEx("CPU Time", "RATE[%]", True, "CPUTIMEAREA", False)
         chtCalls.AddAreaEx("IO Time", "RATE[%]", True, "IOTIMEAREA", False)
 
@@ -514,6 +524,8 @@
             End If
         Next
         SetDataSession(dtpSt.Value, dtpEd.Value)
+        cbxHideSysSQL.Checked = _UseFilter
+        'SetRowfilter(cbxHideSysSQL)
     End Sub
 
     Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
@@ -806,4 +818,67 @@
         End Try
     End Sub
 
+    Private Sub cbxHideSysSQL_CheckedChanged(sender As Object, e As EventArgs) Handles cbxHideSysSQL.CheckedChanged
+        Dim rbTemp As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
+        SetRowfilter(rbTemp)
+    End Sub
+
+    Private Sub btnEditFiltering_Click(sender As Object, e As EventArgs) Handles btnEditFiltering.Click
+        Dim frmCS As New frmStatementsFilter(_ListStatements)
+        If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
+            _ListStatements = frmCS.StatementList
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            Dim StatementFilters As String = ""
+            For Each StatementFilter In _ListStatements
+                StatementFilters = String.Join(",", StatementFilter)
+            Next
+            clsIni.WriteValue("STATSTATEMENTS", "StatementFilters", String.Join(",", _ListStatements))
+            SetRowfilter(cbxHideSysSQL)
+        End If
+        frmCS.Dispose()
+    End Sub
+
+    Private Sub ReadConfig()
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        _UseFilter = clsIni.ReadValue("STATSTATEMENTS", "UseFilter", False)
+        
+        Dim StatementFilters As String() = clsIni.ReadValue("STATSTATEMENTS", "StatementFilters", "pg_catalog").Split(New Char() {","c})
+
+        Dim StatementFilter As String
+        For Each StatementFilter In StatementFilters
+            If Not StatementFilter.Equals("") Then
+                _ListStatements.Add(StatementFilter)
+            End If
+        Next
+    End Sub
+    Private Sub SetRowfilter(ByRef checkBox As BaseControls.CheckBox)
+        Try
+            If checkBox.Checked = True Then
+                'Dim rowFilter As String = String.Format("Convert([{0}], System.String) NOT LIKE '%{1}%'", coldgvStmtQuery.HeaderText, "application_name")
+                Dim rowFilter As String = ""
+                Dim rowFilterList As String = ""
+                For Each StatementFilter In _ListStatements
+                    rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtQuery.HeaderText, StatementFilter)
+                Next
+                rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
+                Dim dt As DataTable
+                dt = dgvStmtList.DataSource
+                dt.DefaultView.RowFilter = rowFilter
+                btnEditFiltering.Visible = True
+                lslSession.Text = p_clsMsgData.fn_GetData("F323", dt.DefaultView.Count)
+            Else
+                Dim dt As DataTable
+                dt = dgvStmtList.DataSource
+                dt.DefaultView.RowFilter = Nothing
+                btnEditFiltering.Visible = False
+            End If
+
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("STATSTATEMENTS", "UseFilter", True)
+
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+    End Sub
 End Class

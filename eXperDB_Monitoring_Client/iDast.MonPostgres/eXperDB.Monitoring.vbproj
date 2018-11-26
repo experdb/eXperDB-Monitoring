@@ -159,6 +159,12 @@
     </Compile>
     <Compile Include="EMsg\clsAgentEMsg.vb" />
     <Compile Include="EMsg\clsSocket.vb" />
+    <Compile Include="frmStatementsFilter.Designer.vb">
+      <DependentUpon>frmStatementsFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStatementsFilter.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmClusterShow.Designer.vb">
       <DependentUpon>frmClusterShow.vb</DependentUpon>
     </Compile>
@@ -367,6 +373,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ctlChart.resx">
       <DependentUpon>ctlChart.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStatementsFilter.resx">
+      <DependentUpon>frmStatementsFilter.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmClusterShow.resx">

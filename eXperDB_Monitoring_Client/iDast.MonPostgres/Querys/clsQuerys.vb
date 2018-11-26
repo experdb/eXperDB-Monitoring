@@ -2101,8 +2101,8 @@
                 subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
                 subQuery2 = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 Select Case sortType
-                    Case 1 : subQuery3 = "CALLS DESC"
-                    Case 2 : subQuery3 = "TOTAL_TIME DESC"
+                    Case 1 : subQuery3 = "CALLS DESC, TOTAL_TIME DESC"
+                    Case 2 : subQuery3 = "TOTAL_TIME DESC, CALLS DESC"
                     Case 3 : subQuery3 = "CPU_TIME DESC, TOTAL_TIME DESC"
                     Case 4 : subQuery3 = "IO_TIME, CPU_TIME DESC, TOTAL_TIME DESC"
                 End Select

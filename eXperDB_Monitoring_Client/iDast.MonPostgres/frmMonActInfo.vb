@@ -312,6 +312,13 @@
         dgvTblinfo.DataSource = dtView
         lblTblinfo.Text = p_clsMsgData.fn_GetData("F080", dtView.Count)
         modCommon.sb_GridSortChg(dgvTblinfo)
+
+        If cbxCheckTableBloat.Checked = True Then
+            DirectCast(dgvTblinfo.DataSource, DataView).RowFilter = String.Format("bloat_table = '1'")
+        Else
+            DirectCast(dgvTblinfo.DataSource, DataView).RowFilter = Nothing
+        End If
+
         sb_GridClrChange(dgvTblinfo)
         dgvTblinfo.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
@@ -505,11 +512,6 @@
 
         If _frmWait IsNot Nothing Then
             _frmWait.Close()
-        End If
-
-        If cbxCheckTableBloat.Checked = True Then
-            cbxCheckTableBloat.Checked = False
-            cbxCheckTableBloat.Checked = True
         End If
     End Sub
 

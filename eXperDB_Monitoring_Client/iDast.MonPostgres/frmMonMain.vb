@@ -197,7 +197,7 @@
         tlpCPUUtil.Tag = clsIni.ReadValue("CHART", "CPUUTIL", "1")
         tlpSessionActive.Tag = clsIni.ReadValue("CHART", "SESSIONACTIVE", "2")
         tlpLogicalRead.Tag = clsIni.ReadValue("CHART", "LOGICALREAD", "3")
-        tlpSQLRespTmMAX.Tag = clsIni.ReadValue("CHART", "SQLRESPTMMAX", "4")
+        tlpMEMUsage.Tag = clsIni.ReadValue("CHART", "MEMUSAGE", "4")
         tlpSessionTotal.Tag = clsIni.ReadValue("CHART", "SESSIONTOTAL", "5")
         tlpLogicalWrite.Tag = clsIni.ReadValue("CHART", "LOGICALWRITE", "6")
         tlpSQLRespTmAVG.Tag = clsIni.ReadValue("CHART", "SQLRESPTMAVG", "7")
@@ -206,8 +206,10 @@
         tlpTPSRollback.Tag = clsIni.ReadValue("CHART", "TPSROLLBACK", "0")
         tlpCPUWait.Tag = clsIni.ReadValue("CHART", "CPUWAIT", "0")
         tlpTPSCommit.Tag = clsIni.ReadValue("CHART", "TPSCOMMIT", "0")
+        tlpSQLRespTmMAX.Tag = clsIni.ReadValue("CHART", "SQLRESPTMMAX", "0")
 
         mnuCPUUtil.Tag = tlpCPUUtil
+        mnuMEMUsage.Tag = tlpMEMUsage
         mnuSessionActive.Tag = tlpSessionActive
         mnuLogicalRead.Tag = tlpLogicalRead
         mnuSQLRespTmMAX.Tag = tlpSQLRespTmMAX
@@ -222,6 +224,7 @@
 
         setTLPPosition(tlpCPUUtil)
         setTLPPosition(tlpCPUWait)
+        setTLPPosition(tlpMEMUsage)
         setTLPPosition(tlpLogicalRead)
         setTLPPosition(tlpLogicalWrite)
         setTLPPosition(tlpSessionActive)
@@ -238,6 +241,10 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
+    End Sub
+    Private Sub frmMonMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        TmAni.Stop()
+        TmAni.Dispose()
     End Sub
 
     ''' <summary>
@@ -288,6 +295,7 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         lblCPUUtil.Text = grpCPU.Text + " Util"
         lblCPUWait.Text = grpCPU.Text + " Wait"
+        lblMEMUsage.Text = p_clsMsgData.fn_GetData("F036")
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -538,6 +546,10 @@
             Next
         Next
 
+        If svrLst.Count > 6 Then
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+        End If
+
         Me.chrReqInfo.Tag = srtLSt
 
 
@@ -607,6 +619,10 @@
                 tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
             Next
         Next
+
+        If svrLst.Count > 6 Then
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+        End If
 
         Me.chtSessionStatus.Tag = srtLSt
         chtSessionStatus.Invalidate()
@@ -699,6 +715,18 @@
         Next
         DgvRowHeightFill(dgvGrpMemSvrLst)
         AddHandler dgvGrpMemSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
+
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20181119 Start>'''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            index += 1
+        Next
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        '''''''< Trend 20181119 End>'''''''''''''''''''''''''''''''''''''''''''''
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     End Sub
 
 
@@ -1028,6 +1056,7 @@
                 clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
                 clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
                 clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
+                StartChartAnimaition()
             Else
                 'SerialCheck()
 
@@ -1249,6 +1278,7 @@
                         If tmpSvr.InstanceID = intInstID Then
                             sb_ChartAddPoint(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("CPU_MAIN")))
                             sb_ChartAddPoint(Me.chtCPUWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("WAIT_UTIL_RATE")))
+                            sb_ChartAddPoint(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("MEM_USED_RATE")))
                         End If
                     Next
                 Next
@@ -1256,9 +1286,11 @@
                 dblRegDt = ConvOADate(Now)
                 Me.chtCPUUtil.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
                 Me.chtCPUWait.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Me.chtMEMUsage.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
             End If
             sb_ChartAlignYAxies(Me.chtCPUUtil)
             sb_ChartAlignYAxies(Me.chtCPUWait)
+            sb_ChartAlignYAxies(Me.chtMEMUsage)
         End If
 
         Try
@@ -1280,6 +1312,14 @@
                         End If
                     Loop
                 End If
+                If Me.chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
             Next
         Catch ex As Exception
             GC.Collect()
@@ -1287,6 +1327,7 @@
 
         Me.chtCPUUtil.ChartAreas(0).RecalculateAxesScale()
         Me.chtCPUWait.ChartAreas(0).RecalculateAxesScale()
+        Me.chtMEMUsage.ChartAreas(0).RecalculateAxesScale()
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1646,8 +1687,15 @@
                             Dim lngTotalSessions As Long = ConvULong(dtRow.Item("TOT_BACKEND_CNT"))
 
                             Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
-                            Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
-                            Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
+                            'Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
+                            'Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
+                            'Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
+                            'Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
+
+                            drawAnimation(Me.chtSessionStatus.Series("Active"), idx, lngActiveSessions)
+                            Me.chtSessionStatus.Series("Active").Points(idx).Label = CInt(lngActiveSessions)
+                            drawAnimation(Me.chtSessionStatus.Series("Total"), idx, lngTotalSessions)
+                            Me.chtSessionStatus.Series("Total").Points(idx).Label = CInt(lngTotalSessions)
 
                             MaxPri = Math.Max(lngTotalSessions, MaxPri)
                         End If
@@ -1715,7 +1763,8 @@
             Me.chtSessionStatus.ChartAreas(0).AxisY.Interval = Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum / 5
         End If
 
-        Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+        'Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+
 
     End Sub
 
@@ -1990,11 +2039,13 @@
                         If tmpSvr.InstanceID = intInstID Then
                             sb_ChartAddPoint(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("CPU_MAIN")))
                             sb_ChartAddPoint(Me.chtCPUWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("WAIT_UTIL_RATE")))
+                            sb_ChartAddPoint(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("MEM_USED_RATE")))
                         End If
                     Next
                 Next
                 sb_ChartAlignYAxies(Me.chtCPUUtil)
                 sb_ChartAlignYAxies(Me.chtCPUWait)
+                sb_ChartAlignYAxies(Me.chtMEMUsage)
             End If
         Catch ex As Exception
             GC.Collect()
@@ -2158,10 +2209,17 @@
                 'End Using
                 If tmpSrtLst IsNot Nothing Then
                     Dim idx As Integer = tmpSrtLst.Item(intInstID)
-                    Me.chrReqInfo.Series("INSERT").Points(idx).SetValueY(lngInsertTuples)
-                    Me.chrReqInfo.Series("DELETE").Points(idx).SetValueY(lngDeleteTuples)
-                    Me.chrReqInfo.Series("UPDATE").Points(idx).SetValueY(lngUpdatetTuples)
-                    Me.chrReqInfo.Series("READ").Points(idx).SetValueY(lngReadtTuples)
+                    'Me.chrReqInfo.Series("INSERT").Points(idx).SetValueY(lngInsertTuples)
+                    'Me.chrReqInfo.Series("DELETE").Points(idx).SetValueY(lngDeleteTuples)
+                    'Me.chrReqInfo.Series("UPDATE").Points(idx).SetValueY(lngUpdatetTuples)
+                    'Me.chrReqInfo.Series("READ").Points(idx).SetValueY(lngReadtTuples)
+
+                    drawAnimation(Me.chrReqInfo.Series("INSERT"), idx, lngInsertTuples)
+                    drawAnimation(Me.chrReqInfo.Series("DELETE"), idx, lngDeleteTuples)
+                    drawAnimation(Me.chrReqInfo.Series("UPDATE"), idx, lngUpdatetTuples)
+                    drawAnimation(Me.chrReqInfo.Series("READ"), idx, lngReadtTuples)
+
+
 
                     MaxPri = Math.Max(lngInsertTuples + lngDeleteTuples + lngUpdatetTuples, MaxPri)
                     MaxSec = Math.Max(lngReadtTuples, MaxSec)
@@ -3515,6 +3573,7 @@
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub btnCPUUtil_MouseClick(sender As Object, e As MouseEventArgs) Handles btnCPUUtil.MouseClick, _
                                                                                      btnCPUWait.MouseClick, _
+                                                                                     btnMEMUsage.MouseClick, _
                                                                                      btnSessionActive.MouseClick, _
                                                                                      btnSessionTotal.MouseClick, _
                                                                                      btnLogicalRead.MouseClick, _
@@ -3543,6 +3602,7 @@
     End Sub
 
     Private Sub mnuCPUUtil_Click(sender As Object, e As EventArgs) Handles mnuCPUUtil.Click, mnuCPUWait.Click, _
+                                                                           mnuMEMUsage.Click, _
                                                                            mnuSessionActive.Click, mnuSessionTotal.Click, _
                                                                            mnuLogicalRead.Click, mnuLogicalWrite.Click, _
                                                                            mnuLockWait.Click, mnuTPSTotal.Click, _
@@ -3557,6 +3617,8 @@
             tlpSwap = tlpCPUUtil
         ElseIf sender.Name = "mnuCPUWait" Then
             tlpSwap = tlpCPUWait
+        ElseIf sender.Name = "mnuMEMUsage" Then
+            tlpSwap = tlpMEMUsage
         ElseIf sender.Name = "mnuSessionActive" Then
             tlpSwap = tlpSessionActive
         ElseIf sender.Name = "mnuSessionTotal" Then
@@ -3586,6 +3648,7 @@
 
         If tlpCPUUtil.Tag <> 0 Then mnuCPUUtil.Image = monTypeImgLst.Images(2)
         If tlpCPUWait.Tag <> 0 Then mnuCPUWait.Image = monTypeImgLst.Images(2)
+        If tlpMEMUsage.Tag <> 0 Then mnuMEMUsage.Image = monTypeImgLst.Images(2)
         If tlpSessionActive.Tag <> 0 Then mnuSessionActive.Image = monTypeImgLst.Images(2)
         If tlpSessionTotal.Tag <> 0 Then mnuSessionTotal.Image = monTypeImgLst.Images(2)
         If tlpLogicalRead.Tag <> 0 Then mnuLogicalRead.Image = monTypeImgLst.Images(2)
@@ -3603,6 +3666,7 @@
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("CHART", "CPUUTIL", tlpCPUUtil.Tag)
         clsIni.WriteValue("CHART", "CPUWAIT", tlpCPUWait.Tag)
+        clsIni.WriteValue("CHART", "MEMUSAGE", tlpMEMUsage.Tag)
         clsIni.WriteValue("CHART", "LOGICALREAD", tlpLogicalRead.Tag)
         clsIni.WriteValue("CHART", "LOGICALWRITE", tlpLogicalWrite.Tag)
         clsIni.WriteValue("CHART", "SESSIONACTIVE", tlpSessionActive.Tag)
@@ -3670,6 +3734,7 @@
                 If tmpSvr.Reserved = True Then
                     chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = True
                     chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = True
                     chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
                     chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = True
                     chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = True
@@ -3682,8 +3747,8 @@
                     chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
                 Else
                     chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
                     chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = False
                     chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
                     chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = False
                     chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = False
@@ -3740,7 +3805,7 @@
 
     Private Sub setInstanceOrder(ByVal selectOrder As Integer)
         Try
-            Select selectOrder
+            Select Case selectOrder
                 Case 0
                     Dim TheList =
                     (
@@ -3867,5 +3932,67 @@
         Catch ex As Exception
             GC.Collect()
         End Try
+    End Sub
+
+    'Progress column chart
+    Public Class seriesDelta
+        Private _diffSeries As DataVisualization.Charting.Series
+        ReadOnly Property diffSeries As DataVisualization.Charting.Series
+            Get
+                Return _diffSeries
+            End Get
+        End Property
+
+        Private _diffValue As Double = 0
+        ReadOnly Property diffValue As Double
+            Get
+                Return _diffValue
+            End Get
+        End Property
+
+        Private _diffIndex As Integer = 0
+        ReadOnly Property diffIndex As Double
+            Get
+                Return _diffIndex
+            End Get
+        End Property
+
+        Public Sub New(ByRef tmSeries As DataVisualization.Charting.Series, ByVal index As Integer, ByVal dValue As Double)
+            _diffSeries = tmSeries
+            _diffValue = dValue
+            _diffIndex = index
+        End Sub
+    End Class
+
+    Private WithEvents TmAni As New Timer
+    Private _nDivision As Integer = 10
+
+    Private _tmSeriesList As New List(Of seriesDelta)
+
+    Private Sub StartChartAnimaition()
+        TmAni.Interval = 50
+        TmAni.Start()
+    End Sub
+
+    Private Sub drawAnimation(ByRef tmpSeries As DataVisualization.Charting.Series, ByVal index As Integer, ByVal dValue As Double)
+        Dim delta As Double = (dValue - tmpSeries.Points(index).YValues.Last) / _nDivision
+        Dim sd As seriesDelta = New seriesDelta(tmpSeries, index, delta)
+        _tmSeriesList.Add(sd)
+    End Sub
+
+    Private Sub TmAni_Tick(sender As Object, e As EventArgs) Handles TmAni.Tick
+        If _nDivision > 0 Then
+            For Each sd As seriesDelta In _tmSeriesList
+                Dim nValue = sd.diffSeries.Points(sd.diffIndex).YValues.Last + sd.diffValue
+                sd.diffSeries.Points(sd.diffIndex).SetValueY(IIf(nValue < 0, 0, nValue))
+            Next
+            _nDivision -= 1
+            Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+            Me.chrReqInfo.ChartAreas(0).RecalculateAxesScale()
+        Else
+            TmAni.Stop()
+            _tmSeriesList.Clear()
+            _nDivision = 10
+        End If
     End Sub
 End Class

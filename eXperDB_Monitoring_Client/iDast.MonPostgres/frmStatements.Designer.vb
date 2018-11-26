@@ -21,10 +21,6 @@ Partial Class frmStatements
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatements))
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -69,6 +65,10 @@ Partial Class frmStatements
         Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Me.tlpBottom = New eXperDB.BaseControls.TableLayoutPanel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpChartArea = New eXperDB.BaseControls.TableLayoutPanel()
@@ -78,10 +78,6 @@ Partial Class frmStatements
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblChart = New System.Windows.Forms.Label()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
-        Me.chtIOTime = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPUTime = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtTotalTime = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCalls = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dtpDay = New eXperDB.BaseControls.DateTimePicker()
         Me.rb1D = New eXperDB.BaseControls.RadioButton()
@@ -110,7 +106,7 @@ Partial Class frmStatements
         Me.coldgvStmtRowsRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvStmtCalls = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvStmtQuery = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtTotalTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvStmtTotalTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvStmtMinTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.coldgvStmtMaxTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.coldgvStmtMeanTime = New eXperDB.Controls.DataGridViewTimespanColumn()
@@ -129,6 +125,8 @@ Partial Class frmStatements
         Me.coldgvStmtBlockReadTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.coldgvStmtBlockWriteTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnEditFiltering = New eXperDB.BaseControls.Button()
+        Me.cbxHideSysSQL = New eXperDB.BaseControls.CheckBox()
         Me.txtSQL = New eXperDB.BaseControls.TextBox()
         Me.txtQueryID = New eXperDB.BaseControls.TextBox()
         Me.lblQuery = New eXperDB.BaseControls.Label()
@@ -155,6 +153,10 @@ Partial Class frmStatements
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSubject = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.chtIOTime = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPUTime = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtTotalTime = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCalls = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -329,65 +331,6 @@ Partial Class frmStatements
         Me.pnlChart.Name = "pnlChart"
         Me.pnlChart.Size = New System.Drawing.Size(1392, 595)
         Me.pnlChart.TabIndex = 3
-        '
-        'chtIOTime
-        '
-        Me.chtIOTime.BorderSkin = BorderSkin1
-        Me.chtIOTime.DataSource = Nothing
-        Me.chtIOTime.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtIOTime.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtIOTime.Location = New System.Drawing.Point(0, 1014)
-        Me.chtIOTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtIOTime.MenuVisible = False
-        Me.chtIOTime.Name = "chtIOTime"
-        Me.chtIOTime.Size = New System.Drawing.Size(1375, 362)
-        Me.chtIOTime.TabIndex = 6
-        Me.chtIOTime.Title = ""
-        Me.chtIOTime.Visible = False
-        '
-        'chtCPUTime
-        '
-        Me.chtCPUTime.BorderSkin = BorderSkin2
-        Me.chtCPUTime.DataSource = Nothing
-        Me.chtCPUTime.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPUTime.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtCPUTime.Location = New System.Drawing.Point(0, 652)
-        Me.chtCPUTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPUTime.MenuVisible = False
-        Me.chtCPUTime.Name = "chtCPUTime"
-        Me.chtCPUTime.Size = New System.Drawing.Size(1375, 362)
-        Me.chtCPUTime.TabIndex = 8
-        Me.chtCPUTime.Title = ""
-        Me.chtCPUTime.Visible = False
-        '
-        'chtTotalTime
-        '
-        Me.chtTotalTime.BorderSkin = BorderSkin3
-        Me.chtTotalTime.DataSource = Nothing
-        Me.chtTotalTime.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtTotalTime.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtTotalTime.Location = New System.Drawing.Point(0, 290)
-        Me.chtTotalTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtTotalTime.MenuVisible = False
-        Me.chtTotalTime.Name = "chtTotalTime"
-        Me.chtTotalTime.Size = New System.Drawing.Size(1375, 362)
-        Me.chtTotalTime.TabIndex = 5
-        Me.chtTotalTime.Title = ""
-        Me.chtTotalTime.Visible = False
-        '
-        'chtCalls
-        '
-        Me.chtCalls.BorderSkin = BorderSkin4
-        Me.chtCalls.DataSource = Nothing
-        Me.chtCalls.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCalls.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtCalls.Location = New System.Drawing.Point(0, 0)
-        Me.chtCalls.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCalls.MenuVisible = False
-        Me.chtCalls.Name = "chtCalls"
-        Me.chtCalls.Size = New System.Drawing.Size(1375, 290)
-        Me.chtCalls.TabIndex = 3
-        Me.chtCalls.Title = ""
         '
         'tlpInput
         '
@@ -888,7 +831,6 @@ Partial Class frmStatements
         '
         'coldgvStmtQuery
         '
-        Me.coldgvStmtQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.coldgvStmtQuery.DataPropertyName = "QUERY"
         DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
@@ -899,22 +841,22 @@ Partial Class frmStatements
         Me.coldgvStmtQuery.MinimumWidth = 180
         Me.coldgvStmtQuery.Name = "coldgvStmtQuery"
         Me.coldgvStmtQuery.ReadOnly = True
+        Me.coldgvStmtQuery.Width = 180
         '
         'coldgvStmtTotalTime
         '
-        Me.coldgvStmtTotalTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
         Me.coldgvStmtTotalTime.DataPropertyName = "TOTAL_TIME"
         DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtTotalTime.DefaultCellStyle = DataGridViewCellStyle12
-        Me.coldgvStmtTotalTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtTotalTime.FillWeight = 110.0!
         Me.coldgvStmtTotalTime.HeaderText = "TotalTime"
         Me.coldgvStmtTotalTime.Name = "coldgvStmtTotalTime"
         Me.coldgvStmtTotalTime.ReadOnly = True
         Me.coldgvStmtTotalTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvStmtTotalTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvStmtTotalTime.Width = 110
         '
         'coldgvStmtMinTime
         '
@@ -926,7 +868,7 @@ Partial Class frmStatements
         DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtMinTime.DefaultCellStyle = DataGridViewCellStyle13
-        Me.coldgvStmtMinTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtMinTime.FormatString = "%d\.%h\:mm\:ss\.fff"
         Me.coldgvStmtMinTime.HeaderText = "MinTime"
         Me.coldgvStmtMinTime.Name = "coldgvStmtMinTime"
         Me.coldgvStmtMinTime.ReadOnly = True
@@ -943,7 +885,7 @@ Partial Class frmStatements
         DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtMaxTime.DefaultCellStyle = DataGridViewCellStyle14
-        Me.coldgvStmtMaxTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtMaxTime.FormatString = "%d\.%h\:mm\:ss\.fff"
         Me.coldgvStmtMaxTime.HeaderText = "MaxTime"
         Me.coldgvStmtMaxTime.Name = "coldgvStmtMaxTime"
         Me.coldgvStmtMaxTime.ReadOnly = True
@@ -960,7 +902,7 @@ Partial Class frmStatements
         DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtMeanTime.DefaultCellStyle = DataGridViewCellStyle15
-        Me.coldgvStmtMeanTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtMeanTime.FormatString = "%d\.%h\:mm\:ss\.fff"
         Me.coldgvStmtMeanTime.HeaderText = "MeanTime"
         Me.coldgvStmtMeanTime.Name = "coldgvStmtMeanTime"
         Me.coldgvStmtMeanTime.ReadOnly = True
@@ -977,7 +919,7 @@ Partial Class frmStatements
         DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtSTDDEVTime.DefaultCellStyle = DataGridViewCellStyle16
-        Me.coldgvStmtSTDDEVTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtSTDDEVTime.FormatString = "%d\.%h\:mm\:ss\.fff"
         Me.coldgvStmtSTDDEVTime.HeaderText = "STDDEVTime"
         Me.coldgvStmtSTDDEVTime.Name = "coldgvStmtSTDDEVTime"
         Me.coldgvStmtSTDDEVTime.ReadOnly = True
@@ -1162,7 +1104,7 @@ Partial Class frmStatements
         DataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtBlockReadTime.DefaultCellStyle = DataGridViewCellStyle28
-        Me.coldgvStmtBlockReadTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtBlockReadTime.FormatString = "%d\.%h\:mm\:ss\.fff"
         Me.coldgvStmtBlockReadTime.HeaderText = "BlockReadTime"
         Me.coldgvStmtBlockReadTime.Name = "coldgvStmtBlockReadTime"
         Me.coldgvStmtBlockReadTime.ReadOnly = True
@@ -1180,7 +1122,7 @@ Partial Class frmStatements
         DataGridViewCellStyle29.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle29.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvStmtBlockWriteTime.DefaultCellStyle = DataGridViewCellStyle29
-        Me.coldgvStmtBlockWriteTime.FormatString = "%d\.%h\:mm\:ss\.ff"
+        Me.coldgvStmtBlockWriteTime.FormatString = "%d\.%h\:mm\:ss\.fff"
         Me.coldgvStmtBlockWriteTime.HeaderText = "BlockWriteTime"
         Me.coldgvStmtBlockWriteTime.Name = "coldgvStmtBlockWriteTime"
         Me.coldgvStmtBlockWriteTime.ReadOnly = True
@@ -1190,22 +1132,26 @@ Partial Class frmStatements
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Gray
-        Me.TableLayoutPanel2.ColumnCount = 9
+        Me.TableLayoutPanel2.ColumnCount = 11
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnEditFiltering, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.cbxHideSysSQL, 6, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.txtSQL, 5, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.txtQueryID, 3, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblQuery, 4, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblQueryID, 2, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSort, 7, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.cmbSort, 8, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblSort, 9, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.cmbSort, 10, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lslSession, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -1216,6 +1162,46 @@ Partial Class frmStatements
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(1398, 35)
         Me.TableLayoutPanel2.TabIndex = 14
         '
+        'btnEditFiltering
+        '
+        Me.btnEditFiltering.BackColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnEditFiltering.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnEditFiltering.FixedHeight = False
+        Me.btnEditFiltering.FixedWidth = False
+        Me.btnEditFiltering.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnEditFiltering.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnEditFiltering.ForeColor = System.Drawing.Color.White
+        Me.btnEditFiltering.GraColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnEditFiltering.LineColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.Location = New System.Drawing.Point(933, 3)
+        Me.btnEditFiltering.Name = "btnEditFiltering"
+        Me.btnEditFiltering.Radius = 10
+        Me.btnEditFiltering.Size = New System.Drawing.Size(114, 29)
+        Me.btnEditFiltering.TabIndex = 33
+        Me.btnEditFiltering.Text = "F333"
+        Me.btnEditFiltering.UnCheckFillColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.UseVisualStyleBackColor = False
+        Me.btnEditFiltering.Visible = False
+        '
+        'cbxHideSysSQL
+        '
+        Me.cbxHideSysSQL.AutoSize = True
+        Me.cbxHideSysSQL.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.cbxHideSysSQL.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cbxHideSysSQL.ForeColor = System.Drawing.Color.White
+        Me.cbxHideSysSQL.LineColor = System.Drawing.Color.Gray
+        Me.cbxHideSysSQL.Location = New System.Drawing.Point(783, 12)
+        Me.cbxHideSysSQL.Margin = New System.Windows.Forms.Padding(3, 3, 3, 6)
+        Me.cbxHideSysSQL.Name = "cbxHideSysSQL"
+        Me.cbxHideSysSQL.Radius = 10
+        Me.cbxHideSysSQL.Size = New System.Drawing.Size(144, 17)
+        Me.cbxHideSysSQL.TabIndex = 32
+        Me.cbxHideSysSQL.Text = "F331"
+        Me.cbxHideSysSQL.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cbxHideSysSQL.UseVisualStyleBackColor = True
+        '
         'txtSQL
         '
         Me.txtSQL.Anchor = System.Windows.Forms.AnchorStyles.Left
@@ -1223,7 +1209,7 @@ Partial Class frmStatements
         Me.txtSQL.code = False
         Me.txtSQL.FixedWidth = False
         Me.txtSQL.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSQL.impossibleinput = ""
+        Me.txtSQL.impossibleinput = "`~!@#$%^&*\{}"
         Me.txtSQL.Location = New System.Drawing.Point(503, 6)
         Me.txtSQL.Name = "txtSQL"
         Me.txtSQL.Necessary = False
@@ -1247,7 +1233,7 @@ Partial Class frmStatements
         Me.txtQueryID.Location = New System.Drawing.Point(303, 7)
         Me.txtQueryID.Name = "txtQueryID"
         Me.txtQueryID.Necessary = False
-        Me.txtQueryID.PossibleInput = ""
+        Me.txtQueryID.PossibleInput = "0123456789"
         Me.txtQueryID.Prefix = ""
         Me.txtQueryID.Size = New System.Drawing.Size(114, 21)
         Me.txtQueryID.StatusTip = ""
@@ -1659,6 +1645,65 @@ Partial Class frmStatements
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
         '
+        'chtIOTime
+        '
+        Me.chtIOTime.BorderSkin = BorderSkin1
+        Me.chtIOTime.DataSource = Nothing
+        Me.chtIOTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtIOTime.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtIOTime.Location = New System.Drawing.Point(0, 1014)
+        Me.chtIOTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtIOTime.MenuVisible = False
+        Me.chtIOTime.Name = "chtIOTime"
+        Me.chtIOTime.Size = New System.Drawing.Size(1375, 362)
+        Me.chtIOTime.TabIndex = 6
+        Me.chtIOTime.Title = ""
+        Me.chtIOTime.Visible = False
+        '
+        'chtCPUTime
+        '
+        Me.chtCPUTime.BorderSkin = BorderSkin2
+        Me.chtCPUTime.DataSource = Nothing
+        Me.chtCPUTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPUTime.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCPUTime.Location = New System.Drawing.Point(0, 652)
+        Me.chtCPUTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPUTime.MenuVisible = False
+        Me.chtCPUTime.Name = "chtCPUTime"
+        Me.chtCPUTime.Size = New System.Drawing.Size(1375, 362)
+        Me.chtCPUTime.TabIndex = 8
+        Me.chtCPUTime.Title = ""
+        Me.chtCPUTime.Visible = False
+        '
+        'chtTotalTime
+        '
+        Me.chtTotalTime.BorderSkin = BorderSkin3
+        Me.chtTotalTime.DataSource = Nothing
+        Me.chtTotalTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtTotalTime.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtTotalTime.Location = New System.Drawing.Point(0, 290)
+        Me.chtTotalTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtTotalTime.MenuVisible = False
+        Me.chtTotalTime.Name = "chtTotalTime"
+        Me.chtTotalTime.Size = New System.Drawing.Size(1375, 362)
+        Me.chtTotalTime.TabIndex = 5
+        Me.chtTotalTime.Title = ""
+        Me.chtTotalTime.Visible = False
+        '
+        'chtCalls
+        '
+        Me.chtCalls.BorderSkin = BorderSkin4
+        Me.chtCalls.DataSource = Nothing
+        Me.chtCalls.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCalls.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCalls.Location = New System.Drawing.Point(0, 0)
+        Me.chtCalls.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCalls.MenuVisible = False
+        Me.chtCalls.Name = "chtCalls"
+        Me.chtCalls.Size = New System.Drawing.Size(1375, 290)
+        Me.chtCalls.TabIndex = 3
+        Me.chtCalls.Title = ""
+        '
         'frmStatements
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1744,6 +1789,14 @@ Partial Class frmStatements
     Friend WithEvents rb2H As eXperDB.BaseControls.RadioButton
     Friend WithEvents rb1H As eXperDB.BaseControls.RadioButton
     Friend WithEvents dtpDay As eXperDB.BaseControls.DateTimePicker
+    Friend WithEvents lblSort As eXperDB.BaseControls.Label
+    Friend WithEvents cmbSort As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblQuery As eXperDB.BaseControls.Label
+    Friend WithEvents lblQueryID As eXperDB.BaseControls.Label
+    Friend WithEvents txtQueryID As eXperDB.BaseControls.TextBox
+    Friend WithEvents txtSQL As eXperDB.BaseControls.TextBox
+    Friend WithEvents cmbTop As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblTop As eXperDB.BaseControls.Label
     Friend WithEvents coldgvStmtDBID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvStmtUserID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvStmtQueryID As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1754,7 +1807,7 @@ Partial Class frmStatements
     Friend WithEvents coldgvStmtRowsRate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvStmtCalls As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvStmtQuery As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvStmtTotalTime As eXperDB.Controls.DataGridViewTimespanColumn
+    Friend WithEvents coldgvStmtTotalTime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvStmtMinTime As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents coldgvStmtMaxTime As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents coldgvStmtMeanTime As eXperDB.Controls.DataGridViewTimespanColumn
@@ -1772,13 +1825,7 @@ Partial Class frmStatements
     Friend WithEvents coldgvStmtTempBlockWritten As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvStmtBlockReadTime As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents coldgvStmtBlockWriteTime As eXperDB.Controls.DataGridViewTimespanColumn
-    Friend WithEvents lblSort As eXperDB.BaseControls.Label
-    Friend WithEvents cmbSort As eXperDB.BaseControls.ComboBox
-    Friend WithEvents lblQuery As eXperDB.BaseControls.Label
-    Friend WithEvents lblQueryID As eXperDB.BaseControls.Label
-    Friend WithEvents txtQueryID As eXperDB.BaseControls.TextBox
-    Friend WithEvents txtSQL As eXperDB.BaseControls.TextBox
-    Friend WithEvents cmbTop As eXperDB.BaseControls.ComboBox
-    Friend WithEvents lblTop As eXperDB.BaseControls.Label
+    Friend WithEvents cbxHideSysSQL As eXperDB.BaseControls.CheckBox
+    Friend WithEvents btnEditFiltering As eXperDB.BaseControls.Button
 
 End Class
