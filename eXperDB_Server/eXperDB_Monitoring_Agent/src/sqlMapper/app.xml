@@ -2010,13 +2010,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!-- ********************************************************** -->
 	
 	<select id="PG_CHECK_EXTENSION_001" parameterType="hashmap" resultType="hashmap">
-		SELECT 1 AS INS FROM PG_AVAILABLE_EXTENSIONS WHERE NAME='adminpack'
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */
+				1 AS INS FROM PG_AVAILABLE_EXTENSIONS WHERE NAME='adminpack'
 	</select>
 	<select id="PG_CHECK_EXTENSION_002" parameterType="hashmap" resultType="hashmap">
-		SELECT 1 from pg_extension WHERE extname = 'adminpack'
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */
+				1 from pg_extension WHERE extname = 'adminpack'
 	</select>	
 	<select id="PG_CHECK_EXTENSION_003" parameterType="hashmap" resultType="hashmap">
-		SELECT SUM(CASE WHEN EXTNAME = 'experdb_pgmon' THEN 1
+		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */
+				SUM(CASE WHEN EXTNAME = 'experdb_pgmon' THEN 1
 		            WHEN EXTNAME = 'pg_stat_statements' THEN 2
 					WHEN EXTNAME = 'pgsentinel' THEN 4
 					WHEN EXTNAME = 'adminpack' THEN 8

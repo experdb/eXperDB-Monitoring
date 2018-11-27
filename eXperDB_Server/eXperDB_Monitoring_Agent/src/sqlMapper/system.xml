@@ -33,7 +33,7 @@
 		FROM tb_instance_info
 		where COLLECT_YN = 'Y'
 		      and DELETE_YN = 'N'
-		ORDER BY RANDOM()
+		ORDER BY instance_id
 		LIMIT 1
 	</select>	
 	

@@ -44,7 +44,11 @@ public class LicenseInfoManager {
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000E8:11:32:32:BF:8B");// 162 (E8:11:32:32:BF:8B)
 			//String encSerialKey = LicenseInfoManager.encrypt("EM10-O082-1504-6750-7521172.020.060.028005960054396N0000000016201711070000000064:00:6A:59:72:12");// my pc
 			//String plainSerialKey = "EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000162017110700000000" + args[0];
-			String plainSerialKey   = "EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000" + args[1] + "2017110700000000" + args[0];
+			
+			if(checkOption(args.length) < 0)
+				return ;
+			
+			String plainSerialKey   = "EM10-O082-1504-6750-7521172.020.060.028005960054396N00000000" + args[0] + "20171107" + args[2] + args[1];
 			String encSerialKey = LicenseInfoManager.encrypt(plainSerialKey);
 			
 			
@@ -94,6 +98,7 @@ public class LicenseInfoManager {
 			String serialKey = decrypt((String) serialKeyMap.get("serial_key"));
 			/* 2017.11.22 MAC Address 기반 라이센스 사용 */  
 			String MAC			= serialKey.substring(78, 95); //AGENT MAC (--:--:--:--:--:--)
+			String EXPIRE_DATE  = serialKey.substring(70, 78);; //라이선스 만료일자(00000000) 
 			if(MAC.equals("00:00:00:00:00:00")){
 				log.info("MAC CHECK ==> SUCCESS");
 			}else {
@@ -124,6 +129,53 @@ public class LicenseInfoManager {
 					eXperDBMAExit("MAC");
 				}
 			}			
+			
+			////////////////////////////////////////////////////////////////////////////////////////
+			String TODAY = "";
+			
+			HashMap<String, Object> randomKey = session.selectOne("system.TB_INSTANCE_INFO_R003");
+			
+			if(randomKey == null || randomKey.get("instance_id").equals("")){
+				TODAY = getDate();
+			} else{
+				Connection connDB = null;
+				SqlSession sessDB = null;
+				
+				try {
+					HashMap<String, Object> instanceMap = MonitoringInfoManager.getInstanceMap(randomKey.get("instance_id").toString());
+					
+					connDB = DriverManager.getConnection(
+							"jdbc:postgresql://" + instanceMap.get("server_ip") + ":" + instanceMap.get("service_port") + "/" + instanceMap.get("conn_db_name"), 
+							(String) instanceMap.get("conn_user_id"),
+							(String) instanceMap.get("conn_user_pwd"));
+					
+					sessDB = sqlSessionFactory.openSession(connDB);					
+					HashMap<String, Object> nowDateMap = sessDB.selectOne("app.LICENSE_001");
+					
+					TODAY = (String) nowDateMap.get("today");
+				} catch (Exception e1) {
+					throw new Exception(e1);
+				} finally {
+					sessDB.close();
+				}
+			}
+			////////////////////////////////////////////////////////////////////////////////////////
+			
+			if(EXPIRE_DATE.equals("00000000")){
+				log.info("Expire Date ==> UNLIMITED");
+				log.info("Expire Date CHECK ==> SUCCESS");
+			} else{
+				log.info("Expire Date ==> " + EXPIRE_DATE);
+					
+				if(Integer.valueOf(TODAY) <= Integer.valueOf(EXPIRE_DATE)){
+					log.info("Expire Date CHECK ==> SUCCESS");
+				}else {
+					log.info("Expire Date CHECK ==> FAIL");
+					eXperDBMAExit("EXPIRE_DATE");					
+				}
+			}
+			
+			
 			
 			/* 라이선스 */
 			
@@ -471,4 +523,13 @@ public class LicenseInfoManager {
 		return strYear+strMonth+strDay;
 	}	
 	
+	public static int checkOption(int argc) {
+
+		if (argc < 3){
+			System.out.println("Usage: java -jar <Command> <Number of Cluster> <MAC Address> <Expiration date>");
+			System.out.println("ex) cmd 12 00:11:00:22:00:11 20180101");
+			return -1;
+		}
+		return 0;
+	}	
 }

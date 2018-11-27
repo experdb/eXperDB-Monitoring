@@ -2613,6 +2613,21 @@
     <DATA><![CDATA[Use registered ID/PW]]></DATA>
     <VALUECAST />
   </ROW>
+  <ROW ID="F331" PARAMS="0">
+    <DESC>exceptsystemsql</DESC>
+    <DATA><![CDATA[Hide System Statements]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F332" PARAMS="0">
+    <DESC>StatementsFiltering</DESC>
+    <DATA><![CDATA[Statements]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F333" PARAMS="0">
+    <DESC>edit exceptsystemsql</DESC>
+    <DATA><![CDATA[Edit filtering]]></DATA>
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3152,6 +3167,14 @@
   <ROW ID="M060" PARAMS="0">
     <DESC>Select Cluster</DESC>
     <DATA><![CDATA[You can select the cluster you want to observe.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M061" PARAMS="0">
+    <DESC>Statement filter</DESC>
+    <DATA><![CDATA[You can set to filter statements.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
