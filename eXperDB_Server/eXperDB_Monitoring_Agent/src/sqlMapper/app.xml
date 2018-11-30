@@ -2393,8 +2393,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 WHERE QU.INSTANCE_ID = #{instance_id}
 		   AND QU.QUERYID = MD5(coalesce(#{queryid}, ''))
 		   AND DB_NAME = #{db_name}
-		RETURNING *)
-		INSERT INTO TB_QUERY_INFO
+		RETURNING *) 
+		INSERT INTO TB_QUERY_INFO (INSTANCE_ID, DB_NAME, QUERYID, STMT_QUERYID, QUERY, COLLECT_DT)
 		SELECT #{instance_id}, #{db_name}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 	</insert>	

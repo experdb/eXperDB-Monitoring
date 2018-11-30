@@ -853,6 +853,7 @@
     End Sub
     Private Sub SetRowfilter(ByRef checkBox As BaseControls.CheckBox)
         Try
+            Dim dt As DataTable
             If checkBox.Checked = True Then
                 'Dim rowFilter As String = String.Format("Convert([{0}], System.String) NOT LIKE '%{1}%'", coldgvStmtQuery.HeaderText, "application_name")
                 Dim rowFilter As String = ""
@@ -861,17 +862,17 @@
                     rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtQuery.HeaderText, StatementFilter)
                 Next
                 rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
-                Dim dt As DataTable
                 dt = dgvStmtList.DataSource
                 dt.DefaultView.RowFilter = rowFilter
                 btnEditFiltering.Visible = True
-                lslSession.Text = p_clsMsgData.fn_GetData("F323", dt.DefaultView.Count)
             Else
-                Dim dt As DataTable
                 dt = dgvStmtList.DataSource
                 dt.DefaultView.RowFilter = Nothing
                 btnEditFiltering.Visible = False
+                lslSession.Text = p_clsMsgData.fn_GetData("F323", dt.DefaultView.Count)
             End If
+
+            lslSession.Text = p_clsMsgData.fn_GetData("F323", dt.DefaultView.Count)
 
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
             clsIni.WriteValue("STATSTATEMENTS", "UseFilter", True)
