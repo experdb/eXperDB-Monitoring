@@ -1851,7 +1851,8 @@
 				, SUM(OCCUPIED_TIME) OCCUPIED_TIME
         --, S.SQL 
 				--, CASE WHEN (S.SQL = '') THEN Q.QUERY ELSE S.SQL END AS SQL  -- 1005
-        , MAX(Q.QUERY) AS SQL
+        --, MAX(Q.QUERY) AS SQL
+        , COALESCE(MAX(Q.QUERY),MAX(S.SQL)) AS SQL
         , COUNT(S.SQL) SQL_COUNT
         , S.USER_NAME
 			FROM(
