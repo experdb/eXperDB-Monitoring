@@ -89,7 +89,7 @@ public class StmtCollect extends TaskApplication {
 			double dbl_instance_db_version = Double.parseDouble(instance_db_version);
 			int extensions = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(reqInstanceId).get("extensions");
 			extensions &= 0x02; //check pg_stat_statment installed or not.
-			if ((dbl_instance_db_version < 10.0) || (extensions <= 0 ) )
+			if ((dbl_instance_db_version < 9.5) || (extensions <= 0 ) )
 				return;
 
 			// DB Connection을 가져온다

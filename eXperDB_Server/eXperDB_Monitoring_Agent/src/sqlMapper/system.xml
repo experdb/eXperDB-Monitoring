@@ -29,11 +29,16 @@
 	</select>
 	
 	<select id="TB_INSTANCE_INFO_R003" resultType="hashmap">
-		SELECT instance_id 
+	SELECT instance_id 
 		FROM tb_instance_info
 		where COLLECT_YN = 'Y'
-		      and DELETE_YN = 'N'
-		ORDER BY instance_id
+		  and DELETE_YN = 'N'
+		OFFSET floor(random()*		
+						(SELECT count(instance_id) 
+						  FROM tb_instance_info
+						 WHERE COLLECT_YN = 'Y'
+						   AND DELETE_YN = 'N')
+					)
 		LIMIT 1
 	</select>	
 	

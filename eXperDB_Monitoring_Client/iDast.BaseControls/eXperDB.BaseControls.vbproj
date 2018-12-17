@@ -74,6 +74,10 @@
     <Compile Include="ContextMenuStrip.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DataGridViewAutoFilterColumnHeaderCell.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewAutoFilterTextBoxColumn.vb" />
     <Compile Include="FlowLayOutPanel.vb">
       <SubType>Component</SubType>
     </Compile>

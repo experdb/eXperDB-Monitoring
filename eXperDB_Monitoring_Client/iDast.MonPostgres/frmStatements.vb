@@ -253,10 +253,11 @@
                                                     Return
                                                 End If
 
-                                                dgvStmtList.DataSource = ShowDT
+                                                STMTTableBindingSource.DataSource = ShowDT
 
                                                 modCommon.sb_GridSortChg(dgvStmtList)
                                                 lslSession.Text = p_clsMsgData.fn_GetData("F323", dtView.Count)
+
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                                 GC.Collect()
@@ -778,29 +779,29 @@
             rb4H.Checked = False
             rb12H.Checked = False
             rb1D.Checked = False
-            btnQuery.PerformClick()
+            'btnQuery.PerformClick()
         End If
     End Sub
 
     Private Sub cmbSort_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSort.SelectedIndexChanged
         Dim cbo As BaseControls.ComboBox = DirectCast(sender, BaseControls.ComboBox)
-        Select Case cbo.SelectedIndex
-            Case 0
-                dgvStmtList.Sort(coldgvStmtCalls, System.ComponentModel.ListSortDirection.Descending)
-            Case 1
-                dgvStmtList.Sort(coldgvStmtTotalTime, System.ComponentModel.ListSortDirection.Descending)
-            Case 2
-                dgvStmtList.Sort(coldgvStmtCPUTimeRate, System.ComponentModel.ListSortDirection.Descending)
-            Case 3
-                dgvStmtList.Sort(coldgvStmtIOTimeRate, System.ComponentModel.ListSortDirection.Descending)
-        End Select
+        'Select Case cbo.SelectedIndex
+        '    Case 0
+        '        dgvStmtList.Sort(coldgvStmtCalls, System.ComponentModel.ListSortDirection.Descending)
+        '    Case 1
+        '        dgvStmtList.Sort(coldgvStmtTotalTime, System.ComponentModel.ListSortDirection.Descending)
+        '    Case 2
+        '        dgvStmtList.Sort(coldgvStmtCPUTimeRate, System.ComponentModel.ListSortDirection.Descending)
+        '    Case 3
+        '        dgvStmtList.Sort(coldgvStmtIOTimeRate, System.ComponentModel.ListSortDirection.Descending)
+        'End Select
     End Sub
 
     Private Sub txtQueryID_TextChanged(sender As Object, e As EventArgs) Handles txtQueryID.TextChanged
         Try
             Dim rowFilter As String = String.Format("Convert([{0}], System.String) LIKE '%{1}%'", coldgvStmtQueryID.HeaderText, txtQueryID.Text)
             Dim dt As DataTable
-            dt = dgvStmtList.DataSource
+            dt = dgvStmtList.DataSource.DataSource
             dt.DefaultView.RowFilter = rowFilter
         Catch ex As Exception
             GC.Collect()
@@ -811,7 +812,7 @@
         Try
             Dim rowFilter As String = String.Format("Convert([{0}], System.String) LIKE '%{1}%'", coldgvStmtQuery.HeaderText, txtSQL.Text)
             Dim dt As DataTable
-            dt = dgvStmtList.DataSource
+            dt = dgvStmtList.DataSource.DataSource
             dt.DefaultView.RowFilter = rowFilter
         Catch ex As Exception
             GC.Collect()
@@ -862,7 +863,7 @@
                     rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtQuery.HeaderText, StatementFilter)
                 Next
                 rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
-                dt = dgvStmtList.DataSource
+                dt = dgvStmtList.DataSource.DataSource
                 dt.DefaultView.RowFilter = rowFilter
                 btnEditFiltering.Visible = True
             Else
@@ -882,4 +883,24 @@
         End Try
 
     End Sub
+
+    ' Displays the drop-down list when the user presses 
+    ' ALT+DOWN ARROW or ALT+UP ARROW.
+    Private Sub dgvStmtList_KeyDown(ByVal sender As Object, _
+        ByVal e As KeyEventArgs) Handles dgvStmtList.KeyDown
+
+        If e.Alt AndAlso (e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Up) Then
+
+            Dim filterCell As DataGridViewAutoFilterColumnHeaderCell = _
+                TryCast(dgvStmtList.CurrentCell.OwningColumn.HeaderCell,  _
+                DataGridViewAutoFilterColumnHeaderCell)
+            If filterCell IsNot Nothing Then
+                filterCell.ShowDropDownList()
+                e.Handled = True
+            End If
+
+        End If
+
+    End Sub
+
 End Class

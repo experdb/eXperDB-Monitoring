@@ -24,6 +24,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
+import org.postgresql.util.PSQLException;
 
 import experdb.mnt.db.mybatis.SqlSessionManager;
 import experdb.mnt.listener.SocketListenerInfo;
@@ -148,15 +149,17 @@ public class LicenseInfoManager {
 							"jdbc:postgresql://" + instanceMap.get("server_ip") + ":" + instanceMap.get("service_port") + "/" + instanceMap.get("conn_db_name"), 
 							(String) instanceMap.get("conn_user_id"),
 							(String) instanceMap.get("conn_user_pwd"));
-					
-					sessDB = sqlSessionFactory.openSession(connDB);					
-					HashMap<String, Object> nowDateMap = sessDB.selectOne("app.LICENSE_001");
-					
-					TODAY = (String) nowDateMap.get("today");
-				} catch (Exception e1) {
-					throw new Exception(e1);
+					if (connDB != null){
+						sessDB = sqlSessionFactory.openSession(connDB);					
+						HashMap<String, Object> nowDateMap = sessDB.selectOne("app.LICENSE_001");
+						TODAY = (String) nowDateMap.get("today");
+					}
+				} catch (PSQLException pe) {
+					log.error("", pe);
+					TODAY = getDate();
 				} finally {
-					sessDB.close();
+					if (sessDB != null)
+						sessDB.close();
 				}
 			}
 			////////////////////////////////////////////////////////////////////////////////////////

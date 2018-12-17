@@ -1063,7 +1063,7 @@ Public Class frmReports
                                              New SeriesColumn("READ", "SELECT_TUPLES_PER_SEC")}
 
             ShowVariableChartData(Me.chtLogical, cmbInst.Tag, "Logical Information", _dtDB, Rb.Text, arrParamLogical)
-            Me.chtLogical.AutoGridYSpacing()
+            'Me.chtLogical.AutoGridYSpacing()
             Me.chtLogical.ShowMinValue(True)
             ' Object Access Tuples
             Dim arrParamObjectTuples As SeriesColumn() = {New SeriesColumn("AVG_SEQ_SCAN", "SEQ_TUPLES"), _

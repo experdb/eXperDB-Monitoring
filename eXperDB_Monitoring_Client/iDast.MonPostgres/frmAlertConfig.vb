@@ -83,6 +83,7 @@ Public Class frmAlertConfig
         ClsQuery.UpdateHealthLimited(InstanceID, "CPUWAIT", HealtLimited.CPUwaitRatioNormal, HealtLimited.CPUwaitRatioWarning, GetCriticalThreshold_1(HealtLimited.CPUwaitRatioNormal, HealtLimited.CPUwaitRatioWarning), LastIp, HealtLimited.CPUwaitRatioRTime)
         ClsQuery.UpdateHealthLimited(InstanceID, "SWAPUSAGE", HealtLimited.SWAPusedRatioNormal, HealtLimited.SWAPusedRatioWarning, GetCriticalThreshold_1(HealtLimited.SWAPusedRatioNormal, HealtLimited.SWAPusedRatioWarning), LastIp, HealtLimited.SWAPusedRatioRTime)
         ClsQuery.UpdateHealthLimited(InstanceID, "DISKUSAGE", HealtLimited.DiskusedRatioNormal, HealtLimited.DiskusedRatioWarning, GetCriticalThreshold_1(HealtLimited.DiskusedRatioNormal, HealtLimited.DiskusedRatioWarning), LastIp, HealtLimited.DiskusedRatioRTime)
+        ClsQuery.UpdateHealthLimited(InstanceID, "REPLICATION_DELAY", HealtLimited.ReplicationDelayNormal, HealtLimited.ReplicationDelayWarning, GetCriticalThreshold_1(HealtLimited.ReplicationDelayNormal, HealtLimited.ReplicationDelayWarning), LastIp, HealtLimited.ReplicationDelayRTime)
 
         'Dim Fixed As Integer = 1
         ClsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, 0, HealtLimited.LockedtranccntBool, LastIp)

@@ -1272,7 +1272,7 @@
             AndAlso Me.chtCPUUtil.Series(0).Points.Count > 0 Then
             If dtTable.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTable.Rows(0).Item("REG_DATE"))
-                For Each dtRow As DataRow In dtTable.Rows
+                For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "REG_DATE", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE").Rows
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
@@ -1288,9 +1288,6 @@
                 Me.chtCPUWait.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
                 Me.chtMEMUsage.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
             End If
-            sb_ChartAlignYAxies(Me.chtCPUUtil)
-            sb_ChartAlignYAxies(Me.chtCPUWait)
-            sb_ChartAlignYAxies(Me.chtMEMUsage)
         End If
 
         Try
@@ -1878,7 +1875,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs, New Date(), New Date(), False)
+            _dtTableSessionStatus = clsQu.SelectInitSessionInfoChart(strInstancIDs, New Date(), New Date(), _ElapseInterval / 1000)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -1903,7 +1900,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableCpu = clsQu.SelectInitCPUChart(strInstancIDs, p_ShowName.ToString("d"))
+            _dtTableCpu = clsQu.SelectInitCPUChart(strInstancIDs, p_ShowName.ToString("d"), _ElapseInterval / 1000)
 
         Catch ex As Exception
             GC.Collect()
@@ -1926,7 +1923,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableLogical = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), False)
+            _dtTableLogical = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), _ElapseInterval / 1000)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -1967,7 +1964,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableTPS = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), False)
+            _dtTableTPS = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), _ElapseInterval / 1000)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -2006,7 +2003,7 @@
         Try
             If _dtTableSessionStatus IsNot Nothing Then
                 For Each dtRow As DataRow In _dtTableSessionStatus.Rows
-                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DATE"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
@@ -2033,7 +2030,7 @@
         Try
             If _dtTableCpu IsNot Nothing Then
                 For Each dtRow As DataRow In _dtTableCpu.Rows
-                    dblRegDt = ConvOADate(dtRow.Item("REG_DATE"))
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DATE"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
@@ -2043,9 +2040,9 @@
                         End If
                     Next
                 Next
-                sb_ChartAlignYAxies(Me.chtCPUUtil)
-                sb_ChartAlignYAxies(Me.chtCPUWait)
-                sb_ChartAlignYAxies(Me.chtMEMUsage)
+                Me.chtCPUUtil.ChartAreas(0).RecalculateAxesScale()
+                Me.chtCPUWait.ChartAreas(0).RecalculateAxesScale()
+                Me.chtMEMUsage.ChartAreas(0).RecalculateAxesScale()
             End If
         Catch ex As Exception
             GC.Collect()
@@ -2060,7 +2057,7 @@
         Try
             If _dtTableLogical IsNot Nothing Then
                 For Each dtRow As DataRow In _dtTableLogical.Rows
-                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DATE"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
@@ -2110,7 +2107,7 @@
         Try
             If _dtTableTPS IsNot Nothing Then
                 For Each dtRow As DataRow In _dtTableTPS.Rows
-                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                    dblRegDt = ConvOADate(dtRow.Item("COLLECT_DATE"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then

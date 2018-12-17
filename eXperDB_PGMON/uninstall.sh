@@ -7,7 +7,7 @@
 
 #EXPORT_TYPE="TYPE TABLE PACKAGE VIEW GRANT SEQUENCE TRIGGER FUNCTION PROCEDURE TABLESPACE PARTITION MVIEW DBLINK SYNONYM DIRECTORY"
 INCLUDE_LIB_INSTALL_FILES="experdb_pgmon.so"
-INCLUDE_EXT_INSTALL_FILES="experdb_pgmon--1.0.sql experdb_pgmon--unpackaged--1.0.sql experdb_pgmon.control"
+INCLUDE_EXT_INSTALL_FILES="experdb_pgmon--1.1.sql experdb_pgmon--unpackaged--1.1.sql experdb_pgmon.control"
 INSTALL_DIRECTORIES="lib share/postgresql/extension"
 PG_HOME=""
 INSTALL_LIB_ONLY=0

@@ -109,6 +109,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\System.Net.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Windows.Forms.DataVisualization.Design" />
@@ -361,6 +362,11 @@
     <Compile Include="frmSplashScreen.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="STMTData.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>STMTData.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AlertConfiguration.resx">
@@ -499,6 +505,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="STMTData.xsc">
+      <DependentUpon>STMTData.xsd</DependentUpon>
+    </None>
+    <None Include="STMTData.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>STMTData.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="STMTData.xss">
+      <DependentUpon>STMTData.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -645,6 +662,9 @@
     <Content Include="Sounds\Siren.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -232,6 +232,7 @@ public class ReplCollect extends TaskApplication {
 				parameObjt.put("ha_host", replSel.get("ha_host"));
 				parameObjt.put("ha_port", replSel.get("ha_port"));
 				parameObjt.put("replay_lag", replSel.get("replay_lag"));
+				parameObjt.put("replay_lag_size", replSel.get("replay_lag_size"));
 				
 				sessionAgent.insert("app.TB_REPL_COLLECT_INFO_I001", parameObjt);
 				

@@ -1294,11 +1294,11 @@
 
     End Function
     ' Add Functions for accumulated chart in detail view
-    Public Function SelectInitCPUChart(ByVal intInstanceID As String, ByVal strName As String) As DataTable
+    Public Function SelectInitCPUChart(ByVal intInstanceID As String, ByVal strName As String, ByVal intInterval As Integer) As DataTable
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCPUMEMINFOPREV")
-                strQuery = String.Format(strQuery, intInstanceID, strName)
+                strQuery = String.Format(strQuery, intInstanceID, strName, intInterval)
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                     Return dtSet.Tables(0)
@@ -1741,26 +1741,14 @@
         End Try
 
     End Function
-#End Region
-
-#Region "ChartDetail"
-    Public Function SelectInitSessionInfoChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+    Public Function SelectInitSessionInfoChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal intInterval As Integer) As DataTable
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSESSIONINFOPREV")
                 Dim subQuery As String = ""
 
-                If HaveDuration = True Then
-                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
-                        subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
-                    Else
-                        subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                    End If
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
-                Else
-                    subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time AND COL.REG_TIME < (now())::time")
-                End If
+                subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '10 minute')::time AND COL.REG_TIME < (now())::time", intInterval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1777,23 +1765,74 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectInitObjectChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean) As DataTable
+    Public Function SelectInitObjectChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal intInterval As Integer) As DataTable
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTOBJECTPREV")
                 Dim subQuery As String = ""
 
-                If HaveDuration = True Then
-                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
-                        subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
-                    Else
-                        subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                    End If
-                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
+                subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
+                strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '10 minute'", "now()", intInterval)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
                 Else
-                    subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '10 minute'", "now()")
+                    Return Nothing
                 End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+#End Region
+
+#Region "ChartDetail"
+
+    Public Function SelectDetailSessionInfoChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSESSIONINFO")
+                Dim subQuery As String = ""
+
+                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+    Public Function SelectDetailObjectChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILOBJECT")
+                Dim subQuery As String = ""
+
+                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
+                Else
+                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                End If
+                strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'")
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1968,11 +2007,10 @@
         End Try
     End Function
 
-    Public Function SelectReplicationSlave(ByVal InstanceID As String, ByVal isMaster As Boolean) As DataTable
+    Public Function SelectReplicationSlave(ByVal InstanceID As String, ByVal strName As String, ByVal isMaster As Boolean) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTANDBY")
-                Dim subQuery As String = ""
+                Dim strQuery As String = ""
 
                 If isMaster = True Then
                     strQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONMASTER")
@@ -1980,7 +2018,7 @@
                     strQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTANDBY")
                 End If
 
-                strQuery = String.Format(strQuery, InstanceID, subQuery)
+                strQuery = String.Format(strQuery, InstanceID, strName)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

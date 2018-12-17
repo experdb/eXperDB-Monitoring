@@ -1,4 +1,4 @@
-/* contrib/get_backend_rsc/get_backend_rsc--1.0.sql */
+/* contrib/get_backend_rsc/get_backend_rsc--1.1.sql */
 
 -- complain if script is sourced in psql, rather than via CREATE EXTENSION
 \echo Use "CREATE EXTENSION experdb_pgmon" to load this file. \quit

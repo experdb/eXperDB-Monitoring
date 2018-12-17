@@ -1437,7 +1437,7 @@
         Dim tmpThread As New Threading.Thread(Sub()
 
                                                   Try
-                                                      rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs, enumSvrNm.ToString("d"))
+                                                      rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs, enumSvrNm.ToString("d"), _intPeriod)
                                                   Catch ex As Threading.ThreadAbortException
                                                       p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Request Thread Time Out", QueryXmlID))
                                                       AddMsgQueue(String.Format("{0} Data Request Thread Time Out", QueryXmlID))

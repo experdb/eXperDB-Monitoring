@@ -2836,6 +2836,14 @@
     <COLUMNS>DB_NAME|DATABASE|TEXT||200;SCHEMA_NAME|SCHEMA|TEXT||200;INDEX_NAME|INDEX|TEXT||200;TABLE_NAME|TABLE|TEXT||200;INDEX_SIZE_KB|INDEX SIZE|DATASIZE|N2|100;COLUMNS_CNT|COLUMNS COUNT|NUMBER|N0|100</COLUMNS>
     <VALUECAST />
   </ROW>
+  <ROW ID="REPLICATION_DELAY" PARAMS="0">
+    <DESC>Check the status of replication latency between the primary and master clusters.</DESC>
+    <DATA><![CDATA[Replication delay]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="M019" PARAMS="1">
     <DESC>라이선스 만료일 체크</DESC>
     <DATA><![CDATA[License period is {0} days left.]]></DATA>

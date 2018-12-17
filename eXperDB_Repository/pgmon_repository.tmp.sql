@@ -256,6 +256,7 @@ CREATE TABLE tb_replication_info (
     ha_port character varying(10),
     ha_group integer,
     replay_lag integer,
+    replay_lag_size numeric(20,0),
     collect_dt timestamp without time zone
 );
 
@@ -704,6 +705,7 @@ INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'LASTANALYZE', 'DAY', '0', 7.00, 0.00, '1', NULL, NULL);
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'ACTIVECONNECTION', '%', '0', 80.00, 90.00, '0', NULL, NULL);
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'HASTATUS', 'LVL', '0', 1.00, 2.00, '0', NULL, NULL);
+INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'REPLICATION_DELAY', 'MB', '0', 100, 1000, '0', NULL, NULL);
 
 --INSERT INTO tb_config VALUES ('23:30:00', 30, 7, 'ADMIN', 'webcash', '', '5964', '', '', '');
 

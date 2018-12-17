@@ -39,6 +39,8 @@
         dtbSWAPusedratio.BarMaxValue = 0
         dtbDiskusedratio.BarMinValue = 0
         dtbDiskusedratio.BarMaxValue = 0
+        dtbReplicationDelay.BarMinValue = 0
+        dtbReplicationDelay.BarMaxValue = 0
 
 
         If dtTable IsNot Nothing Then
@@ -64,6 +66,8 @@
         dtbSWAPusedratio.BarMaxValue = 0
         dtbDiskusedratio.BarMinValue = 0
         dtbDiskusedratio.BarMaxValue = 0
+        dtbReplicationDelay.BarMinValue = 0
+        dtbReplicationDelay.BarMaxValue = 0
 
         For index = 0 To DT.Rows.Count - 1
             Dim valueLeft As Integer = 0
@@ -152,6 +156,13 @@
                         cbxDuration6.Checked = True
                         nudDuration6.Value = retentionTime
                     End If
+                Case "REPLICATION_DELAY"
+                    dtbReplicationDelay.BarMinValue = valueLeft
+                    dtbReplicationDelay.BarMaxValue = ValueRight
+                    If retentionTime > 0 Then
+                        cbxDuration7.Checked = True
+                        nudDuration7.Value = retentionTime
+                    End If
 
 
 
@@ -195,6 +206,8 @@
         dtbSWAPusedratio.BarMaxValue = 0
         dtbDiskusedratio.BarMinValue = 0
         dtbDiskusedratio.BarMaxValue = 0
+        dtbReplicationDelay.BarMinValue = 0
+        dtbReplicationDelay.BarMaxValue = 0
 
         For index = 0 To DT.Rows.Count - 1
             Dim valueLeft As Integer = 0
@@ -248,6 +261,9 @@
                 Case "DISKUSAGE"
                     dtbDiskusedratio.BarMaxValue = ValueRight
                     dtbDiskusedratio.BarMinValue = valueLeft
+                Case "REPLICATION_DELAY"
+                    dtbReplicationDelay.BarMaxValue = ValueRight
+                    dtbReplicationDelay.BarMinValue = valueLeft
                 Case "LOCKCNT"
                     cbxLockedtranccnt.Checked = Check
                     nudLockedtranccnt.Value = nudValue
@@ -297,6 +313,8 @@
         tmpClass.DiskusedRatioNormal = dtbDiskusedratio.BarMinValue
         tmpClass.DiskusedRatioWarning = dtbDiskusedratio.BarMaxValue
 
+        tmpClass.ReplicationDelayNormal = dtbReplicationDelay.BarMinValue
+        tmpClass.ReplicationDelayWarning = dtbReplicationDelay.BarMaxValue
 
         tmpClass.BufferRatioRTime = nudDuration1.Value
         tmpClass.CommitRatioRTime = nudDuration2.Value
@@ -304,6 +322,7 @@
         tmpClass.DiskusedRatioRTime = nudDuration4.Value
         tmpClass.ConnectionsRTime = nudDuration5.Value
         tmpClass.CPUwaitRatioRTime = nudDuration6.Value
+        tmpClass.ReplicationDelayRTime = nudDuration7.Value
 
 
         tmpClass.LockedTrancCnt = nudLockedtranccnt.Value
@@ -366,6 +385,10 @@
         Public DiskusedRatioWarning As Integer
         Public DiskusedRatioRTime As Integer
 
+        Public ReplicationDelayNormal As Integer
+        Public ReplicationDelayWarning As Integer
+        Public ReplicationDelayRTime As Integer
+
 
         Public LockedTrancCnt As Integer
         Public IdleTransCnt As Integer
@@ -425,7 +448,7 @@
     End Sub
 
 
-    Private Sub cbxDuration1_CheckedChanged(sender As Object, e As EventArgs) Handles cbxDuration1.CheckedChanged, cbxDuration2.CheckedChanged, cbxDuration3.CheckedChanged, cbxDuration4.CheckedChanged, cbxDuration5.CheckedChanged, cbxDuration6.CheckedChanged
+    Private Sub cbxDuration1_CheckedChanged(sender As Object, e As EventArgs) Handles cbxDuration1.CheckedChanged, cbxDuration2.CheckedChanged, cbxDuration3.CheckedChanged, cbxDuration4.CheckedChanged, cbxDuration5.CheckedChanged, cbxDuration6.CheckedChanged, cbxDuration7.CheckedChanged
         Dim chkTemp As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
         Select Case chkTemp.Name
             Case "cbxDuration1"
@@ -446,6 +469,9 @@
             Case "cbxDuration6"
                 nudDuration6.Enabled = chkTemp.Checked
                 If chkTemp.Checked = False Then nudDuration6.Value = 0
+            Case "cbxDuration7"
+                nudDuration7.Enabled = chkTemp.Checked
+                If chkTemp.Checked = False Then nudDuration7.Value = 0
         End Select
     End Sub
 End Class

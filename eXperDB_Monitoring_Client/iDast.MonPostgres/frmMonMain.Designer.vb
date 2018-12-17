@@ -2225,7 +2225,7 @@ Partial Class frmMonMain
         ChartArea3.AxisY.Title = "Usage(%)"
         ChartArea3.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea3.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
         ChartArea3.AxisY2.IsLabelAutoFit = False
         ChartArea3.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea3.AxisY2.LineColor = System.Drawing.Color.DimGray
@@ -3263,7 +3263,7 @@ Partial Class frmMonMain
         ChartArea12.AxisY.Title = "Wait(%)"
         ChartArea12.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea12.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea12.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea12.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
         ChartArea12.AxisY2.IsLabelAutoFit = False
         ChartArea12.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea12.AxisY2.LineColor = System.Drawing.Color.DimGray
@@ -3477,6 +3477,7 @@ Partial Class frmMonMain
         ChartArea14.AxisY.Interval = 20.0R
         ChartArea14.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
         ChartArea14.AxisY.IsLabelAutoFit = False
+        ChartArea14.AxisY.IsMarginVisible = False
         ChartArea14.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea14.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
         ChartArea14.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
@@ -3489,10 +3490,16 @@ Partial Class frmMonMain
         ChartArea14.AxisY.Title = "Util(%)"
         ChartArea14.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea14.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea14.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea14.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
+        ChartArea14.AxisY2.Interval = 20.0R
+        ChartArea14.AxisY2.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
         ChartArea14.AxisY2.IsLabelAutoFit = False
+        ChartArea14.AxisY2.IsMarginVisible = False
         ChartArea14.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea14.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea14.AxisY2.Maximum = 100.0R
+        ChartArea14.AxisY2.MaximumAutoSize = 100.0!
+        ChartArea14.AxisY2.Minimum = 0.0R
         ChartArea14.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea14.BackColor = System.Drawing.Color.Black
         ChartArea14.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes

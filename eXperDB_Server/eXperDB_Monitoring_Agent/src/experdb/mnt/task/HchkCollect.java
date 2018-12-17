@@ -74,6 +74,7 @@ public class HchkCollect extends TaskApplication {
 				queryList.add("EXPERDBMA_BT_HCHK_CPUWAIT_001");
 				queryList.add("EXPERDBMA_BT_HCHK_SWAPUSAGE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001");
+				queryList.add("EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001");
 				
 				for (String s : queryList) {
 					selectList.clear();

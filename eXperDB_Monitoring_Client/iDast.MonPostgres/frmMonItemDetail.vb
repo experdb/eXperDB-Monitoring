@@ -755,9 +755,9 @@
                                                                          Case 1
                                                                              dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
                                                                          Case 2
-                                                                             dtTable = _clsQuery.SelectInitSessionInfoChart(_InstanceID, stDate, edDate, True)
+                                                                             dtTable = _clsQuery.SelectDetailSessionInfoChart(_InstanceID, stDate, edDate)
                                                                          Case 3
-                                                                             dtTable = _clsQuery.SelectInitObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate, True)
+                                                                             dtTable = _clsQuery.SelectDetailObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate)
                                                                          Case 4
                                                                          Case 5
                                                                              dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)

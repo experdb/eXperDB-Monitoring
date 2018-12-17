@@ -167,25 +167,13 @@
         Dim positionCheckpotint As Integer = clsIni.ReadValue("CHART", "CHECKPOINT", "1")
         Dim positionReplication As Integer = clsIni.ReadValue("CHART", "REPLICATION", "2")
         Dim positionTransaction As Integer = clsIni.ReadValue("CHART", "TRANSACTION", "3")
+        Dim positionReplicationSize As Integer = clsIni.ReadValue("CHART", "REPLICATIONSIZE", "4")
 
         tlpCharts.SetRow(tlpObject, positionObject)
         tlpCharts.SetRow(tlpCheckpoint, positionCheckpotint)
         tlpCharts.SetRow(tlpReplication, positionReplication)
         tlpCharts.SetRow(tlpTPS, positionTransaction)
-
-        mnuChart.Text = 3
-
-        If positionObject = 3 Then
-            mnuChart.Text = 0
-        ElseIf positionCheckpotint = 3 Then
-            mnuChart.Text = 1
-        ElseIf positionReplication = 3 Then
-            mnuChart.Text = 2
-        ElseIf positionTransaction = 3 Then
-            mnuChart.Text = 3
-        Else
-            mnuChart.Text = 3
-        End If
+        tlpCharts.SetRow(tlpReplicationSize, positionReplicationSize)
 
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
@@ -216,6 +204,7 @@
         Me.chtTPS.Dispose()
         Me.chtPhysicaliO.Dispose()
         Me.chtReplication.Dispose()
+        Me.chtReplicationSize.Dispose()
         Me.chtLock.Dispose()
         Me.chtSession.Dispose()
         Me.chtSQLRespTm.Dispose()
@@ -323,7 +312,8 @@
         grpObject.Text = p_clsMsgData.fn_GetData("F102")
         grpSQLResposeTime.Text = p_clsMsgData.fn_GetData("F103")
         grpLock.Text = p_clsMsgData.fn_GetData("F293")
-        grpReplication.Text = p_clsMsgData.fn_GetData("F294")
+        grpReplication.Text = p_clsMsgData.fn_GetData("F294") + "(Sec)"
+        grpReplicationDelaySize.Text = p_clsMsgData.fn_GetData("F294") + "(MB)"
         grpCheckpoint.Text = p_clsMsgData.fn_GetData("F295")
         grpTPS.Text = p_clsMsgData.fn_GetData("F320")
         'DB Activity Info
@@ -524,7 +514,8 @@
 
             sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
             sb_ChartAddPoint(Me.chtCPU, "POSTGRES", dblRegDate, ConvULong(dblCpuWait))
-            sb_ChartAlignYAxies(Me.chtCPU)
+            'sb_ChartAlignYAxies(Me.chtCPU) '----
+            Me.chtCPU.ChartAreas(0).RecalculateAxesScale() 'fixed y range
 
 
             ' Memory Information 
@@ -843,7 +834,7 @@
         Me.Invoke(Sub()
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTable = _clsQuery.SelectInitCPUChart(InstanceID, p_ShowName.ToString("d"))
+                          dtTable = _clsQuery.SelectInitCPUChart(InstanceID, p_ShowName.ToString("d"), _Elapseinterval / 1000)
 
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
@@ -863,7 +854,7 @@
 
                               Dim lastRow As Integer = 0
                               For Each tmpRow As DataRow In dtRows
-                                  dblRegDate = ConvOADate(tmpRow.Item("REG_DATE"))
+                                  dblRegDate = ConvOADate(tmpRow.Item("COLLECT_DATE"))
                                   dblCpuMain = ConvDBL(tmpRow.Item("CPU_MAIN"))
                                   dblCpuWait = ConvDBL(tmpRow.Item("WAIT_UTIL_RATE"))
                                   sb_ChartAddPoint(Me.chtCPU, "MAIN", dblRegDate, ConvULong(dblCpuMain))
@@ -871,7 +862,8 @@
                               Next
 
                               modCommon.sb_GridProgClrChg(dgvCPU)
-                              sb_ChartAlignYAxies(Me.chtCPU)
+                              'sb_ChartAlignYAxies(Me.chtCPU) '----
+                              Me.chtCPU.ChartAreas(0).RecalculateAxesScale() 'fixed y range
                           End If
                       Catch ex As Exception
                           GC.Collect()
@@ -1327,7 +1319,7 @@
     Private Sub initDataReplication()
         Dim dtTable As DataTable = Nothing
         Try
-            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, _ServerInfo.HARole = "P")
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARole = "P")
             Me.Invoke(Sub()
                           AddReplicationSeries(dtTable)
                       End Sub)
@@ -1352,18 +1344,22 @@
                                   If dtRowsReplication.Count = 0 Then
                                       Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                       sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                      sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                                   Else
                                       For Each replRow As DataRow In dtRowsReplication
                                           Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
                                           sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG")))
+                                          sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG_SIZE")))
                                       Next
                                   End If
                               Else
                                   Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                   sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                  sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                               End If
                           Next
                           sb_ChartAlignYAxies(Me.chtReplication)
+                          sb_ChartAlignYAxies(Me.chtReplicationSize)
                       Catch ex As Exception
                           GC.Collect()
                       End Try
@@ -1393,16 +1389,16 @@
         Dim index As Integer = 0
         If dtTable Is Nothing Then
             AddSeries(Me.chtReplication, _ServerInfo.ShowNm + ":" + _ServerInfo.Port, _ServerInfo.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column)
+            AddSeries(Me.chtReplicationSize, _ServerInfo.ShowNm + ":" + _ServerInfo.Port, _ServerInfo.ShowNm, colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column)
         Else
             Dim dtRows As DataRow() = dtTable.Select()
 
             For Each tmpRow As DataRow In dtRows
                 AddSeries(Me.chtReplication, tmpRow.Item("SHOWNM") + ":" + tmpRow.Item("PORT"), tmpRow.Item("SHOWNM"), colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column)
+                AddSeries(Me.chtReplicationSize, tmpRow.Item("SHOWNM") + ":" + tmpRow.Item("PORT"), tmpRow.Item("SHOWNM"), colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column)
                 index += 1
             Next
         End If
-        '            Me.chtReplication.series["PixelPointWidth"]
-
 
     End Sub
     ''' <summary>
@@ -1448,7 +1444,7 @@
 
         Dim dtTable As DataTable = Nothing
         Try
-            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, _ServerInfo.HARole = "P")
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARole = "P")
         Catch ex As Exception
             GC.Collect()
         End Try
@@ -1470,18 +1466,22 @@
                                   If dtRowsReplication.Count = 0 Then
                                       Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                       sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                      sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                                   Else
                                       For Each tmpRow As DataRow In dtRowsReplication
                                           Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
                                           sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG")))
+                                          sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG_SIZE")))
                                       Next
                                   End If
                               Else
                                   Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                   sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                  sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                               End If
                           Next
                           sb_ChartAlignYAxies(Me.chtReplication)
+                          sb_ChartAlignYAxies(Me.chtReplicationSize)
 
                       Catch ex As Exception
                           GC.Collect()
@@ -1529,7 +1529,7 @@
                       Dim dtTableSession As DataTable = Nothing
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTableSession = _clsQuery.SelectInitSessionInfoChart(InstanceID, New Date(), New Date(), False)
+                          dtTableSession = _clsQuery.SelectInitSessionInfoChart(InstanceID, New Date(), New Date(), _Elapseinterval / 1000)
                           Dim dtRowsSession As DataRow() = dtTableSession.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRowsSession.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
@@ -1537,13 +1537,13 @@
                               sb_ChartAddPoint(Me.chtSession, "Total", dblRegDt, 0)
                           Else
                               For Each tmpRow As DataRow In dtRowsSession
-                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DATE"))
                                   sb_ChartAddPoint(Me.chtSession, "Active", dblRegDt, ConvULong(tmpRow.Item("CUR_ACTV_BACKEND_CNT")))
                                   sb_ChartAddPoint(Me.chtSession, "Total", dblRegDt, ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
                               Next
                           End If
 
-                          dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"), New Date(), New Date(), False)
+                          dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"), New Date(), New Date(), _Elapseinterval / 1000)
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRows.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
@@ -1558,14 +1558,13 @@
                               sb_ChartAddPoint(Me.chtTPS, "Transaction", dblRegDt, 0)
                           Else
                               For Each tmpRow As DataRow In dtRows
-                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                  Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DATE"))
                                   ' Logical I/O Info   
                                   sb_ChartAddPoint(Me.chtLocalIO, "Read", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
                                   sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
                                   sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
                                   sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
                                   'This chart will move to object view 20180125
-                                  Dim dblRegDate As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
                                   Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
                                   Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
 
@@ -1573,8 +1572,8 @@
                                   Dim dblRollback As Double = ConvULong(tmpRow.Item("ROLLBACK_TUPLES_PER_SEC"))
                                   Dim dblTransaction As Double = ConvULong(tmpRow.Item("COMMIT_TUPLES_PER_SEC")) + ConvULong(tmpRow.Item("ROLLBACK_TUPLES_PER_SEC"))
 
-                                  sb_ChartAddPoint(Me.chtObject, "Index", dblRegDate, dblIndexScan)
-                                  sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDate, dblSqlScan)
+                                  sb_ChartAddPoint(Me.chtObject, "Index", dblRegDt, dblIndexScan)
+                                  sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDt, dblSqlScan)
                                   sb_ChartAddPoint(Me.chtTPS, "Commit", dblRegDt, dblCommit)
                                   sb_ChartAddPoint(Me.chtTPS, "Rollback", dblRegDt, dblRollback)
                                   sb_ChartAddPoint(Me.chtTPS, "Transaction", dblRegDt, dblTransaction)
@@ -1634,6 +1633,7 @@
                 ChartClear(chtCheckpoint)
             Case "BTNREFRESHREPLICATION"
                 ChartClear(chtReplication)
+                ChartClear(chtReplicationSize)
         End Select
 
     End Sub
@@ -2081,51 +2081,66 @@
         End If
     End Sub
 
-    Private Sub lblCheckpoint_MouseClick(sender As Object, e As MouseEventArgs) Handles lblObject.MouseClick, lblCheckpoint.MouseClick, lblReplication.MouseClick, lblTPS.MouseClick
+    Private Sub lblCheckpoint_MouseClick(sender As Object, e As MouseEventArgs) Handles lblObject.MouseClick, lblCheckpoint.MouseClick, lblReplication.MouseClick, lblTPS.MouseClick, lblReplicationDelaySize.MouseClick
         '        mnuChart.Show(New Point(e.X, e.Y), ToolStripDropDownDirection.Default)
         Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+
+        mnuObject.Enabled = True
+        mnuCheckpoint.Enabled = True
+        mnuReplication.Enabled = True
+        mnuTPS.Enabled = True
+        mnuReplicationSize.Enabled = True
+
+        Select Case lblTemp.Parent.Name
+            Case "tlpObject"
+                mnuObject.Enabled = False
+            Case "tlpCheckpoint"
+                mnuCheckpoint.Enabled = False
+            Case "tlpReplication"
+                mnuReplication.Enabled = False
+            Case "tlpTPS"
+                mnuTPS.Enabled = False
+            Case "tlpReplicationSize"
+                mnuReplicationSize.Enabled = False
+        End Select
         mnuChart.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
         mnuChart.Tag = lblTemp.Parent
-        mnuObject.Enabled = False
-        mnuCheckpoint.Enabled = False
-        mnuReplication.Enabled = False
-        mnuTPS.Enabled = False
-
-        For i As Integer = 0 To mnuChart.Items.Count - 1
-            If mnuChart.Text = i Then
-                mnuChart.Items(i).Enabled = True
-            Else
-                mnuChart.Items(i).Enabled = False
-            End If
-        Next
     End Sub
 
-    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click
-        Dim tlpTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
-        Dim intTlprow = tlpCharts.GetRow(tlpTemp)
+    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click
+        Dim tlpCurrTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        Dim tlpChangeTemp As System.Windows.Forms.TableLayoutPanel = Nothing
+        Dim intTlpOldrow = tlpCharts.GetRow(tlpCurrTemp)
+        Dim intTlpNewRow = -1
 
+        
         If sender.Name = "mnuObject" Then
-            tlpCharts.SetRow(tlpObject, intTlprow)
+            tlpChangeTemp = tlpObject
         ElseIf sender.Name = "mnuCheckpoint" Then
-            tlpCharts.SetRow(tlpCheckpoint, intTlprow)
+            tlpChangeTemp = tlpCheckpoint
         ElseIf sender.Name = "mnuReplication" Then
-            tlpCharts.SetRow(tlpReplication, intTlprow)
+            tlpChangeTemp = tlpReplication
         ElseIf sender.Name = "mnuTPS" Then
-            tlpCharts.SetRow(tlpTPS, intTlprow)
+            tlpChangeTemp = tlpTPS
+        ElseIf sender.Name = "mnuReplicationSize" Then
+            tlpChangeTemp = tlpReplicationSize
         End If
 
-        If tlpTemp.Name = "tlpObject" Then
-            mnuChart.Text = 0
-        ElseIf tlpTemp.Name = "tlpCheckpoint" Then
-            mnuChart.Text = 1
-        ElseIf tlpTemp.Name = "tlpReplication" Then
-            mnuChart.Text = 2
-        ElseIf tlpTemp.Name = "tlpTPS" Then
-            mnuChart.Text = 3
+        intTlpNewRow = tlpCharts.GetRow(tlpChangeTemp)
+
+        tlpCurrTemp.Visible = False
+        tlpCharts.SetRow(tlpCurrTemp, 4)
+
+        tlpCharts.SetRow(tlpChangeTemp, intTlpOldrow)
+        tlpCharts.SetRow(tlpCurrTemp, intTlpNewRow)
+
+        If intTlpNewRow < 3 Then
+            tlpCurrTemp.Visible = True
         End If
 
-        'mnuChart.Text = intTlprow
-        tlpCharts.SetRow(tlpTemp, 3)
+        If intTlpOldrow < 3 Then
+            tlpChangeTemp.Visible = True
+        End If
 
         WriteChartPosition()
 
@@ -2137,6 +2152,7 @@
         clsIni.WriteValue("CHART", "CHECKPOINT", tlpCharts.GetRow(tlpCheckpoint))
         clsIni.WriteValue("CHART", "REPLICATION", tlpCharts.GetRow(tlpReplication))
         clsIni.WriteValue("CHART", "TRANSACTION", tlpCharts.GetRow(tlpTPS))
+        clsIni.WriteValue("CHART", "REPLICATIONSIZE", tlpCharts.GetRow(tlpReplicationSize))
     End Sub
 
     Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged

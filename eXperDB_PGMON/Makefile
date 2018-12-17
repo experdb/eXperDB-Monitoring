@@ -6,7 +6,7 @@ OBJS = experdb_pgmon.o
 
 #EXTENSION = experdb_pgmon
 EXTENSION = $(MODULE_big)
-DATA = experdb_pgmon--1.0.sql experdb_pgmon--unpackaged--1.0.sql
+DATA = experdb_pgmon--1.1.sql experdb_pgmon--unpackaged--1.1.sql
 
 ifdef NO_PGXS
 subdir = contrib/experdb_pgmon
