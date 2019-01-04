@@ -361,13 +361,13 @@
 					 CASE WHEN tblpages - est_tblpages_ff > 0
 						    THEN 100 * (tblpages - est_tblpages_ff)/tblpages::float
 						    ELSE 0
-					 END AS bloat_ratio, is_na
+					 END AS bloat_ratio, is_na, relid, autovacuum_count, autoanalyze_count, (SELECT age(datfrozenxid) FROM pg_database WHERE datname = CURRENT_DATABASE()) maxage
 		 FROM (
 				   SELECT ceil( reltuples / ( (bs-page_hdr)/tpl_size ) ) + ceil( toasttuples / 4 ) AS est_tblpages,
 							    ceil( reltuples / ( (bs-page_hdr)*fillfactor/(tpl_size*100) ) ) + ceil( toasttuples / 4 ) AS est_tblpages_ff,
 							    tblpages, fillfactor, bs, tblid, schema_name, table_name, heappages, toastpages, is_na,
 							    reltoastrelid, AGG_SEQ_SCAN_CNT, AGG_SEQ_TUPLES, AGG_INDEX_SCAN_CNT, AGG_INDEX_TUPLES, LIVE_TUPLE_CNT,
-							    DEAD_TUPLE_CNT, LAST_VACUUM,LAST_ANALYZE,tot_index_size_kb,index_cnt
+							    DEAD_TUPLE_CNT, LAST_VACUUM,LAST_ANALYZE,tot_index_size_kb,index_cnt,relid,autovacuum_count,autoanalyze_count
 				     FROM (
 						       SELECT ( 4 + tpl_hdr_size + tpl_data_size + (2*ma)
 									           - CASE WHEN tpl_hdr_size%ma = 0 THEN ma ELSE tpl_hdr_size%ma END
@@ -393,6 +393,9 @@
 									 	             ELSE last_autoanalyze END AS last_analyze
 									 	       ,coalesce(UDX.TOT_IDX_SIZE, 0) tot_index_size_kb 
 									 	       ,coalesce(UDX.IDX_CNT, 0) index_cnt
+									 	       ,utb.relid
+									 	       ,utb.autovacuum_count autovacuum_count
+									 	       ,utb.autoanalyze_count autoanalyze_count
 							       FROM (
 										         SELECT  tbl.oid AS tblid, ns.nspname AS schemaname, tbl.relname AS tblname, tbl.reltuples,
 													           tbl.relpages AS heappages, coalesce(toast.relpages, 0) AS toastpages,
@@ -459,7 +462,8 @@
 		    dead_tuple_cnt,
 		    last_vacuum,
 		    last_analyze,
-		    collect_dt
+		    collect_dt,
+		    relid
 	    )
 		VALUES 
 		(
@@ -485,7 +489,8 @@
 			#{dead_tuple_cnt},
 			#{last_vacuum},
 			#{last_analyze},
-			#{collect_dt}
+			#{collect_dt},		
+		    #{relid}
 		)
 	</insert>
 	
@@ -502,6 +507,29 @@
 		]]>	
 	</delete>
 
+	<insert id="TB_TABLE_EXT_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_TABLE_EXT_INFO
+		(
+		    collect_dt,
+		    objt_reg_seq,
+		    instance_id,
+		    relid,
+		    autovacuum_count,
+		    autoanalyze_count,
+		    maxage
+	    )
+		VALUES 
+		(
+			#{collect_dt},		
+			CURRVAL('OBJT_REG_SEQ'),
+		    #{instance_id},
+		    #{relid},
+			#{autovacuum_count},
+			#{autoanalyze_count},
+			#{maxage}
+		)
+	</insert>
+	
 	<select id="BT_INDEX_INFO_001" parameterType="hashmap" resultType="hashmap">
 		SELECT /* EXPERDBMABT_INDEX_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -1878,7 +1906,13 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		DELETE /* PGMONTB_BATCH_PG_STAT_STATEMENT_001 */ FROM TB_PG_STAT_STATEMENTS WHERE REG_DATE <= TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_PG_STAT_STATEMENTS) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1), 'YYYYMMDD');
 		]]>	
 	</delete>
-
+	
+	<delete id="PGMONBT_BATCH_TABLE_EXT_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TABLE_EXT_INFO_001 */ FROM TB_TABLE_EXT_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_TABLE_EXT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1);
+		]]>	
+	</delete>
+	
 	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
 		vacuum analyze TB_INSTANCE_INFO    ;
 	</update>
@@ -1956,6 +1990,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="VACUUM_ANALYZE_U028" parameterType="hashmap" >		
 		vacuum analyze TB_PG_STAT_STATEMENTS ;
+	</update>
+	<update id="VACUUM_ANALYZE_U029" parameterType="hashmap" >		
+		vacuum analyze TB_TABLE_EXT_INFO ;
 	</update>
 <!-- ********************************************************** -->
 <!-- DailyBatchTask END -->

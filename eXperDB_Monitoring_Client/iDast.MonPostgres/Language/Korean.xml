@@ -2628,6 +2628,30 @@
     <DATA><![CDATA[필터링 구문 편집]]></DATA>
     <VALUECAST />
   </ROW>
+  <ROW ID="F334" PARAMS="0">
+    <DESC>TXID Maxage</DESC>
+    <DATA><![CDATA[TXID Maxage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F335" PARAMS="0">
+    <DESC>Autovacuum workers</DESC>
+    <DATA><![CDATA[Autovacuum workers]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F336" PARAMS="0">
+    <DESC>Autovacuum count</DESC>
+    <DATA><![CDATA[Autovacuum count by tables]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -3185,6 +3209,14 @@
   <ROW ID="M061" PARAMS="0">
     <DESC>Statement filter</DESC>
     <DATA><![CDATA[필터링할 구문을 설정합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M062" PARAMS="0">
+    <DESC>Chart Autovacuum</DESC>
+    <DATA><![CDATA[기간별 Autovacuum 활동정보를 조회합니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

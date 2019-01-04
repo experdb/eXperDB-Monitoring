@@ -165,6 +165,7 @@ Partial Class frmMonDetail
         Me.btnActInfo = New eXperDB.BaseControls.Button()
         Me.btnPartView = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnMenu = New eXperDB.BaseControls.Button()
         Me.btnStatements = New eXperDB.BaseControls.Button()
         Me.picLogo = New System.Windows.Forms.PictureBox()
         Me.ServerName_lv = New System.Windows.Forms.Label()
@@ -278,6 +279,14 @@ Partial Class frmMonDetail
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblRetention = New System.Windows.Forms.Label()
         Me.cmbRetention = New eXperDB.BaseControls.ComboBox()
+        Me.mnuMenu = New eXperDB.BaseControls.ContextMenuStrip()
+        Me.mnuSQLPlan = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSessionLock = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuObjectView = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuLogView = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTimelineView = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuStatements = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAutovacuum = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.chtSession, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtSQLRespTm, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtLocalIO, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -321,6 +330,7 @@ Partial Class frmMonDetail
         Me.mnuChart.SuspendLayout()
         Me.tlpMainWrapper.SuspendLayout()
         Me.tlpButtonTrends.SuspendLayout()
+        Me.mnuMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'chtSession
@@ -1768,7 +1778,7 @@ Partial Class frmMonDetail
         Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSessionLock.Image = CType(resources.GetObject("btnSessionLock.Image"), System.Drawing.Image)
         Me.btnSessionLock.LineColor = System.Drawing.Color.LightGray
-        Me.btnSessionLock.Location = New System.Drawing.Point(1167, 11)
+        Me.btnSessionLock.Location = New System.Drawing.Point(1127, 11)
         Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSessionLock.Name = "btnSessionLock"
         Me.btnSessionLock.Radius = 5
@@ -1776,6 +1786,7 @@ Partial Class frmMonDetail
         Me.btnSessionLock.TabIndex = 3
         Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSessionLock.UseVisualStyleBackColor = True
+        Me.btnSessionLock.Visible = False
         '
         'btnSqlPlan
         '
@@ -1789,14 +1800,15 @@ Partial Class frmMonDetail
         Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSqlPlan.Image = CType(resources.GetObject("btnSqlPlan.Image"), System.Drawing.Image)
         Me.btnSqlPlan.LineColor = System.Drawing.Color.LightGray
-        Me.btnSqlPlan.Location = New System.Drawing.Point(1127, 11)
+        Me.btnSqlPlan.Location = New System.Drawing.Point(1048, 11)
         Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSqlPlan.Name = "btnSqlPlan"
         Me.btnSqlPlan.Radius = 5
-        Me.btnSqlPlan.Size = New System.Drawing.Size(34, 31)
+        Me.btnSqlPlan.Size = New System.Drawing.Size(73, 31)
         Me.btnSqlPlan.TabIndex = 2
         Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSqlPlan.UseVisualStyleBackColor = True
+        Me.btnSqlPlan.Visible = False
         '
         'btnActInfo
         '
@@ -1810,7 +1822,7 @@ Partial Class frmMonDetail
         Me.btnActInfo.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnActInfo.Image = CType(resources.GetObject("btnActInfo.Image"), System.Drawing.Image)
         Me.btnActInfo.LineColor = System.Drawing.Color.LightGray
-        Me.btnActInfo.Location = New System.Drawing.Point(1207, 11)
+        Me.btnActInfo.Location = New System.Drawing.Point(1167, 11)
         Me.btnActInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnActInfo.Name = "btnActInfo"
         Me.btnActInfo.Radius = 5
@@ -1818,6 +1830,7 @@ Partial Class frmMonDetail
         Me.btnActInfo.TabIndex = 1
         Me.btnActInfo.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnActInfo.UseVisualStyleBackColor = True
+        Me.btnActInfo.Visible = False
         '
         'btnPartView
         '
@@ -1831,7 +1844,7 @@ Partial Class frmMonDetail
         Me.btnPartView.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPartView.Image = CType(resources.GetObject("btnPartView.Image"), System.Drawing.Image)
         Me.btnPartView.LineColor = System.Drawing.Color.LightGray
-        Me.btnPartView.Location = New System.Drawing.Point(1247, 11)
+        Me.btnPartView.Location = New System.Drawing.Point(1207, 11)
         Me.btnPartView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPartView.Name = "btnPartView"
         Me.btnPartView.Radius = 5
@@ -1839,13 +1852,14 @@ Partial Class frmMonDetail
         Me.btnPartView.TabIndex = 0
         Me.btnPartView.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnPartView.UseVisualStyleBackColor = True
+        Me.btnPartView.Visible = False
         '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.ColumnCount = 10
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 965.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -1853,14 +1867,15 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.btnStatements, 9, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnMenu, 9, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnStatements, 8, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.picLogo, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSessionLock, 5, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnPartView, 7, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnActInfo, 6, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSqlPlan, 4, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSessionLock, 4, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnPartView, 6, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnActInfo, 5, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSqlPlan, 3, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.ServerName_lv, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnChartDetail, 8, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnChartDetail, 7, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -1869,6 +1884,27 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(1364, 54)
         Me.TableLayoutPanel2.TabIndex = 13
+        '
+        'btnMenu
+        '
+        Me.btnMenu.BackColor = System.Drawing.Color.Silver
+        Me.btnMenu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnMenu.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnMenu.FixedHeight = False
+        Me.btnMenu.FixedWidth = False
+        Me.btnMenu.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnMenu.ForeColor = System.Drawing.Color.Red
+        Me.btnMenu.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnMenu.Image = CType(resources.GetObject("btnMenu.Image"), System.Drawing.Image)
+        Me.btnMenu.LineColor = System.Drawing.Color.LightGray
+        Me.btnMenu.Location = New System.Drawing.Point(1327, 11)
+        Me.btnMenu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnMenu.Name = "btnMenu"
+        Me.btnMenu.Radius = 5
+        Me.btnMenu.Size = New System.Drawing.Size(34, 31)
+        Me.btnMenu.TabIndex = 11
+        Me.btnMenu.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnMenu.UseVisualStyleBackColor = True
         '
         'btnStatements
         '
@@ -1882,7 +1918,7 @@ Partial Class frmMonDetail
         Me.btnStatements.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnStatements.Image = CType(resources.GetObject("btnStatements.Image"), System.Drawing.Image)
         Me.btnStatements.LineColor = System.Drawing.Color.LightGray
-        Me.btnStatements.Location = New System.Drawing.Point(1327, 11)
+        Me.btnStatements.Location = New System.Drawing.Point(1287, 11)
         Me.btnStatements.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnStatements.Name = "btnStatements"
         Me.btnStatements.Radius = 5
@@ -1890,6 +1926,7 @@ Partial Class frmMonDetail
         Me.btnStatements.TabIndex = 9
         Me.btnStatements.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnStatements.UseVisualStyleBackColor = True
+        Me.btnStatements.Visible = False
         '
         'picLogo
         '
@@ -1928,7 +1965,7 @@ Partial Class frmMonDetail
         Me.btnChartDetail.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnChartDetail.Image = CType(resources.GetObject("btnChartDetail.Image"), System.Drawing.Image)
         Me.btnChartDetail.LineColor = System.Drawing.Color.LightGray
-        Me.btnChartDetail.Location = New System.Drawing.Point(1287, 11)
+        Me.btnChartDetail.Location = New System.Drawing.Point(1247, 11)
         Me.btnChartDetail.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnChartDetail.Name = "btnChartDetail"
         Me.btnChartDetail.Radius = 5
@@ -1936,6 +1973,7 @@ Partial Class frmMonDetail
         Me.btnChartDetail.TabIndex = 8
         Me.btnChartDetail.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnChartDetail.UseVisualStyleBackColor = True
+        Me.btnChartDetail.Visible = False
         '
         'tlpCharts
         '
@@ -2104,7 +2142,7 @@ Partial Class frmMonDetail
         '
         'tlpTPS
         '
-        Me.tlpTPS.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpTPS.BackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
         Me.tlpTPS.ColumnCount = 4
         Me.tlpTPS.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpTPS.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -2180,6 +2218,8 @@ Partial Class frmMonDetail
         ChartArea7.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         ChartArea7.BackColor = System.Drawing.Color.Transparent
         ChartArea7.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea7.CursorX.IsUserEnabled = True
+        ChartArea7.CursorX.IsUserSelectionEnabled = True
         ChartArea7.Name = "ChartArea1"
         Me.chtTPS.ChartAreas.Add(ChartArea7)
         Me.tlpTPS.SetColumnSpan(Me.chtTPS, 4)
@@ -2229,7 +2269,7 @@ Partial Class frmMonDetail
         'grpTPS
         '
         Me.grpTPS.AutoSize = True
-        Me.grpTPS.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpTPS.BackColor = System.Drawing.Color.FromArgb(CType(CType(72, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer))
         Me.grpTPS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grpTPS.ForeColor = System.Drawing.Color.White
         Me.grpTPS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3864,6 +3904,62 @@ Partial Class frmMonDetail
         Me.cmbRetention.TabIndex = 25
         Me.cmbRetention.ValueText = ""
         '
+        'mnuMenu
+        '
+        Me.mnuMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSQLPlan, Me.mnuSessionLock, Me.mnuObjectView, Me.mnuLogView, Me.mnuTimelineView, Me.mnuStatements, Me.mnuAutovacuum})
+        Me.mnuMenu.Name = "mnuPopup"
+        Me.mnuMenu.Size = New System.Drawing.Size(177, 186)
+        '
+        'mnuSQLPlan
+        '
+        Me.mnuSQLPlan.Image = CType(resources.GetObject("mnuSQLPlan.Image"), System.Drawing.Image)
+        Me.mnuSQLPlan.Name = "mnuSQLPlan"
+        Me.mnuSQLPlan.Size = New System.Drawing.Size(176, 26)
+        Me.mnuSQLPlan.Text = "SQL Plan"
+        '
+        'mnuSessionLock
+        '
+        Me.mnuSessionLock.Image = CType(resources.GetObject("mnuSessionLock.Image"), System.Drawing.Image)
+        Me.mnuSessionLock.Name = "mnuSessionLock"
+        Me.mnuSessionLock.Size = New System.Drawing.Size(176, 26)
+        Me.mnuSessionLock.Text = "Session/Lock view"
+        '
+        'mnuObjectView
+        '
+        Me.mnuObjectView.Image = CType(resources.GetObject("mnuObjectView.Image"), System.Drawing.Image)
+        Me.mnuObjectView.Name = "mnuObjectView"
+        Me.mnuObjectView.Size = New System.Drawing.Size(176, 26)
+        Me.mnuObjectView.Text = "Object view"
+        '
+        'mnuLogView
+        '
+        Me.mnuLogView.Image = CType(resources.GetObject("mnuLogView.Image"), System.Drawing.Image)
+        Me.mnuLogView.Name = "mnuLogView"
+        Me.mnuLogView.Size = New System.Drawing.Size(176, 26)
+        Me.mnuLogView.Text = "Log view"
+        '
+        'mnuTimelineView
+        '
+        Me.mnuTimelineView.Image = CType(resources.GetObject("mnuTimelineView.Image"), System.Drawing.Image)
+        Me.mnuTimelineView.Name = "mnuTimelineView"
+        Me.mnuTimelineView.Size = New System.Drawing.Size(176, 26)
+        Me.mnuTimelineView.Text = "Time line view"
+        '
+        'mnuStatements
+        '
+        Me.mnuStatements.Image = CType(resources.GetObject("mnuStatements.Image"), System.Drawing.Image)
+        Me.mnuStatements.Name = "mnuStatements"
+        Me.mnuStatements.Size = New System.Drawing.Size(176, 26)
+        Me.mnuStatements.Text = "Statements view"
+        '
+        'mnuAutovacuum
+        '
+        Me.mnuAutovacuum.Image = CType(resources.GetObject("mnuAutovacuum.Image"), System.Drawing.Image)
+        Me.mnuAutovacuum.Name = "mnuAutovacuum"
+        Me.mnuAutovacuum.Size = New System.Drawing.Size(176, 26)
+        Me.mnuAutovacuum.Text = "Autovacuum view"
+        '
         'frmMonDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
@@ -3936,9 +4032,10 @@ Partial Class frmMonDetail
         Me.tlpMainWrapper.ResumeLayout(False)
         Me.tlpButtonTrends.ResumeLayout(False)
         Me.tlpButtonTrends.PerformLayout()
+        Me.mnuMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
-End Sub
+    End Sub
     Friend WithEvents dgvCPU As BaseControls.DataGridView
     Friend WithEvents dgvResUtilPerBackProc As BaseControls.DataGridView
     Friend WithEvents chtPhysicaliO As System.Windows.Forms.DataVisualization.Charting.Chart
@@ -4120,5 +4217,14 @@ End Sub
     Friend WithEvents grpReplicationDelaySize As System.Windows.Forms.Label
     Friend WithEvents lblReplicationDelaySize As System.Windows.Forms.Button
     Friend WithEvents mnuReplicationSize As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnMenu As eXperDB.BaseControls.Button
+    Friend WithEvents mnuMenu As eXperDB.BaseControls.ContextMenuStrip
+    Friend WithEvents mnuSQLPlan As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuSessionLock As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuObjectView As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuLogView As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTimelineView As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuStatements As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuAutovacuum As System.Windows.Forms.ToolStripMenuItem
 
 End Class

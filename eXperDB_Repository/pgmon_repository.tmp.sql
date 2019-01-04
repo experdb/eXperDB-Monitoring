@@ -360,6 +360,16 @@ CREATE TABLE tb_table_info (
     collect_dt timestamp without time zone
 );
 
+CREATE TABLE tb_table_ext_info (
+    collect_dt timestamp without time ZONE,
+    objt_reg_seq integer NOT NULL,
+    instance_id integer NOT NULL,
+    relid oid,
+    autovacuum_count int8,
+    autoanalyze_count int8,
+    maxage int4
+);
+
 CREATE TABLE tb_tablespace_info (
     reg_date character varying(8) NOT NULL,
     objt_reg_seq integer NOT NULL,
@@ -491,6 +501,8 @@ ALTER TABLE ONLY tb_rsc_collect_info
 ALTER TABLE ONLY tb_table_info
     ADD CONSTRAINT pk_table_info PRIMARY KEY (reg_date,objt_reg_seq,db_name,schema_name,table_name);
 
+ALTER TABLE ONLY tb_table_ext_info
+    ADD CONSTRAINT pk_table_ext_info PRIMARY KEY (collect_dt,objt_reg_seq,relid);
 
 ALTER TABLE ONLY tb_tablespace_info
     ADD CONSTRAINT pk_tablespace_info PRIMARY KEY (reg_date,objt_reg_seq,tablespace_name);
@@ -669,6 +681,10 @@ ALTER TABLE tb_table_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_table_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_table_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_table_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_table_ext_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_table_ext_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_table_ext_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_table_ext_info SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_tablespace_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_tablespace_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_tablespace_info SET (autovacuum_vacuum_scale_factor = 0.0);

@@ -857,20 +857,23 @@
                 Dim strQuery As String = ""
                 Dim subQuery As String = ""
                 Dim interval As String = ""
+                Dim pointCount As Integer = 300
+
+                interval = minutes * 60 / pointCount
 
                 strQuery = p_clsQueryData.fn_GetData("SELECTREPORTCPUCHARTSTATS")
 
-                If minutes <= 60 Then 'collect period
-                    interval = "1" '1 min
-                ElseIf minutes > 60 AndAlso minutes <= 240 Then
-                    interval = "60" '1 min
-                ElseIf minutes > 240 AndAlso minutes <= 720 Then
-                    interval = "120" '2 min
-                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
-                    interval = "300" '5 min
-                Else
-                    interval = "1200"
-                End If
+                'If minutes <= 60 Then 'collect period
+                '    interval = "1" '1 min
+                'ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                '    interval = "60" '1 min
+                'ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                '    interval = "120" '2 min
+                'ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                '    interval = "300" '5 min
+                'Else
+                '    interval = "1200"
+                'End If
 
                 If DateDiff(DateInterval.Day, stDate, edDate) = 0 Then
                     subQuery = String.Format(" = '{0}'", stDate.ToString("yyyyMMdd"))
@@ -940,18 +943,20 @@
                 Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
                 Dim interval As String = ""
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTDISKCHARTSTATS")
+                Dim pointCount As Integer = 300
 
-                If minutes <= 60 Then 'collect period
-                    interval = "1" '1 min
-                ElseIf minutes > 60 AndAlso minutes <= 240 Then
-                    interval = "60" '1 min
-                ElseIf minutes > 240 AndAlso minutes <= 720 Then
-                    interval = "120" '2 min
-                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
-                    interval = "300" '5 min
-                Else
-                    interval = "1200"
-                End If
+                interval = minutes * 60 / pointCount
+                'If minutes <= 60 Then 'collect period
+                '    interval = "1" '1 min
+                'ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                '    interval = "60" '1 min
+                'ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                '    interval = "120" '2 min
+                'ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                '    interval = "300" '5 min
+                'Else
+                '    interval = "1200"
+                'End If
 
                 Dim subQuery As String = ""
                 If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
@@ -1050,18 +1055,21 @@
             If _ODBC IsNot Nothing Then
                 Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
                 Dim interval As String = ""
+                Dim pointCount As Integer = 300
 
-                If minutes <= 60 Then 'collect period
-                    interval = "1" '1 min
-                ElseIf minutes > 60 AndAlso minutes <= 240 Then
-                    interval = "60" '1 min
-                ElseIf minutes > 240 AndAlso minutes <= 720 Then
-                    interval = "120" '2 min
-                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
-                    interval = "300" '5 min
-                Else
-                    interval = "1200"
-                End If
+                interval = minutes * 60 / pointCount
+
+                'If minutes <= 60 Then 'collect period
+                '    interval = "1" '1 min
+                'ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                '    interval = "60" '1 min
+                'ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                '    interval = "120" '2 min
+                'ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                '    interval = "300" '5 min
+                'Else
+                '    interval = "1200"
+                'End If
 
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTTBACCESSSTATS")
                 Dim subQuery As String = ""
@@ -1162,18 +1170,20 @@
                 Dim interval As String = ""
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTSESSIONCHARTSTATS")
                 Dim subQuery As String = ""
+                Dim pointCount As Integer = 300
 
-                If minutes <= 60 Then 'collect period
-                    interval = "1" '1 min
-                ElseIf minutes > 60 AndAlso minutes <= 240 Then
-                    interval = "60" '1 min
-                ElseIf minutes > 240 AndAlso minutes <= 720 Then
-                    interval = "120" '2 min
-                ElseIf minutes > 720 AndAlso minutes <= 1440 Then
-                    interval = "300" '5 min
-                Else
-                    interval = "1200"
-                End If
+                interval = minutes * 60 / pointCount
+                'If minutes <= 60 Then 'collect period
+                '    interval = "1" '1 min
+                'ElseIf minutes > 60 AndAlso minutes <= 240 Then
+                '    interval = "60" '1 min
+                'ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                '    interval = "120" '2 min
+                'ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                '    interval = "300" '5 min
+                'Else
+                '    interval = "1200"
+                'End If
 
                 If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
@@ -1772,7 +1782,11 @@
                 Dim subQuery As String = ""
 
                 subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '10 minute'", "now()", intInterval)
+                If StDate = Nothing Then
+                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '10 minute'", "now()", intInterval)
+                Else
+                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyyMMdd HH:mm:ss") + "'", "'" + edDate.ToString("yyyyMMdd HH:mm:ss") + "'", intInterval)
+                End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -2172,6 +2186,155 @@
                 subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
                 subQuery2 = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 strQuery = String.Format(strQuery, InstanceID, subQuery, subQuery2, strQueries, strQueriesOrder)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectAutovacuumWorker(ByVal InstanceID As String, ByVal stDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTAUTOVACUUMWORKER")
+                Dim subQuery As String = ""
+                Dim subQuery2 As String = ""
+                Dim interval As String = ""
+                Dim minutes As Long = DateDiff(DateInterval.Minute, stDate, edDate)
+                Dim pointCount As Integer = 300
+
+                interval = minutes * 60 / pointCount
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                subQuery2 = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                strQuery = String.Format(strQuery, InstanceID, subQuery, subQuery2, interval)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectAutovacuumTop(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal rank As Integer) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = ""
+                strQuery = p_clsQueryData.fn_GetData("SELECTAUTOVACUUMTOP")
+                strQuery = String.Format(strQuery, InstanceID, StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"), rank)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectAutovacuumCount(ByVal InstanceID As String, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal strTables As String) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTAUTOVACUUMCOUNT")
+                Dim subQuery As String = ""
+                Dim subQuery2 As String = ""
+
+                Dim minutes As Long = DateDiff(DateInterval.Minute, stDate, edDate)
+                Dim interval As String = ""
+                Dim pointCount As Integer = 300
+
+                interval = minutes * 60 / pointCount
+
+                'If minutes < 120 Then 'collect period
+                '    interval = "1" '2 hour 5 min
+                'ElseIf minutes > 240 AndAlso minutes <= 720 Then
+                '    interval = "600" '4 hour 10 min
+                'ElseIf minutes > 720 AndAlso minutes <= 1440 Then
+                '    interval = "1200" '12 hour 20 min
+                'ElseIf minutes > 1440 AndAlso minutes <= 2880 Then
+                '    interval = "1800" '24 hour 30 min
+                'Else
+                '    interval = "3600" 'over 24 hour 60 min
+                'End If
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                subQuery2 = String.Format(" BETWEEN '{0}'::timestamp AND '{1}'::timestamp", stDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                strQuery = String.Format(strQuery, InstanceID, subQuery, subQuery2, strTables, interval)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectDatabases(ByVal InstanceID As String) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = ""
+                strQuery = p_clsQueryData.fn_GetData("SELECTDATABASES")
+                strQuery = String.Format(strQuery, InstanceID)
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectAutovacuumWraparound(ByVal InstanceID As String, ByVal stDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTAUTOVACUUMWRAPAROUND")
+                Dim subQuery As String = ""
+
+                Dim minutes As Long = DateDiff(DateInterval.Minute, stDate, edDate)
+                Dim interval As String = ""
+                Dim pointCount As Integer = 300
+
+                interval = minutes * 60 / pointCount
+
+                subQuery = String.Format(" BETWEEN '{0}'::timestamp AND '{1}'::timestamp", stDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                strQuery = String.Format(strQuery, InstanceID, subQuery, interval)
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                     Return dtSet.Tables(0)

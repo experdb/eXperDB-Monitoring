@@ -2628,6 +2628,30 @@
     <DATA><![CDATA[Edit filtering]]></DATA>
     <VALUECAST />
   </ROW>
+  <ROW ID="F334" PARAMS="0">
+    <DESC>TXID Maxage</DESC>
+    <DATA><![CDATA[TXID Maxage]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F335" PARAMS="0">
+    <DESC>Autovacuum workers</DESC>
+    <DATA><![CDATA[Autovacuum workers]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F336" PARAMS="0">
+    <DESC>Autovacuum count</DESC>
+    <DATA><![CDATA[Autovacuum count by tables]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3183,6 +3207,14 @@
   <ROW ID="M061" PARAMS="0">
     <DESC>Statement filter</DESC>
     <DATA><![CDATA[You can set to filter statements.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M062" PARAMS="0">
+    <DESC>Chart Autovacuum</DESC>
+    <DATA><![CDATA[You can view autovacuum activity information by period.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

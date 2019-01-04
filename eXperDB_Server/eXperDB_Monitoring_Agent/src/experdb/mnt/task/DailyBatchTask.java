@@ -88,6 +88,7 @@ public class DailyBatchTask {
 				sessionAgent.delete("app.PGMONTB_BATCH_CHECKPOINT_INFO_001");//robin 0418 delete checkpoint
 				sessionAgent.delete("app.PGMONTB_BATCH_QEURY_INFO_001");//robin 1031 delete checkpoint
 				sessionAgent.delete("app.PGMONTB_BATCH_PG_STAT_STATEMENT_001");//robin 1031 delete checkpoint
+				sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");
 				
 				
 				//Commit
@@ -131,6 +132,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U026");
 				sessionAgent.update("app.VACUUM_ANALYZE_U027");
 				sessionAgent.update("app.VACUUM_ANALYZE_U028");
+				sessionAgent.update("app.VACUUM_ANALYZE_U029");
 			} catch (Exception e) {
 				log.error("", e);
 				

@@ -86,6 +86,7 @@ public class DX001 implements SocketApplication{
 					
 					List<HashMap<String, Object>> tablespaceSel = new ArrayList<HashMap<String,Object>>(); //TableSpace 수집
 					List<HashMap<String, Object>> tableSel = new ArrayList<HashMap<String,Object>>(); //Table 수집
+					List<HashMap<String, Object>> tableExtSel = new ArrayList<HashMap<String,Object>>(); //Table Ext 수집
 					List<HashMap<String, Object>> indexSel = new ArrayList<HashMap<String,Object>>(); //Index 수집
 					
 					if(is_collect_ok.equals("Y"))
@@ -127,6 +128,17 @@ public class DX001 implements SocketApplication{
 									map.put("current_index_tuples", 	0);									
 									
 									tableSel.add(map);
+									
+									HashMap<String, Object> tableExtMap = new HashMap<String, Object>(); //이전값
+									
+									tableExtMap.put("collect_dt", map.get("collect_dt"));
+									tableExtMap.put("relid", map.get("relid"));
+									tableExtMap.put("instance_id", Integer.valueOf(instanceId));
+									tableExtMap.put("autovacuum_count", map.get("autovacuum_count"));
+									tableExtMap.put("autoanalyze_count", map.get("autoanalyze_count"));
+									tableExtMap.put("maxage", map.get("maxage"));
+									
+									tableExtSel.add(tableExtMap);
 								}
 								///////////////////////////////////////////////////////////////////////////////								
 
@@ -220,6 +232,13 @@ public class DX001 implements SocketApplication{
 						// TABLE 정보 등록
 						for (HashMap<String, Object> map : tableSel) {
 							sessionAgent.insert("app.TB_TABLE_INFO_I001", map);
+						}
+						///////////////////////////////////////////////////////////////////////////////				
+						
+						///////////////////////////////////////////////////////////////////////////////				
+						// TABLE 정보 등록
+						for (HashMap<String, Object> map : tableExtSel) {
+							sessionAgent.insert("app.TB_TABLE_EXT_INFO_I001", map);
 						}
 						///////////////////////////////////////////////////////////////////////////////				
 						

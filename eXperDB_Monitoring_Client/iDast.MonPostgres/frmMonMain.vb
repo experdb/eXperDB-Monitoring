@@ -1923,7 +1923,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableLogical = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), _ElapseInterval / 1000)
+            _dtTableLogical = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), Nothing, Nothing, _ElapseInterval / 1000)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -1964,7 +1964,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableTPS = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), New Date(), New Date(), _ElapseInterval / 1000)
+            _dtTableTPS = clsQu.SelectInitObjectChart(strInstancIDs, p_ShowName.ToString("d"), Nothing, Nothing, _ElapseInterval / 1000)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing

@@ -908,7 +908,8 @@
                 End If
                 Me.chtPhysicaliO.Tag = strDiskNm
             End If
-
+        Else
+            SetPhysical(strDiskNm, dtTable)
         End If
 
 
@@ -1165,7 +1166,8 @@
     Private Sub cmbPhysical_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPhysical.SelectedIndexChanged
         If cmbPhysical.Tag IsNot Nothing AndAlso cmbPhysical.Tag.GetType.Equals(GetType(DataTable)) Then
             Dim dtTable As DataTable = TryCast(cmbPhysical.Tag, DataTable)
-            Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text.Split(" :")(0)
+            'Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text.Split(" :")(0)
+            Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text
             If Me.chtPhysicaliO.Tag Is Nothing OrElse Not Me.chtPhysicaliO.Tag.Equals(strDiskNm) Then
                 For Each tmpSeries As DataVisualization.Charting.Series In Me.chtPhysicaliO.Series
                     tmpSeries.Points.Clear()
@@ -1185,7 +1187,7 @@
     Private Sub SetPhysical(ByVal strDiskNm As String, ByVal dtTable As DataTable)
 
 
-        Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm))
+        Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm.Split(" :")(0)))
 
 
 
@@ -1543,7 +1545,7 @@
                               Next
                           End If
 
-                          dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"), New Date(), New Date(), _Elapseinterval / 1000)
+                          dtTable = _clsQuery.SelectInitObjectChart(InstanceID, p_ShowName.ToString("d"), Nothing, Nothing, _Elapseinterval / 1000)
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
                           If dtRows.Count = 0 Then
                               Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
@@ -1592,7 +1594,7 @@
     Private Sub initPhysical(ByVal strDiskNm As String)
         Me.Invoke(Sub()
                       Dim dtTable As DataTable = _clsQuery.SelectInitPhysicalIOChart(InstanceID)
-                      Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm))
+                      Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm.Split(" :")(0)))
                       If dtRows.Count = 0 Then
                           Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                           sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDt, 0)
@@ -1834,7 +1836,8 @@
                                                                                                                         , chtLocalIO.CursorPositionChanged _
                                                                                                                         , chtPhysicaliO.CursorPositionChanged _
                                                                                                                         , chtSQLRespTm.CursorPositionChanged _
-                                                                                                                        , chtLock.CursorPositionChanged
+                                                                                                                        , chtLock.CursorPositionChanged _
+                                                                                                                        , chtTPS.CursorPositionChanged
 
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
@@ -1873,6 +1876,8 @@
                 index = 4
             Case "chtLock"
                 index = 5
+            Case "chtTPS"
+                index = 6
         End Select
 
         Dim BretFrm As frmMonItemDetail = Nothing
@@ -1947,6 +1952,27 @@
             'BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, _AgentInfo)
             '            BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, Nothing, Nothing, _AgentInfo)
             BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+    End Sub
+
+    Private Sub btnAutovacuum_Click(sender As Object, e As EventArgs)
+        Dim stDt As DateTime = Now.AddMinutes(-60)
+        Dim edDt As DateTime = Now
+        Dim BretFrm As frmAutovacuum = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmAutovacuum = TryCast(tmpFrm, frmAutovacuum)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmAutovacuum(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo)
             BretFrm.Show()
         Else
             BretFrm.Activate()
@@ -2160,4 +2186,135 @@
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("General", "RTIME_DETAIL", cmbRetention.SelectedIndex)
     End Sub
+
+    Private Sub btnMenu_Click(sender As Object, e As EventArgs) Handles btnMenu.Click
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        Dim ps As System.Drawing.Point = Cursor.Position
+        ps.X -= mnuMenu.Width
+        mnuMenu.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
+        mnuMenu.Tag = lblTemp.Parent
+    End Sub
+
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuSQLPlan.Click, mnuSessionLock.Click, mnuObjectView.Click, mnuLogView.Click, mnuTimelineView.Click, mnuStatements.Click, mnuAutovacuum.Click
+        Dim BretFrm As Form = Nothing
+        Dim stDt As DateTime = Now.AddMinutes(-10)
+        Dim edDt As DateTime = Now
+
+        If sender.Name = "mnuSQLPlan" Then
+            Dim dbName As New List(Of String)
+            Me.Invoke(Sub()
+                          Dim dtTable As DataTable = Nothing
+                          Try
+                              dtTable = _clsQuery.SelectDBinfo(InstanceID)
+
+                              Dim dtRows As DataRow() = dtTable.Select()
+
+                              If dtRows.Count > 0 Then
+                                  For Each tmpRow As DataRow In dtRows
+                                      dbName.Add(tmpRow.Item("DB"))
+                                  Next
+                              End If
+                          Catch ex As Exception
+                              GC.Collect()
+                          End Try
+                      End Sub)
+            Dim frmQuery As New frmQueryView(dbName, InstanceID, _AgentInfo)
+            frmQuery.Show()
+        ElseIf sender.Name = "mnuSessionLock" Then
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmSessionLock(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuObjectView" Then
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmMonActInfo = TryCast(tmpFrm, frmMonActInfo)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmMonActInfo(_ServerInfo, _Elapseinterval, AgentInfo)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuLogView" Then
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmLogView = TryCast(tmpFrm, frmLogView)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmLogView(_ServerInfo, _Elapseinterval, AgentInfo)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuTimelineView" Then
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmMonItemDetail = TryCast(tmpFrm, frmMonItemDetail)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuStatements" Then
+            stDt = Now.AddMinutes(-60)
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmStatements = TryCast(tmpFrm, frmStatements)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmStatements(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        Else
+            stDt = Now.AddHours(-2)
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmAutovacuum = TryCast(tmpFrm, frmAutovacuum)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmAutovacuum(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        End If
+
+    End Sub
+
+
 End Class

@@ -157,6 +157,7 @@ public class ObjtCollect extends TaskApplication {
 			
 			//List<HashMap<String, Object>> accessSel = new ArrayList<HashMap<String,Object>>(); //Access 수집
 			List<HashMap<String, Object>> tableSel = new ArrayList<HashMap<String,Object>>(); //Table 수집
+			List<HashMap<String, Object>> tableExtSel = new ArrayList<HashMap<String,Object>>(); //Table Ext 수집
 			List<HashMap<String, Object>> indexSel = new ArrayList<HashMap<String,Object>>(); //Index 수집
 			List<HashMap<String, Object>> tablespaceSel = new ArrayList<HashMap<String,Object>>(); //TableSpace 수집			
 			
@@ -321,8 +322,19 @@ public class ObjtCollect extends TaskApplication {
 							map.put("current_index_tuples", 	current_index_tuples);
 							
 							map.put("db_name",	mapDB.get("db_name"));
-							
+														
 							tableSel.add(map);
+							
+							HashMap<String, Object> tableExtMap = new HashMap<String, Object>(); //이전값
+														
+							tableExtMap.put("collect_dt", map.get("collect_dt"));
+							tableExtMap.put("relid", map.get("relid"));
+							tableExtMap.put("instance_id", Integer.valueOf(reqInstanceId));
+							tableExtMap.put("autovacuum_count", map.get("autovacuum_count"));
+							tableExtMap.put("autoanalyze_count", map.get("autoanalyze_count"));
+							tableExtMap.put("maxage", map.get("maxage"));
+							
+							tableExtSel.add(tableExtMap);
 							
 							tempMap.put("agg_seq_scan_cnt", 	map.get("agg_seq_scan_cnt"));
 							tempMap.put("agg_seq_tuples", 		map.get("agg_seq_tuples"));
@@ -332,7 +344,7 @@ public class ObjtCollect extends TaskApplication {
 							ResourceInfo.getInstance().put(reqInstanceId, taskId, RESOURCE_KEY_TABLE + "_" + mapDB.get("db_name") 
 	                                + "_" + map.get("schema_name")
 	                                + "_" + map.get("table_name")
-	                                , tempMap);						
+	                                , tempMap);
 						}
 						///////////////////////////////////////////////////////////////////////////////
 						
@@ -432,7 +444,12 @@ public class ObjtCollect extends TaskApplication {
 				///////////////////////////////////////////////////////////////////////////////
 				// TABLE 정보 등록
 				for (HashMap<String, Object> map : tableSel) {
-					sessionAgent.insert("app.TB_TABLE_INFO_I001", map);					
+					sessionAgent.insert("app.TB_TABLE_INFO_I001", map);
+				}
+				
+				// TABLE 정보 등록
+				for (HashMap<String, Object> map : tableExtSel) {
+					sessionAgent.insert("app.TB_TABLE_EXT_INFO_I001", map);
 				}
 				
 				///////////////////////////////////////////////////////////////////////////////				

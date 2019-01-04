@@ -1374,6 +1374,7 @@
       <![CDATA[
       SELECT INSTANCE_ID,
       		 TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {5} )) * {5} ) AT TIME ZONE 'UTC' AS COLLECT_DATE
+      	 , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {5} )) * {5} ) AT TIME ZONE 'UTC' AS COLLECT_DT
 		     , MAX(HOST_NAME) AS HOST_NAME
 		     , MAX(SEQ_SCAN_TUPLES_PER_SEC) AS SEQ_SCAN_TUPLES_PER_SEC
 		     , MAX(INDEX_SCAN_TUPLES_PER_SEC) AS INDEX_SCAN_TUPLES_PER_SEC
@@ -1383,6 +1384,7 @@
 		     , MAX(SELECT_TUPLES_PER_SEC) AS SELECT_TUPLES_PER_SEC
 		     , MAX(COMMIT_TUPLES_PER_SEC) AS COMMIT_TUPLES_PER_SEC
 		     , MAX(ROLLBACK_TUPLES_PER_SEC) AS ROLLBACK_TUPLES_PER_SEC
+		     , (MAX(COMMIT_TUPLES_PER_SEC)+MAX(ROLLBACK_TUPLES_PER_SEC)) AS TRANSACTION_TUPLES_PER_SEC
 		FROM (
 			      SELECT /* SELECTOBJECTPREV */ IST.INSTANCE_ID
 			      , MAX(ACS.COLLECT_DT) AS COLLECT_DT
@@ -3157,6 +3159,205 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 	  WHERE PGS.DBID::TEXT || QUERYID::TEXT IN ({3})
 	  ORDER BY PGS.COLLECT_DT, {4}
       ]]>
+    </DATA>
+  </ROW>  
+  <ROW ID="SELECTAUTOVACUUMWORKER" PARAMS="0">
+    <DESC>PT_04_10_001(SELECTAUTOVACUUMWORKER)</DESC>
+    <DATA>
+      <![CDATA[
+--      SELECT COLLECT_DT, COUNT(AVA.COMMON) AS COMMON, SUM(AVA.WRAPAROUND) AS WRAPAROUND
+--        FROM (
+--              SELECT	/* SELECTAUTOVACUUMWORKER */ 
+--       			         C.COLLECT_DT AS COLLECT_DT,
+--        		         C.SQL AS SQL,
+--        		         CASE WHEN C.SQL LIKE 'prevent wraparound' THEN 1 ELSE 0 END AS WRAPAROUND,
+--        		         C.SQL AS COMMON
+--                FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C
+--               WHERE B.REG_DATE {1}
+--                 AND A.INSTANCE_ID = B.INSTANCE_ID       
+--                 AND A.INSTANCE_ID IN ({0})
+--                 AND A.COLLECT_YN = 'Y'
+--                 AND A.DELETE_YN = 'N'
+--                 AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+--                 AND B.REG_DATE = C.REG_DATE
+--                 AND C.SQL LIKE 'autovacuum:%'
+--                 AND C.COLLECT_DT {2}
+--              ) AS AVA
+--        GROUP BY COLLECT_DT
+--        ORDER BY COLLECT_DT        
+      SELECT  COLLECT_DATE,
+  	      MAX(COMMON) COMMON,
+  	      MAX(WRAPAROUND) WRAPAROUND
+        FROM (
+                SELECT 
+      		    --COLLECT_DT,
+      		    TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {3} )) * {3}) AT TIME ZONE 'UTC' AS COLLECT_DATE,
+      		    COUNT(AVA.COMMON) AS COMMON, SUM(AVA.WRAPAROUND) AS WRAPAROUND
+                  FROM (
+              		    SELECT	/* SELECTAUTOVACUUMWORKER */ 
+       			             C.COLLECT_DT AS COLLECT_DT,
+        		             C.SQL AS SQL,
+        		             CASE WHEN C.SQL LIKE 'prevent wraparound' THEN 1 ELSE 0 END AS WRAPAROUND,
+        		             C.SQL AS COMMON
+	                     FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C
+	                    WHERE B.REG_DATE {1}
+	                      AND A.INSTANCE_ID = B.INSTANCE_ID       
+	                      AND A.INSTANCE_ID IN ({0})
+	                      AND A.COLLECT_YN = 'Y'
+	                      AND A.DELETE_YN = 'N'
+	                      AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+	                      AND B.REG_DATE = C.REG_DATE
+	                      AND C.SQL LIKE 'autovacuum:%'
+	                      AND C.COLLECT_DT {2}
+                  ) AS AVA
+                  GROUP BY COLLECT_DT
+	                ORDER BY COLLECT_DT
+            ) ROLL
+      GROUP BY COLLECT_DATE
+      ORDER BY COLLECT_DATE
+      ]]>
+    </DATA>
+  </ROW>  
+  <ROW ID="SELECTAUTOVACUUMTOP" PARAMS="0">
+    <DESC>PT_04_10_001(SELECTAUTOVACUUMTOP)</DESC>
+    <DATA>
+      <![CDATA[               
+        WITH OLDEST AS (
+        SELECT OBJT_REG_SEQ, COLLECT_DT, RELID, AUTOVACUUM_COUNT, AUTOANALYZE_COUNT
+	        FROM tb_table_ext_info
+					WHERE objt_reg_seq = (
+							                  SELECT min(C.objt_reg_seq) objt_reg_seq
+							                            FROM TB_INSTANCE_INFO A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
+											            WHERE A.INSTANCE_ID = B.INSTANCE_ID
+                                  	AND A.INSTANCE_ID = C.INSTANCE_ID
+											              AND A.INSTANCE_ID IN ({0})
+											              AND A.COLLECT_YN = 'Y'
+											              AND A.DELETE_YN = 'N'
+											              AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+											              AND B.REG_DATE::date = '{1}'::date
+											              AND B.REG_TIME >= '{1}'::time
+										          )
+            AND COLLECT_DT::date = '{1}'::date
+				),
+				RECENT AS (
+				SELECT OBJT_REG_SEQ, COLLECT_DT, RELID, AUTOVACUUM_COUNT, AUTOANALYZE_COUNT
+	                FROM tb_table_ext_info
+					WHERE objt_reg_seq = (
+							                  SELECT max(C.objt_reg_seq) objt_reg_seq
+							                    FROM TB_INSTANCE_INFO A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
+											           WHERE A.INSTANCE_ID = B.INSTANCE_ID
+                                   AND A.INSTANCE_ID = C.INSTANCE_ID
+											             AND A.INSTANCE_ID IN ({0})
+											             AND A.COLLECT_YN = 'Y'
+											             AND A.DELETE_YN = 'N'
+											             AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+											             AND B.REG_DATE::date = '{2}'::date
+											             AND B.REG_TIME <= '{2}'::time
+										           )
+            AND COLLECT_DT::date = '{2}'::date
+				),
+				TBI AS (
+				SELECT DB_NAME, SCHEMA_NAME, TABLE_NAME, RELID
+	        FROM TB_TABLE_INFO
+				 WHERE objt_reg_seq in (
+				                          SELECT max(C.objt_reg_seq) objt_reg_seq
+				                            FROM TB_INSTANCE_INFO A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
+											             WHERE A.INSTANCE_ID = B.INSTANCE_ID
+											               AND A.INSTANCE_ID IN ({0})
+											               AND A.COLLECT_YN = 'Y'
+											               AND A.DELETE_YN = 'N'
+											               AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+											               AND B.REG_DATE::date = '{1}'::date
+											               AND B.REG_TIME >= '{1}'::time
+											             GROUP BY A.INSTANCE_ID
+										           )
+				)
+			  SELECT /*SELECTAUTOVACUUMTOP*/ 
+               DB_NAME, SCHEMA_NAME, TABLE_NAME, R.RELID,
+			    	   (COALESCE(R.autovacuum_count,0) - COALESCE(O.autovacuum_count,0)) ROV,
+			         (COALESCE(R.autovacuum_count,0) - COALESCE(O.autovacuum_count,0)) ROA
+          FROM RECENT R LEFT OUTER JOIN OLDEST O ON R.relid = O.relid, TBI TI
+         WHERE TI.RELID = R.RELID
+         ORDER BY ROV DESC, R.autovacuum_count DESC, ROA DESC, RELID
+	       LIMIT {3}
+     ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTAUTOVACUUMCOUNT" PARAMS="0">
+    <DESC>PT_04_10_001(SELECTAUTOVACUUMTOP)</DESC>
+    <DATA>
+      <![CDATA[    
+      	WITH TTI AS (
+			    SELECT RELID, db_name || '.' || schema_name || '.' || table_name AS table_name
+			      FROM TB_TABLE_INFO
+			     WHERE RELID IN ({3})
+			     ORDER BY OBJT_REG_SEQ DESC
+			     LIMIT (SELECT count(*)+1 FROM regexp_matches('{3}', ',', 'g'))
+		    )
+        SELECT COLLECT_DATE, relid, AUTOVACUUM_COUNT,
+	           COALESCE(AUTOVACUUM_COUNT - LAG(AUTOVACUUM_COUNT) over (PARTITION BY relid ORDER BY COLLECT_DATE), 0) as DIFF, TABLE_NAME
+          FROM (
+			            SELECT TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {4} )) * {4}) AT TIME ZONE 'UTC' AS COLLECT_DATE, 
+					            RELID, 
+					            max(AUTOVACUUM_COUNT) AUTOVACUUM_COUNT, TABLE_NAME
+			              FROM	(
+				                     SELECT TTEI.COLLECT_DT, TTEI.RELID, TTEI.AUTOVACUUM_COUNT AS AUTOVACUUM_COUNT, TTI.TABLE_NAME
+				                       FROM TB_INSTANCE_INFO TII, TB_OBJT_COLLECT_INFO TOC, TB_TABLE_EXT_INFO TTEI, TTI
+				                      WHERE TII.COLLECT_YN = 'Y'
+				                        AND TII.DELETE_YN = 'N'
+				                        AND TII.INSTANCE_ID IN ({0})
+                                AND TII.INSTANCE_ID = TTEI.INSTANCE_ID 
+				                        AND TII.INSTANCE_ID = TOC.INSTANCE_ID
+				                        AND TOC.REG_DATE {1}
+                                AND TTEI.COLLECT_DT {2}
+			     		                  AND TOC.OBJT_REG_SEQ = TTEI.OBJT_REG_SEQ
+			     		                  AND TTEI.RELID IN ({3})
+                                AND TTEI.RELID = TTI.RELID
+			     		              ORDER BY TTEI.COLLECT_DT, RELID
+					            ) AS COLLECTION
+			              GROUP BY COLLECT_DATE, RELID, TABLE_NAME
+			              ORDER BY COLLECT_DATE, RELID
+		           ) AS DIFF
+               ORDER BY COLLECT_DATE, RELID
+     ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTDATABASES" PARAMS="0">
+    <DESC>PT_04_10_001(SELECTDATABASES)</DESC>
+    <DATA>
+      <![CDATA[               
+	       SELECT db_name
+			     FROM TB_TABLE_INFO TTI
+			    WHERE TTI.OBJT_REG_SEQ = (SELECT max(OBJT_REG_SEQ) OBJT_REG_SEQ FROM TB_OBJT_COLLECT_INFO WHERE INSTANCE_ID = {0} AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))
+			      AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+			    GROUP BY db_name;
+     ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTAUTOVACUUMWRAPAROUND" PARAMS="0">
+    <DESC>PT_04_10_001(SELECTAUTOVACUUMWRAPAROUND)</DESC>
+    <DATA>
+      <![CDATA[               
+     WITH TTI AS	(
+	         SELECT db_name, max(relid) relid
+		        FROM TB_TABLE_INFO TTI
+		       WHERE TTI.OBJT_REG_SEQ = (SELECT max(OBJT_REG_SEQ) OBJT_REG_SEQ FROM TB_OBJT_COLLECT_INFO WHERE INSTANCE_ID = 1 AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))
+		         AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+		       GROUP BY db_name
+     )
+      SELECT COLLECT_DATE, DB_NAME, MAXAGE
+        FROM (
+		          SELECT --TTEI.COLLECT_DT, 
+		    	         TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {2} )) * {2}) AT TIME ZONE 'UTC' AS COLLECT_DATE,
+		                 TTI.DB_NAME, MAX(TTEI.MAXAGE)/(1024*1024) MAXAGE
+		            FROM TB_TABLE_EXT_INFO TTEI, TTI
+		           WHERE TTEI.INSTANCE_ID = {0} 
+		             AND TTEI.COLLECT_DT {1} --BETWEEN '2018-12-21 14:17:26'::timestamp AND '2018-12-21 20:17:26'::timestamp 
+		             AND TTI.RELID = TTEI.RELID
+		           GROUP BY COLLECT_DATE, TTEI.RELID, TTI.DB_NAME
+		           ORDER BY COLLECT_DATE, TTEI.RELID
+		      ) AS ROLL
+     ]]>
     </DATA>
   </ROW>
 </ROWS>
