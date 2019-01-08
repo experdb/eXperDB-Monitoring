@@ -875,12 +875,13 @@
                 '    interval = "1200"
                 'End If
 
-                If DateDiff(DateInterval.Day, stDate, edDate) = 0 Then
-                    subQuery = String.Format(" = '{0}'", stDate.ToString("yyyyMMdd"))
-                Else
-                    subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                End If
-                strQuery = String.Format(strQuery, intInstanceID, subQuery, stDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), interval)
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                strQuery = String.Format(strQuery, intInstanceID, _
+                         stDate.ToString("yyyyMMdd"), _
+                         edDate.ToString("yyyyMMdd"), _
+                         stDate.ToString("yyyyMMdd HH:mm:ss"), _
+                         edDate.ToString("yyyyMMdd HH:mm:ss"), _
+                         interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -965,6 +966,46 @@
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), DiskName, interval)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+
+
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+
+    Public Function SelectReportDiskUsage(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime) As DataTable
+
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
+                Dim interval As String = ""
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTDISKUSAGECHARTSTATS")
+                Dim pointCount As Integer = 300
+
+                interval = minutes * 60 / pointCount
+
+                Dim subQuery As String = ""
+
+                strQuery = String.Format(strQuery, intInstanceID, _
+                                         StDate.ToString("yyyyMMdd"), _
+                                         edDate.ToString("yyyyMMdd"), _
+                                         StDate.ToString("yyyyMMdd HH:mm:ss"), _
+                                         edDate.ToString("yyyyMMdd HH:mm:ss"), _
+                                         interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

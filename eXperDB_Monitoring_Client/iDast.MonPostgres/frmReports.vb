@@ -199,7 +199,13 @@ Public Class frmReports
         Me.chtRptCpu.SetAxisYTitle("RATE(%)")
         'Me.chtRptCpu.SetDefaultMean("USED")
 
+        Me.chtRptMem.AddSeries("MEM", "MEM", Color.Red)
+        Me.chtRptMem.AddSeries("SWAP", "SWAP", Color.Lime)
+        Me.chtRptMem.SetAxisXTitle("MEM Usage(MAX)")
+        Me.chtRptMem.SetAxisYTitle("RATE(%)")
 
+        chtRptDiskUsage.SetAxisXTitle(p_clsMsgData.fn_GetData("F044") + "(MAX)")
+        chtRptDiskUsage.SetAxisYTitle("Usage(%)")
         chtRptDisk.SetAxisXTitle(p_clsMsgData.fn_GetData("F153"))
         chtRptDisk.SetAxisYTitle("KB/s")
         chtRptDiskRate.SetAxisXTitle(p_clsMsgData.fn_GetData("F154"))
@@ -323,6 +329,8 @@ Public Class frmReports
 
 
         Me.chtRptCpu.SetInnerPlotPosition()
+        Me.chtRptMem.SetInnerPlotPosition()
+        Me.chtRptDiskUsage.SetInnerPlotPosition()
         Me.chtRptDisk.SetInnerPlotPosition()
         Me.chtRptDiskRate.SetInnerPlotPosition()
         Me.chtSession.SetInnerPlotPosition()
@@ -385,13 +393,18 @@ Public Class frmReports
                                                    Try
                                                        chtRptCpu.SetMinimumAxisX(ConvOADate(stDate))
                                                        chtRptCpu.SetMaximumAxisX(ConvOADate(edDate))
+                                                       chtRptMem.SetMinimumAxisX(ConvOADate(stDate))
+                                                       chtRptMem.SetMaximumAxisX(ConvOADate(edDate))
                                                        For i As Integer = 0 To dtTable.Rows.Count - 1
                                                            Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DATE"))
                                                            Me.chtRptCpu.AddPoints("USED", tmpDate, ConvULong(dtTable.Rows(i).Item("USED_UTIL_RATE")))
                                                            Me.chtRptCpu.AddPoints("WAIT", tmpDate, ConvULong(dtTable.Rows(i).Item("WAIT_UTIL_RATE")))
+                                                           Me.chtRptMem.AddPoints("MEM", tmpDate, ConvULong(dtTable.Rows(i).Item("MEM_USED_RATE")))
+                                                           Me.chtRptMem.AddPoints("SWAP", tmpDate, ConvULong(dtTable.Rows(i).Item("SWP_USED_RATE")))
                                                        Next
 
                                                        Me.chtRptCpu.ShowMaxValue(True)
+                                                       Me.chtRptMem.ShowMaxValue(True)
 
 
                                                    Catch ex As Exception
@@ -402,9 +415,55 @@ Public Class frmReports
             dtTable = Nothing
         End If
 
-        ' DISK
+        ' DISK Usage Chart
         RaiseEvent WaitMag("DISK Information")
+        tmpTh = New Threading.Thread(Sub()
+                                         Try
+                                             dtTable = _clsQuery.SelectReportDiskUsage(intInstance, stDate, edDate)
+                                         Catch ex As Exception
+                                             GC.Collect()
+                                         End Try
+                                     End Sub)
+        tmpTh.Start()
+        tmpTh.Join()
+        If dtTable IsNot Nothing Then
+            chtRptDiskUsage.Invoke(New MethodInvoker(Sub()
+                                                         Try
+                                                             chtRptDiskUsage.SetMinimumAxisX(ConvOADate(stDate))
+                                                             chtRptDiskUsage.SetMaximumAxisX(ConvOADate(edDate))
 
+                                                             chtRptDiskUsage.SeriesClear()
+
+                                                             Dim groupedRows = _
+                                                                dtTable.AsEnumerable().GroupBy( _
+                                                                    Function(r) New With {Key .MOUNTPOINT = r.Field(Of String)("MOUNTPOINT")} _
+                                                                             ).[Select]( _
+                                                                             Function(grp) _
+                                                                                 New With {Key .MOUNTPOINT = grp.Key.MOUNTPOINT} _
+                                                                                       )
+                                                             For i As Integer = 0 To groupedRows.Count - 1
+                                                                 Dim mt As String = groupedRows.AsEnumerable.ToList(i).MOUNTPOINT
+                                                                 chtRptDiskUsage.AddSeries(mt, mt)
+                                                             Next
+
+                                                             'groupedRows.AsEnumerable.Tolist(0).MOUNTPOINT
+                                                             For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                                 Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DATE"))
+                                                                 Me.chtRptDiskUsage.AddPoints(dtTable.Rows(i).Item("MOUNTPOINT"), tmpDate, ConvULong(dtTable.Rows(i).Item("USAGE")))
+                                                             Next
+
+                                                             Me.chtRptDiskUsage.ShowMaxValue(True)
+
+
+                                                         Catch ex As Exception
+                                                             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                             GC.Collect()
+                                                         End Try
+                                                     End Sub))
+            dtTable = Nothing
+        End If
+
+        ' DISK I/O Chart
         chtRptDisk.Invoke(New MethodInvoker(Sub()
                                                 Try
                                                     chtRptDisk.SeriesClear()
@@ -688,6 +747,7 @@ Public Class frmReports
 
 
         Me.chtRptCpu.Clear()
+        Me.chtRptMem.Clear()
         Me.chtRptDisk.Clear()
         Me.chtRptDiskRate.Clear()
         Me.chtSession.Clear()
@@ -909,16 +969,6 @@ Public Class frmReports
 
     Private _ThreadDisk As Threading.Thread
 
-
-
-
-    Private Sub chtRptCpu_Load(sender As Object, e As EventArgs) Handles chtRptCpu.Load
-
-    End Sub
-
-    Private Sub chtRptDisk_KeyDown(sender As Object, e As KeyEventArgs) Handles chtRptDisk.KeyDown
-
-    End Sub
 
     Private Sub chtRptCpu_LocationChanged(sender As Object, e As EventArgs) Handles chtRptCpu.LocationChanged, chtRptDisk.LocationChanged
 

@@ -235,7 +235,7 @@
             Dim strTablespace As String = dtRow.Item("TABLESPACE")
             Dim bFoundMT As Boolean = False
             Dim intRowIndex As Integer = -1
-            intRowIndex = findMountPoint(dtTable)
+            intRowIndex = findMountPoint(dtRow)
             If intRowIndex >= 0 Then
                 Using dgvRow As DataGridViewRow = dgvTblSpaceInfo.Rows(intRowIndex)
                     If dgvRow.Cells(coldgvTblSpaceInfoTABLESPACE.Index).Value = "" Then
@@ -272,26 +272,25 @@
     ''' <param name="bRootfs"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Private Function findMountPoint(ByVal dtTable As DataTable) As Integer
+    Private Function findMountPoint(ByVal dtRow As DataRow) As Integer
         Dim bRootfs As Boolean = False
         Dim intReturn As Integer = -1
-        For Each dtRow As DataRow In dtTable.Rows
-            Dim strLocation As String = dtRow.Item("LOCATION")
-            For intRow As Integer = 0 To dgvTblSpaceInfo.Rows.Count - 1
-                Dim strDeviceNm As String = dgvTblSpaceInfo.Rows(intRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value
-                If strDeviceNm.Equals("/") = False Then
-                    If strLocation.IndexOf(strDeviceNm) >= 0 Then
-                        intReturn = intRow
-                        Return intReturn
-                    End If
+
+        Dim strLocation As String = dtRow.Item("LOCATION")
+        For intRow As Integer = 0 To dgvTblSpaceInfo.Rows.Count - 1
+            Dim strDeviceNm As String = dgvTblSpaceInfo.Rows(intRow).Cells(coldgvTblSpaceInfoMountPoint.Index).Value
+            If strDeviceNm.Equals("/") = False Then
+                If strLocation.IndexOf(strDeviceNm) >= 0 Then
+                    intReturn = intRow
+                    Return intReturn
                 End If
-            Next
-            Dim dgvRow As DataGridViewRow = dgvTblSpaceInfo.FindFirstRow("/", coldgvTblSpaceInfoMountPoint.Index)
-            If dgvRow IsNot Nothing Then
-                intReturn = dgvRow.Index
             End If
-            Return intReturn
         Next
+        Dim dgvRow As DataGridViewRow = dgvTblSpaceInfo.FindFirstRow("/", coldgvTblSpaceInfoMountPoint.Index)
+        If dgvRow IsNot Nothing Then
+            intReturn = dgvRow.Index
+        End If
+        Return intReturn
     End Function
 
 

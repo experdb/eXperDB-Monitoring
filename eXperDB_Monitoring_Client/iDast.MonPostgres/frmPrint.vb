@@ -146,7 +146,7 @@ Public Class frmPrint
                                     Next
                                 Else
                                     ' CheckBox
-                                    strControl = "Disks - "
+                                    strControl = "Disks for I/O - "
                                     For Each ctlChk As BaseControls.CheckBox In flp.Controls
                                         If ctlChk.Checked Then
                                             arrGrpTitles.Add(ctlChk.Text)

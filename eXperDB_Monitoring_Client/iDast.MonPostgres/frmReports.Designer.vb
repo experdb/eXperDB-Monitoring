@@ -24,13 +24,15 @@ Partial Class frmReports
         Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin9 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin10 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin11 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Edges3 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -47,6 +49,8 @@ Partial Class frmReports
         Me.chtRptDiskRate = New eXperDB.Monitoring.ctlChart()
         Me.chtRptDisk = New eXperDB.Monitoring.ctlChart()
         Me.flpDisk = New eXperDB.BaseControls.FlowLayoutPanel()
+        Me.chtRptDiskUsage = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptMem = New eXperDB.Monitoring.ctlChart()
         Me.chtRptCpu = New eXperDB.Monitoring.ctlChart()
         Me.btnSearch = New eXperDB.BaseControls.Button()
         Me.pnlSearch = New eXperDB.BaseControls.Panel()
@@ -147,6 +151,8 @@ Partial Class frmReports
         Me.pnlSystem.Controls.Add(Me.chtRptDiskRate)
         Me.pnlSystem.Controls.Add(Me.chtRptDisk)
         Me.pnlSystem.Controls.Add(Me.flpDisk)
+        Me.pnlSystem.Controls.Add(Me.chtRptDiskUsage)
+        Me.pnlSystem.Controls.Add(Me.chtRptMem)
         Me.pnlSystem.Controls.Add(Me.chtRptCpu)
         Me.pnlSystem.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlSystem.Location = New System.Drawing.Point(3, 28)
@@ -160,7 +166,7 @@ Partial Class frmReports
         Me.chtRptDiskRate.DataSource = Nothing
         Me.chtRptDiskRate.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtRptDiskRate.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDiskRate.Location = New System.Drawing.Point(0, 665)
+        Me.chtRptDiskRate.Location = New System.Drawing.Point(0, 1305)
         Me.chtRptDiskRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.chtRptDiskRate.MaximumSize = New System.Drawing.Size(0, 375)
         Me.chtRptDiskRate.MenuVisible = True
@@ -176,7 +182,7 @@ Partial Class frmReports
         Me.chtRptDisk.DataSource = Nothing
         Me.chtRptDisk.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDisk.Location = New System.Drawing.Point(0, 345)
+        Me.chtRptDisk.Location = New System.Drawing.Point(0, 985)
         Me.chtRptDisk.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
         Me.chtRptDisk.MaximumSize = New System.Drawing.Size(0, 350)
         Me.chtRptDisk.MenuVisible = True
@@ -192,17 +198,50 @@ Partial Class frmReports
         Me.flpDisk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpDisk.Dock = System.Windows.Forms.DockStyle.Top
         Me.flpDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.flpDisk.Location = New System.Drawing.Point(0, 320)
+        Me.flpDisk.Location = New System.Drawing.Point(0, 960)
         Me.flpDisk.Margin = New System.Windows.Forms.Padding(1)
         Me.flpDisk.MinimumSize = New System.Drawing.Size(0, 25)
         Me.flpDisk.Name = "flpDisk"
         Me.flpDisk.Size = New System.Drawing.Size(1803, 25)
         Me.flpDisk.TabIndex = 21
         '
+        'chtRptDiskUsage
+        '
+        Me.chtRptDiskUsage.BorderSkin = BorderSkin3
+        Me.chtRptDiskUsage.DataSource = Nothing
+        Me.chtRptDiskUsage.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDiskUsage.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDiskUsage.Location = New System.Drawing.Point(0, 640)
+        Me.chtRptDiskUsage.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDiskUsage.MaximumSize = New System.Drawing.Size(0, 350)
+        Me.chtRptDiskUsage.MenuVisible = True
+        Me.chtRptDiskUsage.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDiskUsage.Name = "chtRptDiskUsage"
+        Me.chtRptDiskUsage.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDiskUsage.TabIndex = 25
+        Me.chtRptDiskUsage.Title = ""
+        '
+        'chtRptMem
+        '
+        Me.chtRptMem.AutoScroll = True
+        Me.chtRptMem.BorderSkin = BorderSkin4
+        Me.chtRptMem.DataSource = Nothing
+        Me.chtRptMem.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptMem.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptMem.Location = New System.Drawing.Point(0, 320)
+        Me.chtRptMem.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptMem.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptMem.MenuVisible = True
+        Me.chtRptMem.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptMem.Name = "chtRptMem"
+        Me.chtRptMem.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptMem.TabIndex = 26
+        Me.chtRptMem.Title = ""
+        '
         'chtRptCpu
         '
         Me.chtRptCpu.AutoScroll = True
-        Me.chtRptCpu.BorderSkin = BorderSkin3
+        Me.chtRptCpu.BorderSkin = BorderSkin5
         Me.chtRptCpu.DataSource = Nothing
         Me.chtRptCpu.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -590,7 +629,7 @@ Partial Class frmReports
         '
         'chtBufferrate
         '
-        Me.chtBufferrate.BorderSkin = BorderSkin4
+        Me.chtBufferrate.BorderSkin = BorderSkin6
         Me.chtBufferrate.DataSource = Nothing
         Me.chtBufferrate.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtBufferrate.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -606,7 +645,7 @@ Partial Class frmReports
         '
         'chtBuffer
         '
-        Me.chtBuffer.BorderSkin = BorderSkin5
+        Me.chtBuffer.BorderSkin = BorderSkin7
         Me.chtBuffer.DataSource = Nothing
         Me.chtBuffer.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtBuffer.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -622,7 +661,7 @@ Partial Class frmReports
         '
         'chtObjectRate
         '
-        Me.chtObjectRate.BorderSkin = BorderSkin6
+        Me.chtObjectRate.BorderSkin = BorderSkin8
         Me.chtObjectRate.DataSource = Nothing
         Me.chtObjectRate.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtObjectRate.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -638,7 +677,7 @@ Partial Class frmReports
         '
         'chtObjectTuple
         '
-        Me.chtObjectTuple.BorderSkin = BorderSkin7
+        Me.chtObjectTuple.BorderSkin = BorderSkin9
         Me.chtObjectTuple.DataSource = Nothing
         Me.chtObjectTuple.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtObjectTuple.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -654,7 +693,7 @@ Partial Class frmReports
         '
         'chtLogical
         '
-        Me.chtLogical.BorderSkin = BorderSkin8
+        Me.chtLogical.BorderSkin = BorderSkin10
         Me.chtLogical.DataSource = Nothing
         Me.chtLogical.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtLogical.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -670,7 +709,7 @@ Partial Class frmReports
         '
         'chtSession
         '
-        Me.chtSession.BorderSkin = BorderSkin9
+        Me.chtSession.BorderSkin = BorderSkin11
         Me.chtSession.DataSource = Nothing
         Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
         Me.chtSession.Font = New System.Drawing.Font("Gulim", 11.02!)
@@ -1030,5 +1069,7 @@ Partial Class frmReports
     Friend WithEvents colDgvRptSqlCpuTime As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents colDgvRptSqlCount As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvRptSqlSql As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents chtRptDiskUsage As eXperDB.Monitoring.ctlChart
+    Friend WithEvents chtRptMem As eXperDB.Monitoring.ctlChart
 
 End Class

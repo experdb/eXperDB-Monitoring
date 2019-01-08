@@ -823,9 +823,9 @@
         Dim Progress3DItem2 As New Progress3D.Progress3DItem
         Dim Progress3DItem3 As New Progress3D.Progress3DItem
         Progress3DItem1.Checked = False
-        Progress3DItem1.FillColor = System.Drawing.Color.Lime
+        Progress3DItem1.FillColor = System.Drawing.Color.GreenYellow
         Progress3DItem1.FillOpacity = 180
-        Progress3DItem1.LineColor = System.Drawing.Color.Lime
+        Progress3DItem1.LineColor = System.Drawing.Color.GreenYellow
         Progress3DItem1.LineOpacity = 50
         Progress3DItem1.Name = Nothing
         Progress3DItem2.Checked = False
@@ -835,9 +835,9 @@
         Progress3DItem2.LineOpacity = 50
         Progress3DItem2.Name = Nothing
         Progress3DItem3.Checked = False
-        Progress3DItem3.FillColor = System.Drawing.Color.Red
+        Progress3DItem3.FillColor = System.Drawing.Color.OrangeRed
         Progress3DItem3.FillOpacity = 180
-        Progress3DItem3.LineColor = System.Drawing.Color.Red
+        Progress3DItem3.LineColor = System.Drawing.Color.OrangeRed
         Progress3DItem3.LineOpacity = 50
         Progress3DItem3.Name = Nothing
         tmpCtl.Items.AddRange(New eXperDB.Controls.Progress3D.Progress3DItem() {Progress3DItem1, Progress3DItem2, Progress3DItem3})
@@ -2804,11 +2804,11 @@
             lblAgentSvrState.Text = TryCast(p_clsAgentCollect.AgentState.GetType().GetMember(p_clsAgentCollect.AgentState.ToString)(0).GetCustomAttributes(GetType(System.ComponentModel.DescriptionAttribute), False)(0), System.ComponentModel.DescriptionAttribute).Description
 
             If AgentStat = clsCollect.AgntState.Activate Then
-                lblAgentSvrState.ForeColor = Color.LimeGreen
+                lblAgentSvrState.ForeColor = Color.YellowGreen
                 radCpu.UseAnimation = True
                 radMem.UseAnimation = True
             Else
-                lblAgentSvrState.ForeColor = Color.Red
+                lblAgentSvrState.ForeColor = Color.OrangeRed
                 ' Group Stop 
                 'For Each tmpCtl As eXperDB.BaseControls.RadioButton In tlpGroup.Controls
                 '    tmpCtl.Warning = False

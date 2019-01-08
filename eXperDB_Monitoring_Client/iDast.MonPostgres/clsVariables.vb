@@ -42,8 +42,10 @@ Module clsVariables
 
     '    Public p_RageHealthClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(100, 100, Color.Lime), New ProgClrArea(200, 200, Color.Yellow), New ProgClrArea(300, 300, Color.Red)}
     '    Public p_RageBaseClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(0, 60, Color.Lime), New ProgClrArea(60, 90, Color.Yellow), New ProgClrArea(90, 100, Color.Red)}
-    Public p_RageHealthClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(100, 100, Color.LimeGreen), New ProgClrArea(200, 200, Color.Gold), New ProgClrArea(300, 300, Color.Red)}
-    Public p_RageBaseClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(0, 60, Color.LimeGreen), New ProgClrArea(60, 90, Color.Gold), New ProgClrArea(90, 100, Color.Red)}
+    'Public p_RageHealthClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(100, 100, Color.LimeGreen), New ProgClrArea(200, 200, Color.Gold), New ProgClrArea(300, 300, Color.Red)}
+    'Public p_RageBaseClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(0, 60, Color.LimeGreen), New ProgClrArea(60, 90, Color.Gold), New ProgClrArea(90, 100, Color.Red)}
+    Public p_RageHealthClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(100, 100, Color.YellowGreen), New ProgClrArea(200, 200, Color.Gold), New ProgClrArea(300, 300, Color.OrangeRed)}
+    Public p_RageBaseClr As ProgClrArea() = New ProgClrArea() {New ProgClrArea(0, 60, Color.YellowGreen), New ProgClrArea(60, 90, Color.Gold), New ProgClrArea(90, 100, Color.OrangeRed)}
 
 
     'Public p_CriticalInterval As Integer = 300000
