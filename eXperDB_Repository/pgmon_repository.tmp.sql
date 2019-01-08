@@ -357,7 +357,8 @@ CREATE TABLE tb_table_info (
     dead_tuple_cnt numeric(20,0),
     last_vacuum timestamp without time zone,
     last_analyze timestamp without time zone,
-    collect_dt timestamp without time zone
+    collect_dt timestamp without time zone,
+    relid oid
 );
 
 CREATE TABLE tb_table_ext_info (
@@ -502,7 +503,7 @@ ALTER TABLE ONLY tb_table_info
     ADD CONSTRAINT pk_table_info PRIMARY KEY (reg_date,objt_reg_seq,db_name,schema_name,table_name);
 
 ALTER TABLE ONLY tb_table_ext_info
-    ADD CONSTRAINT pk_table_ext_info PRIMARY KEY (collect_dt,objt_reg_seq,relid);
+    ADD CONSTRAINT pk_table_ext_info PRIMARY KEY (collect_dt,objt_reg_seq,instance_id,relid);
 
 ALTER TABLE ONLY tb_tablespace_info
     ADD CONSTRAINT pk_tablespace_info PRIMARY KEY (reg_date,objt_reg_seq,tablespace_name);

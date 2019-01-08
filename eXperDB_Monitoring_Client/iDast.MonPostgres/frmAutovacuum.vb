@@ -261,7 +261,7 @@
                                                             Dim tmpTable As TableInfo = _arrTables(i)
                                                             If dtRow.Item("RELID") = tmpTable.relID Then
                                                                 'sb_ChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, dtRow.Item("DIFF"))
-                                                                sb_RangeChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, dtRow.Item("DIFF"), i)
+                                                                sb_RangeChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, IIf(dtRow.Item("DIFF") > 0, 1, 0), i)
                                                                 tmpTable.AxisXValue = tmpDate
                                                                 _arrTables(i) = tmpTable
                                                             End If
