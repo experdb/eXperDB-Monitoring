@@ -685,7 +685,7 @@
                 strLegend2 = "WAIT"
                 strSeriesData1 = "USED_UTIL_RATE"
                 strSeriesData2 = "WAIT_UTIL_RATE"
-                LineColor1 = Color.YellowGreen
+                LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 LineColor2 = Color.Gold
                 seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
             Case 2
@@ -693,7 +693,7 @@
                 strLegend2 = "BACKENDACT"
                 strSeriesData1 = "TOT_BACKEND_CNT"
                 strSeriesData2 = "CUR_ACTV_BACKEND_CNT"
-                LineColor1 = Color.YellowGreen
+                LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 LineColor2 = Color.Violet
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
             Case 3
@@ -705,7 +705,7 @@
                 strSeriesData2 = "INSERT_TUPLES_PER_SEC"
                 strSeriesData3 = "UPDATE_TUPLES_PER_SEC"
                 strSeriesData4 = "DELETE_TUPLES_PER_SEC"
-                LineColor1 = Color.YellowGreen
+                LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 LineColor2 = Color.Blue
                 LineColor3 = Color.Orange
                 LineColor4 = Color.Red

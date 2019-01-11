@@ -2700,8 +2700,8 @@
         AND ALERT.hchk_reg_seq = COL.hchk_reg_seq
         AND ALERT.hchk_name = COL.hchk_name
         AND ALERT.hchk_name = TH.hchk_name   
-        AND ALERT.REG_DATE = '{1}'
-        AND COL.reg_time BETWEEN '{2}' AND '{3}'
+        AND ALERT.REG_DATE BETWEEN '{1}' AND '{2}'
+        AND COL.reg_time BETWEEN '{3}' AND '{4}'
       ]]>
     </DATA>
   </ROW>

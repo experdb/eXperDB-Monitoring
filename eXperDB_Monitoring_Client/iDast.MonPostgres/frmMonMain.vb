@@ -548,6 +548,8 @@
 
         If svrLst.Count > 6 Then
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+        Else
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
         End If
 
         Me.chrReqInfo.Tag = srtLSt
@@ -622,6 +624,8 @@
 
         If svrLst.Count > 6 Then
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+        Else
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
         End If
 
         Me.chtSessionStatus.Tag = srtLSt
@@ -823,9 +827,9 @@
         Dim Progress3DItem2 As New Progress3D.Progress3DItem
         Dim Progress3DItem3 As New Progress3D.Progress3DItem
         Progress3DItem1.Checked = False
-        Progress3DItem1.FillColor = System.Drawing.Color.GreenYellow
+        Progress3DItem1.FillColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         Progress3DItem1.FillOpacity = 180
-        Progress3DItem1.LineColor = System.Drawing.Color.GreenYellow
+        Progress3DItem1.LineColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         Progress3DItem1.LineOpacity = 50
         Progress3DItem1.Name = Nothing
         Progress3DItem2.Checked = False
@@ -2804,7 +2808,7 @@
             lblAgentSvrState.Text = TryCast(p_clsAgentCollect.AgentState.GetType().GetMember(p_clsAgentCollect.AgentState.ToString)(0).GetCustomAttributes(GetType(System.ComponentModel.DescriptionAttribute), False)(0), System.ComponentModel.DescriptionAttribute).Description
 
             If AgentStat = clsCollect.AgntState.Activate Then
-                lblAgentSvrState.ForeColor = Color.YellowGreen
+                lblAgentSvrState.ForeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
                 radCpu.UseAnimation = True
                 radMem.UseAnimation = True
             Else

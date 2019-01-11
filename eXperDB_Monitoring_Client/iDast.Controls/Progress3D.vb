@@ -503,7 +503,8 @@ Public Class Progress3D
             initRect.Inflate(-2, -2)
             Dim grPath As New System.Drawing.Drawing2D.GraphicsPath
             grPath.AddString(Me._HeadText, MyBase.Font.FontFamily, MyBase.Font.Style, MyBase.Font.Size - 4, New Point(initRect.X + _Radius + initRect.Width / 4, initRect.Y + 32), System.Drawing.StringFormat.GenericDefault)
-            Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
+            'Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.FromArgb(255, 255, 255, 0), Color.DodgerBlue), Color.FromArgb(255, 0, 255, 0)))), grPath)
+            Gr.DrawPath(New Pen(Color.FromArgb(tmpItm.FillOpacity, IIf(Me._HeadText <> "Primary", IIf(Me._HeadText = "Standby", Color.Gold, Color.DodgerBlue), Color.FromArgb(255, 16, 200, 116)))), grPath)
             Dim grIcon As New System.Drawing.Drawing2D.GraphicsPath
             'initRect.Inflate(-90, 0)
             'If _HeadText <> _HeadText2 Then

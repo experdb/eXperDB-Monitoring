@@ -960,11 +960,8 @@
                 'End If
 
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
-                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
-                Else
-                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                End If
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), DiskName, interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1114,11 +1111,9 @@
 
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTTBACCESSSTATS")
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
-                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
-                Else
-                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                End If
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), enmShowSvrNm.ToString("d"), interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1214,23 +1209,8 @@
                 Dim pointCount As Integer = 300
 
                 interval = minutes * 60 / pointCount
-                'If minutes <= 60 Then 'collect period
-                '    interval = "1" '1 min
-                'ElseIf minutes > 60 AndAlso minutes <= 240 Then
-                '    interval = "60" '1 min
-                'ElseIf minutes > 240 AndAlso minutes <= 720 Then
-                '    interval = "120" '2 min
-                'ElseIf minutes > 720 AndAlso minutes <= 1440 Then
-                '    interval = "300" '5 min
-                'Else
-                '    interval = "1200"
-                'End If
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
-                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
-                Else
-                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                End If
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:00"), edDate.ToString("yyyy-MM-dd HH:mm:59"), interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1295,11 +1275,8 @@
                     strQuery = p_clsQueryData.fn_GetData("SELECTREPORTSQL")
                 End If
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
-                    subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
-                Else
-                    subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                End If
+
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1410,9 +1387,8 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectAlertSearch(ByVal strDay As String,
-                                      ByVal StDate As String,
-                                      ByVal EdDate As String,
+    Public Function SelectAlertSearch(ByVal StDate As DateTime,
+                                      ByVal EdDate As DateTime,
                                       ByVal intInstanceID As String,
                                       ByVal intState As Integer,
                                       ByVal intChecked As Integer,
@@ -1438,7 +1414,7 @@
                 End If
 
                 subQuery += String.Format(" ORDER BY ALERT.reg_date DESC, COL.reg_time DESC")
-                strQuery = String.Format(strQuery, enmShowSvrNm, strDay, StDate, EdDate)
+                strQuery = String.Format(strQuery, enmShowSvrNm, StDate.ToString("yyyyMMdd"), EdDate.ToString("yyyyMMdd"), StDate.ToString("yyyy-MM-dd HH:mm:00"), EdDate.ToString("yyyy-MM-dd HH:mm:00"))
                 strQuery += subQuery
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

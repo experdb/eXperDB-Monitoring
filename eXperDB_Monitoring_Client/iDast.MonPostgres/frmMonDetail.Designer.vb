@@ -398,7 +398,7 @@ Partial Class frmMonDetail
         Series1.BorderWidth = 2
         Series1.ChartArea = "ChartArea1"
         Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series1.Color = System.Drawing.Color.YellowGreen
+        Series1.Color = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
         Series1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series1.Legend = "Legend1"
         Series1.Name = "Total"
@@ -625,7 +625,7 @@ Partial Class frmMonDetail
         Series5.BorderWidth = 2
         Series5.ChartArea = "ChartArea1"
         Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series5.Color = System.Drawing.Color.YellowGreen
+        Series5.Color = System.Drawing.Color.MediumSpringGreen
         Series5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
         Series5.Legend = "Legend1"
         Series5.Name = "Read"
@@ -1439,7 +1439,7 @@ Partial Class frmMonDetail
         Me.rndProgCPU.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgCPU.Cpu_textUse = True
         Me.rndProgCPU.CpuGauge_value = 0
-        Me.rndProgCPU.CpuGaugeColor = System.Drawing.Color.YellowGreen
+        Me.rndProgCPU.CpuGaugeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rndProgCPU.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rndProgCPU.Font = New System.Drawing.Font("Gulim", 20.0!)
         Me.rndProgCPU.Gauge_Interval = 3000
@@ -1519,7 +1519,7 @@ Partial Class frmMonDetail
         Me.chtCPU.Name = "chtCPU"
         Series11.ChartArea = "ChartArea1"
         Series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea
-        Series11.Color = System.Drawing.Color.YellowGreen
+        Series11.Color = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
         Series11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series11.Name = "MAIN"
         Series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
@@ -1544,7 +1544,7 @@ Partial Class frmMonDetail
         Me.rndProgMEM.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgMEM.Cpu_textUse = True
         Me.rndProgMEM.CpuGauge_value = 0
-        Me.rndProgMEM.CpuGaugeColor = System.Drawing.Color.YellowGreen
+        Me.rndProgMEM.CpuGaugeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rndProgMEM.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rndProgMEM.Font = New System.Drawing.Font("Gulim", 12.0!)
         Me.rndProgMEM.Gauge_Interval = 3000
@@ -1593,7 +1593,7 @@ Partial Class frmMonDetail
         Me.rndProgHealth.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgHealth.Cpu_textUse = False
         Me.rndProgHealth.CpuGauge_value = 100
-        Me.rndProgHealth.CpuGaugeColor = System.Drawing.Color.YellowGreen
+        Me.rndProgHealth.CpuGaugeColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rndProgHealth.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rndProgHealth.Font = New System.Drawing.Font("Gulim", 13.3451!)
         Me.rndProgHealth.Gauge_Interval = 3000
@@ -2688,7 +2688,7 @@ Partial Class frmMonDetail
         Series18.BorderWidth = 2
         Series18.ChartArea = "ChartArea1"
         Series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine
-        Series18.Color = System.Drawing.Color.Chartreuse
+        Series18.Color = System.Drawing.Color.MediumSpringGreen
         Series18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         Series18.Legend = "Legend1"
         Series18.Name = "Total"

@@ -93,7 +93,6 @@
         btnConfig.Text = p_clsMsgData.fn_GetData("F264")
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
         btnCheck.Text = p_clsMsgData.fn_GetData("F262")
-        lblSearchDay.Text = p_clsMsgData.fn_GetData("F277")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'grpAlertList.Text = p_clsMsgData.fn_GetData("F255")
@@ -193,7 +192,7 @@
         End If
 
 
-        dtTable = _clsQuery.SelectAlertSearch(dtpDay.Value.ToString("yyyyMMdd"), dtpSt.Value.ToString("HH:mm:ss"), dtpEd.Value.ToString("HH:mm:ss"), strInstances, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
+        dtTable = _clsQuery.SelectAlertSearch(dtpSt.Value, dtpEd.Value, strInstances, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
         If dtTable IsNot Nothing Then
             For Each tmpRow As DataRow In dtTable.Rows
                 Dim idxRow As Integer = dgvAlertList.Rows.Add()

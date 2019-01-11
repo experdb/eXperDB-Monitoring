@@ -26,8 +26,6 @@ Partial Class frmAlertList
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
         Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.lblSearchDay = New eXperDB.BaseControls.Label()
-        Me.dtpDay = New eXperDB.BaseControls.DateTimePicker()
         Me.lblServer = New eXperDB.BaseControls.Label()
         Me.cmbServer = New eXperDB.BaseControls.ComboBox()
         Me.lblLevel = New eXperDB.BaseControls.Label()
@@ -84,18 +82,16 @@ Partial Class frmAlertList
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.tlpHead.Controls.Add(Me.lblSearchDay, 0, 1)
-        Me.tlpHead.Controls.Add(Me.dtpDay, 1, 1)
         Me.tlpHead.Controls.Add(Me.lblServer, 0, 0)
         Me.tlpHead.Controls.Add(Me.cmbServer, 1, 0)
         Me.tlpHead.Controls.Add(Me.lblLevel, 2, 0)
         Me.tlpHead.Controls.Add(Me.cmbLevel, 3, 0)
         Me.tlpHead.Controls.Add(Me.lblCheck, 4, 0)
         Me.tlpHead.Controls.Add(Me.cmbCheck, 5, 0)
-        Me.tlpHead.Controls.Add(Me.lblDuration, 2, 1)
-        Me.tlpHead.Controls.Add(Me.dtpSt, 3, 1)
-        Me.tlpHead.Controls.Add(Me.lblDuration2, 4, 1)
-        Me.tlpHead.Controls.Add(Me.dtpEd, 5, 1)
+        Me.tlpHead.Controls.Add(Me.lblDuration, 0, 1)
+        Me.tlpHead.Controls.Add(Me.dtpSt, 1, 1)
+        Me.tlpHead.Controls.Add(Me.lblDuration2, 2, 1)
+        Me.tlpHead.Controls.Add(Me.dtpEd, 3, 1)
         Me.tlpHead.Dock = System.Windows.Forms.DockStyle.Top
         Me.tlpHead.Font = New System.Drawing.Font("Gulim", 12.27167!)
         Me.tlpHead.Location = New System.Drawing.Point(0, 50)
@@ -106,37 +102,6 @@ Partial Class frmAlertList
         Me.tlpHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
         Me.tlpHead.Size = New System.Drawing.Size(1095, 96)
         Me.tlpHead.TabIndex = 5
-        '
-        'lblSearchDay
-        '
-        Me.lblSearchDay.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblSearchDay.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblSearchDay.FixedHeight = False
-        Me.lblSearchDay.FixedWidth = False
-        Me.lblSearchDay.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblSearchDay.ForeColor = System.Drawing.Color.White
-        Me.lblSearchDay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSearchDay.Location = New System.Drawing.Point(3, 51)
-        Me.lblSearchDay.Name = "lblSearchDay"
-        Me.lblSearchDay.Size = New System.Drawing.Size(64, 29)
-        Me.lblSearchDay.TabIndex = 28
-        Me.lblSearchDay.Text = "F277"
-        Me.lblSearchDay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'dtpDay
-        '
-        Me.dtpDay.BackColor = System.Drawing.SystemColors.Window
-        Me.dtpDay.CustomFormat = "yyyy-MM-dd"
-        Me.dtpDay.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dtpDay.Font = New System.Drawing.Font("Gulim", 9.2638!)
-        Me.dtpDay.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDay.Location = New System.Drawing.Point(73, 54)
-        Me.dtpDay.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dtpDay.Name = "dtpDay"
-        Me.dtpDay.Necessary = False
-        Me.dtpDay.Size = New System.Drawing.Size(150, 22)
-        Me.dtpDay.StatusTip = ""
-        Me.dtpDay.TabIndex = 27
         '
         'lblServer
         '
@@ -252,7 +217,7 @@ Partial Class frmAlertList
         Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration.ForeColor = System.Drawing.Color.White
         Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblDuration.Location = New System.Drawing.Point(229, 51)
+        Me.lblDuration.Location = New System.Drawing.Point(3, 51)
         Me.lblDuration.Name = "lblDuration"
         Me.lblDuration.Size = New System.Drawing.Size(64, 29)
         Me.lblDuration.TabIndex = 25
@@ -265,12 +230,11 @@ Partial Class frmAlertList
         Me.dtpSt.CustomFormat = "yyyy-MM-dd HH:mm"
         Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.2638!)
-        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.dtpSt.Location = New System.Drawing.Point(299, 54)
+        Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpSt.Location = New System.Drawing.Point(73, 54)
         Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpSt.Name = "dtpSt"
         Me.dtpSt.Necessary = False
-        Me.dtpSt.ShowUpDown = True
         Me.dtpSt.Size = New System.Drawing.Size(150, 22)
         Me.dtpSt.StatusTip = ""
         Me.dtpSt.TabIndex = 19
@@ -284,7 +248,7 @@ Partial Class frmAlertList
         Me.lblDuration2.FixedWidth = False
         Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration2.ForeColor = System.Drawing.Color.White
-        Me.lblDuration2.Location = New System.Drawing.Point(455, 51)
+        Me.lblDuration2.Location = New System.Drawing.Point(229, 51)
         Me.lblDuration2.Name = "lblDuration2"
         Me.lblDuration2.Size = New System.Drawing.Size(64, 29)
         Me.lblDuration2.TabIndex = 20
@@ -297,12 +261,11 @@ Partial Class frmAlertList
         Me.dtpEd.CustomFormat = "yyyy-MM-dd HH:mm"
         Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.2638!)
-        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Time
-        Me.dtpEd.Location = New System.Drawing.Point(525, 54)
+        Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpEd.Location = New System.Drawing.Point(299, 54)
         Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEd.Name = "dtpEd"
         Me.dtpEd.Necessary = False
-        Me.dtpEd.ShowUpDown = True
         Me.dtpEd.Size = New System.Drawing.Size(150, 22)
         Me.dtpEd.StatusTip = ""
         Me.dtpEd.TabIndex = 21
@@ -631,7 +594,7 @@ Partial Class frmAlertList
         Me.mnuGoto.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.mnuGoto.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuGotoClusterDetails, Me.mnuGotoStatementsStats, Me.mnuGotoReports})
         Me.mnuGoto.Name = "mnuPopup"
-        Me.mnuGoto.Size = New System.Drawing.Size(186, 92)
+        Me.mnuGoto.Size = New System.Drawing.Size(186, 70)
         '
         'mnuGotoClusterDetails
         '
@@ -707,8 +670,6 @@ Partial Class frmAlertList
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents MsgLabel As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents dtpDay As eXperDB.BaseControls.DateTimePicker
-    Friend WithEvents lblSearchDay As eXperDB.BaseControls.Label
     Friend WithEvents mnuGoto As eXperDB.BaseControls.ContextMenuStrip
     Friend WithEvents mnuGotoClusterDetails As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuGotoStatementsStats As System.Windows.Forms.ToolStripMenuItem
