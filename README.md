@@ -125,6 +125,6 @@ postgres=# create extension experdb_mon;
 
 
 # Copyright
-Copyright (c) 2016-2018, eXperDB Development Team
+Copyright (c) 2016-2019, eXperDB Development Team
 All rights reserved.
 
