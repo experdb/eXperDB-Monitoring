@@ -245,6 +245,8 @@
     Private Sub frmMonMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         TmAni.Stop()
         TmAni.Dispose()
+        TmAniInstance.Stop()
+        TmAniInstance.Dispose()
     End Sub
 
     ''' <summary>
@@ -390,13 +392,6 @@
         colDgvSessionInfoTmStart.HeaderText = p_clsMsgData.fn_GetData("F050")
         colDgvSessionInfoTmElapse.HeaderText = p_clsMsgData.fn_GetData("F051")
         colDgvSessionInfoSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
-
-        For i As Integer = 0 To dgvSessionInfo.ColumnCount - 1
-            dgvSessionInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.Black
-            dgvSessionInfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
-            dgvSessionInfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            dgvSessionInfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Next
 
         chkIDLE.Text = p_clsMsgData.fn_GetData("F227")
         chkIDLE.Tag = p_clsMsgData.fn_GetSpecificData("F227", "COMMENTS")
@@ -741,6 +736,60 @@
     ''' <param name="svrLst"></param>
     ''' <remarks></remarks>
     Private Sub sb_SetInstanceStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+
+        '''''''''''''''''''''''''< instance order >''''''''''''''''''''''''''''''
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        setInstanceOrder(clsIni.ReadValue("General", "INSTANCEORDER", 4))
+        ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
+        Try
+            For i As Integer = 0 To svrLst.Count - 1
+                Dim topNode As AdvancedDataGridView.TreeGridNode
+                Dim toolTipText As String = svrLst.Item(i).ShowNm & Environment.NewLine & svrLst.Item(i).HostNm & Environment.NewLine & svrLst.Item(i).IP & ":" & svrLst.Item(i).Port
+                If svrLst.Item(i).HARole = "P" Or svrLst.Item(i).HARole = "A" Then
+                    topNode = dgvClusters.Nodes.Add(svrLst.Item(i).ShowNm)
+                    topNode.Tag = svrLst.Item(i)
+                    topNode.Image = instanceImgLst.Images(i)
+                    topNode.Height = 48
+                    topNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(0)
+                    topNode.Cells(coldgvClustersServerName.Index).Value = svrLst.Item(i).ShowNm
+                    topNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
+                    topNode.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
+                    topNode.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+
+                    topNode.Expand()
+                Else
+                    For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+                        If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value Then
+                            Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
+                            cNOde.Tag = svrLst.Item(i)
+                            cNOde.Image = instanceImgLst.Images(i)
+                            cNOde.Height = 48
+                            cNOde.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(0)
+                            cNOde.Cells(coldgvClustersServerName.Index).Value = svrLst.Item(i).ShowNm
+                            cNOde.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
+                            cNOde.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
+                            cNOde.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+                            tmpNode.Expand()
+                            Exit For
+                        End If
+                    Next
+                End If
+            Next
+
+            Me.dgvClusters.Columns(0).SortMode = DataGridViewColumnSortMode.Automatic
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+        ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
+    End Sub
+
+
+    ''' <summary>
+    ''' 인스턴스 상태 표시 컨트롤을 변경 
+    ''' </summary>
+    ''' <param name="svrLst"></param>
+    ''' <remarks></remarks>
+    Private Sub sb_SetInstanceStatus_old(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         ' 모든 컨트롤을 Visible을 끈다. 
         'For Each tmpCtl As Control In tlpInstance.Controls
         '    Dim tmpProg3D As Controls.Progress3D = TryCast(tmpCtl, Controls.Progress3D)
@@ -780,7 +829,7 @@
                     PrimaryID = svrLst.Item(i - 1).InstanceID
             End Select
             tmpCtl.HeadText = strHARole
-            tmpCtl.PrimaryID = PrimaryID
+            tmpCtl.PrimaryId = PrimaryID
             tmpCtl.Text = " "
             tmpCtl.Text += svrLst.Item(i).ShowNm
             tmpCtl.SubText = svrLst.Item(i).IP & " / " & svrLst.Item(i).Port
@@ -852,7 +901,8 @@
         tmpCtl.BackColor = System.Drawing.Color.Black
         tmpCtl.BorderColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         'tmpCtl.Dock = System.Windows.Forms.DockStyle.Fill
-        tmpCtl.FillColor = System.Drawing.Color.Black
+        'tmpCtl.FillColor = System.Drawing.Color.Black
+        tmpCtl.FillColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         tmpCtl.Font = New System.Drawing.Font("Gulim", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         tmpCtl.ForeColor = System.Drawing.Color.FromArgb(255, CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(200, Byte), Integer))
         tmpCtl.isSelected = False
@@ -990,8 +1040,25 @@
 
     End Sub
 
-
     Public Sub InstanceSelectedChange(ByVal intInstanceID As Integer, ByVal Bret As Boolean)
+        For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+            If DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
+                tmpNode.Cells(coldgvClusterIsOpenSingle.Index).Value = "0"
+                Exit For
+            End If
+
+            If tmpNode.HasChildren Then
+                For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
+                    If DirectCast(cNode.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
+                        cNode.Cells(coldgvClusterIsOpenSingle.Index).Value = "0"
+                        Return
+                    End If
+                Next
+            End If
+        Next
+    End Sub
+
+    Public Sub InstanceSelectedChange_old(ByVal intInstanceID As Integer, ByVal Bret As Boolean)
         'For Each tmpCtl As Controls.Progress3D In Me.flpInstance.Controls
         '    If tmpCtl.Visible = True AndAlso _GrpListServerinfo.Item(0).InstanceID.Equals(intInstanceID) Then
         '        tmpCtl.isSelected = Bret
@@ -1004,7 +1071,6 @@
                 Exit For
             End If
         Next
-
     End Sub
 
 
@@ -2478,16 +2544,44 @@
                     End If
                 End If
             Next
-            'For Each tmpCtl As Control In tlpInstance.Controls
-            '    If tmpCtl.Visible = True AndAlso tmpCtl.GetType.Equals(GetType(Progress3D)) Then
-            '        Dim intInstID As Integer = DirectCast(tmpCtl.Tag, GroupInfo.ServerInfo).InstanceID
-            '        If InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID).Count > 0 Then
-            '            DirectCast(tmpCtl, Progress3D).Value = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100
-
-            '        End If
-            '    End If
-
-            'Next
+            ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
+            Try
+                _isCriticalInstance = False
+                For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+                    Dim intInstID As Integer = DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID
+                    Dim intLevel As Integer = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
+                    'tmpNode.Image = instanceImgLst.Images(intLevel)
+                    If tmpNode.Cells(coldgvClustersLegend.Index).Tag <> intLevel Then
+                        tmpNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(intLevel)
+                    End If
+                    tmpNode.Cells(coldgvClustersLegend.Index).Tag = intLevel
+                    If intLevel > 1 Then
+                        _isCriticalInstance = True
+                    End If
+                    If tmpNode.HasChildren Then
+                        For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
+                            intInstID = DirectCast(cNode.Tag, GroupInfo.ServerInfo).InstanceID
+                            intLevel = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
+                            'cNode.Image = instanceImgLst.Images(intLevel)
+                            If cNode.Cells(coldgvClustersLegend.Index).Tag <> intLevel Then
+                                cNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(intLevel)
+                            End If
+                            cNode.Cells(coldgvClustersLegend.Index).Tag = intLevel
+                            If intLevel > 1 Then
+                                _isCriticalInstance = True
+                            End If
+                        Next
+                    End If
+                Next
+                If _isCriticalInstance = True Then
+                    StartStatusAnimaition()
+                Else
+                    StopStatusAnimaition()
+                End If
+            Catch ex As Exception
+                GC.Collect()
+            End Try
+            ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
         End If
 
 
@@ -3042,15 +3136,22 @@
     Private Const WM_LBUTTONDOWN As Long = &H201
 
     Private Sub dgvGrpCpuSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpCpuSvrLst.CellContentClick
-        If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
-            For Each tmpCtl As Progress3D In flpInstance.Controls
-                If dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
-                    SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)
+        'If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
+        '    For Each tmpCtl As Progress3D In flpInstance.Controls
+        '        If dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
+        '            SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)
+        '            Exit For
+        '        End If
+        '    Next
+        'End If
+        If e.RowIndex >= 0 And e.RowIndex < dgvClusters.Rows.Count Then
+            For Each tmpRow As DataGridViewRow In dgvClusters.Rows
+                If dgvGrpCpuSvrLst.Rows(e.RowIndex).Cells(0).Value = TryCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID Then
+                    openMonDetail(tmpRow.Index)
                     Exit For
                 End If
             Next
         End If
-
     End Sub
 #End If
 
@@ -3077,14 +3178,24 @@
     End Sub
 
     Private Sub dgvGrpMemSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpMemSvrLst.CellContentClick
-        If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
-            For Each tmpCtl As Progress3D In flpInstance.Controls
-                If dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
-                    SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)
+        'If e.RowIndex >= 0 And e.RowIndex < flpInstance.Controls.Count Then
+        '    For Each tmpCtl As Progress3D In flpInstance.Controls
+        '        If dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(0).Value = tmpCtl.Tag.InstanceID Then
+        '            SendMessage(tmpCtl.Handle.ToInt32, WM_LBUTTONDOWN, 1&, 0)
+        '            Exit For
+        '        End If
+        '    Next
+        'End If
+
+        If e.RowIndex >= 0 And e.RowIndex < dgvClusters.Rows.Count Then
+            For Each tmpRow As DataGridViewRow In dgvClusters.Rows
+                If dgvGrpMemSvrLst.Rows(e.RowIndex).Cells(0).Value = TryCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID Then
+                    openMonDetail(tmpRow.Index)
                     Exit For
                 End If
             Next
         End If
+
     End Sub
 
     Private Sub dgvGrpMemSvrLst_CellMouseMove(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvGrpMemSvrLst.CellMouseMove
@@ -3966,13 +4077,49 @@
     End Class
 
     Private WithEvents TmAni As New Timer
+    Private WithEvents TmAniInstance As New Timer
     Private _nDivision As Integer = 10
+    Private _isCriticalInstance As Boolean = False
+    Private _nAlpha As Integer = 0
 
     Private _tmSeriesList As New List(Of seriesDelta)
 
     Private Sub StartChartAnimaition()
         TmAni.Interval = 50
         TmAni.Start()
+    End Sub
+
+    Private Sub StartStatusAnimaition()
+
+        'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+        '    If tmpNode.Cells(coldgvClustersLegend.Index).Tag <= 1 Then
+        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
+        '            System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
+        '            System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '    End If
+        '    If tmpNode.HasChildren Then
+        '        For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
+        '            If cNode.Cells(coldgvClustersLegend.Index).Tag <= 1 Then
+        '                cNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
+        '                    System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '                cNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
+        '                    System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '            End If
+        '        Next
+        '    End If
+        'Next
+
+        'If TmAniInstance.Enabled = False Then
+        '    TmAniInstance.Interval = 150
+        '    TmAniInstance.Start()
+        'End If
+    End Sub
+
+    Private Sub StopStatusAnimaition()
+        'If TmAniInstance.Enabled = True Then
+        '    TmAniInstance.Stop()
+        'End If
     End Sub
 
     Private Sub drawAnimation(ByRef tmpSeries As DataVisualization.Charting.Series, ByVal index As Integer, ByVal dValue As Double)
@@ -3996,4 +4143,173 @@
             _nDivision = 10
         End If
     End Sub
+
+    Private Sub TmAniInstance_Tick(sender As Object, e As EventArgs) Handles TmAniInstance.Tick
+        _nAlpha += 10
+        If _nAlpha > 180 Then
+            _nAlpha = 60
+        End If
+
+        'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+        '    If tmpNode.Cells(coldgvClustersLegend.Index).Tag > 1 Then
+        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
+        '            System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
+        '            System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '    End If
+        '    If tmpNode.HasChildren Then
+        '        For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
+        '            If cNode.Cells(coldgvClustersLegend.Index).Tag > 1 Then
+        '                cNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
+        '                    System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '                cNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
+        '                    System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '            End If
+        '        Next
+        '    End If
+        'Next
+    End Sub
+
+    Private Sub dgvClusters_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles dgvClusters.CellPainting
+        'If coldgvClustersLegend.Index = e.ColumnIndex AndAlso e.RowIndex >= 0 AndAlso e.RowIndex < 16 Then
+        'Dim r32 As New Rectangle(e.CellBounds.Left + 7, 7, 72, 72)
+        'Dim r96 As New Rectangle(8, 0, 96, 96)
+        'Dim header As String = dgvClusters.Columns(e.ColumnIndex).HeaderText
+        'e.PaintBackground(e.CellBounds, True)
+        'e.PaintContent(e.CellBounds)
+        'e.Graphics.DrawImage(statusImgLst.Images(0), r96, GraphicsUnit.Pixel)
+        'e.Graphics.DrawImage(statusImgLst.Images(0), e.CellBounds.Left, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom)
+        'e.Handled = True
+
+        'Dim grIcon As New System.Drawing.Drawing2D.GraphicsPath
+        'Dim backColorBrush As SolidBrush
+        'If e.RowIndex = dgvClusters.SelectedRows(0).Index Then
+        '    backColorBrush = New SolidBrush(e.CellStyle.SelectionBackColor)
+        'Else
+        '    backColorBrush = New SolidBrush(e.CellStyle.BackColor)
+        'End If
+        'Dim gridBrush As New SolidBrush(Me.dgvClusters.GridColor)
+        'Dim gridLinePen As New Pen(gridBrush)
+        'Try
+        '    e.Graphics.FillRectangle(backColorBrush, e.CellBounds)
+        '    ' Draw the grid lines (only the right and bottom lines;
+        '    ' DataGridView takes care of the others).
+        '    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, e.CellBounds.Bottom - 1, e.CellBounds.Right - 1, e.CellBounds.Bottom - 1)
+        '    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom)
+        '    Dim AreaRect As New Rectangle(e.CellBounds.X + 12, e.CellBounds.Y + 12, 12, 12)
+        '    grIcon.AddEllipse(AreaRect)
+        '    e.Graphics.FillPath(New SolidBrush(Color.FromArgb(255, _instanceColors(e.RowIndex))), grIcon)
+        '    e.Handled = True
+        'Finally
+        '    gridLinePen.Dispose()
+        '    gridBrush.Dispose()
+        '    backColorBrush.Dispose()
+        'End Try
+        'If dgvClusters.Rows(e.RowIndex).Cells(e.ColumnIndex).Tag > 1 Then
+        '    'e.CellStyle.BackColor = System.Drawing.Color.FromArgb(_nAlpha, CType(CType(255, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(0, Byte), Integer))
+        '    'e.CellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(_nAlpha, CType(CType(255, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(0, Byte), Integer))
+        '    e.CellStyle.BackColor = System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        '    e.CellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        'End If
+        'ElseIf coldgvClustersServerName.Index = e.ColumnIndex AndAlso e.RowIndex = -1 Then
+        If coldgvClustersServerName.Index = e.ColumnIndex AndAlso e.RowIndex = -1 Then
+            'Draw column header image
+            Dim r32 As New Rectangle(e.CellBounds.Left + 7, 4, 72, 72)
+            Dim r96 As New Rectangle(0, 0, 72, 72)
+            Dim header As String = dgvClusters.Columns(e.ColumnIndex).HeaderText
+            e.PaintBackground(e.CellBounds, True)
+            e.PaintContent(e.CellBounds)
+            e.Graphics.DrawImage(statusImgLst.Images(3), r32, r96, GraphicsUnit.Pixel)
+            e.Handled = True
+        End If
+
+        p_Log.AddMessage(clsLog4Net.enmType.Error, "cell painting(" & e.RowIndex)
+    End Sub
+    Private isClickdgvClusters As Boolean = True
+    Private isNodeCollapsingOrExpanding As Boolean = False
+    Private Sub dgvClusters_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvClusters.CellClick
+        If e.RowIndex < 0 Then
+            Return
+        End If
+        ' Check Whether expanding/collapsing by user clicking or by logic
+        If isNodeCollapsingOrExpanding = True AndAlso isClickdgvClusters = True Then
+            isNodeCollapsingOrExpanding = False
+            isClickdgvClusters = True
+            Return
+        End If
+        isNodeCollapsingOrExpanding = False
+        isClickdgvClusters = True
+        openMonDetail(e.RowIndex)
+    End Sub
+
+    Private Sub openMonDetail(ByVal rowIndex As Integer)
+        If fn_FormisLock(Me, _AgentCn) = True Then
+            Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
+            MsgBox(strMsg)
+            Return
+        End If
+
+        If p_clsAgentCollect.AgentState <> clsCollect.AgntState.Activate Then
+            Dim strMsg As String = p_clsMsgData.fn_GetData("M019")
+            MsgBox(strMsg)
+            Return
+        End If
+
+        ' Tag에 값을 넝ㅎ어 두었음. 
+        'Dim svrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Nodes(e.RowIndex).Tag, GroupInfo.ServerInfo)
+        Dim svrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(rowIndex).Tag, GroupInfo.ServerInfo)
+
+        If dgvClusters.Rows(rowIndex).Cells(coldgvClusterIsOpenSingle.Index).Value <> "1" Then
+            Dim FrmSub As New frmMonDetail(svrInfo, _ElapseInterval, AgentInfo, AgentCn)
+            'FrmSub.Owner = Me
+            FrmSub.OwnerForm = Me
+            FrmSub.Show()
+        Else
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = svrInfo.InstanceID Then
+                    If frmDtl.WindowState = FormWindowState.Minimized Then
+                        frmDtl.WindowState = FormWindowState.Maximized
+                    End If
+                    frmDtl.Activate()
+                    Exit For
+                End If
+            Next
+            'End If
+        End If
+
+        dgvClusters.Rows(rowIndex).Cells(coldgvClusterIsOpenSingle.Index).Value = "1"
+    End Sub
+
+    Private Sub dgvClusters_NodeCollapsing(sender As Object, e As AdvancedDataGridView.CollapsingEventArgs) Handles dgvClusters.NodeCollapsing
+        If e.Node.HasChildren Then
+            isNodeCollapsingOrExpanding = True
+            Threading.Thread.Sleep(10)
+        End If
+    End Sub
+
+    Private Sub dgvClusters_NodeExpanding(sender As Object, e As AdvancedDataGridView.ExpandingEventArgs) Handles dgvClusters.NodeExpanding
+        If e.Node.HasChildren Then
+            isNodeCollapsingOrExpanding = True
+            Threading.Thread.Sleep(10)
+        End If
+    End Sub
+
+    Private sortAscending As Boolean = False
+    Private Sub dgvClusters_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvClusters.ColumnHeaderMouseClick
+        Try
+            For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+                isClickdgvClusters = False
+                tmpNode.Collapse()
+            Next
+            Me.dgvClusters.Columns(0).SortMode = DataGridViewColumnSortMode.Automatic
+            For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+                isClickdgvClusters = False
+                tmpNode.Expand()
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+
 End Class

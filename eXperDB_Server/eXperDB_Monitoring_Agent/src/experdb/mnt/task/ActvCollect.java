@@ -137,7 +137,7 @@ public class ActvCollect extends TaskApplication {
 				{
 					HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
 					if (instance_db_version.isEmpty())
-						instance_db_version = "9.6";
+						instance_db_version = "9.5";
 					dbVerMap.put("instance_db_version", instance_db_version);					
 					
 					preList.clear();
@@ -425,7 +425,7 @@ public class ActvCollect extends TaskApplication {
 					
 					extensions &= 0x04;
 
-					if (dbl_instance_db_version >= 10.0)
+					if (dbl_instance_db_version >= 9.5)
 					{
 						HashMap<String, Object> inputParam = new HashMap<String, Object>();
 						inputParam.put("instance_id", 				Integer.parseInt(instanceId));
