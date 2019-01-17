@@ -413,7 +413,7 @@ Partial Class frmMonDetail
         Series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Me.chtSession.Series.Add(Series1)
         Me.chtSession.Series.Add(Series2)
-        Me.chtSession.Size = New System.Drawing.Size(310, 236)
+        Me.chtSession.Size = New System.Drawing.Size(310, 216)
         Me.chtSession.TabIndex = 2
         Me.chtSession.Text = "Chart5"
         '
@@ -516,7 +516,7 @@ Partial Class frmMonDetail
         Series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Me.chtSQLRespTm.Series.Add(Series3)
         Me.chtSQLRespTm.Series.Add(Series4)
-        Me.chtSQLRespTm.Size = New System.Drawing.Size(310, 178)
+        Me.chtSQLRespTm.Size = New System.Drawing.Size(310, 194)
         Me.chtSQLRespTm.TabIndex = 2
         Me.chtSQLRespTm.Text = "Chart4"
         '
@@ -659,7 +659,7 @@ Partial Class frmMonDetail
         Me.chtLocalIO.Series.Add(Series6)
         Me.chtLocalIO.Series.Add(Series7)
         Me.chtLocalIO.Series.Add(Series8)
-        Me.chtLocalIO.Size = New System.Drawing.Size(310, 178)
+        Me.chtLocalIO.Size = New System.Drawing.Size(310, 194)
         Me.chtLocalIO.TabIndex = 1
         Me.chtLocalIO.Text = "Chart2"
         '
@@ -780,7 +780,7 @@ Partial Class frmMonDetail
         Series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Me.chtPhysicaliO.Series.Add(Series9)
         Me.chtPhysicaliO.Series.Add(Series10)
-        Me.chtPhysicaliO.Size = New System.Drawing.Size(310, 178)
+        Me.chtPhysicaliO.Size = New System.Drawing.Size(310, 194)
         Me.chtPhysicaliO.TabIndex = 0
         Me.chtPhysicaliO.Text = "Chart1"
         '
@@ -1071,8 +1071,8 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Black
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.tlpCPUMEM.SetColumnSpan(Me.TableLayoutPanel1, 2)
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.tlpMeminfo, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.rndProgCPU, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.chtCPU, 1, 0)
@@ -1085,7 +1085,7 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(310, 236)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(310, 216)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'tlpMeminfo
@@ -1116,7 +1116,7 @@ Partial Class frmMonDetail
         Me.tlpMeminfo.Controls.Add(Me.lblMemSwapCachedVal, 3, 3)
         Me.tlpMeminfo.Controls.Add(Me.lblMemSwapCached, 2, 3)
         Me.tlpMeminfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMeminfo.Location = New System.Drawing.Point(96, 122)
+        Me.tlpMeminfo.Location = New System.Drawing.Point(123, 112)
         Me.tlpMeminfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.tlpMeminfo.Name = "tlpMeminfo"
         Me.tlpMeminfo.RowCount = 7
@@ -1127,7 +1127,7 @@ Partial Class frmMonDetail
         Me.tlpMeminfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.5!))
         Me.tlpMeminfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.5!))
         Me.tlpMeminfo.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 1.0!))
-        Me.tlpMeminfo.Size = New System.Drawing.Size(211, 110)
+        Me.tlpMeminfo.Size = New System.Drawing.Size(184, 100)
         Me.tlpMeminfo.TabIndex = 3
         '
         'lblMemTot
@@ -1140,7 +1140,7 @@ Partial Class frmMonDetail
         Me.lblMemTot.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblMemTot.Location = New System.Drawing.Point(3, 0)
         Me.lblMemTot.Name = "lblMemTot"
-        Me.lblMemTot.Size = New System.Drawing.Size(36, 18)
+        Me.lblMemTot.Size = New System.Drawing.Size(30, 16)
         Me.lblMemTot.TabIndex = 0
         Me.lblMemTot.Text = "F065"
         Me.lblMemTot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1153,9 +1153,9 @@ Partial Class frmMonDetail
         Me.lblMemTotVal.FixedWidth = False
         Me.lblMemTotVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemTotVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemTotVal.Location = New System.Drawing.Point(45, 0)
+        Me.lblMemTotVal.Location = New System.Drawing.Point(39, 0)
         Me.lblMemTotVal.Name = "lblMemTotVal"
-        Me.lblMemTotVal.Size = New System.Drawing.Size(43, 18)
+        Me.lblMemTotVal.Size = New System.Drawing.Size(37, 16)
         Me.lblMemTotVal.TabIndex = 1
         Me.lblMemTotVal.Text = "0 MB"
         Me.lblMemTotVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1168,9 +1168,9 @@ Partial Class frmMonDetail
         Me.lblMemUsed.FixedWidth = False
         Me.lblMemUsed.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemUsed.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemUsed.Location = New System.Drawing.Point(3, 18)
+        Me.lblMemUsed.Location = New System.Drawing.Point(3, 16)
         Me.lblMemUsed.Name = "lblMemUsed"
-        Me.lblMemUsed.Size = New System.Drawing.Size(36, 18)
+        Me.lblMemUsed.Size = New System.Drawing.Size(30, 16)
         Me.lblMemUsed.TabIndex = 2
         Me.lblMemUsed.Text = "F066"
         Me.lblMemUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1183,9 +1183,9 @@ Partial Class frmMonDetail
         Me.lblMemUsedVal.FixedWidth = False
         Me.lblMemUsedVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemUsedVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemUsedVal.Location = New System.Drawing.Point(45, 18)
+        Me.lblMemUsedVal.Location = New System.Drawing.Point(39, 16)
         Me.lblMemUsedVal.Name = "lblMemUsedVal"
-        Me.lblMemUsedVal.Size = New System.Drawing.Size(43, 18)
+        Me.lblMemUsedVal.Size = New System.Drawing.Size(37, 16)
         Me.lblMemUsedVal.TabIndex = 3
         Me.lblMemUsedVal.Text = "0 MB"
         Me.lblMemUsedVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1198,9 +1198,9 @@ Partial Class frmMonDetail
         Me.lblMemFree.FixedWidth = False
         Me.lblMemFree.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemFree.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemFree.Location = New System.Drawing.Point(3, 36)
+        Me.lblMemFree.Location = New System.Drawing.Point(3, 32)
         Me.lblMemFree.Name = "lblMemFree"
-        Me.lblMemFree.Size = New System.Drawing.Size(36, 18)
+        Me.lblMemFree.Size = New System.Drawing.Size(30, 16)
         Me.lblMemFree.TabIndex = 4
         Me.lblMemFree.Text = "F067"
         Me.lblMemFree.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1213,9 +1213,9 @@ Partial Class frmMonDetail
         Me.lblMemFreeVal.FixedWidth = False
         Me.lblMemFreeVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemFreeVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemFreeVal.Location = New System.Drawing.Point(45, 36)
+        Me.lblMemFreeVal.Location = New System.Drawing.Point(39, 32)
         Me.lblMemFreeVal.Name = "lblMemFreeVal"
-        Me.lblMemFreeVal.Size = New System.Drawing.Size(43, 18)
+        Me.lblMemFreeVal.Size = New System.Drawing.Size(37, 16)
         Me.lblMemFreeVal.TabIndex = 5
         Me.lblMemFreeVal.Text = "0 MB"
         Me.lblMemFreeVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1228,9 +1228,9 @@ Partial Class frmMonDetail
         Me.lblMemShared.FixedWidth = False
         Me.lblMemShared.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemShared.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemShared.Location = New System.Drawing.Point(3, 54)
+        Me.lblMemShared.Location = New System.Drawing.Point(3, 48)
         Me.lblMemShared.Name = "lblMemShared"
-        Me.lblMemShared.Size = New System.Drawing.Size(36, 18)
+        Me.lblMemShared.Size = New System.Drawing.Size(30, 16)
         Me.lblMemShared.TabIndex = 6
         Me.lblMemShared.Text = "F068"
         Me.lblMemShared.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1243,9 +1243,9 @@ Partial Class frmMonDetail
         Me.lblMemSharedVal.FixedWidth = False
         Me.lblMemSharedVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSharedVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSharedVal.Location = New System.Drawing.Point(45, 54)
+        Me.lblMemSharedVal.Location = New System.Drawing.Point(39, 48)
         Me.lblMemSharedVal.Name = "lblMemSharedVal"
-        Me.lblMemSharedVal.Size = New System.Drawing.Size(43, 18)
+        Me.lblMemSharedVal.Size = New System.Drawing.Size(37, 16)
         Me.lblMemSharedVal.TabIndex = 7
         Me.lblMemSharedVal.Text = "0 MB"
         Me.lblMemSharedVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1258,9 +1258,9 @@ Partial Class frmMonDetail
         Me.lblMemBuffer.FixedWidth = False
         Me.lblMemBuffer.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemBuffer.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemBuffer.Location = New System.Drawing.Point(3, 72)
+        Me.lblMemBuffer.Location = New System.Drawing.Point(3, 64)
         Me.lblMemBuffer.Name = "lblMemBuffer"
-        Me.lblMemBuffer.Size = New System.Drawing.Size(36, 18)
+        Me.lblMemBuffer.Size = New System.Drawing.Size(30, 16)
         Me.lblMemBuffer.TabIndex = 8
         Me.lblMemBuffer.Text = "F069"
         Me.lblMemBuffer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1273,9 +1273,9 @@ Partial Class frmMonDetail
         Me.lblMemBufferVal.FixedWidth = False
         Me.lblMemBufferVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemBufferVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemBufferVal.Location = New System.Drawing.Point(45, 72)
+        Me.lblMemBufferVal.Location = New System.Drawing.Point(39, 64)
         Me.lblMemBufferVal.Name = "lblMemBufferVal"
-        Me.lblMemBufferVal.Size = New System.Drawing.Size(43, 18)
+        Me.lblMemBufferVal.Size = New System.Drawing.Size(37, 16)
         Me.lblMemBufferVal.TabIndex = 9
         Me.lblMemBufferVal.Text = "0 MB"
         Me.lblMemBufferVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1288,9 +1288,9 @@ Partial Class frmMonDetail
         Me.lblMemCache.FixedWidth = False
         Me.lblMemCache.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemCache.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemCache.Location = New System.Drawing.Point(3, 90)
+        Me.lblMemCache.Location = New System.Drawing.Point(3, 80)
         Me.lblMemCache.Name = "lblMemCache"
-        Me.lblMemCache.Size = New System.Drawing.Size(36, 18)
+        Me.lblMemCache.Size = New System.Drawing.Size(30, 16)
         Me.lblMemCache.TabIndex = 10
         Me.lblMemCache.Text = "F070"
         Me.lblMemCache.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1303,9 +1303,9 @@ Partial Class frmMonDetail
         Me.lblMemCacheVal.FixedWidth = False
         Me.lblMemCacheVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemCacheVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemCacheVal.Location = New System.Drawing.Point(45, 90)
+        Me.lblMemCacheVal.Location = New System.Drawing.Point(39, 80)
         Me.lblMemCacheVal.Name = "lblMemCacheVal"
-        Me.lblMemCacheVal.Size = New System.Drawing.Size(43, 18)
+        Me.lblMemCacheVal.Size = New System.Drawing.Size(37, 16)
         Me.lblMemCacheVal.TabIndex = 11
         Me.lblMemCacheVal.Text = "0 MB"
         Me.lblMemCacheVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1318,9 +1318,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapTotal.FixedWidth = False
         Me.lblMemSwapTotal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapTotal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapTotal.Location = New System.Drawing.Point(94, 0)
+        Me.lblMemSwapTotal.Location = New System.Drawing.Point(82, 0)
         Me.lblMemSwapTotal.Name = "lblMemSwapTotal"
-        Me.lblMemSwapTotal.Size = New System.Drawing.Size(63, 18)
+        Me.lblMemSwapTotal.Size = New System.Drawing.Size(54, 16)
         Me.lblMemSwapTotal.TabIndex = 12
         Me.lblMemSwapTotal.Text = "F071"
         Me.lblMemSwapTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1333,9 +1333,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapUsed.FixedWidth = False
         Me.lblMemSwapUsed.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapUsed.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapUsed.Location = New System.Drawing.Point(94, 18)
+        Me.lblMemSwapUsed.Location = New System.Drawing.Point(82, 16)
         Me.lblMemSwapUsed.Name = "lblMemSwapUsed"
-        Me.lblMemSwapUsed.Size = New System.Drawing.Size(63, 18)
+        Me.lblMemSwapUsed.Size = New System.Drawing.Size(54, 16)
         Me.lblMemSwapUsed.TabIndex = 14
         Me.lblMemSwapUsed.Text = "F072"
         Me.lblMemSwapUsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1348,9 +1348,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapFree.FixedWidth = False
         Me.lblMemSwapFree.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapFree.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapFree.Location = New System.Drawing.Point(94, 36)
+        Me.lblMemSwapFree.Location = New System.Drawing.Point(82, 32)
         Me.lblMemSwapFree.Name = "lblMemSwapFree"
-        Me.lblMemSwapFree.Size = New System.Drawing.Size(63, 18)
+        Me.lblMemSwapFree.Size = New System.Drawing.Size(54, 16)
         Me.lblMemSwapFree.TabIndex = 16
         Me.lblMemSwapFree.Text = "F073"
         Me.lblMemSwapFree.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1363,9 +1363,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapTotalVal.FixedWidth = False
         Me.lblMemSwapTotalVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapTotalVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapTotalVal.Location = New System.Drawing.Point(163, 0)
+        Me.lblMemSwapTotalVal.Location = New System.Drawing.Point(142, 0)
         Me.lblMemSwapTotalVal.Name = "lblMemSwapTotalVal"
-        Me.lblMemSwapTotalVal.Size = New System.Drawing.Size(45, 18)
+        Me.lblMemSwapTotalVal.Size = New System.Drawing.Size(39, 16)
         Me.lblMemSwapTotalVal.TabIndex = 13
         Me.lblMemSwapTotalVal.Text = "0 MB"
         Me.lblMemSwapTotalVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1378,9 +1378,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapUsedVal.FixedWidth = False
         Me.lblMemSwapUsedVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapUsedVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapUsedVal.Location = New System.Drawing.Point(163, 18)
+        Me.lblMemSwapUsedVal.Location = New System.Drawing.Point(142, 16)
         Me.lblMemSwapUsedVal.Name = "lblMemSwapUsedVal"
-        Me.lblMemSwapUsedVal.Size = New System.Drawing.Size(45, 18)
+        Me.lblMemSwapUsedVal.Size = New System.Drawing.Size(39, 16)
         Me.lblMemSwapUsedVal.TabIndex = 15
         Me.lblMemSwapUsedVal.Text = "0 MB"
         Me.lblMemSwapUsedVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1393,9 +1393,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapFreeVal.FixedWidth = False
         Me.lblMemSwapFreeVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapFreeVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapFreeVal.Location = New System.Drawing.Point(163, 36)
+        Me.lblMemSwapFreeVal.Location = New System.Drawing.Point(142, 32)
         Me.lblMemSwapFreeVal.Name = "lblMemSwapFreeVal"
-        Me.lblMemSwapFreeVal.Size = New System.Drawing.Size(45, 18)
+        Me.lblMemSwapFreeVal.Size = New System.Drawing.Size(39, 16)
         Me.lblMemSwapFreeVal.TabIndex = 17
         Me.lblMemSwapFreeVal.Text = "0 MB"
         Me.lblMemSwapFreeVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1408,9 +1408,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapCachedVal.FixedWidth = False
         Me.lblMemSwapCachedVal.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapCachedVal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapCachedVal.Location = New System.Drawing.Point(163, 54)
+        Me.lblMemSwapCachedVal.Location = New System.Drawing.Point(142, 48)
         Me.lblMemSwapCachedVal.Name = "lblMemSwapCachedVal"
-        Me.lblMemSwapCachedVal.Size = New System.Drawing.Size(45, 18)
+        Me.lblMemSwapCachedVal.Size = New System.Drawing.Size(39, 16)
         Me.lblMemSwapCachedVal.TabIndex = 19
         Me.lblMemSwapCachedVal.Text = "0 MB"
         Me.lblMemSwapCachedVal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1423,9 +1423,9 @@ Partial Class frmMonDetail
         Me.lblMemSwapCached.FixedWidth = False
         Me.lblMemSwapCached.Font = New System.Drawing.Font("Gulim", 9.5!)
         Me.lblMemSwapCached.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
-        Me.lblMemSwapCached.Location = New System.Drawing.Point(94, 54)
+        Me.lblMemSwapCached.Location = New System.Drawing.Point(82, 48)
         Me.lblMemSwapCached.Name = "lblMemSwapCached"
-        Me.lblMemSwapCached.Size = New System.Drawing.Size(63, 18)
+        Me.lblMemSwapCached.Size = New System.Drawing.Size(54, 16)
         Me.lblMemSwapCached.TabIndex = 20
         Me.lblMemSwapCached.Text = "F152"
         Me.lblMemSwapCached.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1454,7 +1454,7 @@ Partial Class frmMonDetail
         Me.rndProgCPU.Postgres_textUse = True
         Me.rndProgCPU.Postgres_value = 0
         Me.rndProgCPU.PostgresGaugeColor = System.Drawing.Color.Gold
-        Me.rndProgCPU.Size = New System.Drawing.Size(87, 110)
+        Me.rndProgCPU.Size = New System.Drawing.Size(114, 100)
         Me.rndProgCPU.TabIndex = 0
         Me.rndProgCPU.TitlePt = New System.Drawing.Point(10, 10)
         '
@@ -1514,7 +1514,7 @@ Partial Class frmMonDetail
         ChartArea5.Position.Y = 3.0!
         Me.chtCPU.ChartAreas.Add(ChartArea5)
         Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chtCPU.Location = New System.Drawing.Point(96, 4)
+        Me.chtCPU.Location = New System.Drawing.Point(123, 4)
         Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtCPU.Name = "chtCPU"
         Series11.ChartArea = "ChartArea1"
@@ -1531,16 +1531,16 @@ Partial Class frmMonDetail
         Series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Me.chtCPU.Series.Add(Series11)
         Me.chtCPU.Series.Add(Series12)
-        Me.chtCPU.Size = New System.Drawing.Size(211, 110)
+        Me.chtCPU.Size = New System.Drawing.Size(184, 100)
         Me.chtCPU.TabIndex = 1
         Me.chtCPU.Text = "Chart5"
         '
         'rndProgMEM
         '
         Me.rndProgMEM.BufferGauge_value = 0
-        Me.rndProgMEM.BufferGaugeColor = System.Drawing.Color.Orange
+        Me.rndProgMEM.BufferGaugeColor = System.Drawing.Color.Gold
         Me.rndProgMEM.CacheGauge_value = 0
-        Me.rndProgMEM.CacheGaugeColor = System.Drawing.Color.Orange
+        Me.rndProgMEM.CacheGaugeColor = System.Drawing.Color.Gold
         Me.rndProgMEM.CenterCircleColor = System.Drawing.Color.Black
         Me.rndProgMEM.Cpu_textUse = True
         Me.rndProgMEM.CpuGauge_value = 0
@@ -1550,7 +1550,7 @@ Partial Class frmMonDetail
         Me.rndProgMEM.Gauge_Interval = 3000
         Me.rndProgMEM.Gubun_textUse = False
         Me.rndProgMEM.Lightning_AnimationUse = False
-        Me.rndProgMEM.Location = New System.Drawing.Point(3, 122)
+        Me.rndProgMEM.Location = New System.Drawing.Point(3, 112)
         Me.rndProgMEM.Main_Text = "F194"
         Me.rndProgMEM.Main_TextUse = True
         Me.rndProgMEM.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -1559,7 +1559,7 @@ Partial Class frmMonDetail
         Me.rndProgMEM.Postgres_textUse = False
         Me.rndProgMEM.Postgres_value = 0
         Me.rndProgMEM.PostgresGaugeColor = System.Drawing.Color.Gold
-        Me.rndProgMEM.Size = New System.Drawing.Size(87, 110)
+        Me.rndProgMEM.Size = New System.Drawing.Size(114, 100)
         Me.rndProgMEM.TabIndex = 1
         Me.rndProgMEM.TitlePt = New System.Drawing.Point(10, 10)
         '
@@ -1778,11 +1778,11 @@ Partial Class frmMonDetail
         Me.btnSessionLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSessionLock.Image = CType(resources.GetObject("btnSessionLock.Image"), System.Drawing.Image)
         Me.btnSessionLock.LineColor = System.Drawing.Color.LightGray
-        Me.btnSessionLock.Location = New System.Drawing.Point(1127, 11)
+        Me.btnSessionLock.Location = New System.Drawing.Point(1048, 11)
         Me.btnSessionLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSessionLock.Name = "btnSessionLock"
         Me.btnSessionLock.Radius = 5
-        Me.btnSessionLock.Size = New System.Drawing.Size(34, 31)
+        Me.btnSessionLock.Size = New System.Drawing.Size(1, 31)
         Me.btnSessionLock.TabIndex = 3
         Me.btnSessionLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSessionLock.UseVisualStyleBackColor = True
@@ -1800,11 +1800,11 @@ Partial Class frmMonDetail
         Me.btnSqlPlan.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnSqlPlan.Image = CType(resources.GetObject("btnSqlPlan.Image"), System.Drawing.Image)
         Me.btnSqlPlan.LineColor = System.Drawing.Color.LightGray
-        Me.btnSqlPlan.Location = New System.Drawing.Point(1048, 11)
+        Me.btnSqlPlan.Location = New System.Drawing.Point(1008, 11)
         Me.btnSqlPlan.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSqlPlan.Name = "btnSqlPlan"
         Me.btnSqlPlan.Radius = 5
-        Me.btnSqlPlan.Size = New System.Drawing.Size(73, 31)
+        Me.btnSqlPlan.Size = New System.Drawing.Size(34, 31)
         Me.btnSqlPlan.TabIndex = 2
         Me.btnSqlPlan.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSqlPlan.UseVisualStyleBackColor = True
@@ -1822,7 +1822,7 @@ Partial Class frmMonDetail
         Me.btnActInfo.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnActInfo.Image = CType(resources.GetObject("btnActInfo.Image"), System.Drawing.Image)
         Me.btnActInfo.LineColor = System.Drawing.Color.LightGray
-        Me.btnActInfo.Location = New System.Drawing.Point(1167, 11)
+        Me.btnActInfo.Location = New System.Drawing.Point(817, 11)
         Me.btnActInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnActInfo.Name = "btnActInfo"
         Me.btnActInfo.Radius = 5
@@ -1844,7 +1844,7 @@ Partial Class frmMonDetail
         Me.btnPartView.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPartView.Image = CType(resources.GetObject("btnPartView.Image"), System.Drawing.Image)
         Me.btnPartView.LineColor = System.Drawing.Color.LightGray
-        Me.btnPartView.Location = New System.Drawing.Point(1207, 11)
+        Me.btnPartView.Location = New System.Drawing.Point(857, 11)
         Me.btnPartView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPartView.Name = "btnPartView"
         Me.btnPartView.Radius = 5
@@ -1865,17 +1865,18 @@ Partial Class frmMonDetail
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.btnMenu, 9, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnStatements, 8, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnStatements, 7, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.picLogo, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSessionLock, 4, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnPartView, 6, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnActInfo, 5, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnSqlPlan, 3, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSessionLock, 3, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnPartView, 5, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnActInfo, 4, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnSqlPlan, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.ServerName_lv, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnChartDetail, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnChartDetail, 6, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.tlpButtonTrends, 8, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
@@ -1918,7 +1919,7 @@ Partial Class frmMonDetail
         Me.btnStatements.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnStatements.Image = CType(resources.GetObject("btnStatements.Image"), System.Drawing.Image)
         Me.btnStatements.LineColor = System.Drawing.Color.LightGray
-        Me.btnStatements.Location = New System.Drawing.Point(1287, 11)
+        Me.btnStatements.Location = New System.Drawing.Point(937, 11)
         Me.btnStatements.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnStatements.Name = "btnStatements"
         Me.btnStatements.Radius = 5
@@ -1965,7 +1966,7 @@ Partial Class frmMonDetail
         Me.btnChartDetail.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnChartDetail.Image = CType(resources.GetObject("btnChartDetail.Image"), System.Drawing.Image)
         Me.btnChartDetail.LineColor = System.Drawing.Color.LightGray
-        Me.btnChartDetail.Location = New System.Drawing.Point(1247, 11)
+        Me.btnChartDetail.Location = New System.Drawing.Point(897, 11)
         Me.btnChartDetail.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnChartDetail.Name = "btnChartDetail"
         Me.btnChartDetail.Radius = 5
@@ -1995,17 +1996,16 @@ Partial Class frmMonDetail
         Me.tlpCharts.Controls.Add(Me.tlpObject, 2, 0)
         Me.tlpCharts.Controls.Add(Me.tlpSession, 1, 0)
         Me.tlpCharts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpCharts.Location = New System.Drawing.Point(3, 28)
+        Me.tlpCharts.Location = New System.Drawing.Point(3, 5)
         Me.tlpCharts.Name = "tlpCharts"
         Me.tlpCharts.RowCount = 6
-        Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 280.0!))
+        Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 260.0!))
         Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.62376!))
         Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.62376!))
         Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
         Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1.0!))
         Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.75248!))
-        Me.tlpCharts.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpCharts.Size = New System.Drawing.Size(968, 874)
+        Me.tlpCharts.Size = New System.Drawing.Size(968, 897)
         Me.tlpCharts.TabIndex = 14
         '
         'tlpReplicationSize
@@ -2020,13 +2020,13 @@ Partial Class frmMonDetail
         Me.tlpReplicationSize.Controls.Add(Me.grpReplicationDelaySize, 1, 0)
         Me.tlpReplicationSize.Controls.Add(Me.lblReplicationDelaySize, 0, 0)
         Me.tlpReplicationSize.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpReplicationSize.Location = New System.Drawing.Point(647, 505)
+        Me.tlpReplicationSize.Location = New System.Drawing.Point(647, 501)
         Me.tlpReplicationSize.Name = "tlpReplicationSize"
         Me.tlpReplicationSize.RowCount = 2
         Me.tlpReplicationSize.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpReplicationSize.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpReplicationSize.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpReplicationSize.Size = New System.Drawing.Size(318, 216)
+        Me.tlpReplicationSize.Size = New System.Drawing.Size(318, 232)
         Me.tlpReplicationSize.TabIndex = 22
         '
         'chtReplicationSize
@@ -2086,7 +2086,7 @@ Partial Class frmMonDetail
         Me.chtReplicationSize.Location = New System.Drawing.Point(3, 34)
         Me.chtReplicationSize.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtReplicationSize.Name = "chtReplicationSize"
-        Me.chtReplicationSize.Size = New System.Drawing.Size(312, 178)
+        Me.chtReplicationSize.Size = New System.Drawing.Size(312, 194)
         Me.chtReplicationSize.TabIndex = 2
         Me.chtReplicationSize.Text = "Chart4"
         '
@@ -2152,7 +2152,7 @@ Partial Class frmMonDetail
         Me.tlpTPS.Controls.Add(Me.grpTPS, 1, 0)
         Me.tlpTPS.Controls.Add(Me.lblTPS, 0, 0)
         Me.tlpTPS.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTPS.Location = New System.Drawing.Point(647, 727)
+        Me.tlpTPS.Location = New System.Drawing.Point(647, 739)
         Me.tlpTPS.Name = "tlpTPS"
         Me.tlpTPS.RowCount = 4
         Me.tlpTPS.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
@@ -2305,12 +2305,12 @@ Partial Class frmMonDetail
         Me.tlpCheckpoint.Controls.Add(Me.grpCheckpoint, 1, 0)
         Me.tlpCheckpoint.Controls.Add(Me.lblCheckpoint, 0, 0)
         Me.tlpCheckpoint.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpCheckpoint.Location = New System.Drawing.Point(647, 283)
+        Me.tlpCheckpoint.Location = New System.Drawing.Point(647, 263)
         Me.tlpCheckpoint.Name = "tlpCheckpoint"
         Me.tlpCheckpoint.RowCount = 2
         Me.tlpCheckpoint.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpCheckpoint.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpCheckpoint.Size = New System.Drawing.Size(318, 216)
+        Me.tlpCheckpoint.Size = New System.Drawing.Size(318, 232)
         Me.tlpCheckpoint.TabIndex = 20
         '
         'chtCheckpoint
@@ -2392,7 +2392,7 @@ Partial Class frmMonDetail
         Series17.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Me.chtCheckpoint.Series.Add(Series16)
         Me.chtCheckpoint.Series.Add(Series17)
-        Me.chtCheckpoint.Size = New System.Drawing.Size(312, 178)
+        Me.chtCheckpoint.Size = New System.Drawing.Size(312, 194)
         Me.chtCheckpoint.TabIndex = 2
         Me.chtCheckpoint.Text = "Chart4"
         '
@@ -2458,7 +2458,7 @@ Partial Class frmMonDetail
         Me.tlpReplication.Controls.Add(Me.grpReplication, 1, 0)
         Me.tlpReplication.Controls.Add(Me.lblReplication, 0, 0)
         Me.tlpReplication.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpReplication.Location = New System.Drawing.Point(647, 728)
+        Me.tlpReplication.Location = New System.Drawing.Point(647, 740)
         Me.tlpReplication.Name = "tlpReplication"
         Me.tlpReplication.RowCount = 2
         Me.tlpReplication.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
@@ -2592,13 +2592,13 @@ Partial Class frmMonDetail
         Me.tlpLock.Controls.Add(Me.grpLock, 1, 0)
         Me.tlpLock.Controls.Add(Me.Label4, 0, 0)
         Me.tlpLock.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpLock.Location = New System.Drawing.Point(325, 283)
+        Me.tlpLock.Location = New System.Drawing.Point(325, 263)
         Me.tlpLock.Name = "tlpLock"
         Me.tlpLock.RowCount = 3
         Me.tlpLock.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpLock.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpLock.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpLock.Size = New System.Drawing.Size(316, 216)
+        Me.tlpLock.Size = New System.Drawing.Size(316, 232)
         Me.tlpLock.TabIndex = 18
         '
         'btnSessionLockS
@@ -2705,7 +2705,7 @@ Partial Class frmMonDetail
         Series19.YValuesPerPoint = 2
         Me.chtLock.Series.Add(Series18)
         Me.chtLock.Series.Add(Series19)
-        Me.chtLock.Size = New System.Drawing.Size(310, 178)
+        Me.chtLock.Size = New System.Drawing.Size(310, 194)
         Me.chtLock.TabIndex = 2
         Me.chtLock.Text = "Chart5"
         '
@@ -2770,12 +2770,12 @@ Partial Class frmMonDetail
         Me.tlpPhysicalIO.Controls.Add(Me.cmbPhysical, 3, 0)
         Me.tlpPhysicalIO.Controls.Add(Me.Label13, 0, 0)
         Me.tlpPhysicalIO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpPhysicalIO.Location = New System.Drawing.Point(3, 505)
+        Me.tlpPhysicalIO.Location = New System.Drawing.Point(3, 501)
         Me.tlpPhysicalIO.Name = "tlpPhysicalIO"
         Me.tlpPhysicalIO.RowCount = 2
         Me.tlpPhysicalIO.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpPhysicalIO.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpPhysicalIO.Size = New System.Drawing.Size(316, 216)
+        Me.tlpPhysicalIO.Size = New System.Drawing.Size(316, 232)
         Me.tlpPhysicalIO.TabIndex = 17
         '
         'grpPhysicalIO
@@ -2815,12 +2815,12 @@ Partial Class frmMonDetail
         Me.tlpLogicalIO.Controls.Add(Me.grpLogicalIO, 1, 0)
         Me.tlpLogicalIO.Controls.Add(Me.Label9, 0, 0)
         Me.tlpLogicalIO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpLogicalIO.Location = New System.Drawing.Point(3, 283)
+        Me.tlpLogicalIO.Location = New System.Drawing.Point(3, 263)
         Me.tlpLogicalIO.Name = "tlpLogicalIO"
         Me.tlpLogicalIO.RowCount = 2
         Me.tlpLogicalIO.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpLogicalIO.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpLogicalIO.Size = New System.Drawing.Size(316, 216)
+        Me.tlpLogicalIO.Size = New System.Drawing.Size(316, 232)
         Me.tlpLogicalIO.TabIndex = 17
         '
         'grpLogicalIO
@@ -2855,11 +2855,11 @@ Partial Class frmMonDetail
         Me.tlpBackend.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpBackend.Controls.Add(Me.TableLayoutPanel9, 0, 0)
         Me.tlpBackend.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpBackend.Location = New System.Drawing.Point(3, 729)
+        Me.tlpBackend.Location = New System.Drawing.Point(3, 741)
         Me.tlpBackend.Name = "tlpBackend"
         Me.tlpBackend.RowCount = 1
         Me.tlpBackend.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 334.0!))
-        Me.tlpBackend.Size = New System.Drawing.Size(962, 142)
+        Me.tlpBackend.Size = New System.Drawing.Size(962, 153)
         Me.tlpBackend.TabIndex = 14
         '
         'TableLayoutPanel9
@@ -2921,12 +2921,12 @@ Partial Class frmMonDetail
         Me.tlpSQLResp.Controls.Add(Me.grpSQLResposeTime, 1, 0)
         Me.tlpSQLResp.Controls.Add(Me.Label15, 0, 0)
         Me.tlpSQLResp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSQLResp.Location = New System.Drawing.Point(325, 505)
+        Me.tlpSQLResp.Location = New System.Drawing.Point(325, 501)
         Me.tlpSQLResp.Name = "tlpSQLResp"
         Me.tlpSQLResp.RowCount = 2
         Me.tlpSQLResp.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpSQLResp.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSQLResp.Size = New System.Drawing.Size(316, 216)
+        Me.tlpSQLResp.Size = New System.Drawing.Size(316, 232)
         Me.tlpSQLResp.TabIndex = 17
         '
         'grpSQLResposeTime
@@ -2969,7 +2969,7 @@ Partial Class frmMonDetail
         Me.tlpCPUMEM.RowCount = 2
         Me.tlpCPUMEM.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpCPUMEM.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpCPUMEM.Size = New System.Drawing.Size(316, 274)
+        Me.tlpCPUMEM.Size = New System.Drawing.Size(316, 254)
         Me.tlpCPUMEM.TabIndex = 17
         '
         'grpCpuMem
@@ -3019,7 +3019,7 @@ Partial Class frmMonDetail
         Me.tlpObject.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpObject.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpObject.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpObject.Size = New System.Drawing.Size(318, 274)
+        Me.tlpObject.Size = New System.Drawing.Size(318, 254)
         Me.tlpObject.TabIndex = 17
         '
         'btnActInfoS
@@ -3133,7 +3133,7 @@ Partial Class frmMonDetail
         Series21.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
         Me.chtObject.Series.Add(Series20)
         Me.chtObject.Series.Add(Series21)
-        Me.chtObject.Size = New System.Drawing.Size(312, 236)
+        Me.chtObject.Size = New System.Drawing.Size(312, 216)
         Me.chtObject.TabIndex = 4
         '
         'btnRefreshObject
@@ -3202,7 +3202,7 @@ Partial Class frmMonDetail
         Me.tlpSession.RowCount = 2
         Me.tlpSession.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.tlpSession.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSession.Size = New System.Drawing.Size(316, 274)
+        Me.tlpSession.Size = New System.Drawing.Size(316, 254)
         Me.tlpSession.TabIndex = 17
         '
         'btnRefreshSession
@@ -3826,14 +3826,13 @@ Partial Class frmMonDetail
         Me.tlpMainWrapper.ColumnCount = 2
         Me.tlpMainWrapper.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpMainWrapper.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.tlpMainWrapper.Controls.Add(Me.tlpButtonTrends, 1, 0)
         Me.tlpMainWrapper.Controls.Add(Me.tlpCharts, 0, 1)
         Me.tlpMainWrapper.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpMainWrapper.Location = New System.Drawing.Point(390, 54)
         Me.tlpMainWrapper.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpMainWrapper.Name = "tlpMainWrapper"
         Me.tlpMainWrapper.RowCount = 2
-        Me.tlpMainWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tlpMainWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2.0!))
         Me.tlpMainWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpMainWrapper.Size = New System.Drawing.Size(974, 905)
         Me.tlpMainWrapper.TabIndex = 16
@@ -3849,24 +3848,25 @@ Partial Class frmMonDetail
         Me.tlpButtonTrends.Controls.Add(Me.lblRetention, 0, 0)
         Me.tlpButtonTrends.Controls.Add(Me.cmbRetention, 1, 0)
         Me.tlpButtonTrends.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpButtonTrends.Location = New System.Drawing.Point(490, 0)
+        Me.tlpButtonTrends.Location = New System.Drawing.Point(977, 0)
         Me.tlpButtonTrends.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
         Me.tlpButtonTrends.Name = "tlpButtonTrends"
         Me.tlpButtonTrends.RowCount = 1
         Me.tlpButtonTrends.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpButtonTrends.Size = New System.Drawing.Size(481, 25)
+        Me.tlpButtonTrends.Size = New System.Drawing.Size(344, 46)
         Me.tlpButtonTrends.TabIndex = 15
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label2.Location = New System.Drawing.Point(449, 0)
+        Me.Label2.Location = New System.Drawing.Point(312, 27)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(29, 25)
+        Me.Label2.Size = New System.Drawing.Size(29, 12)
         Me.Label2.TabIndex = 27
         Me.Label2.Text = "Min"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3875,12 +3875,13 @@ Partial Class frmMonDetail
         '
         Me.lblRetention.AutoSize = True
         Me.lblRetention.BackColor = System.Drawing.Color.Transparent
-        Me.lblRetention.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblRetention.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblRetention.ForeColor = System.Drawing.Color.White
         Me.lblRetention.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblRetention.Location = New System.Drawing.Point(3, 0)
+        Me.lblRetention.Location = New System.Drawing.Point(3, 27)
+        Me.lblRetention.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
         Me.lblRetention.Name = "lblRetention"
-        Me.lblRetention.Size = New System.Drawing.Size(390, 25)
+        Me.lblRetention.Size = New System.Drawing.Size(253, 12)
         Me.lblRetention.TabIndex = 26
         Me.lblRetention.Text = "F326"
         Me.lblRetention.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -3889,14 +3890,14 @@ Partial Class frmMonDetail
         '
         Me.cmbRetention.BackColor = System.Drawing.SystemColors.Window
         Me.cmbRetention.DisplayMember = "All"
-        Me.cmbRetention.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmbRetention.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbRetention.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRetention.FixedWidth = False
         Me.cmbRetention.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbRetention.FormattingEnabled = True
         Me.cmbRetention.Items.AddRange(New Object() {"10", "20", "30"})
-        Me.cmbRetention.Location = New System.Drawing.Point(399, 4)
-        Me.cmbRetention.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbRetention.Location = New System.Drawing.Point(262, 20)
+        Me.cmbRetention.Margin = New System.Windows.Forms.Padding(3, 4, 3, 6)
         Me.cmbRetention.Name = "cmbRetention"
         Me.cmbRetention.Necessary = False
         Me.cmbRetention.Size = New System.Drawing.Size(44, 20)
