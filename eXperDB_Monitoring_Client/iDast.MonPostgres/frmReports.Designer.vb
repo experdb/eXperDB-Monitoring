@@ -21,18 +21,7 @@ Partial Class frmReports
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin9 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin10 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin11 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Edges3 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -43,15 +32,22 @@ Partial Class frmReports
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin9 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin11 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin12 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin10 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReports))
         Me.grpRptCpu = New eXperDB.BaseControls.GroupBox()
         Me.pnlSystem = New eXperDB.BaseControls.Panel()
-        Me.chtRptDiskRate = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptDisk = New eXperDB.Monitoring.ctlChart()
         Me.flpDisk = New eXperDB.BaseControls.FlowLayoutPanel()
-        Me.chtRptDiskUsage = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptMem = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptCpu = New eXperDB.Monitoring.ctlChart()
         Me.btnSearch = New eXperDB.BaseControls.Button()
         Me.pnlSearch = New eXperDB.BaseControls.Panel()
         Me.tlpDuration = New eXperDB.BaseControls.TableLayoutPanel()
@@ -71,12 +67,6 @@ Partial Class frmReports
         Me.btnPrint = New eXperDB.BaseControls.Button()
         Me.grpRptTimeLine = New eXperDB.BaseControls.GroupBox()
         Me.pnlTimeline = New eXperDB.BaseControls.Panel()
-        Me.chtBufferrate = New eXperDB.Monitoring.ctlChart()
-        Me.chtBuffer = New eXperDB.Monitoring.ctlChart()
-        Me.chtObjectRate = New eXperDB.Monitoring.ctlChart()
-        Me.chtObjectTuple = New eXperDB.Monitoring.ctlChart()
-        Me.chtLogical = New eXperDB.Monitoring.ctlChart()
-        Me.chtSession = New eXperDB.Monitoring.ctlChart()
         Me.flpDB = New eXperDB.BaseControls.FlowLayoutPanel()
         Me.colDgvRptSqlInstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlStart = New eXperDB.Controls.DataGridViewTimespanColumn()
@@ -93,6 +83,18 @@ Partial Class frmReports
         Me.colDgvRptSqlCpuTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.colDgvRptSqlCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlSql = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.chtRptDiskRate = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptDisk = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptDiskUsage = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptMem = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptCpu = New eXperDB.Monitoring.ctlChart()
+        Me.chtBufferrate = New eXperDB.Monitoring.ctlChart()
+        Me.chtBuffer = New eXperDB.Monitoring.ctlChart()
+        Me.chtObjectRate = New eXperDB.Monitoring.ctlChart()
+        Me.chtObjectTuple = New eXperDB.Monitoring.ctlChart()
+        Me.chtLogical = New eXperDB.Monitoring.ctlChart()
+        Me.chtSession = New eXperDB.Monitoring.ctlChart()
+        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChart()
         Me.grpRptCpu.SuspendLayout()
         Me.pnlSystem.SuspendLayout()
         Me.pnlSearch.SuspendLayout()
@@ -160,38 +162,6 @@ Partial Class frmReports
         Me.pnlSystem.Size = New System.Drawing.Size(1820, 340)
         Me.pnlSystem.TabIndex = 24
         '
-        'chtRptDiskRate
-        '
-        Me.chtRptDiskRate.BorderSkin = BorderSkin1
-        Me.chtRptDiskRate.DataSource = Nothing
-        Me.chtRptDiskRate.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptDiskRate.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDiskRate.Location = New System.Drawing.Point(0, 1305)
-        Me.chtRptDiskRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptDiskRate.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtRptDiskRate.MenuVisible = True
-        Me.chtRptDiskRate.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptDiskRate.Name = "chtRptDiskRate"
-        Me.chtRptDiskRate.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptDiskRate.TabIndex = 23
-        Me.chtRptDiskRate.Title = ""
-        '
-        'chtRptDisk
-        '
-        Me.chtRptDisk.BorderSkin = BorderSkin2
-        Me.chtRptDisk.DataSource = Nothing
-        Me.chtRptDisk.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDisk.Location = New System.Drawing.Point(0, 985)
-        Me.chtRptDisk.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptDisk.MaximumSize = New System.Drawing.Size(0, 350)
-        Me.chtRptDisk.MenuVisible = True
-        Me.chtRptDisk.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptDisk.Name = "chtRptDisk"
-        Me.chtRptDisk.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptDisk.TabIndex = 22
-        Me.chtRptDisk.Title = ""
-        '
         'flpDisk
         '
         Me.flpDisk.AutoSize = True
@@ -204,56 +174,6 @@ Partial Class frmReports
         Me.flpDisk.Name = "flpDisk"
         Me.flpDisk.Size = New System.Drawing.Size(1803, 25)
         Me.flpDisk.TabIndex = 21
-        '
-        'chtRptDiskUsage
-        '
-        Me.chtRptDiskUsage.BorderSkin = BorderSkin3
-        Me.chtRptDiskUsage.DataSource = Nothing
-        Me.chtRptDiskUsage.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptDiskUsage.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDiskUsage.Location = New System.Drawing.Point(0, 640)
-        Me.chtRptDiskUsage.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptDiskUsage.MaximumSize = New System.Drawing.Size(0, 350)
-        Me.chtRptDiskUsage.MenuVisible = True
-        Me.chtRptDiskUsage.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptDiskUsage.Name = "chtRptDiskUsage"
-        Me.chtRptDiskUsage.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptDiskUsage.TabIndex = 25
-        Me.chtRptDiskUsage.Title = ""
-        '
-        'chtRptMem
-        '
-        Me.chtRptMem.AutoScroll = True
-        Me.chtRptMem.BorderSkin = BorderSkin4
-        Me.chtRptMem.DataSource = Nothing
-        Me.chtRptMem.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptMem.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptMem.Location = New System.Drawing.Point(0, 320)
-        Me.chtRptMem.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptMem.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtRptMem.MenuVisible = True
-        Me.chtRptMem.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptMem.Name = "chtRptMem"
-        Me.chtRptMem.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptMem.TabIndex = 26
-        Me.chtRptMem.Title = ""
-        '
-        'chtRptCpu
-        '
-        Me.chtRptCpu.AutoScroll = True
-        Me.chtRptCpu.BorderSkin = BorderSkin5
-        Me.chtRptCpu.DataSource = Nothing
-        Me.chtRptCpu.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptCpu.Location = New System.Drawing.Point(0, 0)
-        Me.chtRptCpu.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptCpu.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtRptCpu.MenuVisible = True
-        Me.chtRptCpu.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptCpu.Name = "chtRptCpu"
-        Me.chtRptCpu.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptCpu.TabIndex = 15
-        Me.chtRptCpu.Title = ""
         '
         'btnSearch
         '
@@ -617,6 +537,7 @@ Partial Class frmReports
         Me.pnlTimeline.Controls.Add(Me.chtBuffer)
         Me.pnlTimeline.Controls.Add(Me.chtObjectRate)
         Me.pnlTimeline.Controls.Add(Me.chtObjectTuple)
+        Me.pnlTimeline.Controls.Add(Me.chtPhysicalIO)
         Me.pnlTimeline.Controls.Add(Me.chtLogical)
         Me.pnlTimeline.Controls.Add(Me.chtSession)
         Me.pnlTimeline.Dock = System.Windows.Forms.DockStyle.Fill
@@ -626,102 +547,6 @@ Partial Class frmReports
         Me.pnlTimeline.Name = "pnlTimeline"
         Me.pnlTimeline.Size = New System.Drawing.Size(1820, 345)
         Me.pnlTimeline.TabIndex = 31
-        '
-        'chtBufferrate
-        '
-        Me.chtBufferrate.BorderSkin = BorderSkin6
-        Me.chtBufferrate.DataSource = Nothing
-        Me.chtBufferrate.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtBufferrate.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtBufferrate.Location = New System.Drawing.Point(0, 1655)
-        Me.chtBufferrate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtBufferrate.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtBufferrate.MenuVisible = True
-        Me.chtBufferrate.MinimumSize = New System.Drawing.Size(0, 375)
-        Me.chtBufferrate.Name = "chtBufferrate"
-        Me.chtBufferrate.Size = New System.Drawing.Size(1803, 375)
-        Me.chtBufferrate.TabIndex = 30
-        Me.chtBufferrate.Title = ""
-        '
-        'chtBuffer
-        '
-        Me.chtBuffer.BorderSkin = BorderSkin7
-        Me.chtBuffer.DataSource = Nothing
-        Me.chtBuffer.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtBuffer.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtBuffer.Location = New System.Drawing.Point(0, 1335)
-        Me.chtBuffer.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtBuffer.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtBuffer.MenuVisible = True
-        Me.chtBuffer.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtBuffer.Name = "chtBuffer"
-        Me.chtBuffer.Size = New System.Drawing.Size(1803, 320)
-        Me.chtBuffer.TabIndex = 29
-        Me.chtBuffer.Title = ""
-        '
-        'chtObjectRate
-        '
-        Me.chtObjectRate.BorderSkin = BorderSkin8
-        Me.chtObjectRate.DataSource = Nothing
-        Me.chtObjectRate.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtObjectRate.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtObjectRate.Location = New System.Drawing.Point(0, 960)
-        Me.chtObjectRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtObjectRate.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtObjectRate.MenuVisible = True
-        Me.chtObjectRate.MinimumSize = New System.Drawing.Size(0, 375)
-        Me.chtObjectRate.Name = "chtObjectRate"
-        Me.chtObjectRate.Size = New System.Drawing.Size(1803, 375)
-        Me.chtObjectRate.TabIndex = 28
-        Me.chtObjectRate.Title = ""
-        '
-        'chtObjectTuple
-        '
-        Me.chtObjectTuple.BorderSkin = BorderSkin9
-        Me.chtObjectTuple.DataSource = Nothing
-        Me.chtObjectTuple.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtObjectTuple.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtObjectTuple.Location = New System.Drawing.Point(0, 640)
-        Me.chtObjectTuple.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtObjectTuple.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtObjectTuple.MenuVisible = True
-        Me.chtObjectTuple.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtObjectTuple.Name = "chtObjectTuple"
-        Me.chtObjectTuple.Size = New System.Drawing.Size(1803, 320)
-        Me.chtObjectTuple.TabIndex = 27
-        Me.chtObjectTuple.Title = ""
-        '
-        'chtLogical
-        '
-        Me.chtLogical.BorderSkin = BorderSkin10
-        Me.chtLogical.DataSource = Nothing
-        Me.chtLogical.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLogical.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtLogical.Location = New System.Drawing.Point(0, 320)
-        Me.chtLogical.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtLogical.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtLogical.MenuVisible = True
-        Me.chtLogical.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtLogical.Name = "chtLogical"
-        Me.chtLogical.Size = New System.Drawing.Size(1803, 320)
-        Me.chtLogical.TabIndex = 25
-        Me.chtLogical.Title = ""
-        '
-        'chtSession
-        '
-        Me.chtSession.BorderSkin = BorderSkin11
-        Me.chtSession.DataSource = Nothing
-        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSession.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtSession.Location = New System.Drawing.Point(0, 0)
-        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtSession.MaximumSize = New System.Drawing.Size(0, 350)
-        Me.chtSession.MenuVisible = True
-        Me.chtSession.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1803, 320)
-        Me.chtSession.TabIndex = 20
-        Me.chtSession.Title = ""
         '
         'flpDB
         '
@@ -984,6 +809,200 @@ Partial Class frmReports
         Me.colDgvRptSqlSql.Name = "colDgvRptSqlSql"
         Me.colDgvRptSqlSql.ReadOnly = True
         '
+        'chtRptDiskRate
+        '
+        Me.chtRptDiskRate.BorderSkin = BorderSkin1
+        Me.chtRptDiskRate.DataSource = Nothing
+        Me.chtRptDiskRate.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDiskRate.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDiskRate.Location = New System.Drawing.Point(0, 1305)
+        Me.chtRptDiskRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDiskRate.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptDiskRate.MenuVisible = True
+        Me.chtRptDiskRate.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDiskRate.Name = "chtRptDiskRate"
+        Me.chtRptDiskRate.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDiskRate.TabIndex = 23
+        Me.chtRptDiskRate.Title = ""
+        '
+        'chtRptDisk
+        '
+        Me.chtRptDisk.BorderSkin = BorderSkin2
+        Me.chtRptDisk.DataSource = Nothing
+        Me.chtRptDisk.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDisk.Location = New System.Drawing.Point(0, 985)
+        Me.chtRptDisk.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDisk.MaximumSize = New System.Drawing.Size(0, 350)
+        Me.chtRptDisk.MenuVisible = True
+        Me.chtRptDisk.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDisk.Name = "chtRptDisk"
+        Me.chtRptDisk.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDisk.TabIndex = 22
+        Me.chtRptDisk.Title = ""
+        '
+        'chtRptDiskUsage
+        '
+        Me.chtRptDiskUsage.BorderSkin = BorderSkin3
+        Me.chtRptDiskUsage.DataSource = Nothing
+        Me.chtRptDiskUsage.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDiskUsage.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDiskUsage.Location = New System.Drawing.Point(0, 640)
+        Me.chtRptDiskUsage.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDiskUsage.MaximumSize = New System.Drawing.Size(0, 350)
+        Me.chtRptDiskUsage.MenuVisible = True
+        Me.chtRptDiskUsage.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDiskUsage.Name = "chtRptDiskUsage"
+        Me.chtRptDiskUsage.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDiskUsage.TabIndex = 25
+        Me.chtRptDiskUsage.Title = ""
+        '
+        'chtRptMem
+        '
+        Me.chtRptMem.AutoScroll = True
+        Me.chtRptMem.BorderSkin = BorderSkin4
+        Me.chtRptMem.DataSource = Nothing
+        Me.chtRptMem.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptMem.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptMem.Location = New System.Drawing.Point(0, 320)
+        Me.chtRptMem.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptMem.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptMem.MenuVisible = True
+        Me.chtRptMem.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptMem.Name = "chtRptMem"
+        Me.chtRptMem.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptMem.TabIndex = 26
+        Me.chtRptMem.Title = ""
+        '
+        'chtRptCpu
+        '
+        Me.chtRptCpu.AutoScroll = True
+        Me.chtRptCpu.BorderSkin = BorderSkin5
+        Me.chtRptCpu.DataSource = Nothing
+        Me.chtRptCpu.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptCpu.Location = New System.Drawing.Point(0, 0)
+        Me.chtRptCpu.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptCpu.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptCpu.MenuVisible = True
+        Me.chtRptCpu.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptCpu.Name = "chtRptCpu"
+        Me.chtRptCpu.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptCpu.TabIndex = 15
+        Me.chtRptCpu.Title = ""
+        '
+        'chtBufferrate
+        '
+        Me.chtBufferrate.BorderSkin = BorderSkin6
+        Me.chtBufferrate.DataSource = Nothing
+        Me.chtBufferrate.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtBufferrate.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtBufferrate.Location = New System.Drawing.Point(0, 1975)
+        Me.chtBufferrate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtBufferrate.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtBufferrate.MenuVisible = True
+        Me.chtBufferrate.MinimumSize = New System.Drawing.Size(0, 375)
+        Me.chtBufferrate.Name = "chtBufferrate"
+        Me.chtBufferrate.Size = New System.Drawing.Size(1803, 375)
+        Me.chtBufferrate.TabIndex = 30
+        Me.chtBufferrate.Title = ""
+        '
+        'chtBuffer
+        '
+        Me.chtBuffer.BorderSkin = BorderSkin7
+        Me.chtBuffer.DataSource = Nothing
+        Me.chtBuffer.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtBuffer.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtBuffer.Location = New System.Drawing.Point(0, 1655)
+        Me.chtBuffer.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtBuffer.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtBuffer.MenuVisible = True
+        Me.chtBuffer.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtBuffer.Name = "chtBuffer"
+        Me.chtBuffer.Size = New System.Drawing.Size(1803, 320)
+        Me.chtBuffer.TabIndex = 29
+        Me.chtBuffer.Title = ""
+        '
+        'chtObjectRate
+        '
+        Me.chtObjectRate.BorderSkin = BorderSkin8
+        Me.chtObjectRate.DataSource = Nothing
+        Me.chtObjectRate.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtObjectRate.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtObjectRate.Location = New System.Drawing.Point(0, 1280)
+        Me.chtObjectRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtObjectRate.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtObjectRate.MenuVisible = True
+        Me.chtObjectRate.MinimumSize = New System.Drawing.Size(0, 375)
+        Me.chtObjectRate.Name = "chtObjectRate"
+        Me.chtObjectRate.Size = New System.Drawing.Size(1803, 375)
+        Me.chtObjectRate.TabIndex = 28
+        Me.chtObjectRate.Title = ""
+        '
+        'chtObjectTuple
+        '
+        Me.chtObjectTuple.BorderSkin = BorderSkin9
+        Me.chtObjectTuple.DataSource = Nothing
+        Me.chtObjectTuple.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtObjectTuple.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtObjectTuple.Location = New System.Drawing.Point(0, 960)
+        Me.chtObjectTuple.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtObjectTuple.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtObjectTuple.MenuVisible = True
+        Me.chtObjectTuple.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtObjectTuple.Name = "chtObjectTuple"
+        Me.chtObjectTuple.Size = New System.Drawing.Size(1803, 320)
+        Me.chtObjectTuple.TabIndex = 27
+        Me.chtObjectTuple.Title = ""
+        '
+        'chtLogical
+        '
+        Me.chtLogical.BorderSkin = BorderSkin11
+        Me.chtLogical.DataSource = Nothing
+        Me.chtLogical.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLogical.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtLogical.Location = New System.Drawing.Point(0, 320)
+        Me.chtLogical.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtLogical.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtLogical.MenuVisible = True
+        Me.chtLogical.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtLogical.Name = "chtLogical"
+        Me.chtLogical.Size = New System.Drawing.Size(1803, 320)
+        Me.chtLogical.TabIndex = 25
+        Me.chtLogical.Title = ""
+        '
+        'chtSession
+        '
+        Me.chtSession.BorderSkin = BorderSkin12
+        Me.chtSession.DataSource = Nothing
+        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSession.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtSession.Location = New System.Drawing.Point(0, 0)
+        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtSession.MaximumSize = New System.Drawing.Size(0, 350)
+        Me.chtSession.MenuVisible = True
+        Me.chtSession.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtSession.Name = "chtSession"
+        Me.chtSession.Size = New System.Drawing.Size(1803, 320)
+        Me.chtSession.TabIndex = 20
+        Me.chtSession.Title = ""
+        '
+        'chtPhysicalIO
+        '
+        Me.chtPhysicalIO.BorderSkin = BorderSkin10
+        Me.chtPhysicalIO.DataSource = Nothing
+        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalIO.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 640)
+        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtPhysicalIO.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtPhysicalIO.MenuVisible = True
+        Me.chtPhysicalIO.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtPhysicalIO.Name = "chtPhysicalIO"
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1803, 320)
+        Me.chtPhysicalIO.TabIndex = 31
+        Me.chtPhysicalIO.Title = ""
+        '
         'frmReports
         '
         Me.AutoScroll = True
@@ -1071,5 +1090,6 @@ Partial Class frmReports
     Friend WithEvents colDgvRptSqlSql As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents chtRptDiskUsage As eXperDB.Monitoring.ctlChart
     Friend WithEvents chtRptMem As eXperDB.Monitoring.ctlChart
+    Friend WithEvents chtPhysicalIO As eXperDB.Monitoring.ctlChart
 
 End Class

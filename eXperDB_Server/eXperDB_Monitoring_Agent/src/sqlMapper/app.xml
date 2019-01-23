@@ -1246,7 +1246,8 @@
 	          	COALESCE(SUM(B.n_tup_upd), 0) AS AGG_UPDATE_TUPLES,-- update
 	          	COALESCE(SUM(B.n_tup_del), 0) AS AGG_DELETE_TUPLES,-- delete
 		        COALESCE(SUM(B.SEQ_SCAN), 0) AS AGG_SEQ_SCAN_CNT,
-		        COALESCE(SUM(B.IDX_SCAN), 0) AS AGG_IDX_SCAN_CNT,	          	
+		        COALESCE(SUM(B.IDX_SCAN), 0) AS AGG_IDX_SCAN_CNT,
+		        COALESCE(SUM(HEAP_BLKS_READ),0)+COALESCE(SUM(IDX_BLKS_READ),0)+COALESCE(SUM(TOAST_BLKS_READ),0)+COALESCE(SUM(TIDX_BLKS_READ),0) AS AGG_PHY_READ,	          	
 	          	(SELECT XACT_COMMIT FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) AS AGG_COMMIT,
 	          	(SELECT XACT_ROLLBACK FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) AS AGG_ROLLBACK,		        
 		        COALESCE(SUM(HEAP_BLKS_READ), 0) - #{agg_heap_blks_read_kb} AS CURRENT_HEAP_BLKS_READ_KB, -- @이전값                                                                                                               
@@ -1258,6 +1259,7 @@
 	            COALESCE(SUM(B.n_tup_del), 0) - #{agg_delete_tuples} AS CURRENT_DELETE_TUPLES,-- delete
         		COALESCE(SUM(B.SEQ_SCAN), 0) - #{agg_seq_scan_cnt} AS CURRENT_SEQ_SCAN_CNT,
           		COALESCE(SUM(B.IDX_SCAN), 0) - #{agg_idx_scan_cnt} AS CURRENT_IDX_SCAN_CNT,
+          		COALESCE(SUM(HEAP_BLKS_READ),0)+COALESCE(SUM(IDX_BLKS_READ),0)+COALESCE(SUM(TOAST_BLKS_READ),0)+COALESCE(SUM(TIDX_BLKS_READ),0) - #{agg_phy_read} AS CURRENT_PHY_READ,
 	            (SELECT XACT_COMMIT FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) - #{agg_commit} as CURRENT_COMMIT,
 	            (SELECT XACT_ROLLBACK FROM PG_STAT_DATABASE WHERE DATNAME=CURRENT_DATABASE()) - #{agg_rollback} as CURRENT_ROLLBACK,		        
 		        --CASE WHEN SUM(A.HEAP_BLKS_HIT)<>0 AND SUM(A.HEAP_BLKS_HIT) > SUM(A.HEAP_BLKS_READ) THEN ROUND((SUM(A.HEAP_BLKS_HIT) - SUM(A.HEAP_BLKS_READ)) / SUM(A.HEAP_BLKS_HIT)*100,2) ELSE 0 END AS BUFFER_HIT_RATIO,
@@ -1272,6 +1274,41 @@
 	
 	<insert id="TB_ACCESS_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_ACCESS_INFO	
+		(
+			REG_DATE,
+			ACTV_REG_SEQ,
+			DB_NAME,
+			DB_SIZE_KB,
+			TABLE_CNT,
+			INDEX_CNT,
+			AGG_HEAP_BLKS_READ_KB,
+			AGG_HEAP_BLKS_HIT_KB,
+			AGG_SEQ_READ_TUPLES,
+			AGG_IDX_FETCH_TUPLES,
+			AGG_INSERT_TUPLES,
+			AGG_UPDATE_TUPLES,
+			AGG_DELETE_TUPLES,
+			AGG_SEQ_SCAN_CNT,
+			AGG_IDX_SCAN_CNT,
+			AGG_COMMIT,
+			AGG_ROLLBACK,
+			AGG_PHY_READ,
+			CURRENT_HEAP_BLKS_READ_KB,
+			CURRENT_HEAP_BLKS_HIT_KB,
+			CURRENT_SEQ_READ_TUPLES,
+			CURRENT_IDX_FETCH_TUPLES,
+			CURRENT_INSERT_TUPLES,
+			CURRENT_UPDATE_TUPLES,
+			CURRENT_DELETE_TUPLES,
+			CURRENT_SEQ_SCAN_CNT,
+			CURRENT_IDX_SCAN_CNT,
+			CURRENT_PHY_READ,
+			CURRENT_COMMIT,
+			CURRENT_ROLLBACK,
+			BUFFER_HIT_RATIO,
+			COLLECT_DT,
+			DELTA_TIME
+		)
 		VALUES 
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -1291,6 +1328,7 @@
 			#{agg_idx_scan_cnt},
 			#{agg_commit},
 			#{agg_rollback},
+			#{agg_phy_read},
 			#{current_heap_blks_read_kb},
 			#{current_heap_blks_hit_kb},
 			#{current_seq_read_tuples},
@@ -1300,6 +1338,7 @@
 			#{current_delete_tuples},
 			#{current_seq_scan_cnt},
 			#{current_idx_scan_cnt},			
+			#{current_phy_read},			
 			#{current_commit},
 			#{current_rollback},
 			#{buffer_hit_ratio},
@@ -1731,6 +1770,30 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 
+	<select id="EXPERDBMA_BT_GET_PGUSER_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+		       SELECT /* EXPERDBMA_BT_GET_PGUSER_001 24e9ab7301ff1966da4fb30dc1538882 */ 
+		       		  USENAME AS USER_NAME, USESYSID AS USER_ID FROM PG_USER;
+	</select>	
+	<insert id="TB_PGUSER_I001" parameterType="hashmap" >
+		INSERT INTO TB_USER_INFO
+		(	
+			REG_DATE,
+			COLLECT_DT,
+			INSTANCE_ID,
+			USER_NAME,
+			USER_ID
+		)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			NOW(),
+			#{instance_id},
+			#{user_name},			
+			#{user_id}
+		)
+	</insert>
+	
+	
 <!-- ********************************************************** -->
 <!-- DailyBatchTask START -->
 <!-- ********************************************************** -->
@@ -1912,6 +1975,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		DELETE /* PGMONBT_BATCH_TABLE_EXT_INFO_001 */ FROM TB_TABLE_EXT_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_TABLE_EXT_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1);
 		]]>	
 	</delete>
+	<delete id="PGMONBT_BATCH_TB_USER_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TB_USER_INFO_001 */ FROM TB_USER_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_USER_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1);
+		]]>	
+	</delete>	
 	
 	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
 		vacuum analyze TB_INSTANCE_INFO    ;
@@ -1994,7 +2062,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<update id="VACUUM_ANALYZE_U029" parameterType="hashmap" >		
 		vacuum analyze TB_TABLE_EXT_INFO ;
 	</update>
-<!-- ********************************************************** -->
+	<update id="VACUUM_ANALYZE_U030" parameterType="hashmap" >		
+		vacuum analyze TB_USER_INFO ;
+	</update><!-- ********************************************************** -->
 <!-- DailyBatchTask END -->
 <!-- ********************************************************** -->
 

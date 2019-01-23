@@ -2999,7 +2999,7 @@
     Private Sub dgvSessionInfo_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionInfo.CellDoubleClick
         If dgvSessionInfo.RowCount <= 0 Then Return
         If e.RowIndex >= 0 Then
-            Dim frmQuery As New frmQueryView(dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoSQL.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoDBNm.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoInstID.Index).Value, _AgentInfo, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoUser.Index).Value)
+            Dim frmQuery As New frmQueryView(_AgentCn, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoSQL.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoDBNm.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoUser.Index).Value, dgvSessionInfo.Rows(e.RowIndex).Cells(colDgvSessionInfoInstID.Index).Value, _AgentInfo)
             frmQuery.ShowDialog(Me)
         End If
     End Sub
@@ -4222,8 +4222,6 @@
             e.Graphics.DrawImage(statusImgLst.Images(3), r32, r96, GraphicsUnit.Pixel)
             e.Handled = True
         End If
-
-        p_Log.AddMessage(clsLog4Net.enmType.Error, "cell painting(" & e.RowIndex)
     End Sub
     Private isClickdgvClusters As Boolean = True
     Private isNodeCollapsingOrExpanding As Boolean = False

@@ -34,6 +34,7 @@ Partial Class frmQueryView
         Me.TreeGridView1 = New AdvancedDataGridView.TreeGridView()
         Me.colPlain = New AdvancedDataGridView.TreeGridColumn()
         Me.Panel2 = New eXperDB.BaseControls.Panel()
+        Me.cmbUser = New eXperDB.BaseControls.ComboBox()
         Me.cmbDb = New eXperDB.BaseControls.ComboBox()
         Me.btnSearch = New eXperDB.BaseControls.Button()
         Me.txtPW = New eXperDB.BaseControls.TextBox()
@@ -156,6 +157,7 @@ Partial Class frmQueryView
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.Gray
+        Me.Panel2.Controls.Add(Me.cmbUser)
         Me.Panel2.Controls.Add(Me.cmbDb)
         Me.Panel2.Controls.Add(Me.btnSearch)
         Me.Panel2.Controls.Add(Me.txtPW)
@@ -169,6 +171,23 @@ Partial Class frmQueryView
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(894, 28)
         Me.Panel2.TabIndex = 11
+        '
+        'cmbUser
+        '
+        Me.cmbUser.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbUser.DisplayMember = "All"
+        Me.cmbUser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbUser.FixedWidth = False
+        Me.cmbUser.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.cmbUser.FormattingEnabled = True
+        Me.cmbUser.Location = New System.Drawing.Point(375, 4)
+        Me.cmbUser.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbUser.Name = "cmbUser"
+        Me.cmbUser.Necessary = False
+        Me.cmbUser.Size = New System.Drawing.Size(150, 20)
+        Me.cmbUser.StatusTip = ""
+        Me.cmbUser.TabIndex = 22
+        Me.cmbUser.ValueText = ""
         '
         'cmbDb
         '
@@ -252,6 +271,7 @@ Partial Class frmQueryView
         Me.txtID.StatusTip = ""
         Me.txtID.TabIndex = 3
         Me.txtID.Value = ""
+        Me.txtID.Visible = False
         '
         'lblID
         '
@@ -280,6 +300,7 @@ Partial Class frmQueryView
         Me.txtDB.StatusTip = ""
         Me.txtDB.TabIndex = 1
         Me.txtDB.Value = ""
+        Me.txtDB.Visible = False
         '
         'lblDB
         '
@@ -460,4 +481,5 @@ Partial Class frmQueryView
     Friend WithEvents lblSubject As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents cmbDb As eXperDB.BaseControls.ComboBox
+    Friend WithEvents cmbUser As eXperDB.BaseControls.ComboBox
 End Class

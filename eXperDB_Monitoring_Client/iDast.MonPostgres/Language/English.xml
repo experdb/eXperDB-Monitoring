@@ -777,8 +777,8 @@
     <VALUECAST />
   </ROW>
   <ROW ID="F091" PARAMS="0">
-    <DESC>PHYSICAL R/W</DESC>
-    <DATA><![CDATA[Physical R/W]]></DATA>
+    <DESC>PHYSICAL Read</DESC>
+    <DATA><![CDATA[Physical Read]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3215,6 +3215,14 @@
   <ROW ID="M062" PARAMS="0">
     <DESC>Chart Autovacuum</DESC>
     <DATA><![CDATA[You can view autovacuum activity information by period.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M063" PARAMS="1">
+    <DESC>Report Chect</DESC>
+    <DATA><![CDATA[Can not search over {0} hours. ]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

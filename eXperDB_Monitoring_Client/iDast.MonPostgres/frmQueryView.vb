@@ -1,5 +1,7 @@
 ﻿Public Class frmQueryView
     Private _intInstanceID As Integer
+    Private _strDBNm As String
+    Private _strUser As String
 
     Private _useDefaultAccount As Boolean
 
@@ -14,7 +16,8 @@
     End Property
 #End Region
 
-    Public Sub New(ByVal strText As String, ByVal strDBNm As String, ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent, ByVal strUser As String)
+
+    Public Sub New(ByRef AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal strText As String, ByVal strDBNm As String, ByVal strUser As String, ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -24,8 +27,37 @@
         Me.RichTextBoxQuery1.Tag = strText
         Me.RichTextBoxQuery1.Text = strText
         _intInstanceID = intInstID
+        _strDBNm = strDBNm
+        _strUser = strUser
 
-        cmbDb.Visible = False
+        Dim clsQuery As clsQuerys
+
+        clsQuery = New clsQuerys(AgentCn)
+
+        Dim dtTableDB As DataTable = Nothing
+        Dim dtTableUser As DataTable = Nothing
+        Try
+            dtTableDB = clsQuery.SelectDBinfo(intInstID)
+            dtTableUser = clsQuery.SelectUserinfo(intInstID)
+            Dim dtRows As DataRow() = dtTableDB.Select()
+            If dtRows.Count > 0 Then
+                For Each tmpRow As DataRow In dtRows
+                    cmbDb.AddValue(tmpRow.Item("DB"), tmpRow.Item("DB"))
+                Next
+            End If
+
+            dtRows = dtTableUser.Select()
+            If dtRows.Count > 0 Then
+                For Each tmpRow As DataRow In dtRows
+                    cmbUser.AddValue(tmpRow.Item("USER_NAME"), tmpRow.Item("USER_NAME"))
+                Next
+            End If
+            cmbDb.SelectedIndex = -1
+            cmbUser.SelectedIndex = -1
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
         lblDB.Text = p_clsMsgData.fn_GetData("F010")
         lblID.Text = p_clsMsgData.fn_GetData("F008")
         lblPw.Text = p_clsMsgData.fn_GetData("F009")
@@ -57,72 +89,125 @@
             Next
         End If
 
-        'Me.FormControlBox1.UseConfigBox = False
-        'Me.FormControlBox1.UseRotationBox = False
-        'Me.FormControlBox1.UsePowerBox = False
-
         Me.Text = "SQL Plan"
         lblSubject.Text = p_clsMsgData.fn_GetData("M041")
 
     End Sub
 
 
-    Public Sub New(ByVal strDBNm As List(Of String), ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent)
+    'Public Sub New(ByVal strText As String, ByVal strDBNm As String, ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent, ByVal strUser As String)
 
-        ' 이 호출은 디자이너에 필요합니다.
-        InitializeComponent()
+    '    ' 이 호출은 디자이너에 필요합니다.
+    '    InitializeComponent()
 
-        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
+    '    ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
 
-        _intInstanceID = intInstID
+    '    Me.RichTextBoxQuery1.Tag = strText
+    '    Me.RichTextBoxQuery1.Text = strText
+    '    _intInstanceID = intInstID
 
-        lblDB.Text = p_clsMsgData.fn_GetData("F010")
-        lblID.Text = p_clsMsgData.fn_GetData("F008")
-        lblPw.Text = p_clsMsgData.fn_GetData("F009")
-        btnSearch.Text = p_clsMsgData.fn_GetData("F151")
-        If clsAgentInfo Is Nothing Then
-            Panel1.Visible = False
-            Splitter1.Visible = False
-        Else
-            clsEMsg = New clsAgentEMsg(clsAgentInfo.AgentIP, clsAgentInfo.AgentPort)
-        End If
+    '    cmbDb.Visible = False
+    '    lblDB.Text = p_clsMsgData.fn_GetData("F010")
+    '    lblID.Text = p_clsMsgData.fn_GetData("F008")
+    '    lblPw.Text = p_clsMsgData.fn_GetData("F009")
+    '    btnSearch.Text = p_clsMsgData.fn_GetData("F151")
+    '    If clsAgentInfo Is Nothing Then
+    '        Panel1.Visible = False
+    '        Splitter1.Visible = False
+    '    Else
+    '        clsEMsg = New clsAgentEMsg(clsAgentInfo.AgentIP, clsAgentInfo.AgentPort)
+    '    End If
+    '    txtDB.Text = strDBNm
+    '    txtID.Text = strUser
+    '    ' 설정 정보 읽어 오기 
+    '    Sb_ReadIni()
 
-        For Each tmpSvr As String In strDBNm
-            cmbDb.AddValue(tmpSvr, tmpSvr)
-        Next
+    '    Dim rgxVariable As New System.Text.RegularExpressions.Regex(Me.RichTextBoxQuery1.VariableRegex)
+    '    Dim rgxMatches As System.Text.RegularExpressions.MatchCollection = rgxVariable.Matches(strText)
+    '    If rgxMatches.Count = 0 Then
+    '        spnlVariables.Visible = False
+    '        dgvVariables.Visible = False
+    '    Else
+    '        spnlVariables.Visible = True
+    '        dgvVariables.Visible = True
+    '        For Each tmpMatch As System.Text.RegularExpressions.Match In rgxMatches
+    '            Dim intIndex As Integer = Me.RichTextBoxQuery1.Find(tmpMatch.Value, RichTextBoxFinds.MatchCase And RichTextBoxFinds.WholeWord)
+    '            Dim intLine As Integer = Me.RichTextBoxQuery1.GetLineFromCharIndex(intIndex)
+    '            Dim intLineIdx As Integer = intIndex - intLine
+    '            dgvVariables.Rows.Add(tmpMatch.Value, "", intLine)
+    '        Next
+    '    End If
 
-        txtDB.Visible = False
-        cmbDb.Visible = True
+    '    'Me.FormControlBox1.UseConfigBox = False
+    '    'Me.FormControlBox1.UseRotationBox = False
+    '    'Me.FormControlBox1.UsePowerBox = False
 
-        ' 설정 정보 읽어 오기 
-        Sb_ReadIni()
+    '    Me.Text = "SQL Plan"
+    '    lblSubject.Text = p_clsMsgData.fn_GetData("M041")
 
-        Dim rgxVariable As New System.Text.RegularExpressions.Regex(Me.RichTextBoxQuery1.VariableRegex)
-        Dim rgxMatches As System.Text.RegularExpressions.MatchCollection = rgxVariable.Matches("")
-        If rgxMatches.Count = 0 Then
-            spnlVariables.Visible = False
-            dgvVariables.Visible = False
-        Else
-            spnlVariables.Visible = True
-            dgvVariables.Visible = True
-            For Each tmpMatch As System.Text.RegularExpressions.Match In rgxMatches
-                Dim intIndex As Integer = Me.RichTextBoxQuery1.Find(tmpMatch.Value, RichTextBoxFinds.MatchCase And RichTextBoxFinds.WholeWord)
-                Dim intLine As Integer = Me.RichTextBoxQuery1.GetLineFromCharIndex(intIndex)
-                Dim intLineIdx As Integer = intIndex - intLine
-                dgvVariables.Rows.Add(tmpMatch.Value, "", intLine)
-            Next
-        End If
-
+    'End Sub
 
 
-        'Me.FormControlBox1.UseConfigBox = False
-        'Me.FormControlBox1.UseRotationBox = False
-        'Me.FormControlBox1.UsePowerBox = False
+    'Public Sub New(ByVal strDBNm As List(Of String), ByVal strUserNm As List(Of String), ByVal intInstID As Integer, ByVal clsAgentInfo As structAgent)
 
-        Me.Text = "SQL Plan"
-        lblSubject.Text = p_clsMsgData.fn_GetData("M041")
+    '    ' 이 호출은 디자이너에 필요합니다.
+    '    InitializeComponent()
 
-    End Sub
+    '    ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
+
+    '    _intInstanceID = intInstID
+
+    '    lblDB.Text = p_clsMsgData.fn_GetData("F010")
+    '    lblID.Text = p_clsMsgData.fn_GetData("F008")
+    '    lblPw.Text = p_clsMsgData.fn_GetData("F009")
+    '    btnSearch.Text = p_clsMsgData.fn_GetData("F151")
+    '    If clsAgentInfo Is Nothing Then
+    '        Panel1.Visible = False
+    '        Splitter1.Visible = False
+    '    Else
+    '        clsEMsg = New clsAgentEMsg(clsAgentInfo.AgentIP, clsAgentInfo.AgentPort)
+    '    End If
+
+    '    For Each tmpSvr As String In strDBNm
+    '        cmbDb.AddValue(tmpSvr, tmpSvr)
+    '    Next
+
+    '    For Each tmpUser As String In strUserNm
+    '        cmbDb.AddValue(tmpUser, tmpUser)
+    '    Next
+
+    '    txtDB.Visible = False
+    '    cmbDb.Visible = True
+
+    '    ' 설정 정보 읽어 오기 
+    '    Sb_ReadIni()
+
+    '    Dim rgxVariable As New System.Text.RegularExpressions.Regex(Me.RichTextBoxQuery1.VariableRegex)
+    '    Dim rgxMatches As System.Text.RegularExpressions.MatchCollection = rgxVariable.Matches("")
+    '    If rgxMatches.Count = 0 Then
+    '        spnlVariables.Visible = False
+    '        dgvVariables.Visible = False
+    '    Else
+    '        spnlVariables.Visible = True
+    '        dgvVariables.Visible = True
+    '        For Each tmpMatch As System.Text.RegularExpressions.Match In rgxMatches
+    '            Dim intIndex As Integer = Me.RichTextBoxQuery1.Find(tmpMatch.Value, RichTextBoxFinds.MatchCase And RichTextBoxFinds.WholeWord)
+    '            Dim intLine As Integer = Me.RichTextBoxQuery1.GetLineFromCharIndex(intIndex)
+    '            Dim intLineIdx As Integer = intIndex - intLine
+    '            dgvVariables.Rows.Add(tmpMatch.Value, "", intLine)
+    '        Next
+    '    End If
+
+
+
+    '    'Me.FormControlBox1.UseConfigBox = False
+    '    'Me.FormControlBox1.UseRotationBox = False
+    '    'Me.FormControlBox1.UsePowerBox = False
+
+    '    Me.Text = "SQL Plan"
+    '    lblSubject.Text = p_clsMsgData.fn_GetData("M041")
+
+    'End Sub
 
     Private Sub Sb_ReadIni()
 
@@ -150,12 +235,32 @@
             txtPW.Visible = False
         End If
     End Sub
+    Private Sub frmQueryView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cmbDb.SelectedIndex = 0
+        cmbUser.SelectedIndex = 0
 
+        For i As Integer = 0 To cmbDb.Items.Count - 1
+            If _strDBNm = cmbDb.GetItemText(cmbDb.Items(i)) Then
+                cmbDb.SelectedIndex = i
+                Exit For
+            End If
+        Next
+
+        For i As Integer = 0 To cmbUser.Items.Count - 1
+            If _strUser = cmbUser.GetItemText(cmbUser.Items(i)) Then
+                cmbUser.SelectedIndex = i
+                Exit For
+            End If
+        Next
+    End Sub
     Private Sub frmQueryView_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        If cmbDb.Visible = True Then
-            cmbDb.SelectedIndex = 0
-            txtDB.Text = cmbDb.Text
-        End If
+        'If cmbDb.Visible = True Then
+        '    cmbDb.SelectedIndex = 0
+        '    txtDB.Text = cmbDb.Text
+        'End If
+
+
+
         Me.RichTextBoxQuery1.RegexClrChg()
     End Sub
 
@@ -232,13 +337,13 @@
             End If
         End If
 
-        If txtPW.Text = "" Then
-            If useDefaultAccount = False Then
-                MsgBox(p_clsMsgData.fn_GetData("M001", lblPw.Text))
-                txtPW.Focus()
-                Return
-            End If
-        End If
+        'If txtPW.Text = "" Then
+        '    If useDefaultAccount = False Then
+        '        MsgBox(p_clsMsgData.fn_GetData("M001", lblPw.Text))
+        '        txtPW.Focus()
+        '        Return
+        '    End If
+        'End If
 
         If txtDB.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", lblDB.Text))
@@ -329,7 +434,9 @@
         End If
     End Sub
      
-    Private Sub cmbDb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDb.SelectedIndexChanged
+    Private Sub cmbDb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDb.SelectedIndexChanged, cmbUser.SelectedIndexChanged
         txtDB.Text = cmbDb.Text
+        txtID.Text = cmbUser.Text
     End Sub
+
 End Class

@@ -163,17 +163,54 @@
 
         chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEDETAIL", "False")
 
-        Dim positionObject As Integer = clsIni.ReadValue("CHART", "OBJECT", "0")
-        Dim positionCheckpotint As Integer = clsIni.ReadValue("CHART", "CHECKPOINT", "1")
-        Dim positionReplication As Integer = clsIni.ReadValue("CHART", "REPLICATION", "2")
-        Dim positionTransaction As Integer = clsIni.ReadValue("CHART", "TRANSACTION", "3")
-        Dim positionReplicationSize As Integer = clsIni.ReadValue("CHART", "REPLICATIONSIZE", "4")
+        'Dim positionObject As Integer = clsIni.ReadValue("CHARTDETAIL", "OBJECT", "0")
+        'Dim positionCheckpotint As Integer = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "1")
+        'Dim positionReplication As Integer = clsIni.ReadValue("CHARTDETAIL", "REPLICATION", "2")
+        'Dim positionTransaction As Integer = clsIni.ReadValue("CHARTDETAIL", "TRANSACTION", "3")
+        'Dim positionReplicationSize As Integer = clsIni.ReadValue("CHARTDETAIL", "REPLICATIONSIZE", "4")
 
-        tlpCharts.SetRow(tlpObject, positionObject)
-        tlpCharts.SetRow(tlpCheckpoint, positionCheckpotint)
-        tlpCharts.SetRow(tlpReplication, positionReplication)
-        tlpCharts.SetRow(tlpTPS, positionTransaction)
-        tlpCharts.SetRow(tlpReplicationSize, positionReplicationSize)
+
+        'tlpCharts.SetRow(tlpObject, positionObject)
+        'tlpCharts.SetRow(tlpCheckpoint, positionCheckpotint)
+        'tlpCharts.SetRow(tlpReplication, positionReplication)
+        'tlpCharts.SetRow(tlpTPS, positionTransaction)
+        'tlpCharts.SetRow(tlpReplicationSize, positionReplicationSize)
+
+        tlpSessioninfo.Tag = clsIni.ReadValue("CHARTDETAIL", "SESSIONINFO", "1")
+        tlpLogicalIO.Tag = clsIni.ReadValue("CHARTDETAIL", "LOGICALIO", "2")
+        tlpLock.Tag = clsIni.ReadValue("CHARTDETAIL", "LOCK", "3")
+        tlpPhyRead.Tag = clsIni.ReadValue("CHARTDETAIL", "PHYREAD", "4")
+        tlpSQLResp.Tag = clsIni.ReadValue("CHARTDETAIL", "SQLRESP", "5")
+        tlpObject.Tag = clsIni.ReadValue("CHARTDETAIL", "OBJECT", "6")
+        tlpCheckpoint.Tag = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "7")
+        tlpReplication.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATION", "8")
+        tlpTPS.Tag = clsIni.ReadValue("CHARTDETAIL", "TRANSACTION", "9")
+        tlpReplicationSize.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATIONSIZE", "0")
+        tlpDiskIOTrend.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIO", "0")
+
+        mnuSessioninfo.Tag = tlpSessioninfo
+        mnuLogicalIO.Tag = tlpLogicalIO
+        mnuLock.Tag = tlpLock
+        mnuPhyRead.Tag = tlpPhyRead
+        mnuSQLResposeTime.Tag = tlpSQLResp
+        mnuObject.Tag = tlpObject
+        mnuCheckpoint.Tag = tlpCheckpoint
+        mnuReplication.Tag = tlpReplication
+        mnuTPS.Tag = tlpTPS
+        mnuReplicationSize.Tag = tlpReplicationSize
+        mnuObject.Tag = tlpObject
+
+        setTLPPosition(tlpSessioninfo)
+        setTLPPosition(tlpLogicalIO)
+        setTLPPosition(tlpLock)
+        setTLPPosition(tlpPhyRead)
+        setTLPPosition(tlpSQLResp)
+        setTLPPosition(tlpObject)
+        setTLPPosition(tlpCheckpoint)
+        setTLPPosition(tlpReplication)
+        setTLPPosition(tlpTPS)
+        setTLPPosition(tlpReplicationSize)
+        setTLPPosition(tlpDiskIOTrend)
 
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
@@ -202,7 +239,7 @@
         Me.chtCheckpoint.Dispose()
         Me.chtObject.Dispose()
         Me.chtTPS.Dispose()
-        Me.chtPhysicaliO.Dispose()
+        Me.chtDiskIOTrend.Dispose()
         Me.chtReplication.Dispose()
         Me.chtReplicationSize.Dispose()
         Me.chtLock.Dispose()
@@ -306,7 +343,8 @@
 
 
         'Physical I/O      Logical I/O       Object    SQL Response Time
-        grpPhysicalIO.Text = p_clsMsgData.fn_GetData("F100")
+        grpDiskIOTrend.Text = p_clsMsgData.fn_GetData("F086")
+        grpPhyRead.Text = p_clsMsgData.fn_GetData("F100")
         grpLogicalIO.Text = p_clsMsgData.fn_GetData("F101")
         'Will move to object view
         grpObject.Text = p_clsMsgData.fn_GetData("F102")
@@ -342,7 +380,7 @@
         Me.btnRefreshLogicaliO.Location = New System.Drawing.Point(Me.grpLogicalIO.Width - Me.btnRefreshLogicaliO.Width - Me.btnRefreshLogicaliO.Margin.Right, Me.btnRefreshLogicaliO.Margin.Top)
         'Will move to object view
         'Me.btnRefreshObject.Location = New System.Drawing.Point(Me.grpObject.Width - Me.btnRefreshObject.Width - Me.btnRefreshObject.Margin.Right, Me.btnRefreshObject.Margin.Top)
-        Me.btnRefreshPhysicaliO.Location = New System.Drawing.Point(Me.grpPhysicalIO.Width - Me.btnRefreshPhysicaliO.Width - Me.btnRefreshPhysicaliO.Margin.Right, Me.btnRefreshPhysicaliO.Margin.Top)
+        Me.btnRefreshDiskiOTrend.Location = New System.Drawing.Point(Me.grpDiskIOTrend.Width - Me.btnRefreshDiskiOTrend.Width - Me.btnRefreshDiskiOTrend.Margin.Right, Me.btnRefreshDiskiOTrend.Margin.Top)
         Me.btnRefreshSqlResp.Location = New System.Drawing.Point(Me.grpSQLResposeTime.Width - Me.btnRefreshSqlResp.Width - Me.btnRefreshSqlResp.Margin.Right, Me.btnRefreshSqlResp.Margin.Top)
 
 
@@ -646,31 +684,26 @@
             End If
         End If
 
-
-        Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
-        For Each tmpRow As DataRow In dtRows
-            Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
-
-
+        If dtTable IsNot Nothing Then
+            Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
+            For Each tmpRow As DataRow In dtRows
+                Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
 
 
+                ' Logical I/O Info   
+                sb_ChartAddPoint(Me.chtLocalIO, "Read", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
+                sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
+                sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
+                sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
 
-            ' Logical I/O Info   
-            sb_ChartAddPoint(Me.chtLocalIO, "Read", dblRegDt, ConvULong(tmpRow.Item("SELECT_TUPLES_PER_SEC")))
-            sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
-            sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
-            sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
+                ' Physical Read Info
+                sb_ChartAddPoint(Me.chtPhyRead, "Read", dblRegDt, ConvULong(tmpRow.Item("PHY_READ_PER_SEC")))
 
-
-
-
-
-        Next
+            Next
+        End If
         sb_ChartAlignYAxies(Me.chtSession)
         sb_ChartAlignYAxies(Me.chtLocalIO)
-
-
-
+        sb_ChartAlignYAxies(Me.chtPhyRead)
 
 
     End Sub
@@ -876,37 +909,39 @@
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
 
+        If dtTable Is Nothing Then
+            Return
+        End If
 
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
 
-
         Dim strDiskNm As String = ""
         If _cmbPhysicalSelected >= 0 Then
-            strDiskNm = cmbPhysical.Text
+            strDiskNm = cmbDisk.Text
         End If
 
-        If cmbPhysical.SelectedIndex < 0 Or _cmbPhysicalSelected = cmbPhysical.SelectedIndex Then
-            cmbPhysical.Items.Clear()
+        If cmbDisk.SelectedIndex < 0 Or _cmbPhysicalSelected = cmbDisk.SelectedIndex Then
+            cmbDisk.Items.Clear()
 
             For Each dtRow As DataRow In dtRows
                 If dtRow.Item("MOUNTPOINT").Equals("") Then
-                    cmbPhysical.Items.Add(dtRow.Item("DISK_NAME"))
+                    cmbDisk.Items.Add(dtRow.Item("DISK_NAME"))
                 Else
-                    cmbPhysical.Items.Add(dtRow.Item("DISK_NAME") + " : " + dtRow.Item("MOUNTPOINT"))
+                    cmbDisk.Items.Add(dtRow.Item("DISK_NAME") + " : " + dtRow.Item("MOUNTPOINT"))
                 End If
             Next
 
-            cmbPhysical.Tag = dtTable
+            cmbDisk.Tag = dtTable
 
-            If cmbPhysical.Items.Count > 0 Then
+            If cmbDisk.Items.Count > 0 Then
                 If strDiskNm = "" Then
-                    cmbPhysical.SelectedIndex = 0
-                    strDiskNm = cmbPhysical.Text
+                    cmbDisk.SelectedIndex = 0
+                    strDiskNm = cmbDisk.Text
                 Else
-                    cmbPhysical.Text = strDiskNm
+                    cmbDisk.Text = strDiskNm
                 End If
-                Me.chtPhysicaliO.Tag = strDiskNm
+                Me.chtDiskIOTrend.Tag = strDiskNm
             End If
         Else
             SetPhysical(strDiskNm, dtTable)
@@ -1163,13 +1198,13 @@
 
 
 
-    Private Sub cmbPhysical_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPhysical.SelectedIndexChanged
-        If cmbPhysical.Tag IsNot Nothing AndAlso cmbPhysical.Tag.GetType.Equals(GetType(DataTable)) Then
-            Dim dtTable As DataTable = TryCast(cmbPhysical.Tag, DataTable)
+    Private Sub cmbPhysical_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDisk.SelectedIndexChanged
+        If cmbDisk.Tag IsNot Nothing AndAlso cmbDisk.Tag.GetType.Equals(GetType(DataTable)) Then
+            Dim dtTable As DataTable = TryCast(cmbDisk.Tag, DataTable)
             'Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text.Split(" :")(0)
             Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text
-            If Me.chtPhysicaliO.Tag Is Nothing OrElse Not Me.chtPhysicaliO.Tag.Equals(strDiskNm) Then
-                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtPhysicaliO.Series
+            If Me.chtDiskIOTrend.Tag Is Nothing OrElse Not Me.chtDiskIOTrend.Tag.Equals(strDiskNm) Then
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtDiskIOTrend.Series
                     tmpSeries.Points.Clear()
                 Next
                 initPhysical(strDiskNm)
@@ -1178,7 +1213,7 @@
             SetPhysical(strDiskNm, dtTable)
 
         End If
-        _cmbPhysicalSelected = cmbPhysical.SelectedIndex
+        _cmbPhysicalSelected = cmbDisk.SelectedIndex
 
 
     End Sub
@@ -1197,11 +1232,11 @@
             Dim dblPhyRead As Double = ConvULong(tmpRow.Item("PHY_READ"))
             Dim dblPhyWrite As Double = ConvULong(tmpRow.Item("PHY_WRITE"))
 
-            sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDate, dblPhyRead)
-            sb_ChartAddPoint(Me.chtPhysicaliO, "Write", dblRegDate, dblPhyWrite)
+            sb_ChartAddPoint(Me.chtDiskIOTrend, "Read", dblRegDate, dblPhyRead)
+            sb_ChartAddPoint(Me.chtDiskIOTrend, "Write", dblRegDate, dblPhyWrite)
         Next
 
-        sb_ChartAlignYAxies(Me.chtPhysicaliO)
+        sb_ChartAlignYAxies(Me.chtDiskIOTrend)
     End Sub
     ' ''' <summary>
     ' ''' CPU / MEM 정보 초기 등록 
@@ -1553,6 +1588,7 @@
                               sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, 0)
+                              sb_ChartAddPoint(Me.chtPhyRead, "Read", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtObject, "Index", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtObject, "Sequential", dblRegDt, 0)
                               sb_ChartAddPoint(Me.chtTPS, "Commit", dblRegDt, 0)
@@ -1566,6 +1602,8 @@
                                   sb_ChartAddPoint(Me.chtLocalIO, "Insert", dblRegDt, ConvULong(tmpRow.Item("INSERT_TUPLES_PER_SEC")))
                                   sb_ChartAddPoint(Me.chtLocalIO, "Update", dblRegDt, ConvULong(tmpRow.Item("UPDATE_TUPLES_PER_SEC")))
                                   sb_ChartAddPoint(Me.chtLocalIO, "Delete", dblRegDt, ConvULong(tmpRow.Item("DELETE_TUPLES_PER_SEC")))
+                                  ' Physical Read
+                                  sb_ChartAddPoint(Me.chtPhyRead, "Read", dblRegDt, ConvULong(tmpRow.Item("PHY_READ_PER_SEC")))
                                   'This chart will move to object view 20180125
                                   Dim dblIndexScan As Double = ConvULong(tmpRow.Item("INDEX_SCAN_TUPLES_PER_SEC"))
                                   Dim dblSqlScan As Double = ConvULong(tmpRow.Item("SEQ_SCAN_TUPLES_PER_SEC"))
@@ -1585,6 +1623,7 @@
                           sb_ChartAlignYAxies(Me.chtObject) 'This chart will move to object view 20180125
                           sb_ChartAlignYAxies(Me.chtSession)
                           sb_ChartAlignYAxies(Me.chtLocalIO)
+                          sb_ChartAlignYAxies(Me.chtPhyRead)
                       Catch ex As Exception
                           GC.Collect()
                       End Try
@@ -1597,19 +1636,19 @@
                       Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME = '{1}'", Me.InstanceID, strDiskNm.Split(" :")(0)))
                       If dtRows.Count = 0 Then
                           Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                          sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDt, 0)
-                          sb_ChartAddPoint(Me.chtPhysicaliO, "Write", dblRegDt, 0)
+                          sb_ChartAddPoint(Me.chtDiskIOTrend, "Read", dblRegDt, 0)
+                          sb_ChartAddPoint(Me.chtDiskIOTrend, "Write", dblRegDt, 0)
                       Else
                           For Each tmpRow As DataRow In dtRows
                               Dim dblRegDate As Double = ConvOADate(tmpRow.Item("REG_DATE"))
                               Dim dblPhyRead As Double = ConvULong(tmpRow.Item("PHY_READ"))
                               Dim dblPhyWrite As Double = ConvULong(tmpRow.Item("PHY_WRITE"))
 
-                              sb_ChartAddPoint(Me.chtPhysicaliO, "Read", dblRegDate, dblPhyRead)
-                              sb_ChartAddPoint(Me.chtPhysicaliO, "Write", dblRegDate, dblPhyWrite)
+                              sb_ChartAddPoint(Me.chtDiskIOTrend, "Read", dblRegDate, dblPhyRead)
+                              sb_ChartAddPoint(Me.chtDiskIOTrend, "Write", dblRegDate, dblPhyWrite)
                           Next
                       End If
-                      sb_ChartAlignYAxies(Me.chtPhysicaliO)
+                      sb_ChartAlignYAxies(Me.chtDiskIOTrend)
                   End Sub)
     End Sub
 
@@ -1617,12 +1656,12 @@
 
     End Sub
 
-    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshPhysicaliO.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click, btnRefreshObject.Click, btnRefreshSession.Click, btnRefreshLock.Click, btnRefreshCheckpoint.Click, btnRefreshReplication.Click
+    Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefreshDiskiOTrend.Click, btnRefreshLogicaliO.Click, btnRefreshSqlResp.Click, btnRefreshObject.Click, btnRefreshSession.Click, btnRefreshLock.Click, btnRefreshCheckpoint.Click, btnRefreshReplication.Click
         Select Case DirectCast(sender, BaseControls.Button).Name.ToUpper
             Case "BTNREFRESHSESSION"
                 ChartClear(chtSession)
             Case "BTNREFRESHPHYSICALIO"
-                ChartClear(chtPhysicaliO)
+                ChartClear(chtDiskIOTrend)
             Case "BTNREFRESHLOGICALIO"
                 ChartClear(chtLocalIO)
             Case "BTNREFRESHOBJECT"
@@ -1789,26 +1828,7 @@
     'End Sub
 
     Private Sub btnSqlPlan_Click(sender As Object, e As EventArgs) Handles btnSqlPlan.Click
-        Dim dbName As New List(Of String)
-
-
-        Me.Invoke(Sub()
-                      Dim dtTable As DataTable = Nothing
-                      Try
-                          dtTable = _clsQuery.SelectDBinfo(InstanceID)
-
-                          Dim dtRows As DataRow() = dtTable.Select()
-
-                          If dtRows.Count > 0 Then
-                              For Each tmpRow As DataRow In dtRows
-                                  dbName.Add(tmpRow.Item("DB"))
-                              Next
-                          End If
-                      Catch ex As Exception
-                          GC.Collect()
-                      End Try
-                  End Sub)
-        Dim frmQuery As New frmQueryView(dbName, InstanceID, _AgentInfo)
+        Dim frmQuery As New frmQueryView(_AgentCn, "", "", "", InstanceID, _AgentInfo)
         frmQuery.Show()
     End Sub
 
@@ -1834,10 +1854,11 @@
     Private Sub chtSession_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs) Handles chtSession.CursorPositionChanged _
                                                                                                                         , chtCPU.CursorPositionChanged _
                                                                                                                         , chtLocalIO.CursorPositionChanged _
-                                                                                                                        , chtPhysicaliO.CursorPositionChanged _
+                                                                                                                        , chtDiskIOTrend.CursorPositionChanged _
                                                                                                                         , chtSQLRespTm.CursorPositionChanged _
                                                                                                                         , chtLock.CursorPositionChanged _
-                                                                                                                        , chtTPS.CursorPositionChanged
+                                                                                                                        , chtTPS.CursorPositionChanged _
+                                                                                                                        , chtPhyRead.CursorPositionChanged
 
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
@@ -1870,14 +1891,16 @@
                 index = 1
             Case "chtLocalIO"
                 index = 2
-            Case "chtPhysicaliO"
+            Case "chtPhyRead"
                 index = 3
-            Case "chtSQLRespTm"
+            Case "chtDiskIOTrend"
                 index = 4
-            Case "chtLock"
+            Case "chtSQLRespTm"
                 index = 5
-            Case "chtTPS"
+            Case "chtLock"
                 index = 6
+            Case "chtTPS"
+                index = 7
         End Select
 
         Dim BretFrm As frmMonItemDetail = Nothing
@@ -1903,7 +1926,7 @@
         If dgvResUtilPerBackProc.RowCount <= 0 Then Return
         'SQL
         If e.RowIndex >= 0 Then
-            Dim frmQuery As New frmQueryView(dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcSQL.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcDB.Index).Value, InstanceID, _AgentInfo, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcUser.Index).Value)
+            Dim frmQuery As New frmQueryView(_AgentCn, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcSQL.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcDB.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcUser.Index).Value, InstanceID, _AgentInfo)
             frmQuery.Show()
         End If
     End Sub
@@ -2107,66 +2130,174 @@
         End If
     End Sub
 
-    Private Sub lblCheckpoint_MouseClick(sender As Object, e As MouseEventArgs) Handles lblObject.MouseClick, lblCheckpoint.MouseClick, lblReplication.MouseClick, lblTPS.MouseClick, lblReplicationDelaySize.MouseClick
+    Private Sub lblCheckpoint_MouseClick(sender As Object, e As MouseEventArgs) Handles lblObject.MouseClick, _
+                                                                                    lblCheckpoint.MouseClick, _
+                                                                                    lblReplication.MouseClick, _
+                                                                                    lblTPS.MouseClick, _
+                                                                                    lblReplicationDelaySize.MouseClick, _
+                                                                                    lblSessioninfo.MouseClick, _
+                                                                                    lblLogicalIO.MouseClick, _
+                                                                                    lblLock.MouseClick, _
+                                                                                    lblPhyRead.MouseClick, _
+                                                                                    lblDiskIOTrend.MouseClick, _
+                                                                                    lblSQLResposeTime.MouseClick
         '        mnuChart.Show(New Point(e.X, e.Y), ToolStripDropDownDirection.Default)
         Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
 
-        mnuObject.Enabled = True
-        mnuCheckpoint.Enabled = True
-        mnuReplication.Enabled = True
-        mnuTPS.Enabled = True
-        mnuReplicationSize.Enabled = True
+        ' dilplaying menu image
+        For i As Integer = 0 To mnuChart.Items.Count - 1
+            Dim tlpSub = DirectCast(mnuChart.Items(i).Tag, System.Windows.Forms.TableLayoutPanel)
+            If tlpSub IsNot Nothing Then
+                If tlpSub.Visible = True Then
+                    mnuChart.Items(i).Image = statusImgLst.Images(4)
+                Else
+                    mnuChart.Items(i).Image = Nothing
+                End If
+            End If
+        Next
 
-        Select Case lblTemp.Parent.Name
-            Case "tlpObject"
-                mnuObject.Enabled = False
-            Case "tlpCheckpoint"
-                mnuCheckpoint.Enabled = False
-            Case "tlpReplication"
-                mnuReplication.Enabled = False
-            Case "tlpTPS"
-                mnuTPS.Enabled = False
-            Case "tlpReplicationSize"
-                mnuReplicationSize.Enabled = False
-        End Select
         mnuChart.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
         mnuChart.Tag = lblTemp.Parent
+
+        'mnuObject.Enabled = True
+        'mnuCheckpoint.Enabled = True
+        'mnuReplication.Enabled = True
+        'mnuTPS.Enabled = True
+        'mnuReplicationSize.Enabled = True
+        'mnuSessioninfo.Enabled = True
+        'mnuLogicalIO.Enabled = True
+        'mnuLock.Enabled = True
+        'mnuPhysicalIO.Enabled = True
+        'mnuSQLResposeTime.Enabled = True
+        'mnuDiskIO.Enabled = True
+
+        'Select Case lblTemp.Parent.Name
+        '    Case "tlpObject"
+        '        mnuObject.Enabled = False
+        '    Case "tlpCheckpoint"
+        '        mnuCheckpoint.Enabled = False
+        '    Case "tlpReplication"
+        '        mnuReplication.Enabled = False
+        '    Case "tlpTPS"
+        '        mnuTPS.Enabled = False
+        '    Case "tlpReplicationSize"
+        '        mnuReplicationSize.Enabled = False
+        '    Case "tlpSessioninfo"
+        '        mnuSessioninfo.Enabled = False
+        '    Case "tlpLogicalIO"
+        '        mnuLogicalIO.Enabled = False
+        '    Case "tlpLock"
+        '        mnuLock.Enabled = False
+        '    Case "tlpPhysicalIO"
+        '        mnuPhysicalIO.Enabled = False
+        '    Case "tlpSQLResp"
+        '        mnuSQLResposeTime.Enabled = False
+        '    Case "tlpDiskIO"
+        '        mnuDiskIO.Enabled = False
+        'End Select
+        'mnuChart.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
+        'mnuChart.Tag = lblTemp.Parent
     End Sub
 
-    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click
-        Dim tlpCurrTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
-        Dim tlpChangeTemp As System.Windows.Forms.TableLayoutPanel = Nothing
-        Dim intTlpOldrow = tlpCharts.GetRow(tlpCurrTemp)
-        Dim intTlpNewRow = -1
+    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click
+        'Dim tlpCurrTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        'Dim tlpChangeTemp As System.Windows.Forms.TableLayoutPanel = Nothing
+        'Dim intTlpOldrow = tlpCharts.GetRow(tlpCurrTemp)
+        'Dim intTlpOldcol = tlpCharts.GetColumn(tlpCurrTemp)
+        'Dim intTlpNewRow = -1
+        'Dim intTlpNewCol = -1
 
-        
-        If sender.Name = "mnuObject" Then
-            tlpChangeTemp = tlpObject
+
+        'If sender.Name = "mnuObject" Then
+        '    tlpChangeTemp = tlpObject
+        'ElseIf sender.Name = "mnuCheckpoint" Then
+        '    tlpChangeTemp = tlpCheckpoint
+        'ElseIf sender.Name = "mnuReplication" Then
+        '    tlpChangeTemp = tlpReplication
+        'ElseIf sender.Name = "mnuTPS" Then
+        '    tlpChangeTemp = tlpTPS
+        'ElseIf sender.Name = "mnuReplicationSize" Then
+        '    tlpChangeTemp = tlpReplicationSize
+        'ElseIf sender.Name = "mnuSessioninfo" Then
+        '    tlpChangeTemp = tlpSessioninfo
+        'ElseIf sender.Name = "mnuLogicalIO" Then
+        '    tlpChangeTemp = tlpLogicalIO
+        'ElseIf sender.Name = "mnuLock" Then
+        '    tlpChangeTemp = tlpLock
+        'ElseIf sender.Name = "mnuPhysicalIO" Then
+        '    tlpChangeTemp = tlpPhysicalIO
+        'ElseIf sender.Name = "mnuSQLResposeTime" Then
+        '    tlpChangeTemp = tlpSQLResp
+        'ElseIf sender.Name = "mnuDiskIO" Then
+        '    tlpChangeTemp = tlpDiskIO
+        'End If
+
+        'intTlpNewRow = tlpCharts.GetRow(tlpChangeTemp)
+
+        'tlpCurrTemp.Visible = False
+        'tlpCharts.SetRow(tlpCurrTemp, 4)
+
+        'tlpCharts.SetRow(tlpChangeTemp, intTlpOldrow)
+        'tlpCharts.SetRow(tlpChangeTemp, intTlpOldcol)
+        'tlpCharts.SetRow(tlpCurrTemp, intTlpNewRow)
+        'tlpCharts.SetRow(tlpCurrTemp, intTlpNewCol)
+
+        'If intTlpNewRow < 3 Then
+        '    tlpCurrTemp.Visible = True
+        'End If
+
+        'If intTlpOldrow < 3 Then
+        '    tlpChangeTemp.Visible = True
+        'End If
+
+
+        Dim tlpTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        Dim tlpSwap = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
+        Dim selectmenu = DirectCast(sender, System.Windows.Forms.ToolStripMenuItem)
+        Dim index As Integer = tlpTemp.Tag 'old
+
+
+        If sender.Name = "mnuSessioninfo" Then
+            tlpSwap = tlpSessioninfo
+        ElseIf sender.Name = "mnuLogicalIO" Then
+            tlpSwap = tlpLogicalIO
+        ElseIf sender.Name = "mnuLock" Then
+            tlpSwap = tlpLock
+        ElseIf sender.Name = "mnuPhyRead" Then
+            tlpSwap = tlpPhyRead
+        ElseIf sender.Name = "mnuSQLResposeTime" Then
+            tlpSwap = tlpSQLResp
+        ElseIf sender.Name = "mnuObject" Then
+            tlpSwap = tlpObject
         ElseIf sender.Name = "mnuCheckpoint" Then
-            tlpChangeTemp = tlpCheckpoint
+            tlpSwap = tlpCheckpoint
         ElseIf sender.Name = "mnuReplication" Then
-            tlpChangeTemp = tlpReplication
+            tlpSwap = tlpReplication
         ElseIf sender.Name = "mnuTPS" Then
-            tlpChangeTemp = tlpTPS
+            tlpSwap = tlpTPS
         ElseIf sender.Name = "mnuReplicationSize" Then
-            tlpChangeTemp = tlpReplicationSize
+            tlpSwap = tlpReplicationSize
+        ElseIf sender.Name = "mnuDiskIOTrend" Then
+            tlpSwap = tlpDiskIOTrend
         End If
 
-        intTlpNewRow = tlpCharts.GetRow(tlpChangeTemp)
+        tlpTemp.Tag = tlpSwap.Tag 'old
+        tlpSwap.Tag = index ' new
+        setTLPPosition(tlpTemp)
+        setTLPPosition(tlpSwap)
 
-        tlpCurrTemp.Visible = False
-        tlpCharts.SetRow(tlpCurrTemp, 4)
 
-        tlpCharts.SetRow(tlpChangeTemp, intTlpOldrow)
-        tlpCharts.SetRow(tlpCurrTemp, intTlpNewRow)
-
-        If intTlpNewRow < 3 Then
-            tlpCurrTemp.Visible = True
-        End If
-
-        If intTlpOldrow < 3 Then
-            tlpChangeTemp.Visible = True
-        End If
+        If tlpSessioninfo.Tag <> 0 Then mnuSessioninfo.Image = statusImgLst.Images(4)
+        If tlpLogicalIO.Tag <> 0 Then mnuLogicalIO.Image = statusImgLst.Images(4)
+        If tlpLock.Tag <> 0 Then mnuLock.Image = statusImgLst.Images(4)
+        If tlpPhyRead.Tag <> 0 Then mnuPhyRead.Image = statusImgLst.Images(4)
+        If tlpSQLResp.Tag <> 0 Then mnuSQLResposeTime.Image = statusImgLst.Images(4)
+        If tlpObject.Tag <> 0 Then mnuObject.Image = statusImgLst.Images(4)
+        If tlpCheckpoint.Tag <> 0 Then mnuCheckpoint.Image = statusImgLst.Images(4)
+        If tlpReplication.Tag <> 0 Then mnuReplication.Image = statusImgLst.Images(4)
+        If tlpTPS.Tag <> 0 Then mnuTPS.Image = statusImgLst.Images(4)
+        If tlpReplicationSize.Tag <> 0 Then mnuReplicationSize.Image = statusImgLst.Images(4)
+        If tlpDiskIOTrend.Tag <> 0 Then mnuDiskIOTrend.Image = statusImgLst.Images(4)
 
         WriteChartPosition()
 
@@ -2174,11 +2305,17 @@
 
     Private Sub WriteChartPosition()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
-        clsIni.WriteValue("CHART", "OBJECT", tlpCharts.GetRow(tlpObject))
-        clsIni.WriteValue("CHART", "CHECKPOINT", tlpCharts.GetRow(tlpCheckpoint))
-        clsIni.WriteValue("CHART", "REPLICATION", tlpCharts.GetRow(tlpReplication))
-        clsIni.WriteValue("CHART", "TRANSACTION", tlpCharts.GetRow(tlpTPS))
-        clsIni.WriteValue("CHART", "REPLICATIONSIZE", tlpCharts.GetRow(tlpReplicationSize))
+        clsIni.WriteValue("CHARTDETAIL", "SESSIONINFO", tlpSessioninfo.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "LOGICALIO", tlpLogicalIO.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "LOCK", tlpLock.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "PHYREAD", tlpPhyRead.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "SQLRESP", tlpSQLResp.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "OBJECT", tlpObject.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "CHECKPOINT", tlpCheckpoint.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "REPLICATION", tlpReplication.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "TRANSACTION", tlpTPS.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "REPLICATIONSIZE", tlpReplicationSize.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "DISKIO", tlpDiskIOTrend.Tag)
     End Sub
 
     Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged
@@ -2201,24 +2338,7 @@
         Dim edDt As DateTime = Now
 
         If sender.Name = "mnuSQLPlan" Then
-            Dim dbName As New List(Of String)
-            Me.Invoke(Sub()
-                          Dim dtTable As DataTable = Nothing
-                          Try
-                              dtTable = _clsQuery.SelectDBinfo(InstanceID)
-
-                              Dim dtRows As DataRow() = dtTable.Select()
-
-                              If dtRows.Count > 0 Then
-                                  For Each tmpRow As DataRow In dtRows
-                                      dbName.Add(tmpRow.Item("DB"))
-                                  Next
-                              End If
-                          Catch ex As Exception
-                              GC.Collect()
-                          End Try
-                      End Sub)
-            Dim frmQuery As New frmQueryView(dbName, InstanceID, _AgentInfo)
+            Dim frmQuery As New frmQueryView(_AgentCn, "", "", "", InstanceID, _AgentInfo)
             frmQuery.Show()
         ElseIf sender.Name = "mnuSessionLock" Then
             For Each tmpFrm As Form In My.Application.OpenForms
@@ -2315,6 +2435,39 @@
         End If
 
     End Sub
-
+    Private Sub setTLPPosition(ByRef tlp As System.Windows.Forms.TableLayoutPanel)
+        Dim index As Integer = tlp.Tag
+        tlp.Visible = True
+        Select Case index
+            Case 0
+                tlpCharts.SetRow(tlp, 2)
+                tlpCharts.SetColumn(tlp, 4)
+                tlp.Visible = False
+            Case 1
+                tlpCharts.SetRow(tlp, 0)
+                tlpCharts.SetColumn(tlp, 1)
+            Case 2
+                tlpCharts.SetRow(tlp, 1)
+                tlpCharts.SetColumn(tlp, 0)
+            Case 3
+                tlpCharts.SetRow(tlp, 1)
+                tlpCharts.SetColumn(tlp, 1)
+            Case 4
+                tlpCharts.SetRow(tlp, 2)
+                tlpCharts.SetColumn(tlp, 0)
+            Case 5
+                tlpCharts.SetRow(tlp, 2)
+                tlpCharts.SetColumn(tlp, 1)
+            Case 6
+                tlpCharts.SetRow(tlp, 0)
+                tlpCharts.SetColumn(tlp, 2)
+            Case 7
+                tlpCharts.SetRow(tlp, 1)
+                tlpCharts.SetColumn(tlp, 2)
+            Case 8
+                tlpCharts.SetRow(tlp, 2)
+                tlpCharts.SetColumn(tlp, 2)
+        End Select
+    End Sub
 
 End Class

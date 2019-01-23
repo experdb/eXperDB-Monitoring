@@ -4,7 +4,7 @@
     Private _SelectedIndex As String
     Private _SelectedGrid As String
     Private _chtOrder As Integer = -1
-    Private _AreaCount As Integer = 7
+    Private _AreaCount As Integer = 8
     Private _chtCount As Integer = 0
     Private _chtHeight As Integer
     Private _clsQuery As clsQuerys
@@ -92,11 +92,12 @@
                 Case 0 : SetDefaultTitle(chkCpu, chtCPU, True, "")
                 Case 1 : SetDefaultTitle(chkSession, chtSession, True, "")
                 Case 2 : SetDefaultTitle(chkLogicalIO, chtLogicalIO, True, "")
-                Case 3 : SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, True, "")
-                Case 4 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
-                Case 5 : SetDefaultTitle(chkLock, chtLock, True, "")
+                Case 3 : SetDefaultTitle(chkPhysicalRead, chtPhysicalRead, True, "")
+                Case 4 : SetDefaultTitle(chkDiskIO, chtDiskIO, True, "")
+                Case 5 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
+                Case 6 : SetDefaultTitle(chkLock, chtLock, True, "")
                     tabSession.SelectedIndex = 2
-                Case 6 : SetDefaultTitle(chkTPS, chtTPS, True, "")
+                Case 7 : SetDefaultTitle(chkTPS, chtTPS, True, "")
             End Select
         End If
     End Sub 'InvokeMethod
@@ -190,7 +191,8 @@
         chkCpu.Text = p_clsMsgData.fn_GetData("F035")
         chkSession.Text = p_clsMsgData.fn_GetData("F047")
         chkLogicalIO.Text = p_clsMsgData.fn_GetData("F101")
-        chkPhysicalIO.Text = p_clsMsgData.fn_GetData("F100")
+        chkPhysicalRead.Text = p_clsMsgData.fn_GetData("F100")
+        chkDiskIO.Text = p_clsMsgData.fn_GetData("F086")
         chkSQLResp.Text = p_clsMsgData.fn_GetData("F267")
         chkLock.Text = p_clsMsgData.fn_GetData("F317")
         chkTPS.Text = p_clsMsgData.fn_GetData("F320")
@@ -259,7 +261,8 @@
         chtCPU.Visible = False
         chtSession.Visible = False
         chtLogicalIO.Visible = False
-        chtPhysicalIO.Visible = False
+        chtPhysicalRead.Visible = False
+        chtDiskIO.Visible = False
         chtSQLResp.Visible = False
         chtLock.Visible = False
         chtTPS.Visible = False
@@ -451,26 +454,30 @@
         chkCpu.Tag = 0
         chkSession.Tag = 1
         chkLogicalIO.Tag = 2
-        chkPhysicalIO.Tag = 3
-        chkSQLResp.Tag = 4
-        chkLock.Tag = 5
-        chkTPS.Tag = 6
+        chkPhysicalRead.Tag = 3
+        chkDiskIO.Tag = 4
+        chkSQLResp.Tag = 5
+        chkLock.Tag = 6
+        chkTPS.Tag = 7
 
         _chtHeight = chtCPU.Height + 30
 
         SetDefaultTitle(chkCpu, chtCPU, False, "")
         SetDefaultTitle(chkSession, chtSession, False, "")
         SetDefaultTitle(chkLogicalIO, chtLogicalIO, False, "")
-        SetDefaultTitle(chkPhysicalIO, chtPhysicalIO, False, "")
+        SetDefaultTitle(chkPhysicalRead, chtPhysicalRead, False, "")
+        SetDefaultTitle(chkDiskIO, chtDiskIO, False, "")
         SetDefaultTitle(chkSQLResp, chtSQLResp, False, "")
         SetDefaultTitle(chkLock, chtLock, False, "")
         SetDefaultTitle(chkTPS, chtTPS, False, "")
 
         chtCPU.MainChart.ChartAreas(0).Visible = False
+        'chtCPU.AddAreaEx("CPU Usage", "RATE(%)", True, "CPUAREA")
         chtCPU.AddAreaEx("CPU Usage", "RATE(%)", True, "CPUAREA")
         chtCPU.AddAreaEx("Session", "Count", True, "SESSIONAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F040"), "Tuples/sec", True, "LOGICALAREA")
-        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F100"), "Busy(%)", True, "PHYSICALAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F100"), "Blocks/sec", True, "PHYSICALAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F086"), "Busy(%)", True, "DISKAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F103"), "SEC", True, "SQLRESPAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F317"), "Count", True, "LOCKAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F320"), "Transactions/sec", True, "TPSAREA")
@@ -479,11 +486,14 @@
         chtCPU.MainChart.ChartAreas("SESSIONAREA").Visible = False
         chtCPU.MainChart.ChartAreas("LOGICALAREA").Visible = False
         chtCPU.MainChart.ChartAreas("PHYSICALAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("DISKAREA").Visible = False
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").Visible = False
         chtCPU.MainChart.ChartAreas("LOCKAREA").Visible = False
         chtCPU.MainChart.ChartAreas("TPSAREA").Visible = False
 
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Maximum = 100
+        chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Minimum = 0
+        chtCPU.MainChart.ChartAreas("TPSAREA").AxisY.Maximum = 100
         chtCPU.MainChart.ChartAreas("TPSAREA").AxisY.Minimum = 0
 
         Me.chtCPU.Visible = True
@@ -510,6 +520,9 @@
         chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
 
+        chtCPU.MainChart.ChartAreas("DISKAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("DISKAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
 
@@ -524,7 +537,7 @@
         chkBox.Checked = chtEnable
     End Sub
 
-    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkPhysicalIO.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged, chkLock.CheckedChanged, chkTPS.CheckedChanged
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkDiskIO.CheckedChanged, chkPhysicalRead.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged, chkLock.CheckedChanged, chkTPS.CheckedChanged
 
         Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
@@ -540,7 +553,7 @@
             CheckBox.Checked = True
             Return
         End If
-        chtCPU.Height = 2000 'fix Height of Chart
+        chtCPU.Height = 260 * _chtCount 'fix Height of Chart
         chtCPU.MainChart.Focus()
 
         If CheckBox.Checked = False Then
@@ -556,12 +569,12 @@
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
 
         'Threading.Thread.Sleep(10)
-        If index = 4 Then
+        If index = 5 Then
             '_ThreadDetail = New Threading.Thread(Sub()
             '                                         Threading.Thread.Sleep(50)
-            '                                         ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
+            '                                         ShowDiskIOChart(index, dtpSt.Value, dtpEd.Value, enable)
             '                                     End Sub)
-            ShowPhysicalIOChart(index, dtpSt.Value, dtpEd.Value, enable)
+            ShowDiskIOChart(index, dtpSt.Value, dtpEd.Value, enable)
         Else
             '_ThreadDetail = New Threading.Thread(Sub()
             '                                         Threading.Thread.Sleep(50)
@@ -603,15 +616,18 @@
         Dim nCount As Integer = 0
         Dim MarginTop As Double = 0
         Dim MarginBottom As Double = 0
-        Dim AreaHeight As Double = (100 / _AreaCount)
-        MarginTop = AreaHeight * 0.22
-        MarginBottom = AreaHeight * 0.22
-        AreaHeight = AreaHeight * 0.56
+        Dim AreaHeight As Double = (100 / _chtCount)
+        MarginTop = AreaHeight * 0.24
+        MarginBottom = AreaHeight * 0.24
+        AreaHeight = AreaHeight * 0.52
+        'For i As Integer = 1 To _chtCount
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
                 tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * (nCount + 1) + MarginBottom * nCount
                 tmpChartArea.Position.Height = AreaHeight
+                'tmpChartArea.InnerPlotPosition.Y = 10
+                'tmpChartArea.InnerPlotPosition.Height = 80 + _chtCount / 2
                 tmpChartArea.Position.X = 3
                 If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
                     tmpChartArea.Position.Width = tmpChartArea.Position.Width * (1 + CSng(100 / (Me.chtCPU.MainChart.Width)))
@@ -712,12 +728,17 @@
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 yAxisType = DataVisualization.Charting.AxisType.Secondary
             Case 4
+                strLegend1 = "Physical Read"
+                strSeriesData1 = "PHY_READ_PER_SEC"
+                LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
+                seriesChartType = DataVisualization.Charting.SeriesChartType.Line
             Case 5
+            Case 6
                 strLegend1 = p_clsMsgData.fn_GetData("F103")
                 strSeriesData1 = "SQL_ELAPSED_SEC"
                 LineColor1 = Color.LimeGreen
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Point
-            Case 6
+            Case 7
                 strLegend1 = "LOCKTOT"
                 strLegend2 = "LOCKWAIT"
                 strSeriesData1 = "LOCK_TOTAL"
@@ -725,7 +746,7 @@
                 LineColor1 = Color.RoyalBlue
                 LineColor2 = Color.Crimson
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
-            Case 7
+            Case 8
                 strLegend1 = "Commit"
                 strLegend2 = "Rollback"
                 strLegend3 = "Transaction"
@@ -780,14 +801,14 @@
                                                                              dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
                                                                          Case 2
                                                                              dtTable = _clsQuery.SelectDetailSessionInfoChart(_InstanceID, stDate, edDate)
-                                                                         Case 3
+                                                                         Case 3, 4
                                                                              dtTable = _clsQuery.SelectDetailObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate)
-                                                                         Case 4
                                                                          Case 5
-                                                                             dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)
                                                                          Case 6
-                                                                             dtTable = _clsQuery.SelectLockCount(_InstanceID, stDate, edDate, True)
+                                                                             dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)
                                                                          Case 7
+                                                                             dtTable = _clsQuery.SelectLockCount(_InstanceID, stDate, edDate, True)
+                                                                         Case 8
                                                                              dtTable = _clsQuery.SelectInitObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate, 1)
                                                                      End Select
 
@@ -841,7 +862,7 @@
                                     End Sub))
 
     End Sub
-    Private Sub ShowPhysicalIOChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
+    Private Sub ShowDiskIOChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
         Dim arrPartition As New ArrayList
         Dim colors() As Color = {System.Drawing.Color.LimeGreen,
                          System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
@@ -900,7 +921,7 @@
                                         End Sub))
         Else
         End If
-        ' Chart Physical I/O
+        ' Chart Disk I/O
         Me.Invoke(New MethodInvoker(Sub()
                                         For i As Integer = 0 To arrPartition.Count - 1
                                             Dim strSeries = arrPartition.Item(i)
@@ -981,17 +1002,18 @@
         End If
     End Sub
 
-    Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCPU.VisibleChanged, chtSQLResp.VisibleChanged, chtSession.VisibleChanged, chtPhysicalIO.VisibleChanged, chtLogicalIO.VisibleChanged, chtLock.VisibleChanged, chtTPS.VisibleChanged
+    Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCPU.VisibleChanged, chtSQLResp.VisibleChanged, chtSession.VisibleChanged, chtDiskIO.VisibleChanged, chtPhysicalRead.VisibleChanged, chtLogicalIO.VisibleChanged, chtLock.VisibleChanged, chtTPS.VisibleChanged
         'pnlChart.Controls.SetChildIndex(chtCPU, 5)
         'pnlChart.Controls.SetChildIndex(chtSession, 4)
         'pnlChart.Controls.SetChildIndex(chtLogicalIO, 3)
         'pnlChart.Controls.SetChildIndex(chtPhysicalIO, 2)
         'pnlChart.Controls.SetChildIndex(chtSQLResp, 1)
         'pnlChart.Controls.SetChildIndex(chtLock, 0)
-        pnlChart.Controls.SetChildIndex(chtCPU, 6)
-        pnlChart.Controls.SetChildIndex(chtSession, 5)
-        pnlChart.Controls.SetChildIndex(chtLogicalIO, 4)
-        pnlChart.Controls.SetChildIndex(chtPhysicalIO, 3)
+        pnlChart.Controls.SetChildIndex(chtCPU, 7)
+        pnlChart.Controls.SetChildIndex(chtSession, 6)
+        pnlChart.Controls.SetChildIndex(chtLogicalIO, 5)
+        pnlChart.Controls.SetChildIndex(chtPhysicalRead, 4)
+        pnlChart.Controls.SetChildIndex(chtDiskIO, 3)
         pnlChart.Controls.SetChildIndex(chtSQLResp, 2)
         pnlChart.Controls.SetChildIndex(chtLock, 1)
         pnlChart.Controls.SetChildIndex(chtTPS, 0)
@@ -1085,7 +1107,7 @@
         strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
         strQuery = IIf(IsDBNull(dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value), "", dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value)
         strUser = IIf(IsDBNull(dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value), "", dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value)
-        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
         frmQuery.ShowDialog(Me)
         'End If
     End Sub
@@ -1100,7 +1122,7 @@
         strDb = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlDBNm.Index).Value
         strQuery = dgvRptSQL.CurrentRow.Cells(colDgvRptSqlSql.Index).Value
         strUser = IIf(IsDBNull(dgvRptSQL.CurrentRow.Cells(colDgvRptSqlUserName.Index).Value), "", dgvRptSQL.CurrentRow.Cells(colDgvRptSqlUserName.Index).Value)
-        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
         frmQuery.ShowDialog(Me)
         'End If
     End Sub
@@ -1115,13 +1137,13 @@
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
             strQuery = dgvLock.CurrentCell.Value
             strUser = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value)
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
             frmQuery.ShowDialog(Me)
         ElseIf e.ColumnIndex = colDgvLockBlockingQuery.Index Then
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
             strQuery = dgvLock.CurrentCell.Value
             strUser = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value)
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
             frmQuery.ShowDialog(Me)
         End If
     End Sub
@@ -1131,8 +1153,8 @@
             MsgBox(p_clsMsgData.fn_GetData("M014"))
             Return False
         Else
-            If DateDiff(DateInterval.Hour, dtpSt.Value, dtpEd.Value) >= 1 Then
-                MsgBox(p_clsMsgData.fn_GetData("M015", "1"))
+            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 60 Then
+                MsgBox(p_clsMsgData.fn_GetData("M063", "1"))
                 Return False
             End If
         End If
@@ -1176,6 +1198,20 @@
             Else
             End If
         End If
+    End Sub
+
+    Private Sub cmbDuration_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDuration.SelectedIndexChanged
+        Dim intSelectedIndex As Integer = DirectCast(sender, BaseControls.ComboBox).SelectedIndex
+        Dim tempDt As Date = Now
+        Select Case intSelectedIndex
+            Case 0
+                tempDt = dtpSt.Value.AddMinutes(10)
+            Case 1
+                tempDt = dtpSt.Value.AddMinutes(30)
+            Case 2
+                tempDt = dtpSt.Value.AddMinutes(60)
+        End Select
+        dtpEd.Value = tempDt
     End Sub
 
     Private Sub fn_MakeAnnotation(ByVal index As Integer)

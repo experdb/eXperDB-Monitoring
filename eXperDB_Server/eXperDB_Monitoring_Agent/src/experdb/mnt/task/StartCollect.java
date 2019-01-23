@@ -2,7 +2,9 @@ package experdb.mnt.task;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -48,6 +50,9 @@ public class StartCollect extends TaskApplication {
 			
 			log.debug("=====>>>" + select);
 			
+			List<HashMap<String, Object>> selectuser = new ArrayList<HashMap<String,Object>>(); //User 수집		
+			selectuser = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUSER_001");
+			
 			/* update ha group 서버 다시띄우면 변경됨 */
 			HashMap<String, Object> select_group = new HashMap<String, Object>();
 			select_group = sessionAgent.selectOne("app.EXPERDBMA_BT_SELECT_HA_GROUP_001", select);					
@@ -59,6 +64,11 @@ public class StartCollect extends TaskApplication {
 				select.put("ha_group",      select.get("instance_id"));
 			
 			sessionAgent.update("app.TB_INSTANCE_INFO_U002", select);
+
+			for (HashMap<String, Object> map : selectuser) {
+				map.put("instance_id", Integer.valueOf(instanceId));
+				sessionAgent.insert("app.TB_PGUSER_I001", map);					
+			}
 			/*add to update ha_info by robin 201712 end*/
 			
 			

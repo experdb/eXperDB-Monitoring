@@ -173,12 +173,8 @@
                                                     Next
                                                 Else
                                                     Dim tmpDate As Double = ConvOADate(Now())
-                                                    Dim j As Integer = 0
-                                                    For Each tmpStr As String In _arrTables
-                                                        sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Wraparound prevention", tmpDate, 0.0)
-                                                        sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Vacuum", tmpDate, 0.0)
-                                                        j += 1
-                                                    Next
+                                                    sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Wraparound prevention", tmpDate, 0.0)
+                                                    sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Vacuum", tmpDate, 0.0)
                                                 End If
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -533,9 +529,9 @@
 
     Private Sub cmbInst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbInst.SelectedIndexChanged
         _InstanceID = cmbInst.SelectedValue
-        Me.Invoke(New MethodInvoker(Sub()
-                                        btnQuery.PerformClick()
-                                    End Sub))
+        'Me.Invoke(New MethodInvoker(Sub()
+        '                                btnQuery.PerformClick()
+        '                            End Sub))
     End Sub
 
     Private Sub dtpSt_ValueChanged(sender As Object, e As EventArgs) Handles dtpSt.ValueChanged

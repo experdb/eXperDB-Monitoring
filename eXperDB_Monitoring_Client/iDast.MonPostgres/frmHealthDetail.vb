@@ -298,7 +298,7 @@
 
     End Sub
 
-    Private Sub dgvinfo_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub dgvinfo_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvinfo.CellContentDoubleClick
         'SQL POPUP 
         Dim Bret As Boolean = False
         Dim intSql As Integer = -1
@@ -314,12 +314,11 @@
         If e.RowIndex < 0 Or intSql <= 0 Or intUser <= 0 Or intDB <= 0 Then
             Return
         End If
-        Dim strQry As String = IIf(intSql <> -1, dgvinfo.Rows(e.RowIndex).Cells(intSql).Value, "")
-        Dim strUsr As String = IIf(intUser <> -1, dgvinfo.Rows(e.RowIndex).Cells(intUser).Value, "")
-        Dim strDB As String = IIf(intDB <> -1, dgvinfo.Rows(e.RowIndex).Cells(intDB).Value, "")
+        Dim strQry As String = IIf(intSql <> -1, IIf(IsDBNull(dgvinfo.Rows(e.RowIndex).Cells(intSql).Value), "", dgvinfo.Rows(e.RowIndex).Cells(intSql).Value), "")
+        Dim strUsr As String = IIf(intUser <> -1, IIf(IsDBNull(dgvinfo.Rows(e.RowIndex).Cells(intUser).Value), "", dgvinfo.Rows(e.RowIndex).Cells(intUser).Value), "")
+        Dim strDB As String = IIf(intDB <> -1, IIf(IsDBNull(dgvinfo.Rows(e.RowIndex).Cells(intDB).Value), "", dgvinfo.Rows(e.RowIndex).Cells(intDB).Value), "")
         If strQry <> "" Then
-            Dim frmQuery As New frmQueryView(strQry, strDB, _IntInstanceID, IIf(strDB = "", Nothing, _AgentInfo), strUsr)
-
+            Dim frmQuery As New frmQueryView(_AgentCn, strQry, strDB, strUsr, _IntInstanceID, IIf(strDB = "", Nothing, _AgentInfo))
             frmQuery.Show()
         End If
 

@@ -597,7 +597,7 @@
         strDb = dgvStmtList.CurrentRow.Cells(coldgvStmtDBID.Index).Value
         strUser = IIf(IsDBNull(dgvStmtList.CurrentRow.Cells(coldgvStmtUserID.Index).Value), "", dgvStmtList.CurrentRow.Cells(coldgvStmtUserID.Index).Value)
         strQuery = IIf(IsDBNull(dgvStmtList.CurrentRow.Cells(coldgvStmtQuery.Index).Value), "", dgvStmtList.CurrentRow.Cells(coldgvStmtQuery.Index).Value)
-        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
         frmQuery.ShowDialog(Me)
         'End If
     End Sub

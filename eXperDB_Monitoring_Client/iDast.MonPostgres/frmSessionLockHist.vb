@@ -4,6 +4,7 @@
     Private _tooltip As ToolTip
     Private _SelectedPID As String
     Private _clsQuery As clsQuerys  ' Main Thread용
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC = Nothing
     ReadOnly Property InstanceID As Integer
         Get
             Return _InstanceID
@@ -27,6 +28,7 @@
         _InstanceID = ServerInfo.InstanceID
         _ServerInfo = ServerInfo
         _AgentInfo = clsAgentInfo
+        _AgentCn = AgentCn
         _clsQuery = New clsQuerys(AgentCn)
         _tooltip = New ToolTip()
     End Sub
@@ -180,13 +182,13 @@
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
             strQuery = dgvLock.CurrentCell.Value
             strUser = dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
             frmQuery.ShowDialog(Me)
         ElseIf e.ColumnIndex = colDgvLockBlockingQuery.Index Then
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
             strQuery = dgvLock.CurrentCell.Value
             strUser = dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value
-            Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+            Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
             frmQuery.ShowDialog(Me)
         End If
     End Sub
@@ -201,7 +203,7 @@
         strDb = dgvSessionList.CurrentRow.Cells(coldgvSessionListDB.Index).Value
         strQuery = dgvSessionList.CurrentRow.Cells(coldgvSessionListSQL.Index).Value
         strUser = dgvSessionList.CurrentRow.Cells(coldgvSessionListUser.Index).Value
-        Dim frmQuery As New frmQueryView(strQuery, strDb, Me.InstanceID, Me.AgentInfo, strUser)
+        Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
         frmQuery.ShowDialog(Me)
         'End If
     End Sub

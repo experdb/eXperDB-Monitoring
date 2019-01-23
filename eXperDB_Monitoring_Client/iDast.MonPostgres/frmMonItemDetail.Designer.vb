@@ -21,13 +21,6 @@ Partial Class frmMonItemDetail
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonItemDetail))
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -64,6 +57,14 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Me.tlpBottom = New eXperDB.BaseControls.TableLayoutPanel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpChartArea = New eXperDB.BaseControls.TableLayoutPanel()
@@ -71,13 +72,6 @@ Partial Class frmMonItemDetail
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblChart = New System.Windows.Forms.Label()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
-        Me.chtTPS = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtLock = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.pnlEd = New eXperDB.BaseControls.Panel()
         Me.cmbDuration = New eXperDB.BaseControls.ComboBox()
@@ -89,10 +83,11 @@ Partial Class frmMonItemDetail
         Me.lblDuration2 = New eXperDB.BaseControls.Label()
         Me.lblDuration = New eXperDB.BaseControls.Label()
         Me.tlpButton = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.chkPhysicalRead = New eXperDB.BaseControls.CheckBox()
         Me.chkTPS = New eXperDB.BaseControls.CheckBox()
         Me.chkLock = New eXperDB.BaseControls.CheckBox()
         Me.chkSQLResp = New eXperDB.BaseControls.CheckBox()
-        Me.chkPhysicalIO = New eXperDB.BaseControls.CheckBox()
+        Me.chkDiskIO = New eXperDB.BaseControls.CheckBox()
         Me.chkLogicalIO = New eXperDB.BaseControls.CheckBox()
         Me.chkSession = New eXperDB.BaseControls.CheckBox()
         Me.chkCpu = New eXperDB.BaseControls.CheckBox()
@@ -141,6 +136,14 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSubject = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.chtTPS = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtLock = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtDiskIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtPhysicalRead = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -278,9 +281,10 @@ Partial Class frmMonItemDetail
         Me.pnlChart.AutoSize = True
         Me.pnlChart.Controls.Add(Me.chtTPS)
         Me.pnlChart.Controls.Add(Me.chtLock)
-        Me.pnlChart.Controls.Add(Me.chtLogicalIO)
         Me.pnlChart.Controls.Add(Me.chtSQLResp)
-        Me.pnlChart.Controls.Add(Me.chtPhysicalIO)
+        Me.pnlChart.Controls.Add(Me.chtDiskIO)
+        Me.pnlChart.Controls.Add(Me.chtPhysicalRead)
+        Me.pnlChart.Controls.Add(Me.chtLogicalIO)
         Me.pnlChart.Controls.Add(Me.chtSession)
         Me.pnlChart.Controls.Add(Me.chtCPU)
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
@@ -288,110 +292,6 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Name = "pnlChart"
         Me.pnlChart.Size = New System.Drawing.Size(1292, 454)
         Me.pnlChart.TabIndex = 3
-        '
-        'chtTPS
-        '
-        Me.chtTPS.BorderSkin = BorderSkin1
-        Me.chtTPS.DataSource = Nothing
-        Me.chtTPS.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtTPS.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtTPS.Location = New System.Drawing.Point(0, 2100)
-        Me.chtTPS.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtTPS.MenuVisible = False
-        Me.chtTPS.Name = "chtTPS"
-        Me.chtTPS.Size = New System.Drawing.Size(1275, 362)
-        Me.chtTPS.TabIndex = 10
-        Me.chtTPS.Title = ""
-        Me.chtTPS.Visible = False
-        '
-        'chtLock
-        '
-        Me.chtLock.BorderSkin = BorderSkin2
-        Me.chtLock.DataSource = Nothing
-        Me.chtLock.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLock.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtLock.Location = New System.Drawing.Point(0, 1738)
-        Me.chtLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLock.MenuVisible = False
-        Me.chtLock.Name = "chtLock"
-        Me.chtLock.Size = New System.Drawing.Size(1275, 362)
-        Me.chtLock.TabIndex = 9
-        Me.chtLock.Title = ""
-        Me.chtLock.Visible = False
-        '
-        'chtLogicalIO
-        '
-        Me.chtLogicalIO.BorderSkin = BorderSkin3
-        Me.chtLogicalIO.DataSource = Nothing
-        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLogicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 1376)
-        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLogicalIO.MenuVisible = False
-        Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1275, 362)
-        Me.chtLogicalIO.TabIndex = 6
-        Me.chtLogicalIO.Title = ""
-        Me.chtLogicalIO.Visible = False
-        '
-        'chtSQLResp
-        '
-        Me.chtSQLResp.BorderSkin = BorderSkin4
-        Me.chtSQLResp.DataSource = Nothing
-        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSQLResp.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1014)
-        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSQLResp.MenuVisible = False
-        Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1275, 362)
-        Me.chtSQLResp.TabIndex = 8
-        Me.chtSQLResp.Title = ""
-        Me.chtSQLResp.Visible = False
-        '
-        'chtPhysicalIO
-        '
-        Me.chtPhysicalIO.BorderSkin = BorderSkin5
-        Me.chtPhysicalIO.DataSource = Nothing
-        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtPhysicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 652)
-        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtPhysicalIO.MenuVisible = False
-        Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1275, 362)
-        Me.chtPhysicalIO.TabIndex = 7
-        Me.chtPhysicalIO.Title = ""
-        Me.chtPhysicalIO.Visible = False
-        '
-        'chtSession
-        '
-        Me.chtSession.BorderSkin = BorderSkin6
-        Me.chtSession.DataSource = Nothing
-        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSession.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtSession.Location = New System.Drawing.Point(0, 290)
-        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSession.MenuVisible = False
-        Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1275, 362)
-        Me.chtSession.TabIndex = 5
-        Me.chtSession.Title = ""
-        Me.chtSession.Visible = False
-        '
-        'chtCPU
-        '
-        Me.chtCPU.BorderSkin = BorderSkin7
-        Me.chtCPU.DataSource = Nothing
-        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPU.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
-        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPU.MenuVisible = False
-        Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1275, 290)
-        Me.chtCPU.TabIndex = 3
-        Me.chtCPU.Title = ""
         '
         'tlpInput
         '
@@ -563,19 +463,21 @@ Partial Class frmMonItemDetail
         'tlpButton
         '
         Me.tlpButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.tlpButton.ColumnCount = 8
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28508!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28509!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28509!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28509!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28509!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28509!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28082!))
-        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.008656799!))
-        Me.tlpButton.Controls.Add(Me.chkTPS, 6, 0)
-        Me.tlpButton.Controls.Add(Me.chkLock, 5, 0)
-        Me.tlpButton.Controls.Add(Me.chkSQLResp, 4, 0)
-        Me.tlpButton.Controls.Add(Me.chkPhysicalIO, 3, 0)
+        Me.tlpButton.ColumnCount = 9
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49965!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49966!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49966!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49858!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49966!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49966!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49966!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.49592!))
+        Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.007574821!))
+        Me.tlpButton.Controls.Add(Me.chkPhysicalRead, 3, 0)
+        Me.tlpButton.Controls.Add(Me.chkTPS, 7, 0)
+        Me.tlpButton.Controls.Add(Me.chkLock, 6, 0)
+        Me.tlpButton.Controls.Add(Me.chkSQLResp, 5, 0)
+        Me.tlpButton.Controls.Add(Me.chkDiskIO, 4, 0)
         Me.tlpButton.Controls.Add(Me.chkLogicalIO, 2, 0)
         Me.tlpButton.Controls.Add(Me.chkSession, 1, 0)
         Me.tlpButton.Controls.Add(Me.chkCpu, 0, 0)
@@ -584,14 +486,26 @@ Partial Class frmMonItemDetail
         Me.tlpButton.Name = "tlpButton"
         Me.tlpButton.RowCount = 1
         Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpButton.Size = New System.Drawing.Size(1292, 34)
         Me.tlpButton.TabIndex = 2
+        '
+        'chkPhysicalRead
+        '
+        Me.chkPhysicalRead.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkPhysicalRead.CheckFillColor = System.Drawing.Color.Gray
+        Me.chkPhysicalRead.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkPhysicalRead.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkPhysicalRead.ForeColor = System.Drawing.Color.White
+        Me.chkPhysicalRead.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.chkPhysicalRead.Location = New System.Drawing.Point(486, 3)
+        Me.chkPhysicalRead.Name = "chkPhysicalRead"
+        Me.chkPhysicalRead.Radius = 8
+        Me.chkPhysicalRead.Size = New System.Drawing.Size(155, 28)
+        Me.chkPhysicalRead.TabIndex = 30
+        Me.chkPhysicalRead.Text = "F100"
+        Me.chkPhysicalRead.UnCheckFillColor = System.Drawing.Color.Black
+        Me.chkPhysicalRead.UseRound = True
+        Me.chkPhysicalRead.UseVisualStyleBackColor = True
         '
         'chkTPS
         '
@@ -601,10 +515,10 @@ Partial Class frmMonItemDetail
         Me.chkTPS.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkTPS.ForeColor = System.Drawing.Color.White
         Me.chkTPS.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkTPS.Location = New System.Drawing.Point(1107, 3)
+        Me.chkTPS.Location = New System.Drawing.Point(1130, 3)
         Me.chkTPS.Name = "chkTPS"
         Me.chkTPS.Radius = 8
-        Me.chkTPS.Size = New System.Drawing.Size(178, 28)
+        Me.chkTPS.Size = New System.Drawing.Size(155, 28)
         Me.chkTPS.TabIndex = 29
         Me.chkTPS.Text = "F317"
         Me.chkTPS.UnCheckFillColor = System.Drawing.Color.Black
@@ -619,10 +533,10 @@ Partial Class frmMonItemDetail
         Me.chkLock.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkLock.ForeColor = System.Drawing.Color.White
         Me.chkLock.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkLock.Location = New System.Drawing.Point(923, 3)
+        Me.chkLock.Location = New System.Drawing.Point(969, 3)
         Me.chkLock.Name = "chkLock"
         Me.chkLock.Radius = 8
-        Me.chkLock.Size = New System.Drawing.Size(178, 28)
+        Me.chkLock.Size = New System.Drawing.Size(155, 28)
         Me.chkLock.TabIndex = 28
         Me.chkLock.Text = "F317"
         Me.chkLock.UnCheckFillColor = System.Drawing.Color.Black
@@ -637,33 +551,33 @@ Partial Class frmMonItemDetail
         Me.chkSQLResp.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkSQLResp.ForeColor = System.Drawing.Color.White
         Me.chkSQLResp.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkSQLResp.Location = New System.Drawing.Point(739, 3)
+        Me.chkSQLResp.Location = New System.Drawing.Point(808, 3)
         Me.chkSQLResp.Name = "chkSQLResp"
         Me.chkSQLResp.Radius = 8
-        Me.chkSQLResp.Size = New System.Drawing.Size(178, 28)
+        Me.chkSQLResp.Size = New System.Drawing.Size(155, 28)
         Me.chkSQLResp.TabIndex = 27
         Me.chkSQLResp.Text = "F103"
         Me.chkSQLResp.UnCheckFillColor = System.Drawing.Color.Black
         Me.chkSQLResp.UseRound = True
         Me.chkSQLResp.UseVisualStyleBackColor = True
         '
-        'chkPhysicalIO
+        'chkDiskIO
         '
-        Me.chkPhysicalIO.Appearance = System.Windows.Forms.Appearance.Button
-        Me.chkPhysicalIO.CheckFillColor = System.Drawing.Color.Gray
-        Me.chkPhysicalIO.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.chkPhysicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
-        Me.chkPhysicalIO.ForeColor = System.Drawing.Color.White
-        Me.chkPhysicalIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkPhysicalIO.Location = New System.Drawing.Point(555, 3)
-        Me.chkPhysicalIO.Name = "chkPhysicalIO"
-        Me.chkPhysicalIO.Radius = 8
-        Me.chkPhysicalIO.Size = New System.Drawing.Size(178, 28)
-        Me.chkPhysicalIO.TabIndex = 26
-        Me.chkPhysicalIO.Text = "F100"
-        Me.chkPhysicalIO.UnCheckFillColor = System.Drawing.Color.Black
-        Me.chkPhysicalIO.UseRound = True
-        Me.chkPhysicalIO.UseVisualStyleBackColor = True
+        Me.chkDiskIO.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkDiskIO.CheckFillColor = System.Drawing.Color.Gray
+        Me.chkDiskIO.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkDiskIO.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.chkDiskIO.ForeColor = System.Drawing.Color.White
+        Me.chkDiskIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.chkDiskIO.Location = New System.Drawing.Point(647, 3)
+        Me.chkDiskIO.Name = "chkDiskIO"
+        Me.chkDiskIO.Radius = 8
+        Me.chkDiskIO.Size = New System.Drawing.Size(155, 28)
+        Me.chkDiskIO.TabIndex = 26
+        Me.chkDiskIO.Text = "F086"
+        Me.chkDiskIO.UnCheckFillColor = System.Drawing.Color.Black
+        Me.chkDiskIO.UseRound = True
+        Me.chkDiskIO.UseVisualStyleBackColor = True
         '
         'chkLogicalIO
         '
@@ -673,10 +587,10 @@ Partial Class frmMonItemDetail
         Me.chkLogicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkLogicalIO.ForeColor = System.Drawing.Color.White
         Me.chkLogicalIO.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkLogicalIO.Location = New System.Drawing.Point(371, 3)
+        Me.chkLogicalIO.Location = New System.Drawing.Point(325, 3)
         Me.chkLogicalIO.Name = "chkLogicalIO"
         Me.chkLogicalIO.Radius = 8
-        Me.chkLogicalIO.Size = New System.Drawing.Size(178, 28)
+        Me.chkLogicalIO.Size = New System.Drawing.Size(155, 28)
         Me.chkLogicalIO.TabIndex = 25
         Me.chkLogicalIO.Text = "F101"
         Me.chkLogicalIO.UnCheckFillColor = System.Drawing.Color.Black
@@ -691,10 +605,10 @@ Partial Class frmMonItemDetail
         Me.chkSession.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.chkSession.ForeColor = System.Drawing.Color.White
         Me.chkSession.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.chkSession.Location = New System.Drawing.Point(187, 3)
+        Me.chkSession.Location = New System.Drawing.Point(164, 3)
         Me.chkSession.Name = "chkSession"
         Me.chkSession.Radius = 8
-        Me.chkSession.Size = New System.Drawing.Size(178, 28)
+        Me.chkSession.Size = New System.Drawing.Size(155, 28)
         Me.chkSession.TabIndex = 24
         Me.chkSession.Text = "F047"
         Me.chkSession.UnCheckFillColor = System.Drawing.Color.Black
@@ -712,7 +626,7 @@ Partial Class frmMonItemDetail
         Me.chkCpu.Location = New System.Drawing.Point(3, 3)
         Me.chkCpu.Name = "chkCpu"
         Me.chkCpu.Radius = 8
-        Me.chkCpu.Size = New System.Drawing.Size(178, 28)
+        Me.chkCpu.Size = New System.Drawing.Size(155, 28)
         Me.chkCpu.TabIndex = 23
         Me.chkCpu.Text = "F035"
         Me.chkCpu.UnCheckFillColor = System.Drawing.Color.Black
@@ -952,7 +866,7 @@ Partial Class frmMonItemDetail
         Me.tabStats.Location = New System.Drawing.Point(4, 26)
         Me.tabStats.Name = "tabStats"
         Me.tabStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabStats.Size = New System.Drawing.Size(192, 70)
+        Me.tabStats.Size = New System.Drawing.Size(1290, 175)
         Me.tabStats.TabIndex = 1
         Me.tabStats.Text = "F297"
         '
@@ -1004,7 +918,7 @@ Partial Class frmMonItemDetail
         Me.dgvRptSQL.RowHeadersVisible = False
         Me.dgvRptSQL.RowTemplate.Height = 23
         Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvRptSQL.Size = New System.Drawing.Size(186, 64)
+        Me.dgvRptSQL.Size = New System.Drawing.Size(1284, 169)
         Me.dgvRptSQL.TabIndex = 32
         Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvRptSQL.UseTagValueMatchColor = False
@@ -1098,7 +1012,7 @@ Partial Class frmMonItemDetail
         Me.tabLock.Location = New System.Drawing.Point(4, 26)
         Me.tabLock.Name = "tabLock"
         Me.tabLock.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabLock.Size = New System.Drawing.Size(192, 70)
+        Me.tabLock.Size = New System.Drawing.Size(1290, 175)
         Me.tabLock.TabIndex = 2
         Me.tabLock.Text = "F317"
         '
@@ -1148,7 +1062,7 @@ Partial Class frmMonItemDetail
         Me.dgvLock.RowHeadersDefaultCellStyle = DataGridViewCellStyle36
         Me.dgvLock.RowHeadersVisible = False
         Me.dgvLock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLock.Size = New System.Drawing.Size(186, 64)
+        Me.dgvLock.Size = New System.Drawing.Size(1284, 169)
         Me.dgvLock.TabIndex = 10
         '
         'colDgvLockDB
@@ -1383,7 +1297,7 @@ Partial Class frmMonItemDetail
         Me.colDgvLockActvRegSeq.ReadOnly = True
         Me.colDgvLockActvRegSeq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colDgvLockActvRegSeq.Visible = False
-        Me.colDgvLockActvRegSeq.Width = 123
+        Me.colDgvLockActvRegSeq.Width = 122
         '
         'TableLayoutPanel2
         '
@@ -1520,6 +1434,125 @@ Partial Class frmMonItemDetail
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
         '
+        'chtTPS
+        '
+        Me.chtTPS.BorderSkin = BorderSkin1
+        Me.chtTPS.DataSource = Nothing
+        Me.chtTPS.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtTPS.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtTPS.Location = New System.Drawing.Point(0, 2462)
+        Me.chtTPS.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtTPS.MenuVisible = False
+        Me.chtTPS.Name = "chtTPS"
+        Me.chtTPS.Size = New System.Drawing.Size(1275, 362)
+        Me.chtTPS.TabIndex = 10
+        Me.chtTPS.Title = ""
+        Me.chtTPS.Visible = False
+        '
+        'chtLock
+        '
+        Me.chtLock.BorderSkin = BorderSkin2
+        Me.chtLock.DataSource = Nothing
+        Me.chtLock.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLock.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtLock.Location = New System.Drawing.Point(0, 2100)
+        Me.chtLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLock.MenuVisible = False
+        Me.chtLock.Name = "chtLock"
+        Me.chtLock.Size = New System.Drawing.Size(1275, 362)
+        Me.chtLock.TabIndex = 9
+        Me.chtLock.Title = ""
+        Me.chtLock.Visible = False
+        '
+        'chtSQLResp
+        '
+        Me.chtSQLResp.BorderSkin = BorderSkin3
+        Me.chtSQLResp.DataSource = Nothing
+        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSQLResp.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1738)
+        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSQLResp.MenuVisible = False
+        Me.chtSQLResp.Name = "chtSQLResp"
+        Me.chtSQLResp.Size = New System.Drawing.Size(1275, 362)
+        Me.chtSQLResp.TabIndex = 8
+        Me.chtSQLResp.Title = ""
+        Me.chtSQLResp.Visible = False
+        '
+        'chtDiskIO
+        '
+        Me.chtDiskIO.BorderSkin = BorderSkin4
+        Me.chtDiskIO.DataSource = Nothing
+        Me.chtDiskIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtDiskIO.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtDiskIO.Location = New System.Drawing.Point(0, 1376)
+        Me.chtDiskIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtDiskIO.MenuVisible = False
+        Me.chtDiskIO.Name = "chtDiskIO"
+        Me.chtDiskIO.Size = New System.Drawing.Size(1275, 362)
+        Me.chtDiskIO.TabIndex = 7
+        Me.chtDiskIO.Title = ""
+        Me.chtDiskIO.Visible = False
+        '
+        'chtPhysicalRead
+        '
+        Me.chtPhysicalRead.BorderSkin = BorderSkin5
+        Me.chtPhysicalRead.DataSource = Nothing
+        Me.chtPhysicalRead.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalRead.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtPhysicalRead.Location = New System.Drawing.Point(0, 1014)
+        Me.chtPhysicalRead.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtPhysicalRead.MenuVisible = False
+        Me.chtPhysicalRead.Name = "chtPhysicalRead"
+        Me.chtPhysicalRead.Size = New System.Drawing.Size(1275, 362)
+        Me.chtPhysicalRead.TabIndex = 11
+        Me.chtPhysicalRead.Title = ""
+        Me.chtPhysicalRead.Visible = False
+        '
+        'chtLogicalIO
+        '
+        Me.chtLogicalIO.BorderSkin = BorderSkin6
+        Me.chtLogicalIO.DataSource = Nothing
+        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLogicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 652)
+        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLogicalIO.MenuVisible = False
+        Me.chtLogicalIO.Name = "chtLogicalIO"
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1275, 362)
+        Me.chtLogicalIO.TabIndex = 6
+        Me.chtLogicalIO.Title = ""
+        Me.chtLogicalIO.Visible = False
+        '
+        'chtSession
+        '
+        Me.chtSession.BorderSkin = BorderSkin7
+        Me.chtSession.DataSource = Nothing
+        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSession.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtSession.Location = New System.Drawing.Point(0, 290)
+        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSession.MenuVisible = False
+        Me.chtSession.Name = "chtSession"
+        Me.chtSession.Size = New System.Drawing.Size(1275, 362)
+        Me.chtSession.TabIndex = 5
+        Me.chtSession.Title = ""
+        Me.chtSession.Visible = False
+        '
+        'chtCPU
+        '
+        Me.chtCPU.BorderSkin = BorderSkin8
+        Me.chtCPU.DataSource = Nothing
+        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPU.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
+        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPU.MenuVisible = False
+        Me.chtCPU.Name = "chtCPU"
+        Me.chtCPU.Size = New System.Drawing.Size(1275, 290)
+        Me.chtCPU.TabIndex = 3
+        Me.chtCPU.Title = ""
+        '
         'frmMonItemDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -1568,7 +1601,7 @@ Partial Class frmMonItemDetail
     Friend WithEvents pnlChart As eXperDB.BaseControls.Panel
     Friend WithEvents chtLogicalIO As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents chtSQLResp As eXperDB.Monitoring.ctlChartEx
-    Friend WithEvents chtPhysicalIO As eXperDB.Monitoring.ctlChartEx
+    Friend WithEvents chtDiskIO As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents chtSession As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents chtCPU As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents tlpInput As eXperDB.BaseControls.TableLayoutPanel
@@ -1578,7 +1611,7 @@ Partial Class frmMonItemDetail
     Friend WithEvents lblDuration As eXperDB.BaseControls.Label
     Friend WithEvents tlpButton As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents chkSQLResp As eXperDB.BaseControls.CheckBox
-    Friend WithEvents chkPhysicalIO As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chkDiskIO As eXperDB.BaseControls.CheckBox
     Friend WithEvents chkLogicalIO As eXperDB.BaseControls.CheckBox
     Friend WithEvents chkSession As eXperDB.BaseControls.CheckBox
     Friend WithEvents chkCpu As eXperDB.BaseControls.CheckBox
@@ -1639,5 +1672,7 @@ Partial Class frmMonItemDetail
     Friend WithEvents colDgvLockActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents chtTPS As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents chkTPS As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chkPhysicalRead As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chtPhysicalRead As eXperDB.Monitoring.ctlChartEx
 
 End Class

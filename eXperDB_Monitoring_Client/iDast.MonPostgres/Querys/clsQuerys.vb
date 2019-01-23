@@ -530,6 +530,24 @@
         End Try
     End Function
 
+    Public Function SelectUserinfo(ByVal intInstancdID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTUSERINFO")
+            strQuery = String.Format(strQuery, intInstancdID)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
 
     ''SELECTTBSPACEINFO
     'Public Function SelectTBspaceinfo() As DataTable

@@ -260,6 +260,12 @@ Public Class frmReports
         chtLogical.SetAxisYTitle("TUPLES")
 
 
+        ' Physical I/O
+        'grpRptLogical.Text = p_clsMsgData.fn_GetData("F166")
+        chtPhysicalIO.AddSeries("READ", "READ", Color.YellowGreen)
+        chtPhysicalIO.SetAxisXTitle(p_clsMsgData.fn_GetData("F091"))
+        chtPhysicalIO.SetAxisYTitle("Blocks")
+
         ' Object Access
         'grpObject.Text = p_clsMsgData.fn_GetData("F168")
         chtObjectTuple.AddSeries("AVG_SEQ_SCAN", "SEQ SCAN", Color.Red)
@@ -335,6 +341,7 @@ Public Class frmReports
         Me.chtRptDiskRate.SetInnerPlotPosition()
         Me.chtSession.SetInnerPlotPosition()
         Me.chtLogical.SetInnerPlotPosition()
+        Me.chtPhysicalIO.SetInnerPlotPosition()
         Me.chtBuffer.SetInnerPlotPosition()
         Me.chtBufferrate.SetInnerPlotPosition()
         Me.chtObjectRate.SetInnerPlotPosition()
@@ -583,6 +590,8 @@ Public Class frmReports
                                                 chtSession.SetMaximumAxisX(ConvOADate(edDate))
                                                 chtLogical.SetMinimumAxisX(ConvOADate(stDate))
                                                 chtLogical.SetMaximumAxisX(ConvOADate(edDate))
+                                                chtPhysicalIO.SetMinimumAxisX(ConvOADate(stDate))
+                                                chtPhysicalIO.SetMaximumAxisX(ConvOADate(edDate))
                                                 chtBuffer.SetMinimumAxisX(ConvOADate(stDate))
                                                 chtBuffer.SetMaximumAxisX(ConvOADate(edDate))
                                                 chtBufferrate.SetMinimumAxisX(ConvOADate(stDate))
@@ -1028,7 +1037,7 @@ Public Class frmReports
 
     Private Sub dgvRptSQL_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRptSQL.CellDoubleClick
         'If e.ColumnIndex = colDgvRptSqlSql.Index Then
-        Dim frmQuery As New frmQueryView(dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlSql.Index).Value, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlDBNm.Index).Value, cmbInst.Tag, _AgentInfo, "")
+        Dim frmQuery As New frmQueryView(_AgentCn, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlSql.Index).Value, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlDBNm.Index).Value, "", cmbInst.Tag, _AgentInfo)
         frmQuery.ShowDialog(Me)
         'End If
     End Sub
@@ -1115,6 +1124,13 @@ Public Class frmReports
             ShowVariableChartData(Me.chtLogical, cmbInst.Tag, "Logical Information", _dtDB, Rb.Text, arrParamLogical)
             'Me.chtLogical.AutoGridYSpacing()
             Me.chtLogical.ShowMinValue(True)
+
+            ' Physical IO
+            Dim arrParamPhysical As SeriesColumn() = {New SeriesColumn("READ", "PHY_READ_PER_SEC")}
+
+            ShowVariableChartData(Me.chtPhysicalIO, cmbInst.Tag, "Physical Read", _dtDB, Rb.Text, arrParamPhysical)
+            'Me.chtLogical.AutoGridYSpacing()
+            Me.chtPhysicalIO.ShowMinValue(True)
             ' Object Access Tuples
             Dim arrParamObjectTuples As SeriesColumn() = {New SeriesColumn("AVG_SEQ_SCAN", "SEQ_TUPLES"), _
                                              New SeriesColumn("AVG_INDEX_SCAN", "INDEX_TUPLES")}

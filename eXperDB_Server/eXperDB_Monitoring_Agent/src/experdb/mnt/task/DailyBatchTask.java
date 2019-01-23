@@ -16,6 +16,9 @@ import org.apache.log4j.Logger;
 import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
+import java.util.Enumeration;
+import experdb.mnt.MonitoringInfoManager;
+import java.sql.DriverManager;
 public class DailyBatchTask {
 
 	protected static Logger log = Logger.getLogger(DailyBatchTask.class);	
@@ -61,6 +64,34 @@ public class DailyBatchTask {
 				log.error("", e);
 				throw e;
 			}			
+						
+			try {
+				Enumeration		en = MonitoringInfoManager.getInstance().getInstanceId();
+				Connection connection = null;
+				SqlSession sessionCollect = null;
+				SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
+				List<HashMap<String, Object>> selectUser = new ArrayList<HashMap<String,Object>>();
+
+				while (en.hasMoreElements()) {
+					String instanceId =  (String) en.nextElement();
+					connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
+					sessionCollect = sqlSessionFactory.openSession(connection);
+					selectUser = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUSER_001");
+					log.debug("=====>>>" + selectUser);
+									
+					for (HashMap<String, Object> map : selectUser) {
+						map.put("instance_id", Integer.parseInt(instanceId));
+						sessionAgent.insert("app.TB_PGUSER_I001", map);					
+					}					
+				}				
+				//Commit
+				sessionAgent.commit();
+			} catch (Exception e) {
+				sessionAgent.rollback();
+				log.error("", e);
+				throw e;
+			}	
+			
 			
 			try {
 				//Table Delete
@@ -88,7 +119,8 @@ public class DailyBatchTask {
 				sessionAgent.delete("app.PGMONTB_BATCH_CHECKPOINT_INFO_001");//robin 0418 delete checkpoint
 				sessionAgent.delete("app.PGMONTB_BATCH_QEURY_INFO_001");//robin 1031 delete checkpoint
 				sessionAgent.delete("app.PGMONTB_BATCH_PG_STAT_STATEMENT_001");//robin 1031 delete checkpoint
-				sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");
+				sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");//robin 1031 delete table ext
+				sessionAgent.delete("app.PGMONBT_BATCH_TB_USER_INFO_001");//robin 190122 delete user info
 				
 				
 				//Commit
@@ -133,6 +165,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U027");
 				sessionAgent.update("app.VACUUM_ANALYZE_U028");
 				sessionAgent.update("app.VACUUM_ANALYZE_U029");
+				sessionAgent.update("app.VACUUM_ANALYZE_U030");
 			} catch (Exception e) {
 				log.error("", e);
 				

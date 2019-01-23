@@ -7,7 +7,7 @@
 'PARTICULAR PURPOSE.
 '---------------------------------------------------------------------
 
-Imports DataGridViewAutoFilter
+'Imports DataGridViewAutoFilter
 Imports System
 Imports System.Collections.Generic
 Imports System.ComponentModel
@@ -855,7 +855,7 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
     Private Sub PopulateFilters()
 
         ' Continue only if there is a DataGridView.
-        If Me.DataGridView Is Nothing Then
+        If Me.DataGridView Is Nothing Or Me.DataGridView.DataSource Is Nothing Then
             Return
         End If
 

@@ -16,6 +16,7 @@ CREATE TABLE tb_access_info (
     agg_idx_scan_cnt numeric(20,0),
     agg_commit numeric(20,0),
     agg_rollback numeric(20,0),
+    agg_phy_read numeric(20,0),
     current_heap_blks_read_kb numeric(20,0),
     current_heap_blks_hit_kb numeric(20,0),
     current_seq_read_tuples numeric(20,0),
@@ -27,6 +28,7 @@ CREATE TABLE tb_access_info (
     current_idx_scan_cnt numeric(20,0),
     current_commit numeric(20,0),
     current_rollback numeric(20,0),
+    current_phy_read numeric(20,0),
     buffer_hit_ratio numeric(5,2),
     collect_dt timestamp without time zone,
     delta_time numeric(10,3)
@@ -423,6 +425,14 @@ CREATE TABLE TB_PG_STAT_STATEMENTS (
     pgss jsonb NOT NULL
 );
 
+CREATE TABLE TB_USER_INFO (
+    reg_date character varying(8) COLLATE pg_catalog."default" NOT NULL,
+    collect_dt timestamp without time zone,
+    instance_id integer NOT NULL,
+    user_name character varying(100) NOT NULL,
+    user_id int8
+);
+
 ALTER TABLE ONLY tb_access_info
     ADD CONSTRAINT pk_access_info PRIMARY KEY (reg_date,actv_reg_seq,db_name);
 
@@ -522,6 +532,9 @@ ALTER TABLE ONLY TB_QUERY_INFO
 
 ALTER TABLE ONLY TB_PG_STAT_STATEMENTS
     ADD CONSTRAINT pk_pg_stat_statements PRIMARY KEY (reg_date, collect_dt, instance_id);
+    
+ALTER TABLE ONLY TB_USER_INFO
+    ADD CONSTRAINT pk_user_info PRIMARY KEY (reg_date, collect_dt, instance_id, user_id);
     
 CREATE INDEX idx01_access_info ON tb_access_info USING btree (collect_dt DESC);
 
@@ -706,6 +719,11 @@ ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_threshold = 5000);
+
+ALTER TABLE tb_user_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_user_info SET (autovacuum_analyze_threshold = 1000);
+ALTER TABLE tb_user_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_user_info SET (autovacuum_vacuum_threshold = 1000);
 
 
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'DISKUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);
