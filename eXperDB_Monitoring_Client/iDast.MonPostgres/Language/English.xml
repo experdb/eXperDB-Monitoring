@@ -3228,6 +3228,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M064" PARAMS="0">
+    <DESC>조회를 중지하시겠습니까?</DESC>
+    <DATA><![CDATA[Do you want to cancel the query?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>

@@ -22,26 +22,13 @@ Partial Class frmStatements
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatements))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -70,6 +57,19 @@ Partial Class frmStatements
         Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpBottom = New eXperDB.BaseControls.TableLayoutPanel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpChartArea = New eXperDB.BaseControls.TableLayoutPanel()
@@ -79,6 +79,10 @@ Partial Class frmStatements
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblChart = New System.Windows.Forms.Label()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
+        Me.chtIOTime = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPUTime = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtTotalTime = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCalls = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dtpDay = New eXperDB.BaseControls.DateTimePicker()
         Me.rb1D = New eXperDB.BaseControls.RadioButton()
@@ -97,6 +101,34 @@ Partial Class frmStatements
         Me.lblDuration2 = New eXperDB.BaseControls.Label()
         Me.lblDuration = New eXperDB.BaseControls.Label()
         Me.dgvStmtList = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvStmtDBID = New eXperDB.BaseControls.DataGridViewAutoFilterTextBoxColumn()
+        Me.coldgvStmtUserID = New eXperDB.BaseControls.DataGridViewAutoFilterTextBoxColumn()
+        Me.coldgvStmtQueryID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtQuery = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtTimeRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtIOTimeRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtCPUTimeRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtCallsRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtRowsRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtCalls = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtTotalTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtMinTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvStmtMaxTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvStmtMeanTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvStmtSTDDEVTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvStmtRows = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtSharedBlockHit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtSharedBlockRead = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtSharedBlockDirtied = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtSharedBlockWritten = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtLocalBlockHit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtLocalBlockRead = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtLocalBlockDirtied = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtLocalBlockWritten = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtTempBlockRead = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtTempBlockWritten = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvStmtBlockReadTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.coldgvStmtBlockWriteTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.STMTTableBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.STMTData = New eXperDB.Monitoring.STMTData()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -128,38 +160,6 @@ Partial Class frmStatements
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSubject = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chtIOTime = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPUTime = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtTotalTime = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCalls = New eXperDB.Monitoring.ctlChartEx()
-        Me.coldgvStmtDBID = New eXperDB.BaseControls.DataGridViewAutoFilterTextBoxColumn()
-        Me.coldgvStmtUserID = New eXperDB.BaseControls.DataGridViewAutoFilterTextBoxColumn()
-        Me.coldgvStmtQueryID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtQuery = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtTimeRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtIOTimeRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtCPUTimeRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtCallsRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtRowsRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtCalls = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtTotalTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtMinTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvStmtMaxTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvStmtMeanTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvStmtSTDDEVTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvStmtRows = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtSharedBlockHit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtSharedBlockRead = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtSharedBlockDirtied = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtSharedBlockWritten = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtLocalBlockHit = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtLocalBlockRead = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtLocalBlockDirtied = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtLocalBlockWritten = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtTempBlockRead = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtTempBlockWritten = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvStmtBlockReadTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.coldgvStmtBlockWriteTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -274,7 +274,7 @@ Partial Class frmStatements
         Me.cmbTop.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbTop.FormattingEnabled = True
         Me.cmbTop.Items.AddRange(New Object() {"5", "10"})
-        Me.cmbTop.Location = New System.Drawing.Point(1295, 9)
+        Me.cmbTop.Location = New System.Drawing.Point(1295, 10)
         Me.cmbTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbTop.Name = "cmbTop"
         Me.cmbTop.Necessary = False
@@ -336,6 +336,65 @@ Partial Class frmStatements
         Me.pnlChart.Name = "pnlChart"
         Me.pnlChart.Size = New System.Drawing.Size(1392, 595)
         Me.pnlChart.TabIndex = 3
+        '
+        'chtIOTime
+        '
+        Me.chtIOTime.BorderSkin = BorderSkin1
+        Me.chtIOTime.DataSource = Nothing
+        Me.chtIOTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtIOTime.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtIOTime.Location = New System.Drawing.Point(0, 1014)
+        Me.chtIOTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtIOTime.MenuVisible = False
+        Me.chtIOTime.Name = "chtIOTime"
+        Me.chtIOTime.Size = New System.Drawing.Size(1375, 362)
+        Me.chtIOTime.TabIndex = 6
+        Me.chtIOTime.Title = ""
+        Me.chtIOTime.Visible = False
+        '
+        'chtCPUTime
+        '
+        Me.chtCPUTime.BorderSkin = BorderSkin2
+        Me.chtCPUTime.DataSource = Nothing
+        Me.chtCPUTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPUTime.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCPUTime.Location = New System.Drawing.Point(0, 652)
+        Me.chtCPUTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPUTime.MenuVisible = False
+        Me.chtCPUTime.Name = "chtCPUTime"
+        Me.chtCPUTime.Size = New System.Drawing.Size(1375, 362)
+        Me.chtCPUTime.TabIndex = 8
+        Me.chtCPUTime.Title = ""
+        Me.chtCPUTime.Visible = False
+        '
+        'chtTotalTime
+        '
+        Me.chtTotalTime.BorderSkin = BorderSkin3
+        Me.chtTotalTime.DataSource = Nothing
+        Me.chtTotalTime.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtTotalTime.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtTotalTime.Location = New System.Drawing.Point(0, 290)
+        Me.chtTotalTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtTotalTime.MenuVisible = False
+        Me.chtTotalTime.Name = "chtTotalTime"
+        Me.chtTotalTime.Size = New System.Drawing.Size(1375, 362)
+        Me.chtTotalTime.TabIndex = 5
+        Me.chtTotalTime.Title = ""
+        Me.chtTotalTime.Visible = False
+        '
+        'chtCalls
+        '
+        Me.chtCalls.BorderSkin = BorderSkin4
+        Me.chtCalls.DataSource = Nothing
+        Me.chtCalls.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCalls.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCalls.Location = New System.Drawing.Point(0, 0)
+        Me.chtCalls.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCalls.MenuVisible = False
+        Me.chtCalls.Name = "chtCalls"
+        Me.chtCalls.Size = New System.Drawing.Size(1375, 290)
+        Me.chtCalls.TabIndex = 3
+        Me.chtCalls.Title = ""
         '
         'tlpInput
         '
@@ -591,7 +650,7 @@ Partial Class frmStatements
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 6)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 7)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -701,591 +760,6 @@ Partial Class frmStatements
         Me.dgvStmtList.TabIndex = 16
         Me.dgvStmtList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvStmtList.UseTagValueMatchColor = False
-        '
-        'STMTTableBindingSource
-        '
-        Me.STMTTableBindingSource.DataMember = "STMTTable"
-        Me.STMTTableBindingSource.DataSource = Me.STMTData
-        '
-        'STMTData
-        '
-        Me.STMTData.DataSetName = "STMTData"
-        Me.STMTData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Gray
-        Me.TableLayoutPanel2.ColumnCount = 11
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.btnEditFiltering, 7, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.cbxHideSysSQL, 6, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtSQL, 5, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtQueryID, 3, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblQuery, 4, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblQueryID, 2, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSort, 9, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.cmbSort, 10, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lslSession, 1, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1398, 35)
-        Me.TableLayoutPanel2.TabIndex = 14
-        '
-        'btnEditFiltering
-        '
-        Me.btnEditFiltering.BackColor = System.Drawing.Color.Gray
-        Me.btnEditFiltering.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnEditFiltering.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnEditFiltering.FixedHeight = False
-        Me.btnEditFiltering.FixedWidth = False
-        Me.btnEditFiltering.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnEditFiltering.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.btnEditFiltering.ForeColor = System.Drawing.Color.White
-        Me.btnEditFiltering.GraColor = System.Drawing.Color.Gray
-        Me.btnEditFiltering.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnEditFiltering.LineColor = System.Drawing.Color.Gray
-        Me.btnEditFiltering.Location = New System.Drawing.Point(933, 3)
-        Me.btnEditFiltering.Name = "btnEditFiltering"
-        Me.btnEditFiltering.Radius = 10
-        Me.btnEditFiltering.Size = New System.Drawing.Size(114, 29)
-        Me.btnEditFiltering.TabIndex = 33
-        Me.btnEditFiltering.Text = "F333"
-        Me.btnEditFiltering.UnCheckFillColor = System.Drawing.Color.Gray
-        Me.btnEditFiltering.UseVisualStyleBackColor = False
-        Me.btnEditFiltering.Visible = False
-        '
-        'cbxHideSysSQL
-        '
-        Me.cbxHideSysSQL.AutoSize = True
-        Me.cbxHideSysSQL.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.cbxHideSysSQL.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cbxHideSysSQL.ForeColor = System.Drawing.Color.White
-        Me.cbxHideSysSQL.LineColor = System.Drawing.Color.Gray
-        Me.cbxHideSysSQL.Location = New System.Drawing.Point(783, 12)
-        Me.cbxHideSysSQL.Margin = New System.Windows.Forms.Padding(3, 3, 3, 6)
-        Me.cbxHideSysSQL.Name = "cbxHideSysSQL"
-        Me.cbxHideSysSQL.Radius = 10
-        Me.cbxHideSysSQL.Size = New System.Drawing.Size(144, 17)
-        Me.cbxHideSysSQL.TabIndex = 32
-        Me.cbxHideSysSQL.Text = "F331"
-        Me.cbxHideSysSQL.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cbxHideSysSQL.UseVisualStyleBackColor = True
-        '
-        'txtSQL
-        '
-        Me.txtSQL.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.txtSQL.BackColor = System.Drawing.SystemColors.Window
-        Me.txtSQL.code = False
-        Me.txtSQL.FixedWidth = False
-        Me.txtSQL.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSQL.impossibleinput = "`~!@#$%^&*\{}"
-        Me.txtSQL.Location = New System.Drawing.Point(503, 6)
-        Me.txtSQL.Name = "txtSQL"
-        Me.txtSQL.Necessary = False
-        Me.txtSQL.PossibleInput = ""
-        Me.txtSQL.Prefix = ""
-        Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtSQL.Size = New System.Drawing.Size(260, 22)
-        Me.txtSQL.StatusTip = ""
-        Me.txtSQL.TabIndex = 31
-        Me.txtSQL.Value = ""
-        '
-        'txtQueryID
-        '
-        Me.txtQueryID.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.txtQueryID.BackColor = System.Drawing.SystemColors.Window
-        Me.txtQueryID.code = False
-        Me.txtQueryID.FixedWidth = False
-        Me.txtQueryID.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.txtQueryID.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtQueryID.impossibleinput = ""
-        Me.txtQueryID.Location = New System.Drawing.Point(303, 7)
-        Me.txtQueryID.Name = "txtQueryID"
-        Me.txtQueryID.Necessary = False
-        Me.txtQueryID.PossibleInput = "0123456789"
-        Me.txtQueryID.Prefix = ""
-        Me.txtQueryID.Size = New System.Drawing.Size(114, 21)
-        Me.txtQueryID.StatusTip = ""
-        Me.txtQueryID.TabIndex = 30
-        Me.txtQueryID.Value = ""
-        '
-        'lblQuery
-        '
-        Me.lblQuery.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblQuery.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblQuery.FixedHeight = False
-        Me.lblQuery.FixedWidth = False
-        Me.lblQuery.ForeColor = System.Drawing.Color.White
-        Me.lblQuery.Location = New System.Drawing.Point(423, 0)
-        Me.lblQuery.Name = "lblQuery"
-        Me.lblQuery.Size = New System.Drawing.Size(74, 35)
-        Me.lblQuery.TabIndex = 29
-        Me.lblQuery.Text = "Query"
-        Me.lblQuery.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblQueryID
-        '
-        Me.lblQueryID.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblQueryID.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblQueryID.FixedHeight = False
-        Me.lblQueryID.FixedWidth = False
-        Me.lblQueryID.ForeColor = System.Drawing.Color.White
-        Me.lblQueryID.Location = New System.Drawing.Point(223, 0)
-        Me.lblQueryID.Name = "lblQueryID"
-        Me.lblQueryID.Size = New System.Drawing.Size(74, 35)
-        Me.lblQueryID.TabIndex = 28
-        Me.lblQueryID.Text = "QueryID"
-        Me.lblQueryID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblSort
-        '
-        Me.lblSort.BackColor = System.Drawing.Color.Gray
-        Me.lblSort.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
-        Me.lblSort.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblSort.FixedHeight = False
-        Me.lblSort.FixedWidth = False
-        Me.lblSort.Font = New System.Drawing.Font("Gulim", 9.2!)
-        Me.lblSort.ForeColor = System.Drawing.Color.White
-        Me.lblSort.Location = New System.Drawing.Point(1221, 4)
-        Me.lblSort.Name = "lblSort"
-        Me.lblSort.Size = New System.Drawing.Size(74, 31)
-        Me.lblSort.TabIndex = 27
-        Me.lblSort.Text = "F325"
-        Me.lblSort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'cmbSort
-        '
-        Me.cmbSort.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbSort.DisplayMember = "All"
-        Me.cmbSort.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbSort.FixedWidth = False
-        Me.cmbSort.Font = New System.Drawing.Font("Gulim", 9.2!)
-        Me.cmbSort.FormattingEnabled = True
-        Me.cmbSort.Items.AddRange(New Object() {"Calls", "Total time", "CPU time rate", "IO time rate"})
-        Me.cmbSort.Location = New System.Drawing.Point(1301, 11)
-        Me.cmbSort.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbSort.Name = "cmbSort"
-        Me.cmbSort.Necessary = False
-        Me.cmbSort.Size = New System.Drawing.Size(94, 20)
-        Me.cmbSort.StatusTip = ""
-        Me.cmbSort.TabIndex = 21
-        Me.cmbSort.ValueText = ""
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
-        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 35)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "      "
-        '
-        'lslSession
-        '
-        Me.lslSession.AutoSize = True
-        Me.lslSession.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lslSession.ForeColor = System.Drawing.Color.White
-        Me.lslSession.Location = New System.Drawing.Point(43, 0)
-        Me.lslSession.Name = "lslSession"
-        Me.lslSession.Size = New System.Drawing.Size(174, 35)
-        Me.lslSession.TabIndex = 3
-        Me.lslSession.Text = "F323"
-        Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'colDgvLockDB
-        '
-        Me.colDgvLockDB.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockDB.DataPropertyName = "DB_NAME"
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockDB.DefaultCellStyle = DataGridViewCellStyle32
-        Me.colDgvLockDB.DefaultNodeImage = Nothing
-        Me.colDgvLockDB.FillWeight = 150.0!
-        Me.colDgvLockDB.HeaderText = "F104"
-        Me.colDgvLockDB.MinimumWidth = 130
-        Me.colDgvLockDB.Name = "colDgvLockDB"
-        Me.colDgvLockDB.ReadOnly = True
-        Me.colDgvLockDB.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDgvLockDB.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockBlockingPID
-        '
-        Me.colDgvLockBlockingPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockBlockingPID.DataPropertyName = "BLOCKING_PID"
-        DataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockBlockingPID.DefaultCellStyle = DataGridViewCellStyle33
-        Me.colDgvLockBlockingPID.FillWeight = 102.0!
-        Me.colDgvLockBlockingPID.HeaderText = "F197"
-        Me.colDgvLockBlockingPID.MinimumWidth = 30
-        Me.colDgvLockBlockingPID.Name = "colDgvLockBlockingPID"
-        Me.colDgvLockBlockingPID.ReadOnly = True
-        Me.colDgvLockBlockingPID.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDgvLockBlockingPID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockBlockingUser
-        '
-        Me.colDgvLockBlockingUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockBlockingUser.DataPropertyName = "BLOCKING_USER"
-        DataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle34.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle34.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockBlockingUser.DefaultCellStyle = DataGridViewCellStyle34
-        Me.colDgvLockBlockingUser.FillWeight = 130.0!
-        Me.colDgvLockBlockingUser.HeaderText = "F134"
-        Me.colDgvLockBlockingUser.MinimumWidth = 95
-        Me.colDgvLockBlockingUser.Name = "colDgvLockBlockingUser"
-        Me.colDgvLockBlockingUser.ReadOnly = True
-        Me.colDgvLockBlockingUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockBlockingQuery
-        '
-        Me.colDgvLockBlockingQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvLockBlockingQuery.DataPropertyName = "BLOCKING_QUERY"
-        DataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle35.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle35.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockBlockingQuery.DefaultCellStyle = DataGridViewCellStyle35
-        Me.colDgvLockBlockingQuery.FillWeight = 200.0!
-        Me.colDgvLockBlockingQuery.HeaderText = "F084"
-        Me.colDgvLockBlockingQuery.MinimumWidth = 160
-        Me.colDgvLockBlockingQuery.Name = "colDgvLockBlockingQuery"
-        Me.colDgvLockBlockingQuery.ReadOnly = True
-        Me.colDgvLockBlockingQuery.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockBlockedPID
-        '
-        Me.colDgvLockBlockedPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockBlockedPID.DataPropertyName = "BLOCKED_PID"
-        DataGridViewCellStyle36.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle36.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle36.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockBlockedPID.DefaultCellStyle = DataGridViewCellStyle36
-        Me.colDgvLockBlockedPID.FillWeight = 102.0!
-        Me.colDgvLockBlockedPID.HeaderText = "F195"
-        Me.colDgvLockBlockedPID.MinimumWidth = 30
-        Me.colDgvLockBlockedPID.Name = "colDgvLockBlockedPID"
-        Me.colDgvLockBlockedPID.ReadOnly = True
-        Me.colDgvLockBlockedPID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockBlockedUser
-        '
-        Me.colDgvLockBlockedUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockBlockedUser.DataPropertyName = "BLOCKED_USER"
-        DataGridViewCellStyle37.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle37.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle37.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle37.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle37.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockBlockedUser.DefaultCellStyle = DataGridViewCellStyle37
-        Me.colDgvLockBlockedUser.FillWeight = 130.0!
-        Me.colDgvLockBlockedUser.HeaderText = "F196"
-        Me.colDgvLockBlockedUser.MinimumWidth = 95
-        Me.colDgvLockBlockedUser.Name = "colDgvLockBlockedUser"
-        Me.colDgvLockBlockedUser.ReadOnly = True
-        Me.colDgvLockBlockedUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockBlockedQuery
-        '
-        Me.colDgvLockBlockedQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvLockBlockedQuery.DataPropertyName = "BLOCKED_QUERY"
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle38.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockBlockedQuery.DefaultCellStyle = DataGridViewCellStyle38
-        Me.colDgvLockBlockedQuery.FillWeight = 190.0!
-        Me.colDgvLockBlockedQuery.HeaderText = "F221"
-        Me.colDgvLockBlockedQuery.MinimumWidth = 160
-        Me.colDgvLockBlockedQuery.Name = "colDgvLockBlockedQuery"
-        Me.colDgvLockBlockedQuery.ReadOnly = True
-        Me.colDgvLockBlockedQuery.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockMode
-        '
-        Me.colDgvLockMode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockMode.DataPropertyName = "LOCK_MODE"
-        DataGridViewCellStyle39.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle39.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockMode.DefaultCellStyle = DataGridViewCellStyle39
-        Me.colDgvLockMode.FillWeight = 130.0!
-        Me.colDgvLockMode.HeaderText = "F222"
-        Me.colDgvLockMode.MinimumWidth = 100
-        Me.colDgvLockMode.Name = "colDgvLockMode"
-        Me.colDgvLockMode.ReadOnly = True
-        Me.colDgvLockMode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockElapse
-        '
-        Me.colDgvLockElapse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockElapse.DataPropertyName = "BLOCKED_DURATION"
-        DataGridViewCellStyle40.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle40.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle40.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle40.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle40.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockElapse.DefaultCellStyle = DataGridViewCellStyle40
-        Me.colDgvLockElapse.FillWeight = 120.0!
-        Me.colDgvLockElapse.HeaderText = "F135"
-        Me.colDgvLockElapse.MinimumWidth = 110
-        Me.colDgvLockElapse.Name = "colDgvLockElapse"
-        Me.colDgvLockElapse.ReadOnly = True
-        Me.colDgvLockElapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockQueryStart
-        '
-        Me.colDgvLockQueryStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockQueryStart.DataPropertyName = "QUERY_START"
-        DataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle41.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle41.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockQueryStart.DefaultCellStyle = DataGridViewCellStyle41
-        Me.colDgvLockQueryStart.FillWeight = 163.0!
-        Me.colDgvLockQueryStart.HeaderText = "F223"
-        Me.colDgvLockQueryStart.MinimumWidth = 140
-        Me.colDgvLockQueryStart.Name = "colDgvLockQueryStart"
-        Me.colDgvLockQueryStart.ReadOnly = True
-        Me.colDgvLockQueryStart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockXactStart
-        '
-        Me.colDgvLockXactStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockXactStart.DataPropertyName = "XACT_START"
-        DataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle42.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle42.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockXactStart.DefaultCellStyle = DataGridViewCellStyle42
-        Me.colDgvLockXactStart.FillWeight = 163.0!
-        Me.colDgvLockXactStart.HeaderText = "F224"
-        Me.colDgvLockXactStart.MinimumWidth = 140
-        Me.colDgvLockXactStart.Name = "colDgvLockXactStart"
-        Me.colDgvLockXactStart.ReadOnly = True
-        Me.colDgvLockXactStart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDgvLockRegDate
-        '
-        Me.colDgvLockRegDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockRegDate.DataPropertyName = "REG_DATE"
-        DataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle43.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle43.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockRegDate.DefaultCellStyle = DataGridViewCellStyle43
-        Me.colDgvLockRegDate.HeaderText = "REG_DATE"
-        Me.colDgvLockRegDate.MinimumWidth = 120
-        Me.colDgvLockRegDate.Name = "colDgvLockRegDate"
-        Me.colDgvLockRegDate.ReadOnly = True
-        Me.colDgvLockRegDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colDgvLockRegDate.Visible = False
-        '
-        'colDgvLockActvRegSeq
-        '
-        Me.colDgvLockActvRegSeq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvLockActvRegSeq.DataPropertyName = "ACTV_REG_SEQ"
-        DataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle44.Font = New System.Drawing.Font("Gulim", 9.0!)
-        DataGridViewCellStyle44.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvLockActvRegSeq.DefaultCellStyle = DataGridViewCellStyle44
-        Me.colDgvLockActvRegSeq.HeaderText = "ACTV_REG_SEQ"
-        Me.colDgvLockActvRegSeq.MinimumWidth = 90
-        Me.colDgvLockActvRegSeq.Name = "colDgvLockActvRegSeq"
-        Me.colDgvLockActvRegSeq.ReadOnly = True
-        Me.colDgvLockActvRegSeq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colDgvLockActvRegSeq.Visible = False
-        '
-        'btnRange
-        '
-        Me.btnRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnRange.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnRange.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnRange.FixedHeight = False
-        Me.btnRange.FixedWidth = False
-        Me.btnRange.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.btnRange.ForeColor = System.Drawing.Color.White
-        Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnRange.Location = New System.Drawing.Point(1207, 14)
-        Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnRange.Name = "btnRange"
-        Me.btnRange.Radius = 5
-        Me.btnRange.Size = New System.Drawing.Size(94, 32)
-        Me.btnRange.TabIndex = 32
-        Me.btnRange.Text = "F269"
-        Me.btnRange.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnRange.UseRound = True
-        Me.btnRange.UseVisualStyleBackColor = True
-        Me.btnRange.Visible = False
-        '
-        'btnQuery
-        '
-        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnQuery.FixedHeight = False
-        Me.btnQuery.FixedWidth = False
-        Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.btnQuery.ForeColor = System.Drawing.Color.White
-        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnQuery.Location = New System.Drawing.Point(1307, 14)
-        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnQuery.Name = "btnQuery"
-        Me.btnQuery.Radius = 5
-        Me.btnQuery.Size = New System.Drawing.Size(94, 32)
-        Me.btnQuery.TabIndex = 31
-        Me.btnQuery.Text = "F151"
-        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnQuery.UseRound = True
-        Me.btnQuery.UseVisualStyleBackColor = True
-        '
-        'TableLayoutPanel3
-        '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel3.ColumnCount = 8
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnQuery, 7, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.btnRange, 6, 0)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 1
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1404, 50)
-        Me.TableLayoutPanel3.TabIndex = 19
-        '
-        'lblSubject
-        '
-        Me.lblSubject.AutoSize = True
-        Me.lblSubject.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSubject.ForeColor = System.Drawing.Color.White
-        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSubject.Location = New System.Drawing.Point(43, 0)
-        Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(958, 50)
-        Me.lblSubject.TabIndex = 0
-        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
-        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label3.Location = New System.Drawing.Point(3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(34, 50)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "      "
-        '
-        'chtIOTime
-        '
-        Me.chtIOTime.BorderSkin = BorderSkin1
-        Me.chtIOTime.DataSource = Nothing
-        Me.chtIOTime.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtIOTime.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtIOTime.Location = New System.Drawing.Point(0, 1014)
-        Me.chtIOTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtIOTime.MenuVisible = False
-        Me.chtIOTime.Name = "chtIOTime"
-        Me.chtIOTime.Size = New System.Drawing.Size(1375, 362)
-        Me.chtIOTime.TabIndex = 6
-        Me.chtIOTime.Title = ""
-        Me.chtIOTime.Visible = False
-        '
-        'chtCPUTime
-        '
-        Me.chtCPUTime.BorderSkin = BorderSkin2
-        Me.chtCPUTime.DataSource = Nothing
-        Me.chtCPUTime.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPUTime.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtCPUTime.Location = New System.Drawing.Point(0, 652)
-        Me.chtCPUTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPUTime.MenuVisible = False
-        Me.chtCPUTime.Name = "chtCPUTime"
-        Me.chtCPUTime.Size = New System.Drawing.Size(1375, 362)
-        Me.chtCPUTime.TabIndex = 8
-        Me.chtCPUTime.Title = ""
-        Me.chtCPUTime.Visible = False
-        '
-        'chtTotalTime
-        '
-        Me.chtTotalTime.BorderSkin = BorderSkin3
-        Me.chtTotalTime.DataSource = Nothing
-        Me.chtTotalTime.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtTotalTime.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtTotalTime.Location = New System.Drawing.Point(0, 290)
-        Me.chtTotalTime.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtTotalTime.MenuVisible = False
-        Me.chtTotalTime.Name = "chtTotalTime"
-        Me.chtTotalTime.Size = New System.Drawing.Size(1375, 362)
-        Me.chtTotalTime.TabIndex = 5
-        Me.chtTotalTime.Title = ""
-        Me.chtTotalTime.Visible = False
-        '
-        'chtCalls
-        '
-        Me.chtCalls.BorderSkin = BorderSkin4
-        Me.chtCalls.DataSource = Nothing
-        Me.chtCalls.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCalls.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtCalls.Location = New System.Drawing.Point(0, 0)
-        Me.chtCalls.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCalls.MenuVisible = False
-        Me.chtCalls.Name = "chtCalls"
-        Me.chtCalls.Size = New System.Drawing.Size(1375, 290)
-        Me.chtCalls.TabIndex = 3
-        Me.chtCalls.Title = ""
         '
         'coldgvStmtDBID
         '
@@ -1727,6 +1201,532 @@ Partial Class frmStatements
         Me.coldgvStmtBlockWriteTime.ReadOnly = True
         Me.coldgvStmtBlockWriteTime.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.coldgvStmtBlockWriteTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'STMTTableBindingSource
+        '
+        Me.STMTTableBindingSource.DataMember = "STMTTable"
+        Me.STMTTableBindingSource.DataSource = Me.STMTData
+        '
+        'STMTData
+        '
+        Me.STMTData.DataSetName = "STMTData"
+        Me.STMTData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel2.ColumnCount = 11
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnEditFiltering, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.cbxHideSysSQL, 6, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtSQL, 5, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtQueryID, 3, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblQuery, 4, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblQueryID, 2, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblSort, 9, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.cmbSort, 10, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lslSession, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1398, 35)
+        Me.TableLayoutPanel2.TabIndex = 14
+        '
+        'btnEditFiltering
+        '
+        Me.btnEditFiltering.BackColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnEditFiltering.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnEditFiltering.FixedHeight = False
+        Me.btnEditFiltering.FixedWidth = False
+        Me.btnEditFiltering.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnEditFiltering.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnEditFiltering.ForeColor = System.Drawing.Color.White
+        Me.btnEditFiltering.GraColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnEditFiltering.LineColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.Location = New System.Drawing.Point(933, 3)
+        Me.btnEditFiltering.Name = "btnEditFiltering"
+        Me.btnEditFiltering.Radius = 10
+        Me.btnEditFiltering.Size = New System.Drawing.Size(114, 29)
+        Me.btnEditFiltering.TabIndex = 33
+        Me.btnEditFiltering.Text = "F333"
+        Me.btnEditFiltering.UnCheckFillColor = System.Drawing.Color.Gray
+        Me.btnEditFiltering.UseVisualStyleBackColor = False
+        Me.btnEditFiltering.Visible = False
+        '
+        'cbxHideSysSQL
+        '
+        Me.cbxHideSysSQL.AutoSize = True
+        Me.cbxHideSysSQL.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.cbxHideSysSQL.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cbxHideSysSQL.ForeColor = System.Drawing.Color.White
+        Me.cbxHideSysSQL.LineColor = System.Drawing.Color.Gray
+        Me.cbxHideSysSQL.Location = New System.Drawing.Point(783, 12)
+        Me.cbxHideSysSQL.Margin = New System.Windows.Forms.Padding(3, 3, 3, 6)
+        Me.cbxHideSysSQL.Name = "cbxHideSysSQL"
+        Me.cbxHideSysSQL.Radius = 10
+        Me.cbxHideSysSQL.Size = New System.Drawing.Size(144, 17)
+        Me.cbxHideSysSQL.TabIndex = 32
+        Me.cbxHideSysSQL.Text = "F331"
+        Me.cbxHideSysSQL.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cbxHideSysSQL.UseVisualStyleBackColor = True
+        '
+        'txtSQL
+        '
+        Me.txtSQL.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.txtSQL.BackColor = System.Drawing.SystemColors.Window
+        Me.txtSQL.code = False
+        Me.txtSQL.FixedWidth = False
+        Me.txtSQL.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtSQL.impossibleinput = "`~!@#$%^&*\{}"
+        Me.txtSQL.Location = New System.Drawing.Point(503, 6)
+        Me.txtSQL.Name = "txtSQL"
+        Me.txtSQL.Necessary = False
+        Me.txtSQL.PossibleInput = ""
+        Me.txtSQL.Prefix = ""
+        Me.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtSQL.Size = New System.Drawing.Size(260, 22)
+        Me.txtSQL.StatusTip = ""
+        Me.txtSQL.TabIndex = 31
+        Me.txtSQL.Value = ""
+        '
+        'txtQueryID
+        '
+        Me.txtQueryID.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.txtQueryID.BackColor = System.Drawing.SystemColors.Window
+        Me.txtQueryID.code = False
+        Me.txtQueryID.FixedWidth = False
+        Me.txtQueryID.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.txtQueryID.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtQueryID.impossibleinput = ""
+        Me.txtQueryID.Location = New System.Drawing.Point(303, 7)
+        Me.txtQueryID.Name = "txtQueryID"
+        Me.txtQueryID.Necessary = False
+        Me.txtQueryID.PossibleInput = "0123456789"
+        Me.txtQueryID.Prefix = ""
+        Me.txtQueryID.Size = New System.Drawing.Size(114, 21)
+        Me.txtQueryID.StatusTip = ""
+        Me.txtQueryID.TabIndex = 30
+        Me.txtQueryID.Value = ""
+        '
+        'lblQuery
+        '
+        Me.lblQuery.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblQuery.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblQuery.FixedHeight = False
+        Me.lblQuery.FixedWidth = False
+        Me.lblQuery.ForeColor = System.Drawing.Color.White
+        Me.lblQuery.Location = New System.Drawing.Point(423, 0)
+        Me.lblQuery.Name = "lblQuery"
+        Me.lblQuery.Size = New System.Drawing.Size(74, 35)
+        Me.lblQuery.TabIndex = 29
+        Me.lblQuery.Text = "Query"
+        Me.lblQuery.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblQueryID
+        '
+        Me.lblQueryID.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblQueryID.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblQueryID.FixedHeight = False
+        Me.lblQueryID.FixedWidth = False
+        Me.lblQueryID.ForeColor = System.Drawing.Color.White
+        Me.lblQueryID.Location = New System.Drawing.Point(223, 0)
+        Me.lblQueryID.Name = "lblQueryID"
+        Me.lblQueryID.Size = New System.Drawing.Size(74, 35)
+        Me.lblQueryID.TabIndex = 28
+        Me.lblQueryID.Text = "QueryID"
+        Me.lblQueryID.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblSort
+        '
+        Me.lblSort.BackColor = System.Drawing.Color.Gray
+        Me.lblSort.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
+        Me.lblSort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSort.FixedHeight = False
+        Me.lblSort.FixedWidth = False
+        Me.lblSort.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.lblSort.ForeColor = System.Drawing.Color.White
+        Me.lblSort.Location = New System.Drawing.Point(1221, 4)
+        Me.lblSort.Name = "lblSort"
+        Me.lblSort.Size = New System.Drawing.Size(74, 31)
+        Me.lblSort.TabIndex = 27
+        Me.lblSort.Text = "F325"
+        Me.lblSort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbSort
+        '
+        Me.cmbSort.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSort.DisplayMember = "All"
+        Me.cmbSort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSort.FixedWidth = False
+        Me.cmbSort.Font = New System.Drawing.Font("Gulim", 9.2!)
+        Me.cmbSort.FormattingEnabled = True
+        Me.cmbSort.Items.AddRange(New Object() {"Calls", "Total time", "CPU time rate", "IO time rate"})
+        Me.cmbSort.Location = New System.Drawing.Point(1301, 10)
+        Me.cmbSort.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cmbSort.Name = "cmbSort"
+        Me.cmbSort.Necessary = False
+        Me.cmbSort.Size = New System.Drawing.Size(94, 20)
+        Me.cmbSort.StatusTip = ""
+        Me.cmbSort.TabIndex = 21
+        Me.cmbSort.ValueText = ""
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 35)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "      "
+        '
+        'lslSession
+        '
+        Me.lslSession.AutoSize = True
+        Me.lslSession.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lslSession.ForeColor = System.Drawing.Color.White
+        Me.lslSession.Location = New System.Drawing.Point(43, 0)
+        Me.lslSession.Name = "lslSession"
+        Me.lslSession.Size = New System.Drawing.Size(174, 35)
+        Me.lslSession.TabIndex = 3
+        Me.lslSession.Text = "F323"
+        Me.lslSession.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'colDgvLockDB
+        '
+        Me.colDgvLockDB.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockDB.DataPropertyName = "DB_NAME"
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockDB.DefaultCellStyle = DataGridViewCellStyle32
+        Me.colDgvLockDB.DefaultNodeImage = Nothing
+        Me.colDgvLockDB.FillWeight = 150.0!
+        Me.colDgvLockDB.HeaderText = "F104"
+        Me.colDgvLockDB.MinimumWidth = 130
+        Me.colDgvLockDB.Name = "colDgvLockDB"
+        Me.colDgvLockDB.ReadOnly = True
+        Me.colDgvLockDB.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colDgvLockDB.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockBlockingPID
+        '
+        Me.colDgvLockBlockingPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockBlockingPID.DataPropertyName = "BLOCKING_PID"
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockBlockingPID.DefaultCellStyle = DataGridViewCellStyle33
+        Me.colDgvLockBlockingPID.FillWeight = 102.0!
+        Me.colDgvLockBlockingPID.HeaderText = "F197"
+        Me.colDgvLockBlockingPID.MinimumWidth = 30
+        Me.colDgvLockBlockingPID.Name = "colDgvLockBlockingPID"
+        Me.colDgvLockBlockingPID.ReadOnly = True
+        Me.colDgvLockBlockingPID.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colDgvLockBlockingPID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockBlockingUser
+        '
+        Me.colDgvLockBlockingUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockBlockingUser.DataPropertyName = "BLOCKING_USER"
+        DataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle34.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle34.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockBlockingUser.DefaultCellStyle = DataGridViewCellStyle34
+        Me.colDgvLockBlockingUser.FillWeight = 130.0!
+        Me.colDgvLockBlockingUser.HeaderText = "F134"
+        Me.colDgvLockBlockingUser.MinimumWidth = 95
+        Me.colDgvLockBlockingUser.Name = "colDgvLockBlockingUser"
+        Me.colDgvLockBlockingUser.ReadOnly = True
+        Me.colDgvLockBlockingUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockBlockingQuery
+        '
+        Me.colDgvLockBlockingQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvLockBlockingQuery.DataPropertyName = "BLOCKING_QUERY"
+        DataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle35.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle35.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockBlockingQuery.DefaultCellStyle = DataGridViewCellStyle35
+        Me.colDgvLockBlockingQuery.FillWeight = 200.0!
+        Me.colDgvLockBlockingQuery.HeaderText = "F084"
+        Me.colDgvLockBlockingQuery.MinimumWidth = 160
+        Me.colDgvLockBlockingQuery.Name = "colDgvLockBlockingQuery"
+        Me.colDgvLockBlockingQuery.ReadOnly = True
+        Me.colDgvLockBlockingQuery.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockBlockedPID
+        '
+        Me.colDgvLockBlockedPID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockBlockedPID.DataPropertyName = "BLOCKED_PID"
+        DataGridViewCellStyle36.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle36.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle36.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockBlockedPID.DefaultCellStyle = DataGridViewCellStyle36
+        Me.colDgvLockBlockedPID.FillWeight = 102.0!
+        Me.colDgvLockBlockedPID.HeaderText = "F195"
+        Me.colDgvLockBlockedPID.MinimumWidth = 30
+        Me.colDgvLockBlockedPID.Name = "colDgvLockBlockedPID"
+        Me.colDgvLockBlockedPID.ReadOnly = True
+        Me.colDgvLockBlockedPID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockBlockedUser
+        '
+        Me.colDgvLockBlockedUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockBlockedUser.DataPropertyName = "BLOCKED_USER"
+        DataGridViewCellStyle37.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle37.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle37.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle37.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle37.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockBlockedUser.DefaultCellStyle = DataGridViewCellStyle37
+        Me.colDgvLockBlockedUser.FillWeight = 130.0!
+        Me.colDgvLockBlockedUser.HeaderText = "F196"
+        Me.colDgvLockBlockedUser.MinimumWidth = 95
+        Me.colDgvLockBlockedUser.Name = "colDgvLockBlockedUser"
+        Me.colDgvLockBlockedUser.ReadOnly = True
+        Me.colDgvLockBlockedUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockBlockedQuery
+        '
+        Me.colDgvLockBlockedQuery.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvLockBlockedQuery.DataPropertyName = "BLOCKED_QUERY"
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle38.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockBlockedQuery.DefaultCellStyle = DataGridViewCellStyle38
+        Me.colDgvLockBlockedQuery.FillWeight = 190.0!
+        Me.colDgvLockBlockedQuery.HeaderText = "F221"
+        Me.colDgvLockBlockedQuery.MinimumWidth = 160
+        Me.colDgvLockBlockedQuery.Name = "colDgvLockBlockedQuery"
+        Me.colDgvLockBlockedQuery.ReadOnly = True
+        Me.colDgvLockBlockedQuery.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockMode
+        '
+        Me.colDgvLockMode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockMode.DataPropertyName = "LOCK_MODE"
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle39.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockMode.DefaultCellStyle = DataGridViewCellStyle39
+        Me.colDgvLockMode.FillWeight = 130.0!
+        Me.colDgvLockMode.HeaderText = "F222"
+        Me.colDgvLockMode.MinimumWidth = 100
+        Me.colDgvLockMode.Name = "colDgvLockMode"
+        Me.colDgvLockMode.ReadOnly = True
+        Me.colDgvLockMode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockElapse
+        '
+        Me.colDgvLockElapse.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockElapse.DataPropertyName = "BLOCKED_DURATION"
+        DataGridViewCellStyle40.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle40.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle40.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle40.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle40.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockElapse.DefaultCellStyle = DataGridViewCellStyle40
+        Me.colDgvLockElapse.FillWeight = 120.0!
+        Me.colDgvLockElapse.HeaderText = "F135"
+        Me.colDgvLockElapse.MinimumWidth = 110
+        Me.colDgvLockElapse.Name = "colDgvLockElapse"
+        Me.colDgvLockElapse.ReadOnly = True
+        Me.colDgvLockElapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockQueryStart
+        '
+        Me.colDgvLockQueryStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockQueryStart.DataPropertyName = "QUERY_START"
+        DataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle41.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle41.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockQueryStart.DefaultCellStyle = DataGridViewCellStyle41
+        Me.colDgvLockQueryStart.FillWeight = 163.0!
+        Me.colDgvLockQueryStart.HeaderText = "F223"
+        Me.colDgvLockQueryStart.MinimumWidth = 140
+        Me.colDgvLockQueryStart.Name = "colDgvLockQueryStart"
+        Me.colDgvLockQueryStart.ReadOnly = True
+        Me.colDgvLockQueryStart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockXactStart
+        '
+        Me.colDgvLockXactStart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockXactStart.DataPropertyName = "XACT_START"
+        DataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle42.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle42.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockXactStart.DefaultCellStyle = DataGridViewCellStyle42
+        Me.colDgvLockXactStart.FillWeight = 163.0!
+        Me.colDgvLockXactStart.HeaderText = "F224"
+        Me.colDgvLockXactStart.MinimumWidth = 140
+        Me.colDgvLockXactStart.Name = "colDgvLockXactStart"
+        Me.colDgvLockXactStart.ReadOnly = True
+        Me.colDgvLockXactStart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colDgvLockRegDate
+        '
+        Me.colDgvLockRegDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockRegDate.DataPropertyName = "REG_DATE"
+        DataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle43.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle43.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockRegDate.DefaultCellStyle = DataGridViewCellStyle43
+        Me.colDgvLockRegDate.HeaderText = "REG_DATE"
+        Me.colDgvLockRegDate.MinimumWidth = 120
+        Me.colDgvLockRegDate.Name = "colDgvLockRegDate"
+        Me.colDgvLockRegDate.ReadOnly = True
+        Me.colDgvLockRegDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colDgvLockRegDate.Visible = False
+        '
+        'colDgvLockActvRegSeq
+        '
+        Me.colDgvLockActvRegSeq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDgvLockActvRegSeq.DataPropertyName = "ACTV_REG_SEQ"
+        DataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle44.Font = New System.Drawing.Font("Gulim", 9.0!)
+        DataGridViewCellStyle44.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.White
+        Me.colDgvLockActvRegSeq.DefaultCellStyle = DataGridViewCellStyle44
+        Me.colDgvLockActvRegSeq.HeaderText = "ACTV_REG_SEQ"
+        Me.colDgvLockActvRegSeq.MinimumWidth = 90
+        Me.colDgvLockActvRegSeq.Name = "colDgvLockActvRegSeq"
+        Me.colDgvLockActvRegSeq.ReadOnly = True
+        Me.colDgvLockActvRegSeq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colDgvLockActvRegSeq.Visible = False
+        '
+        'btnRange
+        '
+        Me.btnRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnRange.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnRange.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnRange.FixedHeight = False
+        Me.btnRange.FixedWidth = False
+        Me.btnRange.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnRange.ForeColor = System.Drawing.Color.White
+        Me.btnRange.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnRange.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnRange.Location = New System.Drawing.Point(1207, 14)
+        Me.btnRange.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnRange.Name = "btnRange"
+        Me.btnRange.Radius = 5
+        Me.btnRange.Size = New System.Drawing.Size(94, 32)
+        Me.btnRange.TabIndex = 32
+        Me.btnRange.Text = "F269"
+        Me.btnRange.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnRange.UseRound = True
+        Me.btnRange.UseVisualStyleBackColor = True
+        Me.btnRange.Visible = False
+        '
+        'btnQuery
+        '
+        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnQuery.FixedHeight = False
+        Me.btnQuery.FixedWidth = False
+        Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnQuery.ForeColor = System.Drawing.Color.White
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.Location = New System.Drawing.Point(1307, 14)
+        Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnQuery.Name = "btnQuery"
+        Me.btnQuery.Radius = 5
+        Me.btnQuery.Size = New System.Drawing.Size(94, 32)
+        Me.btnQuery.TabIndex = 31
+        Me.btnQuery.Text = "F151"
+        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.UseRound = True
+        Me.btnQuery.UseVisualStyleBackColor = True
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.ColumnCount = 8
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnQuery, 7, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.btnRange, 6, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1404, 50)
+        Me.TableLayoutPanel3.TabIndex = 19
+        '
+        'lblSubject
+        '
+        Me.lblSubject.AutoSize = True
+        Me.lblSubject.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSubject.ForeColor = System.Drawing.Color.White
+        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSubject.Location = New System.Drawing.Point(43, 0)
+        Me.lblSubject.Name = "lblSubject"
+        Me.lblSubject.Size = New System.Drawing.Size(958, 50)
+        Me.lblSubject.TabIndex = 0
+        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
+        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label3.Location = New System.Drawing.Point(3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(34, 50)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "      "
         '
         'frmStatements
         '

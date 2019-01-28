@@ -233,6 +233,7 @@
             txtID.Visible = False
             lblPw.Visible = False
             txtPW.Visible = False
+            cmbUser.Visible = False
         End If
     End Sub
     Private Sub frmQueryView_Load(sender As Object, e As EventArgs) Handles MyBase.Load

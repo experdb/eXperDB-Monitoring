@@ -17,6 +17,7 @@ Public Class frmReports
     Private _ServerInfo As GroupInfo.ServerInfo = Nothing
     Private _SvrpList As List(Of GroupInfo.ServerInfo)
 
+    Private WithEvents _ProgresForm As frmProgres
 
     Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal GrpLst As List(Of GroupInfo), ByVal AgentInfo As structAgent)
 
@@ -622,7 +623,7 @@ Public Class frmReports
         End If
 
         ' SQL
-        RaiseEvent WaitMag("SQL Information Information")
+        RaiseEvent WaitMag("SQL Information")
         tmpTh = New Threading.Thread(Sub()
                                          Try
                                              dtTable = _clsQuery.SelectReportSQL(intInstance, stDate, edDate, _AgentInfo.AgentVer)
@@ -723,7 +724,6 @@ Public Class frmReports
 
 
 
-
         RaiseEvent WaitComplete()
     End Sub
 
@@ -736,7 +736,7 @@ Public Class frmReports
             MsgBox(p_clsMsgData.fn_GetData("M014"))
             Return False
         Else
-            If DateDiff(DateInterval.Hour, dtpSt.Value, dtpEd.Value) > 24 Then
+            If DateDiff(DateInterval.Hour, dtpSt.Value, dtpEd.Value) > (24 * 7) Then
                 MsgBox(p_clsMsgData.fn_GetData("M015", "7"))
                 Return False
             End If
@@ -783,13 +783,21 @@ Public Class frmReports
         If _ThreadRpt IsNot Nothing AndAlso _ThreadRpt.IsAlive = True Then Return
 
 
-        _frmW = New frmWait
-        _frmW.TopMost = True
-        _frmW.Show(Me)
+        '_frmW = New frmWait
+        '_frmW.TopMost = True
+        '_frmW.Show(Me)
+
+        _ProgresForm = New frmProgres()
+        _ProgresForm.Owner = Me
+        _ProgresForm.Location = Me.Location
+        _ProgresForm.Size = Me.Size
+        _ProgresForm.Show()
+
         Dim intInstance As Integer = cmbInst.SelectedValue
         Dim stDate As DateTime = dtpSt.Value
         Dim edDate As DateTime = dtpEd.Value
         Dim enmSvrnm As clsEnums.ShowName = p_ShowName
+
 
 
         _ThreadRpt = New Threading.Thread(Sub()
@@ -827,14 +835,25 @@ Public Class frmReports
 
     Private Sub ShowDiskChart(ByVal intInstanceID As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal DiskNm As String, ByVal ShowSeries As Boolean, ByVal SingleMode As Boolean)
 
-        If _frmW Is Nothing Then
-            _frmW = New frmWait
-            _frmW.TopMost = True
+        'If _frmW Is Nothing Then
+        '_frmW = New frmWait
+        '_frmW.TopMost = True
+
+        'Me.Invoke(New MethodInvoker(Sub()
+        '                                _frmW.Show(Me)
+        '                            End Sub))
+
+        'End If
+
+        If _ProgresForm Is Nothing Then
+            _ProgresForm = New frmProgres()
+            _ProgresForm.Owner = Me
+            _ProgresForm.Location = Me.Location
+            _ProgresForm.Size = Me.Size
 
             Me.Invoke(New MethodInvoker(Sub()
-                                            _frmW.Show(Me)
+                                            _ProgresForm.Show(Me)
                                         End Sub))
-
         End If
 
         RaiseEvent WaitMag("Disk Information - " & DiskNm)
@@ -990,6 +1009,20 @@ Public Class frmReports
 
     End Sub
 
+    Private Sub frmReports_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If _ThreadRpt IsNot Nothing Then
+            _clsQuery.CancelCommand()
+            _ThreadRpt.Abort()
+            _ThreadRpt = Nothing
+        End If
+
+        If _ThreadDisk IsNot Nothing Then
+            _clsQuerySub.CancelCommand()
+            _ThreadDisk.Abort()
+            _ThreadDisk = Nothing
+        End If
+    End Sub
+
     Private Sub frmReports_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If _ShownSearch = True Then
             btnSearch.PerformClick()
@@ -999,39 +1032,65 @@ Public Class frmReports
     End Sub
 
     Private Sub frmReports_WaitComplete() Handles Me.WaitComplete
-        If _frmW IsNot Nothing Then
+        'If _frmW IsNot Nothing Then
 
+        '    Me.Invoke(New MethodInvoker(Sub()
+        '                                    _frmW.Close()
+        '                                End Sub))
+
+        'End If
+        If _ProgresForm IsNot Nothing Then
             Me.Invoke(New MethodInvoker(Sub()
-                                            _frmW.Close()
+                                            _ProgresForm.Close()
                                         End Sub))
-
-
         End If
     End Sub
 
     Private Sub frmReports_WaitMag(str As String) Handles Me.WaitMag
-        _frmW.AddText(str)
+        'If _frmW IsNot Nothing Then
+        '    _frmW.AddText(str)
+        'End If
+
+        If _ProgresForm IsNot Nothing Then
+            _ProgresForm.AddText(str)
+        End If
     End Sub
 
-    Private Sub _frmW_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _frmW.FormClosed
+    'Private Sub _frmW_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _frmW.FormClosed
+    '    If _ThreadRpt IsNot Nothing Then
+    '        _clsQuery.CancelCommand()
+    '        _ThreadRpt.Abort()
+    '        _ThreadRpt = Nothing
+    '    End If
+
+
+    '    If _ThreadDisk IsNot Nothing Then
+    '        _clsQuerySub.CancelCommand()
+    '        _ThreadDisk.Abort()
+    '        _ThreadDisk = Nothing
+    '    End If
+
+
+
+    '    _frmW = Nothing
+
+
+
+    'End Sub
+
+    Private Sub _ProgresForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _ProgresForm.FormClosed
         If _ThreadRpt IsNot Nothing Then
             _clsQuery.CancelCommand()
             _ThreadRpt.Abort()
             _ThreadRpt = Nothing
         End If
 
-
         If _ThreadDisk IsNot Nothing Then
             _clsQuerySub.CancelCommand()
             _ThreadDisk.Abort()
             _ThreadDisk = Nothing
         End If
-
-
-
-        _frmW = Nothing
-
-
+        _ProgresForm = Nothing
 
     End Sub
 
@@ -1074,7 +1133,8 @@ Public Class frmReports
             Dim Rb As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
             Dim SingleMode As Boolean = True
-            If _frmW IsNot Nothing Then
+            'If _frmW IsNot Nothing Then
+            If _ProgresForm IsNot Nothing Then
                 SingleMode = False
                 ShowDiskChart(cmbInst.Tag, dtpSt.Tag, dtpEd.Tag _
                             , Rb.Text _
@@ -1090,8 +1150,14 @@ Public Class frmReports
                                                        ShowDiskChart(cmbInst.Tag, dtpSt.Tag, dtpEd.Tag _
                                                                    , Rb.Text _
                                                                    , Rb.Checked, SingleMode)
-                                                       chtRptDisk.ShowMaxValue(True)
-                                                       chtRptDiskRate.ShowMaxValue(True)
+
+                                                       Try
+                                                           chtRptDisk.ShowMaxValue(True)
+                                                           chtRptDiskRate.ShowMaxValue(True)
+                                                       Catch ex As Exception
+                                                           Debug.Print(ex.ToString)
+                                                       End Try
+
                                                    End Sub)
                 _ThreadDisk.Start()
 

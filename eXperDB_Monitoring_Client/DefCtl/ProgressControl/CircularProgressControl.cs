@@ -13,7 +13,7 @@ namespace ProgressControl
     {
         #region Constants
 
-        private const int DEFAULT_INTERVAL = 60;
+        private const int DEFAULT_INTERVAL = 40;
         private readonly Color DEFAULT_TICK_COLOR = Color.FromArgb(58, 58, 58);
         private const int DEFAULT_TICK_WIDTH = 2;
         private const int MINIMUM_INNER_RADIUS = 4;

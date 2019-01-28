@@ -5,6 +5,8 @@
     Private _clsQuery As clsQuerys
     Private _arrTables As New ArrayList
     Private _countTop As Integer = 5
+    Private WithEvents _ProgresForm As frmProgres
+    Private Event WaitMag(ByVal str As String)
     'Private _arrTablesRelID As New ArrayList
     Public Structure TableInfo
         Dim tableName As String
@@ -12,9 +14,6 @@
         Public AxisXValue As Double
     End Structure
     Private _arrDatabases As New ArrayList
-
-    Private _ThreadDetail As Threading.Thread
-
 
     ReadOnly Property InstanceID As Integer
         Get
@@ -103,11 +102,9 @@
             For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
                 If tmpSvr.InstanceID = _InstanceID Then
                     cmbInst.SelectedIndex = index
-                    If cmbInst.SelectedIndex = 0 Then
-                        Me.Invoke(New MethodInvoker(Sub()
-                                                        btnQuery.PerformClick()
-                                                    End Sub))
-                    End If
+                    Me.Invoke(New MethodInvoker(Sub()
+                                                    btnQuery.PerformClick()
+                                                End Sub))
                 End If
                 index += 1
             Next
@@ -374,97 +371,10 @@
                                     End Sub))
 
     End Sub
-
-    'Private Sub ShowDynamicChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
-    '    Dim strPrevData As New ArrayList
-
-
-    '    Dim seriesChartType As DataVisualization.Charting.SeriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
-
-    '    Dim yAxisType As DataVisualization.Charting.AxisType = DataVisualization.Charting.AxisType.Primary
-
-    '    Dim arrIndex As Integer = 0
-    '    Dim arrColors As New ArrayList
-
-    '    For j As Integer = 0 To _arrTables.Count - 1
-    '        arrColors.Add(_queryColors(arrIndex))
-    '        arrIndex += 1
-    '    Next
-
-    '    Me.Invoke(New MethodInvoker(Sub()
-    '                                    Try
-    '                                        For Each tmpSeries As DataVisualization.Charting.Series In chtAutovacuumWraparound.Series
-    '                                            If tmpSeries.ChartArea = chtAutovacuumWraparound.ChartAreas(index).Name Then
-    '                                                tmpSeries.Points.Clear()
-    '                                            End If
-    '                                        Next
-    '                                        chtAutovacuumWraparound.Series.Clear()
-    '                                    Catch ex As Exception
-    '                                        GC.Collect()
-    '                                    End Try
-    '                                End Sub))
-
-    '    Me.Invoke(New MethodInvoker(Sub()
-    '                                    Try
-    '                                        arrIndex = 0
-    '                                        For Each tmpStr As String In _arrTables
-    '                                            AddSeries(Me.chtAutovacuumWraparound, _ServerInfo.ShowNm + ":" + _ServerInfo.Port, _ServerInfo.ShowNm, arrColors(arrIndex), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine)
-    '                                            arrIndex += 1
-    '                                        Next
-    '                                    Catch ex As Exception
-    '                                        GC.Collect()
-    '                                    End Try
-    '                                End Sub))
-
-    '    Dim dtTable As DataTable = Nothing
-    '    Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
-    '                                                             Try
-    '                                                                 dtTable = _clsQuery.SelectAutovacuumWorker(_InstanceID, stDate, edDate)
-    '                                                             Catch ex As Exception
-    '                                                                 GC.Collect()
-    '                                                             End Try
-    '                                                         End Sub)
-    '    tmpTh.Start()
-    '    tmpTh.Join()
-    '    If dtTable IsNot Nothing Then
-    '        Me.Invoke(New MethodInvoker(Sub()
-    '                                        Try
-    '                                            Dim sDateCollect As Double = 0.0
-    '                                            If dtTable.Rows.Count > 0 Then
-    '                                                For Each dtRow As DataRow In dtTable.Rows
-    '                                                    Dim tmpDate As Double = ConvOADate(dtRow.Item("COLLECT_DT"))
-    '                                                    sb_ChartAddPoint(Me.chtAutovacuumWraparound, "Set Frozen XID", tmpDate, ConvDBL(dtRow.Item("WRAPAROUND")))
-    '                                                    sb_ChartAddPoint(Me.chtAutovacuumWraparound, "Vacuum", tmpDate, ConvDBL(dtRow.Item("COMMON")))
-    '                                                Next
-    '                                            Else
-    '                                                Dim tmpDate As Double = ConvOADate(Now())
-    '                                                Dim j As Integer = 0
-    '                                                For Each tmpStr As String In _arrTables
-    '                                                    sb_ChartAddPoint(Me.chtAutovacuumWraparound, "Set Frozen XID", tmpDate, 0.0)
-    '                                                    sb_ChartAddPoint(Me.chtAutovacuumWraparound, "Vacuum", tmpDate, 0.0)
-    '                                                    j += 1
-    '                                                Next
-    '                                            End If
-    '                                        Catch ex As Exception
-    '                                            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-    '                                            GC.Collect()
-    '                                        End Try
-
-    '                                    End Sub))
-    '    End If
-
-    '    Me.Invoke(New MethodInvoker(Sub()
-    '                                    chtAutovacuumWraparound.ChartAreas(index).RecalculateAxesScale()
-    '                                End Sub))
-
-    'End Sub
-
-
-    Private Sub frmStatements_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+    Private Sub frmAutovacuum_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         _clsQuery.CancelCommand()
-        If _ThreadDetail IsNot Nothing Then
-            _ThreadDetail.Abort()
-            _ThreadDetail = Nothing
+        If Me.bgmanual.IsBusy = True Then
+            Me.bgmanual.CancelAsync()
         End If
     End Sub
 
@@ -475,43 +385,18 @@
             GC.Collect()
         End Try
 
+        Threading.Thread.Sleep(10)
+        _ProgresForm = New frmProgres()
+        _ProgresForm.Owner = Me
+        _ProgresForm.Location = Me.Location
+        _ProgresForm.Size = Me.Size
+        _ProgresForm.Show()
+
         If bgmanual.IsBusy = True Then
             bgmanual.CancelAsync()
             Return
         End If
         bgmanual.RunWorkerAsync()
-        'drawAutovacuumWraparound(dtpSt.Value, dtpEd.Value)
-        'drawAutovacuumWorker(dtpSt.Value, dtpEd.Value)
-        'drawAutovacuumCount(dtpSt.Value, dtpEd.Value)
-
-
-        'Dim Chart1 As System.Windows.Forms.DataVisualization.Charting.Chart = chtAutovacuumCount
-
-        'Dim area As System.Windows.Forms.DataVisualization.Charting.ChartArea = chtAutovacuumCount.ChartAreas(0)
-
-        'Dim Series As System.Windows.Forms.DataVisualization.Charting.Series = Chart1.Series.Add("SERIES")
-
-        'Series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range
-
-        'Dim xValues As Date() = {#3/3/2012#, #3/5/2012#, #3/9/2012#, #3/11/2012#, #3/16/2012#}
-        'Dim xValues2 As Date() = {#3/1/2012#, #3/6/2012#, #3/13/2012#, #3/14/2012#, #3/18/2012#}
-
-        'Dim yValues As Double() = {1, 4, 3, 5, 2}
-        ''Dim yValues2 As Double() = {3, 10, 5, 8, 3}
-
-        'Dim palette As Color() = {Color.Red, Color.Green, Color.Blue}
-
-        'For i As Integer = 0 To xValues.Length - 1
-        '    Series.Points.AddXY(xValues(i), yValues(i), yValues(i) - 1)
-        '    Series.Points.AddXY(xValues2(i), yValues(i), yValues(i) - 1)
-        '    Series.Points.AddXY(xValues2(i), Double.NaN, Double.NaN) 'This will add gaps to the Range series.
-
-        '    'Series.Points(i * 3 + 1).Color = palette(i Mod palette.Length)
-
-        'Next
-
-
-
     End Sub
 
     Private Function fn_SearchBefCheck() As Boolean
@@ -540,7 +425,7 @@
         End If
     End Sub
 
-    Private Sub frmStatements_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+    Private Sub frmAutovacuum_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         chtAutovacuumWraparound.ChartAreas(0).RecalculateAxesScale()
         chtAutovacuumWorkers.ChartAreas(0).RecalculateAxesScale()
         chtAutovacuumCount.ChartAreas(0).RecalculateAxesScale()
@@ -723,14 +608,34 @@
     Private Sub bgmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgmanual.DoWork
         GetTopAutovacuumTable(dtpSt.Value, dtpEd.Value, _countTop)
         GetDatabases()
+        bgmanual.ReportProgress(10)
         initAutovacuumWraparound(dtpSt.Value, dtpEd.Value)
+        bgmanual.ReportProgress(40)
         initAutovacuumWorker(dtpSt.Value, dtpEd.Value)
+        bgmanual.ReportProgress(70)
         initAutovacuumCount(dtpSt.Value, dtpEd.Value)
         bgmanual.ReportProgress(100)
     End Sub
 
     Private Sub bgmanual_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bgmanual.ProgressChanged
-
+        Select Case e.ProgressPercentage
+            Case 10
+                If _ProgresForm IsNot Nothing Then
+                    _ProgresForm.Addtext("TXID age information")
+                End If
+            Case 40
+                If _ProgresForm IsNot Nothing Then
+                    _ProgresForm.Addtext("Autovacuum Workers activity information")
+                End If
+            Case 70
+                If _ProgresForm IsNot Nothing Then
+                    _ProgresForm.Addtext("Autovacuum information by tables")
+                End If
+            Case 100
+                If _ProgresForm IsNot Nothing Then
+                    _ProgresForm.Addtext("Complete")
+                End If
+        End Select
     End Sub
 
     Private Sub bgmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgmanual.RunWorkerCompleted
@@ -745,6 +650,8 @@
                 drawAutovacuumCount()
             End If
         End If
+
+        _ProgresForm.Close()
     End Sub
 
     Private _dtTableAutovacuumWraparound As DataTable = Nothing
@@ -797,5 +704,13 @@
 
     Private Sub cmbTop_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbTop.SelectedIndexChanged
         _countTop = cmbTop.Items(cmbTop.SelectedIndex)
+    End Sub
+
+    Private Sub _ProgresForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _ProgresForm.FormClosed
+        _clsQuery.CancelCommand()
+        If Me.bgmanual.IsBusy = True Then
+            Me.bgmanual.CancelAsync()
+        End If
+        _ProgresForm = Nothing
     End Sub
 End Class

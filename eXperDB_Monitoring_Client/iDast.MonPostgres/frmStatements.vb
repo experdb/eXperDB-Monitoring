@@ -9,16 +9,18 @@
     Private _clsQuery As clsQuerys
     Private _bChartMenu As Boolean = False
     Private _bRange As Boolean = False
-    Private _annotationIndex As Integer = -1
     'Private _strTopQueryIDs = ""
     'Private _strTopQueryDBIDs = ""
     Private _arrQueryIDs As New ArrayList
     Private _arrDBIDs As New ArrayList
 
-    Private _ThreadDetail As Threading.Thread
+    Private _ThreadStmt As Threading.Thread
     Private _ListStatements As New List(Of String)
     Private _UseFilter As Boolean
 
+    Private WithEvents _ProgresForm As frmProgres
+    Private Event WaitMag(ByVal str As String)
+    Private Event WaitComplete()
 
     ReadOnly Property InstanceID As Integer
         Get
@@ -297,8 +299,8 @@
         chtCalls.MainChart.ChartAreas("IOTIMEAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
     End Sub
 
-    Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
-        SetTopQueryIDs(index)
+    Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean, ByVal intTopCount As Integer)
+        SetTopQueryIDs(index, intTopCount)
         ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
     End Sub
 
@@ -323,19 +325,7 @@
                 nCount += 1
             End If
         Next
-        SetAreaWithAnnotation()
-    End Sub
 
-    Private Sub SetAreaWithAnnotation()
-        If _bRange = True Then
-            Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(0)
-            Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(1)
-            For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCalls.MainChart.ChartAreas
-                If tmpChartArea.Visible = True Then
-                    tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
-                End If
-            Next
-        End If
     End Sub
 
     Private Sub ShowDynamicChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
@@ -499,9 +489,9 @@
 
     Private Sub frmStatements_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         _clsQuery.CancelCommand()
-        If _ThreadDetail IsNot Nothing Then
-            _ThreadDetail.Abort()
-            _ThreadDetail = Nothing
+        If _ThreadStmt IsNot Nothing Then
+            _ThreadStmt.Abort()
+            _ThreadStmt = Nothing
         End If
     End Sub
 
@@ -511,82 +501,42 @@
         Try
             chtCalls.SeriesClear()
 
-            If _bRange = True Then
-                fn_DeleteAnnotaion()
-            End If
-
             If fn_SearchBefCheck() = False Then Return
         Catch ex As Exception
             GC.Collect()
         End Try
-        For i As Integer = 1 To _AreaCount
-            If chtCalls.MainChart.ChartAreas(i).Visible = True Then
-                QueryChartData(i, True)
-            End If
-        Next
-        SetDataSession(dtpSt.Value, dtpEd.Value)
+
+        If _ThreadStmt IsNot Nothing AndAlso _ThreadStmt.IsAlive = True Then Return
+
+        _ProgresForm = New frmProgres()
+        _ProgresForm.Owner = Me
+        _ProgresForm.Location = Me.Location
+        _ProgresForm.Size = Me.Size
+        _ProgresForm.Show()
+
+        Dim intInstance As Integer = cmbInst.SelectedValue
+        Dim stDate As DateTime = dtpSt.Value
+        Dim edDate As DateTime = dtpEd.Value
+        Dim enmSvrnm As clsEnums.ShowName = p_ShowName
+        Dim countTop As Integer = cmbTop.Items(cmbTop.SelectedIndex)
+
+        _ThreadStmt = New Threading.Thread(Sub()
+                                               Try
+                                                   Thmain(intInstance, stDate, edDate, enmSvrnm, countTop)
+                                               Catch ex As Exception
+                                                   GC.Collect()
+                                               End Try
+                                           End Sub)
+        _ThreadStmt.Start()
+
+
+        'For i As Integer = 1 To _AreaCount
+        '    If chtCalls.MainChart.ChartAreas(i).Visible = True Then
+        '        QueryChartData(i, True)
+        '    End If
+        'Next
+        'SetDataSession(dtpSt.Value, dtpEd.Value)
         cbxHideSysSQL.Checked = _UseFilter
-        'SetRowfilter(cbxHideSysSQL)
-    End Sub
-
-    Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
-        If _bRange = True Then
-            fn_DeleteAnnotaion()
-            SetDataSession(dtpSt.Value, dtpEd.Value)
-        Else
-            Dim index As Integer
-            For index = 1 To _AreaCount
-                If chtCalls.MainChart.ChartAreas(index).Visible = True Then
-                    Exit For
-                End If
-            Next
-            fn_MakeAnnotation(index)
-            _annotationIndex = index
-            _bRange = True
-        End If
-    End Sub
-
-    Private Sub chtCPU_AnnotationPositionChanged(sender As Object, e As EventArgs)
-        Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(0)
-        Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(1)
-        Dim index As Integer = -1
-        For index = 1 To _AreaCount
-            If chtCalls.MainChart.ChartAreas(index).Visible = True Then
-                Exit For
-            End If
-        Next
-
-        SetAreaWithAnnotation()
-
-        If chtCalls.MainChart.Annotations(0).X < chtCalls.GetMinimumAxisXChartArea(index) _
-            Or chtCalls.MainChart.Annotations(0).X > chtCalls.GetMaximumAxisXChartArea(index) Then
-            chtCalls.MainChart.Annotations(0).X = chtCalls.GetMinimumAxisXChartArea(index)
-        End If
-
-        If chtCalls.MainChart.Annotations(1).X < chtCalls.GetMinimumAxisXChartArea(index) _
-            Or chtCalls.MainChart.Annotations(1).X > chtCalls.GetMaximumAxisXChartArea(index) Then
-            chtCalls.MainChart.Annotations(1).X = chtCalls.GetMaximumAxisXChartArea(index)
-        End If
-
-        SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
-    End Sub
-
-    Private Sub chtCPU_AnnotationPositionChanging(sender As Object, e As EventArgs)
-        Dim vl As DataVisualization.Charting.VerticalLineAnnotation = DirectCast(sender, DataVisualization.Charting.VerticalLineAnnotation)
-        Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(0)
-        Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(1)
-
-        If vl.Name = "StartTime" Then
-            If vl.X >= vlEnd.X Then
-                chtCalls.MainChart.Annotations(1).X = vl.X + (2 * 0.00003471)
-            End If
-        Else
-            If vl.X <= vlStart.X Then
-                chtCalls.MainChart.Annotations(0).X = vl.X - (2 * 0.00003471)
-            End If
-        End If
-
-        SetAreaWithAnnotation()
     End Sub
 
     Private Sub dgvStmtList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStmtList.CellDoubleClick
@@ -634,59 +584,6 @@
         End If
     End Sub
 
-    Private Sub fn_MakeAnnotation(ByVal index As Integer)
-        Dim stVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(0)
-        Dim edVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCalls.MainChart.Annotations(1)
-        Dim stRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCalls.MainChart.Annotations(2)
-        Dim edRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCalls.MainChart.Annotations(3)
-
-        stVerticalAnnotation.AxisX = chtCalls.MainChart.ChartAreas(index).AxisX
-        stVerticalAnnotation.AxisY = chtCalls.MainChart.ChartAreas(index).AxisY
-        stVerticalAnnotation.X = chtCalls.GetMinimumAxisXChartArea(index)
-        stVerticalAnnotation.Visible = True
-        stVerticalAnnotation.AllowMoving = True
-        stVerticalAnnotation.IsInfinitive = True
-        stVerticalAnnotation.Name = "StartTime"
-        stVerticalAnnotation.AnchorY = 200
-        stVerticalAnnotation.ToolTip = "StartTime"
-        stVerticalAnnotation.AllowTextEditing = True
-
-        edVerticalAnnotation.AxisX = chtCalls.MainChart.ChartAreas(index).AxisX
-        edVerticalAnnotation.AxisY = chtCalls.MainChart.ChartAreas(index).AxisY
-        edVerticalAnnotation.X = chtCalls.GetMaximumAxisXChartArea(index)
-        edVerticalAnnotation.Visible = True
-        edVerticalAnnotation.AllowMoving = True
-        edVerticalAnnotation.IsInfinitive = True
-        edVerticalAnnotation.Name = "EndTime"
-        edVerticalAnnotation.AnchorY = 200
-        edVerticalAnnotation.ToolTip = "EndTime"
-
-        AddHandler chtCalls.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
-        AddHandler chtCalls.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
-
-        btnRange.Text = p_clsMsgData.fn_GetData("F269", "On")
-        btnRange.ForeColor = Color.Lime
-    End Sub
-
-    Private Sub fn_DeleteAnnotaion()
-        RemoveHandler chtCalls.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
-        RemoveHandler chtCalls.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
-
-        chtCalls.MainChart.Annotations(0).Visible = False
-        chtCalls.MainChart.Annotations(1).Visible = False
-
-        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCalls.MainChart.ChartAreas
-            If tmpChartArea.Visible = True Then
-                tmpChartArea.CursorX.SetSelectionPosition(-1, -1)
-            End If
-        Next
-
-        btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
-        btnRange.ForeColor = Color.LightGray
-        _bRange = False
-    End Sub
-
-
     Private Sub frmStatements_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         If _chtCount > 0 Then
             For i As Integer = 1 To _AreaCount
@@ -696,9 +593,18 @@
         End If
     End Sub
 
-    Private Sub SetTopQueryIDs(ByVal index As Integer)
+    Private Sub SetTopQueryIDs(ByVal index As Integer, ByVal intTopCount As Integer)
         Dim dtTable As DataTable = Nothing
-        dtTable = _clsQuery.SelectStatementsTop(_InstanceID, dtpSt.Value, dtpEd.Value, index, cmbTop.Items(cmbTop.SelectedIndex))
+        'dtTable = _clsQuery.SelectStatementsTop(_InstanceID, dtpSt.Value, dtpEd.Value, index, intTopCount)
+        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
+                                                                 Try
+                                                                     dtTable = _clsQuery.SelectStatementsTop(_InstanceID, dtpSt.Value, dtpEd.Value, index, intTopCount)
+                                                                 Catch ex As Exception
+                                                                     GC.Collect()
+                                                                 End Try
+                                                             End Sub)
+        tmpTh.Start()
+        tmpTh.Join()
         _arrQueryIDs.Clear()
         _arrDBIDs.Clear()
         If dtTable IsNot Nothing Then
@@ -785,16 +691,18 @@
 
     Private Sub cmbSort_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSort.SelectedIndexChanged
         Dim cbo As BaseControls.ComboBox = DirectCast(sender, BaseControls.ComboBox)
-        'Select Case cbo.SelectedIndex
-        '    Case 0
-        '        dgvStmtList.Sort(coldgvStmtCalls, System.ComponentModel.ListSortDirection.Descending)
-        '    Case 1
-        '        dgvStmtList.Sort(coldgvStmtTotalTime, System.ComponentModel.ListSortDirection.Descending)
-        '    Case 2
-        '        dgvStmtList.Sort(coldgvStmtCPUTimeRate, System.ComponentModel.ListSortDirection.Descending)
-        '    Case 3
-        '        dgvStmtList.Sort(coldgvStmtIOTimeRate, System.ComponentModel.ListSortDirection.Descending)
-        'End Select
+        If dgvStmtList.RowCount > 0 Then
+            Select Case cbo.SelectedIndex
+                Case 0
+                    dgvStmtList.Sort(coldgvStmtCalls, System.ComponentModel.ListSortDirection.Descending)
+                Case 1
+                    dgvStmtList.Sort(coldgvStmtTotalTime, System.ComponentModel.ListSortDirection.Descending)
+                Case 2
+                    dgvStmtList.Sort(coldgvStmtCPUTimeRate, System.ComponentModel.ListSortDirection.Descending)
+                Case 3
+                    dgvStmtList.Sort(coldgvStmtIOTimeRate, System.ComponentModel.ListSortDirection.Descending)
+            End Select
+        End If
     End Sub
 
     Private Sub txtQueryID_TextChanged(sender As Object, e As EventArgs) Handles txtQueryID.TextChanged
@@ -903,4 +811,46 @@
 
     End Sub
 
+    Private Sub Thmain(ByVal intInstance As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal enmSvrNm As clsEnums.ShowName, ByVal intTopCount As Integer)
+        For i As Integer = 1 To _AreaCount
+            If chtCalls.MainChart.ChartAreas(i).Visible = True Then
+                Select Case i
+                    Case 1
+                        RaiseEvent WaitMag("Getting query calls.")
+                    Case 2
+                        RaiseEvent WaitMag("Getting total time.")
+                    Case 3
+                        RaiseEvent WaitMag("Getting CPU time")
+                    Case 4
+                        RaiseEvent WaitMag("Getting I/O time")
+                End Select
+                QueryChartData(i, True, intTopCount)
+            End If
+        Next
+        RaiseEvent WaitMag("Getting statements")
+        SetDataSession(stDate, edDate)
+        RaiseEvent WaitComplete()
+    End Sub
+
+    Private Sub frmStatements_WaitMag(str As String) Handles Me.WaitMag
+        If _ProgresForm IsNot Nothing Then
+            _ProgresForm.Addtext(str)
+        End If
+    End Sub
+
+    Private Sub frmStatements_WaitComplete() Handles Me.WaitComplete
+        If _ProgresForm IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            _ProgresForm.Close()
+                                        End Sub))
+        End If
+    End Sub
+    Private Sub _ProgresForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _ProgresForm.FormClosed
+        If _ThreadStmt IsNot Nothing Then
+            _clsQuery.CancelCommand()
+            _ThreadStmt.Abort()
+            _ThreadStmt = Nothing
+        End If
+        _ProgresForm = Nothing
+    End Sub
 End Class

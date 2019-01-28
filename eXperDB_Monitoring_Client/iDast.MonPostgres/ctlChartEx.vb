@@ -2239,7 +2239,7 @@ Public Class ctlChartEx
         'Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Height = CSng((Me.MainChart.Height - ChartBorderTop - ChartBorderBottom) / Me.MainChart.Height) * 100
 
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.X = CSng(ChartBorderLeft / Me.MainChart.Width) * 100  'Left border 
-        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Y = 10  'Top Border
+        Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Y = 8  'Top Border
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Width = CSng((Me.MainChart.Width - ChartBorderLeft - ChartBorderRight) / Me.MainChart.Width) * 100
         Me.MainChart.ChartAreas(AreaIndex).InnerPlotPosition.Height = 80
 

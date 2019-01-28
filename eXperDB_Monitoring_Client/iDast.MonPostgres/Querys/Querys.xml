@@ -853,8 +853,7 @@
         FROM TB_USER_INFO 
        WHERE COLLECT_DT = (SELECT MAX(COLLECT_DT) COLLECT_DT 
 					                   FROM TB_USER_INFO 
-                            WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
-                              AND INSTANCE_ID IN ({0})
+                            WHERE INSTANCE_ID IN ({0})
       )
       ]]>
     </DATA>

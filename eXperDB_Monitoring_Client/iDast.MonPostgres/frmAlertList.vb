@@ -6,6 +6,13 @@
     Private _intAlertLevel As Integer = -1
     Public OwnerForm As Windows.Forms.Form
     Private _AgentInfo As structAgent
+    Private _dtTableAlert As DataTable
+    Private WithEvents _ProgresForm As frmProgres
+
+    'to make condition variables to reference backgroupd worker
+    Private _Instances As String
+    Private _AlertLevel As Integer
+    Private _AlertIsCheck As Integer
     ReadOnly Property AgentInfo As structAgent
         Get
             Return _AgentInfo
@@ -42,6 +49,13 @@
         _AgentInfo = clsAgentInfo
         _clsQuery = New clsQuerys(AgentCn)
     End Sub
+
+    Private Sub frmAlertList_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        _clsQuery.CancelCommand()
+        If Me.bgmanual.IsBusy = True Then
+            Me.bgmanual.CancelAsync()
+        End If
+    End Sub
     ''' <summary>
     ''' 화면 초기화 
     ''' </summary>
@@ -72,6 +86,7 @@
         If Not _strCollectDt.Equals("") Then
             dtpEd.Value = _strCollectDt
             dtpSt.Value = dtpEd.Value.AddMinutes(-5)
+            dtpEd.Value = dtpEd.Value.AddMinutes(1)
         End If
 
         Me.Invoke(New MethodInvoker(Sub()
@@ -173,12 +188,11 @@
         End If
     End Sub
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
-        Dim dtTable As DataTable
-
         dgvAlertList.Rows.Clear()
+        _dtTableAlert = Nothing
         RemoveHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
 
-        Dim strInstances As String = ""
+        _Instances = ""
 
         If cmbServer.SelectedValue = 0 Then
             Dim arrInstanceIDs As New ArrayList
@@ -186,40 +200,25 @@
                 arrInstanceIDs.Add(tmpSvr.InstanceID)
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
-            strInstances = String.Join(",", Instance)
+            _Instances = String.Join(",", Instance)
         Else
-            strInstances = cmbServer.SelectedValue
+            _Instances = cmbServer.SelectedValue
         End If
 
+        _AlertLevel = cmbLevel.SelectedIndex
+        _AlertIsCheck = cmbCheck.SelectedIndex
 
-        dtTable = _clsQuery.SelectAlertSearch(dtpSt.Value, dtpEd.Value, strInstances, cmbLevel.SelectedIndex, cmbCheck.SelectedIndex, p_ShowName.ToString("d"))
-        If dtTable IsNot Nothing Then
-            For Each tmpRow As DataRow In dtTable.Rows
-                Dim idxRow As Integer = dgvAlertList.Rows.Add()
-                ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
-                dgvAlertList.Rows(idxRow).Tag = tmpRow.Item("INSTANCE_ID")
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertHostName.Index, tmpRow.Item("HOST_NAME"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertTime.Index, tmpRow.Item("COLLECT_TIME"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertType.Index, tmpRow.Item("HCHK_NAME"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertLevel.Index, IIf((tmpRow.Item("STATE") = 200), "Warning", "Critical"))
-                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
-                Dim strValueUnit As String = ""
-                If tmpRow.Item("VALUE") <> 99999 Then
-                    strValueUnit = tmpRow.Item("UNIT")
-                End If
-                Dim strShowValue As String = "{0} " + "{1}"
-                strShowValue = String.Format(strShowValue, strValue, strValueUnit)
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertMessage.Index, strShowValue)
-                'dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertYN.Index, IIf(IsDBNull(tmpRow.Item("CHECK_USER_ID")), "Unchecked", "Checked"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertYN.Index, tmpRow.Item("CHECK_USER_ID"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertComment.Index, tmpRow.Item("CHECK_COMMENT"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertIP.Index, tmpRow.Item("CHECK_IP"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertTime.Index, tmpRow.Item("COLLECT_TIME"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertRegDate.Index, tmpRow.Item("REG_DATE"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertHCHKREGREQ.Index, tmpRow.Item("HCHK_REG_SEQ"))
-                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertDT.Index, tmpRow.Item("CHECK_DT"))
-            Next
+        _ProgresForm = New frmProgres()
+        _ProgresForm.Owner = Me
+        _ProgresForm.Location = Me.Location
+        _ProgresForm.Size = Me.Size
+        _ProgresForm.Show()
+
+        If bgmanual.IsBusy = True Then
+            bgmanual.CancelAsync()
+            Return
         End If
+        bgmanual.RunWorkerAsync()
     End Sub
 
 
@@ -441,5 +440,61 @@
             End If
 
         End If
+    End Sub
+
+    Private Sub bgmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgmanual.DoWork
+        bgmanual.ReportProgress(0)
+        _dtTableAlert = _clsQuery.SelectAlertSearch(dtpSt.Value, dtpEd.Value, _Instances, _AlertLevel, _AlertIsCheck, p_ShowName.ToString("d"))
+    End Sub
+
+    Private Sub bgmanual_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles bgmanual.ProgressChanged
+        If e.ProgressPercentage = 0 Then
+            If _ProgresForm IsNot Nothing Then
+                _ProgresForm.Addtext("Getting alert list")
+            End If
+        Else
+            If _ProgresForm IsNot Nothing Then
+                _ProgresForm.Addtext("Complete")
+            End If
+        End If
+    End Sub
+
+    Private Sub bgmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgmanual.RunWorkerCompleted
+        If _dtTableAlert IsNot Nothing Then
+            For Each tmpRow As DataRow In _dtTableAlert.Rows
+                Dim idxRow As Integer = dgvAlertList.Rows.Add()
+                ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
+                dgvAlertList.Rows(idxRow).Tag = tmpRow.Item("INSTANCE_ID")
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertHostName.Index, tmpRow.Item("HOST_NAME"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertTime.Index, tmpRow.Item("COLLECT_TIME"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertType.Index, tmpRow.Item("HCHK_NAME"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertLevel.Index, IIf((tmpRow.Item("STATE") = 200), "Warning", "Critical"))
+                Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+                Dim strValueUnit As String = ""
+                If tmpRow.Item("VALUE") <> 99999 Then
+                    strValueUnit = tmpRow.Item("UNIT")
+                End If
+                Dim strShowValue As String = "{0} " + "{1}"
+                strShowValue = String.Format(strShowValue, strValue, strValueUnit)
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertMessage.Index, strShowValue)
+                'dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertYN.Index, IIf(IsDBNull(tmpRow.Item("CHECK_USER_ID")), "Unchecked", "Checked"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertYN.Index, tmpRow.Item("CHECK_USER_ID"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertComment.Index, tmpRow.Item("CHECK_COMMENT"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertIP.Index, tmpRow.Item("CHECK_IP"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertTime.Index, tmpRow.Item("COLLECT_TIME"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertRegDate.Index, tmpRow.Item("REG_DATE"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertHCHKREGREQ.Index, tmpRow.Item("HCHK_REG_SEQ"))
+                dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertDT.Index, tmpRow.Item("CHECK_DT"))
+            Next
+        End If
+        _ProgresForm.Close()
+    End Sub
+
+    Private Sub _ProgresForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _ProgresForm.FormClosed
+        _clsQuery.CancelCommand()
+        If Me.bgmanual.IsBusy = True Then
+            Me.bgmanual.CancelAsync()
+        End If
+        _ProgresForm = Nothing
     End Sub
 End Class

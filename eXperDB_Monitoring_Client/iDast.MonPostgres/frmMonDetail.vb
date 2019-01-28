@@ -184,7 +184,7 @@
         tlpObject.Tag = clsIni.ReadValue("CHARTDETAIL", "OBJECT", "6")
         tlpCheckpoint.Tag = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "7")
         tlpReplication.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATION", "8")
-        tlpTPS.Tag = clsIni.ReadValue("CHARTDETAIL", "TRANSACTION", "9")
+        tlpTPS.Tag = clsIni.ReadValue("CHARTDETAIL", "TRANSACTION", "0")
         tlpReplicationSize.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATIONSIZE", "0")
         tlpDiskIOTrend.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIO", "0")
 
@@ -198,7 +198,7 @@
         mnuReplication.Tag = tlpReplication
         mnuTPS.Tag = tlpTPS
         mnuReplicationSize.Tag = tlpReplicationSize
-        mnuObject.Tag = tlpObject
+        mnuDiskIOTrend.Tag = tlpDiskIOTrend
 
         setTLPPosition(tlpSessioninfo)
         setTLPPosition(tlpLogicalIO)
@@ -2440,9 +2440,9 @@
         tlp.Visible = True
         Select Case index
             Case 0
+                tlp.Visible = False
                 tlpCharts.SetRow(tlp, 2)
                 tlpCharts.SetColumn(tlp, 4)
-                tlp.Visible = False
             Case 1
                 tlpCharts.SetRow(tlp, 0)
                 tlpCharts.SetColumn(tlp, 1)

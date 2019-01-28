@@ -6,7 +6,6 @@
     Private _chtOrder As Integer = -1
     Private _AreaCount As Integer = 8
     Private _chtCount As Integer = 0
-    Private _chtHeight As Integer
     Private _clsQuery As clsQuerys
     Private _bChartMenu As Boolean = False
     Private _bRange As Boolean = False
@@ -14,7 +13,9 @@
 
     Private _ThreadDetail As Threading.Thread
 
-
+    Private WithEvents _ProgresForm As frmProgres
+    Private Event WaitMag(ByVal str As String)
+    Private Event WaitComplete()
 
     ReadOnly Property InstanceID As Integer
         Get
@@ -460,8 +461,6 @@
         chkLock.Tag = 6
         chkTPS.Tag = 7
 
-        _chtHeight = chtCPU.Height + 30
-
         SetDefaultTitle(chkCpu, chtCPU, False, "")
         SetDefaultTitle(chkSession, chtSession, False, "")
         SetDefaultTitle(chkLogicalIO, chtLogicalIO, False, "")
@@ -493,8 +492,6 @@
 
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Maximum = 100
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Minimum = 0
-        chtCPU.MainChart.ChartAreas("TPSAREA").AxisY.Maximum = 100
-        chtCPU.MainChart.ChartAreas("TPSAREA").AxisY.Minimum = 0
 
         Me.chtCPU.Visible = True
 
@@ -553,7 +550,7 @@
             CheckBox.Checked = True
             Return
         End If
-        chtCPU.Height = 260 * _chtCount 'fix Height of Chart
+        chtCPU.Height = 2000 'fix Height of Chart
         chtCPU.MainChart.Focus()
 
         If CheckBox.Checked = False Then
@@ -563,64 +560,65 @@
                 SetDataLock(dtpSt.Value, dtpEd.Value)
             End If
         End If
+        Dim checkIndex = CheckBox.Tag + 1
+        Dim isCheck = CheckBox.Checked
 
-        QueryChartData(CheckBox.Tag + 1, CheckBox.Checked)
+        _ProgresForm = New frmProgres()
+        _ProgresForm.Owner = Me
+        _ProgresForm.Location = Me.Location
+        _ProgresForm.Size = Me.Size
+        _ProgresForm.Show()
+
+        If _ThreadDetail IsNot Nothing AndAlso _ThreadDetail.IsAlive = True Then Return
+        _ThreadDetail = New Threading.Thread(Sub()
+                                                 Try
+                                                     QueryChartData(checkIndex, isCheck)
+                                                     RaiseEvent WaitComplete()
+                                                 Catch ex As Exception
+                                                     GC.Collect()
+                                                 Finally
+                                                 End Try
+                                             End Sub)
+        _ThreadDetail.Start()
+        'QueryChartData(CheckBox.Tag + 1, CheckBox.Checked)
     End Sub
     Private Sub QueryChartData(ByVal index As Integer, ByVal enable As Boolean)
 
         'Threading.Thread.Sleep(10)
+        Dim stDate As DateTime = dtpSt.Value
+        Dim edDate As DateTime = dtpEd.Value
+
         If index = 5 Then
             '_ThreadDetail = New Threading.Thread(Sub()
             '                                         Threading.Thread.Sleep(50)
-            '                                         ShowDiskIOChart(index, dtpSt.Value, dtpEd.Value, enable)
+            '                                         ShowDiskIOChart(index, stDate, edDate, enable)
             '                                     End Sub)
             ShowDiskIOChart(index, dtpSt.Value, dtpEd.Value, enable)
         Else
             '_ThreadDetail = New Threading.Thread(Sub()
-            '                                         Threading.Thread.Sleep(50)
-            '                                         ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
+            '                                         Try
+            '                                             ShowDynamicChart(index, stDate, edDate, enable)
+            '                                         Catch ex As Exception
+            '                                             GC.Collect()
+            '                                         End Try
+
             '                                     End Sub)
             ShowDynamicChart(index, dtpSt.Value, dtpEd.Value, enable)
         End If
 
-        ' _ThreadDetail.Start()
-        ' _ThreadDetail.Join()
+        '_ThreadDetail.Start()
         'modCommon.FontChange(Me, p_Font)
     End Sub
-    'Private Sub ArrangeChartlayout()
-    '    Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
-    '    Dim nCount As Integer = 0
-    '    Dim MarginTop As Integer = 0
-    '    Dim MarginBottom As Integer = 0
-    '    Dim AreaHeight As Integer = (100 / 5)
-    '    MarginTop = AreaHeight * 0.18
-    '    AreaHeight = AreaHeight * 0.65
-    '    MarginBottom = AreaHeight * 0.17
-    '    For i As Integer = 1 To _AreaCount
-    '        tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
-    '        If tmpChartArea.Visible = True Then
-    '            tmpChartArea.Position.Y = (nCount * AreaHeight) + MarginTop * (nCount + 1) + MarginBottom * nCount
-    '            tmpChartArea.Position.Height = AreaHeight
-    '            tmpChartArea.Position.X = 3
-    '            If i = 3 AndAlso tmpChartArea.Position.Width < 90 Then
-    '                tmpChartArea.Position.Width = tmpChartArea.Position.Width * (1 + CSng(100 / (Me.chtCPU.MainChart.Width)))
-    '            End If
-    '            nCount += 1
-    '        End If
-    '    Next
-    '    SetAreaWithAnnotation()
-    'End Sub
 
     Private Sub ArrangeChartlayout()
         Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
         Dim nCount As Integer = 0
         Dim MarginTop As Double = 0
         Dim MarginBottom As Double = 0
-        Dim AreaHeight As Double = (100 / _chtCount)
-        MarginTop = AreaHeight * 0.24
-        MarginBottom = AreaHeight * 0.24
-        AreaHeight = AreaHeight * 0.52
-        'For i As Integer = 1 To _chtCount
+        Dim AreaHeight As Double = (100 / _AreaCount)
+        MarginTop = AreaHeight * 0.23
+        MarginBottom = AreaHeight * 0.23
+        AreaHeight = AreaHeight * 0.54
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
@@ -704,6 +702,9 @@
                 LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 LineColor2 = Color.Gold
                 seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("CPU Information")
+                End If
             Case 2
                 strLegend1 = "BACKENDTOT"
                 strLegend2 = "BACKENDACT"
@@ -712,6 +713,9 @@
                 LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 LineColor2 = Color.Violet
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("Session Information")
+                End If
             Case 3
                 strLegend1 = "Read"
                 strLegend2 = "Insert"
@@ -727,17 +731,26 @@
                 LineColor4 = Color.Red
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 yAxisType = DataVisualization.Charting.AxisType.Secondary
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("Logical I/O Information")
+                End If
             Case 4
                 strLegend1 = "Physical Read"
                 strSeriesData1 = "PHY_READ_PER_SEC"
                 LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("Physical Read Information")
+                End If
             Case 5
             Case 6
                 strLegend1 = p_clsMsgData.fn_GetData("F103")
                 strSeriesData1 = "SQL_ELAPSED_SEC"
                 LineColor1 = Color.LimeGreen
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Point
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("SQL Response time Information")
+                End If
             Case 7
                 strLegend1 = "LOCKTOT"
                 strLegend2 = "LOCKWAIT"
@@ -746,6 +759,9 @@
                 LineColor1 = Color.RoyalBlue
                 LineColor2 = Color.Crimson
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("Lock Information")
+                End If
             Case 8
                 strLegend1 = "Commit"
                 strLegend2 = "Rollback"
@@ -757,6 +773,9 @@
                 LineColor2 = Color.RoyalBlue
                 LineColor3 = Color.Orange
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
+                If ShowChart = True Then
+                    RaiseEvent WaitMag("Transaction Information")
+                End If
         End Select
 
         If ShowChart = False Then
@@ -776,21 +795,25 @@
             Return
         End If
         Me.Invoke(New MethodInvoker(Sub()
-                                        If strLegend1 <> "" AndAlso chtCPU.GetSeries(strLegend1) = False Then
-                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend1, strLegend1, LineColor1, seriesChartType, yAxisType)
-                                            If yAxisType = DataVisualization.Charting.AxisType.Secondary Then
-                                                chtCPU.SetAxisY2ChartArea(Color.YellowGreen, index)
+                                        Try
+                                            If strLegend1 <> "" AndAlso chtCPU.GetSeries(strLegend1) = False Then
+                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend1, strLegend1, LineColor1, seriesChartType, yAxisType)
+                                                If yAxisType = DataVisualization.Charting.AxisType.Secondary Then
+                                                    chtCPU.SetAxisY2ChartArea(Color.YellowGreen, index)
+                                                End If
                                             End If
-                                        End If
-                                        If strLegend2 <> "" AndAlso chtCPU.GetSeries(strLegend2) = False Then
-                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend2, strLegend2, LineColor2, seriesChartType)
-                                        End If
-                                        If strLegend3 <> "" AndAlso chtCPU.GetSeries(strLegend3) = False Then
-                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend3, strLegend3, LineColor3, seriesChartType)
-                                        End If
-                                        If strLegend4 <> "" AndAlso chtCPU.GetSeries(strLegend4) = False Then
-                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend4, strLegend4, LineColor4, seriesChartType)
-                                        End If
+                                            If strLegend2 <> "" AndAlso chtCPU.GetSeries(strLegend2) = False Then
+                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend2, strLegend2, LineColor2, seriesChartType)
+                                            End If
+                                            If strLegend3 <> "" AndAlso chtCPU.GetSeries(strLegend3) = False Then
+                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend3, strLegend3, LineColor3, seriesChartType)
+                                            End If
+                                            If strLegend4 <> "" AndAlso chtCPU.GetSeries(strLegend4) = False Then
+                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend4, strLegend4, LineColor4, seriesChartType)
+                                            End If
+                                        Catch ex As Exception
+                                            GC.Collect()
+                                        End Try
                                     End Sub))
 
         Dim dtTable As DataTable = Nothing
@@ -897,6 +920,8 @@
                                         End Sub))
             Return
         End If
+
+        RaiseEvent WaitMag("Disk I/O Information")
         ' Get Partition list
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
@@ -1027,11 +1052,35 @@
             fn_DeleteAnnotaion()
         End If
 
-        For i As Integer = 1 To _AreaCount
-            If chtCPU.MainChart.ChartAreas(i).Visible = True Then
-                QueryChartData(i, True)
-            End If
-        Next
+        _ProgresForm = New frmProgres()
+        _ProgresForm.Owner = Me
+        _ProgresForm.Location = Me.Location
+        _ProgresForm.Size = Me.Size
+        _ProgresForm.Show()
+
+        If _ThreadDetail IsNot Nothing AndAlso _ThreadDetail.IsAlive = True Then Return
+        _ThreadDetail = New Threading.Thread(Sub()
+                                                 Try
+                                                     For i As Integer = 1 To _AreaCount
+                                                         If chtCPU.MainChart.ChartAreas(i).Visible = True Then
+                                                             QueryChartData(i, True)
+                                                         End If
+                                                     Next
+                                                     RaiseEvent WaitComplete()
+                                                 Catch ex As Exception
+                                                     GC.Collect()
+                                                 Finally
+                                                 End Try
+                                             End Sub)
+        _ThreadDetail.Start()
+
+
+
+        'For i As Integer = 1 To _AreaCount
+        '    If chtCPU.MainChart.ChartAreas(i).Visible = True Then
+        '        QueryChartData(i, True)
+        '    End If
+        'Next
         SetDataSession(dtpSt.Value, dtpEd.Value)
         SetDataLock(dtpSt.Value, dtpEd.Value)
     End Sub
@@ -1095,7 +1144,7 @@
             End If
         End If
 
-        SetAreaWithAnnotation()
+        'SetAreaWithAnnotation()
     End Sub
 
     Private Sub dgvSessionList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellDoubleClick
@@ -1274,5 +1323,28 @@
                 chtCPU.MainChart.ChartAreas(i).RecalculateAxesScale()
             Next
         End If
+    End Sub
+
+    Private Sub frmMonItemDetail_WaitComplete() Handles Me.WaitComplete
+        If _ProgresForm IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            _ProgresForm.Close()
+                                        End Sub))
+        End If
+    End Sub
+
+    Private Sub frmMonItemDetail_WaitMag(str As String) Handles Me.WaitMag
+        If _ProgresForm IsNot Nothing Then
+            _ProgresForm.Addtext(str)
+        End If
+    End Sub
+
+    Private Sub _ProgresForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles _ProgresForm.FormClosed
+        If _ThreadDetail IsNot Nothing Then
+            _clsQuery.CancelCommand()
+            _ThreadDetail.Abort()
+            _ThreadDetail = Nothing
+        End If
+        _ProgresForm = Nothing
     End Sub
 End Class
