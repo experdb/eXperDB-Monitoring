@@ -14,7 +14,8 @@
     Private _ThreadDetail As Threading.Thread
 
     Private WithEvents _ProgresForm As frmProgres
-    Private Event WaitMag(ByVal str As String)
+    Private Event ShowMasg()
+    Private Event WaitMasg(ByVal str As String)
     Private Event WaitComplete()
 
     ReadOnly Property InstanceID As Integer
@@ -46,11 +47,14 @@
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
-
         _InstanceID = intInstanceID
         _SvrpList = ServerInfo
         _AgentInfo = AgentInfo
-        _AgentCn = AgentCn
+
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        '_AgentCn = New eXperDBODBC(dbType, "192.168.56.111", 5432, "pgmon", "pgmon", "pgmon")
+        _AgentCn = New eXperDBODBC(dbType, _AgentInfo.AgentDBIP, _AgentInfo.AgentDBPort, _AgentInfo.AgentConnDBNM, _AgentInfo.AgentConnDBUser, _AgentInfo.AgentConnDBPW)
+
         _chtOrder = chtOrder
 
         _clsQuery = New clsQuerys(_AgentCn)
@@ -296,41 +300,46 @@
         tmpTh.Start()
         tmpTh.Join()
         If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Dim strQuery As String = ""
+            Dim nCount As Integer = 0
+            dgvSessionList.Invoke(New MethodInvoker(Sub()
+                                                        Try
+                                                            Dim strQuery As String = ""
 
-                                                strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
+                                                            strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
 
-                                                Dim dtView As DataView = New DataView(dtTable, strQuery, "CPU_USAGE DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
+                                                            Dim dtView As DataView = New DataView(dtTable, strQuery, "CPU_USAGE DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
 
-                                                Dim ShowDT As DataTable = Nothing
-                                                If dtView.Count > 0 Then
-                                                    ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
-                                                End If
+                                                            Dim ShowDT As DataTable = Nothing
+                                                            If dtView.Count > 0 Then
+                                                                ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
+                                                            End If
 
-                                                If ShowDT Is Nothing Then
-                                                    dgvSessionList.DataSource = Nothing
-                                                    Return
-                                                End If
+                                                            If ShowDT Is Nothing Then
+                                                                dgvSessionList.DataSource = Nothing
+                                                                Return
+                                                            End If
 
-                                                dgvSessionList.DataSource = ShowDT
+                                                            dgvSessionList.DataSource = ShowDT
 
-                                                modCommon.sb_GridSortChg(dgvSessionList)
-                                                lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
+                                                            modCommon.sb_GridSortChg(dgvSessionList)
+                                                            nCount = dtView.Count
+                                                        Catch ex As Exception
+                                                            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                            GC.Collect()
+                                                        End Try
 
-                                        End Sub))
+                                                    End Sub))
+            lslSession.Invoke(New MethodInvoker(Sub()
+                                                    lslSession.Text = p_clsMsgData.fn_GetData("F314", nCount)
+                                                End Sub))
+
         End If
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Statistics
         Dim dtTableStats As DataTable = Nothing
         Dim tmpStatsTh As Threading.Thread = New Threading.Thread(Sub()
                                                                       Try
-                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt, AgentInfo.AgentVer)
+                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt, AgentInfo.AgentVer, True)
                                                                       Catch ex As Exception
                                                                           GC.Collect()
                                                                       End Try
@@ -338,33 +347,33 @@
         tmpStatsTh.Start()
         tmpStatsTh.Join()
         If dtTableStats IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Dim strQuery As String = ""
+            dgvRptSQL.Invoke(New MethodInvoker(Sub()
+                                                   Try
+                                                       Dim strQuery As String = ""
 
-                                                'strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
+                                                       'strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
 
-                                                Dim dtView As DataView = New DataView(dtTableStats, strQuery, "OCCUPIED_TIME DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
+                                                       Dim dtView As DataView = New DataView(dtTableStats, strQuery, "OCCUPIED_TIME DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
 
-                                                Dim ShowDT As DataTable = Nothing
-                                                If dtView.Count > 0 Then
-                                                    ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
-                                                End If
+                                                       Dim ShowDT As DataTable = Nothing
+                                                       If dtView.Count > 0 Then
+                                                           ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
+                                                       End If
 
-                                                If ShowDT Is Nothing Then
-                                                    dgvRptSQL.DataSource = Nothing
-                                                    Return
-                                                End If
+                                                       If ShowDT Is Nothing Then
+                                                           dgvRptSQL.DataSource = Nothing
+                                                           Return
+                                                       End If
 
-                                                dgvRptSQL.DataSource = ShowDT
+                                                       dgvRptSQL.DataSource = ShowDT
 
-                                                modCommon.sb_GridSortChg(dgvRptSQL)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
+                                                       modCommon.sb_GridSortChg(dgvRptSQL)
+                                                   Catch ex As Exception
+                                                       p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                       GC.Collect()
+                                                   End Try
 
-                                        End Sub))
+                                               End Sub))
         End If
 
     End Sub
@@ -411,42 +420,42 @@
         tmpTh.Start()
         tmpTh.Join()
         If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
-                                                Dgv.Nodes.Clear()
-                                                Dim intLockCount As Integer = 0
-                                                Dim HashTbl As New Hashtable
-                                                For Each tmpCol As DataGridViewColumn In Dgv.Columns
+            dgvLock.Invoke(New MethodInvoker(Sub()
+                                                 Try
+                                                     Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
+                                                     Dgv.Nodes.Clear()
+                                                     Dim intLockCount As Integer = 0
+                                                     Dim HashTbl As New Hashtable
+                                                     For Each tmpCol As DataGridViewColumn In Dgv.Columns
 
-                                                    If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
-                                                        HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-                                                    End If
-                                                Next
+                                                         If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
+                                                             HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+                                                         End If
+                                                     Next
 
-                                                Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
-                                                For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
-                                                    Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
-                                                    sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-                                                    intLockCount += 1
-                                                    For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0} AND ACTV_REG_SEQ = {1}", tmpRow.Item("BLOCKING_PID"), tmpRow.Item("ACTV_REG_SEQ")), "ORDER_NO ASC")
-                                                        Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
-                                                        sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+                                                     Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
+                                                     For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
+                                                         Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
+                                                         sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+                                                         intLockCount += 1
+                                                         For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0} AND ACTV_REG_SEQ = {1}", tmpRow.Item("BLOCKING_PID"), tmpRow.Item("ACTV_REG_SEQ")), "ORDER_NO ASC")
+                                                             Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
+                                                             sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
 
-                                                    Next
-                                                    topNode.Expand()
-                                                    topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
+                                                         Next
+                                                         topNode.Expand()
+                                                         topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
 
-                                                Next
+                                                     Next
 
-                                                'grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", intLockCount)
-                                                lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
+                                                     'grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", intLockCount)
+                                                     'lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
+                                                 Catch ex As Exception
+                                                     p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                     GC.Collect()
+                                                 End Try
 
-                                        End Sub))
+                                             End Sub))
         End If
     End Sub
 
@@ -703,7 +712,7 @@
                 LineColor2 = Color.Gold
                 seriesChartType = DataVisualization.Charting.SeriesChartType.SplineArea
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("CPU Information")
+                    RaiseEvent WaitMasg("CPU Information")
                 End If
             Case 2
                 strLegend1 = "BACKENDTOT"
@@ -714,7 +723,7 @@
                 LineColor2 = Color.Violet
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("Session Information")
+                    RaiseEvent WaitMasg("Session Information")
                 End If
             Case 3
                 strLegend1 = "Read"
@@ -732,7 +741,7 @@
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 yAxisType = DataVisualization.Charting.AxisType.Secondary
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("Logical I/O Information")
+                    RaiseEvent WaitMasg("Logical I/O Information")
                 End If
             Case 4
                 strLegend1 = "Physical Read"
@@ -740,7 +749,7 @@
                 LineColor1 = Color.FromArgb(255, CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(128, Byte), Integer))
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("Physical Read Information")
+                    RaiseEvent WaitMasg("Physical Read Information")
                 End If
             Case 5
             Case 6
@@ -749,7 +758,7 @@
                 LineColor1 = Color.LimeGreen
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Point
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("SQL Response time Information")
+                    RaiseEvent WaitMasg("SQL Response time Information")
                 End If
             Case 7
                 strLegend1 = "LOCKTOT"
@@ -760,7 +769,7 @@
                 LineColor2 = Color.Crimson
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("Lock Information")
+                    RaiseEvent WaitMasg("Lock Information")
                 End If
             Case 8
                 strLegend1 = "Commit"
@@ -774,47 +783,49 @@
                 LineColor3 = Color.Orange
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line
                 If ShowChart = True Then
-                    RaiseEvent WaitMag("Transaction Information")
+                    RaiseEvent WaitMasg("Transaction Information")
                 End If
         End Select
 
         If ShowChart = False Then
-            Me.Invoke(New MethodInvoker(Sub()
+            chtCPU.Invoke(New MethodInvoker(Sub()
+                                                Try
+                                                    chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                    For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                        If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                            tmpSeries.Points.Clear()
+                                                        End If
+                                                    Next
+                                                    ArrangeChartlayout()
+                                                Catch ex As Exception
+                                                    GC.Collect()
+                                                End Try
+                                            End Sub))
+            Return
+        End If
+
+        chtCPU.Invoke(New MethodInvoker(Sub()
                                             Try
-                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
-                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
-                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
-                                                        tmpSeries.Points.Clear()
+                                                If strLegend1 <> "" AndAlso chtCPU.GetSeries(strLegend1) = False Then
+                                                    chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend1, strLegend1, LineColor1, seriesChartType, yAxisType)
+                                                    If yAxisType = DataVisualization.Charting.AxisType.Secondary Then
+                                                        chtCPU.SetAxisY2ChartArea(Color.YellowGreen, index)
                                                     End If
-                                                Next
-                                                ArrangeChartlayout()
+                                                End If
+                                                If strLegend2 <> "" AndAlso chtCPU.GetSeries(strLegend2) = False Then
+                                                    chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend2, strLegend2, LineColor2, seriesChartType)
+                                                End If
+                                                If strLegend3 <> "" AndAlso chtCPU.GetSeries(strLegend3) = False Then
+                                                    chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend3, strLegend3, LineColor3, seriesChartType)
+                                                End If
+                                                If strLegend4 <> "" AndAlso chtCPU.GetSeries(strLegend4) = False Then
+                                                    chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend4, strLegend4, LineColor4, seriesChartType)
+                                                End If
                                             Catch ex As Exception
                                                 GC.Collect()
                                             End Try
                                         End Sub))
-            Return
-        End If
-        Me.Invoke(New MethodInvoker(Sub()
-                                        Try
-                                            If strLegend1 <> "" AndAlso chtCPU.GetSeries(strLegend1) = False Then
-                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend1, strLegend1, LineColor1, seriesChartType, yAxisType)
-                                                If yAxisType = DataVisualization.Charting.AxisType.Secondary Then
-                                                    chtCPU.SetAxisY2ChartArea(Color.YellowGreen, index)
-                                                End If
-                                            End If
-                                            If strLegend2 <> "" AndAlso chtCPU.GetSeries(strLegend2) = False Then
-                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend2, strLegend2, LineColor2, seriesChartType)
-                                            End If
-                                            If strLegend3 <> "" AndAlso chtCPU.GetSeries(strLegend3) = False Then
-                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend3, strLegend3, LineColor3, seriesChartType)
-                                            End If
-                                            If strLegend4 <> "" AndAlso chtCPU.GetSeries(strLegend4) = False Then
-                                                chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strLegend4, strLegend4, LineColor4, seriesChartType)
-                                            End If
-                                        Catch ex As Exception
-                                            GC.Collect()
-                                        End Try
-                                    End Sub))
+
 
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
@@ -824,15 +835,13 @@
                                                                              dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
                                                                          Case 2
                                                                              dtTable = _clsQuery.SelectDetailSessionInfoChart(_InstanceID, stDate, edDate)
-                                                                         Case 3, 4
+                                                                         Case 3, 4, 8
                                                                              dtTable = _clsQuery.SelectDetailObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate)
                                                                          Case 5
                                                                          Case 6
                                                                              dtTable = _clsQuery.SelectDetailSQLRespChart(_InstanceID, stDate, edDate)
                                                                          Case 7
-                                                                             dtTable = _clsQuery.SelectLockCount(_InstanceID, stDate, edDate, True)
-                                                                         Case 8
-                                                                             dtTable = _clsQuery.SelectInitObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate, 1)
+                                                                             dtTable = _clsQuery.SelectLockCountTimeLine(_InstanceID, stDate, edDate)
                                                                      End Select
 
                                                                  Catch ex As Exception
@@ -842,47 +851,47 @@
         tmpTh.Start()
         tmpTh.Join()
         If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
-                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
-                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
-                                                        tmpSeries.Points.Clear()
-                                                    End If
-                                                Next
-                                                chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
-                                                chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
-                                                If dtTable.Rows.Count > 0 Then
-                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                        Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                        If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData1)))
-                                                        If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData2)))
-                                                        If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData3)))
-                                                        If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData4)))
+            chtCPU.Invoke(New MethodInvoker(Sub()
+                                                Try
+                                                    chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                    For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                        If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                            tmpSeries.Points.Clear()
+                                                        End If
                                                     Next
-                                                Else
-                                                    Dim tmpDate As Double = ConvOADate(Now())
-                                                    If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, 0.0)
-                                                    If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, 0.0)
-                                                    If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, 0.0)
-                                                    If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, 0.0)
-                                                End If
+                                                    chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
+                                                    chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
+                                                    If dtTable.Rows.Count > 0 Then
+                                                        For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                            Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DATE"))
+                                                            If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData1)))
+                                                            If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData2)))
+                                                            If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData3)))
+                                                            If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, ConvDBL(dtTable.Rows(i).Item(strSeriesData4)))
+                                                        Next
+                                                    Else
+                                                        Dim tmpDate As Double = ConvOADate(Now())
+                                                        If strLegend1 <> "" Then Me.chtCPU.AddPoints(strLegend1, tmpDate, 0.0)
+                                                        If strLegend2 <> "" Then Me.chtCPU.AddPoints(strLegend2, tmpDate, 0.0)
+                                                        If strLegend3 <> "" Then Me.chtCPU.AddPoints(strLegend3, tmpDate, 0.0)
+                                                        If strLegend4 <> "" Then Me.chtCPU.AddPoints(strLegend4, tmpDate, 0.0)
+                                                    End If
 
-                                                Me.chtCPU.ShowMaxValue(True)
-                                                chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
+                                                    Me.chtCPU.ShowMaxValue(True)
+                                                    'chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                                Catch ex As Exception
+                                                    p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                    GC.Collect()
+                                                End Try
 
-                                        End Sub))
+                                            End Sub))
         End If
 
-        Me.Invoke(New MethodInvoker(Sub()
-                                        chtCPU.SetInnerPlotPositionChartArea(index, _chtCount)
-                                        chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
-                                        ArrangeChartlayout()
-                                    End Sub))
+        chtCPU.Invoke(New MethodInvoker(Sub()
+                                            chtCPU.SetInnerPlotPositionChartArea(index, _chtCount)
+                                            chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                            ArrangeChartlayout()
+                                        End Sub))
 
     End Sub
     Private Sub ShowDiskIOChart(ByVal index As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal ShowChart As Boolean)
@@ -905,23 +914,23 @@
                          System.Drawing.Color.Salmon}
 
         If ShowChart = False Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
-                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
-                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
-                                                        tmpSeries.Points.Clear()
-                                                    End If
-                                                Next
-                                                ArrangeChartlayout()
-                                            Catch ex As Exception
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
+            chtCPU.Invoke(New MethodInvoker(Sub()
+                                                Try
+                                                    chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                    For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                        If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                            tmpSeries.Points.Clear()
+                                                        End If
+                                                    Next
+                                                    ArrangeChartlayout()
+                                                Catch ex As Exception
+                                                    GC.Collect()
+                                                End Try
+                                            End Sub))
             Return
         End If
 
-        RaiseEvent WaitMag("Disk I/O Information")
+        RaiseEvent WaitMasg("Disk I/O Information")
         ' Get Partition list
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
@@ -934,29 +943,29 @@
         tmpTh.Start()
         tmpTh.Join()
         If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                    arrPartition.Add(dtTable.Rows(i).Item("DISK_NAME"))
-                                                Next
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
+            chtCPU.Invoke(New MethodInvoker(Sub()
+                                                Try
+                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                        arrPartition.Add(dtTable.Rows(i).Item("DISK_NAME"))
+                                                    Next
+                                                Catch ex As Exception
+                                                    p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                    GC.Collect()
+                                                End Try
+                                            End Sub))
         Else
         End If
         ' Chart Disk I/O
-        Me.Invoke(New MethodInvoker(Sub()
-                                        For i As Integer = 0 To arrPartition.Count - 1
-                                            Dim strSeries = arrPartition.Item(i)
-                                            If Not IsDBNull(strSeries) AndAlso strSeries <> "" Then
-                                                If chtCPU.GetSeries(strSeries) = False Then
-                                                    chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strSeries, strSeries, colors(i))
+        chtCPU.Invoke(New MethodInvoker(Sub()
+                                            For i As Integer = 0 To arrPartition.Count - 1
+                                                Dim strSeries = arrPartition.Item(i)
+                                                If Not IsDBNull(strSeries) AndAlso strSeries <> "" Then
+                                                    If chtCPU.GetSeries(strSeries) = False Then
+                                                        chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strSeries, strSeries, colors(i))
+                                                    End If
                                                 End If
-                                            End If
-                                        Next
-                                    End Sub))
+                                            Next
+                                        End Sub))
 
         tmpTh = New Threading.Thread(Sub()
                                          Try
@@ -968,55 +977,55 @@
         tmpTh.Start()
         tmpTh.Join()
         If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
-                                                For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
-                                                    If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
-                                                        tmpSeries.Points.Clear()
+            chtCPU.Invoke(New MethodInvoker(Sub()
+                                                Try
+                                                    chtCPU.MainChart.ChartAreas(index).Visible = ShowChart
+                                                    For Each tmpSeries As DataVisualization.Charting.Series In chtCPU.MainChart.Series
+                                                        If tmpSeries.ChartArea = chtCPU.MainChart.ChartAreas(index).Name Then
+                                                            tmpSeries.Points.Clear()
+                                                        End If
+                                                    Next
+
+                                                    chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
+                                                    chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
+
+                                                    If dtTable.Rows.Count > 0 Then
+                                                        For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                            Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
+                                                            Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
+                                                            For j As Integer = 0 To arrPartition.Count - 1
+                                                                If strSeries = arrPartition.Item(j) Then
+                                                                    Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
+                                                                    Exit For
+                                                                End If
+                                                            Next
+                                                        Next
+                                                    Else
+                                                        For i As Integer = 0 To dtTable.Rows.Count - 1
+                                                            Dim tmpDate As Double = ConvOADate(Now())
+                                                            Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
+                                                            For j As Integer = 0 To arrPartition.Count - 1
+                                                                If strSeries = arrPartition.Item(j) Then
+                                                                    Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
+                                                                    Exit For
+                                                                End If
+                                                            Next
+                                                        Next
                                                     End If
-                                                Next
-
-                                                chtCPU.SetMinimumAxisXChartArea(ConvOADate(stDate), index)
-                                                chtCPU.SetMaximumAxisXChartArea(ConvOADate(edDate), index)
-
-                                                If dtTable.Rows.Count > 0 Then
-                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                        Dim tmpDate As Double = ConvOADate(dtTable.Rows(i).Item("COLLECT_DT"))
-                                                        Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
-                                                        For j As Integer = 0 To arrPartition.Count - 1
-                                                            If strSeries = arrPartition.Item(j) Then
-                                                                Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
-                                                                Exit For
-                                                            End If
-                                                        Next
-                                                    Next
-                                                Else
-                                                    For i As Integer = 0 To dtTable.Rows.Count - 1
-                                                        Dim tmpDate As Double = ConvOADate(Now())
-                                                        Dim strSeries = dtTable.Rows(i).Item("DISK_NAME")
-                                                        For j As Integer = 0 To arrPartition.Count - 1
-                                                            If strSeries = arrPartition.Item(j) Then
-                                                                Me.chtCPU.AddPoints(strSeries, tmpDate, ConvULong(dtTable.Rows(i).Item("PHY_IO")))
-                                                                Exit For
-                                                            End If
-                                                        Next
-                                                    Next
-                                                End If
-                                                Me.chtCPU.ShowMaxValue(True)
-                                                chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
-                                        End Sub))
+                                                    Me.chtCPU.ShowMaxValue(True)
+                                                    chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                                Catch ex As Exception
+                                                    p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                    GC.Collect()
+                                                End Try
+                                            End Sub))
         End If
 
-        Me.Invoke(New MethodInvoker(Sub()
-                                        chtCPU.SetInnerPlotPositionChartArea(index, _chtCount)
-                                        chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
-                                        ArrangeChartlayout()
-                                    End Sub))
+        chtCPU.Invoke(New MethodInvoker(Sub()
+                                            chtCPU.SetInnerPlotPositionChartArea(index, _chtCount)
+                                            chtCPU.MainChart.ChartAreas(index).RecalculateAxesScale()
+                                            ArrangeChartlayout()
+                                        End Sub))
     End Sub
 
     Private Sub frmMonItemDetail_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -1024,6 +1033,10 @@
         If _ThreadDetail IsNot Nothing Then
             _ThreadDetail.Abort()
             _ThreadDetail = Nothing
+        End If
+
+        If _AgentCn IsNot Nothing Then
+            _AgentCn = Nothing
         End If
     End Sub
 
@@ -1061,11 +1074,19 @@
         If _ThreadDetail IsNot Nothing AndAlso _ThreadDetail.IsAlive = True Then Return
         _ThreadDetail = New Threading.Thread(Sub()
                                                  Try
+
+                                                     RaiseEvent ShowMasg()
+
                                                      For i As Integer = 1 To _AreaCount
                                                          If chtCPU.MainChart.ChartAreas(i).Visible = True Then
                                                              QueryChartData(i, True)
                                                          End If
                                                      Next
+
+                                                     RaiseEvent WaitMasg("Session Information")
+                                                     SetDataSession(dtpSt.Value, dtpEd.Value)
+                                                     RaiseEvent WaitMasg("Lock Information")
+                                                     SetDataLock(dtpSt.Value, dtpEd.Value)
                                                      RaiseEvent WaitComplete()
                                                  Catch ex As Exception
                                                      GC.Collect()
@@ -1081,8 +1102,7 @@
         '        QueryChartData(i, True)
         '    End If
         'Next
-        SetDataSession(dtpSt.Value, dtpEd.Value)
-        SetDataLock(dtpSt.Value, dtpEd.Value)
+
     End Sub
 
     Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
@@ -1212,9 +1232,9 @@
 
     Private Sub cmbInst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbInst.SelectedIndexChanged
         _InstanceID = cmbInst.SelectedValue
-        Me.Invoke(New MethodInvoker(Sub()
-                                        btnQuery.PerformClick()
-                                    End Sub))
+        'Me.Invoke(New MethodInvoker(Sub()
+        '                                btnQuery.PerformClick()
+        '                            End Sub))
         If _bRange = True Then
             Me.Invoke(New MethodInvoker(Sub()
                                             btnRange.PerformClick()
@@ -1333,9 +1353,19 @@
         End If
     End Sub
 
-    Private Sub frmMonItemDetail_WaitMag(str As String) Handles Me.WaitMag
+    Private Sub frmMonItemDetail_WaitMasg(str As String) Handles Me.WaitMasg
         If _ProgresForm IsNot Nothing Then
-            _ProgresForm.Addtext(str)
+            Me.Invoke(New MethodInvoker(Sub()
+                                            _ProgresForm.Addtext(str)
+                                        End Sub))
+        End If
+    End Sub
+
+    Private Sub frmMonItemDetail_ShowMasg() Handles Me.ShowMasg
+        If _ProgresForm IsNot Nothing Then
+            Me.Invoke(New MethodInvoker(Sub()
+                                            _ProgresForm.Show()
+                                        End Sub))
         End If
     End Sub
 

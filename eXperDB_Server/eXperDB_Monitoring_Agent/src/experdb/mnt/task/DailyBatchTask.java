@@ -95,34 +95,71 @@ public class DailyBatchTask {
 			
 			try {
 				//Table Delete
-				sessionAgent.delete("app.PGMONBT_BATCH_ACTV_COLLECT_INFO_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_CURRENT_LOCK_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_BACKEND_RSC_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_ACCESS_INFO_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_ACTV_COLLECT_INFO_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_CURRENT_LOCK_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_BACKEND_RSC_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_ACCESS_INFO_001");
 				
-				sessionAgent.delete("app.PGMONBT_BATCH_OBJT_COLLECT_INFO_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_OBJT_COLLECT_INFO_001");
 				sessionAgent.delete("app.PGMONBT_BATCH_TABLESPACE_INFO_001");
 				sessionAgent.delete("app.PGMONBT_BATCH_TABLE_INFO_001");
 				sessionAgent.delete("app.PGMONBT_BATCH_INDEX_INFO_001");
 				
-				sessionAgent.delete("app.PGMONBT_BATCH_RSC_COLLECT_INFO_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_MEMORY_STAT_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_CPU_STAT_MASTER_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_CPU_STAT_DETAIL_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_DISK_IO_001");
-				sessionAgent.delete("app.PGMONBT_BATCH_DISK_USAGE_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_RSC_COLLECT_INFO_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_MEMORY_STAT_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_CPU_STAT_MASTER_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_CPU_STAT_DETAIL_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_DISK_IO_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_DISK_USAGE_001");
 				
-				sessionAgent.delete("app.PGMONBT_BATCH_HCHK_COLLECT_INFO_001");
+				//sessionAgent.delete("app.PGMONBT_BATCH_HCHK_COLLECT_INFO_001");
 				sessionAgent.delete("app.PGMONTB_BATCH_CONTROL_PROCESS_HIST_001");//robin 0207 delete Lock history
-				sessionAgent.delete("app.PGMONTB_BATCH_HCHK_ALERT_INFO_001");//robin 0208 delete Alert history
-				sessionAgent.delete("app.PGMONTB_BATCH_REPLICATION_INFO_001");//robin 0418 delete replication
-				sessionAgent.delete("app.PGMONTB_BATCH_CHECKPOINT_INFO_001");//robin 0418 delete checkpoint
+				//sessionAgent.delete("app.PGMONTB_BATCH_HCHK_ALERT_INFO_001");//robin 0208 delete Alert history
+				//sessionAgent.delete("app.PGMONTB_BATCH_REPLICATION_INFO_001");//robin 0418 delete replication
+				//sessionAgent.delete("app.PGMONTB_BATCH_CHECKPOINT_INFO_001");//robin 0418 delete checkpoint
 				sessionAgent.delete("app.PGMONTB_BATCH_QEURY_INFO_001");//robin 1031 delete checkpoint
-				sessionAgent.delete("app.PGMONTB_BATCH_PG_STAT_STATEMENT_001");//robin 1031 delete checkpoint
-				sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");//robin 1031 delete table ext
+				//sessionAgent.delete("app.PGMONTB_BATCH_PG_STAT_STATEMENT_001");//robin 1031 delete checkpoint
+				//sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");//robin 1031 delete table ext
 				sessionAgent.delete("app.PGMONBT_BATCH_TB_USER_INFO_001");//robin 190122 delete user info
 				
-				
+				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
+				partitionTableMap.put("tablename", "testt");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_actv_collect_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_checkpoint_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_current_lock");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_backend_rsc");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_objt_collect_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_access_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_rsc_collect_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
+				partitionTableMap.put("tablename", "tb_memory_stat");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_cpu_stat_master");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_cpu_stat_detail");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_disk_io");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_disk_usage");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_hchk_collect_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_hchk_alert_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_replication_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_pg_stat_statements");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_table_ext_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+		
 				//Commit
 				sessionAgent.commit();
 			} catch (Exception e) {

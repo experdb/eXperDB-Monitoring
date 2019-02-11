@@ -313,10 +313,56 @@ Public Class structAgent
         End Get
     End Property
 
+    Private _AgentDBIP As String = ""
+    ReadOnly Property AgentDBIP As String
+        Get
+            Return _AgentDBIP
+        End Get
+    End Property
+
+    Private _AgentDBPort As Integer = 0
+    ReadOnly Property AgentDBPort As Integer
+        Get
+            Return _AgentDBPort
+        End Get
+    End Property
+
+    Private _AgentConnDBNM As String = ""
+    ReadOnly Property AgentConnDBNM As String
+        Get
+            Return _AgentConnDBNM
+        End Get
+    End Property
+
+    Private _AgentConnDBUser As String = ""
+    ReadOnly Property AgentConnDBUser As String
+        Get
+            Return _AgentConnDBUser
+        End Get
+    End Property
+
+    Private _AgentConnDBPW As String = ""
+    ReadOnly Property AgentConnDBPW As String
+        Get
+            Return _AgentConnDBPW
+        End Get
+    End Property
+
     Public Sub New(ByVal strIP As String, ByVal intPort As Integer, ByVal strVersion As String)
         _AgentIP = strIP
         _AgentPort = intPort
         _AgentVer = strVersion
+    End Sub
+
+    Public Sub New(ByVal strIP As String, ByVal intPort As Integer, ByVal strVersion As String, ByVal strDBIP As String, ByVal intDBPort As Integer, ByVal strConnDB As String, ByVal strConnUser As String, ByVal strConnPW As String)
+        _AgentIP = strIP
+        _AgentPort = intPort
+        _AgentVer = strVersion
+        _AgentDBIP = strDBIP
+        _AgentDBPort = intDBPort
+        _AgentConnDBNM = strConnDB
+        _AgentConnDBUser = strConnUser
+        _AgentConnDBPW = strConnPW
     End Sub
 End Class
 

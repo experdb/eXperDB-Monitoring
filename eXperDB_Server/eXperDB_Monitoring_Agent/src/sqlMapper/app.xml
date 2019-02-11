@@ -510,6 +510,7 @@
 	<insert id="TB_TABLE_EXT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_TABLE_EXT_INFO
 		(
+		    reg_date,
 		    collect_dt,
 		    objt_reg_seq,
 		    instance_id,
@@ -520,6 +521,7 @@
 	    )
 		VALUES 
 		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
 			#{collect_dt},		
 			CURRVAL('OBJT_REG_SEQ'),
 		    #{instance_id},
@@ -707,7 +709,7 @@
 			          FROM TEMP 
 			         WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
 			         GROUP BY DB,LOCKING_USER,LOCKING_PID, LOCKING_QUERY
-			) AS A;
+			) AS A limit 1000;
 			]]>
 			</when>		
 			<when test="instance_db_version.equals('9.1')">
@@ -797,7 +799,7 @@
 			          FROM TEMP 
 			         WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
 			         GROUP BY DB,LOCKING_USER,LOCKING_PID, LOCKING_QUERY
-			) AS A;
+			) AS A limit 1000;
 			]]>
 			</when>
 			<when test="instance_db_version >= 9.2">
@@ -886,7 +888,7 @@
 			                   MAX(BLOCKING_XACT_START) AS XACT_START
 			           FROM TEMP WHERE LOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
 			          GROUP BY DB,LOCKING_USER,LOCKING_PID, LOCKING_QUERY
-			) AS A;
+			) AS A limit 1000;
 			]]>
 			</when>
 			<otherwise>
@@ -1113,7 +1115,8 @@
 			#{elapsed_time},
 			#{state},
 			'0',
-			#{sql},
+--			sharp{sql},
+			'',
 			#{collect_dt}
 		)
 	</insert>
@@ -1165,7 +1168,8 @@
 			#{elapsed_time},
 			#{state},
 			#{queryid},
-			#{sql},
+--			sharp{sql},
+			'',
 			#{collect_dt}
 		)
 	</insert>
@@ -1217,7 +1221,8 @@
 			#{elapsed_time},
 			#{state},
 			MD5(#{sql}),
-			#{sql},
+			--sharp{sql},
+			'',
 			#{collect_dt}
 		)
 	</insert>
@@ -1592,7 +1597,8 @@ WHERE CPU.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="EXPERDBMA_BT_HCHK_SWAPUSAGE_001" parameterType="hashmap" resultType="hashmap">
    SELECT /* EXPERDBMA_BT_HCHK_SWAPUSAGE_001 */
          RCM.INSTANCE_ID,
-         ROUND((MEM.SWP_USED_KB - MEM.SWP_CACHED_KB) / SWP_TOTAL_KB * 100, 2) AS SWAPUSAGE,
+         /*ROUND((MEM.SWP_USED_KB - MEM.SWP_CACHED_KB) / SWP_TOTAL_KB * 100, 2) AS SWAPUSAGE,*/
+         CASE WHEN SWP_TOTAL_KB=0 THEN 0 ELSE ROUND((MEM.SWP_USED_KB - MEM.SWP_CACHED_KB) / SWP_TOTAL_KB * 100, 2) END AS SWAPUSAGE,
          '3' AS COLLECT_GROUP,
          MEM.REG_DATE AS COLLECT_REG_DATE,
          MEM.RSC_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
@@ -2586,6 +2592,76 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>	  
 	</insert>	
 	
+	
+	
+<!-- **************************************************************************************************************** -->	
+<!-- Delete partitions -->
+<!-- **************************************************************************************************************** -->
+	<update id="PG_CREATE_FUNCTION_001_OLD" parameterType="hashmap">
+		<![CDATA[
+		CREATE OR REPLACE FUNCTION MAINTAIN_PARTITION(tablename varchar, drop_date date, create_date date)
+		    RETURNS text AS
+		$$
+		DECLARE
+		    is_exists_partition BOOL;
+			ddate varchar;
+			cdate varchar;
+		BEGIN
+			ddate = to_char(drop_date, 'YYYYMMDD');
+			cdate = to_char(create_date, 'YYYYMMDD');
+		    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (tablename || '_' || ddate)));
+		    IF is_exists_partition = TRUE THEN
+		        EXECUTE FORMAT('ALTER TABLE ' || tablename || ' DETACH PARTITION ' || tablename || '_' || ddate) ;
+				EXECUTE FORMAT('DROP TABLE IF EXISTS ' || tablename || '_' || ddate || ' CASCADE');
+				EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || tablename || '_' || cdate || '  PARTITION OF ' || tablename || ' FOR VALUES IN (' || cdate || ')');
+				RETURN TRUE;
+		    END IF;
+		    RETURN FALSE;
+		END;
+		$$
+		LANGUAGE 'plpgsql' VOLATILE
+		SECURITY DEFINER
+		COST 100;
+		]]>	
+	</update>
+	
+	<update id="PG_MAINTAIN_PARTITIONS_001" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_partition BOOL;
+			    var_tablename varchar;
+			    ddate varchar;
+			    cdate varchar;   
+			BEGIN    
+				var_tablename = '${tablename}';
+				ddate = to_char((now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, 'YYYYMMDD') ;
+			    cdate = to_char((now() + INTERVAL '1 day')::date, 'YYYYMMDD');
+			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (var_tablename || '_' || ddate)));       
+			    IF is_exists_partition = TRUE THEN           
+				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
+				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
+				    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
+			     END IF;       
+			 END $$
+		]]>	
+	</update>
+	
+	<update id="PG_DROP_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+		DROP FUNCTION MAINTAIN_PARTITION(tablename varchar, drop_date date, create_date date);
+		]]>			
+	</update>
+	
+	
+	<update id="PG_EXECUTE_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+		SELECT MAINTAIN_PARTITION(#{tablename}, (now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, (now() + INTERVAL '1 day')::date);
+		]]>			
+	</update>
+<!-- **************************************************************************************************************** -->
+<!-- Delete partitions -->	
+<!-- **************************************************************************************************************** -->
 	
 <!-- ********************************************************** -->
 <!-- ReplCollect End -->

@@ -406,9 +406,10 @@ public class ActvCollect extends TaskApplication {
 						if(cpu_clock != 0)
 						{
 							proc_cpu_util = Math.round((((current_proc_utime + current_proc_stime) / (cpu_clock * current_sec_from_epoch)) * 100 ) * Math.pow(10, 2)) / Math.pow(10, 2);
-							
-							
-							//if(proc_cpu_util > 100)		proc_cpu_util = 100.0;
+							if(proc_cpu_util > 100)
+								proc_cpu_util = 100.0;
+							else if(proc_cpu_util < 0)
+								proc_cpu_util = 0.0;							
 						}
 	
 						map.put("current_proc_utime", current_proc_utime);

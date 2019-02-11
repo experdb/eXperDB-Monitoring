@@ -361,7 +361,7 @@ Public Class eXperDBODBC
 
 
     Public Sub CancelCommand()
-        If _DbCommand IsNot Nothing Then
+        If _DBCommand IsNot Nothing Then
             _DBCommand.Cancel()
             _DBCommand.Dispose()
             _DBCommand = Nothing

@@ -87,7 +87,9 @@
         _InstanceID = intInstanceID
         _SvrpList = ServerInfo
         _AgentInfo = AgentInfo
-        _AgentCn = AgentCn
+        '_AgentCn = AgentCn
+        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+        _AgentCn = New eXperDBODBC(dbType, _AgentInfo.AgentDBIP, _AgentInfo.AgentDBPort, _AgentInfo.AgentConnDBNM, _AgentInfo.AgentConnDBUser, _AgentInfo.AgentConnDBPW)
 
         _clsQuery = New clsQuerys(_AgentCn)
         For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
@@ -492,6 +494,10 @@
         If _ThreadStmt IsNot Nothing Then
             _ThreadStmt.Abort()
             _ThreadStmt = Nothing
+        End If
+
+        If _AgentCn IsNot Nothing Then
+            _AgentCn = Nothing
         End If
     End Sub
 

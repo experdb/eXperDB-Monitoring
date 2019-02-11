@@ -307,7 +307,11 @@
                                             Next
 
                                             If AA.ERRORS IsNot Nothing Then
-                                                ctlTv.Nodes.Add(String.Format("[{0}]{1}", AA.ERRORS._error_cd, AA.ERRORS._error_msg))
+                                                If AA.ERRORS._error_cd.Equals("DX005_E01") Then
+                                                    ctlTv.Nodes.Add(String.Format("[{0}]{1}", AA.ERRORS._error_cd, p_clsMsgData.fn_GetData("M004")))
+                                                Else
+                                                    ctlTv.Nodes.Add(String.Format("[{0}]{1}", AA.ERRORS._error_cd, AA.ERRORS._error_msg))
+                                                End If
                                             End If
 
                                         Else

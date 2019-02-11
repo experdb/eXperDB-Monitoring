@@ -364,6 +364,7 @@ CREATE TABLE tb_table_info (
 );
 
 CREATE TABLE tb_table_ext_info (
+    reg_date character varying(8) NOT NULL,
     collect_dt timestamp without time ZONE,
     objt_reg_seq integer NOT NULL,
     instance_id integer NOT NULL,
@@ -513,7 +514,7 @@ ALTER TABLE ONLY tb_table_info
     ADD CONSTRAINT pk_table_info PRIMARY KEY (reg_date,objt_reg_seq,db_name,schema_name,table_name);
 
 ALTER TABLE ONLY tb_table_ext_info
-    ADD CONSTRAINT pk_table_ext_info PRIMARY KEY (collect_dt,objt_reg_seq,instance_id,relid);
+    ADD CONSTRAINT pk_table_ext_info PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
 
 ALTER TABLE ONLY tb_tablespace_info
     ADD CONSTRAINT pk_tablespace_info PRIMARY KEY (reg_date,objt_reg_seq,tablespace_name);
@@ -566,6 +567,9 @@ CREATE INDEX idx01_sys_log ON tb_sys_log USING btree (reg_date DESC);
 CREATE INDEX idx01_table_info ON tb_table_info USING btree (collect_dt DESC);
 
 
+CREATE INDEX idx01_table_info ON tb_table_ext_info USING btree (collect_dt DESC);
+
+
 CREATE INDEX idx01_tablespace_info ON tb_tablespace_info USING btree (collect_dt DESC);
 
 
@@ -616,45 +620,45 @@ CREATE SEQUENCE repl_reg_seq
     CACHE 1;
 
 ALTER TABLE tb_access_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_access_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_access_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_access_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_access_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_access_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_actv_collect_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_actv_collect_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_actv_collect_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_actv_collect_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_actv_collect_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_actv_collect_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_backend_rsc SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_backend_rsc SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_backend_rsc SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_backend_rsc SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_backend_rsc SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_backend_rsc SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_config SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_config SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_config SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_config SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_cpu_stat_detail SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_cpu_stat_detail SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_cpu_stat_detail SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_cpu_stat_detail SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_cpu_stat_detail SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_cpu_stat_detail SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_cpu_stat_master SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_cpu_stat_master SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_cpu_stat_master SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_cpu_stat_master SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_cpu_stat_master SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_cpu_stat_master SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_current_lock SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_current_lock SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_current_lock SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_current_lock SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_current_lock SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_current_lock SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_disk_io SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_disk_io SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_disk_io SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_disk_io SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_disk_io SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_disk_io SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_disk_usage SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_disk_usage SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_disk_usage SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_disk_usage SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_disk_usage SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_disk_usage SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_hchk_collect_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_hchk_collect_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_hchk_collect_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_hchk_collect_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_hchk_collect_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_hchk_collect_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_hchk_thrd_list SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_hchk_thrd_list SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_hchk_thrd_list SET (autovacuum_vacuum_scale_factor = 0.0);
@@ -668,25 +672,25 @@ ALTER TABLE tb_instance_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_instance_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_instance_info SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_replication_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_replication_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_replication_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_replication_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_replication_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_replication_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_checkpoint_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_checkpoint_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_checkpoint_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_checkpoint_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_checkpoint_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_checkpoint_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_memory_stat SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_memory_stat SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_memory_stat SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_memory_stat SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_memory_stat SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_memory_stat SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_objt_collect_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_objt_collect_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_objt_collect_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_objt_collect_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_objt_collect_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_objt_collect_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_rsc_collect_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_rsc_collect_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_rsc_collect_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_rsc_collect_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_rsc_collect_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_rsc_collect_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_sys_log SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_sys_log SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_sys_log SET (autovacuum_vacuum_scale_factor = 0.0);
@@ -696,9 +700,9 @@ ALTER TABLE tb_table_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_table_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_table_info SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_table_ext_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_table_ext_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_table_ext_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_table_ext_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_table_ext_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_table_ext_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_tablespace_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_tablespace_info SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_tablespace_info SET (autovacuum_vacuum_scale_factor = 0.0);
@@ -708,17 +712,17 @@ ALTER TABLE tb_control_process_hist SET (autovacuum_analyze_threshold = 5000);
 ALTER TABLE tb_control_process_hist SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_control_process_hist SET (autovacuum_vacuum_threshold = 5000);
 ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_hchk_alert_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_hchk_alert_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_query_info SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_query_info SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_query_info SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_query_info SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_query_info SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_query_info SET (autovacuum_vacuum_threshold = 10000);
 ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_scale_factor = 0.0);
-ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_threshold = 5000);
+ALTER TABLE tb_pg_stat_statements SET (autovacuum_analyze_threshold = 10000);
 ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_scale_factor = 0.0);
-ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_threshold = 5000);
+ALTER TABLE tb_pg_stat_statements SET (autovacuum_vacuum_threshold = 10000);
 
 ALTER TABLE tb_user_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_user_info SET (autovacuum_analyze_threshold = 1000);

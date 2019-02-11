@@ -261,7 +261,7 @@
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         'sb_SetRbGrp(_GrpList)
         ServerName_lv.Text = _GrpList.Item(0).GroupName
-        tmCollect.Interval = 1500
+        tmCollect.Interval = 3000
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
@@ -755,6 +755,7 @@
                     topNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
                     topNode.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
                     topNode.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+                    topNode.Cells(coldgvClustersRole.Index).Value = ""
 
                     topNode.Expand()
                 Else
@@ -769,6 +770,7 @@
                             cNOde.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
                             cNOde.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
                             cNOde.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+                            cNOde.Cells(coldgvClustersRole.Index).Value = ""
                             tmpNode.Expand()
                             Exit For
                         End If
@@ -2014,7 +2016,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 10)
+            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 5)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -2055,7 +2057,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 10)
+            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 5)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -2550,7 +2552,17 @@
                 For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
                     Dim intInstID As Integer = DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID
                     Dim intLevel As Integer = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
+                    Dim strRole As String = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
                     'tmpNode.Image = instanceImgLst.Images(intLevel)
+                    If strRole = "P" Then
+                        tmpNode.Cells(coldgvClustersRole.Index).Value = "P"
+                        tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)
+                    ElseIf strRole = "S" Then
+                        tmpNode.Cells(coldgvClustersRole.Index).Value = "S"
+                        tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 255, 192, 203)
+                    Else
+                        tmpNode.Cells(coldgvClustersRole.Index).Value = ""
+                    End If
                     If tmpNode.Cells(coldgvClustersLegend.Index).Tag <> intLevel Then
                         tmpNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(intLevel)
                     End If
@@ -2562,6 +2574,16 @@
                         For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
                             intInstID = DirectCast(cNode.Tag, GroupInfo.ServerInfo).InstanceID
                             intLevel = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
+                            strRole = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
+                            If strRole = "P" Then
+                                cNode.Cells(coldgvClustersRole.Index).Value = "P"
+                                cNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)
+                            ElseIf strRole = "S" Then
+                                cNode.Cells(coldgvClustersRole.Index).Value = "S"
+                                cNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 255, 192, 203)
+                            Else
+                                cNode.Cells(coldgvClustersRole.Index).Value = ""
+                            End If
                             'cNode.Image = instanceImgLst.Images(intLevel)
                             If cNode.Cells(coldgvClustersLegend.Index).Tag <> intLevel Then
                                 cNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(intLevel)

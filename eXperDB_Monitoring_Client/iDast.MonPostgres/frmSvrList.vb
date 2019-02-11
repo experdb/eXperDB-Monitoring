@@ -649,7 +649,9 @@
                 Return
             Else
                 Dim SplitStr() As String = dtTable.Rows(0).Item("VERSION").Split(".")
-                AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort, SplitStr(0) + "." + SplitStr(1))
+                'AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort, SplitStr(0) + "." + SplitStr(1))
+                AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort, SplitStr(0) + "." + SplitStr(1), _
+                                            txtSvrIP.Text, txtSvrPort.Text, cmbSvrDBNm.Text, txtSvrUsr.Text, txtSvrPwd.Text)
             End If
 
         Else

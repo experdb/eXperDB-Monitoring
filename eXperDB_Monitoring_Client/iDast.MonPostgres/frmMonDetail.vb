@@ -559,7 +559,8 @@
             ' Memory Information 
             ' lblMemTotVal.Text = ConvDBL(dtRows(0).Item("MEM_TOTAL_MB")).ToString("N2") & " MB" '   arrLst.Item(0).C08_MEM_TOTAL_MB.ToString("N0") & " MB"
             lblMemTotVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("MEM_TOTAL_MB")), clsEnums.FileSizeUnit.MB) '   arrLst.Item(0).C08_MEM_TOTAL_MB.ToString("N0") & " MB"
-            lblMemUsedVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("MEM_USED_MB")), clsEnums.FileSizeUnit.MB)
+            'lblMemUsedVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("MEM_USED_MB")), clsEnums.FileSizeUnit.MB)
+            lblMemUsedVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("MEM_TOTAL_MB") - dtRows(0).Item("MEM_FREE_MB") - dtRows(0).Item("MEM_BUFFERED_MB") - dtRows(0).Item("MEM_CACHED_MB")), clsEnums.FileSizeUnit.MB)
             lblMemFreeVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("MEM_FREE_MB")), clsEnums.FileSizeUnit.MB)
             lblMemSharedVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("SHM_MB")), clsEnums.FileSizeUnit.MB)
             lblMemBufferVal.Text = TranslateFileSizeWithUnit(ConvDBL(dtRows(0).Item("MEM_BUFFERED_MB")), clsEnums.FileSizeUnit.MB)
@@ -612,7 +613,9 @@
     Private Sub SetDataDisk(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-
+        If dtTable Is Nothing Then
+            Return
+        End If
         Dim dtRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND DISK_NAME <> '{1}'", Me.InstanceID, "-"))
 
 
@@ -1289,7 +1292,7 @@
         Me.Invoke(Sub()
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID, 10)
+                          dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID, 5)
 
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
