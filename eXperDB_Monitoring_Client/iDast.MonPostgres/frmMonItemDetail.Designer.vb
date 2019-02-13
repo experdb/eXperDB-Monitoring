@@ -122,8 +122,8 @@ Partial Class frmMonItemDetail
         Me.colDgvRptSqlSql = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlUserName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabLock = New System.Windows.Forms.TabPage()
-        Me.dgvLock = New AdvancedDataGridView.TreeGridView()
-        Me.colDgvLockDB = New AdvancedDataGridView.TreeGridColumn()
+        Me.dgvLock = New eXperDB.BaseControls.DataGridView()
+        Me.colDgvLockDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingPID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvLockBlockingQuery = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -1167,7 +1167,6 @@ Partial Class frmMonItemDetail
         Me.dgvLock.EnableHeadersVisualStyles = False
         Me.dgvLock.Font = New System.Drawing.Font("Gulim", 10.07326!)
         Me.dgvLock.GridColor = System.Drawing.Color.Gray
-        Me.dgvLock.ImageList = Nothing
         Me.dgvLock.Location = New System.Drawing.Point(3, 3)
         Me.dgvLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvLock.Name = "dgvLock"
@@ -1183,6 +1182,8 @@ Partial Class frmMonItemDetail
         Me.dgvLock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvLock.Size = New System.Drawing.Size(186, 64)
         Me.dgvLock.TabIndex = 10
+        Me.dgvLock.TagValueMatchColor = System.Drawing.Color.Red
+        Me.dgvLock.UseTagValueMatchColor = False
         '
         'colDgvLockDB
         '
@@ -1194,7 +1195,6 @@ Partial Class frmMonItemDetail
         DataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White
         Me.colDgvLockDB.DefaultCellStyle = DataGridViewCellStyle22
-        Me.colDgvLockDB.DefaultNodeImage = Nothing
         Me.colDgvLockDB.FillWeight = 150.0!
         Me.colDgvLockDB.HeaderText = "F104"
         Me.colDgvLockDB.MinimumWidth = 130
@@ -1656,8 +1656,12 @@ Partial Class frmMonItemDetail
     Friend WithEvents chtLock As eXperDB.Monitoring.ctlChartEx
     Friend WithEvents chkLock As eXperDB.BaseControls.CheckBox
     Friend WithEvents tabLock As System.Windows.Forms.TabPage
-    Friend WithEvents dgvLock As AdvancedDataGridView.TreeGridView
-    Friend WithEvents colDgvLockDB As AdvancedDataGridView.TreeGridColumn
+    Friend WithEvents dgvLock As eXperDB.BaseControls.DataGridView
+    Friend WithEvents chtTPS As eXperDB.Monitoring.ctlChartEx
+    Friend WithEvents chkTPS As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chkPhysicalRead As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chtPhysicalRead As eXperDB.Monitoring.ctlChartEx
+    Friend WithEvents colDgvLockDB As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockBlockingPID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockBlockingUser As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockBlockingQuery As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1670,9 +1674,5 @@ Partial Class frmMonItemDetail
     Friend WithEvents colDgvLockXactStart As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockRegDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents chtTPS As eXperDB.Monitoring.ctlChartEx
-    Friend WithEvents chkTPS As eXperDB.BaseControls.CheckBox
-    Friend WithEvents chkPhysicalRead As eXperDB.BaseControls.CheckBox
-    Friend WithEvents chtPhysicalRead As eXperDB.Monitoring.ctlChartEx
 
 End Class

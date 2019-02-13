@@ -1292,7 +1292,7 @@
         Me.Invoke(Sub()
                       Dim dtTable As DataTable = Nothing
                       Try
-                          dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID, 5)
+                          dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID, 3)
 
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 

@@ -151,7 +151,8 @@
 		         ,IO_AGG_MILLISEC AS AGG_IO_MSEC
 		         ,SEC_FROM_EPOCH 
 		         ,NOW() AS COLLECT_DT
-		         ,MOUNTPOINT
+		         --,MOUNTPOINT
+		         ,'' MOUNTPOINT
 		         --,EXTRACT(EPOCH FROM DATE_TRUNC('MILLISECONDS', NOW())) * 1000 - EXTRACT(EPOCH FROM DATE_TRUNC('MILLISECONDS', ?::TIMESTAMP)) * 1000)::NUMERIC AS MIL_SEC_DIFF
 		   FROM GET_STAT_DISK_IO
 	</select>
@@ -854,7 +855,7 @@
 			          BLOCKED_USER AS BLOCKED_USER,
 			          BLOCKED_PID AS BLOCKED_PID, 
 			          BLOCKED_QUERY AS BLOCKED_QUERY,
-			          BLOCKED_DURATION AS BLOCKED_DURATION,
+			          BLOCKED_DURATION::varchar AS BLOCKED_DURATION,
 			          LOCK_MODE AS LOCK_MODE, 
 			          QUERY_START AS QUERY_START,
 			          XACT_START AS XACT_START,
@@ -879,10 +880,10 @@
 			                   LOCKING_USER,
 			                   LOCKING_PID, 
 			                   LOCKING_QUERY, 
-			                   NULL,
-			                   NULL, 
-			                   NULL, 
-			                   NULL,
+			                   '',
+			                   0, 
+			                   '', 
+			                   '0',
 			                   MAX(BLOCKING_MODE) AS LOCK_MODE,
 			                   MAX(BLOCKING_QUERY_START) AS QUERY_START,
 			                   MAX(BLOCKING_XACT_START) AS XACT_START
@@ -919,7 +920,29 @@
 		)
 	</insert>
 	
-	
+	<insert id="TB_CURRENT_LOCK_I002" parameterType="hashmap" >
+		INSERT INTO TB_CURRENT_LOCK	
+		VALUES 
+		<foreach collection="list" item="map" open="" separator="," close="">
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('ACTV_REG_SEQ'),
+			#{map.db_name},
+			#{map.blocking_user},
+			#{map.blocking_pid},
+			#{map.blocking_query},
+			#{map.blocked_user},
+			#{map.blocked_pid},
+			#{map.blocked_query},
+			#{map.blocked_duration}::interval, 
+			#{map.lock_mode},
+			#{map.query_start},
+			#{map.xact_start},
+			#{map.order_no},
+			#{map.collect_dt}
+		)
+		</foreach>;
+	</insert>
 
 	<select id="BT_BACKEND_RSC_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
 		<choose>
@@ -2527,6 +2550,25 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		  ]]>	  
 	</select>
 	<insert id="TB_QUERY_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_QUERY_INFO 
+		(
+			INSTANCE_ID,
+			DB_NAME,
+			QUERYID,
+			STMT_QUERYID,
+			QUERY,
+			COLLECT_DT
+		)VALUES 
+		(
+			#{instance_id},
+			#{db_name},
+			MD5(coalesce(#{queryid}, '')),
+			#{stmt_queryid},
+			#{query}
+			, NOW()
+		) ON CONFLICT DO NOTHING;
+	</insert>	
+	<insert id="TB_QUERY_INFO_I002" parameterType="hashmap" >
 		WITH UPSERT AS (
 		UPDATE TB_QUERY_INFO QU
 		   SET STMT_QUERYID = #{stmt_queryid},
@@ -2624,6 +2666,19 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		COST 100;
 		]]>	
 	</update>
+		
+	<update id="PG_DROP_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+		DROP FUNCTION MAINTAIN_PARTITION(tablename varchar, drop_date date, create_date date);
+		]]>			
+	</update>
+	
+	
+	<update id="PG_EXECUTE_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+		SELECT MAINTAIN_PARTITION(#{tablename}, (now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, (now() + INTERVAL '1 day')::date);
+		]]>			
+	</update>
 	
 	<update id="PG_MAINTAIN_PARTITIONS_001" parameterType="hashmap">
 		<![CDATA[
@@ -2646,19 +2701,133 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			 END $$
 		]]>	
 	</update>
-	
-	<update id="PG_DROP_FUNCTION_001" parameterType="hashmap">
+
+<update id="PG_CONSTRAINT_TB_ACTV_COLLECT_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		DROP FUNCTION MAINTAIN_PARTITION(tablename varchar, drop_date date, create_date date);
+		ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
 		]]>			
-	</update>
-	
-	
-	<update id="PG_EXECUTE_FUNCTION_001" parameterType="hashmap">
+</update>
+<update id="PG_CONSTRAINT_TB_ACCESS_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		SELECT MAINTAIN_PARTITION(#{tablename}, (now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, (now() + INTERVAL '1 day')::date);
+		ALTER TABLE ONLY tb_access_info${regdate} ADD CONSTRAINT pk_tb_access_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq,db_name);
 		]]>			
-	</update>
+</update>
+<update id="PG_CONSTRAINT_TB_BACKEND_RSC_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_backend_rsc${regdate} ADD CONSTRAINT pk_tb_backend_rsc${regdate} PRIMARY KEY (reg_date,actv_reg_seq,process_id);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_CPU_STAT_DETAIL_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_cpu_stat_detail${regdate} ADD CONSTRAINT pk_tb_cpu_stat_detail${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,cpu_logical_id);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_CPU_STAT_MASTER_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_cpu_stat_master${regdate} ADD CONSTRAINT pk_tb_cpu_stat_master${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_DISK_IO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_disk_io${regdate} ADD CONSTRAINT pk_tb_disk_io${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,disk_name);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_DISK_USAGE_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_disk_usage${regdate}	ADD CONSTRAINT pk_tb_disk_usage${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,mount_point_dir);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_HCHK_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_hchk_collect_info${regdate} ADD CONSTRAINT pk_tb_hchk_collect_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq,instance_id,hchk_name);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_REPLICATION_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_replication_info${regdate} ADD CONSTRAINT pk_tb_replication_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_CHECKPOINT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_checkpoint_info${regdate} ADD CONSTRAINT pk_tb_checkpoint_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_MEMORY_STAT_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_memory_stat${regdate} ADD CONSTRAINT pk_tb_memory_stat${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_OBJT_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_objt_collect_info${regdate} ADD CONSTRAINT pk_tb_objt_collect_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_RSC_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_rsc_collect_info${regdate}  ADD CONSTRAINT pk_tb_rsc_collect_info${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_TABLE_EXT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_table_ext_info${regdate} ADD CONSTRAINT pk_tb_table_ext_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_HCHK_ALERT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_hchk_alert_info${regdate} ADD CONSTRAINT pk_tb_hchk_alert_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_PG_STAT_STATEMENTS_001" parameterType="hashmap">
+		<![CDATA[
+		ALTER TABLE ONLY tb_pg_stat_statements${regdate} ADD CONSTRAINT pk_tb_pg_stat_statements${regdate} PRIMARY KEY (reg_date, collect_dt, instance_id);
+		]]>			
+</update>
+    
+<update id="PG_INDEX_TB_CURRENT_LOCK_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_current_lock${regdate} ON tb_current_lock${regdate} USING btree (reg_date,actv_reg_seq);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_CURRENT_LOCK_002" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx02_current_lock${regdate} ON tb_current_lock${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_BACKEND_RSC_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_backend_rsc${regdate} ON tb_backend_rsc${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_ACCESS_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_access_info${regdate} ON tb_access_info${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_MEMORY_STAT_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_memory_stat${regdate} ON tb_memory_stat${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_CPU_STAT_MASTER_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_cpu_stat_master${regdate} ON tb_cpu_stat_master${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_DISK_IO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_disk_io${regdate} ON tb_disk_io${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_DISK_USAGE_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_disk_usage${regdate} ON tb_disk_usage${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_TABLE_EXT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX idx01_table_info${regdate} ON tb_table_ext_info${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
 <!-- **************************************************************************************************************** -->
 <!-- Delete partitions -->	
 <!-- **************************************************************************************************************** -->

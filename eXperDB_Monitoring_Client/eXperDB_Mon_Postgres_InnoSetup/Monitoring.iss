@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "eXperDB Monitoring"
-#define MyAppVersion "10.4.1.256"
-#define MyAppVersionDir "10_4_1_256"
+#define MyAppVersion "10.4.2.285"
+#define MyAppVersionDir "10_4_2_285"
 #define MyAppPublisher "K4M"
 #define MyAppURL "http://www.k4m.com"
 #define MyAppExeName "eXperDB.Monitoring.exe"

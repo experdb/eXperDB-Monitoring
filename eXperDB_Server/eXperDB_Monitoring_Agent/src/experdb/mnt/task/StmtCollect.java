@@ -143,7 +143,7 @@ public class StmtCollect extends TaskApplication {
 //					}
 					
 					inputParam.put("stmt_queryid", 				map.get("queryid"));
-					sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+					sessionAgent.insert("app.TB_QUERY_INFO_I002", inputParam);
 					
 					JSONObject stmtObj = new JSONObject();
 					//stmtObj.put("userid"			 ,map.get("userid"));

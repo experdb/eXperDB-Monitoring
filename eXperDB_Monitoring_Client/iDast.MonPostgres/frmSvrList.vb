@@ -20,6 +20,27 @@
             ' R-Start 그룹명 조회
             Dim ClsQuery As New clsQuerys(tmpCn)
             cmbGrp.Items.Clear()
+
+            'Version check
+            Try
+                Dim dtTableVersion As DataTable = ClsQuery.SelectSeverVersion()
+                If dtTableVersion IsNot Nothing Then
+                    Dim ClientVersion As String = Application.ProductVersion
+                    Dim ServerVersion As String = dtTableVersion.Rows(0).Item("VERSION")
+                    Me.Text = Me.Tag + " (v" + ClientVersion + ")"
+
+                    If ClientVersion <> ServerVersion Then
+                        MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion))
+                        dtTableVersion.Dispose()
+                    End If
+                Else
+                    MsgBox(p_clsMsgData.fn_GetData("M065"))
+                    dtTableVersion.Dispose()
+                End If
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            End Try
+
             '그룹명 
             Dim dtTable As DataTable = ClsQuery.SelectGroupName(0)
             If dtTable IsNot Nothing Then
@@ -325,6 +346,7 @@
         Me.ttChart.SetToolTip(Me.btnConfig, p_clsMsgData.fn_GetData("F022"))
         Me.ttChart.SetToolTip(Me.btnAddSvr, p_clsMsgData.fn_GetData("F016"))
 
+        Me.Tag = Me.Text
         'modCommon.FontChange(Me, p_Font)
     End Sub
 

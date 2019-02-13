@@ -13,6 +13,8 @@
 
     Private _ThreadDetail As Threading.Thread
 
+    Private _isFromFormLoad As Boolean = True
+
     Private WithEvents _ProgresForm As frmProgres
     Private Event ShowMasg()
     Private Event WaitMasg(ByVal str As String)
@@ -128,8 +130,12 @@
 
         '_chtCount = 1
         chtCPU.MainChart.Focus()
-        SetDataSession(dtpSt.Value, dtpEd.Value)
-        SetDataLock(dtpSt.Value, dtpEd.Value)
+
+        Me.Invoke(New MethodInvoker(Sub()
+                                        btnQuery.PerformClick()
+                                    End Sub))
+        'SetDataSession(dtpSt.Value, dtpEd.Value)
+        'SetDataLock(dtpSt.Value, dtpEd.Value)
         BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
     End Sub
 
@@ -173,9 +179,9 @@
                                         End Sub))
         End If
 
-        SetDataSession(dtpSt.Value, dtpEd.Value)
-        SetDataLock(dtpSt.Value, dtpEd.Value)
-        BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
+        'SetDataSession(dtpSt.Value, dtpEd.Value)
+        'SetDataLock(dtpSt.Value, dtpEd.Value)
+        'BeginInvoke(New InvokeDelegate(AddressOf InvokeMethod))
     End Sub
 
     Private Sub InitForm()
@@ -339,7 +345,7 @@
         Dim dtTableStats As DataTable = Nothing
         Dim tmpStatsTh As Threading.Thread = New Threading.Thread(Sub()
                                                                       Try
-                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt, AgentInfo.AgentVer, True)
+                                                                          dtTableStats = _clsQuery.SelectReportSQL(_InstanceID, starDt, endDt, AgentInfo.AgentVer, 1000)
                                                                       Catch ex As Exception
                                                                           GC.Collect()
                                                                       End Try
@@ -422,31 +428,33 @@
         If dtTable IsNot Nothing Then
             dgvLock.Invoke(New MethodInvoker(Sub()
                                                  Try
-                                                     Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
-                                                     Dgv.Nodes.Clear()
-                                                     Dim intLockCount As Integer = 0
-                                                     Dim HashTbl As New Hashtable
-                                                     For Each tmpCol As DataGridViewColumn In Dgv.Columns
+                                                     dgvLock.DataSource = dtTable
 
-                                                         If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
-                                                             HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-                                                         End If
-                                                     Next
+                                                     'Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
+                                                     'Dgv.Nodes.Clear()
+                                                     'Dim intLockCount As Integer = 0
+                                                     'Dim HashTbl As New Hashtable
+                                                     'For Each tmpCol As DataGridViewColumn In Dgv.Columns
 
-                                                     Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
-                                                     For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
-                                                         Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
-                                                         sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-                                                         intLockCount += 1
-                                                         For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0} AND ACTV_REG_SEQ = {1}", tmpRow.Item("BLOCKING_PID"), tmpRow.Item("ACTV_REG_SEQ")), "ORDER_NO ASC")
-                                                             Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
-                                                             sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+                                                     '    If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
+                                                     '        HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+                                                     '    End If
+                                                     'Next
 
-                                                         Next
-                                                         topNode.Expand()
-                                                         topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
+                                                     'Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
+                                                     'For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
+                                                     '    Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
+                                                     '    sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+                                                     '    intLockCount += 1
+                                                     '    For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0} AND ACTV_REG_SEQ = {1}", tmpRow.Item("BLOCKING_PID"), tmpRow.Item("ACTV_REG_SEQ")), "ORDER_NO ASC")
+                                                     '        Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
+                                                     '        sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
 
-                                                     Next
+                                                     '    Next
+                                                     '    topNode.Expand()
+                                                     '    topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
+
+                                                     'Next
 
                                                      'grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", intLockCount)
                                                      'lslSession.Text = p_clsMsgData.fn_GetData("F314", dtView.Count)
@@ -561,6 +569,11 @@
         End If
         chtCPU.Height = 2000 'fix Height of Chart
         chtCPU.MainChart.Focus()
+
+        If _isFromFormLoad = True Then
+            _isFromFormLoad = False
+            Return
+        End If
 
         If CheckBox.Checked = False Then
             If _annotationIndex = CheckBox.Tag + 1 Then
@@ -1077,11 +1090,44 @@
 
                                                      RaiseEvent ShowMasg()
 
-                                                     For i As Integer = 1 To _AreaCount
-                                                         If chtCPU.MainChart.ChartAreas(i).Visible = True Then
-                                                             QueryChartData(i, True)
+
+                                                     'Case 0 : SetDefaultTitle(chkCpu, chtCPU, True, "")
+                                                     'Case 1 : SetDefaultTitle(chkSession, chtSession, True, "")
+                                                     'Case 2 : SetDefaultTitle(chkLogicalIO, chtLogicalIO, True, "")
+                                                     'Case 3 : SetDefaultTitle(chkPhysicalRead, chtPhysicalRead, True, "")
+                                                     'Case 4 : SetDefaultTitle(chkDiskIO, chtDiskIO, True, "")
+                                                     'Case 5 : SetDefaultTitle(chkSQLResp, chtSQLResp, True, "")
+                                                     'Case 6 : SetDefaultTitle(chkLock, chtLock, True, "")
+                                                     '                                     tabSession.SelectedIndex = 2
+                                                     'Case 7 : SetDefaultTitle(chkTPS, chtTPS, True, "")
+
+
+                                                     Dim chkIndex As Integer = 0
+                                                     For Each tmpCtl As Control In tlpButton.Controls
+                                                         Dim tmpChk As BaseControls.CheckBox = DirectCast(tmpCtl, BaseControls.CheckBox)
+                                                         If tmpChk.Name = "chkCpu" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(1, True)
+                                                         ElseIf tmpChk.Name = "chkSession" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(2, True)
+                                                         ElseIf tmpChk.Name = "chkLogicalIO" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(3, True)
+                                                         ElseIf tmpChk.Name = "chkPhysicalRead" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(4, True)
+                                                         ElseIf tmpChk.Name = "chkDiskIO" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(5, True)
+                                                         ElseIf tmpChk.Name = "chkSQLResp" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(6, True)
+                                                         ElseIf tmpChk.Name = "chkLock" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(7, True)
+                                                         ElseIf tmpChk.Name = "chkTPS" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(8, True)
                                                          End If
                                                      Next
+                                                     'For i As Integer = 1 To _AreaCount
+                                                     '    If chtCPU.MainChart.ChartAreas(i).Visible = True Then
+                                                     '        QueryChartData(i, True)
+                                                     '    End If
+                                                     'Next
 
                                                      RaiseEvent WaitMasg("Session Information")
                                                      SetDataSession(dtpSt.Value, dtpEd.Value)

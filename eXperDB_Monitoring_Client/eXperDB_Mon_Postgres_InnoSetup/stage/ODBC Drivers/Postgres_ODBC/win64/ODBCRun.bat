@@ -1,1 +1,0 @@
-msiexec /i psqlodbc_x64.msi  /qr

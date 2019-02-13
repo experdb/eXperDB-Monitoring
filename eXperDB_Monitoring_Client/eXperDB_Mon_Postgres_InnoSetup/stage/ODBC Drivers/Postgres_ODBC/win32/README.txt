@@ -5,7 +5,7 @@
 
 
   Copyright (C) 1998          Insight Distribution Systems
-  Copyright (C) 1998 - 2013   The PostgreSQL Global Development Group
+  Copyright (C) 1998 - 2018   The PostgreSQL Global Development Group
 
   Multibyte support was added by Sankyo Unyu Service, (C) 2001.
 
@@ -32,8 +32,7 @@
   How to contact the authors:
 
   email:   pgsql-odbc@postgresql.org
-  website: http://pgfoundry.org/projects/psqlodbc
-
+  website: https://odbc.postgresql.org/
 
 ***********************************************************************/
 

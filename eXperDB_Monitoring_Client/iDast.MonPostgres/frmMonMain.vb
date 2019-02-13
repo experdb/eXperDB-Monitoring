@@ -46,6 +46,7 @@
     Private _SelectedAlertLevel As Integer = 0
 
     Private _isPower As Boolean = True
+    Private _isDrawInitialData As Integer = 3
 
     Private _instanceColors() As Color = {System.Drawing.Color.YellowGreen,
                          System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
@@ -261,7 +262,7 @@
         ' Set Radio Button Group = 처음 시작시 모니터링 서버 목록을 가져와서 존재하는 그룹만 화면에 출력한다. 
         'sb_SetRbGrp(_GrpList)
         ServerName_lv.Text = _GrpList.Item(0).GroupName
-        tmCollect.Interval = 3000
+        tmCollect.Interval = 1500
         tmCollect.Start()
         ' Timer Thread를 생성하고 돌려줌
         ' Timer Thread 는 
@@ -1116,19 +1117,22 @@
             initControls(p_clsAgentCollect.AgentState)
 
             If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
-
-                clsAgentCollect_GetDataBackendinfo(p_clsAgentCollect.infoDataBackend)
-                clsAgentCollect_GetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
-                clsAgentCollect_GetDataDiskInfo(p_clsAgentCollect.infoDataDisk)
-                clsAgentCollect_GetDataLockinfo(p_clsAgentCollect.infoDatalock)
-                clsAgentCollect_GetDataLockCount(p_clsAgentCollect.infoDatalockCount)
-                clsAgentCollect_GetDataSQLRespTmInfo(p_clsAgentCollect.infoDataSQLRespTm)
-                clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
-                clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
-                clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
-                clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
-                StartChartAnimaition()
+                If _isDrawInitialData = 0 Then
+                    clsAgentCollect_GetDataBackendinfo(p_clsAgentCollect.infoDataBackend)
+                    clsAgentCollect_GetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
+                    clsAgentCollect_GetDataDiskInfo(p_clsAgentCollect.infoDataDisk)
+                    clsAgentCollect_GetDataLockinfo(p_clsAgentCollect.infoDatalock)
+                    clsAgentCollect_GetDataLockCount(p_clsAgentCollect.infoDatalockCount)
+                    clsAgentCollect_GetDataSQLRespTmInfo(p_clsAgentCollect.infoDataSQLRespTm)
+                    clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
+                    'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
+                    clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
+                    clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
+                    clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
+                    StartChartAnimaition()
+                Else
+                    _isDrawInitialData -= 1
+                End If
             Else
                 'SerialCheck()
 
@@ -1340,8 +1344,8 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim dblRegDt As Double
         Dim MaxPri As Double = 0
-        If dtTable IsNot Nothing _
-            AndAlso Me.chtCPUUtil.Series(0).Points.Count > 0 Then
+        If dtTable IsNot Nothing Then _
+            'AndAlso Me.chtCPUUtil.Series(0).Points.Count > 0 Then 'Avoid the problem of not displaying real-time information 
             If dtTable.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTable.Rows(0).Item("REG_DATE"))
                 For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "REG_DATE", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE").Rows
@@ -1741,10 +1745,10 @@
                     'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            If chtSessionActive.Series(0).Points.Count > 0 Then
-                                sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
-                                sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
-                            End If
+                            'If chtSessionActive.Series(0).Points.Count > 0 Then'Avoid the problem of not displaying real-time information 
+                            sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                            sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                            'End If
                             'Else
                             '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
                             '    If lastYPoint > 0 Then
@@ -1845,7 +1849,7 @@
         Dim intInstID As Integer
         Dim MaxPri As Double = 0
         If dtTableDataSQLRespTm IsNot Nothing Then
-            'AndAlso chtSQLRespTmAVG.Series(0).Points.Count > 0 Then
+            'AndAlso chtSQLRespTmAVG.Series(0).Points.Count > 0 Then 'Avoid the problem of not displaying real-time information 
             If dtTableDataSQLRespTm.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableDataSQLRespTm.Rows(0).Item("REG_DATE"))
                 For Each dtRow As DataRow In dtTableDataSQLRespTm.Rows
@@ -2016,7 +2020,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 5)
+            _dtTableLock = clsQu.SelectLockCount(strInstancIDs, New Date(), New Date(), False, 3)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -2057,7 +2061,7 @@
             Next
             Dim Instance As Integer() = arrInstanceIDs.ToArray(GetType(Integer))
             strInstancIDs = String.Join(",", Instance)
-            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 5)
+            _dtTableSQLResp = clsQu.SelectInitSQLRespTmChart(strInstancIDs, 3)
         Catch ex As Exception
             GC.Collect()
             _dtTableSessionStatus = Nothing
@@ -2328,8 +2332,8 @@
         '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         Dim dblRegDt As Double
-        If dtTableObject IsNot Nothing _
-           AndAlso Me.chtTPSTotal.Series(0).Points.Count > 0 Then
+        If dtTableObject IsNot Nothing Then _
+           'AndAlso Me.chtTPSTotal.Series(0).Points.Count > 0 Then'Avoid the problem of not displaying real-time information 
             If dtTableObject.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableObject.Rows(0).Item("COLLECT_DT"))
                 For Each dtRow As DataRow In dtTableObject.Rows
@@ -3680,6 +3684,7 @@
             If _dtTableSQLResp IsNot Nothing Then
                 drawDataSQLResp(_GrpListServerinfo)
             End If
+            _isDrawInitialData = 0
         End If
     End Sub
 

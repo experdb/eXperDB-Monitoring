@@ -3236,6 +3236,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M065" PARAMS="0">
+    <DESC>버젼 불일치</DESC>
+    <DATA><![CDATA[Client-server version mismatch.\n\n{0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>

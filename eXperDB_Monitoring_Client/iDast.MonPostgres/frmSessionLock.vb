@@ -156,32 +156,35 @@
         If btnPause.ForeColor = Color.LightGray Then Return
 
         'Dim topRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND BLOCKED_PID IS NULL", Me.InstanceID), "ORDER_NO ASC")
-        Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
-        Dgv.Nodes.Clear()
-        Dim intLockCount As Integer = 0
-        Dim HashTbl As New Hashtable
-        For Each tmpCol As DataGridViewColumn In Dgv.Columns
-
-            If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
-                HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-            End If
-        Next
 
 
-        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
-        For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
-            Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
-            sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-            intLockCount += 1
-            For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0}", tmpRow.Item("BLOCKING_PID")), "ORDER_NO ASC")
-                Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
-                sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+        'Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
+        'Dgv.Nodes.Clear()
+        Dim intLockCount As Integer = dtTable.Rows.Count
+        dgvLock.DataSource = dtTable
+        'Dim HashTbl As New Hashtable
+        'For Each tmpCol As DataGridViewColumn In Dgv.Columns
 
-            Next
-            topNode.Expand()
-            topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
+        '    If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) Then
+        '        HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+        '    End If
+        'Next
 
-        Next
+
+        'Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
+        'For Each tmpRow As DataRow In dtView.ToTable.Select("BLOCKED_PID IS NULL", "ORDER_NO ASC")
+        '    Dim topNode As AdvancedDataGridView.TreeGridNode = Dgv.Nodes.Add(tmpRow.Item("DB_NAME"))
+        '    sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
+        '    intLockCount += 1
+        '    For Each tmpChild As DataRow In dtView.Table.Select(String.Format("BLOCKED_PID IS NOT NULL AND BLOCKING_PID = {0}", tmpRow.Item("BLOCKING_PID")), "ORDER_NO ASC")
+        '        Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Item("DB_NAME"))
+        '        sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
+
+        '    Next
+        '    topNode.Expand()
+        '    topNode.Cells(0).Value = tmpRow.Item("DB_NAME") & " (" & topNode.Nodes.Count & ")"
+
+        'Next
 
         grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", intLockCount)
 

@@ -211,6 +211,29 @@
             Return Nothing
         End Try
     End Function
+
+
+    ''' <summary>
+    ''' Check version
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function SelectSeverVersion() As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+
+            Dim strQuery = p_clsQueryData.fn_GetData("SELECTSERVERVERSION")
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
     'Robin-End
 
 
@@ -1284,7 +1307,7 @@
     '    End Try
     'End Function
 
-    Public Function SelectReportSQL(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal strAgentVer As String, Optional isLimit As Boolean = False) As DataTable
+    Public Function SelectReportSQL(ByVal intInstanceID As Integer, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal strAgentVer As String, Optional intLimit As Integer = 1000) As DataTable
 
         Try
             If _ODBC IsNot Nothing Then
@@ -1298,10 +1321,7 @@
 
                 subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
-
-                If isLimit = True Then
-                    strQuery += " limit 1000"
-                End If
+                strQuery += String.Format(" limit {0}", intLimit)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1799,7 +1819,7 @@
                 Dim subQuery As String = ""
 
                 subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '5 minute')::time AND COL.REG_TIME < (now())::time", intInterval)
+                strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '3 minute')::time AND COL.REG_TIME < (now())::time", intInterval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1824,7 +1844,7 @@
 
                 subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
                 If StDate = Nothing Then
-                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '5 minute'", "now()", intInterval)
+                    strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "now() - interval '3 minute'", "now()", intInterval)
                 Else
                     strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyyMMdd HH:mm:ss") + "'", "'" + edDate.ToString("yyyyMMdd HH:mm:ss") + "'", intInterval)
                 End If
@@ -2000,7 +2020,7 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean, Optional ByVal intDuration As Integer = 5) As DataTable
+    Public Function SelectLockCount(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, ByVal HaveDuration As Boolean, Optional ByVal intDuration As Integer = 3) As DataTable
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKACCUM")
@@ -2081,7 +2101,7 @@
                     strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
                 Else
                     subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '5 minute')::time")
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '3 minute')::time")
                 End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)

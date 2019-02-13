@@ -358,8 +358,13 @@ public class ActvCollect extends TaskApplication {
 				
 				///////////////////////////////////////////////////////////////////////////////
 				// CURRENT_LOCK 정보 등록
-				for (HashMap<String, Object> map : currentLockSel) {
-					sessionAgent.insert("app.TB_CURRENT_LOCK_I001", map);
+//				for (HashMap<String, Object> map : currentLockSel) {
+//					sessionAgent.insert("app.TB_CURRENT_LOCK_I001", map);
+//				}
+				if(currentLockSel.size() > 0){
+//					HashMap<String, Object> parameter = new HashMap<String, Object>();
+//										parameter.put("list", currentLockSel);
+					sessionAgent.insert("app.TB_CURRENT_LOCK_I002", currentLockSel);
 				}
 				///////////////////////////////////////////////////////////////////////////////				
 				
@@ -435,17 +440,22 @@ public class ActvCollect extends TaskApplication {
 						inputParam.put("query", 					map.get("sql"));
 						
 
-						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
-						if (queryIdMap != null){
-							map.put("queryid", queryIdMap.get("queryid"));
-							sessionAgent.insert("app.TB_BACKEND_RSC_I002", map);
-						}else{
-							sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
-							if (extensions > 0 )
-								inputParam.put("stmt_queryid", 				map.get("stmt_queryid"));
-							if (map.get("db_name") != null)
-								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
-						}
+						
+						sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
+						if (map.get("db_name") != null)
+							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+
+//						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
+//						if (queryIdMap != null){
+//							map.put("queryid", queryIdMap.get("queryid"));
+//							sessionAgent.insert("app.TB_BACKEND_RSC_I002", map);
+//						}else{
+//							sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
+//							if (extensions > 0 )
+//								inputParam.put("stmt_queryid", 				map.get("stmt_queryid"));
+//							if (map.get("db_name") != null)
+//								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+//						}
 					}else{
 						sessionAgent.insert("app.TB_BACKEND_RSC_I001", map);
 					}
