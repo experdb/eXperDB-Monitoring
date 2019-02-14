@@ -2692,12 +2692,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				var_tablename = '${tablename}';
 				ddate = to_char((now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, 'YYYYMMDD') ;
 			    cdate = to_char((now() + INTERVAL '1 day')::date, 'YYYYMMDD');
+			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
 			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (var_tablename || '_' || ddate)));       
 			    IF is_exists_partition = TRUE THEN           
 				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
 				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
-				    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
-			     END IF;       
+		        END IF;       
 			 END $$
 		]]>	
 	</update>

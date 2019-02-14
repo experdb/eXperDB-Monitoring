@@ -121,10 +121,22 @@ public class DailyBatchTask {
 				//sessionAgent.delete("app.PGMONTB_BATCH_PG_STAT_STATEMENT_001");//robin 1031 delete checkpoint
 				//sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");//robin 1031 delete table ext
 				sessionAgent.delete("app.PGMONBT_BATCH_TB_USER_INFO_001");//robin 190122 delete user info
+				//Commit
+				sessionAgent.commit();
+			} catch (Exception e) {
+				sessionAgent.rollback();
+				log.error("", e);
+				
+				status = "3";
+				comments = "2";
+			}
+			
+			sessionAgent.close();
+			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
+			
+			try {
 				// Create partition tables
 				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
-				partitionTableMap.put("tablename", "testt");
-				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
 				partitionTableMap.put("tablename", "tb_actv_collect_info");
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
 				partitionTableMap.put("tablename", "tb_checkpoint_info");
@@ -158,12 +170,27 @@ public class DailyBatchTask {
 				partitionTableMap.put("tablename", "tb_pg_stat_statements");
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
 				partitionTableMap.put("tablename", "tb_table_ext_info");
-				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);		
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);	
+				
+				sessionAgent.commit();
+			} catch (Exception e) {
+				sessionAgent.rollback();
+				log.error("", e);
+				
+				status = "3";
+				comments = "2";
+			}
+			sessionAgent.close();
+			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
+			
+			try {
+				
 				// Add constraint of partition tables
 				Date today = new Date();
 				Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
 				SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd");
 				String new_date = transFormat.format(tomorrow);
+				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
 				partitionTableMap.put("regdate", "_" + new_date);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_ACTV_COLLECT_INFO_001" , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_ACCESS_INFO_001"       , partitionTableMap);
