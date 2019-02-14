@@ -859,7 +859,7 @@
 			          LOCK_MODE AS LOCK_MODE, 
 			          QUERY_START AS QUERY_START,
 			          XACT_START AS XACT_START,
-			          ROW_NUMBER() OVER (ORDER BY LOCKING_PID, BLOCKED_DURATION DESC NULLS FIRST) AS ORDER_NO,
+			          ROW_NUMBER() OVER (ORDER BY LOCKING_PID, BLOCKED_DURATION ASC NULLS FIRST) AS ORDER_NO,
 			          NOW() AS COLLECT_DT
 			  FROM (
 			          SELECT DB,
@@ -932,7 +932,10 @@
 			#{map.blocking_pid},
 			#{map.blocking_query},
 			#{map.blocked_user},
-			#{map.blocked_pid},
+		<choose>
+			<when test="map.blocked_pid==0">NULL</when>
+			<when test="map.blocked_pid>0">#{map.blocked_pid}</when>
+		</choose>,
 			#{map.blocked_query},
 			#{map.blocked_duration}::interval, 
 			#{map.lock_mode},
@@ -2825,7 +2828,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 </update>
 <update id="PG_INDEX_TB_TABLE_EXT_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_table_info${regdate} ON tb_table_ext_info${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX idx01_table_ext_info${regdate} ON tb_table_ext_info${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <!-- **************************************************************************************************************** -->
