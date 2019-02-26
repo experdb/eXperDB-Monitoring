@@ -2652,6 +2652,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="F337" PARAMS="0">
+    <DESC>Wait event</DESC>
+    <DATA><![CDATA[Wait event]]></DATA>
+  </ROW>
+  <ROW ID="F338" PARAMS="1">
+    <DESC>LOCK INFORMATION</DESC>
+    <DATA><![CDATA[Blocking Sessions(Count : {0})]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

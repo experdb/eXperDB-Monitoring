@@ -417,6 +417,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonMain.resx">
       <DependentUpon>frmMonMain.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddSvrList.resx">
       <DependentUpon>frmAddSvrList.vb</DependentUpon>

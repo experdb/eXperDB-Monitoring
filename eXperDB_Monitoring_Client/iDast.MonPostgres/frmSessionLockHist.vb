@@ -96,6 +96,7 @@
         coldgvSessionListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
         coldgvSessionListClient.HeaderText = p_clsMsgData.fn_GetData("F248")
         coldgvSessionListApp.HeaderText = p_clsMsgData.fn_GetData("F249")
+        coldgvSessionListWaitEvent.HeaderText = p_clsMsgData.fn_GetData("F337")
         coldgvSessionListRead.HeaderText = p_clsMsgData.fn_GetData("F048")
         coldgvSessionListWrite.HeaderText = p_clsMsgData.fn_GetData("F136")
         coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F052")

@@ -89,22 +89,63 @@ Public Class ctlChartEx
 
         MainChart.ApplyPaletteColors()
 
-
         Me.mnuChartMenu.Renderer = New A
+
+        'Me.mnuChartMenu.Renderer = New ToolStripProfessionalRenderer(New CustomProfessionalColors())
 
 
 
     End Sub
 
-
     Private Class A
         Inherits ToolStripRenderer
 
         Protected Overrides Sub OnRenderItemBackground(e As ToolStripItemRenderEventArgs)
-            'MyBase.OnRenderItemBackground(e) 
+            'MyBase.OnRenderItemBackground(e)
+        End Sub
+
+        Protected Overrides Sub OnRenderMenuItemBackground(e As ToolStripItemRenderEventArgs)
+            'If Not e.Item.Selected Then
+            '    MyBase.OnRenderMenuItemBackground(e)
+            '    e.Item.BackColor = Color.Black
+            'Else
+            '    Dim rc = New Rectangle(Point.Empty, e.Item.Size)
+
+            '    e.Graphics.FillRectangle(Brushes.Red, rc)
+            '    e.Graphics.DrawRectangle(Pens.Black, 1, 0, rc.Width - 2, rc.Height - 1)
+            '    e.Item.BackColor = Color.Red
+            'End If
+        End Sub
+
+        Protected Overrides Sub OnRenderItemText(e As ToolStripItemTextRenderEventArgs)
+            MyBase.OnRenderItemText(e)
+
+            If e.Item.Name <> "tsShowLegend" Then
+                If Not e.Item.Selected Then
+                    e.Item.ForeColor = Color.Black
+                Else
+                    e.Item.ForeColor = Color.Black
+                End If
+            End If
         End Sub
 
     End Class
+
+
+    'public  class TestColorTable : ProfessionalColorTable
+
+    'public sub overrides Color MenuItemSelected
+    '    get  return Color.Red
+
+    '    End Sub
+
+    'public override Color MenuBorder  //added for changing the menu border
+    '{
+    '    get { return Color.Green; }
+    '}
+
+    'End Class
+
 #End Region
 
 #Region "Properties"
@@ -1204,7 +1245,8 @@ Public Class ctlChartEx
         ' 멀티차트인지 구별하는 것으로 Initialize시에는 Visible 이 없다가 본 함수를 한번이라도 타게되면 멀티 차트를 사용하겠다는 것으로 인식하고 
         ' 숨겨진 메뉴를 꺼낸다. 
         If tsCharts.Visible = False Then
-            tsCharts.Visible = True
+            'tsCharts.Visible = True
+            tsCharts.Visible = False
         End If
         ' 생성된 신규 차트 그리기 영역명칭 반환 
         Return strNewAreaNm
@@ -1236,7 +1278,8 @@ Public Class ctlChartEx
         ' 숨겨진 메뉴를 꺼낸다. 
         If tsCharts.Visible = False Then
             _UseGroupMenu = True
-            tsCharts.Visible = True
+            'tsCharts.Visible = True
+            tsCharts.Visible = False
         End If
         ' 생성된 신규 차트 그리기 영역명칭 반환 
         Return strNewAreaNm
@@ -1345,7 +1388,8 @@ Public Class ctlChartEx
         ' 숨겨진 메뉴를 꺼낸다. 
         If tsCharts.Visible = False Then
             _UseGroupMenu = True
-            tsCharts.Visible = True
+            'tsCharts.Visible = True
+            tsCharts.Visible = False
         End If
         ' 생성된 신규 차트 그리기 영역명칭 반환 
         Return strNewAreaNm
@@ -1909,60 +1953,65 @@ Public Class ctlChartEx
     ''' <remarks></remarks>
     Private Sub mnuPopUpLegend_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles mnuPopUpLegend.Opening
         mnuPopUpLegend.Enabled = False
+        Try
+            If mnuPopUpLegend.Tag IsNot Nothing AndAlso TypeOf mnuPopUpLegend.Tag Is String AndAlso mnuPopUpLegend.Tag <> String.Empty Then
+                mnuPopUpLegend.Enabled = True
+                Dim strChartArea As String = mnuPopUpLegend.Tag
+                ' 범례에서 선택된 Chart Area의 명칭으로 사용되고 있는 범례를 선택한다. 
+                Dim tmpLegend As System.Windows.Forms.DataVisualization.Charting.Legend = fn_FindLegendByAreaNm(strChartArea)
+                ' Align 메뉴 Start
+                ' Align 메뉴 초기화 
+                mnuPopupAlignTop.Checked = False
+                mnuPopupAlignLeft.Checked = False
+                mnuPopupAlignRght.Checked = False
+                mnuPopupAlignBottom.Checked = False
+                ' Align 메뉴 설정 
+                Select Case tmpLegend.Docking
+                    Case DataVisualization.Charting.Docking.Top : mnuPopupAlignTop.Checked = True
+                    Case DataVisualization.Charting.Docking.Left : mnuPopupAlignLeft.Checked = True
+                    Case DataVisualization.Charting.Docking.Right : mnuPopupAlignRght.Checked = True
+                    Case DataVisualization.Charting.Docking.Bottom : mnuPopupAlignBottom.Checked = True
+                End Select
+                ' Align 메뉴 End
 
-        If mnuPopUpLegend.Tag IsNot Nothing AndAlso TypeOf mnuPopUpLegend.Tag Is String AndAlso mnuPopUpLegend.Tag <> String.Empty Then
-            mnuPopUpLegend.Enabled = True
-            Dim strChartArea As String = mnuPopUpLegend.Tag
-            ' 범례에서 선택된 Chart Area의 명칭으로 사용되고 있는 범례를 선택한다. 
-            Dim tmpLegend As System.Windows.Forms.DataVisualization.Charting.Legend = fn_FindLegendByAreaNm(strChartArea)
-            ' Align 메뉴 Start
-            ' Align 메뉴 초기화 
-            mnuPopupAlignTop.Checked = False
-            mnuPopupAlignLeft.Checked = False
-            mnuPopupAlignRght.Checked = False
-            mnuPopupAlignBottom.Checked = False
-            ' Align 메뉴 설정 
-            Select Case tmpLegend.Docking
-                Case DataVisualization.Charting.Docking.Top : mnuPopupAlignTop.Checked = True
-                Case DataVisualization.Charting.Docking.Left : mnuPopupAlignLeft.Checked = True
-                Case DataVisualization.Charting.Docking.Right : mnuPopupAlignRght.Checked = True
-                Case DataVisualization.Charting.Docking.Bottom : mnuPopupAlignBottom.Checked = True
-            End Select
-            ' Align 메뉴 End
+                ' 숨기기 Start 
+                mnuPopupHidden.Checked = IIf(tmpLegend.Enabled, False, True)
+                ' 숨기기 End 
 
-            ' 숨기기 Start 
-            mnuPopupHidden.Checked = IIf(tmpLegend.Enabled, False, True)
-            ' 숨기기 End 
+                ' Cell 항목 Start 
+                ' 색상과 Title 명은 무조건 보이게함.
+                ' Visible은 없고 Manimum Size를 0 이나 Auto로 설정함. 
+                If tmpLegend.CellColumns.Count > 2 Then
+                    If tmpLegend.CellColumns(CInt(mnuPopupMin.Tag)).MaximumWidth = 0 Then
+                        mnuPopupMin.Checked = False
+                    Else
+                        mnuPopupMin.Checked = True
+                    End If
 
-            ' Cell 항목 Start 
-            ' 색상과 Title 명은 무조건 보이게함.
-            ' Visible은 없고 Manimum Size를 0 이나 Auto로 설정함. 
-            If tmpLegend.CellColumns(CInt(mnuPopupMin.Tag)).MaximumWidth = 0 Then
-                mnuPopupMin.Checked = False
-            Else
-                mnuPopupMin.Checked = True
+                    If tmpLegend.CellColumns(CInt(mnuPopupMax.Tag)).MaximumWidth = 0 Then
+                        mnuPopupMax.Checked = False
+                    Else
+                        mnuPopupMax.Checked = True
+                    End If
+
+                    If tmpLegend.CellColumns(CInt(mnuPopupMEAN.Tag)).MaximumWidth = 0 Then
+                        mnuPopupMEAN.Checked = False
+                    Else
+                        mnuPopupMEAN.Checked = True
+                    End If
+
+                    If tmpLegend.CellColumns(CInt(mnuPopupVAL.Tag)).MaximumWidth = 0 Then
+                        mnuPopupVAL.Checked = False
+                    Else
+                        mnuPopupVAL.Checked = True
+                    End If
+                End If
+                ' Cell 항목 End 
+
             End If
-
-            If tmpLegend.CellColumns(CInt(mnuPopupMax.Tag)).MaximumWidth = 0 Then
-                mnuPopupMax.Checked = False
-            Else
-                mnuPopupMax.Checked = True
-            End If
-
-            If tmpLegend.CellColumns(CInt(mnuPopupMEAN.Tag)).MaximumWidth = 0 Then
-                mnuPopupMEAN.Checked = False
-            Else
-                mnuPopupMEAN.Checked = True
-            End If
-
-            If tmpLegend.CellColumns(CInt(mnuPopupVAL.Tag)).MaximumWidth = 0 Then
-                mnuPopupVAL.Checked = False
-            Else
-                mnuPopupVAL.Checked = True
-            End If
-            ' Cell 항목 End 
-
-        End If
+        Catch ex As Exception
+            GC.Collect()
+        End Try
     End Sub
     ''' <summary>
     ''' 맞춤 클릭시
@@ -2031,8 +2080,9 @@ Public Class ctlChartEx
         ' 범례에서 선택된 Chart Area의 명칭으로 사용되고 있는 범례를 선택한다. 
         Dim tmpLegend As System.Windows.Forms.DataVisualization.Charting.Legend = fn_FindLegendByAreaNm(mnuPopUpLegend.Tag)
 
-        tmpLegend.CellColumns(CInt(tsitm.Tag)).MaximumWidth = strMaxWidthValue
-
+        If tmpLegend.CellColumns.Count > 2 Then
+            tmpLegend.CellColumns(CInt(tsitm.Tag)).MaximumWidth = strMaxWidthValue
+        End If
 
 
 

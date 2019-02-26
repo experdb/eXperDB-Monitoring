@@ -218,6 +218,8 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_INDEX_TB_DISK_IO_001"           , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_DISK_USAGE_001"        , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_TABLE_EXT_INFO_001"    , partitionTableMap);
+				sessionAgent.update("app.PG_INDEX_TB_ACTV_COLLECT_INFO_001"    , partitionTableMap);
+				sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"    , partitionTableMap);
 				//Commit
 				sessionAgent.commit();
 			} catch (Exception e) {

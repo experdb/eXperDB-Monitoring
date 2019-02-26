@@ -27,7 +27,6 @@
                 If dtTableVersion IsNot Nothing Then
                     Dim ClientVersion As String = Application.ProductVersion
                     Dim ServerVersion As String = dtTableVersion.Rows(0).Item("VERSION")
-                    Me.Text = Me.Tag + " (v" + ClientVersion + ")"
 
                     If ClientVersion <> ServerVersion Then
                         MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion))
@@ -799,6 +798,8 @@
         Database_lv.Text = p_clsMsgData.fn_GetData("F906")
         Port_lv.Text = p_clsMsgData.fn_GetData("F907")
         Password_lv.Text = p_clsMsgData.fn_GetData("F908")
+        Dim ClientVersion As String = Application.ProductVersion
+        Me.Text = Me.Tag + " (v" + ClientVersion + ")"
     End Sub
 
     Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs) Handles pnlAgentInfo.Paint

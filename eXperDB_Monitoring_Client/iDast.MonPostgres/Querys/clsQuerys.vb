@@ -835,7 +835,7 @@
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTCPU")
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -867,7 +867,7 @@
                 Dim interval As String = minutes * 60 / pointCount
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTCPUCHART")
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, stDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, stDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", stDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -1104,7 +1104,7 @@
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTTBACCESS")
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -1215,7 +1215,7 @@
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTSESSIONCHART")
                 Dim subQuery As String = ""
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -1312,6 +1312,7 @@
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = ""
+                Dim strHint As String = ""
                 If ConvDBL(strAgentVer) >= 10.4 Then
                     strQuery = p_clsQueryData.fn_GetData("SELECTREPORTSQLEXT")
                 Else
@@ -1319,8 +1320,16 @@
                 End If
                 Dim subQuery As String = ""
 
+                Dim intDiffDate = DateDiff(DateInterval.Day, StDate.Date, edDate.Date)
+                strHint = "/*+" + vbCrLf
+                For i As Integer = 0 To intDiffDate
+                    Dim HintDate As DateTime = StDate.AddDays(i)
+                    strHint += String.Format("IndexScan(e pk_tb_backend_rsc_{0})", HintDate.ToString("yyyyMMdd")) + vbCrLf
+                Next
+                strHint += "*/"
+
                 subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
-                strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                strQuery = String.Format(strQuery, intInstanceID, subQuery, StDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"), strHint)
                 strQuery += String.Format(" limit {0}", intLimit)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
@@ -1876,12 +1885,12 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSESSIONINFO")
                 Dim subQuery As String = ""
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
-                strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'", interval)
+                strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("yyyyMMdd HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("yyyyMMdd HH:mm:ss") + "'", interval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1906,7 +1915,7 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILOBJECT")
                 Dim subQuery As String = ""
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -1936,7 +1945,7 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSQLRESPTIME")
                 Dim subQuery As String = ""
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -1962,6 +1971,8 @@
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = ""
+                Dim strHint As String = ""
+
                 If ConvDBL(strAgentVer) >= 10.4 Then
                     strQuery = p_clsQueryData.fn_GetData("SELECTDETAILSQLLISTEXT")
                 Else
@@ -1970,12 +1981,20 @@
 
                 Dim subQuery As String = ""
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                Dim intDiffDate = DateDiff(DateInterval.Day, StDate.Date, edDate.Date)
+                If intDiffDate = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
-                strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:ss") + "'")
+                strHint = "/*+" + vbCrLf
+                For i As Integer = 0 To intDiffDate
+                    Dim HintDate As DateTime = StDate.AddDays(i)
+                    strHint += String.Format("IndexScan(e pk_tb_backend_rsc_{0})", HintDate.ToString("yyyyMMdd")) + vbCrLf
+                Next
+                strHint += "*/"
+                strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", strHint)
+                'strQuery = String.Format(strQuery, InstanceID, strName, subQuery, "'" + StDate.ToString("HH:mm:ss") + "'", "'" + edDate.ToString("HH:mm:ss") + "'")
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -1998,7 +2017,7 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTPHYSICALIODETAIL")
                 Dim subQuery As String = ""
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -2027,7 +2046,7 @@
                 Dim subQuery As String = ""
 
                 If HaveDuration = True Then
-                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                         subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                     Else
                         subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -2062,7 +2081,7 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLOCKACCUMTIMELINE")
                 Dim subQuery As String = ""
 
-                If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                     subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                 Else
                     subQuery = String.Format(" BETWEEN '{0}' AND '{1}'", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
@@ -2093,7 +2112,7 @@
                 Dim subQuery As String = ""
 
                 If HaveDuration = True Then
-                    If DateDiff(DateInterval.Day, StDate, edDate) = 0 Then
+                    If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
                         subQuery = String.Format(" = '{0}'", StDate.ToString("yyyyMMdd"))
                     Else
                         subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))

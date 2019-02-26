@@ -160,6 +160,7 @@
         _ShowHchkCritical = clsIni.ReadValue("General", "CRITICAL_SHOW", True)
 
         nudBackendcnt.Value = clsIni.ReadValue("FORM", "SESSIONDETAIL", 30)
+        nudLockCnt.Value = clsIni.ReadValue("FORM", "LOCKDETAIL", 30)
 
         chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEDETAIL", "False")
 
@@ -321,16 +322,37 @@
         dgvResUtilPerBackProc.AutoGenerateColumns = False
         coldgvResUtilPerBackProcDB.HeaderText = p_clsMsgData.fn_GetData("F090")
         coldgvResUtilPerBackProcPID.HeaderText = p_clsMsgData.fn_GetData("F082")
+        coldgvResUtilPerBackProcCpuUsage.HeaderText = p_clsMsgData.fn_GetData("F092")
+        coldgvResUtilPerBackProcStTime.HeaderText = p_clsMsgData.fn_GetData("F050")
+        coldgvResUtilPerBackProcElapsedTime.HeaderText = p_clsMsgData.fn_GetData("F051")
+        coldgvResUtilPerBackProcStatus.HeaderText = p_clsMsgData.fn_GetData("F247")
+        coldgvResUtilPerBackProcUser.HeaderText = p_clsMsgData.fn_GetData("F008")
+        coldgvResUtilPerBackProcClientAddr.HeaderText = p_clsMsgData.fn_GetData("F248")
+        coldgvResUtilPerBackProcApp.HeaderText = p_clsMsgData.fn_GetData("F249")
+        coldgvResUtilPerBackProcWaitEvent.HeaderText = p_clsMsgData.fn_GetData("F337")
         coldgvResUtilPerBackProcRead.HeaderText = p_clsMsgData.fn_GetData("F048")
         coldgvResUtilPerBackProcWrite.HeaderText = p_clsMsgData.fn_GetData("F136")
-        coldgvResUtilPerBackProcCpuUsage.HeaderText = p_clsMsgData.fn_GetData("F092")
         coldgvResUtilPerBackProcSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
-        coldgvResUtilPerBackProcElapsedTime.HeaderText = p_clsMsgData.fn_GetData("F051")
-        coldgvResUtilPerBackProcStTime.HeaderText = p_clsMsgData.fn_GetData("F050")
 
         chkIDLE.Text = p_clsMsgData.fn_GetData("F227")
         chkIDLE.Tag = p_clsMsgData.fn_GetSpecificData("F227", "COMMENTS")
 
+        ' lock Information 
+        dgvLock.AutoGenerateColumns = False
+        lblLockList.Text = p_clsMsgData.fn_GetData("F338", 0)
+        'colDgvLockSel.HeaderText = p_clsMsgData.fn_GetData("F017")
+        colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
+        colDgvLockBlockedPID.HeaderText = p_clsMsgData.fn_GetData("F195")
+        colDgvLockBlockedUser.HeaderText = p_clsMsgData.fn_GetData("F196")
+        colDgvLockBlockingPID.HeaderText = p_clsMsgData.fn_GetData("F197")
+        colDgvLockBlockingUser.HeaderText = p_clsMsgData.fn_GetData("F198")
+        colDgvLockElapse.HeaderText = p_clsMsgData.fn_GetData("F135")
+        colDgvLockBlockingQuery.HeaderText = p_clsMsgData.fn_GetData("F225")
+        colDgvLockBlockedQuery.HeaderText = p_clsMsgData.fn_GetData("F221")
+        colDgvLockMode.HeaderText = p_clsMsgData.fn_GetData("F222")
+        colDgvLockQueryStart.HeaderText = p_clsMsgData.fn_GetData("F223")
+        colDgvLockXactStart.HeaderText = p_clsMsgData.fn_GetData("F224")
+        dgvLock.Font = _TextFont
 
         'EVENT Log
         'grpEventLog.Text = p_clsMsgData.fn_GetData("F094")
@@ -720,9 +742,8 @@
     Private Sub SetDataSQLRespTm(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
-
+        Dim dblMaxPri As Double = 0
 
         ' Chart 데이터는 Invoke 로 넣어야 한다. 
 
@@ -733,14 +754,23 @@
         Else
             For Each tmprow As DataRow In dtRows
                 Dim dblRegDt As Double = ConvOADate(tmprow.Item("REG_DATE"))
-                Dim dblMax As Double = ConvULong(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
-                Dim dblAvg As Double = ConvULong(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
-
+                Dim dblMax As Double = ConvDBL(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
+                Dim dblAvg As Double = ConvDBL(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
+                If dblMaxPri < dblMax Then dblMaxPri = dblMax
                 sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
                 sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
             Next
         End If
-        sb_ChartAlignYAxies(Me.chtSQLRespTm)
+        'sb_ChartAlignYAxies(Me.chtSQLRespTm)
+        If Not dblMaxPri.Equals(Double.NaN) Then
+            If dblMaxPri < 10 Then
+                Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+            Else
+                Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+            End If
+        End If
+
+        Me.chtSQLRespTm.ChartAreas(0).RecalculateAxesScale()
     End Sub
     ''' <summary>
     ''' SQL Response Time 정보 등록 
@@ -1295,7 +1325,7 @@
                           dtTable = _clsQuery.SelectInitSQLRespTmChart(InstanceID, 3)
 
                           Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
-
+                          Dim dblMaxPri As Double = 0
 
                           ' Chart 데이터는 Invoke 로 넣어야 한다. 
                           If dtRows.Count = 0 Then
@@ -1305,14 +1335,24 @@
                           Else
                               For Each tmprow As DataRow In dtRows
                                   Dim dblRegDt As Double = ConvOADate(tmprow.Item("REG_DATE"))
-                                  Dim dblMax As Double = ConvULong(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
-                                  Dim dblAvg As Double = ConvULong(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
-
+                                  Dim dblMax As Double = ConvDBL(tmprow.Item("MAX_SQL_ELAPSED_SEC"))
+                                  Dim dblAvg As Double = ConvDBL(tmprow.Item("AVG_SQL_ELAPSED_SEC"))
+                                  If dblMaxPri < dblMax Then dblMaxPri = dblMax
                                   sb_ChartAddPoint(Me.chtSQLRespTm, "MAX", dblRegDt, dblMax)
                                   sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
                               Next
                           End If
-                          sb_ChartAlignYAxies(Me.chtSQLRespTm)
+                          'sb_ChartAlignYAxies(Me.chtSQLRespTm)
+
+                          If Not dblMaxPri.Equals(Double.NaN) Then
+                              If dblMaxPri < 10 Then
+                                  Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+                              Else
+                                  Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+                              End If
+                          End If
+
+                          Me.chtSQLRespTm.ChartAreas(0).RecalculateAxesScale()
                       Catch ex As Exception
                           GC.Collect()
                       End Try
@@ -1772,6 +1812,12 @@
 
     End Sub
 
+    Private Sub nudLockCnt_ValueChanged(sender As Object, e As EventArgs) Handles nudLockCnt.ValueChanged
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("FORM", "LOCKDETAIL", DirectCast(sender, BaseControls.NumericUpDown).Value)
+
+    End Sub
+
     Private Sub chkIDLE_CheckedChanged(sender As Object, e As EventArgs) Handles chkIDLE.CheckedChanged
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("FORM", "IDLEDETAIL", chkIDLE.Checked)
@@ -1934,6 +1980,15 @@
         End If
     End Sub
 
+    Private Sub dgvLock_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvLock.CellDoubleClick
+        If dgvLock.RowCount <= 0 Then Return
+        'SQL
+        If e.RowIndex >= 0 Then
+            Dim frmQuery As New frmQueryView(_AgentCn, dgvLock.Rows(e.RowIndex).Cells(colDgvLockBlockedQuery.Index).Value, dgvLock.Rows(e.RowIndex).Cells(colDgvLockDB.Index).Value, dgvLock.Rows(e.RowIndex).Cells(colDgvLockBlockingUser.Index).Value, InstanceID, _AgentInfo)
+            frmQuery.Show()
+        End If
+    End Sub
+
     Private Sub EspRight_SplitterMoved(sender As Object, e As SplitterEventArgs)
 
     End Sub
@@ -1952,7 +2007,7 @@
         Next
 
         If BretFrm Is Nothing Then
-            BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
+            BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, 0)
             'BretFrm.Show(DirectCast(Me.OwnerForm, frmMonMain))
             BretFrm.Show()
         Else
@@ -2398,7 +2453,7 @@
             Next
 
             If BretFrm Is Nothing Then
-                BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, -1)
+                BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, Me.InstanceID, stDt, edDt, _AgentInfo, 0)
                 BretFrm.Show()
             Else
                 BretFrm.Activate()
@@ -2473,4 +2528,51 @@
         End Select
     End Sub
 
+
+    ''' <summary>
+    ''' Lock info 변경 되었을 경우 
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <remarks></remarks>
+    Public Sub SetDataLockinfo(ByVal dtTable As DataTable)
+
+        dgvLock.Font = _TextFont
+        ' 전체 목록중 내것만 추출 
+        ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
+        'Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
+
+        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID AndAlso r.Item("BLOCKED_PID") Is DBNull.Value).AsDataView
+        Dim ShowDT As DataTable = Nothing
+
+        If dtView.Count > 0 Then
+            ShowDT = dtView.ToTable.AsEnumerable.Take(nudLockCnt.Value).CopyToDataTable
+        End If
+
+        If ShowDT IsNot Nothing Then
+            lblLockList.Text = p_clsMsgData.fn_GetData("F338", ShowDT.Rows.Count)
+        Else
+            lblLockList.Text = p_clsMsgData.fn_GetData("F338", 0)
+        End If
+        dgvLock.DataSource = ShowDT
+
+    End Sub
+
+    Private Sub lblBackend_MouseClick(sender As Object, e As MouseEventArgs) Handles lblBackend.MouseClick, lblBlock.MouseClick
+        Dim BretFrm As frmSessionLock = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmSessionLock(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+    End Sub
 End Class

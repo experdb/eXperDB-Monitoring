@@ -84,10 +84,9 @@ Partial Class ctlChartEx
         Me.mnuChartMenu.Location = New System.Drawing.Point(0, 0)
         Me.mnuChartMenu.Margin = New System.Windows.Forms.Padding(0, 0, 0, 80)
         Me.mnuChartMenu.Name = "mnuChartMenu"
-        Me.mnuChartMenu.Size = New System.Drawing.Size(259, 27)
+        Me.mnuChartMenu.Size = New System.Drawing.Size(591, 27)
         Me.mnuChartMenu.TabIndex = 0
         Me.mnuChartMenu.Text = "ToolStrip1"
-        Me.mnuChartMenu.Visible = False
         '
         'tsCharts
         '
@@ -105,7 +104,7 @@ Partial Class ctlChartEx
         Me.mnuZoomType.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.mnuZoomType.Items.AddRange(New Object() {"None", "ALL", "X", "Y"})
         Me.mnuZoomType.Name = "mnuZoomType"
-        Me.mnuZoomType.Size = New System.Drawing.Size(75, 23)
+        Me.mnuZoomType.Size = New System.Drawing.Size(75, 27)
         Me.mnuZoomType.ToolTipText = "Select zoom type"
         Me.mnuZoomType.Visible = False
         '
@@ -142,6 +141,7 @@ Partial Class ctlChartEx
         Me.tsShowValue.Size = New System.Drawing.Size(75, 24)
         Me.tsShowValue.Text = "Values"
         Me.tsShowValue.ToolTipText = "값 보기"
+        Me.tsShowValue.Visible = False
         '
         'tsShowValueDeSel
         '
@@ -173,6 +173,7 @@ Partial Class ctlChartEx
         Me.tsShowMean.Name = "tsShowMean"
         Me.tsShowMean.Size = New System.Drawing.Size(88, 24)
         Me.tsShowMean.Text = "Averages"
+        Me.tsShowMean.Visible = False
         '
         'tsPrints
         '
@@ -368,7 +369,7 @@ Partial Class ctlChartEx
         '
         'mnuPopupAlignTop
         '
-        Me.mnuPopupAlignTop.CheckOnClick = True
+        Me.mnuPopupAlignTop.CheckOnClick = true
         Me.mnuPopupAlignTop.Name = "mnuPopupAlignTop"
         Me.mnuPopupAlignTop.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignTop.Tag = "0"
@@ -376,7 +377,7 @@ Partial Class ctlChartEx
         '
         'mnuPopupAlignLeft
         '
-        Me.mnuPopupAlignLeft.CheckOnClick = True
+        Me.mnuPopupAlignLeft.CheckOnClick = true
         Me.mnuPopupAlignLeft.Name = "mnuPopupAlignLeft"
         Me.mnuPopupAlignLeft.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignLeft.Tag = "3"
@@ -384,7 +385,7 @@ Partial Class ctlChartEx
         '
         'mnuPopupAlignRght
         '
-        Me.mnuPopupAlignRght.CheckOnClick = True
+        Me.mnuPopupAlignRght.CheckOnClick = true
         Me.mnuPopupAlignRght.Name = "mnuPopupAlignRght"
         Me.mnuPopupAlignRght.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignRght.Tag = "1"
@@ -392,7 +393,7 @@ Partial Class ctlChartEx
         '
         'mnuPopupAlignBottom
         '
-        Me.mnuPopupAlignBottom.CheckOnClick = True
+        Me.mnuPopupAlignBottom.CheckOnClick = true
         Me.mnuPopupAlignBottom.Name = "mnuPopupAlignBottom"
         Me.mnuPopupAlignBottom.Size = New System.Drawing.Size(114, 22)
         Me.mnuPopupAlignBottom.Tag = "2"
@@ -407,8 +408,8 @@ Partial Class ctlChartEx
         '
         'mnuPopupMin
         '
-        Me.mnuPopupMin.Checked = True
-        Me.mnuPopupMin.CheckOnClick = True
+        Me.mnuPopupMin.Checked = true
+        Me.mnuPopupMin.CheckOnClick = true
         Me.mnuPopupMin.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuPopupMin.Name = "mnuPopupMin"
         Me.mnuPopupMin.Size = New System.Drawing.Size(129, 22)
@@ -417,8 +418,8 @@ Partial Class ctlChartEx
         '
         'mnuPopupMax
         '
-        Me.mnuPopupMax.Checked = True
-        Me.mnuPopupMax.CheckOnClick = True
+        Me.mnuPopupMax.Checked = true
+        Me.mnuPopupMax.CheckOnClick = true
         Me.mnuPopupMax.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuPopupMax.Name = "mnuPopupMax"
         Me.mnuPopupMax.Size = New System.Drawing.Size(129, 22)
@@ -427,8 +428,8 @@ Partial Class ctlChartEx
         '
         'mnuPopupMEAN
         '
-        Me.mnuPopupMEAN.Checked = True
-        Me.mnuPopupMEAN.CheckOnClick = True
+        Me.mnuPopupMEAN.Checked = true
+        Me.mnuPopupMEAN.CheckOnClick = true
         Me.mnuPopupMEAN.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuPopupMEAN.Name = "mnuPopupMEAN"
         Me.mnuPopupMEAN.Size = New System.Drawing.Size(129, 22)
@@ -437,7 +438,7 @@ Partial Class ctlChartEx
         '
         'mnuPopupVAL
         '
-        Me.mnuPopupVAL.CheckOnClick = True
+        Me.mnuPopupVAL.CheckOnClick = true
         Me.mnuPopupVAL.Name = "mnuPopupVAL"
         Me.mnuPopupVAL.Size = New System.Drawing.Size(129, 22)
         Me.mnuPopupVAL.Tag = "5"
@@ -445,15 +446,15 @@ Partial Class ctlChartEx
         '
         'mnuPopupHidden
         '
-        Me.mnuPopupHidden.CheckOnClick = True
+        Me.mnuPopupHidden.CheckOnClick = true
         Me.mnuPopupHidden.Name = "mnuPopupHidden"
         Me.mnuPopupHidden.Size = New System.Drawing.Size(160, 22)
         Me.mnuPopupHidden.Text = "Legend Hidden"
         '
         'tsGRPDEFAREA
         '
-        Me.tsGRPDEFAREA.Checked = True
-        Me.tsGRPDEFAREA.CheckOnClick = True
+        Me.tsGRPDEFAREA.Checked = true
+        Me.tsGRPDEFAREA.CheckOnClick = true
         Me.tsGRPDEFAREA.CheckState = System.Windows.Forms.CheckState.Checked
         Me.tsGRPDEFAREA.Name = "tsGRPDEFAREA"
         Me.tsGRPDEFAREA.Size = New System.Drawing.Size(181, 26)
@@ -461,21 +462,21 @@ Partial Class ctlChartEx
         '
         'ctlChartEx
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7!, 12!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.mnuChartMenu)
         Me.Controls.Add(Me.MainChart)
         Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ctlChartEx"
         Me.Size = New System.Drawing.Size(942, 412)
-        Me.mnuChartMenu.ResumeLayout(False)
-        Me.mnuChartMenu.PerformLayout()
-        CType(Me.MainChart, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.mnuPopUpLegend.ResumeLayout(False)
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.mnuChartMenu.ResumeLayout(false)
+        Me.mnuChartMenu.PerformLayout
+        CType(Me.MainChart,System.ComponentModel.ISupportInitialize).EndInit
+        Me.mnuPopUpLegend.ResumeLayout(false)
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents mnuChartMenu As System.Windows.Forms.ToolStrip
     Friend WithEvents MainChart As System.Windows.Forms.DataVisualization.Charting.Chart
     Friend WithEvents tsShowValue As System.Windows.Forms.ToolStripDropDownButton

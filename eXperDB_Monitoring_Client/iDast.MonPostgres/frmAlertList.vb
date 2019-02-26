@@ -392,10 +392,10 @@
             Next
 
             If BretFrm Is Nothing Then
-                BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, instanceID, stDt, edDt, _AgentInfo, -1) 'index)
+                BretFrm = New frmMonItemDetail(DirectCast(Me.OwnerForm, frmMonMain).AgentCn, DirectCast(Me.OwnerForm, frmMonMain).GrpListServerinfo, instanceID, stDt, edDt, _AgentInfo, 0) 'index)
                 BretFrm.Show()
             Else
-                BretFrm.frmMonItemDetail_ReLoad(instanceID, stDt, edDt, -1)
+                BretFrm.frmMonItemDetail_ReLoad(instanceID, stDt, edDt, 0)
                 BretFrm.Activate()
             End If
         ElseIf sender.Name = "mnuGotoStatementsStats" Then

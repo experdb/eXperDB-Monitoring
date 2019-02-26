@@ -79,7 +79,7 @@
 
 
         ' lock Information 
-        grpLockInfo.Text = p_clsMsgData.fn_GetData("F077")
+        grpLockInfo.Text = p_clsMsgData.fn_GetData("F077", 0)
         dgvLock.AutoGenerateColumns = False
         'colDgvLockSel.HeaderText = p_clsMsgData.fn_GetData("F017")
         colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
@@ -109,6 +109,7 @@
         coldgvSessionListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
         coldgvSessionListClient.HeaderText = p_clsMsgData.fn_GetData("F248")
         coldgvSessionListApp.HeaderText = p_clsMsgData.fn_GetData("F249")
+        coldgvSessionListWaitEvent.HeaderText = p_clsMsgData.fn_GetData("F337")
         coldgvSessionListRead.HeaderText = p_clsMsgData.fn_GetData("F048")
         coldgvSessionListWrite.HeaderText = p_clsMsgData.fn_GetData("F136")
         coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
@@ -149,7 +150,7 @@
     Public Sub SetDataLockinfo(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-        'Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
+        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
 
         ' dgvLock.DataSource = dtView
         'If btnPause.Text = "4" Then Return
@@ -160,8 +161,8 @@
 
         'Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
         'Dgv.Nodes.Clear()
-        Dim intLockCount As Integer = dtTable.Rows.Count
-        dgvLock.DataSource = dtTable
+        Dim intLockCount As Integer = dtView.Count
+        dgvLock.DataSource = dtView
         'Dim HashTbl As New Hashtable
         'For Each tmpCol As DataGridViewColumn In Dgv.Columns
 

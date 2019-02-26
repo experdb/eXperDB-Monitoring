@@ -81,8 +81,10 @@ Partial Class frmMonItemDetail
         Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
         Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.rb4H = New eXperDB.BaseControls.RadioButton()
+        Me.rb2H = New eXperDB.BaseControls.RadioButton()
+        Me.rb1H = New eXperDB.BaseControls.RadioButton()
         Me.pnlEd = New eXperDB.BaseControls.Panel()
-        Me.cmbDuration = New eXperDB.BaseControls.ComboBox()
         Me.dtpEd = New eXperDB.BaseControls.DateTimePicker()
         Me.pnlSt = New eXperDB.BaseControls.Panel()
         Me.dtpSt = New eXperDB.BaseControls.DateTimePicker()
@@ -227,7 +229,7 @@ Partial Class frmMonItemDetail
         Me.tlpChartArea.Location = New System.Drawing.Point(0, 0)
         Me.tlpChartArea.Name = "tlpChartArea"
         Me.tlpChartArea.RowCount = 4
-        Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46.0!))
+        Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpChartArea.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -244,7 +246,7 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblChart, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 89)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 80)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -288,9 +290,9 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Controls.Add(Me.chtSession)
         Me.pnlChart.Controls.Add(Me.chtCPU)
         Me.pnlChart.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlChart.Location = New System.Drawing.Point(3, 129)
+        Me.pnlChart.Location = New System.Drawing.Point(3, 120)
         Me.pnlChart.Name = "pnlChart"
-        Me.pnlChart.Size = New System.Drawing.Size(1292, 454)
+        Me.pnlChart.Size = New System.Drawing.Size(1292, 463)
         Me.pnlChart.TabIndex = 3
         '
         'chtTPS
@@ -301,7 +303,7 @@ Partial Class frmMonItemDetail
         Me.chtTPS.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtTPS.Location = New System.Drawing.Point(0, 2462)
         Me.chtTPS.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtTPS.MenuVisible = False
+        Me.chtTPS.MenuVisible = True
         Me.chtTPS.Name = "chtTPS"
         Me.chtTPS.Size = New System.Drawing.Size(1275, 362)
         Me.chtTPS.TabIndex = 10
@@ -316,7 +318,7 @@ Partial Class frmMonItemDetail
         Me.chtLock.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtLock.Location = New System.Drawing.Point(0, 2100)
         Me.chtLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLock.MenuVisible = False
+        Me.chtLock.MenuVisible = True
         Me.chtLock.Name = "chtLock"
         Me.chtLock.Size = New System.Drawing.Size(1275, 362)
         Me.chtLock.TabIndex = 9
@@ -331,7 +333,7 @@ Partial Class frmMonItemDetail
         Me.chtSQLResp.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtSQLResp.Location = New System.Drawing.Point(0, 1738)
         Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSQLResp.MenuVisible = False
+        Me.chtSQLResp.MenuVisible = True
         Me.chtSQLResp.Name = "chtSQLResp"
         Me.chtSQLResp.Size = New System.Drawing.Size(1275, 362)
         Me.chtSQLResp.TabIndex = 8
@@ -346,7 +348,7 @@ Partial Class frmMonItemDetail
         Me.chtDiskIO.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtDiskIO.Location = New System.Drawing.Point(0, 1376)
         Me.chtDiskIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtDiskIO.MenuVisible = False
+        Me.chtDiskIO.MenuVisible = True
         Me.chtDiskIO.Name = "chtDiskIO"
         Me.chtDiskIO.Size = New System.Drawing.Size(1275, 362)
         Me.chtDiskIO.TabIndex = 7
@@ -361,7 +363,7 @@ Partial Class frmMonItemDetail
         Me.chtPhysicalRead.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtPhysicalRead.Location = New System.Drawing.Point(0, 1014)
         Me.chtPhysicalRead.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtPhysicalRead.MenuVisible = False
+        Me.chtPhysicalRead.MenuVisible = True
         Me.chtPhysicalRead.Name = "chtPhysicalRead"
         Me.chtPhysicalRead.Size = New System.Drawing.Size(1275, 362)
         Me.chtPhysicalRead.TabIndex = 11
@@ -376,7 +378,7 @@ Partial Class frmMonItemDetail
         Me.chtLogicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtLogicalIO.Location = New System.Drawing.Point(0, 652)
         Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLogicalIO.MenuVisible = False
+        Me.chtLogicalIO.MenuVisible = True
         Me.chtLogicalIO.Name = "chtLogicalIO"
         Me.chtLogicalIO.Size = New System.Drawing.Size(1275, 362)
         Me.chtLogicalIO.TabIndex = 6
@@ -391,7 +393,7 @@ Partial Class frmMonItemDetail
         Me.chtSession.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtSession.Location = New System.Drawing.Point(0, 290)
         Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSession.MenuVisible = False
+        Me.chtSession.MenuVisible = True
         Me.chtSession.Name = "chtSession"
         Me.chtSession.Size = New System.Drawing.Size(1275, 362)
         Me.chtSession.TabIndex = 5
@@ -406,7 +408,7 @@ Partial Class frmMonItemDetail
         Me.chtCPU.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.chtCPU.Location = New System.Drawing.Point(0, 0)
         Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPU.MenuVisible = False
+        Me.chtCPU.MenuVisible = True
         Me.chtCPU.Name = "chtCPU"
         Me.chtCPU.Size = New System.Drawing.Size(1275, 290)
         Me.chtCPU.TabIndex = 3
@@ -415,10 +417,14 @@ Partial Class frmMonItemDetail
         'tlpInput
         '
         Me.tlpInput.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.tlpInput.ColumnCount = 11
+        Me.tlpInput.ColumnCount = 15
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
@@ -427,11 +433,14 @@ Partial Class frmMonItemDetail
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.tlpInput.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.tlpInput.Controls.Add(Me.pnlEd, 5, 0)
-        Me.tlpInput.Controls.Add(Me.pnlSt, 3, 0)
+        Me.tlpInput.Controls.Add(Me.rb4H, 5, 0)
+        Me.tlpInput.Controls.Add(Me.rb2H, 4, 0)
+        Me.tlpInput.Controls.Add(Me.rb1H, 3, 0)
+        Me.tlpInput.Controls.Add(Me.pnlEd, 9, 0)
+        Me.tlpInput.Controls.Add(Me.pnlSt, 7, 0)
         Me.tlpInput.Controls.Add(Me.cmbInst, 1, 0)
         Me.tlpInput.Controls.Add(Me.lblServer, 0, 0)
-        Me.tlpInput.Controls.Add(Me.lblDuration2, 4, 0)
+        Me.tlpInput.Controls.Add(Me.lblDuration2, 8, 0)
         Me.tlpInput.Controls.Add(Me.lblDuration, 2, 0)
         Me.tlpInput.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpInput.Font = New System.Drawing.Font("Gulim", 7.650974!)
@@ -440,38 +449,77 @@ Partial Class frmMonItemDetail
         Me.tlpInput.Name = "tlpInput"
         Me.tlpInput.RowCount = 1
         Me.tlpInput.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpInput.Size = New System.Drawing.Size(1292, 40)
+        Me.tlpInput.Size = New System.Drawing.Size(1292, 31)
         Me.tlpInput.TabIndex = 0
+        '
+        'rb4H
+        '
+        Me.rb4H.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rb4H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb4H.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rb4H.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.rb4H.ForeColor = System.Drawing.Color.White
+        Me.rb4H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb4H.Location = New System.Drawing.Point(443, 3)
+        Me.rb4H.Name = "rb4H"
+        Me.rb4H.Radius = 8
+        Me.rb4H.Size = New System.Drawing.Size(74, 25)
+        Me.rb4H.TabIndex = 41
+        Me.rb4H.Text = "~4H"
+        Me.rb4H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb4H.UseRound = True
+        Me.rb4H.UseVisualStyleBackColor = True
+        Me.rb4H.Warning = False
+        Me.rb4H.WarningColor = System.Drawing.Color.Red
+        '
+        'rb2H
+        '
+        Me.rb2H.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rb2H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb2H.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rb2H.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.rb2H.ForeColor = System.Drawing.Color.White
+        Me.rb2H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb2H.Location = New System.Drawing.Point(363, 3)
+        Me.rb2H.Name = "rb2H"
+        Me.rb2H.Radius = 8
+        Me.rb2H.Size = New System.Drawing.Size(74, 25)
+        Me.rb2H.TabIndex = 40
+        Me.rb2H.Text = "~2H"
+        Me.rb2H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb2H.UseRound = True
+        Me.rb2H.UseVisualStyleBackColor = True
+        Me.rb2H.Warning = False
+        Me.rb2H.WarningColor = System.Drawing.Color.Red
+        '
+        'rb1H
+        '
+        Me.rb1H.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rb1H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb1H.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rb1H.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.rb1H.ForeColor = System.Drawing.Color.White
+        Me.rb1H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb1H.Location = New System.Drawing.Point(283, 3)
+        Me.rb1H.Name = "rb1H"
+        Me.rb1H.Radius = 8
+        Me.rb1H.Size = New System.Drawing.Size(74, 25)
+        Me.rb1H.TabIndex = 39
+        Me.rb1H.Text = "~1H"
+        Me.rb1H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb1H.UseRound = True
+        Me.rb1H.UseVisualStyleBackColor = True
+        Me.rb1H.Warning = False
+        Me.rb1H.WarningColor = System.Drawing.Color.Red
         '
         'pnlEd
         '
-        Me.pnlEd.Controls.Add(Me.cmbDuration)
         Me.pnlEd.Controls.Add(Me.dtpEd)
         Me.pnlEd.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlEd.Location = New System.Drawing.Point(483, 3)
+        Me.pnlEd.Location = New System.Drawing.Point(743, 3)
         Me.pnlEd.Name = "pnlEd"
-        Me.pnlEd.Size = New System.Drawing.Size(174, 34)
+        Me.pnlEd.Size = New System.Drawing.Size(174, 25)
         Me.pnlEd.TabIndex = 35
-        '
-        'cmbDuration
-        '
-        Me.cmbDuration.BackColor = System.Drawing.SystemColors.Window
-        Me.cmbDuration.DisplayMember = "All"
-        Me.cmbDuration.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.cmbDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cmbDuration.FixedWidth = False
-        Me.cmbDuration.Font = New System.Drawing.Font("Gulim", 9.2!)
-        Me.cmbDuration.FormattingEnabled = True
-        Me.cmbDuration.Items.AddRange(New Object() {"~10min", "~30min", "~60min"})
-        Me.cmbDuration.Location = New System.Drawing.Point(0, -8)
-        Me.cmbDuration.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cmbDuration.Name = "cmbDuration"
-        Me.cmbDuration.Necessary = False
-        Me.cmbDuration.Size = New System.Drawing.Size(174, 20)
-        Me.cmbDuration.StatusTip = ""
-        Me.cmbDuration.TabIndex = 31
-        Me.cmbDuration.ValueText = ""
-        Me.cmbDuration.Visible = False
         '
         'dtpEd
         '
@@ -481,7 +529,7 @@ Partial Class frmMonItemDetail
         Me.dtpEd.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dtpEd.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.dtpEd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEd.Location = New System.Drawing.Point(0, 12)
+        Me.dtpEd.Location = New System.Drawing.Point(0, 3)
         Me.dtpEd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpEd.Name = "dtpEd"
         Me.dtpEd.Necessary = False
@@ -493,9 +541,9 @@ Partial Class frmMonItemDetail
         '
         Me.pnlSt.Controls.Add(Me.dtpSt)
         Me.pnlSt.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlSt.Location = New System.Drawing.Point(283, 3)
+        Me.pnlSt.Location = New System.Drawing.Point(543, 3)
         Me.pnlSt.Name = "pnlSt"
-        Me.pnlSt.Size = New System.Drawing.Size(174, 34)
+        Me.pnlSt.Size = New System.Drawing.Size(174, 25)
         Me.pnlSt.TabIndex = 34
         '
         'dtpSt
@@ -506,7 +554,7 @@ Partial Class frmMonItemDetail
         Me.dtpSt.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dtpSt.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.dtpSt.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpSt.Location = New System.Drawing.Point(0, 12)
+        Me.dtpSt.Location = New System.Drawing.Point(0, 3)
         Me.dtpSt.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtpSt.Name = "dtpSt"
         Me.dtpSt.Necessary = False
@@ -523,7 +571,7 @@ Partial Class frmMonItemDetail
         Me.cmbInst.FixedWidth = False
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 16)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 6)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -541,9 +589,9 @@ Partial Class frmMonItemDetail
         Me.lblServer.FixedWidth = False
         Me.lblServer.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.lblServer.ForeColor = System.Drawing.Color.White
-        Me.lblServer.Location = New System.Drawing.Point(3, 6)
+        Me.lblServer.Location = New System.Drawing.Point(3, 0)
         Me.lblServer.Name = "lblServer"
-        Me.lblServer.Size = New System.Drawing.Size(74, 34)
+        Me.lblServer.Size = New System.Drawing.Size(74, 31)
         Me.lblServer.TabIndex = 30
         Me.lblServer.Text = "F033"
         Me.lblServer.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -556,9 +604,9 @@ Partial Class frmMonItemDetail
         Me.lblDuration2.FixedWidth = False
         Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 6.438643!)
         Me.lblDuration2.ForeColor = System.Drawing.Color.LightGray
-        Me.lblDuration2.Location = New System.Drawing.Point(463, 0)
+        Me.lblDuration2.Location = New System.Drawing.Point(723, 0)
         Me.lblDuration2.Name = "lblDuration2"
-        Me.lblDuration2.Size = New System.Drawing.Size(14, 40)
+        Me.lblDuration2.Size = New System.Drawing.Size(14, 31)
         Me.lblDuration2.TabIndex = 28
         Me.lblDuration2.Text = "~"
         Me.lblDuration2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -572,9 +620,9 @@ Partial Class frmMonItemDetail
         Me.lblDuration.FixedWidth = False
         Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.lblDuration.ForeColor = System.Drawing.Color.White
-        Me.lblDuration.Location = New System.Drawing.Point(203, 6)
+        Me.lblDuration.Location = New System.Drawing.Point(203, 0)
         Me.lblDuration.Name = "lblDuration"
-        Me.lblDuration.Size = New System.Drawing.Size(74, 34)
+        Me.lblDuration.Size = New System.Drawing.Size(74, 31)
         Me.lblDuration.TabIndex = 26
         Me.lblDuration.Text = "F254"
         Me.lblDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -601,7 +649,7 @@ Partial Class frmMonItemDetail
         Me.tlpButton.Controls.Add(Me.chkSession, 1, 0)
         Me.tlpButton.Controls.Add(Me.chkCpu, 0, 0)
         Me.tlpButton.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpButton.Location = New System.Drawing.Point(3, 49)
+        Me.tlpButton.Location = New System.Drawing.Point(3, 40)
         Me.tlpButton.Name = "tlpButton"
         Me.tlpButton.RowCount = 1
         Me.tlpButton.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1631,7 +1679,6 @@ Partial Class frmMonItemDetail
     Friend WithEvents dtpSt As eXperDB.BaseControls.DateTimePicker
     Friend WithEvents pnlEd As eXperDB.BaseControls.Panel
     Friend WithEvents dtpEd As eXperDB.BaseControls.DateTimePicker
-    Friend WithEvents cmbDuration As eXperDB.BaseControls.ComboBox
     Friend WithEvents tabSession As FlatTabControl.FlatTabControl
     Friend WithEvents tabWhole As System.Windows.Forms.TabPage
     Friend WithEvents tabStats As System.Windows.Forms.TabPage
@@ -1674,5 +1721,8 @@ Partial Class frmMonItemDetail
     Friend WithEvents colDgvLockXactStart As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockRegDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvLockActvRegSeq As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents rb4H As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rb2H As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rb1H As eXperDB.BaseControls.RadioButton
 
 End Class

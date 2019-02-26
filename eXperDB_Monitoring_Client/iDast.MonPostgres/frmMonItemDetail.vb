@@ -55,7 +55,7 @@
 
         Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
         '_AgentCn = New eXperDBODBC(dbType, "192.168.56.111", 5432, "pgmon", "pgmon", "pgmon")
-        _AgentCn = New eXperDBODBC(dbType, _AgentInfo.AgentDBIP, _AgentInfo.AgentDBPort, _AgentInfo.AgentConnDBNM, _AgentInfo.AgentConnDBUser, _AgentInfo.AgentConnDBPW)
+        _AgentCn = New eXperDBODBC(dbType, _AgentInfo.AgentDBIP, _AgentInfo.AgentDBPort, _AgentInfo.AgentConnDBUser, _AgentInfo.AgentConnDBPW, _AgentInfo.AgentConnDBNM)
 
         _chtOrder = chtOrder
 
@@ -67,19 +67,24 @@
             cmbInst.AddValue(tmpSvr.InstanceID, tmpSvr.ShowNm)
         Next
 
-        If _chtOrder >= 0 Then
-            dtpSt.Visible = True
-            dtpEd.Visible = True
-            cmbDuration.Visible = False
-            'btnQuery.Visible = False
-        Else
-            _chtOrder = 0
-            dtpSt.Visible = True
-            dtpEd.Visible = False
-            cmbDuration.Visible = True
-            cmbDuration.SelectedIndex = 0
-            'btnQuery.Visible = True
-        End If
+        'If _chtOrder >= 0 Then   'DDDD
+        '    dtpSt.Visible = True
+        '    dtpEd.Visible = True
+        '    cmbDuration.Visible = False
+        '    'btnQuery.Visible = False
+        'Else
+        '    _chtOrder = 0
+        '    dtpSt.Visible = True
+        '    dtpEd.Visible = False
+        '    cmbDuration.Visible = True
+        '    cmbDuration.SelectedIndex = 0
+        '    'btnQuery.Visible = True
+        'End If
+
+        dtpSt.Visible = True
+        dtpEd.Visible = True
+        'cmbDuration.Visible = False 'DDDD
+
 
         dtpSt.Value = stDt.AddMinutes(-1)
         dtpEd.Value = edDt.AddMinutes(1)
@@ -152,9 +157,9 @@
 
         _chtOrder = 0
         dtpSt.Visible = True
-        dtpEd.Visible = False
-        cmbDuration.Visible = True
-        cmbDuration.SelectedIndex = 0
+        dtpEd.Visible = True
+        'cmbDuration.Visible = True 'DDDD
+        'cmbDuration.SelectedIndex = 0
         btnQuery.Visible = True
         Dim prevStdt As DateTime = dtpSt.Value
         Dim prevInstanceIndex = cmbInst.SelectedIndex
@@ -173,7 +178,7 @@
             Next
         End If
 
-        If prevInstanceIndex = cmbInst.SelectedIndex AndAlso prevStdt <> dtpSt.Value Then
+        If prevInstanceIndex <> cmbInst.SelectedIndex Or prevStdt <> dtpSt.Value Then
             Me.Invoke(New MethodInvoker(Sub()
                                             btnQuery.PerformClick()
                                         End Sub))
@@ -317,7 +322,7 @@
 
                                                             Dim ShowDT As DataTable = Nothing
                                                             If dtView.Count > 0 Then
-                                                                ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
+                                                                ShowDT = dtView.ToTable.AsEnumerable.Take(500).CopyToDataTable
                                                             End If
 
                                                             If ShowDT Is Nothing Then
@@ -509,6 +514,9 @@
 
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Maximum = 100
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Minimum = 0
+
+        chtCPU.MainChart.ChartAreas("DISKAREA").AxisY.Maximum = 100
+        chtCPU.MainChart.ChartAreas("DISKAREA").AxisY.Minimum = 0
 
         Me.chtCPU.Visible = True
 
@@ -1268,8 +1276,8 @@
             MsgBox(p_clsMsgData.fn_GetData("M014"))
             Return False
         Else
-            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 60 Then
-                MsgBox(p_clsMsgData.fn_GetData("M063", "1"))
+            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 241 Then
+                MsgBox(p_clsMsgData.fn_GetData("M063", 4))
                 Return False
             End If
         End If
@@ -1290,44 +1298,44 @@
     End Sub
 
     Private Sub dtpSt_ValueChanged(sender As Object, e As EventArgs) Handles dtpSt.ValueChanged
-        If cmbDuration.Visible = True Then
-            Dim tempDt As Date = Now
-            If cmbDuration.SelectedIndex = 0 Then
-                tempDt = dtpSt.Value.AddMinutes(10)
-                If tempDt > Now Then
-                    tempDt = Now
-                End If
-                dtpEd.Value = tempDt
-            ElseIf cmbDuration.SelectedIndex = 1 Then
-                tempDt = dtpSt.Value.AddMinutes(30)
-                If tempDt > Now Then
-                    tempDt = Now
-                End If
-                dtpEd.Value = tempDt
-            ElseIf cmbDuration.SelectedIndex = 2 Then
-                tempDt = dtpSt.Value.AddMinutes(60)
-                If tempDt > Now Then
-                    tempDt = Now
-                End If
-                dtpEd.Value = tempDt
-            Else
-            End If
-        End If
+        'If cmbDuration.Visible = True Then 'DDDD
+        '    Dim tempDt As Date = Now
+        '    If cmbDuration.SelectedIndex = 0 Then
+        '        tempDt = dtpSt.Value.AddMinutes(10)
+        '        If tempDt > Now Then
+        '            tempDt = Now
+        '        End If
+        '        dtpEd.Value = tempDt
+        '    ElseIf cmbDuration.SelectedIndex = 1 Then
+        '        tempDt = dtpSt.Value.AddMinutes(30)
+        '        If tempDt > Now Then
+        '            tempDt = Now
+        '        End If
+        '        dtpEd.Value = tempDt
+        '    ElseIf cmbDuration.SelectedIndex = 2 Then
+        '        tempDt = dtpSt.Value.AddMinutes(60)
+        '        If tempDt > Now Then
+        '            tempDt = Now
+        '        End If
+        '        dtpEd.Value = tempDt
+        '    Else
+        '    End If
+        'End If
     End Sub
 
-    Private Sub cmbDuration_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDuration.SelectedIndexChanged
-        Dim intSelectedIndex As Integer = DirectCast(sender, BaseControls.ComboBox).SelectedIndex
-        Dim tempDt As Date = Now
-        Select Case intSelectedIndex
-            Case 0
-                tempDt = dtpSt.Value.AddMinutes(10)
-            Case 1
-                tempDt = dtpSt.Value.AddMinutes(30)
-            Case 2
-                tempDt = dtpSt.Value.AddMinutes(60)
-        End Select
-        dtpEd.Value = tempDt
-    End Sub
+    'Private Sub cmbDuration_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDuration.SelectedIndexChanged 'DDDD
+    '    Dim intSelectedIndex As Integer = DirectCast(sender, BaseControls.ComboBox).SelectedIndex
+    '    Dim tempDt As Date = Now
+    '    Select Case intSelectedIndex
+    '        Case 0
+    '            tempDt = dtpSt.Value.AddMinutes(10)
+    '        Case 1
+    '            tempDt = dtpSt.Value.AddMinutes(30)
+    '        Case 2
+    '            tempDt = dtpSt.Value.AddMinutes(60)
+    '    End Select
+    '    dtpEd.Value = tempDt
+    'End Sub
 
     Private Sub fn_MakeAnnotation(ByVal index As Integer)
         Dim stVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
@@ -1422,5 +1430,20 @@
             _ThreadDetail = Nothing
         End If
         _ProgresForm = Nothing
+    End Sub
+
+    Private Sub rb1H_Click(sender As Object, e As EventArgs) Handles rb1H.Click, rb2H.Click, rb4H.Click
+        Dim Rb As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If Rb.Checked = True Then
+            dtpEd.Value = DateTime.Now
+            If Rb.Text.Equals("~1H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-1)
+            ElseIf Rb.Text.Equals("~2H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-2)
+            ElseIf Rb.Text.Equals("~4H") Then
+                dtpSt.Value = dtpEd.Value.AddHours(-4)
+            End If
+        End If
+        btnQuery.PerformClick()
     End Sub
 End Class

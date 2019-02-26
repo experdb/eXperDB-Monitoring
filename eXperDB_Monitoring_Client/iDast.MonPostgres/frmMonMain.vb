@@ -1558,9 +1558,14 @@
         ' 하위폼이 있을 경우 하위폼에 던진다. 
 
         For Each tmpFrm As Form In My.Application.OpenForms
-            Dim subFrm As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+            Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
             If subFrm IsNot Nothing Then
                 subFrm.SetDataLockinfo(dtTable)
+            Else
+                Dim subFrmSL As frmSessionLock = TryCast(tmpFrm, frmSessionLock)
+                If subFrmSL IsNot Nothing Then
+                    subFrmSL.SetDataLockinfo(dtTable)
+                End If
             End If
         Next
 
