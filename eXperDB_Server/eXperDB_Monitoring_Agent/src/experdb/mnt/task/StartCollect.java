@@ -53,6 +53,9 @@ public class StartCollect extends TaskApplication {
 			List<HashMap<String, Object>> selectuser = new ArrayList<HashMap<String,Object>>(); //User 수집		
 			selectuser = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUSER_001");
 			
+			List<HashMap<String, Object>> selectDatabase = new ArrayList<HashMap<String,Object>>(); //Database 수집		
+			selectDatabase = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGDATABASE_001");
+			
 			/* update ha group 서버 다시띄우면 변경됨 */
 			HashMap<String, Object> select_group = new HashMap<String, Object>();
 			select_group = sessionAgent.selectOne("app.EXPERDBMA_BT_SELECT_HA_GROUP_001", select);					
@@ -67,11 +70,15 @@ public class StartCollect extends TaskApplication {
 
 			for (HashMap<String, Object> map : selectuser) {
 				map.put("instance_id", Integer.valueOf(instanceId));
-				sessionAgent.insert("app.TB_PGUSER_I001", map);					
+				sessionAgent.insert("app.TB_PGUSER_I002", map);					
 			}
+			
+			for (HashMap<String, Object> map : selectDatabase) {
+				map.put("instance_id", Integer.parseInt(instanceId));
+				sessionAgent.insert("app.TB_PGDATABASE_I002", map);					
+			}	
 			/*add to update ha_info by robin 201712 end*/
-			
-			
+						
 			sessionAgent.commit();
 		} catch (Exception e) {
 			log.error("", e);			

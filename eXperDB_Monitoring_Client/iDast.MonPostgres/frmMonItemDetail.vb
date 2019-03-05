@@ -368,7 +368,7 @@
 
                                                        Dim ShowDT As DataTable = Nothing
                                                        If dtView.Count > 0 Then
-                                                           ShowDT = dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
+                                                           ShowDT = dtView.ToTable.AsEnumerable.Take(500).CopyToDataTable
                                                        End If
 
                                                        If ShowDT Is Nothing Then
@@ -435,6 +435,18 @@
                                                  Try
                                                      dgvLock.DataSource = dtTable
 
+                                                     Dim dtView As DataView = New DataView(dtTable)
+                                                     Dim ShowDT As DataTable = Nothing
+                                                     If dtView.Count > 0 Then
+                                                         ShowDT = dtView.ToTable.AsEnumerable.Take(500).CopyToDataTable
+                                                     End If
+
+                                                     If ShowDT Is Nothing Then
+                                                         dgvLock.DataSource = Nothing
+                                                         Return
+                                                     End If
+
+                                                     dgvLock.DataSource = ShowDT
                                                      'Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
                                                      'Dgv.Nodes.Clear()
                                                      'Dim intLockCount As Integer = 0

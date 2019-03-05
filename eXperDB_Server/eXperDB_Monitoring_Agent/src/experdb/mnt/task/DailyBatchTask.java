@@ -71,18 +71,27 @@ public class DailyBatchTask {
 				SqlSession sessionCollect = null;
 				SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
 				List<HashMap<String, Object>> selectUser = new ArrayList<HashMap<String,Object>>();
+				List<HashMap<String, Object>> selectDatabase = new ArrayList<HashMap<String,Object>>();
 
 				while (en.hasMoreElements()) {
 					String instanceId =  (String) en.nextElement();
 					connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
 					sessionCollect = sqlSessionFactory.openSession(connection);
 					selectUser = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUSER_001");
-					log.debug("=====>>>" + selectUser);
+					//log.debug("=====>>>" + selectUser);
 									
+					selectDatabase = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUDATABASE_001");
+					//log.debug("=====>>>" + selectUser);
+
 					for (HashMap<String, Object> map : selectUser) {
 						map.put("instance_id", Integer.parseInt(instanceId));
-						sessionAgent.insert("app.TB_PGUSER_I001", map);					
-					}					
+						sessionAgent.insert("app.TB_PGUSER_I002", map);					
+					}
+					
+					for (HashMap<String, Object> map : selectDatabase) {
+						map.put("instance_id", Integer.parseInt(instanceId));
+						sessionAgent.insert("app.TB_PGDATABASE_I002", map);					
+					}	
 				}				
 				//Commit
 				sessionAgent.commit();
@@ -209,6 +218,8 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_CONSTRAINT_TB_HCHK_ALERT_INFO_001"   , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_PG_STAT_STATEMENTS_001", partitionTableMap);
 				// Create index of partition tables
+				
+				sessionAgent.update("app.PG_CREATE_FUNCTION_FOR_INDEX_001"  , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_CURRENT_LOCK_001"      , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_CURRENT_LOCK_002"      , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_BACKEND_RSC_001"       , partitionTableMap);
@@ -263,6 +274,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U028");
 				sessionAgent.update("app.VACUUM_ANALYZE_U029");
 				sessionAgent.update("app.VACUUM_ANALYZE_U030");
+				sessionAgent.update("app.VACUUM_ANALYZE_U031");
 			} catch (Exception e) {
 				log.error("", e);
 				

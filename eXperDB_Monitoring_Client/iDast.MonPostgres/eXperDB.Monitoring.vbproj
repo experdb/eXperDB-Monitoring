@@ -172,6 +172,12 @@
     <Compile Include="frmProgres.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmCurrentStatements.Designer.vb">
+      <DependentUpon>frmCurrentStatements.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCurrentStatements.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmStatementsFilter.Designer.vb">
       <DependentUpon>frmStatementsFilter.vb</DependentUpon>
     </Compile>
@@ -399,6 +405,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProgres.resx">
       <DependentUpon>frmProgres.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCurrentStatements.resx">
+      <DependentUpon>frmCurrentStatements.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStatementsFilter.resx">
       <DependentUpon>frmStatementsFilter.vb</DependentUpon>

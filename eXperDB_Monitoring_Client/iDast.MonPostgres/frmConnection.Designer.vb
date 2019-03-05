@@ -32,6 +32,8 @@ Partial Class frmConnection
         Me.btnTest = New eXperDB.BaseControls.Button()
         Me.splSlave = New eXperDB.BaseControls.SplitContainer()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblStmtSDly = New eXperDB.BaseControls.Label()
+        Me.cmbStmtCollectPeriod = New eXperDB.BaseControls.ComboBox()
         Me.cmbHARole = New eXperDB.BaseControls.ComboBox()
         Me.lblHARole = New eXperDB.BaseControls.Label()
         Me.nudCollectSecond = New eXperDB.BaseControls.NumericUpDown()
@@ -122,7 +124,7 @@ Partial Class frmConnection
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 550)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 585)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -202,8 +204,8 @@ Partial Class frmConnection
         '
         Me.splSlave.Panel2.Controls.Add(Me.TableLayoutPanel1)
         Me.splSlave.Panel2.Enabled = False
-        Me.splSlave.Size = New System.Drawing.Size(365, 497)
-        Me.splSlave.SplitterDistance = 342
+        Me.splSlave.Size = New System.Drawing.Size(365, 532)
+        Me.splSlave.SplitterDistance = 377
         Me.splSlave.TabIndex = 18
         Me.splSlave.TabStop = False
         '
@@ -214,11 +216,13 @@ Partial Class frmConnection
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
-        Me.tlpSvrChk.Controls.Add(Me.cmbHARole, 1, 9)
-        Me.tlpSvrChk.Controls.Add(Me.lblHARole, 0, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblStmtSDly, 0, 8)
+        Me.tlpSvrChk.Controls.Add(Me.cmbStmtCollectPeriod, 1, 8)
+        Me.tlpSvrChk.Controls.Add(Me.cmbHARole, 1, 10)
+        Me.tlpSvrChk.Controls.Add(Me.lblHARole, 0, 10)
         Me.tlpSvrChk.Controls.Add(Me.nudCollectSecond, 1, 7)
-        Me.tlpSvrChk.Controls.Add(Me.txtAlias, 1, 8)
-        Me.tlpSvrChk.Controls.Add(Me.lblAlias, 0, 8)
+        Me.tlpSvrChk.Controls.Add(Me.txtAlias, 1, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblAlias, 0, 9)
         Me.tlpSvrChk.Controls.Add(Me.lblUser, 0, 3)
         Me.tlpSvrChk.Controls.Add(Me.lblSvrGatSDly, 0, 7)
         Me.tlpSvrChk.Controls.Add(Me.lblPW, 0, 4)
@@ -235,7 +239,7 @@ Partial Class frmConnection
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpSvrChk.Location = New System.Drawing.Point(0, 0)
         Me.tlpSvrChk.Name = "tlpSvrChk"
-        Me.tlpSvrChk.RowCount = 11
+        Me.tlpSvrChk.RowCount = 12
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
@@ -246,12 +250,39 @@ Partial Class frmConnection
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 342)
+        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 377)
         Me.tlpSvrChk.TabIndex = 19
+        '
+        'lblStmtSDly
+        '
+        Me.lblStmtSDly.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblStmtSDly.FixedHeight = False
+        Me.lblStmtSDly.FixedWidth = False
+        Me.lblStmtSDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblStmtSDly.ForeColor = System.Drawing.Color.White
+        Me.lblStmtSDly.Location = New System.Drawing.Point(3, 275)
+        Me.lblStmtSDly.Name = "lblStmtSDly"
+        Me.lblStmtSDly.Size = New System.Drawing.Size(127, 20)
+        Me.lblStmtSDly.TabIndex = 19
+        Me.lblStmtSDly.Text = "F341"
+        Me.lblStmtSDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'cmbStmtCollectPeriod
+        '
+        Me.cmbStmtCollectPeriod.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbStmtCollectPeriod.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbStmtCollectPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbStmtCollectPeriod.FixedWidth = False
+        Me.cmbStmtCollectPeriod.FormattingEnabled = True
+        Me.cmbStmtCollectPeriod.Location = New System.Drawing.Point(136, 272)
+        Me.cmbStmtCollectPeriod.Name = "cmbStmtCollectPeriod"
+        Me.cmbStmtCollectPeriod.Necessary = False
+        Me.cmbStmtCollectPeriod.Size = New System.Drawing.Size(193, 20)
+        Me.cmbStmtCollectPeriod.StatusTip = ""
+        Me.cmbStmtCollectPeriod.TabIndex = 7
+        Me.cmbStmtCollectPeriod.ValueText = ""
         '
         'cmbHARole
         '
@@ -261,12 +292,12 @@ Partial Class frmConnection
         Me.cmbHARole.FixedWidth = False
         Me.cmbHARole.FormattingEnabled = True
         Me.cmbHARole.Items.AddRange(New Object() {"Single", "Primary", "Stand by"})
-        Me.cmbHARole.Location = New System.Drawing.Point(136, 307)
+        Me.cmbHARole.Location = New System.Drawing.Point(136, 342)
         Me.cmbHARole.Name = "cmbHARole"
         Me.cmbHARole.Necessary = False
         Me.cmbHARole.Size = New System.Drawing.Size(193, 20)
         Me.cmbHARole.StatusTip = ""
-        Me.cmbHARole.TabIndex = 17
+        Me.cmbHARole.TabIndex = 9
         Me.cmbHARole.ValueText = ""
         '
         'lblHARole
@@ -276,7 +307,7 @@ Partial Class frmConnection
         Me.lblHARole.FixedWidth = False
         Me.lblHARole.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHARole.ForeColor = System.Drawing.Color.White
-        Me.lblHARole.Location = New System.Drawing.Point(3, 310)
+        Me.lblHARole.Location = New System.Drawing.Point(3, 345)
         Me.lblHARole.Name = "lblHARole"
         Me.lblHARole.Size = New System.Drawing.Size(127, 20)
         Me.lblHARole.TabIndex = 16
@@ -296,7 +327,7 @@ Partial Class frmConnection
         Me.nudCollectSecond.Necessary = False
         Me.nudCollectSecond.Size = New System.Drawing.Size(193, 21)
         Me.nudCollectSecond.StatusTip = ""
-        Me.nudCollectSecond.TabIndex = 13
+        Me.nudCollectSecond.TabIndex = 6
         Me.nudCollectSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.nudCollectSecond.ThousandsSeparator = True
         Me.nudCollectSecond.Value = New Decimal(New Integer() {3, 0, 0, 0})
@@ -309,14 +340,14 @@ Partial Class frmConnection
         Me.txtAlias.FixedWidth = False
         Me.txtAlias.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAlias.impossibleinput = ""
-        Me.txtAlias.Location = New System.Drawing.Point(136, 271)
+        Me.txtAlias.Location = New System.Drawing.Point(136, 306)
         Me.txtAlias.Name = "txtAlias"
         Me.txtAlias.Necessary = False
         Me.txtAlias.PossibleInput = ""
         Me.txtAlias.Prefix = ""
         Me.txtAlias.Size = New System.Drawing.Size(193, 21)
         Me.txtAlias.StatusTip = ""
-        Me.txtAlias.TabIndex = 15
+        Me.txtAlias.TabIndex = 8
         Me.txtAlias.Value = ""
         '
         'lblAlias
@@ -326,7 +357,7 @@ Partial Class frmConnection
         Me.lblAlias.FixedWidth = False
         Me.lblAlias.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAlias.ForeColor = System.Drawing.Color.White
-        Me.lblAlias.Location = New System.Drawing.Point(3, 275)
+        Me.lblAlias.Location = New System.Drawing.Point(3, 310)
         Me.lblAlias.Name = "lblAlias"
         Me.lblAlias.Size = New System.Drawing.Size(127, 20)
         Me.lblAlias.TabIndex = 14
@@ -386,7 +417,7 @@ Partial Class frmConnection
         Me.cmbSchema.Necessary = False
         Me.cmbSchema.Size = New System.Drawing.Size(193, 20)
         Me.cmbSchema.StatusTip = ""
-        Me.cmbSchema.TabIndex = 11
+        Me.cmbSchema.TabIndex = 5
         Me.cmbSchema.ValueText = ""
         '
         'lblSchema
@@ -414,7 +445,7 @@ Partial Class frmConnection
         Me.cmbDbnm.Necessary = False
         Me.cmbDbnm.Size = New System.Drawing.Size(193, 20)
         Me.cmbDbnm.StatusTip = ""
-        Me.cmbDbnm.TabIndex = 9
+        Me.cmbDbnm.TabIndex = 4
         Me.cmbDbnm.ValueText = ""
         '
         'lblDB
@@ -447,7 +478,7 @@ Partial Class frmConnection
         Me.txtPW.Prefix = ""
         Me.txtPW.Size = New System.Drawing.Size(193, 21)
         Me.txtPW.StatusTip = ""
-        Me.txtPW.TabIndex = 7
+        Me.txtPW.TabIndex = 3
         Me.txtPW.Value = ""
         '
         'lblIP
@@ -479,7 +510,7 @@ Partial Class frmConnection
         Me.txtUsr.Prefix = ""
         Me.txtUsr.Size = New System.Drawing.Size(193, 21)
         Me.txtUsr.StatusTip = ""
-        Me.txtUsr.TabIndex = 5
+        Me.txtUsr.TabIndex = 2
         Me.txtUsr.Value = ""
         '
         'lblPort
@@ -511,7 +542,7 @@ Partial Class frmConnection
         Me.txtIP.Prefix = ""
         Me.txtIP.Size = New System.Drawing.Size(193, 21)
         Me.txtIP.StatusTip = ""
-        Me.txtIP.TabIndex = 1
+        Me.txtIP.TabIndex = 0
         Me.txtIP.Value = ""
         '
         'txtPort
@@ -529,7 +560,7 @@ Partial Class frmConnection
         Me.txtPort.Prefix = ""
         Me.txtPort.Size = New System.Drawing.Size(193, 21)
         Me.txtPort.StatusTip = ""
-        Me.txtPort.TabIndex = 3
+        Me.txtPort.TabIndex = 1
         Me.txtPort.Value = "0"
         '
         'TableLayoutPanel1
@@ -588,7 +619,7 @@ Partial Class frmConnection
         Me.txtHAREPLHost.Prefix = ""
         Me.txtHAREPLHost.Size = New System.Drawing.Size(193, 21)
         Me.txtHAREPLHost.StatusTip = ""
-        Me.txtHAREPLHost.TabIndex = 26
+        Me.txtHAREPLHost.TabIndex = 2
         Me.txtHAREPLHost.Value = ""
         Me.txtHAREPLHost.Visible = False
         '
@@ -607,7 +638,7 @@ Partial Class frmConnection
         Me.txtHAPort.Prefix = ""
         Me.txtHAPort.Size = New System.Drawing.Size(193, 21)
         Me.txtHAPort.StatusTip = ""
-        Me.txtHAPort.TabIndex = 25
+        Me.txtHAPort.TabIndex = 1
         Me.txtHAPort.Value = ""
         '
         'txtHAHost
@@ -625,7 +656,7 @@ Partial Class frmConnection
         Me.txtHAHost.Prefix = ""
         Me.txtHAHost.Size = New System.Drawing.Size(193, 21)
         Me.txtHAHost.StatusTip = ""
-        Me.txtHAHost.TabIndex = 24
+        Me.txtHAHost.TabIndex = 0
         Me.txtHAHost.Value = ""
         '
         'lblHAREPLHost
@@ -676,7 +707,7 @@ Partial Class frmConnection
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(371, 598)
+        Me.ClientSize = New System.Drawing.Size(371, 633)
         Me.Controls.Add(Me.splSlave)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
@@ -738,4 +769,6 @@ Partial Class frmConnection
     Friend WithEvents lblHAPort As eXperDB.BaseControls.Label
     Friend WithEvents lblHAHost As eXperDB.BaseControls.Label
     Friend WithEvents lblPrimary As eXperDB.BaseControls.Label
+    Friend WithEvents lblStmtSDly As eXperDB.BaseControls.Label
+    Friend WithEvents cmbStmtCollectPeriod As eXperDB.BaseControls.ComboBox
 End Class

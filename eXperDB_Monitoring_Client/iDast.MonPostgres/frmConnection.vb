@@ -11,7 +11,7 @@ Public Class frmConnection
     Private _strSvrQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTATE")
     Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, _
                    ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, _
-                   ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal strAliasNm As String, _
+                   ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal intStmtCollectSec As Integer, ByVal strAliasNm As String, _
                    ByVal InstanceCnt As Integer, ByVal strSerial As String, _
                    Optional ByVal strHARole As String = "A", Optional ByVal strHAHost As String = "-", Optional ByVal intHAPort As Integer = 0, Optional ByVal strHAREPLHost As String = "-")
 
@@ -38,6 +38,7 @@ Public Class frmConnection
         btnTest.Text = p_clsMsgData.fn_GetData("F002")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
 
+        lblStmtSDly.Text = p_clsMsgData.fn_GetData("F342")
         lblHARole.Text = p_clsMsgData.fn_GetData("F288")
         lblHAHost.Text = p_clsMsgData.fn_GetData("F289")
         lblHAPort.Text = p_clsMsgData.fn_GetData("F290")
@@ -54,6 +55,19 @@ Public Class frmConnection
         nudCollectSecond.Value = intCollectSec
         txtAlias.Text = strAliasNm
         'nudLogSaveDly.Value = DirectCast(sender, BaseControls.DataGridView).Item(colLogSave.Index, e.RowIndex).Value
+
+
+        Dim strValue As String = p_clsMsgData.fn_GetData("F341")
+        Dim tmpArr As String() = strValue.Split(";")
+        For Each tmpStr As String In tmpArr
+            If tmpStr.Trim <> "" Then
+                Dim subArr As String() = tmpStr.Split("|")
+                Dim strDesc As String = subArr(0)
+                Dim intSec As Integer = subArr(1)
+                cmbStmtCollectPeriod.AddValue(intSec, strDesc)
+            End If
+        Next
+        cmbStmtCollectPeriod.SelectedValue = intStmtCollectSec
         _idxROw = idxRow
         If idxRow >= 0 Then
             btnAct.Text = p_clsMsgData.fn_GetData("F141")
@@ -261,12 +275,13 @@ Public Class frmConnection
 
 
 
-    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
+    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
         intRow = _idxROw
         ODBCConnect = btnTest.Tag
 
         StrSchema = cmbSchema.Text
         intCollect = nudCollectSecond.Value
+        intStmtCollectSec = cmbStmtCollectPeriod.SelectedValue
         strAliasNm = txtAlias.Text
 
         Select Case CInt(cmbHARole.SelectedIndex)

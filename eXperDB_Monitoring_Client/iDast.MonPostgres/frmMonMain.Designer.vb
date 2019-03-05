@@ -81,6 +81,11 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -115,11 +120,6 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnReport = New eXperDB.BaseControls.Button()
@@ -252,6 +252,16 @@ Partial Class frmMonMain
         Me.grpSessionInfo = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.dgvSessionInfo = New eXperDB.BaseControls.DataGridView()
+        Me.colDgvSessionInfoInstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionInfoUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionInfoDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionInfoSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionInfoRead = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.colDgvSessioninfoWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.colDgvSessionInfoCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionInfoTmStart = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSessionInfoTmElapse = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.colDgvSessionInfoSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chkIDLE = New eXperDB.BaseControls.CheckBox()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.tlpHealth = New eXperDB.BaseControls.TableLayoutPanel()
@@ -264,11 +274,6 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.tlpInstanceList = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvClusters = New AdvancedDataGridView.TreeGridView()
-        Me.coldgvClustersServerName = New AdvancedDataGridView.TreeGridColumn()
-        Me.coldgvClustersRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvClustersLegend = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvClusterPrimaryHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvClusterIsOpenSingle = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.instanceImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.btnSort = New eXperDB.BaseControls.Button()
         Me.flpInstance = New eXperDB.BaseControls.FlowLayoutPanel()
@@ -371,16 +376,11 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoInstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoRead = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.colDgvSessioninfoWrite = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.colDgvSessionInfoCpuUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoTmStart = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSessionInfoTmElapse = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.colDgvSessionInfoSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvClustersServerName = New AdvancedDataGridView.TreeGridColumn()
+        Me.coldgvClustersRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvClustersLegend = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvClusterPrimaryHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvClusterIsOpenSingle = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -3586,6 +3586,120 @@ Partial Class frmMonMain
         Me.dgvSessionInfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSessionInfo.UseTagValueMatchColor = False
         '
+        'colDgvSessionInfoInstID
+        '
+        Me.colDgvSessionInfoInstID.DataPropertyName = "INSTANCE_ID"
+        Me.colDgvSessionInfoInstID.HeaderText = "INSTID"
+        Me.colDgvSessionInfoInstID.Name = "colDgvSessionInfoInstID"
+        Me.colDgvSessionInfoInstID.ReadOnly = True
+        Me.colDgvSessionInfoInstID.Visible = False
+        '
+        'colDgvSessionInfoUser
+        '
+        Me.colDgvSessionInfoUser.DataPropertyName = "USER_NAME"
+        Me.colDgvSessionInfoUser.HeaderText = "USER"
+        Me.colDgvSessionInfoUser.Name = "colDgvSessionInfoUser"
+        Me.colDgvSessionInfoUser.ReadOnly = True
+        Me.colDgvSessionInfoUser.Visible = False
+        '
+        'colDgvSessionInfoDBNm
+        '
+        Me.colDgvSessionInfoDBNm.DataPropertyName = "DB_NAME"
+        Me.colDgvSessionInfoDBNm.HeaderText = "DBNM"
+        Me.colDgvSessionInfoDBNm.Name = "colDgvSessionInfoDBNm"
+        Me.colDgvSessionInfoDBNm.ReadOnly = True
+        Me.colDgvSessionInfoDBNm.Visible = False
+        '
+        'colDgvSessionInfoSvrNm
+        '
+        Me.colDgvSessionInfoSvrNm.DataPropertyName = "HOST_NAME"
+        Me.colDgvSessionInfoSvrNm.HeaderText = "F033"
+        Me.colDgvSessionInfoSvrNm.Name = "colDgvSessionInfoSvrNm"
+        Me.colDgvSessionInfoSvrNm.ReadOnly = True
+        Me.colDgvSessionInfoSvrNm.Width = 55
+        '
+        'colDgvSessionInfoRead
+        '
+        Me.colDgvSessionInfoRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.colDgvSessionInfoRead.DataPropertyName = "CURRENT_PROC_READ_KB"
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle17.Format = "N1"
+        Me.colDgvSessionInfoRead.DefaultCellStyle = DataGridViewCellStyle17
+        Me.colDgvSessionInfoRead.HeaderText = "F048"
+        Me.colDgvSessionInfoRead.HeaderWord = ""
+        Me.colDgvSessionInfoRead.Name = "colDgvSessionInfoRead"
+        Me.colDgvSessionInfoRead.ReadOnly = True
+        Me.colDgvSessionInfoRead.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colDgvSessionInfoRead.ShowUnit = True
+        Me.colDgvSessionInfoRead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvSessionInfoRead.TailWord = ""
+        Me.colDgvSessionInfoRead.Visible = False
+        '
+        'colDgvSessioninfoWrite
+        '
+        Me.colDgvSessioninfoWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.colDgvSessioninfoWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle18.Format = "N1"
+        Me.colDgvSessioninfoWrite.DefaultCellStyle = DataGridViewCellStyle18
+        Me.colDgvSessioninfoWrite.HeaderText = "F136"
+        Me.colDgvSessioninfoWrite.HeaderWord = ""
+        Me.colDgvSessioninfoWrite.Name = "colDgvSessioninfoWrite"
+        Me.colDgvSessioninfoWrite.ReadOnly = True
+        Me.colDgvSessioninfoWrite.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colDgvSessioninfoWrite.ShowUnit = True
+        Me.colDgvSessioninfoWrite.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvSessioninfoWrite.TailWord = ""
+        Me.colDgvSessioninfoWrite.Visible = False
+        '
+        'colDgvSessionInfoCpuUsage
+        '
+        Me.colDgvSessionInfoCpuUsage.DataPropertyName = "CPU_USAGE"
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle19.Format = "P"
+        Me.colDgvSessionInfoCpuUsage.DefaultCellStyle = DataGridViewCellStyle19
+        Me.colDgvSessionInfoCpuUsage.HeaderText = "F049"
+        Me.colDgvSessionInfoCpuUsage.Name = "colDgvSessionInfoCpuUsage"
+        Me.colDgvSessionInfoCpuUsage.ReadOnly = True
+        Me.colDgvSessionInfoCpuUsage.Width = 55
+        '
+        'colDgvSessionInfoTmStart
+        '
+        Me.colDgvSessionInfoTmStart.DataPropertyName = "START_TIME"
+        DataGridViewCellStyle20.Format = "yyyy-MM-dd HH:mm:ss"
+        DataGridViewCellStyle20.NullValue = Nothing
+        Me.colDgvSessionInfoTmStart.DefaultCellStyle = DataGridViewCellStyle20
+        Me.colDgvSessionInfoTmStart.HeaderText = "F050"
+        Me.colDgvSessionInfoTmStart.MinimumWidth = 150
+        Me.colDgvSessionInfoTmStart.Name = "colDgvSessionInfoTmStart"
+        Me.colDgvSessionInfoTmStart.ReadOnly = True
+        Me.colDgvSessionInfoTmStart.Width = 150
+        '
+        'colDgvSessionInfoTmElapse
+        '
+        Me.colDgvSessionInfoTmElapse.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.colDgvSessionInfoTmElapse.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle21.Format = "N2"
+        DataGridViewCellStyle21.NullValue = "0"
+        Me.colDgvSessionInfoTmElapse.DefaultCellStyle = DataGridViewCellStyle21
+        Me.colDgvSessionInfoTmElapse.FillWeight = 150.0!
+        Me.colDgvSessionInfoTmElapse.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
+        Me.colDgvSessionInfoTmElapse.HeaderText = "F051"
+        Me.colDgvSessionInfoTmElapse.MinimumWidth = 150
+        Me.colDgvSessionInfoTmElapse.Name = "colDgvSessionInfoTmElapse"
+        Me.colDgvSessionInfoTmElapse.ReadOnly = True
+        Me.colDgvSessionInfoTmElapse.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colDgvSessionInfoTmElapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvSessionInfoTmElapse.Width = 150
+        '
+        'colDgvSessionInfoSQL
+        '
+        Me.colDgvSessionInfoSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvSessionInfoSQL.DataPropertyName = "SQL"
+        Me.colDgvSessionInfoSQL.HeaderText = "F052"
+        Me.colDgvSessionInfoSQL.Name = "colDgvSessionInfoSQL"
+        Me.colDgvSessionInfoSQL.ReadOnly = True
+        '
         'chkIDLE
         '
         Me.chkIDLE.AutoSize = True
@@ -3803,54 +3917,10 @@ Partial Class frmMonMain
         DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvClusters.RowHeadersDefaultCellStyle = DataGridViewCellStyle25
         Me.dgvClusters.RowHeadersVisible = False
-        Me.dgvClusters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvClusters.ShowLines = False
         Me.dgvClusters.Size = New System.Drawing.Size(201, 744)
         Me.dgvClusters.TabIndex = 16
-        '
-        'coldgvClustersServerName
-        '
-        Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvClustersServerName.DefaultNodeImage = Nothing
-        Me.coldgvClustersServerName.FillWeight = 80.0!
-        Me.coldgvClustersServerName.HeaderText = "Cluster name"
-        Me.coldgvClustersServerName.MinimumWidth = 100
-        Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
-        Me.coldgvClustersServerName.ReadOnly = True
-        Me.coldgvClustersServerName.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersServerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'coldgvClustersRole
-        '
-        Me.coldgvClustersRole.HeaderText = ""
-        Me.coldgvClustersRole.MinimumWidth = 12
-        Me.coldgvClustersRole.Name = "coldgvClustersRole"
-        Me.coldgvClustersRole.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersRole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClustersRole.Width = 12
-        '
-        'coldgvClustersLegend
-        '
-        Me.coldgvClustersLegend.HeaderText = ""
-        Me.coldgvClustersLegend.MinimumWidth = 25
-        Me.coldgvClustersLegend.Name = "coldgvClustersLegend"
-        Me.coldgvClustersLegend.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersLegend.Width = 25
-        '
-        'coldgvClusterPrimaryHostNm
-        '
-        Me.coldgvClusterPrimaryHostNm.FillWeight = 1.0!
-        Me.coldgvClusterPrimaryHostNm.HeaderText = "PrimaryHostNm"
-        Me.coldgvClusterPrimaryHostNm.Name = "coldgvClusterPrimaryHostNm"
-        Me.coldgvClusterPrimaryHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClusterPrimaryHostNm.Visible = False
-        '
-        'coldgvClusterIsOpenSingle
-        '
-        Me.coldgvClusterIsOpenSingle.HeaderText = "IsOpenSingle"
-        Me.coldgvClusterIsOpenSingle.Name = "coldgvClusterIsOpenSingle"
-        Me.coldgvClusterIsOpenSingle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClusterIsOpenSingle.Visible = False
+        Me.dgvClusters.TabStop = False
         '
         'instanceImgLst
         '
@@ -4934,119 +5004,50 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
         Me.DataGridViewTextBoxColumn37.Visible = False
         '
-        'colDgvSessionInfoInstID
+        'coldgvClustersServerName
         '
-        Me.colDgvSessionInfoInstID.DataPropertyName = "INSTANCE_ID"
-        Me.colDgvSessionInfoInstID.HeaderText = "INSTID"
-        Me.colDgvSessionInfoInstID.Name = "colDgvSessionInfoInstID"
-        Me.colDgvSessionInfoInstID.ReadOnly = True
-        Me.colDgvSessionInfoInstID.Visible = False
+        Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvClustersServerName.DefaultNodeImage = Nothing
+        Me.coldgvClustersServerName.FillWeight = 80.0!
+        Me.coldgvClustersServerName.HeaderText = "Cluster name"
+        Me.coldgvClustersServerName.MinimumWidth = 100
+        Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
+        Me.coldgvClustersServerName.ReadOnly = True
+        Me.coldgvClustersServerName.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersServerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
-        'colDgvSessionInfoUser
+        'coldgvClustersRole
         '
-        Me.colDgvSessionInfoUser.DataPropertyName = "USER_NAME"
-        Me.colDgvSessionInfoUser.HeaderText = "USER"
-        Me.colDgvSessionInfoUser.Name = "colDgvSessionInfoUser"
-        Me.colDgvSessionInfoUser.ReadOnly = True
-        Me.colDgvSessionInfoUser.Visible = False
+        Me.coldgvClustersRole.HeaderText = ""
+        Me.coldgvClustersRole.MinimumWidth = 12
+        Me.coldgvClustersRole.Name = "coldgvClustersRole"
+        Me.coldgvClustersRole.ReadOnly = True
+        Me.coldgvClustersRole.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersRole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClustersRole.Width = 12
         '
-        'colDgvSessionInfoDBNm
+        'coldgvClustersLegend
         '
-        Me.colDgvSessionInfoDBNm.DataPropertyName = "DB_NAME"
-        Me.colDgvSessionInfoDBNm.HeaderText = "DBNM"
-        Me.colDgvSessionInfoDBNm.Name = "colDgvSessionInfoDBNm"
-        Me.colDgvSessionInfoDBNm.ReadOnly = True
-        Me.colDgvSessionInfoDBNm.Visible = False
+        Me.coldgvClustersLegend.HeaderText = ""
+        Me.coldgvClustersLegend.MinimumWidth = 25
+        Me.coldgvClustersLegend.Name = "coldgvClustersLegend"
+        Me.coldgvClustersLegend.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersLegend.Width = 25
         '
-        'colDgvSessionInfoSvrNm
+        'coldgvClusterPrimaryHostNm
         '
-        Me.colDgvSessionInfoSvrNm.DataPropertyName = "HOST_NAME"
-        Me.colDgvSessionInfoSvrNm.HeaderText = "F033"
-        Me.colDgvSessionInfoSvrNm.Name = "colDgvSessionInfoSvrNm"
-        Me.colDgvSessionInfoSvrNm.ReadOnly = True
-        Me.colDgvSessionInfoSvrNm.Width = 55
+        Me.coldgvClusterPrimaryHostNm.FillWeight = 1.0!
+        Me.coldgvClusterPrimaryHostNm.HeaderText = "PrimaryHostNm"
+        Me.coldgvClusterPrimaryHostNm.Name = "coldgvClusterPrimaryHostNm"
+        Me.coldgvClusterPrimaryHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClusterPrimaryHostNm.Visible = False
         '
-        'colDgvSessionInfoRead
+        'coldgvClusterIsOpenSingle
         '
-        Me.colDgvSessionInfoRead.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.colDgvSessionInfoRead.DataPropertyName = "CURRENT_PROC_READ_KB"
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle17.Format = "N1"
-        Me.colDgvSessionInfoRead.DefaultCellStyle = DataGridViewCellStyle17
-        Me.colDgvSessionInfoRead.HeaderText = "F048"
-        Me.colDgvSessionInfoRead.HeaderWord = ""
-        Me.colDgvSessionInfoRead.Name = "colDgvSessionInfoRead"
-        Me.colDgvSessionInfoRead.ReadOnly = True
-        Me.colDgvSessionInfoRead.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDgvSessionInfoRead.ShowUnit = True
-        Me.colDgvSessionInfoRead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDgvSessionInfoRead.TailWord = ""
-        Me.colDgvSessionInfoRead.Visible = False
-        '
-        'colDgvSessioninfoWrite
-        '
-        Me.colDgvSessioninfoWrite.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.colDgvSessioninfoWrite.DataPropertyName = "CURRENT_PROC_WRITE_KB"
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle18.Format = "N1"
-        Me.colDgvSessioninfoWrite.DefaultCellStyle = DataGridViewCellStyle18
-        Me.colDgvSessioninfoWrite.HeaderText = "F136"
-        Me.colDgvSessioninfoWrite.HeaderWord = ""
-        Me.colDgvSessioninfoWrite.Name = "colDgvSessioninfoWrite"
-        Me.colDgvSessioninfoWrite.ReadOnly = True
-        Me.colDgvSessioninfoWrite.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDgvSessioninfoWrite.ShowUnit = True
-        Me.colDgvSessioninfoWrite.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDgvSessioninfoWrite.TailWord = ""
-        Me.colDgvSessioninfoWrite.Visible = False
-        '
-        'colDgvSessionInfoCpuUsage
-        '
-        Me.colDgvSessionInfoCpuUsage.DataPropertyName = "CPU_USAGE"
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle19.Format = "P"
-        Me.colDgvSessionInfoCpuUsage.DefaultCellStyle = DataGridViewCellStyle19
-        Me.colDgvSessionInfoCpuUsage.HeaderText = "F049"
-        Me.colDgvSessionInfoCpuUsage.Name = "colDgvSessionInfoCpuUsage"
-        Me.colDgvSessionInfoCpuUsage.ReadOnly = True
-        Me.colDgvSessionInfoCpuUsage.Width = 55
-        '
-        'colDgvSessionInfoTmStart
-        '
-        Me.colDgvSessionInfoTmStart.DataPropertyName = "START_TIME"
-        DataGridViewCellStyle20.Format = "yyyy-MM-dd HH:mm:ss"
-        DataGridViewCellStyle20.NullValue = Nothing
-        Me.colDgvSessionInfoTmStart.DefaultCellStyle = DataGridViewCellStyle20
-        Me.colDgvSessionInfoTmStart.HeaderText = "F050"
-        Me.colDgvSessionInfoTmStart.MinimumWidth = 150
-        Me.colDgvSessionInfoTmStart.Name = "colDgvSessionInfoTmStart"
-        Me.colDgvSessionInfoTmStart.ReadOnly = True
-        Me.colDgvSessionInfoTmStart.Width = 150
-        '
-        'colDgvSessionInfoTmElapse
-        '
-        Me.colDgvSessionInfoTmElapse.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.colDgvSessionInfoTmElapse.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle21.Format = "N2"
-        DataGridViewCellStyle21.NullValue = "0"
-        Me.colDgvSessionInfoTmElapse.DefaultCellStyle = DataGridViewCellStyle21
-        Me.colDgvSessionInfoTmElapse.FillWeight = 150.0!
-        Me.colDgvSessionInfoTmElapse.FormatString = "dd\ \d\a\y\ hh\:mm\:ss\.ff"
-        Me.colDgvSessionInfoTmElapse.HeaderText = "F051"
-        Me.colDgvSessionInfoTmElapse.MinimumWidth = 150
-        Me.colDgvSessionInfoTmElapse.Name = "colDgvSessionInfoTmElapse"
-        Me.colDgvSessionInfoTmElapse.ReadOnly = True
-        Me.colDgvSessionInfoTmElapse.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDgvSessionInfoTmElapse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDgvSessionInfoTmElapse.Width = 150
-        '
-        'colDgvSessionInfoSQL
-        '
-        Me.colDgvSessionInfoSQL.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvSessionInfoSQL.DataPropertyName = "SQL"
-        Me.colDgvSessionInfoSQL.HeaderText = "F052"
-        Me.colDgvSessionInfoSQL.Name = "colDgvSessionInfoSQL"
-        Me.colDgvSessionInfoSQL.ReadOnly = True
+        Me.coldgvClusterIsOpenSingle.HeaderText = "IsOpenSingle"
+        Me.coldgvClusterIsOpenSingle.Name = "coldgvClusterIsOpenSingle"
+        Me.coldgvClusterIsOpenSingle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClusterIsOpenSingle.Visible = False
         '
         'frmMonMain
         '
@@ -5407,11 +5408,6 @@ Partial Class frmMonMain
     Friend WithEvents dgvClusters As AdvancedDataGridView.TreeGridView
     Friend WithEvents instanceImgLst As System.Windows.Forms.ImageList
     Friend WithEvents statusImgLst As System.Windows.Forms.ImageList
-    Friend WithEvents coldgvClustersServerName As AdvancedDataGridView.TreeGridColumn
-    Friend WithEvents coldgvClustersRole As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvClustersLegend As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents coldgvClusterPrimaryHostNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvClusterIsOpenSingle As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionInfoInstID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionInfoUser As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionInfoDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -5422,5 +5418,10 @@ Partial Class frmMonMain
     Friend WithEvents colDgvSessionInfoTmStart As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvSessionInfoTmElapse As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents colDgvSessionInfoSQL As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvClustersServerName As AdvancedDataGridView.TreeGridColumn
+    Friend WithEvents coldgvClustersRole As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvClustersLegend As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents coldgvClusterPrimaryHostNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvClusterIsOpenSingle As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

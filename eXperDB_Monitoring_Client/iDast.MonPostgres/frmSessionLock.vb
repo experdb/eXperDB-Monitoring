@@ -324,7 +324,8 @@
 
             Dim tmpDtSet As New DataSet
 
-            tmpDtSet.Tables.Add(dgvSessionList.GetDataTable("TABLE_INFO"))
+            tmpDtSet.Tables.Add(dgvSessionList.GetDataTable("SESSION_INFO"))
+            tmpDtSet.Tables.Add(dgvLock.GetDataTable("LOCK_INFO"))
             eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
 
             If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
@@ -418,10 +419,10 @@
     Private Sub btnPause_Click(sender As Object, e As EventArgs) Handles btnPause.Click
         ' Play webding = "4"   Pause Webding = ";"
 
-        If btnPause.ForeColor = Color.LightGray Then
+        If btnPause.ForeColor = Color.Gray Then
             btnPause.ForeColor = Color.Blue
         Else
-            btnPause.ForeColor = Color.LightGray
+            btnPause.ForeColor = Color.Gray
         End If
         'If btnPause.Text = "4" Then
         '    btnPause.Text = ";"

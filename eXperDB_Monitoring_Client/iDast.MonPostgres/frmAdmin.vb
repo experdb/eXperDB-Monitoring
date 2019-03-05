@@ -49,6 +49,7 @@
         colLstIP.HeaderText = p_clsMsgData.fn_GetData("F020")
         colSchema.HeaderText = p_clsMsgData.fn_GetData("F074")
         colCollectSecond.HeaderText = p_clsMsgData.fn_GetData("F011")
+        colStmtCollectSecond.HeaderText = p_clsMsgData.fn_GetData("F342")
 
         btnApply.Text = p_clsMsgData.fn_GetData("F014")
         btnDelete.Text = p_clsMsgData.fn_GetData("F015")
@@ -206,6 +207,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colLstIP.Index, tmpRow.Item("LAST_MOD_IP"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, tmpRow.Item("CONN_SCHEMA_NAME"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, tmpRow.Item("COLLECT_PERIOD_SEC"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colStmtCollectSecond.Index, tmpRow.Item("RTSTMT_PERIOD_SEC"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, tmpRow.Item("HA_ROLE"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
@@ -363,7 +365,7 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
 
-    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
+    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
 
 
 
@@ -385,6 +387,7 @@
             tmpRow.Cells(colPW.Index).Value = tmpStruct.Password
             tmpRow.Cells(colSchema.Index).Value = strSChema
             tmpRow.Cells(colCollectSecond.Index).Value = intCollect
+            tmpRow.Cells(colStmtCollectSecond.Index).Value = intStmtCollect
             tmpRow.Cells(colHARole.Index).Value = strHARole
             tmpRow.Cells(colHAHost.Index).Value = strHAHost
             tmpRow.Cells(colHAPort.Index).Value = CInt(strHAPort)
@@ -412,6 +415,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colPW.Index, tmpStruct.Password)
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, strSChema)
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, intCollect)
+                dgvSvrLst.fn_DataCellADD(idxRow, colStmtCollectSecond.Index, intStmtCollect)
                 dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, strHARole)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, strHAHost)
@@ -523,19 +527,20 @@
         Next
 
         Dim strkey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, "", intCnt + 1, strkey)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, 0, "", intCnt + 1, strkey)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim struct As structConnection = Nothing
             Dim strSchema As String = ""
             Dim intCollect As Integer = 0
+            Dim intStmtCollect As Integer = 0
             Dim strAlias As String = ""
             Dim strHARole As String = ""
             Dim strHAHost As String = ""
             Dim intHAPort As Integer = 0
             Dim strHAREPLHost As String = ""
-            frmConn.rtnValue(-1, struct, strSchema, intCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
 
-            AddData(-1, struct, strSchema, intCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            AddData(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
 
         End If
 
@@ -574,6 +579,7 @@
         Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
         Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
         Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
+        Dim intStmtPeriod As Integer = tmpRow.Cells(colStmtCollectSecond.Index).Value
         Dim strHARole As String = tmpRow.Cells(colHARole.Index).Value
         Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
         Dim intHAPort As Integer = tmpRow.Cells(colHAPort.Index).Value
@@ -587,16 +593,17 @@
         Next
 
         Dim strKey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, strAliasNm, intCnt, strKey, strHARole, strHAHost, intHAPort, strHAREPLHost)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, intStmtPeriod, strAliasNm, intCnt, strKey, strHARole, strHAHost, intHAPort, strHAREPLHost)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnStruct As structConnection = Nothing
             Dim rtnSchema As String = ""
             Dim rtnCollect As Integer = 0
+            Dim rtnStmtCollect As Integer = 0
             Dim strAlias As String = ""
 
-            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
 
-            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
         End If
 
 
@@ -635,6 +642,7 @@
                 Dim strAliasNm As String = tmpRow.Cells(colAliasNm.Index).Value
                 Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
                 Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
+                Dim intStmtPeriod As Integer = tmpRow.Cells(colStmtCollectSecond.Index).Value
                 Dim intPwch As Integer = tmpRow.Cells(colPWCH.Index).Value
                 Dim strHARole As String = tmpRow.Cells(colHARole.Index).Value
                 Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
@@ -663,10 +671,10 @@
                     ' 기존 데이터가 아닐경우 
                     Dim tmpInst As Integer = ClsQuery.ExistsServer(strIP, strPort)
                     If tmpInst < 0 Then
-                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
+                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     Else
                         tmpRow.Tag = tmpInst
-                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
+                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     End If
 
                 ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
@@ -676,7 +684,7 @@
                 Else
                     ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
                     If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
-                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
+                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     End If
 
                 End If

@@ -1908,7 +1908,57 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		)
 	</insert>
 	
+	<insert id="TB_PGUSER_I002" parameterType="hashmap" >
+		WITH UPSERT AS (
+		UPDATE TB_USER_INFO U
+		   SET USER_NAME = #{user_name},
+		       COLLECT_DT = NOW(),
+		       REG_DATE = TO_CHAR(now(), 'YYYYMMDD')
+		 WHERE U.INSTANCE_ID = #{instance_id}
+		   AND U.USER_ID = #{user_id}
+		RETURNING *)
+		INSERT INTO TB_USER_INFO (REG_DATE, COLLECT_DT, INSTANCE_ID, USER_ID, USER_NAME)
+		SELECT TO_CHAR(now(), 'YYYYMMDD'), NOW(), #{instance_id}, #{user_id}, #{user_name} 
+		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
+	</insert>
+		
+	<select id="EXPERDBMA_BT_GET_PGDATABASE_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+		       SELECT /* EXPERDBMA_BT_GET_PGDATABASE_001 24e9ab7301ff1966da4fb30dc1538882 */ 
+		       		  DATNAME AS DATABASE_NAME, DATID FROM pg_stat_database;
+	</select>	
+	<insert id="TB_PGDATABASE_I001" parameterType="hashmap" >
+		INSERT INTO TB_DATABASE_INFO
+		(	
+			REG_DATE,
+			COLLECT_DT,
+			INSTANCE_ID,
+			DATABASE_NAME,
+			DATID
+		)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			NOW(),
+			#{instance_id},
+			#{database_name},			
+			#{datid}
+		)
+	</insert>
 	
+	<insert id="TB_PGDATABASE_I002" parameterType="hashmap" >
+		WITH UPSERT AS (
+		UPDATE TB_DATABASE_INFO D
+		   SET DATABASE_NAME = #{database_name},
+		       COLLECT_DT = NOW(),
+		       REG_DATE = TO_CHAR(now(), 'YYYYMMDD')
+		 WHERE D.INSTANCE_ID = #{instance_id}
+		   AND D.DATID = #{datid}
+		RETURNING *)
+		INSERT INTO TB_DATABASE_INFO (REG_DATE, COLLECT_DT, INSTANCE_ID, DATID, DATABASE_NAME)
+		SELECT TO_CHAR(now(), 'YYYYMMDD'), NOW(), #{instance_id}, #{datid}, #{database_name} 
+		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
+	</insert>
+
 <!-- ********************************************************** -->
 <!-- DailyBatchTask START -->
 <!-- ********************************************************** -->
@@ -2092,9 +2142,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</delete>
 	<delete id="PGMONBT_BATCH_TB_USER_INFO_001" parameterType="hashmap" >
 		<![CDATA[
-		DELETE /* PGMONBT_BATCH_TB_USER_INFO_001 */ FROM TB_USER_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_USER_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1);
+		/*DELETE /* PGMONBT_BATCH_TB_USER_INFO_001 */ FROM TB_USER_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_USER_INFO) - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1);*/
+		DELETE /* PGMONBT_BATCH_TB_USER_INFO_001 */ FROM TB_USER_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_USER_INFO) - 2;
 		]]>	
-	</delete>	
+	</delete>
+
+	<delete id="PGMONBT_BATCH_TB_DATABASE_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TB_DATABASE_INFO_001 */ FROM TB_DATABASE_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_DATABASE_INFO) - 2;
+		]]>	
+	</delete>
 	
 	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
 		vacuum analyze TB_INSTANCE_INFO    ;
@@ -2179,7 +2236,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="VACUUM_ANALYZE_U030" parameterType="hashmap" >		
 		vacuum analyze TB_USER_INFO ;
-	</update><!-- ********************************************************** -->
+	</update>
+	<update id="VACUUM_ANALYZE_U031" parameterType="hashmap" >		
+		vacuum analyze TB_DATABASE_INFO ;
+	</update>
+<!-- ********************************************************** -->
 <!-- DailyBatchTask END -->
 <!-- ********************************************************** -->
 
@@ -2651,7 +2712,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			#{query}
 			, NOW()
 		) ON CONFLICT DO NOTHING;
-	</insert>	
+	</insert>
 	<insert id="TB_QUERY_INFO_I002" parameterType="hashmap" >
 		WITH UPSERT AS (
 		UPDATE TB_QUERY_INFO QU
@@ -2664,7 +2725,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		INSERT INTO TB_QUERY_INFO (INSTANCE_ID, QUERYID, STMT_QUERYID, QUERY, COLLECT_DT)
 		SELECT #{instance_id}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
-	</insert>	
+	</insert>
 	<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
          	SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
@@ -2785,6 +2846,28 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>	
 	</update>
 
+	<update id="PG_MAINTAIN_PARTITIONS_002" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_partition BOOL;
+			    var_tablename varchar;
+			    ddate varchar;
+			    cdate varchar;   
+			BEGIN    
+				var_tablename = '${tablename}';
+				ddate = '${old_date}';
+			    cdate = '${new_date}';
+			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
+			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (var_tablename || '_' || ddate)));       
+			    IF is_exists_partition = TRUE THEN           
+				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
+				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
+		        END IF;       
+			 END $$
+		]]>	
+	</update>
+	
 <update id="PG_CONSTRAINT_TB_ACTV_COLLECT_INFO_001" parameterType="hashmap">
 		<![CDATA[
 		ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
@@ -2866,64 +2949,168 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>			
 </update>
 
+<update id="PG_CREATE_FUNCTION_FOR_INDEX_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE OR REPLACE FUNCTION to_date_imm(text, text) 
+		RETURNS date
+		AS 'to_date'
+		LANGUAGE internal immutable STRICT
+		COST 1;
+		]]>	
+</update>
 
 <update id="PG_INDEX_TB_ACTV_COLLECT_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_tb_actv_collect_info${regdate} ON tb_actv_collect_info${regdate} USING btree((TO_DATE_IMMUTABLE(reg_date) + reg_time));
+		CREATE INDEX IF NOT EXISTS idx01_tb_actv_collect_info${regdate} ON tb_actv_collect_info${regdate} USING btree((TO_DATE_IMM(reg_date, 'yyyymmdd') + reg_time), instance_id);
 		]]>			
 </update>
 
 <update id="PG_INDEX_TB_RSC_COLLECT_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_tb_rsc_collect_info${regdate} ON tb_rsc_collect_info${regdate} USING btree((TO_DATE_IMMUTABLE(reg_date) + reg_time));
+		CREATE INDEX IF NOT EXISTS idx01_tb_rsc_collect_info${regdate} ON tb_rsc_collect_info${regdate} USING btree((TO_DATE_IMM(reg_date, 'yyyymmdd') + reg_time), instance_id);
 		]]>			
 </update>
 
 <update id="PG_INDEX_TB_CURRENT_LOCK_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_current_lock${regdate} ON tb_current_lock${regdate} USING btree (reg_date,actv_reg_seq);
+		CREATE INDEX IF NOT EXISTS idx01_current_lock${regdate} ON tb_current_lock${regdate} USING btree (reg_date,actv_reg_seq);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_CURRENT_LOCK_002" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx02_current_lock${regdate} ON tb_current_lock${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx02_current_lock${regdate} ON tb_current_lock${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_BACKEND_RSC_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_backend_rsc${regdate} ON tb_backend_rsc${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_backend_rsc${regdate} ON tb_backend_rsc${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_ACCESS_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_access_info${regdate} ON tb_access_info${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_access_info${regdate} ON tb_access_info${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_MEMORY_STAT_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_memory_stat${regdate} ON tb_memory_stat${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_memory_stat${regdate} ON tb_memory_stat${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_CPU_STAT_MASTER_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_cpu_stat_master${regdate} ON tb_cpu_stat_master${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_cpu_stat_master${regdate} ON tb_cpu_stat_master${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_DISK_IO_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_disk_io${regdate} ON tb_disk_io${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_disk_io${regdate} ON tb_disk_io${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_DISK_USAGE_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_disk_usage${regdate} ON tb_disk_usage${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_disk_usage${regdate} ON tb_disk_usage${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 <update id="PG_INDEX_TB_TABLE_EXT_INFO_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX idx01_table_ext_info${regdate} ON tb_table_ext_info${regdate} USING btree (collect_dt DESC);
+		CREATE INDEX IF NOT EXISTS idx01_table_ext_info${regdate} ON tb_table_ext_info${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
+<update id="PG_INDEX_TB_REALTIME_STATEMENTS_PARTITIONS_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_realtime_statements_${new_date} ON tb_realtime_statements_${new_date} USING btree (collect_dt DESC);
+		]]>			
+</update>
+		
+	<update id="TB_RTSTATEMENTS_INFO_C001" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_fs BOOL;
+			BEGIN
+			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = 'fdw' || '${instance_id}'));       
+			    IF is_exists_fs = FALSE THEN           
+					EXECUTE FORMAT('CREATE SERVER fdw' || '${instance_id}' || ' FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host ''' || '${server_ip}' || ''', port ''' || '${service_port}' || ''', dbname ''' || '${conn_db_name}' || ''')');
+					EXECUTE FORMAT('CREATE USER MAPPING FOR pgmon SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
+					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || '${conn_schema_name}' || ''', table_name ''pg_stat_statements'')');
+					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0');
+					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1');
+					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;  
+					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;
+			    END IF;
+			END $$
+		  ]]>	  
+	</update>
+
+	<select id="SEQ_SETVAL_STMT" parameterType="hashmap" resultType="hashmap">
+		SELECT SETVAL('stmt_reg_seq',1);
+	</select>
+	
+	<select id="SEQ_GET_NEXT_STMT" parameterType="hashmap" resultType="hashmap">
+		SELECT NEXTVAL('stmt_reg_seq') NEXTVAL;
+	</select>
+	
+	<select id="BT_RTSTMT_INFO_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		WITH RTST
+		AS
+		(
+			SELECT *
+			FROM (
+				SELECT 
+						CASE WHEN A.USERID IS NULL THEN B.USERID ELSE A.USERID END USERID, 
+						CASE WHEN A.DBID IS NULL THEN B.DBID  ELSE A.DBID END DBID,
+						CASE WHEN A.QUERYID IS NULL THEN B.QUERYID  ELSE A.QUERYID END QUERYID,
+						ABS((COALESCE(B.CALLS,0)-COALESCE(A.CALLS,0))) CALLS,
+						ABS((COALESCE(B.TOTAL_TIME,0)-COALESCE(A.TOTAL_TIME,0))) TOTAL_TIME
+						--B.QUERY QUERY
+				  FROM PG_STAT_STATEMENTS_TMP_${instance_id}_1 AS A FULL JOIN PG_STAT_STATEMENTS_TMP_${instance_id}_0 AS B ON A.USERID = B.USERID AND A.DBID = B.DBID AND A.QUERYID = B.QUERYID
+				 ORDER BY CALLS DESC
+				) DIFF
+			WHERE CALLS >  0
+		)
+		SELECT RTST.*, fdw${instance_id}.query FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid;
+		  ]]>
+	</select>
+	
+	<delete id="BT_RTSTMT_CALL_INFO_T001" parameterType="hashmap">
+		<![CDATA[
+			TRUNCATE TABLE PG_STAT_STATEMENTS_TMP_${instance_id}_${table_order};
+		  ]]>	  
+	</delete>
+	
+	<insert id="BT_RTSTMT_CALL_INFO_I001" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO PG_STAT_STATEMENTS_TMP_${instance_id}_${table_order} SELECT userid, dbid, queryid, calls, total_time, now() FROM fdw${instance_id};
+		  ]]>
+	</insert>
+
+	<insert id="BT_RTSTMT_INFO_I001" parameterType="hashmap">
+		INSERT INTO TB_REALTIME_STATEMENTS	
+		(
+		    reg_time,
+		    instance_id,
+		    dbid,
+		    userid,
+		    queryid,
+		    calls,
+		    total_time,
+		    cqueryid,
+		    collect_dt
+		)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDDHH24'),
+			#{instance_id},
+			#{dbid},
+			#{userid},
+			#{queryid},
+			#{calls},
+			#{total_time},
+			MD5(#{query}),
+			now()
+		)
+	</insert>
 <!-- **************************************************************************************************************** -->
 <!-- Delete partitions -->	
 <!-- **************************************************************************************************************** -->

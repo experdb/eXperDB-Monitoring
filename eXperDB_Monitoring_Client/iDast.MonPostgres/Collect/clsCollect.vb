@@ -859,6 +859,51 @@
     End Property
 
 
+    Private _infoDataStmt As DataTable
+    ''' <summary>
+    ''' BackEnd Information 수집데이터 정보 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property infoDataStmt As DataTable
+        Get
+            Dim Rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            Rw.AcquireReaderLock(-1)
+
+            Try
+                If _infoDataStmt IsNot Nothing Then
+                    Return _infoDataStmt.Copy
+                Else
+                    Return Nothing
+                End If
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Stmt information Read prop Exception Error" & ex.ToString)
+                GC.Collect()
+                Return Nothing
+            Finally
+                Rw.ReleaseReaderLock()
+
+            End Try
+        End Get
+        Set(value As DataTable)
+            Dim rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            rw.AcquireWriterLock(-1)
+            Try
+                _infoDataStmt = value
+            Catch ex As Threading.ThreadAbortException
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Stmt information Write Prop Thread Error" & ex.ToString)
+                GC.Collect()
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Stmt information Write Prop Exception Error" & ex.ToString)
+                GC.Collect()
+            Finally
+                rw.ReleaseWriterLock()
+            End Try
+
+        End Set
+    End Property
+
 
     Private _infoDataPhysicaliO As DataTable
     ''' <summary>
@@ -1245,6 +1290,8 @@
                         infoDataAlert = StartThread("SELECTALERT", _intPeriod, _enmSvrNm)
                         'StartHealth(_intPeriod)
 
+                        ' Current Statements
+                        infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod)
 
                         ''DB Information
                         'startDBinfo(_intPeriod)

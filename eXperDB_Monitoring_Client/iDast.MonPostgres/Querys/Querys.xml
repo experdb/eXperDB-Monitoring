@@ -120,6 +120,7 @@
       ,CONN_USER_PWD
       ,COLLECT_YN
       ,COLLECT_PERIOD_SEC
+      ,RTSTMT_PERIOD_SEC
       ,CONN_DB_NAME
       ,CONN_NAME
       ,LAST_MOD_IP
@@ -142,13 +143,14 @@
       ,'{8}'
       ,'{9}'
       ,'{10}'
+      ,'{11}'
       ,NOW()
-      ,'{11}'      
+      ,'{12}'      
       ,'N'
-      ,'{12}'
       ,'{13}'
       ,'{14}'
-      ,'{15}')
+      ,'{15}'
+      ,'{16}')
     ]]>
     </DATA>
     <COMMENTS />
@@ -258,6 +260,7 @@
         ,CONN_USER_PWD
         ,COLLECT_YN
         ,COLLECT_PERIOD_SEC
+        ,RTSTMT_PERIOD_SEC
         ,CONN_DB_NAME
         ,CONN_NAME
         ,LAST_MOD_IP
@@ -288,16 +291,17 @@
         ,CONN_USER_PWD = '{5}'
         ,COLLECT_YN = '{6}' 
         ,COLLECT_PERIOD_SEC = '{7}' 
-        ,CONN_DB_NAME = '{8}' 
-        ,CONN_NAME = '{9}' 
-        ,LAST_MOD_IP = '{10}' 
+        ,RTSTMT_PERIOD_SEC = '{8}' 
+        ,CONN_DB_NAME = '{9}' 
+        ,CONN_NAME = '{10}' 
+        ,LAST_MOD_IP = '{11}' 
         ,LAST_MOD_DT = NOW()
-        ,CONN_SCHEMA_NAME = '{11}'
+        ,CONN_SCHEMA_NAME = '{12}'
         ,DELETE_YN='N'
-        ,HA_ROLE = '{12}'
-        ,HA_HOST = '{13}'
-        ,HA_PORT = '{14}'
-        ,HA_REPL_HOST = '{15}'
+        ,HA_ROLE = '{13}'
+        ,HA_HOST = '{14}'
+        ,HA_PORT = '{15}'
+        ,HA_REPL_HOST = '{16}'
       WHERE INSTANCE_ID = {0}
     ]]>
     </DATA>
@@ -475,11 +479,11 @@
            ,BLOCKING_USER    
            ,BLOCKING_PID     
            --,BLOCKING_QUERY   
-           ,(SELECT query FROM TB_QUERY_INFO WHERE INSTANCE_ID IN ({0}) AND QUERYID = BLOCKING_QUERY) BLOCKING_QUERY
+           ,(SELECT query FROM TB_QUERY_INFO WHERE INSTANCE_ID IN ({0}) AND QUERYID = BLOCKING_QUERY LIMIT 1) BLOCKING_QUERY
            ,BLOCKED_USER     
            ,BLOCKED_PID      
            --,BLOCKED_QUERY
-           ,(SELECT query FROM TB_QUERY_INFO WHERE INSTANCE_ID IN ({0}) AND QUERYID = BLOCKED_QUERY) BLOCKED_QUERY
+           ,(SELECT query FROM TB_QUERY_INFO WHERE INSTANCE_ID IN ({0}) AND QUERYID = BLOCKED_QUERY LIMIT 1) BLOCKED_QUERY
            ,BLOCKED_DURATION 
            ,LOCK_MODE        
            ,QUERY_START      
@@ -1039,7 +1043,7 @@
               (SELECT MAX(REG_DATE) AS REG_DATE, MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME 
                  FROM TB_ACTV_COLLECT_INFO 
                 WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
-                  AND ACTV_REG_SEQ >= (SELECT (LAST_VALUE - (SELECT COUNT(*) + 5 FROM TB_INSTANCE_INFO)) + 1 AS LAST_VALUE FROM ACTV_REG_SEQ)
+                  AND ACTV_REG_SEQ >= (SELECT (LAST_VALUE - (SELECT COUNT(*) * 2  FROM TB_INSTANCE_INFO)) + 1 AS LAST_VALUE FROM ACTV_REG_SEQ)
                 GROUP BY INSTANCE_ID) B, TB_BACKEND_RSC E, TB_SYS_CODE CD
           WHERE B.REG_DATE = E.REG_DATE
           AND A.INSTANCE_ID = B.INSTANCE_ID
@@ -3585,6 +3589,32 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 		           ORDER BY COLLECT_DATE, TTEI.RELID
 		      ) AS ROLL
      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTCURRENTSTATEMENTS" PARAMS="0">
+    <DESC>PT_04_09_001(OBJECT 정보)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT /*SELECTCURRENTSTATEMENTS*/
+                R.INSTANCE_ID, 
+                U.USER_NAME, 
+                D.DATABASE_NAME, 
+                Q.QUERY, 
+                CALLS, 
+                TOTAL_TIME AS TOTAL_TIME, 
+                TOTAL_TIME  / CALLS AS AVG_TIME, 
+                R.COLLECT_DT 
+        FROM
+         (
+	        SELECT *
+	          FROM TB_REALTIME_STATEMENTS 
+	         WHERE COLLECT_DT IN (SELECT MAX(COLLECT_DT) FROM TB_REALTIME_STATEMENTS WHERE COLLECT_DT > NOW() - INTERVAL '300' GROUP BY INSTANCE_ID)
+         ) AS R
+        JOIN TB_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.CQUERYID = Q.QUERYID
+        JOIN TB_USER_INFO U ON R.INSTANCE_ID = U.INSTANCE_ID AND R.USERID = U.USER_ID
+        JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID   
+      ]]>
     </DATA>
   </ROW>
 </ROWS>

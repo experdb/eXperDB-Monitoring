@@ -163,6 +163,15 @@
         nudLockCnt.Value = clsIni.ReadValue("FORM", "LOCKDETAIL", 30)
 
         chkIDLE.Checked = clsIni.ReadValue("FORM", "IDLEDETAIL", "False")
+        chkBlocked.Checked = clsIni.ReadValue("FORM", "BLOCKEDPID", "False")
+
+
+        dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible = clsIni.ReadValue("FORM", "MENUCOLUMNADDR", "True")
+        dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcApp.Index).Visible = clsIni.ReadValue("FORM", "MENUCOLUMNAPP", "True")
+        dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWaitEvent.Index).Visible = clsIni.ReadValue("FORM", "MENUCOLUMNWAITEVENT", "True")
+        dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcRead.Index).Visible = clsIni.ReadValue("FORM", "MENUCOLUMNREAD", "True")
+        dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWrite.Index).Visible = clsIni.ReadValue("FORM", "MENUCOLUMNWRITE", "True")
+
 
         'Dim positionObject As Integer = clsIni.ReadValue("CHARTDETAIL", "OBJECT", "0")
         'Dim positionCheckpotint As Integer = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "1")
@@ -336,6 +345,7 @@
 
         chkIDLE.Text = p_clsMsgData.fn_GetData("F227")
         chkIDLE.Tag = p_clsMsgData.fn_GetSpecificData("F227", "COMMENTS")
+        chkBlocked.Text = p_clsMsgData.fn_GetData("F340")
 
         ' lock Information 
         dgvLock.AutoGenerateColumns = False
@@ -1823,6 +1833,11 @@
         clsIni.WriteValue("FORM", "IDLEDETAIL", chkIDLE.Checked)
     End Sub
 
+    Private Sub chkBlocked_CheckedChanged(sender As Object, e As EventArgs) Handles chkBlocked.CheckedChanged
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        clsIni.WriteValue("FORM", "BLOCKEDPID", chkBlocked.Checked)
+    End Sub
+
     Private Sub dgvGrpHealth_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvGrpHealth.CellMouseMove
         If e.RowIndex >= 0 Then
             If dgvGrpHealth.Rows(e.RowIndex).Selected = False Then
@@ -2390,7 +2405,7 @@
         mnuMenu.Tag = lblTemp.Parent
     End Sub
 
-    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuSQLPlan.Click, mnuSessionLock.Click, mnuObjectView.Click, mnuLogView.Click, mnuTimelineView.Click, mnuStatements.Click, mnuAutovacuum.Click
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuSQLPlan.Click, mnuSessionLock.Click, mnuCurrentStatements.Click, mnuObjectView.Click, mnuLogView.Click, mnuTimelineView.Click, mnuStatements.Click, mnuAutovacuum.Click
         Dim BretFrm As Form = Nothing
         Dim stDt As DateTime = Now.AddMinutes(-10)
         Dim edDt As DateTime = Now
@@ -2409,6 +2424,21 @@
 
             If BretFrm Is Nothing Then
                 BretFrm = New frmSessionLock(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
+                BretFrm.Show()
+            Else
+                BretFrm.Activate()
+            End If
+        ElseIf sender.Name = "mnuCurrentStatements" Then
+            For Each tmpFrm As Form In My.Application.OpenForms
+                Dim frmDtl As frmCurrentStatements = TryCast(tmpFrm, frmCurrentStatements)
+                If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                    BretFrm = tmpFrm
+                    Exit For
+                End If
+            Next
+
+            If BretFrm Is Nothing Then
+                BretFrm = New frmCurrentStatements(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
                 BretFrm.Show()
             Else
                 BretFrm.Activate()
@@ -2541,7 +2571,15 @@
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
         'Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
 
-        Dim dtView As DataView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID AndAlso r.Item("BLOCKED_PID") Is DBNull.Value).AsDataView
+        Dim dtView As DataView = Nothing
+        If chkBlocked.Checked = True Then
+            dtView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID).AsDataView
+            dgvLock.Columns(colDgvLockBlockedPID.Index).Visible = True
+        Else
+            dtView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID AndAlso r.Item("BLOCKED_PID") Is DBNull.Value).AsDataView
+            dgvLock.Columns(colDgvLockBlockedPID.Index).Visible = False
+        End If
+
         Dim ShowDT As DataTable = Nothing
 
         If dtView.Count > 0 Then
@@ -2573,6 +2611,68 @@
             BretFrm.Show()
         Else
             BretFrm.Activate()
+        End If
+    End Sub
+
+    Private Sub btnColumns_Click(sender As Object, e As EventArgs) Handles btnColumns.Click
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        Dim ps As System.Drawing.Point = Cursor.Position
+        ps.X -= mnuBackendColumns.Width
+        mnuBackendColumns.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
+        mnuBackendAddr.Text = p_clsMsgData.fn_GetData("F248")
+        mnuBackendApp.Text = p_clsMsgData.fn_GetData("F249")
+        mnuBackendWaitEvent.Text = p_clsMsgData.fn_GetData("F337")
+        mnuBackendRead.Text = p_clsMsgData.fn_GetData("F048")
+        mnuBackendWrite.Text = p_clsMsgData.fn_GetData("F136")
+
+        If dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible = True Then
+            mnuBackendAddr.Checked = CheckState.Checked
+        Else
+            mnuBackendAddr.Checked = CheckState.Unchecked
+        End If
+        If dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcApp.Index).Visible = True Then
+            mnuBackendApp.Checked = CheckState.Checked
+        Else
+            mnuBackendApp.Checked = CheckState.Unchecked
+        End If
+
+        If dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWaitEvent.Index).Visible = True Then
+            mnuBackendWaitEvent.Checked = CheckState.Checked
+        Else
+            mnuBackendWaitEvent.Checked = CheckState.Unchecked
+        End If
+
+        If dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcRead.Index).Visible = True Then
+            mnuBackendRead.Checked = CheckState.Checked
+        Else
+            mnuBackendRead.Checked = CheckState.Unchecked
+        End If
+
+        If dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWrite.Index).Visible = True Then
+            mnuBackendWrite.Checked = CheckState.Checked
+        Else
+            mnuBackendWrite.Checked = CheckState.Unchecked
+        End If
+
+    End Sub
+
+    Private Sub mnuBackendColumns_Click(sender As Object, e As EventArgs) Handles mnuBackendAddr.Click, mnuBackendApp.Click, mnuBackendWaitEvent.Click, mnuBackendRead.Click, mnuBackendWrite.Click
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        If sender.Name = "mnuBackendAddr" Then
+            dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible = Not dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNADDR", dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible)
+        ElseIf sender.Name = "mnuBackendApp" Then
+            dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcApp.Index).Visible = Not dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcApp.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNAPP", dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible)
+        ElseIf sender.Name = "mnuBackendWaitEvent" Then
+            dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWaitEvent.Index).Visible = Not dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWaitEvent.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNWAITEVENT", dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible)
+        ElseIf sender.Name = "mnuBackendRead" Then
+            dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcRead.Index).Visible = Not dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcRead.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNREAD", dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible)
+        ElseIf sender.Name = "mnuBackendWrite" Then
+            dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWrite.Index).Visible = Not dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWrite.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNWRITE", dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible)
         End If
     End Sub
 End Class

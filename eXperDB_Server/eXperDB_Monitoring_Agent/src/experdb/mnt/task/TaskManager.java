@@ -1,7 +1,11 @@
 package experdb.mnt.task;
 
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -80,12 +84,29 @@ public class TaskManager implements Runnable{
 					
 					MonitoringInfoManager.getInstance().changeInfo();
 
+					//Hourly batch------------- Start
+					SimpleDateFormat transFormat = new SimpleDateFormat("mm:ss");
+					Date now = new Date();
+					String strCurrentTime = transFormat.format(now);
+					Date batchStartHourlyTime = transFormat.parse(MonitoringInfoManager.getInstance().getConfig("daily_batch_start_time").toString());
+					Date batchEndHourlyTime = new Date(batchStartHourlyTime.getTime() + 1000 * 10);
+					String strBatchTimeStart = transFormat.format(batchStartHourlyTime);
+					String strBatchTimeEnd = transFormat.format(batchEndHourlyTime);
+					
+					strBatchTimeStart = "54:35";
+					strBatchTimeEnd = "54:45";
+					
+					if(strCurrentTime.compareTo(strBatchTimeStart)>0 && strCurrentTime.compareTo(strBatchTimeEnd)<0){
+						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
+					}
+					//Hourly batch------------- End
+
 					if(MonitoringInfoManager.getInstance().getConfig("batch_start").equals("Y"))
 					{
 						Class.forName("experdb.mnt.task."+ "DailyBatchTask").getConstructor().newInstance();
-					}					
+					}
 					
-					
+
 // 재기동을 전문으로 처리하여 주석처리					
 //					if(MonitoringInfoManager.getInstance().isReLoad())
 //					{

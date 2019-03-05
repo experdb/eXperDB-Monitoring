@@ -9,11 +9,13 @@
 		       CONN_USER_ID, 
 		       CONN_USER_PWD, 
 		       COLLECT_PERIOD_SEC, 
+		       RTSTMT_PERIOD_SEC, 
 		       CONN_DB_NAME,
 		       PG_VERSION, 
 		       EXTENSIONS,
 		       SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 2) AS PG_VERSION_MIN,
-		       LAST_MOD_DT
+		       LAST_MOD_DT,
+		       CONN_SCHEMA_NAME
 		  from TB_INSTANCE_INFO
 		 where COLLECT_YN = 'Y'
 		   and DELETE_YN = 'N'

@@ -117,6 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Label2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAE6SURBVEhL7dQ9S8NQFAbg2zaGS5yEDoJTwU06unW2f8DR
+        1cn+DqHi5uRfaCdnHRSi6CCIH4sQUpfUuzi0ECiExPeUc+EQtbQ0pSi+8JTk3I+XDq1aWlptvwTV1tG1
+        5PDy/Dlo+xpiXJoJdV6eP0srgDLswT7BHrLOx6bPhAIXjJ1hD2nwsekzawGUYJufrTW+7muwOKHA/67A
+        gZDfrabCpgrs5qyChlm+wY8Fnt0s1GCxBZ3zQJ9d9YaQWN2LoLiCLMs0xCDzBwrCaOC+9YcRJFYvGhRX
+        AC6Y8RuSpilZfMHlfeTcPpnXu2czsvyH/g79oLxcK6nhkIaYL7Dq4IIRM9IAB0IxI02FFu8l+Eikm8f3
+        4grw4eWG5L/AGhfQgdOcKqzAiZiRDajAsZiRTSjDoZiRLf5z/rVR6hNn9cN1K1YquAAAAABJRU5ErkJg
+        gg==
+</value>
+  </data>
   <metadata name="coldgvStmtDBID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -213,7 +226,6 @@
   <metadata name="STMTData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Label1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAACH
@@ -272,21 +284,6 @@
         vA/Y34NlvAGfsFEqyWN9ZgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="Label2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAE6SURBVEhL7dQ9S8NQFAbg2zaGS5yEDoJTwU06unW2f8DR
-        1cn+DqHi5uRfaCdnHRSi6CCIH4sQUpfUuzi0ECiExPeUc+EQtbQ0pSi+8JTk3I+XDq1aWlptvwTV1tG1
-        5PDy/Dlo+xpiXJoJdV6eP0srgDLswT7BHrLOx6bPhAIXjJ1hD2nwsekzawGUYJufrTW+7muwOKHA/67A
-        gZDfrabCpgrs5qyChlm+wY8Fnt0s1GCxBZ3zQJ9d9YaQWN2LoLiCLMs0xCDzBwrCaOC+9YcRJFYvGhRX
-        AC6Y8RuSpilZfMHlfeTcPpnXu2czsvyH/g79oLxcK6nhkIaYL7Dq4IIRM9IAB0IxI02FFu8l+Eikm8f3
-        4grw4eWG5L/AGhfQgdOcKqzAiZiRDajAsZiRTSjDoZiRLf5z/rVR6hNn9cN1K1YquAAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <metadata name="STMTData.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <metadata name="colDgvLockDB.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

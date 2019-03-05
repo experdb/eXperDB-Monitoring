@@ -1858,7 +1858,7 @@
   </ROW>
   <ROW ID="F227" PARAMS="0">
     <DESC>IDLE</DESC>
-    <DATA><![CDATA[IDLE]]></DATA>
+    <DATA><![CDATA[Show Idle]]></DATA>
     <COMMENTS>&lt;Idle&gt;</COMMENTS>
     <CATEGORY />
     <COLUMNS />
@@ -2660,6 +2660,23 @@
     <DESC>LOCK INFORMATION</DESC>
     <DATA><![CDATA[Blocking Sessions(Count : {0})]]></DATA>
   </ROW>
+  <ROW ID="F339" PARAMS="1">
+    <DESC>Current Statements</DESC>
+    <DATA><![CDATA[Current Statements({0})]]></DATA>
+  </ROW>
+  <ROW ID="F340" PARAMS="0">
+    <DESC>Show Blocked</DESC>
+    <DATA><![CDATA[Show Blocked]]></DATA>
+  </ROW>
+  <ROW ID="F341" PARAMS="0">
+    <DESC>CURR STMT PERIOD LIST</DESC>
+    <DATA><![CDATA[0 s|0;5 s|5;10 s|10;30 s|30;1 m|60]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F342" PARAMS="0">
+    <DESC>Collect Period(Sec)</DESC>
+    <DATA><![CDATA[구문수집주기(초)]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -3249,6 +3266,14 @@
   <ROW ID="M065" PARAMS="1">
     <DESC>버젼 불일치</DESC>
     <DATA><![CDATA[서버와 클라이언트 버전이 일치하지 않습니다.\n\n{0}]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M066" PARAMS="0">
+    <DESC>Current Statements</DESC>
+    <DATA><![CDATA[실시간 Statements 리스트를 조회합니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

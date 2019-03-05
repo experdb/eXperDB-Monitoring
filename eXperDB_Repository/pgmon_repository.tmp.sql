@@ -229,6 +229,7 @@ CREATE TABLE tb_instance_info (
     collect_yn character varying(1),
     delete_yn character varying(1),
     collect_period_sec integer,
+    rtstmt_period_sec integer DEFAULT 0,
     hchk_period_sec integer,
     conn_db_name character varying(100),
     conn_schema_name character varying(100),
@@ -433,9 +434,29 @@ CREATE TABLE TB_USER_INFO (
     user_id int8
 );
 
+CREATE TABLE TB_DATABASE_INFO (
+    reg_date character varying(8) COLLATE pg_catalog."default" NOT NULL,
+    collect_dt timestamp without time zone,
+    instance_id integer NOT NULL,
+    database_name character varying(100) NOT NULL,
+    datid int8
+);
+
 CREATE TABLE TB_SYS_CODE (
 		code int2 NOT NULL,
 		code_name character varying(50) NOT NULL,
+);
+
+CREATE TABLE TB_REALTIME_STATEMENTS (
+    reg_date date NOT NULL,
+    instance_id integer NOT NULL,
+    dbid int4,
+    userid int4,
+    queryid int8,
+    calls int8,
+    total_time float8,
+    cqueryid character varying(41),
+    collect_dt timestamp without time zone
 );
 
 ALTER TABLE ONLY tb_access_info
@@ -542,10 +563,12 @@ ALTER TABLE ONLY TB_USER_INFO
     ADD CONSTRAINT pk_user_info PRIMARY KEY (reg_date, collect_dt, instance_id, user_id);
     
     
-CREATE FUNCTION to_date_immutable(VARCHAR) RETURNS date
-    AS $$ SELECT CAST($1 AS date)
-    $$ LANGUAGE SQL immutable;
-    
+CREATE OR REPLACE FUNCTION to_date_imm(text, text) 
+		RETURNS date
+		AS 'to_date'
+		LANGUAGE internal immutable STRICT
+		COST 1;
+
 CREATE INDEX idx01_access_info ON tb_access_info USING btree (collect_dt DESC);
 
 
@@ -585,10 +608,13 @@ CREATE INDEX idx01_tablespace_info ON tb_tablespace_info USING btree (collect_dt
 CREATE INDEX idx02_current_lock ON tb_current_lock USING btree (collect_dt DESC);
 
 
-CREATE INDEX idx01_tb_actv_collect_info ON tb_actv_collect_info USING btree((TO_DATE_IMMUTABLE(reg_date) + reg_time), instance_id);
+CREATE INDEX idx01_tb_actv_collect_info ON tb_actv_collect_info USING btree((TO_DATE_IMM(reg_date, 'yyyymmdd') + reg_time), instance_id);
 
 
-CREATE INDEX idx01_tb_rsc_collect_info ON tb_rsc_collect_info USING btree((TO_DATE_IMMUTABLE(reg_date) + reg_time), instance_id);
+CREATE INDEX idx01_tb_rsc_collect_info ON tb_rsc_collect_info USING btree((TO_DATE_IMM(reg_date, 'yyyymmdd') + reg_time), instance_id);
+
+
+CREATE INDEX idx01_realtime_statements ON tb_realtime_statements USING btree (collect_dt DESC);
 
 
 CREATE SEQUENCE hchk_reg_seq
@@ -633,6 +659,14 @@ CREATE SEQUENCE repl_reg_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+
+CREATE SEQUENCE stmt_reg_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 
 ALTER TABLE tb_access_info SET (autovacuum_analyze_scale_factor = 0.0);
 ALTER TABLE tb_access_info SET (autovacuum_analyze_threshold = 10000);
@@ -745,6 +779,12 @@ ALTER TABLE tb_user_info SET (autovacuum_vacuum_scale_factor = 0.0);
 ALTER TABLE tb_user_info SET (autovacuum_vacuum_threshold = 1000);
 
 
+ALTER TABLE tb_database_info SET (autovacuum_analyze_scale_factor = 0.0);
+ALTER TABLE tb_database_info SET (autovacuum_analyze_threshold = 1000);
+ALTER TABLE tb_database_info SET (autovacuum_vacuum_scale_factor = 0.0);
+ALTER TABLE tb_database_info SET (autovacuum_vacuum_threshold = 1000);
+
+
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'DISKUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'BUFFERHITRATIO', '%', '1', 95.00, 90.00, '0', NULL, NULL);
 INSERT INTO tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) VALUES (-1, 'COMMITRATIO', '%', '1', 80.00, 70.00, '0', NULL, NULL);
@@ -768,6 +808,7 @@ DAILY_BATCH_START_TIME
 ,HCHK_PERIOD_SEC
 ,OBJT_PERIOD_SEC
 ,STMT_PERIOD_SEC
+,RTSTMT_PERIOD_SEC
 ,LOG_KEEP_DAYS
 ,ADMIN_USER_ID
 ,ADMIN_PASSWORD
@@ -777,7 +818,7 @@ DAILY_BATCH_START_TIME
 ,LAST_MOD_IP
 ,SERIAL_KEY
 ,VERSION
-) VALUES ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '10.4.2.265');
+) VALUES ('23:30:00', 30, 300, 1200, 10, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '10.4.2.265');
 
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (1, 'Group1', now(), '127.0.0.1');
 INSERT INTO tb_group_info(group_id, group_name, LAST_MOD_DT, LAST_MOD_IP) VALUES (2, 'Group2', now(), '127.0.0.1');

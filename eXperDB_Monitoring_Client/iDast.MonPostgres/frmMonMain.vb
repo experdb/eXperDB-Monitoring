@@ -1129,6 +1129,7 @@
                     clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
                     clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
                     clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
+                    clsAgentCollect_GetDataStatementsInfo(p_clsAgentCollect.infoDataStmt)
                     StartChartAnimaition()
                 Else
                     _isDrawInitialData -= 1
@@ -1289,6 +1290,16 @@
         '    End If
         'Next
 
+    End Sub
+
+    Private Sub clsAgentCollect_GetDataStatementsInfo(ByVal dtTable As DataTable)
+        ' 하위폼이 있을 경우 하위폼에 던진다. 
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim subFrm As frmCurrentStatements = TryCast(tmpFrm, frmCurrentStatements)
+            If subFrm IsNot Nothing Then
+                subFrm.SetDataStmt(dtTable)
+            End If
+        Next
     End Sub
 
     ''' <summary>
