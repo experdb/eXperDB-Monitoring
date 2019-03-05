@@ -43,6 +43,7 @@ public class RTStmtCollect extends TaskApplication {
 		long startTime;
 		long endTime;
 		
+		if (collectPeriod <= 0) return;
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
 			log.debug(System.currentTimeMillis());
