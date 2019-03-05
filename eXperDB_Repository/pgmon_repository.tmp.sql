@@ -65,6 +65,7 @@ CREATE TABLE tb_backend_rsc (
     query_start timestamp without time zone,
     elapsed_time numeric(20,5),
     state character varying(30),
+    wait_event int2 NULL,
     queryid character varying(41),
     sql text,
     collect_dt timestamp without time zone

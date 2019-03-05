@@ -610,7 +610,7 @@
 		            FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B LEFT OUTER JOIN TB_CURRENT_LOCK C on B.REG_DATE = C.REG_DATE AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
 		            WHERE B.REG_DATE {1}
 		              --AND (B.REG_DATE::date + B.REG_TIME) BETWEEN {2} AND {3}
-                  AND TO_DATE_IMMUTABLE(B.REG_DATE) + B.REG_TIME BETWEEN {2} AND {3}
+                  AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME BETWEEN {2} AND {3}
 		              AND A.INSTANCE_ID = B.INSTANCE_ID
 		              AND A.INSTANCE_ID IN ({0})
 		              AND A.COLLECT_YN = 'Y'
@@ -1187,7 +1187,7 @@
           AND B.INSTANCE_ID = A.INSTANCE_ID
           AND A.INSTANCE_ID IN ({0})
           --AND E.COLLECT_DT BETWEEN {2} AND {3}
-          AND TO_DATE_IMMUTABLE(B.REG_DATE) + B.REG_TIME BETWEEN {2} AND {3}
+          AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME BETWEEN {2} AND {3}
           AND A.COLLECT_YN = 'Y' 
           AND A.DELETE_YN = 'N'  
           ORDER BY A.INSTANCE_ID, B.RSC_REG_SEQ
@@ -1558,7 +1558,7 @@
 		      AND IST.COLLECT_YN = 'Y'
 		      AND IST.DELETE_YN = 'N'
 		      --AND ACS.COLLECT_DT BETWEEN {3} AND {4}
-          AND TO_DATE_IMMUTABLE(COL.REG_DATE) + COL.REG_TIME BETWEEN {3} AND {4}
+          AND TO_DATE_IMM(COL.REG_DATE, 'yyyymmdd') + COL.REG_TIME BETWEEN {3} AND {4}
 		      GROUP BY IST.INSTANCE_ID, COL.ACTV_REG_SEQ
 		      ORDER BY COLLECT_DT, IST.INSTANCE_ID
 		   ) AS OI
@@ -1670,7 +1670,7 @@
 		           AND IST.INSTANCE_ID IN ({0})
 			         AND COL.INSTANCE_ID=IST.INSTANCE_ID
 		           --AND COL.REG_TIME {2}
-               AND TO_DATE_IMMUTABLE(COL.REG_DATE) + COL.REG_TIME {2}
+               AND TO_DATE_IMM(COL.REG_DATE, 'yyyymmdd') + COL.REG_TIME {2}
 		           AND IST.COLLECT_YN = 'Y'
 		           AND IST.DELETE_YN = 'N'
 		       GROUP BY COL.REG_DATE, COL.REG_TIME, IST.INSTANCE_ID
@@ -2225,7 +2225,7 @@
               , TB_BACKEND_RSC E
               WHERE A.INSTANCE_ID = {0}
               AND B.REG_DATE {1}  -- Dynamic('IN' or '=' )
-              AND to_date_immutable(B.REG_DATE) + B.REG_TIME BETWEEN '{2}' AND '{3}'
+              AND to_date_imm(B.REG_DATE, 'yyyymmdd') + B.REG_TIME BETWEEN '{2}' AND '{3}'
               --AND E.COLLECT_DT BETWEEN '{2}' AND '{3}'
               AND B.REG_DATE = E.REG_DATE
               AND A.INSTANCE_ID = B.INSTANCE_ID
@@ -2947,7 +2947,7 @@
            --AND C.SQL <>'<IDLE> in transaction'
            AND C.STATE = 'active'
            AND C.USER_NAME IS NOT NULL
-           AND TO_DATE_IMMUTABLE(B.REG_DATE) + B.REG_TIME BETWEEN {2} AND {3}
+           AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME BETWEEN {2} AND {3}
            GROUP BY A.INSTANCE_ID, C.PROCESS_ID, C.QUERY_START
            ORDER BY COLLECT_DATE, QUERY_START, COLLECT_DATE , A.INSTANCE_ID
      ]]>
@@ -3020,7 +3020,7 @@
               TB_BACKEND_RSC E
               LEFT OUTER JOIN TB_QUERY_INFO Q ON E.QUERYID = Q.QUERYID AND INSTANCE_ID in ({0})
           WHERE E.REG_DATE {2}
-          AND to_date_immutable(b.reg_date) + b.reg_time BETWEEN {3} AND {4}
+          AND to_date_imm(b.reg_date, 'yyyymmdd') + b.reg_time BETWEEN {3} AND {4}
           AND B.REG_DATE = E.REG_DATE
           AND A.INSTANCE_ID IN ({0})
           AND A.INSTANCE_ID = B.INSTANCE_ID
