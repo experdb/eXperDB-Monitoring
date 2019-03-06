@@ -2853,11 +2853,14 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    is_exists_partition BOOL;
 			    var_tablename varchar;
 			    ddate varchar;
-			    cdate varchar;   
+			    cdate varchar;
+			    ndate varchar;   
 			BEGIN    
 				var_tablename = '${tablename}';
 				ddate = '${old_date}';
 			    cdate = '${new_date}';
+			    ndate = '${now_date}';
+			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || ndate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || ndate || ')');     
 			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
 			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (var_tablename || '_' || ddate)));       
 			    IF is_exists_partition = TRUE THEN           
@@ -3018,7 +3021,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 </update>
 <update id="PG_INDEX_TB_REALTIME_STATEMENTS_PARTITIONS_001" parameterType="hashmap">
 		<![CDATA[
-		CREATE INDEX IF NOT EXISTS idx01_realtime_statements_${new_date} ON tb_realtime_statements_${new_date} USING btree (collect_dt DESC);
+		DO $$
+		BEGIN
+			EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_${now_date} ON tb_realtime_statements_${now_date} USING btree (collect_dt DESC)');   
+			EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_${new_date} ON tb_realtime_statements_${new_date} USING btree (collect_dt DESC)');   
+		END $$
 		]]>			
 </update>
 		

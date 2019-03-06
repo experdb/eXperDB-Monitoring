@@ -858,9 +858,9 @@ Partial Class frmAdmin
         DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
         Me.colStmtCollectSecond.DefaultCellStyle = DataGridViewCellStyle6
-        Me.colStmtCollectSecond.FillWeight = 40.54054!
+        Me.colStmtCollectSecond.FillWeight = 45.0!
         Me.colStmtCollectSecond.HeaderText = "F342"
-        Me.colStmtCollectSecond.MinimumWidth = 100
+        Me.colStmtCollectSecond.MinimumWidth = 110
         Me.colStmtCollectSecond.Name = "colStmtCollectSecond"
         Me.colStmtCollectSecond.ReadOnly = True
         Me.colStmtCollectSecond.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable

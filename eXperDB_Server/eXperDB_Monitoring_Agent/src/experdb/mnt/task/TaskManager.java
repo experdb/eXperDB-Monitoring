@@ -77,7 +77,8 @@ public class TaskManager implements Runnable{
 						}
 					}
 				}
-					
+
+				boolean isStart = true;
 				//Instance 정보 변경 여부를 확인한다.
 				while(true) {
 					Thread.sleep(5* 1000);
@@ -92,11 +93,13 @@ public class TaskManager implements Runnable{
 					Date batchEndHourlyTime = new Date(batchStartHourlyTime.getTime() + 1000 * 10);
 					String strBatchTimeStart = transFormat.format(batchStartHourlyTime);
 					String strBatchTimeEnd = transFormat.format(batchEndHourlyTime);
+
+					if (isStart == true){
+						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
+						isStart = false;
+					}
 					
-					strBatchTimeStart = "54:35";
-					strBatchTimeEnd = "54:45";
-					
-					if(strCurrentTime.compareTo(strBatchTimeStart)>0 && strCurrentTime.compareTo(strBatchTimeEnd)<0){
+					if(strCurrentTime.compareTo(strBatchTimeStart) > 0 && strCurrentTime.compareTo(strBatchTimeEnd) < 0){
 						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
 					}
 					//Hourly batch------------- End

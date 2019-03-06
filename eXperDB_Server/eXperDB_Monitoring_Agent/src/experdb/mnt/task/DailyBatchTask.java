@@ -80,7 +80,7 @@ public class DailyBatchTask {
 					selectUser = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUSER_001");
 					//log.debug("=====>>>" + selectUser);
 									
-					selectDatabase = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGUDATABASE_001");
+					selectDatabase = sessionCollect.selectList("app.EXPERDBMA_BT_GET_PGDATABASE_001");
 					//log.debug("=====>>>" + selectUser);
 
 					for (HashMap<String, Object> map : selectUser) {

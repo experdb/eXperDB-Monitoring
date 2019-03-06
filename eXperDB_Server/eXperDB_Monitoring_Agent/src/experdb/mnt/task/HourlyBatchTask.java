@@ -53,9 +53,11 @@ public class HourlyBatchTask {
 			Date oldHour = new Date(currentHour.getTime() - (1000 * 60 * 60 * 8));
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMddHH");
 			String new_date = transFormat.format(nextHour);
+			String now_date = transFormat.format(currentHour);
 			String old_date = transFormat.format(oldHour);
 			HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
 			partitionTableMap.put("new_date", new_date);
+			partitionTableMap.put("now_date", now_date);
 			partitionTableMap.put("old_date", old_date);
 			partitionTableMap.put("tablename", "tb_realtime_statements");
 			

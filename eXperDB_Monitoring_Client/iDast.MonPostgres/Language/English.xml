@@ -2670,7 +2670,7 @@
   </ROW>
   <ROW ID="F341" PARAMS="0">
     <DESC>CURR STMT PERIOD LIST</DESC>
-    <DATA><![CDATA[0 s|0;5 s|5;10 s|10;30 s|30;1 m|60]]></DATA>
+    <DATA><![CDATA[Disable|0;5 s|5;10 s|10;30 s|30;1 m|60]]></DATA>
     <VALUECAST />
   </ROW>
   <ROW ID="F342" PARAMS="0">
