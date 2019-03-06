@@ -29,6 +29,7 @@ public class RTStmtCollect extends TaskApplication {
 	private String failed_collect_type = "";	
 	
 	private String instance_db_version = "";
+	private long sequenceValue = 0;
 	
 	public RTStmtCollect(String instanceId, String taskId) {
 		super(instanceId, taskId);
@@ -122,15 +123,16 @@ public class RTStmtCollect extends TaskApplication {
 					}
 					
 					//Sequence
-					HashMap<String, Object> SeqMap = sessionAgent.selectOne("app.SEQ_GET_NEXT_STMT");
-					int sequence = Integer.parseInt(SeqMap.get("nextval").toString());
+					//HashMap<String, Object> SeqMap = sessionAgent.selectOne("app.SEQ_GET_NEXT_STMT");
+					//int sequence = Integer.parseInt(SeqMap.get("nextval").toString());
 					
 					HashMap<String, Object> paramMap = new HashMap<String, Object>();
 					paramMap.put("instance_id", Integer.parseInt(instanceId));
-					paramMap.put("table_order", sequence % 2);
+					paramMap.put("table_order", sequenceValue % 2);
 					sessionAgent.delete("app.BT_RTSTMT_CALL_INFO_T001", paramMap);
 					sessionAgent.insert("app.BT_RTSTMT_CALL_INFO_I001", paramMap);	
 					sessionAgent.commit();
+					sequenceValue++;
 				} catch (Exception e) {					
 					is_collect_ok = "N";
 					log.error("", e);

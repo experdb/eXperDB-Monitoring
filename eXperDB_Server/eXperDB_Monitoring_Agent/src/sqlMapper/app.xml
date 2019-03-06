@@ -3048,14 +3048,6 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			END $$
 		  ]]>	  
 	</update>
-
-	<select id="SEQ_SETVAL_STMT" parameterType="hashmap" resultType="hashmap">
-		SELECT SETVAL('stmt_reg_seq',1);
-	</select>
-	
-	<select id="SEQ_GET_NEXT_STMT" parameterType="hashmap" resultType="hashmap">
-		SELECT NEXTVAL('stmt_reg_seq') NEXTVAL;
-	</select>
 	
 	<select id="BT_RTSTMT_INFO_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
@@ -3076,7 +3068,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				) DIFF
 			WHERE CALLS >  0
 		)
-		SELECT RTST.*, fdw${instance_id}.query FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid;
+		SELECT RTST.*, fdw${instance_id}.query FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
+		   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>
 	</select>
 	
