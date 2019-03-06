@@ -449,7 +449,7 @@ CREATE TABLE TB_SYS_CODE (
 );
 
 CREATE TABLE TB_REALTIME_STATEMENTS (
-    reg_date date NOT NULL,
+    reg_time character varying(14) NOT NULL,
     instance_id integer NOT NULL,
     dbid int4,
     userid int4,

@@ -605,7 +605,7 @@ Public Class frmConnection
         txtHAHost.Enabled = False
         txtHAPort.Enabled = False
         txtHAREPLHost.Enabled = False
-        Me.Size = New Size(387, 480)
+        Me.Size = New Size(387, 515)
         Me.splSlave.FixedPanel = FixedPanel.Panel1
         Me.splSlave.Panel1Collapsed = False
         Me.splSlave.Panel2Collapsed = True
@@ -631,8 +631,8 @@ Public Class frmConnection
             txtHAHost.Enabled = True
             txtHAPort.Enabled = True
             txtHAREPLHost.Enabled = True
-            Me.Size = New Size(387, 634)
-            Me.splSlave.SplitterDistance = 340
+            Me.Size = New Size(387, 669)
+            Me.splSlave.SplitterDistance = 375
             Me.splSlave.Panel1Collapsed = False
             Me.splSlave.Panel2Collapsed = False
             Me.splSlave.FixedPanel = FixedPanel.Panel1
@@ -642,7 +642,7 @@ Public Class frmConnection
             txtHAHost.Enabled = False
             txtHAPort.Enabled = False
             txtHAREPLHost.Enabled = False
-            Me.Size = New Size(387, 480)
+            Me.Size = New Size(387, 515)
             Me.splSlave.FixedPanel = FixedPanel.Panel1
             Me.splSlave.Panel1Collapsed = False
             Me.splSlave.Panel2Collapsed = True
