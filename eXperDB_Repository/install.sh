@@ -197,9 +197,11 @@ echo -e "${GREEN}Step.1 Create the databse of owner.${NC}"
 user_exists=`PGPASSWORD=$DB_PASSWORD psql$DB_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select usename from pg_user where usename='$DB_OWNER';"`
 if [ "a$user_exists" = "a" ]; then
     if confirm "Would you like to create the owner of the database $DB_OWNER?" ; then
-        echo "Running: createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER"
+        #echo "Running: createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER"
+        echo "Running: createuser$DB_HOST$DB_PORT$DB_USER -s -P $DB_OWNER"
         if [ $DEBUG -eq 0 ]; then
-            PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
+            #PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
+            PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
             if [ $? -ne 0 ]; then
                 die "can not create user $DB_OWNER."
             fi

@@ -203,6 +203,8 @@
 		  FROM GET_STAT_DISK_USGE()
 		  WHERE DEV_NAME NOT LIKE '%loop%'
 		  AND DEV_NAME NOT LIKE '%rootfs%'
+		  AND DEV_NAME NOT LIKE '%/dev/sr%'
+		  AND DEV_NAME NOT LIKE '%/dev/scd%'
 		  GROUP BY MT_DIR;
 	</select>
 	<insert id="TB_DISK_USAGE_I001" parameterType="hashmap" >
