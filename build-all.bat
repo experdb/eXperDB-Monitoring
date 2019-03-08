@@ -50,7 +50,7 @@ IF "%SVR%"=="t" (
 )
 IF "%REP%"=="t" (
 	ECHO "Build Repository"
-	sh -e eXperDB_Repository\set_version_repo.sh %BASE_VER%.%GIT_COMMIT_CNT%.%GIT_COMMIT_HASH% %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
+	sh -e eXperDB_Repository\set_version_repo.sh %BASE_VER%.%GIT_COMMIT_CNT%.%GIT_COMMIT_HASH% %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH% %BASE_VER%.%GIT_COMMIT_CNT%
 )
 IF "%DST%"=="t" (
 	ECHO "Build DSTension"

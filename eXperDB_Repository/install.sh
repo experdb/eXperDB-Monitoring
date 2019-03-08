@@ -18,6 +18,7 @@ AGENT_PORT="5960"
 DEBUG=0
 AUTORUN=0
 REPOPATH=eXperDB_Repository
+REPOGEN_FILE=$REPOPATH/pgmon_repository.sh
 REPOCREATE_FILE=$REPOPATH/pgmon_repository.sql
 LICENSE_FILE=license.dat
 LICENSE_STR=
@@ -40,25 +41,25 @@ NC='\033[0m'
 #install logo
                 PRINT_LOGO() {
                         echo -e " ${YELLOW}  "
-                        echo "   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
-                        echo "   ▒                                                                   ▒"
-                        echo "   ▒          X      X                             DDDDDD     BBBBBBB  ▒"
-                        echo "   ▒           X    X                              D     D    B      B ▒"
-                        echo "   ▒  eeee      X  X     ppppp    eeee     r   r   D      D   B      B ▒"
-                        echo "   ▒ e    e      X       p    p  e    e    r r     D      D   BBBBBBB  ▒"
-                        echo "   ▒ eeeeee     X  X     p ppp   eeeeee    rr      D      D   B      B ▒"
-                        echo "   ▒ e         X    X    p       e         r       D     D    B      B ▒"
-                        echo "   ▒  eeee    X      X   p        eeee    rrr      DDDDDD     BBBBBBB  ▒"
-                        echo "   ▒                                                                   ▒"
-                        echo "   ▒       SSSSS                                                       ▒"
-                        echo "   ▒      S     S                                                      ▒"
-                        echo "   ▒      S         eeee   r   r  v       v   eeee    r   r            ▒"
-                        echo "   ▒       SSSSS   e    e  r r     v     v   e    e   r r              ▒"
-                        echo "   ▒            S  eeeeee  rr       v   v    eeeeee   rr               ▒"
-                        echo "   ▒      S     S  e       r         v v     e        r                ▒"
-                        echo "   ▒       SSSSS    eeee  rrr         v       eeee   rrr               ▒"
-                        echo "   ▒                                                                   ▒"
-                        echo "   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+                        echo "   *********************************************************************"
+                        echo "   *                                                                   *"
+                        echo "   *          X      X                             DDDDDD     BBBBBBB  *"
+                        echo "   *           X    X                              D     D    B      B *"
+                        echo "   *  eeee      X  X     ppppp    eeee     r   r   D      D   B      B *"
+                        echo "   * e    e      X       p    p  e    e    r r     D      D   BBBBBBB  *"
+                        echo "   * eeeeee     X  X     p ppp   eeeeee    rr      D      D   B      B *"
+                        echo "   * e         X    X    p       e         r       D     D    B      B *"
+                        echo "   *  eeee    X      X   p        eeee    rrr      DDDDDD     BBBBBBB  *"
+                        echo "   *                                                                   *"
+                        echo "   *       SSSSS                                                       *"
+                        echo "   *      S     S                                                      *"
+                        echo "   *      S         eeee   r   r  v       v   eeee    r   r            *"
+                        echo "   *       SSSSS   e    e  r r     v     v   e    e   r r              *"
+                        echo "   *            S  eeeeee  rr       v   v    eeeeee   rr               *"
+                        echo "   *      S     S  e       r         v v     e        r                *"
+                        echo "   *       SSSSS    eeee  rrr         v       eeee   rrr               *"
+                        echo "   *                                                                   *"
+                        echo "   *********************************************************************"
                         echo -e " ${NC}"
                         echo "Install eXperDB-PGMON Repository"
                         echo "   "
@@ -268,6 +269,11 @@ if [ "a$schema_exists" = "a" ]; then
         else
                 die "you must create schema $DB_SCHEMA."
         fi
+fi
+
+if [ -f "$REPOGEN_FILE" ]; then
+    echo "Generating $REPOCREATE_FILE"
+    sh $REPOGEN_FILE
 fi
 
 if [ -r "$REPOCREATE_FILE" ]; then

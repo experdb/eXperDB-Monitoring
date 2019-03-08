@@ -469,7 +469,18 @@
                 dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertTime.Index, tmpRow.Item("COLLECT_TIME"))
                 dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertType.Index, tmpRow.Item("HCHK_NAME"))
                 dgvAlertList.fn_DataCellADD(idxRow, coldgvAlertLevel.Index, IIf((tmpRow.Item("STATE") = 200), "Warning", "Critical"))
+
                 Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+                If tmpRow.Item("HCHK_NAME").Equals("ACTIVECONNECTION") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("CONNECTIONFAIL") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("LASTANALYZE") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("LASTVACUUM") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("LOCKCNT") Or tmpRow.Item("HCHK_NAME").Equals("TRAXIDLECNT") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("UNUSEDINDEX") Then
+                    Dim tmpValue As Long = tmpRow.Item("VALUE")
+                    strValue = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpValue)
+                End If
+
                 Dim strValueUnit As String = ""
                 If tmpRow.Item("VALUE") <> 99999 Then
                     strValueUnit = tmpRow.Item("UNIT")

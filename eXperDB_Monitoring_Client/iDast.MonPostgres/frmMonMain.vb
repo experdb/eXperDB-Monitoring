@@ -2827,7 +2827,19 @@
                 Dim strRegDt As DateTime = IIf(IsDBNull(tmpRow.Item("COLLECT_TIME")), Now, Date.Parse(tmpRow.Item("COLLECT_TIME")))
                 Dim strHost As String = tmpRow.Item("HOST_NAME")
                 Dim strHchkNm As String = p_clsMsgData.fn_GetData(tmpRow.Item("HCHK_NAME"))
+
                 Dim strValue As String = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpRow.Item("VALUE"))
+
+                If tmpRow.Item("HCHK_NAME").Equals("ACTIVECONNECTION") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("CONNECTIONFAIL") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("LASTANALYZE") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("LASTVACUUM") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("LOCKCNT") Or tmpRow.Item("HCHK_NAME").Equals("TRAXIDLECNT") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("UNUSEDINDEX") Then
+                    Dim tmpValue As Long = tmpRow.Item("VALUE")
+                    strValue = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpValue)
+                End If
+
                 Dim strValueUnit As String = ""
                 If tmpRow.Item("VALUE") <> 99999 Then
                     strValueUnit = tmpRow.Item("UNIT")
