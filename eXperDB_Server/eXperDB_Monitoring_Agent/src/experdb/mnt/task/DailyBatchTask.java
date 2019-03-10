@@ -97,8 +97,7 @@ public class DailyBatchTask {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
-				throw e;
+				log.error("", e);				
 			}	
 			
 			

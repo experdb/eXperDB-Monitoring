@@ -2868,7 +2868,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    IF is_exists_partition = TRUE THEN           
 				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
 				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
-		        END IF;       
+		        END IF;
 			 END $$
 		]]>	
 	</update>
@@ -3113,6 +3113,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			now()
 		)
 	</insert>
+	
+	<select id="TB_CHECK_PARTITION_R001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select 1 from tb_table_ext_info_${regdate} limit 1;
+		  ]]>
+	</select>
 <!-- **************************************************************************************************************** -->
 <!-- Delete partitions -->	
 <!-- **************************************************************************************************************** -->
