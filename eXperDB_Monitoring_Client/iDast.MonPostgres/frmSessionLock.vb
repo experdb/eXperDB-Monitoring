@@ -154,7 +154,7 @@
 
         ' dgvLock.DataSource = dtView
         'If btnPause.Text = "4" Then Return
-        If btnPause.ForeColor = Color.LightGray Then Return
+        If btnPause.ForeColor = Color.Gray Then Return
 
         'Dim topRows As DataRow() = dtTable.Select(String.Format("INSTANCE_ID={0} AND BLOCKED_PID IS NULL", Me.InstanceID), "ORDER_NO ASC")
 
@@ -225,7 +225,7 @@
 
         '        Me.dgvResUtilPerBackProc.InvokeRowsClear()
         'If btnPause.Text = "4" Then Return
-        If btnPause.ForeColor = Color.LightGray Then Return
+        If btnPause.ForeColor = Color.Gray Then Return
 
         Dim strQuery As String = ""
         'Dim subQuery As String = IIf(cmbStatus.SelectedIndex, "", String.Format("AND SQL <> '{0}'", "<IDLE>"))

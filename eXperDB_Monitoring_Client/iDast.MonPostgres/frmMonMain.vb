@@ -1864,10 +1864,13 @@
         Dim dblRegDt As Double
         Dim intInstID As Integer
         Dim MaxPri As Double = 0
+        Dim dblMaxScale As Double = 0
+        Dim dblAvgScale As Double = 0
         If dtTableDataSQLRespTm IsNot Nothing Then
             'AndAlso chtSQLRespTmAVG.Series(0).Points.Count > 0 Then 'Avoid the problem of not displaying real-time information 
             If dtTableDataSQLRespTm.Rows.Count > 0 Then
                 dblRegDt = ConvOADate(dtTableDataSQLRespTm.Rows(0).Item("REG_DATE"))
+
                 For Each dtRow As DataRow In dtTableDataSQLRespTm.Rows
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
@@ -1882,8 +1885,8 @@
                 Me.chtSQLRespTmMAX.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
                 Me.chtSQLRespTmAVG.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
             End If
-            sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
-            sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
+            'sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
+            'sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
         End If
 
         Try
@@ -1909,7 +1912,30 @@
             GC.Collect()
         End Try
 
-        Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+        Try
+            dblMaxScale = chtSQLRespTmMAX.ChartAreas(0).AxisY.Maximum
+            dblAvgScale = chtSQLRespTmAVG.ChartAreas(0).AxisY.Maximum
+
+            If Not dblMaxScale.Equals(Double.NaN) Then
+                If dblMaxScale < 10 Then
+                    Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+                Else
+                    Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+                End If
+            End If
+
+            If Not dblAvgScale.Equals(Double.NaN) Then
+                If dblAvgScale < 10 Then
+                    Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+                Else
+                    Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+                End If
+            End If
+
+            Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+        Catch ex As Exception
+            GC.Collect()
+        End Try
 
     End Sub
     '0202 add flow chart
@@ -2225,18 +2251,45 @@
         Dim intInstID As Integer
         Try
             If _dtTableSQLResp IsNot Nothing Then
+                Dim dblMaxScale As Double = 0
+                Dim dblAvgScale As Double = 0
                 For Each dtRow As DataRow In _dtTableSQLResp.Rows
                     dblRegDt = ConvOADate(dtRow.Item("REG_DATE"))
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("MAX_SQL_ELAPSED_SEC")))
-                            sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("AVG_SQL_ELAPSED_SEC")))
+                            Dim dblMax As Double = ConvULong(dtRow.Item("MAX_SQL_ELAPSED_SEC"))
+                            Dim dblAvg As Double = ConvULong(dtRow.Item("AVG_SQL_ELAPSED_SEC"))
+                            sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, dblMax)
+                            sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, dblAvg)
                         End If
                     Next
                 Next
-                sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
-                sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
+                'sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
+                'sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
+
+                dblMaxScale = chtSQLRespTmMAX.ChartAreas(0).AxisY.Maximum
+                dblAvgScale = chtSQLRespTmAVG.ChartAreas(0).AxisY.Maximum
+
+                If Not dblMaxScale.Equals(Double.NaN) Then
+                    If dblMaxScale < 10 Then
+                        Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+                    Else
+                        Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+                    End If
+                End If
+
+                If Not dblAvgScale.Equals(Double.NaN) Then
+                    If dblAvgScale < 10 Then
+                        Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+                    Else
+                        Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+                    End If
+                End If
+
+                Me.chtSQLRespTmMAX.ChartAreas(0).RecalculateAxesScale()
+                Me.chtSQLRespTmAVG.ChartAreas(0).RecalculateAxesScale()
+
             End If
         Catch ex As Exception
             GC.Collect()

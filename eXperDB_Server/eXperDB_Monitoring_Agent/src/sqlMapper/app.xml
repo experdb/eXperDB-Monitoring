@@ -2538,7 +2538,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 
 
 	
-	<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001" parameterType="hashmap" resultType="hashmap">
+	<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_OLD_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			WITH TMP_MAX_SEQ AS 
 			(
@@ -2593,6 +2593,58 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			  ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID;
 			]]>
 	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				  SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 24E9AB7301FF1966DA4FB30DC1538882*/
+			            REPL.INSTANCE_ID,
+			          CASE WHEN MM.MC > 1 THEN 2  
+			               --when MM.MC = 0 then 2 ELSE
+			               WHEN MM.MC = 0 THEN CASE WHEN IST.HA_ROLE = 'A' THEN 0 ELSE 2 END ELSE  
+			          (CASE WHEN IST.HA_ROLE = REPL.HA_ROLE THEN 0 ELSE 1 END |
+			           CASE WHEN IST.HA_REPL_HOST = REPL.HA_HOST THEN 0 ELSE 1 END |
+			           CASE WHEN IST.HA_PORT = REPL.HA_PORT THEN 0 ELSE 1 END) END AS HASTATUS,        
+			           '4' AS COLLECT_GROUP,
+			          REPL.REG_DATE AS COLLECT_REG_DATE,
+			          REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+			          REPL.COLLECT_DT::TIME AS REG_TIME          
+			    FROM  TB_REPLICATION_INFO AS REPL INNER JOIN TB_INSTANCE_INFO    AS IST
+			          ON  REPL.REG_DATE      = TO_CHAR(NOW(), 'YYYYMMDD')
+			          AND REPL.INSTANCE_ID  = IST.INSTANCE_ID
+			          AND IST.COLLECT_YN    = 'Y'             
+			          AND IST.DELETE_YN     = 'N' 
+			         -- INNER JOIN TMP_MAX_SEQ T 
+			         -- ON   REPL.INSTANCE_ID = T.INSTANCE_ID 
+			         -- AND  REPL.REPL_REG_SEQ = T.MAX_REG_SEQ
+			          LEFT OUTER JOIN
+			         (
+				         SELECT IST.HA_GROUP,  
+				                 --SUM(CASE WHEN REPL.HA_ROLE IN ('A','S') THEN 0 
+				                 SUM(CASE WHEN REPL.HA_ROLE IN ('S') THEN 0 
+				                    	  WHEN REPL.HA_ROLE IS NULL THEN 0
+				                     ELSE
+				                         CASE WHEN REPL.HA_ROLE = 'P' THEN 1
+				                         ELSE 1 END
+				                     END ) AS MC    
+				          FROM   TB_REPLICATION_INFO AS REPL, 
+				                 (SELECT INSTANCE_ID, HA_GROUP, HA_ROLE  
+				                  FROM   TB_INSTANCE_INFO
+				                  --WHERE  HA_ROLE = 'P' AND COLLECT_YN   = 'Y' AND DELETE_YN    = 'N' 
+				                  WHERE  COLLECT_YN   = 'Y' AND DELETE_YN    = 'N' 
+				                  ) AS IST
+				          WHERE   REPL.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+				          AND     REPL.INSTANCE_ID = IST.INSTANCE_ID
+				          --AND     REPL.INSTANCE_ID = TMP_MAX_SEQ.INSTANCE_ID
+				          AND     REPL.REPL_REG_SEQ = (SELECT MAX(X.REPL_REG_SEQ) FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+				          GROUP BY IST.HA_GROUP  
+			         ) AS MM 
+			         ON    IST.HA_GROUP =  MM.HA_GROUP
+			  WHERE REPL.INSTANCE_ID = IST.INSTANCE_ID
+			   AND REPL.REPL_REG_SEQ =  (SELECT MAX(X.REPL_REG_SEQ) FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+			  ORDER BY REPL.REG_DATE,REPL.REPL_REG_SEQ,REPL.INSTANCE_ID;
+			  ]]>
+	</select>
+			  
 	
 		<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001_PREV" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[

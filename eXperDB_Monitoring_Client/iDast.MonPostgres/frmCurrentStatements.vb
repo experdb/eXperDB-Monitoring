@@ -104,7 +104,7 @@
 
         '        Me.dgvResUtilPerBackProc.InvokeRowsClear()
         'If btnPause.Text = "4" Then Return
-        If btnPause.ForeColor = Color.LightGray Then Return
+        If btnPause.ForeColor = Color.Gray Then Return
 
         Dim strQuery As String = ""
         strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)

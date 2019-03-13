@@ -1828,7 +1828,7 @@
                 Dim subQuery As String = ""
 
                 subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '3 minute')::time AND COL.REG_TIME < (now())::time", intInterval)
+                strQuery = String.Format(strQuery, InstanceID, subQuery, intInterval)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -2054,7 +2054,7 @@
                     strQuery = String.Format(strQuery, InstanceID, subQuery, "BETWEEN " + "'" + StDate.ToString("HH:mm:ss") + "'" + " AND " + "'" + edDate.ToString("HH:mm:ss") + "'")
                 Else
                     subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
-                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '" + intDuration.ToString + " minute')::time")
+                    strQuery = String.Format(strQuery, InstanceID, subQuery, ">= (now() - interval '" + intDuration.ToString + " minute')")
                 End If
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)

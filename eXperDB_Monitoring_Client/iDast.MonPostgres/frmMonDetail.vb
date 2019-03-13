@@ -416,12 +416,12 @@
         Me.btnRefreshSqlResp.Location = New System.Drawing.Point(Me.grpSQLResposeTime.Width - Me.btnRefreshSqlResp.Width - Me.btnRefreshSqlResp.Margin.Right, Me.btnRefreshSqlResp.Margin.Top)
 
 
-        For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
-            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.Black
-            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
-            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Next
+        'For i As Integer = 0 To dgvResUtilPerBackProc.ColumnCount - 1
+        'dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.Black
+        'dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+        'dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        'dgvResUtilPerBackProc.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        'Next
 
         Me.ttChart.SetToolTip(Me.btnSqlPlan, p_clsMsgData.fn_GetData("F245"))
         Me.ttChart.SetToolTip(Me.btnSessionLock, p_clsMsgData.fn_GetData("F246"))
@@ -432,6 +432,15 @@
         Me.ttChart.SetToolTip(Me.lblCheckpoint, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblReplication, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblTPS, p_clsMsgData.fn_GetData("F321"))
+
+        Me.ttChart.SetToolTip(Me.chtCPU, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtSession, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtLocalIO, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtDiskIOTrend, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtSQLRespTm, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtLock, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtTPS, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtPhyRead, "Timeline view")
 
         'modCommon.FontChange(Me, p_Font)
 
@@ -1999,7 +2008,7 @@
         If dgvLock.RowCount <= 0 Then Return
         'SQL
         If e.RowIndex >= 0 Then
-            Dim frmQuery As New frmQueryView(_AgentCn, dgvLock.Rows(e.RowIndex).Cells(colDgvLockBlockedQuery.Index).Value, dgvLock.Rows(e.RowIndex).Cells(colDgvLockDB.Index).Value, dgvLock.Rows(e.RowIndex).Cells(colDgvLockBlockingUser.Index).Value, InstanceID, _AgentInfo)
+            Dim frmQuery As New frmQueryView(_AgentCn, dgvLock.Rows(e.RowIndex).Cells(colDgvLockBlockingQuery.Index).Value, dgvLock.Rows(e.RowIndex).Cells(colDgvLockDB.Index).Value, dgvLock.Rows(e.RowIndex).Cells(colDgvLockBlockingUser.Index).Value, InstanceID, _AgentInfo)
             frmQuery.Show()
         End If
     End Sub
@@ -2674,5 +2683,18 @@
             dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWrite.Index).Visible = Not dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcWrite.Index).Visible
             clsIni.WriteValue("FORM", "MENUCOLUMNWRITE", dgvResUtilPerBackProc.Columns(coldgvResUtilPerBackProcClientAddr.Index).Visible)
         End If
+    End Sub
+
+    Private Sub chtCPU_MouseHover(sender As Object, e As EventArgs) Handles chtCPU.MouseHover, chtSession.MouseHover, chtLocalIO.MouseHover, chtDiskIOTrend.MouseHover, chtSQLRespTm.MouseHover _
+                                                                            , chtLock.MouseHover, chtTPS.MouseHover, chtPhyRead.MouseHover
+
+        Dim tmpChart = DirectCast(sender, System.Windows.Forms.DataVisualization.Charting.Chart)
+        tmpChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(56, Byte), Integer))
+    End Sub
+
+    Private Sub chtCPU_MouseLeave(sender As Object, e As EventArgs) Handles chtCPU.MouseLeave, chtSession.MouseLeave, chtLocalIO.MouseLeave, chtDiskIOTrend.MouseLeave, chtSQLRespTm.MouseLeave _
+                                                                            , chtLock.MouseLeave, chtTPS.MouseLeave, chtPhyRead.MouseLeave
+        Dim tmpChart = DirectCast(sender, System.Windows.Forms.DataVisualization.Charting.Chart)
+        tmpChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
     End Sub
 End Class

@@ -274,6 +274,11 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.tlpInstanceList = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvClusters = New AdvancedDataGridView.TreeGridView()
+        Me.coldgvClustersServerName = New AdvancedDataGridView.TreeGridColumn()
+        Me.coldgvClustersRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvClustersLegend = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvClusterPrimaryHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvClusterIsOpenSingle = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.instanceImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.btnSort = New eXperDB.BaseControls.Button()
         Me.flpInstance = New eXperDB.BaseControls.FlowLayoutPanel()
@@ -376,11 +381,6 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvClustersServerName = New AdvancedDataGridView.TreeGridColumn()
-        Me.coldgvClustersRole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvClustersLegend = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvClusterPrimaryHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvClusterIsOpenSingle = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -738,7 +738,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvGrpDiskUsage.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
@@ -2945,7 +2945,7 @@ Partial Class frmMonMain
         ChartArea13.AxisY.Title = "Tuples/sec"
         ChartArea13.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea13.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea13.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea13.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
         ChartArea13.AxisY2.IsLabelAutoFit = False
         ChartArea13.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea13.AxisY2.LineColor = System.Drawing.Color.DimGray
@@ -3372,7 +3372,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvGrpDiskAccess.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle13.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle13.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.White
@@ -3553,7 +3553,7 @@ Partial Class frmMonMain
         Me.dgvSessionInfo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvSessionInfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle16.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle16.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.White
@@ -3881,7 +3881,7 @@ Partial Class frmMonMain
         Me.dgvClusters.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.dgvClusters.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle23.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
         DataGridViewCellStyle23.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.White
@@ -3921,6 +3921,51 @@ Partial Class frmMonMain
         Me.dgvClusters.Size = New System.Drawing.Size(201, 744)
         Me.dgvClusters.TabIndex = 16
         Me.dgvClusters.TabStop = False
+        '
+        'coldgvClustersServerName
+        '
+        Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvClustersServerName.DefaultNodeImage = Nothing
+        Me.coldgvClustersServerName.FillWeight = 80.0!
+        Me.coldgvClustersServerName.HeaderText = "Cluster name"
+        Me.coldgvClustersServerName.MinimumWidth = 100
+        Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
+        Me.coldgvClustersServerName.ReadOnly = True
+        Me.coldgvClustersServerName.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersServerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'coldgvClustersRole
+        '
+        Me.coldgvClustersRole.HeaderText = ""
+        Me.coldgvClustersRole.MinimumWidth = 12
+        Me.coldgvClustersRole.Name = "coldgvClustersRole"
+        Me.coldgvClustersRole.ReadOnly = True
+        Me.coldgvClustersRole.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersRole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClustersRole.Width = 12
+        '
+        'coldgvClustersLegend
+        '
+        Me.coldgvClustersLegend.HeaderText = ""
+        Me.coldgvClustersLegend.MinimumWidth = 25
+        Me.coldgvClustersLegend.Name = "coldgvClustersLegend"
+        Me.coldgvClustersLegend.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersLegend.Width = 25
+        '
+        'coldgvClusterPrimaryHostNm
+        '
+        Me.coldgvClusterPrimaryHostNm.FillWeight = 1.0!
+        Me.coldgvClusterPrimaryHostNm.HeaderText = "PrimaryHostNm"
+        Me.coldgvClusterPrimaryHostNm.Name = "coldgvClusterPrimaryHostNm"
+        Me.coldgvClusterPrimaryHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClusterPrimaryHostNm.Visible = False
+        '
+        'coldgvClusterIsOpenSingle
+        '
+        Me.coldgvClusterIsOpenSingle.HeaderText = "IsOpenSingle"
+        Me.coldgvClusterIsOpenSingle.Name = "coldgvClusterIsOpenSingle"
+        Me.coldgvClusterIsOpenSingle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClusterIsOpenSingle.Visible = False
         '
         'instanceImgLst
         '
@@ -5003,51 +5048,6 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn37.HeaderText = "coldgvAlertHchkName"
         Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
         Me.DataGridViewTextBoxColumn37.Visible = False
-        '
-        'coldgvClustersServerName
-        '
-        Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvClustersServerName.DefaultNodeImage = Nothing
-        Me.coldgvClustersServerName.FillWeight = 80.0!
-        Me.coldgvClustersServerName.HeaderText = "Cluster name"
-        Me.coldgvClustersServerName.MinimumWidth = 100
-        Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
-        Me.coldgvClustersServerName.ReadOnly = True
-        Me.coldgvClustersServerName.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersServerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'coldgvClustersRole
-        '
-        Me.coldgvClustersRole.HeaderText = ""
-        Me.coldgvClustersRole.MinimumWidth = 12
-        Me.coldgvClustersRole.Name = "coldgvClustersRole"
-        Me.coldgvClustersRole.ReadOnly = True
-        Me.coldgvClustersRole.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersRole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClustersRole.Width = 12
-        '
-        'coldgvClustersLegend
-        '
-        Me.coldgvClustersLegend.HeaderText = ""
-        Me.coldgvClustersLegend.MinimumWidth = 25
-        Me.coldgvClustersLegend.Name = "coldgvClustersLegend"
-        Me.coldgvClustersLegend.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersLegend.Width = 25
-        '
-        'coldgvClusterPrimaryHostNm
-        '
-        Me.coldgvClusterPrimaryHostNm.FillWeight = 1.0!
-        Me.coldgvClusterPrimaryHostNm.HeaderText = "PrimaryHostNm"
-        Me.coldgvClusterPrimaryHostNm.Name = "coldgvClusterPrimaryHostNm"
-        Me.coldgvClusterPrimaryHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClusterPrimaryHostNm.Visible = False
-        '
-        'coldgvClusterIsOpenSingle
-        '
-        Me.coldgvClusterIsOpenSingle.HeaderText = "IsOpenSingle"
-        Me.coldgvClusterIsOpenSingle.Name = "coldgvClusterIsOpenSingle"
-        Me.coldgvClusterIsOpenSingle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClusterIsOpenSingle.Visible = False
         '
         'frmMonMain
         '
