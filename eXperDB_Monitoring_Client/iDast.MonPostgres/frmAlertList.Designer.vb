@@ -130,7 +130,7 @@ Partial Class frmAlertList
         Me.cmbServer.FixedWidth = False
         Me.cmbServer.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
+        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -165,7 +165,7 @@ Partial Class frmAlertList
         Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -200,7 +200,7 @@ Partial Class frmAlertList
         Me.cmbCheck.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbCheck.FormattingEnabled = True
         Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(525, 15)
+        Me.cmbCheck.Location = New System.Drawing.Point(525, 16)
         Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCheck.Name = "cmbCheck"
         Me.cmbCheck.Necessary = False
@@ -602,7 +602,7 @@ Partial Class frmAlertList
         Me.mnuGotoClusterDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.mnuGotoClusterDetails.Name = "mnuGotoClusterDetails"
         Me.mnuGotoClusterDetails.Size = New System.Drawing.Size(185, 22)
-        Me.mnuGotoClusterDetails.Text = "Cluster Details"
+        Me.mnuGotoClusterDetails.Text = "Time line view"
         '
         'mnuGotoStatementsStats
         '

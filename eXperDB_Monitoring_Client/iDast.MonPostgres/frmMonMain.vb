@@ -1875,8 +1875,8 @@
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("MAX_SQL_ELAPSED_SEC"))) 'Active 세션만
-                            sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("AVG_SQL_ELAPSED_SEC")))
+                            sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("MAX_SQL_ELAPSED_SEC"))) 'Active 세션만
+                            sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("AVG_SQL_ELAPSED_SEC")))
                         End If
                     Next
                 Next
@@ -2258,8 +2258,8 @@
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
-                            Dim dblMax As Double = ConvULong(dtRow.Item("MAX_SQL_ELAPSED_SEC"))
-                            Dim dblAvg As Double = ConvULong(dtRow.Item("AVG_SQL_ELAPSED_SEC"))
+                            Dim dblMax As Double = ConvDBL(dtRow.Item("MAX_SQL_ELAPSED_SEC"))
+                            Dim dblAvg As Double = ConvDBL(dtRow.Item("AVG_SQL_ELAPSED_SEC"))
                             sb_ChartAddPoint(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, dblRegDt, dblMax)
                             sb_ChartAddPoint(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, dblRegDt, dblAvg)
                         End If

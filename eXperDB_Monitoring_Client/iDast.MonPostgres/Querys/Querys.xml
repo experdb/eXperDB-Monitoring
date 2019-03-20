@@ -3626,4 +3626,31 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       ]]>
     </DATA>
   </ROW>
+  <ROW ID="SELECTCURRENTSTATEMENTSDURATION" PARAMS="0">
+    <DESC>PT_04_09_001(OBJECT 정보)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT /*SELECTCURRENTSTATEMENTSDURATION*/
+                R.INSTANCE_ID, 
+                U.USER_NAME, 
+                D.DATABASE_NAME, 
+                Q.QUERY, 
+                CALLS, 
+                TOTAL_TIME AS TOTAL_TIME, 
+                TOTAL_TIME  / CALLS AS AVG_TIME
+        FROM
+         (
+	        SELECT instance_id, dbid, userid, queryid, sum(calls) calls, max(TOTAL_TIME) total_time, CQUERYID
+	          FROM TB_REALTIME_STATEMENTS 
+	         WHERE COLLECT_DT BETWEEN '{1}' AND '{2}' and INSTANCE_ID = {0}
+			GROUP BY instance_id, dbid, userid, QUERYID, CQUERYID
+         ) AS R
+        JOIN TB_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.CQUERYID = Q.QUERYID
+        JOIN TB_USER_INFO U ON R.INSTANCE_ID = U.INSTANCE_ID AND R.USERID = U.USER_ID
+        JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID
+        ORDER BY CALLS DESC
+      ]]>
+    </DATA>
+  </ROW>
+
 </ROWS>

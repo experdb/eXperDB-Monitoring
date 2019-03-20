@@ -2468,5 +2468,27 @@
             Return Nothing
         End Try
     End Function
+
+    Public Function SelectCurrentStatementsDuration(ByVal InstanceID As String, ByVal stDate As DateTime, ByVal edDate As DateTime) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCURRENTSTATEMENTSDURATION")
+
+                strQuery = String.Format(strQuery, InstanceID, stDate.ToString("yyyy-MM-dd HH:mm:ss"), edDate.ToString("yyyy-MM-dd HH:mm:ss"))
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
 #End Region
 End Class

@@ -273,6 +273,14 @@
         dgvLock.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvLock.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
 
+        '''''''''''''''''''''''''''''''''''''''''
+        ' Statements Information 
+
+        dgvStmtList.AutoGenerateColumns = False
+        coldgvStmtListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
+        coldgvStmtListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
+        coldgvStmtListQuery.HeaderText = p_clsMsgData.fn_GetData("F052")
+
 
         chtCPU.Visible = False
         chtSession.Visible = False
@@ -484,6 +492,52 @@
         End If
     End Sub
 
+
+    ''' <summary>
+    ''' BackEnd 정보 등록 
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <remarks></remarks>
+    Public Sub SetDataStmt(ByVal starDt As DateTime, ByVal endDt As DateTime)
+
+
+        Dim dtTable As DataTable = Nothing
+        Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
+                                                                 Try
+                                                                     dtTable = _clsQuery.SelectCurrentStatementsDuration(_InstanceID, starDt, endDt)
+                                                                 Catch ex As Exception
+                                                                     GC.Collect()
+                                                                 End Try
+                                                             End Sub)
+        tmpTh.Start()
+        tmpTh.Join()
+        If dtTable IsNot Nothing Then
+            dgvStmtList.Invoke(New MethodInvoker(Sub()
+                                                     Try
+                                                         dgvStmtList.DataSource = dtTable
+
+                                                         Dim dtView As DataView = New DataView(dtTable)
+                                                         Dim ShowDT As DataTable = Nothing
+                                                         If dtView.Count > 0 Then
+                                                             ShowDT = dtView.ToTable.AsEnumerable.Take(500).CopyToDataTable
+                                                         End If
+
+                                                         If ShowDT Is Nothing Then
+                                                             dgvStmtList.DataSource = Nothing
+                                                             Return
+                                                         End If
+
+                                                         dgvStmtList.DataSource = ShowDT
+                                                     Catch ex As Exception
+                                                         p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                                         GC.Collect()
+                                                     End Try
+
+                                                 End Sub))
+        End If
+
+    End Sub
+
     Private Sub InitCharts()
 
         chkCpu.Tag = 0
@@ -600,6 +654,7 @@
                 fn_DeleteAnnotaion()
                 SetDataSession(dtpSt.Value, dtpEd.Value)
                 SetDataLock(dtpSt.Value, dtpEd.Value)
+                SetDataStmt(dtpSt.Value, dtpEd.Value)
             End If
         End If
         Dim checkIndex = CheckBox.Tag + 1
@@ -1153,6 +1208,8 @@
                                                      SetDataSession(dtpSt.Value, dtpEd.Value)
                                                      RaiseEvent WaitMasg("Lock Information")
                                                      SetDataLock(dtpSt.Value, dtpEd.Value)
+                                                     RaiseEvent WaitMasg("Statemets Information")
+                                                     SetDataStmt(dtpSt.Value, dtpEd.Value)
                                                      RaiseEvent WaitComplete()
                                                  Catch ex As Exception
                                                      GC.Collect()
@@ -1176,6 +1233,7 @@
             fn_DeleteAnnotaion()
             SetDataSession(dtpSt.Value, dtpEd.Value)
             SetDataLock(dtpSt.Value, dtpEd.Value)
+            SetDataStmt(dtpSt.Value, dtpEd.Value)
         Else
             Dim index As Integer
             For index = 1 To _AreaCount
@@ -1213,6 +1271,7 @@
 
         SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
         SetDataLock(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
+        SetDataStmt(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
     End Sub
 
     Private Sub chtCPU_AnnotationPositionChanging(sender As Object, e As EventArgs)
