@@ -1902,7 +1902,7 @@ Partial Class frmMonDetail
         Me.cmbRetention.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbRetention.FormattingEnabled = True
         Me.cmbRetention.Items.AddRange(New Object() {"10", "20", "30"})
-        Me.cmbRetention.Location = New System.Drawing.Point(262, 20)
+        Me.cmbRetention.Location = New System.Drawing.Point(262, 19)
         Me.cmbRetention.Margin = New System.Windows.Forms.Padding(3, 4, 3, 6)
         Me.cmbRetention.Name = "cmbRetention"
         Me.cmbRetention.Necessary = False
