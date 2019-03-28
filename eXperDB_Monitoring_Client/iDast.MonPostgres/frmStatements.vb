@@ -1,4 +1,6 @@
-﻿Public Class frmStatements
+﻿Imports System.ComponentModel
+
+Public Class frmStatements
 
     Private _InstanceID As Integer = -1
     Private _SelectedIndex As String
@@ -258,6 +260,10 @@
                                                 End If
 
                                                 STMTTableBindingSource.DataSource = ShowDT
+
+                                                If cbxHideSysSQL.Checked = True Then
+                                                    SetRowfilter(cbxHideSysSQL)
+                                                End If
 
                                                 modCommon.sb_GridSortChg(dgvStmtList)
                                                 lslSession.Text = p_clsMsgData.fn_GetData("F323", dtView.Count)
@@ -756,7 +762,7 @@
     Private Sub ReadConfig()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         _UseFilter = clsIni.ReadValue("STATSTATEMENTS", "UseFilter", False)
-        
+
         Dim StatementFilters As String() = clsIni.ReadValue("STATSTATEMENTS", "StatementFilters", "pg_catalog").Split(New Char() {","c})
 
         Dim StatementFilter As String
@@ -777,17 +783,19 @@
                     rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtQuery.HeaderText, StatementFilter)
                 Next
                 rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
-                dt = dgvStmtList.DataSource.DataSource
-                dt.DefaultView.RowFilter = rowFilter
+                'dt = dgvStmtList.DataSource.DataSource
+                'dt.DefaultView.RowFilter = rowFilter
+                Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
+                data.Filter = rowFilter
                 btnEditFiltering.Visible = True
             Else
                 dt = dgvStmtList.DataSource
                 dt.DefaultView.RowFilter = Nothing
                 btnEditFiltering.Visible = False
-                lslSession.Text = p_clsMsgData.fn_GetData("F323", dt.DefaultView.Count)
+                lslSession.Text = p_clsMsgData.fn_GetData("F323", Me.dgvStmtList.RowCount)
             End If
 
-            lslSession.Text = p_clsMsgData.fn_GetData("F323", dt.DefaultView.Count)
+            lslSession.Text = p_clsMsgData.fn_GetData("F323", Me.dgvStmtList.RowCount)
 
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
             clsIni.WriteValue("STATSTATEMENTS", "UseFilter", True)

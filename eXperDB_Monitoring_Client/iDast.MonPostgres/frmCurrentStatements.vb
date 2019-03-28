@@ -1,4 +1,6 @@
-﻿Public Class frmCurrentStatements
+﻿Imports System.ComponentModel
+
+Public Class frmCurrentStatements
 
 
     Private _Elapseinterval As Integer = 3000  ' 2시간을 기본으로 설정 
@@ -6,6 +8,8 @@
     Private _tooltip As ToolTip
     Private _SelectedIndex As String
     Private _SelectedGrid As String
+    Private _ListStatements As New List(Of String)
+    Private _UseFilter As Boolean
     ReadOnly Property InstanceID As Integer
         Get
             Return _InstanceID
@@ -52,6 +56,8 @@
     ''' <remarks></remarks>
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitForm()
+        ReadConfig()
+        cbxHideSysSQL.Checked = _UseFilter
     End Sub
 
 
@@ -70,10 +76,13 @@
         dgvStmtList.AutoGenerateColumns = False
         coldgvStmtListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
         coldgvStmtListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
-        coldgvStmtListQuery.HeaderText = p_clsMsgData.fn_GetData("F052")
+        coldgvStmtListQuery.HeaderText = p_clsMsgData.fn_GetData("F084")
 
         lblCurrentStatements.Text = p_clsMsgData.fn_GetData("F339", 0)
         lblSort.Text = p_clsMsgData.fn_GetData("F325")
+
+        cbxHideSysSQL.Text = p_clsMsgData.fn_GetData("F331")
+        btnEditFiltering.Text = p_clsMsgData.fn_GetData("F333")
 
         MsgLabel.Text = p_clsMsgData.fn_GetData("M066")
 
@@ -89,7 +98,7 @@
     End Sub
 
     ''' <summary>
-    ''' BackEnd 정보 등록 
+    ''' Stmt 정보 등록 
     ''' </summary>
     ''' <param name="dtTable"></param>
     ''' <remarks></remarks>
@@ -125,18 +134,25 @@
             ShowDT = dtView.ToTable.AsEnumerable.Take(nudStmtcnt.Value).CopyToDataTable
         End If
 
-        lblCurrentTm.Text = "Now: " + Now.ToString("yyyy-MM-dd HH:mm:ss")
+        lblCurrentTm.Text = p_clsMsgData.fn_GetData("F344") + ":" + Now.ToString("yyyy-MM-dd HH:mm:ss")
         Dim CollectDate As DateTime = ShowDT.Rows(0)("COLLECT_DT")
 
-        lblCollectTime.Text = "Collect Time: " + CollectDate.ToString("yyyy-MM-dd HH:mm:ss")
+        lblCollectTime.Text = p_clsMsgData.fn_GetData("F345") + ":" + CollectDate.ToString("yyyy-MM-dd HH:mm:ss")
         If ShowDT Is Nothing Then
             dgvStmtList.DataSource = Nothing
             Return
         End If
 
-        dgvStmtList.DataSource = ShowDT
+        'dgvStmtList.DataSource = ShowDT
+        STMTTableBindingSource.DataSource = ShowDT
 
         lblCurrentStatements.Text = p_clsMsgData.fn_GetData("F339", dtView.Count)
+
+        If cbxHideSysSQL.Checked = True Then
+            SetRowfilter(cbxHideSysSQL)
+        End If
+
+        lblCurrentStatements.Text = p_clsMsgData.fn_GetData("F339", dgvStmtList.RowCount)
 
         modCommon.sb_GridSortChg(dgvStmtList)
 
@@ -304,8 +320,96 @@
         'modCommon.FontChange(Me, p_Font)
     End Sub
 
-    Private Sub dgvStmtList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
+    Private Sub txtSQL_TextChanged(sender As Object, e As EventArgs) Handles txtSQL.TextChanged
+        Try
+            Dim rowFilter As String = String.Format("Convert([{0}], System.String) LIKE '%{1}%'", coldgvStmtListQuery.HeaderText, txtSQL.Text)
+            Dim dt As DataTable
+            dt = dgvStmtList.DataSource
+            dt.DefaultView.RowFilter = rowFilter
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+
+    Private Sub cbxHideSysSQL_CheckedChanged(sender As Object, e As EventArgs) Handles cbxHideSysSQL.CheckedChanged
+        Dim rbTemp As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
+        SetRowfilter(rbTemp)
+    End Sub
+    Private Sub ReadConfig()
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        _UseFilter = clsIni.ReadValue("STATSTATEMENTS", "UseFilter", False)
+
+        Dim StatementFilters As String() = clsIni.ReadValue("STATSTATEMENTS", "StatementFilters", "pg_catalog").Split(New Char() {","c})
+
+        Dim StatementFilter As String
+        For Each StatementFilter In StatementFilters
+            If Not StatementFilter.Equals("") Then
+                _ListStatements.Add(StatementFilter)
+            End If
+        Next
+    End Sub
+    Private Sub SetRowfilter(ByRef checkBox As BaseControls.CheckBox)
+        Try
+            Dim dt As DataTable
+            If checkBox.Checked = True Then
+                'Dim rowFilter As String = String.Format("Convert([{0}], System.String) NOT LIKE '%{1}%'", coldgvStmtQuery.HeaderText, "application_name")
+                Dim rowFilter As String = ""
+                Dim rowFilterList As String = ""
+                For Each StatementFilter In _ListStatements
+                    rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtListQuery.HeaderText, StatementFilter)
+                Next
+                rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtListQuery.HeaderText, rowFilterList)
+                'dt = dgvStmtList.DataSource.DataSource
+                'dt.DefaultView.RowFilter = rowFilter
+                Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
+                data.Filter = rowFilter
+                btnEditFiltering.Visible = True
+            Else
+                dt = dgvStmtList.DataSource
+                dt.DefaultView.RowFilter = Nothing
+                btnEditFiltering.Visible = False
+            End If
+
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("STATSTATEMENTS", "UseFilter", True)
+
+        Catch ex As Exception
+            GC.Collect()
+        End Try
 
     End Sub
 
+    Private Sub btnEditFiltering_Click(sender As Object, e As EventArgs) Handles btnEditFiltering.Click
+        Dim frmCS As New frmStatementsFilter(_ListStatements)
+        If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
+            _ListStatements = frmCS.StatementList
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            Dim StatementFilters As String = ""
+            For Each StatementFilter In _ListStatements
+                StatementFilters = String.Join(",", StatementFilter)
+            Next
+            clsIni.WriteValue("STATSTATEMENTS", "StatementFilters", String.Join(",", _ListStatements))
+            SetRowfilter(cbxHideSysSQL)
+        End If
+        frmCS.Dispose()
+    End Sub
+
+    ' Displays the drop-down list when the user presses 
+    ' ALT+DOWN ARROW or ALT+UP ARROW.
+    Private Sub dgvStmtList_KeyDown(ByVal sender As Object, _
+        ByVal e As KeyEventArgs) Handles dgvStmtList.KeyDown
+
+        If e.Alt AndAlso (e.KeyCode = Keys.Down OrElse e.KeyCode = Keys.Up) Then
+
+            Dim filterCell As DataGridViewAutoFilterColumnHeaderCell = _
+                TryCast(dgvStmtList.CurrentCell.OwningColumn.HeaderCell,  _
+                DataGridViewAutoFilterColumnHeaderCell)
+            If filterCell IsNot Nothing Then
+                filterCell.ShowDropDownList()
+                e.Handled = True
+            End If
+
+        End If
+
+    End Sub
 End Class

@@ -1,4 +1,6 @@
-﻿Public Class frmMonItemDetail
+﻿Imports System.ComponentModel
+
+Public Class frmMonItemDetail
 
     Private _InstanceID As Integer = -1
     Private _SelectedIndex As String
@@ -8,12 +10,13 @@
     Private _chtCount As Integer = 0
     Private _clsQuery As clsQuerys
     Private _bChartMenu As Boolean = False
-    Private _bRange As Boolean = False
-    Private _annotationIndex As Integer = -1
 
     Private _ThreadDetail As Threading.Thread
 
     Private _isFromFormLoad As Boolean = True
+
+    Private _ListStatements As New List(Of String)
+    Private _UseFilter As Boolean
 
     Private WithEvents _ProgresForm As frmProgres
     Private Event ShowMasg()
@@ -93,6 +96,7 @@
 
         InitForm()
         InitCharts()
+        ReadConfig()
     End Sub
 
     Delegate Sub InvokeDelegate()
@@ -215,7 +219,6 @@
 
         ' Button 
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
-        btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information (whole)
@@ -230,7 +233,7 @@
         coldgvSessionListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
         coldgvSessionListClient.HeaderText = p_clsMsgData.fn_GetData("F248")
         coldgvSessionListApp.HeaderText = p_clsMsgData.fn_GetData("F249")
-        coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
+        coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F084")
 
         dgvSessionList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvSessionList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
@@ -254,7 +257,7 @@
 
         '''''''''''''''''''''''''''''''''''''''''
         ' Lock Information 
-
+        dgvLock.AutoGenerateColumns = False
         colDgvLockDB.HeaderText = p_clsMsgData.fn_GetData("F104")
         colDgvLockBlockedPID.HeaderText = p_clsMsgData.fn_GetData("F195")
         colDgvLockBlockedUser.HeaderText = p_clsMsgData.fn_GetData("F196")
@@ -279,7 +282,7 @@
         dgvStmtList.AutoGenerateColumns = False
         coldgvStmtListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
         coldgvStmtListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
-        coldgvStmtListQuery.HeaderText = p_clsMsgData.fn_GetData("F052")
+        coldgvStmtListQuery.HeaderText = p_clsMsgData.fn_GetData("F084")
 
 
         chtCPU.Visible = False
@@ -441,8 +444,6 @@
         If dtTable IsNot Nothing Then
             dgvLock.Invoke(New MethodInvoker(Sub()
                                                  Try
-                                                     dgvLock.DataSource = dtTable
-
                                                      Dim dtView As DataView = New DataView(dtTable)
                                                      Dim ShowDT As DataTable = Nothing
                                                      If dtView.Count > 0 Then
@@ -514,8 +515,6 @@
         If dtTable IsNot Nothing Then
             dgvStmtList.Invoke(New MethodInvoker(Sub()
                                                      Try
-                                                         dgvStmtList.DataSource = dtTable
-
                                                          Dim dtView As DataView = New DataView(dtTable)
                                                          Dim ShowDT As DataTable = Nothing
                                                          If dtView.Count > 0 Then
@@ -527,7 +526,12 @@
                                                              Return
                                                          End If
 
-                                                         dgvStmtList.DataSource = ShowDT
+                                                         'dgvStmtList.DataSource = ShowDT
+                                                         STMTTableBindingSource.DataSource = ShowDT
+
+                                                         If _UseFilter = True Then
+                                                             SetRowfilter()
+                                                         End If
                                                      Catch ex As Exception
                                                          p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                                                          GC.Collect()
@@ -586,9 +590,14 @@
 
         Me.chtCPU.Visible = True
 
-        'chtCPU.MainChart.ChartAreas("CPUAREA").AxisX.ScaleView.Zoomable = False
+        chtCPU.MainChart.ChartAreas("CPUAREA").AxisX.ScaleView.Zoomable = False
         chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserSelectionEnabled = True
+
+        'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+
         'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserEnabled = True
         'chtCPU.MainChart.ChartAreas("CPUAREA").CursorX.IsUserSelectionEnabled = True
         'chtCPU.MainChart.ChartAreas("CPUAREA").CursorY.IsUserEnabled = False
@@ -597,28 +606,47 @@
         'chtCPU.MainChart.ChartAreas("SESSIONAREA").AxisX.ScaleView.Zoomable = False
         chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
-        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IsUserEnabled = True
-        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IsUserSelectionEnabled = True
-        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorY.IsUserEnabled = False
-        'chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorY.IsUserSelectionEnabled = False
+        chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("SESSIONAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("SESSIONAREA").AxisX.ScaleView.Zoomable = False
 
         chtCPU.MainChart.ChartAreas("LOGICALAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("LOGICALAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("LOGICALAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("LOGICALAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("LOGICALAREA").AxisX.ScaleView.Zoomable = False
 
         chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("PHYSICALAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("PHYSICALAREA").AxisX.ScaleView.Zoomable = False
 
         chtCPU.MainChart.ChartAreas("DISKAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("DISKAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("DISKAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("DISKAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("DISKAREA").AxisX.ScaleView.Zoomable = False
 
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("SQLRESPAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("SQLRESPAREA").AxisX.ScaleView.Zoomable = False
 
         chtCPU.MainChart.ChartAreas("LOCKAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("LOCKAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("LOCKAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("LOCKAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("LOCKAREA").AxisX.ScaleView.Zoomable = False
 
         chtCPU.MainChart.ChartAreas("TPSAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
         chtCPU.MainChart.ChartAreas("TPSAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("TPSAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("TPSAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("TPSAREA").AxisX.ScaleView.Zoomable = False
+
+        AddHandler chtCPU.MainChart.CursorPositionChanged, AddressOf chtCPU_CursorPositionChanged
 
     End Sub
     Private Sub SetDefaultTitle(ByRef chkBox As eXperDB.BaseControls.CheckBox, ByRef chart As eXperDB.Monitoring.ctlChartEx, ByVal chtEnable As Boolean, ByVal chtTitle As String)
@@ -650,12 +678,12 @@
         End If
 
         If CheckBox.Checked = False Then
-            If _annotationIndex = CheckBox.Tag + 1 Then
-                fn_DeleteAnnotaion()
-                SetDataSession(dtpSt.Value, dtpEd.Value)
-                SetDataLock(dtpSt.Value, dtpEd.Value)
-                SetDataStmt(dtpSt.Value, dtpEd.Value)
-            End If
+            ' If _annotationIndex = CheckBox.Tag + 1 Then
+            'fn_DeleteAnnotaion()
+            SetDataSession(dtpSt.Value, dtpEd.Value)
+            SetDataLock(dtpSt.Value, dtpEd.Value)
+            SetDataStmt(dtpSt.Value, dtpEd.Value)
+            'End If
         End If
         Dim checkIndex = CheckBox.Tag + 1
         Dim isCheck = CheckBox.Checked
@@ -733,21 +761,8 @@
                 nCount += 1
             End If
         Next
-        SetAreaWithAnnotation()
     End Sub
 
-
-    Private Sub SetAreaWithAnnotation()
-        If _bRange = True Then
-            Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
-            Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
-            For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
-                If tmpChartArea.Visible = True Then
-                    tmpChartArea.CursorX.SetSelectionPosition(vlStart.X, vlEnd.X)
-                End If
-            Next
-        End If
-    End Sub
     'Private Sub ArrangeChartlayout()
     '    Dim tmpChartArea As System.Windows.Forms.DataVisualization.Charting.ChartArea
     '    Dim nCount As Integer = 0
@@ -1123,6 +1138,8 @@
             _ThreadDetail = Nothing
         End If
 
+        RemoveHandler chtCPU.MainChart.CursorPositionChanged, AddressOf chtCPU_CursorPositionChanged
+
         If _AgentCn IsNot Nothing Then
             _AgentCn = Nothing
         End If
@@ -1149,15 +1166,16 @@
         'check duration
         If fn_SearchBefCheck() = False Then Return
 
-        If _bRange = True Then
-            fn_DeleteAnnotaion()
-        End If
-
         _ProgresForm = New frmProgres()
         _ProgresForm.Owner = Me
         _ProgresForm.Location = Me.Location
         _ProgresForm.Size = Me.Size
         _ProgresForm.Show()
+
+        For i As Integer = 1 To _AreaCount
+            chtCPU.MainChart.ChartAreas(i).CursorX.SetSelectionPosition(-1, -1)
+            chtCPU.MainChart.ChartAreas(i).CursorX.SetCursorPosition(-1)
+        Next
 
         If _ThreadDetail IsNot Nothing AndAlso _ThreadDetail.IsAlive = True Then Return
         _ThreadDetail = New Threading.Thread(Sub()
@@ -1228,70 +1246,6 @@
 
     End Sub
 
-    Private Sub btnRange_Click(sender As Object, e As EventArgs) Handles btnRange.Click
-        If _bRange = True Then
-            fn_DeleteAnnotaion()
-            SetDataSession(dtpSt.Value, dtpEd.Value)
-            SetDataLock(dtpSt.Value, dtpEd.Value)
-            SetDataStmt(dtpSt.Value, dtpEd.Value)
-        Else
-            Dim index As Integer
-            For index = 1 To _AreaCount
-                If chtCPU.MainChart.ChartAreas(index).Visible = True Then
-                    Exit For
-                End If
-            Next
-            fn_MakeAnnotation(index)
-            _annotationIndex = index
-            _bRange = True
-        End If
-    End Sub
-
-    Private Sub chtCPU_AnnotationPositionChanged(sender As Object, e As EventArgs)
-        Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
-        Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
-        Dim index As Integer = -1
-        For index = 1 To _AreaCount
-            If chtCPU.MainChart.ChartAreas(index).Visible = True Then
-                Exit For
-            End If
-        Next
-
-        SetAreaWithAnnotation()
-
-        If chtCPU.MainChart.Annotations(0).X < chtCPU.GetMinimumAxisXChartArea(index) _
-            Or chtCPU.MainChart.Annotations(0).X > chtCPU.GetMaximumAxisXChartArea(index) Then
-            chtCPU.MainChart.Annotations(0).X = chtCPU.GetMinimumAxisXChartArea(index)
-        End If
-
-        If chtCPU.MainChart.Annotations(1).X < chtCPU.GetMinimumAxisXChartArea(index) _
-            Or chtCPU.MainChart.Annotations(1).X > chtCPU.GetMaximumAxisXChartArea(index) Then
-            chtCPU.MainChart.Annotations(1).X = chtCPU.GetMaximumAxisXChartArea(index)
-        End If
-
-        SetDataSession(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
-        SetDataLock(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
-        SetDataStmt(DateTime.FromOADate(vlStart.X), DateTime.FromOADate(vlEnd.X))
-    End Sub
-
-    Private Sub chtCPU_AnnotationPositionChanging(sender As Object, e As EventArgs)
-        Dim vl As DataVisualization.Charting.VerticalLineAnnotation = DirectCast(sender, DataVisualization.Charting.VerticalLineAnnotation)
-        Dim vlStart As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
-        Dim vlEnd As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
-
-        If vl.Name = "StartTime" Then
-            If vl.X >= vlEnd.X Then
-                chtCPU.MainChart.Annotations(1).X = vl.X + (2 * 0.00003471)
-            End If
-        Else
-            If vl.X <= vlStart.X Then
-                chtCPU.MainChart.Annotations(0).X = vl.X - (2 * 0.00003471)
-            End If
-        End If
-
-        'SetAreaWithAnnotation()
-    End Sub
-
     Private Sub dgvSessionList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellDoubleClick
         Dim strDb As String = ""
         Dim strUser As String = ""
@@ -1326,20 +1280,31 @@
         Dim strUser As String = ""
         Dim strQuery As String = ""
         If dgvLock.RowCount <= 0 Then Return
-
+        
         If e.ColumnIndex = colDgvLockBlockedQuery.Index Then
-            strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
-            strQuery = dgvLock.CurrentCell.Value
+            strDb = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value)
             strUser = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockedUser.Index).Value)
-            Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
-            frmQuery.ShowDialog(Me)
-        ElseIf e.ColumnIndex = colDgvLockBlockingQuery.Index Then
+            strQuery = IIf(IsDBNull(dgvLock.CurrentCell.Value), "", dgvLock.CurrentCell.Value)
+        Else
             strDb = dgvLock.CurrentRow.Cells(colDgvLockDB.Index).Value
-            strQuery = dgvLock.CurrentCell.Value
             strUser = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockingUser.Index).Value)
-            Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
-            frmQuery.ShowDialog(Me)
+            strQuery = IIf(IsDBNull(dgvLock.CurrentRow.Cells(colDgvLockBlockingQuery.Index).Value), "", dgvLock.CurrentRow.Cells(colDgvLockBlockingQuery.Index).Value)
         End If
+        Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
+        frmQuery.ShowDialog(Me)
+    End Sub
+
+    Private Sub dgvStmtList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStmtList.CellDoubleClick
+        Dim strDb As String = ""
+        Dim strUser As String = ""
+        Dim strQuery As String = ""
+        If dgvStmtList.RowCount <= 0 Then Return
+        strDb = dgvStmtList.CurrentRow.Cells(coldgvStmtListDB.Index).Value
+        strQuery = IIf(IsDBNull(dgvStmtList.CurrentRow.Cells(coldgvStmtListQuery.Index).Value), "", dgvStmtList.CurrentRow.Cells(coldgvStmtListQuery.Index).Value)
+        strUser = IIf(IsDBNull(dgvStmtList.CurrentRow.Cells(coldgvStmtListUser.Index).Value), "", dgvStmtList.CurrentRow.Cells(coldgvStmtListUser.Index).Value)
+        Dim frmQuery As New frmQueryView(_AgentCn, strQuery, strDb, strUser, Me.InstanceID, Me.AgentInfo)
+        frmQuery.ShowDialog(Me)
+        'End If
     End Sub
 
     Private Function fn_SearchBefCheck() As Boolean
@@ -1360,12 +1325,6 @@
         'Me.Invoke(New MethodInvoker(Sub()
         '                                btnQuery.PerformClick()
         '                            End Sub))
-        If _bRange = True Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            btnRange.PerformClick()
-                                        End Sub))
-        End If
-
     End Sub
 
     Private Sub dtpSt_ValueChanged(sender As Object, e As EventArgs) Handles dtpSt.ValueChanged
@@ -1407,58 +1366,6 @@
     '    End Select
     '    dtpEd.Value = tempDt
     'End Sub
-
-    Private Sub fn_MakeAnnotation(ByVal index As Integer)
-        Dim stVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(0)
-        Dim edVerticalAnnotation As DataVisualization.Charting.VerticalLineAnnotation = chtCPU.MainChart.Annotations(1)
-        Dim stRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(2)
-        Dim edRectAnnotation As DataVisualization.Charting.RectangleAnnotation = chtCPU.MainChart.Annotations(3)
-
-        stVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
-        stVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
-        stVerticalAnnotation.X = chtCPU.GetMinimumAxisXChartArea(index)
-        stVerticalAnnotation.Visible = True
-        stVerticalAnnotation.AllowMoving = True
-        stVerticalAnnotation.IsInfinitive = True
-        stVerticalAnnotation.Name = "StartTime"
-        stVerticalAnnotation.AnchorY = 200
-        stVerticalAnnotation.ToolTip = "StartTime"
-        stVerticalAnnotation.AllowTextEditing = True
-
-        edVerticalAnnotation.AxisX = chtCPU.MainChart.ChartAreas(index).AxisX
-        edVerticalAnnotation.AxisY = chtCPU.MainChart.ChartAreas(index).AxisY
-        edVerticalAnnotation.X = chtCPU.GetMaximumAxisXChartArea(index)
-        edVerticalAnnotation.Visible = True
-        edVerticalAnnotation.AllowMoving = True
-        edVerticalAnnotation.IsInfinitive = True
-        edVerticalAnnotation.Name = "EndTime"
-        edVerticalAnnotation.AnchorY = 200
-        edVerticalAnnotation.ToolTip = "EndTime"
-
-        AddHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
-        AddHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
-
-        btnRange.Text = p_clsMsgData.fn_GetData("F269", "On")
-        btnRange.ForeColor = Color.Lime
-    End Sub
-
-    Private Sub fn_DeleteAnnotaion()
-        RemoveHandler chtCPU.MainChart.AnnotationPositionChanging, AddressOf chtCPU_AnnotationPositionChanging
-        RemoveHandler chtCPU.MainChart.AnnotationPositionChanged, AddressOf chtCPU_AnnotationPositionChanged
-
-        chtCPU.MainChart.Annotations(0).Visible = False
-        chtCPU.MainChart.Annotations(1).Visible = False
-
-        For Each tmpChartArea As DataVisualization.Charting.ChartArea In chtCPU.MainChart.ChartAreas
-            If tmpChartArea.Visible = True Then
-                tmpChartArea.CursorX.SetSelectionPosition(-1, -1)
-            End If
-        Next
-
-        btnRange.Text = p_clsMsgData.fn_GetData("F269", "Off")
-        btnRange.ForeColor = Color.LightGray
-        _bRange = False
-    End Sub
 
 
     Private Sub frmMonItemDetail_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
@@ -1516,5 +1423,69 @@
             End If
         End If
         btnQuery.PerformClick()
+    End Sub
+
+    Private Sub chtCPU_CursorPositionChanged(sender As Object, e As DataVisualization.Charting.CursorEventArgs)
+
+        Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
+        Dim edDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionEnd)
+        If stDt > edDt Then
+            Dim tmpDt As DateTime
+            tmpDt = stDt
+            stDt = edDt
+            edDt = tmpDt
+        End If
+
+        For i As Integer = 1 To _AreaCount
+            chtCPU.MainChart.ChartAreas(i).CursorX.SetSelectionPosition(e.ChartArea.CursorX.SelectionStart, e.ChartArea.CursorX.SelectionEnd)
+            chtCPU.MainChart.ChartAreas(i).CursorX.SetCursorPosition(e.ChartArea.CursorX.SelectionStart)
+        Next
+
+        SetDataSession(stDt, edDt)
+        SetDataLock(stDt, edDt)
+        SetDataStmt(stDt, edDt)
+    End Sub
+
+    Private Sub ReadConfig()
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        _UseFilter = clsIni.ReadValue("STATSTATEMENTS", "UseFilter", False)
+
+        Dim StatementFilters As String() = clsIni.ReadValue("STATSTATEMENTS", "StatementFilters", "pg_catalog").Split(New Char() {","c})
+
+        Dim StatementFilter As String
+        For Each StatementFilter In StatementFilters
+            If Not StatementFilter.Equals("") Then
+                _ListStatements.Add(StatementFilter)
+            End If
+        Next
+    End Sub
+
+    Private Sub SetRowfilter()
+        Try
+            Dim dt As DataTable
+            If _UseFilter = True Then
+                'Dim rowFilter As String = String.Format("Convert([{0}], System.String) NOT LIKE '%{1}%'", coldgvStmtQuery.HeaderText, "application_name")
+                Dim rowFilter As String = ""
+                Dim rowFilterList As String = ""
+                For Each StatementFilter In _ListStatements
+                    rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtListQuery.HeaderText, StatementFilter)
+                Next
+                rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtListQuery.HeaderText, rowFilterList)
+                'dt = dgvStmtList.DataSource.DataSource
+                'dt.DefaultView.RowFilter = rowFilter
+                Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
+                data.Filter = rowFilter
+            Else
+                dt = dgvStmtList.DataSource
+                dt.DefaultView.RowFilter = Nothing
+            End If
+
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("STATSTATEMENTS", "UseFilter", True)
+
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
     End Sub
 End Class

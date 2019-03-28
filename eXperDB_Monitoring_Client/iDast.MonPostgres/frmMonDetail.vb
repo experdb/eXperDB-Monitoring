@@ -29,6 +29,7 @@
                         'SetDataReplication() 'accumulate
                         'SetDataCheckpoint() 'accumulate
                         SetDataHealth(p_clsAgentCollect.infoDataHealth)
+                        SetDataStmt(p_clsAgentCollect.infoDataStmt)
                         If bckquerymanual.IsBusy = True Then
                             bckquerymanual.CancelAsync()
                             Return
@@ -56,6 +57,7 @@
                 dgvGrpHealth.Rows.Clear()
                 dgvDiskIO.Rows.Clear()
                 dgvResUtilPerBackProc.DataSource = Nothing
+                dgvStmtList.DataSource = Nothing
                 rndProgCPU.CpuGauge_value = 0
                 rndProgCPU.Postgres_value = 0
                 rndProgCPU.CacheGauge_value = 0
@@ -186,41 +188,47 @@
         'tlpCharts.SetRow(tlpTPS, positionTransaction)
         'tlpCharts.SetRow(tlpReplicationSize, positionReplicationSize)
 
-        tlpSessioninfo.Tag = clsIni.ReadValue("CHARTDETAIL", "SESSIONINFO", "1")
-        tlpLogicalIO.Tag = clsIni.ReadValue("CHARTDETAIL", "LOGICALIO", "2")
-        tlpLock.Tag = clsIni.ReadValue("CHARTDETAIL", "LOCK", "3")
-        tlpPhyRead.Tag = clsIni.ReadValue("CHARTDETAIL", "PHYREAD", "4")
+        tlpLogicalIO.Tag = clsIni.ReadValue("CHARTDETAIL", "LOGICALIO", "1")
+        tlpPhyRead.Tag = clsIni.ReadValue("CHARTDETAIL", "PHYREAD", "2")
+        tlpSessioninfo.Tag = clsIni.ReadValue("CHARTDETAIL", "SESSIONINFO", "3")
+        tlpLock.Tag = clsIni.ReadValue("CHARTDETAIL", "LOCK", "4")
         tlpSQLResp.Tag = clsIni.ReadValue("CHARTDETAIL", "SQLRESP", "5")
-        tlpObject.Tag = clsIni.ReadValue("CHARTDETAIL", "OBJECT", "6")
-        tlpCheckpoint.Tag = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "7")
-        tlpReplication.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATION", "8")
-        tlpTPS.Tag = clsIni.ReadValue("CHARTDETAIL", "TRANSACTION", "0")
-        tlpReplicationSize.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATIONSIZE", "0")
-        tlpDiskIOTrend.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIO", "0")
+        tlpTPS.Tag = clsIni.ReadValue("CHARTDETAIL", "TRANSACTION", "6")
+        tlpReplication.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATION", "7")
+        tlpDiskIOTrend.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIOTREND", "8")
+        tlpObject.Tag = clsIni.ReadValue("CHARTDETAIL", "OBJECT", "9")
+        tlpReplicationSize.Tag = clsIni.ReadValue("CHARTDETAIL", "REPLICATIONSIZE", "10")
+        tlpCheckpoint.Tag = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "11")
+        tlpCPUCore.Tag = clsIni.ReadValue("CHARTDETAIL", "CPUCORE", "0")
+        tlpDiskIO.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIO", "0")
 
-        mnuSessioninfo.Tag = tlpSessioninfo
         mnuLogicalIO.Tag = tlpLogicalIO
-        mnuLock.Tag = tlpLock
         mnuPhyRead.Tag = tlpPhyRead
+        mnuSessioninfo.Tag = tlpSessioninfo
+        mnuLock.Tag = tlpLock
         mnuSQLResposeTime.Tag = tlpSQLResp
-        mnuObject.Tag = tlpObject
-        mnuCheckpoint.Tag = tlpCheckpoint
-        mnuReplication.Tag = tlpReplication
         mnuTPS.Tag = tlpTPS
-        mnuReplicationSize.Tag = tlpReplicationSize
+        mnuReplication.Tag = tlpReplication
         mnuDiskIOTrend.Tag = tlpDiskIOTrend
+        mnuObject.Tag = tlpObject
+        mnuReplicationSize.Tag = tlpReplicationSize
+        mnuCheckpoint.Tag = tlpCheckpoint
+        mnuCPUCore.Tag = tlpCPUCore
+        mnuDiskIO.Tag = tlpDiskIO
 
-        setTLPPosition(tlpSessioninfo)
         setTLPPosition(tlpLogicalIO)
-        setTLPPosition(tlpLock)
         setTLPPosition(tlpPhyRead)
+        setTLPPosition(tlpSessioninfo)
+        setTLPPosition(tlpLock)
         setTLPPosition(tlpSQLResp)
-        setTLPPosition(tlpObject)
-        setTLPPosition(tlpCheckpoint)
-        setTLPPosition(tlpReplication)
         setTLPPosition(tlpTPS)
-        setTLPPosition(tlpReplicationSize)
+        setTLPPosition(tlpReplication)
         setTLPPosition(tlpDiskIOTrend)
+        setTLPPosition(tlpObject)
+        setTLPPosition(tlpReplicationSize)
+        setTLPPosition(tlpCheckpoint)
+        setTLPPosition(tlpCPUCore)
+        setTLPPosition(tlpDiskIO)
 
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
@@ -246,16 +254,16 @@
 
         Me.chtCPU.Dispose()
         Me.chtLocalIO.Dispose()
-        Me.chtCheckpoint.Dispose()
-        Me.chtObject.Dispose()
-        Me.chtTPS.Dispose()
-        Me.chtDiskIOTrend.Dispose()
-        Me.chtReplication.Dispose()
-        Me.chtReplicationSize.Dispose()
-        Me.chtLock.Dispose()
+        Me.chtPhyRead.Dispose()
         Me.chtSession.Dispose()
+        Me.chtLock.Dispose()
         Me.chtSQLRespTm.Dispose()
-
+        Me.chtTPS.Dispose()
+        Me.chtReplication.Dispose()
+        Me.chtDiskIOTrend.Dispose()
+        Me.chtObject.Dispose()
+        Me.chtReplicationSize.Dispose()
+        Me.chtCheckpoint.Dispose()
     End Sub
 
     Private Sub frmMonDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -282,7 +290,7 @@
 
         ' Grp Cpu 
         grpCpuMem.Text = p_clsMsgData.fn_GetData("F139")
-        grpCPU.Text = p_clsMsgData.fn_GetData("F064")
+        grpCPU.Text = p_clsMsgData.fn_GetData("F343")
         colDgvCPUCPU.HeaderText = p_clsMsgData.fn_GetData("F035")
         colDgvCpuUtil.HeaderText = p_clsMsgData.fn_GetData("F063")
         '    Grp Cpu AVG 
@@ -342,6 +350,12 @@
         coldgvResUtilPerBackProcRead.HeaderText = p_clsMsgData.fn_GetData("F048")
         coldgvResUtilPerBackProcWrite.HeaderText = p_clsMsgData.fn_GetData("F136")
         coldgvResUtilPerBackProcSQL.HeaderText = p_clsMsgData.fn_GetData("F052")
+
+        'Statements
+        dgvStmtList.AutoGenerateColumns = False
+        coldgvStmtListDB.HeaderText = p_clsMsgData.fn_GetData("F090")
+        coldgvStmtListUser.HeaderText = p_clsMsgData.fn_GetData("F008")
+        coldgvStmtListQuery.HeaderText = p_clsMsgData.fn_GetData("F084")
 
         chkIDLE.Text = p_clsMsgData.fn_GetData("F227")
         chkIDLE.Tag = p_clsMsgData.fn_GetSpecificData("F227", "COMMENTS")
@@ -428,19 +442,30 @@
         Me.ttChart.SetToolTip(Me.btnActInfo, p_clsMsgData.fn_GetData("F075"))
         Me.ttChart.SetToolTip(Me.btnPartView, p_clsMsgData.fn_GetData("F233"))
         Me.ttChart.SetToolTip(Me.btnChartDetail, p_clsMsgData.fn_GetData("F268"))
-        Me.ttChart.SetToolTip(Me.lblObject, p_clsMsgData.fn_GetData("F321"))
-        Me.ttChart.SetToolTip(Me.lblCheckpoint, p_clsMsgData.fn_GetData("F321"))
-        Me.ttChart.SetToolTip(Me.lblReplication, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblLogicalIO, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblPhyRead, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblSessioninfo, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblLock, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblSQLResposeTime, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblTPS, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblReplication, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblDiskIOTrend, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblObject, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblReplicationDelaySize, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblCheckpoint, p_clsMsgData.fn_GetData("F321"))
 
         Me.ttChart.SetToolTip(Me.chtCPU, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtSession, "Timeline view")
         Me.ttChart.SetToolTip(Me.chtLocalIO, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtDiskIOTrend, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtSQLRespTm, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtLock, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtTPS, "Timeline view")
         Me.ttChart.SetToolTip(Me.chtPhyRead, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtSession, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtLock, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtSQLRespTm, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtTPS, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtReplication, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtDiskIOTrend, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtObject, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtReplicationSize, "Timeline view")
+        Me.ttChart.SetToolTip(Me.chtCheckpoint, "Timeline view")
 
         'modCommon.FontChange(Me, p_Font)
 
@@ -1171,6 +1196,7 @@
 
         Dim intMAxVal As Integer = dtTable.AsEnumerable.Where(Function(e) e.Field(Of Integer)("INSTANCE_ID") = Me.InstanceID).Max(Function(e) e.Field(Of Integer)("HCHK_VALUE"))
         lblHealth.Text = fn_GetHealthName(intMAxVal)
+        lblHealth.ForeColor = sb_RageValueColor(intMAxVal, p_RageHealthClr)
         rndProgHealth.CpuGaugeColor = sb_RageValueColor(intMAxVal, p_RageHealthClr)
 
 
@@ -1824,7 +1850,7 @@
 
     End Sub
 
-    Private Sub nudBackendcnt_ValueChanged(sender As Object, e As EventArgs) Handles nudBackendcnt.ValueChanged
+    Private Sub nudBackendcnt_ValueChanged(sender As Object, e As EventArgs)
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("FORM", "SESSIONDETAIL", DirectCast(sender, BaseControls.NumericUpDown).Value)
 
@@ -1837,7 +1863,7 @@
 
     End Sub
 
-    Private Sub chkIDLE_CheckedChanged(sender As Object, e As EventArgs) Handles chkIDLE.CheckedChanged
+    Private Sub chkIDLE_CheckedChanged(sender As Object, e As EventArgs)
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("FORM", "IDLEDETAIL", chkIDLE.Checked)
     End Sub
@@ -2000,6 +2026,15 @@
         'SQL
         If e.RowIndex >= 0 Then
             Dim frmQuery As New frmQueryView(_AgentCn, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcSQL.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcDB.Index).Value, dgvResUtilPerBackProc.Rows(e.RowIndex).Cells(coldgvResUtilPerBackProcUser.Index).Value, InstanceID, _AgentInfo)
+            frmQuery.Show()
+        End If
+    End Sub
+
+    Private Sub dgvStmtList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStmtList.CellDoubleClick
+        If dgvStmtList.RowCount <= 0 Then Return
+        'SQL
+        If e.RowIndex >= 0 Then
+            Dim frmQuery As New frmQueryView(_AgentCn, dgvStmtList.Rows(e.RowIndex).Cells(coldgvStmtListQuery.Index).Value, dgvStmtList.Rows(e.RowIndex).Cells(coldgvStmtListDB.Index).Value, dgvStmtList.Rows(e.RowIndex).Cells(coldgvStmtListUser.Index).Value, InstanceID, _AgentInfo)
             frmQuery.Show()
         End If
     End Sub
@@ -2222,7 +2257,9 @@
                                                                                     lblLock.MouseClick, _
                                                                                     lblPhyRead.MouseClick, _
                                                                                     lblDiskIOTrend.MouseClick, _
-                                                                                    lblSQLResposeTime.MouseClick
+                                                                                    lblSQLResposeTime.MouseClick, _
+                                                                                    lblCPUCore.MouseClick, _
+                                                                                    lblDiskIO.MouseClick
         '        mnuChart.Show(New Point(e.X, e.Y), ToolStripDropDownDirection.Default)
         Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
 
@@ -2281,7 +2318,7 @@
         'mnuChart.Tag = lblTemp.Parent
     End Sub
 
-    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click
+    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click, mnuCPUCore.Click, mnuDiskIO.Click
         'Dim tlpCurrTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
         'Dim tlpChangeTemp As System.Windows.Forms.TableLayoutPanel = Nothing
         'Dim intTlpOldrow = tlpCharts.GetRow(tlpCurrTemp)
@@ -2361,6 +2398,10 @@
             tlpSwap = tlpReplicationSize
         ElseIf sender.Name = "mnuDiskIOTrend" Then
             tlpSwap = tlpDiskIOTrend
+        ElseIf sender.Name = "mnuCPUCore" Then
+            tlpSwap = tlpCPUCore
+        ElseIf sender.Name = "mnuDiskIO" Then
+            tlpSwap = tlpDiskIO
         End If
 
         tlpTemp.Tag = tlpSwap.Tag 'old
@@ -2380,6 +2421,8 @@
         If tlpTPS.Tag <> 0 Then mnuTPS.Image = statusImgLst.Images(4)
         If tlpReplicationSize.Tag <> 0 Then mnuReplicationSize.Image = statusImgLst.Images(4)
         If tlpDiskIOTrend.Tag <> 0 Then mnuDiskIOTrend.Image = statusImgLst.Images(4)
+        If tlpCPUCore.Tag <> 0 Then mnuCPUCore.Image = statusImgLst.Images(4)
+        If tlpDiskIO.Tag <> 0 Then mnuDiskIO.Image = statusImgLst.Images(4)
 
         WriteChartPosition()
 
@@ -2397,7 +2440,9 @@
         clsIni.WriteValue("CHARTDETAIL", "REPLICATION", tlpReplication.Tag)
         clsIni.WriteValue("CHARTDETAIL", "TRANSACTION", tlpTPS.Tag)
         clsIni.WriteValue("CHARTDETAIL", "REPLICATIONSIZE", tlpReplicationSize.Tag)
-        clsIni.WriteValue("CHARTDETAIL", "DISKIO", tlpDiskIOTrend.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "DISKIOTREND", tlpDiskIOTrend.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "CPUCORE", tlpCPUCore.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "DISKIO", tlpDiskIO.Tag)
     End Sub
 
     Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged
@@ -2538,32 +2583,41 @@
         Select Case index
             Case 0
                 tlp.Visible = False
-                tlpCharts.SetRow(tlp, 2)
                 tlpCharts.SetColumn(tlp, 4)
+                tlpCharts.SetRow(tlp, 2)
             Case 1
-                tlpCharts.SetRow(tlp, 0)
-                tlpCharts.SetColumn(tlp, 1)
+                tlpCharts.SetColumn(tlp, 0)
+                tlpCharts.SetRow(tlp, 1)
             Case 2
-                tlpCharts.SetRow(tlp, 1)
                 tlpCharts.SetColumn(tlp, 0)
+                tlpCharts.SetRow(tlp, 2)
             Case 3
-                tlpCharts.SetRow(tlp, 1)
                 tlpCharts.SetColumn(tlp, 1)
-            Case 4
-                tlpCharts.SetRow(tlp, 2)
-                tlpCharts.SetColumn(tlp, 0)
-            Case 5
-                tlpCharts.SetRow(tlp, 2)
-                tlpCharts.SetColumn(tlp, 1)
-            Case 6
                 tlpCharts.SetRow(tlp, 0)
-                tlpCharts.SetColumn(tlp, 2)
-            Case 7
+            Case 4
+                tlpCharts.SetColumn(tlp, 1)
                 tlpCharts.SetRow(tlp, 1)
-                tlpCharts.SetColumn(tlp, 2)
-            Case 8
+            Case 5
+                tlpCharts.SetColumn(tlp, 1)
                 tlpCharts.SetRow(tlp, 2)
+            Case 6
                 tlpCharts.SetColumn(tlp, 2)
+                tlpCharts.SetRow(tlp, 0)
+            Case 7
+                tlpCharts.SetColumn(tlp, 2)
+                tlpCharts.SetRow(tlp, 1)
+            Case 8
+                tlpCharts.SetColumn(tlp, 2)
+                tlpCharts.SetRow(tlp, 2)
+            Case 9
+                tlpCharts.SetColumn(tlp, 3)
+                tlpCharts.SetRow(tlp, 0)
+            Case 10
+                tlpCharts.SetColumn(tlp, 3)
+                tlpCharts.SetRow(tlp, 1)
+            Case 11
+                tlpCharts.SetColumn(tlp, 3)
+                tlpCharts.SetRow(tlp, 2)
         End Select
     End Sub
 
@@ -2604,7 +2658,37 @@
 
     End Sub
 
-    Private Sub lblBackend_MouseClick(sender As Object, e As MouseEventArgs) Handles lblBackend.MouseClick, lblBlock.MouseClick
+    ''' <summary>
+    ''' Stmt 정보 등록 
+    ''' </summary>
+    ''' <param name="dtTable"></param>
+    ''' <remarks></remarks>
+    Public Sub SetDataStmt(ByVal dtTable As DataTable)
+
+        Dim strQuery As String = ""
+        strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
+        Dim strOrder As String = "CALLS DESC"
+
+        Dim dtView As DataView = Nothing
+        dtView = New DataView(dtTable, strQuery, strOrder, DataViewRowState.CurrentRows)
+
+        Dim ShowDT As DataTable = Nothing
+        If dtView.Count > 0 Then
+            ShowDT = dtView.ToTable.AsEnumerable.Take(nudStmtCnt.Value).CopyToDataTable
+        End If
+
+        If ShowDT Is Nothing Then
+            dgvStmtList.DataSource = Nothing
+            Return
+        End If
+
+        dgvStmtList.DataSource = ShowDT
+
+        modCommon.sb_GridSortChg(dgvStmtList)
+
+    End Sub
+
+    Private Sub lblBackend_MouseClick(sender As Object, e As MouseEventArgs) Handles lblBlock.MouseClick
         Dim BretFrm As frmSessionLock = Nothing
 
         For Each tmpFrm As Form In My.Application.OpenForms
@@ -2695,5 +2779,13 @@
                                                                             , chtLock.MouseEnter, chtTPS.MouseEnter, chtPhyRead.MouseEnter
         Dim tmpChart = DirectCast(sender, System.Windows.Forms.DataVisualization.Charting.Chart)
         tmpChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(56, Byte), Integer))
+    End Sub
+
+    Private Sub ESPRight_MouseClick(sender As Object, e As MouseEventArgs) Handles ESPRight.MouseClick
+        If ESPRight.Expand = True Then
+            ESPRight.Expand = False
+        Else
+            ESPRight.Expand = True
+        End If
     End Sub
 End Class
