@@ -1458,52 +1458,57 @@ Public Class frmMonDetail
     ''' <remarks></remarks>
     Private Sub initDataReplication()
         Dim dtTable As DataTable = Nothing
+        Dim dtRows As DataRow() = Nothing
         Try
             dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARole = "P")
+
+            If dtTable.Rows.Count = 0 Then
+                dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), False)
+            End If
             Me.Invoke(Sub()
                           AddReplicationSeries(dtTable)
                       End Sub)
+            dtRows = dtTable.Select()
         Catch ex As Exception
             GC.Collect()
         End Try
 
-        Dim dtRows As DataRow() = dtTable.Select()
-        Dim InstanceIDs As String = ""
-        For Each instRow As DataRow In dtRows
-            InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))
-        Next
+            Dim InstanceIDs As String = ""
+            For Each instRow As DataRow In dtRows
+                InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))
+            Next
 
-        Me.Invoke(Sub()
-                      dtTable = Nothing
-                      Try
-                          dtTable = _clsQuery.SelectReplication(InstanceIDs, False)
-                          For Each instRow As DataRow In dtRows
-                              If dtTable IsNot Nothing Then
-                                  Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & instRow.Item("INSTANCE_ID"))
+            Me.Invoke(Sub()
+                          dtTable = Nothing
+                          Try
+                              dtTable = _clsQuery.SelectReplication(InstanceIDs, False)
+                              For Each instRow As DataRow In dtRows
+                                  If dtTable IsNot Nothing Then
+                                      Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & instRow.Item("INSTANCE_ID"))
 
-                                  If dtRowsReplication.Count = 0 Then
+                                      If dtRowsReplication.Count = 0 Then
+                                          Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                          sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                          sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                      Else
+                                          For Each replRow As DataRow In dtRowsReplication
+                                              Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
+                                              sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG")))
+                                              sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG_SIZE")))
+                                          Next
+                                      End If
+                                  Else
                                       Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                       sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                                       sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
-                                  Else
-                                      For Each replRow As DataRow In dtRowsReplication
-                                          Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
-                                          sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG")))
-                                          sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG_SIZE")))
-                                      Next
                                   End If
-                              Else
-                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                                  sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
-                                  sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
-                              End If
-                          Next
-                          sb_ChartAlignYAxies(Me.chtReplication)
-                          sb_ChartAlignYAxies(Me.chtReplicationSize)
-                      Catch ex As Exception
-                          GC.Collect()
-                      End Try
-                  End Sub)
+                              Next
+                              sb_ChartAlignYAxies(Me.chtReplication)
+                              sb_ChartAlignYAxies(Me.chtReplicationSize)
+                          Catch ex As Exception
+                              GC.Collect()
+                          End Try
+                      End Sub)
     End Sub
 
     Private Sub AddReplicationSeries(ByRef dtTable As DataTable)
@@ -1581,7 +1586,6 @@ Public Class frmMonDetail
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub SetDataReplication()
-
         Dim dtTable As DataTable = Nothing
         Try
             dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARole = "P")
@@ -1590,6 +1594,8 @@ Public Class frmMonDetail
         End Try
 
         Dim dtRows As DataRow() = dtTable.Select()
+        If dtRows.Count <= 0 Then Return
+
         Dim InstanceIDs As String = ""
         For Each instRow As DataRow In dtRows
             InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))

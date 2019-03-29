@@ -324,7 +324,7 @@ Public Class frmCurrentStatements
         Try
             Dim rowFilter As String = String.Format("Convert([{0}], System.String) LIKE '%{1}%'", coldgvStmtListQuery.HeaderText, txtSQL.Text)
             Dim dt As DataTable
-            dt = dgvStmtList.DataSource
+            dt = dgvStmtList.DataSource.DataSource
             dt.DefaultView.RowFilter = rowFilter
         Catch ex As Exception
             GC.Collect()
