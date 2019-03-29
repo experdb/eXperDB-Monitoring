@@ -873,4 +873,5 @@ insert into tb_sys_code select 180 ,'WALRead';
 insert into tb_sys_code select 181 ,'WALSenderTimelineHistoryRead';    
 insert into tb_sys_code select 182 ,'WALSyncMethodAssign';             
 insert into tb_sys_code select 183 ,'WALWrite';                        
+insert into tb_sys_code select 200 ,'Not Supported';                        
 EOF

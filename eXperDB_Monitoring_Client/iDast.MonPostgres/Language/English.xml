@@ -2677,6 +2677,22 @@
     <DESC>Collect Period(Sec)</DESC>
     <DATA><![CDATA[Statements Period(Sec)]]></DATA>
   </ROW>
+  <ROW ID="F343" PARAMS="0">
+    <DESC>CPU Core</DESC>
+    <DATA><![CDATA[CPU Core]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F344" PARAMS="0">
+    <DESC>수집시간</DESC>
+    <DATA><![CDATA[Collect time]]></DATA>
+  </ROW>
+  <ROW ID="F345" PARAMS="0">
+    <DESC>현재시간</DESC>
+    <DATA><![CDATA[Now]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

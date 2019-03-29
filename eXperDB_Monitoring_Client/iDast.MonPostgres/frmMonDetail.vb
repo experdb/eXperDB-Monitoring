@@ -1,4 +1,6 @@
-﻿Public Class frmMonDetail
+﻿Imports System.ComponentModel
+
+Public Class frmMonDetail
 
 #Region "Declares"
 
@@ -90,6 +92,9 @@
     Private _cmbPhysicalSelected As Integer
     Private _TextFont As Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
     Private _initConnect As Boolean = False
+
+    Private _ListStatements As New List(Of String)
+    Private _UseFilter As Boolean
 
     ReadOnly Property AgentCn As eXperDBODBC
         Get
@@ -232,6 +237,16 @@
 
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
+
+        _UseFilter = clsIni.ReadValue("STATSTATEMENTS", "UseFilter", False)
+        Dim StatementFilters As String() = clsIni.ReadValue("STATSTATEMENTS", "StatementFilters", "pg_catalog").Split(New Char() {","c})
+
+        Dim StatementFilter As String
+        For Each StatementFilter In StatementFilters
+            If Not StatementFilter.Equals("") Then
+                _ListStatements.Add(StatementFilter)
+            End If
+        Next
     End Sub
 
     Private Sub frmMonDetail_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -2682,13 +2697,17 @@
             Return
         End If
 
-        dgvStmtList.DataSource = ShowDT
+        'dgvStmtList.DataSource = ShowDT
+        STMTTableBindingSource.DataSource = ShowDT
 
+        If _UseFilter = True Then
+            SetRowfilter()
+        End If
         modCommon.sb_GridSortChg(dgvStmtList)
 
     End Sub
 
-    Private Sub lblBackend_MouseClick(sender As Object, e As MouseEventArgs) Handles lblBlock.MouseClick
+    Private Sub lblBackend_MouseClick(sender As Object, e As MouseEventArgs) Handles lblBackend.MouseClick, lblBlock.MouseClick
         Dim BretFrm As frmSessionLock = Nothing
 
         For Each tmpFrm As Form In My.Application.OpenForms
@@ -2701,6 +2720,25 @@
 
         If BretFrm Is Nothing Then
             BretFrm = New frmSessionLock(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
+            BretFrm.Show()
+        Else
+            BretFrm.Activate()
+        End If
+    End Sub
+
+    Private Sub lblStatements_Click(sender As Object, e As EventArgs) Handles lblStatements.Click
+        Dim BretFrm As frmCurrentStatements = Nothing
+
+        For Each tmpFrm As Form In My.Application.OpenForms
+            Dim frmDtl As frmCurrentStatements = TryCast(tmpFrm, frmCurrentStatements)
+            If frmDtl IsNot Nothing AndAlso frmDtl.InstanceID = _InstanceID Then
+                BretFrm = tmpFrm
+                Exit For
+            End If
+        Next
+
+        If BretFrm Is Nothing Then
+            BretFrm = New frmCurrentStatements(_ServerInfo, _Elapseinterval, AgentInfo, _AgentCn)
             BretFrm.Show()
         Else
             BretFrm.Activate()
@@ -2787,5 +2825,34 @@
         Else
             ESPRight.Expand = True
         End If
+    End Sub
+
+    Private Sub SetRowfilter()
+        Try
+            Dim dt As DataTable
+            If _UseFilter = True Then
+                'Dim rowFilter As String = String.Format("Convert([{0}], System.String) NOT LIKE '%{1}%'", coldgvStmtQuery.HeaderText, "application_name")
+                Dim rowFilter As String = ""
+                Dim rowFilterList As String = ""
+                For Each StatementFilter In _ListStatements
+                    rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtListQuery.HeaderText, StatementFilter)
+                Next
+                rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtListQuery.HeaderText, rowFilterList)
+                'dt = dgvStmtList.DataSource.DataSource
+                'dt.DefaultView.RowFilter = rowFilter
+                Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
+                data.Filter = rowFilter
+            Else
+                dt = dgvStmtList.DataSource
+                dt.DefaultView.RowFilter = Nothing
+            End If
+
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("STATSTATEMENTS", "UseFilter", True)
+
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
     End Sub
 End Class

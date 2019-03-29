@@ -1179,7 +1179,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				          --CASE WHEN B.CURRENT_QUERY IS NULL THEN 'BACKGROUND PROC' ELSE B.CURRENT_QUERY END AS SQL,				          
 				          B.STATE AS STATE,
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
-				          B.WAIT_EVENT,
+				           COALESCE(B.WAIT_EVENT, 'Not Supported') AS WAIT_EVENT,
 				          NOW() AS COLLECT_DT
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
@@ -2938,7 +2938,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		BEGIN
 			ddate = to_char(drop_date, 'YYYYMMDD');
 			cdate = to_char(create_date, 'YYYYMMDD');
-		    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (tablename || '_' || ddate)));
+		    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = (tablename || '_' || ddate)));
 		    IF is_exists_partition = TRUE THEN
 		        EXECUTE FORMAT('ALTER TABLE ' || tablename || ' DETACH PARTITION ' || tablename || '_' || ddate) ;
 				EXECUTE FORMAT('DROP TABLE IF EXISTS ' || tablename || '_' || ddate || ' CASCADE');
@@ -2980,7 +2980,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				ddate = to_char((now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, 'YYYYMMDD') ;
 			    cdate = to_char((now() + INTERVAL '1 day')::date, 'YYYYMMDD');
 			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
-			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (var_tablename || '_' || ddate)));       
+			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = (var_tablename || '_' || ddate)));       
 			    IF is_exists_partition = TRUE THEN           
 				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
 				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
@@ -3005,7 +3005,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    ndate = '${now_date}';
 			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || ndate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || ndate || ')');     
 			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
-			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = (var_tablename || '_' || ddate)));       
+			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = (var_tablename || '_' || ddate)));       
 			    IF is_exists_partition = TRUE THEN           
 				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
 				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
@@ -3178,10 +3178,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			DECLARE       
 			    is_exists_fs BOOL;
 			BEGIN
-			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'pgmon' AND table_name = 'fdw' || '${instance_id}'));       
+			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = 'fdw' || '${instance_id}'));       
 			    IF is_exists_fs = FALSE THEN           
 					EXECUTE FORMAT('CREATE SERVER fdw' || '${instance_id}' || ' FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host ''' || '${server_ip}' || ''', port ''' || '${service_port}' || ''', dbname ''' || '${conn_db_name}' || ''')');
-					EXECUTE FORMAT('CREATE USER MAPPING FOR pgmon SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
+					EXECUTE FORMAT('CREATE USER MAPPING FOR current_user SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
 					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || '${conn_schema_name}' || ''', table_name ''pg_stat_statements'')');
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0');
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1');
