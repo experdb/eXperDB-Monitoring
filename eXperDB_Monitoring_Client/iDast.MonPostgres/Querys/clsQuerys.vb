@@ -700,7 +700,30 @@
 
     End Function
 
+    Public Function UpdateHealthLimitedExt(ByVal InstanceID As Integer,
+                                 ByVal NotiLevel As Integer,
+                                 ByVal NotiGroup As Integer,
+                                 ByVal NotiCycle As Integer,
+                                 ByVal NotiSender As Integer,
+                                 ByVal LastIp As String) As String
+        Try
+            Dim strQuery As String = ""
+            strQuery = p_clsQueryData.fn_GetData("UPDATEHEALTHLIMITEDEXT")
+            strQuery = String.Format(strQuery, InstanceID, NotiGroup, NotiCycle, NotiLevel, NotiSender, LastIp)
+            If _ODBC.dbExecuteNonQuery(strQuery) > 0 Then
+                Return 1
+            Else
+                Return -1
+            End If
+            'Else
+            '    Return -1
+            'End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
 
+    End Function
 
     Public Function SelectHealthLimited(ByVal InstanceID As String) As DataTable
         Try
@@ -918,7 +941,7 @@
                 '    interval = "1200"
                 'End If
 
-                subQuery = String.Format(" BETWEEN '{0}' AND '{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
+                subQuery = String.Format(" BETWEEN '{0}' AND '{1}')", stDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 strQuery = String.Format(strQuery, intInstanceID, _
                          stDate.ToString("yyyyMMdd"), _
                          edDate.ToString("yyyyMMdd"), _
@@ -1374,6 +1397,7 @@
         End Try
 
     End Function
+
     ' Add Functions for accumulated chart in detail view
     Public Function SelectInitCPUChart(ByVal intInstanceID As String, ByVal strName As String, ByVal intInterval As Integer) As DataTable
         Try
@@ -2488,6 +2512,203 @@
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             GC.Collect()
             Return Nothing
+        End Try
+    End Function
+
+#End Region
+
+#Region "Alert link"
+    ''' <summary>
+    ''' Alert link config
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function SelectAlertLinkConfig() As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTALERTLINKCONFIG")
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+
+        End
+    End Function
+
+    ''' <summary>
+    ''' Set Alert link config
+    ''' </summary>
+    ''' <param name="DBMSType"></param>
+    ''' <param name="IP"></param>
+    ''' <param name="Port"></param>
+    ''' <param name="User"></param>
+    ''' <param name="Pw"></param>
+    ''' <param name="Statements"></param>
+    ''' <param name="LstIp"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function insertAlertLinkConfig(ByVal DBMSType As String, ByVal IP As String, ByVal Port As String, ByVal Database As String, _
+                                     ByVal User As String, ByVal Pw As String, _
+                                     ByVal Statements As String, ByVal LstIp As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return -1
+            Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTALERTLINKCONFIG")
+            strQuery = String.Format(strQuery, DBMSType, IP, Port, User, Pw, Database, Statements, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+
+    End Function
+
+    Public Function SelectUserGroup() As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTUSERGROUP")
+            strQuery = String.Format(strQuery)
+
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectUserByGroup(ByVal GroupID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTUSERBYGROUP")
+            strQuery = String.Format(strQuery, GroupID)
+
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+    Public Function DeleteUserByGroup(ByVal UserID As String, ByVal GroupID As Integer) As Integer
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("DELETEUSERBYGROUP")
+            strQuery = String.Format(strQuery, UserID, GroupID)
+            Return _ODBC.dbExecuteNonQuery(strQuery)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+    End Function
+#End Region
+
+#Region "User"
+    ''' <summary>
+    ''' Set User
+    ''' </summary>
+    ''' <param name="UserID"></param>
+    ''' <param name="UserName"></param>
+    ''' <param name="UserPassword"></param>
+    ''' <param name="UserPhone"></param>
+    ''' <param name="UserEmail"></param>
+    ''' <param name="LstIp"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function insertUser(ByVal UserID As String, ByVal UserName As String, ByVal UserPassword As String, ByVal UserPhone As String, _
+                                     ByVal UserEmail As String, ByVal LstIp As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return -1
+            Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTUSER")
+            strQuery = String.Format(strQuery, UserID, UserName, UserPassword, UserPhone, UserEmail, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+    End Function
+    Public Function UpdateUser(ByVal UserID As String, ByVal UserPassword As String, ByVal UserPhone As String, _
+                                     ByVal UserEmail As String, ByVal LstIp As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEUSER")
+            strQuery = String.Format(strQuery, UserID, UserPassword, UserPhone, UserEmail, LstIp)
+            Return _ODBC.dbExecuteNonQuery(strQuery)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+    End Function
+    Public Function DeleteUser(ByVal UserID As Integer, ByVal LstIp As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("DELETEUSER")
+            strQuery = String.Format(strQuery, UserID, LstIp)
+            Return _ODBC.dbExecuteNonQuery(strQuery)
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+    End Function
+    Public Function SelectUser(ByVal groupID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTUSER")
+            strQuery = String.Format(strQuery, groupID)
+
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+#End Region
+
+#Region "User group"
+
+
+    ''' <summary>
+    ''' Set User
+    ''' </summary>
+    ''' <param name="UserID"></param>
+    ''' <param name="UserName"></param>
+    ''' <param name="UserPassword"></param>
+    ''' <param name="UserPhone"></param>
+    ''' <param name="UserEmail"></param>
+    ''' <param name="LstIp"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function insertUserGroup(ByVal UserID As String, ByVal GroupID As String, ByVal LstIp As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return -1
+            Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTUSERGROUP")
+            strQuery = String.Format(strQuery, UserID, GroupID, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
         End Try
     End Function
 #End Region

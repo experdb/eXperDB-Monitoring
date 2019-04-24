@@ -2693,6 +2693,34 @@
     <DESC>현재시간</DESC>
     <DATA><![CDATA[현재시간]]></DATA>
   </ROW>
+  <ROW ID="F346" PARAMS="0">
+    <DESC>그룹ID</DESC>
+    <DATA><![CDATA[그룹ID]]></DATA>
+  </ROW>
+  <ROW ID="F347" PARAMS="0">
+    <DESC>사용자ID</DESC>
+    <DATA><![CDATA[사용자ID]]></DATA>
+  </ROW>
+  <ROW ID="F348" PARAMS="0">
+    <DESC>사용자ID</DESC>
+    <DATA><![CDATA[사용자명]]></DATA>
+  </ROW>
+  <ROW ID="F349" PARAMS="0">
+    <DESC>전화번호</DESC>
+    <DATA><![CDATA[전화번호]]></DATA>
+  </ROW>
+  <ROW ID="F350" PARAMS="0">
+    <DESC>이메일</DESC>
+    <DATA><![CDATA[E-mail]]></DATA>
+  </ROW>
+  <ROW ID="F351" PARAMS="0">
+    <DESC>사용자 리스트</DESC>
+    <DATA><![CDATA[사용자 리스트]]></DATA>
+  </ROW>
+  <ROW ID="F352" PARAMS="0">
+    <DESC>그룹선택</DESC>
+    <DATA><![CDATA[그룹선택]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -2983,7 +3011,7 @@
   </ROW>
   <ROW ID="M028" PARAMS="0">
     <DESC>수집서버적용메시지</DESC>
-    <DATA><![CDATA[수집서버에 적용이 완료되었습니다.]]></DATA>
+    <DATA><![CDATA[적용이 완료되었습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3290,6 +3318,62 @@
   <ROW ID="M066" PARAMS="0">
     <DESC>Current Statements</DESC>
     <DATA><![CDATA[실시간 Statements 리스트를 조회합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M067" PARAMS="0">
+    <DESC>User Information Control</DESC>
+    <DATA><![CDATA[사용자 정보 추가/변경.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M068" PARAMS="0">
+    <DESC>Notification interface</DESC>
+    <DATA><![CDATA[알림 연동 설정]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M069" PARAMS="0">
+    <DESC>User management</DESC>
+    <DATA><![CDATA[사용자 정보를 관리합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M070" PARAMS="0">
+    <DESC>사용자 할 수 없는 ID 입니다.</DESC>
+    <DATA><![CDATA[사용 할 수 없는 ID 입니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M071" PARAMS="1">
+    <DESC>사용자 삭제</DESC>
+    <DATA><![CDATA[사용자 "{0}"를 삭제하시겠습니까?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M072" PARAMS="1">
+    <DESC>사용자 그룹</DESC>
+    <DATA><![CDATA[사용자 그룹 관리 및 그룹별 사용자를 관리합니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M073" PARAMS="0">
+    <DESC>알수 없는 오류입니다..</DESC>
+    <DATA><![CDATA[알 수 없는 오류입니다..]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

@@ -1221,6 +1221,24 @@
     <COMMENTS />
   </ROW>
 
+  <ROW ID="UPDATEHEALTHLIMITEDEXT " PARAMS="7">
+    <DESC>헬스체크 임계정보</DESC>
+    <DATA>
+      <![CDATA[
+     UPDATE TB_HCHK_THRD_LIST
+     SET 
+        user_group= {1}
+       , notification_cycle= {2}
+       , notification_level = {3}
+       , notification_sender = {4}
+       , LAST_MOD_IP='{5}'
+       , LAST_MOD_DT= NOW()
+      WHERE 
+          INSTANCE_ID = {0}
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
 
 
 
@@ -1264,9 +1282,13 @@
       , WARNING_THRESHOLD
       , CRITICAL_THRESHOLD
       , FIXED_THRESHOLD
-      , RETENTION_TIME
-      FROM TB_HCHK_THRD_LIST
-      WHERE INSTANCE_ID = {0}
+      , COALESCE(RETENTION_TIME,0) RETENTION_TIME
+      , COALESCE(USER_GROUP,0) USER_GROUP
+      , COALESCE(NOTIFICATION_LEVEL,0) NOTIFICATION_LEVEL
+      , COALESCE(NOTIFICATION_CYCLE,0) NOTIFICATION_CYCLE
+      , COALESCE(NOTIFICATION_SENDER,'') NOTIFICATION_SENDER
+      FROM TB_HCHK_THRD_LIST THR
+      WHERE THR.INSTANCE_ID = {0}
       ORDER BY HCHK_NAME
     ]]>
     </DATA>
@@ -1301,8 +1323,7 @@
         ( SELECT {0} 
           , HCHK_NAME 
           , UNIT 
-          , IS_HIGHER
-          
+          , IS_HIGHER          
           , WARNING_THRESHOLD 
           , CRITICAL_THRESHOLD 
           , FIXED_THRESHOLD 
@@ -1407,6 +1428,7 @@
             , ROUND(SUM(TAI.CURRENT_ROLLBACK)/({2}/1000), 2) AS ROLLBACK_TUPLES_PER_SEC             --PT_04_09_001(Object : ROLLBACK)
               FROM TB_INSTANCE_INFO IST,TAI
               WHERE IST.INSTANCE_ID IN ({0})
+              AND IST.INSTANCE_ID = TAI.INSTANCE_ID
               AND IST.COLLECT_YN = 'Y'
               AND IST.DELETE_YN = 'N'
             GROUP BY IST.INSTANCE_ID,  CASE WHEN {1}=0 THEN IST.HOST_NAME ELSE IST.CONN_NAME END
@@ -1825,7 +1847,7 @@
           , CASE WHEN max(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE) > 100 THEN 100.00 ELSE ROUND((max(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE)),2) END AS USED_UTIL_RATE
           , ROUND((max(C.WAIT_UTIL_RATE)),2) AS WAIT_UTIL_RATE
           , CASE WHEN MAX(E.MEM_TOTAL_KB) != 0 THEN (MAX((E.MEM_TOTAL_KB - (E.MEM_FREE_KB +E.MEM_BUFFERED_KB + E.MEM_CACHED_KB)) / E.MEM_TOTAL_KB ) * 100)::int ELSE MAX(E.MEM_TOTAL_KB) END AS MEM_USED_RATE
-          , CASE WHEN MAX(E.SWP_TOTAL_KB) != 0 THEN (MAX((E.SWP_TOTAL_KB - (E.SWP_FREE_KB + E.SWP_CACHED_KB)) / E.SWP_TOTAL_KB) * 100)::int ELSE MAX(E.SWP_TOTAL_KB) END AS SWP_USED_RATE
+          , CASE WHEN MAX(E.SWP_TOTAL_KB) != 0 THEN (MAX((E.SWP_TOTAL_KB - (E.SWP_FREE_KB + E.SWP_CACHED_KB)) / (CASE WHEN E.SWP_TOTAL_KB = 0 THEN 1 ELSE E.SWP_TOTAL_KB END)) * 100)::int ELSE MAX(E.SWP_TOTAL_KB) END AS SWP_USED_RATE
         FROM (SELECT INSTANCE_ID FROM TB_INSTANCE_INFO  WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND INSTANCE_ID = {0} ) A
              LEFT OUTER JOIN TB_RSC_COLLECT_INFO B
                ON A.INSTANCE_ID = B.INSTANCE_ID
@@ -3600,6 +3622,12 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DESC>PT_04_09_001(OBJECT 정보)</DESC>
     <DATA>
       <![CDATA[
+        WITH R AS
+        (
+        	SELECT *
+	          FROM TB_REALTIME_STATEMENTS 
+	         WHERE COLLECT_DT IN (SELECT MAX(COLLECT_DT) FROM TB_REALTIME_STATEMENTS WHERE COLLECT_DT > NOW() - INTERVAL '300' GROUP BY INSTANCE_ID)
+        )
         SELECT /*SELECTCURRENTSTATEMENTS*/
                 R.INSTANCE_ID, 
                 U.USER_NAME, 
@@ -3609,12 +3637,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
                 TOTAL_TIME AS TOTAL_TIME, 
                 TOTAL_TIME  / CALLS AS AVG_TIME, 
                 R.COLLECT_DT 
-        FROM
-         (
-	        SELECT *
-	          FROM TB_REALTIME_STATEMENTS 
-	         WHERE COLLECT_DT IN (SELECT MAX(COLLECT_DT) FROM TB_REALTIME_STATEMENTS WHERE COLLECT_DT > NOW() - INTERVAL '300' GROUP BY INSTANCE_ID)
-         ) AS R
+        FROM R
         JOIN TB_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.CQUERYID = Q.QUERYID
         JOIN TB_USER_INFO U ON R.INSTANCE_ID = U.INSTANCE_ID AND R.USERID = U.USER_ID
         JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID   
@@ -3647,5 +3670,147 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       ]]>
     </DATA>
   </ROW>
+  <ROW ID="SELECTALERTLINKCONFIG" PARAMS="0">
+    <DATA>
+    <![CDATA[
+      SELECT * FROM TB_ALERT_LINK_CONFIG
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTALERTLINKCONFIG" PARAMS="12">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+		  INSERT INTO TB_ALERT_LINK_CONFIG (SELECT 
+		   {0}
+		   ,'{1}'
+		   ,{2}
+		   ,'{3}'
+		   ,'{4}'
+		   ,'{5}'
+		   ,'{6}'
+		   ,now()
+		   ,'{7}'
+		  ) ON CONFLICT (link_type) 
+      DO UPDATE SET 
+		   link_ip = '{1}'
+		   ,link_port = {2}
+	     ,link_id = '{3}'
+	     ,link_password = '{4}'
+	     ,link_database ='{5}'
+	     ,link_statements = '{6}'
+	     ,last_mod_dt = now()
+	     ,last_mod_ip = '{7}'
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTUSERGROUP" PARAMS="0">
+    <DATA>
+    <![CDATA[
+      SELECT * FROM TB_USER_GROUP
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTUSERBYGROUP" PARAMS="0">
+    <DATA>
+    <![CDATA[
+      SELECT U.* 
+        FROM TB_MON_USER_BY_GROUP G JOIN TB_MON_USER U ON G.USER_ID = U.USER_ID
+       WHERE G.GROUP_ID = {0};
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="DELETEUSERBYGROUP" PARAMS="1">
+    <DESC></DESC>
+    <DATA>
+      <![CDATA[
+     DELETE FROM TB_MON_USER_BY_GROUP 
+      WHERE user_id = '{0}'
+        AND group_id = {1}
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="INSERTUSER" PARAMS="12">
+    <DESC></DESC>
+    <DATA>
+      <![CDATA[
+		  INSERT INTO TB_MON_USER 
+      (user_id,
+      user_name,
+      user_password,
+      user_phone,
+      user_email,
+      last_mod_ip,
+      last_mod_dt
+      )
+      values
+      ('{0}'
+		   ,'{1}'
+		   ,'{2}'
+		   ,'{3}'
+		   ,'{4}'
+		   ,'{5}'
+		   ,now()
+		  ) 
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="UPDATEUSER" PARAMS="7">
+    <DESC></DESC>
+    <DATA>
+      <![CDATA[
+     UPDATE TB_MON_USER SET 
+          USER_PASSWORD = '{1}',
+          USER_PHONE = '{2}',
+          USER_EMAIL = '{3}',
+          LAST_MOD_IP = '{4}',
+          LAST_MOD_DT = now()
+      WHERE USER_ID = '{0}'
+    ]]>
+    </DATA>
+  </ROW>
 
+  <ROW ID="DELETEUSER" PARAMS="1">
+    <DESC></DESC>
+    <DATA>
+      <![CDATA[
+     UPDATE TB_MON_USER SET 
+          IS_DELETED = true,
+          LAST_MOD_IP = '{1}',
+          LAST_MOD_DT = now()
+      WHERE user_id = '{0}'
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTUSER" PARAMS="1">
+    <DATA>
+    <![CDATA[
+      SELECT * FROM TB_MON_USER U
+       WHERE IS_DELETED = FALSE
+         AND USER_ID NOT in (SELECT USER_ID FROM TB_MON_USER_BY_GROUP WHERE GROUP_ID = {0});
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTUSERGROUP" PARAMS="12">
+    <DESC></DESC>
+    <DATA>
+      <![CDATA[
+		  INSERT INTO TB_MON_USER_BY_GROUP 
+      (
+      user_id,
+      group_id,
+      last_mod_ip,
+      last_mod_dt
+      )
+      values
+      ('{0}'
+		   ,'{1}'
+		   ,'{2}'
+		   ,now()
+		  ) 
+    ]]>
+    </DATA>
+  </ROW>
 </ROWS>

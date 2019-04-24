@@ -2693,6 +2693,34 @@
     <DESC>현재시간</DESC>
     <DATA><![CDATA[Now]]></DATA>
   </ROW>
+  <ROW ID="F346" PARAMS="0">
+    <DESC>그룹ID</DESC>
+    <DATA><![CDATA[Group ID]]></DATA>
+  </ROW>
+  <ROW ID="F347" PARAMS="0">
+    <DESC>사용자ID</DESC>
+    <DATA><![CDATA[User ID]]></DATA>
+  </ROW>
+  <ROW ID="F348" PARAMS="0">
+    <DESC>사용자명</DESC>
+    <DATA><![CDATA[User Name]]></DATA>
+  </ROW>
+  <ROW ID="F349" PARAMS="0">
+    <DESC>전화번호</DESC>
+    <DATA><![CDATA[Telephone]]></DATA>
+  </ROW>
+  <ROW ID="F350" PARAMS="0">
+    <DESC>이메일</DESC>
+    <DATA><![CDATA[E-mail]]></DATA>
+  </ROW>
+  <ROW ID="F351" PARAMS="0">
+    <DESC>사용자 리스트</DESC>
+    <DATA><![CDATA[User list]]></DATA>
+  </ROW>
+  <ROW ID="F352" PARAMS="0">
+    <DESC>그룹선택</DESC>
+    <DATA><![CDATA[Select Group]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3288,6 +3316,62 @@
   <ROW ID="M066" PARAMS="0">
     <DESC>Current Statements</DESC>
     <DATA><![CDATA[The current statements lists in the cluster.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M067" PARAMS="0">
+    <DESC>User Information Control</DESC>
+    <DATA><![CDATA[Add/Modify user information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M068" PARAMS="0">
+    <DESC>Notification interface</DESC>
+    <DATA><![CDATA[Notification interface]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M069" PARAMS="0">
+    <DESC>User management</DESC>
+    <DATA><![CDATA[The Monitoring user managements.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M070" PARAMS="0">
+    <DESC>사용자 할 수 없는 ID 입니다.</DESC>
+    <DATA><![CDATA[User ID already exists.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M071" PARAMS="1">
+    <DESC>사용자 삭제</DESC>
+    <DATA><![CDATA[Do you want to delete user '{0}'?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M072" PARAMS="1">
+    <DESC>사용자 그룹</DESC>
+    <DATA><![CDATA[Manages Groups and Users by groups.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M073" PARAMS="0">
+    <DESC>알수 없는 오류입니다..</DESC>
+    <DATA><![CDATA[Unkown error occured.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

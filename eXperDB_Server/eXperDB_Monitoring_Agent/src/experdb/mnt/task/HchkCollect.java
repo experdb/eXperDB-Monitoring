@@ -2,6 +2,7 @@ package experdb.mnt.task;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -250,7 +251,148 @@ public class HchkCollect extends TaskApplication {
 		} finally {
 			sessionAgent.close();
 		}
+		
+		exportAlert();
+	}
+	
+	private void exportAlert() {
+/////////////////////////////////////////////////////////////////////////////////////////////
+	SqlSessionFactory sqlSessionFactory = null;
+	Connection connection = null;
+	Connection connExternalDB = null;
+	SqlSession sessionAgent  = null;
+	PreparedStatement pstmt = null;
+	
+	List<HashMap<String, Object>> exportAlertSel = new ArrayList<HashMap<String,Object>>(); // Collect Alert info 
+	List<HashMap<String, Object>> insertExportList = new ArrayList<HashMap<String,Object>>();
+	List<HashMap<String, Object>> updateExportList = new ArrayList<HashMap<String,Object>>();
+	
+	int[] argIndex = {0,0,0};
+	
+	try {			
+			sqlSessionFactory = SqlSessionManager.getInstance();
+			sessionAgent = sqlSessionFactory.openSession();	
+			
+			// Get export info
+			HashMap<String, Object> selectExportInfo = new HashMap<String,Object>();
+			try {					
+				selectExportInfo = sessionAgent.selectOne("app.TB_EXPORT_INFO_001");
+			} catch (Exception e) {
+				log.error("", e);
+				throw e;
+			}
+			
+			// Get destination info
+			HashMap<String, Object> selectDestinationInfo = new HashMap<String,Object>();
+			try {					
+				selectExportInfo = sessionAgent.selectOne("app.TB_EXPORT_INFO_001");
+			} catch (Exception e) {
+				log.error("", e);
+				throw e;
+			}	
+			
+			try {
+				exportAlertSel = sessionAgent.selectList("app.TB_EXPORT_ALERT_001");
+			} catch (Exception e) {
+				log.error("", e);
+				throw e;
+			}
+			
+			if (exportAlertSel.size() > 0){
+				connExternalDB = prepareConnection(selectExportInfo);
+				if (connExternalDB != null){
+					pstmt = prepareCommand(connExternalDB, selectExportInfo, argIndex);
+					if (pstmt != null){
+						int updateInstanceId = 0;
+						for (HashMap<String, Object> exportMap : exportAlertSel) {	
+							pstmt.setString(argIndex[0], exportMap.get("sender").toString());
+							pstmt.setString(argIndex[1], exportMap.get("reciever").toString());
+							pstmt.setString(argIndex[2], exportMap.get("messages").toString());
+							pstmt.executeUpdate();
+							insertExportList.add(exportMap);
+						}
+					}
+					connExternalDB.commit();
+					if(connExternalDB != null) connExternalDB.close();
+					if(pstmt != null) pstmt.close();
+				}
+			}
 
+			//insert export history robin 201802			
+			for (HashMap<String, Object> map : insertExportList) {
+				sessionAgent.insert("app.TB_EXPORT_ALERT_I001", map);
+				//update last sent time
+				sessionAgent.update("app.TB_EXPORT_ALERT_U001", map);
+			}			
+
+			sessionAgent.commit();
+		} catch (Exception e) {
+			log.error("", e);			
+			sessionAgent.rollback();
+		} finally {
+			if(sessionAgent != null)	sessionAgent.close();
+		}
+//////////////////////////////////////////////////////////////////////////////////////////////
+	}
+	private Connection prepareConnection(HashMap<String,Object> selectExportInfo)
+	{		
+		// Make JDBC Url
+		String driver = "";
+		String connectUrl = "";
+		PreparedStatement pstmt = null;
+		String sqlcommand = "";
+		Connection connExternalDB = null;
+		try {
+			switch (Integer.parseInt(selectExportInfo.get("link_type").toString())) {
+				case 0 :
+					driver =  "com.microsoft.sqlserver.jdbc.SQLServerDriver" ;
+					connectUrl = "jdbc:sqlserver://"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+";databaseName="+selectExportInfo.get("link_database").toString();
+					break;
+			}
+			
+			Class.forName(driver);
+			DriverManager.setLoginTimeout(3);			
+			connExternalDB = DriverManager.getConnection(connectUrl, selectExportInfo.get("link_id").toString(), selectExportInfo.get("link_password").toString());
+			connExternalDB.setAutoCommit(false);
+
+		} catch (Exception e) {
+			log.error("", e);
+		} 
+		return connExternalDB;
+	}
+	
+	private PreparedStatement prepareCommand(Connection connExternalDB, HashMap<String,Object> selectExportInfo, int[] argIndex)
+	{		
+		// Make prepareStatements
+		String driver = "";
+		String connectUrl = "";
+		PreparedStatement pstmt = null;
+		String sqlcommand = "";			
+		try {
+			sqlcommand = selectExportInfo.get("link_statements").toString();
+						
+			argIndex[0] = sqlcommand.indexOf("$src");
+			argIndex[1] = sqlcommand.indexOf("$dst");
+			argIndex[2] = sqlcommand.indexOf("$msg");
+			
+	        int big = (argIndex[0]>argIndex[1])&&(argIndex[0]>argIndex[2])?argIndex[0]:(argIndex[2]>argIndex[1]?argIndex[2]:argIndex[1]);
+	        int small = (argIndex[1]>argIndex[0])&&(argIndex[2]>argIndex[0])?argIndex[0]:(argIndex[1]>argIndex[2]?argIndex[2]:argIndex[1]);
+	        int middle = (argIndex[0]+argIndex[1]+argIndex[2])-big-small;
+	        
+	        for(int i = 0 ; i < 3; i++){
+	        	if (argIndex[i] == big) argIndex[i] = 3;
+	        	else if (argIndex[i] == middle) argIndex[i] = 2;
+	        	else  argIndex[i] = 1;
+	        }				
+			
+	        sqlcommand = sqlcommand.replace("$src", "?");
+	        sqlcommand = sqlcommand.replace("$dst", "?");
+	        sqlcommand = sqlcommand.replace("$msg", "?");	        
+			pstmt = connExternalDB.prepareStatement(sqlcommand);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return pstmt;
 	}
 
 	private static final String RESOURCE_KEY_TABLESPACE = "TABLESPACE";

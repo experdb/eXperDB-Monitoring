@@ -2242,6 +2242,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 		DELETE /* PGMONBT_BATCH_TB_DATABASE_INFO_001 */ FROM TB_DATABASE_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_DATABASE_INFO) - 2;
 		]]>	
+	</delete>	
+	
+	<delete id="PGMONBT_BATCH_TB_ALERT_EXPORT_INFO_001" parameterType="hashmap" >
+		<![CDATA[
+		DELETE /* PGMONBT_BATCH_TB_ALERT_EXPORT_INFO_001 */ FROM TB_ALERT_EXPORT_INFO WHERE COLLECT_DT::DATE <= (SELECT COALESCE(MAX(COLLECT_DT)::DATE, now()::date) FROM TB_ALERT_EXPORT_INFO) - 2;
+		]]>	
 	</delete>
 	
 	<update id="VACUUM_ANALYZE_U001" parameterType="hashmap" >
@@ -2330,6 +2336,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="VACUUM_ANALYZE_U031" parameterType="hashmap" >		
 		vacuum analyze TB_DATABASE_INFO ;
+	</update>
+	<update id="VACUUM_ANALYZE_U032" parameterType="hashmap" >		
+		vacuum analyze TB_ALERT_EXPORT_INFO ;
 	</update>
 <!-- ********************************************************** -->
 <!-- DailyBatchTask END -->
@@ -3260,6 +3269,88 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			select 1 from tb_table_ext_info_${regdate} limit 1;
 		  ]]>
 	</select>
+	
+	<select id="TB_EXPORT_INFO_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT * FROM TB_ALERT_LINK_CONFIG;
+		  ]]>
+	</select>
+	
+	<select id="TB_EXPORT_ALERT_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+	      SELECT 
+	      		0 AS export_type,
+			    ALERT.instance_id INSTANCE_ID,
+			    TH.notification_sender AS sender,
+			    MU.USER_PHONE AS reciever,
+	            ALERT.state export_level,
+	            '['
+			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
+			    || '] hostname :'
+			    || (CASE WHEN 0=0 THEN INS.HOST_NAME ELSE INS.CONN_NAME END) 
+			    || ', Alert : ' 
+			    || ALERT.hchk_name
+			    || ':'
+			    || CASE WHEN COL.VALUE = 99999.00 THEN '-' ELSE COL.VALUE::varchar END 
+			    || ' '
+			    || TH.UNIT AS messages,
+			    DATE(ALERT.REG_DATE) + COL.REG_TIME collect_dt,
+			    ALERT.hchk_name
+	         FROM TB_HCHK_ALERT_INFO ALERT, 
+	            TB_INSTANCE_INFO INS ,
+	            TB_HCHK_COLLECT_INFO COL,
+	            TB_HCHK_THRD_LIST TH,
+	            TB_MON_USER_BY_GROUP UG,
+	            TB_MON_USER MU
+	        WHERE ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO WHERE reg_date = TO_CHAR(NOW(), 'YYYYMMDD'))
+	        AND ALERT.INSTANCE_ID = INS.INSTANCE_ID
+	        AND ALERT.INSTANCE_ID = COL.INSTANCE_ID
+	        AND ALERT.REG_DATE = COL.REG_DATE 
+	        AND ALERT.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+	        AND ALERT.HCHK_REG_SEQ = COL.HCHK_REG_SEQ
+	        AND ALERT.HCHK_NAME = COL.HCHK_NAME
+	        AND ALERT.INSTANCE_ID = TH.INSTANCE_ID
+	        AND ALERT.HCHK_NAME = TH.HCHK_NAME
+	        AND TH.NOTIFICATION_LEVEL > 0
+	        AND STATE > (TH.NOTIFICATION_LEVEL) * 100
+	        AND EXTRACT(EPOCH FROM ((DATE(ALERT.REG_DATE) + COL.REG_TIME) - TH.NOTIFICATION_LASTSENT))::NUMERIC >= (TH.NOTIFICATION_CYCLE * 60 - 1)
+	        AND TH.USER_GROUP = UG.GROUP_ID
+	        AND UG.USER_ID = MU.USER_ID
+	        ORDER BY INSTANCE_ID;
+		  ]]>
+	</select>
+	
+	<insert id="TB_EXPORT_ALERT_I001" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO TB_ALERT_EXPORT_INFO 
+			(
+			    EXPORT_TYPE,
+			    INSTANCE_ID,
+			    SENDER,
+			    RECIEVER,
+				EXPORT_LEVEL,
+			    MESSAGES,
+			    COLLECT_DT
+			) VALUES
+			(
+				#{export_type},
+				#{instance_id},
+				#{sender},
+				#{reciever},
+				#{export_level},
+				#{messages},
+				#{collect_dt}
+			)
+		  ]]>
+	</insert>
+	
+	<update id="TB_EXPORT_ALERT_U001" parameterType="hashmap" >
+	      UPDATE TB_HCHK_THRD_LIST
+		     SET NOTIFICATION_LASTSENT = now() 
+		   WHERE INSTANCE_ID = #{instance_id}
+		     AND HCHK_NAME = #{hchk_name}
+    </update>
+
 <!-- **************************************************************************************************************** -->
 <!-- Delete partitions -->	
 <!-- **************************************************************************************************************** -->

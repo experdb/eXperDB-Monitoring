@@ -22,39 +22,42 @@ Public Class frmAlertConfig
         btnSave.Text = p_clsMsgData.fn_GetData("F014")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
         btnHealthInit.Text = p_clsMsgData.fn_GetData("F226")
+        btnNotiConfig.Text = p_clsMsgData.fn_GetData("M068")
 
         ' 일반설정 탭 
         Me.Text = p_clsMsgData.fn_GetData("F199")
         Me.StatusLabel.Text = p_clsMsgData.fn_GetData("M048")
 
         ' Me.tbMain.TabPages.Clear()
+        Try
+            Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
+            Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
+            Dim tmpCn As New eXperDBODBC(dbType, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
+            Dim ClsQuery As New clsQuerys(tmpCn)
+            Dim dt1 As DataTable = ClsQuery.SelectIniFixedThreshold()
+            Dim dtUserGroup As DataTable = ClsQuery.SelectUserGroup()
+            For i As Integer = 0 To svrLst.Count - 1
 
-        Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
-        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New eXperDBODBC(dbtype, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
-        Dim ClsQuery As New clsQuerys(tmpCn)
-        Dim dt1 As DataTable = ClsQuery.SelectIniFixedThreshold()
-
-
-        For i As Integer = 0 To svrLst.Count - 1
-
-            Dim dt As DataTable = ClsQuery.SelectHealthLimited(svrLst.Item(i).InstanceID)
-            Me.tbMain.TabPages.Add(svrLst.Item(i).ShowNm, svrLst.Item(i).ShowNm)
-            Dim usrContorl As New AlertConfiguration(svrLst.Item(i).InstanceID, dt, dt1)
-            usrContorl.Dock = DockStyle.Fill
-            usrContorl.Tag = svrLst.Item(i).InstanceID
-            usrContorl.Name = "AlertConfig" ' & svrLst.Item(i).InstanceID
-            tbMain.TabPages(tbMain.TabPages.Count - 1).Controls.Add(usrContorl)
-            'tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            If i = 0 Then
-                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
-            Else
-                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
-            End If
-            tbMain.TabPages.Item(i).ForeColor = System.Drawing.Color.White
-            tbMain.TabPages.Item(i).Font = New Font("굴림체", 9.0!, System.Drawing.FontStyle.Regular)
-        Next
-
+                Dim dt As DataTable = ClsQuery.SelectHealthLimited(svrLst.Item(i).InstanceID)
+                Me.tbMain.TabPages.Add(svrLst.Item(i).ShowNm, svrLst.Item(i).ShowNm)
+                Dim usrContorl As New AlertConfiguration(svrLst.Item(i).InstanceID, dt, dt1, dtUserGroup)
+                'Dim usrContorl As New AlertConfigList(svrLst.Item(i).InstanceID, dt, dt1)
+                usrContorl.Dock = DockStyle.Fill
+                usrContorl.Tag = svrLst.Item(i).InstanceID
+                usrContorl.Name = "AlertConfig" ' & svrLst.Item(i).InstanceID
+                tbMain.TabPages(tbMain.TabPages.Count - 1).Controls.Add(usrContorl)
+                'tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                If i = 0 Then
+                    tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+                Else
+                    tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+                End If
+                tbMain.TabPages.Item(i).ForeColor = System.Drawing.Color.White
+                tbMain.TabPages.Item(i).Font = New Font("굴림체", 9.0!, System.Drawing.FontStyle.Regular)
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
         ' modCommon.FontChange(Me, p_Font)
     End Sub
 
@@ -93,6 +96,7 @@ Public Class frmAlertConfig
         ClsQuery.UpdateHealthLimited(InstanceID, "LASTVACUUM", HealtLimited.LastVacuumDay, 0, HealtLimited.LastvacuumDayBool, LastIp)
         ClsQuery.UpdateHealthLimited(InstanceID, "LASTANALYZE", HealtLimited.LastAnalyzeDay, 0, HealtLimited.LastAnalyzedayBool, LastIp)
         ClsQuery.UpdateHealthLimited(InstanceID, "CONNECTIONFAIL", 0, HealtLimited.ConFailedCnt, HealtLimited.ConfailedcntBool, LastIp)
+        ClsQuery.UpdateHealthLimitedExt(InstanceID, HealtLimited.NotificationLevel, HealtLimited.NotificationGroup, HealtLimited.NotificationCycle, HealtLimited.NotificationSender, LastIp)
 
         MsgBox(p_clsMsgData.fn_GetData("M028"))
 
@@ -227,5 +231,10 @@ Public Class frmAlertConfig
         If _setInitTap > 0 Then
             tbMain.SelectedIndex = _setInitTap
         End If
+    End Sub
+
+    Private Sub btnNotiConfig_Click(sender As Object, e As EventArgs) Handles btnNotiConfig.Click
+        Dim NotiConfig As New frmNotiConfig()
+        NotiConfig.ShowDialog()
     End Sub
 End Class

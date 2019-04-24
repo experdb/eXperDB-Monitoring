@@ -18,7 +18,7 @@
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
     End Sub
 
-    Public Sub New(ByVal intInstanceID As Integer, ByVal dtTable As DataTable, ByVal FixedThresholdDT As DataTable)
+    Public Sub New(ByVal intInstanceID As Integer, ByVal dtTable As DataTable, ByVal FixedThresholdDT As DataTable, ByVal dtUserGroup As DataTable)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -42,9 +42,10 @@
         dtbReplicationDelay.BarMinValue = 0
         dtbReplicationDelay.BarMaxValue = 0
 
+        btnUserGroup.Text = p_clsMsgData.fn_GetData("F025")
 
         If dtTable IsNot Nothing Then
-            Setvalue(dtTable, FixedThresholdDT)
+            Setvalue(dtTable, FixedThresholdDT, dtUserGroup)
         End If
 
 
@@ -52,7 +53,23 @@
     End Sub
 
 
-    Public Sub Setvalue(ByVal DT As DataTable, ByVal FixedThresholdDT As DataTable)
+    Public Sub Setvalue(ByVal DT As DataTable, ByVal FixedThresholdDT As DataTable, ByVal dtUserGroup As DataTable)
+
+        cmbNotiUsers.Items.Clear()
+        If dtUserGroup IsNot Nothing Then
+            Dim comboSource As New Dictionary(Of String, String)()
+            For Each tmpRow As DataRow In dtUserGroup.Rows
+                comboSource.Add(tmpRow.Item("GROUP_ID"), tmpRow.Item("GROUP_NAME"))
+            Next
+            cmbNotiUsers.DataSource = New BindingSource(comboSource, Nothing)
+            cmbNotiUsers.DisplayMember = "Value"
+            cmbNotiUsers.ValueMember = "Key"
+        End If
+
+        cmbNotiUsers.SelectedIndex = CInt(DT.Rows(0)("USER_GROUP"))
+        cmbNotiLevel.SelectedIndex = CInt(DT.Rows(0)("NOTIFICATION_LEVEL"))
+        nudNotiCycle.Value = CInt(DT.Rows(0)("NOTIFICATION_CYCLE"))
+        txtSender.Text = DT.Rows(0)("NOTIFICATION_SENDER")
 
         dtbBufferhitratio.BarMinValue = 0
         dtbBufferhitratio.BarMaxValue = 0
@@ -77,6 +94,7 @@
             Dim retentionTime As Integer = 0
 
             Dim Check As Boolean = False
+
 
             If Not IsDBNull(DT.Rows(index)("WARNING_THRESHOLD")) Then
                 valueLeft = Convert.ToInt32(DT.Rows(index)("WARNING_THRESHOLD"))
@@ -354,6 +372,10 @@
             End Select
         Next
 
+        tmpClass.NotificationLevel = cmbNotiLevel.SelectedIndex
+        tmpClass.NotificationGroup = cmbNotiUsers.SelectedIndex
+        tmpClass.NotificationCycle = nudNotiCycle.Value
+        tmpClass.NotificationSender = txtSender.Text
 
         Return tmpClass
     End Function
@@ -406,9 +428,14 @@
         Public LastAnalyzedayBool As String
         Public ConfailedcntBool As String
 
+        Public NotificationLevel As Integer
+        Public NotificationGroup As Integer
+        Public NotificationCycle As Integer
+        Public NotificationSender As String
+
     End Class
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         ' Dim tmpCls As GetServerAlertConfig = Me.GetValue()
 
         '  RaiseEvent ABCD(Me, tmpCls)
@@ -473,5 +500,19 @@
                 nudDuration7.Enabled = chkTemp.Checked
                 If chkTemp.Checked = False Then nudDuration7.Value = 0
         End Select
+    End Sub
+
+    Private Sub btnUserGroup_Click(sender As Object, e As EventArgs) Handles btnUserGroup.Click
+        Dim UserGroupForm As New frmUserGroup()
+        If UserGroupForm.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim intUserGroup As Integer = 0
+            UserGroupForm.rtnValue(intUserGroup)
+            For i As Integer = 0 To cmbNotiUsers.Items.Count - 1
+                If CInt(cmbNotiUsers.Items(i).key) = intUserGroup Then
+                    cmbNotiUsers.SelectedIndex = i
+                    Exit For
+                End If
+            Next
+        End If
     End Sub
 End Class

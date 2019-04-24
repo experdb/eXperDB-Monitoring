@@ -528,7 +528,11 @@ Public Class frmConnection
                                                 ' 접속 정보Tag도 삭제한다. 
                                                 btnTest.Tag = Nothing
                                                 ' 접속 실패시 
-                                                MsgBox(rtnValue._tran_res_data(0)._error_msg)
+                                                If rtnValue._tran_res_data(0)._error_cd.Equals("DX003_E03") = True Then
+                                                    MsgBox(p_clsMsgData.fn_GetData("M004"))
+                                                Else
+                                                    MsgBox(p_clsMsgData.fn_GetData("M073"))
+                                                End If
 
                                             End Sub))
 

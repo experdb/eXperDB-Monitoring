@@ -129,6 +129,8 @@ public class DailyBatchTask {
 				//sessionAgent.delete("app.PGMONTB_BATCH_PG_STAT_STATEMENT_001");//robin 1031 delete checkpoint
 				//sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");//robin 1031 delete table ext
 				sessionAgent.delete("app.PGMONBT_BATCH_TB_USER_INFO_001");//robin 190122 delete user info
+				sessionAgent.delete("app.PGMONBT_BATCH_TB_ALERT_EXPORT_INFO_001");//robin 190122 delete user info
+				
 				//Commit
 				sessionAgent.commit();
 			} catch (Exception e) {
@@ -274,6 +276,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U029");
 				sessionAgent.update("app.VACUUM_ANALYZE_U030");
 				sessionAgent.update("app.VACUUM_ANALYZE_U031");
+				sessionAgent.update("app.VACUUM_ANALYZE_U032");
 			} catch (Exception e) {
 				log.error("", e);
 				

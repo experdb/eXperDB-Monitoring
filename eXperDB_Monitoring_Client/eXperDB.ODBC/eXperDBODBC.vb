@@ -302,6 +302,18 @@ Public Class eXperDBODBC
             _Log.AddMessage(clsLog4Net.enmType.Information, ex.ToString)
             rtnResult = -1
             GC.Collect()
+        Catch ex As Data.Odbc.OdbcException
+            If _DBCommand IsNot Nothing Then
+                _DBCommand.Cancel()
+            End If
+            _Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Select Case ex.Errors(0).SQLState
+                Case 23505
+                    rtnResult = -23505
+                Case Else
+                    rtnResult = -1
+            End Select
+            GC.Collect()
         Catch ex As Exception
             If _DBCommand IsNot Nothing Then
                 _DBCommand.Cancel()

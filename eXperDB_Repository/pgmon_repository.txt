@@ -204,7 +204,12 @@ create table tb_hchk_thrd_list (
     last_mod_dt timestamp without time zone,
     pause_collect_dt timestamp without time zone,
     retention_time integer,
-    critical_start_time timestamp without time zone
+    critical_start_time timestamp without time zone,
+    user_group integer,
+    notification_cycle integer,
+    notification_level integer,
+    notification_sender varchar(30) DEFAULT '',
+    notification_lastsent timestamp without time ZONE NOT NULL DEFAULT NOW()
 );
 
 create table tb_index_info (
@@ -468,6 +473,61 @@ create table tb_realtime_statements (
     collect_dt timestamp without time zone
 ) partition by list (reg_time);
 
+create sequence user_seq
+    start with 1
+    increment by 1
+    no minvalue
+    no maxvalue
+    cache 1;
+    
+create table tb_mon_user (
+    user_seq integer DEFAULT nextval('user_seq') NOT NULL PRIMARY KEY ,
+    user_id character varying(16) unique not null,
+    user_name character varying(100) not null,
+    user_password character varying(32) not null,
+    user_phone character varying(30) not null,
+    user_email character varying(100) not null,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
+);
+
+create table tb_user_group (
+    group_id integer not null,
+    group_name character varying(100) not NULL,
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
+);
+
+create table tb_mon_user_by_group (
+    group_id integer not null,
+    user_id character varying(16) not null,
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
+);
+
+create table tb_alert_link_config (
+    link_type integer,
+    link_ip character varying(50),
+    link_port integer,
+    link_id character varying(30),
+    link_password character varying(30),
+    link_database character varying(50),
+    link_statements character varying(1000),
+    last_mod_dt timestamp without time zone,
+    last_mod_ip character varying(15)
+);
+
+create table tb_alert_export_info (
+    export_type integer,
+    instance_id integer,
+    sender character varying(30),
+    reciever character varying(50),
+		export_level integer,
+    messages character varying(100),
+    collect_dt timestamp without time ZONE
+);
+
 ------------------------------------------------------------------------------------------
 -----------------------<create partition tables>------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -538,6 +598,10 @@ alter table only tb_user_info add constraint pk_user_info primary key (reg_date,
 --alter table only tb_table_ext_info add constraint pk_table_ext_info primary key (reg_date,objt_reg_seq,instance_id,relid);
 --alter table only tb_hchk_alert_info add constraint pk_hchk_alert_info primary key (reg_date,hchk_reg_seq, instance_id, hchk_name);
 --alter table only tb_pg_stat_statements add constraint pk_pg_stat_statements primary key (reg_date, collect_dt, instance_id);
+alter table only tb_user_group add constraint pk_tb_user_group primary key (group_id, group_name);
+alter table only tb_mon_user_by_group add constraint pk_tb_mon_user_by_group primary key (group_id, user_id);
+alter table only tb_alert_link_config add constraint pk_tb_alert_link_config primary key (link_type);
+alter table only tb_alert_export_info add constraint pk_tb_alert_export_info primary key (collect_dt);
 ------------------------------------------------------------------------------------------
 -----------------------<create function>--------------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -873,5 +937,11 @@ insert into tb_sys_code select 180 ,'WALRead';
 insert into tb_sys_code select 181 ,'WALSenderTimelineHistoryRead';    
 insert into tb_sys_code select 182 ,'WALSyncMethodAssign';             
 insert into tb_sys_code select 183 ,'WALWrite';                        
-insert into tb_sys_code select 200 ,'Not Supported';                        
+insert into tb_sys_code select 200 ,'Not Supported';   
+
+INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (0, 'user_group_0', '192.168.56.1', now());
+INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (1, 'user_group_1', '192.168.56.1', now());
+INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (2, 'user_group_2', '192.168.56.1', now());
+INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (3, 'user_group_3', '192.168.56.1', now());
+                     
 EOF
