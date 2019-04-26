@@ -937,7 +937,7 @@ insert into tb_sys_code select 180 ,'WALRead';
 insert into tb_sys_code select 181 ,'WALSenderTimelineHistoryRead';    
 insert into tb_sys_code select 182 ,'WALSyncMethodAssign';             
 insert into tb_sys_code select 183 ,'WALWrite';                        
-insert into tb_sys_code select 200 ,'Not Supported';   
+insert into tb_sys_code select 200 ,'';   
 
 INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (0, 'user_group_0', '192.168.56.1', now());
 INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (1, 'user_group_1', '192.168.56.1', now());

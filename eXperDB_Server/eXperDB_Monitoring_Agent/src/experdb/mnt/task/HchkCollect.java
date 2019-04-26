@@ -17,6 +17,7 @@ import org.apache.commons.dbcp.PoolingDriver;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
 import experdb.mnt.db.dbcp.DBCPPoolManager;
@@ -297,9 +298,20 @@ public class HchkCollect extends TaskApplication {
 				log.error("", e);
 				throw e;
 			}
-			
+
+			HashMap<String, Object> configMapForKey = new HashMap<String, Object>();
+			String cryptokey = "";
+			try {
+				configMapForKey = sessionAgent.selectOne("system.TB_CONFIG_R002");
+				cryptokey = (String)configMapForKey.get("serial_key");
+				cryptokey = cryptokey.substring(0, 24);			
+			} catch (Exception e) {
+				log.error("", e);
+				throw e;
+			}
+						
 			if (exportAlertSel.size() > 0){
-				connExternalDB = prepareConnection(selectExportInfo);
+				connExternalDB = prepareConnection(selectExportInfo, cryptokey);
 				if (connExternalDB != null){
 					pstmt = prepareCommand(connExternalDB, selectExportInfo, argIndex);
 					if (pstmt != null){
@@ -334,13 +346,11 @@ public class HchkCollect extends TaskApplication {
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////
 	}
-	private Connection prepareConnection(HashMap<String,Object> selectExportInfo)
+	private Connection prepareConnection(HashMap<String,Object> selectExportInfo, String cryptokey)
 	{		
 		// Make JDBC Url
 		String driver = "";
 		String connectUrl = "";
-		PreparedStatement pstmt = null;
-		String sqlcommand = "";
 		Connection connExternalDB = null;
 		try {
 			switch (Integer.parseInt(selectExportInfo.get("link_type").toString())) {
@@ -351,8 +361,11 @@ public class HchkCollect extends TaskApplication {
 			}
 			
 			Class.forName(driver);
-			DriverManager.setLoginTimeout(3);			
-			connExternalDB = DriverManager.getConnection(connectUrl, selectExportInfo.get("link_id").toString(), selectExportInfo.get("link_password").toString());
+			DriverManager.setLoginTimeout(3);
+			String dbPass = selectExportInfo.get("link_password").toString();
+			dbPass = LicenseInfoManager.decryptTDES(cryptokey, dbPass);
+			
+			connExternalDB = DriverManager.getConnection(connectUrl, selectExportInfo.get("link_id").toString(), dbPass);
 			connExternalDB.setAutoCommit(false);
 
 		} catch (Exception e) {

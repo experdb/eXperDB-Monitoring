@@ -1,16 +1,6 @@
 ﻿Public Class frmCritical
 
     Private Sub frmCritical_Click(sender As Object, e As EventArgs) Handles Me.Click, Panel2.Click, Panel3.Click, Label1.Click, Label2.Click
-        Me.Close()
-
-    End Sub
-
-    Private Sub frmCritical_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        sndPlayer.Stop()
-        sndPlayer.Dispose()
-
-        Dim strMsg As String = p_clsMsgData.fn_GetData("M012")
-        'MsgBox(strMsg)
         Dim intPauseTime As Integer = -1
         Dim tmpFrm As Form = Nothing
         For Each tmpFrm In My.Application.OpenForms
@@ -38,6 +28,18 @@
         Else
             DirectCast(tmpFrm, frmMonMain).UseCriticalTime = False
         End If
+
+        Me.Close()
+
+    End Sub
+
+    Private Sub frmCritical_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        sndPlayer.Stop()
+        sndPlayer.Dispose()
+
+        'Dim strMsg As String = p_clsMsgData.fn_GetData("M012")
+        'MsgBox(strMsg)
+
     End Sub
 
     Private Sub frmWarning_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -100,12 +102,6 @@
         'End If
     End Sub
 
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-
-
-    End Sub
 
     Public Sub New(ByVal SvrLst As String)
 
