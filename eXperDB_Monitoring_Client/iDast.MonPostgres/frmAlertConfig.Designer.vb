@@ -43,7 +43,7 @@ Partial Class frmAlertConfig
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.btnNotiConfig, 3, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.StatusLabel, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
@@ -66,10 +66,10 @@ Partial Class frmAlertConfig
         Me.btnNotiConfig.ForeColor = System.Drawing.Color.White
         Me.btnNotiConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnNotiConfig.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.btnNotiConfig.Location = New System.Drawing.Point(697, 3)
+        Me.btnNotiConfig.Location = New System.Drawing.Point(687, 3)
         Me.btnNotiConfig.Name = "btnNotiConfig"
         Me.btnNotiConfig.Radius = 5
-        Me.btnNotiConfig.Size = New System.Drawing.Size(124, 39)
+        Me.btnNotiConfig.Size = New System.Drawing.Size(134, 39)
         Me.btnNotiConfig.TabIndex = 3
         Me.btnNotiConfig.Text = "M068"
         Me.btnNotiConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))

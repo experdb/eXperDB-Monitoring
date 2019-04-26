@@ -250,7 +250,7 @@
   </ROW>
   <ROW ID="F025" PARAMS="0">
     <DESC>그룹관리</DESC>
-    <DATA><![CDATA[Monitoring Group]]></DATA>
+    <DATA><![CDATA[Group]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3305,7 +3305,7 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="M065" PARAMS="0">
+  <ROW ID="M065" PARAMS="1">
     <DESC>버젼 불일치</DESC>
     <DATA><![CDATA[Client-server version mismatch.\n\n{0}]]></DATA>
     <COMMENTS />
