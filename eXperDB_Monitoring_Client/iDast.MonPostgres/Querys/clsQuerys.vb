@@ -704,7 +704,7 @@
                                  ByVal NotiLevel As Integer,
                                  ByVal NotiGroup As Integer,
                                  ByVal NotiCycle As Integer,
-                                 ByVal NotiSender As Integer,
+                                 ByVal NotiSender As String,
                                  ByVal LastIp As String) As String
         Try
             Dim strQuery As String = ""
