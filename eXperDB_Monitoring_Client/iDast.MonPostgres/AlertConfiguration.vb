@@ -227,6 +227,11 @@
         dtbReplicationDelay.BarMinValue = 0
         dtbReplicationDelay.BarMaxValue = 0
 
+        cmbNotiUsers.SelectedIndex = CInt(DT.Rows(0)("USER_GROUP"))
+        cmbNotiLevel.SelectedIndex = CInt(DT.Rows(0)("NOTIFICATION_LEVEL"))
+        nudNotiCycle.Value = CInt(DT.Rows(0)("NOTIFICATION_CYCLE"))
+        txtSender.Text = DT.Rows(0)("NOTIFICATION_SENDER")
+
         For index = 0 To DT.Rows.Count - 1
             Dim valueLeft As Integer = 0
             Dim ValueRight As Integer = 0

@@ -1114,7 +1114,7 @@
           AND E.SQL IS NOT NULL
           AND Q.INSTANCE_ID = B.INSTANCE_ID
           AND Q.QUERYID = E.QUERYID 
-          AND E.WAIT_EVENT = CD.CODE
+          AND COALESCE(E.WAIT_EVENT, 200) = CD.CODE
           ORDER BY E.ELAPSED_TIME DESC, E.PROC_CPU_UTIL DESC)  BACKEND
         WHERE BACKEND.RNUM <= 30   
 		  AND ELAPSED_TIME >= 0;     
@@ -1230,7 +1230,7 @@
         user_group= {1}
        , notification_cycle= {2}
        , notification_level = {3}
-       , notification_sender = {4}
+       , notification_sender = '{4}'
        , LAST_MOD_IP='{5}'
        , LAST_MOD_DT= NOW()
       WHERE 
