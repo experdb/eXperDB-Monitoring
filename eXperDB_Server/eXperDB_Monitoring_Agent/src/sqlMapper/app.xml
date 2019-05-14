@@ -3369,7 +3369,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    is_exists_fs BOOL;
 			BEGIN
 			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = 'fdw' || '${instance_id}'));       
-			    IF is_exists_fs = FALSE THEN           
+			    IF is_exists_fs = TRUE THEN
+			        EXECUTE FORMAT('DROP SERVER fdw' || '${instance_id}' || ' CASCADE');     
+			    END IF;
 					EXECUTE FORMAT('CREATE SERVER fdw' || '${instance_id}' || ' FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host ''' || '${server_ip}' || ''', port ''' || '${service_port}' || ''', dbname ''' || '${conn_db_name}' || ''')');
 					EXECUTE FORMAT('CREATE USER MAPPING FOR current_user SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
 					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || '${conn_schema_name}' || ''', table_name ''pg_stat_statements'')');
@@ -3377,32 +3379,31 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1');
 					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;  
 					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;
-			    END IF;
 			END $$
 		  ]]>	  
 	</update>
 	
 	<select id="BT_RTSTMT_INFO_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-		WITH RTST
-		AS
-		(
-			SELECT *
-			FROM (
-				SELECT 
-						CASE WHEN A.USERID IS NULL THEN B.USERID ELSE A.USERID END USERID, 
-						CASE WHEN A.DBID IS NULL THEN B.DBID  ELSE A.DBID END DBID,
-						CASE WHEN A.QUERYID IS NULL THEN B.QUERYID  ELSE A.QUERYID END QUERYID,
-						ABS((COALESCE(B.CALLS,0)-COALESCE(A.CALLS,0))) CALLS,
-						ABS((COALESCE(B.TOTAL_TIME,0)-COALESCE(A.TOTAL_TIME,0))) TOTAL_TIME
-						--B.QUERY QUERY
-				  FROM PG_STAT_STATEMENTS_TMP_${instance_id}_1 AS A FULL JOIN PG_STAT_STATEMENTS_TMP_${instance_id}_0 AS B ON A.USERID = B.USERID AND A.DBID = B.DBID AND A.QUERYID = B.QUERYID
-				 ORDER BY CALLS DESC
-				) DIFF
-			WHERE CALLS >  0
-		)
-		SELECT RTST.*, fdw${instance_id}.query FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
-		   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+			WITH RTST
+			AS
+			(
+				SELECT *
+				FROM (
+					SELECT 
+							CASE WHEN A.USERID IS NULL THEN B.USERID ELSE A.USERID END USERID, 
+							CASE WHEN A.DBID IS NULL THEN B.DBID  ELSE A.DBID END DBID,
+							CASE WHEN A.QUERYID IS NULL THEN B.QUERYID  ELSE A.QUERYID END QUERYID,
+							ABS((COALESCE(B.CALLS,0)-COALESCE(A.CALLS,0))) CALLS,
+							ABS((COALESCE(B.TOTAL_TIME,0)-COALESCE(A.TOTAL_TIME,0))) TOTAL_TIME
+							--B.QUERY QUERY
+					  FROM PG_STAT_STATEMENTS_TMP_${instance_id}_1 AS A FULL JOIN PG_STAT_STATEMENTS_TMP_${instance_id}_0 AS B ON A.USERID = B.USERID AND A.DBID = B.DBID AND A.QUERYID = B.QUERYID
+					 ORDER BY CALLS DESC
+					) DIFF
+				WHERE CALLS >  0
+			)
+			SELECT RTST.*, fdw${instance_id}.query FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
+			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>
 	</select>
 	
