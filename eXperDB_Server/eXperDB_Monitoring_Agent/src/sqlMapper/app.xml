@@ -377,20 +377,20 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 						    THEN 100 * (tblpages - est_tblpages_ff)/tblpages::float
 						    ELSE 0
 					 END AS bloat_ratio, is_na, relid, autovacuum_count, autoanalyze_count, (SELECT age(datfrozenxid) FROM pg_database WHERE datname = CURRENT_DATABASE()) maxage,
-					 CASE WHEN autovacuum = 'on' AND dead_tuple_cnt > ((live_tuple_cnt) * COALESCE(AVS,(SELECT setting FROM GAVS)) + COALESCE(AVT,(SELECT setting FROM GAVT)))
+					 CASE WHEN autovacuum = 'on' AND dead_tuple_cnt > ((reltuples) * COALESCE(AVS,(SELECT setting FROM GAVS)) + COALESCE(AVT,(SELECT setting FROM GAVT)))
 					 	  THEN TRUE 
 					 	  WHEN autovacuum = 'off' AND dead_tuple_cnt > 0
 					 	  THEN TRUE
 					 	  ELSE FALSE
 					 	  END AS need_vacuum,
-					 CASE WHEN autovacuum = 'on' AND n_mod_since_analyze > ((live_tuple_cnt) * COALESCE(AAS,(SELECT setting FROM GAAS)) + COALESCE(AAT,(SELECT setting FROM GAAT)))
+					 CASE WHEN autovacuum = 'on' AND n_mod_since_analyze > ((reltuples) * COALESCE(AAS,(SELECT setting FROM GAAS)) + COALESCE(AAT,(SELECT setting FROM GAAT)))
 					 	  THEN TRUE 
 					 	  WHEN autovacuum = 'off' AND dead_tuple_cnt > 0
 					 	  THEN TRUE
 					 	  ELSE FALSE
 					 	  END AS need_analyze
 		 FROM (
-				   SELECT ceil( reltuples / ( (bs-page_hdr)/tpl_size ) ) + ceil( toasttuples / 4 ) AS est_tblpages,
+				   SELECT ceil( reltuples / ( (bs-page_hdr)/tpl_size ) ) + ceil( toasttuples / 4 ) AS est_tblpages,reltuples,
 							    ceil( reltuples / ( (bs-page_hdr)*fillfactor/(tpl_size*100) ) ) + ceil( toasttuples / 4 ) AS est_tblpages_ff,
 							    tblpages, fillfactor, bs, tblid, schema_name, table_name, heappages, toastpages, is_na,
 							    reltoastrelid, AGG_SEQ_SCAN_CNT, AGG_SEQ_TUPLES, AGG_INDEX_SCAN_CNT, AGG_INDEX_TUPLES, LIVE_TUPLE_CNT,

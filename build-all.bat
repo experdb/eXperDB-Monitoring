@@ -11,7 +11,6 @@ set BASE_VER_UDERSCORE=10_4_4
 For /F %%i in ('git rev-list HEAD ^| find /c /v ""') Do Set GIT_COMMIT_CNT=%%i
 
 
-
 SET CLI=t
 SET SVR=t
 SET REP=t
