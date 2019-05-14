@@ -1230,7 +1230,7 @@
         user_group= {1}
        , notification_cycle= {2}
        , notification_level = {3}
-       , notification_sender = '{4}'
+       , business_name = '{4}'
        , LAST_MOD_IP='{5}'
        , LAST_MOD_DT= NOW()
       WHERE 
@@ -1286,7 +1286,7 @@
       , COALESCE(USER_GROUP,0) USER_GROUP
       , COALESCE(NOTIFICATION_LEVEL,0) NOTIFICATION_LEVEL
       , COALESCE(NOTIFICATION_CYCLE,0) NOTIFICATION_CYCLE
-      , COALESCE(NOTIFICATION_SENDER,'') NOTIFICATION_SENDER
+      , COALESCE(BUSINESS_NAME,'') BUSINESS_NAME
       FROM TB_HCHK_THRD_LIST THR
       WHERE THR.INSTANCE_ID = {0}
       ORDER BY HCHK_NAME
@@ -3681,7 +3681,19 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
-		  INSERT INTO TB_ALERT_LINK_CONFIG (SELECT 
+		  INSERT INTO TB_ALERT_LINK_CONFIG
+      (
+      link_type
+      ,link_ip
+      ,link_port
+      ,link_id
+      ,link_password
+      ,link_database
+      ,link_statements
+      ,notification_sender
+      ,last_mod_dt
+      ,last_mod_ip
+      )(SELECT 
 		   {0}
 		   ,'{1}'
 		   ,{2}
@@ -3689,8 +3701,9 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 		   ,'{4}'
 		   ,'{5}'
 		   ,'{6}'
+       ,'{7}'
 		   ,now()
-		   ,'{7}'
+		   ,'{8}'
 		  ) ON CONFLICT (link_type) 
       DO UPDATE SET 
 		   link_ip = '{1}'
@@ -3699,8 +3712,9 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 	     ,link_password = '{4}'
 	     ,link_database ='{5}'
 	     ,link_statements = '{6}'
+       ,notification_sender = '{7}'
 	     ,last_mod_dt = now()
-	     ,last_mod_ip = '{7}'
+	     ,last_mod_ip = '{8}'
     ]]>
     </DATA>
   </ROW>
@@ -3813,4 +3827,29 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     ]]>
     </DATA>
   </ROW>
+  <ROW ID="SELECTNOTIFICATIONHISTORY" PARAMS="4">
+    <DATA>
+    <![CDATA[
+      SELECT EXPORT_TYPE, 
+	         TA.INSTANCE_ID,
+	         CASE WHEN {0}=0 THEN IST.HOST_NAME ELSE IST.CONN_NAME END AS SERVER_NAME, 
+	         SENDER,
+	         RECIEVER,
+	         EXPORT_LEVEL,
+	         MESSAGES,
+	         COLLECT_DT,
+	         CASE WHEN ISSUCCESS THEN 'Success' ELSE 'Failure' END AS ISSUCCESS,
+	         ERROR,
+	         TU.USER_NAME
+        FROM TB_ALERT_EXPORT_INFO TA, TB_INSTANCE_INFO IST, TB_MON_USER TU
+       WHERE TA.INSTANCE_ID = IST.INSTANCE_ID
+         AND TU.USER_ID = TA.USER_ID
+         AND TA.COLLECT_DT BETWEEN '{1}' AND '{2}'
+         AND IST.INSTANCE_ID IN ({3})
+         AND TA.EXPORT_LEVEL >= {4}
+    ]]>
+    </DATA>
+  </ROW>
+
+
 </ROWS>

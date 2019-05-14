@@ -2,11 +2,25 @@
 
 Public Class frmAlertConfig
     Private _setInitTap = -1
+    Private _SvrpList As List(Of GroupInfo.ServerInfo)
+    ''' <summary>
+    ''' Group List Items 안에 서버 리스트가 있음. 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property SvrpList As List(Of GroupInfo.ServerInfo)
+        Get
+            Return _SvrpList
+        End Get
+    End Property
+
     Public Sub New(ByVal svrLst As List(Of GroupInfo.ServerInfo))
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
-        initform(svrLst)
+        _SvrpList = svrLst
+        initform(_SvrpList)
     End Sub
 
     Public Sub New(ByVal svrLst As List(Of GroupInfo.ServerInfo), ByVal initTabIndex As Integer)
@@ -96,7 +110,7 @@ Public Class frmAlertConfig
         ClsQuery.UpdateHealthLimited(InstanceID, "LASTVACUUM", HealtLimited.LastVacuumDay, 0, HealtLimited.LastvacuumDayBool, LastIp)
         ClsQuery.UpdateHealthLimited(InstanceID, "LASTANALYZE", HealtLimited.LastAnalyzeDay, 0, HealtLimited.LastAnalyzedayBool, LastIp)
         ClsQuery.UpdateHealthLimited(InstanceID, "CONNECTIONFAIL", 0, HealtLimited.ConFailedCnt, HealtLimited.ConfailedcntBool, LastIp)
-        ClsQuery.UpdateHealthLimitedExt(InstanceID, HealtLimited.NotificationLevel, HealtLimited.NotificationGroup, HealtLimited.NotificationCycle, HealtLimited.NotificationSender, LastIp)
+        ClsQuery.UpdateHealthLimitedExt(InstanceID, HealtLimited.NotificationLevel, HealtLimited.NotificationGroup, HealtLimited.NotificationCycle, HealtLimited.BusinessName, LastIp)
 
         MsgBox(p_clsMsgData.fn_GetData("M028"))
 
@@ -234,7 +248,7 @@ Public Class frmAlertConfig
     End Sub
 
     Private Sub btnNotiConfig_Click(sender As Object, e As EventArgs) Handles btnNotiConfig.Click
-        Dim NotiConfig As New frmNotiConfig()
+        Dim NotiConfig As New frmNotiConfig(_SvrpList)
         NotiConfig.ShowDialog()
     End Sub
 End Class

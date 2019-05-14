@@ -2721,6 +2721,30 @@
     <DESC>그룹선택</DESC>
     <DATA><![CDATA[Select Group]]></DATA>
   </ROW>
+  <ROW ID="F353" PARAMS="0">
+    <DESC>알림 연동 이력</DESC>
+    <DATA><![CDATA[Notification history]]></DATA>
+  </ROW>
+  <ROW ID="F354" PARAMS="0">
+    <DESC>송신정보</DESC>
+    <DATA><![CDATA[Sender info]]></DATA>
+  </ROW>
+  <ROW ID="F355" PARAMS="0">
+    <DESC>수신정보</DESC>
+    <DATA><![CDATA[Receiver info]]></DATA>
+  </ROW>
+  <ROW ID="F356" PARAMS="0">
+    <DESC>결과</DESC>
+    <DATA><![CDATA[Results]]></DATA>
+  </ROW>
+  <ROW ID="F357" PARAMS="0">
+    <DESC>오류내용</DESC>
+    <DATA><![CDATA[Error info]]></DATA>
+  </ROW>
+  <ROW ID="F358" PARAMS="1">
+    <DESC>Notification history</DESC>
+    <DATA><![CDATA[Notification history ({0})]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3372,6 +3396,14 @@
   <ROW ID="M073" PARAMS="0">
     <DESC>알수 없는 오류입니다..</DESC>
     <DATA><![CDATA[Unkown error occured.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M074" PARAMS="0">
+    <DESC>알림 연동 이력을 조회합니다.</DESC>
+    <DATA><![CDATA[You can view the notification history.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

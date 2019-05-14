@@ -704,12 +704,12 @@
                                  ByVal NotiLevel As Integer,
                                  ByVal NotiGroup As Integer,
                                  ByVal NotiCycle As Integer,
-                                 ByVal NotiSender As String,
+                                 ByVal Business As String,
                                  ByVal LastIp As String) As String
         Try
             Dim strQuery As String = ""
             strQuery = p_clsQueryData.fn_GetData("UPDATEHEALTHLIMITEDEXT")
-            strQuery = String.Format(strQuery, InstanceID, NotiGroup, NotiCycle, NotiLevel, NotiSender, LastIp)
+            strQuery = String.Format(strQuery, InstanceID, NotiGroup, NotiCycle, NotiLevel, Business, LastIp)
             If _ODBC.dbExecuteNonQuery(strQuery) > 0 Then
                 Return 1
             Else
@@ -2555,11 +2555,11 @@
     ''' <remarks></remarks>
     Public Function insertAlertLinkConfig(ByVal DBMSType As String, ByVal IP As String, ByVal Port As String, ByVal Database As String, _
                                      ByVal User As String, ByVal Pw As String, _
-                                     ByVal Statements As String, ByVal LstIp As String) As Integer
+                                     ByVal Statements As String, ByVal Sender As String, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return -1
             Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTALERTLINKCONFIG")
-            strQuery = String.Format(strQuery, DBMSType, IP, Port, User, Pw, Database, Statements, LstIp)
+            strQuery = String.Format(strQuery, DBMSType, IP, Port, User, Pw, Database, Statements, Sender, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
         Catch ex As Exception
@@ -2613,6 +2613,48 @@
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             Return False
+        End Try
+    End Function
+
+    Public Function SelectNotificationHistory(ByVal StDate As DateTime,
+                                  ByVal EdDate As DateTime,
+                                  ByVal intInstanceID As String,
+                                  ByVal intLevel As Integer,
+                                  ByVal strUserID As String,
+                                  ByVal strResult As String,
+                                  ByVal enmShowSvrNm As String
+                                 ) As DataTable
+
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTNOTIFICATIONHISTORY")
+                Dim subQuery As String = ""
+
+                If strUserID.Length > 0 Then
+                    subQuery += String.Format(" AND TU.USER_ID = '{0}'", strUserID)
+                End If
+
+                If strResult.Length > 0 Then
+                    subQuery += String.Format(" AND TA.ISSUCCESS = '{0}'", strResult)
+                End If
+
+                strQuery = String.Format(strQuery, enmShowSvrNm, StDate.ToString("yyyy-MM-dd HH:mm:00"), EdDate.ToString("yyyy-MM-dd HH:mm:00"), intInstanceID, intLevel)
+                subQuery += String.Format(" ORDER BY COLLECT_DT DESC")
+                strQuery += subQuery
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
         End Try
     End Function
 #End Region

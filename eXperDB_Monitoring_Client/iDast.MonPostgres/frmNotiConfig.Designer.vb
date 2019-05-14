@@ -23,6 +23,7 @@ Partial Class frmNotiConfig
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNotiConfig))
+        Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -30,6 +31,11 @@ Partial Class frmNotiConfig
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.btnTest = New eXperDB.BaseControls.Button()
+        Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblSender = New eXperDB.BaseControls.Label()
+        Me.txtSender = New eXperDB.BaseControls.TextBox()
+        Me.GroupBox1 = New eXperDB.BaseControls.GroupBox()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
         Me.txtStatements = New eXperDB.BaseControls.TextBox()
         Me.lblStatements = New eXperDB.BaseControls.Label()
@@ -45,17 +51,23 @@ Partial Class frmNotiConfig
         Me.lblPort = New eXperDB.BaseControls.Label()
         Me.txtIP = New eXperDB.BaseControls.TextBox()
         Me.txtPort = New eXperDB.BaseControls.TextBox()
+        Me.btnNotiHistory = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnNotiHistory, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.StatusLabel, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -75,7 +87,7 @@ Partial Class frmNotiConfig
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(443, 50)
+        Me.StatusLabel.Size = New System.Drawing.Size(313, 50)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -103,7 +115,7 @@ Partial Class frmNotiConfig
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 395)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 495)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -167,6 +179,99 @@ Partial Class frmNotiConfig
         Me.btnTest.UseRound = True
         Me.btnTest.UseVisualStyleBackColor = True
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel4, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox1, 0, 1)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 53)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 2
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(489, 442)
+        Me.TableLayoutPanel1.TabIndex = 18
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel4.ColumnCount = 4
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.lblSender, 0, 1)
+        Me.TableLayoutPanel4.Controls.Add(Me.txtSender, 1, 1)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 3
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(483, 64)
+        Me.TableLayoutPanel4.TabIndex = 22
+        '
+        'lblSender
+        '
+        Me.lblSender.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSender.FixedHeight = False
+        Me.lblSender.FixedWidth = False
+        Me.lblSender.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSender.ForeColor = System.Drawing.Color.White
+        Me.lblSender.Location = New System.Drawing.Point(3, 30)
+        Me.lblSender.Name = "lblSender"
+        Me.lblSender.Size = New System.Drawing.Size(127, 20)
+        Me.lblSender.TabIndex = 10
+        Me.lblSender.Text = "Sender info"
+        Me.lblSender.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtSender
+        '
+        Me.txtSender.BackColor = System.Drawing.SystemColors.InactiveBorder
+        Me.txtSender.code = False
+        Me.txtSender.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSender.FixedWidth = False
+        Me.txtSender.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtSender.impossibleinput = ""
+        Me.txtSender.Location = New System.Drawing.Point(136, 26)
+        Me.txtSender.Name = "txtSender"
+        Me.txtSender.Necessary = False
+        Me.txtSender.PossibleInput = "0123456789."
+        Me.txtSender.Prefix = ""
+        Me.txtSender.Size = New System.Drawing.Size(194, 21)
+        Me.txtSender.StatusTip = ""
+        Me.txtSender.TabIndex = 1
+        Me.txtSender.Value = ""
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.AlignLine = System.Drawing.StringAlignment.Center
+        Me.GroupBox1.AlignString = System.Drawing.StringAlignment.Near
+        Me.GroupBox1.Controls.Add(Me.tlpSvrChk)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.EdgeRound = Edges2
+        Me.GroupBox1.FillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.GroupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.GroupBox1.Icon = Nothing
+        Me.GroupBox1.LineColor = System.Drawing.Color.Silver
+        Me.GroupBox1.LineWidth = 1
+        Me.GroupBox1.Location = New System.Drawing.Point(3, 73)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 9, 3, 3)
+        Me.GroupBox1.Size = New System.Drawing.Size(483, 366)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Connection settings"
+        Me.GroupBox1.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
+        Me.GroupBox1.TitleGraColor = System.Drawing.Color.White
+        Me.GroupBox1.UseGraColor = False
+        Me.GroupBox1.UseRound = True
+        Me.GroupBox1.UseTitle = True
+        '
         'tlpSvrChk
         '
         Me.tlpSvrChk.BackColor = System.Drawing.Color.Gray
@@ -190,7 +295,7 @@ Partial Class frmNotiConfig
         Me.tlpSvrChk.Controls.Add(Me.txtIP, 1, 2)
         Me.tlpSvrChk.Controls.Add(Me.txtPort, 1, 3)
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 53)
+        Me.tlpSvrChk.Location = New System.Drawing.Point(3, 23)
         Me.tlpSvrChk.Name = "tlpSvrChk"
         Me.tlpSvrChk.RowCount = 10
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15.0!))
@@ -203,12 +308,12 @@ Partial Class frmNotiConfig
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(489, 342)
-        Me.tlpSvrChk.TabIndex = 20
+        Me.tlpSvrChk.Size = New System.Drawing.Size(477, 340)
+        Me.tlpSvrChk.TabIndex = 21
         '
         'txtStatements
         '
-        Me.txtStatements.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtStatements.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.txtStatements.code = False
         Me.tlpSvrChk.SetColumnSpan(Me.txtStatements, 2)
         Me.txtStatements.Dock = System.Windows.Forms.DockStyle.Top
@@ -275,7 +380,7 @@ Partial Class frmNotiConfig
         '
         'txtDbnm
         '
-        Me.txtDbnm.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtDbnm.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.txtDbnm.code = False
         Me.txtDbnm.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtDbnm.FixedWidth = False
@@ -335,7 +440,7 @@ Partial Class frmNotiConfig
         '
         'txtPW
         '
-        Me.txtPW.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtPW.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.txtPW.code = False
         Me.txtPW.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtPW.FixedWidth = False
@@ -368,7 +473,7 @@ Partial Class frmNotiConfig
         '
         'txtUsr
         '
-        Me.txtUsr.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtUsr.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.txtUsr.code = False
         Me.txtUsr.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtUsr.FixedWidth = False
@@ -400,7 +505,7 @@ Partial Class frmNotiConfig
         '
         'txtIP
         '
-        Me.txtIP.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtIP.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.txtIP.code = False
         Me.txtIP.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtIP.FixedWidth = False
@@ -418,7 +523,7 @@ Partial Class frmNotiConfig
         '
         'txtPort
         '
-        Me.txtPort.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtPort.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.txtPort.code = False
         Me.txtPort.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtPort.FixedWidth = False
@@ -434,13 +539,33 @@ Partial Class frmNotiConfig
         Me.txtPort.TabIndex = 2
         Me.txtPort.Value = "0"
         '
+        'btnNotiHistory
+        '
+        Me.btnNotiHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnNotiHistory.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnNotiHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnNotiHistory.FixedHeight = False
+        Me.btnNotiHistory.FixedWidth = False
+        Me.btnNotiHistory.ForeColor = System.Drawing.Color.White
+        Me.btnNotiHistory.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnNotiHistory.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnNotiHistory.Location = New System.Drawing.Point(362, 3)
+        Me.btnNotiHistory.Name = "btnNotiHistory"
+        Me.btnNotiHistory.Radius = 5
+        Me.btnNotiHistory.Size = New System.Drawing.Size(124, 44)
+        Me.btnNotiHistory.TabIndex = 4
+        Me.btnNotiHistory.Text = "F353"
+        Me.btnNotiHistory.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnNotiHistory.UseRound = True
+        Me.btnNotiHistory.UseVisualStyleBackColor = False
+        '
         'frmNotiConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(495, 443)
-        Me.Controls.Add(Me.tlpSvrChk)
+        Me.ClientSize = New System.Drawing.Size(495, 543)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -454,6 +579,10 @@ Partial Class frmNotiConfig
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel4.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         Me.tlpSvrChk.ResumeLayout(False)
         Me.tlpSvrChk.PerformLayout()
         Me.ResumeLayout(False)
@@ -466,7 +595,14 @@ Partial Class frmNotiConfig
     Friend WithEvents btnClose As eXperDB.BaseControls.Button
     Friend WithEvents btnAct As eXperDB.BaseControls.Button
     Friend WithEvents btnTest As eXperDB.BaseControls.Button
+    Friend WithEvents TableLayoutPanel1 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents lblSender As eXperDB.BaseControls.Label
+    Friend WithEvents txtSender As eXperDB.BaseControls.TextBox
+    Friend WithEvents GroupBox1 As eXperDB.BaseControls.GroupBox
     Friend WithEvents tlpSvrChk As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents txtStatements As eXperDB.BaseControls.TextBox
+    Friend WithEvents lblStatements As eXperDB.BaseControls.Label
     Friend WithEvents lblDBMS As eXperDB.BaseControls.Label
     Friend WithEvents cmbDBMS As eXperDB.BaseControls.ComboBox
     Friend WithEvents txtDbnm As eXperDB.BaseControls.TextBox
@@ -479,6 +615,5 @@ Partial Class frmNotiConfig
     Friend WithEvents lblPort As eXperDB.BaseControls.Label
     Friend WithEvents txtIP As eXperDB.BaseControls.TextBox
     Friend WithEvents txtPort As eXperDB.BaseControls.TextBox
-    Friend WithEvents txtStatements As eXperDB.BaseControls.TextBox
-    Friend WithEvents lblStatements As eXperDB.BaseControls.Label
+    Friend WithEvents btnNotiHistory As eXperDB.BaseControls.Button
 End Class

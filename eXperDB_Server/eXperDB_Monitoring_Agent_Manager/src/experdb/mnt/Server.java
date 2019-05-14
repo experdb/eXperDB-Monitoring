@@ -37,38 +37,38 @@ public class Server {
 			return;
 		}
 		
-//		// SqlSessionManager 초기화
-//		try {
-//			SqlSessionManager.initInstance();
-//		} catch (Exception e) {
-//			log.error("", e);
-//			return;
-//		}		
-//		
-//		//Driver 로딩 
-//		try {
-//			Class.forName("org.apache.commons.dbcp.PoolingDriver");
-//		} catch (Exception e) {
-//			log.error("", e);
-//			return;			
-//		}
-//		
-//
-//		//MonitoringInfoManager 초기화
+		// SqlSessionManager 초기화
+		try {
+			SqlSessionManager.initInstance();
+		} catch (Exception e) {
+			log.error("", e);
+			return;
+		}		
+		
+		//Driver 로딩 
+		try {
+			Class.forName("org.apache.commons.dbcp.PoolingDriver");
+		} catch (Exception e) {
+			log.error("", e);
+			return;			
+		}
+		
+
+		//MonitoringInfoManager 초기화
 //		try {
 //			MonitoringInfoManager.initInstance();
 //		} catch (Exception e) {
 //			log.error("", e);
 //			return;
 //		}		
-//
-//		//TaskInfoManager 초기화
-//		try {
-//			TaskInfoManager.initInstance();
-//		} catch (Exception e) {
-//			log.error("", e);
-//			return;
-//		}		
+
+		//TaskInfoManager 초기화
+		try {
+			TaskInfoManager.initInstance();
+		} catch (Exception e) {
+			log.error("", e);
+			return;
+		}		
 		
 		
 		//Socket 초기화 및 기동
@@ -90,7 +90,7 @@ public class Server {
 		
 		
 		//모니터링 기동
-//		new TaskManager().startUp();		
+		new TaskManager().startUp();		
 		
 	}
 

@@ -2721,6 +2721,30 @@
     <DESC>그룹선택</DESC>
     <DATA><![CDATA[그룹선택]]></DATA>
   </ROW>
+  <ROW ID="F353" PARAMS="0">
+    <DESC>알림 연동 이력</DESC>
+    <DATA><![CDATA[알림 연동 이력]]></DATA>
+  </ROW>
+  <ROW ID="F354" PARAMS="0">
+    <DESC>송신정보</DESC>
+    <DATA><![CDATA[송신정보]]></DATA>
+  </ROW>
+  <ROW ID="F355" PARAMS="0">
+    <DESC>수신정보</DESC>
+    <DATA><![CDATA[수신정보]]></DATA>
+  </ROW>
+  <ROW ID="F356" PARAMS="0">
+    <DESC>결과</DESC>
+    <DATA><![CDATA[결과]]></DATA>
+  </ROW>
+  <ROW ID="F357" PARAMS="0">
+    <DESC>오류내용</DESC>
+    <DATA><![CDATA[오류내용]]></DATA>
+  </ROW>
+  <ROW ID="F358" PARAMS="1">
+    <DESC>Notification history</DESC>
+    <DATA><![CDATA[Notification history ({0})]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -3374,6 +3398,14 @@
   <ROW ID="M073" PARAMS="0">
     <DESC>알수 없는 오류입니다..</DESC>
     <DATA><![CDATA[알 수 없는 오류입니다..]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M074" PARAMS="0">
+    <DESC>알림 연동 이력을 조회합니다.</DESC>
+    <DATA><![CDATA[알림 연동 이력을 조회합니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

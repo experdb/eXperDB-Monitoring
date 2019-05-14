@@ -265,14 +265,14 @@ public class HchkCollect extends TaskApplication {
 	PreparedStatement pstmt = null;
 	
 	List<HashMap<String, Object>> exportAlertSel = new ArrayList<HashMap<String,Object>>(); // Collect Alert info 
-	List<HashMap<String, Object>> insertExportList = new ArrayList<HashMap<String,Object>>();
-	List<HashMap<String, Object>> updateExportList = new ArrayList<HashMap<String,Object>>();
 	
 	int[] argIndex = {0,0,0};
 	
 	try {			
 			sqlSessionFactory = SqlSessionManager.getInstance();
 			sessionAgent = sqlSessionFactory.openSession();	
+			boolean isSuccess = false;
+			String errorMessages = "";
 			
 			// Get export info
 			HashMap<String, Object> selectExportInfo = new HashMap<String,Object>();
@@ -311,27 +311,40 @@ public class HchkCollect extends TaskApplication {
 			}
 						
 			if (exportAlertSel.size() > 0){
-				connExternalDB = prepareConnection(selectExportInfo, cryptokey);
-				if (connExternalDB != null){
-					pstmt = prepareCommand(connExternalDB, selectExportInfo, argIndex);
-					if (pstmt != null){
-						int updateInstanceId = 0;
-						for (HashMap<String, Object> exportMap : exportAlertSel) {	
-							pstmt.setString(argIndex[0], exportMap.get("sender").toString());
-							pstmt.setString(argIndex[1], exportMap.get("reciever").toString());
-							pstmt.setString(argIndex[2], exportMap.get("messages").toString());
-							pstmt.executeUpdate();
-							insertExportList.add(exportMap);
+				try {
+					connExternalDB = prepareConnection(selectExportInfo, cryptokey);
+					if (connExternalDB != null){
+						pstmt = prepareCommand(connExternalDB, selectExportInfo, argIndex);
+						if (pstmt != null){
+							int updateInstanceId = 0;
+							for (HashMap<String, Object> exportMap : exportAlertSel) {	
+								pstmt.setString(argIndex[0], exportMap.get("sender").toString());
+								pstmt.setString(argIndex[1], exportMap.get("reciever").toString());
+								pstmt.setString(argIndex[2], exportMap.get("messages").toString());
+								pstmt.executeUpdate();
+							}
 						}
+						connExternalDB.commit();
+						if(connExternalDB != null) connExternalDB.close();
+						if(pstmt != null) pstmt.close();
+						isSuccess = true;
+					} else{
+						isSuccess = false;
+						errorMessages = "Connection failed.";
 					}
-					connExternalDB.commit();
-					if(connExternalDB != null) connExternalDB.close();
-					if(pstmt != null) pstmt.close();
-				}
+				} catch (Exception e) {
+					isSuccess = false;
+					errorMessages = e.getMessage();
+					log.error("", e);
+					if(pstmt != null) 
+						pstmt.close();
+				}	
 			}
 
 			//insert export history robin 201802			
-			for (HashMap<String, Object> map : insertExportList) {
+			for (HashMap<String, Object> map : exportAlertSel) {
+				map.put("issuccess", isSuccess);
+				map.put("error", errorMessages);
 				sessionAgent.insert("app.TB_EXPORT_ALERT_I001", map);
 				//update last sent time
 				sessionAgent.update("app.TB_EXPORT_ALERT_U001", map);

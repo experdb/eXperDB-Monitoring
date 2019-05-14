@@ -145,6 +145,7 @@ public class DailyBatchTask {
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
 			
 			try {
+				log.info("Start to Create partitions");
 				// Create partition tables
 				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
 				partitionTableMap.put("tablename", "tb_actv_collect_info");
@@ -183,6 +184,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);	
 				
 				sessionAgent.commit();
+				log.info("End to Create partitions");
 			} catch (Exception e) {
 				sessionAgent.rollback();
 				log.error("", e);
@@ -194,7 +196,7 @@ public class DailyBatchTask {
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
 			
 			try {
-				
+				log.info("Start to make constraints and indexes");
 				// Add constraint of partition tables
 				Date today = new Date();
 				Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
@@ -234,6 +236,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"    , partitionTableMap);
 				//Commit
 				sessionAgent.commit();
+				log.info("End to make constraints and indexes");
 			} catch (Exception e) {
 				sessionAgent.rollback();
 				log.error("", e);

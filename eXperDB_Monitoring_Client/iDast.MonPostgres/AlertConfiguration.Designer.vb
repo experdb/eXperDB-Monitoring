@@ -67,7 +67,7 @@ Partial Class AlertConfiguration
         Me.dtbBufferhitratio = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.tlpWarningItems = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.txtSender = New eXperDB.BaseControls.TextBox()
+        Me.txtBusiness = New eXperDB.BaseControls.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.btnUserGroup = New eXperDB.BaseControls.Button()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -909,7 +909,7 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.txtSender, 2, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtBusiness, 2, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.Label22, 1, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.btnUserGroup, 3, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.Label21, 3, 3)
@@ -932,24 +932,24 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(371, 190)
         Me.TableLayoutPanel1.TabIndex = 27
         '
-        'txtSender
+        'txtBusiness
         '
-        Me.txtSender.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.txtSender.code = False
-        Me.txtSender.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSender.FixedWidth = False
-        Me.txtSender.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtSender.impossibleinput = "!@#$%^&*() \/:*?""<>|'`~"
-        Me.txtSender.Location = New System.Drawing.Point(169, 143)
-        Me.txtSender.MaxByteLength = 16
-        Me.txtSender.Name = "txtSender"
-        Me.txtSender.Necessary = False
-        Me.txtSender.PossibleInput = ""
-        Me.txtSender.Prefix = ""
-        Me.txtSender.Size = New System.Drawing.Size(124, 21)
-        Me.txtSender.StatusTip = ""
-        Me.txtSender.TabIndex = 62
-        Me.txtSender.Value = ""
+        Me.txtBusiness.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.txtBusiness.code = False
+        Me.txtBusiness.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtBusiness.FixedWidth = False
+        Me.txtBusiness.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtBusiness.impossibleinput = "!@#$%^&*() \/:*?""<>|'`~"
+        Me.txtBusiness.Location = New System.Drawing.Point(169, 143)
+        Me.txtBusiness.MaxByteLength = 16
+        Me.txtBusiness.Name = "txtBusiness"
+        Me.txtBusiness.Necessary = False
+        Me.txtBusiness.PossibleInput = ""
+        Me.txtBusiness.Prefix = ""
+        Me.txtBusiness.Size = New System.Drawing.Size(124, 21)
+        Me.txtBusiness.StatusTip = ""
+        Me.txtBusiness.TabIndex = 62
+        Me.txtBusiness.Value = ""
         '
         'Label22
         '
@@ -963,7 +963,7 @@ Partial Class AlertConfiguration
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(124, 12)
         Me.Label22.TabIndex = 61
-        Me.Label22.Text = "Sender Info"
+        Me.Label22.Text = "Business name"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'btnUserGroup
@@ -1138,7 +1138,7 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.85159!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.14842!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.nudLockedtranccnt, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.nudLongrunsqlsec, 2, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.nudLastvacuumDay, 2, 3)
@@ -1174,10 +1174,10 @@ Partial Class AlertConfiguration
         Me.nudLockedtranccnt.BackColor = System.Drawing.Color.White
         Me.nudLockedtranccnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudLockedtranccnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLockedtranccnt.Location = New System.Drawing.Point(214, 23)
+        Me.nudLockedtranccnt.Location = New System.Drawing.Point(213, 23)
         Me.nudLockedtranccnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLockedtranccnt.Name = "nudLockedtranccnt"
-        Me.nudLockedtranccnt.Size = New System.Drawing.Size(53, 21)
+        Me.nudLockedtranccnt.Size = New System.Drawing.Size(52, 21)
         Me.nudLockedtranccnt.TabIndex = 7
         Me.nudLockedtranccnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1185,10 +1185,10 @@ Partial Class AlertConfiguration
         '
         Me.nudLongrunsqlsec.BackColor = System.Drawing.Color.White
         Me.nudLongrunsqlsec.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLongrunsqlsec.Location = New System.Drawing.Point(214, 65)
+        Me.nudLongrunsqlsec.Location = New System.Drawing.Point(213, 65)
         Me.nudLongrunsqlsec.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLongrunsqlsec.Name = "nudLongrunsqlsec"
-        Me.nudLongrunsqlsec.Size = New System.Drawing.Size(53, 21)
+        Me.nudLongrunsqlsec.Size = New System.Drawing.Size(52, 21)
         Me.nudLongrunsqlsec.TabIndex = 9
         Me.nudLongrunsqlsec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1196,10 +1196,10 @@ Partial Class AlertConfiguration
         '
         Me.nudLastvacuumDay.BackColor = System.Drawing.Color.White
         Me.nudLastvacuumDay.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLastvacuumDay.Location = New System.Drawing.Point(214, 107)
+        Me.nudLastvacuumDay.Location = New System.Drawing.Point(213, 107)
         Me.nudLastvacuumDay.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLastvacuumDay.Name = "nudLastvacuumDay"
-        Me.nudLastvacuumDay.Size = New System.Drawing.Size(53, 21)
+        Me.nudLastvacuumDay.Size = New System.Drawing.Size(52, 21)
         Me.nudLastvacuumDay.TabIndex = 11
         Me.nudLastvacuumDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1207,10 +1207,10 @@ Partial Class AlertConfiguration
         '
         Me.nudConfailedcnt.BackColor = System.Drawing.Color.White
         Me.nudConfailedcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudConfailedcnt.Location = New System.Drawing.Point(214, 149)
+        Me.nudConfailedcnt.Location = New System.Drawing.Point(213, 149)
         Me.nudConfailedcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudConfailedcnt.Name = "nudConfailedcnt"
-        Me.nudConfailedcnt.Size = New System.Drawing.Size(53, 21)
+        Me.nudConfailedcnt.Size = New System.Drawing.Size(52, 21)
         Me.nudConfailedcnt.TabIndex = 15
         Me.nudConfailedcnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1218,10 +1218,10 @@ Partial Class AlertConfiguration
         '
         Me.nudIdletranscnt.BackColor = System.Drawing.Color.White
         Me.nudIdletranscnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudIdletranscnt.Location = New System.Drawing.Point(214, 191)
+        Me.nudIdletranscnt.Location = New System.Drawing.Point(213, 191)
         Me.nudIdletranscnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudIdletranscnt.Name = "nudIdletranscnt"
-        Me.nudIdletranscnt.Size = New System.Drawing.Size(53, 21)
+        Me.nudIdletranscnt.Size = New System.Drawing.Size(52, 21)
         Me.nudIdletranscnt.TabIndex = 8
         Me.nudIdletranscnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1229,10 +1229,10 @@ Partial Class AlertConfiguration
         '
         Me.nudUnusedindexcnt.BackColor = System.Drawing.Color.White
         Me.nudUnusedindexcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudUnusedindexcnt.Location = New System.Drawing.Point(214, 275)
+        Me.nudUnusedindexcnt.Location = New System.Drawing.Point(213, 275)
         Me.nudUnusedindexcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudUnusedindexcnt.Name = "nudUnusedindexcnt"
-        Me.nudUnusedindexcnt.Size = New System.Drawing.Size(53, 21)
+        Me.nudUnusedindexcnt.Size = New System.Drawing.Size(52, 21)
         Me.nudUnusedindexcnt.TabIndex = 10
         Me.nudUnusedindexcnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1240,10 +1240,10 @@ Partial Class AlertConfiguration
         '
         Me.nudLastAnalyzeday.BackColor = System.Drawing.Color.White
         Me.nudLastAnalyzeday.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLastAnalyzeday.Location = New System.Drawing.Point(214, 233)
+        Me.nudLastAnalyzeday.Location = New System.Drawing.Point(213, 233)
         Me.nudLastAnalyzeday.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLastAnalyzeday.Name = "nudLastAnalyzeday"
-        Me.nudLastAnalyzeday.Size = New System.Drawing.Size(53, 21)
+        Me.nudLastAnalyzeday.Size = New System.Drawing.Size(52, 21)
         Me.nudLastAnalyzeday.TabIndex = 13
         Me.nudLastAnalyzeday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1257,7 +1257,7 @@ Partial Class AlertConfiguration
         Me.cbxLockedtranccnt.Location = New System.Drawing.Point(39, 23)
         Me.cbxLockedtranccnt.Name = "cbxLockedtranccnt"
         Me.cbxLockedtranccnt.Radius = 10
-        Me.cbxLockedtranccnt.Size = New System.Drawing.Size(169, 16)
+        Me.cbxLockedtranccnt.Size = New System.Drawing.Size(168, 16)
         Me.cbxLockedtranccnt.TabIndex = 16
         Me.cbxLockedtranccnt.Text = "Locked transaction count"
         Me.cbxLockedtranccnt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1644,6 +1644,6 @@ Partial Class AlertConfiguration
     Friend WithEvents cmbNotiUsers As eXperDB.BaseControls.ComboBox
     Friend WithEvents btnUserGroup As eXperDB.BaseControls.Button
     Friend WithEvents Label22 As System.Windows.Forms.Label
-    Friend WithEvents txtSender As eXperDB.BaseControls.TextBox
+    Friend WithEvents txtBusiness As eXperDB.BaseControls.TextBox
 
 End Class

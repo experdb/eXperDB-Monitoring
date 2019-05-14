@@ -1,5 +1,6 @@
 package experdb.mnt.task;
 
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.sql.DriverManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,7 +25,7 @@ import experdb.mnt.eXperDBMAConfig;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 
-public class TaskManager implements Runnable{
+public class TaskManager{
 	private static Logger log = Logger.getLogger(TaskManager.class);
 	
 	public void startUp() {
@@ -32,10 +33,17 @@ public class TaskManager implements Runnable{
 		log.info("수집 TASK를 기동합니다.");
 		log.info("************************************************************");
 		
-		Thread mainThread = new Thread(this);
+		String currentThreadName = Thread.currentThread().getName();
+		
+		Thread mainThread = new Thread(new ExceptionLeakingTask(), "TaskManager");
+		mainThread.setUncaughtExceptionHandler(new ThreadExceptionHandler("TaskManager"));
 		mainThread.start();
 	}
-	
+}
+
+class ExceptionLeakingTask implements Runnable {
+
+	private static Logger log = Logger.getLogger(TaskManager.class);
 	@Override
 	public void run() {
 		try {
@@ -89,17 +97,19 @@ public class TaskManager implements Runnable{
 					SimpleDateFormat transFormat = new SimpleDateFormat("mm:ss");
 					Date now = new Date();
 					String strCurrentTime = transFormat.format(now);
-					Date batchStartHourlyTime = transFormat.parse(MonitoringInfoManager.getInstance().getConfig("daily_batch_start_time").toString());
+					Date batchStartHourlyTime = transFormat.parse(MonitoringInfoManager.getInstance().getConfig("daily_batch_start_time").toString().substring(3));
 					Date batchEndHourlyTime = new Date(batchStartHourlyTime.getTime() + 1000 * 10);
 					String strBatchTimeStart = transFormat.format(batchStartHourlyTime);
 					String strBatchTimeEnd = transFormat.format(batchEndHourlyTime);
 
 					if (isStart == true){
+						log.info("Start batch hourly (init)");
 						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
 						isStart = false;
 					}
 					
 					if(strCurrentTime.compareTo(strBatchTimeStart) > 0 && strCurrentTime.compareTo(strBatchTimeEnd) < 0){
+						log.info("Start batch hourly");
 						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
 					}
 					//Hourly batch------------- End
@@ -155,7 +165,7 @@ public class TaskManager implements Runnable{
 		} catch (Exception e) {
 			log.error("", e);
 		}
-		
+		throw new RuntimeException();
 	}
 	public static void updateDriverStatus(){
 		log.info("Update driver status");
@@ -173,4 +183,19 @@ public class TaskManager implements Runnable{
 			log.error(e);
 		}
 	}
+}
+
+class ThreadExceptionHandler implements UncaughtExceptionHandler{
+	private String handlerName;
+	private static Logger log = Logger.getLogger(TaskManager.class);
+	
+	public ThreadExceptionHandler(String handlerName) {
+		this.handlerName = handlerName;
+	}
+
+	@Override
+	public void uncaughtException(Thread thread, Throwable e) {
+		log.error(handlerName + " caught Exception in Thread" + thread.getName(), e); 
+	}
+
 }

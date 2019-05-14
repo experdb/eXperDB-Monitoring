@@ -26,7 +26,7 @@
 	<property name="src.experdb.dir" value="src/experdb" />
 	<property name="lib.dir" value="lib" />
 	<property name="log.dir" value="log" />
-
+	<property name="src.sqlmapper.dir" value="src/sqlMapper" />
 
 	<property name="container.lib.dir" value="ant_build/lib" />
 	
@@ -38,7 +38,7 @@
 	<property name="output.experdb.dir" value="${output.dir}/experdb" />
 	<property name="output.lib.dir" value="${output.dir}/lib" />
 	<property name="output.log.dir" value="${output.dir}/log" />
-
+	<property name="output.sqlmapper.dir" value="${output.dir}/sqlMapper" />
 	
 	
 	<property name="output.install.dir" value="${build.dir}/install" />
@@ -46,6 +46,7 @@
 	
 	<path id="classpath">
 		<pathelement location="${src.experdb.dir}" />
+		<pathelement location="${src.sqlmapper.dir}" />
 		<pathelement location="${config.dir}" />
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
@@ -72,7 +73,7 @@
 		<mkdir dir="${output.experdb.dir}" />
 		<mkdir dir="${output.lib.dir}" />
 		<mkdir dir="${output.log.dir}" />
-
+		<mkdir dir="${output.sqlmapper.dir}" />
 
 	</target>
 	
@@ -92,7 +93,10 @@
 		<copy todir="${output.lib.dir}">
 			<fileset dir="${lib.dir}" />
         </copy>
-        
+                
+		<copy todir="${output.sqlmapper.dir}">
+			<fileset dir="${src.sqlmapper.dir}" />
+        </copy>
 
 	</target>
 	
@@ -103,6 +107,7 @@
 	   		<tarfileset dir="${output.experdb.dir}" prefix="experdb"/>
 	   		<tarfileset dir="${output.lib.dir}" prefix="lib"/>
 	   		<tarfileset dir="${output.log.dir}" prefix="log"/>
+	   		<tarfileset dir="${output.sqlmapper.dir}" prefix="sqlMapper"/>
 
 	   </tar>
 	   <gzip src="${output.install.dir}/${module.name}.tar" zipfile="${output.install.dir}/${module.name}.tar.gz"/>

@@ -8,7 +8,20 @@ Public Class frmNotiConfig
 
     Private _clsQuery As clsQuerys
 
-    Public Sub New()
+    Private _SvrpList As List(Of GroupInfo.ServerInfo)
+    ''' <summary>
+    ''' Group List Items 안에 서버 리스트가 있음. 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property SvrpList As List(Of GroupInfo.ServerInfo)
+        Get
+            Return _SvrpList
+        End Get
+    End Property
+
+    Public Sub New(ByVal svrLst As List(Of GroupInfo.ServerInfo))
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -24,7 +37,10 @@ Public Class frmNotiConfig
         btnTest.Text = p_clsMsgData.fn_GetData("F002")
         btnAct.Text = p_clsMsgData.fn_GetData("F014")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
+        btnNotiHistory.Text = p_clsMsgData.fn_GetData("F353")
         StatusLabel.Text = p_clsMsgData.fn_GetData("M068")
+
+        _SvrpList = svrLst
 
         Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
         Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
@@ -67,7 +83,7 @@ Public Class frmNotiConfig
         Dim COC As New Common.ClsObjectCtl
         Dim strLocIP As String = COC.GetLocalIP
         Dim strStatements = txtStatements.Text.Replace("'", "''")
-        Dim nReturn As Integer = _clsQuery.insertAlertLinkConfig(cmbDBMS.SelectedIndex, txtIP.Text, txtPort.Text, txtDbnm.Text, txtUsr.Text, txtPW.Text, strStatements, strLocIP)
+        Dim nReturn As Integer = _clsQuery.insertAlertLinkConfig(cmbDBMS.SelectedIndex, txtIP.Text, txtPort.Text, txtDbnm.Text, txtUsr.Text, txtPW.Text, strStatements, txtSender.Text, strLocIP)
         If nReturn < 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M029"))
         Else
@@ -231,6 +247,7 @@ Public Class frmNotiConfig
             txtPW.Text = dt.Rows(0).Item("LINK_PASSWORD")
             _OldPWValue = txtPW.Text
             txtStatements.Text = dt.Rows(0).Item("LINK_STATEMENTS")
+            txtSender.Text = dt.Rows(0).Item("NOTIFICATION_SENDER")
             btnAct.Enabled = False
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -345,4 +362,10 @@ Public Class frmNotiConfig
 
     End Function
 
+    Private Sub btnNotiHistory_Click(sender As Object, e As EventArgs) Handles btnNotiHistory.Click
+        Dim frmUM As New frmNotiHistory(_SvrpList)
+        If frmUM.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+        End If
+    End Sub
 End Class
