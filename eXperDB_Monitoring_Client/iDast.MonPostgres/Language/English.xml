@@ -3331,7 +3331,7 @@
   </ROW>
   <ROW ID="M065" PARAMS="1">
     <DESC>버젼 불일치</DESC>
-    <DATA><![CDATA[Client-server version mismatch.\n\n{0}]]></DATA>
+    <DATA><![CDATA[Client-server version mismatch.\n\n{0} Do you want to install the client as version of the server?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

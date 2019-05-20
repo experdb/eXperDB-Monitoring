@@ -32,6 +32,11 @@
 	      FROM TB_CONFIG
 	</select>
 	
+	<select id="TB_CONFIG_R003" resultType="hashmap">
+		SELECT VERSION, BINARY_PATH 
+	      FROM TB_CONFIG
+	</select>
+	
 	<select id="TB_SYS_LOG_R001" resultType="hashmap">
 		SELECT REG_DATE,
 		       TASK_CD,

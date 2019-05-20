@@ -119,6 +119,43 @@ public class SocketExecutorForeXperDBMAManager implements Runnable {
 			        sendBuff = new byte[temp2.length + 10];
 			        System.arraycopy(temp2, 0, sendBuff, 10, temp2.length);
 			        System.arraycopy(temp3, 0, sendBuff, 0, temp3.length);
+			        
+				} else if(_tran_cd.startsWith("DX100")) // manager 처리 전문일 경우
+				{
+					SocketApplication clApp = null;
+					
+			        try {
+			        	clApp	= (SocketApplication)Class.forName("experdb.mnt.listener.task." + _tran_cd).newInstance();
+			        } catch (Exception e) {
+			        	log.debug("experdb.mnt.listener.task." + _tran_cd + "\'를 찾을 수 없습니다.");
+			        }
+			        
+//			        log.debug("SocketApplication Loading END............");
+
+			        String res_data = "";
+			        
+			        JSONObject resDataObj = new JSONObject();
+			        
+			        try {
+			        	log.debug("SocketApplication [" + _tran_cd + "]을 기동합니다.");
+				        resDataObj = clApp.perform(_tran_cd, _tran_req_data);
+
+			        } catch (Exception e) {
+			        	resDataObj.put("error_cd", "9999");
+			        	resDataObj.put("error_msg", "오류가 발생하였습니다. 관리자에게 문의하시기 바랍니다.");
+			        	log.error("", e);
+			        }				
+								        
+			        JSONObject outputObj = new JSONObject();
+			        outputObj.put("_tran_cd", _tran_cd);
+			        outputObj.put("_tran_res_data", resDataObj);
+			        log.info("Output length : [" + outputObj.toString().getBytes() + "]");
+			        byte[] temp2 = outputObj.toString().getBytes();
+			        byte[] temp3 = FillStringL(String.valueOf(temp2.length), '0', 10).getBytes();
+			        
+			        sendBuff = new byte[temp2.length + 10];
+			        System.arraycopy(temp2, 0, sendBuff, 10, temp2.length);
+			        System.arraycopy(temp3, 0, sendBuff, 0, temp3.length);
 				} else{ //bypass 전문일 경우
 					ClientConnector cconn = new ClientConnector();
 					
@@ -135,7 +172,7 @@ public class SocketExecutorForeXperDBMAManager implements Runnable {
 				}
 				
 			        
-		        log.info("OUTPUT : [" + new String(sendBuff) + "]");	
+		        log.debug("OUTPUT : [" + new String(sendBuff) + "]");	
 		        
 				send(sendBuff);
 				

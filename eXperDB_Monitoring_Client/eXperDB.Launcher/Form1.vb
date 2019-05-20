@@ -20,7 +20,8 @@ Public Class Form1
         GW_ENABLEDPOPUP = 6
         GW_MAX = 6
     End Enum
-
+    Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\Software\K4M\eXperDB.Monitoring\Settings"
+    Private Const APPNAME As String = "eXperDB.Monitoring.exe"
     <DllImport("user32")> _
     Public Shared Function FindWindow(lpClassName As [String], lpWindowName As [String]) As IntPtr
     End Function
@@ -62,7 +63,8 @@ Public Class Form1
         Next
 
         If proc Is Nothing Then
-            proc = Process.Start("C:\Program Files\eXperDB.Monitoring\Monitoring\eXperDB.Monitoring.exe")
+            Dim installPath = My.Computer.Registry.GetValue(REGISTRYPATH, "InstallPath", Nothing) + "\" + APPNAME
+            proc = Process.Start(installPath)
             Threading.Thread.Sleep(3000)
         End If
         Dim hWnd As System.IntPtr = proc.MainWindowHandle()

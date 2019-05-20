@@ -88,6 +88,7 @@ create table tb_config (
     agent_port character varying(10),
     serial_key character varying(1000),
     version character varying(10),
+    binary_path character varying(200),
     last_mod_dt timestamp without time zone,
     last_mod_ip character varying(15)
 );
@@ -751,7 +752,8 @@ insert into tb_config(
 						,last_mod_ip
 						,serial_key
 						,version
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '${EXPERDB_VERSION}');
+						,binary_path
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '${EXPERDB_VERSION}', '/experdb/app/experdb_mon/eXperDB_Server/');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');

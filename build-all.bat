@@ -60,6 +60,7 @@ md install
 
 IF "%CLI%"=="t" (
 	copy "eXperDB_Monitoring_Client\eXperDB_Mon_Postgres_InnoSetup\Output\eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe" install
+	bash -c "md5sum install/eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe | awk '{print toupper($1)}' > install/eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe.md5"
 )
 REM IF "%SVR%"=="t" (
 REM	copy eXperDB_Server\install\eXperDB_Agent_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%.tar.gz install
@@ -69,10 +70,10 @@ REM	copy eXperDB_Repository\eXperDB_Repository_%BASE_VER_UDERSCORE%_%GIT_COMMIT_
 REM )
 
 IF "%REP%"=="t" (
-	sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
+	sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH% eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe
 ) else (
 	IF "%SVR%"=="t" (
-		sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
+		sh -e pkg_server.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH% eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe
 	)
 )
 IF "%DST%"=="t" (

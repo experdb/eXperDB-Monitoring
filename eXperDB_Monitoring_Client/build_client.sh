@@ -23,6 +23,7 @@ set_version_installer()
 }
 
 (cd "iDast.MonPostgres/My Project/" && gen_version_assemblyinfo $1)
+(cd "eXperDB.Downloader/My Project/" && gen_version_assemblyinfo $1)
 
 msbuild.exe eXperDB.MonPostgres.sln -t:Clean -p:Configuration=Release
 msbuild.exe eXperDB.MonPostgres.sln -t:Rebuild -p:Configuration=Release

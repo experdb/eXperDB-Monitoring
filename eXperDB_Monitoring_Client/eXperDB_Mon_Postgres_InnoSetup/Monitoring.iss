@@ -2,13 +2,14 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "eXperDB Monitoring"
-#define MyAppVersion "10.4.2.285"
-#define MyAppVersionDir "10_4_2_285"
+#define MyAppVersion "10.4.4.316"
+#define MyAppVersionDir "10_4_4_316"
 #define MyAppPublisher "K4M"
 #define MyAppURL "http://www.k4m.com"
 #define MyAppExeName "eXperDB.Monitoring.exe"
 #define MyPgName "eXperDB.Monitoring"
 #define MyLauncherName "eXperDB.Launcher"
+#define MyDownloaderName "eXperDB.Downloader"
 ;#define SourcePath "D:\01.Project\K4M\DX-Monitoring\dxmon\DX-Monitoring_client"
 #define SourcePath ".."
 
@@ -58,6 +59,7 @@ Name: "postgre\win64"; Description: "ODBC for x64(64bit)"; Types: full win64; Ch
 ; IDast Program File
 Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\{#MyPgName}.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\{#MyLauncherName}.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\{#MyDownloaderName}.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\image\*.*"; DestDir: "{app}\image"; Flags: ignoreversion
 Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\language\*.*"; DestDir: "{app}\language"; Flags: ignoreversion
 Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\bin\Application Files\{#MyPgName}_{#MyAppVersionDir}\Sounds\*.*"; DestDir: "{app}\Sounds"; Flags: ignoreversion
@@ -95,6 +97,9 @@ Name: {app}; Permissions: users-full
 
 [UninstallDelete]
 Type: files; Name: "{app}\config.ini"
+
+[Registry]
+Root: HKLM; Subkey: Software\K4M\eXperDB.Monitoring\Settings; ValueType: string; ValueName: InstallPath; ValueData: {app};
 
 [Code]
 function IsDotNetDetected(version: string; service: cardinal): boolean;

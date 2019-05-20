@@ -1,6 +1,7 @@
 ﻿Public Class frmSvrList
 
-
+    Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\Software\K4M\eXperDB.Monitoring\Settings"
+    Private Const APPNAME As String = "eXperDB.Downloader.exe"
 #Region "Agent"
 
     Private Sub btnConTest_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
@@ -27,9 +28,14 @@
                 If dtTableVersion IsNot Nothing Then
                     Dim ClientVersion As String = Application.ProductVersion
                     Dim ServerVersion As String = dtTableVersion.Rows(0).Item("VERSION")
-
+                    'ClientVersion = "10.4.4.313"
                     If ClientVersion <> ServerVersion Then
-                        MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion))
+                        'MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion))
+                        If MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion), _
+                                  Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
+                            RunDownloader()
+                            Return
+                        End If
                         dtTableVersion.Dispose()
                     End If
                 Else
@@ -968,6 +974,15 @@
         For Each tmpColIdx As Integer In ColHashSet.Keys
             tvNode.Cells(tmpColIdx).Value = DtRow.Item(ColHashSet.Item(tmpColIdx))
         Next
+    End Sub
+
+    Private Sub RunDownloader()
+        Dim proc As Process = Nothing
+        Dim installPath = My.Computer.Registry.GetValue(REGISTRYPATH, "InstallPath", Nothing) + "\" + APPNAME
+        'Dim installPath = "D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github\eXperDB_Monitoring_Client\iDast.MonPostgres\bin\Debug\eXperDB.Downloader.exe"
+        proc = Process.Start(installPath)
+        Threading.Thread.Sleep(500)
+        Me.Close()
     End Sub
 
 #End Region

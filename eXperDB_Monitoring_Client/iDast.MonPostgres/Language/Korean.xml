@@ -3333,7 +3333,7 @@
   </ROW>
   <ROW ID="M065" PARAMS="1">
     <DESC>버젼 불일치</DESC>
-    <DATA><![CDATA[서버와 클라이언트 버전이 일치하지 않습니다.\n\n{0}]]></DATA>
+    <DATA><![CDATA[서버와 클라이언트 버전이 일치하지 않습니다.\n\n{0}\n\n 서버와 같은 버전을 설치하시겠습니까?]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
