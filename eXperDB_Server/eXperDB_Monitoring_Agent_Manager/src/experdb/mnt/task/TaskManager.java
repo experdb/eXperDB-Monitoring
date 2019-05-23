@@ -50,7 +50,7 @@ public class TaskManager implements Runnable{
 				//Instance 정보 변경 여부를 확인한다.
 				while(true) {
 					try {
-						Thread.sleep(60 * 1000);
+						Thread.sleep(60 * 9 * 1000);
 						session = sqlSessionFactory.openSession();
 						HashMap<String, Object> config = session.selectOne("system.TB_SYS_STATUS_R001");
 						int nStatus = Integer.parseInt(config.get("status").toString());

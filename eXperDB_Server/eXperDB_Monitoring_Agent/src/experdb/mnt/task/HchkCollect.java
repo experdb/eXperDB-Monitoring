@@ -283,15 +283,6 @@ public class HchkCollect extends TaskApplication {
 				throw e;
 			}
 			
-			// Get destination info
-			HashMap<String, Object> selectDestinationInfo = new HashMap<String,Object>();
-			try {					
-				selectExportInfo = sessionAgent.selectOne("app.TB_EXPORT_INFO_001");
-			} catch (Exception e) {
-				log.error("", e);
-				throw e;
-			}	
-			
 			try {
 				exportAlertSel = sessionAgent.selectList("app.TB_EXPORT_ALERT_001");
 			} catch (Exception e) {

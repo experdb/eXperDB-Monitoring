@@ -2696,7 +2696,7 @@
             Return False
         End Try
     End Function
-    Public Function DeleteUser(ByVal UserID As Integer, ByVal LstIp As String) As Integer
+    Public Function DeleteUser(ByVal UserID As String, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("DELETEUSER")
