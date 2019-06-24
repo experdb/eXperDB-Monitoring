@@ -287,19 +287,20 @@ namespace AdvancedDataGridView
                              
                 //}
                 // VisualStyle 오류로 일단 VisualStyle 사용을 제거함. End
-                int h = 8;
-                int w = 8;
-                int x = glyphRect.X;
-                int y = glyphRect.Y + (glyphRect.Height / 2) - 4;
-                //MessageBox.Show("x = " + x.ToString() + ", y= " + y.ToString()); 
+                if (node._grid.HideExpandeIcon == false){
+                    int h = 8;
+                    int w = 8;
+                    int x = glyphRect.X;
+                    int y = glyphRect.Y + (glyphRect.Height / 2) - 4;
+                    //MessageBox.Show("x = " + x.ToString() + ", y= " + y.ToString()); 
 
-                graphics.DrawRectangle(new Pen(SystemBrushes.ControlDark), x, y, w, h);
-                graphics.FillRectangle(new SolidBrush(Color.White), x + 1, y + 1, w - 1, h - 1);
-                graphics.DrawLine(new Pen(new SolidBrush(Color.Black)), x + 2, y + 4, x + w - 2, y + 4);
+                    graphics.DrawRectangle(new Pen(SystemBrushes.ControlDark), x, y, w, h);
+                    graphics.FillRectangle(new SolidBrush(Color.White), x + 1, y + 1, w - 1, h - 1);
+                    graphics.DrawLine(new Pen(new SolidBrush(Color.Black)), x + 2, y + 4, x + w - 2, y + 4);
 
-                if (!node.IsExpanded)
-                    graphics.DrawLine(new Pen(new SolidBrush(Color.Black)), x + 4, y + 2, x + 4, y + h - 2); 
-
+                    if (!node.IsExpanded)
+                        graphics.DrawLine(new Pen(new SolidBrush(Color.Black)), x + 4, y + 2, x + 4, y + h - 2); 
+               }
             }
 
 

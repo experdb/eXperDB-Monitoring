@@ -302,15 +302,19 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        radCpu.Style = iniConfig.ReadValue("STYLE", "CPU", 2)
-        radCpu.ItemReverse = iniConfig.ReadValue("STYLE", "CPUREVERSE", False)
+        'radCpu.Style = iniConfig.ReadValue("STYLE", "CPU", 2)
+        'radCpu.ItemReverse = iniConfig.ReadValue("STYLE", "CPUREVERSE", False)
+        radCpu.Style = p_UserENv.CFG_CPUStyle
+        radCpu.ItemReverse = p_UserENv.CFG_CPUReverse
 
         ' Memory 정보 
         grpMem.Text = p_clsMsgData.fn_GetData("F036")
         colGrpMemSvrNm.HeaderText = p_clsMsgData.fn_GetData("F033")
         colGrpMemSvrUsage.HeaderText = p_clsMsgData.fn_GetData("F034")
-        radMem.Style = iniConfig.ReadValue("STYLE", "MEM", 2)
-        radMem.ItemReverse = iniConfig.ReadValue("STYLE", "MEMREVERSE", False)
+        'radMem.Style = iniConfig.ReadValue("STYLE", "MEM", 2)
+        'radMem.ItemReverse = iniConfig.ReadValue("STYLE", "MEMREVERSE", False)
+        radMem.Style = p_UserENv.CFG_MEMStyle
+        radMem.ItemReverse = p_UserENv.CFG_MEMReverse
 
         ''Remove 0202
         '' Request Information
@@ -938,11 +942,14 @@
         ' 열려있는 창을 닫는다. 
         Dim ArrFrm As New ArrayList
         For Each tmpFrm As Form In Application.OpenForms
-            ArrFrm.Add(tmpFrm)
+            If TryCast(tmpFrm, frmLogin) Is Nothing Then
+                ArrFrm.Add(tmpFrm)
+            End If
         Next
 
         For Each tmpFrm As Form In ArrFrm
             If TryCast(tmpFrm, frmSvrList) IsNot Nothing Then
+                Me.Owner = Nothing
                 tmpFrm.Show()
             Else
                 tmpFrm.Close()
@@ -973,9 +980,9 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub mnuConfig_Click(sender As Object, e As EventArgs) Handles mnuConfig.Click
-        Dim frmConfig As New frmConfig
-        frmConfig.ShowDialog()
-        ReadConfig()
+        'Dim frmConfig As New frmConfig
+        'frmConfig.ShowDialog()
+        'ReadConfig()
 
 
     End Sub
@@ -4345,13 +4352,23 @@
         End If
         isNodeCollapsingOrExpanding = False
         isClickdgvClusters = True
-        openMonDetail(e.RowIndex)
+
+        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 1)
+        If hasPermission = True Then
+            openMonDetail(e.RowIndex)
+        Else
+            MsgBox(p_clsMsgData.fn_GetData("M088"))
+            Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(e.RowIndex).Tag, GroupInfo.ServerInfo)
+            AccessLog("cluster_detail", 1, "", tmpSvrInfo.InstanceID)
+        End If
     End Sub
 
     Private Sub openMonDetail(ByVal rowIndex As Integer)
         If fn_FormisLock(Me, _AgentCn) = True Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M005")
             MsgBox(strMsg)
+            Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(rowIndex).Tag, GroupInfo.ServerInfo)
+            AccessLog("cluster_detail", 1, "", tmpSvrInfo.InstanceID)
             Return
         End If
 
@@ -4361,10 +4378,11 @@
             Return
         End If
 
+
         ' Tag에 값을 넝ㅎ어 두었음. 
         'Dim svrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Nodes(e.RowIndex).Tag, GroupInfo.ServerInfo)
         Dim svrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(rowIndex).Tag, GroupInfo.ServerInfo)
-
+        AccessLog("cluster_detail", 0, "", svrInfo.InstanceID)
         If dgvClusters.Rows(rowIndex).Cells(coldgvClusterIsOpenSingle.Index).Value <> "1" Then
             Dim FrmSub As New frmMonDetail(svrInfo, _ElapseInterval, AgentInfo, AgentCn)
             'FrmSub.Owner = Me
@@ -4418,4 +4436,62 @@
         End Try
     End Sub
 
+    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+                  Optional strLog As String = "", Optional intInstanceID As Integer = -1)
+        Try
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
+            Dim clsQu As New clsQuerys(_AgentCn)
+            clsQu.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP, intInstanceID)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        Dim ps As System.Drawing.Point = Cursor.Position
+        mnuLogout.Text = p_clsMsgData.fn_GetData("F939")
+        mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
+        mnuPreferences.Text = p_clsMsgData.fn_GetData("F916")
+        mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
+        ps.X -= mnuMenu.Width
+        If p_cSession.isAdmin = False Then
+            mnuMenu.Items(2).Visible = False
+        End If
+        mnuMenu.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
+        mnuMenu.Tag = lblTemp.Parent
+    End Sub
+#Region "menu"
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click
+        Dim BretFrm As Form = Nothing
+        Dim stDt As DateTime = Now.AddMinutes(-10)
+        Dim edDt As DateTime = Now
+
+        If sender.Name = "mnuLogout" Then
+            Me.Owner.Close()
+        ElseIf sender.Name = "mnuUserConfig" Then
+            If CheckPassword() = False Then Return
+            Dim userConfig As New frmConfig(AgentCn)
+            userConfig.ShowDialog()
+        ElseIf sender.Name = "mnuPreferences" Then
+            If CheckPassword() = False Then Return
+            Dim Preferences As New frmPreferences(AgentCn)
+            Preferences.ShowDialog()
+        Else
+            Dim version As New frmVersion(AgentCn)
+            version.ShowDialog()
+        End If
+
+    End Sub
+
+    Private Function CheckPassword() As Boolean
+        Dim frmPw As New frmPassword(AgentCn)
+        If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+#End Region
 End Class

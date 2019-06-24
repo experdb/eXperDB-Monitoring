@@ -38,6 +38,7 @@ namespace AdvancedDataGridView
 		private Control hideScrollBarControl;
         private bool _showLines = true;
         private bool _virtualNodes = false;
+        private bool _hideExpanderIcon = false;
 
         //internal VisualStyleRenderer rOpen = new VisualStyleRenderer(VisualStyleElement.TreeView.Glyph.Opened);
         //internal VisualStyleRenderer rClosed = new VisualStyleRenderer(VisualStyleElement.TreeView.Glyph.Closed);
@@ -201,7 +202,21 @@ namespace AdvancedDataGridView
                 } 
             }
         }
-	
+
+        [DefaultValue(true)]
+        public bool HideExpandeIcon
+        {
+            get { return this._hideExpanderIcon; }
+            set
+            {
+                if (value != this._hideExpanderIcon)
+                {
+                    this._hideExpanderIcon = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
 		public ImageList ImageList
 		{
 			get { return this._imageList; }

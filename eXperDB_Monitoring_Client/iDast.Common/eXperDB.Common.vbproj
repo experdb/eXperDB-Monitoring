@@ -80,6 +80,8 @@
     <Compile Include="clsObjectCtl.vb" />
     <Compile Include="ClsRegCtl.vb" />
     <Compile Include="clsSecurity.vb" />
+    <Compile Include="clsUserEnv.vb" />
+    <Compile Include="clsSession.vb" />
     <Compile Include="clsSocket.vb" />
     <Compile Include="clsValidationCerti.vb" />
     <Compile Include="ClsValueDescription.vb" />
@@ -206,6 +208,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IPAddressExtensions.cs" />
     <Content Include="Shared\Cfg\Meta.Ctl.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

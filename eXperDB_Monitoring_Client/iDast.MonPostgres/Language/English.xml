@@ -82,7 +82,7 @@
   </ROW>
   <ROW ID="F004" PARAMS="0">
     <DESC>관리자 비밀번호</DESC>
-    <DATA><![CDATA[Administrator Password]]></DATA>
+    <DATA><![CDATA[Password]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -362,7 +362,7 @@
   </ROW>
   <ROW ID="F039" PARAMS="0">
     <DESC>아이템 방향</DESC>
-    <DATA><![CDATA[The Small value , Outside of the circle]]></DATA>
+    <DATA><![CDATA[Direction to converge.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3105,9 +3105,9 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="M037" PARAMS="2">
+  <ROW ID="M037" PARAMS="1">
     <DESC>비밀번호길이</DESC>
-    <DATA><![CDATA[The password should contain at least 8~12 alphanumeric characters.]]></DATA>
+    <DATA><![CDATA[The password should contain at least {0}~12 alphanumeric characters.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3187,7 +3187,7 @@
   </ROW>
   <ROW ID="M047" PARAMS="0">
     <DESC>Configuration Setting</DESC>
-    <DATA><![CDATA[Customize your preferences.]]></DATA>
+    <DATA><![CDATA[Configure user preferences.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3227,7 +3227,7 @@
   </ROW>
   <ROW ID="M052" PARAMS="0">
     <DESC>Admin Password</DESC>
-    <DATA><![CDATA[Enter the administrator password.]]></DATA>
+    <DATA><![CDATA[Please Enter the password.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3259,7 +3259,7 @@
   </ROW>
   <ROW ID="M056" PARAMS="0">
     <DESC>DBMS Information Control(Modify)</DESC>
-    <DATA><![CDATA[Change password for Administrator.]]></DATA>
+    <DATA><![CDATA[Change the password.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3347,7 +3347,7 @@
   </ROW>
   <ROW ID="M067" PARAMS="0">
     <DESC>User Information Control</DESC>
-    <DATA><![CDATA[Add/Modify user information.]]></DATA>
+    <DATA><![CDATA[User information]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3407,6 +3407,115 @@
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M075" PARAMS="0">
+    <DESC>사용자 활동 이력을 조회합니다.</DESC>
+    <DATA><![CDATA[User activity log]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M076" PARAMS="0">
+    <DESC>변경 사항이 존재합니다. 적용하시겠습니까?</DESC>
+    <DATA><![CDATA[Do you want to apply changes?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M077" PARAMS="0">
+    <DESC>사용자 ID 혹은 Password를 확인하세요.</DESC>
+    <DATA><![CDATA[Please check your User ID or Password.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M078" PARAMS="0">
+    <DESC>로그인</DESC>
+    <DATA><![CDATA[Failed to login.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M079" PARAMS="0">
+    <DESC>클러스터 모니터링 그룹설정이 필요합니다.</DESC>
+    <DATA><![CDATA[You need to set the monitoring permission for the cluster group.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M080" PARAMS="0">
+    <DESC>사용자 정보를 조회 할 수 없습니다.</DESC>
+    <DATA><![CDATA[Failed to find user information]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M081" PARAMS="1">
+    <DESC>비밀번호길이</DESC>
+    <DATA><![CDATA[The password should contain at least {0}~16 nonalpha/alphanumeric characters.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M082" PARAMS="0">
+    <DESC>적용</DESC>
+    <DATA><![CDATA[The changes have been applied.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M083" PARAMS="1">
+    <DESC>로그인 시도</DESC>
+    <DATA><![CDATA[To many login attempts.\nPlease try again in {0} seconds.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M084" PARAMS="0">
+    <DESC><![CDATA[Lock User]]></DESC>
+    <DATA><![CDATA[Your Account has been locked out.\nPlease contact your administrator.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M085" PARAMS="1">
+    <DESC>비밀번호 변경 알림</DESC>
+    <DATA><![CDATA[Your password will expire in {0} days.\nPlease change your password using the user preference menu.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M086" PARAMS="0">
+    <DESC>접속허용IP</DESC>
+    <DATA><![CDATA[This IP address is not allowed access.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M087" PARAMS="0">
+    <DESC>접속허용IP</DESC>
+    <DATA><![CDATA[Manage user account properties and account policy.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M088" PARAMS="0">
+    <DESC>권한부족</DESC>
+    <DATA><![CDATA[insufficient privileges.]]></DATA>
     <VALUECAST />
   </ROW>
   <ROW ID="F900" PARAMS="0">
@@ -3478,9 +3587,188 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  
 
+  <ROW ID="F909" PARAMS="0">
+    <DESC>사용자 설정</DESC>
+    <DATA><![CDATA[User management]]></DATA>
+    <VALUECAST />
+  </ROW>
 
+  <ROW ID="F910" PARAMS="0">
+    <DESC>화면 설정</DESC>
+    <DATA><![CDATA[UI settings]]></DATA>
+    <VALUECAST />
+  </ROW>
 
-  alphanumeric characters and special characters.
+  <ROW ID="F911" PARAMS="0">
+    <DESC>수집서버설정</DESC>
+    <DATA><![CDATA[Server properties]]></DATA>
+    <VALUECAST />
+  </ROW>
+
+  <ROW ID="F912" PARAMS="0">
+    <DESC>수집주기설정</DESC>
+    <DATA><![CDATA[Collection settings]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F913" PARAMS="0">
+    <DESC>사용자권한관리</DESC>
+    <DATA><![CDATA[User permission settings]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F914" PARAMS="0">
+    <DESC>사용자보안관리</DESC>
+    <DATA><![CDATA[User security settings]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F915" PARAMS="0">
+    <DESC>부서</DESC>
+    <DATA><![CDATA[Departments]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F916" PARAMS="0">
+    <DESC>사용자 관리</DESC>
+    <DATA><![CDATA[User Management]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F917" PARAMS="0">
+    <DESC>사용자 이력</DESC>
+    <DATA><![CDATA[User history]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F918" PARAMS="0">
+    <DESC>사용자 권한 리스트</DESC>
+    <DATA><![CDATA[User privileges]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F919" PARAMS="0">
+    <DESC>중복체크</DESC>
+    <DATA><![CDATA[중복체크]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F920" PARAMS="0">
+    <DESC>관리자</DESC>
+    <DATA><![CDATA[Adminitrator]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F921" PARAMS="0">
+    <DESC>최초로그인시암호변경</DESC>
+    <DATA><![CDATA[Change password on first login]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F922" PARAMS="0">
+    <DESC>알림수신</DESC>
+    <DATA><![CDATA[Notification]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F923" PARAMS="0">
+    <DESC>취소</DESC>
+    <DATA><![CDATA[Cancel]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F924" PARAMS="0">
+    <DESC>계정 관리 정책</DESC>
+    <DATA><![CDATA[Account Policy]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F925" PARAMS="0">
+    <DESC>계정잠금설정(로그인 실패 횟수)</DESC>
+    <DATA><![CDATA[Maximum failed login attempts]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F926" PARAMS="0">
+    <DESC>계정잠금만료시간</DESC>
+    <DATA><![CDATA[Lock timeout]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F927" PARAMS="0">
+    <DESC>계정잠금설정(미활동 기간)</DESC>
+    <DATA><![CDATA[User inactivity limit]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F928" PARAMS="0">
+    <DESC>중복로그인허용</DESC>
+    <DATA><![CDATA[Allow Duplicate Logins]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F929" PARAMS="0">
+    <DESC>숫자특수문자포함</DESC>
+    <DATA><![CDATA[Include numeric and non-alphanumeric characters]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F930" PARAMS="0">
+    <DESC>최소암호길이</DESC>
+    <DATA><![CDATA[]]>Munimum password length</DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F931" PARAMS="0">
+    <DESC>비밀번호 만료 일자</DESC>
+    <DATA><![CDATA[Password expires]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F932" PARAMS="0">
+    <DESC>비밀번호 만료 알림</DESC>
+    <DATA><![CDATA[Alert password expires]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F933" PARAMS="0">
+    <DESC>비밀번호 관리 정책</DESC>
+    <DATA><![CDATA[Password policy]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F934" PARAMS="0">
+    <DESC>사용자별 IP 접속 허용리스트</DESC>
+    <DATA><![CDATA[Allowed Ip address for user]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F935" PARAMS="0">
+    <DESC>IP Address</DESC>
+    <DATA><![CDATA[Action IP]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F936" PARAMS="0">
+    <DESC>활동시간</DESC>
+    <DATA><![CDATA[Action time]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F937" PARAMS="0">
+    <DESC>활동유형</DESC>
+    <DATA><![CDATA[Action type]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F938" PARAMS="0">
+    <DESC>경고음</DESC>
+    <DATA><![CDATA[Siren]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F939" PARAMS="0">
+    <DESC>로그아웃</DESC>
+    <DATA><![CDATA[Logout]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F940" PARAMS="0">
+    <DESC>버젼</DESC>
+    <DATA><![CDATA[버전]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F941" PARAMS="0">
+    <DESC>Alert 사용자 그룹</DESC>
+    <DATA><![CDATA[Alert user group]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F942" PARAMS="0">
+    <DESC>그룹추가</DESC>
+    <DATA><![CDATA[Add group]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F943" PARAMS="0">
+    <DESC>그룹편집</DESC>
+    <DATA><![CDATA[Edit group]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F944" PARAMS="0">
+    <DESC>그룹삭제</DESC>
+    <DATA><![CDATA[Delete group]]></DATA>
+    <VALUECAST />
+  </ROW>
 </ROWS>

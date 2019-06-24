@@ -4,6 +4,7 @@
     Private _strUser As String
 
     Private _useDefaultAccount As Boolean
+    Private _AgentCn As eXperDB.ODBC.eXperDBODBC
 
 #Region "Property"
     Property useDefaultAccount As Boolean
@@ -29,7 +30,7 @@
         _intInstanceID = intInstID
         _strDBNm = strDBNm
         _strUser = strUser
-
+        _AgentCn = AgentCn
         Dim clsQuery As clsQuerys
 
         clsQuery = New clsQuerys(AgentCn)
@@ -227,7 +228,8 @@
 
         Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.FromName(clsIni.ReadValue("SQL", "NORMAL", "GRAY"))
 
-        useDefaultAccount = clsIni.ReadValue("General", "USEDEFAULTACCOUNT", False)
+        'useDefaultAccount = clsIni.ReadValue("General", "USEDEFAULTACCOUNT", False)
+        useDefaultAccount = p_UserENv.CFG_UseDefaultAccount
         If useDefaultAccount = True Then
             lblID.Visible = False
             txtID.Visible = False
@@ -275,13 +277,9 @@
                                         If e.GetType.Equals(GetType(clsAgentEMsg.DX005_REP)) Then
                                             Dim AA As clsAgentEMsg.DX005_REP = DirectCast(e, clsAgentEMsg.DX005_REP)
 
-
-
-
                                             Dim intNodeSpace As Integer = 6
                                             Dim pNode As AdvancedDataGridView.TreeGridNode = Nothing
                                             For Each tmpStr As clsAgentEMsg.queryplans In AA.DATAS
-
                                                 If pNode Is Nothing Then
                                                     pNode = ctlTv.Nodes.Add(tmpStr.queryplan)
                                                 Else
@@ -309,30 +307,40 @@
                                             If AA.ERRORS IsNot Nothing Then
                                                 If AA.ERRORS._error_cd.Equals("DX005_E01") Then
                                                     ctlTv.Nodes.Add(String.Format("[{0}]{1}", AA.ERRORS._error_cd, p_clsMsgData.fn_GetData("M004")))
+                                                    AccessLog("sql_plan", 1, p_clsMsgData.fn_GetData("M004"), _intInstanceID)
                                                 Else
                                                     ctlTv.Nodes.Add(String.Format("[{0}]{1}", AA.ERRORS._error_cd, AA.ERRORS._error_msg))
+                                                    AccessLog("sql_plan", 1, AA.ERRORS._error_msg, _intInstanceID)
                                                 End If
+                                            Else
+                                                AccessLog("sql_plan", 0, "", _intInstanceID)
                                             End If
 
                                         Else
                                             If e Is Nothing Or Not e.GetType.Equals(GetType(clsSocket.Results)) Then
                                                 ctlTv.Nodes.Add("Result Is Nothing")
+                                                AccessLog("sql_plan", 1, "Result Is Nothing", _intInstanceID)
                                             Else
                                                 ctlTv.Nodes.Add(DirectCast(e, clsSocket.Results).ErrorMsg)
+                                                AccessLog("sql_plan", 1, DirectCast(e, clsSocket.Results).ErrorMsg, _intInstanceID)
                                             End If
 
                                         End If
 
                                         ctlTv.AutoResizeRows()
 
-
-
-
                                     End Sub))
 
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+
+        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 2)
+        If hasPermission = False Then
+            MsgBox(p_clsMsgData.fn_GetData("M088"))
+            AccessLog("sql_plan", 1, p_clsMsgData.fn_GetData("M088"), _intInstanceID)
+            Return
+        End If
 
         If txtID.Text = "" Then
             If useDefaultAccount = False Then
@@ -442,6 +450,18 @@
     Private Sub cmbDb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDb.SelectedIndexChanged, cmbUser.SelectedIndexChanged
         txtDB.Text = cmbDb.Text
         txtID.Text = cmbUser.Text
+    End Sub
+
+    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+              Optional strLog As String = "", Optional intInstanceID As Integer = -1)
+        Try
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
+            Dim clsQu As New clsQuerys(_AgentCn)
+            clsQu.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP, intInstanceID)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
 End Class

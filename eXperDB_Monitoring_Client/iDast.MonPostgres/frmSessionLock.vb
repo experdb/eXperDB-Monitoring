@@ -6,6 +6,7 @@
     Private _tooltip As ToolTip
     Private _SelectedIndex As String
     Private _SelectedGrid As String
+    Private _cmdType As Integer = -1
     ReadOnly Property InstanceID As Integer
         Get
             Return _InstanceID
@@ -350,8 +351,13 @@
                                                     Return
                                                 End If
                                                 bckmanual.RunWorkerAsync()
+                                                If _cmdType = 0 Then
+                                                    AccessLog("cancel_query", 0, "", _InstanceID)
+                                                ElseIf _cmdType = 1 Then
+                                                    AccessLog("kill_session", 0, "", _InstanceID)
+                                                End If
+                                                _cmdType = -1
                                             End Sub))
-
             Else
                 Me.Invoke(New MethodInvoker(Sub()
                                                 If _frmWait IsNot Nothing Then
@@ -359,6 +365,12 @@
                                                     _frmWait.Close()
                                                 End If
                                                 MsgBox(p_clsMsgData.fn_GetData("M033"))
+                                                If _cmdType = 0 Then
+                                                    AccessLog("cancel_query", 1, p_clsMsgData.fn_GetData("M033"), _InstanceID)
+                                                ElseIf _cmdType = 1 Then
+                                                    AccessLog("kill_session", 1, p_clsMsgData.fn_GetData("M033"), _InstanceID)
+                                                End If
+                                                _cmdType = -1
                                             End Sub))
             End If
         ElseIf e.GetType.Equals(GetType(clsSocket.Results)) Then
@@ -366,12 +378,24 @@
                                             If _frmWait IsNot Nothing Then
                                                 _frmWait.AddText(DirectCast(e, clsSocket.Results).ErrorMsg)
                                             End If
+                                            If _cmdType = 0 Then
+                                                AccessLog("cancel_query", 1, DirectCast(e, clsSocket.Results).ErrorMsg, _InstanceID)
+                                            ElseIf _cmdType = 1 Then
+                                                AccessLog("kill_session", 1, DirectCast(e, clsSocket.Results).ErrorMsg, _InstanceID)
+                                            End If
+                                            _cmdType = -1
                                         End Sub))
         Else
             Me.Invoke(New MethodInvoker(Sub()
                                             If _frmWait IsNot Nothing Then
                                                 _frmWait.AddText("Unknown Error")
                                             End If
+                                            If _cmdType = 0 Then
+                                                AccessLog("cancel_query", 1, "Unknown Error", _InstanceID)
+                                            ElseIf _cmdType = 1 Then
+                                                AccessLog("kill_session", 1, "Unknown Error", _InstanceID)
+                                            End If
+                                            _cmdType = -1
                                         End Sub))
         End If
 
@@ -526,6 +550,13 @@
         Dim intActvRegSeq As Integer
         Dim intCount As Integer = 0
 
+        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 3)
+        If hasPermission = False Then
+            MsgBox(p_clsMsgData.fn_GetData("M088"))
+            AccessLog("cancel_query", 1, p_clsMsgData.fn_GetData("M088"), _InstanceID)
+            Return
+        End If
+
         If _SelectedGrid = 1 Then
             intCount = dgvLock.SelectedRows.Count
             If intCount = 1 Then
@@ -556,7 +587,7 @@
         '_frmWait = New frmWait
         '_frmWait.TopMost = True
         '_frmWait.Show(Me)
-
+        _cmdType = 0
         If _SelectedGrid = 1 Then
             For Each row As DataGridViewRow In dgvLock.SelectedRows
                 intPID = row.Cells(colDgvLockBlockingPID.Index).Value
@@ -581,6 +612,13 @@
         Dim strRegDate As String
         Dim intActvRegSeq As Integer
         Dim intCount As Integer = 0
+
+        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 4)
+        If hasPermission = False Then
+            MsgBox(p_clsMsgData.fn_GetData("M088"))
+            AccessLog("kill_session", 1, p_clsMsgData.fn_GetData("M088"), _InstanceID)
+            Return
+        End If
 
         If _SelectedGrid = 1 Then
             intCount = dgvLock.SelectedRows.Count
@@ -612,7 +650,7 @@
         '_frmWait = New frmWait
         '_frmWait.TopMost = True
         '_frmWait.Show(Me)
-
+        _cmdType = 1
         If _SelectedGrid = 1 Then
             For Each row As DataGridViewRow In dgvLock.SelectedRows
                 If IsDBNull(row.Cells(colDgvLockBlockedPID.Index).Value) Then
@@ -665,5 +703,17 @@
 
     Private Sub dgvSessionList_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSessionList.CellContentClick
 
+    End Sub
+
+    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+          Optional strLog As String = "", Optional intInstanceID As Integer = -1)
+        Try
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
+            Dim clsQu As New clsQuerys(_AgentCn)
+            clsQu.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP, intInstanceID)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 End Class

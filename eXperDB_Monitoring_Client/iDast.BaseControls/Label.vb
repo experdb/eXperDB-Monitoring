@@ -17,9 +17,9 @@ Public Class Label
 
     End Sub
 
+    Public Property LineSpacing As System.Single
     Public Sub New()
         Me.InitializeComponent()
-
     End Sub
 
     Protected Overrides Sub OnCreateControl()
@@ -27,7 +27,6 @@ Public Class Label
         MyBase.OnCreateControl()
         Me.InitializeComponent()
     End Sub
-
 
     Public Enum enmLength
         [Short] = 0
@@ -150,4 +149,21 @@ Public Class Label
     End Sub
 
 
+    'Private Sub Label_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles Me.Paint
+    '    Dim g As Graphics = e.Graphics
+    '    Dim lineSpacing As Double = 0.5
+    '    Dim font As Font = New Font("Arial", 10)
+    '    Dim brush As Brush = New SolidBrush(Color.Black)
+    '    Dim size As SizeF = g.MeasureString("A", font)
+    '    Dim pos As Double = 0.0
+    '    For i As Integer = 0 To Me.Text.Length - 1
+    '        Dim charToDraw As String = New String(Text, i, 1)
+    '        If charToDraw = 13 Then
+
+    '        End If
+    '        g.DrawString(charToDraw, font, brush, pos, 0.0F)
+    '        Dim sizeChar As SizeF = g.MeasureString(charToDraw, font)
+    '        pos += sizeChar.Width + size.Width * lineSpacing
+    '    Next
+    'End Sub
 End Class

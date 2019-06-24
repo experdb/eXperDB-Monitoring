@@ -21,7 +21,6 @@ Partial Class frmMonMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -120,6 +119,7 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnReport = New eXperDB.BaseControls.Button()
@@ -381,6 +381,12 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnConfig = New eXperDB.BaseControls.Button()
+        Me.mnuMenu = New eXperDB.BaseControls.ContextMenuStrip()
+        Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuUserConfig = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuVersion = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -452,12 +458,13 @@ Partial Class frmMonMain
         CType(Me.dgvLock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuChart.SuspendLayout()
         Me.mnuSort.SuspendLayout()
+        Me.mnuMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Black
-        Me.TableLayoutPanel2.ColumnCount = 12
+        Me.TableLayoutPanel2.ColumnCount = 13
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 11.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 569.0!))
@@ -470,6 +477,8 @@ Partial Class frmMonMain
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 11, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnReport, 11, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnAlertConfig, 10, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnLock, 9, 0)
@@ -501,7 +510,7 @@ Partial Class frmMonMain
         Me.btnReport.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnReport.Image = CType(resources.GetObject("btnReport.Image"), System.Drawing.Image)
         Me.btnReport.LineColor = System.Drawing.Color.LightGray
-        Me.btnReport.Location = New System.Drawing.Point(1747, 11)
+        Me.btnReport.Location = New System.Drawing.Point(1707, 11)
         Me.btnReport.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnReport.Name = "btnReport"
         Me.btnReport.Radius = 5
@@ -522,7 +531,7 @@ Partial Class frmMonMain
         Me.btnAlertConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnAlertConfig.Image = CType(resources.GetObject("btnAlertConfig.Image"), System.Drawing.Image)
         Me.btnAlertConfig.LineColor = System.Drawing.Color.LightGray
-        Me.btnAlertConfig.Location = New System.Drawing.Point(1707, 11)
+        Me.btnAlertConfig.Location = New System.Drawing.Point(1667, 11)
         Me.btnAlertConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnAlertConfig.Name = "btnAlertConfig"
         Me.btnAlertConfig.Radius = 5
@@ -543,7 +552,7 @@ Partial Class frmMonMain
         Me.btnLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnLock.Image = CType(resources.GetObject("btnLock.Image"), System.Drawing.Image)
         Me.btnLock.LineColor = System.Drawing.Color.LightGray
-        Me.btnLock.Location = New System.Drawing.Point(1667, 11)
+        Me.btnLock.Location = New System.Drawing.Point(1627, 11)
         Me.btnLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnLock.Name = "btnLock"
         Me.btnLock.Radius = 5
@@ -564,7 +573,7 @@ Partial Class frmMonMain
         Me.btnCritical.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCritical.Image = CType(resources.GetObject("btnCritical.Image"), System.Drawing.Image)
         Me.btnCritical.LineColor = System.Drawing.Color.LightGray
-        Me.btnCritical.Location = New System.Drawing.Point(1627, 11)
+        Me.btnCritical.Location = New System.Drawing.Point(1587, 11)
         Me.btnCritical.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCritical.Name = "btnCritical"
         Me.btnCritical.Radius = 5
@@ -585,7 +594,7 @@ Partial Class frmMonMain
         Me.btnPower.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPower.Image = CType(resources.GetObject("btnPower.Image"), System.Drawing.Image)
         Me.btnPower.LineColor = System.Drawing.Color.LightGray
-        Me.btnPower.Location = New System.Drawing.Point(1587, 11)
+        Me.btnPower.Location = New System.Drawing.Point(1547, 11)
         Me.btnPower.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPower.Name = "btnPower"
         Me.btnPower.Radius = 5
@@ -627,7 +636,8 @@ Partial Class frmMonMain
         Me.Label1.FixedWidth = False
         Me.Label1.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(1371, 13)
+        Me.Label1.LineSpacing = 0.0!
+        Me.Label1.Location = New System.Drawing.Point(1331, 13)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(84, 33)
         Me.Label1.TabIndex = 6
@@ -642,7 +652,8 @@ Partial Class frmMonMain
         Me.lblAgentSvrState.FixedWidth = False
         Me.lblAgentSvrState.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAgentSvrState.ForeColor = System.Drawing.Color.White
-        Me.lblAgentSvrState.Location = New System.Drawing.Point(1461, 13)
+        Me.lblAgentSvrState.LineSpacing = 0.0!
+        Me.lblAgentSvrState.Location = New System.Drawing.Point(1421, 13)
         Me.lblAgentSvrState.Name = "lblAgentSvrState"
         Me.lblAgentSvrState.Size = New System.Drawing.Size(119, 33)
         Me.lblAgentSvrState.TabIndex = 7
@@ -656,7 +667,7 @@ Partial Class frmMonMain
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 49)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1778, 14)
+        Me.Panel1.Size = New System.Drawing.Size(1738, 14)
         Me.Panel1.TabIndex = 8
         '
         'SplitContainer1
@@ -3799,6 +3810,7 @@ Partial Class frmMonMain
         Me.lblNormal.FixedWidth = False
         Me.lblNormal.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblNormal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblNormal.LineSpacing = 0.0!
         Me.lblNormal.Location = New System.Drawing.Point(3, 0)
         Me.lblNormal.Name = "lblNormal"
         Me.lblNormal.Size = New System.Drawing.Size(64, 15)
@@ -3814,6 +3826,7 @@ Partial Class frmMonMain
         Me.lblWarning.FixedWidth = False
         Me.lblWarning.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblWarning.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblWarning.LineSpacing = 0.0!
         Me.lblWarning.Location = New System.Drawing.Point(73, 0)
         Me.lblWarning.Name = "lblWarning"
         Me.lblWarning.Size = New System.Drawing.Size(65, 15)
@@ -3829,6 +3842,7 @@ Partial Class frmMonMain
         Me.lblCritical.FixedWidth = False
         Me.lblCritical.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblCritical.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.lblCritical.LineSpacing = 0.0!
         Me.lblCritical.Location = New System.Drawing.Point(144, 0)
         Me.lblCritical.Name = "lblCritical"
         Me.lblCritical.Size = New System.Drawing.Size(66, 15)
@@ -3904,6 +3918,7 @@ Partial Class frmMonMain
         Me.dgvClusters.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvClusters.EnableHeadersVisualStyles = False
         Me.dgvClusters.GridColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.dgvClusters.HideExpandeIcon = False
         Me.dgvClusters.ImageList = Me.instanceImgLst
         Me.dgvClusters.Location = New System.Drawing.Point(3, 4)
         Me.dgvClusters.MultiSelect = False
@@ -4511,6 +4526,7 @@ Partial Class frmMonMain
         Me.dgvLock.EnableHeadersVisualStyles = False
         Me.dgvLock.Font = New System.Drawing.Font("Gulim", 10.07326!)
         Me.dgvLock.GridColor = System.Drawing.Color.Gray
+        Me.dgvLock.HideExpandeIcon = False
         Me.dgvLock.ImageList = Nothing
         Me.dgvLock.Location = New System.Drawing.Point(3, 3)
         Me.dgvLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -5049,6 +5065,63 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
         Me.DataGridViewTextBoxColumn37.Visible = False
         '
+        'btnConfig
+        '
+        Me.btnConfig.BackColor = System.Drawing.Color.Silver
+        Me.btnConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnConfig.FixedHeight = False
+        Me.btnConfig.FixedWidth = False
+        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnConfig.ForeColor = System.Drawing.Color.Black
+        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
+        Me.btnConfig.LineColor = System.Drawing.Color.LightGray
+        Me.btnConfig.Location = New System.Drawing.Point(1747, 11)
+        Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnConfig.Name = "btnConfig"
+        Me.btnConfig.Radius = 5
+        Me.btnConfig.Size = New System.Drawing.Size(34, 31)
+        Me.btnConfig.TabIndex = 24
+        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.UseVisualStyleBackColor = True
+        '
+        'mnuMenu
+        '
+        Me.mnuMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLogout, Me.mnuUserConfig, Me.mnuPreferences, Me.mnuVersion})
+        Me.mnuMenu.Name = "mnuPopup"
+        Me.mnuMenu.Size = New System.Drawing.Size(157, 130)
+        '
+        'mnuLogout
+        '
+        Me.mnuLogout.BackColor = System.Drawing.SystemColors.Control
+        Me.mnuLogout.Image = CType(resources.GetObject("mnuLogout.Image"), System.Drawing.Image)
+        Me.mnuLogout.Name = "mnuLogout"
+        Me.mnuLogout.Size = New System.Drawing.Size(156, 26)
+        Me.mnuLogout.Text = "Logout"
+        '
+        'mnuUserConfig
+        '
+        Me.mnuUserConfig.Image = CType(resources.GetObject("mnuUserConfig.Image"), System.Drawing.Image)
+        Me.mnuUserConfig.Name = "mnuUserConfig"
+        Me.mnuUserConfig.Size = New System.Drawing.Size(156, 26)
+        Me.mnuUserConfig.Text = "User Config"
+        '
+        'mnuPreferences
+        '
+        Me.mnuPreferences.Image = CType(resources.GetObject("mnuPreferences.Image"), System.Drawing.Image)
+        Me.mnuPreferences.Name = "mnuPreferences"
+        Me.mnuPreferences.Size = New System.Drawing.Size(156, 26)
+        Me.mnuPreferences.Text = "Preferences"
+        '
+        'mnuVersion
+        '
+        Me.mnuVersion.Image = CType(resources.GetObject("mnuVersion.Image"), System.Drawing.Image)
+        Me.mnuVersion.Name = "mnuVersion"
+        Me.mnuVersion.Size = New System.Drawing.Size(156, 26)
+        Me.mnuVersion.Text = "Version"
+        '
         'frmMonMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -5159,6 +5232,7 @@ Partial Class frmMonMain
         CType(Me.dgvLock, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnuChart.ResumeLayout(False)
         Me.mnuSort.ResumeLayout(False)
+        Me.mnuMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -5423,5 +5497,11 @@ Partial Class frmMonMain
     Friend WithEvents coldgvClustersLegend As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents coldgvClusterPrimaryHostNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvClusterIsOpenSingle As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents btnConfig As eXperDB.BaseControls.Button
+    Friend WithEvents mnuMenu As eXperDB.BaseControls.ContextMenuStrip
+    Friend WithEvents mnuLogout As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuUserConfig As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuPreferences As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuVersion As System.Windows.Forms.ToolStripMenuItem
 
 End Class

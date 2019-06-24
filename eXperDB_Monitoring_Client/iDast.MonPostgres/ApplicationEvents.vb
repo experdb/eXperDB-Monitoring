@@ -23,6 +23,7 @@
 
             ' 설정된 Language를 가져온다. 
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            ' move to frmSvrLst >>>>
             Dim strSection As String = Common.ClsConfigure.fn_rtnComponentCategory(GetType(clsEnums.AppLanguage))
             Dim strKey As String = Common.ClsConfigure.fn_rtnComponentDescription(GetType(clsEnums.AppLanguage))
             Dim AppLang As clsEnums.AppLanguage = clsIni.ReadValue(strSection, strKey, clsEnums.AppLanguage.Korean)
@@ -33,7 +34,7 @@
             '  설정된 Language를 가져와서 DataSet에 넣는다.
             ' 로컬에 기본으로 떨구고 필요시 별도의 Language 파일을 만들어서 불러올 수 있도록 함. 
             p_clsMsgData = New clsXmlData(strFilePathNm)
-
+            ' move to frmSvrLst <<<<<
             ' 쿼리 XML 파일을 가져와서 Dataset에 넣는다. 
             ' Query는 Resource에 들어가 있다.  
             p_clsQueryData = New clsXmlData(New System.IO.StringReader(My.Resources.Querys))

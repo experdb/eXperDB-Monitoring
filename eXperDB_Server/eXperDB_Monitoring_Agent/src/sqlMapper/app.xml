@@ -3541,6 +3541,18 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		   WHERE INSTANCE_ID = #{instance_id}
 		     AND HCHK_NAME = #{hchk_name}
     </update>
+    
+    <update id="TB_CHECK_USER_EXPIRATION_U001" parameterType="hashmap" >
+	<![CDATA[
+		  UPDATE TB_MON_USER SET IS_LOCKED_TF = TRUE
+ 		   WHERE USER_ID = (
+			 				  SELECT USER_ID 
+			                    FROM TB_MON_USER 
+			                   WHERE GREATEST(LAST_LOGIN_DT, LAST_LOGOUT_DT)::date < (NOW()-(SELECT lock_inact_period FROM tb_mon_user_policy) * INTERVAL '1 day')::date
+			                     AND IS_ADMIN_TF = false
+                 			)
+     ]]>
+    </update>
 
 <!-- **************************************************************************************************************** -->
 <!-- Delete partitions -->	

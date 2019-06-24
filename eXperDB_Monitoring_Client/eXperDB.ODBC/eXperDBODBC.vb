@@ -365,7 +365,21 @@ Public Class eXperDBODBC
 
     End Function
 
+    Public Function RollbackTran() As Boolean
+        Try
+            If _ODBCConnection.State = ConnectionState.Open AndAlso _Transcation IsNot Nothing Then
+                DirectCast(_Transcation, System.Data.Odbc.OdbcTransaction).Rollback()
+                _Transcation = Nothing
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            GC.Collect()
+            Return False
+        End Try
 
+    End Function
 
 
     Private Delegate Sub DelegateSetMessage(ByVal strMsg As String)

@@ -62,7 +62,8 @@
         Timer1.Enabled = True
 
         Dim Snd As String = ""
-        Snd = ConfigIni.ReadValue("General", "SIREN", "Siren.wav")
+        'Snd = ConfigIni.ReadValue("General", "SIREN", "Siren.wav")
+        Snd = p_UserENv.CFG_SirenName
         If Snd.Trim <> "" Then
             Dim sndFile As String = System.IO.Path.Combine(System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Sounds"), Snd)
             If System.IO.File.Exists(sndFile) Then

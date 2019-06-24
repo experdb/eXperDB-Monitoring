@@ -2,97 +2,9 @@
 
     Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\Software\K4M\eXperDB.Monitoring\Settings"
     Private Const APPNAME As String = "eXperDB.Downloader.exe"
+    Private _odbcConn As eXperDBODBC
+    Private _connStruct As eXperDB.ODBC.structConnection
 #Region "Agent"
-
-    Private Sub btnConTest_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-
-        If fn_ChkTestBef() = False Then Return
-        Dim strIp As String = txtSvrIP.Text
-        Dim strPort As Integer = txtSvrPort.Text
-        Dim strID As String = txtSvrUsr.Text
-        Dim strPw As String = txtSvrPwd.Text
-        Dim DBName As String = cmbSvrDBNm.Text
-        Dim tmpCtl As BaseControls.RadioButton
-
-        Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
-        Dim tmpCn As New eXperDBODBC(dbtype, strIp, strPort, strID, strPw, DBName)
-        If tmpCn.ConnectionCheck = True Then
-            'MsgBox(p_clsMsgData.fn_GetData("M003"))
-            ' R-Start 그룹명 조회
-            Dim ClsQuery As New clsQuerys(tmpCn)
-            cmbGrp.Items.Clear()
-
-            'Version check
-            Try
-                Dim dtTableVersion As DataTable = ClsQuery.SelectSeverVersion()
-                If dtTableVersion IsNot Nothing Then
-                    Dim ClientVersion As String = Application.ProductVersion
-                    Dim ServerVersion As String = dtTableVersion.Rows(0).Item("VERSION")
-                    'ClientVersion = "10.4.4.313"
-                    If ClientVersion <> ServerVersion Then
-                        'MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion))
-                        If MsgBox(p_clsMsgData.fn_GetData("M065", "Server : v" + ServerVersion + "\nClient : v" + ClientVersion), _
-                                  Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
-                            RunDownloader()
-                            Return
-                        End If
-                        dtTableVersion.Dispose()
-                    End If
-                Else
-                    MsgBox(p_clsMsgData.fn_GetData("M065"))
-                    dtTableVersion.Dispose()
-                End If
-            Catch ex As Exception
-                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            End Try
-
-            '그룹명 
-            Dim dtTable As DataTable = ClsQuery.SelectGroupName(0)
-            If dtTable IsNot Nothing Then
-                For Each tmpRow As DataRow In dtTable.Rows
-                    cmbGrp.Items.Add(tmpRow.Item("GROUP_NAME"))
-                Next
-            Else
-                MsgBox(p_clsMsgData.fn_GetData("M004"))
-                sb_Ctlenabled(False)
-                Return
-            End If
-
-            '커넥트 테스트 후 조회그룹을 선택 from ini
-            Dim clsIni As New Common.IniFile(p_AppConfigIni)
-            Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
-            tmpCtl = tlpGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
-            tmpCtl.Checked = True
-            cmbGrp.SelectedIndex = groupIndex
-            sb_Ctlenabled(True)
-            ReadSvrListbyGroup(tmpCn, groupIndex + 1)
-            'R-End
-            btnAdd.Tag = tmpCn
-
-            ''서버리스트 Tabpage Focus
-
-            If tbServer.TabPages(1).Enabled = False Then
-                tbServer.TabPages(1).Enabled = True
-                tbServer.SelectedIndex = 1
-            Else
-                tbServer.SelectedIndex = 1
-            End If
-
-            If btnAdd.Tag IsNot Nothing AndAlso btnAdd.Tag.GetType Is GetType(eXperDB.ODBC.eXperDBODBC) Then
-                modCommon.AgentInfoWrite(DirectCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC).ODBCConninfo)
-                'MsgBox(p_clsMsgData.fn_GetData("M021"))
-            Else
-                MsgBox(p_clsMsgData.fn_GetData("M022"))
-            End If
-
-        Else
-            MsgBox(p_clsMsgData.fn_GetData("M004"))
-            sb_Ctlenabled(False)
-            Return
-        End If
-
-
-    End Sub
 
     ''' <summary>
     ''' 서버리스트를 불러온다. 
@@ -205,68 +117,21 @@
 
     'R-End
 
-    Private Function fn_ChkTestBef() As Boolean
-        If txtSvrIP.Text = "" Then
-            Dim strMsg As String = p_clsMsgData.fn_GetData("M001", "IP")
-            MsgBox(strMsg)
-            txtSvrIP.Focus()
-            Return False
-        Else
-            If Common.ClsObjectCtl.fn_CheckIPAddress(txtSvrIP.Text) = False Then
-                Dim strMsg As String = p_clsMsgData.fn_GetData("M002")
-                MsgBox(strMsg)
-                txtSvrIP.Focus()
-                Return False
-            End If
-        End If
-
-        If txtSvrPort.Text = "" Then
-            Dim strMsg As String = p_clsMsgData.fn_GetData("M001", "PORT")
-            MsgBox(strMsg)
-            txtSvrPort.Focus()
-            Return False
-
-        End If
-
-        If txtSvrUsr.Text = "" Then
-            Dim strMSg As String = p_clsMsgData.fn_GetData("M001", "User")
-            MsgBox(strMSg)
-            txtSvrUsr.Focus()
-            Return False
-        End If
-
-        If cmbSvrDBNm.Text = "" Then
-            Dim strMsg As String = p_clsMsgData.fn_GetData("M001", "Password")
-            MsgBox(strMsg)
-            cmbSvrDBNm.Focus()
-            Return False
-        End If
-
-        If cmbSvrDBNm.Text = "" Then
-            Dim strMSg As String = p_clsMsgData.fn_GetData("M001", "Database Name")
-            MsgBox(strMSg)
-            cmbSvrDBNm.Focus()
-            Return False
-        End If
-
-        Return True
-
-    End Function
-
 #End Region
 
 
 #Region "Form Initialize"
 
-    Public Sub New()
+    Public Sub New(ByRef odbcConn As eXperDBODBC, ByVal connStruct As eXperDB.ODBC.structConnection)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
-
+        _odbcConn = odbcConn
+        _connStruct = connStruct
+        InitLanguage()
         InitForm()
-
     End Sub
 
 
@@ -276,17 +141,6 @@
         If DisplayHeight >= 1080 Then
             Me.Height += 30
         End If
-
-        'Me.grpAgentSVR.Text = p_clsMsgData.fn_GetData("F001")
-        btnAdd.Text = p_clsMsgData.fn_GetData("F309")
-        'btnConSave.Text = p_clsMsgData.fn_GetData("F003")
-        lblSvrIP.Text = p_clsMsgData.fn_GetData("F006")
-        lblSvrPort.Text = p_clsMsgData.fn_GetData("F007")
-        lblSvrUsr.Text = p_clsMsgData.fn_GetData("F008")
-        lblSvrPwd.Text = p_clsMsgData.fn_GetData("F009")
-        lblSvrDBNm.Text = p_clsMsgData.fn_GetData("F010")
-        'grpSvrLst.Text = p_clsMsgData.fn_GetData("F013")
-
 
         'grpMonGrp.Text = p_clsMsgData.fn_GetData("F025")
         Dim tmpGrpNm As String = p_clsMsgData.fn_GetData("F026")
@@ -321,13 +175,6 @@
 
         Dim dec As New eXperDB.Common.ClsCrypt
 
-        txtSvrIP.Text = tmpStruct.HostIP
-        txtSvrPwd.Text = tmpStruct.Password
-        txtSvrUsr.Text = tmpStruct.UserID
-        txtSvrPort.Text = tmpStruct.Port
-        txtSvr_LostFocus(txtSvrIP, Nothing)
-        cmbSvrDBNm.Text = tmpStruct.DBName
-
         colCollectYN.HeaderText = p_clsMsgData.fn_GetData("F018")
         colDBNm.HeaderText = p_clsMsgData.fn_GetData("F010")
         colAliasNm.HeaderText = p_clsMsgData.fn_GetData("F019")
@@ -352,10 +199,67 @@
         Me.ttChart.SetToolTip(Me.btnAddSvr, p_clsMsgData.fn_GetData("F016"))
 
         Me.Tag = Me.Text
+
+        If p_cSession.isAdmin = False Then
+            btnRegister.Visible = False
+            btnAddSvr.Visible = False
+            btnGrpSave.Visible = False
+
+            rbGrp1.Enabled = False
+            rbGrp2.Enabled = False
+            rbGrp3.Enabled = False
+            rbGrp4.Enabled = False
+
+            Dim tmpArray = p_cSession.getGroupPermission()
+
+            For index As Integer = 0 To tmpArray.Count - 1
+                If rbGrp1.Tag = tmpArray(index) Then
+                    rbGrp1.Enabled = True
+                End If
+            Next
+            For index As Integer = 0 To tmpArray.Count - 1
+                If rbGrp2.Tag = tmpArray(index) Then
+                    rbGrp2.Enabled = True
+                End If
+            Next
+            For index As Integer = 0 To tmpArray.Count - 1
+                If rbGrp3.Tag = tmpArray(index) Then
+                    rbGrp3.Enabled = True
+                End If
+            Next
+            For index As Integer = 0 To tmpArray.Count - 1
+                If rbGrp4.Tag = tmpArray(index) Then
+                    rbGrp4.Enabled = True
+                End If
+            Next
+
+        End If
         'modCommon.FontChange(Me, p_Font)
     End Sub
 
+    Private Sub InitLanguage()
+        'Load Language
+        '''button Dim conODBC As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
+        Dim conODBC As eXperDB.ODBC.eXperDBODBC = _odbcConn
+        Dim ClsQuery As New clsQuerys(conODBC)
+        Dim LangIndex As Integer = 0
+        Dim dtTable As DataTable = ClsQuery.SelectMonUserConfig(p_cSession.UserID)
+        If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
+            LangIndex = Integer.Parse(dtTable.Rows(0).Item("LANGUAGE").ToString())
+        End If
 
+        Dim strSection As String = Common.ClsConfigure.fn_rtnComponentCategory(GetType(clsEnums.AppLanguage))
+        Dim strKey As String = Common.ClsConfigure.fn_rtnComponentDescription(GetType(clsEnums.AppLanguage))
+        Dim AppLang As clsEnums.AppLanguage = LangIndex
+        Dim strFileLocaton As String = Common.ClsConfigure.fn_rtnComponentDescription(AppLang.GetType.GetMember(AppLang.ToString)(0)) '  TryCast(AppLang.GetType().GetMember(AppLang.ToString)(0).GetCustomAttributes(GetType(System.ComponentModel.DescriptionAttribute), False)(0), System.ComponentModel.DescriptionAttribute).Description
+
+        Dim strFilePathNm As String = System.IO.Path.Combine(My.Application.Info.DirectoryPath, strFileLocaton)
+
+        '  설정된 Language를 가져와서 DataSet에 넣는다.
+        ' 로컬에 기본으로 떨구고 필요시 별도의 Language 파일을 만들어서 불러올 수 있도록 함. 
+        p_clsMsgData = New clsXmlData(strFilePathNm)
+        '''''''''''''''''''''''''''''''''''''''
+    End Sub
     Private Sub sb_Ctlenabled(ByVal Bret As Boolean)
         'grpSvrLst.Enabled = Bret
         'pnlB.Enabled = Bret
@@ -530,7 +434,8 @@
     ''' <remarks></remarks>
     Private Function sb_SaveGrpMonLst() As Boolean
         ' 상단의 Agent 서버 접속 정보테스트 완료 시 해당하는 접속 정보를 Grid Tag에 넣어 두었음. 
-        Dim odbcCon As eXperDB.ODBC.eXperDBODBC = TryCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC)
+        '''''button Dim odbcCon As eXperDB.ODBC.eXperDBODBC = TryCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC)
+        Dim odbcCon As eXperDB.ODBC.eXperDBODBC = _odbcConn
 
         ' 추가적으로 모두 업데이트에 대한 로직 필요 
         Try
@@ -572,7 +477,8 @@
         End Try
     End Function
     Private Function sb_ReloadcmbGrp() As Boolean
-        Dim conODBC As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
+        '''button Dim conODBC As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
+        Dim conODBC As eXperDB.ODBC.eXperDBODBC = _odbcConn
         Dim ClsQuery As New clsQuerys(conODBC)
         Dim groupIndex As Integer = cmbGrp.SelectedIndex
         cmbGrp.Items.Clear()
@@ -612,7 +518,8 @@
         sb_SaveGrpSvrLst()
 
         ' 최초 Connection 시에 해당 Connection 정보를 테스트 버튼에 넣어 두었음. 
-        Dim AgentCn As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
+        '''button Dim AgentCn As eXperDB.ODBC.eXperDBODBC = btnAdd.Tag
+        Dim AgentCn As eXperDB.ODBC.eXperDBODBC = _odbcConn
         ' 붙어 있는 서버 정보가 없을 경우 종료 
         If AgentCn Is Nothing Then Return
 
@@ -623,9 +530,14 @@
 
 
 
+        ' Set User config
+        ReadGeneral()
+
         Dim arrInstanceIDs As New ArrayList
 
         Dim grpIdx As Integer = 0
+
+
         rtnSrt.Add(New GroupInfo(cmbGrp.SelectedIndex, txtGrp1.Text))
         grpIdx = rtnSrt.Count - 1
 
@@ -661,7 +573,9 @@
         End If
 
         Dim clsConfig As New Common.IniFile(p_AppConfigIni)
-        Dim tmpElapseInterval As Integer = clsConfig.ReadValue("General", "ELAPSE", 3000)
+
+        'Dim tmpElapseInterval As Integer = clsConfig.ReadValue("General", "ELAPSE", 3000)
+        Dim tmpElapseInterval As Integer = p_UserENv.CFG_CollectPeriod * 1000
         Dim tmpGroupRatateInterval As Integer = clsConfig.ReadValue("General", "GRPROTATE", 120000)
         ' Server Configuration  Start 
         Dim clsQuery As New clsQuerys(AgentCn)
@@ -678,7 +592,7 @@
                 Dim SplitStr() As String = dtTable.Rows(0).Item("VERSION").Split(".")
                 'AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort, SplitStr(0) + "." + SplitStr(1))
                 AgentInfo = New structAgent(dtTable.Rows(0).Item("AGENT_IP"), intPort, SplitStr(0) + "." + SplitStr(1), _
-                                            txtSvrIP.Text, txtSvrPort.Text, cmbSvrDBNm.Text, txtSvrUsr.Text, txtSvrPwd.Text)
+                                            _connStruct.HostIP, _connStruct.Port, _connStruct.DBName, _connStruct.UserID, _connStruct.Password)
             End If
 
         Else
@@ -691,10 +605,11 @@
         p_clsAgentCollect = New clsCollect(arrInstanceIDs.ToArray(GetType(Integer)), AgentInfo)
         p_clsAgentCollect.Start(AgentCn, tmpElapseInterval, p_ShowName)
 
-
+        p_currentGroup = cmbGrp.SelectedIndex + 1
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Dim frmMain As New frmMonMain(AgentCn, rtnSrt, tmpElapseInterval, tmpGroupRatateInterval, AgentInfo)
+        frmMain.Owner = Me
         frmMain.Show()
 
         Me.Hide()
@@ -706,7 +621,7 @@
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub txtSvr_LostFocus(sender As Object, e As EventArgs) Handles txtSvrIP.LostFocus, txtSvrPort.LostFocus, txtSvrPwd.LostFocus, txtSvrUsr.LostFocus
+    Private Sub txtSvr_LostFocus(sender As Object, e As EventArgs)
         'If btnConTest.Tag IsNot Nothing Then
         '    btnConTest.Tag = Nothing
         '    sb_Ctlenabled(False)
@@ -745,7 +660,7 @@
         e.Cancel = True
     End Sub
 
-    Private Sub txtSvrUsr_TextChanged(sender As Object, e As EventArgs) Handles txtSvrUsr.TextChanged
+    Private Sub txtSvrUsr_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
     'R-Start
@@ -767,7 +682,9 @@
 
         Dim RadioButton As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
         If RadioButton.Checked = True Then
-            ReadSvrListbyGroup(btnAdd.Tag, RadioButton.Tag)
+            ''' button ReadSvrListbyGroup(btnAdd.Tag, RadioButton.Tag)
+            ReadSvrListbyGroup(_odbcConn, RadioButton.Tag)
+            cmbGrp.SelectedIndex = RadioButton.Tag - 1
         Else
             dgvMonLst.Nodes.Clear()
         End If
@@ -789,35 +706,95 @@
         End If
     End Sub
 
+    Private Sub frmSvrList_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        ' 열려있는 창을 닫는다. 
+        Dim ArrFrm As New ArrayList
+        For Each tmpFrm As Form In Application.OpenForms
+            ArrFrm.Add(tmpFrm)
+        Next
 
-    Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblSubject.Text = p_clsMsgData.fn_GetData("M050")
-        MsgLabel2.Text = p_clsMsgData.fn_GetData("M051")
-        tbServer.TabPages(0).Enabled = True
-        tbServer.TabPages(1).Enabled = False
-        tbServer.TabPages(0).BackColor = System.Drawing.Color.Gray
-        tbServer.TabPages(1).BackColor = System.Drawing.Color.DimGray
-        tbServer.SelectedIndex = 0
-
-        ServerIP_lv.Text = p_clsMsgData.fn_GetData("F904")
-        User_lv.Text = p_clsMsgData.fn_GetData("F905")
-        Database_lv.Text = p_clsMsgData.fn_GetData("F906")
-        Port_lv.Text = p_clsMsgData.fn_GetData("F907")
-        Password_lv.Text = p_clsMsgData.fn_GetData("F908")
-        Dim ClientVersion As String = Application.ProductVersion
-        Me.Text = Me.Tag + " (v" + ClientVersion + ")"
+        For Each tmpFrm As Form In ArrFrm
+            If TryCast(tmpFrm, frmLogin) IsNot Nothing Then
+                tmpFrm.Show()
+            Else
+                tmpFrm.Close()
+            End If
+        Next
+        Dologout()
     End Sub
 
-    Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs) Handles pnlAgentInfo.Paint
+
+    Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MsgLabel2.Text = p_clsMsgData.fn_GetData("M051")
+        tbServer.TabPages(0).Enabled = True
+        tbServer.TabPages(0).BackColor = System.Drawing.Color.DimGray
+        tbServer.SelectedIndex = 0
+
+        Dim ClientVersion As String = Application.ProductVersion
+        Me.Text = Me.Tag + " (v" + ClientVersion + ")"
+
+
+        '커넥트 테스트 후 조회그룹을 선택 from ini
+        Dim tmpCtl As BaseControls.RadioButton
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
+        tmpCtl = tlpGrp.Controls.Find("rbGrp" & groupIndex + 1, True)(0)
+        Try
+            If tmpCtl.Enabled = False Then
+                For i As Integer = 0 To 3
+                    tmpCtl = tlpGrp.Controls.Find("rbGrp" & i + 1, True)(0)
+                    If tmpCtl.Enabled = True Then
+                        tmpCtl.Checked = True
+                        Exit For
+                    End If
+                Next
+                If tmpCtl.Enabled = False Then
+                    MsgBox(p_clsMsgData.fn_GetData("M079"))
+                    groupIndex = -1
+                End If
+            Else
+                tmpCtl.Checked = True
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+
+        '그룹명 
+        If _odbcConn Is Nothing Then
+            Return
+        End If
+
+        cmbGrp.Items.Clear()
+        Dim conODBC As eXperDB.ODBC.eXperDBODBC = _odbcConn
+        Dim ClsQuery As New clsQuerys(conODBC)
+        Dim dtTable As DataTable = ClsQuery.SelectGroupName(0)
+        If dtTable IsNot Nothing Then
+            For Each tmpRow As DataRow In dtTable.Rows
+                cmbGrp.Items.Add(tmpRow.Item("GROUP_NAME"))
+            Next
+        Else
+            MsgBox(p_clsMsgData.fn_GetData("M004"))
+            sb_Ctlenabled(False)
+            Return
+        End If
+
+        cmbGrp.SelectedIndex = groupIndex
+        sb_Ctlenabled(True)
+        ReadSvrListbyGroup(_odbcConn, groupIndex + 1)
+    End Sub
+
+    Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 
     Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
-        If btnAdd.Tag Is Nothing OrElse TryCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC) Is Nothing Then
+        '''button If btnAdd.Tag Is Nothing OrElse TryCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC) Is Nothing Then
+        If _odbcConn Is Nothing Then
             Dim strMsg As String = p_clsMsgData.fn_GetData("M010")
             MsgBox(strMsg)
         Else
-            Dim frmPw As New frmPassword(DirectCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC))
+            '''button Dim frmPw As New frmPassword(DirectCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC))
+            Dim frmPw As New frmPassword(_odbcConn)
             If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
                 Dim frmAdmin As New frmAdmin
                 frmAdmin.ShowDialog(Me)
@@ -827,7 +804,8 @@
             Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
             cmbGrp.SelectedIndex = groupIndex
             sb_Ctlenabled(True)
-            ReadSvrListbyGroup(btnAdd.Tag, groupIndex + 1)
+            '''button ReadSvrListbyGroup(btnAdd.Tag, groupIndex + 1)
+            ReadSvrListbyGroup(_odbcConn, groupIndex + 1)
         End If
 
     End Sub
@@ -845,13 +823,49 @@
     End Sub
 
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
-        Dim frmConfig As New frmConfig
-        frmConfig.ShowDialog()
-        ReadConfig()
+        'Dim frmConfig As New frmConfig
+        'frmConfig.ShowDialog()
+        'ReadConfig()
+
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        Dim ps As System.Drawing.Point = Cursor.Position
+        mnuLogout.Text = p_clsMsgData.fn_GetData("F939")
+        mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
+        mnuPreferences.Text = p_clsMsgData.fn_GetData("F916")
+        mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
+        ps.X -= mnuMenu.Width
+        If p_cSession.isAdmin = False Then
+            mnuMenu.Items(2).Visible = False
+        End If
+        mnuMenu.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
+        mnuMenu.Tag = lblTemp.Parent
     End Sub
 
     Private Sub ReadConfig()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
+    End Sub
+
+    Private Sub Dologout()
+        Dim COC As New Common.ClsObjectCtl
+        Dim strLocIP As String = COC.GetLocalIP
+        Dim ClsQuery As New clsQuerys(_odbcConn)
+        If ClsQuery.DoLogout(p_cSession.UserID, strLocIP) < 0 Then
+            AccessLog("logout", 1, "DB error")
+        Else
+            AccessLog("logout", 0, "")
+        End If
+    End Sub
+
+    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+                      Optional strLog As String = "", Optional intInstanceID As Integer = -1)
+        Try
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
+            Dim ClsQuery As New clsQuerys(_odbcConn)
+            ClsQuery.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
 #Region "Add Severs by Group"
@@ -859,7 +873,9 @@
 
     Private Sub btnAddSvr_Click(sender As Object, e As EventArgs) Handles btnAddSvr.Click
         'Dim frmConfig As New frmAddSvrList(btnAdd.Tag, dgvMonLst)
-        Dim frmSL As New frmAddSvrList(btnAdd.Tag)
+        '''button Dim frmSL As New frmAddSvrList(btnAdd.Tag)
+        Dim frmSL As New frmAddSvrList(_odbcConn)
+        frmSL.Owner = Me
         If frmSL.ShowDialog = Windows.Forms.DialogResult.OK Then
             LoadMonGrid(frmSL.dgvSvrLst)
         Else
@@ -874,6 +890,7 @@
                 Return sColumn.Index
             End If
         Next
+        Return 0
     End Function
 
     Sub GetAllChildren(parentNode As TreeNode, nodes As List(Of String))
@@ -985,6 +1002,71 @@
         Me.Close()
     End Sub
 
+    Private Function CheckPassword() As Boolean
+        Dim frmPw As New frmPassword(_odbcConn)
+        If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Sub ReadGeneral()
+        Dim CollectPeriod As Integer = 3
+        Dim SirenName As String = "Siren.wav"
+        Dim ServerName As Integer = 0
+        Dim UseDefaultAccount As Integer = 0
+        Dim CPUStyle As Integer = 2
+        Dim CPUReverse As Integer = 0
+        Dim MEMStyle As Integer = 2
+        Dim MEMReverse As Integer = 0
+
+        Dim ClsQuery As New clsQuerys(_odbcConn)
+        Dim dtTable As DataTable = ClsQuery.SelectMonUserConfig(p_cSession.UserID)
+        If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
+            Dim dtRow As DataRow = dtTable.Rows(0)
+            CollectPeriod = Integer.Parse(dtRow.Item("REFRESH_PERIOD").ToString()) / 1000
+
+            If dtRow.Item("SOUND_PATH").ToString() = "" Then
+                SirenName = "Siren.wav"
+            Else
+                SirenName = dtRow.Item("SOUND_PATH").ToString()
+            End If
+
+            ServerName = Integer.Parse(dtRow.Item("SHOW_ALIAS_TF").ToString())
+            UseDefaultAccount = Integer.Parse(dtRow.Item("REG_ACCOUNT_SQLPLAN_TF").ToString())
+            CPUStyle = Integer.Parse(dtRow.Item("STYLE_CPU").ToString())
+            CPUReverse = Integer.Parse(dtRow.Item("STYLE_CPU_DIRECTION_TF").ToString())
+            MEMStyle = Integer.Parse(dtRow.Item("STYLE_MEM").ToString())
+            MEMReverse = Integer.Parse(dtRow.Item("STYLE_MEM_DIRECTION_TF").ToString())
+        End If
+        p_UserENv = New clsUserEnv(p_cSession.UserID, CollectPeriod, SirenName, ServerName, UseDefaultAccount, CPUStyle, MEMStyle, CPUReverse, MEMReverse)
+        p_ShowName = p_UserENv.CFG_ServerName
+    End Sub
+
 #End Region
 
+#Region "menu"
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click
+        Dim BretFrm As Form = Nothing
+        Dim stDt As DateTime = Now.AddMinutes(-10)
+        Dim edDt As DateTime = Now
+
+        If sender.Name = "mnuLogout" Then
+            Me.Close()
+        ElseIf sender.Name = "mnuUserConfig" Then
+            If CheckPassword() = False Then Return
+            Dim userConfig As New frmConfig(_odbcConn)
+            userConfig.ShowDialog()
+        ElseIf sender.Name = "mnuPreferences" Then
+            If CheckPassword() = False Then Return
+            Dim Preferences As New frmPreferences(_odbcConn)
+            Preferences.ShowDialog()
+        Else
+            Dim version As New frmVersion(_odbcConn)
+            version.ShowDialog()
+        End If
+
+    End Sub
+#End Region
 End Class

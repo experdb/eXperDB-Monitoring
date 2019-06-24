@@ -507,7 +507,7 @@
 
     Private Sub btnAdminPW_Click(sender As Object, e As EventArgs) Handles btnAdminPW.Click
         Dim strkey = fn_GetSerial()
-        Dim frmUserConf As New frmUserConfig(lblSvrLst.Tag, strkey)
+        Dim frmUserConf As New frmUserPassword(TryCast(lblSvrLst.Tag, clsQuerys), True)
         frmUserConf.ShowDialog()
     End Sub
 

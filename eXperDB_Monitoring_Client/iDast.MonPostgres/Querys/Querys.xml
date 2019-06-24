@@ -40,13 +40,24 @@
       ]]>
     </DATA>
   </ROW>
-  <ROW ID="UPDATEPASSWORD" PARAMS="2">
+  <ROW ID="UPDATEPASSWORD_OLD" PARAMS="2">
     <DESC>Update password</DESC>
     <DATA>
       <![CDATA[
         UPDATE TB_CONFIG 
           SET ADMIN_PASSWORD = '{1}'
         WHERE ADMIN_USER_ID='{0}'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="UPDATEPASSWORD" PARAMS="2">
+    <DESC>Update password</DESC>
+    <DATA>
+      <![CDATA[
+        UPDATE TB_MON_USER
+          SET USER_PASSWORD = '{1}'
+          , SET_PW_DT = NOW()
+        WHERE USER_ID='{0}'
       ]]>
     </DATA>
   </ROW>
@@ -3718,34 +3729,77 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     ]]>
     </DATA>
   </ROW>
-  <ROW ID="SELECTUSERGROUP" PARAMS="0">
+  <ROW ID="SELECTMONUSERGROUP" PARAMS="0">
     <DATA>
     <![CDATA[
-      SELECT * FROM TB_USER_GROUP
+      SELECT * FROM TB_MON_GROUP
+      ORDER BY GROUP_ID
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTMONUSERGROUP" PARAMS="3">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+		  INSERT INTO TB_MON_GROUP
+      (
+       group_name
+      ,last_mod_user_id
+      ,last_mod_dt
+      ,last_mod_ip
+      )(SELECT 
+		    '{0}'
+		   ,'{1}'
+		   ,now()
+		   ,'{2}'
+		  );
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="UPDATEMONUSERGROUP" PARAMS="4">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+        UPDATE TB_MON_GROUP SET
+         group_name = '{1}'
+        ,last_mod_user_id = '{2}'
+        ,last_mod_dt = now()
+        ,last_mod_ip = '{3}'
+        WHERE group_id = {0}
+    ]]>
+    </DATA>
+  </ROW>
+  DELETEMONUSERGROUP
+  <ROW ID="DELETEMONUSERGROUP" PARAMS="1">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+        DELETE TB_MON_GROUP 
+        WHERE group_id = {0}
     ]]>
     </DATA>
   </ROW>
   <ROW ID="SELECTUSERBYGROUP" PARAMS="0">
     <DATA>
     <![CDATA[
-      SELECT U.* 
+      SELECT U.*, CASE WHEN USER_NOTI_PHONE = 0 THEN USER_PHONE ELSE USER_PHONE2 END USER_SEL_PHONE
         FROM TB_MON_USER_BY_GROUP G JOIN TB_MON_USER U ON G.USER_ID = U.USER_ID
        WHERE G.GROUP_ID = {0};
     ]]>
     </DATA>
   </ROW>
-  <ROW ID="DELETEUSERBYGROUP" PARAMS="1">
+  <ROW ID="DELETEUSERBYGROUP" PARAMS="2">
     <DESC></DESC>
     <DATA>
       <![CDATA[
      DELETE FROM TB_MON_USER_BY_GROUP 
-      WHERE user_id = '{0}'
+      WHERE user_id in ({0})
         AND group_id = {1}
     ]]>
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="INSERTUSER" PARAMS="12">
+  <ROW ID="INSERTUSER" PARAMS="13">
     <DESC></DESC>
     <DATA>
       <![CDATA[
@@ -3754,7 +3808,13 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       user_name,
       user_password,
       user_phone,
+      user_phone2,
+      user_noti_phone,
       user_email,
+      user_dept_name,
+      is_admin_tf, 
+      is_locked_tf, 
+      set_pw_dt,
       last_mod_ip,
       last_mod_dt
       )
@@ -3764,21 +3824,50 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 		   ,'{2}'
 		   ,'{3}'
 		   ,'{4}'
-		   ,'{5}'
+		   ,{5}
+       ,'{6}'
+       ,'{7}'
+       ,{8}
+       ,{9}
+       ,now()
+       ,'{10}'
 		   ,now()
 		  ) 
     ]]>
     </DATA>
   </ROW>
-  <ROW ID="UPDATEUSER" PARAMS="7">
+  <ROW ID="UPDATEUSER" PARAMS="8">
     <DESC></DESC>
     <DATA>
       <![CDATA[
      UPDATE TB_MON_USER SET 
-          USER_PASSWORD = '{1}',
+          USER_NAME = '{1}',
           USER_PHONE = '{2}',
-          USER_EMAIL = '{3}',
-          LAST_MOD_IP = '{4}',
+          USER_PHONE2 = '{3}',
+          user_noti_phone = {4},
+          USER_EMAIL = '{5}',
+          USER_DEPT_NAME = '{6}',
+          LAST_MOD_IP = '{7}',
+          LAST_MOD_DT = now()
+      WHERE USER_ID = '{0}'
+    ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="UPDATEUSERADMIN" PARAMS="10">
+    <DESC></DESC>
+    <DATA>
+      <![CDATA[
+     UPDATE TB_MON_USER SET 
+          USER_NAME = '{1}',
+          USER_PHONE = '{2}',
+          USER_PHONE2 = '{3}',
+          user_noti_phone = {4},
+          USER_EMAIL = '{5}',
+          USER_DEPT_NAME = '{6}',
+          IS_ADMIN_TF = {7}::BOOL,
+          IS_LOCKED_TF = {8}::BOOL,
+          LAST_MOD_IP = '{9}',
           LAST_MOD_DT = now()
       WHERE USER_ID = '{0}'
     ]]>
@@ -3801,9 +3890,23 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
   <ROW ID="SELECTUSER" PARAMS="1">
     <DATA>
     <![CDATA[
-      SELECT * FROM TB_MON_USER U
+      SELECT  USER_ID,
+              USER_NAME,
+              USER_PASSWORD,
+              USER_PHONE,
+	            USER_PHONE2,
+              CASE WHEN USER_NOTI_PHONE = 0 THEN USER_PHONE ELSE USER_PHONE2 END USER_SEL_PHONE,
+	            USER_NOTI_PHONE,
+	            USER_EMAIL,
+	            USER_DEPT_NAME,
+	            CASE WHEN IS_ADMIN_TF THEN 'Admin' ELSE '' END AS USER_ADMIN,
+	            LAST_LOGIN_DT,
+	            SET_PW_DT,
+              CASE WHEN IS_LOCKED_TF THEN 'Locked' ELSE '' END IS_LOCKED_TF
+      FROM TB_MON_USER U
        WHERE IS_DELETED = FALSE
-         AND USER_ID NOT in (SELECT USER_ID FROM TB_MON_USER_BY_GROUP WHERE GROUP_ID = {0});
+         AND USER_ID NOT in (SELECT USER_ID FROM TB_MON_USER_BY_GROUP WHERE GROUP_ID = {0})
+         ORDER BY USER_SEQ
     ]]>
     </DATA>
   </ROW>
@@ -3849,7 +3952,315 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
          AND TA.EXPORT_LEVEL >= {4}
     ]]>
     </DATA>
+  </ROW>  
+  <ROW ID="SELECTPRIVILEGES" PARAMS="0">
+    <DATA>
+      <![CDATA[
+      SELECT *
+        FROM TB_MON_PERM
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTPRIVILEGESBYUSER" PARAMS="1">
+    <DATA>
+      <![CDATA[
+      SELECT re.*, group_name 
+        FROM crosstab(' SELECT l.group_id, l.perm_id, CASE WHEN pu.USER_ID = ''{0}'' THEN 1 ELSE 0 END privilege 
+  					              FROM (SELECT group_id, perm_id FROM tb_group_info g, tb_mon_perm p ORDER BY group_id, perm_id) l 
+                                LEFT OUTER JOIN TB_MON_PERM_BY_USER pu ON pu.GROUP_ID = l.group_id AND pu.PERM_ID = l.perm_id AND pu.USER_ID = ''{0}''
+ 				                 ORDER BY l.group_id, l.perm_id') AS re (GROUP_id integer, Detailed_Monitoring int, SQL_plan int, Cancel_query int, Kill_session int)
+        JOIN tb_group_info g ON re.group_id = g.group_id;
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTALLOWIP" PARAMS="0">
+    <DATA>
+      <![CDATA[
+      SELECT I.USER_ID, U.USER_NAME, I.ALLOW_IP, -1 AS TAG
+        FROM TB_MON_USER_ALLOW_IP I JOIN TB_MON_USER U ON I.USER_ID =  U.USER_ID;
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTSECURITYCONFIG" PARAMS="0">
+    <DATA>
+      <![CDATA[
+      SELECT * FROM TB_MON_USER_POLICY;
+    ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="UPDATESECURITYCONFIG" PARAMS="5">
+    <DATA>
+      <![CDATA[
+        UPDATE TB_MON_USER_POLICY SET
+          LOGIN_FAIL_CNT = {0}
+	        ,LOCK_TIMEOUT = {1}
+	        ,LOCK_INACT_PERIOD = {2}
+	        ,NONALPHANUMERIC_TF = {3}
+	        ,ALLOW_DUP_LOGIN_TF = {4}
+	        ,PW_MIN_LENGTH = {5}
+	        ,PW_EXPR_DAYS = {6}
+	        ,PW_EXPR_NOTI_DAYS = {7}
+	        ,LAST_MOD_IP = '{8}'
+	        ,LAST_MOD_DT = NOW()
+      ]]>
+    </DATA>
   </ROW>
 
+  <ROW ID="CHECKLOGINFAILCOUNT" PARAMS="1">
+    <DESC>Check Prev Login</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT ((SELECT LOCK_TIMEOUT * 60 FROM TB_MON_USER_POLICY) - EXTRACT('epoch' FROM (NOW() - ATTEMPT_DT))::NUMERIC(10,0))   AS TIMEOUT
+        FROM TB_MON_LOGIN_ATTEMPTS 
+       WHERE ATTEMPT_IP = '{0}' 
+         AND ATTEMPT_CNT > (SELECT LOGIN_FAIL_CNT FROM TB_MON_USER_POLICY)
+      ]]>
+    </DATA>
+  </ROW>
+  
+  <ROW ID="CHECKLOGIN" PARAMS="2">
+    <DESC>Check Login</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT *,
+            (set_pw_dt::date + (SELECT PW_EXPR_DAYS FROM TB_MON_USER_POLICY) < now()::date) isExpired,
+	          (set_pw_dt::date + (SELECT PW_EXPR_DAYS-PW_EXPR_NOTI_DAYS FROM TB_MON_USER_POLICY) < now()::date) isExpiredNear,
+            (set_pw_dt::date + (SELECT PW_EXPR_DAYS FROM TB_MON_USER_POLICY) - now()::date) UntilExpireDays,
+            CASE WHEN USER_PASSWORD = '{1}' THEN 1 ELSE 0 END AS MATCHED
+        FROM TB_MON_USER WHERE USER_ID = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
 
+  <ROW ID="DOLOGIN" PARAMS="5">
+    <DATA>
+      <![CDATA[
+        UPDATE TB_MON_USER 
+           SET CURRENT_LOGIN_CNT = (SELECT CURRENT_LOGIN_CNT + 1 FROM TB_MON_USER WHERE USER_ID = '{0}'),
+               LAST_LOGIN_DT = '{1}',
+               LAST_MOD_IP = '{2}',
+               LAST_MOD_DT = NOW()
+          WHERE USER_ID = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="DOLOGOUT" PARAMS="2">
+    <DATA>
+      <![CDATA[
+        UPDATE TB_MON_USER 
+           SET LAST_LOGOUT_DT = CURRENT_TIMESTAMP,
+               LAST_MOD_IP = '{1}',
+               LAST_MOD_DT = CURRENT_TIMESTAMP
+          WHERE USER_ID = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SETLOGINFAIL" PARAMS="1">
+    <DATA>
+      <![CDATA[
+        INSERT INTO TB_MON_LOGIN_ATTEMPTS
+        (
+	        attempt_ip,
+	        attempt_cnt,
+	        attempt_dt
+        ) VALUES 
+        (
+	        '{0}',
+	        1,
+	        now()
+        ) ON CONFLICT(attempt_ip) DO UPDATE SET
+	        attempt_cnt = (SELECT attempt_cnt + 1 FROM TB_MON_LOGIN_ATTEMPTS WHERE attempt_ip = '{0}'),
+	        attempt_dt = now()
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="CLEARLOGINFAIL" PARAMS="1">
+    <DATA>
+      <![CDATA[
+        DELETE FROM TB_MON_LOGIN_ATTEMPTS
+        WHERE ATTEMPT_IP = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
+  
+  <ROW ID="SELECTUSERPERMISSION" PARAMS="1">
+    <DESC>select user permission</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT * FROM TB_MON_PERM_BY_USER WHERE USER_ID = '{0}' ORDER BY GROUP_ID, PERM_ID
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTUSERPERMISSION" PARAMS="5">
+    <DESC>select user permission</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_MON_PERM_BY_USER 
+      (
+	      USER_ID,
+	      GROUP_ID,
+	      PERM_ID,
+	      LAST_MOD_USER_ID,
+	      LAST_MOD_IP,
+	      LAST_MOD_DT
+      )
+      VALUES 
+      (
+	      '{0}',
+	      {1},
+	      {2},
+	      '{3}',
+	      '{4}',
+	      NOW()
+      ) ON CONFLICT DO NOTHING
+      ]]>
+    </DATA>
+  </ROW>  
+  <ROW ID="DELETEUSERPERMISSION" PARAMS="3">
+    <DESC>delte user permission</DESC>
+    <DATA>
+      <![CDATA[
+      DELETE FROM TB_MON_PERM_BY_USER 
+       WHERE USER_ID = '{0}' AND GROUP_ID = {1} AND PERM_ID = {2}; 
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTMONUSERINFO" PARAMS="1">
+    <DESC>PT_05_03_001(SELECTMONUSERINFO)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT * FROM TB_MON_USER WHERE user_id = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTMONUSERCONFIG" PARAMS="10">
+    <DESC>INSERTMONUSERCONFIG</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_MON_USER_CONFIG
+      (
+        USER_ID,
+        LANGUAGE,
+        REFRESH_PERIOD,
+        SOUND_PATH,
+        SHOW_ALIAS_TF,
+        REG_ACCOUNT_SQLPLAN_TF,
+        STYLE_CPU,
+        STYLE_CPU_DIRECTION_TF,
+        STYLE_MEM,
+        STYLE_MEM_DIRECTION_TF
+      )
+      VALUES 
+      (
+	      '{0}',
+	      {1},
+	      {2},
+	      '{3}',
+	      {4}::BOOL,
+	      {5}::BOOL,
+	      {6},
+	      {7}::BOOL,
+	      {8},
+	      {9}::BOOL
+      ) ON CONFLICT(USER_ID) DO UPDATE SET
+        LANGUAGE = {1},
+        REFRESH_PERIOD = {2},
+        SOUND_PATH = '{3}',
+        SHOW_ALIAS_TF = {4}::BOOL,
+        REG_ACCOUNT_SQLPLAN_TF = {5}::BOOL,
+        STYLE_CPU = {6},
+        STYLE_CPU_DIRECTION_TF = {7}::BOOL,
+        STYLE_MEM = {8},
+        STYLE_MEM_DIRECTION_TF = {9}::BOOL
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTMONUSERCONFIG" PARAMS="1">
+    <DESC>PT_05_03_001(SELECTMONUSERCONFIG)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT * FROM TB_MON_USER_CONFIG WHERE USER_ID = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="INSERTALLOWIP" PARAMS="2">
+    <DESC>INSERTALLOWIP</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_MON_USER_ALLOW_IP 
+      (
+	      USER_ID,
+	      ALLOW_IP
+      )
+      VALUES 
+      (
+	      '{0}',
+	      '{1}'
+      ) ON CONFLICT DO NOTHING
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="DELETEALLOWIP" PARAMS="2">
+    <DESC>DELETEALLOWIP</DESC>
+    <DATA>
+      <![CDATA[
+      DELETE FROM TB_MON_USER_ALLOW_IP 
+       WHERE USER_ID = '{0}' AND ALLOW_IP = '{1}' 
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  
+  <ROW ID="CHECKALLOWIP" PARAMS="1">
+    <DESC>PT_05_03_001(CHECKALLOWIP)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT * FROM TB_MON_USER_ALLOW_IP WHERE USER_ID = '{0}'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTUSERACCESSINFO" PARAMS="6">
+    <DESC>INSERTUSERACCESSINFO</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_MON_USER_AUDIT 
+      (
+	      USER_ID,
+	      ACCESS_DT,
+	      ACCESS_TYPE,
+	      INSTANCE_ID,
+	      ACCESS_STATUS,
+	      ACCESS_LOG,
+	      ACCESS_IP
+      ) VALUES (
+	      '{0}',
+	       NOW(),
+	      '{1}',
+	       {2},
+	       {3},
+	      '{4}',
+	      '{5}'
+      );
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTUSERACCESSINFO" PARAMS="3">
+    <DESC>PT_05_03_001(SELECTUSERACCESSINFO)</DESC>
+    <DATA>
+      <![CDATA[
+         SELECT A.USER_ID, U.USER_NAME, 
+               A.ACCESS_DT, ACCESS_TYPE,
+               A.ACCESS_IP, I.HOST_NAME, I.SERVER_IP,
+               CASE WHEN A.ACCESS_STATUS = 0 THEN 'Success' ELSE 'Error' END ACCESS_STATUS,
+               A.ACCESS_LOG
+          FROM TB_MON_USER_AUDIT A JOIN TB_MON_USER U ON U.USER_ID = A.USER_ID LEFT OUTER JOIN TB_INSTANCE_INFO I ON A.INSTANCE_ID = I.INSTANCE_ID
+        WHERE A.ACCESS_DT BETWEEN '{0}' AND '{1}'
+        {2} ORDER BY A.ACCESS_DT DESC
+      ]]>
+    </DATA>
+  </ROW>
 </ROWS>

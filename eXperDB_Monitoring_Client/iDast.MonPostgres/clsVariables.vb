@@ -57,6 +57,14 @@ Module clsVariables
 
     Public p_ShowName As clsEnums.ShowName = clsEnums.ShowName.HostName
 
+    ''' <summary>
+    ''' 사용자 환경
+    ''' </summary>
+    ''' <remarks></remarks>
+    Public p_UserENv As clsUserEnv
 
+    Public p_cSession As clsSession
+
+    Public p_currentGroup As Integer
 
 End Module

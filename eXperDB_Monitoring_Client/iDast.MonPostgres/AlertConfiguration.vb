@@ -56,17 +56,17 @@
     Public Sub Setvalue(ByVal DT As DataTable, ByVal FixedThresholdDT As DataTable, ByVal dtUserGroup As DataTable)
 
         cmbNotiUsers.Items.Clear()
-        If dtUserGroup IsNot Nothing Then
+        If dtUserGroup IsNot Nothing AndAlso dtUserGroup.Rows.Count > 0 Then
             Dim comboSource As New Dictionary(Of String, String)()
             For Each tmpRow As DataRow In dtUserGroup.Rows
                 comboSource.Add(tmpRow.Item("GROUP_ID"), tmpRow.Item("GROUP_NAME"))
             Next
             cmbNotiUsers.DataSource = New BindingSource(comboSource, Nothing)
             cmbNotiUsers.DisplayMember = "Value"
+            cmbNotiUsers.SelectedIndex = CInt(DT.Rows(0)("USER_GROUP"))
             cmbNotiUsers.ValueMember = "Key"
         End If
 
-        cmbNotiUsers.SelectedIndex = CInt(DT.Rows(0)("USER_GROUP"))
         cmbNotiLevel.SelectedIndex = CInt(DT.Rows(0)("NOTIFICATION_LEVEL"))
         nudNotiCycle.Value = CInt(DT.Rows(0)("NOTIFICATION_CYCLE"))
         txtBusiness.Text = DT.Rows(0)("BUSINESS_NAME")

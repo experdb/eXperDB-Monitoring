@@ -89,7 +89,7 @@
 
         Dim dtTable As DataTable = ValueDesc.GetDataTable
 
-       
+
 
         Me.DataSource = dtTable
         Me.DisplayMember = "DESC"
@@ -195,7 +195,7 @@
             End If
         End Set
     End Property
-  
+
 
     ReadOnly Property CheckValueText As Boolean
         Get
@@ -244,7 +244,7 @@
         MyBase.OnKeyDown(e)
 
     End Sub
-     
+
 
 
 End Class

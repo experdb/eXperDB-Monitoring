@@ -522,7 +522,7 @@ Partial Class frmUserList
         Me.Name = "frmUserList"
         Me.Padding = New System.Windows.Forms.Padding(2)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Database Management"
+        Me.Text = "User list"
         Me.pnlB.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()

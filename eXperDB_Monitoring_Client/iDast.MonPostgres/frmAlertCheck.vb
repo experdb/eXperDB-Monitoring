@@ -25,6 +25,7 @@
         lblAlertUser.Text = p_clsMsgData.fn_GetData("F265")
 
         cmbPauseTime.SelectedIndex = 0
+        txtAlertUser.Text = p_cSession.UserID
         'modCommon.FontChange(Me, p_Font)
     End Sub
 

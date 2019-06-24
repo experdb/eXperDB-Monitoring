@@ -44,12 +44,14 @@
         coldgvUserLstName.HeaderText = p_clsMsgData.fn_GetData("F348")
         coldgvUserLstTel.HeaderText = p_clsMsgData.fn_GetData("F349")
         coldgvUserLstEmail.HeaderText = p_clsMsgData.fn_GetData("F350")
+        coldgvUserLstDept.HeaderText = p_clsMsgData.fn_GetData("F915")
 
         btnApply.Text = p_clsMsgData.fn_GetData("F352")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
 
         lblGroupList.Text = p_clsMsgData.fn_GetData("F026")
         lblUserList.Text = p_clsMsgData.fn_GetData("F351")
+
 
         modCommon.FontChange(Me, p_Font)
 
@@ -77,7 +79,7 @@
     End Sub
 
     Private Sub frmUserGroup_Load(sender As Object, e As EventArgs) Handles Me.Load
-        MsgLabel.Text = p_clsMsgData.fn_GetData("M072")
+        MsgLabel.Text = p_clsMsgData.fn_GetData("M089")
     End Sub
 
 
@@ -92,7 +94,7 @@
         dgvGroupLst.Rows.Clear()
 
         Try
-            Dim dtTable As DataTable = _clsQuery.SelectUserGroup()
+            Dim dtTable As DataTable = _clsQuery.SelectMonUserGroup()
             If dtTable IsNot Nothing Then
                 dgvGroupLst.DataSource = dtTable
                 lblGroupList.Text = p_clsMsgData.fn_GetData("F026") + " ( " + dtTable.Rows.Count.ToString() + " ) "
@@ -167,30 +169,6 @@
         End If
     End Sub
 
-    Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
-        Dim intCnt As Integer = 0
-        For Each tmpRow As DataGridViewRow In Me.dgvUserLst.Rows
-            If tmpRow.Visible = True Then
-                intCnt += 1
-            End If
-        Next
-
-        Dim frmUM As New frmUserList(_groupID)
-        If frmUM.ShowDialog = Windows.Forms.DialogResult.OK Then
-            ReadUserListbyGroup()
-        End If
-
-        Dim nCount As Integer = 0
-        For Each tmpRow As DataGridViewRow In Me.dgvUserLst.Rows
-            If tmpRow.Visible = True Then
-                nCount += 1
-            End If
-        Next
-
-        lblUserList.Text = p_clsMsgData.fn_GetData("F351") + " ( " + nCount.ToString + " ) "
-
-    End Sub
-
     Private Sub btnModify_Click(sender As Object, e As EventArgs)
         If dgvUserLst.SelectedRows.Count <= 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M034"))
@@ -210,7 +188,7 @@
                 intCnt += 1
             End If
         Next
-        Dim frmUM As New frmUser(intSelRow, strUserID, strUserName, strUserPhone, strUserEmail)
+        Dim frmUM As New frmUser(_clsQuery, Nothing, intSelRow, strUserID, strUserName, strUserPhone, strUserEmail)
         If frmUM.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnUserID As String = ""
             Dim rtnUserName As String = ""
@@ -250,22 +228,8 @@
         End If
     End Sub
 
-    Private Sub dgvUserLst_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUserLst.CellClick
-        If e.ColumnIndex = coldgvUserLstDelete.Index Then
-            If MsgBox(p_clsMsgData.fn_GetData("M071", dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstID.Index).Value), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
-                Dim COC As New Common.ClsObjectCtl
-                Dim strLocIP As String = COC.GetLocalIP
-                Dim nReturn As Integer = _clsQuery.DeleteUserByGroup(dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstID.Index).Value, _groupID)
-                If nReturn <= 0 Then
-                    MsgBox(p_clsMsgData.fn_GetData("M029"))
-                Else
-                    ReadUserListbyGroup()
-                End If
-            End If
-        End If
-    End Sub
-
     Public Sub rtnValue(ByRef intUserGroup As Integer)
         intUserGroup = _groupID
     End Sub
+
 End Class

@@ -19,7 +19,7 @@
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
-
+        _groupID = -2
         initForm()
 
     End Sub
@@ -43,7 +43,12 @@
         coldgvUserLstTel.HeaderText = p_clsMsgData.fn_GetData("F349")
         coldgvUserLstEmail.HeaderText = p_clsMsgData.fn_GetData("F350")
 
-        btnApply.Text = p_clsMsgData.fn_GetData("F016")
+        If _groupID = -2 Then
+            btnApply.Text = p_clsMsgData.fn_GetData("F017")
+            dgvUserLst.MultiSelect = False
+        Else
+            btnApply.Text = p_clsMsgData.fn_GetData("F016")
+        End If
 
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
         MsgLabel.Text = p_clsMsgData.fn_GetData("M069")
@@ -95,7 +100,7 @@
 #End Region
     Private Sub dgvUserLst_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvUserLst.CellClick
         If e.ColumnIndex = coldgvUserLstEdit.Index Then
-            Dim frmUM As New frmUser(e.RowIndex, dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstID.Index).Value, _
+            Dim frmUM As New frmUser(_clsQuery, Nothing, e.RowIndex, dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstID.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstName.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstTel.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstEmail.Index).Value)
@@ -156,28 +161,31 @@
             End If
         Next
 
-        Dim frmUM As New frmUser(-1)
+        Dim frmUM As New frmUser(_clsQuery, Nothing, -1)
         If frmUM.ShowDialog = Windows.Forms.DialogResult.OK Then
             ReadUserList()
         End If
     End Sub
 
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
-        Dim COC As New Common.ClsObjectCtl
-        Dim strLocIP As String = COC.GetLocalIP
+        If _groupID > -2 Then
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
 
-        For Each tmpRow As DataGridViewRow In dgvUserLst.Rows
-            If tmpRow.Selected = True Then
-                Dim strUserID As String = tmpRow.Cells(coldgvUserLstID.Index).Value
-                Dim strGroupID As String = _groupID
-                Dim nReturn As Integer = _clsQuery.insertUserGroup(strUserID, strGroupID, strLocIP)
-                Select Case nReturn
-                    Case -1
-                        MsgBox(p_clsMsgData.fn_GetData("M029"))
-                        Return
-                End Select
-            End If
-        Next
+            For Each tmpRow As DataGridViewRow In dgvUserLst.Rows
+                If tmpRow.Selected = True Then
+                    Dim strUserID As String = tmpRow.Cells(coldgvUserLstID.Index).Value
+                    Dim strGroupID As String = _groupID
+                    Dim nReturn As Integer = _clsQuery.insertUserGroup(strUserID, strGroupID, strLocIP)
+                    Select Case nReturn
+                        Case -1
+                            MsgBox(p_clsMsgData.fn_GetData("M029"))
+                            Return
+                    End Select
+                End If
+            Next
+        End If
+
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
@@ -196,5 +204,10 @@
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         Me.Close()
+    End Sub
+
+    Public Sub rtnValue(ByRef strUserID As String, ByRef strUserName As String)
+        strUserID = dgvUserLst.SelectedRows(0).Cells(coldgvUserLstID.Index).Value
+        strUserName = dgvUserLst.SelectedRows(0).Cells(coldgvUserLstName.Index).Value
     End Sub
 End Class

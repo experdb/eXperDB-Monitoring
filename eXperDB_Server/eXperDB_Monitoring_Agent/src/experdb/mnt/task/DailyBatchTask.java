@@ -145,6 +145,22 @@ public class DailyBatchTask {
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
 			
 			try {
+				//Update Monitoring User state
+				sessionAgent.update("app.TB_CHECK_USER_EXPIRATION_U001");
+				//Commit
+				sessionAgent.commit();
+			} catch (Exception e) {
+				sessionAgent.rollback();
+				log.error("", e);
+				
+				status = "3";
+				comments = "2";
+			}
+			
+			sessionAgent.close();
+			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
+			
+			try {
 				log.info("Start to Create partitions");
 				// Create partition tables
 				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();

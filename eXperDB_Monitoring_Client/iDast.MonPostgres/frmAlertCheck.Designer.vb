@@ -89,6 +89,7 @@ Partial Class frmAlertCheck
         Me.txtAlertUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtAlertUser.code = False
         Me.txtAlertUser.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtAlertUser.Enabled = False
         Me.txtAlertUser.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAlertUser.impossibleinput = ""
         Me.txtAlertUser.Location = New System.Drawing.Point(103, 13)
@@ -107,6 +108,7 @@ Partial Class frmAlertCheck
         Me.lblAlertUser.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblAlertUser.FixedWidth = False
         Me.lblAlertUser.ForeColor = System.Drawing.Color.White
+        Me.lblAlertUser.LineSpacing = 0.0!
         Me.lblAlertUser.Location = New System.Drawing.Point(3, 13)
         Me.lblAlertUser.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblAlertUser.Name = "lblAlertUser"
@@ -120,6 +122,7 @@ Partial Class frmAlertCheck
         Me.lblPause.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblPause.FixedWidth = False
         Me.lblPause.ForeColor = System.Drawing.Color.White
+        Me.lblPause.LineSpacing = 0.0!
         Me.lblPause.Location = New System.Drawing.Point(3, 43)
         Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblPause.Name = "lblPause"
@@ -161,6 +164,7 @@ Partial Class frmAlertCheck
         Me.lblAlertComment.FixedHeight = False
         Me.lblAlertComment.FixedWidth = False
         Me.lblAlertComment.ForeColor = System.Drawing.Color.White
+        Me.lblAlertComment.LineSpacing = 0.0!
         Me.lblAlertComment.Location = New System.Drawing.Point(3, 71)
         Me.lblAlertComment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblAlertComment.Name = "lblAlertComment"

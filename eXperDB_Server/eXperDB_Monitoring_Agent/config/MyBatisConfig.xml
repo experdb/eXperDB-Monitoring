@@ -18,9 +18,9 @@
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
                 <property name="driver" value="org.postgresql.Driver" />
-                <property name="url" value="jdbc:postgresql://192.168.56.111:5432/psgmondb" />
-                <property name="username" value="psgmondb" />
-                <property name="password" value="psgmondb146^" />
+                <property name="url" value="jdbc:postgresql://192.168.56.111:5432/pgmon" />
+                <property name="username" value="pgmon" />
+                <property name="password" value="pgmon" />
 				<property name="poolMaximumActiveConnections" value="100" />
             </dataSource>
         </environment>

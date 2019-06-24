@@ -10,14 +10,23 @@
 
         'FormMovePanel1.Text = p_clsMsgData.fn_GetData("F004")
         btnOK.Text = p_clsMsgData.fn_GetData("F005")
+        lblUserID.Text = p_clsMsgData.fn_GetData("F347")
+        lblPassword.Text = p_clsMsgData.fn_GetData("F004")
 
 
         'modCommon.FontChange(Me, p_Font)
 
     End Sub
 
-    Private Sub btnOK_Click(sender As Object, e As EventArgs)
-
+    Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+        Dim crypt As New eXperDB.Common.ClsCrypt
+        Dim strPw = crypt.EncryptStringSHA256(txtPw.Text)
+        If strPw <> p_cSession.UserPassword Then
+            MsgBox(p_clsMsgData.fn_GetData("M005"))
+        Else
+            Me.DialogResult = Windows.Forms.DialogResult.OK
+            Me.Close()
+        End If
     End Sub
 
     Private Sub txtPw_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPw.KeyDown
@@ -26,7 +35,7 @@
         End If
     End Sub
 
-    Private Sub btnOK_Click_1(sender As Object, e As EventArgs) Handles btnOK.Click
+    Private Sub btnOK_Click_1(sender As Object, e As EventArgs)
 
         Dim clsQu As New clsQuerys(_Odbc)
         Dim strKey As String = Nothing
@@ -69,7 +78,7 @@
 
     Private Sub frmPassword_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         StatusLabel.Text = p_clsMsgData.fn_GetData("M052")
-
+        txtUserID.Text = p_cSession.UserID
     End Sub
 
     Private Sub frmPassword_Shown(sender As Object, e As EventArgs) Handles Me.Shown

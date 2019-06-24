@@ -28,10 +28,11 @@
         'dtView.ToTable.AsEnumerable.Take(200).CopyToDataTable
 
         Me._conODBC = conODBC
-        Me._dgvMon = frmSvrList.dgvMonLst
+
     End Sub
 
     Private Sub frmAddSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me._dgvMon = TryCast(Me.Owner, frmSvrList).dgvMonLst
         lblSubject.Text = p_clsMsgData.fn_GetData("F281")
         lblSvrList.Text = p_clsMsgData.fn_GetData("F013")
         dgvSvrLst.ClearSelection()

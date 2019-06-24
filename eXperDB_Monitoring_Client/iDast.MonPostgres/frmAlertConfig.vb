@@ -49,7 +49,7 @@ Public Class frmAlertConfig
             Dim tmpCn As New eXperDBODBC(dbType, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
             Dim ClsQuery As New clsQuerys(tmpCn)
             Dim dt1 As DataTable = ClsQuery.SelectIniFixedThreshold()
-            Dim dtUserGroup As DataTable = ClsQuery.SelectUserGroup()
+            Dim dtUserGroup As DataTable = ClsQuery.SelectMonUserGroup()
             For i As Integer = 0 To svrLst.Count - 1
 
                 Dim dt As DataTable = ClsQuery.SelectHealthLimited(svrLst.Item(i).InstanceID)
