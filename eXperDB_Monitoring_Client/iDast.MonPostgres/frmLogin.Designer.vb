@@ -24,17 +24,6 @@ Partial Class frmLogin
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogin))
-        Me.Label5 = New eXperDB.BaseControls.Label()
-        Me.Label6 = New eXperDB.BaseControls.Label()
-        Me.txtUserID = New eXperDB.BaseControls.TextBox()
-        Me.txtPassword = New eXperDB.BaseControls.TextBox()
-        Me.Panel2 = New eXperDB.BaseControls.Panel()
-        Me.Panel3 = New eXperDB.BaseControls.Panel()
-        Me.txtServerIP = New eXperDB.BaseControls.TextBox()
-        Me.Panel4 = New eXperDB.BaseControls.Panel()
-        Me.Label7 = New eXperDB.BaseControls.Label()
-        Me.btnServer = New eXperDB.BaseControls.Button()
-        Me.chkRememberID = New eXperDB.BaseControls.CheckBox()
         Me.pnlLogin = New eXperDB.BaseControls.Panel()
         Me.lblLogo = New eXperDB.BaseControls.Label()
         Me.lblLogo2 = New eXperDB.BaseControls.Label()
@@ -42,188 +31,27 @@ Partial Class frmLogin
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnLogin = New System.Windows.Forms.Button()
-        Me.Panel2.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        Me.Panel4.SuspendLayout()
+        Me.chkRememberID = New eXperDB.BaseControls.CheckBox()
+        Me.Label5 = New eXperDB.BaseControls.Label()
+        Me.btnServer = New eXperDB.BaseControls.Button()
+        Me.Label6 = New eXperDB.BaseControls.Label()
+        Me.Label7 = New eXperDB.BaseControls.Label()
+        Me.Panel2 = New eXperDB.BaseControls.Panel()
+        Me.txtUserID = New eXperDB.BaseControls.TextBox()
+        Me.Panel4 = New eXperDB.BaseControls.Panel()
+        Me.txtServerIP = New eXperDB.BaseControls.TextBox()
+        Me.Panel3 = New eXperDB.BaseControls.Panel()
+        Me.txtPassword = New eXperDB.BaseControls.TextBox()
         Me.pnlLogin.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.FixedHeight = False
-        Me.Label5.FixedWidth = False
-        Me.Label5.Image = CType(resources.GetObject("Label5.Image"), System.Drawing.Image)
-        Me.Label5.LineSpacing = 0.0!
-        Me.Label5.Location = New System.Drawing.Point(57, 222)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(24, 24)
-        Me.Label5.TabIndex = 3
-        '
-        'Label6
-        '
-        Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.FixedHeight = False
-        Me.Label6.FixedWidth = False
-        Me.Label6.Image = CType(resources.GetObject("Label6.Image"), System.Drawing.Image)
-        Me.Label6.LineSpacing = 0.0!
-        Me.Label6.Location = New System.Drawing.Point(58, 268)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(24, 24)
-        Me.Label6.TabIndex = 4
-        '
-        'txtUserID
-        '
-        Me.txtUserID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtUserID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList
-        Me.txtUserID.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtUserID.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtUserID.code = False
-        Me.txtUserID.FixedWidth = False
-        Me.txtUserID.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.txtUserID.ForeColor = System.Drawing.Color.Gray
-        Me.txtUserID.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtUserID.impossibleinput = ""
-        Me.txtUserID.Location = New System.Drawing.Point(3, 9)
-        Me.txtUserID.MaxByteLength = 16
-        Me.txtUserID.Name = "txtUserID"
-        Me.txtUserID.Necessary = False
-        Me.txtUserID.PossibleInput = ""
-        Me.txtUserID.Prefix = ""
-        Me.txtUserID.Size = New System.Drawing.Size(142, 16)
-        Me.txtUserID.StatusTip = ""
-        Me.txtUserID.TabIndex = 0
-        Me.txtUserID.Text = "User ID"
-        Me.txtUserID.Value = ""
-        '
-        'txtPassword
-        '
-        Me.txtPassword.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtPassword.code = False
-        Me.txtPassword.FixedWidth = False
-        Me.txtPassword.ForeColor = System.Drawing.Color.Gray
-        Me.txtPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtPassword.impossibleinput = ""
-        Me.txtPassword.Location = New System.Drawing.Point(3, 9)
-        Me.txtPassword.Name = "txtPassword"
-        Me.txtPassword.Necessary = False
-        Me.txtPassword.PossibleInput = ""
-        Me.txtPassword.Prefix = ""
-        Me.txtPassword.Size = New System.Drawing.Size(142, 14)
-        Me.txtPassword.StatusTip = ""
-        Me.txtPassword.TabIndex = 0
-        Me.txtPassword.Text = "Password"
-        Me.txtPassword.Value = ""
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Panel2.Controls.Add(Me.txtUserID)
-        Me.Panel2.Location = New System.Drawing.Point(93, 219)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(146, 32)
-        Me.Panel2.TabIndex = 3
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Panel3.Controls.Add(Me.txtPassword)
-        Me.Panel3.Location = New System.Drawing.Point(93, 265)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(146, 32)
-        Me.Panel3.TabIndex = 5
-        '
-        'txtServerIP
-        '
-        Me.txtServerIP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtServerIP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList
-        Me.txtServerIP.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.txtServerIP.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtServerIP.code = False
-        Me.txtServerIP.Enabled = False
-        Me.txtServerIP.FixedWidth = False
-        Me.txtServerIP.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.txtServerIP.ForeColor = System.Drawing.Color.Black
-        Me.txtServerIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtServerIP.impossibleinput = ""
-        Me.txtServerIP.Location = New System.Drawing.Point(3, 9)
-        Me.txtServerIP.MaxByteLength = 16
-        Me.txtServerIP.Name = "txtServerIP"
-        Me.txtServerIP.Necessary = False
-        Me.txtServerIP.PossibleInput = ""
-        Me.txtServerIP.Prefix = ""
-        Me.txtServerIP.Size = New System.Drawing.Size(142, 16)
-        Me.txtServerIP.StatusTip = ""
-        Me.txtServerIP.TabIndex = 0
-        Me.txtServerIP.TabStop = False
-        Me.txtServerIP.Text = "Server Information"
-        Me.txtServerIP.Value = ""
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(200, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Panel4.Controls.Add(Me.txtServerIP)
-        Me.Panel4.Location = New System.Drawing.Point(93, 139)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(146, 32)
-        Me.Panel4.TabIndex = 1
-        '
-        'Label7
-        '
-        Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.FixedHeight = False
-        Me.Label7.FixedWidth = False
-        Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
-        Me.Label7.LineSpacing = 0.0!
-        Me.Label7.Location = New System.Drawing.Point(57, 142)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(24, 24)
-        Me.Label7.TabIndex = 2
-        '
-        'btnServer
-        '
-        Me.btnServer.BackColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(72, Byte), Integer))
-        Me.btnServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btnServer.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.btnServer.FixedHeight = False
-        Me.btnServer.FixedWidth = False
-        Me.btnServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnServer.ForeColor = System.Drawing.Color.White
-        Me.btnServer.GraColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(184, Byte), Integer))
-        Me.btnServer.LineColor = System.Drawing.Color.Transparent
-        Me.btnServer.Location = New System.Drawing.Point(247, 139)
-        Me.btnServer.Name = "btnServer"
-        Me.btnServer.Radius = 6
-        Me.btnServer.Size = New System.Drawing.Size(91, 32)
-        Me.btnServer.TabIndex = 2
-        Me.btnServer.Text = "Server"
-        Me.btnServer.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.btnServer.UseRound = True
-        Me.btnServer.UseVisualStyleBackColor = False
-        '
-        'chkRememberID
-        '
-        Me.chkRememberID.AutoSize = True
-        Me.chkRememberID.BackColor = System.Drawing.Color.Transparent
-        Me.chkRememberID.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.chkRememberID.ForeColor = System.Drawing.Color.LightSteelBlue
-        Me.chkRememberID.LineColor = System.Drawing.Color.Gray
-        Me.chkRememberID.Location = New System.Drawing.Point(249, 228)
-        Me.chkRememberID.Name = "chkRememberID"
-        Me.chkRememberID.Radius = 10
-        Me.chkRememberID.Size = New System.Drawing.Size(101, 16)
-        Me.chkRememberID.TabIndex = 4
-        Me.chkRememberID.Text = "Remember ID"
-        Me.chkRememberID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkRememberID.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.chkRememberID.UseVisualStyleBackColor = False
         '
         'pnlLogin
         '
-        Me.pnlLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(208, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(38, Byte), Integer))
+        Me.pnlLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(56, Byte), Integer))
         Me.pnlLogin.Controls.Add(Me.lblLogo)
         Me.pnlLogin.Controls.Add(Me.lblLogo2)
         Me.pnlLogin.Controls.Add(Me.lblLogo1)
@@ -237,8 +65,10 @@ Partial Class frmLogin
         Me.pnlLogin.Controls.Add(Me.Panel4)
         Me.pnlLogin.Controls.Add(Me.Panel3)
         Me.pnlLogin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlLogin.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlLogin.Location = New System.Drawing.Point(0, 0)
         Me.pnlLogin.Name = "pnlLogin"
+        Me.pnlLogin.Radius = 10
         Me.pnlLogin.Size = New System.Drawing.Size(379, 410)
         Me.pnlLogin.TabIndex = 7
         '
@@ -248,7 +78,7 @@ Partial Class frmLogin
         Me.lblLogo.FixedWidth = False
         Me.lblLogo.Image = CType(resources.GetObject("lblLogo.Image"), System.Drawing.Image)
         Me.lblLogo.LineSpacing = 0.0!
-        Me.lblLogo.Location = New System.Drawing.Point(21, 32)
+        Me.lblLogo.Location = New System.Drawing.Point(40, 32)
         Me.lblLogo.Name = "lblLogo"
         Me.lblLogo.Size = New System.Drawing.Size(70, 77)
         Me.lblLogo.TabIndex = 9
@@ -257,12 +87,12 @@ Partial Class frmLogin
         '
         Me.lblLogo2.FixedHeight = False
         Me.lblLogo2.FixedWidth = False
-        Me.lblLogo2.Font = New System.Drawing.Font("Lobster", 22.0!)
-        Me.lblLogo2.ForeColor = System.Drawing.Color.SlateGray
+        Me.lblLogo2.Font = New System.Drawing.Font("Buxton Sketch", 20.0!)
+        Me.lblLogo2.ForeColor = System.Drawing.SystemColors.ActiveCaption
         Me.lblLogo2.LineSpacing = 0.0!
-        Me.lblLogo2.Location = New System.Drawing.Point(207, 52)
+        Me.lblLogo2.Location = New System.Drawing.Point(198, 52)
         Me.lblLogo2.Name = "lblLogo2"
-        Me.lblLogo2.Size = New System.Drawing.Size(149, 35)
+        Me.lblLogo2.Size = New System.Drawing.Size(166, 45)
         Me.lblLogo2.TabIndex = 8
         Me.lblLogo2.Text = "Monitoring"
         '
@@ -270,12 +100,12 @@ Partial Class frmLogin
         '
         Me.lblLogo1.FixedHeight = False
         Me.lblLogo1.FixedWidth = False
-        Me.lblLogo1.Font = New System.Drawing.Font("Lobster", 24.0!)
+        Me.lblLogo1.Font = New System.Drawing.Font("Buxton Sketch", 20.0!)
         Me.lblLogo1.ForeColor = System.Drawing.SystemColors.ActiveCaption
         Me.lblLogo1.LineSpacing = 0.0!
-        Me.lblLogo1.Location = New System.Drawing.Point(86, 50)
+        Me.lblLogo1.Location = New System.Drawing.Point(105, 52)
         Me.lblLogo1.Name = "lblLogo1"
-        Me.lblLogo1.Size = New System.Drawing.Size(157, 35)
+        Me.lblLogo1.Size = New System.Drawing.Size(150, 47)
         Me.lblLogo1.TabIndex = 8
         Me.lblLogo1.Text = "eXperDB"
         '
@@ -324,6 +154,187 @@ Partial Class frmLogin
         Me.btnLogin.Text = "Login"
         Me.btnLogin.UseVisualStyleBackColor = False
         '
+        'chkRememberID
+        '
+        Me.chkRememberID.AutoSize = True
+        Me.chkRememberID.BackColor = System.Drawing.Color.Transparent
+        Me.chkRememberID.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkRememberID.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.chkRememberID.LineColor = System.Drawing.Color.Gray
+        Me.chkRememberID.Location = New System.Drawing.Point(249, 228)
+        Me.chkRememberID.Name = "chkRememberID"
+        Me.chkRememberID.Radius = 10
+        Me.chkRememberID.Size = New System.Drawing.Size(101, 16)
+        Me.chkRememberID.TabIndex = 4
+        Me.chkRememberID.Text = "Remember ID"
+        Me.chkRememberID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkRememberID.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkRememberID.UseVisualStyleBackColor = False
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.FixedHeight = False
+        Me.Label5.FixedWidth = False
+        Me.Label5.Image = CType(resources.GetObject("Label5.Image"), System.Drawing.Image)
+        Me.Label5.LineSpacing = 0.0!
+        Me.Label5.Location = New System.Drawing.Point(57, 222)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(24, 24)
+        Me.Label5.TabIndex = 3
+        '
+        'btnServer
+        '
+        Me.btnServer.BackColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(72, Byte), Integer))
+        Me.btnServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btnServer.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(100, Byte), Integer), CType(CType(156, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.btnServer.FixedHeight = False
+        Me.btnServer.FixedWidth = False
+        Me.btnServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnServer.ForeColor = System.Drawing.Color.White
+        Me.btnServer.GraColor = System.Drawing.Color.FromArgb(CType(CType(80, Byte), Integer), CType(CType(120, Byte), Integer), CType(CType(184, Byte), Integer))
+        Me.btnServer.LineColor = System.Drawing.Color.Transparent
+        Me.btnServer.Location = New System.Drawing.Point(247, 139)
+        Me.btnServer.Name = "btnServer"
+        Me.btnServer.Radius = 6
+        Me.btnServer.Size = New System.Drawing.Size(91, 32)
+        Me.btnServer.TabIndex = 2
+        Me.btnServer.Text = "Server"
+        Me.btnServer.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnServer.UseRound = True
+        Me.btnServer.UseVisualStyleBackColor = False
+        '
+        'Label6
+        '
+        Me.Label6.BackColor = System.Drawing.Color.Transparent
+        Me.Label6.FixedHeight = False
+        Me.Label6.FixedWidth = False
+        Me.Label6.Image = CType(resources.GetObject("Label6.Image"), System.Drawing.Image)
+        Me.Label6.LineSpacing = 0.0!
+        Me.Label6.Location = New System.Drawing.Point(58, 268)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(24, 24)
+        Me.Label6.TabIndex = 4
+        '
+        'Label7
+        '
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
+        Me.Label7.FixedHeight = False
+        Me.Label7.FixedWidth = False
+        Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
+        Me.Label7.LineSpacing = 0.0!
+        Me.Label7.Location = New System.Drawing.Point(57, 142)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(24, 24)
+        Me.Label7.TabIndex = 2
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(56, Byte), Integer))
+        Me.Panel2.Controls.Add(Me.txtUserID)
+        Me.Panel2.GraColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.Panel2.Location = New System.Drawing.Point(93, 219)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Radius = 8
+        Me.Panel2.Size = New System.Drawing.Size(147, 32)
+        Me.Panel2.TabIndex = 3
+        Me.Panel2.UseRound = True
+        '
+        'txtUserID
+        '
+        Me.txtUserID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtUserID.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList
+        Me.txtUserID.BackColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.txtUserID.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtUserID.code = False
+        Me.txtUserID.FixedWidth = False
+        Me.txtUserID.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.txtUserID.ForeColor = System.Drawing.Color.Gray
+        Me.txtUserID.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtUserID.impossibleinput = ""
+        Me.txtUserID.Location = New System.Drawing.Point(5, 9)
+        Me.txtUserID.MaxByteLength = 16
+        Me.txtUserID.Name = "txtUserID"
+        Me.txtUserID.Necessary = False
+        Me.txtUserID.PossibleInput = ""
+        Me.txtUserID.Prefix = ""
+        Me.txtUserID.Size = New System.Drawing.Size(140, 16)
+        Me.txtUserID.StatusTip = ""
+        Me.txtUserID.TabIndex = 0
+        Me.txtUserID.Text = "User ID"
+        Me.txtUserID.Value = ""
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(56, Byte), Integer))
+        Me.Panel4.Controls.Add(Me.txtServerIP)
+        Me.Panel4.GraColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.Panel4.Location = New System.Drawing.Point(93, 139)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Radius = 8
+        Me.Panel4.Size = New System.Drawing.Size(147, 32)
+        Me.Panel4.TabIndex = 1
+        Me.Panel4.UseRound = True
+        '
+        'txtServerIP
+        '
+        Me.txtServerIP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.txtServerIP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList
+        Me.txtServerIP.BackColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.txtServerIP.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtServerIP.code = False
+        Me.txtServerIP.Enabled = False
+        Me.txtServerIP.FixedWidth = False
+        Me.txtServerIP.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.txtServerIP.ForeColor = System.Drawing.Color.Black
+        Me.txtServerIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtServerIP.impossibleinput = ""
+        Me.txtServerIP.Location = New System.Drawing.Point(5, 9)
+        Me.txtServerIP.MaxByteLength = 16
+        Me.txtServerIP.Name = "txtServerIP"
+        Me.txtServerIP.Necessary = False
+        Me.txtServerIP.PossibleInput = ""
+        Me.txtServerIP.Prefix = ""
+        Me.txtServerIP.Size = New System.Drawing.Size(140, 16)
+        Me.txtServerIP.StatusTip = ""
+        Me.txtServerIP.TabIndex = 0
+        Me.txtServerIP.TabStop = False
+        Me.txtServerIP.Text = "Server Information"
+        Me.txtServerIP.Value = ""
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(56, Byte), Integer))
+        Me.Panel3.Controls.Add(Me.txtPassword)
+        Me.Panel3.GraColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.Panel3.Location = New System.Drawing.Point(93, 265)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Radius = 8
+        Me.Panel3.Size = New System.Drawing.Size(147, 32)
+        Me.Panel3.TabIndex = 5
+        Me.Panel3.UseRound = True
+        '
+        'txtPassword
+        '
+        Me.txtPassword.BackColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(232, Byte), Integer))
+        Me.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtPassword.code = False
+        Me.txtPassword.FixedWidth = False
+        Me.txtPassword.ForeColor = System.Drawing.Color.Gray
+        Me.txtPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtPassword.impossibleinput = ""
+        Me.txtPassword.Location = New System.Drawing.Point(5, 9)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.Necessary = False
+        Me.txtPassword.PossibleInput = ""
+        Me.txtPassword.Prefix = ""
+        Me.txtPassword.Size = New System.Drawing.Size(140, 14)
+        Me.txtPassword.StatusTip = ""
+        Me.txtPassword.TabIndex = 0
+        Me.txtPassword.Text = "Password"
+        Me.txtPassword.Value = ""
+        '
         'frmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -339,15 +350,15 @@ Partial Class frmLogin
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "1"
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
         Me.pnlLogin.ResumeLayout(False)
         Me.pnlLogin.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

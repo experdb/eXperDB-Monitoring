@@ -42,7 +42,7 @@
         dtbReplicationDelay.BarMinValue = 0
         dtbReplicationDelay.BarMaxValue = 0
 
-        btnUserGroup.Text = p_clsMsgData.fn_GetData("F025")
+        btnUserGroup.Text = p_clsMsgData.fn_GetData("F352")
 
         If dtTable IsNot Nothing Then
             Setvalue(dtTable, FixedThresholdDT, dtUserGroup)

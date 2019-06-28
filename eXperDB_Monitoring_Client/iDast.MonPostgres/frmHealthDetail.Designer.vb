@@ -22,8 +22,8 @@ Partial Class frmHealthDetail
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmHealthDetail))
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -59,7 +59,7 @@ Partial Class frmHealthDetail
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -86,11 +86,12 @@ Partial Class frmHealthDetail
         'lblDesc
         '
         Me.lblDesc.AutoSizeHeight = True
-        Me.lblDesc.BackColor = System.Drawing.Color.Gray
+        Me.lblDesc.BackColor = System.Drawing.Color.Transparent
         Me.lblDesc.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDesc.FixedHeight = False
         Me.lblDesc.FixedWidth = False
         Me.lblDesc.ForeColor = System.Drawing.Color.White
+        Me.lblDesc.LineSpacing = 0.0!
         Me.lblDesc.Location = New System.Drawing.Point(23, 20)
         Me.lblDesc.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblDesc.Name = "lblDesc"
@@ -101,12 +102,13 @@ Partial Class frmHealthDetail
         '
         'lblResult
         '
-        Me.lblResult.BackColor = System.Drawing.Color.Gray
+        Me.lblResult.BackColor = System.Drawing.Color.Transparent
         Me.lblResult.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblResult.FixedHeight = False
         Me.lblResult.FixedWidth = False
         Me.lblResult.ForeColor = System.Drawing.Color.White
         Me.lblResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblResult.LineSpacing = 0.0!
         Me.lblResult.Location = New System.Drawing.Point(23, 60)
         Me.lblResult.Name = "lblResult"
         Me.lblResult.Size = New System.Drawing.Size(658, 40)
@@ -117,11 +119,12 @@ Partial Class frmHealthDetail
         'lblinfo
         '
         Me.lblinfo.AutoSizeHeight = True
-        Me.lblinfo.BackColor = System.Drawing.Color.Gray
+        Me.lblinfo.BackColor = System.Drawing.Color.Transparent
         Me.lblinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblinfo.FixedHeight = False
         Me.lblinfo.FixedWidth = False
         Me.lblinfo.ForeColor = System.Drawing.Color.White
+        Me.lblinfo.LineSpacing = 0.0!
         Me.lblinfo.Location = New System.Drawing.Point(23, 100)
         Me.lblinfo.Name = "lblinfo"
         Me.lblinfo.Size = New System.Drawing.Size(658, 40)
@@ -135,31 +138,31 @@ Partial Class frmHealthDetail
         Me.dgvinfo.AllowUserToDeleteRows = False
         Me.dgvinfo.AllowUserToOrderColumns = True
         Me.dgvinfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvinfo.BackgroundColor = System.Drawing.Color.Gray
+        Me.dgvinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvinfo.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvinfo.ColumnHeadersHeight = 30
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        Me.dgvinfo.ColumnHeadersHeight = 24
         Me.dgvinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvinfo.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvinfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvinfo.EnableHeadersVisualStyles = False
-        Me.dgvinfo.GridColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.dgvinfo.GridColor = System.Drawing.Color.Black
         Me.dgvinfo.Location = New System.Drawing.Point(23, 144)
         Me.dgvinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvinfo.Name = "dgvinfo"
@@ -173,11 +176,12 @@ Partial Class frmHealthDetail
         '
         'lblParameter
         '
-        Me.lblParameter.BackColor = System.Drawing.Color.Gray
+        Me.lblParameter.BackColor = System.Drawing.Color.Transparent
         Me.lblParameter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblParameter.FixedHeight = False
         Me.lblParameter.FixedWidth = False
         Me.lblParameter.ForeColor = System.Drawing.Color.White
+        Me.lblParameter.LineSpacing = 0.0!
         Me.lblParameter.Location = New System.Drawing.Point(23, 338)
         Me.lblParameter.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblParameter.Name = "lblParameter"
@@ -188,7 +192,7 @@ Partial Class frmHealthDetail
         '
         'TableLayoutPanel5
         '
-        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel5.ColumnCount = 3
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
@@ -205,14 +209,14 @@ Partial Class frmHealthDetail
         '
         'btnClose
         '
-        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
-        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnClose.Location = New System.Drawing.Point(295, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
@@ -226,11 +230,12 @@ Partial Class frmHealthDetail
         'lblCurTime
         '
         Me.lblCurTime.AutoSizeHeight = True
-        Me.lblCurTime.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblCurTime.BackColor = System.Drawing.Color.Transparent
         Me.lblCurTime.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblCurTime.FixedHeight = False
         Me.lblCurTime.FixedWidth = False
         Me.lblCurTime.ForeColor = System.Drawing.Color.White
+        Me.lblCurTime.LineSpacing = 0.0!
         Me.lblCurTime.Location = New System.Drawing.Point(451, 0)
         Me.lblCurTime.MinimumSize = New System.Drawing.Size(0, 25)
         Me.lblCurTime.Name = "lblCurTime"
@@ -241,7 +246,7 @@ Partial Class frmHealthDetail
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.53846!))
@@ -260,7 +265,7 @@ Partial Class frmHealthDetail
         'lblitmNm
         '
         Me.lblitmNm.AutoSize = True
-        Me.lblitmNm.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblitmNm.BackColor = System.Drawing.Color.Transparent
         Me.lblitmNm.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblitmNm.ForeColor = System.Drawing.Color.White
         Me.lblitmNm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -274,6 +279,7 @@ Partial Class frmHealthDetail
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Image = CType(resources.GetObject("Label2.Image"), System.Drawing.Image)
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -286,7 +292,7 @@ Partial Class frmHealthDetail
         'frmHealthDetail
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(710, 501)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.TableLayoutPanel2)

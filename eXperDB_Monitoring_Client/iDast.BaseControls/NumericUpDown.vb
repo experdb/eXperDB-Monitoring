@@ -107,7 +107,7 @@
                 Me.BackColor = Drawing.SystemColors.Highlight
 
             Else
-                Me.BackColor = Drawing.SystemColors.Window
+                'Me.BackColor = Drawing.SystemColors.Window
             End If
 
         End If
@@ -122,7 +122,7 @@
             If value = True Then
                 Me.BackColor = Drawing.SystemColors.GradientActiveCaption
             Else
-                Me.BackColor = Drawing.SystemColors.Window
+                'Me.BackColor = Drawing.SystemColors.Window
             End If
 
             m_Necessary = value

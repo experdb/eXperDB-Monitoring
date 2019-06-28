@@ -151,28 +151,28 @@ Partial Class frmSvrList
         Me.dgvMonLst.BackgroundColor = System.Drawing.Color.Black
         Me.dgvMonLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvMonLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvMonLst.ColumnHeadersHeight = 30
+        Me.dgvMonLst.ColumnHeadersHeight = 24
         Me.dgvMonLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvMonLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colMonHostNm, Me.colMonAliasNm, Me.colMonDBNm, Me.colMonUser, Me.colMonIP, Me.colMonPort, Me.colMonPW, Me.colMonLstIP, Me.colMonGrp, Me.colMonStartTime, Me.colMonHARole, Me.colMonHAHost, Me.colMonHAPort, Me.colMonPGV, Me.colMonCollectPeriod, Me.colDelete})
         DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle9.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White
         DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvMonLst.DefaultCellStyle = DataGridViewCellStyle9
         Me.dgvMonLst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvMonLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvMonLst.EnableHeadersVisualStyles = False
-        Me.dgvMonLst.GridColor = System.Drawing.Color.Gray
+        Me.dgvMonLst.GridColor = System.Drawing.Color.Black
         Me.dgvMonLst.HideExpandeIcon = False
         Me.dgvMonLst.ImageList = Nothing
         Me.dgvMonLst.Location = New System.Drawing.Point(0, 40)
@@ -197,10 +197,6 @@ Partial Class frmSvrList
         Me.colMonHostNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colMonHostNm.DataPropertyName = "HOST_NAME"
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
         Me.colMonHostNm.DefaultCellStyle = DataGridViewCellStyle2
         Me.colMonHostNm.DefaultNodeImage = Nothing
         Me.colMonHostNm.FillWeight = 250.0!
@@ -215,10 +211,6 @@ Partial Class frmSvrList
         Me.colMonAliasNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colMonAliasNm.DataPropertyName = "CONN_NAME"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
         Me.colMonAliasNm.DefaultCellStyle = DataGridViewCellStyle3
         Me.colMonAliasNm.FillWeight = 22.32855!
         Me.colMonAliasNm.HeaderText = "F019"
@@ -232,11 +224,7 @@ Partial Class frmSvrList
         Me.colMonDBNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colMonDBNm.DataPropertyName = "CONN_DB_NAME"
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
         Me.colMonDBNm.DefaultCellStyle = DataGridViewCellStyle4
         Me.colMonDBNm.FillWeight = 36.36364!
         Me.colMonDBNm.HeaderText = "F010"
@@ -250,11 +238,7 @@ Partial Class frmSvrList
         Me.colMonUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colMonUser.DataPropertyName = "CONN_USER_ID"
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
         Me.colMonUser.DefaultCellStyle = DataGridViewCellStyle5
         Me.colMonUser.HeaderText = "F008"
         Me.colMonUser.MinimumWidth = 100
@@ -267,10 +251,6 @@ Partial Class frmSvrList
         Me.colMonIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colMonIP.DataPropertyName = "SERVER_IP"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
         Me.colMonIP.DefaultCellStyle = DataGridViewCellStyle6
         Me.colMonIP.HeaderText = "F006"
         Me.colMonIP.MinimumWidth = 100
@@ -283,10 +263,6 @@ Partial Class frmSvrList
         Me.colMonPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colMonPort.DataPropertyName = "SERVICE_PORT"
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
         Me.colMonPort.DefaultCellStyle = DataGridViewCellStyle7
         Me.colMonPort.FillWeight = 80.0!
         Me.colMonPort.HeaderText = "F007"
@@ -378,11 +354,7 @@ Partial Class frmSvrList
         '
         Me.colDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle8.NullValue = CType(resources.GetObject("DataGridViewCellStyle8.NullValue"), Object)
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
         Me.colDelete.DefaultCellStyle = DataGridViewCellStyle8
         Me.colDelete.HeaderText = ""
         Me.colDelete.Image = CType(resources.GetObject("colDelete.Image"), System.Drawing.Image)
@@ -518,7 +490,7 @@ Partial Class frmSvrList
         '
         'TabPage2
         '
-        Me.TabPage2.BackColor = System.Drawing.Color.Gray
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.TabPage2.Controls.Add(Me.Panel1)
         Me.TabPage2.Controls.Add(Me.SplitContainer1)
         Me.TabPage2.Controls.Add(Me.TableLayoutPanel4)
@@ -545,7 +517,7 @@ Partial Class frmSvrList
         '
         'TableLayoutPanel8
         '
-        Me.TableLayoutPanel8.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel8.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TableLayoutPanel8.ColumnCount = 3
         Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel8.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -585,6 +557,7 @@ Partial Class frmSvrList
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Image = CType(resources.GetObject("Label2.Image"), System.Drawing.Image)
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -608,7 +581,7 @@ Partial Class frmSvrList
         '
         'SplitContainer1
         '
-        Me.SplitContainer1.BackColor = System.Drawing.Color.Gray
+        Me.SplitContainer1.BackColor = System.Drawing.Color.Transparent
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.SplitContainer1.Enabled = False
         Me.SplitContainer1.Location = New System.Drawing.Point(3, 308)
@@ -619,6 +592,10 @@ Partial Class frmSvrList
         Me.SplitContainer1.Panel1.Controls.Add(Me.dgvSvrLst)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.cmbGrp)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.Transparent
         Me.SplitContainer1.Size = New System.Drawing.Size(846, 164)
         Me.SplitContainer1.SplitterDistance = 494
         Me.SplitContainer1.TabIndex = 10
@@ -632,28 +609,28 @@ Partial Class frmSvrList
         Me.dgvSvrLst.BackgroundColor = System.Drawing.Color.Black
         Me.dgvSvrLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle18.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle18.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle18
-        Me.dgvSvrLst.ColumnHeadersHeight = 30
+        Me.dgvSvrLst.ColumnHeadersHeight = 24
         Me.dgvSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCollectYN, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colHostNm, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colPGV, Me.colCollectPeriod})
         DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle25.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle25.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle25.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.LightSteelBlue
         DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvSvrLst.DefaultCellStyle = DataGridViewCellStyle25
         Me.dgvSvrLst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvSvrLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvSvrLst.EnableHeadersVisualStyles = False
-        Me.dgvSvrLst.GridColor = System.Drawing.Color.Gray
+        Me.dgvSvrLst.GridColor = System.Drawing.Color.Black
         Me.dgvSvrLst.Location = New System.Drawing.Point(0, 40)
         Me.dgvSvrLst.MultiSelect = False
         Me.dgvSvrLst.Name = "dgvSvrLst"
@@ -823,7 +800,7 @@ Partial Class frmSvrList
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -880,7 +857,7 @@ Partial Class frmSvrList
         '
         'TableLayoutPanel4
         '
-        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel4.ColumnCount = 2
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -896,51 +873,52 @@ Partial Class frmSvrList
         '
         'btnStart
         '
-        Me.btnStart.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnStart.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnStart.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnStart.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
         Me.btnStart.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnStart.Enabled = False
         Me.btnStart.FixedHeight = False
         Me.btnStart.FixedWidth = False
-        Me.btnStart.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnStart.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnStart.ForeColor = System.Drawing.Color.White
-        Me.btnStart.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnStart.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnStart.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnStart.LineColor = System.Drawing.Color.Transparent
         Me.btnStart.Location = New System.Drawing.Point(426, 3)
         Me.btnStart.Name = "btnStart"
         Me.btnStart.Radius = 10
         Me.btnStart.Size = New System.Drawing.Size(110, 39)
         Me.btnStart.TabIndex = 0
         Me.btnStart.Text = "F027"
-        Me.btnStart.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnStart.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnStart.UseRound = True
-        Me.btnStart.UseVisualStyleBackColor = True
+        Me.btnStart.UseVisualStyleBackColor = False
         '
         'btnGrpSave
         '
-        Me.btnGrpSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnGrpSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnGrpSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnGrpSave.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnGrpSave.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
         Me.btnGrpSave.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnGrpSave.FixedHeight = False
         Me.btnGrpSave.FixedWidth = False
-        Me.btnGrpSave.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnGrpSave.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnGrpSave.ForeColor = System.Drawing.Color.White
-        Me.btnGrpSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnGrpSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnGrpSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnGrpSave.LineColor = System.Drawing.Color.Transparent
         Me.btnGrpSave.Location = New System.Drawing.Point(310, 3)
         Me.btnGrpSave.Name = "btnGrpSave"
         Me.btnGrpSave.Radius = 10
         Me.btnGrpSave.Size = New System.Drawing.Size(110, 39)
         Me.btnGrpSave.TabIndex = 0
         Me.btnGrpSave.Text = "F003"
-        Me.btnGrpSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnGrpSave.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnGrpSave.UseRound = True
         Me.btnGrpSave.UseVisualStyleBackColor = False
         '
         'TableLayoutPanel6
         '
-        Me.TableLayoutPanel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel6.ColumnCount = 4
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -983,7 +961,7 @@ Partial Class frmSvrList
         'MsgLabel2
         '
         Me.MsgLabel2.AutoSize = True
-        Me.MsgLabel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel2.BackColor = System.Drawing.Color.Transparent
         Me.MsgLabel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MsgLabel2.ForeColor = System.Drawing.Color.White
         Me.MsgLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1029,7 +1007,7 @@ Partial Class frmSvrList
         '
         'tlpGrp
         '
-        Me.tlpGrp.BackColor = System.Drawing.Color.Gray
+        Me.tlpGrp.BackColor = System.Drawing.Color.Transparent
         Me.tlpGrp.ColumnCount = 4
         Me.tlpGrp.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.tlpGrp.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
@@ -1053,10 +1031,11 @@ Partial Class frmSvrList
         'rbGrp4
         '
         Me.rbGrp4.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rbGrp4.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbGrp4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rbGrp4.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(112, Byte), Integer))
         Me.rbGrp4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp4.ForeColor = System.Drawing.Color.White
-        Me.rbGrp4.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp4.LineColor = System.Drawing.Color.Transparent
         Me.rbGrp4.Location = New System.Drawing.Point(636, 2)
         Me.rbGrp4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rbGrp4.Name = "rbGrp4"
@@ -1066,19 +1045,20 @@ Partial Class frmSvrList
         Me.rbGrp4.TabStop = True
         Me.rbGrp4.Text = "F026 1"
         Me.rbGrp4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbGrp4.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp4.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rbGrp4.UseRound = True
-        Me.rbGrp4.UseVisualStyleBackColor = True
+        Me.rbGrp4.UseVisualStyleBackColor = False
         Me.rbGrp4.Warning = False
         Me.rbGrp4.WarningColor = System.Drawing.Color.Red
         '
         'rbGrp3
         '
         Me.rbGrp3.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rbGrp3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbGrp3.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rbGrp3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(112, Byte), Integer))
         Me.rbGrp3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp3.ForeColor = System.Drawing.Color.White
-        Me.rbGrp3.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp3.LineColor = System.Drawing.Color.Transparent
         Me.rbGrp3.Location = New System.Drawing.Point(425, 2)
         Me.rbGrp3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rbGrp3.Name = "rbGrp3"
@@ -1088,19 +1068,20 @@ Partial Class frmSvrList
         Me.rbGrp3.TabStop = True
         Me.rbGrp3.Text = "F026 1"
         Me.rbGrp3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbGrp3.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp3.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rbGrp3.UseRound = True
-        Me.rbGrp3.UseVisualStyleBackColor = True
+        Me.rbGrp3.UseVisualStyleBackColor = False
         Me.rbGrp3.Warning = False
         Me.rbGrp3.WarningColor = System.Drawing.Color.Red
         '
         'rbGrp2
         '
         Me.rbGrp2.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rbGrp2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbGrp2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rbGrp2.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(112, Byte), Integer))
         Me.rbGrp2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp2.ForeColor = System.Drawing.Color.White
-        Me.rbGrp2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp2.LineColor = System.Drawing.Color.Transparent
         Me.rbGrp2.Location = New System.Drawing.Point(214, 2)
         Me.rbGrp2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rbGrp2.Name = "rbGrp2"
@@ -1110,19 +1091,20 @@ Partial Class frmSvrList
         Me.rbGrp2.TabStop = True
         Me.rbGrp2.Text = "F026 1"
         Me.rbGrp2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbGrp2.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp2.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rbGrp2.UseRound = True
-        Me.rbGrp2.UseVisualStyleBackColor = True
+        Me.rbGrp2.UseVisualStyleBackColor = False
         Me.rbGrp2.Warning = False
         Me.rbGrp2.WarningColor = System.Drawing.Color.Red
         '
         'rbGrp1
         '
         Me.rbGrp1.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rbGrp1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbGrp1.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rbGrp1.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(112, Byte), Integer))
         Me.rbGrp1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rbGrp1.ForeColor = System.Drawing.Color.White
-        Me.rbGrp1.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp1.LineColor = System.Drawing.Color.Transparent
         Me.rbGrp1.Location = New System.Drawing.Point(3, 2)
         Me.rbGrp1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rbGrp1.Name = "rbGrp1"
@@ -1132,16 +1114,16 @@ Partial Class frmSvrList
         Me.rbGrp1.TabStop = True
         Me.rbGrp1.Text = "F026 1"
         Me.rbGrp1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rbGrp1.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rbGrp1.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rbGrp1.UseRound = True
-        Me.rbGrp1.UseVisualStyleBackColor = True
+        Me.rbGrp1.UseVisualStyleBackColor = False
         Me.rbGrp1.Warning = False
         Me.rbGrp1.WarningColor = System.Drawing.Color.Red
         '
         'TableLayoutPanel3
         '
         Me.TableLayoutPanel3.AutoSize = True
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel3.ColumnCount = 2
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 802.0!))
@@ -1163,7 +1145,7 @@ Partial Class frmSvrList
         Me.lblGroupName.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGroupName.FixedHeight = False
         Me.lblGroupName.FixedWidth = False
-        Me.lblGroupName.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblGroupName.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.lblGroupName.ForeColor = System.Drawing.Color.White
         Me.lblGroupName.LineSpacing = 0.0!
         Me.lblGroupName.Location = New System.Drawing.Point(3, 0)
@@ -1179,7 +1161,6 @@ Partial Class frmSvrList
         Me.txtGrp1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGrp1.code = False
         Me.txtGrp1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGrp1.FixedWidth = False
         Me.txtGrp1.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtGrp1.impossibleinput = ""
         Me.txtGrp1.Location = New System.Drawing.Point(108, 3)
@@ -1187,7 +1168,7 @@ Partial Class frmSvrList
         Me.txtGrp1.Necessary = False
         Me.txtGrp1.PossibleInput = ""
         Me.txtGrp1.Prefix = ""
-        Me.txtGrp1.Size = New System.Drawing.Size(796, 21)
+        Me.txtGrp1.Size = New System.Drawing.Size(150, 21)
         Me.txtGrp1.StatusTip = ""
         Me.txtGrp1.TabIndex = 4
         Me.txtGrp1.Text = "Gruop Name1"
@@ -1198,7 +1179,7 @@ Partial Class frmSvrList
         Me.tbServer.Controls.Add(Me.TabPage2)
         Me.tbServer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tbServer.Location = New System.Drawing.Point(5, 5)
-        Me.tbServer.myBackColor = System.Drawing.Color.Gray
+        Me.tbServer.myBackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.tbServer.Name = "tbServer"
         Me.tbServer.SelectedIndex = 0
         Me.tbServer.Size = New System.Drawing.Size(860, 550)
@@ -1208,7 +1189,7 @@ Partial Class frmSvrList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(870, 560)
         Me.Controls.Add(Me.tbServer)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1251,22 +1232,6 @@ Partial Class frmSvrList
     Friend WithEvents dgvMonLst As AdvancedDataGridView.TreeGridView
     Friend WithEvents ttChart As System.Windows.Forms.ToolTip
     Friend WithEvents dbmsImgLst As System.Windows.Forms.ImageList
-    Friend WithEvents colMonHostNm As AdvancedDataGridView.TreeGridColumn
-    Friend WithEvents colMonAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonUser As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonIP As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonPort As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonPW As eXperDB.Controls.DataGridViewPasswordTextBoxColumn
-    Friend WithEvents colMonLstIP As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonGrp As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonStartTime As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonHARole As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonPGV As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colMonCollectPeriod As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDelete As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents mnuMenu As eXperDB.BaseControls.ContextMenuStrip
     Friend WithEvents mnuLogout As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuPreferences As System.Windows.Forms.ToolStripMenuItem
@@ -1317,5 +1282,21 @@ Partial Class frmSvrList
     Friend WithEvents TableLayoutPanel3 As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents lblGroupName As eXperDB.BaseControls.Label
     Friend WithEvents txtGrp1 As eXperDB.BaseControls.TextBox
+    Friend WithEvents colMonHostNm As AdvancedDataGridView.TreeGridColumn
+    Friend WithEvents colMonAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonUser As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonIP As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonPort As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonPW As eXperDB.Controls.DataGridViewPasswordTextBoxColumn
+    Friend WithEvents colMonLstIP As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonGrp As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonStartTime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonHARole As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonPGV As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colMonCollectPeriod As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDelete As System.Windows.Forms.DataGridViewImageColumn
 
 End Class

@@ -105,6 +105,7 @@ Partial Class frmNotiHistory
         '
         'pnlB
         '
+        Me.pnlB.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.pnlB.ColumnCount = 3
         Me.pnlB.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.pnlB.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
@@ -120,16 +121,16 @@ Partial Class frmNotiHistory
         '
         'btnClose
         '
-        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnClose.ControlLength = eXperDB.BaseControls.Button.enmLength.[Short]
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
-        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.Transparent
         Me.btnClose.Location = New System.Drawing.Point(474, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
@@ -138,7 +139,7 @@ Partial Class frmNotiHistory
         Me.btnClose.Text = "F021"
         Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnClose.UseRound = True
-        Me.btnClose.UseVisualStyleBackColor = True
+        Me.btnClose.UseVisualStyleBackColor = False
         '
         'SplitContainer1
         '
@@ -151,6 +152,7 @@ Partial Class frmNotiHistory
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.SplitContainer1.Panel1.Controls.Add(Me.dgvNotificationLst)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.tlpHead)
@@ -169,29 +171,29 @@ Partial Class frmNotiHistory
         Me.dgvNotificationLst.BackgroundColor = System.Drawing.Color.Black
         Me.dgvNotificationLst.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 8.320187!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvNotificationLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvNotificationLst.ColumnHeadersHeight = 30
+        Me.dgvNotificationLst.ColumnHeadersHeight = 24
         Me.dgvNotificationLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvNotificationLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvNotificationLstHostName, Me.coldgvNotificationLstINSTANCEID, Me.coldgvNotificationLstSender, Me.coldgvNotificationLstLevel, Me.coldgvNotificationLstUserID, Me.coldgvNotificationLstReceiver, Me.coldgvNotificationLstMessages, Me.coldgvNotificationLstIsSuccess, Me.coldgvNotificationLstError, Me.coldgvNotificationLstCollectDt})
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle11.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
         DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvNotificationLst.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvNotificationLst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvNotificationLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvNotificationLst.EnableHeadersVisualStyles = False
         Me.dgvNotificationLst.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        Me.dgvNotificationLst.GridColor = System.Drawing.Color.Gray
+        Me.dgvNotificationLst.GridColor = System.Drawing.Color.Black
         Me.dgvNotificationLst.Location = New System.Drawing.Point(0, 136)
         Me.dgvNotificationLst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvNotificationLst.Name = "dgvNotificationLst"
@@ -207,7 +209,7 @@ Partial Class frmNotiHistory
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -250,7 +252,7 @@ Partial Class frmNotiHistory
         '
         'tlpHead
         '
-        Me.tlpHead.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpHead.BackColor = System.Drawing.Color.Transparent
         Me.tlpHead.ColumnCount = 7
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -295,6 +297,7 @@ Partial Class frmNotiHistory
         Me.lblUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblUser.ForeColor = System.Drawing.Color.White
         Me.lblUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblUser.LineSpacing = 0.0!
         Me.lblUser.Location = New System.Drawing.Point(455, 11)
         Me.lblUser.Name = "lblUser"
         Me.lblUser.Size = New System.Drawing.Size(64, 29)
@@ -331,6 +334,7 @@ Partial Class frmNotiHistory
         Me.lblServer.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblServer.ForeColor = System.Drawing.Color.White
         Me.lblServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblServer.LineSpacing = 0.0!
         Me.lblServer.Location = New System.Drawing.Point(3, 11)
         Me.lblServer.Name = "lblServer"
         Me.lblServer.Size = New System.Drawing.Size(64, 29)
@@ -365,6 +369,7 @@ Partial Class frmNotiHistory
         Me.lblLevel.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLevel.ForeColor = System.Drawing.Color.White
         Me.lblLevel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblLevel.LineSpacing = 0.0!
         Me.lblLevel.Location = New System.Drawing.Point(229, 11)
         Me.lblLevel.Name = "lblLevel"
         Me.lblLevel.Size = New System.Drawing.Size(64, 29)
@@ -400,6 +405,7 @@ Partial Class frmNotiHistory
         Me.lblStatus.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblStatus.ForeColor = System.Drawing.Color.White
         Me.lblStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblStatus.LineSpacing = 0.0!
         Me.lblStatus.Location = New System.Drawing.Point(455, 51)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(64, 29)
@@ -435,6 +441,7 @@ Partial Class frmNotiHistory
         Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration.ForeColor = System.Drawing.Color.White
         Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblDuration.LineSpacing = 0.0!
         Me.lblDuration.Location = New System.Drawing.Point(3, 51)
         Me.lblDuration.Name = "lblDuration"
         Me.lblDuration.Size = New System.Drawing.Size(64, 29)
@@ -466,6 +473,7 @@ Partial Class frmNotiHistory
         Me.lblDuration2.FixedWidth = False
         Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration2.ForeColor = System.Drawing.Color.White
+        Me.lblDuration2.LineSpacing = 0.0!
         Me.lblDuration2.Location = New System.Drawing.Point(229, 51)
         Me.lblDuration2.Name = "lblDuration2"
         Me.lblDuration2.Size = New System.Drawing.Size(64, 29)
@@ -490,7 +498,7 @@ Partial Class frmNotiHistory
         '
         'TableLayoutPanel3
         '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -510,7 +518,7 @@ Partial Class frmNotiHistory
         '
         'btnQuery
         '
-        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnQuery.FixedHeight = False
@@ -518,8 +526,8 @@ Partial Class frmNotiHistory
         Me.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnQuery.ForeColor = System.Drawing.Color.White
-        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.Transparent
         Me.btnQuery.Location = New System.Drawing.Point(946, 14)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
@@ -529,12 +537,12 @@ Partial Class frmNotiHistory
         Me.btnQuery.Text = "F151"
         Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnQuery.UseRound = True
-        Me.btnQuery.UseVisualStyleBackColor = True
+        Me.btnQuery.UseVisualStyleBackColor = False
         '
         'MsgLabel
         '
         Me.MsgLabel.AutoSize = True
-        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel.BackColor = System.Drawing.Color.Transparent
         Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MsgLabel.ForeColor = System.Drawing.Color.White
         Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -548,6 +556,7 @@ Partial Class frmNotiHistory
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -672,6 +681,7 @@ Partial Class frmNotiHistory
         '
         'DataGridViewTextBoxColumn9
         '
+        Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.DataGridViewTextBoxColumn9.DataPropertyName = "ERROR"
         DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
@@ -682,7 +692,6 @@ Partial Class frmNotiHistory
         Me.DataGridViewTextBoxColumn9.MinimumWidth = 200
         Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
         Me.DataGridViewTextBoxColumn9.ReadOnly = True
-        Me.DataGridViewTextBoxColumn9.Width = 200
         '
         'DataGridViewTextBoxColumn10
         '
@@ -786,10 +795,10 @@ Partial Class frmNotiHistory
         DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvNotificationLstMessages.DefaultCellStyle = DataGridViewCellStyle7
         Me.coldgvNotificationLstMessages.HeaderText = "F260"
-        Me.coldgvNotificationLstMessages.MinimumWidth = 220
+        Me.coldgvNotificationLstMessages.MinimumWidth = 210
         Me.coldgvNotificationLstMessages.Name = "coldgvNotificationLstMessages"
         Me.coldgvNotificationLstMessages.ReadOnly = True
-        Me.coldgvNotificationLstMessages.Width = 220
+        Me.coldgvNotificationLstMessages.Width = 210
         '
         'coldgvNotificationLstIsSuccess
         '
@@ -800,13 +809,14 @@ Partial Class frmNotiHistory
         DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvNotificationLstIsSuccess.DefaultCellStyle = DataGridViewCellStyle8
         Me.coldgvNotificationLstIsSuccess.HeaderText = "F247"
-        Me.coldgvNotificationLstIsSuccess.MinimumWidth = 70
+        Me.coldgvNotificationLstIsSuccess.MinimumWidth = 65
         Me.coldgvNotificationLstIsSuccess.Name = "coldgvNotificationLstIsSuccess"
         Me.coldgvNotificationLstIsSuccess.ReadOnly = True
-        Me.coldgvNotificationLstIsSuccess.Width = 70
+        Me.coldgvNotificationLstIsSuccess.Width = 65
         '
         'coldgvNotificationLstError
         '
+        Me.coldgvNotificationLstError.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.coldgvNotificationLstError.DataPropertyName = "ERROR"
         DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
@@ -814,14 +824,12 @@ Partial Class frmNotiHistory
         DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvNotificationLstError.DefaultCellStyle = DataGridViewCellStyle9
         Me.coldgvNotificationLstError.HeaderText = "F258"
-        Me.coldgvNotificationLstError.MinimumWidth = 200
+        Me.coldgvNotificationLstError.MinimumWidth = 155
         Me.coldgvNotificationLstError.Name = "coldgvNotificationLstError"
         Me.coldgvNotificationLstError.ReadOnly = True
-        Me.coldgvNotificationLstError.Width = 200
         '
         'coldgvNotificationLstCollectDt
         '
-        Me.coldgvNotificationLstCollectDt.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.coldgvNotificationLstCollectDt.DataPropertyName = "COLLECT_DT"
         DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
@@ -830,9 +838,10 @@ Partial Class frmNotiHistory
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvNotificationLstCollectDt.DefaultCellStyle = DataGridViewCellStyle10
         Me.coldgvNotificationLstCollectDt.HeaderText = "F257"
-        Me.coldgvNotificationLstCollectDt.MinimumWidth = 150
+        Me.coldgvNotificationLstCollectDt.MinimumWidth = 145
         Me.coldgvNotificationLstCollectDt.Name = "coldgvNotificationLstCollectDt"
         Me.coldgvNotificationLstCollectDt.ReadOnly = True
+        Me.coldgvNotificationLstCollectDt.Width = 145
         '
         'DataGridViewPasswordTextBoxColumn1
         '
@@ -910,6 +919,10 @@ Partial Class frmNotiHistory
     Friend WithEvents btnQuery As eXperDB.BaseControls.Button
     Friend WithEvents dgvNotificationLst As eXperDB.BaseControls.DataGridView
     Friend WithEvents bgmanual As System.ComponentModel.BackgroundWorker
+    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvNotificationLstHostName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvNotificationLstINSTANCEID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvNotificationLstSender As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -920,8 +933,4 @@ Partial Class frmNotiHistory
     Friend WithEvents coldgvNotificationLstIsSuccess As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvNotificationLstError As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvNotificationLstCollectDt As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

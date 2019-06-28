@@ -26,18 +26,11 @@ Partial Class UserAccessHistory
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UserAccessHistory))
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UserAccessHistory))
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewPercentageColumn1 = New eXperDB.Controls.DataGridViewPercentageColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgvActionLog = New eXperDB.BaseControls.DataGridView()
         Me.coldgvActionLogUserID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvActionLogUserName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -60,93 +53,26 @@ Partial Class UserAccessHistory
         Me.lblAction = New eXperDB.BaseControls.Label()
         Me.lblUserID = New eXperDB.BaseControls.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnExcel = New eXperDB.BaseControls.Button()
         Me.btnSearch = New eXperDB.BaseControls.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblAccessHistory = New System.Windows.Forms.Label()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnExcel = New eXperDB.BaseControls.Button()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewPercentageColumn1 = New eXperDB.Controls.DataGridViewPercentageColumn()
         CType(Me.dgvActionLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpUserConfigMain.SuspendLayout()
         Me.tlpSearch.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "HOST_NAME"
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = "0"
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridViewTextBoxColumn1.FillWeight = 131.1306!
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Alert Name"
-        Me.DataGridViewTextBoxColumn1.MinimumWidth = 95
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 95
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        DataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle2
-        Me.DataGridViewTextBoxColumn2.FillWeight = 171.0869!
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Biz day"
-        Me.DataGridViewTextBoxColumn2.MinimumWidth = 100
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Visible = False
-        Me.DataGridViewTextBoxColumn2.Width = 200
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.FillWeight = 120.5725!
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Biz hour"
-        Me.DataGridViewTextBoxColumn3.MinimumWidth = 100
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Visible = False
-        '
-        'DataGridViewPercentageColumn1
-        '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "P"
-        Me.DataGridViewPercentageColumn1.DefaultCellStyle = DataGridViewCellStyle3
-        Me.DataGridViewPercentageColumn1.HeaderText = "Alert Level"
-        Me.DataGridViewPercentageColumn1.MinimumWidth = 180
-        Me.DataGridViewPercentageColumn1.Name = "DataGridViewPercentageColumn1"
-        Me.DataGridViewPercentageColumn1.ReadOnly = True
-        Me.DataGridViewPercentageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewPercentageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewPercentageColumn1.Width = 180
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.DataPropertyName = "RETENTION_TIME"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "P"
-        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle4
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Alert Level"
-        Me.DataGridViewTextBoxColumn4.MinimumWidth = 180
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 180
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.DataPropertyName = "RETENTION_TIME"
-        Me.DataGridViewTextBoxColumn5.HeaderText = "Alert duration"
-        Me.DataGridViewTextBoxColumn5.MinimumWidth = 95
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        Me.DataGridViewTextBoxColumn5.Width = 95
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.DataPropertyName = "CHECK_USER_ID"
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Cycle"
-        Me.DataGridViewTextBoxColumn6.MinimumWidth = 95
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.Width = 95
         '
         'dgvActionLog
         '
@@ -155,40 +81,40 @@ Partial Class UserAccessHistory
         Me.dgvActionLog.AllowUserToResizeRows = False
         Me.dgvActionLog.BackgroundColor = System.Drawing.Color.Black
         Me.dgvActionLog.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvActionLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvActionLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvActionLog.ColumnHeadersHeight = 24
         Me.dgvActionLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvActionLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvActionLogUserID, Me.coldgvActionLogUserName, Me.coldgvActionLogActionType, Me.coldgvActionLogActionDT, Me.coldgvActionLogUserIP, Me.coldgvActionLogCluster, Me.coldgvActionLogClusterIP, Me.coldgvActionLogStatus, Me.coldgvActionLogDetail})
         Me.tlpUserConfigMain.SetColumnSpan(Me.dgvActionLog, 3)
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
-        DataGridViewCellStyle6.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvActionLog.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        DataGridViewCellStyle2.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvActionLog.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvActionLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvActionLog.EnableHeadersVisualStyles = False
         Me.dgvActionLog.GridColor = System.Drawing.Color.Black
         Me.dgvActionLog.Location = New System.Drawing.Point(3, 83)
         Me.dgvActionLog.Name = "dgvActionLog"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvActionLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvActionLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvActionLog.RowHeadersVisible = False
         Me.dgvActionLog.RowTemplate.Height = 23
         Me.dgvActionLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -288,7 +214,7 @@ Partial Class UserAccessHistory
         Me.tlpUserConfigMain.ColumnCount = 3
         Me.tlpUserConfigMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
         Me.tlpUserConfigMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
-        Me.tlpUserConfigMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
+        Me.tlpUserConfigMain.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 761.0!))
         Me.tlpUserConfigMain.Controls.Add(Me.tlpSearch, 0, 1)
         Me.tlpUserConfigMain.Controls.Add(Me.TableLayoutPanel1, 0, 0)
         Me.tlpUserConfigMain.Controls.Add(Me.dgvActionLog, 0, 2)
@@ -509,13 +435,33 @@ Partial Class UserAccessHistory
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1155, 34)
         Me.TableLayoutPanel1.TabIndex = 26
+        '
+        'btnExcel
+        '
+        Me.btnExcel.BackColor = System.Drawing.Color.Silver
+        Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnExcel.FixedHeight = False
+        Me.btnExcel.FixedWidth = False
+        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnExcel.ForeColor = System.Drawing.Color.Yellow
+        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnExcel.Image = CType(resources.GetObject("btnExcel.Image"), System.Drawing.Image)
+        Me.btnExcel.LineColor = System.Drawing.Color.LightGray
+        Me.btnExcel.Location = New System.Drawing.Point(1122, 3)
+        Me.btnExcel.Name = "btnExcel"
+        Me.btnExcel.Radius = 5
+        Me.btnExcel.Size = New System.Drawing.Size(30, 28)
+        Me.btnExcel.TabIndex = 29
+        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnExcel.UseVisualStyleBackColor = True
         '
         'btnSearch
         '
@@ -561,25 +507,114 @@ Partial Class UserAccessHistory
         Me.lblAccessHistory.Text = "M075"
         Me.lblAccessHistory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'btnExcel
+        'DataGridViewTextBoxColumn1
         '
-        Me.btnExcel.BackColor = System.Drawing.Color.Silver
-        Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnExcel.FixedHeight = False
-        Me.btnExcel.FixedWidth = False
-        Me.btnExcel.Font = New System.Drawing.Font("Gulim", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnExcel.ForeColor = System.Drawing.Color.Yellow
-        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnExcel.Image = CType(resources.GetObject("btnExcel.Image"), System.Drawing.Image)
-        Me.btnExcel.LineColor = System.Drawing.Color.LightGray
-        Me.btnExcel.Location = New System.Drawing.Point(1122, 3)
-        Me.btnExcel.Name = "btnExcel"
-        Me.btnExcel.Radius = 5
-        Me.btnExcel.Size = New System.Drawing.Size(30, 28)
-        Me.btnExcel.TabIndex = 29
-        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnExcel.UseVisualStyleBackColor = True
+        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "HOST_NAME"
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = "0"
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle4
+        Me.DataGridViewTextBoxColumn1.FillWeight = 131.1306!
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Alert Name"
+        Me.DataGridViewTextBoxColumn1.MinimumWidth = 95
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "USER_NAME"
+        DataGridViewCellStyle5.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle5
+        Me.DataGridViewTextBoxColumn2.FillWeight = 171.0869!
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Biz day"
+        Me.DataGridViewTextBoxColumn2.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.DataGridViewTextBoxColumn2.Visible = False
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "ACCESS_TYPE"
+        Me.DataGridViewTextBoxColumn3.FillWeight = 120.5725!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Biz hour"
+        Me.DataGridViewTextBoxColumn3.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Visible = False
+        Me.DataGridViewTextBoxColumn3.Width = 120
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "RETENTION_TIME"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "P"
+        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle6
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Alert Level"
+        Me.DataGridViewTextBoxColumn4.MinimumWidth = 180
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 180
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "RETENTION_TIME"
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Alert duration"
+        Me.DataGridViewTextBoxColumn5.MinimumWidth = 95
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 95
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.DataPropertyName = "CHECK_USER_ID"
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Cycle"
+        Me.DataGridViewTextBoxColumn6.MinimumWidth = 95
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Visible = False
+        Me.DataGridViewTextBoxColumn6.Width = 95
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.DataPropertyName = "SERVER_IP"
+        Me.DataGridViewTextBoxColumn7.HeaderText = "F006"
+        Me.DataGridViewTextBoxColumn7.MinimumWidth = 120
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.DataGridViewTextBoxColumn7.Width = 120
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.DataPropertyName = "ACCESS_STATUS"
+        Me.DataGridViewTextBoxColumn8.HeaderText = "F247"
+        Me.DataGridViewTextBoxColumn8.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn9.DataPropertyName = "ACCESS_LOG"
+        Me.DataGridViewTextBoxColumn9.HeaderText = "F357"
+        Me.DataGridViewTextBoxColumn9.MinimumWidth = 150
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        '
+        'DataGridViewPercentageColumn1
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "P"
+        Me.DataGridViewPercentageColumn1.DefaultCellStyle = DataGridViewCellStyle7
+        Me.DataGridViewPercentageColumn1.HeaderText = "Alert Level"
+        Me.DataGridViewPercentageColumn1.MinimumWidth = 180
+        Me.DataGridViewPercentageColumn1.Name = "DataGridViewPercentageColumn1"
+        Me.DataGridViewPercentageColumn1.ReadOnly = True
+        Me.DataGridViewPercentageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewPercentageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewPercentageColumn1.Width = 180
         '
         'UserAccessHistory
         '
@@ -633,5 +668,8 @@ End Sub
     Friend WithEvents coldgvActionLogStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvActionLogDetail As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnExcel As eXperDB.BaseControls.Button
+    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

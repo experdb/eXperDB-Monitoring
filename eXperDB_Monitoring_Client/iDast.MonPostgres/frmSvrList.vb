@@ -727,7 +727,7 @@
     Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MsgLabel2.Text = p_clsMsgData.fn_GetData("M051")
         tbServer.TabPages(0).Enabled = True
-        tbServer.TabPages(0).BackColor = System.Drawing.Color.DimGray
+        'tbServer.TabPages(0).BackColor = System.Drawing.Color.DimGray
         tbServer.SelectedIndex = 0
 
         Dim ClientVersion As String = Application.ProductVersion
@@ -813,13 +813,13 @@
     Private Sub tbServer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tbServer.SelectedIndexChanged
         'tbMain.TabPages(tbMain.SelectedIndex).Font = New Font("굴림체", tbMain.TabPages(tbMain.SelectedIndex).Font.Size, System.Drawing.FontStyle.Bold)
 
-        For i As Integer = 0 To tbServer.TabCount - 1
-            If i = tbServer.SelectedIndex Then
-                tbServer.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
-            Else
-                tbServer.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
-            End If
-        Next
+        'For i As Integer = 0 To tbServer.TabCount - 1
+        '    If i = tbServer.SelectedIndex Then
+        '        tbServer.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+        '    Else
+        '        tbServer.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+        '    End If
+        'Next
     End Sub
 
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click

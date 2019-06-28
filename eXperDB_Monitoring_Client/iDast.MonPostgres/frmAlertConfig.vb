@@ -60,11 +60,11 @@ Public Class frmAlertConfig
                 usrContorl.Tag = svrLst.Item(i).InstanceID
                 usrContorl.Name = "AlertConfig" ' & svrLst.Item(i).InstanceID
                 tbMain.TabPages(tbMain.TabPages.Count - 1).Controls.Add(usrContorl)
-                'tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                'tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer)) '112, 116, 128
                 If i = 0 Then
-                    tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+                    tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
                 Else
-                    tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+                    tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
                 End If
                 tbMain.TabPages.Item(i).ForeColor = System.Drawing.Color.White
                 tbMain.TabPages.Item(i).Font = New Font("굴림체", 9.0!, System.Drawing.FontStyle.Regular)
@@ -234,9 +234,9 @@ Public Class frmAlertConfig
         'tbMain.TabPages(tbMain.SelectedIndex).Font = New Font("굴림체", tbMain.TabPages(tbMain.SelectedIndex).Font.Size, System.Drawing.FontStyle.Bold)
         For i As Integer = 0 To tbMain.TabCount - 1
             If i = tbMain.SelectedIndex Then
-                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.Gray
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
             Else
-                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.DimGray
+                tbMain.TabPages.Item(i).BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
             End If
         Next
     End Sub

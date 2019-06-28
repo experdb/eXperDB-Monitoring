@@ -212,7 +212,7 @@ Partial Class frmMonActInfo
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 8
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -258,7 +258,7 @@ Partial Class frmMonActInfo
         'MsgLabel
         '
         Me.MsgLabel.AutoSize = True
-        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel.BackColor = System.Drawing.Color.Transparent
         Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MsgLabel.ForeColor = System.Drawing.Color.White
         Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -272,6 +272,7 @@ Partial Class frmMonActInfo
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -349,28 +350,28 @@ Partial Class frmMonActInfo
         Me.dgvDBinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvDBinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvDBinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvDBinfo.ColumnHeadersHeight = 30
+        Me.dgvDBinfo.ColumnHeadersHeight = 24
         Me.dgvDBinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvDBinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvDBinfoDB, Me.coldgvDBinfoSIZE, Me.coldgvDBinfoTABLECNT, Me.coldgvDBinfoINDEXCNT, Me.coldgvDBinfoDISKREAD, Me.coldgvDBinfoBUFFERREAD, Me.coldgvDBinfoHITRATIO})
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.LightSteelBlue
         DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvDBinfo.DefaultCellStyle = DataGridViewCellStyle8
         Me.dgvDBinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvDBinfo.EnableHeadersVisualStyles = False
         Me.dgvDBinfo.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.dgvDBinfo.GridColor = System.Drawing.Color.Gray
+        Me.dgvDBinfo.GridColor = System.Drawing.Color.Black
         Me.dgvDBinfo.Location = New System.Drawing.Point(0, 40)
         Me.dgvDBinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvDBinfo.MultiSelect = False
@@ -493,7 +494,7 @@ Partial Class frmMonActInfo
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -511,6 +512,7 @@ Partial Class frmMonActInfo
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label2.Image = CType(resources.GetObject("Label2.Image"), System.Drawing.Image)
         Me.Label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -523,6 +525,7 @@ Partial Class frmMonActInfo
         'lblDBinfo
         '
         Me.lblDBinfo.AutoSize = True
+        Me.lblDBinfo.BackColor = System.Drawing.Color.Transparent
         Me.lblDBinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDBinfo.ForeColor = System.Drawing.Color.White
         Me.lblDBinfo.Location = New System.Drawing.Point(43, 0)
@@ -541,28 +544,28 @@ Partial Class frmMonActInfo
         Me.dgvTblSpaceInfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvTblSpaceInfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle10.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvTblSpaceInfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
-        Me.dgvTblSpaceInfo.ColumnHeadersHeight = 30
+        Me.dgvTblSpaceInfo.ColumnHeadersHeight = 24
         Me.dgvTblSpaceInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvTblSpaceInfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvTblSpaceInfoFileSystem, Me.coldgvTblSpaceInfoDISKSIZE, Me.coldgvTblSpaceInfoDISKUSED, Me.coldgvTblSpaceInfoAvail, Me.coldgvTblSpaceInfoMountPoint, Me.coldgvTblSpaceInfoTABLESPACE, Me.coldgvTblSpaceInfoSIZE, Me.coldgvTblSpaceInfoLOCATION})
         DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle15.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.LightSteelBlue
         DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvTblSpaceInfo.DefaultCellStyle = DataGridViewCellStyle15
         Me.dgvTblSpaceInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvTblSpaceInfo.EnableHeadersVisualStyles = False
         Me.dgvTblSpaceInfo.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.dgvTblSpaceInfo.GridColor = System.Drawing.Color.Gray
+        Me.dgvTblSpaceInfo.GridColor = System.Drawing.Color.Black
         Me.dgvTblSpaceInfo.Location = New System.Drawing.Point(0, 40)
         Me.dgvTblSpaceInfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvTblSpaceInfo.MultiSelect = False
@@ -695,7 +698,7 @@ Partial Class frmMonActInfo
         '
         'TableLayoutPanel3
         '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TableLayoutPanel3.ColumnCount = 2
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -713,6 +716,7 @@ Partial Class frmMonActInfo
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
         Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -725,6 +729,7 @@ Partial Class frmMonActInfo
         'lblTblSpaceInfo
         '
         Me.lblTblSpaceInfo.AutoSize = True
+        Me.lblTblSpaceInfo.BackColor = System.Drawing.Color.Transparent
         Me.lblTblSpaceInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblTblSpaceInfo.ForeColor = System.Drawing.Color.White
         Me.lblTblSpaceInfo.Location = New System.Drawing.Point(43, 0)
@@ -742,6 +747,7 @@ Partial Class frmMonActInfo
         '
         'SplitContainer3.Panel1
         '
+        Me.SplitContainer3.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.SplitContainer3.Panel1.Controls.Add(Me.dgvTblinfo)
         Me.SplitContainer3.Panel1.Controls.Add(Me.TableLayoutPanel4)
         '
@@ -762,28 +768,28 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvTblinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle17.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvTblinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
-        Me.dgvTblinfo.ColumnHeadersHeight = 30
+        Me.dgvTblinfo.ColumnHeadersHeight = 24
         Me.dgvTblinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvTblinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvTblinfoDB, Me.coldgvTblinfoTABLE, Me.coldgvTblinfoTABLESIZE, Me.coldgvTblinfoINDEXSIZE, Me.coldgvTblinfoINDEXCNT, Me.coldgvTblinfoISTOAST, Me.coldgvTblinfoSEQSCAN, Me.coldgvTblinfoINDEXSCAN, Me.coldgvTblinfoLIVETUPLES, Me.coldgvTblinfoDEADTUPLES, Me.coldgvTblinfoDEADTUPLERATE, Me.coldgvTblinfoBloatsize, Me.coldgvTblinfoBloatrate, Me.coldgvTblinfoLASTVACUUM, Me.coldgvTblinfoBloatTable})
         DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle30.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle30.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle30.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle30.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.LightSteelBlue
         DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvTblinfo.DefaultCellStyle = DataGridViewCellStyle30
         Me.dgvTblinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvTblinfo.EnableHeadersVisualStyles = False
         Me.dgvTblinfo.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.dgvTblinfo.GridColor = System.Drawing.Color.Gray
+        Me.dgvTblinfo.GridColor = System.Drawing.Color.Black
         Me.dgvTblinfo.Location = New System.Drawing.Point(0, 40)
         Me.dgvTblinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvTblinfo.MultiSelect = False
@@ -1011,7 +1017,7 @@ Partial Class frmMonActInfo
         '
         'TableLayoutPanel4
         '
-        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel4.ColumnCount = 4
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160.0!))
@@ -1031,6 +1037,7 @@ Partial Class frmMonActInfo
         'cbxCheckTableBloat
         '
         Me.cbxCheckTableBloat.AutoSize = True
+        Me.cbxCheckTableBloat.BackColor = System.Drawing.Color.Transparent
         Me.cbxCheckTableBloat.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxCheckTableBloat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cbxCheckTableBloat.ForeColor = System.Drawing.Color.White
@@ -1042,11 +1049,12 @@ Partial Class frmMonActInfo
         Me.cbxCheckTableBloat.TabIndex = 19
         Me.cbxCheckTableBloat.Text = "Check Table bloat"
         Me.cbxCheckTableBloat.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cbxCheckTableBloat.UseVisualStyleBackColor = True
+        Me.cbxCheckTableBloat.UseVisualStyleBackColor = False
         '
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
         Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label5.Image = CType(resources.GetObject("Label5.Image"), System.Drawing.Image)
         Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1059,6 +1067,7 @@ Partial Class frmMonActInfo
         'lblTblinfo
         '
         Me.lblTblinfo.AutoSize = True
+        Me.lblTblinfo.BackColor = System.Drawing.Color.Transparent
         Me.lblTblinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblTblinfo.ForeColor = System.Drawing.Color.White
         Me.lblTblinfo.Location = New System.Drawing.Point(43, 0)
@@ -1077,28 +1086,28 @@ Partial Class frmMonActInfo
         Me.dgvIdxinfo.BackgroundColor = System.Drawing.Color.Black
         Me.dgvIdxinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle32.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvIdxinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle32
-        Me.dgvIdxinfo.ColumnHeadersHeight = 30
+        Me.dgvIdxinfo.ColumnHeadersHeight = 24
         Me.dgvIdxinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvIdxinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvIdxinfoDB, Me.coldgvIdxinfoINDEX, Me.coldgvIdxinfoTABLE, Me.coldgvIdxinfoINDEXSIZE, Me.coldgvIdxinfoINDEXSCANCOUNT, Me.coldgvIdxinfoINDEXFETCHEDTUPLES, Me.coldgvIdxinfoUPDATEDTUPLES, Me.coldgvIdxinfoDELETEDTUPLES, Me.coldgvIdxinfoLiveTuples, Me.coldgvIdxinfoDeadTuples})
         DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle38.Font = New System.Drawing.Font("Gulim", 10.0!)
         DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.LightSteelBlue
         DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvIdxinfo.DefaultCellStyle = DataGridViewCellStyle38
         Me.dgvIdxinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvIdxinfo.EnableHeadersVisualStyles = False
         Me.dgvIdxinfo.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.dgvIdxinfo.GridColor = System.Drawing.Color.Gray
+        Me.dgvIdxinfo.GridColor = System.Drawing.Color.Black
         Me.dgvIdxinfo.Location = New System.Drawing.Point(0, 40)
         Me.dgvIdxinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvIdxinfo.MultiSelect = False
@@ -1235,7 +1244,7 @@ Partial Class frmMonActInfo
         '
         'TableLayoutPanel5
         '
-        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         Me.TableLayoutPanel5.ColumnCount = 2
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -1253,6 +1262,7 @@ Partial Class frmMonActInfo
         'Label7
         '
         Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
         Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
         Me.Label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -1265,6 +1275,7 @@ Partial Class frmMonActInfo
         'lblidxinfo
         '
         Me.lblidxinfo.AutoSize = True
+        Me.lblidxinfo.BackColor = System.Drawing.Color.Transparent
         Me.lblidxinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblidxinfo.ForeColor = System.Drawing.Color.White
         Me.lblidxinfo.Location = New System.Drawing.Point(43, 0)

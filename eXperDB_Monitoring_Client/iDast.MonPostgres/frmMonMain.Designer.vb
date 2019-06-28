@@ -21,6 +21,7 @@ Partial Class frmMonMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -119,9 +120,9 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnConfig = New eXperDB.BaseControls.Button()
         Me.btnReport = New eXperDB.BaseControls.Button()
         Me.btnAlertConfig = New eXperDB.BaseControls.Button()
         Me.btnLock = New eXperDB.BaseControls.Button()
@@ -234,7 +235,7 @@ Partial Class frmMonMain
         Me.tlpButtonTrends = New eXperDB.BaseControls.TableLayoutPanel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lblRetention = New System.Windows.Forms.Label()
-        Me.cmbRetention = New eXperDB.BaseControls.ComboBox()
+        Me.cmbRetention = New FlatCombobox.FlatCombo()
         Me.btnClusterShow = New eXperDB.BaseControls.Button()
         Me.monTypeImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.tlpDiskAccess = New System.Windows.Forms.TableLayoutPanel()
@@ -286,7 +287,7 @@ Partial Class frmMonMain
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel13 = New System.Windows.Forms.TableLayoutPanel()
-        Me.cmbLevel = New eXperDB.BaseControls.ComboBox()
+        Me.cmbLevel = New FlatCombobox.FlatCombo()
         Me.grpAlert = New eXperDB.BaseControls.Button()
         Me.pnlRb = New eXperDB.BaseControls.Panel()
         Me.rbCurrent = New eXperDB.BaseControls.RadioButton()
@@ -381,7 +382,6 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn37 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btnConfig = New eXperDB.BaseControls.Button()
         Me.mnuMenu = New eXperDB.BaseControls.ContextMenuStrip()
         Me.mnuLogout = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuUserConfig = New System.Windows.Forms.ToolStripMenuItem()
@@ -481,9 +481,9 @@ Partial Class frmMonMain
         Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 11, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnReport, 11, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.btnAlertConfig, 10, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnLock, 9, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnCritical, 8, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnPower, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnLock, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnCritical, 9, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnPower, 8, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.tmDigitalClock, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.ServerName_lv, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 4, 0)
@@ -497,6 +497,27 @@ Partial Class frmMonMain
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(1784, 54)
         Me.TableLayoutPanel2.TabIndex = 14
+        '
+        'btnConfig
+        '
+        Me.btnConfig.BackColor = System.Drawing.Color.Silver
+        Me.btnConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnConfig.FixedHeight = False
+        Me.btnConfig.FixedWidth = False
+        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnConfig.ForeColor = System.Drawing.Color.Black
+        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
+        Me.btnConfig.LineColor = System.Drawing.Color.LightGray
+        Me.btnConfig.Location = New System.Drawing.Point(1747, 11)
+        Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnConfig.Name = "btnConfig"
+        Me.btnConfig.Radius = 5
+        Me.btnConfig.Size = New System.Drawing.Size(34, 31)
+        Me.btnConfig.TabIndex = 24
+        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.UseVisualStyleBackColor = True
         '
         'btnReport
         '
@@ -552,7 +573,7 @@ Partial Class frmMonMain
         Me.btnLock.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnLock.Image = CType(resources.GetObject("btnLock.Image"), System.Drawing.Image)
         Me.btnLock.LineColor = System.Drawing.Color.LightGray
-        Me.btnLock.Location = New System.Drawing.Point(1627, 11)
+        Me.btnLock.Location = New System.Drawing.Point(1547, 11)
         Me.btnLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnLock.Name = "btnLock"
         Me.btnLock.Radius = 5
@@ -560,6 +581,7 @@ Partial Class frmMonMain
         Me.btnLock.TabIndex = 20
         Me.btnLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnLock.UseVisualStyleBackColor = True
+        Me.btnLock.Visible = False
         '
         'btnCritical
         '
@@ -573,7 +595,7 @@ Partial Class frmMonMain
         Me.btnCritical.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnCritical.Image = CType(resources.GetObject("btnCritical.Image"), System.Drawing.Image)
         Me.btnCritical.LineColor = System.Drawing.Color.LightGray
-        Me.btnCritical.Location = New System.Drawing.Point(1587, 11)
+        Me.btnCritical.Location = New System.Drawing.Point(1627, 11)
         Me.btnCritical.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCritical.Name = "btnCritical"
         Me.btnCritical.Radius = 5
@@ -594,7 +616,7 @@ Partial Class frmMonMain
         Me.btnPower.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.btnPower.Image = CType(resources.GetObject("btnPower.Image"), System.Drawing.Image)
         Me.btnPower.LineColor = System.Drawing.Color.LightGray
-        Me.btnPower.Location = New System.Drawing.Point(1547, 11)
+        Me.btnPower.Location = New System.Drawing.Point(1587, 11)
         Me.btnPower.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPower.Name = "btnPower"
         Me.btnPower.Radius = 5
@@ -776,6 +798,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.Name = "dgvGrpDiskUsage"
         Me.dgvGrpDiskUsage.RowHeadersVisible = False
         Me.dgvGrpDiskUsage.RowTemplate.Height = 23
+        Me.dgvGrpDiskUsage.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgvGrpDiskUsage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvGrpDiskUsage.Size = New System.Drawing.Size(335, 189)
         Me.dgvGrpDiskUsage.TabIndex = 7
@@ -3303,12 +3326,16 @@ Partial Class frmMonMain
         '
         'cmbRetention
         '
-        Me.cmbRetention.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbRetention.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.cmbRetention.BorderColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.cmbRetention.ButtonColor = System.Drawing.Color.FromArgb(CType(CType(160, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(208, Byte), Integer))
         Me.cmbRetention.DisplayMember = "All"
         Me.cmbRetention.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbRetention.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRetention.FixedWidth = False
+        Me.cmbRetention.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbRetention.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbRetention.ForeColor = System.Drawing.SystemColors.Window
         Me.cmbRetention.FormattingEnabled = True
         Me.cmbRetention.Items.AddRange(New Object() {"10", "20", "30"})
         Me.cmbRetention.Location = New System.Drawing.Point(469, 4)
@@ -3410,6 +3437,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.Name = "dgvGrpDiskAccess"
         Me.dgvGrpDiskAccess.RowHeadersVisible = False
         Me.dgvGrpDiskAccess.RowTemplate.Height = 23
+        Me.dgvGrpDiskAccess.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgvGrpDiskAccess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvGrpDiskAccess.Size = New System.Drawing.Size(330, 189)
         Me.dgvGrpDiskAccess.TabIndex = 6
@@ -3511,11 +3539,12 @@ Partial Class frmMonMain
         'nudBackendcnt
         '
         Me.nudBackendcnt.AutoReturnTabIndex = False
-        Me.nudBackendcnt.BackColor = System.Drawing.SystemColors.Window
+        Me.nudBackendcnt.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.nudBackendcnt.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
         Me.nudBackendcnt.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nudBackendcnt.FixedWidth = False
         Me.nudBackendcnt.Font = New System.Drawing.Font("Batang", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.nudBackendcnt.ForeColor = System.Drawing.SystemColors.Window
         Me.nudBackendcnt.Location = New System.Drawing.Point(620, 3)
         Me.nudBackendcnt.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.nudBackendcnt.Minimum = New Decimal(New Integer() {5, 0, 0, 0})
@@ -4106,12 +4135,16 @@ Partial Class frmMonMain
         '
         'cmbLevel
         '
-        Me.cmbLevel.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbLevel.BackColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.cmbLevel.BorderColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.cmbLevel.ButtonColor = System.Drawing.Color.FromArgb(CType(CType(160, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(208, Byte), Integer))
         Me.cmbLevel.DisplayMember = "All"
         Me.cmbLevel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLevel.FixedWidth = False
+        Me.cmbLevel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
+        Me.cmbLevel.ForeColor = System.Drawing.SystemColors.Window
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"Critical", "Warning"})
         Me.cmbLevel.Location = New System.Drawing.Point(94, 4)
@@ -5065,61 +5098,40 @@ Partial Class frmMonMain
         Me.DataGridViewTextBoxColumn37.Name = "DataGridViewTextBoxColumn37"
         Me.DataGridViewTextBoxColumn37.Visible = False
         '
-        'btnConfig
-        '
-        Me.btnConfig.BackColor = System.Drawing.Color.Silver
-        Me.btnConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnConfig.FixedHeight = False
-        Me.btnConfig.FixedWidth = False
-        Me.btnConfig.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.btnConfig.ForeColor = System.Drawing.Color.Black
-        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnConfig.Image = CType(resources.GetObject("btnConfig.Image"), System.Drawing.Image)
-        Me.btnConfig.LineColor = System.Drawing.Color.LightGray
-        Me.btnConfig.Location = New System.Drawing.Point(1747, 11)
-        Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.btnConfig.Name = "btnConfig"
-        Me.btnConfig.Radius = 5
-        Me.btnConfig.Size = New System.Drawing.Size(34, 31)
-        Me.btnConfig.TabIndex = 24
-        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnConfig.UseVisualStyleBackColor = True
-        '
         'mnuMenu
         '
         Me.mnuMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLogout, Me.mnuUserConfig, Me.mnuPreferences, Me.mnuVersion})
         Me.mnuMenu.Name = "mnuPopup"
-        Me.mnuMenu.Size = New System.Drawing.Size(157, 130)
+        Me.mnuMenu.Size = New System.Drawing.Size(142, 108)
         '
         'mnuLogout
         '
         Me.mnuLogout.BackColor = System.Drawing.SystemColors.Control
         Me.mnuLogout.Image = CType(resources.GetObject("mnuLogout.Image"), System.Drawing.Image)
         Me.mnuLogout.Name = "mnuLogout"
-        Me.mnuLogout.Size = New System.Drawing.Size(156, 26)
+        Me.mnuLogout.Size = New System.Drawing.Size(141, 26)
         Me.mnuLogout.Text = "Logout"
         '
         'mnuUserConfig
         '
         Me.mnuUserConfig.Image = CType(resources.GetObject("mnuUserConfig.Image"), System.Drawing.Image)
         Me.mnuUserConfig.Name = "mnuUserConfig"
-        Me.mnuUserConfig.Size = New System.Drawing.Size(156, 26)
+        Me.mnuUserConfig.Size = New System.Drawing.Size(141, 26)
         Me.mnuUserConfig.Text = "User Config"
         '
         'mnuPreferences
         '
         Me.mnuPreferences.Image = CType(resources.GetObject("mnuPreferences.Image"), System.Drawing.Image)
         Me.mnuPreferences.Name = "mnuPreferences"
-        Me.mnuPreferences.Size = New System.Drawing.Size(156, 26)
+        Me.mnuPreferences.Size = New System.Drawing.Size(141, 26)
         Me.mnuPreferences.Text = "Preferences"
         '
         'mnuVersion
         '
         Me.mnuVersion.Image = CType(resources.GetObject("mnuVersion.Image"), System.Drawing.Image)
         Me.mnuVersion.Name = "mnuVersion"
-        Me.mnuVersion.Size = New System.Drawing.Size(156, 26)
+        Me.mnuVersion.Size = New System.Drawing.Size(141, 26)
         Me.mnuVersion.Text = "Version"
         '
         'frmMonMain
@@ -5285,7 +5297,7 @@ Partial Class frmMonMain
     Friend WithEvents nudBackendcnt As eXperDB.BaseControls.NumericUpDown
     Friend WithEvents chkIDLE As eXperDB.BaseControls.CheckBox
     Friend WithEvents ttChart As System.Windows.Forms.ToolTip
-    Friend WithEvents cmbLevel As eXperDB.BaseControls.ComboBox
+    Friend WithEvents cmbLevel As FlatCombobox.FlatCombo
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
@@ -5458,7 +5470,7 @@ Partial Class frmMonMain
     Friend WithEvents btnClusterShow As eXperDB.BaseControls.Button
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents lblRetention As System.Windows.Forms.Label
-    Friend WithEvents cmbRetention As eXperDB.BaseControls.ComboBox
+    Friend WithEvents cmbRetention As FlatCombobox.FlatCombo
     Friend WithEvents btnSort As eXperDB.BaseControls.Button
     Friend WithEvents mnuSort As eXperDB.BaseControls.ContextMenuStrip
     Friend WithEvents mnuNameAsc As System.Windows.Forms.ToolStripMenuItem

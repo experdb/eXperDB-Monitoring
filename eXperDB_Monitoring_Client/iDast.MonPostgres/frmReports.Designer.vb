@@ -22,12 +22,8 @@ Partial Class frmReports
     Private Sub InitializeComponent()
         Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Edges3 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -41,9 +37,12 @@ Partial Class frmReports
         Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin9 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin10 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin11 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin12 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin10 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReports))
         Me.grpRptCpu = New eXperDB.BaseControls.GroupBox()
         Me.pnlSystem = New eXperDB.BaseControls.Panel()
@@ -68,21 +67,16 @@ Partial Class frmReports
         Me.grpRptTimeLine = New eXperDB.BaseControls.GroupBox()
         Me.pnlTimeline = New eXperDB.BaseControls.Panel()
         Me.flpDB = New eXperDB.BaseControls.FlowLayoutPanel()
-        Me.colDgvRptSqlInstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvRptSqlStart = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.colDgvRptSqlCpuMax = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvRptSqlAddr = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvRptSqlUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SplitContainer1 = New eXperDB.BaseControls.SplitContainer()
         Me.pnlMain = New eXperDB.BaseControls.Panel()
         Me.SplitContainer2 = New eXperDB.BaseControls.SplitContainer()
         Me.grpRptSQL = New eXperDB.BaseControls.GroupBox()
         Me.dgvRptSQL = New eXperDB.BaseControls.DataGridView()
-        Me.colDgvRptSqlDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvRptSqlElapsedMax = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.colDgvRptSqlCpuTime = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.colDgvRptSqlCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvRptSqlSql = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTimespanColumn1 = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.DataGridViewTimespanColumn2 = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chtRptDiskRate = New eXperDB.Monitoring.ctlChart()
         Me.chtRptDisk = New eXperDB.Monitoring.ctlChart()
         Me.chtRptDiskUsage = New eXperDB.Monitoring.ctlChart()
@@ -92,9 +86,19 @@ Partial Class frmReports
         Me.chtBuffer = New eXperDB.Monitoring.ctlChart()
         Me.chtObjectRate = New eXperDB.Monitoring.ctlChart()
         Me.chtObjectTuple = New eXperDB.Monitoring.ctlChart()
+        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChart()
         Me.chtLogical = New eXperDB.Monitoring.ctlChart()
         Me.chtSession = New eXperDB.Monitoring.ctlChart()
-        Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChart()
+        Me.colDgvRptSqlDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlElapsedMax = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.colDgvRptSqlCpuTime = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.colDgvRptSqlCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlSql = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlInstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlStart = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.colDgvRptSqlCpuMax = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlAddr = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvRptSqlUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grpRptCpu.SuspendLayout()
         Me.pnlSystem.SuspendLayout()
         Me.pnlSearch.SuspendLayout()
@@ -127,10 +131,10 @@ Partial Class frmReports
         Edges1.RightBottom = 0
         Edges1.RightTop = 0
         Me.grpRptCpu.EdgeRound = Edges1
-        Me.grpRptCpu.FillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpRptCpu.FillColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.grpRptCpu.Font = New System.Drawing.Font("Gulim", 11.0!)
         Me.grpRptCpu.Icon = Nothing
-        Me.grpRptCpu.LineColor = System.Drawing.Color.Gainsboro
+        Me.grpRptCpu.LineColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(184, Byte), Integer), CType(CType(208, Byte), Integer))
         Me.grpRptCpu.LineWidth = 1
         Me.grpRptCpu.Location = New System.Drawing.Point(0, 0)
         Me.grpRptCpu.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -142,7 +146,7 @@ Partial Class frmReports
         Me.grpRptCpu.TabStop = False
         Me.grpRptCpu.Text = "System"
         Me.grpRptCpu.TitleFont = New System.Drawing.Font("Gulim", 11.0!)
-        Me.grpRptCpu.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpRptCpu.TitleGraColor = System.Drawing.Color.CornflowerBlue
         Me.grpRptCpu.UseGraColor = False
         Me.grpRptCpu.UseRound = True
         Me.grpRptCpu.UseTitle = True
@@ -177,15 +181,15 @@ Partial Class frmReports
         '
         'btnSearch
         '
-        Me.btnSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnSearch.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnSearch.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnSearch.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnSearch.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnSearch.FixedHeight = False
         Me.btnSearch.FixedWidth = False
         Me.btnSearch.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnSearch.ForeColor = System.Drawing.Color.White
-        Me.btnSearch.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSearch.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnSearch.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnSearch.LineColor = System.Drawing.Color.Transparent
         Me.btnSearch.Location = New System.Drawing.Point(1721, 4)
         Me.btnSearch.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnSearch.Name = "btnSearch"
@@ -195,7 +199,7 @@ Partial Class frmReports
         Me.btnSearch.Text = "F151"
         Me.btnSearch.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSearch.UseRound = True
-        Me.btnSearch.UseVisualStyleBackColor = True
+        Me.btnSearch.UseVisualStyleBackColor = False
         '
         'pnlSearch
         '
@@ -254,6 +258,7 @@ Partial Class frmReports
         Me.Label1.FixedWidth = False
         Me.Label1.Font = New System.Drawing.Font("Gulim", 11.02!)
         Me.Label1.ForeColor = System.Drawing.Color.LightGray
+        Me.Label1.LineSpacing = 0.0!
         Me.Label1.Location = New System.Drawing.Point(155, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(23, 31)
@@ -279,7 +284,7 @@ Partial Class frmReports
         '
         'tlpButton
         '
-        Me.tlpButton.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpButton.BackColor = System.Drawing.Color.Transparent
         Me.tlpButton.ColumnCount = 13
         Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.637519!))
         Me.tlpButton.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.32034!))
@@ -333,12 +338,14 @@ Partial Class frmReports
         '
         'lblInstDt
         '
+        Me.lblInstDt.BackColor = System.Drawing.Color.Transparent
         Me.lblInstDt.ControlLength = eXperDB.BaseControls.Label.enmLength.[Long]
         Me.lblInstDt.Dock = System.Windows.Forms.DockStyle.Left
         Me.lblInstDt.FixedHeight = False
         Me.lblInstDt.FixedWidth = False
-        Me.lblInstDt.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Bold)
+        Me.lblInstDt.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.lblInstDt.ForeColor = System.Drawing.Color.LightGray
+        Me.lblInstDt.LineSpacing = 0.0!
         Me.lblInstDt.Location = New System.Drawing.Point(259, 0)
         Me.lblInstDt.Name = "lblInstDt"
         Me.lblInstDt.Size = New System.Drawing.Size(69, 31)
@@ -363,11 +370,13 @@ Partial Class frmReports
         '
         'lblInst
         '
+        Me.lblInst.BackColor = System.Drawing.Color.Transparent
         Me.lblInst.Dock = System.Windows.Forms.DockStyle.Left
         Me.lblInst.FixedHeight = False
         Me.lblInst.FixedWidth = False
-        Me.lblInst.Font = New System.Drawing.Font("Gulim", 9.2!, System.Drawing.FontStyle.Bold)
+        Me.lblInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.lblInst.ForeColor = System.Drawing.Color.LightGray
+        Me.lblInst.LineSpacing = 0.0!
         Me.lblInst.Location = New System.Drawing.Point(3, 0)
         Me.lblInst.Name = "lblInst"
         Me.lblInst.Size = New System.Drawing.Size(69, 31)
@@ -378,114 +387,119 @@ Partial Class frmReports
         'rb1D
         '
         Me.rb1D.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rb1D.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb1D.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rb1D.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb1D.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb1D.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.rb1D.ForeColor = System.Drawing.Color.White
-        Me.rb1D.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb1D.LineColor = System.Drawing.Color.Transparent
         Me.rb1D.Location = New System.Drawing.Point(620, 3)
         Me.rb1D.Name = "rb1D"
         Me.rb1D.Radius = 8
         Me.rb1D.Size = New System.Drawing.Size(62, 25)
         Me.rb1D.TabIndex = 27
         Me.rb1D.Text = "~1D"
-        Me.rb1D.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb1D.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb1D.UseRound = True
-        Me.rb1D.UseVisualStyleBackColor = True
+        Me.rb1D.UseVisualStyleBackColor = False
         Me.rb1D.Warning = False
         Me.rb1D.WarningColor = System.Drawing.Color.Red
         '
         'rb12H
         '
         Me.rb12H.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rb12H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb12H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rb12H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb12H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb12H.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.rb12H.ForeColor = System.Drawing.Color.White
-        Me.rb12H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb12H.LineColor = System.Drawing.Color.Transparent
         Me.rb12H.Location = New System.Drawing.Point(552, 3)
         Me.rb12H.Name = "rb12H"
         Me.rb12H.Radius = 8
         Me.rb12H.Size = New System.Drawing.Size(62, 25)
         Me.rb12H.TabIndex = 26
         Me.rb12H.Text = "~12H"
-        Me.rb12H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb12H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb12H.UseRound = True
-        Me.rb12H.UseVisualStyleBackColor = True
+        Me.rb12H.UseVisualStyleBackColor = False
         Me.rb12H.Warning = False
         Me.rb12H.WarningColor = System.Drawing.Color.Red
         '
         'rb4H
         '
         Me.rb4H.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rb4H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb4H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rb4H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb4H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb4H.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.rb4H.ForeColor = System.Drawing.Color.White
-        Me.rb4H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb4H.LineColor = System.Drawing.Color.Transparent
         Me.rb4H.Location = New System.Drawing.Point(484, 3)
         Me.rb4H.Name = "rb4H"
         Me.rb4H.Radius = 8
         Me.rb4H.Size = New System.Drawing.Size(62, 25)
         Me.rb4H.TabIndex = 25
         Me.rb4H.Text = "~4H"
-        Me.rb4H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb4H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb4H.UseRound = True
-        Me.rb4H.UseVisualStyleBackColor = True
+        Me.rb4H.UseVisualStyleBackColor = False
         Me.rb4H.Warning = False
         Me.rb4H.WarningColor = System.Drawing.Color.Red
         '
         'rb2H
         '
         Me.rb2H.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rb2H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb2H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rb2H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb2H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb2H.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.rb2H.ForeColor = System.Drawing.Color.White
-        Me.rb2H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb2H.LineColor = System.Drawing.Color.Transparent
         Me.rb2H.Location = New System.Drawing.Point(416, 3)
         Me.rb2H.Name = "rb2H"
         Me.rb2H.Radius = 8
         Me.rb2H.Size = New System.Drawing.Size(62, 25)
         Me.rb2H.TabIndex = 24
         Me.rb2H.Text = "~2H"
-        Me.rb2H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb2H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb2H.UseRound = True
-        Me.rb2H.UseVisualStyleBackColor = True
+        Me.rb2H.UseVisualStyleBackColor = False
         Me.rb2H.Warning = False
         Me.rb2H.WarningColor = System.Drawing.Color.Red
         '
         'rb1H
         '
         Me.rb1H.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rb1H.CheckFillColor = System.Drawing.Color.Gray
+        Me.rb1H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rb1H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb1H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb1H.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.rb1H.ForeColor = System.Drawing.Color.White
-        Me.rb1H.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.rb1H.LineColor = System.Drawing.Color.Transparent
         Me.rb1H.Location = New System.Drawing.Point(348, 3)
         Me.rb1H.Name = "rb1H"
         Me.rb1H.Radius = 8
         Me.rb1H.Size = New System.Drawing.Size(62, 25)
         Me.rb1H.TabIndex = 23
         Me.rb1H.Text = "~1H"
-        Me.rb1H.UnCheckFillColor = System.Drawing.Color.Black
+        Me.rb1H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb1H.UseRound = True
-        Me.rb1H.UseVisualStyleBackColor = True
+        Me.rb1H.UseVisualStyleBackColor = False
         Me.rb1H.Warning = False
         Me.rb1H.WarningColor = System.Drawing.Color.Red
         '
         'btnPrint
         '
-        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnPrint.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnPrint.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnPrint.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnPrint.FixedHeight = False
         Me.btnPrint.FixedWidth = False
         Me.btnPrint.Font = New System.Drawing.Font("Gulim", 9.0!)
         Me.btnPrint.ForeColor = System.Drawing.Color.White
-        Me.btnPrint.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnPrint.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnPrint.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnPrint.LineColor = System.Drawing.Color.Transparent
         Me.btnPrint.Location = New System.Drawing.Point(1619, 4)
         Me.btnPrint.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnPrint.Name = "btnPrint"
@@ -495,7 +509,7 @@ Partial Class frmReports
         Me.btnPrint.Text = "Print"
         Me.btnPrint.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnPrint.UseRound = True
-        Me.btnPrint.UseVisualStyleBackColor = True
+        Me.btnPrint.UseVisualStyleBackColor = False
         '
         'grpRptTimeLine
         '
@@ -510,10 +524,10 @@ Partial Class frmReports
         Edges2.RightBottom = 0
         Edges2.RightTop = 0
         Me.grpRptTimeLine.EdgeRound = Edges2
-        Me.grpRptTimeLine.FillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpRptTimeLine.FillColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.grpRptTimeLine.Font = New System.Drawing.Font("Gulim", 11.0!)
         Me.grpRptTimeLine.Icon = Nothing
-        Me.grpRptTimeLine.LineColor = System.Drawing.Color.Gainsboro
+        Me.grpRptTimeLine.LineColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(184, Byte), Integer), CType(CType(208, Byte), Integer))
         Me.grpRptTimeLine.LineWidth = 1
         Me.grpRptTimeLine.Location = New System.Drawing.Point(0, 0)
         Me.grpRptTimeLine.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -525,7 +539,7 @@ Partial Class frmReports
         Me.grpRptTimeLine.TabStop = False
         Me.grpRptTimeLine.Text = "eXperDB"
         Me.grpRptTimeLine.TitleFont = New System.Drawing.Font("Gulim", 11.0!)
-        Me.grpRptTimeLine.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpRptTimeLine.TitleGraColor = System.Drawing.Color.CornflowerBlue
         Me.grpRptTimeLine.UseGraColor = False
         Me.grpRptTimeLine.UseRound = True
         Me.grpRptTimeLine.UseTitle = True
@@ -560,48 +574,6 @@ Partial Class frmReports
         Me.flpDB.Name = "flpDB"
         Me.flpDB.Size = New System.Drawing.Size(1820, 25)
         Me.flpDB.TabIndex = 21
-        '
-        'colDgvRptSqlInstID
-        '
-        Me.colDgvRptSqlInstID.DataPropertyName = "INSTANCE_ID"
-        Me.colDgvRptSqlInstID.HeaderText = "ID"
-        Me.colDgvRptSqlInstID.Name = "colDgvRptSqlInstID"
-        Me.colDgvRptSqlInstID.ReadOnly = True
-        Me.colDgvRptSqlInstID.Visible = False
-        '
-        'colDgvRptSqlStart
-        '
-        Me.colDgvRptSqlStart.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.colDgvRptSqlStart.DataPropertyName = "QUERY_START"
-        Me.colDgvRptSqlStart.FormatString = "hh\:mm\:ss"
-        Me.colDgvRptSqlStart.HeaderText = "F050"
-        Me.colDgvRptSqlStart.Name = "colDgvRptSqlStart"
-        Me.colDgvRptSqlStart.ReadOnly = True
-        '
-        'colDgvRptSqlCpuMax
-        '
-        Me.colDgvRptSqlCpuMax.DataPropertyName = "MAX_CPU_USAGE"
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.Format = "P2"
-        Me.colDgvRptSqlCpuMax.DefaultCellStyle = DataGridViewCellStyle1
-        Me.colDgvRptSqlCpuMax.HeaderText = "F181"
-        Me.colDgvRptSqlCpuMax.Name = "colDgvRptSqlCpuMax"
-        Me.colDgvRptSqlCpuMax.ReadOnly = True
-        '
-        'colDgvRptSqlAddr
-        '
-        Me.colDgvRptSqlAddr.DataPropertyName = "CLIENT_ADDR"
-        Me.colDgvRptSqlAddr.HeaderText = "F182"
-        Me.colDgvRptSqlAddr.Name = "colDgvRptSqlAddr"
-        Me.colDgvRptSqlAddr.ReadOnly = True
-        '
-        'colDgvRptSqlUser
-        '
-        Me.colDgvRptSqlUser.DataPropertyName = "USER_NAME"
-        Me.colDgvRptSqlUser.HeaderText = "F184"
-        Me.colDgvRptSqlUser.Name = "colDgvRptSqlUser"
-        Me.colDgvRptSqlUser.ReadOnly = True
-        Me.colDgvRptSqlUser.Visible = False
         '
         'SplitContainer1
         '
@@ -662,10 +634,10 @@ Partial Class frmReports
         Edges3.RightBottom = 0
         Edges3.RightTop = 0
         Me.grpRptSQL.EdgeRound = Edges3
-        Me.grpRptSQL.FillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpRptSQL.FillColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.grpRptSQL.Font = New System.Drawing.Font("Gulim", 11.0!)
         Me.grpRptSQL.Icon = Nothing
-        Me.grpRptSQL.LineColor = System.Drawing.Color.Gainsboro
+        Me.grpRptSQL.LineColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(184, Byte), Integer), CType(CType(208, Byte), Integer))
         Me.grpRptSQL.LineWidth = 1
         Me.grpRptSQL.Location = New System.Drawing.Point(0, 0)
         Me.grpRptSQL.Name = "grpRptSQL"
@@ -675,7 +647,7 @@ Partial Class frmReports
         Me.grpRptSQL.TabStop = False
         Me.grpRptSQL.Text = "SQL list"
         Me.grpRptSQL.TitleFont = New System.Drawing.Font("Gulim", 11.0!)
-        Me.grpRptSQL.TitleGraColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.grpRptSQL.TitleGraColor = System.Drawing.Color.CornflowerBlue
         Me.grpRptSQL.UseGraColor = False
         Me.grpRptSQL.UseRound = True
         Me.grpRptSQL.UseTitle = True
@@ -690,42 +662,42 @@ Partial Class frmReports
         Me.dgvRptSQL.BackgroundColor = System.Drawing.Color.Black
         Me.dgvRptSQL.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgvRptSQL.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 11.02!)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRptSQL.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvRptSQL.ColumnHeadersHeight = 30
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 11.02!)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRptSQL.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvRptSQL.ColumnHeadersHeight = 24
         Me.dgvRptSQL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvRptSQL.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvRptSqlDBNm, Me.colDgvRptSqlElapsedMax, Me.colDgvRptSqlCpuTime, Me.colDgvRptSqlCount, Me.colDgvRptSqlSql})
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Gulim", 11.02!)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvRptSQL.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 11.02!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRptSQL.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvRptSQL.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvRptSQL.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvRptSQL.EnableHeadersVisualStyles = False
         Me.dgvRptSQL.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.dgvRptSQL.GridColor = System.Drawing.Color.Gray
+        Me.dgvRptSQL.GridColor = System.Drawing.Color.Black
         Me.dgvRptSQL.Location = New System.Drawing.Point(3, 28)
         Me.dgvRptSQL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvRptSQL.MultiSelect = False
         Me.dgvRptSQL.Name = "dgvRptSQL"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Gulim", 9.2!)
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRptSQL.RowHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.2!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRptSQL.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvRptSQL.RowHeadersVisible = False
         Me.dgvRptSQL.RowTemplate.Height = 23
         Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -734,80 +706,57 @@ Partial Class frmReports
         Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvRptSQL.UseTagValueMatchColor = False
         '
-        'colDgvRptSqlDBNm
+        'DataGridViewTextBoxColumn1
         '
-        Me.colDgvRptSqlDBNm.DataPropertyName = "DB_NAME"
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvRptSqlDBNm.DefaultCellStyle = DataGridViewCellStyle3
-        Me.colDgvRptSqlDBNm.HeaderText = "F172"
-        Me.colDgvRptSqlDBNm.Name = "colDgvRptSqlDBNm"
-        Me.colDgvRptSqlDBNm.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "DB_NAME"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "F172"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
         '
-        'colDgvRptSqlElapsedMax
+        'DataGridViewTimespanColumn1
         '
-        Me.colDgvRptSqlElapsedMax.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.colDgvRptSqlElapsedMax.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvRptSqlElapsedMax.DefaultCellStyle = DataGridViewCellStyle4
-        Me.colDgvRptSqlElapsedMax.FormatString = "hh\:mm\:ss"
-        Me.colDgvRptSqlElapsedMax.HeaderText = "F183"
-        Me.colDgvRptSqlElapsedMax.Name = "colDgvRptSqlElapsedMax"
-        Me.colDgvRptSqlElapsedMax.ReadOnly = True
-        Me.colDgvRptSqlElapsedMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDgvRptSqlElapsedMax.Width = 190
+        Me.DataGridViewTimespanColumn1.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.DataGridViewTimespanColumn1.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "N2"
+        Me.DataGridViewTimespanColumn1.DefaultCellStyle = DataGridViewCellStyle6
+        Me.DataGridViewTimespanColumn1.FormatString = "hh\:mm\:ss"
+        Me.DataGridViewTimespanColumn1.HeaderText = "F183"
+        Me.DataGridViewTimespanColumn1.Name = "DataGridViewTimespanColumn1"
+        Me.DataGridViewTimespanColumn1.ReadOnly = True
+        Me.DataGridViewTimespanColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewTimespanColumn1.Width = 190
         '
-        'colDgvRptSqlCpuTime
+        'DataGridViewTimespanColumn2
         '
-        Me.colDgvRptSqlCpuTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.colDgvRptSqlCpuTime.DataPropertyName = "OCCUPIED_TIME"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvRptSqlCpuTime.DefaultCellStyle = DataGridViewCellStyle5
-        Me.colDgvRptSqlCpuTime.FormatString = "hh\:mm\:ss\.ff"
-        Me.colDgvRptSqlCpuTime.HeaderText = "F231"
-        Me.colDgvRptSqlCpuTime.Name = "colDgvRptSqlCpuTime"
-        Me.colDgvRptSqlCpuTime.ReadOnly = True
-        Me.colDgvRptSqlCpuTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDgvRptSqlCpuTime.Visible = False
-        Me.colDgvRptSqlCpuTime.Width = 76
+        Me.DataGridViewTimespanColumn2.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.DataGridViewTimespanColumn2.DataPropertyName = "OCCUPIED_TIME"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "N2"
+        Me.DataGridViewTimespanColumn2.DefaultCellStyle = DataGridViewCellStyle7
+        Me.DataGridViewTimespanColumn2.FormatString = "hh\:mm\:ss\.ff"
+        Me.DataGridViewTimespanColumn2.HeaderText = "F231"
+        Me.DataGridViewTimespanColumn2.Name = "DataGridViewTimespanColumn2"
+        Me.DataGridViewTimespanColumn2.ReadOnly = True
+        Me.DataGridViewTimespanColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewTimespanColumn2.Visible = False
+        Me.DataGridViewTimespanColumn2.Width = 76
         '
-        'colDgvRptSqlCount
+        'DataGridViewTextBoxColumn2
         '
-        Me.colDgvRptSqlCount.DataPropertyName = "SQL_COUNT"
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvRptSqlCount.DefaultCellStyle = DataGridViewCellStyle6
-        Me.colDgvRptSqlCount.HeaderText = "F232"
-        Me.colDgvRptSqlCount.Name = "colDgvRptSqlCount"
-        Me.colDgvRptSqlCount.ReadOnly = True
-        Me.colDgvRptSqlCount.Width = 190
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "SQL_COUNT"
+        Me.DataGridViewTextBoxColumn2.HeaderText = "F232"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 190
         '
-        'colDgvRptSqlSql
+        'DataGridViewTextBoxColumn3
         '
-        Me.colDgvRptSqlSql.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvRptSqlSql.DataPropertyName = "SQL"
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
-        Me.colDgvRptSqlSql.DefaultCellStyle = DataGridViewCellStyle7
-        Me.colDgvRptSqlSql.HeaderText = "F185"
-        Me.colDgvRptSqlSql.Name = "colDgvRptSqlSql"
-        Me.colDgvRptSqlSql.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "SQL"
+        Me.DataGridViewTextBoxColumn3.HeaderText = "F185"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
         '
         'chtRptDiskRate
         '
@@ -955,6 +904,22 @@ Partial Class frmReports
         Me.chtObjectTuple.TabIndex = 27
         Me.chtObjectTuple.Title = ""
         '
+        'chtPhysicalIO
+        '
+        Me.chtPhysicalIO.BorderSkin = BorderSkin10
+        Me.chtPhysicalIO.DataSource = Nothing
+        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalIO.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 640)
+        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtPhysicalIO.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtPhysicalIO.MenuVisible = True
+        Me.chtPhysicalIO.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtPhysicalIO.Name = "chtPhysicalIO"
+        Me.chtPhysicalIO.Size = New System.Drawing.Size(1803, 320)
+        Me.chtPhysicalIO.TabIndex = 31
+        Me.chtPhysicalIO.Title = ""
+        '
         'chtLogical
         '
         Me.chtLogical.BorderSkin = BorderSkin11
@@ -987,26 +952,104 @@ Partial Class frmReports
         Me.chtSession.TabIndex = 20
         Me.chtSession.Title = ""
         '
-        'chtPhysicalIO
+        'colDgvRptSqlDBNm
         '
-        Me.chtPhysicalIO.BorderSkin = BorderSkin10
-        Me.chtPhysicalIO.DataSource = Nothing
-        Me.chtPhysicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtPhysicalIO.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtPhysicalIO.Location = New System.Drawing.Point(0, 640)
-        Me.chtPhysicalIO.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtPhysicalIO.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtPhysicalIO.MenuVisible = True
-        Me.chtPhysicalIO.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtPhysicalIO.Name = "chtPhysicalIO"
-        Me.chtPhysicalIO.Size = New System.Drawing.Size(1803, 320)
-        Me.chtPhysicalIO.TabIndex = 31
-        Me.chtPhysicalIO.Title = ""
+        Me.colDgvRptSqlDBNm.DataPropertyName = "DB_NAME"
+        Me.colDgvRptSqlDBNm.HeaderText = "F172"
+        Me.colDgvRptSqlDBNm.Name = "colDgvRptSqlDBNm"
+        Me.colDgvRptSqlDBNm.ReadOnly = True
+        '
+        'colDgvRptSqlElapsedMax
+        '
+        Me.colDgvRptSqlElapsedMax.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.colDgvRptSqlElapsedMax.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N2"
+        Me.colDgvRptSqlElapsedMax.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colDgvRptSqlElapsedMax.FormatString = "hh\:mm\:ss"
+        Me.colDgvRptSqlElapsedMax.HeaderText = "F183"
+        Me.colDgvRptSqlElapsedMax.Name = "colDgvRptSqlElapsedMax"
+        Me.colDgvRptSqlElapsedMax.ReadOnly = True
+        Me.colDgvRptSqlElapsedMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvRptSqlElapsedMax.Width = 190
+        '
+        'colDgvRptSqlCpuTime
+        '
+        Me.colDgvRptSqlCpuTime.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.colDgvRptSqlCpuTime.DataPropertyName = "OCCUPIED_TIME"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N2"
+        Me.colDgvRptSqlCpuTime.DefaultCellStyle = DataGridViewCellStyle3
+        Me.colDgvRptSqlCpuTime.FormatString = "hh\:mm\:ss\.ff"
+        Me.colDgvRptSqlCpuTime.HeaderText = "F231"
+        Me.colDgvRptSqlCpuTime.Name = "colDgvRptSqlCpuTime"
+        Me.colDgvRptSqlCpuTime.ReadOnly = True
+        Me.colDgvRptSqlCpuTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvRptSqlCpuTime.Visible = False
+        Me.colDgvRptSqlCpuTime.Width = 76
+        '
+        'colDgvRptSqlCount
+        '
+        Me.colDgvRptSqlCount.DataPropertyName = "SQL_COUNT"
+        Me.colDgvRptSqlCount.HeaderText = "F232"
+        Me.colDgvRptSqlCount.Name = "colDgvRptSqlCount"
+        Me.colDgvRptSqlCount.ReadOnly = True
+        Me.colDgvRptSqlCount.Width = 190
+        '
+        'colDgvRptSqlSql
+        '
+        Me.colDgvRptSqlSql.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvRptSqlSql.DataPropertyName = "SQL"
+        Me.colDgvRptSqlSql.HeaderText = "F185"
+        Me.colDgvRptSqlSql.Name = "colDgvRptSqlSql"
+        Me.colDgvRptSqlSql.ReadOnly = True
+        '
+        'colDgvRptSqlInstID
+        '
+        Me.colDgvRptSqlInstID.DataPropertyName = "INSTANCE_ID"
+        Me.colDgvRptSqlInstID.HeaderText = "ID"
+        Me.colDgvRptSqlInstID.Name = "colDgvRptSqlInstID"
+        Me.colDgvRptSqlInstID.ReadOnly = True
+        Me.colDgvRptSqlInstID.Visible = False
+        '
+        'colDgvRptSqlStart
+        '
+        Me.colDgvRptSqlStart.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.colDgvRptSqlStart.DataPropertyName = "QUERY_START"
+        Me.colDgvRptSqlStart.FormatString = "hh\:mm\:ss"
+        Me.colDgvRptSqlStart.HeaderText = "F050"
+        Me.colDgvRptSqlStart.Name = "colDgvRptSqlStart"
+        Me.colDgvRptSqlStart.ReadOnly = True
+        '
+        'colDgvRptSqlCpuMax
+        '
+        Me.colDgvRptSqlCpuMax.DataPropertyName = "MAX_CPU_USAGE"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.Format = "P2"
+        Me.colDgvRptSqlCpuMax.DefaultCellStyle = DataGridViewCellStyle8
+        Me.colDgvRptSqlCpuMax.HeaderText = "F181"
+        Me.colDgvRptSqlCpuMax.Name = "colDgvRptSqlCpuMax"
+        Me.colDgvRptSqlCpuMax.ReadOnly = True
+        '
+        'colDgvRptSqlAddr
+        '
+        Me.colDgvRptSqlAddr.DataPropertyName = "CLIENT_ADDR"
+        Me.colDgvRptSqlAddr.HeaderText = "F182"
+        Me.colDgvRptSqlAddr.Name = "colDgvRptSqlAddr"
+        Me.colDgvRptSqlAddr.ReadOnly = True
+        '
+        'colDgvRptSqlUser
+        '
+        Me.colDgvRptSqlUser.DataPropertyName = "USER_NAME"
+        Me.colDgvRptSqlUser.HeaderText = "F184"
+        Me.colDgvRptSqlUser.Name = "colDgvRptSqlUser"
+        Me.colDgvRptSqlUser.ReadOnly = True
+        Me.colDgvRptSqlUser.Visible = False
         '
         'frmReports
         '
         Me.AutoScroll = True
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1826, 1054)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.pnlSearch)
@@ -1083,13 +1126,18 @@ Partial Class frmReports
     Friend WithEvents dtpDay As eXperDB.BaseControls.DateTimePicker
     Friend WithEvents tlpDuration As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents grpRptSQL As eXperDB.BaseControls.GroupBox
+    Friend WithEvents chtRptDiskUsage As eXperDB.Monitoring.ctlChart
+    Friend WithEvents chtRptMem As eXperDB.Monitoring.ctlChart
+    Friend WithEvents chtPhysicalIO As eXperDB.Monitoring.ctlChart
     Friend WithEvents colDgvRptSqlDBNm As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvRptSqlElapsedMax As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents colDgvRptSqlCpuTime As eXperDB.Controls.DataGridViewTimespanColumn
     Friend WithEvents colDgvRptSqlCount As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvRptSqlSql As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents chtRptDiskUsage As eXperDB.Monitoring.ctlChart
-    Friend WithEvents chtRptMem As eXperDB.Monitoring.ctlChart
-    Friend WithEvents chtPhysicalIO As eXperDB.Monitoring.ctlChart
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTimespanColumn1 As eXperDB.Controls.DataGridViewTimespanColumn
+    Friend WithEvents DataGridViewTimespanColumn2 As eXperDB.Controls.DataGridViewTimespanColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

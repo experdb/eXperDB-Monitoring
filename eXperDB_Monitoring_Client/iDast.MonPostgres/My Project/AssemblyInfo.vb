@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' 어셈블리 특성 값을 검토합니다.
 
-<Assembly: AssemblyTitle("iDast.Monitoring")> 
+<Assembly: AssemblyTitle("eXperDB.Monitoring")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("eXperDB Monitoring Tools")> 
@@ -29,7 +29,7 @@ Imports System.Runtime.InteropServices
 '
 ' 모든 값을 지정하거나 아래와 같이 '*'를 사용하여 빌드 번호 및 수정 버전이 자동으로
 ' 지정되도록 할 수 있습니다.
-' <Assembly: AssemblyVersion("10.4.4.316")> 
+' <Assembly: AssemblyVersion("10.4.4.317")> 
 
-<Assembly: AssemblyVersion("10.4.4.316")> 
-<Assembly: AssemblyFileVersion("10.4.4.316")> 
+<Assembly: AssemblyVersion("10.4.4.317")> 
+<Assembly: AssemblyFileVersion("10.4.4.317")> 

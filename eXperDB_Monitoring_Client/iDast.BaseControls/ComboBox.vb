@@ -11,7 +11,7 @@
             If value = True Then
                 Me.BackColor = Drawing.SystemColors.GradientActiveCaption
             Else
-                Me.BackColor = Drawing.SystemColors.Window
+                'Me.BackColor = Drawing.SystemColors.Window
             End If
 
             m_Necessary = value

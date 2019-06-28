@@ -4,6 +4,7 @@ Public Class frmMonDetail
 
 #Region "Declares"
 
+
 #Region "Timer"
     Private WithEvents TmCollect As Timer
     Private Sub TmCollect_Tick(sender As Object, e As EventArgs) Handles TmCollect.Tick
@@ -1295,7 +1296,8 @@ Public Class frmMonDetail
         If cmbDisk.Tag IsNot Nothing AndAlso cmbDisk.Tag.GetType.Equals(GetType(DataTable)) Then
             Dim dtTable As DataTable = TryCast(cmbDisk.Tag, DataTable)
             'Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text.Split(" :")(0)
-            Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text
+            'Dim strDiskNm As String = DirectCast(sender, BaseControls.ComboBox).Text
+            Dim strDiskNm As String = DirectCast(sender, FlatCombobox.FlatCombo).Text
             If Me.chtDiskIOTrend.Tag Is Nothing OrElse Not Me.chtDiskIOTrend.Tag.Equals(strDiskNm) Then
                 For Each tmpSeries As DataVisualization.Charting.Series In Me.chtDiskIOTrend.Series
                     tmpSeries.Points.Clear()
@@ -2860,5 +2862,28 @@ Public Class frmMonDetail
             GC.Collect()
         End Try
 
+    End Sub
+
+    Private Sub grpResUtilPerBackProc_DoubleClick(sender As Object, e As EventArgs) Handles grpResUtilPerBackProc.DoubleClick, lblStmt.DoubleClick, lblLockList.DoubleClick
+        Dim label As System.Windows.Forms.Label = DirectCast(sender, System.Windows.Forms.Label)
+        If label.Name = "grpResUtilPerBackProc" Then
+            If dgvResUtilPerBackProc.ScrollBars = ScrollBars.None Then
+                dgvResUtilPerBackProc.ScrollBars = ScrollBars.Both
+            Else
+                dgvResUtilPerBackProc.ScrollBars = ScrollBars.None
+            End If
+        ElseIf label.Name = "lblStmt" Then
+            If dgvStmtList.ScrollBars = ScrollBars.None Then
+                dgvStmtList.ScrollBars = ScrollBars.Both
+            Else
+                dgvStmtList.ScrollBars = ScrollBars.None
+            End If
+        Else
+            If dgvLock.ScrollBars = ScrollBars.None Then
+                dgvLock.ScrollBars = ScrollBars.Both
+            Else
+                dgvLock.ScrollBars = ScrollBars.None
+            End If
+        End If
     End Sub
 End Class

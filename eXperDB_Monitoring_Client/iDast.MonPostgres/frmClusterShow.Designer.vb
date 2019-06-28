@@ -20,10 +20,9 @@ Partial Class frmClusterShow
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmClusterShow))
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpList = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.btnApply = New eXperDB.BaseControls.Button()
@@ -40,7 +39,7 @@ Partial Class frmClusterShow
         '
         'tlpList
         '
-        Me.tlpList.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpList.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.tlpList.ColumnCount = 6
         Me.tlpList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
@@ -64,15 +63,15 @@ Partial Class frmClusterShow
         'btnClose
         '
         Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Top
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
         Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.Transparent
         Me.btnClose.Location = New System.Drawing.Point(131, 255)
         Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnClose.Name = "btnClose"
@@ -87,15 +86,15 @@ Partial Class frmClusterShow
         'btnApply
         '
         Me.btnApply.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnApply.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnApply.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnApply.Dock = System.Windows.Forms.DockStyle.Top
         Me.btnApply.FixedHeight = False
         Me.btnApply.FixedWidth = False
         Me.btnApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnApply.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnApply.ForeColor = System.Drawing.Color.White
-        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnApply.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnApply.LineColor = System.Drawing.Color.Transparent
         Me.btnApply.Location = New System.Drawing.Point(51, 255)
         Me.btnApply.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnApply.Name = "btnApply"
@@ -116,30 +115,30 @@ Partial Class frmClusterShow
         Me.dgvClusterList.BackgroundColor = System.Drawing.Color.Black
         Me.dgvClusterList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 8.320187!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvClusterList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvClusterList.ColumnHeadersHeight = 30
+        Me.dgvClusterList.ColumnHeadersHeight = 24
         Me.dgvClusterList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvClusterList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvClusterListSel, Me.coldgvClusterListHostName})
         Me.tlpList.SetColumnSpan(Me.dgvClusterList, 4)
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvClusterList.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 8.320187!)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvClusterList.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvClusterList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvClusterList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvClusterList.EnableHeadersVisualStyles = False
         Me.dgvClusterList.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        Me.dgvClusterList.GridColor = System.Drawing.Color.Gray
+        Me.dgvClusterList.GridColor = System.Drawing.Color.Black
         Me.dgvClusterList.Location = New System.Drawing.Point(11, 4)
         Me.dgvClusterList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvClusterList.Name = "dgvClusterList"
@@ -155,7 +154,7 @@ Partial Class frmClusterShow
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -178,7 +177,7 @@ Partial Class frmClusterShow
         'MsgLabel
         '
         Me.MsgLabel.AutoSize = True
-        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel.BackColor = System.Drawing.Color.Transparent
         Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MsgLabel.ForeColor = System.Drawing.Color.White
         Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -192,6 +191,7 @@ Partial Class frmClusterShow
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -205,13 +205,6 @@ Partial Class frmClusterShow
         '
         Me.coldgvClusterListSel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.coldgvClusterListSel.DataPropertyName = "ACCESS_TYPE"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.NullValue = False
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvClusterListSel.DefaultCellStyle = DataGridViewCellStyle2
         Me.coldgvClusterListSel.FillWeight = 40.0!
         Me.coldgvClusterListSel.HeaderText = ""
         Me.coldgvClusterListSel.MinimumWidth = 40
@@ -223,13 +216,9 @@ Partial Class frmClusterShow
         'coldgvClusterListHostName
         '
         Me.coldgvClusterListHostName.DataPropertyName = "HOST_NAME"
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = "0"
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvClusterListHostName.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = "0"
+        Me.coldgvClusterListHostName.DefaultCellStyle = DataGridViewCellStyle2
         Me.coldgvClusterListHostName.FillWeight = 131.1306!
         Me.coldgvClusterListHostName.HeaderText = "Cluster"
         Me.coldgvClusterListHostName.MinimumWidth = 190
@@ -240,7 +229,7 @@ Partial Class frmClusterShow
         'frmClusterShow
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
-        Me.BackColor = System.Drawing.Color.Black
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(257, 341)
         Me.Controls.Add(Me.tlpList)
         Me.Controls.Add(Me.TableLayoutPanel2)

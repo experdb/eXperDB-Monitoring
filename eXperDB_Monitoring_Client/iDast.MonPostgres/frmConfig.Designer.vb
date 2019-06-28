@@ -72,7 +72,6 @@ Partial Class frmConfig
         Me.lblRaider = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1 = New eXperDB.BaseControls.Panel()
-        Me.FlatCombo1 = New FlatCombobox.FlatCombo()
         Me.chkMemItemReverse = New eXperDB.BaseControls.CheckBox()
         Me.chkCpuItemReverse = New eXperDB.BaseControls.CheckBox()
         Me.lblMemStyle = New eXperDB.BaseControls.Label()
@@ -85,6 +84,7 @@ Partial Class frmConfig
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.FlatCombo1 = New FlatCombobox.FlatCombo()
         Me.tbMain.SuspendLayout()
         Me.tp1.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
@@ -617,6 +617,7 @@ Partial Class frmConfig
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 49.0!))
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 185.0!))
+        Me.TableLayoutPanel6.Controls.Add(Me.FlatCombo1, 6, 1)
         Me.TableLayoutPanel6.Controls.Add(Me.lblSound, 1, 3)
         Me.TableLayoutPanel6.Controls.Add(Me.lbGrpRatate, 1, 6)
         Me.TableLayoutPanel6.Controls.Add(Me.Button2, 5, 3)
@@ -937,7 +938,6 @@ Partial Class frmConfig
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Transparent
-        Me.Panel1.Controls.Add(Me.FlatCombo1)
         Me.Panel1.Controls.Add(Me.chkMemItemReverse)
         Me.Panel1.Controls.Add(Me.chkCpuItemReverse)
         Me.Panel1.Controls.Add(Me.lblMemStyle)
@@ -949,20 +949,6 @@ Partial Class frmConfig
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(574, 75)
         Me.Panel1.TabIndex = 16
-        '
-        'FlatCombo1
-        '
-        Me.FlatCombo1.BackColor = System.Drawing.Color.DarkOrange
-        Me.FlatCombo1.BorderColor = System.Drawing.Color.Lime
-        Me.FlatCombo1.ButtonColor = System.Drawing.SystemColors.HotTrack
-        Me.FlatCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.FlatCombo1.FormattingEnabled = True
-        Me.FlatCombo1.Items.AddRange(New Object() {"1", "2"})
-        Me.FlatCombo1.Location = New System.Drawing.Point(237, 56)
-        Me.FlatCombo1.Name = "FlatCombo1"
-        Me.FlatCombo1.Size = New System.Drawing.Size(121, 20)
-        Me.FlatCombo1.TabIndex = 9
-        Me.FlatCombo1.Visible = False
         '
         'chkMemItemReverse
         '
@@ -1021,6 +1007,7 @@ Partial Class frmConfig
         Me.cmbMemStyle.BackColor = System.Drawing.SystemColors.Window
         Me.cmbMemStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMemStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbMemStyle.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cmbMemStyle.FormattingEnabled = True
         Me.cmbMemStyle.Location = New System.Drawing.Point(374, 19)
         Me.cmbMemStyle.Name = "cmbMemStyle"
@@ -1035,6 +1022,7 @@ Partial Class frmConfig
         Me.cmbCpuStyle.BackColor = System.Drawing.SystemColors.Window
         Me.cmbCpuStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCpuStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmbCpuStyle.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cmbCpuStyle.FormattingEnabled = True
         Me.cmbCpuStyle.Location = New System.Drawing.Point(110, 19)
         Me.cmbCpuStyle.Name = "cmbCpuStyle"
@@ -1135,6 +1123,26 @@ Partial Class frmConfig
         Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
+        '
+        'FlatCombo1
+        '
+        Me.FlatCombo1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(96, Byte), Integer))
+        Me.FlatCombo1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.FlatCombo1.ButtonColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(176, Byte), Integer))
+        Me.FlatCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.FlatCombo1.FixedWidth = True
+        Me.FlatCombo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.FlatCombo1.ForeColor = System.Drawing.Color.White
+        Me.FlatCombo1.FormattingEnabled = True
+        Me.FlatCombo1.Items.AddRange(New Object() {"1", "2"})
+        Me.FlatCombo1.Location = New System.Drawing.Point(404, 13)
+        Me.FlatCombo1.Name = "FlatCombo1"
+        Me.FlatCombo1.Necessary = False
+        Me.FlatCombo1.Size = New System.Drawing.Size(121, 20)
+        Me.FlatCombo1.StatusTip = ""
+        Me.FlatCombo1.TabIndex = 9
+        Me.FlatCombo1.ValueText = ""
+        Me.FlatCombo1.Visible = False
         '
         'frmConfig
         '

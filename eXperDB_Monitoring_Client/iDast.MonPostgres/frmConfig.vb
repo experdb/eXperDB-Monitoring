@@ -442,7 +442,7 @@
         'End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         Dim ofd As New OpenFileDialog
         ofd.DefaultExt = "*.wav"
         If ofd.ShowDialog() = Windows.Forms.DialogResult.OK Then
@@ -451,7 +451,7 @@
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         Dim Snd As String = ""
         Try
             If txtSound.Text.Trim <> "" Then

@@ -133,18 +133,20 @@ Public Class frmReports
         Dim rtnRB As New eXperDB.BaseControls.RadioButton()
         '
         'rbGrp3
-        '
+        '112, 116, 128
         rtnRB.Appearance = System.Windows.Forms.Appearance.Button
-        rtnRB.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        rtnRB.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
+        rtnRB.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         rtnRB.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         rtnRB.ForeColor = System.Drawing.Color.White
-        rtnRB.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        'rtnRB.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        rtnRB.LineColor = Color.Transparent
         rtnRB.Location = New System.Drawing.Point(3, 3)
         rtnRB.Radius = 10
         rtnRB.Size = New System.Drawing.Size(120, 30)
         rtnRB.TabIndex = 5
         rtnRB.Text = Title
-        rtnRB.UnCheckFillColor = System.Drawing.Color.Black
+        rtnRB.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         rtnRB.UseRound = True
         rtnRB.UseVisualStyleBackColor = True
         rtnRB.Warning = False

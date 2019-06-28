@@ -13,7 +13,7 @@
     Private Sub initForm()
         'Me.dgvUserLst.AutoGenerateColumns = False
         lblUserList.Text = p_clsMsgData.fn_GetData("F351", 0)
-        lblGroupUserList.Text = "Group" + p_clsMsgData.fn_GetData("F351", 0)
+        lblGroupUserList.Text = p_clsMsgData.fn_GetData("F026") + " " + p_clsMsgData.fn_GetData("F351", 0)
 
         coldgvGroupLstName.HeaderText = p_clsMsgData.fn_GetData("F310")
 
@@ -93,7 +93,6 @@
             Dim dtTable = _clsQuery.SelectUserByGroup(dgvGroupLst.SelectedRows(0).Cells(coldgvGroupLstID.Index).Value)
             If dtTable IsNot Nothing Then
                 dgvGroupUsers.DataSource = dtTable
-                lblGroupUserList.Text = p_clsMsgData.fn_GetData("F351", dtTable.Rows.Count)
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)

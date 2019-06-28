@@ -73,7 +73,7 @@ Partial Class frmConnection
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -90,7 +90,7 @@ Partial Class frmConnection
         'StatusLabel
         '
         Me.StatusLabel.AutoSize = True
-        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StatusLabel.BackColor = System.Drawing.Color.Transparent
         Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.StatusLabel.ForeColor = System.Drawing.Color.White
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -104,6 +104,7 @@ Partial Class frmConnection
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -115,7 +116,7 @@ Partial Class frmConnection
         '
         'TableLayoutPanel3
         '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -124,7 +125,7 @@ Partial Class frmConnection
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 585)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 602)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -133,58 +134,58 @@ Partial Class frmConnection
         '
         'btnClose
         '
-        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClose.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.Gray
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.Transparent
         Me.btnClose.Location = New System.Drawing.Point(225, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
         Me.btnClose.Size = New System.Drawing.Size(74, 39)
         Me.btnClose.TabIndex = 2
         Me.btnClose.Text = "F021"
-        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClose.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnClose.UseRound = True
         Me.btnClose.UseVisualStyleBackColor = True
         '
         'btnAct
         '
-        Me.btnAct.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnAct.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnAct.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnAct.FixedHeight = False
         Me.btnAct.FixedWidth = False
         Me.btnAct.ForeColor = System.Drawing.Color.White
-        Me.btnAct.GraColor = System.Drawing.Color.Gray
-        Me.btnAct.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnAct.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnAct.LineColor = System.Drawing.Color.Transparent
         Me.btnAct.Location = New System.Drawing.Point(145, 3)
         Me.btnAct.Name = "btnAct"
         Me.btnAct.Radius = 10
         Me.btnAct.Size = New System.Drawing.Size(74, 39)
         Me.btnAct.TabIndex = 1
         Me.btnAct.Text = "F140/F141"
-        Me.btnAct.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnAct.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnAct.UseRound = True
         Me.btnAct.UseVisualStyleBackColor = True
         '
         'btnTest
         '
-        Me.btnTest.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnTest.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnTest.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnTest.FixedHeight = False
         Me.btnTest.FixedWidth = False
         Me.btnTest.ForeColor = System.Drawing.Color.White
-        Me.btnTest.GraColor = System.Drawing.Color.Gray
-        Me.btnTest.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnTest.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnTest.LineColor = System.Drawing.Color.Transparent
         Me.btnTest.Location = New System.Drawing.Point(65, 3)
         Me.btnTest.Name = "btnTest"
         Me.btnTest.Radius = 10
         Me.btnTest.Size = New System.Drawing.Size(74, 39)
         Me.btnTest.TabIndex = 0
         Me.btnTest.Text = "F002"
-        Me.btnTest.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnTest.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnTest.UseRound = True
         Me.btnTest.UseVisualStyleBackColor = True
         '
@@ -204,14 +205,14 @@ Partial Class frmConnection
         '
         Me.splSlave.Panel2.Controls.Add(Me.TableLayoutPanel1)
         Me.splSlave.Panel2.Enabled = False
-        Me.splSlave.Size = New System.Drawing.Size(365, 532)
-        Me.splSlave.SplitterDistance = 377
+        Me.splSlave.Size = New System.Drawing.Size(365, 549)
+        Me.splSlave.SplitterDistance = 390
         Me.splSlave.TabIndex = 18
         Me.splSlave.TabStop = False
         '
         'tlpSvrChk
         '
-        Me.tlpSvrChk.BackColor = System.Drawing.Color.Gray
+        Me.tlpSvrChk.BackColor = System.Drawing.Color.Transparent
         Me.tlpSvrChk.ColumnCount = 3
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -251,8 +252,8 @@ Partial Class frmConnection
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 377)
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpSvrChk.Size = New System.Drawing.Size(365, 390)
         Me.tlpSvrChk.TabIndex = 19
         '
         'lblStmtSDly
@@ -262,6 +263,7 @@ Partial Class frmConnection
         Me.lblStmtSDly.FixedWidth = False
         Me.lblStmtSDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblStmtSDly.ForeColor = System.Drawing.Color.White
+        Me.lblStmtSDly.LineSpacing = 0.0!
         Me.lblStmtSDly.Location = New System.Drawing.Point(3, 275)
         Me.lblStmtSDly.Name = "lblStmtSDly"
         Me.lblStmtSDly.Size = New System.Drawing.Size(127, 20)
@@ -307,6 +309,7 @@ Partial Class frmConnection
         Me.lblHARole.FixedWidth = False
         Me.lblHARole.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHARole.ForeColor = System.Drawing.Color.White
+        Me.lblHARole.LineSpacing = 0.0!
         Me.lblHARole.Location = New System.Drawing.Point(3, 345)
         Me.lblHARole.Name = "lblHARole"
         Me.lblHARole.Size = New System.Drawing.Size(127, 20)
@@ -357,6 +360,7 @@ Partial Class frmConnection
         Me.lblAlias.FixedWidth = False
         Me.lblAlias.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAlias.ForeColor = System.Drawing.Color.White
+        Me.lblAlias.LineSpacing = 0.0!
         Me.lblAlias.Location = New System.Drawing.Point(3, 310)
         Me.lblAlias.Name = "lblAlias"
         Me.lblAlias.Size = New System.Drawing.Size(127, 20)
@@ -371,6 +375,7 @@ Partial Class frmConnection
         Me.lblUser.FixedWidth = False
         Me.lblUser.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblUser.ForeColor = System.Drawing.Color.White
+        Me.lblUser.LineSpacing = 0.0!
         Me.lblUser.Location = New System.Drawing.Point(3, 100)
         Me.lblUser.Name = "lblUser"
         Me.lblUser.Size = New System.Drawing.Size(127, 20)
@@ -385,6 +390,7 @@ Partial Class frmConnection
         Me.lblSvrGatSDly.FixedWidth = False
         Me.lblSvrGatSDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrGatSDly.ForeColor = System.Drawing.Color.White
+        Me.lblSvrGatSDly.LineSpacing = 0.0!
         Me.lblSvrGatSDly.Location = New System.Drawing.Point(3, 240)
         Me.lblSvrGatSDly.Name = "lblSvrGatSDly"
         Me.lblSvrGatSDly.Size = New System.Drawing.Size(127, 20)
@@ -399,6 +405,7 @@ Partial Class frmConnection
         Me.lblPW.FixedWidth = False
         Me.lblPW.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPW.ForeColor = System.Drawing.Color.White
+        Me.lblPW.LineSpacing = 0.0!
         Me.lblPW.Location = New System.Drawing.Point(3, 135)
         Me.lblPW.Name = "lblPW"
         Me.lblPW.Size = New System.Drawing.Size(127, 20)
@@ -427,6 +434,7 @@ Partial Class frmConnection
         Me.lblSchema.FixedWidth = False
         Me.lblSchema.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSchema.ForeColor = System.Drawing.Color.White
+        Me.lblSchema.LineSpacing = 0.0!
         Me.lblSchema.Location = New System.Drawing.Point(3, 205)
         Me.lblSchema.Name = "lblSchema"
         Me.lblSchema.Size = New System.Drawing.Size(127, 20)
@@ -455,6 +463,7 @@ Partial Class frmConnection
         Me.lblDB.FixedWidth = False
         Me.lblDB.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDB.ForeColor = System.Drawing.Color.White
+        Me.lblDB.LineSpacing = 0.0!
         Me.lblDB.Location = New System.Drawing.Point(3, 170)
         Me.lblDB.Name = "lblDB"
         Me.lblDB.Size = New System.Drawing.Size(127, 20)
@@ -488,6 +497,7 @@ Partial Class frmConnection
         Me.lblIP.FixedWidth = False
         Me.lblIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblIP.ForeColor = System.Drawing.Color.White
+        Me.lblIP.LineSpacing = 0.0!
         Me.lblIP.Location = New System.Drawing.Point(3, 30)
         Me.lblIP.Name = "lblIP"
         Me.lblIP.Size = New System.Drawing.Size(127, 20)
@@ -520,6 +530,7 @@ Partial Class frmConnection
         Me.lblPort.FixedWidth = False
         Me.lblPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPort.ForeColor = System.Drawing.Color.White
+        Me.lblPort.LineSpacing = 0.0!
         Me.lblPort.Location = New System.Drawing.Point(3, 65)
         Me.lblPort.Name = "lblPort"
         Me.lblPort.Size = New System.Drawing.Size(127, 20)
@@ -565,7 +576,7 @@ Partial Class frmConnection
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Gray
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -586,17 +597,19 @@ Partial Class frmConnection
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(365, 151)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(365, 155)
         Me.TableLayoutPanel1.TabIndex = 19
         '
         'lblPrimary
         '
+        Me.lblPrimary.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel1.SetColumnSpan(Me.lblPrimary, 3)
         Me.lblPrimary.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lblPrimary.FixedHeight = False
         Me.lblPrimary.FixedWidth = False
         Me.lblPrimary.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblPrimary.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblPrimary.LineSpacing = 0.0!
         Me.lblPrimary.Location = New System.Drawing.Point(3, 10)
         Me.lblPrimary.Name = "lblPrimary"
         Me.lblPrimary.Size = New System.Drawing.Size(359, 20)
@@ -666,6 +679,7 @@ Partial Class frmConnection
         Me.lblHAREPLHost.FixedWidth = False
         Me.lblHAREPLHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAREPLHost.ForeColor = System.Drawing.Color.White
+        Me.lblHAREPLHost.LineSpacing = 0.0!
         Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 115)
         Me.lblHAREPLHost.Name = "lblHAREPLHost"
         Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 20)
@@ -681,6 +695,7 @@ Partial Class frmConnection
         Me.lblHAPort.FixedWidth = False
         Me.lblHAPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAPort.ForeColor = System.Drawing.Color.White
+        Me.lblHAPort.LineSpacing = 0.0!
         Me.lblHAPort.Location = New System.Drawing.Point(3, 80)
         Me.lblHAPort.Name = "lblHAPort"
         Me.lblHAPort.Size = New System.Drawing.Size(127, 20)
@@ -695,6 +710,7 @@ Partial Class frmConnection
         Me.lblHAHost.FixedWidth = False
         Me.lblHAHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAHost.ForeColor = System.Drawing.Color.White
+        Me.lblHAHost.LineSpacing = 0.0!
         Me.lblHAHost.Location = New System.Drawing.Point(3, 45)
         Me.lblHAHost.Name = "lblHAHost"
         Me.lblHAHost.Size = New System.Drawing.Size(127, 20)
@@ -704,14 +720,13 @@ Partial Class frmConnection
         '
         'frmConnection
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(371, 633)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.ClientSize = New System.Drawing.Size(371, 650)
         Me.Controls.Add(Me.splSlave)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

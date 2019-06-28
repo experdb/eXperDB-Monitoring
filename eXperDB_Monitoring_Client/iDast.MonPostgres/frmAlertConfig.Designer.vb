@@ -38,7 +38,7 @@ Partial Class frmAlertConfig
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel2.ColumnCount = 4
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -58,17 +58,17 @@ Partial Class frmAlertConfig
         '
         'btnNotiConfig
         '
-        Me.btnNotiConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnNotiConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnNotiConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.btnNotiConfig.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnNotiConfig.FixedHeight = False
         Me.btnNotiConfig.FixedWidth = False
         Me.btnNotiConfig.ForeColor = System.Drawing.Color.White
-        Me.btnNotiConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnNotiConfig.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnNotiConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnNotiConfig.LineColor = System.Drawing.Color.Transparent
         Me.btnNotiConfig.Location = New System.Drawing.Point(687, 3)
         Me.btnNotiConfig.Name = "btnNotiConfig"
-        Me.btnNotiConfig.Radius = 5
+        Me.btnNotiConfig.Radius = 10
         Me.btnNotiConfig.Size = New System.Drawing.Size(134, 39)
         Me.btnNotiConfig.TabIndex = 3
         Me.btnNotiConfig.Text = "M068"
@@ -79,7 +79,7 @@ Partial Class frmAlertConfig
         'StatusLabel
         '
         Me.StatusLabel.AutoSize = True
-        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StatusLabel.BackColor = System.Drawing.Color.Transparent
         Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.StatusLabel.ForeColor = System.Drawing.Color.White
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -110,7 +110,7 @@ Partial Class frmAlertConfig
         Me.tbMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
         Me.tbMain.ItemSize = New System.Drawing.Size(150, 21)
         Me.tbMain.Location = New System.Drawing.Point(0, 50)
-        Me.tbMain.myBackColor = System.Drawing.Color.Gray
+        Me.tbMain.myBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.tbMain.Name = "tbMain"
         Me.tbMain.SelectedIndex = 0
         Me.tbMain.Size = New System.Drawing.Size(824, 597)
@@ -119,7 +119,7 @@ Partial Class frmAlertConfig
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel1.ColumnCount = 5
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.16667!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.88889!))
@@ -146,11 +146,11 @@ Partial Class frmAlertConfig
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.Transparent
         Me.btnClose.Location = New System.Drawing.Point(471, 3)
         Me.btnClose.Name = "btnClose"
-        Me.btnClose.Radius = 5
+        Me.btnClose.Radius = 10
         Me.btnClose.Size = New System.Drawing.Size(108, 39)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
@@ -166,11 +166,11 @@ Partial Class frmAlertConfig
         Me.btnHealthInit.FixedHeight = False
         Me.btnHealthInit.FixedWidth = False
         Me.btnHealthInit.ForeColor = System.Drawing.Color.White
-        Me.btnHealthInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnHealthInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnHealthInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnHealthInit.LineColor = System.Drawing.Color.Transparent
         Me.btnHealthInit.Location = New System.Drawing.Point(243, 3)
         Me.btnHealthInit.Name = "btnHealthInit"
-        Me.btnHealthInit.Radius = 5
+        Me.btnHealthInit.Radius = 10
         Me.btnHealthInit.Size = New System.Drawing.Size(108, 39)
         Me.btnHealthInit.TabIndex = 2
         Me.btnHealthInit.Text = "F226"
@@ -186,11 +186,11 @@ Partial Class frmAlertConfig
         Me.btnSave.FixedHeight = False
         Me.btnSave.FixedWidth = False
         Me.btnSave.ForeColor = System.Drawing.Color.White
-        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnSave.LineColor = System.Drawing.Color.Transparent
         Me.btnSave.Location = New System.Drawing.Point(357, 3)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Radius = 5
+        Me.btnSave.Radius = 10
         Me.btnSave.Size = New System.Drawing.Size(108, 39)
         Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "F014"
@@ -202,7 +202,7 @@ Partial Class frmAlertConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(824, 692)
         Me.Controls.Add(Me.tbMain)
         Me.Controls.Add(Me.TableLayoutPanel2)

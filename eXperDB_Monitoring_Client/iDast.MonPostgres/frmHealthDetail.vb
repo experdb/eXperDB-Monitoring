@@ -80,9 +80,9 @@
                 tmpCol.ReadOnly = True
                 tmpCol.Width = intWidth
                 tmpCol.MinimumWidth = intWidth
-                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
                 tmpCol.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
                 tmpCol.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
                 Dgv.Columns.Add(tmpCol)
 
@@ -99,9 +99,9 @@
                 tmpCol.ReadOnly = True
                 tmpCol.Width = intWidth
                 tmpCol.MinimumWidth = intWidth
-                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
                 tmpCol.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
                 tmpCol.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
                 Dgv.Columns.Add(tmpCol)
 
@@ -115,9 +115,9 @@
                 tmpCol.ReadOnly = True
                 tmpCol.Width = intWidth
                 tmpCol.MinimumWidth = intWidth
-                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
                 tmpCol.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
                 tmpCol.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
                 Dgv.Columns.Add(tmpCol)
             Case "TIMESTAMP"
@@ -130,9 +130,9 @@
                 tmpCol.ReadOnly = True
                 tmpCol.Width = intWidth
                 tmpCol.MinimumWidth = intWidth
-                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+                tmpCol.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
                 tmpCol.DefaultCellStyle.ForeColor = System.Drawing.Color.White
-                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                tmpCol.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
                 tmpCol.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
                 Dgv.Columns.Add(tmpCol)
 

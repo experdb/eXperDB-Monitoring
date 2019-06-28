@@ -491,9 +491,9 @@
                 dgvLock.ClearSelection()
                 dgvLock.Rows(e.RowIndex).Selected = True
             End If
-            For i As Integer = 0 To dgvLock.ColumnCount - 1
-                dgvLock.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
-            Next
+            'For i As Integer = 0 To dgvLock.ColumnCount - 1
+            '    dgvLock.Rows(e.RowIndex).Cells(i).Style.SelectionBackColor = Color.FromArgb(0, 40, 70)
+            'Next
         End If
     End Sub
 

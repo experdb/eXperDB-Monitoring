@@ -21,10 +21,13 @@ Partial Class frmAlertList
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
         Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblServer = New eXperDB.BaseControls.Label()
         Me.cmbServer = New eXperDB.BaseControls.ComboBox()
@@ -42,6 +45,26 @@ Partial Class frmAlertList
         Me.btnCheck = New eXperDB.BaseControls.Button()
         Me.dgvAlertList = New eXperDB.BaseControls.DataGridView()
         Me.coldgvAlertSel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MsgLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.mnuGoto = New eXperDB.BaseControls.ContextMenuStrip()
+        Me.mnuGotoClusterDetails = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuGotoStatementsStats = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuGotoReports = New System.Windows.Forms.ToolStripMenuItem()
+        Me.bgmanual = New System.ComponentModel.BackgroundWorker()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertHostName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertINSTANCEID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertHCHKREGREQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -54,14 +77,6 @@ Partial Class frmAlertList
         Me.coldgvAlertComment = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvAlertDT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.MsgLabel = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.mnuGoto = New eXperDB.BaseControls.ContextMenuStrip()
-        Me.mnuGotoClusterDetails = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuGotoStatementsStats = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuGotoReports = New System.Windows.Forms.ToolStripMenuItem()
-        Me.bgmanual = New System.ComponentModel.BackgroundWorker()
         Me.tlpHead.SuspendLayout()
         CType(Me.dgvAlertList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -70,7 +85,7 @@ Partial Class frmAlertList
         '
         'tlpHead
         '
-        Me.tlpHead.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpHead.BackColor = System.Drawing.Color.Transparent
         Me.tlpHead.ColumnCount = 11
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
         Me.tlpHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -114,6 +129,7 @@ Partial Class frmAlertList
         Me.lblServer.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblServer.ForeColor = System.Drawing.Color.White
         Me.lblServer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblServer.LineSpacing = 0.0!
         Me.lblServer.Location = New System.Drawing.Point(3, 11)
         Me.lblServer.Name = "lblServer"
         Me.lblServer.Size = New System.Drawing.Size(64, 29)
@@ -128,9 +144,10 @@ Partial Class frmAlertList
         Me.cmbServer.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbServer.FixedWidth = False
+        Me.cmbServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbServer.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
+        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -148,6 +165,7 @@ Partial Class frmAlertList
         Me.lblLevel.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLevel.ForeColor = System.Drawing.Color.White
         Me.lblLevel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblLevel.LineSpacing = 0.0!
         Me.lblLevel.Location = New System.Drawing.Point(229, 11)
         Me.lblLevel.Name = "lblLevel"
         Me.lblLevel.Size = New System.Drawing.Size(64, 29)
@@ -162,10 +180,11 @@ Partial Class frmAlertList
         Me.cmbLevel.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbLevel.FixedWidth = False
+        Me.cmbLevel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -183,6 +202,7 @@ Partial Class frmAlertList
         Me.lblCheck.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblCheck.ForeColor = System.Drawing.Color.White
         Me.lblCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblCheck.LineSpacing = 0.0!
         Me.lblCheck.Location = New System.Drawing.Point(455, 11)
         Me.lblCheck.Name = "lblCheck"
         Me.lblCheck.Size = New System.Drawing.Size(64, 29)
@@ -197,10 +217,11 @@ Partial Class frmAlertList
         Me.cmbCheck.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.cmbCheck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCheck.FixedWidth = False
+        Me.cmbCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCheck.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbCheck.FormattingEnabled = True
         Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(525, 15)
+        Me.cmbCheck.Location = New System.Drawing.Point(525, 16)
         Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCheck.Name = "cmbCheck"
         Me.cmbCheck.Necessary = False
@@ -218,6 +239,7 @@ Partial Class frmAlertList
         Me.lblDuration.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration.ForeColor = System.Drawing.Color.White
         Me.lblDuration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblDuration.LineSpacing = 0.0!
         Me.lblDuration.Location = New System.Drawing.Point(3, 51)
         Me.lblDuration.Name = "lblDuration"
         Me.lblDuration.Size = New System.Drawing.Size(64, 29)
@@ -249,6 +271,7 @@ Partial Class frmAlertList
         Me.lblDuration2.FixedWidth = False
         Me.lblDuration2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDuration2.ForeColor = System.Drawing.Color.White
+        Me.lblDuration2.LineSpacing = 0.0!
         Me.lblDuration2.Location = New System.Drawing.Point(229, 51)
         Me.lblDuration2.Name = "lblDuration2"
         Me.lblDuration2.Size = New System.Drawing.Size(64, 29)
@@ -273,16 +296,16 @@ Partial Class frmAlertList
         '
         'btnConfig
         '
-        Me.btnConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnConfig.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnConfig.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnConfig.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnConfig.FixedHeight = False
         Me.btnConfig.FixedWidth = False
         Me.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnConfig.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnConfig.ForeColor = System.Drawing.Color.White
-        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnConfig.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnConfig.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnConfig.LineColor = System.Drawing.Color.Transparent
         Me.btnConfig.Location = New System.Drawing.Point(698, 14)
         Me.btnConfig.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnConfig.Name = "btnConfig"
@@ -290,22 +313,22 @@ Partial Class frmAlertList
         Me.btnConfig.Size = New System.Drawing.Size(94, 32)
         Me.btnConfig.TabIndex = 26
         Me.btnConfig.Text = "F264"
-        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnConfig.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnConfig.UseRound = True
-        Me.btnConfig.UseVisualStyleBackColor = True
+        Me.btnConfig.UseVisualStyleBackColor = False
         '
         'btnExcel
         '
-        Me.btnExcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnExcel.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnExcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnExcel.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnExcel.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnExcel.FixedHeight = False
         Me.btnExcel.FixedWidth = False
         Me.btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnExcel.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnExcel.ForeColor = System.Drawing.Color.White
-        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnExcel.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnExcel.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnExcel.LineColor = System.Drawing.Color.Transparent
         Me.btnExcel.Location = New System.Drawing.Point(998, 14)
         Me.btnExcel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnExcel.Name = "btnExcel"
@@ -313,22 +336,22 @@ Partial Class frmAlertList
         Me.btnExcel.Size = New System.Drawing.Size(94, 32)
         Me.btnExcel.TabIndex = 13
         Me.btnExcel.Text = "F142"
-        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnExcel.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnExcel.UseRound = True
-        Me.btnExcel.UseVisualStyleBackColor = True
+        Me.btnExcel.UseVisualStyleBackColor = False
         '
         'btnQuery
         '
-        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnQuery.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnQuery.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnQuery.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnQuery.FixedHeight = False
         Me.btnQuery.FixedWidth = False
         Me.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnQuery.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnQuery.ForeColor = System.Drawing.Color.White
-        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnQuery.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnQuery.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnQuery.LineColor = System.Drawing.Color.Transparent
         Me.btnQuery.Location = New System.Drawing.Point(898, 14)
         Me.btnQuery.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnQuery.Name = "btnQuery"
@@ -336,22 +359,22 @@ Partial Class frmAlertList
         Me.btnQuery.Size = New System.Drawing.Size(94, 32)
         Me.btnQuery.TabIndex = 10
         Me.btnQuery.Text = "F151"
-        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnQuery.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnQuery.UseRound = True
-        Me.btnQuery.UseVisualStyleBackColor = True
+        Me.btnQuery.UseVisualStyleBackColor = False
         '
         'btnCheck
         '
-        Me.btnCheck.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnCheck.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnCheck.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnCheck.CheckFillColor = System.Drawing.Color.Transparent
         Me.btnCheck.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnCheck.FixedHeight = False
         Me.btnCheck.FixedWidth = False
         Me.btnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCheck.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnCheck.ForeColor = System.Drawing.Color.White
-        Me.btnCheck.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnCheck.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnCheck.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnCheck.LineColor = System.Drawing.Color.Transparent
         Me.btnCheck.Location = New System.Drawing.Point(798, 14)
         Me.btnCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCheck.Name = "btnCheck"
@@ -359,9 +382,9 @@ Partial Class frmAlertList
         Me.btnCheck.Size = New System.Drawing.Size(94, 32)
         Me.btnCheck.TabIndex = 10
         Me.btnCheck.Text = "F262"
-        Me.btnCheck.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnCheck.UnCheckFillColor = System.Drawing.Color.Transparent
         Me.btnCheck.UseRound = True
-        Me.btnCheck.UseVisualStyleBackColor = True
+        Me.btnCheck.UseVisualStyleBackColor = False
         '
         'dgvAlertList
         '
@@ -372,29 +395,29 @@ Partial Class frmAlertList
         Me.dgvAlertList.BackgroundColor = System.Drawing.Color.Black
         Me.dgvAlertList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 8.320187!)
         DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvAlertList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvAlertList.ColumnHeadersHeight = 30
+        Me.dgvAlertList.ColumnHeadersHeight = 24
         Me.dgvAlertList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvAlertList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvAlertSel, Me.coldgvAlertHostName, Me.coldgvAlertINSTANCEID, Me.coldgvAlertHCHKREGREQ, Me.coldgvAlertRegDate, Me.coldgvAlertTime, Me.coldgvAlertType, Me.coldgvAlertLevel, Me.coldgvAlertMessage, Me.coldgvAlertYN, Me.coldgvAlertComment, Me.coldgvAlertIP, Me.coldgvAlertDT})
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 8.320187!)
         DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.LightSteelBlue
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvAlertList.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvAlertList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvAlertList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvAlertList.EnableHeadersVisualStyles = False
         Me.dgvAlertList.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        Me.dgvAlertList.GridColor = System.Drawing.Color.Gray
+        Me.dgvAlertList.GridColor = System.Drawing.Color.Black
         Me.dgvAlertList.Location = New System.Drawing.Point(0, 146)
         Me.dgvAlertList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvAlertList.Name = "dgvAlertList"
@@ -419,6 +442,208 @@ Partial Class frmAlertList
         Me.coldgvAlertSel.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.coldgvAlertSel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.coldgvAlertSel.Width = 40
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.ColumnCount = 8
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.MsgLabel, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 4, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnExcel, 7, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnQuery, 6, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnCheck, 5, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1095, 50)
+        Me.TableLayoutPanel2.TabIndex = 18
+        '
+        'MsgLabel
+        '
+        Me.MsgLabel.AutoSize = True
+        Me.MsgLabel.BackColor = System.Drawing.Color.Transparent
+        Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.MsgLabel.ForeColor = System.Drawing.Color.White
+        Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MsgLabel.Location = New System.Drawing.Point(43, 0)
+        Me.MsgLabel.Name = "MsgLabel"
+        Me.MsgLabel.Size = New System.Drawing.Size(589, 50)
+        Me.MsgLabel.TabIndex = 0
+        Me.MsgLabel.Text = "Text"
+        Me.MsgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
+        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(34, 50)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "      "
+        '
+        'mnuGoto
+        '
+        Me.mnuGoto.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.mnuGoto.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuGotoClusterDetails, Me.mnuGotoStatementsStats, Me.mnuGotoReports})
+        Me.mnuGoto.Name = "mnuPopup"
+        Me.mnuGoto.Size = New System.Drawing.Size(186, 70)
+        '
+        'mnuGotoClusterDetails
+        '
+        Me.mnuGotoClusterDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.mnuGotoClusterDetails.Name = "mnuGotoClusterDetails"
+        Me.mnuGotoClusterDetails.Size = New System.Drawing.Size(185, 22)
+        Me.mnuGotoClusterDetails.Text = "Time line view"
+        '
+        'mnuGotoStatementsStats
+        '
+        Me.mnuGotoStatementsStats.Name = "mnuGotoStatementsStats"
+        Me.mnuGotoStatementsStats.Size = New System.Drawing.Size(185, 22)
+        Me.mnuGotoStatementsStats.Text = "Statements Statistics"
+        '
+        'mnuGotoReports
+        '
+        Me.mnuGotoReports.Name = "mnuGotoReports"
+        Me.mnuGotoReports.Size = New System.Drawing.Size(185, 22)
+        Me.mnuGotoReports.Text = "Cluster Reports"
+        '
+        'bgmanual
+        '
+        Me.bgmanual.WorkerReportsProgress = True
+        Me.bgmanual.WorkerSupportsCancellation = True
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "HOST_NAME"
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = "0"
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle6
+        Me.DataGridViewTextBoxColumn1.FillWeight = 131.1306!
+        Me.DataGridViewTextBoxColumn1.HeaderText = "F033"
+        Me.DataGridViewTextBoxColumn1.MinimumWidth = 130
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 130
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "INSTANCE_ID"
+        Me.DataGridViewTextBoxColumn2.HeaderText = "coldgvAlertINSTANCEID"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Visible = False
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "HCHK_REG_SEQ"
+        Me.DataGridViewTextBoxColumn3.HeaderText = "coldgvAlertHCHKREGREQ"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Visible = False
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "REG_DATE"
+        Me.DataGridViewTextBoxColumn4.HeaderText = "colRegDate"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Visible = False
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "COLLECT_TIME"
+        DataGridViewCellStyle7.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle7
+        Me.DataGridViewTextBoxColumn5.FillWeight = 171.0869!
+        Me.DataGridViewTextBoxColumn5.HeaderText = "F257"
+        Me.DataGridViewTextBoxColumn5.MinimumWidth = 170
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 170
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.DataPropertyName = "HCHK_NAME"
+        Me.DataGridViewTextBoxColumn6.FillWeight = 120.5725!
+        Me.DataGridViewTextBoxColumn6.HeaderText = "F258"
+        Me.DataGridViewTextBoxColumn6.MinimumWidth = 120
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 120
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.DataPropertyName = "STATE"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "P"
+        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle8
+        Me.DataGridViewTextBoxColumn7.HeaderText = "F247"
+        Me.DataGridViewTextBoxColumn7.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.DataPropertyName = "VALUE"
+        Me.DataGridViewTextBoxColumn8.FillWeight = 200.0!
+        Me.DataGridViewTextBoxColumn8.HeaderText = "F259"
+        Me.DataGridViewTextBoxColumn8.MinimumWidth = 200
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.Width = 200
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.DataPropertyName = "CHECK_USER_ID"
+        Me.DataGridViewTextBoxColumn9.HeaderText = "F262"
+        Me.DataGridViewTextBoxColumn9.MinimumWidth = 100
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.DataPropertyName = "CHECK_COMMENT"
+        Me.DataGridViewTextBoxColumn10.FillWeight = 200.0!
+        Me.DataGridViewTextBoxColumn10.HeaderText = "F260"
+        Me.DataGridViewTextBoxColumn10.MinimumWidth = 200
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        Me.DataGridViewTextBoxColumn10.Width = 200
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.DataPropertyName = "CHECK_IP"
+        Me.DataGridViewTextBoxColumn11.FillWeight = 150.0!
+        Me.DataGridViewTextBoxColumn11.HeaderText = "F266"
+        Me.DataGridViewTextBoxColumn11.MinimumWidth = 150
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Width = 150
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn12.DataPropertyName = "CHECK_DT"
+        Me.DataGridViewTextBoxColumn12.FillWeight = 170.0!
+        Me.DataGridViewTextBoxColumn12.HeaderText = "F261"
+        Me.DataGridViewTextBoxColumn12.MinimumWidth = 170
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
         '
         'coldgvAlertHostName
         '
@@ -538,93 +763,10 @@ Partial Class frmAlertList
         Me.coldgvAlertDT.Name = "coldgvAlertDT"
         Me.coldgvAlertDT.ReadOnly = True
         '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel2.ColumnCount = 8
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.MsgLabel, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 4, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnExcel, 7, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnQuery, 6, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.btnCheck, 5, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1095, 50)
-        Me.TableLayoutPanel2.TabIndex = 18
-        '
-        'MsgLabel
-        '
-        Me.MsgLabel.AutoSize = True
-        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MsgLabel.ForeColor = System.Drawing.Color.White
-        Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MsgLabel.Location = New System.Drawing.Point(43, 0)
-        Me.MsgLabel.Name = "MsgLabel"
-        Me.MsgLabel.Size = New System.Drawing.Size(589, 50)
-        Me.MsgLabel.TabIndex = 0
-        Me.MsgLabel.Text = "Text"
-        Me.MsgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
-        Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(34, 50)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "      "
-        '
-        'mnuGoto
-        '
-        Me.mnuGoto.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.mnuGoto.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuGotoClusterDetails, Me.mnuGotoStatementsStats, Me.mnuGotoReports})
-        Me.mnuGoto.Name = "mnuPopup"
-        Me.mnuGoto.Size = New System.Drawing.Size(186, 70)
-        '
-        'mnuGotoClusterDetails
-        '
-        Me.mnuGotoClusterDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.mnuGotoClusterDetails.Name = "mnuGotoClusterDetails"
-        Me.mnuGotoClusterDetails.Size = New System.Drawing.Size(185, 22)
-        Me.mnuGotoClusterDetails.Text = "Time line view"
-        '
-        'mnuGotoStatementsStats
-        '
-        Me.mnuGotoStatementsStats.Name = "mnuGotoStatementsStats"
-        Me.mnuGotoStatementsStats.Size = New System.Drawing.Size(185, 22)
-        Me.mnuGotoStatementsStats.Text = "Statements Statistics"
-        '
-        'mnuGotoReports
-        '
-        Me.mnuGotoReports.Name = "mnuGotoReports"
-        Me.mnuGotoReports.Size = New System.Drawing.Size(185, 22)
-        Me.mnuGotoReports.Text = "Cluster Reports"
-        '
-        'bgmanual
-        '
-        Me.bgmanual.WorkerReportsProgress = True
-        Me.bgmanual.WorkerSupportsCancellation = True
-        '
         'frmAlertList
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
-        Me.BackColor = System.Drawing.Color.Black
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1095, 657)
         Me.Controls.Add(Me.dgvAlertList)
         Me.Controls.Add(Me.tlpHead)
@@ -681,5 +823,17 @@ Partial Class frmAlertList
     Friend WithEvents mnuGotoStatementsStats As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuGotoReports As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents bgmanual As System.ComponentModel.BackgroundWorker
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn11 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn12 As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

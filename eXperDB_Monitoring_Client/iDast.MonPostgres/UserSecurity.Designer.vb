@@ -860,7 +860,7 @@ Partial Class UserSecurity
         Me.btnSave.FixedWidth = False
         Me.btnSave.ForeColor = System.Drawing.Color.White
         Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
-        Me.btnSave.LineColor = System.Drawing.Color.Transparent
+        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.btnSave.Location = New System.Drawing.Point(46, 0)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(0)
         Me.btnSave.Name = "btnSave"

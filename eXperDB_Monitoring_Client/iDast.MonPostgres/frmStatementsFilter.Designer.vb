@@ -19,10 +19,10 @@ Partial Class frmStatementsFilter
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStatementsFilter))
         Me.tlpList = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnAddStatement = New eXperDB.BaseControls.Button()
@@ -43,7 +43,7 @@ Partial Class frmStatementsFilter
         '
         'tlpList
         '
-        Me.tlpList.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpList.BackColor = System.Drawing.Color.Transparent
         Me.tlpList.ColumnCount = 10
         Me.tlpList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.tlpList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
@@ -74,8 +74,8 @@ Partial Class frmStatementsFilter
         '
         'btnAddStatement
         '
-        Me.btnAddStatement.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnAddStatement.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnAddStatement.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnAddStatement.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.tlpList.SetColumnSpan(Me.btnAddStatement, 2)
         Me.btnAddStatement.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnAddStatement.FixedHeight = False
@@ -83,8 +83,8 @@ Partial Class frmStatementsFilter
         Me.btnAddStatement.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAddStatement.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnAddStatement.ForeColor = System.Drawing.Color.White
-        Me.btnAddStatement.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnAddStatement.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnAddStatement.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnAddStatement.LineColor = System.Drawing.Color.Transparent
         Me.btnAddStatement.Location = New System.Drawing.Point(258, 12)
         Me.btnAddStatement.Name = "btnAddStatement"
         Me.btnAddStatement.Radius = 5
@@ -93,11 +93,11 @@ Partial Class frmStatementsFilter
         Me.btnAddStatement.Text = "F016"
         Me.btnAddStatement.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnAddStatement.UseRound = True
-        Me.btnAddStatement.UseVisualStyleBackColor = True
+        Me.btnAddStatement.UseVisualStyleBackColor = False
         '
         'lblServer
         '
-        Me.lblServer.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblServer.BackColor = System.Drawing.Color.Transparent
         Me.tlpList.SetColumnSpan(Me.lblServer, 2)
         Me.lblServer.ControlLength = eXperDB.BaseControls.Label.enmLength.[Short]
         Me.lblServer.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -105,6 +105,7 @@ Partial Class frmStatementsFilter
         Me.lblServer.FixedWidth = False
         Me.lblServer.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.lblServer.ForeColor = System.Drawing.Color.White
+        Me.lblServer.LineSpacing = 0.0!
         Me.lblServer.Location = New System.Drawing.Point(8, 11)
         Me.lblServer.Name = "lblServer"
         Me.lblServer.Size = New System.Drawing.Size(84, 29)
@@ -136,7 +137,7 @@ Partial Class frmStatementsFilter
         'btnClose
         '
         Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.tlpList.SetColumnSpan(Me.btnClose, 2)
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Top
         Me.btnClose.FixedHeight = False
@@ -144,8 +145,8 @@ Partial Class frmStatementsFilter
         Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnClose.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.Transparent
         Me.btnClose.Location = New System.Drawing.Point(178, 255)
         Me.btnClose.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnClose.Name = "btnClose"
@@ -160,7 +161,7 @@ Partial Class frmStatementsFilter
         'btnApply
         '
         Me.btnApply.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnApply.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnApply.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.tlpList.SetColumnSpan(Me.btnApply, 2)
         Me.btnApply.Dock = System.Windows.Forms.DockStyle.Top
         Me.btnApply.FixedHeight = False
@@ -168,8 +169,8 @@ Partial Class frmStatementsFilter
         Me.btnApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnApply.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnApply.ForeColor = System.Drawing.Color.White
-        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnApply.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnApply.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnApply.LineColor = System.Drawing.Color.Transparent
         Me.btnApply.Location = New System.Drawing.Point(98, 255)
         Me.btnApply.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnApply.Name = "btnApply"
@@ -189,31 +190,31 @@ Partial Class frmStatementsFilter
         Me.dgvStatementFilterList.AllowUserToResizeRows = False
         Me.dgvStatementFilterList.BackgroundColor = System.Drawing.Color.Black
         Me.dgvStatementFilterList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStatementFilterList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 8.320187!)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStatementFilterList.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvStatementFilterList.ColumnHeadersHeight = 30
         Me.dgvStatementFilterList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvStatementFilterList.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvStatementFilterListStatement, Me.coldgvStatementFilterListDel})
         Me.tlpList.SetColumnSpan(Me.dgvStatementFilterList, 8)
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LightGray
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvStatementFilterList.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 8.320187!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvStatementFilterList.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvStatementFilterList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvStatementFilterList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvStatementFilterList.EnableHeadersVisualStyles = False
         Me.dgvStatementFilterList.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        Me.dgvStatementFilterList.GridColor = System.Drawing.Color.Gray
+        Me.dgvStatementFilterList.GridColor = System.Drawing.Color.Black
         Me.dgvStatementFilterList.Location = New System.Drawing.Point(8, 44)
         Me.dgvStatementFilterList.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvStatementFilterList.Name = "dgvStatementFilterList"
@@ -229,13 +230,13 @@ Partial Class frmStatementsFilter
         '
         'coldgvStatementFilterListStatement
         '
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = "0"
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvStatementFilterListStatement.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = "0"
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvStatementFilterListStatement.DefaultCellStyle = DataGridViewCellStyle2
         Me.coldgvStatementFilterListStatement.FillWeight = 131.1306!
         Me.coldgvStatementFilterListStatement.Frozen = True
         Me.coldgvStatementFilterListStatement.HeaderText = "F332"
@@ -246,13 +247,13 @@ Partial Class frmStatementsFilter
         '
         'coldgvStatementFilterListDel
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.NullValue = CType(resources.GetObject("DataGridViewCellStyle7.NullValue"), Object)
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvStatementFilterListDel.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.NullValue = CType(resources.GetObject("DataGridViewCellStyle3.NullValue"), Object)
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
+        Me.coldgvStatementFilterListDel.DefaultCellStyle = DataGridViewCellStyle3
         Me.coldgvStatementFilterListDel.HeaderText = ""
         Me.coldgvStatementFilterListDel.Image = CType(resources.GetObject("coldgvStatementFilterListDel.Image"), System.Drawing.Image)
         Me.coldgvStatementFilterListDel.MinimumWidth = 50
@@ -261,7 +262,7 @@ Partial Class frmStatementsFilter
         '
         'tlpDesc
         '
-        Me.tlpDesc.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.tlpDesc.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.tlpDesc.ColumnCount = 2
         Me.tlpDesc.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpDesc.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -284,7 +285,7 @@ Partial Class frmStatementsFilter
         'MsgLabel
         '
         Me.MsgLabel.AutoSize = True
-        Me.MsgLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.MsgLabel.BackColor = System.Drawing.Color.Transparent
         Me.MsgLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MsgLabel.ForeColor = System.Drawing.Color.White
         Me.MsgLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -298,6 +299,7 @@ Partial Class frmStatementsFilter
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -310,7 +312,7 @@ Partial Class frmStatementsFilter
         'frmStatementsFilter
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
-        Me.BackColor = System.Drawing.Color.Black
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(351, 341)
         Me.Controls.Add(Me.tlpList)
         Me.Controls.Add(Me.tlpDesc)

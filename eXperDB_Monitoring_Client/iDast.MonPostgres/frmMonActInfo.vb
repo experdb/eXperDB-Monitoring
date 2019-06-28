@@ -122,33 +122,33 @@
         btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
 
-        For i As Integer = 0 To dgvDBinfo.ColumnCount - 1
-            dgvDBinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-            dgvDBinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
-            dgvDBinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            dgvDBinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Next
+        'For i As Integer = 0 To dgvDBinfo.ColumnCount - 1
+        '    dgvDBinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        '    dgvDBinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+        '    dgvDBinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        '    dgvDBinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        'Next
 
-        For i As Integer = 0 To dgvTblSpaceInfo.ColumnCount - 1
-            dgvTblSpaceInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-            dgvTblSpaceInfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
-            dgvTblSpaceInfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            dgvTblSpaceInfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Next
+        'For i As Integer = 0 To dgvTblSpaceInfo.ColumnCount - 1
+        '    dgvTblSpaceInfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        '    dgvTblSpaceInfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+        '    dgvTblSpaceInfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        '    dgvTblSpaceInfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        'Next
 
-        For i As Integer = 0 To dgvTblinfo.ColumnCount - 1
-            dgvTblinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-            dgvTblinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
-            dgvTblinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            dgvTblinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Next
+        'For i As Integer = 0 To dgvTblinfo.ColumnCount - 1
+        '    dgvTblinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        '    dgvTblinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+        '    dgvTblinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        '    dgvTblinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        'Next
 
-        For i As Integer = 0 To dgvIdxinfo.ColumnCount - 1
-            dgvIdxinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-            dgvIdxinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
-            dgvIdxinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-            dgvIdxinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
-        Next
+        'For i As Integer = 0 To dgvIdxinfo.ColumnCount - 1
+        '    dgvIdxinfo.Columns(i).DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        '    dgvIdxinfo.Columns(i).DefaultCellStyle.ForeColor = System.Drawing.Color.White
+        '    dgvIdxinfo.Columns(i).DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        '    dgvIdxinfo.Columns(i).DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White
+        'Next
 
         dgvDBinfo.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvDBinfo.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
@@ -338,8 +338,8 @@
                 'tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(183, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(56, Byte), Integer))
                 'tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(56, Byte), Integer))
             Else
-                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
             End If
         Next
 
