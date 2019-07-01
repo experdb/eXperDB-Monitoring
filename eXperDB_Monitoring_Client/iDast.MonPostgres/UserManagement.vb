@@ -14,6 +14,7 @@
         'Me.dgvUserLst.AutoGenerateColumns = False
         lblUserList.Text = p_clsMsgData.fn_GetData("F351", 0)
         lblPrivileges.Text = p_clsMsgData.fn_GetData("F918", 0)
+        chkAll.Text = p_clsMsgData.fn_GetData("F945")
 
         coldgvUserLstID.HeaderText = p_clsMsgData.fn_GetData("F347")
         coldgvUserLstName.HeaderText = p_clsMsgData.fn_GetData("F348")
@@ -156,11 +157,31 @@
             Dim dtTable As DataTable = _clsQuery.SelectPrivilegesByUser(UserID)
             Me.dgvPrivileges.AutoGenerateColumns = False
             dgvPrivileges.DataSource = dtTable
+            Dim allCheced As Boolean = True
+            For i As Integer = 0 To dgvPrivileges.Rows.Count - 1
+                For j As Integer = 2 To 5
+                    If dgvPrivileges.Rows(i).Cells(j).Value = False Then
+                        allCheced = False
+                        Exit For
+                    End If
+                Next
+                If allCheced = False Then
+                    Exit For
+                End If
+            Next
+            chkAll.Checked = allCheced
             lblPrivileges.Text = p_clsMsgData.fn_GetData("F918", dtTable.Rows.Count)
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
     End Sub
 
-
+    Private Sub chkAll_Click(sender As Object, e As EventArgs) Handles chkAll.Click
+        Dim checkBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
+        For i As Integer = 0 To dgvPrivileges.Rows.Count - 1
+            For j As Integer = 2 To 5
+                dgvPrivileges.Rows(i).Cells(j).Value = checkBox.Checked
+            Next
+        Next
+    End Sub
 End Class

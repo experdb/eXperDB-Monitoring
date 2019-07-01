@@ -84,7 +84,7 @@ Partial Class ctlChartEx
         Me.mnuChartMenu.Location = New System.Drawing.Point(0, 0)
         Me.mnuChartMenu.Margin = New System.Windows.Forms.Padding(0, 0, 0, 80)
         Me.mnuChartMenu.Name = "mnuChartMenu"
-        Me.mnuChartMenu.Size = New System.Drawing.Size(591, 27)
+        Me.mnuChartMenu.Size = New System.Drawing.Size(96, 27)
         Me.mnuChartMenu.TabIndex = 0
         Me.mnuChartMenu.Text = "ToolStrip1"
         '
@@ -270,29 +270,35 @@ Partial Class ctlChartEx
         Legend1.BackColor = System.Drawing.Color.Black
         LegendCellColumn1.ColumnType = System.Windows.Forms.DataVisualization.Charting.LegendCellColumnType.SeriesSymbol
         LegendCellColumn1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn1.HeaderFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         LegendCellColumn1.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         LegendCellColumn1.HeaderText = "Color"
         LegendCellColumn1.Name = "colColor"
         LegendCellColumn2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn2.HeaderFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         LegendCellColumn2.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         LegendCellColumn2.HeaderText = "Title"
         LegendCellColumn2.Name = "colNm"
         LegendCellColumn3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn3.HeaderFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         LegendCellColumn3.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         LegendCellColumn3.HeaderText = "Min."
         LegendCellColumn3.Name = "colMin"
         LegendCellColumn3.Text = "#MIN{N1}"
         LegendCellColumn4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn4.HeaderFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         LegendCellColumn4.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         LegendCellColumn4.HeaderText = "Max."
         LegendCellColumn4.Name = "colMax"
         LegendCellColumn4.Text = "#MAX{N1}"
         LegendCellColumn5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn5.HeaderFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         LegendCellColumn5.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         LegendCellColumn5.HeaderText = "Avg."
         LegendCellColumn5.Name = "colMean"
         LegendCellColumn5.Text = "#AVG{N1}"
         LegendCellColumn6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
+        LegendCellColumn6.HeaderFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         LegendCellColumn6.HeaderForeColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         LegendCellColumn6.HeaderText = "Value"
         LegendCellColumn6.MaximumWidth = 0
@@ -306,13 +312,16 @@ Partial Class ctlChartEx
         Legend1.CellColumns.Add(LegendCellColumn6)
         Legend1.DockedToChartArea = "DEFAREA"
         Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!)
         Legend1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend1.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.GradientLine
         Legend1.HeaderSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Legend1.IsDockedInsideChartArea = False
+        Legend1.IsTextAutoFit = False
         Legend1.ItemColumnSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.DotLine
         Legend1.ItemColumnSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend1.Name = "DEFLEGEND"
+        Legend1.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!)
         Legend1.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend1.TitleSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend2.Alignment = System.Drawing.StringAlignment.Far
@@ -330,13 +339,16 @@ Partial Class ctlChartEx
         Legend2.CellColumns.Add(LegendCellColumn8)
         Legend2.DockedToChartArea = "DEFAREA"
         Legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.0!)
         Legend2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend2.HeaderSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.GradientLine
         Legend2.HeaderSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Legend2.IsDockedInsideChartArea = False
+        Legend2.IsTextAutoFit = False
         Legend2.ItemColumnSeparator = System.Windows.Forms.DataVisualization.Charting.LegendSeparatorStyle.DotLine
         Legend2.ItemColumnSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend2.Name = "DEFLEGEND2"
+        Legend2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 7.0!, System.Drawing.FontStyle.Bold)
         Legend2.TitleForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Legend2.TitleSeparatorColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.MainChart.Legends.Add(Legend1)

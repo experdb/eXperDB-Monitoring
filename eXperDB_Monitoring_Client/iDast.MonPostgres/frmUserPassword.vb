@@ -116,8 +116,8 @@ Public Class frmUserPassword
                 IsCheck = True
             End If
         Else
-            If ismatch = True AndAlso ismatchNum = True Then
-                IsCheck = False
+            If ismatch = True OrElse ismatchNum = True Then
+                IsCheck = True
             End If
         End If
         Return IsCheck
@@ -154,6 +154,7 @@ Public Class frmUserPassword
 
             Try
                 _clsQuery.UpdatePassword(_strUserID, strNewPw)
+                p_cSession.UserPassword = strNewPw
             Catch ex As Exception
                 Console.WriteLine(e.ToString)
                 MsgBox(p_clsMsgData.fn_GetData("M029"))

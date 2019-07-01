@@ -3518,6 +3518,22 @@
     <DATA><![CDATA[insufficient privileges.]]></DATA>
     <VALUECAST />
   </ROW>
+  <ROW ID="M089" PARAMS="0">
+    <DESC>사용자 그룹</DESC>
+    <DATA><![CDATA[View groups and users by user group.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M090" PARAMS="0">
+    <DESC>사용자 그룹</DESC>
+    <DATA><![CDATA[Please choice user group first.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
@@ -3769,6 +3785,11 @@
   <ROW ID="F944" PARAMS="0">
     <DESC>그룹삭제</DESC>
     <DATA><![CDATA[Delete group]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F945" PARAMS="0">
+    <DESC>전체선택</DESC>
+    <DATA><![CDATA[All]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

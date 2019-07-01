@@ -540,7 +540,7 @@ CREATE TABLE tb_mon_user (
 	last_login_dt timestamp without time zone default now(),
 	last_logout_dt timestamp without time zone default now(),
 	is_deleted bool NOT NULL DEFAULT false,
-	last_mod_user_id character varying(16) unique not null,
+	last_mod_user_id character varying(16),
 	last_mod_ip varchar(15) NULL,
 	last_mod_dt timestamp without time zone default now()
 );
@@ -548,7 +548,7 @@ CREATE TABLE tb_mon_user (
 create table tb_mon_group (
     group_id serial primary key,
     group_name character varying(100) not NULL,
-    last_mod_user_id character varying(16) unique not null,
+    last_mod_user_id character varying(16),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
@@ -556,7 +556,7 @@ create table tb_mon_group (
 create table tb_mon_user_by_group (
     group_id integer not null,
     user_id character varying(16) not null,
-    last_mod_user_id character varying(16) unique not null,
+    last_mod_user_id character varying(16),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
@@ -571,7 +571,7 @@ CREATE TABLE tb_mon_user_policy
 	pw_min_length int2  DEFAULT 8,
 	pw_expr_days int4 DEFAULT 60,
 	pw_expr_noti_days int4  DEFAULT 7, 
-	last_mod_user_id character varying(16) unique not null,
+	last_mod_user_id character varying(16),
 	last_mod_ip character varying(15),
 	last_mod_dt timestamp without time zone
 );
@@ -622,8 +622,8 @@ CREATE TABLE tb_mon_perm_by_user
 (
 	user_id character varying(16) not null,
 	perm_id int4 not null,
-	group_id int4 NOT NULL
-	last_mod_user_id character varying(16) unique not null,
+	group_id int4 NOT NULL,
+	last_mod_user_id character varying(16),
 	last_mod_ip character varying(15),
 	last_mod_dt timestamp without time zone
 );

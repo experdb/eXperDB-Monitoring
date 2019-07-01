@@ -124,10 +124,14 @@
         Dim nReturn As Integer = 0
         Dim COC As New Common.ClsObjectCtl
         Dim strLocIP As String = COC.GetLocalIP
+        If dgvGroupLst.SelectedRows.Count <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M090"))
+            Return
+        End If
         Dim groupID As Integer = dgvGroupLst.SelectedRows(0).Cells(coldgvGroupLstID.Index).Value
         Try
             For Each tmpRow As DataGridViewRow In Me.dgvUserLst.SelectedRows
-                nReturn = _clsQuery.insertUserGroup(tmpRow.Cells(coldgvUserLstID.Index).Value, groupID, strLocIP)
+                nReturn = _clsQuery.insertUserGroup(tmpRow.Cells(coldgvUserLstID.Index).Value, groupID, p_cSession.UserID, strLocIP)
             Next
             ReadUserListbyGroup()
             ReadUserList()
@@ -138,6 +142,10 @@
 
     Private Sub btnDeleteUserGroup_Click(sender As Object, e As EventArgs) Handles btnDeleteUserGroup.Click
         Dim nReturn As Integer = 0
+        If dgvGroupLst.SelectedRows.Count <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M090"))
+            Return
+        End If
         Dim groupID As Integer = dgvGroupLst.SelectedRows(0).Cells(coldgvGroupLstID.Index).Value
         Dim arrUesrIDs As New ArrayList
         For Each tmpRow As DataGridViewRow In Me.dgvGroupUsers.SelectedRows

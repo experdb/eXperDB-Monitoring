@@ -6,7 +6,7 @@ Public Class frmMonItemDetail
     Private _SelectedIndex As String
     Private _SelectedGrid As String
     Private _chtOrder As Integer = -1
-    Private _AreaCount As Integer = 8
+    Private _AreaCount As Integer = 9
     Private _chtCount As Integer = 0
     Private _clsQuery As clsQuerys
     Private _bChartMenu As Boolean = False
@@ -114,6 +114,7 @@ Public Class frmMonItemDetail
                 Case 6 : SetDefaultTitle(chkLock, chtLock, True, "")
                     tabSession.SelectedIndex = 2
                 Case 7 : SetDefaultTitle(chkTPS, chtTPS, True, "")
+                Case 8 : SetDefaultTitle(chkObjectAccess, chtObjectAccess, True, "")
             End Select
         End If
     End Sub 'InvokeMethod
@@ -216,6 +217,7 @@ Public Class frmMonItemDetail
         chkSQLResp.Text = p_clsMsgData.fn_GetData("F267")
         chkLock.Text = p_clsMsgData.fn_GetData("F317")
         chkTPS.Text = p_clsMsgData.fn_GetData("F320")
+        chkObjectAccess.Text = p_clsMsgData.fn_GetData("F102")
 
         ' Button 
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
@@ -293,6 +295,7 @@ Public Class frmMonItemDetail
         chtSQLResp.Visible = False
         chtLock.Visible = False
         chtTPS.Visible = False
+        chtObjectAccess.Visible = False
 
         'modCommon.FontChange(Me, p_Font)
     End Sub
@@ -552,6 +555,7 @@ Public Class frmMonItemDetail
         chkSQLResp.Tag = 5
         chkLock.Tag = 6
         chkTPS.Tag = 7
+        chkObjectAccess.Tag = 8
 
         SetDefaultTitle(chkCpu, chtCPU, False, "")
         SetDefaultTitle(chkSession, chtSession, False, "")
@@ -561,6 +565,7 @@ Public Class frmMonItemDetail
         SetDefaultTitle(chkSQLResp, chtSQLResp, False, "")
         SetDefaultTitle(chkLock, chtLock, False, "")
         SetDefaultTitle(chkTPS, chtTPS, False, "")
+        SetDefaultTitle(chkObjectAccess, chtObjectAccess, False, "")
 
         chtCPU.MainChart.ChartAreas(0).Visible = False
         'chtCPU.AddAreaEx("CPU Usage", "RATE(%)", True, "CPUAREA")
@@ -572,6 +577,7 @@ Public Class frmMonItemDetail
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F103"), "SEC", True, "SQLRESPAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F317"), "Count", True, "LOCKAREA")
         chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F320"), "Transactions/sec", True, "TPSAREA")
+        chtCPU.AddAreaEx(p_clsMsgData.fn_GetData("F102"), "Transactions/sec", True, "OBJECTACCESSAREA")
 
         chtCPU.MainChart.ChartAreas("CPUAREA").Visible = False
         chtCPU.MainChart.ChartAreas("SESSIONAREA").Visible = False
@@ -581,6 +587,7 @@ Public Class frmMonItemDetail
         chtCPU.MainChart.ChartAreas("SQLRESPAREA").Visible = False
         chtCPU.MainChart.ChartAreas("LOCKAREA").Visible = False
         chtCPU.MainChart.ChartAreas("TPSAREA").Visible = False
+        chtCPU.MainChart.ChartAreas("OBJECTACCESSAREA").Visible = False
 
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Maximum = 100
         chtCPU.MainChart.ChartAreas("CPUAREA").AxisY.Minimum = 0
@@ -646,6 +653,12 @@ Public Class frmMonItemDetail
         chtCPU.MainChart.ChartAreas("TPSAREA").CursorX.IsUserSelectionEnabled = True
         chtCPU.MainChart.ChartAreas("TPSAREA").AxisX.ScaleView.Zoomable = False
 
+        chtCPU.MainChart.ChartAreas("OBJECTACCESSAREA").CursorX.IntervalType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("OBJECTACCESSAREA").CursorX.IntervalOffsetType = DataVisualization.Charting.DateTimeIntervalType.Seconds
+        chtCPU.MainChart.ChartAreas("OBJECTACCESSAREA").CursorX.IsUserEnabled = True
+        chtCPU.MainChart.ChartAreas("OBJECTACCESSAREA").CursorX.IsUserSelectionEnabled = True
+        chtCPU.MainChart.ChartAreas("OBJECTACCESSAREA").AxisX.ScaleView.Zoomable = False
+
         AddHandler chtCPU.MainChart.CursorPositionChanged, AddressOf chtCPU_CursorPositionChanged
 
     End Sub
@@ -653,7 +666,7 @@ Public Class frmMonItemDetail
         chkBox.Checked = chtEnable
     End Sub
 
-    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkDiskIO.CheckedChanged, chkPhysicalRead.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged, chkLock.CheckedChanged, chkTPS.CheckedChanged
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkSQLResp.CheckedChanged, chkSession.CheckedChanged, chkDiskIO.CheckedChanged, chkPhysicalRead.CheckedChanged, chkLogicalIO.CheckedChanged, chkCpu.CheckedChanged, chkLock.CheckedChanged, chkTPS.CheckedChanged, chkObjectAccess.CheckedChanged
 
         Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
 
@@ -741,9 +754,9 @@ Public Class frmMonItemDetail
         Dim MarginTop As Double = 0
         Dim MarginBottom As Double = 0
         Dim AreaHeight As Double = (100 / _AreaCount)
-        MarginTop = AreaHeight * 0.23
-        MarginBottom = AreaHeight * 0.23
-        AreaHeight = AreaHeight * 0.54
+        MarginTop = AreaHeight * 0.245
+        MarginBottom = AreaHeight * 0.245
+        AreaHeight = AreaHeight * 0.51
         For i As Integer = 1 To _AreaCount
             tmpChartArea = Me.chtCPU.MainChart.ChartAreas(i)
             If tmpChartArea.Visible = True Then
@@ -888,6 +901,17 @@ Public Class frmMonItemDetail
                 If ShowChart = True Then
                     RaiseEvent WaitMasg("Transaction Information")
                 End If
+            Case 9
+                strLegend1 = "Index"
+                strLegend2 = "Sequential"
+                strSeriesData1 = "INDEX_SCAN_TUPLES_PER_SEC"
+                strSeriesData2 = "SEQ_SCAN_TUPLES_PER_SEC"
+                LineColor1 = Color.RoyalBlue
+                LineColor2 = Color.Orange
+                seriesChartType = DataVisualization.Charting.SeriesChartType.Line
+                If ShowChart = True Then
+                    RaiseEvent WaitMasg("Object Access Information")
+                End If
         End Select
 
         If ShowChart = False Then
@@ -938,7 +962,7 @@ Public Class frmMonItemDetail
                                                                              dtTable = _clsQuery.SelectReportCPUChart(_InstanceID, stDate, edDate)
                                                                          Case 2
                                                                              dtTable = _clsQuery.SelectDetailSessionInfoChart(_InstanceID, stDate, edDate)
-                                                                         Case 3, 4, 8
+                                                                         Case 3, 4, 8, 9
                                                                              dtTable = _clsQuery.SelectDetailObjectChart(_InstanceID, p_ShowName.ToString("d"), stDate, edDate)
                                                                          Case 5
                                                                          Case 6
@@ -1145,21 +1169,22 @@ Public Class frmMonItemDetail
         End If
     End Sub
 
-    Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCPU.VisibleChanged, chtSQLResp.VisibleChanged, chtSession.VisibleChanged, chtDiskIO.VisibleChanged, chtPhysicalRead.VisibleChanged, chtLogicalIO.VisibleChanged, chtLock.VisibleChanged, chtTPS.VisibleChanged
+    Private Sub chtCPU_VisibleChanged(sender As Object, e As EventArgs) Handles chtCPU.VisibleChanged, chtSQLResp.VisibleChanged, chtSession.VisibleChanged, chtDiskIO.VisibleChanged, chtPhysicalRead.VisibleChanged, chtLogicalIO.VisibleChanged, chtLock.VisibleChanged, chtTPS.VisibleChanged, chtObjectAccess.VisibleChanged
         'pnlChart.Controls.SetChildIndex(chtCPU, 5)
         'pnlChart.Controls.SetChildIndex(chtSession, 4)
         'pnlChart.Controls.SetChildIndex(chtLogicalIO, 3)
         'pnlChart.Controls.SetChildIndex(chtPhysicalIO, 2)
         'pnlChart.Controls.SetChildIndex(chtSQLResp, 1)
         'pnlChart.Controls.SetChildIndex(chtLock, 0)
-        pnlChart.Controls.SetChildIndex(chtCPU, 7)
-        pnlChart.Controls.SetChildIndex(chtSession, 6)
-        pnlChart.Controls.SetChildIndex(chtLogicalIO, 5)
-        pnlChart.Controls.SetChildIndex(chtPhysicalRead, 4)
-        pnlChart.Controls.SetChildIndex(chtDiskIO, 3)
-        pnlChart.Controls.SetChildIndex(chtSQLResp, 2)
-        pnlChart.Controls.SetChildIndex(chtLock, 1)
-        pnlChart.Controls.SetChildIndex(chtTPS, 0)
+        pnlChart.Controls.SetChildIndex(chtCPU, 8)
+        pnlChart.Controls.SetChildIndex(chtSession, 7)
+        pnlChart.Controls.SetChildIndex(chtLogicalIO, 6)
+        pnlChart.Controls.SetChildIndex(chtPhysicalRead, 5)
+        pnlChart.Controls.SetChildIndex(chtDiskIO, 4)
+        pnlChart.Controls.SetChildIndex(chtSQLResp, 3)
+        pnlChart.Controls.SetChildIndex(chtLock, 2)
+        pnlChart.Controls.SetChildIndex(chtTPS, 1)
+        pnlChart.Controls.SetChildIndex(chtObjectAccess, 0)
     End Sub
 
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
@@ -1214,6 +1239,8 @@ Public Class frmMonItemDetail
                                                              QueryChartData(7, True)
                                                          ElseIf tmpChk.Name = "chkTPS" AndAlso tmpChk.Checked = True Then
                                                              QueryChartData(8, True)
+                                                         ElseIf tmpChk.Name = "chkObjectAccess" AndAlso tmpChk.Checked = True Then
+                                                             QueryChartData(9, True)
                                                          End If
                                                      Next
                                                      'For i As Integer = 1 To _AreaCount

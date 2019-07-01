@@ -3815,6 +3815,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       is_admin_tf, 
       is_locked_tf, 
       set_pw_dt,
+      last_mod_user_id,
       last_mod_ip,
       last_mod_dt
       )
@@ -3831,6 +3832,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
        ,{9}
        ,now()
        ,'{10}'
+       ,'{11}'
 		   ,now()
 		  ) 
     ]]>
@@ -3910,7 +3912,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     ]]>
     </DATA>
   </ROW>
-  <ROW ID="INSERTUSERGROUP" PARAMS="12">
+  <ROW ID="INSERTUSERGROUP" PARAMS="4">
     <DESC></DESC>
     <DATA>
       <![CDATA[
@@ -3918,6 +3920,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       (
       user_id,
       group_id,
+      last_mod_user_id,
       last_mod_ip,
       last_mod_dt
       )
@@ -3925,7 +3928,8 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       ('{0}'
 		   ,'{1}'
 		   ,'{2}'
-		   ,now()
+		   ,'{3}'
+       ,now()
 		  ) 
     ]]>
     </DATA>
@@ -4175,6 +4179,21 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
         STYLE_CPU_DIRECTION_TF = {7}::BOOL,
         STYLE_MEM = {8},
         STYLE_MEM_DIRECTION_TF = {9}::BOOL
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTMONUSERCONFIGDEFAULT" PARAMS="1">
+    <DESC>INSERTMONUSERCONFIGDEFAULT</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_MON_USER_CONFIG
+      (
+        USER_ID
+      )
+      VALUES 
+      (
+	      '{0}'
+      )
       ]]>
     </DATA>
   </ROW>

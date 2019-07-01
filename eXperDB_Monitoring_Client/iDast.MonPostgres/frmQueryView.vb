@@ -335,10 +335,17 @@
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
 
-        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 2)
-        If hasPermission = False Then
+        Dim clsQu As New clsQuerys(_AgentCn)
+        If p_cSession.loadUserPermission(clsQu) = True Then
+            Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 2)
+            If hasPermission = False Then
+                MsgBox(p_clsMsgData.fn_GetData("M088"))
+                AccessLog("sql_plan", 1, p_clsMsgData.fn_GetData("M088"), _intInstanceID)
+                Return
+            End If
+        Else
             MsgBox(p_clsMsgData.fn_GetData("M088"))
-            AccessLog("sql_plan", 1, p_clsMsgData.fn_GetData("M088"), _intInstanceID)
+            AccessLog("sql_plan", 1, p_clsMsgData.fn_GetData("M088") + " Load permission failed", _intInstanceID)
             Return
         End If
 

@@ -1,7 +1,10 @@
-﻿
+﻿Imports System.Text.RegularExpressions
 Public Class frmUser
     Private _clsQuery As clsQuerys
     Private _crypt As New eXperDB.Common.ClsCrypt
+
+    Private _PasswordLength As Integer
+    Private _isCombine As Boolean
 
     Public Sub New(ByRef clsQuery As clsQuerys, ByVal nRow As Integer, Optional strUserID As String = "", Optional strUserName As String = "", _
                    Optional strPhone As String = "", Optional strPhone2 As String = "", Optional nUserNotiPhone As Integer = 0, _
@@ -82,6 +85,8 @@ Public Class frmUser
     End Sub
 
     Private Sub btnAct_Click(sender As Object, e As EventArgs) Handles btnAct.Click
+        If ReadSecurityPolicy() = False Then Return
+
         'check empty
         If txtUserID.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F347")))
@@ -110,6 +115,22 @@ Public Class frmUser
                 Return
             End If
         End If
+
+        If txtPassword.Text.Length < _PasswordLength Or txtPassword.Text.Length > 16 Then
+            Dim strMSg As String = p_clsMsgData.fn_GetData(IIf(_isCombine, "M081", "M037"), _PasswordLength)
+            MsgBox(strMSg)
+            txtPassword.Focus()
+            Return
+        End If
+
+        If fn_CheckEnglishNumber(txtPassword.Text) = False Then
+            Dim strMSg As String = p_clsMsgData.fn_GetData(IIf(_isCombine, "M081", "M037"), _PasswordLength)
+            MsgBox(strMSg)
+            txtPassword.Focus()
+            Return
+        End If
+
+
         'Dim strkey = fn_GetSerial()
         '_crypt.TDESImplementation(strkey.Substring(0, 24), strkey.Substring(0, 8))
         'Dim strPw = _crypt.EncryptTDES(txtPassword.Text)
@@ -119,7 +140,7 @@ Public Class frmUser
         Dim strLocIP As String = COC.GetLocalIP
         Dim nReturn As Integer = 0
         If txtUserID.Enabled = True Then
-            nReturn = _clsQuery.insertUser(txtUserID.Text, txtUserName.Text, strPw, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, chkAdmin.Checked, chkLock.Checked, strLocIP)
+            nReturn = _clsQuery.insertUser(txtUserID.Text, txtUserName.Text, strPw, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, chkAdmin.Checked, chkLock.Checked, p_cSession.UserID, strLocIP)
         Else
             nReturn = _clsQuery.UpdateUser(txtUserID.Text, txtUserName.Text, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, strLocIP, IIf(chkAdmin.Checked, 1, 0), IIf(chkLock.Checked, 1, 0))
         End If
@@ -133,6 +154,7 @@ Public Class frmUser
                 Return
         End Select
 
+        _clsQuery.InsertMonUserConfigDefault(txtUserID.Text)
         MsgBox(p_clsMsgData.fn_GetData("M082"))
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
@@ -171,6 +193,38 @@ Public Class frmUser
             Console.WriteLine(ex.ToString)
             Return ""
         End Try
+    End Function
+
+    Private Function ReadSecurityPolicy() As Boolean
+        Dim dtTable As DataTable = _clsQuery.SelectSecurityConfig()
+        Dim AgentInfo As structAgent = Nothing
+        If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
+            _PasswordLength = Integer.Parse(dtTable.Rows(0).Item("PW_MIN_LENGTH").ToString())
+            _isCombine = IIf(dtTable.Rows(0).Item("NONALPHANUMERIC_TF").ToString() = "1", True, False)
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Function fn_CheckEnglishNumber(ByVal letter As String) As Boolean
+        Dim IsCheck As Boolean = False
+        Dim engRegex As Regex = New Regex("[a-zA-Z]", RegexOptions.IgnoreCase)
+        Dim ismatch As Boolean = engRegex.IsMatch(letter)
+        Dim numRegex As Regex = New Regex("[0-9]")
+        Dim ismatchNum As Boolean = numRegex.IsMatch(letter)
+        If _isCombine Then
+            Dim nonAlphaRegex As Regex = New Regex("[`~!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\\\|:;""'<>,\.\?/]")
+            Dim ismatchNonAlpha As Boolean = nonAlphaRegex.IsMatch(letter)
+            If ismatch = True AndAlso ismatchNum = True AndAlso ismatchNonAlpha = True Then
+                IsCheck = True
+            End If
+        Else
+            If ismatch = True OrElse ismatchNum = True Then
+                IsCheck = True
+            End If
+        End If
+        Return IsCheck
     End Function
 #End Region
 

@@ -66,17 +66,18 @@ Partial Class UserManagement
         Me.btnPrivApply = New eXperDB.BaseControls.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblPrivileges = New System.Windows.Forms.Label()
+        Me.chkAll = New eXperDB.BaseControls.CheckBox()
         Me.dgvPrivileges = New eXperDB.BaseControls.DataGridView()
+        Me.coldgvPrivilegesGroupID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvPrivilegesGroupName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvPrivilegesEdit = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvPrivilegesDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.tlpUserlist = New System.Windows.Forms.TableLayoutPanel()
         Me.btnUserCreate = New eXperDB.BaseControls.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.lblUserList = New System.Windows.Forms.Label()
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
-        Me.coldgvPrivilegesGroupID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvPrivilegesGroupName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvPrivilegesEdit = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvPrivilegesDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.tlpUserConfigMain.SuspendLayout()
         CType(Me.dgvUserLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -331,6 +332,7 @@ Partial Class UserManagement
         Me.coldgvUserLstLastLogin.HeaderText = "Last Login"
         Me.coldgvUserLstLastLogin.MinimumWidth = 130
         Me.coldgvUserLstLastLogin.Name = "coldgvUserLstLastLogin"
+        Me.coldgvUserLstLastLogin.ReadOnly = True
         Me.coldgvUserLstLastLogin.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.coldgvUserLstLastLogin.Width = 130
         '
@@ -355,7 +357,7 @@ Partial Class UserManagement
         'coldgvUserLstEdit
         '
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.NullValue = CType(resources.GetObject("DataGridViewCellStyle6.NullValue"), Object)
+        DataGridViewCellStyle6.NullValue = Nothing
         Me.coldgvUserLstEdit.DefaultCellStyle = DataGridViewCellStyle6
         Me.coldgvUserLstEdit.HeaderText = ""
         Me.coldgvUserLstEdit.Image = CType(resources.GetObject("coldgvUserLstEdit.Image"), System.Drawing.Image)
@@ -367,7 +369,7 @@ Partial Class UserManagement
         'coldgvUserLstDelete
         '
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.NullValue = CType(resources.GetObject("DataGridViewCellStyle7.NullValue"), Object)
+        DataGridViewCellStyle7.NullValue = Nothing
         Me.coldgvUserLstDelete.DefaultCellStyle = DataGridViewCellStyle7
         Me.coldgvUserLstDelete.HeaderText = ""
         Me.coldgvUserLstDelete.Image = CType(resources.GetObject("coldgvUserLstDelete.Image"), System.Drawing.Image)
@@ -379,16 +381,18 @@ Partial Class UserManagement
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel1.ColumnCount = 5
+        Me.TableLayoutPanel1.ColumnCount = 6
         Me.tlpUserConfigMain.SetColumnSpan(Me.TableLayoutPanel1, 3)
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.btnPrivApply, 4, 0)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.btnPrivApply, 5, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblPrivileges, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkAll, 2, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 353)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -438,10 +442,27 @@ Partial Class UserManagement
         Me.lblPrivileges.ForeColor = System.Drawing.Color.White
         Me.lblPrivileges.Location = New System.Drawing.Point(43, 0)
         Me.lblPrivileges.Name = "lblPrivileges"
-        Me.lblPrivileges.Size = New System.Drawing.Size(1001, 34)
+        Me.lblPrivileges.Size = New System.Drawing.Size(965, 34)
         Me.lblPrivileges.TabIndex = 3
         Me.lblPrivileges.Text = "F918"
         Me.lblPrivileges.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'chkAll
+        '
+        Me.chkAll.AutoSize = True
+        Me.chkAll.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.TableLayoutPanel1.SetColumnSpan(Me.chkAll, 3)
+        Me.chkAll.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkAll.ForeColor = System.Drawing.Color.White
+        Me.chkAll.LineColor = System.Drawing.Color.Gray
+        Me.chkAll.Location = New System.Drawing.Point(1014, 3)
+        Me.chkAll.Name = "chkAll"
+        Me.chkAll.Radius = 10
+        Me.chkAll.Size = New System.Drawing.Size(102, 28)
+        Me.chkAll.TabIndex = 5
+        Me.chkAll.Text = "F945"
+        Me.chkAll.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkAll.UseVisualStyleBackColor = True
         '
         'dgvPrivileges
         '
@@ -491,6 +512,55 @@ Partial Class UserManagement
         Me.dgvPrivileges.TabIndex = 23
         Me.dgvPrivileges.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvPrivileges.UseTagValueMatchColor = True
+        '
+        'coldgvPrivilegesGroupID
+        '
+        Me.coldgvPrivilegesGroupID.DataPropertyName = "GROUP_ID"
+        Me.coldgvPrivilegesGroupID.FillWeight = 20.0!
+        Me.coldgvPrivilegesGroupID.HeaderText = "F019"
+        Me.coldgvPrivilegesGroupID.MinimumWidth = 100
+        Me.coldgvPrivilegesGroupID.Name = "coldgvPrivilegesGroupID"
+        Me.coldgvPrivilegesGroupID.ReadOnly = True
+        Me.coldgvPrivilegesGroupID.Visible = False
+        '
+        'coldgvPrivilegesGroupName
+        '
+        Me.coldgvPrivilegesGroupName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvPrivilegesGroupName.DataPropertyName = "GROUP_NAME"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.coldgvPrivilegesGroupName.DefaultCellStyle = DataGridViewCellStyle11
+        Me.coldgvPrivilegesGroupName.HeaderText = "F026"
+        Me.coldgvPrivilegesGroupName.MinimumWidth = 120
+        Me.coldgvPrivilegesGroupName.Name = "coldgvPrivilegesGroupName"
+        Me.coldgvPrivilegesGroupName.ReadOnly = True
+        Me.coldgvPrivilegesGroupName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvPrivilegesGroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'coldgvPrivilegesEdit
+        '
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.coldgvPrivilegesEdit.DefaultCellStyle = DataGridViewCellStyle12
+        Me.coldgvPrivilegesEdit.HeaderText = ""
+        Me.coldgvPrivilegesEdit.Image = CType(resources.GetObject("coldgvPrivilegesEdit.Image"), System.Drawing.Image)
+        Me.coldgvPrivilegesEdit.MinimumWidth = 39
+        Me.coldgvPrivilegesEdit.Name = "coldgvPrivilegesEdit"
+        Me.coldgvPrivilegesEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvPrivilegesEdit.Visible = False
+        Me.coldgvPrivilegesEdit.Width = 39
+        '
+        'coldgvPrivilegesDelete
+        '
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.coldgvPrivilegesDelete.DefaultCellStyle = DataGridViewCellStyle13
+        Me.coldgvPrivilegesDelete.HeaderText = ""
+        Me.coldgvPrivilegesDelete.Image = CType(resources.GetObject("coldgvPrivilegesDelete.Image"), System.Drawing.Image)
+        Me.coldgvPrivilegesDelete.MinimumWidth = 39
+        Me.coldgvPrivilegesDelete.Name = "coldgvPrivilegesDelete"
+        Me.coldgvPrivilegesDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvPrivilegesDelete.Visible = False
+        Me.coldgvPrivilegesDelete.Width = 39
         '
         'tlpUserlist
         '
@@ -560,80 +630,33 @@ Partial Class UserManagement
         'Panel1
         '
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(3, 343)
         Me.Panel1.Name = "Panel1"
+        Me.Panel1.Radius = 10
         Me.Panel1.Size = New System.Drawing.Size(194, 4)
         Me.Panel1.TabIndex = 26
         '
-        'coldgvPrivilegesGroupID
-        '
-        Me.coldgvPrivilegesGroupID.DataPropertyName = "GROUP_ID"
-        Me.coldgvPrivilegesGroupID.FillWeight = 20.0!
-        Me.coldgvPrivilegesGroupID.HeaderText = "F019"
-        Me.coldgvPrivilegesGroupID.MinimumWidth = 100
-        Me.coldgvPrivilegesGroupID.Name = "coldgvPrivilegesGroupID"
-        Me.coldgvPrivilegesGroupID.ReadOnly = True
-        Me.coldgvPrivilegesGroupID.Visible = False
-        '
-        'coldgvPrivilegesGroupName
-        '
-        Me.coldgvPrivilegesGroupName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvPrivilegesGroupName.DataPropertyName = "GROUP_NAME"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.coldgvPrivilegesGroupName.DefaultCellStyle = DataGridViewCellStyle11
-        Me.coldgvPrivilegesGroupName.HeaderText = "F026"
-        Me.coldgvPrivilegesGroupName.MinimumWidth = 120
-        Me.coldgvPrivilegesGroupName.Name = "coldgvPrivilegesGroupName"
-        Me.coldgvPrivilegesGroupName.ReadOnly = True
-        Me.coldgvPrivilegesGroupName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvPrivilegesGroupName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'coldgvPrivilegesEdit
-        '
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle12.NullValue = CType(resources.GetObject("DataGridViewCellStyle12.NullValue"), Object)
-        Me.coldgvPrivilegesEdit.DefaultCellStyle = DataGridViewCellStyle12
-        Me.coldgvPrivilegesEdit.HeaderText = ""
-        Me.coldgvPrivilegesEdit.Image = CType(resources.GetObject("coldgvPrivilegesEdit.Image"), System.Drawing.Image)
-        Me.coldgvPrivilegesEdit.MinimumWidth = 39
-        Me.coldgvPrivilegesEdit.Name = "coldgvPrivilegesEdit"
-        Me.coldgvPrivilegesEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvPrivilegesEdit.Visible = False
-        Me.coldgvPrivilegesEdit.Width = 39
-        '
-        'coldgvPrivilegesDelete
-        '
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle13.NullValue = CType(resources.GetObject("DataGridViewCellStyle13.NullValue"), Object)
-        Me.coldgvPrivilegesDelete.DefaultCellStyle = DataGridViewCellStyle13
-        Me.coldgvPrivilegesDelete.HeaderText = ""
-        Me.coldgvPrivilegesDelete.Image = CType(resources.GetObject("coldgvPrivilegesDelete.Image"), System.Drawing.Image)
-        Me.coldgvPrivilegesDelete.MinimumWidth = 39
-        Me.coldgvPrivilegesDelete.Name = "coldgvPrivilegesDelete"
-        Me.coldgvPrivilegesDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvPrivilegesDelete.Visible = False
-        Me.coldgvPrivilegesDelete.Width = 39
-        '
         'UserManagement
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7!, 12!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.AutoScroll = True
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.AutoScroll = true
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64,Byte),Integer), CType(CType(64,Byte),Integer), CType(CType(64,Byte),Integer))
         Me.Controls.Add(Me.tlpUserConfigMain)
         Me.Margin = New System.Windows.Forms.Padding(0)
         Me.Name = "UserManagement"
         Me.Size = New System.Drawing.Size(1161, 692)
-        Me.tlpUserConfigMain.ResumeLayout(False)
-        CType(Me.dgvUserLst, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.dgvPrivileges, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tlpUserlist.ResumeLayout(False)
-        Me.tlpUserlist.PerformLayout()
-        Me.ResumeLayout(False)
+        Me.tlpUserConfigMain.ResumeLayout(false)
+        CType(Me.dgvUserLst,System.ComponentModel.ISupportInitialize).EndInit
+        Me.TableLayoutPanel1.ResumeLayout(false)
+        Me.TableLayoutPanel1.PerformLayout
+        CType(Me.dgvPrivileges,System.ComponentModel.ISupportInitialize).EndInit
+        Me.tlpUserlist.ResumeLayout(false)
+        Me.tlpUserlist.PerformLayout
+        Me.ResumeLayout(false)
 
-    End Sub
+End Sub
     Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -654,6 +677,10 @@ Partial Class UserManagement
     Friend WithEvents dgvUserLst As eXperDB.BaseControls.DataGridView
     Friend WithEvents Panel1 As eXperDB.BaseControls.Panel
     Friend WithEvents ttChart As System.Windows.Forms.ToolTip
+    Friend WithEvents coldgvPrivilegesGroupID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvPrivilegesGroupName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvPrivilegesEdit As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents coldgvPrivilegesDelete As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents coldgvUserLstID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstPassword As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -668,9 +695,6 @@ Partial Class UserManagement
     Friend WithEvents coldgvUserLstPWDT As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstEdit As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents coldgvUserLstDelete As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents coldgvPrivilegesGroupID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvPrivilegesGroupName As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvPrivilegesEdit As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents coldgvPrivilegesDelete As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents chkAll As eXperDB.BaseControls.CheckBox
 
 End Class

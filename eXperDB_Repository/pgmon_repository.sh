@@ -89,6 +89,7 @@ create table tb_config (
     serial_key character varying(1000),
     version character varying(10),
     binary_path character varying(200),
+    last_mod_user_id character varying(16) default null,
     last_mod_dt timestamp without time zone,
     last_mod_ip character varying(15)
 );
@@ -201,8 +202,6 @@ create table tb_hchk_thrd_list (
     warning_threshold numeric(15,2),
     critical_threshold numeric(15,2),
     fixed_threshold character varying(1),
-    last_mod_ip character varying(15),
-    last_mod_dt timestamp without time zone,
     pause_collect_dt timestamp without time zone,
     retention_time integer,
     critical_start_time timestamp without time zone,
@@ -210,7 +209,10 @@ create table tb_hchk_thrd_list (
     notification_cycle integer,
     notification_level integer,
     business_name varchar(30) DEFAULT '',
-    notification_lastsent timestamp without time ZONE NOT NULL DEFAULT NOW()
+    notification_lastsent timestamp without time ZONE NOT NULL DEFAULT NOW(),
+    last_mod_user_id character varying(16) default null,
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
 );
 
 create table tb_index_info (
@@ -257,6 +259,7 @@ create table tb_instance_info (
     ha_port character varying(10),
     ha_repl_host character varying(100),
     ha_group integer,
+    last_mod_user_id character varying(16) default null,
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
@@ -506,7 +509,7 @@ create table tb_alert_export_info (
     export_type integer,
     instance_id integer,
     sender character varying(30),
-    user_id character varying(16);
+    user_id character varying(16),
     reciever character varying(50),
 		export_level integer,
     messages character varying(100),
@@ -515,18 +518,20 @@ create table tb_alert_export_info (
     collect_dt timestamp without time ZONE
 );
 
------------------------<User management start>------------------------------------------
+----------------------------------------------------------------------------------------
+-----------------------<User Managements>------------------------------------------
+----------------------------------------------------------------------------------------
 
-create table tb_mon_user (
+CREATE TABLE tb_mon_user (
   user_seq integer DEFAULT nextval('user_seq') NOT NULL PRIMARY KEY ,
   user_id character varying(16) unique not null,
   user_name character varying(100) not null,
   user_password character varying(64) not null,
-  user_phone character varying(30),
-	user_phone2 varchar(30),
-	user_noti_phone int2,
-	user_email varchar(100),
-	user_dept_name varchar(30),
+  user_phone character varying(30) default '',
+	user_phone2 varchar(30) default '',
+	user_noti_phone int2 default 0,
+	user_email varchar(100) default '',
+	user_dept_name varchar(30) default '',
 	set_pw_dt timestamp without time zone default now(),
 	is_admin_tf bool DEFAULT false,
 	is_locked_tf bool DEFAULT false,
@@ -536,7 +541,7 @@ create table tb_mon_user (
 	last_login_dt timestamp without time zone default now(),
 	last_logout_dt timestamp without time zone default now(),
 	is_deleted bool NOT NULL DEFAULT false,
-	last_mod_user_id character varying(16) unique not null,
+	last_mod_user_id character varying(16) not null,
 	last_mod_ip varchar(15) NULL,
 	last_mod_dt timestamp without time zone default now()
 );
@@ -544,7 +549,7 @@ create table tb_mon_user (
 create table tb_mon_group (
     group_id serial primary key,
     group_name character varying(100) not NULL,
-    last_mod_user_id character varying(16) unique not null,
+    last_mod_user_id character varying(16),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
@@ -552,12 +557,12 @@ create table tb_mon_group (
 create table tb_mon_user_by_group (
     group_id integer not null,
     user_id character varying(16) not null,
-    last_mod_user_id character varying(16) unique not null,
+    last_mod_user_id character varying(16),
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );
 
-create table tb_mon_user_policy
+CREATE TABLE tb_mon_user_policy
 (
 	login_fail_cnt int2 DEFAULT 5,
 	lock_timeout int2 DEFAULT 1,
@@ -567,7 +572,7 @@ create table tb_mon_user_policy
 	pw_min_length int2  DEFAULT 8,
 	pw_expr_days int4 DEFAULT 60,
 	pw_expr_noti_days int4  DEFAULT 7, 
-	last_mod_user_id character varying(16) unique not null,
+	last_mod_user_id character varying(16),
 	last_mod_ip character varying(15),
 	last_mod_dt timestamp without time zone
 );
@@ -584,7 +589,7 @@ create unlogged table tb_mon_login_attempts (
     attempt_dt timestamp without time zone default now()
 );
 
-create type access_type AS ENUM (
+CREATE TYPE access_type AS ENUM (
   'login', 
   'logout', 
   'upgrade', 
@@ -593,11 +598,11 @@ create type access_type AS ENUM (
   'change_user_pwd', 
   'cluster_detail', 
   'sql_plan',
-  'cancel_query'
+  'cancel_query',
   'cancel_session'
 );
 
-create table tb_mon_user_audit
+CREATE TABLE tb_mon_user_audit
 (
 	user_id character varying(16) not null,
 	access_dt timestamp without time zone,
@@ -608,37 +613,35 @@ create table tb_mon_user_audit
 	access_ip character varying(15)
 );
 
-create table tb_mon_perm
+CREATE TABLE tb_mon_perm
 (
 	perm_id int4 PRIMARY KEY NOT null,
 	perm_name character varying(30)
 );
 
-create table tb_mon_perm_by_user
+CREATE TABLE tb_mon_perm_by_user
 (
 	user_id character varying(16) not null,
 	perm_id int4 not null,
-	group_id int4 NOT NULL
-	last_mod_user_id character varying(16) unique not null,
+	group_id int4 NOT NULL,
+	last_mod_user_id character varying(16),
 	last_mod_ip character varying(15),
 	last_mod_dt timestamp without time zone
 );
 
-create table tb_mon_user_config
+CREATE TABLE tb_mon_user_config
 (
 	user_id character varying(16) primary key,
-	language int2,
-	refresh_period int2,
-	sound_path character varying(500),
-	show_alias_tf bool,
-	reg_account_sqlplan_tf bool,
-	style_cpu int2,
-	style_cpu_direction_tf bool,
-	style_mem int2,
-	style_mem_direction_tf bool
+	language int2 default 0,
+	refresh_period int2 default 3000,
+	sound_path character varying(500) default 'Siren.wav',
+	show_alias_tf bool default false,
+	reg_account_sqlplan_tf bool default false,
+	style_cpu int2 default 2,
+	style_cpu_direction_tf bool default false,
+	style_mem int2 default 2,
+	style_mem_direction_tf bool default false
 );
-
------------------------<User management end>------------------------------------------
 ------------------------------------------------------------------------------------------
 -----------------------<create partition tables>------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -711,13 +714,11 @@ alter table only tb_user_info add constraint pk_user_info primary key (reg_date,
 --alter table only tb_pg_stat_statements add constraint pk_pg_stat_statements primary key (reg_date, collect_dt, instance_id);
 alter table only tb_user_group add constraint pk_tb_user_group primary key (group_id, group_name);
 alter table only tb_alert_link_config add constraint pk_tb_alert_link_config primary key (link_type);
------------------------<User management start>------------------------------------------
-alter table only tb_mon_group add constraint pk_tb_user_group primary key (group_id, group_name);
+-----------------------<User Managements>--------------------------------------------------
 alter table only tb_mon_user_by_group add constraint pk_tb_mon_user_by_group primary key (group_id, user_id);
 alter table only tb_mon_user_allow_ip add constraint pk_tb_mon_user_allow_ip primary key (user_id,allow_ip);
 alter table only tb_mon_user_audit add constraint pk_tb_mon_user_audit primary key (user_id,access_dt);
 alter table only tb_mon_perm_by_user add constraint pk_tb_mon_perm_by_user primary key (user_id,group_id,perm_id);
------------------------<User management end>------------------------------------------
 ------------------------------------------------------------------------------------------
 -----------------------<create function>--------------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -802,8 +803,8 @@ create sequence repl_reg_seq
 -----------------------------------------------------------------------------------------------
 alter table tb_config set (autovacuum_analyze_scale_factor = 0.1);
 alter table tb_config set (autovacuum_vacuum_scale_factor = 0.2);
-alter table tb_current_lock set (autovacuum_analyze_threshold = 5000);
-alter table tb_current_lock set (autovacuum_vacuum_threshold = 5000);
+--alter table tb_current_lock set (autovacuum_analyze_threshold = 5000);
+--alter table tb_current_lock set (autovacuum_vacuum_threshold = 5000);
 alter table tb_hchk_thrd_list set (autovacuum_analyze_scale_factor = 0.1);
 alter table tb_hchk_thrd_list set (autovacuum_vacuum_scale_factor = 0.2);
 alter table tb_instance_info set (autovacuum_analyze_scale_factor = 0.0);
@@ -828,9 +829,9 @@ alter table tb_database_info set (autovacuum_vacuum_scale_factor = 0.2);
 -----------------------------------------------------------------------------------------------
 -----------------------<create extension>------------------------------------------------------
 -----------------------------------------------------------------------------------------------
-create extension pg_hint_plan ;
-create extension postgres_fdw ;
-create extension pg_stat_statements ;
+create extension if not exists pg_hint_plan ;
+create extension if not exists postgres_fdw ;
+create extension if not exists pg_stat_statements ;
 create extension if not exists tablefunc;
 -----------------------------------------------------------------------------------------------
 -----------------------<insert initial data>---------------------------------------------------
@@ -866,17 +867,40 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '10.4.4.316', '/experdb/app/experdb_mon/eXperDB_Server/');
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.319', '/experdb/app/experdb_mon/eXperDB_Server/');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (3, 'Group3', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (4, 'Group4', now(), '127.0.0.1');
 
-INSERT INTO tb_mon_user_perm SELECT 1, 'Detailed_Monitoring';
-INSERT INTO tb_mon_user_perm SELECT 2, 'SQL_plan';
-INSERT INTO tb_mon_user_perm SELECT 3, 'Cancel_query';
-INSERT INTO tb_mon_user_perm SELECT 4, 'Kill_session';
+-----------------------<User Managements>--------------------------------------------------
+insert into tb_mon_user (user_id, user_name, user_password, last_mod_user_id, is_admin_tf, set_pw_dt) values('admin', 'admin', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=', 'admin', true, now());
+insert into tb_mon_user_policy (last_mod_user_id,	last_mod_dt) values('admin', now());
+insert into tb_mon_user_config (user_id) values ('admin'); 
+insert into tb_mon_perm select 1, 'detailed_monitoring';
+insert into tb_mon_perm select 2, 'sql_plan';
+insert into tb_mon_perm select 3, 'cancel_query';
+insert into tb_mon_perm select 4, 'kill_session';
+
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 4, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 4, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 4, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 4, 'admin', '', now());
+-----------------------<User Managements>--------------------------------------------------
+
 
 insert into tb_sys_code select 1 	 ,'ShmemIndexLock';                  
 insert into tb_sys_code select 2 	 ,'OidGenLock';                      
@@ -907,7 +931,7 @@ insert into tb_sys_code select 26  ,'AsyncCtlLock';
 insert into tb_sys_code select 27  ,'AsyncQueueLock';                  
 insert into tb_sys_code select 28  ,'SerializableXactHashLock';        
 insert into tb_sys_code select 29  ,'SerializableFinishedListLock';    
-insert into tb_sys_code select 30  ,'SerializablePredicateLockListLock'
+insert into tb_sys_code select 30  ,'SerializablePredicateLockListLock';
 insert into tb_sys_code select 31  ,'OldSerXidLock';                   
 insert into tb_sys_code select 32  ,'SyncRepLock';                     
 insert into tb_sys_code select 33  ,'BackgroundWorkerLock';            

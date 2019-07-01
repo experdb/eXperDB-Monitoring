@@ -550,10 +550,17 @@
         Dim intActvRegSeq As Integer
         Dim intCount As Integer = 0
 
-        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 3)
-        If hasPermission = False Then
+        Dim clsQu As New clsQuerys(_AgentCn)
+        If p_cSession.loadUserPermission(clsQu) = True Then
+            Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 3)
+            If hasPermission = False Then
+                MsgBox(p_clsMsgData.fn_GetData("M088"))
+                AccessLog("cancel_query", 1, p_clsMsgData.fn_GetData("M088"), _InstanceID)
+                Return
+            End If
+        Else
             MsgBox(p_clsMsgData.fn_GetData("M088"))
-            AccessLog("cancel_query", 1, p_clsMsgData.fn_GetData("M088"), _InstanceID)
+            AccessLog("cancel_query", 1, p_clsMsgData.fn_GetData("M088") + " Load permission failed", _InstanceID)
             Return
         End If
 
@@ -613,12 +620,20 @@
         Dim intActvRegSeq As Integer
         Dim intCount As Integer = 0
 
-        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 4)
-        If hasPermission = False Then
+        Dim clsQu As New clsQuerys(_AgentCn)
+        If p_cSession.loadUserPermission(clsQu) = True Then
+            Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 4)
+            If hasPermission = False Then
+                MsgBox(p_clsMsgData.fn_GetData("M088"))
+                AccessLog("kill_session", 1, p_clsMsgData.fn_GetData("M088"), _InstanceID)
+                Return
+            End If
+        Else
             MsgBox(p_clsMsgData.fn_GetData("M088"))
-            AccessLog("kill_session", 1, p_clsMsgData.fn_GetData("M088"), _InstanceID)
+            AccessLog("kill_session", 1, p_clsMsgData.fn_GetData("M088") + " Load permission failed", _InstanceID)
             Return
         End If
+
 
         If _SelectedGrid = 1 Then
             intCount = dgvLock.SelectedRows.Count

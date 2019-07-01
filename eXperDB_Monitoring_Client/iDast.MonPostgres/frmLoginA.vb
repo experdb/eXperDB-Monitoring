@@ -198,16 +198,7 @@ Public Class frmLoginA
     End Sub
 
     Private Function getUserPermission() As Boolean
-        Try
-            Dim dtTablePermission As DataTable = _clsQuery.SelectUserPermission(txtUserID.Text)
-            If dtTablePermission IsNot Nothing AndAlso dtTablePermission.Rows.Count > 0 Then
-                _cs.AddPermisions(dtTablePermission.Rows)
-            End If
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            Return False
-        End Try
-        Return True
+        Return p_cSession.loadUserPermission(_clsQuery)
     End Function
 
     Public Function ConvertCIDRToMask(cidr As Integer) As String

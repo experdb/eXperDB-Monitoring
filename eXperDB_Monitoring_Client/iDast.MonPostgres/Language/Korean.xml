@@ -3528,6 +3528,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M090" PARAMS="0">
+    <DESC>사용자 그룹</DESC>
+    <DATA><![CDATA[선택된 사용자 그룹이 없습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[파일건수]]></DATA>
@@ -3771,6 +3779,11 @@
   <ROW ID="F944" PARAMS="0">
     <DESC>그룹삭제</DESC>
     <DATA><![CDATA[그룹삭제]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F945" PARAMS="0">
+    <DESC>전체선택</DESC>
+    <DATA><![CDATA[전체선택]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

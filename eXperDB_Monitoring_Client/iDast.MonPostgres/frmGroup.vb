@@ -56,7 +56,7 @@ Public Class frmGroup
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
-        MsgBox(p_clsMsgData.fn_GetData("M082"))
+        'MsgBox(p_clsMsgData.fn_GetData("M082"))
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub

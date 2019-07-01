@@ -176,7 +176,7 @@
                 If tmpRow.Selected = True Then
                     Dim strUserID As String = tmpRow.Cells(coldgvUserLstID.Index).Value
                     Dim strGroupID As String = _groupID
-                    Dim nReturn As Integer = _clsQuery.insertUserGroup(strUserID, strGroupID, strLocIP)
+                    Dim nReturn As Integer = _clsQuery.insertUserGroup(strUserID, strGroupID, p_cSession.UserID, strLocIP)
                     Select Case nReturn
                         Case -1
                             MsgBox(p_clsMsgData.fn_GetData("M029"))

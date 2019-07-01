@@ -694,7 +694,7 @@ Partial Class frmMonDetail
         Me.cmbRetention.ForeColor = System.Drawing.Color.White
         Me.cmbRetention.FormattingEnabled = True
         Me.cmbRetention.Items.AddRange(New Object() {"10", "20", "30"})
-        Me.cmbRetention.Location = New System.Drawing.Point(262, 19)
+        Me.cmbRetention.Location = New System.Drawing.Point(262, 20)
         Me.cmbRetention.Margin = New System.Windows.Forms.Padding(3, 4, 3, 6)
         Me.cmbRetention.Name = "cmbRetention"
         Me.cmbRetention.Necessary = False
@@ -2913,6 +2913,8 @@ Partial Class frmMonDetail
         ChartArea10.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.0!)
         ChartArea10.BackColor = System.Drawing.Color.Transparent
         ChartArea10.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea10.CursorX.IsUserEnabled = True
+        ChartArea10.CursorX.IsUserSelectionEnabled = True
         ChartArea10.Name = "ChartArea1"
         Me.chtObject.ChartAreas.Add(ChartArea10)
         Me.tlpObject.SetColumnSpan(Me.chtObject, 4)
@@ -3937,8 +3939,10 @@ Partial Class frmMonDetail
         '
         Me.plnStatements.Controls.Add(Me.tlpStmt)
         Me.plnStatements.Dock = System.Windows.Forms.DockStyle.Right
+        Me.plnStatements.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.plnStatements.Location = New System.Drawing.Point(600, 0)
         Me.plnStatements.Name = "plnStatements"
+        Me.plnStatements.Radius = 10
         Me.plnStatements.Size = New System.Drawing.Size(440, 194)
         Me.plnStatements.TabIndex = 21
         '

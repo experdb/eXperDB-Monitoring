@@ -2752,11 +2752,11 @@
     ''' <remarks></remarks>
     Public Function insertUser(ByVal UserID As String, ByVal UserName As String, ByVal UserPassword As String, ByVal UserPhone As String, _
                                ByVal UserPhone2 As String, ByVal PhonIndexForNoti As Integer, ByVal UserEmail As String, ByVal Departments As String, _
-                               ByVal isAdmin As Boolean, ByVal isLock As Boolean, ByVal LstIp As String) As Integer
+                               ByVal isAdmin As Boolean, ByVal isLock As Boolean, ByVal ModUser As String, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return -1
             Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTUSER")
-            strQuery = String.Format(strQuery, UserID, UserName, UserPassword, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, Departments, IIf(isAdmin, "true", "false"), IIf(isLock, "true", "false"), LstIp)
+            strQuery = String.Format(strQuery, UserID, UserName, UserPassword, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, Departments, IIf(isAdmin, "true", "false"), IIf(isLock, "true", "false"), modUser, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
         Catch ex As Exception
@@ -3116,11 +3116,11 @@
     ''' <param name="LstIp"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function insertUserGroup(ByVal UserID As String, ByVal GroupID As String, ByVal LstIp As String) As Integer
+    Public Function insertUserGroup(ByVal UserID As String, ByVal GroupID As String, ByVal modUser As String, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return -1
             Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTUSERGROUP")
-            strQuery = String.Format(strQuery, UserID, GroupID, LstIp)
+            strQuery = String.Format(strQuery, UserID, GroupID, modUser, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
         Catch ex As Exception
@@ -3137,6 +3137,21 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTMONUSERCONFIG")
                 strQuery = String.Format(strQuery, strUserID, nLanguage, nCollectPeriod, strSoundPath, bShowHostName, bUseAccountSQLPlan, _
                                          nCPUStyle, bCPUDirection, nMEMStyle, bMEMDirection)
+                Return _ODBC.dbExecuteNonQuery(strQuery)
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+    End Function
+
+    Public Function InsertMonUserConfigDefault(ByVal strUserID As String) As Boolean
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTMONUSERCONFIGDEFAULT")
+                strQuery = String.Format(strQuery, strUserID)
                 Return _ODBC.dbExecuteNonQuery(strQuery)
             Else
                 Return False

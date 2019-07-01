@@ -477,11 +477,11 @@ Public Class frmMonDetail
         Me.ttChart.SetToolTip(Me.chtLock, "Timeline view")
         Me.ttChart.SetToolTip(Me.chtSQLRespTm, "Timeline view")
         Me.ttChart.SetToolTip(Me.chtTPS, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtReplication, "Timeline view")
+        'Me.ttChart.SetToolTip(Me.chtReplication, "Timeline view")
         Me.ttChart.SetToolTip(Me.chtDiskIOTrend, "Timeline view")
         Me.ttChart.SetToolTip(Me.chtObject, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtReplicationSize, "Timeline view")
-        Me.ttChart.SetToolTip(Me.chtCheckpoint, "Timeline view")
+        'Me.ttChart.SetToolTip(Me.chtReplicationSize, "Timeline view")
+        'Me.ttChart.SetToolTip(Me.chtCheckpoint, "Timeline view")
 
         'modCommon.FontChange(Me, p_Font)
 
@@ -1980,7 +1980,8 @@ Public Class frmMonDetail
                                                                                                                         , chtSQLRespTm.CursorPositionChanged _
                                                                                                                         , chtLock.CursorPositionChanged _
                                                                                                                         , chtTPS.CursorPositionChanged _
-                                                                                                                        , chtPhyRead.CursorPositionChanged
+                                                                                                                        , chtPhyRead.CursorPositionChanged _
+                                                                                                                        , chtObject.CursorPositionChanged
 
         If Double.IsNaN(e.NewPosition) Then Return
         Dim stDt As DateTime = Date.FromOADate(e.ChartArea.CursorX.SelectionStart)
@@ -2023,6 +2024,8 @@ Public Class frmMonDetail
                 index = 6
             Case "chtTPS"
                 index = 7
+            Case "chtObject"
+                index = 8
         End Select
 
         Dim BretFrm As frmMonItemDetail = Nothing
@@ -2816,13 +2819,13 @@ Public Class frmMonDetail
     End Sub
 
     Private Sub chtCPU_MouseLeave(sender As Object, e As EventArgs) Handles chtCPU.MouseLeave, chtSession.MouseLeave, chtLocalIO.MouseLeave, chtDiskIOTrend.MouseLeave, chtSQLRespTm.MouseLeave _
-                                                                            , chtLock.MouseLeave, chtTPS.MouseLeave, chtPhyRead.MouseLeave
+                                                                            , chtLock.MouseLeave, chtTPS.MouseLeave, chtPhyRead.MouseLeave, chtObject.MouseLeave
         Dim tmpChart = DirectCast(sender, System.Windows.Forms.DataVisualization.Charting.Chart)
         tmpChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
     End Sub
 
     Private Sub chtCPU_MouseEnter(sender As Object, e As EventArgs) Handles chtCPU.MouseEnter, chtSession.MouseEnter, chtLocalIO.MouseEnter, chtDiskIOTrend.MouseEnter, chtSQLRespTm.MouseEnter _
-                                                                            , chtLock.MouseEnter, chtTPS.MouseEnter, chtPhyRead.MouseEnter
+                                                                            , chtLock.MouseEnter, chtTPS.MouseEnter, chtPhyRead.MouseEnter, chtObject.MouseEnter
         Dim tmpChart = DirectCast(sender, System.Windows.Forms.DataVisualization.Charting.Chart)
         tmpChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(56, Byte), Integer))
     End Sub

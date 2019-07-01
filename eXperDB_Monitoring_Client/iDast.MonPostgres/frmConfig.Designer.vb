@@ -52,6 +52,7 @@ Partial Class frmConfig
         Me.TableLayoutPanel1 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.btnSave = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel6 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.FlatCombo1 = New FlatCombobox.FlatCombo()
         Me.lblSound = New eXperDB.BaseControls.Label()
         Me.lbGrpRatate = New eXperDB.BaseControls.Label()
         Me.Button2 = New eXperDB.BaseControls.Button()
@@ -84,7 +85,6 @@ Partial Class frmConfig
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.FlatCombo1 = New FlatCombobox.FlatCombo()
         Me.tbMain.SuspendLayout()
         Me.tp1.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
@@ -648,6 +648,26 @@ Partial Class frmConfig
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(586, 221)
         Me.TableLayoutPanel6.TabIndex = 16
         '
+        'FlatCombo1
+        '
+        Me.FlatCombo1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(96, Byte), Integer))
+        Me.FlatCombo1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.FlatCombo1.ButtonColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(176, Byte), Integer))
+        Me.FlatCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.FlatCombo1.FixedWidth = True
+        Me.FlatCombo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.FlatCombo1.ForeColor = System.Drawing.Color.White
+        Me.FlatCombo1.FormattingEnabled = True
+        Me.FlatCombo1.Items.AddRange(New Object() {"1", "2"})
+        Me.FlatCombo1.Location = New System.Drawing.Point(404, 13)
+        Me.FlatCombo1.Name = "FlatCombo1"
+        Me.FlatCombo1.Necessary = False
+        Me.FlatCombo1.Size = New System.Drawing.Size(121, 20)
+        Me.FlatCombo1.StatusTip = ""
+        Me.FlatCombo1.TabIndex = 9
+        Me.FlatCombo1.ValueText = ""
+        Me.FlatCombo1.Visible = False
+        '
         'lblSound
         '
         Me.lblSound.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -945,8 +965,10 @@ Partial Class frmConfig
         Me.Panel1.Controls.Add(Me.cmbMemStyle)
         Me.Panel1.Controls.Add(Me.cmbCpuStyle)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(3, 36)
         Me.Panel1.Name = "Panel1"
+        Me.Panel1.Radius = 10
         Me.Panel1.Size = New System.Drawing.Size(574, 75)
         Me.Panel1.TabIndex = 16
         '
@@ -1123,26 +1145,6 @@ Partial Class frmConfig
         Me.Label1.Size = New System.Drawing.Size(34, 50)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "      "
-        '
-        'FlatCombo1
-        '
-        Me.FlatCombo1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(96, Byte), Integer))
-        Me.FlatCombo1.BorderColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        Me.FlatCombo1.ButtonColor = System.Drawing.Color.FromArgb(CType(CType(128, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(176, Byte), Integer))
-        Me.FlatCombo1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.FlatCombo1.FixedWidth = True
-        Me.FlatCombo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.FlatCombo1.ForeColor = System.Drawing.Color.White
-        Me.FlatCombo1.FormattingEnabled = True
-        Me.FlatCombo1.Items.AddRange(New Object() {"1", "2"})
-        Me.FlatCombo1.Location = New System.Drawing.Point(404, 13)
-        Me.FlatCombo1.Name = "FlatCombo1"
-        Me.FlatCombo1.Necessary = False
-        Me.FlatCombo1.Size = New System.Drawing.Size(121, 20)
-        Me.FlatCombo1.StatusTip = ""
-        Me.FlatCombo1.TabIndex = 9
-        Me.FlatCombo1.ValueText = ""
-        Me.FlatCombo1.Visible = False
         '
         'frmConfig
         '

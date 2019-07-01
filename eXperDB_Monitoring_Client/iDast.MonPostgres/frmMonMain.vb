@@ -4353,13 +4353,20 @@
         isNodeCollapsingOrExpanding = False
         isClickdgvClusters = True
 
-        Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 1)
-        If hasPermission = True Then
-            openMonDetail(e.RowIndex)
+        Dim clsQu As New clsQuerys(_AgentCn)
+        If p_cSession.loadUserPermission(clsQu) = True Then
+            Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 1)
+            If hasPermission = True Then
+                openMonDetail(e.RowIndex)
+            Else
+                MsgBox(p_clsMsgData.fn_GetData("M088"))
+                Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(e.RowIndex).Tag, GroupInfo.ServerInfo)
+                AccessLog("cluster_detail", 1, "", tmpSvrInfo.InstanceID)
+            End If
         Else
             MsgBox(p_clsMsgData.fn_GetData("M088"))
             Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(e.RowIndex).Tag, GroupInfo.ServerInfo)
-            AccessLog("cluster_detail", 1, "", tmpSvrInfo.InstanceID)
+            AccessLog("cluster_detail", 1, "Load permission failed", tmpSvrInfo.InstanceID)
         End If
     End Sub
 
