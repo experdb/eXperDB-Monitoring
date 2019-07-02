@@ -42,39 +42,39 @@ Partial Class frmCriticalCheck
         '
         'btnClose
         '
-        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnClose.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnClose.FixedHeight = False
         Me.btnClose.FixedWidth = False
         Me.btnClose.ForeColor = System.Drawing.SystemColors.Control
-        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClose.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnClose.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnClose.LineColor = System.Drawing.Color.Transparent
         Me.btnClose.Location = New System.Drawing.Point(249, 3)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Radius = 10
         Me.btnClose.Size = New System.Drawing.Size(82, 35)
         Me.btnClose.TabIndex = 1
         Me.btnClose.Text = "F021"
-        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnClose.UseRound = True
         Me.btnClose.UseVisualStyleBackColor = True
         '
         'btnSave
         '
-        Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
         Me.btnSave.Dock = System.Windows.Forms.DockStyle.Fill
         Me.btnSave.FixedHeight = False
         Me.btnSave.FixedWidth = False
         Me.btnSave.ForeColor = System.Drawing.Color.LightGray
-        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnSave.LineColor = System.Drawing.Color.Transparent
         Me.btnSave.Location = New System.Drawing.Point(156, 3)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Radius = 10
         Me.btnSave.Size = New System.Drawing.Size(82, 35)
         Me.btnSave.TabIndex = 0
         Me.btnSave.Text = "F014"
-        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
         Me.btnSave.UseRound = True
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -83,14 +83,16 @@ Partial Class frmCriticalCheck
         Me.Panel2.BackColor = System.Drawing.Color.Black
         Me.Panel2.Controls.Add(Me.TableLayoutPanel1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Panel2.Location = New System.Drawing.Point(3, 197)
         Me.Panel2.Name = "Panel2"
+        Me.Panel2.Radius = 10
         Me.Panel2.Size = New System.Drawing.Size(488, 45)
         Me.Panel2.TabIndex = 3
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel1.ColumnCount = 5
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88.0!))
@@ -110,7 +112,7 @@ Partial Class frmCriticalCheck
         '
         'TableLayoutPanel2
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.TableLayoutPanel2.ColumnCount = 5
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 9.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -135,13 +137,14 @@ Partial Class frmCriticalCheck
         '
         'lblMsg
         '
-        Me.lblMsg.BackColor = System.Drawing.Color.Gray
+        Me.lblMsg.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel2.SetColumnSpan(Me.lblMsg, 5)
         Me.lblMsg.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblMsg.FixedHeight = False
         Me.lblMsg.FixedWidth = False
         Me.lblMsg.Font = New System.Drawing.Font("Gulim", 9.5!, System.Drawing.FontStyle.Bold)
         Me.lblMsg.ForeColor = System.Drawing.Color.White
+        Me.lblMsg.LineSpacing = 0.0!
         Me.lblMsg.Location = New System.Drawing.Point(3, 0)
         Me.lblMsg.Name = "lblMsg"
         Me.TableLayoutPanel2.SetRowSpan(Me.lblMsg, 3)
@@ -155,6 +158,7 @@ Partial Class frmCriticalCheck
         Me.lblPause.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPause.FixedWidth = False
         Me.lblPause.ForeColor = System.Drawing.Color.White
+        Me.lblPause.LineSpacing = 0.0!
         Me.lblPause.Location = New System.Drawing.Point(12, 110)
         Me.lblPause.Margin = New System.Windows.Forms.Padding(3, 2, 3, 0)
         Me.lblPause.Name = "lblPause"
@@ -169,6 +173,7 @@ Partial Class frmCriticalCheck
         Me.cmbPauseTime.Dock = System.Windows.Forms.DockStyle.Left
         Me.cmbPauseTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPauseTime.FixedWidth = False
+        Me.cmbPauseTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbPauseTime.FormattingEnabled = True
         Me.cmbPauseTime.Items.AddRange(New Object() {"Not Set", "5", "30", "60", "120"})
         Me.cmbPauseTime.Location = New System.Drawing.Point(255, 111)
@@ -181,7 +186,7 @@ Partial Class frmCriticalCheck
         '
         'TableLayoutPanel3
         '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.TableLayoutPanel3.ColumnCount = 2
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -198,7 +203,7 @@ Partial Class frmCriticalCheck
         'StatusLabel
         '
         Me.StatusLabel.AutoSize = True
-        Me.StatusLabel.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.StatusLabel.BackColor = System.Drawing.Color.Transparent
         Me.StatusLabel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.StatusLabel.ForeColor = System.Drawing.Color.White
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -212,6 +217,7 @@ Partial Class frmCriticalCheck
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.Image = CType(resources.GetObject("Label1.Image"), System.Drawing.Image)
         Me.Label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -226,7 +232,7 @@ Partial Class frmCriticalCheck
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.BackColor = System.Drawing.Color.Black
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(494, 245)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.TableLayoutPanel3)

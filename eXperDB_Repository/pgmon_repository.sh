@@ -867,7 +867,7 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.320', '$BINPATH');
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.321', '$BINPATH');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');

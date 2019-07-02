@@ -24,28 +24,22 @@ Partial Class frmNotiHistory
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNotiHistory))
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNotiHistory))
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.pnlB = New System.Windows.Forms.TableLayoutPanel()
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -82,6 +76,7 @@ Partial Class frmNotiHistory
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewPasswordTextBoxColumn1 = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
         Me.coldgvNotificationLstHostName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvNotificationLstINSTANCEID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvNotificationLstSender = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -92,7 +87,6 @@ Partial Class frmNotiHistory
         Me.coldgvNotificationLstIsSuccess = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvNotificationLstError = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvNotificationLstCollectDt = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewPasswordTextBoxColumn1 = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
         Me.pnlB.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -181,14 +175,14 @@ Partial Class frmNotiHistory
         Me.dgvNotificationLst.ColumnHeadersHeight = 24
         Me.dgvNotificationLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvNotificationLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvNotificationLstHostName, Me.coldgvNotificationLstINSTANCEID, Me.coldgvNotificationLstSender, Me.coldgvNotificationLstLevel, Me.coldgvNotificationLstUserID, Me.coldgvNotificationLstReceiver, Me.coldgvNotificationLstMessages, Me.coldgvNotificationLstIsSuccess, Me.coldgvNotificationLstError, Me.coldgvNotificationLstCollectDt})
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvNotificationLst.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 8.320187!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvNotificationLst.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvNotificationLst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvNotificationLst.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvNotificationLst.EnableHeadersVisualStyles = False
@@ -351,7 +345,7 @@ Partial Class frmNotiHistory
         Me.cmbServer.FixedWidth = False
         Me.cmbServer.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
+        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -387,7 +381,7 @@ Partial Class frmNotiHistory
         Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -423,7 +417,7 @@ Partial Class frmNotiHistory
         Me.cmbResults.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbResults.FormattingEnabled = True
         Me.cmbResults.Items.AddRange(New Object() {"All", "Success", "Error"})
-        Me.cmbResults.Location = New System.Drawing.Point(525, 55)
+        Me.cmbResults.Location = New System.Drawing.Point(525, 56)
         Me.cmbResults.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbResults.Name = "cmbResults"
         Me.cmbResults.Necessary = False
@@ -574,11 +568,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.DataPropertyName = "SERVER_NAME"
-        DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle6
         Me.DataGridViewTextBoxColumn1.HeaderText = "F010"
         Me.DataGridViewTextBoxColumn1.MinimumWidth = 100
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
@@ -587,11 +581,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn2
         '
         Me.DataGridViewTextBoxColumn2.DataPropertyName = "INSTANCE_ID"
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle7
         Me.DataGridViewTextBoxColumn2.HeaderText = "F019"
         Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
         Me.DataGridViewTextBoxColumn2.ReadOnly = True
@@ -600,11 +594,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn3
         '
         Me.DataGridViewTextBoxColumn3.DataPropertyName = "SENDER"
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle8
         Me.DataGridViewTextBoxColumn3.HeaderText = "F008"
         Me.DataGridViewTextBoxColumn3.MinimumWidth = 100
         Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
@@ -613,11 +607,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn4
         '
         Me.DataGridViewTextBoxColumn4.DataPropertyName = "EXPORT_LEVEL"
-        DataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle9
         Me.DataGridViewTextBoxColumn4.HeaderText = "F006"
         Me.DataGridViewTextBoxColumn4.MinimumWidth = 80
         Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
@@ -627,11 +621,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn5
         '
         Me.DataGridViewTextBoxColumn5.DataPropertyName = "USER_NAME"
-        DataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle10
         Me.DataGridViewTextBoxColumn5.HeaderText = "F007"
         Me.DataGridViewTextBoxColumn5.MinimumWidth = 80
         Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
@@ -641,11 +635,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn6
         '
         Me.DataGridViewTextBoxColumn6.DataPropertyName = "RECIEVER"
-        DataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn6.DefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn6.DefaultCellStyle = DataGridViewCellStyle11
         Me.DataGridViewTextBoxColumn6.HeaderText = "F020"
         Me.DataGridViewTextBoxColumn6.MinimumWidth = 100
         Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
@@ -654,11 +648,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn7
         '
         Me.DataGridViewTextBoxColumn7.DataPropertyName = "MESSAGES"
-        DataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle12
         Me.DataGridViewTextBoxColumn7.HeaderText = "F260"
         Me.DataGridViewTextBoxColumn7.MinimumWidth = 220
         Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
@@ -668,11 +662,11 @@ Partial Class frmNotiHistory
         'DataGridViewTextBoxColumn8
         '
         Me.DataGridViewTextBoxColumn8.DataPropertyName = "ISSUCCESS"
-        DataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle19.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle13
         Me.DataGridViewTextBoxColumn8.HeaderText = "F247"
         Me.DataGridViewTextBoxColumn8.MinimumWidth = 70
         Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
@@ -683,11 +677,11 @@ Partial Class frmNotiHistory
         '
         Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.DataGridViewTextBoxColumn9.DataPropertyName = "ERROR"
-        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn9.DefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn9.DefaultCellStyle = DataGridViewCellStyle14
         Me.DataGridViewTextBoxColumn9.HeaderText = "F258"
         Me.DataGridViewTextBoxColumn9.MinimumWidth = 200
         Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
@@ -697,26 +691,37 @@ Partial Class frmNotiHistory
         '
         Me.DataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.DataGridViewTextBoxColumn10.DataPropertyName = "COLLECT_DT"
-        DataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle21.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle21.Format = "yyyy-MM-dd HH:mm:ss"
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewTextBoxColumn10.DefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle15.Format = "yyyy-MM-dd HH:mm:ss"
+        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewTextBoxColumn10.DefaultCellStyle = DataGridViewCellStyle15
         Me.DataGridViewTextBoxColumn10.HeaderText = "F257"
         Me.DataGridViewTextBoxColumn10.MinimumWidth = 150
         Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
         Me.DataGridViewTextBoxColumn10.ReadOnly = True
         '
+        'DataGridViewPasswordTextBoxColumn1
+        '
+        DataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        DataGridViewCellStyle16.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White
+        Me.DataGridViewPasswordTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle16
+        Me.DataGridViewPasswordTextBoxColumn1.HeaderText = "F009"
+        Me.DataGridViewPasswordTextBoxColumn1.Name = "DataGridViewPasswordTextBoxColumn1"
+        Me.DataGridViewPasswordTextBoxColumn1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.DataGridViewPasswordTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewPasswordTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewPasswordTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewPasswordTextBoxColumn1.UseSystemPasswordChar = True
+        '
         'coldgvNotificationLstHostName
         '
         Me.coldgvNotificationLstHostName.DataPropertyName = "SERVER_NAME"
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.White
         DataGridViewCellStyle2.Format = "N2"
         DataGridViewCellStyle2.NullValue = "0"
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
         Me.coldgvNotificationLstHostName.DefaultCellStyle = DataGridViewCellStyle2
         Me.coldgvNotificationLstHostName.HeaderText = "F033"
         Me.coldgvNotificationLstHostName.MinimumWidth = 100
@@ -734,11 +739,6 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstSender
         '
         Me.coldgvNotificationLstSender.DataPropertyName = "SENDER"
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstSender.DefaultCellStyle = DataGridViewCellStyle3
         Me.coldgvNotificationLstSender.HeaderText = "F354"
         Me.coldgvNotificationLstSender.MinimumWidth = 100
         Me.coldgvNotificationLstSender.Name = "coldgvNotificationLstSender"
@@ -747,12 +747,8 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstLevel
         '
         Me.coldgvNotificationLstLevel.DataPropertyName = "EXPORT_LEVEL"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstLevel.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.coldgvNotificationLstLevel.DefaultCellStyle = DataGridViewCellStyle3
         Me.coldgvNotificationLstLevel.HeaderText = "F247"
         Me.coldgvNotificationLstLevel.MinimumWidth = 80
         Me.coldgvNotificationLstLevel.Name = "coldgvNotificationLstLevel"
@@ -762,11 +758,6 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstUserID
         '
         Me.coldgvNotificationLstUserID.DataPropertyName = "USER_NAME"
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstUserID.DefaultCellStyle = DataGridViewCellStyle5
         Me.coldgvNotificationLstUserID.HeaderText = "F348"
         Me.coldgvNotificationLstUserID.MinimumWidth = 80
         Me.coldgvNotificationLstUserID.Name = "coldgvNotificationLstUserID"
@@ -776,11 +767,6 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstReceiver
         '
         Me.coldgvNotificationLstReceiver.DataPropertyName = "RECIEVER"
-        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstReceiver.DefaultCellStyle = DataGridViewCellStyle6
         Me.coldgvNotificationLstReceiver.HeaderText = "F355"
         Me.coldgvNotificationLstReceiver.MinimumWidth = 100
         Me.coldgvNotificationLstReceiver.Name = "coldgvNotificationLstReceiver"
@@ -789,11 +775,6 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstMessages
         '
         Me.coldgvNotificationLstMessages.DataPropertyName = "MESSAGES"
-        DataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstMessages.DefaultCellStyle = DataGridViewCellStyle7
         Me.coldgvNotificationLstMessages.HeaderText = "F260"
         Me.coldgvNotificationLstMessages.MinimumWidth = 210
         Me.coldgvNotificationLstMessages.Name = "coldgvNotificationLstMessages"
@@ -803,11 +784,6 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstIsSuccess
         '
         Me.coldgvNotificationLstIsSuccess.DataPropertyName = "ISSUCCESS"
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstIsSuccess.DefaultCellStyle = DataGridViewCellStyle8
         Me.coldgvNotificationLstIsSuccess.HeaderText = "F247"
         Me.coldgvNotificationLstIsSuccess.MinimumWidth = 65
         Me.coldgvNotificationLstIsSuccess.Name = "coldgvNotificationLstIsSuccess"
@@ -818,11 +794,6 @@ Partial Class frmNotiHistory
         '
         Me.coldgvNotificationLstError.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.coldgvNotificationLstError.DataPropertyName = "ERROR"
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstError.DefaultCellStyle = DataGridViewCellStyle9
         Me.coldgvNotificationLstError.HeaderText = "F258"
         Me.coldgvNotificationLstError.MinimumWidth = 155
         Me.coldgvNotificationLstError.Name = "coldgvNotificationLstError"
@@ -831,32 +802,13 @@ Partial Class frmNotiHistory
         'coldgvNotificationLstCollectDt
         '
         Me.coldgvNotificationLstCollectDt.DataPropertyName = "COLLECT_DT"
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle10.Format = "yyyy-MM-dd HH:mm:ss"
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
-        Me.coldgvNotificationLstCollectDt.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.coldgvNotificationLstCollectDt.DefaultCellStyle = DataGridViewCellStyle4
         Me.coldgvNotificationLstCollectDt.HeaderText = "F257"
         Me.coldgvNotificationLstCollectDt.MinimumWidth = 145
         Me.coldgvNotificationLstCollectDt.Name = "coldgvNotificationLstCollectDt"
         Me.coldgvNotificationLstCollectDt.ReadOnly = True
         Me.coldgvNotificationLstCollectDt.Width = 145
-        '
-        'DataGridViewPasswordTextBoxColumn1
-        '
-        DataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White
-        Me.DataGridViewPasswordTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle22
-        Me.DataGridViewPasswordTextBoxColumn1.HeaderText = "F009"
-        Me.DataGridViewPasswordTextBoxColumn1.Name = "DataGridViewPasswordTextBoxColumn1"
-        Me.DataGridViewPasswordTextBoxColumn1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.DataGridViewPasswordTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewPasswordTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewPasswordTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewPasswordTextBoxColumn1.UseSystemPasswordChar = True
         '
         'frmNotiHistory
         '
