@@ -58,12 +58,18 @@
         cmbNotiUsers.Items.Clear()
         If dtUserGroup IsNot Nothing AndAlso dtUserGroup.Rows.Count > 0 Then
             Dim comboSource As New Dictionary(Of String, String)()
+            Dim i As Integer = 0
+            Dim selectedIndex As Integer = 0
             For Each tmpRow As DataRow In dtUserGroup.Rows
                 comboSource.Add(tmpRow.Item("GROUP_ID"), tmpRow.Item("GROUP_NAME"))
+                If CInt(tmpRow.Item("GROUP_ID")) = CInt(DT.Rows(0)("USER_GROUP")) Then
+                    selectedIndex = i
+                End If
+                i += 1
             Next
             cmbNotiUsers.DataSource = New BindingSource(comboSource, Nothing)
             cmbNotiUsers.DisplayMember = "Value"
-            cmbNotiUsers.SelectedIndex = CInt(DT.Rows(0)("USER_GROUP"))
+            cmbNotiUsers.SelectedIndex = selectedIndex
             cmbNotiUsers.ValueMember = "Key"
         End If
 
@@ -378,7 +384,7 @@
         Next
 
         tmpClass.NotificationLevel = cmbNotiLevel.SelectedIndex
-        tmpClass.NotificationGroup = cmbNotiUsers.SelectedIndex
+        tmpClass.NotificationGroup = cmbNotiUsers.SelectedValue
         tmpClass.NotificationCycle = nudNotiCycle.Value
         tmpClass.BusinessName = txtBusiness.Text
 

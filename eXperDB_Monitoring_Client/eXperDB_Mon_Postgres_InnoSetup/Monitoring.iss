@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "eXperDB Monitoring"
-#define MyAppVersion "10.4.4.317"
-#define MyAppVersionDir "10_4_4_317"
+#define MyAppVersion "11.5.0.320"
+#define MyAppVersionDir "11_5_0_320"
 #define MyAppPublisher "K4M"
 #define MyAppURL "http://www.k4m.com"
 #define MyAppExeName "eXperDB.Monitoring.exe"
@@ -99,7 +99,7 @@ Name: {app}; Permissions: users-full
 Type: files; Name: "{app}\config.ini"
 
 [Registry]
-Root: HKLM; Subkey: Software\K4M\eXperDB.Monitoring\Settings; ValueType: string; ValueName: InstallPath; ValueData: {app};
+Root: HKLM; Subkey: Software\Wow6432Node\K4M\eXperDB.Monitoring\Settings; ValueType: string; ValueName: InstallPath; ValueData: {app};
 
 [Code]
 function IsDotNetDetected(version: string; service: cardinal): boolean;

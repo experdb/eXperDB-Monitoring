@@ -3,6 +3,7 @@
 TODAY=`date +'%Y%m%d'`
 CURRHOUR=`date +'%Y%m%d%H'`
 NEXTHOUR=`date +'%Y%m%d%H' -d "+1 hours"`
+BINPATH=$PGMHOME/"files"
 
 cat << EOF > ${0%.*}.sql
 create table tb_access_info (
@@ -491,7 +492,6 @@ create table tb_user_group (
     last_mod_dt timestamp without time zone
 );
 
-
 create table tb_alert_link_config (
     link_type integer,
     link_ip character varying(50),
@@ -598,7 +598,7 @@ CREATE TYPE access_type AS ENUM (
   'change_user_pwd', 
   'cluster_detail', 
   'sql_plan',
-  'cancel_query',
+  'cancel_query'
   'cancel_session'
 );
 
@@ -867,7 +867,7 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.319', '/experdb/app/experdb_mon/eXperDB_Server/');
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.320', '$BINPATH');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');

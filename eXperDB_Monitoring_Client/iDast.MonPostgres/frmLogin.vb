@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Net
+Imports Microsoft.Win32
 
 Public Class frmLogin
 
@@ -13,6 +14,7 @@ Public Class frmLogin
     ' such as the username, display name, etc.
 
     Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\Software\K4M\eXperDB.Monitoring\Settings"
+    Private Const HKLMPATH As String = "Software\K4M\eXperDB.Monitoring\Settings"
     Private Const APPNAME As String = "eXperDB.Downloader.exe"
     Private _connStruct As eXperDB.ODBC.structConnection = Nothing
     Private _odbcConn As eXperDBODBC
@@ -335,11 +337,20 @@ Public Class frmLogin
 
     Private Sub RunDownloader()
         Dim proc As Process = Nothing
-        Dim installPath = My.Computer.Registry.GetValue(REGISTRYPATH, "InstallPath", Nothing) + "\" + APPNAME
-        'Dim installPath = "D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github\eXperDB_Monitoring_Client\iDast.MonPostgres\bin\Debug\eXperDB.Downloader.exe"
-        proc = Process.Start(installPath)
-        Threading.Thread.Sleep(500)
-        Me.Close()
+        Try
+            Dim registryKey As RegistryKey = Nothing
+            registryKey = registryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry32)
+            registryKey = registryKey.OpenSubKey(HKLMPATH, True)
+            If registryKey IsNot Nothing Then
+                Dim installPath = CStr(My.Computer.Registry.GetValue(REGISTRYPATH, "InstallPath", Nothing) + "\" + APPNAME)
+                proc = Process.Start(installPath)
+                Threading.Thread.Sleep(500)
+            End If
+            'Dim installPath = "D:\01.Project\K4M\DX-Monitoring\eXper-Monitoring\experdbmon_for_github\eXperDB_Monitoring_Client\iDast.MonPostgres\bin\Debug\eXperDB.Downloader.exe"
+            Me.Close()
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
     Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
