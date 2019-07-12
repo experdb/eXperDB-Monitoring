@@ -1925,12 +1925,15 @@ Partial Class frmMonMain
         ChartArea4.AxisX2.IsLabelAutoFit = False
         ChartArea4.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisY.IsLabelAutoFit = False
         ChartArea4.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
         ChartArea4.AxisY.LabelStyle.Format = "N0"
         ChartArea4.AxisY.LabelStyle.TruncatedLabels = True
         ChartArea4.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea4.AxisY.MajorGrid.Interval = 0.0R
+        ChartArea4.AxisY.MajorGrid.IntervalOffset = 0.0R
+        ChartArea4.AxisY.MajorGrid.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea4.AxisY.MajorGrid.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
         ChartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
         ChartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
         ChartArea4.AxisY.MajorTickMark.Enabled = False
@@ -2028,7 +2031,6 @@ Partial Class frmMonMain
         Me.chtSQLRespTmAVG.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         ChartArea5.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
         ChartArea5.AxisX.IsLabelAutoFit = False
-        ChartArea5.AxisX.IsMarginVisible = False
         ChartArea5.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
         ChartArea5.AxisX.LabelStyle.Format = "HH:mm"
@@ -2067,8 +2069,7 @@ Partial Class frmMonMain
         ChartArea5.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
         ChartArea5.AxisY2.LabelStyle.Format = "N0"
         ChartArea5.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea5.AxisY2.MajorGrid.Enabled = False
-        ChartArea5.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
+        ChartArea5.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DimGray
         ChartArea5.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
         ChartArea5.AxisY2.MajorTickMark.Enabled = False
         ChartArea5.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
@@ -3947,7 +3948,6 @@ Partial Class frmMonMain
         Me.dgvClusters.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvClusters.EnableHeadersVisualStyles = False
         Me.dgvClusters.GridColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.dgvClusters.HideExpandeIcon = False
         Me.dgvClusters.ImageList = Me.instanceImgLst
         Me.dgvClusters.Location = New System.Drawing.Point(3, 4)
         Me.dgvClusters.MultiSelect = False
@@ -4189,8 +4189,10 @@ Partial Class frmMonMain
         Me.pnlRb.Controls.Add(Me.rbCurrent)
         Me.pnlRb.Controls.Add(Me.rbHistory)
         Me.pnlRb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlRb.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlRb.Location = New System.Drawing.Point(3, 33)
         Me.pnlRb.Name = "pnlRb"
+        Me.pnlRb.Radius = 10
         Me.pnlRb.Size = New System.Drawing.Size(176, 24)
         Me.pnlRb.TabIndex = 25
         '
@@ -4237,8 +4239,10 @@ Partial Class frmMonMain
         Me.pnlAlertList.Controls.Add(Me.dgvAlertCurr)
         Me.pnlAlertList.Controls.Add(Me.dgvAlert)
         Me.pnlAlertList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlAlertList.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlAlertList.Location = New System.Drawing.Point(3, 63)
         Me.pnlAlertList.Name = "pnlAlertList"
+        Me.pnlAlertList.Radius = 10
         Me.pnlAlertList.Size = New System.Drawing.Size(176, 776)
         Me.pnlAlertList.TabIndex = 26
         '
@@ -4502,6 +4506,7 @@ Partial Class frmMonMain
         Me.statusImgLst.Images.SetKeyName(4, "Primary.png")
         Me.statusImgLst.Images.SetKeyName(5, "Slave1.png")
         Me.statusImgLst.Images.SetKeyName(6, "Single.png")
+        Me.statusImgLst.Images.SetKeyName(7, "choose_20_2.png")
         '
         'mnuPopup
         '

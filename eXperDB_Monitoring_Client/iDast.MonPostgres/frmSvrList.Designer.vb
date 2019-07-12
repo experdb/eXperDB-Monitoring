@@ -510,8 +510,10 @@ Partial Class frmSvrList
         Me.Panel1.Controls.Add(Me.dgvMonLst)
         Me.Panel1.Controls.Add(Me.TableLayoutPanel8)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(3, 130)
         Me.Panel1.Name = "Panel1"
+        Me.Panel1.Radius = 10
         Me.Panel1.Size = New System.Drawing.Size(846, 178)
         Me.Panel1.TabIndex = 17
         '

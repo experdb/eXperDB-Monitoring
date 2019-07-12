@@ -525,7 +525,8 @@ Public Class frmMonItemDetail
                                                          End If
 
                                                          If ShowDT Is Nothing Then
-                                                             dgvStmtList.DataSource = Nothing
+                                                             'dgvStmtList.DataSource = Nothing
+                                                             STMTTableBindingSource.DataSource = Nothing
                                                              Return
                                                          End If
 

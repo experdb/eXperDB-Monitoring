@@ -747,8 +747,10 @@
         setInstanceOrder(clsIni.ReadValue("General", "INSTANCEORDER", 4))
         ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
         Try
+            'dgvClusters.Columns(coldgvClustersLegend.Index).ToolTipText = p_clsMsgData.fn_GetData("M060")
+
+            Dim topNode As AdvancedDataGridView.TreeGridNode = Nothing
             For i As Integer = 0 To svrLst.Count - 1
-                Dim topNode As AdvancedDataGridView.TreeGridNode
                 Dim toolTipText As String = svrLst.Item(i).ShowNm & Environment.NewLine & svrLst.Item(i).HostNm & Environment.NewLine & svrLst.Item(i).IP & ":" & svrLst.Item(i).Port
                 If svrLst.Item(i).HARole = "P" Or svrLst.Item(i).HARole = "A" Then
                     topNode = dgvClusters.Nodes.Add(svrLst.Item(i).ShowNm)
@@ -764,8 +766,9 @@
 
                     topNode.Expand()
                 Else
-                    For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
-                        If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value Then
+                    For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
+                        Dim tmpNode As AdvancedDataGridView.TreeGridNode = tmpRow
+                        If tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HAHost Then
                             Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
                             cNOde.Tag = svrLst.Item(i)
                             cNOde.Image = instanceImgLst.Images(i)
@@ -776,10 +779,29 @@
                             cNOde.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
                             cNOde.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
                             cNOde.Cells(coldgvClustersRole.Index).Value = ""
-                            tmpNode.Expand()
+                            cNOde.Expand()
                             Exit For
                         End If
                     Next
+
+                    'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+                    '    If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value Then
+                    '        Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
+                    '        cNOde.Tag = svrLst.Item(i)
+                    '        cNOde.Image = instanceImgLst.Images(i)
+                    '        cNOde.Height = 48
+                    '        cNOde.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(0)
+                    '        cNOde.Cells(coldgvClustersServerName.Index).Value = svrLst.Item(i).ShowNm
+                    '        cNOde.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
+                    '        cNOde.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
+                    '        cNOde.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+                    '        cNOde.Cells(coldgvClustersRole.Index).Value = ""
+                    '        tmpNode.Expand()
+                    '        Exit For
+                    '    End If
+                    'Next
+
+
                 End If
             Next
 
@@ -1051,19 +1073,10 @@
     End Sub
 
     Public Sub InstanceSelectedChange(ByVal intInstanceID As Integer, ByVal Bret As Boolean)
-        For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
-            If DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
-                tmpNode.Cells(coldgvClusterIsOpenSingle.Index).Value = "0"
+        For Each tmpRow In Me.dgvClusters.Rows
+            If DirectCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
+                tmpRow.Cells(coldgvClusterIsOpenSingle.Index).Value = "0"
                 Exit For
-            End If
-
-            If tmpNode.HasChildren Then
-                For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
-                    If DirectCast(cNode.Tag, GroupInfo.ServerInfo).InstanceID.Equals(intInstanceID) Then
-                        cNode.Cells(coldgvClusterIsOpenSingle.Index).Value = "0"
-                        Return
-                    End If
-                Next
             End If
         Next
     End Sub
@@ -1617,7 +1630,9 @@
                 Next
             Else
                 dblRegDt = ConvOADate(Now)
-                Me.chtLockWait.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                For i As Integer = 0 To Me.chtLockWait.Series.Count - 1
+                    Me.chtLockWait.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Next
             End If
             sb_ChartAlignYAxies(Me.chtLockWait)
         End If
@@ -1889,11 +1904,14 @@
                 Next
             Else
                 dblRegDt = ConvOADate(Now)
-                Me.chtSQLRespTmMAX.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
-                Me.chtSQLRespTmAVG.Series(0).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                For i As Integer = 0 To Me.chtSQLRespTmMAX.Series.Count - 1
+                    Me.chtSQLRespTmMAX.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Next
+                For i As Integer = 0 To Me.chtSQLRespTmAVG.Series.Count - 1
+                    Me.chtSQLRespTmAVG.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Next
             End If
-            'sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
-            'sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
+
         End If
 
         Try
@@ -1920,24 +1938,8 @@
         End Try
 
         Try
-            dblMaxScale = chtSQLRespTmMAX.ChartAreas(0).AxisY.Maximum
-            dblAvgScale = chtSQLRespTmAVG.ChartAreas(0).AxisY.Maximum
-
-            If Not dblMaxScale.Equals(Double.NaN) Then
-                If dblMaxScale < 10 Then
-                    Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
-                Else
-                    Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-                End If
-            End If
-
-            If Not dblAvgScale.Equals(Double.NaN) Then
-                If dblAvgScale < 10 Then
-                    Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
-                Else
-                    Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-                End If
-            End If
+            sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTmMAX)
+            sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTmAVG)
 
             Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
         Catch ex As Exception
@@ -2272,30 +2274,9 @@
                         End If
                     Next
                 Next
-                'sb_ChartAlignYAxies(Me.chtSQLRespTmMAX)
-                'sb_ChartAlignYAxies(Me.chtSQLRespTmAVG)
 
-                dblMaxScale = chtSQLRespTmMAX.ChartAreas(0).AxisY.Maximum
-                dblAvgScale = chtSQLRespTmAVG.ChartAreas(0).AxisY.Maximum
-
-                If Not dblMaxScale.Equals(Double.NaN) Then
-                    If dblMaxScale < 10 Then
-                        Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
-                    Else
-                        Me.chtSQLRespTmMAX.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-                    End If
-                End If
-
-                If Not dblAvgScale.Equals(Double.NaN) Then
-                    If dblAvgScale < 10 Then
-                        Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
-                    Else
-                        Me.chtSQLRespTmAVG.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-                    End If
-                End If
-
-                Me.chtSQLRespTmMAX.ChartAreas(0).RecalculateAxesScale()
-                Me.chtSQLRespTmAVG.ChartAreas(0).RecalculateAxesScale()
+                sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTmMAX)
+                sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTmAVG)
 
             End If
         Catch ex As Exception
@@ -2629,7 +2610,8 @@
             ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
             Try
                 _isCriticalInstance = False
-                For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
+                For Each tmpRow In Me.dgvClusters.Rows
+                    Dim tmpNode As AdvancedDataGridView.TreeGridNode = tmpRow
                     Dim intInstID As Integer = DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID
                     Dim intLevel As Integer = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
                     Dim strRole As String = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
@@ -3351,6 +3333,11 @@
     ''' <remarks></remarks>
     Private Function sb_ChartAddPoint(ByVal MSChart As DataVisualization.Charting.Chart, ByVal strSeries As String, ByVal dblX As Double, ByVal dblY As Double) As Integer
         Try
+
+            If MSChart.Series(strSeries).Points.Count > 0 AndAlso MSChart.Series(strSeries).Points(MSChart.Series(strSeries).Points.Count - 1).XValue >= dblX Then
+                Return MSChart.Series(strSeries).Points.Count
+            End If
+
             Dim rtnValue As Integer = MSChart.Series(strSeries).Points.AddXY(Date.FromOADate(dblX), dblY)
 
             Dim NowCnt As Integer = MSChart.Series(strSeries).Points.Count
@@ -3408,6 +3395,51 @@
             MSChart.ChartAreas(0).AxisY2.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
             MSChart.ChartAreas(0).AxisY2.Interval = MSChart.ChartAreas(0).AxisY2.Maximum / 5
         End If
+        MSChart.ChartAreas(0).RecalculateAxesScale()
+    End Sub
+
+    Private Sub sb_ChartAlignYAxiesWithUnit(ByVal MSChart As DataVisualization.Charting.Chart)
+
+        Dim dblMaxPri As Double = 0
+        Dim dblMaxSec As Double = 0
+        For Each tmpSeries As DataVisualization.Charting.Series In MSChart.Series
+            If tmpSeries.Points.Count > 0 Then
+                If tmpSeries.YAxisType = DataVisualization.Charting.AxisType.Primary Then
+                    Dim tmpValue As Double = Double.NaN
+                    tmpValue = tmpSeries.Points.FindMaxByValue().YValues(0)
+                    dblMaxPri = Math.Max(dblMaxPri, IIf(tmpValue.Equals(Double.NaN), 0, tmpValue))
+
+                Else
+                    Dim tmpValue As Double = Double.NaN
+                    tmpValue = tmpSeries.Points.FindMaxByValue().YValues(0)
+                    dblMaxSec = Math.Max(dblMaxSec, IIf(tmpValue.Equals(Double.NaN), 0, tmpValue))
+                End If
+            End If
+        Next
+
+        If Not dblMaxPri.Equals(Double.NaN) Then
+            Dim intValuePri As Integer = dblMaxPri \ 5
+            intValuePri += 1
+            MSChart.ChartAreas(0).AxisY.Maximum = intValuePri * 5
+            MSChart.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            MSChart.ChartAreas(0).AxisY.Interval = MSChart.ChartAreas(0).AxisY.Maximum / 5
+        End If
+
+        If Not dblMaxSec.Equals(Double.NaN) Then
+
+            Dim intValueSec As Integer = dblMaxSec \ 5
+
+            MSChart.ChartAreas(0).AxisY2.Maximum = intValueSec * 5
+            MSChart.ChartAreas(0).AxisY2.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            MSChart.ChartAreas(0).AxisY2.Interval = MSChart.ChartAreas(0).AxisY2.Maximum / 5
+        End If
+
+        If dblMaxPri <= 10 AndAlso dblMaxSec <= 10 Then
+            MSChart.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+        Else
+            MSChart.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+        End If
+
         MSChart.ChartAreas(0).RecalculateAxesScale()
     End Sub
 
@@ -3946,8 +3978,11 @@
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
     Private Sub btnClusterShow_Click(sender As Object, e As EventArgs) Handles btnClusterShow.Click
+        ShowChooseClusters()
+    End Sub
+
+    Private Sub ShowChooseClusters()
         Dim frmCS As New frmClusterShow(_GrpListServerinfo, _instanceColors)
         If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnStruct As structConnection = Nothing
@@ -4413,10 +4448,11 @@
     End Sub
 
     Private Sub dgvClusters_NodeCollapsing(sender As Object, e As AdvancedDataGridView.CollapsingEventArgs) Handles dgvClusters.NodeCollapsing
-        If e.Node.HasChildren Then
-            isNodeCollapsingOrExpanding = True
-            Threading.Thread.Sleep(10)
-        End If
+        e.Cancel = True
+        'If e.Node.HasChildren Then
+        '    isNodeCollapsingOrExpanding = True
+        '    Threading.Thread.Sleep(10)
+        'End If
     End Sub
 
     Private Sub dgvClusters_NodeExpanding(sender As Object, e As AdvancedDataGridView.ExpandingEventArgs) Handles dgvClusters.NodeExpanding

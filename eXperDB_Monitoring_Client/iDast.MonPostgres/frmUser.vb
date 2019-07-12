@@ -155,7 +155,11 @@ Public Class frmUser
         End Select
 
         _clsQuery.InsertMonUserConfigDefault(txtUserID.Text)
-        MsgBox(p_clsMsgData.fn_GetData("M082"))
+        If txtUserID.Enabled = False Then
+            MsgBox(p_clsMsgData.fn_GetData("M082"))
+        Else
+            MsgBox(p_clsMsgData.fn_GetData("M091"))
+        End If
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub

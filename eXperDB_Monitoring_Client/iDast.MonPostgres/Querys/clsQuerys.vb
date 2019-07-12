@@ -2237,7 +2237,7 @@
                 subQuery = " = TO_CHAR(NOW(),'YYYYMMDD')"
                 If isLatest = True Then
                     subQuery += vbCrLf
-                    subQuery += "AND B.REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_REPLICATION_INFO C WHERE A.INSTANCE_ID = C.INSTANCE_ID AND B.REG_DATE = C.REG_DATE)"
+                    subQuery += "AND B.REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_REPLICATION_LAG_INFO C WHERE A.INSTANCE_ID = C.INSTANCE_ID AND B.REG_DATE = C.REG_DATE)"
                 End If
 
                 strQuery = String.Format(strQuery, InstanceID, subQuery)

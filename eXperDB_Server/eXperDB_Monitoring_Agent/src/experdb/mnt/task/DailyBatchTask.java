@@ -194,6 +194,8 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
 				partitionTableMap.put("tablename", "tb_replication_info");
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
+				partitionTableMap.put("tablename", "tb_replication_lag_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
 				partitionTableMap.put("tablename", "tb_pg_stat_statements");
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
 				partitionTableMap.put("tablename", "tb_table_ext_info");
@@ -229,6 +231,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_CONSTRAINT_TB_DISK_USAGE_001"        , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_HCHK_COLLECT_INFO_001" , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_REPLICATION_INFO_001"  , partitionTableMap);
+				sessionAgent.update("app.PG_CONSTRAINT_TB_REPLICATION_LAG_INFO_001"  , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_CHECKPOINT_INFO_001"   , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_MEMORY_STAT_001"       , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_OBJT_COLLECT_INFO_001" , partitionTableMap);

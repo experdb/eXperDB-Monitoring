@@ -22,6 +22,15 @@ Partial Class frmMonItemDetail
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonItemDetail))
+        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim BorderSkin9 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -56,15 +65,6 @@ Partial Class frmMonItemDetail
         Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
-        Dim BorderSkin9 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Me.tlpBottom = New eXperDB.BaseControls.TableLayoutPanel()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpChartArea = New eXperDB.BaseControls.TableLayoutPanel()
@@ -72,6 +72,15 @@ Partial Class frmMonItemDetail
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblChart = New System.Windows.Forms.Label()
         Me.pnlChart = New eXperDB.BaseControls.Panel()
+        Me.chtObjectAccess = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtTPS = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtLock = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtDiskIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtPhysicalRead = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
+        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpInput = New eXperDB.BaseControls.TableLayoutPanel()
         Me.rb4H = New eXperDB.BaseControls.RadioButton()
         Me.rb2H = New eXperDB.BaseControls.RadioButton()
@@ -148,15 +157,6 @@ Partial Class frmMonItemDetail
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSubject = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chtObjectAccess = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtTPS = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtLock = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSQLResp = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtDiskIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtPhysicalRead = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtLogicalIO = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtSession = New eXperDB.Monitoring.ctlChartEx()
-        Me.chtCPU = New eXperDB.Monitoring.ctlChartEx()
         Me.tlpBottom.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -315,6 +315,140 @@ Partial Class frmMonItemDetail
         Me.pnlChart.Size = New System.Drawing.Size(1302, 463)
         Me.pnlChart.TabIndex = 3
         '
+        'chtObjectAccess
+        '
+        Me.chtObjectAccess.BorderSkin = BorderSkin1
+        Me.chtObjectAccess.DataSource = Nothing
+        Me.chtObjectAccess.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtObjectAccess.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtObjectAccess.Location = New System.Drawing.Point(0, 2824)
+        Me.chtObjectAccess.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtObjectAccess.MenuVisible = True
+        Me.chtObjectAccess.Name = "chtObjectAccess"
+        Me.chtObjectAccess.Size = New System.Drawing.Size(1285, 362)
+        Me.chtObjectAccess.TabIndex = 12
+        Me.chtObjectAccess.Title = ""
+        Me.chtObjectAccess.Visible = False
+        '
+        'chtTPS
+        '
+        Me.chtTPS.BorderSkin = BorderSkin2
+        Me.chtTPS.DataSource = Nothing
+        Me.chtTPS.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtTPS.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtTPS.Location = New System.Drawing.Point(0, 2462)
+        Me.chtTPS.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtTPS.MenuVisible = True
+        Me.chtTPS.Name = "chtTPS"
+        Me.chtTPS.Size = New System.Drawing.Size(1285, 362)
+        Me.chtTPS.TabIndex = 10
+        Me.chtTPS.Title = ""
+        Me.chtTPS.Visible = False
+        '
+        'chtLock
+        '
+        Me.chtLock.BorderSkin = BorderSkin3
+        Me.chtLock.DataSource = Nothing
+        Me.chtLock.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLock.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtLock.Location = New System.Drawing.Point(0, 2100)
+        Me.chtLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLock.MenuVisible = True
+        Me.chtLock.Name = "chtLock"
+        Me.chtLock.Size = New System.Drawing.Size(1285, 362)
+        Me.chtLock.TabIndex = 9
+        Me.chtLock.Title = ""
+        Me.chtLock.Visible = False
+        '
+        'chtSQLResp
+        '
+        Me.chtSQLResp.BorderSkin = BorderSkin4
+        Me.chtSQLResp.DataSource = Nothing
+        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSQLResp.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1738)
+        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSQLResp.MenuVisible = True
+        Me.chtSQLResp.Name = "chtSQLResp"
+        Me.chtSQLResp.Size = New System.Drawing.Size(1285, 362)
+        Me.chtSQLResp.TabIndex = 8
+        Me.chtSQLResp.Title = ""
+        Me.chtSQLResp.Visible = False
+        '
+        'chtDiskIO
+        '
+        Me.chtDiskIO.BorderSkin = BorderSkin5
+        Me.chtDiskIO.DataSource = Nothing
+        Me.chtDiskIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtDiskIO.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtDiskIO.Location = New System.Drawing.Point(0, 1376)
+        Me.chtDiskIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtDiskIO.MenuVisible = True
+        Me.chtDiskIO.Name = "chtDiskIO"
+        Me.chtDiskIO.Size = New System.Drawing.Size(1285, 362)
+        Me.chtDiskIO.TabIndex = 7
+        Me.chtDiskIO.Title = ""
+        Me.chtDiskIO.Visible = False
+        '
+        'chtPhysicalRead
+        '
+        Me.chtPhysicalRead.BorderSkin = BorderSkin6
+        Me.chtPhysicalRead.DataSource = Nothing
+        Me.chtPhysicalRead.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtPhysicalRead.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtPhysicalRead.Location = New System.Drawing.Point(0, 1014)
+        Me.chtPhysicalRead.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtPhysicalRead.MenuVisible = True
+        Me.chtPhysicalRead.Name = "chtPhysicalRead"
+        Me.chtPhysicalRead.Size = New System.Drawing.Size(1285, 362)
+        Me.chtPhysicalRead.TabIndex = 11
+        Me.chtPhysicalRead.Title = ""
+        Me.chtPhysicalRead.Visible = False
+        '
+        'chtLogicalIO
+        '
+        Me.chtLogicalIO.BorderSkin = BorderSkin7
+        Me.chtLogicalIO.DataSource = Nothing
+        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtLogicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 652)
+        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtLogicalIO.MenuVisible = True
+        Me.chtLogicalIO.Name = "chtLogicalIO"
+        Me.chtLogicalIO.Size = New System.Drawing.Size(1285, 362)
+        Me.chtLogicalIO.TabIndex = 6
+        Me.chtLogicalIO.Title = ""
+        Me.chtLogicalIO.Visible = False
+        '
+        'chtSession
+        '
+        Me.chtSession.BorderSkin = BorderSkin8
+        Me.chtSession.DataSource = Nothing
+        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtSession.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtSession.Location = New System.Drawing.Point(0, 290)
+        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSession.MenuVisible = True
+        Me.chtSession.Name = "chtSession"
+        Me.chtSession.Size = New System.Drawing.Size(1285, 362)
+        Me.chtSession.TabIndex = 5
+        Me.chtSession.Title = ""
+        Me.chtSession.Visible = False
+        '
+        'chtCPU
+        '
+        Me.chtCPU.BorderSkin = BorderSkin9
+        Me.chtCPU.DataSource = Nothing
+        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtCPU.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
+        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPU.MenuVisible = True
+        Me.chtCPU.Name = "chtCPU"
+        Me.chtCPU.Size = New System.Drawing.Size(1285, 290)
+        Me.chtCPU.TabIndex = 3
+        Me.chtCPU.Title = ""
+        '
         'tlpInput
         '
         Me.tlpInput.BackColor = System.Drawing.Color.Transparent
@@ -356,6 +490,7 @@ Partial Class frmMonItemDetail
         'rb4H
         '
         Me.rb4H.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rb4H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.rb4H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb4H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb4H.Font = New System.Drawing.Font("Gulim", 9.0!)
@@ -369,13 +504,14 @@ Partial Class frmMonItemDetail
         Me.rb4H.Text = "~4H"
         Me.rb4H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb4H.UseRound = True
-        Me.rb4H.UseVisualStyleBackColor = True
+        Me.rb4H.UseVisualStyleBackColor = False
         Me.rb4H.Warning = False
         Me.rb4H.WarningColor = System.Drawing.Color.Red
         '
         'rb2H
         '
         Me.rb2H.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rb2H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.rb2H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb2H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb2H.Font = New System.Drawing.Font("Gulim", 9.0!)
@@ -389,13 +525,14 @@ Partial Class frmMonItemDetail
         Me.rb2H.Text = "~2H"
         Me.rb2H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb2H.UseRound = True
-        Me.rb2H.UseVisualStyleBackColor = True
+        Me.rb2H.UseVisualStyleBackColor = False
         Me.rb2H.Warning = False
         Me.rb2H.WarningColor = System.Drawing.Color.Red
         '
         'rb1H
         '
         Me.rb1H.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rb1H.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.rb1H.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.rb1H.Dock = System.Windows.Forms.DockStyle.Fill
         Me.rb1H.Font = New System.Drawing.Font("Gulim", 9.0!)
@@ -409,7 +546,7 @@ Partial Class frmMonItemDetail
         Me.rb1H.Text = "~1H"
         Me.rb1H.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.rb1H.UseRound = True
-        Me.rb1H.UseVisualStyleBackColor = True
+        Me.rb1H.UseVisualStyleBackColor = False
         Me.rb1H.Warning = False
         Me.rb1H.WarningColor = System.Drawing.Color.Red
         '
@@ -477,7 +614,7 @@ Partial Class frmMonItemDetail
         Me.cmbInst.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbInst.Font = New System.Drawing.Font("Gulim", 9.2!)
         Me.cmbInst.FormattingEnabled = True
-        Me.cmbInst.Location = New System.Drawing.Point(83, 6)
+        Me.cmbInst.Location = New System.Drawing.Point(83, 7)
         Me.cmbInst.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbInst.Name = "cmbInst"
         Me.cmbInst.Necessary = False
@@ -570,6 +707,7 @@ Partial Class frmMonItemDetail
         'chkObjectAccess
         '
         Me.chkObjectAccess.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkObjectAccess.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkObjectAccess.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkObjectAccess.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkObjectAccess.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -583,11 +721,12 @@ Partial Class frmMonItemDetail
         Me.chkObjectAccess.Text = "F102"
         Me.chkObjectAccess.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkObjectAccess.UseRound = True
-        Me.chkObjectAccess.UseVisualStyleBackColor = True
+        Me.chkObjectAccess.UseVisualStyleBackColor = False
         '
         'chkPhysicalRead
         '
         Me.chkPhysicalRead.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkPhysicalRead.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkPhysicalRead.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkPhysicalRead.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkPhysicalRead.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -601,11 +740,12 @@ Partial Class frmMonItemDetail
         Me.chkPhysicalRead.Text = "F100"
         Me.chkPhysicalRead.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkPhysicalRead.UseRound = True
-        Me.chkPhysicalRead.UseVisualStyleBackColor = True
+        Me.chkPhysicalRead.UseVisualStyleBackColor = False
         '
         'chkTPS
         '
         Me.chkTPS.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkTPS.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkTPS.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkTPS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkTPS.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -619,11 +759,12 @@ Partial Class frmMonItemDetail
         Me.chkTPS.Text = "F320"
         Me.chkTPS.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkTPS.UseRound = True
-        Me.chkTPS.UseVisualStyleBackColor = True
+        Me.chkTPS.UseVisualStyleBackColor = False
         '
         'chkLock
         '
         Me.chkLock.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkLock.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkLock.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkLock.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -637,11 +778,12 @@ Partial Class frmMonItemDetail
         Me.chkLock.Text = "F317"
         Me.chkLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkLock.UseRound = True
-        Me.chkLock.UseVisualStyleBackColor = True
+        Me.chkLock.UseVisualStyleBackColor = False
         '
         'chkSQLResp
         '
         Me.chkSQLResp.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkSQLResp.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkSQLResp.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkSQLResp.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkSQLResp.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -655,11 +797,12 @@ Partial Class frmMonItemDetail
         Me.chkSQLResp.Text = "F103"
         Me.chkSQLResp.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkSQLResp.UseRound = True
-        Me.chkSQLResp.UseVisualStyleBackColor = True
+        Me.chkSQLResp.UseVisualStyleBackColor = False
         '
         'chkDiskIO
         '
         Me.chkDiskIO.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkDiskIO.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkDiskIO.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkDiskIO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkDiskIO.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -673,11 +816,12 @@ Partial Class frmMonItemDetail
         Me.chkDiskIO.Text = "F086"
         Me.chkDiskIO.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkDiskIO.UseRound = True
-        Me.chkDiskIO.UseVisualStyleBackColor = True
+        Me.chkDiskIO.UseVisualStyleBackColor = False
         '
         'chkLogicalIO
         '
         Me.chkLogicalIO.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkLogicalIO.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkLogicalIO.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkLogicalIO.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkLogicalIO.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -691,11 +835,12 @@ Partial Class frmMonItemDetail
         Me.chkLogicalIO.Text = "F101"
         Me.chkLogicalIO.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkLogicalIO.UseRound = True
-        Me.chkLogicalIO.UseVisualStyleBackColor = True
+        Me.chkLogicalIO.UseVisualStyleBackColor = False
         '
         'chkSession
         '
         Me.chkSession.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkSession.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkSession.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkSession.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkSession.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -709,11 +854,12 @@ Partial Class frmMonItemDetail
         Me.chkSession.Text = "F047"
         Me.chkSession.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkSession.UseRound = True
-        Me.chkSession.UseVisualStyleBackColor = True
+        Me.chkSession.UseVisualStyleBackColor = False
         '
         'chkCpu
         '
         Me.chkCpu.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkCpu.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.chkCpu.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.chkCpu.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chkCpu.Font = New System.Drawing.Font("Gulim", 9.2!)
@@ -727,7 +873,7 @@ Partial Class frmMonItemDetail
         Me.chkCpu.Text = "F035"
         Me.chkCpu.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkCpu.UseRound = True
-        Me.chkCpu.UseVisualStyleBackColor = True
+        Me.chkCpu.UseVisualStyleBackColor = False
         '
         'tabSession
         '
@@ -922,7 +1068,7 @@ Partial Class frmMonItemDetail
         Me.tabStats.Location = New System.Drawing.Point(4, 26)
         Me.tabStats.Name = "tabStats"
         Me.tabStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabStats.Size = New System.Drawing.Size(1300, 175)
+        Me.tabStats.Size = New System.Drawing.Size(192, 70)
         Me.tabStats.TabIndex = 1
         Me.tabStats.Text = "F297"
         '
@@ -974,7 +1120,7 @@ Partial Class frmMonItemDetail
         Me.dgvRptSQL.RowHeadersVisible = False
         Me.dgvRptSQL.RowTemplate.Height = 23
         Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvRptSQL.Size = New System.Drawing.Size(1294, 169)
+        Me.dgvRptSQL.Size = New System.Drawing.Size(186, 64)
         Me.dgvRptSQL.TabIndex = 32
         Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvRptSQL.UseTagValueMatchColor = False
@@ -1045,7 +1191,7 @@ Partial Class frmMonItemDetail
         Me.tabLock.Location = New System.Drawing.Point(4, 26)
         Me.tabLock.Name = "tabLock"
         Me.tabLock.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabLock.Size = New System.Drawing.Size(1300, 175)
+        Me.tabLock.Size = New System.Drawing.Size(192, 70)
         Me.tabLock.TabIndex = 2
         Me.tabLock.Text = "F317"
         '
@@ -1094,7 +1240,7 @@ Partial Class frmMonItemDetail
         Me.dgvLock.RowHeadersDefaultCellStyle = DataGridViewCellStyle28
         Me.dgvLock.RowHeadersVisible = False
         Me.dgvLock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLock.Size = New System.Drawing.Size(1294, 169)
+        Me.dgvLock.Size = New System.Drawing.Size(186, 64)
         Me.dgvLock.TabIndex = 10
         Me.dgvLock.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvLock.UseTagValueMatchColor = False
@@ -1286,7 +1432,7 @@ Partial Class frmMonItemDetail
         Me.colDgvLockActvRegSeq.ReadOnly = True
         Me.colDgvLockActvRegSeq.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colDgvLockActvRegSeq.Visible = False
-        Me.colDgvLockActvRegSeq.Width = 122
+        Me.colDgvLockActvRegSeq.Width = 123
         '
         'tabStatements
         '
@@ -1296,7 +1442,7 @@ Partial Class frmMonItemDetail
         Me.tabStatements.Location = New System.Drawing.Point(4, 26)
         Me.tabStatements.Name = "tabStatements"
         Me.tabStatements.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabStatements.Size = New System.Drawing.Size(1300, 175)
+        Me.tabStatements.Size = New System.Drawing.Size(192, 70)
         Me.tabStatements.TabIndex = 3
         Me.tabStatements.Text = "Statements"
         '
@@ -1348,7 +1494,7 @@ Partial Class frmMonItemDetail
         Me.dgvStmtList.RowHeadersVisible = False
         Me.dgvStmtList.RowTemplate.Height = 23
         Me.dgvStmtList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvStmtList.Size = New System.Drawing.Size(1294, 169)
+        Me.dgvStmtList.Size = New System.Drawing.Size(186, 64)
         Me.dgvStmtList.TabIndex = 12
         Me.dgvStmtList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvStmtList.UseTagValueMatchColor = False
@@ -1551,140 +1697,6 @@ Partial Class frmMonItemDetail
         Me.Label3.Size = New System.Drawing.Size(34, 50)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "      "
-        '
-        'chtObjectAccess
-        '
-        Me.chtObjectAccess.BorderSkin = BorderSkin1
-        Me.chtObjectAccess.DataSource = Nothing
-        Me.chtObjectAccess.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtObjectAccess.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtObjectAccess.Location = New System.Drawing.Point(0, 2824)
-        Me.chtObjectAccess.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtObjectAccess.MenuVisible = True
-        Me.chtObjectAccess.Name = "chtObjectAccess"
-        Me.chtObjectAccess.Size = New System.Drawing.Size(1285, 362)
-        Me.chtObjectAccess.TabIndex = 12
-        Me.chtObjectAccess.Title = ""
-        Me.chtObjectAccess.Visible = False
-        '
-        'chtTPS
-        '
-        Me.chtTPS.BorderSkin = BorderSkin2
-        Me.chtTPS.DataSource = Nothing
-        Me.chtTPS.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtTPS.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtTPS.Location = New System.Drawing.Point(0, 2462)
-        Me.chtTPS.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtTPS.MenuVisible = True
-        Me.chtTPS.Name = "chtTPS"
-        Me.chtTPS.Size = New System.Drawing.Size(1285, 362)
-        Me.chtTPS.TabIndex = 10
-        Me.chtTPS.Title = ""
-        Me.chtTPS.Visible = False
-        '
-        'chtLock
-        '
-        Me.chtLock.BorderSkin = BorderSkin3
-        Me.chtLock.DataSource = Nothing
-        Me.chtLock.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLock.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtLock.Location = New System.Drawing.Point(0, 2100)
-        Me.chtLock.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLock.MenuVisible = True
-        Me.chtLock.Name = "chtLock"
-        Me.chtLock.Size = New System.Drawing.Size(1285, 362)
-        Me.chtLock.TabIndex = 9
-        Me.chtLock.Title = ""
-        Me.chtLock.Visible = False
-        '
-        'chtSQLResp
-        '
-        Me.chtSQLResp.BorderSkin = BorderSkin4
-        Me.chtSQLResp.DataSource = Nothing
-        Me.chtSQLResp.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSQLResp.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtSQLResp.Location = New System.Drawing.Point(0, 1738)
-        Me.chtSQLResp.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSQLResp.MenuVisible = True
-        Me.chtSQLResp.Name = "chtSQLResp"
-        Me.chtSQLResp.Size = New System.Drawing.Size(1285, 362)
-        Me.chtSQLResp.TabIndex = 8
-        Me.chtSQLResp.Title = ""
-        Me.chtSQLResp.Visible = False
-        '
-        'chtDiskIO
-        '
-        Me.chtDiskIO.BorderSkin = BorderSkin5
-        Me.chtDiskIO.DataSource = Nothing
-        Me.chtDiskIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtDiskIO.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtDiskIO.Location = New System.Drawing.Point(0, 1376)
-        Me.chtDiskIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtDiskIO.MenuVisible = True
-        Me.chtDiskIO.Name = "chtDiskIO"
-        Me.chtDiskIO.Size = New System.Drawing.Size(1285, 362)
-        Me.chtDiskIO.TabIndex = 7
-        Me.chtDiskIO.Title = ""
-        Me.chtDiskIO.Visible = False
-        '
-        'chtPhysicalRead
-        '
-        Me.chtPhysicalRead.BorderSkin = BorderSkin6
-        Me.chtPhysicalRead.DataSource = Nothing
-        Me.chtPhysicalRead.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtPhysicalRead.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtPhysicalRead.Location = New System.Drawing.Point(0, 1014)
-        Me.chtPhysicalRead.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtPhysicalRead.MenuVisible = True
-        Me.chtPhysicalRead.Name = "chtPhysicalRead"
-        Me.chtPhysicalRead.Size = New System.Drawing.Size(1285, 362)
-        Me.chtPhysicalRead.TabIndex = 11
-        Me.chtPhysicalRead.Title = ""
-        Me.chtPhysicalRead.Visible = False
-        '
-        'chtLogicalIO
-        '
-        Me.chtLogicalIO.BorderSkin = BorderSkin7
-        Me.chtLogicalIO.DataSource = Nothing
-        Me.chtLogicalIO.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtLogicalIO.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtLogicalIO.Location = New System.Drawing.Point(0, 652)
-        Me.chtLogicalIO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtLogicalIO.MenuVisible = True
-        Me.chtLogicalIO.Name = "chtLogicalIO"
-        Me.chtLogicalIO.Size = New System.Drawing.Size(1285, 362)
-        Me.chtLogicalIO.TabIndex = 6
-        Me.chtLogicalIO.Title = ""
-        Me.chtLogicalIO.Visible = False
-        '
-        'chtSession
-        '
-        Me.chtSession.BorderSkin = BorderSkin8
-        Me.chtSession.DataSource = Nothing
-        Me.chtSession.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtSession.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtSession.Location = New System.Drawing.Point(0, 290)
-        Me.chtSession.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtSession.MenuVisible = True
-        Me.chtSession.Name = "chtSession"
-        Me.chtSession.Size = New System.Drawing.Size(1285, 362)
-        Me.chtSession.TabIndex = 5
-        Me.chtSession.Title = ""
-        Me.chtSession.Visible = False
-        '
-        'chtCPU
-        '
-        Me.chtCPU.BorderSkin = BorderSkin9
-        Me.chtCPU.DataSource = Nothing
-        Me.chtCPU.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtCPU.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.chtCPU.Location = New System.Drawing.Point(0, 0)
-        Me.chtCPU.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.chtCPU.MenuVisible = True
-        Me.chtCPU.Name = "chtCPU"
-        Me.chtCPU.Size = New System.Drawing.Size(1285, 290)
-        Me.chtCPU.TabIndex = 3
-        Me.chtCPU.Title = ""
         '
         'frmMonItemDetail
         '

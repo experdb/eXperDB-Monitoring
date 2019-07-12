@@ -67,4 +67,6 @@ Module clsVariables
 
     Public p_currentGroup As Integer
 
+    Public p_NodeLevel As Integer = 5
+
 End Module

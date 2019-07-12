@@ -1578,7 +1578,7 @@
   </ROW>
   <ROW ID="F192" PARAMS="0">
     <DESC>HEALTH LIST</DESC>
-    <DATA><![CDATA[30 초|30;1 분|60;10 분|600;30 분|1800;1 시간|3600;6 시간|21600;12 시간|43200; ]]></DATA>
+    <DATA><![CDATA[10 초|10;20 초|20;30 초|30;1 분|60;10 분|600;30 분|1800;1 시간|3600;6 시간|21600;12 시간|43200; ]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3293,7 +3293,7 @@
   </ROW>
   <ROW ID="M060" PARAMS="0">
     <DESC>Select Cluster</DESC>
-    <DATA><![CDATA[감시하고자하는 Cluster를 선택하여 조회합니다.]]></DATA>
+    <DATA><![CDATA[감시하고자하는 Cluster를 선택합니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3531,6 +3531,14 @@
   <ROW ID="M090" PARAMS="0">
     <DESC>사용자 그룹</DESC>
     <DATA><![CDATA[선택된 사용자 그룹이 없습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M091" PARAMS="0">
+    <DESC>등록</DESC>
+    <DATA><![CDATA[사용자가 등록되었습니다..]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3784,6 +3792,11 @@
   <ROW ID="F945" PARAMS="0">
     <DESC>전체선택</DESC>
     <DATA><![CDATA[전체선택]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F946" PARAMS="0">
+    <DESC>클러스터선택</DESC>
+    <DATA><![CDATA[클러스터선택]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

@@ -56,7 +56,6 @@ Partial Class frmAddSvrList
         Me.btnAdd = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel7 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgvSvrLst = New AdvancedDataGridView.TreeGridView()
-        Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.colHostNm = New AdvancedDataGridView.TreeGridColumn()
         Me.colAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -72,6 +71,7 @@ Partial Class frmAddSvrList
         Me.colHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colPGV = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colCollectPeriod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.TableLayoutPanel6.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel8.SuspendLayout()
@@ -378,13 +378,6 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.Size = New System.Drawing.Size(768, 342)
         Me.dgvSvrLst.TabIndex = 19
         '
-        'dbmsImgLst
-        '
-        Me.dbmsImgLst.ImageStream = CType(resources.GetObject("dbmsImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.dbmsImgLst.TransparentColor = System.Drawing.Color.Transparent
-        Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
-        Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
-        '
         'colHostNm
         '
         Me.colHostNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
@@ -534,6 +527,13 @@ Partial Class frmAddSvrList
         Me.colCollectPeriod.ReadOnly = True
         Me.colCollectPeriod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colCollectPeriod.Visible = False
+        '
+        'dbmsImgLst
+        '
+        Me.dbmsImgLst.ImageStream = CType(resources.GetObject("dbmsImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.dbmsImgLst.TransparentColor = System.Drawing.Color.Transparent
+        Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
+        Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
         '
         'frmAddSvrList
         '

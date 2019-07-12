@@ -598,7 +598,50 @@ Public Class frmMonDetail
 
     End Sub
 
+    Private Sub sb_ChartAlignYAxiesWithUnit(ByVal MSChart As DataVisualization.Charting.Chart)
 
+        Dim dblMaxPri As Double = 0
+        Dim dblMaxSec As Double = 0
+        For Each tmpSeries As DataVisualization.Charting.Series In MSChart.Series
+            If tmpSeries.Points.Count > 0 Then
+                If tmpSeries.YAxisType = DataVisualization.Charting.AxisType.Primary Then
+                    Dim tmpValue As Double = Double.NaN
+                    tmpValue = tmpSeries.Points.FindMaxByValue().YValues(0)
+                    dblMaxPri = Math.Max(dblMaxPri, IIf(tmpValue.Equals(Double.NaN), 0, tmpValue))
+
+                Else
+                    Dim tmpValue As Double = Double.NaN
+                    tmpValue = tmpSeries.Points.FindMaxByValue().YValues(0)
+                    dblMaxSec = Math.Max(dblMaxSec, IIf(tmpValue.Equals(Double.NaN), 0, tmpValue))
+                End If
+            End If
+        Next
+
+        If Not dblMaxPri.Equals(Double.NaN) Then
+            Dim intValuePri As Integer = dblMaxPri \ 5
+            intValuePri += 1
+            MSChart.ChartAreas(0).AxisY.Maximum = intValuePri * 5
+            MSChart.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            MSChart.ChartAreas(0).AxisY.Interval = MSChart.ChartAreas(0).AxisY.Maximum / 5
+        End If
+
+        If Not dblMaxSec.Equals(Double.NaN) Then
+
+            Dim intValueSec As Integer = dblMaxSec \ 5
+
+            MSChart.ChartAreas(0).AxisY2.Maximum = intValueSec * 5
+            MSChart.ChartAreas(0).AxisY2.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+            MSChart.ChartAreas(0).AxisY2.Interval = MSChart.ChartAreas(0).AxisY2.Maximum / 5
+        End If
+
+        If dblMaxPri <= 10 AndAlso dblMaxSec <= 10 Then
+            MSChart.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
+        Else
+            MSChart.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+        End If
+
+        MSChart.ChartAreas(0).RecalculateAxesScale()
+    End Sub
 
 #End Region
 
@@ -821,16 +864,9 @@ Public Class frmMonDetail
                 sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
             Next
         End If
-        'sb_ChartAlignYAxies(Me.chtSQLRespTm)
-        If Not dblMaxPri.Equals(Double.NaN) Then
-            If dblMaxPri < 10 Then
-                Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
-            Else
-                Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-            End If
-        End If
 
-        Me.chtSQLRespTm.ChartAreas(0).RecalculateAxesScale()
+        sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTm)
+        'Me.chtSQLRespTm.ChartAreas(0).RecalculateAxesScale()
     End Sub
     ''' <summary>
     ''' SQL Response Time 정보 등록 
@@ -1404,17 +1440,9 @@ Public Class frmMonDetail
                                   sb_ChartAddPoint(Me.chtSQLRespTm, "AVG", dblRegDt, dblAvg)
                               Next
                           End If
-                          'sb_ChartAlignYAxies(Me.chtSQLRespTm)
 
-                          If Not dblMaxPri.Equals(Double.NaN) Then
-                              If dblMaxPri < 10 Then
-                                  Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "F2"
-                              Else
-                                  Me.chtSQLRespTm.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-                              End If
-                          End If
-
-                          Me.chtSQLRespTm.ChartAreas(0).RecalculateAxesScale()
+                          sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTm)
+                          'Me.chtSQLRespTm.ChartAreas(0).RecalculateAxesScale()
                       Catch ex As Exception
                           GC.Collect()
                       End Try
@@ -1475,42 +1503,43 @@ Public Class frmMonDetail
             GC.Collect()
         End Try
 
-            Dim InstanceIDs As String = ""
-            For Each instRow As DataRow In dtRows
-                InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))
-            Next
+        Dim InstanceIDs As String = ""
+        Dim arrValue As New ArrayList
+        For Each instRow As DataRow In dtRows
+            arrValue.Add(instRow.Item("INSTANCE_ID").ToString())
+        Next
+        InstanceIDs = String.Join(",", arrValue.ToArray)
+        Me.Invoke(Sub()
+                      dtTable = Nothing
+                      Try
+                          dtTable = _clsQuery.SelectReplication(InstanceIDs, False)
+                          For Each instRow As DataRow In dtRows
+                              If dtTable IsNot Nothing Then
+                                  Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & instRow.Item("INSTANCE_ID"))
 
-            Me.Invoke(Sub()
-                          dtTable = Nothing
-                          Try
-                              dtTable = _clsQuery.SelectReplication(InstanceIDs, False)
-                              For Each instRow As DataRow In dtRows
-                                  If dtTable IsNot Nothing Then
-                                      Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & instRow.Item("INSTANCE_ID"))
-
-                                      If dtRowsReplication.Count = 0 Then
-                                          Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
-                                          sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
-                                          sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
-                                      Else
-                                          For Each replRow As DataRow In dtRowsReplication
-                                              Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
-                                              sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG")))
-                                              sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG_SIZE")))
-                                          Next
-                                      End If
-                                  Else
+                                  If dtRowsReplication.Count = 0 Then
                                       Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                       sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
                                       sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                  Else
+                                      For Each replRow As DataRow In dtRowsReplication
+                                          Dim dblRegDt As Double = ConvOADate(replRow.Item("COLLECT_DT"))
+                                          sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG")))
+                                          sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(replRow.Item("REPLAY_LAG_SIZE")))
+                                      Next
                                   End If
-                              Next
-                              sb_ChartAlignYAxies(Me.chtReplication)
-                              sb_ChartAlignYAxies(Me.chtReplicationSize)
-                          Catch ex As Exception
-                              GC.Collect()
-                          End Try
-                      End Sub)
+                              Else
+                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                  sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                                  sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)
+                              End If
+                          Next
+                          sb_ChartAlignYAxies(Me.chtReplication)
+                          sb_ChartAlignYAxies(Me.chtReplicationSize)
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
     End Sub
 
     Private Sub AddReplicationSeries(ByRef dtTable As DataTable)
@@ -1599,9 +1628,11 @@ Public Class frmMonDetail
         If dtRows.Count <= 0 Then Return
 
         Dim InstanceIDs As String = ""
+        Dim arrValue As New ArrayList
         For Each instRow As DataRow In dtRows
-            InstanceIDs = String.Join(",", instRow.Item("INSTANCE_ID"))
+            arrValue.Add(instRow.Item("INSTANCE_ID").ToString())
         Next
+        InstanceIDs = String.Join(",", arrValue.ToArray)
 
         Me.Invoke(Sub()
                       dtTable = Nothing

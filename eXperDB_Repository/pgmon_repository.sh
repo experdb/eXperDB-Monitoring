@@ -280,6 +280,15 @@ create table tb_replication_info (
     collect_dt timestamp without time zone
 )partition by list (reg_date);
 
+create table tb_replication_lag_info (
+    reg_date character varying(8) not null,
+    repl_reg_seq integer not null,
+    instance_id integer not null,
+    replay_lag integer,
+    replay_lag_size numeric(20,0),
+    collect_dt timestamp without time zone
+)partition by list (reg_date);
+
 create table tb_checkpoint_info (
     reg_date character varying(8) not null,
     repl_reg_seq integer not null,
@@ -655,6 +664,7 @@ create table tb_disk_io_${TODAY} partition of tb_disk_io for values in ('${TODAY
 create table tb_disk_usage_${TODAY} partition of tb_disk_usage for values in ('${TODAY}');
 create table tb_hchk_collect_info_${TODAY} partition of tb_hchk_collect_info for values in ('${TODAY}');
 create table tb_replication_info_${TODAY} partition of tb_replication_info for values in ('${TODAY}');
+create table tb_replication_lag_info_${TODAY} partition of tb_replication_lag_info for values in ('${TODAY}');
 create table tb_checkpoint_info_${TODAY} partition of tb_checkpoint_info for values in ('${TODAY}');
 create table tb_memory_stat_${TODAY} partition of tb_memory_stat for values in ('${TODAY}');
 create table tb_objt_collect_info_${TODAY} partition of tb_objt_collect_info  for values in ('${TODAY}');
@@ -676,6 +686,7 @@ alter table only tb_disk_io_${TODAY} add constraint pk_tb_disk_io_${TODAY} prima
 alter table only tb_disk_usage_${TODAY} add constraint pk_tb_disk_usage_${TODAY} primary key (reg_date,rsc_reg_seq,mount_point_dir);
 alter table only tb_hchk_collect_info_${TODAY} add constraint pk_tb_hchk_collect_info_${TODAY} primary key (reg_date,hchk_reg_seq,instance_id,hchk_name);
 alter table only tb_replication_info_${TODAY} add constraint pk_ha_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
+alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
 alter table only tb_checkpoint_info_${TODAY} add constraint pk_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
 alter table only tb_memory_stat_${TODAY} add constraint pk_tb_memory_stat_${TODAY} primary key (reg_date,rsc_reg_seq);
 alter table only tb_objt_collect_info_${TODAY} add constraint pk_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
@@ -867,7 +878,7 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.321', '$BINPATH');
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.324', '$BINPATH');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');

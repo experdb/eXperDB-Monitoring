@@ -132,6 +132,7 @@ public class ReplCollect extends TaskApplication {
 			sessionAgent = sqlSessionFactory.openSession();
 			
 			HashMap<String, Object> replSel = new HashMap<String,Object>();// Replicaiton 정보 수집
+			List<HashMap<String, Object>> replLagSel = new ArrayList<HashMap<String,Object>>();// Replicaiton lag 정보 수집
 		
 			//////////////////////////////////////////////////////////////////////////////////
 			// Replication 정보 수집
@@ -156,6 +157,7 @@ public class ReplCollect extends TaskApplication {
 					dbVerMap.put("start_delay", startDelay);
 					
 					replSel = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", dbVerMap);
+					replLagSel = sessionCollect.selectList("app.EXPERDBMA_BT_REPLICATION_LAG", dbVerMap);
 				} catch (Exception e) {
 					failed_collect_type = "1";
 					is_collect_ok = "N";
@@ -235,6 +237,12 @@ public class ReplCollect extends TaskApplication {
 				parameObjt.put("replay_lag_size", replSel.get("replay_lag_size"));
 				
 				sessionAgent.insert("app.TB_REPL_COLLECT_INFO_I001", parameObjt);
+				
+				// replication lag 정보등록
+				for (HashMap<String, Object> map : replLagSel) {
+					if(map.get("replay_lag") != null && Double.parseDouble(map.get("replay_lag").toString()) >= 0)
+						sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
+				}				
 				
 				if(is_collect_ok.equals("N"))
 				{

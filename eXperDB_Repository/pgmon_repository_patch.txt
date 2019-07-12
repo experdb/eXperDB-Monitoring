@@ -1,4 +1,10 @@
--- 315 to 322
+#-- 315 to 322
+
+#!/bin/sh
+
+TODAY=`date +'%Y%m%d'`
+
+cat << EOF > ${0%.*}.sql
 ALTER TABLE TB_MON_USER ALTER COLUMN  user_password TYPE varchar(64);
 ALTER TABLE TB_MON_USER ALTER COLUMN  user_phone set default '';
 ALTER TABLE TB_MON_USER ALTER COLUMN	user_email set default '';
@@ -139,6 +145,20 @@ alter table only tb_mon_perm_by_user add constraint pk_tb_mon_perm_by_user prima
 
 create index if not exists idx01_tb_alert_export_info on tb_alert_export_info using btree (collect_dt desc);
 
+
+create table tb_replication_lag_info (
+    reg_date character varying(8) not null,
+    repl_reg_seq integer not null,
+    instance_id integer not null,
+    replay_lag integer,
+    replay_lag_size numeric(20,0),
+    collect_dt timestamp without time zone
+)partition by list (reg_date);
+
+create table tb_replication_lag_info_${TODAY} partition of tb_replication_lag_info for values in ('${TODAY}');
+
+alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
+
 -----------------------<User Managements>--------------------------------------------------
 insert into tb_mon_user (user_id, user_name, user_password, last_mod_user_id, is_admin_tf, set_pw_dt) values('admin', 'admin', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=', 'admin', true, now());
 insert into tb_mon_user_policy (last_mod_user_id,	last_mod_dt) values('admin', now());
@@ -174,7 +194,8 @@ alter table tb_config add column last_mod_user_id character varying(16) default 
 alter table tb_hchk_thrd_list add column last_mod_user_id character varying(16) default null;
 alter table tb_instance_info add column last_mod_user_id character varying(16) default null;
 
-update tb_config set version = '11.5.0.321';
+update tb_config set version = '${EXPERDB_VERSION}';
 update tb_config set binary_path = '/experdb/app/eXperDB-Monitoring/eXperDB_Server/files';
 
 
+EOF

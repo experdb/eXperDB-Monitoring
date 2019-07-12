@@ -1578,7 +1578,7 @@
   </ROW>
   <ROW ID="F192" PARAMS="0">
     <DESC>HEALTH LIST</DESC>
-    <DATA><![CDATA[30 s|30;1 m|60;10 m|600;30 m|1800;1 h|3600;6 h|21600;12 h|43200]]></DATA>
+    <DATA><![CDATA[10 s|10;20 s|20;30 s|30;1 m|60;10 m|600;30 m|1800;1 h|3600;6 h|21600;12 h|43200]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3790,6 +3790,11 @@
   <ROW ID="F945" PARAMS="0">
     <DESC>전체선택</DESC>
     <DATA><![CDATA[All]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F946" PARAMS="0">
+    <DESC>클러스터선택</DESC>
+    <DATA><![CDATA[Select Clusters]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>
