@@ -340,7 +340,8 @@ Public Class frmLogin
         Try
             Dim registryKey As RegistryKey = Nothing
             registryKey = registryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry32)
-            registryKey = registryKey.OpenSubKey(HKLMPATH, True)
+            'registryKey = registryKey.OpenSubKey(HKLMPATH, True)
+            registryKey = registryKey.OpenSubKey(HKLMPATH, False)
             If registryKey IsNot Nothing Then
                 Dim installPath = CStr(My.Computer.Registry.GetValue(REGISTRYPATH, "InstallPath", Nothing) + "\" + APPNAME)
                 proc = Process.Start(installPath)

@@ -38,7 +38,9 @@ Partial Class frmNotiConfig
         Me.txtSender = New eXperDB.BaseControls.TextBox()
         Me.GroupBox1 = New eXperDB.BaseControls.GroupBox()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
-        Me.txtStatements = New eXperDB.BaseControls.TextBox()
+        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblAccountPolicy = New System.Windows.Forms.Label()
         Me.lblStatements = New eXperDB.BaseControls.Label()
         Me.lblDBMS = New eXperDB.BaseControls.Label()
         Me.cmbDBMS = New eXperDB.BaseControls.ComboBox()
@@ -52,9 +54,8 @@ Partial Class frmNotiConfig
         Me.lblPort = New eXperDB.BaseControls.Label()
         Me.txtIP = New eXperDB.BaseControls.TextBox()
         Me.txtPort = New eXperDB.BaseControls.TextBox()
-        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.lblAccountPolicy = New System.Windows.Forms.Label()
+        Me.RichTextBoxQuery1 = New eXperDB.Controls.RichTextBoxQuery()
+        Me.txtStatements = New eXperDB.BaseControls.TextBox()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -140,7 +141,7 @@ Partial Class frmNotiConfig
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnTest, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 514)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 527)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -216,7 +217,7 @@ Partial Class frmNotiConfig
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(489, 461)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(489, 474)
         Me.TableLayoutPanel1.TabIndex = 18
         '
         'TableLayoutPanel4
@@ -288,7 +289,7 @@ Partial Class frmNotiConfig
         Me.GroupBox1.LineWidth = 1
         Me.GroupBox1.Location = New System.Drawing.Point(3, 73)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(483, 385)
+        Me.GroupBox1.Size = New System.Drawing.Size(483, 398)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.TitleFont = New System.Drawing.Font("Gulim", 9.0!)
@@ -305,8 +306,9 @@ Partial Class frmNotiConfig
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpSvrChk.Controls.Add(Me.RichTextBoxQuery1, 1, 8)
         Me.tlpSvrChk.Controls.Add(Me.TableLayoutPanel5, 0, 0)
-        Me.tlpSvrChk.Controls.Add(Me.txtStatements, 1, 8)
+        Me.tlpSvrChk.Controls.Add(Me.txtStatements, 1, 9)
         Me.tlpSvrChk.Controls.Add(Me.lblStatements, 0, 8)
         Me.tlpSvrChk.Controls.Add(Me.lblDBMS, 0, 1)
         Me.tlpSvrChk.Controls.Add(Me.cmbDBMS, 1, 1)
@@ -334,30 +336,52 @@ Partial Class frmNotiConfig
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(477, 365)
+        Me.tlpSvrChk.Size = New System.Drawing.Size(477, 378)
         Me.tlpSvrChk.TabIndex = 21
         '
-        'txtStatements
+        'TableLayoutPanel5
         '
-        Me.txtStatements.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtStatements.code = False
-        Me.tlpSvrChk.SetColumnSpan(Me.txtStatements, 2)
-        Me.txtStatements.Dock = System.Windows.Forms.DockStyle.Top
-        Me.txtStatements.FixedWidth = False
-        Me.txtStatements.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtStatements.impossibleinput = ""
-        Me.txtStatements.Location = New System.Drawing.Point(136, 258)
-        Me.txtStatements.MaxByteLength = 300
-        Me.txtStatements.Multiline = True
-        Me.txtStatements.Name = "txtStatements"
-        Me.txtStatements.Necessary = True
-        Me.txtStatements.PossibleInput = ""
-        Me.txtStatements.Prefix = ""
-        Me.txtStatements.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtStatements.Size = New System.Drawing.Size(324, 84)
-        Me.txtStatements.StatusTip = ""
-        Me.txtStatements.TabIndex = 6
-        Me.txtStatements.Value = ""
+        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TableLayoutPanel5.ColumnCount = 5
+        Me.tlpSvrChk.SetColumnSpan(Me.TableLayoutPanel5, 4)
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.Label8, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblAccountPolicy, 1, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(471, 29)
+        Me.TableLayoutPanel5.TabIndex = 31
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label8.Image = CType(resources.GetObject("Label8.Image"), System.Drawing.Image)
+        Me.Label8.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label8.Location = New System.Drawing.Point(3, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(34, 29)
+        Me.Label8.TabIndex = 2
+        Me.Label8.Text = "      "
+        '
+        'lblAccountPolicy
+        '
+        Me.lblAccountPolicy.AutoSize = True
+        Me.lblAccountPolicy.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblAccountPolicy.ForeColor = System.Drawing.Color.White
+        Me.lblAccountPolicy.Location = New System.Drawing.Point(43, 0)
+        Me.lblAccountPolicy.Name = "lblAccountPolicy"
+        Me.lblAccountPolicy.Size = New System.Drawing.Size(317, 29)
+        Me.lblAccountPolicy.TabIndex = 3
+        Me.lblAccountPolicy.Text = "Connection setup"
+        Me.lblAccountPolicy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblStatements
         '
@@ -397,7 +421,7 @@ Partial Class frmNotiConfig
         Me.cmbDBMS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbDBMS.FixedWidth = False
         Me.cmbDBMS.FormattingEnabled = True
-        Me.cmbDBMS.Items.AddRange(New Object() {"MSSQL"})
+        Me.cmbDBMS.Items.AddRange(New Object() {"MSSQL", "ORACLE"})
         Me.cmbDBMS.Location = New System.Drawing.Point(136, 47)
         Me.cmbDBMS.Name = "cmbDBMS"
         Me.cmbDBMS.Necessary = True
@@ -572,56 +596,60 @@ Partial Class frmNotiConfig
         Me.txtPort.TabIndex = 2
         Me.txtPort.Value = "0"
         '
-        'TableLayoutPanel5
+        'RichTextBoxQuery1
         '
-        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        Me.TableLayoutPanel5.ColumnCount = 5
-        Me.tlpSvrChk.SetColumnSpan(Me.TableLayoutPanel5, 4)
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.Label8, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblAccountPolicy, 1, 0)
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 1
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(471, 29)
-        Me.TableLayoutPanel5.TabIndex = 31
+        Me.RichTextBoxQuery1.AutoWordSelection = True
+        Me.RichTextBoxQuery1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.RichTextBoxQuery1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.tlpSvrChk.SetColumnSpan(Me.RichTextBoxQuery1, 2)
+        Me.RichTextBoxQuery1.Comments = System.Drawing.Color.Green
+        Me.RichTextBoxQuery1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.DimGray
+        Me.RichTextBoxQuery1.Functions = System.Drawing.Color.Maroon
+        Me.RichTextBoxQuery1.HideSelection = False
+        Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.Blue
+        Me.RichTextBoxQuery1.Location = New System.Drawing.Point(136, 258)
+        Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
+        Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
+        Me.RichTextBoxQuery1.Size = New System.Drawing.Size(324, 84)
+        Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.Blue
+        Me.RichTextBoxQuery1.Strings = System.Drawing.Color.Red
+        Me.RichTextBoxQuery1.TabIndex = 32
+        Me.RichTextBoxQuery1.Text = ""
+        Me.RichTextBoxQuery1.Types = System.Drawing.Color.Brown
+        Me.RichTextBoxQuery1.VariableRegex = "\$[a-zA-Z_\d]*\b"
+        Me.RichTextBoxQuery1.Variables = System.Drawing.Color.Maroon
+        Me.RichTextBoxQuery1.WordWrap = False
         '
-        'Label8
+        'txtStatements
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label8.Image = CType(resources.GetObject("Label8.Image"), System.Drawing.Image)
-        Me.Label8.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label8.Location = New System.Drawing.Point(3, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(34, 29)
-        Me.Label8.TabIndex = 2
-        Me.Label8.Text = "      "
-        '
-        'lblAccountPolicy
-        '
-        Me.lblAccountPolicy.AutoSize = True
-        Me.lblAccountPolicy.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblAccountPolicy.ForeColor = System.Drawing.Color.White
-        Me.lblAccountPolicy.Location = New System.Drawing.Point(43, 0)
-        Me.lblAccountPolicy.Name = "lblAccountPolicy"
-        Me.lblAccountPolicy.Size = New System.Drawing.Size(317, 29)
-        Me.lblAccountPolicy.TabIndex = 3
-        Me.lblAccountPolicy.Text = "Connection setup"
-        Me.lblAccountPolicy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.txtStatements.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtStatements.code = False
+        Me.tlpSvrChk.SetColumnSpan(Me.txtStatements, 2)
+        Me.txtStatements.Dock = System.Windows.Forms.DockStyle.Top
+        Me.txtStatements.FixedWidth = False
+        Me.txtStatements.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtStatements.impossibleinput = ""
+        Me.txtStatements.Location = New System.Drawing.Point(136, 348)
+        Me.txtStatements.MaxByteLength = 300
+        Me.txtStatements.Multiline = True
+        Me.txtStatements.Name = "txtStatements"
+        Me.txtStatements.Necessary = True
+        Me.txtStatements.PossibleInput = ""
+        Me.txtStatements.Prefix = ""
+        Me.txtStatements.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtStatements.Size = New System.Drawing.Size(324, 27)
+        Me.txtStatements.StatusTip = ""
+        Me.txtStatements.TabIndex = 6
+        Me.txtStatements.Value = ""
+        Me.txtStatements.Visible = False
         '
         'frmNotiConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(495, 562)
+        Me.ClientSize = New System.Drawing.Size(495, 575)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
@@ -660,7 +688,6 @@ Partial Class frmNotiConfig
     Friend WithEvents txtSender As eXperDB.BaseControls.TextBox
     Friend WithEvents GroupBox1 As eXperDB.BaseControls.GroupBox
     Friend WithEvents tlpSvrChk As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents txtStatements As eXperDB.BaseControls.TextBox
     Friend WithEvents lblStatements As eXperDB.BaseControls.Label
     Friend WithEvents lblDBMS As eXperDB.BaseControls.Label
     Friend WithEvents cmbDBMS As eXperDB.BaseControls.ComboBox
@@ -678,4 +705,6 @@ Partial Class frmNotiConfig
     Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents lblAccountPolicy As System.Windows.Forms.Label
+    Friend WithEvents RichTextBoxQuery1 As eXperDB.Controls.RichTextBoxQuery
+    Friend WithEvents txtStatements As eXperDB.BaseControls.TextBox
 End Class

@@ -362,6 +362,10 @@ public class HchkCollect extends TaskApplication {
 					driver =  "com.microsoft.sqlserver.jdbc.SQLServerDriver" ;
 					connectUrl = "jdbc:sqlserver://"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+";databaseName="+selectExportInfo.get("link_database").toString();
 					break;
+				case 1 :
+					driver =  "oracle.jdbc.driver.OracleDriver" ;
+					connectUrl =  "jdbc:oracle:thin:@"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString();
+					break;
 			}
 			
 			Class.forName(driver);

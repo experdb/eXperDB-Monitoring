@@ -69,7 +69,7 @@ Public Class frmNotiConfig
             MsgBox(p_clsMsgData.fn_GetData("M001", "User password"))
             Return
         End If
-        If txtStatements.Text = "" Then
+        If RichTextBoxQuery1.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", "Statements"))
             Return
         End If
@@ -82,7 +82,7 @@ Public Class frmNotiConfig
 
         Dim COC As New Common.ClsObjectCtl
         Dim strLocIP As String = COC.GetLocalIP
-        Dim strStatements = txtStatements.Text.Replace("'", "''")
+        Dim strStatements = RichTextBoxQuery1.Text.Replace("'", "''")
         Dim nReturn As Integer = _clsQuery.insertAlertLinkConfig(cmbDBMS.SelectedIndex, txtIP.Text, txtPort.Text, txtDbnm.Text, txtUsr.Text, txtPW.Text, strStatements, txtSender.Text, strLocIP)
         If nReturn < 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M029"))
@@ -246,12 +246,12 @@ Public Class frmNotiConfig
             txtUsr.Text = dt.Rows(0).Item("LINK_ID")
             txtPW.Text = dt.Rows(0).Item("LINK_PASSWORD")
             _OldPWValue = txtPW.Text
-            txtStatements.Text = dt.Rows(0).Item("LINK_STATEMENTS")
+            RichTextBoxQuery1.Text = dt.Rows(0).Item("LINK_STATEMENTS")
+            RichTextBoxQuery1.Tag = dt.Rows(0).Item("LINK_STATEMENTS")
             txtSender.Text = dt.Rows(0).Item("NOTIFICATION_SENDER")
             btnAct.Enabled = False
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            GC.Collect()
         End Try
     End Sub
 
@@ -304,9 +304,9 @@ Public Class frmNotiConfig
         'End If
 
         tlpSvrChk.Enabled = False
-
+        Dim dbType As Integer = (cmbDBMS.SelectedIndex + 1) * -1
         AgentMsgConnectCheck = New clsAgentEMsg(_strAgentIP, _intAgentPort)
-        AgentMsgConnectCheck.SendDX003(strIp, strPort, strID, DBName, strPw, -2)
+        AgentMsgConnectCheck.SendDX003(strIp, strPort, strID, DBName, strPw, dbType)
     End Sub
 
     ''' <summary>
@@ -367,5 +367,24 @@ Public Class frmNotiConfig
         If frmUM.ShowDialog = Windows.Forms.DialogResult.OK Then
 
         End If
+    End Sub
+
+    Private Sub cmbDBMS_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDBMS.SelectedIndexChanged
+        Try
+            Dim dt As DataTable = _clsQuery.SelectAlertLinkConfig(cmbDBMS.SelectedIndex)
+            txtIP.Text = dt.Rows(0).Item("LINK_IP")
+            txtPort.Text = CInt(dt.Rows(0).Item("LINK_PORT"))
+            txtDbnm.Text = dt.Rows(0).Item("LINK_DATABASE")
+            txtUsr.Text = dt.Rows(0).Item("LINK_ID")
+            txtPW.Text = dt.Rows(0).Item("LINK_PASSWORD")
+            _OldPWValue = txtPW.Text
+            RichTextBoxQuery1.Text = dt.Rows(0).Item("LINK_STATEMENTS")
+            RichTextBoxQuery1.Tag = dt.Rows(0).Item("LINK_STATEMENTS")
+            txtSender.Text = dt.Rows(0).Item("NOTIFICATION_SENDER")
+            btnAct.Enabled = False
+            _isChangedPW = 0
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 End Class

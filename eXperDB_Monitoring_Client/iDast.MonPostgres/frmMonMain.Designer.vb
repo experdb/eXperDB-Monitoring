@@ -685,11 +685,11 @@ Partial Class frmMonMain
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(60, Byte), Integer), CType(CType(60, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel2.SetColumnSpan(Me.Panel1, 12)
+        Me.TableLayoutPanel2.SetColumnSpan(Me.Panel1, 13)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(3, 49)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1738, 14)
+        Me.Panel1.Size = New System.Drawing.Size(1778, 14)
         Me.Panel1.TabIndex = 8
         '
         'SplitContainer1
@@ -3948,6 +3948,7 @@ Partial Class frmMonMain
         Me.dgvClusters.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.dgvClusters.EnableHeadersVisualStyles = False
         Me.dgvClusters.GridColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.dgvClusters.HideExpandeIcon = False
         Me.dgvClusters.ImageList = Me.instanceImgLst
         Me.dgvClusters.Location = New System.Drawing.Point(3, 4)
         Me.dgvClusters.MultiSelect = False

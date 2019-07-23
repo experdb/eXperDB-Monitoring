@@ -116,19 +116,19 @@ Public Class frmUser
             End If
         End If
 
-        If txtPassword.Text.Length < _PasswordLength Or txtPassword.Text.Length > 16 Then
-            Dim strMSg As String = p_clsMsgData.fn_GetData(IIf(_isCombine, "M081", "M037"), _PasswordLength)
-            MsgBox(strMSg)
-            txtPassword.Focus()
-            Return
-        End If
+        'If txtPassword.Text.Length < _PasswordLength Or txtPassword.Text.Length > 16 Then
+        '    Dim strMSg As String = p_clsMsgData.fn_GetData(IIf(_isCombine, "M081", "M037"), _PasswordLength)
+        '    MsgBox(strMSg)
+        '    txtPassword.Focus()
+        '    Return
+        'End If
 
-        If fn_CheckEnglishNumber(txtPassword.Text) = False Then
-            Dim strMSg As String = p_clsMsgData.fn_GetData(IIf(_isCombine, "M081", "M037"), _PasswordLength)
-            MsgBox(strMSg)
-            txtPassword.Focus()
-            Return
-        End If
+        'If fn_CheckEnglishNumber(txtPassword.Text) = False Then
+        '    Dim strMSg As String = p_clsMsgData.fn_GetData(IIf(_isCombine, "M081", "M037"), _PasswordLength)
+        '    MsgBox(strMSg)
+        '    txtPassword.Focus()
+        '    Return
+        'End If
 
 
         'Dim strkey = fn_GetSerial()

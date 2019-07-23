@@ -20,9 +20,9 @@ public class DX003 implements SocketApplication{
 
 	public class DB_TYPE
 	{
-	    public static final int POG = -1;
-	    public static final int MSS = -2;
-	    public static final int ORA = -3;
+	    public static final int MSS = -1;
+	    public static final int ORA = -2;
+	    public static final int POG = -3;
 	    public static final int MYSQL = -4;
 	}
 	
@@ -106,6 +106,10 @@ public class DX003 implements SocketApplication{
 					case DB_TYPE.MSS :
 						driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 						connectURL = "jdbc:sqlserver://" + jReqDataObj.get("targetip")+":" + jReqDataObj.get("targetport") +";databaseName=" + jReqDataObj.get("database");
+						break;
+					case DB_TYPE.ORA :
+						driver =  "oracle.jdbc.driver.OracleDriver" ;
+						connectURL =  "jdbc:oracle:thin:@"+jReqDataObj.get("targetip")+":"+jReqDataObj.get("targetport")+"/"+jReqDataObj.get("database");
 						break;
 					case DB_TYPE.POG :
 						driver = "org.postgresql.Driver";

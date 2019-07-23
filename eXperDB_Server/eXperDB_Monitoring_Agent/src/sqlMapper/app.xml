@@ -3528,7 +3528,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="TB_EXPORT_INFO_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT * FROM TB_ALERT_LINK_CONFIG;
+			SELECT * FROM TB_ALERT_LINK_CONFIG ORDER BY LAST_MOD_DT DESC LIMIT 1;
 		  ]]>
 	</select>
 	
@@ -3537,7 +3537,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	      SELECT 
 	      		0 AS export_type,
 			    ALERT.instance_id INSTANCE_ID,
-			    (select COALESCE(notification_sender, '') from tb_alert_link_config) AS sender,
+			    (select COALESCE(notification_sender, '') from tb_alert_link_config ORDER BY LAST_MOD_DT DESC LIMIT 1) AS sender,
 			    MU.USER_PHONE AS reciever,
 	            ALERT.state export_level,
 	            '['

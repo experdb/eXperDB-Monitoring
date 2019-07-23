@@ -59,7 +59,7 @@ CREATE TABLE tb_mon_user_allow_ip
 alter table only tb_mon_user_allow_ip add constraint pk_tb_mon_user_allow_ip primary key (user_id,allow_ip);
 
 create unlogged table tb_mon_login_attempts (
-    allow_ip character varying(20) not null primary key,
+    attempt_ip character varying(20) not null primary key,
     attempt_cnt integer default 0,
     attempt_dt timestamp without time zone default now()
 );

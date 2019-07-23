@@ -97,7 +97,7 @@
                     For i As Integer = 1 To p_NodeLevel - 1
                         If newNode IsNot Nothing Then
                             newNode = sb_AddChildNode(newNode, HashTbl, dtView.Table.Select("HA_ROLE = 'S'"))
-                            newNode.Expand()
+                            If newNode IsNot Nothing Then newNode.Expand()
                         End If
                     Next
 
@@ -694,7 +694,9 @@
         If RadioButton.Checked = True Then
             ''' button ReadSvrListbyGroup(btnAdd.Tag, RadioButton.Tag)
             ReadSvrListbyGroup(_odbcConn, RadioButton.Tag)
-            cmbGrp.SelectedIndex = RadioButton.Tag - 1
+            If cmbGrp.Items.Count > 0 Then
+                cmbGrp.SelectedIndex = RadioButton.Tag - 1
+            End If
         Else
             dgvMonLst.Nodes.Clear()
         End If

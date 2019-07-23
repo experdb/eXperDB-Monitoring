@@ -2560,10 +2560,15 @@
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function SelectAlertLinkConfig() As DataTable
+    Public Function SelectAlertLinkConfig(Optional ByVal index As Integer = -1) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
+            Dim strSub As String = ""
             Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTALERTLINKCONFIG")
+            If index >= 0 Then
+                strSub = " WHERE LINK_TYPE = " + CStr(index)
+            End If
+            strQuery = String.Format(strQuery, strSub)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                 Return dtSet.Tables(0)
