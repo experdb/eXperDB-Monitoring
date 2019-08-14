@@ -363,6 +363,8 @@ public class ActvCollect extends TaskApplication {
 					inputParam.put("instance_id", 				Integer.parseInt(instanceId));
 					inputParam.put("queryid", 					map.get("blocking_query"));
 					inputParam.put("query", 					map.get("blocking_query"));
+					inputParam.put("dbid", 						map.get("blocking_datid"));
+					inputParam.put("userid", 					map.get("blocking_usesysid"));
 					sessionAgent.insert("app.TB_CURRENT_LOCK_I001", map);
 					HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
 					if (queryIdMap == null){
@@ -445,9 +447,9 @@ public class ActvCollect extends TaskApplication {
 						inputParam.put("instance_id", 				Integer.parseInt(instanceId));
 						inputParam.put("queryid", 					map.get("sql"));
 						inputParam.put("query", 					map.get("sql"));
-						
-
-						
+						inputParam.put("dbid", 						map.get("datid"));
+						inputParam.put("userid", 					map.get("usesysid"));
+												
 //						sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
 //						if (map.get("db_name") != null)
 //							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);

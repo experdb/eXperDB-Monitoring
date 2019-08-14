@@ -5,6 +5,7 @@ Public Class frmNotiConfig
     Private _OldPWValue As String = ""
     Private _strAgentIP As String = ""
     Private _intAgentPort As Integer = 0
+    Private _strKey As String = ""
 
     Private _clsQuery As clsQuerys
 
@@ -41,11 +42,31 @@ Public Class frmNotiConfig
         StatusLabel.Text = p_clsMsgData.fn_GetData("M068")
 
         _SvrpList = svrLst
+        txtIP_LostFocus(txtIP, Nothing)
 
         Dim ts As eXperDB.ODBC.structConnection = modCommon.AgentInfoRead()
         Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
         Dim tmpCn As New eXperDBODBC(dbType, ts.HostIP, ts.Port, ts.UserID, ts.Password, ts.DBName)
         _clsQuery = New clsQuerys(tmpCn)
+        loadCryptKey()
+    End Sub
+
+
+    Private Sub loadCryptKey()
+        Try
+            Dim dtConfig As DataTable = _clsQuery.SelectConfig
+            _strAgentIP = IIf(IsDBNull(dtConfig.Rows(0).Item("AGENT_IP")), "", dtConfig.Rows(0).Item("AGENT_IP"))
+            _intAgentPort = IIf(IsDBNull(dtConfig.Rows(0).Item("AGENT_PORT")), 0, dtConfig.Rows(0).Item("AGENT_PORT"))
+            Dim dtTable As DataTable = _clsQuery.SelectSerialKey
+            If dtTable IsNot Nothing Then
+                Dim dtRow As DataRow = dtTable.Rows(0)
+                _strKey = dtRow.Item("LICDATA")
+            Else : Return
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+        End Try
     End Sub
 
     Private Sub btnAct_Click(sender As Object, e As EventArgs) Handles btnAct.Click
@@ -80,10 +101,20 @@ Public Class frmNotiConfig
             Return
         End If
 
+        Dim strPw As String = ""
+        Dim strKey As String = _strKey
+        If _isChangedPW = 1 Then
+            _crypt.TDESImplementation(strKey.Substring(0, 24), strKey.Substring(0, 8))
+            strPw = _crypt.EncryptTDES(txtPW.Text)
+            txtPW.Text = strPw
+        Else
+            strPw = txtPW.Text
+        End If
+
         Dim COC As New Common.ClsObjectCtl
         Dim strLocIP As String = COC.GetLocalIP
         Dim strStatements = RichTextBoxQuery1.Text.Replace("'", "''")
-        Dim nReturn As Integer = _clsQuery.insertAlertLinkConfig(cmbDBMS.SelectedIndex, txtIP.Text, txtPort.Text, txtDbnm.Text, txtUsr.Text, txtPW.Text, strStatements, txtSender.Text, strLocIP)
+        Dim nReturn As Integer = _clsQuery.insertAlertLinkConfig(cmbDBMS.SelectedIndex, txtIP.Text, txtPort.Text, txtDbnm.Text, txtUsr.Text, strPw, strStatements, txtSender.Text, strLocIP)
         If nReturn < 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M029"))
         Else
@@ -101,16 +132,6 @@ Public Class frmNotiConfig
 
     Private Sub txtUsr_TextChanged(sender As Object, e As EventArgs)
 
-    End Sub
-
-    Private Sub txtIP_LostFocus(sender As Object, e As EventArgs)
-        btnAct.Enabled = False
-        ' HA info 201804
-        If txtUsr.Text.Trim <> "" _
-            AndAlso txtPW.Text.Trim <> "" _
-            AndAlso txtIP.Text.Trim <> "" _
-            AndAlso txtPort.Text.Trim <> "" Then
-        End If
     End Sub
 
     Private WithEvents AgentMsgDbInfo As clsAgentEMsg
@@ -271,22 +292,7 @@ Public Class frmNotiConfig
         Dim strPort As Integer = txtPort.Text
         Dim strID As String = txtUsr.Text
         Dim strPw As String
-        Dim strKey As String = ""
-
-        Try
-            Dim dtConfig As DataTable = _clsQuery.SelectConfig
-            _strAgentIP = IIf(IsDBNull(dtConfig.Rows(0).Item("AGENT_IP")), "", dtConfig.Rows(0).Item("AGENT_IP"))
-            _intAgentPort = IIf(IsDBNull(dtConfig.Rows(0).Item("AGENT_PORT")), 0, dtConfig.Rows(0).Item("AGENT_PORT"))
-            Dim dtTable As DataTable = _clsQuery.SelectSerialKey
-            If dtTable IsNot Nothing Then
-                Dim dtRow As DataRow = dtTable.Rows(0)
-                strKey = dtRow.Item("LICDATA")
-            Else : Return
-            End If
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-            GC.Collect()
-        End Try
+        Dim strKey As String = _strKey
 
         If _isChangedPW = 1 Then
             _crypt.TDESImplementation(strKey.Substring(0, 24), strKey.Substring(0, 8))
@@ -387,4 +393,24 @@ Public Class frmNotiConfig
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
     End Sub
+
+    Private Sub txtIP_LostFocus(sender As Object, e As EventArgs) Handles txtIP.LostFocus, txtPW.LostFocus, txtUsr.LostFocus, txtPort.LostFocus
+        btnAct.Enabled = False
+        If txtUsr.Text.Trim <> "" _
+            AndAlso txtPW.Text.Trim <> "" _
+            AndAlso txtIP.Text.Trim <> "" _
+            AndAlso txtPort.Text.Trim <> "" Then
+            Dim strPw As String = ""
+            Dim strKey As String = _strKey
+            If _isChangedPW = 1 Then
+                _crypt.TDESImplementation(strKey.Substring(0, 24), strKey.Substring(0, 8))
+                strPw = _crypt.EncryptTDES(txtPW.Text)
+                txtPW.Text = strPw
+            Else
+                strPw = txtPW.Text
+            End If
+            _isChangedPW = 0
+        End If
+    End Sub
+
 End Class

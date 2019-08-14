@@ -1726,11 +1726,11 @@
             Return Nothing
         End Try
     End Function
-    Public Function SelectHCHKUnusedIndex(ByVal RegDate As String, ByVal ObjSeq As String) As DataTable
+    Public Function SelectHCHKUnusedIndex(ByVal InstanceID As Integer, ByVal RegDate As String) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData("UNUSEDINDEX")
-            strQuery = String.Format(strQuery, RegDate, ObjSeq)
+            strQuery = String.Format(strQuery, InstanceID, RegDate)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                 Return dtSet.Tables(0)
@@ -1760,7 +1760,23 @@
             Return Nothing
         End Try
     End Function
+    Public Function SelectHCHKReplicationSlots(ByVal InstanceID As Integer) As DataTable
 
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("REPLICATION_SLOTS")
+            strQuery = String.Format(strQuery, InstanceID)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
     Public Function SelectSerialKey() As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
@@ -2740,6 +2756,20 @@
             GC.Collect()
             Return Nothing
         End Try
+    End Function
+
+    Public Function SetOptions(ByVal sOption As String, ByVal Value As String) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SETOPTIONS")
+            strQuery = String.Format(strQuery, sOption, Value)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+
     End Function
 #End Region
 

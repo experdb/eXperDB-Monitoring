@@ -133,7 +133,8 @@ public class ReplCollect extends TaskApplication {
 			
 			HashMap<String, Object> replSel = new HashMap<String,Object>();// Replicaiton 정보 수집
 			List<HashMap<String, Object>> replLagSel = new ArrayList<HashMap<String,Object>>();// Replicaiton lag 정보 수집
-		
+			List<HashMap<String, Object>> replSlotSel = new ArrayList<HashMap<String,Object>>();// Replicaiton slot 정보 수집
+					
 			//////////////////////////////////////////////////////////////////////////////////
 			// Replication 정보 수집
 			if(is_collect_ok.equals("Y")) {
@@ -158,6 +159,7 @@ public class ReplCollect extends TaskApplication {
 					
 					replSel = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", dbVerMap);
 					replLagSel = sessionCollect.selectList("app.EXPERDBMA_BT_REPLICATION_LAG", dbVerMap);
+					replSlotSel = sessionCollect.selectList("app.EXPERDBMA_BT_REPLICATION_SLOT", dbVerMap);
 				} catch (Exception e) {
 					failed_collect_type = "1";
 					is_collect_ok = "N";
@@ -242,7 +244,17 @@ public class ReplCollect extends TaskApplication {
 				for (HashMap<String, Object> map : replLagSel) {
 					if(map.get("replay_lag") != null && Double.parseDouble(map.get("replay_lag").toString()) >= 0)
 						sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
-				}				
+				}
+				
+				for (HashMap<String, Object> map : replSlotSel) {
+					map.put("instance_id", Integer.valueOf(instanceId));
+					sessionAgent.insert("app.TB_REPL_SLOT_INFO_I001", map);
+				}
+				
+//				for (HashMap<String, Object> map : replLagSel) {
+//					if(map.get("replay_lag_size") != null && Double.parseDouble(map.get("replay_lag_size").toString()) >= 0)
+//						sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
+//				}				
 				
 				if(is_collect_ok.equals("N"))
 				{

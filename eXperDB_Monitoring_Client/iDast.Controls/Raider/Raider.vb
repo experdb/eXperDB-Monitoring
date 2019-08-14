@@ -481,7 +481,15 @@ Public Class Raider
 
 
             'Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 5)
-            Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 9)
+            'Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 9)
+            Dim txtPt As Point
+            If i = 0 Then
+                txtPt = New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 24)
+            ElseIf i = (RaiderItems.Count / 2 - 1) Then
+                txtPt = New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 8)
+            Else
+                txtPt = New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 12)
+            End If
             Dim CentPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height / 2)
             pGr.DrawRectangle(New Pen(Brushes.Green), New Rectangle(CentPt.X, CentPt.Y, 2, 2))
             Dim dblCos As Double = Math.Cos((incDegree / 2 + (incDegree * i)) * Math.PI / 180)

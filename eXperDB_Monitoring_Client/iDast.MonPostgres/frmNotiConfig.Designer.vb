@@ -38,9 +38,11 @@ Partial Class frmNotiConfig
         Me.txtSender = New eXperDB.BaseControls.TextBox()
         Me.GroupBox1 = New eXperDB.BaseControls.GroupBox()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.RichTextBoxQuery1 = New eXperDB.Controls.RichTextBoxQuery()
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lblAccountPolicy = New System.Windows.Forms.Label()
+        Me.txtStatements = New eXperDB.BaseControls.TextBox()
         Me.lblStatements = New eXperDB.BaseControls.Label()
         Me.lblDBMS = New eXperDB.BaseControls.Label()
         Me.cmbDBMS = New eXperDB.BaseControls.ComboBox()
@@ -54,8 +56,6 @@ Partial Class frmNotiConfig
         Me.lblPort = New eXperDB.BaseControls.Label()
         Me.txtIP = New eXperDB.BaseControls.TextBox()
         Me.txtPort = New eXperDB.BaseControls.TextBox()
-        Me.RichTextBoxQuery1 = New eXperDB.Controls.RichTextBoxQuery()
-        Me.txtStatements = New eXperDB.BaseControls.TextBox()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -339,6 +339,31 @@ Partial Class frmNotiConfig
         Me.tlpSvrChk.Size = New System.Drawing.Size(477, 378)
         Me.tlpSvrChk.TabIndex = 21
         '
+        'RichTextBoxQuery1
+        '
+        Me.RichTextBoxQuery1.AutoWordSelection = True
+        Me.RichTextBoxQuery1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.RichTextBoxQuery1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.tlpSvrChk.SetColumnSpan(Me.RichTextBoxQuery1, 2)
+        Me.RichTextBoxQuery1.Comments = System.Drawing.Color.Green
+        Me.RichTextBoxQuery1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.DimGray
+        Me.RichTextBoxQuery1.Functions = System.Drawing.Color.Maroon
+        Me.RichTextBoxQuery1.HideSelection = False
+        Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.Blue
+        Me.RichTextBoxQuery1.Location = New System.Drawing.Point(136, 258)
+        Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
+        Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
+        Me.RichTextBoxQuery1.Size = New System.Drawing.Size(324, 84)
+        Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.Blue
+        Me.RichTextBoxQuery1.Strings = System.Drawing.Color.Red
+        Me.RichTextBoxQuery1.TabIndex = 32
+        Me.RichTextBoxQuery1.Text = ""
+        Me.RichTextBoxQuery1.Types = System.Drawing.Color.Brown
+        Me.RichTextBoxQuery1.VariableRegex = "\$[a-zA-Z_\d]*\b"
+        Me.RichTextBoxQuery1.Variables = System.Drawing.Color.Maroon
+        Me.RichTextBoxQuery1.WordWrap = False
+        '
         'TableLayoutPanel5
         '
         Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
@@ -382,6 +407,29 @@ Partial Class frmNotiConfig
         Me.lblAccountPolicy.TabIndex = 3
         Me.lblAccountPolicy.Text = "Connection setup"
         Me.lblAccountPolicy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'txtStatements
+        '
+        Me.txtStatements.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.txtStatements.code = False
+        Me.tlpSvrChk.SetColumnSpan(Me.txtStatements, 2)
+        Me.txtStatements.Dock = System.Windows.Forms.DockStyle.Top
+        Me.txtStatements.FixedWidth = False
+        Me.txtStatements.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtStatements.impossibleinput = ""
+        Me.txtStatements.Location = New System.Drawing.Point(136, 348)
+        Me.txtStatements.MaxByteLength = 300
+        Me.txtStatements.Multiline = True
+        Me.txtStatements.Name = "txtStatements"
+        Me.txtStatements.Necessary = True
+        Me.txtStatements.PossibleInput = ""
+        Me.txtStatements.Prefix = ""
+        Me.txtStatements.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtStatements.Size = New System.Drawing.Size(324, 27)
+        Me.txtStatements.StatusTip = ""
+        Me.txtStatements.TabIndex = 6
+        Me.txtStatements.Value = ""
+        Me.txtStatements.Visible = False
         '
         'lblStatements
         '
@@ -595,54 +643,6 @@ Partial Class frmNotiConfig
         Me.txtPort.StatusTip = ""
         Me.txtPort.TabIndex = 2
         Me.txtPort.Value = "0"
-        '
-        'RichTextBoxQuery1
-        '
-        Me.RichTextBoxQuery1.AutoWordSelection = True
-        Me.RichTextBoxQuery1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.RichTextBoxQuery1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.tlpSvrChk.SetColumnSpan(Me.RichTextBoxQuery1, 2)
-        Me.RichTextBoxQuery1.Comments = System.Drawing.Color.Green
-        Me.RichTextBoxQuery1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.DimGray
-        Me.RichTextBoxQuery1.Functions = System.Drawing.Color.Maroon
-        Me.RichTextBoxQuery1.HideSelection = False
-        Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.Blue
-        Me.RichTextBoxQuery1.Location = New System.Drawing.Point(136, 258)
-        Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
-        Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
-        Me.RichTextBoxQuery1.Size = New System.Drawing.Size(324, 84)
-        Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.Blue
-        Me.RichTextBoxQuery1.Strings = System.Drawing.Color.Red
-        Me.RichTextBoxQuery1.TabIndex = 32
-        Me.RichTextBoxQuery1.Text = ""
-        Me.RichTextBoxQuery1.Types = System.Drawing.Color.Brown
-        Me.RichTextBoxQuery1.VariableRegex = "\$[a-zA-Z_\d]*\b"
-        Me.RichTextBoxQuery1.Variables = System.Drawing.Color.Maroon
-        Me.RichTextBoxQuery1.WordWrap = False
-        '
-        'txtStatements
-        '
-        Me.txtStatements.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtStatements.code = False
-        Me.tlpSvrChk.SetColumnSpan(Me.txtStatements, 2)
-        Me.txtStatements.Dock = System.Windows.Forms.DockStyle.Top
-        Me.txtStatements.FixedWidth = False
-        Me.txtStatements.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtStatements.impossibleinput = ""
-        Me.txtStatements.Location = New System.Drawing.Point(136, 348)
-        Me.txtStatements.MaxByteLength = 300
-        Me.txtStatements.Multiline = True
-        Me.txtStatements.Name = "txtStatements"
-        Me.txtStatements.Necessary = True
-        Me.txtStatements.PossibleInput = ""
-        Me.txtStatements.Prefix = ""
-        Me.txtStatements.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtStatements.Size = New System.Drawing.Size(324, 27)
-        Me.txtStatements.StatusTip = ""
-        Me.txtStatements.TabIndex = 6
-        Me.txtStatements.Value = ""
-        Me.txtStatements.Visible = False
         '
         'frmNotiConfig
         '

@@ -793,6 +793,7 @@
         cmbGrp.SelectedIndex = groupIndex
         sb_Ctlenabled(True)
         ReadSvrListbyGroup(_odbcConn, groupIndex + 1)
+        AcceptButton = btnStart
     End Sub
 
     Private Sub pnlAgentInfo_Paint(sender As Object, e As PaintEventArgs)

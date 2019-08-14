@@ -25,6 +25,7 @@ Partial Class frmLogin
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogin))
         Me.pnlLogin = New eXperDB.BaseControls.Panel()
+        Me.lblLoginName = New eXperDB.BaseControls.Label()
         Me.lblLogo = New eXperDB.BaseControls.Label()
         Me.lblLogo2 = New eXperDB.BaseControls.Label()
         Me.lblLogo1 = New eXperDB.BaseControls.Label()
@@ -52,6 +53,7 @@ Partial Class frmLogin
         'pnlLogin
         '
         Me.pnlLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(56, Byte), Integer))
+        Me.pnlLogin.Controls.Add(Me.lblLoginName)
         Me.pnlLogin.Controls.Add(Me.lblLogo)
         Me.pnlLogin.Controls.Add(Me.lblLogo2)
         Me.pnlLogin.Controls.Add(Me.lblLogo1)
@@ -72,42 +74,56 @@ Partial Class frmLogin
         Me.pnlLogin.Size = New System.Drawing.Size(379, 410)
         Me.pnlLogin.TabIndex = 7
         '
+        'lblLoginName
+        '
+        Me.lblLoginName.FixedHeight = False
+        Me.lblLoginName.FixedWidth = False
+        Me.lblLoginName.Image = CType(resources.GetObject("lblLoginName.Image"), System.Drawing.Image)
+        Me.lblLoginName.LineSpacing = 0.0!
+        Me.lblLoginName.Location = New System.Drawing.Point(35, 33)
+        Me.lblLoginName.Name = "lblLoginName"
+        Me.lblLoginName.Size = New System.Drawing.Size(306, 77)
+        Me.lblLoginName.TabIndex = 10
+        '
         'lblLogo
         '
         Me.lblLogo.FixedHeight = False
         Me.lblLogo.FixedWidth = False
         Me.lblLogo.Image = CType(resources.GetObject("lblLogo.Image"), System.Drawing.Image)
         Me.lblLogo.LineSpacing = 0.0!
-        Me.lblLogo.Location = New System.Drawing.Point(40, 32)
+        Me.lblLogo.Location = New System.Drawing.Point(35, 32)
         Me.lblLogo.Name = "lblLogo"
         Me.lblLogo.Size = New System.Drawing.Size(70, 77)
         Me.lblLogo.TabIndex = 9
+        Me.lblLogo.Visible = False
         '
         'lblLogo2
         '
         Me.lblLogo2.FixedHeight = False
         Me.lblLogo2.FixedWidth = False
-        Me.lblLogo2.Font = New System.Drawing.Font("Buxton Sketch", 20.0!)
+        Me.lblLogo2.Font = New System.Drawing.Font("Lobster", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblLogo2.ForeColor = System.Drawing.SystemColors.ActiveCaption
         Me.lblLogo2.LineSpacing = 0.0!
-        Me.lblLogo2.Location = New System.Drawing.Point(198, 52)
+        Me.lblLogo2.Location = New System.Drawing.Point(204, 52)
         Me.lblLogo2.Name = "lblLogo2"
-        Me.lblLogo2.Size = New System.Drawing.Size(166, 45)
+        Me.lblLogo2.Size = New System.Drawing.Size(139, 45)
         Me.lblLogo2.TabIndex = 8
         Me.lblLogo2.Text = "Monitoring"
+        Me.lblLogo2.Visible = False
         '
         'lblLogo1
         '
         Me.lblLogo1.FixedHeight = False
         Me.lblLogo1.FixedWidth = False
-        Me.lblLogo1.Font = New System.Drawing.Font("Buxton Sketch", 20.0!)
+        Me.lblLogo1.Font = New System.Drawing.Font("Lobster", 20.25!)
         Me.lblLogo1.ForeColor = System.Drawing.SystemColors.ActiveCaption
         Me.lblLogo1.LineSpacing = 0.0!
-        Me.lblLogo1.Location = New System.Drawing.Point(105, 52)
+        Me.lblLogo1.Location = New System.Drawing.Point(100, 52)
         Me.lblLogo1.Name = "lblLogo1"
         Me.lblLogo1.Size = New System.Drawing.Size(150, 47)
         Me.lblLogo1.TabIndex = 8
         Me.lblLogo1.Text = "eXperDB"
+        Me.lblLogo1.Visible = False
         '
         'TableLayoutPanel1
         '
@@ -378,7 +394,8 @@ Partial Class frmLogin
     Friend WithEvents btnClose As System.Windows.Forms.Button
     Friend WithEvents btnLogin As System.Windows.Forms.Button
     Friend WithEvents lblLogo As eXperDB.BaseControls.Label
-    Friend WithEvents lblLogo2 As eXperDB.BaseControls.Label
     Friend WithEvents lblLogo1 As eXperDB.BaseControls.Label
+    Friend WithEvents lblLoginName As eXperDB.BaseControls.Label
+    Friend WithEvents lblLogo2 As eXperDB.BaseControls.Label
 
 End Class

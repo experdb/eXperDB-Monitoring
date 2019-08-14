@@ -125,6 +125,13 @@ Public Class frmLogin
         End If
     End Sub
 
+    Private Sub txtPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPassword.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            btnLogin.Focus()
+            btnLogin_Click(sender, e)
+        End If
+    End Sub
+
     Private Sub txtPassword_TextChanged(sender As Object, e As EventArgs) Handles txtPassword.TextChanged
         If txtPassword.Text.Equals("Password") = False Then
             txtPassword.PasswordChar = "*"
@@ -142,7 +149,7 @@ Public Class frmLogin
     End Function
 
     Private Sub frmLogin_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseDown, pnlLogin.MouseDown, _
-                                    lblLogo.MouseDown, lblLogo1.MouseDown, lblLogo2.MouseDown
+                                    lblLoginName.MouseDown, lblLogo.MouseDown, lblLogo1.MouseDown, lblLogo2.MouseDown
         If (e.Button = MouseButtons.Left) Then
             ReleaseCapture()
             SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0)

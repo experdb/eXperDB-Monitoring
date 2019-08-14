@@ -2950,7 +2950,7 @@
     <DATA><![CDATA[Unused Index]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
-    <COLUMNS>DB_NAME|DATABASE|TEXT||200;SCHEMA_NAME|SCHEMA|TEXT||200;INDEX_NAME|INDEX|TEXT||200;TABLE_NAME|TABLE|TEXT||200;INDEX_SIZE_KB|INDEX SIZE|DATASIZE|N2|100;COLUMNS_CNT|COLUMNS COUNT|NUMBER|N0|100</COLUMNS>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||150;SCHEMA_NAME|SCHEMA|TEXT||150;INDEX_NAME|INDEX|TEXT||200;TABLE_NAME|TABLE|TEXT||200;INDEX_SIZE_KB|INDEX SIZE|DATASIZE|N2|100;COLUMNS_CNT|COLUMNS COUNT|NUMBER|N0|200</COLUMNS>
     <VALUECAST />
   </ROW>
   <ROW ID="REPLICATION_DELAY" PARAMS="0">
@@ -2959,6 +2959,15 @@
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="REPLICATION_SLOT" PARAMS="0">
+    <DESC>Check the status of replication slots.</DESC>
+    <DATA><![CDATA[Replication slots]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>SLOT_NAME|Slot name|TEXT||150|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABASE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||150|;ISACTIVE|Active|TEXT||100|;OLDXMIN|Oldest Txid|TEXT||150|;RESTART_LSN|Restart LSN|TEXT||150|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>
+    <VALUECAST />
     <VALUECAST />
   </ROW>
   <ROW ID="M019" PARAMS="1">
@@ -3331,7 +3340,7 @@
   </ROW>
   <ROW ID="M065" PARAMS="1">
     <DESC>버젼 불일치</DESC>
-    <DATA><![CDATA[Client-server version mismatch.\n\n Do you want to install the client as version of the server? \n\n{0}]]></DATA>
+    <DATA><![CDATA[The version is not matched with the server.\n\n Do you want to install the client as version of the server? \n\n{0}]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3764,7 +3773,7 @@
   </ROW>
   <ROW ID="F940" PARAMS="0">
     <DESC>버젼</DESC>
-    <DATA><![CDATA[버전]]></DATA>
+    <DATA><![CDATA[Version]]></DATA>
     <VALUECAST />
   </ROW>
   <ROW ID="F941" PARAMS="0">

@@ -192,6 +192,18 @@
             dgvAlertCurr.Visible = False
             dgvAlert.Visible = True
         End If
+
+        If clsIni.ReadValue("FORM", "CPUDISPLAYTYPE", "rbCPURadar").Equals("rbCPURadar") Then
+            rbCPURadar.Checked = True
+        Else
+            rbCPUBar.Checked = True
+        End If
+
+        If clsIni.ReadValue("FORM", "MEMDISPLAYTYPE", "rbMEMRadar").Equals("rbMEMRadar") Then
+            rbMEMRadar.Checked = True
+        Else
+            rbMEMBar.Checked = True
+        End If
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -425,6 +437,10 @@
 
         rbCurrent.Text = p_clsMsgData.fn_GetData("F282")
         rbHistory.Text = p_clsMsgData.fn_GetData("F283")
+        rbCPURadar.Text = "Radar"
+        rbCPUBar.Text = "Bar"
+        rbMEMRadar.Text = "Radar"
+        rbMEMBar.Text = "Bar"
         'modCommon.FontChange(Me, p_Font)
 
     End Sub
@@ -546,10 +562,15 @@
             Next
         Next
 
-        If svrLst.Count > 6 Then
+        If svrLst.Count <= 6 Then
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
         Else
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 45
         End If
 
         Me.chrReqInfo.Tag = srtLSt
@@ -619,13 +640,19 @@
             For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
                 Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
                 tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                tmpSeries.Points(tmpInt).ToolTip = svrLst.Item(i).ShowNm
             Next
         Next
 
-        If svrLst.Count > 6 Then
+        If svrLst.Count <= 6 Then
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
         Else
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
         End If
 
         Me.chtSessionStatus.Tag = srtLSt
@@ -696,6 +723,35 @@
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+        '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+
+        For i As Integer = 0 To svrLst.Count - 1
+            srtLSt.Add(svrLst.Item(i).InstanceID, i)
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+            Next
+        Next
+
+        If svrLst.Count <= 6 Then
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+        Else
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+        End If
+
+        Me.chtCPUStatus.Tag = srtLSt
+        chtCPUStatus.Invalidate()
+        '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+
     End Sub
     ''' <summary>
     ''' GrpMem 컨트롤 초기화 
@@ -731,6 +787,35 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20181119 End>'''''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+
+        For i As Integer = 0 To svrLst.Count - 1
+            srtLSt.Add(svrLst.Item(i).InstanceID, i)
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+            Next
+        Next
+
+        If svrLst.Count <= 6 Then
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+        Else
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+        End If
+
+        Me.chtMEMStatus.Tag = srtLSt
+        chtMEMStatus.Invalidate()
+        '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
     End Sub
 
 
@@ -1329,7 +1414,7 @@
     Private Sub clsAgentCollect_GetDataCpuMem(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
         Dim intInstID As Integer
-        For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "MEM_USED_RATE", "HOST_NAME").Rows
+        For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE", "SWP_USED_RATE", "HOST_NAME").Rows
             ' GRP CPU
             intInstID = dtRow.Item("INSTANCE_ID")
             Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
@@ -1344,8 +1429,27 @@
                     tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
                     tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
                 End Using
+                ' Bar type 20190806 start
+                For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                    If tmpSvr.InstanceID = intInstID Then
+                        Dim lngUtil As Integer = ConvULong(dtRow.Item("CPU_MAIN"))
+                        Dim lngWait As Integer = ConvULong(dtRow.Item("WAIT_UTIL_RATE"))
+                        Dim idx As Integer = Me.chtCPUStatus.Tag.Item(intInstID)
+                        drawAnimation(Me.chtCPUStatus.Series("Util"), idx, lngUtil)
+                        Me.chtCPUStatus.Series("Util").Points(idx).Label = CInt(lngUtil)
+                        drawAnimation(Me.chtCPUStatus.Series("Wait"), idx, lngWait)
+                        Me.chtCPUStatus.Series("Wait").Points(idx).Label = CInt(lngWait)
 
-
+                        Dim lngMem As Integer = ConvULong(dtRow.Item("MEM_USED_RATE"))
+                        Dim lngSwap As Integer = ConvULong(dtRow.Item("SWP_USED_RATE"))
+                        idx = Me.chtMEMStatus.Tag.Item(intInstID)
+                        drawAnimation(Me.chtMEMStatus.Series("Mem"), idx, lngMem)
+                        Me.chtMEMStatus.Series("Mem").Points(idx).Label = CInt(lngMem)
+                        drawAnimation(Me.chtMEMStatus.Series("Swap"), idx, lngSwap)
+                        Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
+                    End If
+                Next
+                ' Bar type 20190806 end
 
                 ' GRP MEM
                 Dim memidx As Integer = radMem.items.IndexOf(intInstID)
@@ -1362,13 +1466,16 @@
 
         Next
 
-
-
         ' 컨트롤 색상 변경 
         modCommon.sb_GridProgClrChg(dgvGrpCpuSvrLst)
         sb_GridSortChg(dgvGrpCpuSvrLst, colGrpCpuSvrUsage.Index)
         modCommon.sb_GridProgClrChg(dgvGrpMemSvrLst)
         sb_GridSortChg(dgvGrpMemSvrLst, colGrpMemSvrUsage.Index)
+
+
+        '''''''< Bar 20180806 Start>'''''''''''''''''''''''''''''''''''''''''''''
+
+        '''''''< Bar 20180806 Stop>'''''''''''''''''''''''''''''''''''''''''''''
 
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''''
@@ -4285,6 +4392,9 @@
                 sd.diffSeries.Points(sd.diffIndex).SetValueY(IIf(nValue < 0, 0, nValue))
             Next
             _nDivision -= 1
+            ' Bar type 20190806
+            Me.chtCPUStatus.ChartAreas(0).RecalculateAxesScale()
+            Me.chtMEMStatus.ChartAreas(0).RecalculateAxesScale()
             Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
             Me.chrReqInfo.ChartAreas(0).RecalculateAxesScale()
         Else
@@ -4537,4 +4647,34 @@
         End If
     End Function
 #End Region
+
+    Private Sub rbCPURadar_CheckedChanged(sender As Object, e As EventArgs) Handles rbCPURadar.CheckedChanged, rbCPUBar.CheckedChanged
+        Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If rbTemp.Name = "rbCPURadar" Then
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("FORM", "CPUDISPLAYTYPE", "rbCPURadar")
+            tlpCPU.Visible = True
+            chtCPUStatus.Visible = False
+        Else
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("FORM", "CPUDISPLAYTYPE", "rbCPUBar")
+            tlpCPU.Visible = False
+            chtCPUStatus.Visible = True
+        End If
+    End Sub
+
+    Private Sub rbMEMRadar_CheckedChanged(sender As Object, e As EventArgs) Handles rbMEMRadar.CheckedChanged, rbMEMBar.CheckedChanged
+        Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If rbTemp.Name = "rbMEMRadar" Then
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("FORM", "MEMDISPLAYTYPE", "rbMEMRadar")
+            tlpMem.Visible = True
+            chtMEMStatus.Visible = False
+        Else
+            Dim clsIni As New Common.IniFile(p_AppConfigIni)
+            clsIni.WriteValue("FORM", "MEMDISPLAYTYPE", "rbMEMBar")
+            tlpMem.Visible = False
+            chtMEMStatus.Visible = True
+        End If
+    End Sub
 End Class

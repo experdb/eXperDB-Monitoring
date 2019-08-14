@@ -113,12 +113,24 @@ public class RTStmtCollect extends TaskApplication {
 					for (HashMap<String, Object> map : RTStmtSel) {
 						map.put("instance_id", 				Integer.parseInt(instanceId));
 						sessionAgent.insert("app.BT_RTSTMT_INFO_I001", map);
-						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", map);						
+						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S002", map);		
+						HashMap<String, Object> fullQueryMap = null;
 						if (queryIdMap == null){
-							inputParam.put("queryid", 					map.get("query"));
-							inputParam.put("query", 					map.get("query"));
-							inputParam.put("stmt_queryid", 				map.get("queryid"));
-							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+							try{							
+								inputParam.put("instance_id", Integer.parseInt(instanceId));
+								inputParam.put("dbid", 		map.get("dbid"));
+								inputParam.put("userid", 	map.get("userid"));
+								inputParam.put("queryid", 	map.get("queryid"));
+								fullQueryMap = sessionCollect.selectOne("app.BT_RTSTMT_INFO_QUERY_001", inputParam);
+								if (fullQueryMap != null){
+									inputParam.put("stmt_queryid", 			map.get("queryid"));
+									inputParam.put("query", 			    fullQueryMap.get("query"));
+									inputParam.put("queryid", 			    fullQueryMap.get("query"));
+									sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+								}
+							} catch (Exception e) {
+								log.error("", e);
+							} 
 						}
 					}
 					

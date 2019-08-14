@@ -1120,6 +1120,7 @@ Public Class frmMonDetail
             Dim strItm As String = tmpRow.Item("HCHK_NAME")
             Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
             Dim intValue As Long = tmpRow.Item("VALUE")
+            Dim intSubValue As Long = tmpRow.Item("SUB_VALUE")
             Dim strUnit As String = tmpRow.Item("UNIT")
             Dim intSeq As String = IIf(IsDBNull(tmpRow.Item("REG_SEQ")), "", tmpRow.Item("REG_SEQ"))
             Dim strRegDt As String = IIf(IsDBNull(tmpRow.Item("REG_DATE")), Now.ToString("yyyyMMdd"), tmpRow.Item("REG_DATE"))
@@ -1128,10 +1129,18 @@ Public Class frmMonDetail
                     Dim intIDx As Integer = dgvGrpHealth.Rows.Add
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthItm.Index).Value = strItm
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthitmNm.Index).Value = p_clsMsgData.fn_GetData(strItm)
-                    If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
-                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
+                    If strItm = "REPLICATION_SLOT" Then
+                        If VarType(modCommon.fn_GetValueCast(strItm, intSubValue)) = vbLong Then
+                            dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intSubValue))
+                        Else
+                            dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = modCommon.fn_GetValueCast(strItm, intSubValue)
+                        End If
                     Else
-                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = modCommon.fn_GetValueCast(strItm, intValue)
+                        If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
+                            dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
+                        Else
+                            dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = modCommon.fn_GetValueCast(strItm, intValue)
+                        End If
                     End If
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthStatus.Index).Value = fn_GetHealthName(intHchkVal)
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthStatusVal.Index).Value = intHchkVal
@@ -1154,12 +1163,20 @@ Public Class frmMonDetail
                         dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthInfoImage.Index).Value = statusImgLst.Images(3)
                     End If
                 Else
-
-                    If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
-                        dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
+                    If strItm = "REPLICATION_SLOT" Then
+                        If VarType(modCommon.fn_GetValueCast(strItm, intSubValue)) = vbLong Then
+                            dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intSubValue))
+                        Else
+                            dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = fn_GetValueCast(strItm, intSubValue)
+                        End If
                     Else
-                        dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = fn_GetValueCast(strItm, intValue)
+                        If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
+                            dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
+                        Else
+                            dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = fn_GetValueCast(strItm, intValue)
+                        End If
                     End If
+
                     dgvHealthRow.Cells(colDgvHealthStatus.Index).Value = fn_GetHealthName(intHchkVal)
                     dgvHealthRow.Cells(colDgvHealthStatusVal.Index).Value = intHchkVal
                     dgvHealthRow.Cells(colDgvHealthUnit.Index).Value = strUnit
@@ -2179,12 +2196,34 @@ Public Class frmMonDetail
     Private Sub bckmanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckmanual.DoWork
         If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
             'Threading.Thread.Sleep(100)
+            _clsQuery.SetOptions("enable_hashjoin", "off")
+
+            'Dim stopwatch As Stopwatch = New Stopwatch()
+            'stopwatch.Start()
             initDataCpu()
+            'stopwatch.Stop()
+            'Console.WriteLine("Time elapsed1: {0}", stopwatch.Elapsed)
+            'stopwatch.Start()
             initDataSQLRespTm()
+            'stopwatch.Stop()
+            'Console.WriteLine("Time elapsed2: {0}", stopwatch.Elapsed)
+            'stopwatch.Start()
             initDataRequest()
+            'stopwatch.Stop()
+            'Console.WriteLine("Time elapsed3: {0}", stopwatch.Elapsed)
+            'stopwatch.Start()
             initDataLockCount()
+            'stopwatch.Stop()
+            'Console.WriteLine("Time elapsed4: {0}", stopwatch.Elapsed)
+            'stopwatch.Start()
             initDataReplication()
+            'stopwatch.Stop()
+            'Console.WriteLine("Time elapsed5: {0}", stopwatch.Elapsed)
+            'stopwatch.Start()
             initDataCheckpoint()
+            'stopwatch.Stop()
+            'Console.WriteLine("Time elapsed6: {0}", stopwatch.Elapsed)
+            _clsQuery.SetOptions("enable_hashjoin", "on")
             _clsQuery.CancelCommand()
         End If
         bckmanual.ReportProgress(100)

@@ -154,7 +154,7 @@ public class HourlyBatchTask {
 			if(sessionAgent != null) sessionAgent.close();
 		}
 		try {
-			if (isExists == false){
+
 				// DB Connection을 가져온다
 				sessionAgent = SqlSessionManager.getInstance().openSession();		
 	
@@ -169,7 +169,7 @@ public class HourlyBatchTask {
 		
 				sessionAgent.close();
 				sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
-				
+				if (isExists == false){	
 				try {
 					// Create partition tables
 					partitionTableMap.put("tablename", "tb_actv_collect_info");
@@ -207,16 +207,19 @@ public class HourlyBatchTask {
 					partitionTableMap.put("tablename", "tb_pg_stat_statements");
 					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);				
 					partitionTableMap.put("tablename", "tb_table_ext_info");
-					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);	
+					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
 					
 					sessionAgent.commit();
+					isExists = true;
 				} catch (Exception e) {
 					sessionAgent.rollback();
+					isExists = false;
 					log.error("", e);
 				}
 				sessionAgent.close();
 				sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
-				
+			}
+			if (isExists == true){				
 				try {
 					
 					// Add constraint of partition tables
@@ -250,8 +253,13 @@ public class HourlyBatchTask {
 					sessionAgent.update("app.PG_INDEX_TB_DISK_IO_001"           , partitionTableMap);
 					sessionAgent.update("app.PG_INDEX_TB_DISK_USAGE_001"        , partitionTableMap);
 					sessionAgent.update("app.PG_INDEX_TB_TABLE_EXT_INFO_001"    , partitionTableMap);
-					sessionAgent.update("app.PG_INDEX_TB_ACTV_COLLECT_INFO_001"    , partitionTableMap);
-					sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"    , partitionTableMap);
+					sessionAgent.update("app.PG_INDEX_TB_ACTV_COLLECT_INFO_001" , partitionTableMap);
+					sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"  , partitionTableMap);
+					
+					/* delete replication slots*/
+					sessionAgent.update("app.PGMONBT_BATCH_REPL_SLOTS_001");
+					sessionAgent.update("app.VACUUM_ANALYZE_REPL_SLOTS_U001");
+					/* delete replication slots*/
 					//Commit
 					sessionAgent.commit();
 				} catch (Exception e) {

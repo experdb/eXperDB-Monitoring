@@ -17,9 +17,9 @@ Public Class frmAgentInfo
     Private Sub initform()
         StatusLabel.Text = p_clsMsgData.fn_GetData("M050")
         lblSvrIP.Text = p_clsMsgData.fn_GetData("F006")
-        lblSvrUsr.Text = p_clsMsgData.fn_GetData("F007")
+        lblSvrUsr.Text = p_clsMsgData.fn_GetData("F008")
         lblSvrDBNm.Text = p_clsMsgData.fn_GetData("F010")
-        lblSvrPort.Text = p_clsMsgData.fn_GetData("F008")
+        lblSvrPort.Text = p_clsMsgData.fn_GetData("F007")
         lblSvrPwd.Text = p_clsMsgData.fn_GetData("F009")
 
         btnTest.Text = p_clsMsgData.fn_GetData("F002")

@@ -37,6 +37,10 @@ Partial Class frmMonMain
         Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim Series6 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series7 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series8 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim Areaitem1 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
         Dim Areaitem2 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
         Dim Areaitem3 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
@@ -48,6 +52,10 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series9 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim Series10 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim Areaitem5 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
         Dim Areaitem6 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
         Dim Areaitem7 As eXperDB.Controls.Areaitem = New eXperDB.Controls.Areaitem()
@@ -59,23 +67,23 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea7 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend7 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea8 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim ChartArea9 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim ChartArea10 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea11 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim ChartArea12 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend8 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea13 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim ChartArea14 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim ChartArea15 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend7 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim ChartArea16 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim ChartArea17 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend9 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -157,7 +165,10 @@ Partial Class frmMonMain
         Me.chrReqInfo = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.grpReqInfo = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlpMEMStatus = New System.Windows.Forms.TableLayoutPanel()
+        Me.chtMEMStatus = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.grpMem = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.tlpMem = New eXperDB.BaseControls.TableLayoutPanel()
         Me.radMem = New eXperDB.Controls.Raider()
         Me.dgvGrpMemSvrLst = New eXperDB.BaseControls.DataGridView()
@@ -165,9 +176,14 @@ Partial Class frmMonMain
         Me.colGrpMemSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colGrpMemSvrUsage = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colGrpMemSvrprog = New eXperDB.Controls.DataGridViewPercentageColumn()
-        Me.grpMem = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.pnlRBMem = New eXperDB.BaseControls.Panel()
+        Me.rbMEMRadar = New eXperDB.BaseControls.RadioButton()
+        Me.rbMEMBar = New eXperDB.BaseControls.RadioButton()
+        Me.tlpCPUStatus = New System.Windows.Forms.TableLayoutPanel()
+        Me.chtCPUStatus = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.pnlRBCPU = New eXperDB.BaseControls.Panel()
+        Me.rbCPURadar = New eXperDB.BaseControls.RadioButton()
+        Me.rbCPUBar = New eXperDB.BaseControls.RadioButton()
         Me.grpCPU = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.tlpCPU = New eXperDB.BaseControls.TableLayoutPanel()
@@ -402,10 +418,14 @@ Partial Class frmMonMain
         CType(Me.chtSessionStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel8.SuspendLayout()
         CType(Me.chrReqInfo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel6.SuspendLayout()
+        Me.tlpMEMStatus.SuspendLayout()
+        CType(Me.chtMEMStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpMem.SuspendLayout()
         CType(Me.dgvGrpMemSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel5.SuspendLayout()
+        Me.pnlRBMem.SuspendLayout()
+        Me.tlpCPUStatus.SuspendLayout()
+        CType(Me.chtCPUStatus, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlRBCPU.SuspendLayout()
         Me.tlpCPU.SuspendLayout()
         CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTrend.SuspendLayout()
@@ -923,15 +943,15 @@ Partial Class frmMonMain
         Me.tlpCurrent.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.tlpCurrent.Controls.Add(Me.tlpSessionStatus, 0, 1)
         Me.tlpCurrent.Controls.Add(Me.TableLayoutPanel8, 1, 1)
-        Me.tlpCurrent.Controls.Add(Me.TableLayoutPanel6, 1, 0)
-        Me.tlpCurrent.Controls.Add(Me.TableLayoutPanel5, 0, 0)
+        Me.tlpCurrent.Controls.Add(Me.tlpMEMStatus, 1, 0)
+        Me.tlpCurrent.Controls.Add(Me.tlpCPUStatus, 0, 0)
         Me.tlpCurrent.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpCurrent.Location = New System.Drawing.Point(3, 3)
+        Me.tlpCurrent.Margin = New System.Windows.Forms.Padding(3, 3, 3, 1)
         Me.tlpCurrent.Name = "tlpCurrent"
         Me.tlpCurrent.RowCount = 2
-        Me.tlpCurrent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
-        Me.tlpCurrent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.tlpCurrent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.tlpCurrent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
+        Me.tlpCurrent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.tlpCurrent.Size = New System.Drawing.Size(1353, 600)
         Me.tlpCurrent.TabIndex = 1
         '
@@ -945,12 +965,13 @@ Partial Class frmMonMain
         Me.tlpSessionStatus.Controls.Add(Me.lblSessionStatus, 1, 0)
         Me.tlpSessionStatus.Controls.Add(Me.Label11, 0, 0)
         Me.tlpSessionStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpSessionStatus.Location = New System.Drawing.Point(3, 345)
+        Me.tlpSessionStatus.Location = New System.Drawing.Point(3, 333)
+        Me.tlpSessionStatus.Margin = New System.Windows.Forms.Padding(3, 3, 3, 1)
         Me.tlpSessionStatus.Name = "tlpSessionStatus"
         Me.tlpSessionStatus.RowCount = 2
-        Me.tlpSessionStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tlpSessionStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.tlpSessionStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSessionStatus.Size = New System.Drawing.Size(670, 252)
+        Me.tlpSessionStatus.Size = New System.Drawing.Size(670, 266)
         Me.tlpSessionStatus.TabIndex = 23
         '
         'chtSessionStatus
@@ -961,9 +982,8 @@ Partial Class frmMonMain
         ChartArea1.AxisX.IsLabelAutoFit = False
         ChartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
         ChartArea1.AxisX.LabelStyle.Interval = 1.0R
-        ChartArea1.AxisX.LabelStyle.IsStaggered = True
-        ChartArea1.AxisX.LabelStyle.TruncatedLabels = True
         ChartArea1.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea1.AxisX.MajorGrid.Enabled = False
         ChartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
         ChartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
         ChartArea1.AxisX.MajorTickMark.Enabled = False
@@ -1001,10 +1021,10 @@ Partial Class frmMonMain
         ChartArea1.BorderColor = System.Drawing.Color.Empty
         ChartArea1.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
         ChartArea1.InnerPlotPosition.Auto = False
-        ChartArea1.InnerPlotPosition.Height = 80.0!
-        ChartArea1.InnerPlotPosition.Width = 82.0!
+        ChartArea1.InnerPlotPosition.Height = 74.0!
+        ChartArea1.InnerPlotPosition.Width = 88.0!
         ChartArea1.InnerPlotPosition.X = 8.0!
-        ChartArea1.InnerPlotPosition.Y = 11.0!
+        ChartArea1.InnerPlotPosition.Y = 2.0!
         ChartArea1.Name = "ChartArea1"
         ChartArea1.Position.Auto = False
         ChartArea1.Position.Height = 79.99083!
@@ -1021,9 +1041,14 @@ Partial Class frmMonMain
         Legend1.ForeColor = System.Drawing.Color.White
         Legend1.IsTextAutoFit = False
         Legend1.Name = "Legend1"
+        Legend1.Position.Auto = False
+        Legend1.Position.Height = 10.0!
+        Legend1.Position.Width = 23.68024!
+        Legend1.Position.X = 73.31976!
+        Legend1.Position.Y = 1.0!
         Me.chtSessionStatus.Legends.Add(Legend1)
-        Me.chtSessionStatus.Location = New System.Drawing.Point(3, 29)
-        Me.chtSessionStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtSessionStatus.Location = New System.Drawing.Point(3, 24)
+        Me.chtSessionStatus.Margin = New System.Windows.Forms.Padding(3, 0, 3, 1)
         Me.chtSessionStatus.Name = "chtSessionStatus"
         Series1.ChartArea = "ChartArea1"
         Series1.Color = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(116, Byte), Integer))
@@ -1037,7 +1062,7 @@ Partial Class frmMonMain
         Series2.Name = "Active"
         Me.chtSessionStatus.Series.Add(Series1)
         Me.chtSessionStatus.Series.Add(Series2)
-        Me.chtSessionStatus.Size = New System.Drawing.Size(664, 219)
+        Me.chtSessionStatus.Size = New System.Drawing.Size(664, 241)
         Me.chtSessionStatus.TabIndex = 2
         Me.chtSessionStatus.Text = "Chart2"
         '
@@ -1050,7 +1075,7 @@ Partial Class frmMonMain
         Me.lblSessionStatus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblSessionStatus.Location = New System.Drawing.Point(43, 0)
         Me.lblSessionStatus.Name = "lblSessionStatus"
-        Me.lblSessionStatus.Size = New System.Drawing.Size(624, 25)
+        Me.lblSessionStatus.Size = New System.Drawing.Size(624, 24)
         Me.lblSessionStatus.TabIndex = 0
         Me.lblSessionStatus.Text = "F167"
         Me.lblSessionStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1063,7 +1088,7 @@ Partial Class frmMonMain
         Me.Label11.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label11.Location = New System.Drawing.Point(3, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(34, 25)
+        Me.Label11.Size = New System.Drawing.Size(34, 24)
         Me.Label11.TabIndex = 1
         Me.Label11.Text = "      "
         '
@@ -1078,12 +1103,13 @@ Partial Class frmMonMain
         Me.TableLayoutPanel8.Controls.Add(Me.grpReqInfo, 1, 0)
         Me.TableLayoutPanel8.Controls.Add(Me.Label6, 0, 0)
         Me.TableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel8.Location = New System.Drawing.Point(679, 345)
+        Me.TableLayoutPanel8.Location = New System.Drawing.Point(679, 333)
+        Me.TableLayoutPanel8.Margin = New System.Windows.Forms.Padding(3, 3, 3, 1)
         Me.TableLayoutPanel8.Name = "TableLayoutPanel8"
         Me.TableLayoutPanel8.RowCount = 2
-        Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel8.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel8.Size = New System.Drawing.Size(671, 252)
+        Me.TableLayoutPanel8.Size = New System.Drawing.Size(671, 266)
         Me.TableLayoutPanel8.TabIndex = 22
         '
         'chrReqInfo
@@ -1101,8 +1127,6 @@ Partial Class frmMonMain
         ChartArea2.AxisX.IsLabelAutoFit = False
         ChartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
         ChartArea2.AxisX.LabelStyle.Interval = 1.0R
-        ChartArea2.AxisX.LabelStyle.IsStaggered = True
-        ChartArea2.AxisX.LabelStyle.TruncatedLabels = True
         ChartArea2.AxisX.LineColor = System.Drawing.Color.White
         ChartArea2.AxisX.MajorGrid.Enabled = False
         ChartArea2.AxisX.MajorTickMark.Enabled = False
@@ -1134,10 +1158,10 @@ Partial Class frmMonMain
         ChartArea2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         ChartArea2.BorderColor = System.Drawing.Color.Empty
         ChartArea2.InnerPlotPosition.Auto = False
-        ChartArea2.InnerPlotPosition.Height = 80.0!
-        ChartArea2.InnerPlotPosition.Width = 82.0!
+        ChartArea2.InnerPlotPosition.Height = 74.0!
+        ChartArea2.InnerPlotPosition.Width = 88.0!
         ChartArea2.InnerPlotPosition.X = 8.0!
-        ChartArea2.InnerPlotPosition.Y = 11.0!
+        ChartArea2.InnerPlotPosition.Y = 2.0!
         ChartArea2.Name = "ChartArea1"
         ChartArea2.Position.Auto = False
         ChartArea2.Position.Height = 79.99083!
@@ -1154,6 +1178,11 @@ Partial Class frmMonMain
         Legend2.ForeColor = System.Drawing.Color.White
         Legend2.IsTextAutoFit = False
         Legend2.Name = "Legend1"
+        Legend2.Position.Auto = False
+        Legend2.Position.Height = 10.0!
+        Legend2.Position.Width = 52.40964!
+        Legend2.Position.X = 44.59036!
+        Legend2.Position.Y = 1.0!
         Legend3.BackColor = System.Drawing.Color.Black
         Legend3.Font = New System.Drawing.Font("Gulim", 9.0!)
         Legend3.ForeColor = System.Drawing.Color.White
@@ -1167,7 +1196,8 @@ Partial Class frmMonMain
         Legend3.Position.Y = 3.0!
         Me.chrReqInfo.Legends.Add(Legend2)
         Me.chrReqInfo.Legends.Add(Legend3)
-        Me.chrReqInfo.Location = New System.Drawing.Point(3, 28)
+        Me.chrReqInfo.Location = New System.Drawing.Point(3, 24)
+        Me.chrReqInfo.Margin = New System.Windows.Forms.Padding(3, 0, 3, 1)
         Me.chrReqInfo.Name = "chrReqInfo"
         Series3.ChartArea = "ChartArea1"
         Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
@@ -1198,7 +1228,7 @@ Partial Class frmMonMain
         Me.chrReqInfo.Series.Add(Series4)
         Me.chrReqInfo.Series.Add(Series5)
         Me.chrReqInfo.Series.Add(Series6)
-        Me.chrReqInfo.Size = New System.Drawing.Size(665, 221)
+        Me.chrReqInfo.Size = New System.Drawing.Size(665, 241)
         Me.chrReqInfo.TabIndex = 0
         Me.chrReqInfo.Text = "Chart1"
         '
@@ -1211,7 +1241,7 @@ Partial Class frmMonMain
         Me.grpReqInfo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpReqInfo.Location = New System.Drawing.Point(43, 0)
         Me.grpReqInfo.Name = "grpReqInfo"
-        Me.grpReqInfo.Size = New System.Drawing.Size(625, 25)
+        Me.grpReqInfo.Size = New System.Drawing.Size(625, 24)
         Me.grpReqInfo.TabIndex = 0
         Me.grpReqInfo.Text = "F040"
         Me.grpReqInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1224,45 +1254,165 @@ Partial Class frmMonMain
         Me.Label6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Label6.Location = New System.Drawing.Point(3, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(34, 25)
+        Me.Label6.Size = New System.Drawing.Size(34, 24)
         Me.Label6.TabIndex = 1
         Me.Label6.Text = "      "
         '
-        'TableLayoutPanel6
+        'tlpMEMStatus
         '
-        Me.TableLayoutPanel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.TableLayoutPanel6.ColumnCount = 2
-        Me.tlpCurrent.SetColumnSpan(Me.TableLayoutPanel6, 2)
-        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel6.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.Controls.Add(Me.tlpMem, 0, 1)
-        Me.TableLayoutPanel6.Controls.Add(Me.grpMem, 1, 0)
-        Me.TableLayoutPanel6.Controls.Add(Me.Label4, 0, 0)
-        Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel6.Location = New System.Drawing.Point(679, 3)
-        Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
-        Me.TableLayoutPanel6.RowCount = 2
-        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.Size = New System.Drawing.Size(671, 336)
-        Me.TableLayoutPanel6.TabIndex = 20
+        Me.tlpMEMStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.tlpMEMStatus.ColumnCount = 3
+        Me.tlpCurrent.SetColumnSpan(Me.tlpMEMStatus, 2)
+        Me.tlpMEMStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tlpMEMStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpMEMStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176.0!))
+        Me.tlpMEMStatus.Controls.Add(Me.chtMEMStatus, 0, 1)
+        Me.tlpMEMStatus.Controls.Add(Me.grpMem, 1, 0)
+        Me.tlpMEMStatus.Controls.Add(Me.Label4, 0, 0)
+        Me.tlpMEMStatus.Controls.Add(Me.tlpMem, 0, 1)
+        Me.tlpMEMStatus.Controls.Add(Me.pnlRBMem, 2, 0)
+        Me.tlpMEMStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpMEMStatus.Location = New System.Drawing.Point(679, 3)
+        Me.tlpMEMStatus.Name = "tlpMEMStatus"
+        Me.tlpMEMStatus.RowCount = 3
+        Me.tlpMEMStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tlpMEMStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpMEMStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.tlpMEMStatus.Size = New System.Drawing.Size(671, 324)
+        Me.tlpMEMStatus.TabIndex = 20
+        '
+        'chtMEMStatus
+        '
+        Me.chtMEMStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea3.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea3.AxisX.IsLabelAutoFit = False
+        ChartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea3.AxisX.LabelStyle.Interval = 1.0R
+        ChartArea3.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea3.AxisX.MajorGrid.Enabled = False
+        ChartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea3.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea3.AxisX.MajorTickMark.Enabled = False
+        ChartArea3.AxisX.ScaleView.Zoomable = False
+        ChartArea3.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisX2.IsLabelAutoFit = False
+        ChartArea3.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisY.IsLabelAutoFit = False
+        ChartArea3.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea3.AxisY.LabelStyle.Format = "N0"
+        ChartArea3.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea3.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea3.AxisY.MajorTickMark.Enabled = False
+        ChartArea3.AxisY.Maximum = 100.0R
+        ChartArea3.AxisY.MaximumAutoSize = 100.0!
+        ChartArea3.AxisY.Title = "CPU, %"
+        ChartArea3.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea3.AxisY2.IsLabelAutoFit = False
+        ChartArea3.AxisY2.LabelStyle.Enabled = False
+        ChartArea3.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
+        ChartArea3.AxisY2.LabelStyle.Format = "N0"
+        ChartArea3.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea3.AxisY2.MajorGrid.Enabled = False
+        ChartArea3.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
+        ChartArea3.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea3.AxisY2.MajorTickMark.Enabled = False
+        ChartArea3.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea3.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea3.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea3.BorderColor = System.Drawing.Color.Empty
+        ChartArea3.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea3.InnerPlotPosition.Auto = False
+        ChartArea3.InnerPlotPosition.Height = 74.0!
+        ChartArea3.InnerPlotPosition.Width = 88.0!
+        ChartArea3.InnerPlotPosition.X = 8.0!
+        ChartArea3.InnerPlotPosition.Y = 3.0!
+        ChartArea3.Name = "ChartArea1"
+        ChartArea3.Position.Auto = False
+        ChartArea3.Position.Height = 79.99083!
+        ChartArea3.Position.Width = 99.0!
+        ChartArea3.Position.X = 1.0!
+        ChartArea3.Position.Y = 10.0!
+        Me.chtMEMStatus.ChartAreas.Add(ChartArea3)
+        Me.tlpMEMStatus.SetColumnSpan(Me.chtMEMStatus, 3)
+        Me.chtMEMStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Legend4.Alignment = System.Drawing.StringAlignment.Far
+        Legend4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend4.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend4.ForeColor = System.Drawing.Color.White
+        Legend4.IsTextAutoFit = False
+        Legend4.Name = "Legend1"
+        Me.chtMEMStatus.Legends.Add(Legend4)
+        Me.chtMEMStatus.Location = New System.Drawing.Point(3, 29)
+        Me.chtMEMStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtMEMStatus.Name = "chtMEMStatus"
+        Series7.ChartArea = "ChartArea1"
+        Series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
+        Series7.Color = System.Drawing.Color.Gold
+        Series7.Legend = "Legend1"
+        Series7.Name = "Swap"
+        Series8.ChartArea = "ChartArea1"
+        Series8.Color = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(116, Byte), Integer))
+        Series8.LabelForeColor = System.Drawing.Color.WhiteSmoke
+        Series8.Legend = "Legend1"
+        Series8.Name = "Mem"
+        Me.chtMEMStatus.Series.Add(Series7)
+        Me.chtMEMStatus.Series.Add(Series8)
+        Me.chtMEMStatus.Size = New System.Drawing.Size(665, 281)
+        Me.chtMEMStatus.TabIndex = 29
+        Me.chtMEMStatus.Text = "Chart2"
+        Me.chtMEMStatus.Visible = False
+        '
+        'grpMem
+        '
+        Me.grpMem.AutoSize = True
+        Me.grpMem.BackColor = System.Drawing.Color.Transparent
+        Me.grpMem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpMem.ForeColor = System.Drawing.Color.White
+        Me.grpMem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.grpMem.Location = New System.Drawing.Point(43, 0)
+        Me.grpMem.Name = "grpMem"
+        Me.grpMem.Size = New System.Drawing.Size(449, 25)
+        Me.grpMem.TabIndex = 0
+        Me.grpMem.Text = "F036"
+        Me.grpMem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label4.Image = CType(resources.GetObject("Label4.Image"), System.Drawing.Image)
+        Me.Label4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label4.Location = New System.Drawing.Point(3, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(34, 25)
+        Me.Label4.TabIndex = 1
+        Me.Label4.Text = "      "
         '
         'tlpMem
         '
         Me.tlpMem.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.tlpMem.ColumnCount = 2
-        Me.TableLayoutPanel6.SetColumnSpan(Me.tlpMem, 2)
+        Me.tlpMEMStatus.SetColumnSpan(Me.tlpMem, 3)
         Me.tlpMem.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
         Me.tlpMem.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.tlpMem.Controls.Add(Me.radMem, 0, 0)
         Me.tlpMem.Controls.Add(Me.dgvGrpMemSvrLst, 1, 0)
         Me.tlpMem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpMem.Location = New System.Drawing.Point(3, 28)
+        Me.tlpMem.Location = New System.Drawing.Point(3, 317)
         Me.tlpMem.Name = "tlpMem"
         Me.tlpMem.RowCount = 1
         Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 305.0!))
-        Me.tlpMem.Size = New System.Drawing.Size(665, 305)
+        Me.tlpMem.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 4.0!))
+        Me.tlpMem.Size = New System.Drawing.Size(665, 4)
         Me.tlpMem.TabIndex = 7
         '
         'radMem
@@ -1351,7 +1501,7 @@ Partial Class frmMonMain
         Me.radMem.Ranges.Add(RaiderRangeitem1)
         Me.radMem.Ranges.Add(RaiderRangeitem2)
         Me.radMem.Ranges.Add(RaiderRangeitem3)
-        Me.radMem.Size = New System.Drawing.Size(359, 299)
+        Me.radMem.Size = New System.Drawing.Size(359, 1)
         Me.radMem.SpinIncreageDegree = 3.6!
         Me.radMem.Spininterval = 3000
         Me.radMem.Style = eXperDB.Controls.Raider.RaiderStyle.CirclePoint
@@ -1403,7 +1553,7 @@ Partial Class frmMonMain
         Me.dgvGrpMemSvrLst.RowHeadersVisible = False
         Me.dgvGrpMemSvrLst.RowTemplate.Height = 23
         Me.dgvGrpMemSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpMemSvrLst.Size = New System.Drawing.Size(294, 299)
+        Me.dgvGrpMemSvrLst.Size = New System.Drawing.Size(294, 1)
         Me.dgvGrpMemSvrLst.TabIndex = 5
         Me.dgvGrpMemSvrLst.TabStop = False
         Me.dgvGrpMemSvrLst.TagValueMatchColor = System.Drawing.Color.Red
@@ -1441,49 +1591,217 @@ Partial Class frmMonMain
         Me.colGrpMemSvrprog.Name = "colGrpMemSvrprog"
         Me.colGrpMemSvrprog.ReadOnly = True
         '
-        'grpMem
+        'pnlRBMem
         '
-        Me.grpMem.AutoSize = True
-        Me.grpMem.BackColor = System.Drawing.Color.Transparent
-        Me.grpMem.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grpMem.ForeColor = System.Drawing.Color.White
-        Me.grpMem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.grpMem.Location = New System.Drawing.Point(43, 0)
-        Me.grpMem.Name = "grpMem"
-        Me.grpMem.Size = New System.Drawing.Size(625, 25)
-        Me.grpMem.TabIndex = 0
-        Me.grpMem.Text = "F036"
-        Me.grpMem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.pnlRBMem.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.pnlRBMem.Controls.Add(Me.rbMEMRadar)
+        Me.pnlRBMem.Controls.Add(Me.rbMEMBar)
+        Me.pnlRBMem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlRBMem.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.pnlRBMem.Location = New System.Drawing.Point(496, 1)
+        Me.pnlRBMem.Margin = New System.Windows.Forms.Padding(1)
+        Me.pnlRBMem.Name = "pnlRBMem"
+        Me.pnlRBMem.Radius = 10
+        Me.pnlRBMem.Size = New System.Drawing.Size(174, 23)
+        Me.pnlRBMem.TabIndex = 26
         '
-        'Label4
+        'rbMEMRadar
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label4.Image = CType(resources.GetObject("Label4.Image"), System.Drawing.Image)
-        Me.Label4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label4.Location = New System.Drawing.Point(3, 0)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(34, 25)
-        Me.Label4.TabIndex = 1
-        Me.Label4.Text = "      "
+        Me.rbMEMRadar.AutoSize = True
+        Me.rbMEMRadar.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbMEMRadar.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbMEMRadar.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.rbMEMRadar.LineColor = System.Drawing.Color.Gray
+        Me.rbMEMRadar.Location = New System.Drawing.Point(146, 0)
+        Me.rbMEMRadar.Name = "rbMEMRadar"
+        Me.rbMEMRadar.Radius = 10
+        Me.rbMEMRadar.Size = New System.Drawing.Size(14, 23)
+        Me.rbMEMRadar.TabIndex = 1
+        Me.rbMEMRadar.TabStop = True
+        Me.rbMEMRadar.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbMEMRadar.UseVisualStyleBackColor = True
+        Me.rbMEMRadar.Warning = False
+        Me.rbMEMRadar.WarningColor = System.Drawing.Color.Red
         '
-        'TableLayoutPanel5
+        'rbMEMBar
         '
-        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.TableLayoutPanel5.ColumnCount = 2
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.grpCPU, 1, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.Label3, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.tlpCPU, 0, 1)
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 2
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(670, 336)
-        Me.TableLayoutPanel5.TabIndex = 19
+        Me.rbMEMBar.AutoSize = True
+        Me.rbMEMBar.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbMEMBar.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbMEMBar.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.rbMEMBar.LineColor = System.Drawing.Color.Gray
+        Me.rbMEMBar.Location = New System.Drawing.Point(160, 0)
+        Me.rbMEMBar.Name = "rbMEMBar"
+        Me.rbMEMBar.Radius = 10
+        Me.rbMEMBar.Size = New System.Drawing.Size(14, 23)
+        Me.rbMEMBar.TabIndex = 0
+        Me.rbMEMBar.TabStop = True
+        Me.rbMEMBar.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbMEMBar.UseVisualStyleBackColor = True
+        Me.rbMEMBar.Warning = False
+        Me.rbMEMBar.WarningColor = System.Drawing.Color.Red
+        '
+        'tlpCPUStatus
+        '
+        Me.tlpCPUStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.tlpCPUStatus.ColumnCount = 3
+        Me.tlpCPUStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.tlpCPUStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpCPUStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176.0!))
+        Me.tlpCPUStatus.Controls.Add(Me.chtCPUStatus, 0, 1)
+        Me.tlpCPUStatus.Controls.Add(Me.pnlRBCPU, 2, 0)
+        Me.tlpCPUStatus.Controls.Add(Me.grpCPU, 1, 0)
+        Me.tlpCPUStatus.Controls.Add(Me.Label3, 0, 0)
+        Me.tlpCPUStatus.Controls.Add(Me.tlpCPU, 0, 1)
+        Me.tlpCPUStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpCPUStatus.Location = New System.Drawing.Point(3, 3)
+        Me.tlpCPUStatus.Name = "tlpCPUStatus"
+        Me.tlpCPUStatus.RowCount = 3
+        Me.tlpCPUStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
+        Me.tlpCPUStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpCPUStatus.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
+        Me.tlpCPUStatus.Size = New System.Drawing.Size(670, 324)
+        Me.tlpCPUStatus.TabIndex = 19
+        '
+        'chtCPUStatus
+        '
+        Me.chtCPUStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea4.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea4.AxisX.IsLabelAutoFit = False
+        ChartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea4.AxisX.LabelStyle.Interval = 1.0R
+        ChartArea4.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea4.AxisX.MajorGrid.Enabled = False
+        ChartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea4.AxisX.MajorTickMark.Enabled = False
+        ChartArea4.AxisX.ScaleView.Zoomable = False
+        ChartArea4.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisX2.IsLabelAutoFit = False
+        ChartArea4.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisY.IsLabelAutoFit = False
+        ChartArea4.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea4.AxisY.LabelStyle.Format = "N0"
+        ChartArea4.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea4.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea4.AxisY.MajorTickMark.Enabled = False
+        ChartArea4.AxisY.Maximum = 100.0R
+        ChartArea4.AxisY.MaximumAutoSize = 100.0!
+        ChartArea4.AxisY.Title = "CPU, %"
+        ChartArea4.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea4.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea4.AxisY2.IsLabelAutoFit = False
+        ChartArea4.AxisY2.LabelStyle.Enabled = False
+        ChartArea4.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
+        ChartArea4.AxisY2.LabelStyle.Format = "N0"
+        ChartArea4.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea4.AxisY2.MajorGrid.Enabled = False
+        ChartArea4.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
+        ChartArea4.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea4.AxisY2.MajorTickMark.Enabled = False
+        ChartArea4.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea4.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea4.BorderColor = System.Drawing.Color.Empty
+        ChartArea4.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea4.InnerPlotPosition.Auto = False
+        ChartArea4.InnerPlotPosition.Height = 74.0!
+        ChartArea4.InnerPlotPosition.Width = 88.0!
+        ChartArea4.InnerPlotPosition.X = 8.0!
+        ChartArea4.InnerPlotPosition.Y = 3.0!
+        ChartArea4.Name = "ChartArea1"
+        ChartArea4.Position.Auto = False
+        ChartArea4.Position.Height = 79.99083!
+        ChartArea4.Position.Width = 99.0!
+        ChartArea4.Position.X = 1.0!
+        ChartArea4.Position.Y = 10.0!
+        Me.chtCPUStatus.ChartAreas.Add(ChartArea4)
+        Me.tlpCPUStatus.SetColumnSpan(Me.chtCPUStatus, 3)
+        Me.chtCPUStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Legend5.Alignment = System.Drawing.StringAlignment.Far
+        Legend5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend5.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend5.ForeColor = System.Drawing.Color.White
+        Legend5.IsTextAutoFit = False
+        Legend5.Name = "Legend1"
+        Me.chtCPUStatus.Legends.Add(Legend5)
+        Me.chtCPUStatus.Location = New System.Drawing.Point(3, 318)
+        Me.chtCPUStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chtCPUStatus.Name = "chtCPUStatus"
+        Series9.ChartArea = "ChartArea1"
+        Series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
+        Series9.Color = System.Drawing.Color.Gold
+        Series9.Legend = "Legend1"
+        Series9.Name = "Wait"
+        Series10.ChartArea = "ChartArea1"
+        Series10.Color = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(116, Byte), Integer))
+        Series10.LabelForeColor = System.Drawing.Color.WhiteSmoke
+        Series10.Legend = "Legend1"
+        Series10.Name = "Util"
+        Me.chtCPUStatus.Series.Add(Series9)
+        Me.chtCPUStatus.Series.Add(Series10)
+        Me.chtCPUStatus.Size = New System.Drawing.Size(664, 2)
+        Me.chtCPUStatus.TabIndex = 28
+        Me.chtCPUStatus.Text = "Chart2"
+        Me.chtCPUStatus.Visible = False
+        '
+        'pnlRBCPU
+        '
+        Me.pnlRBCPU.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.pnlRBCPU.Controls.Add(Me.rbCPURadar)
+        Me.pnlRBCPU.Controls.Add(Me.rbCPUBar)
+        Me.pnlRBCPU.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlRBCPU.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.pnlRBCPU.Location = New System.Drawing.Point(495, 1)
+        Me.pnlRBCPU.Margin = New System.Windows.Forms.Padding(1)
+        Me.pnlRBCPU.Name = "pnlRBCPU"
+        Me.pnlRBCPU.Radius = 10
+        Me.pnlRBCPU.Size = New System.Drawing.Size(174, 23)
+        Me.pnlRBCPU.TabIndex = 27
+        '
+        'rbCPURadar
+        '
+        Me.rbCPURadar.AutoSize = True
+        Me.rbCPURadar.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbCPURadar.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbCPURadar.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.rbCPURadar.LineColor = System.Drawing.Color.Gray
+        Me.rbCPURadar.Location = New System.Drawing.Point(146, 0)
+        Me.rbCPURadar.Name = "rbCPURadar"
+        Me.rbCPURadar.Radius = 10
+        Me.rbCPURadar.Size = New System.Drawing.Size(14, 23)
+        Me.rbCPURadar.TabIndex = 1
+        Me.rbCPURadar.TabStop = True
+        Me.rbCPURadar.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbCPURadar.UseVisualStyleBackColor = True
+        Me.rbCPURadar.Warning = False
+        Me.rbCPURadar.WarningColor = System.Drawing.Color.Red
+        '
+        'rbCPUBar
+        '
+        Me.rbCPUBar.AutoSize = True
+        Me.rbCPUBar.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbCPUBar.Dock = System.Windows.Forms.DockStyle.Right
+        Me.rbCPUBar.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.rbCPUBar.LineColor = System.Drawing.Color.Gray
+        Me.rbCPUBar.Location = New System.Drawing.Point(160, 0)
+        Me.rbCPUBar.Name = "rbCPUBar"
+        Me.rbCPUBar.Radius = 10
+        Me.rbCPUBar.Size = New System.Drawing.Size(14, 23)
+        Me.rbCPUBar.TabIndex = 0
+        Me.rbCPUBar.TabStop = True
+        Me.rbCPUBar.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbCPUBar.UseVisualStyleBackColor = True
+        Me.rbCPUBar.Warning = False
+        Me.rbCPUBar.WarningColor = System.Drawing.Color.Red
         '
         'grpCPU
         '
@@ -1494,7 +1812,7 @@ Partial Class frmMonMain
         Me.grpCPU.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpCPU.Location = New System.Drawing.Point(43, 0)
         Me.grpCPU.Name = "grpCPU"
-        Me.grpCPU.Size = New System.Drawing.Size(624, 25)
+        Me.grpCPU.Size = New System.Drawing.Size(448, 25)
         Me.grpCPU.TabIndex = 0
         Me.grpCPU.Text = "F035"
         Me.grpCPU.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1515,7 +1833,7 @@ Partial Class frmMonMain
         '
         Me.tlpCPU.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Me.tlpCPU.ColumnCount = 2
-        Me.TableLayoutPanel5.SetColumnSpan(Me.tlpCPU, 2)
+        Me.tlpCPUStatus.SetColumnSpan(Me.tlpCPU, 3)
         Me.tlpCPU.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
         Me.tlpCPU.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.0!))
         Me.tlpCPU.Controls.Add(Me.radCpu, 0, 0)
@@ -1525,7 +1843,7 @@ Partial Class frmMonMain
         Me.tlpCPU.Name = "tlpCPU"
         Me.tlpCPU.RowCount = 1
         Me.tlpCPU.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpCPU.Size = New System.Drawing.Size(664, 305)
+        Me.tlpCPU.Size = New System.Drawing.Size(664, 283)
         Me.tlpCPU.TabIndex = 7
         '
         'radCpu
@@ -1614,7 +1932,7 @@ Partial Class frmMonMain
         Me.radCpu.Ranges.Add(RaiderRangeitem4)
         Me.radCpu.Ranges.Add(RaiderRangeitem5)
         Me.radCpu.Ranges.Add(RaiderRangeitem6)
-        Me.radCpu.Size = New System.Drawing.Size(359, 299)
+        Me.radCpu.Size = New System.Drawing.Size(359, 277)
         Me.radCpu.SpinIncreageDegree = 3.6!
         Me.radCpu.Spininterval = 3000
         Me.radCpu.Style = eXperDB.Controls.Raider.RaiderStyle.CircleChart
@@ -1666,7 +1984,7 @@ Partial Class frmMonMain
         Me.dgvGrpCpuSvrLst.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
         Me.dgvGrpCpuSvrLst.RowTemplate.Height = 43
         Me.dgvGrpCpuSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvGrpCpuSvrLst.Size = New System.Drawing.Size(293, 299)
+        Me.dgvGrpCpuSvrLst.Size = New System.Drawing.Size(293, 277)
         Me.dgvGrpCpuSvrLst.TabIndex = 6
         Me.dgvGrpCpuSvrLst.TabStop = False
         Me.dgvGrpCpuSvrLst.TagValueMatchColor = System.Drawing.Color.Red
@@ -1806,58 +2124,58 @@ Partial Class frmMonMain
         'chtMEMUsage
         '
         Me.chtMEMUsage.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea3.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea3.AxisX.IsLabelAutoFit = False
-        ChartArea3.AxisX.IsMarginVisible = False
-        ChartArea3.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea3.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea3.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea3.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea3.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea3.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea3.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea3.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea3.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea3.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea3.AxisX.MajorTickMark.Enabled = False
-        ChartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea3.AxisX.ScaleView.Zoomable = False
-        ChartArea3.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisX2.IsLabelAutoFit = False
-        ChartArea3.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisY.Interval = 20.0R
-        ChartArea3.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea3.AxisY.IsLabelAutoFit = False
-        ChartArea3.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea3.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea3.AxisY.MajorTickMark.Enabled = False
-        ChartArea3.AxisY.Maximum = 100.0R
-        ChartArea3.AxisY.MaximumAutoSize = 100.0!
-        ChartArea3.AxisY.Minimum = 0.0R
-        ChartArea3.AxisY.Title = "Usage(%)"
-        ChartArea3.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
-        ChartArea3.AxisY2.IsLabelAutoFit = False
-        ChartArea3.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea3.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea3.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea3.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea3.Name = "ChartArea1"
-        ChartArea3.Position.Auto = False
-        ChartArea3.Position.Height = 85.0!
-        ChartArea3.Position.Width = 94.0!
-        ChartArea3.Position.X = 1.0!
-        ChartArea3.Position.Y = 10.0!
-        Me.chtMEMUsage.ChartAreas.Add(ChartArea3)
+        ChartArea5.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea5.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea5.AxisX.IsLabelAutoFit = False
+        ChartArea5.AxisX.IsMarginVisible = False
+        ChartArea5.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea5.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea5.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea5.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea5.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea5.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea5.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea5.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea5.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea5.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea5.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea5.AxisX.MajorTickMark.Enabled = False
+        ChartArea5.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea5.AxisX.ScaleView.Zoomable = False
+        ChartArea5.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisX2.IsLabelAutoFit = False
+        ChartArea5.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisY.Interval = 20.0R
+        ChartArea5.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea5.AxisY.IsLabelAutoFit = False
+        ChartArea5.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea5.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea5.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea5.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea5.AxisY.MajorTickMark.Enabled = False
+        ChartArea5.AxisY.Maximum = 100.0R
+        ChartArea5.AxisY.MaximumAutoSize = 100.0!
+        ChartArea5.AxisY.Minimum = 0.0R
+        ChartArea5.AxisY.Title = "Usage(%)"
+        ChartArea5.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea5.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
+        ChartArea5.AxisY2.IsLabelAutoFit = False
+        ChartArea5.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea5.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea5.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea5.Name = "ChartArea1"
+        ChartArea5.Position.Auto = False
+        ChartArea5.Position.Height = 85.0!
+        ChartArea5.Position.Width = 94.0!
+        ChartArea5.Position.X = 1.0!
+        ChartArea5.Position.Y = 10.0!
+        Me.chtMEMUsage.ChartAreas.Add(ChartArea5)
         Me.tlpMEMUsage.SetColumnSpan(Me.chtMEMUsage, 5)
         Me.chtMEMUsage.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtMEMUsage.Location = New System.Drawing.Point(3, 29)
@@ -1903,76 +2221,76 @@ Partial Class frmMonMain
         'chtSQLRespTmMAX
         '
         Me.chtSQLRespTmMAX.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea4.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea4.AxisX.IsLabelAutoFit = False
-        ChartArea4.AxisX.IsMarginVisible = False
-        ChartArea4.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea4.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea4.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea4.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea4.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea4.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea4.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea4.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea4.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea4.AxisX.MajorTickMark.Enabled = False
-        ChartArea4.AxisX.ScaleView.Zoomable = False
-        ChartArea4.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisX.TitleForeColor = System.Drawing.Color.White
-        ChartArea4.AxisX2.IsLabelAutoFit = False
-        ChartArea4.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea4.AxisY.LabelStyle.Format = "N0"
-        ChartArea4.AxisY.LabelStyle.TruncatedLabels = True
-        ChartArea4.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea4.AxisY.MajorGrid.Interval = 0.0R
-        ChartArea4.AxisY.MajorGrid.IntervalOffset = 0.0R
-        ChartArea4.AxisY.MajorGrid.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea4.AxisY.MajorGrid.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea4.AxisY.MajorTickMark.Enabled = False
-        ChartArea4.AxisY.Title = "SEC"
-        ChartArea4.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea4.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea4.AxisY2.IsLabelAutoFit = False
-        ChartArea4.AxisY2.LabelStyle.Enabled = False
-        ChartArea4.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
-        ChartArea4.AxisY2.LabelStyle.Format = "N0"
-        ChartArea4.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea4.AxisY2.MajorGrid.Enabled = False
-        ChartArea4.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
-        ChartArea4.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea4.AxisY2.MajorTickMark.Enabled = False
-        ChartArea4.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea4.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea4.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea4.Name = "ChartArea1"
-        ChartArea4.Position.Auto = False
-        ChartArea4.Position.Height = 85.0!
-        ChartArea4.Position.Width = 94.0!
-        ChartArea4.Position.X = 1.0!
-        ChartArea4.Position.Y = 10.0!
-        Me.chtSQLRespTmMAX.ChartAreas.Add(ChartArea4)
+        ChartArea6.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea6.AxisX.IsLabelAutoFit = False
+        ChartArea6.AxisX.IsMarginVisible = False
+        ChartArea6.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea6.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea6.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea6.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea6.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea6.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea6.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea6.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea6.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea6.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea6.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea6.AxisX.MajorTickMark.Enabled = False
+        ChartArea6.AxisX.ScaleView.Zoomable = False
+        ChartArea6.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisX.TitleForeColor = System.Drawing.Color.White
+        ChartArea6.AxisX2.IsLabelAutoFit = False
+        ChartArea6.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea6.AxisY.LabelStyle.Format = "N0"
+        ChartArea6.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea6.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea6.AxisY.MajorGrid.Interval = 0.0R
+        ChartArea6.AxisY.MajorGrid.IntervalOffset = 0.0R
+        ChartArea6.AxisY.MajorGrid.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea6.AxisY.MajorGrid.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea6.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea6.AxisY.MajorTickMark.Enabled = False
+        ChartArea6.AxisY.Title = "SEC"
+        ChartArea6.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea6.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea6.AxisY2.IsLabelAutoFit = False
+        ChartArea6.AxisY2.LabelStyle.Enabled = False
+        ChartArea6.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
+        ChartArea6.AxisY2.LabelStyle.Format = "N0"
+        ChartArea6.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea6.AxisY2.MajorGrid.Enabled = False
+        ChartArea6.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
+        ChartArea6.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea6.AxisY2.MajorTickMark.Enabled = False
+        ChartArea6.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea6.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea6.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea6.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea6.Name = "ChartArea1"
+        ChartArea6.Position.Auto = False
+        ChartArea6.Position.Height = 85.0!
+        ChartArea6.Position.Width = 94.0!
+        ChartArea6.Position.X = 1.0!
+        ChartArea6.Position.Y = 10.0!
+        Me.chtSQLRespTmMAX.ChartAreas.Add(ChartArea6)
         Me.tlpSQLRespTmMAX.SetColumnSpan(Me.chtSQLRespTmMAX, 2)
         Me.chtSQLRespTmMAX.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend4.Alignment = System.Drawing.StringAlignment.Far
-        Legend4.BackColor = System.Drawing.Color.Black
-        Legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend4.Enabled = False
-        Legend4.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend4.ForeColor = System.Drawing.Color.White
-        Legend4.IsTextAutoFit = False
-        Legend4.Name = "Legend1"
-        Me.chtSQLRespTmMAX.Legends.Add(Legend4)
+        Legend6.Alignment = System.Drawing.StringAlignment.Far
+        Legend6.BackColor = System.Drawing.Color.Black
+        Legend6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend6.Enabled = False
+        Legend6.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend6.ForeColor = System.Drawing.Color.White
+        Legend6.IsTextAutoFit = False
+        Legend6.Name = "Legend1"
+        Me.chtSQLRespTmMAX.Legends.Add(Legend6)
         Me.chtSQLRespTmMAX.Location = New System.Drawing.Point(3, 29)
         Me.chtSQLRespTmMAX.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLRespTmMAX.Name = "chtSQLRespTmMAX"
@@ -2029,71 +2347,71 @@ Partial Class frmMonMain
         'chtSQLRespTmAVG
         '
         Me.chtSQLRespTmAVG.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea5.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea5.AxisX.IsLabelAutoFit = False
-        ChartArea5.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea5.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea5.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea5.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea5.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea5.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea5.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea5.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea5.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea5.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea5.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea5.AxisX.MajorTickMark.Enabled = False
-        ChartArea5.AxisX.ScaleView.Zoomable = False
-        ChartArea5.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisX.TitleForeColor = System.Drawing.Color.White
-        ChartArea5.AxisX2.IsLabelAutoFit = False
-        ChartArea5.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisY.IsLabelAutoFit = False
-        ChartArea5.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea5.AxisY.LabelStyle.Format = "N0"
-        ChartArea5.AxisY.LabelStyle.TruncatedLabels = True
-        ChartArea5.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea5.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea5.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea5.AxisY.MajorTickMark.Enabled = False
-        ChartArea5.AxisY.Title = "SEC"
-        ChartArea5.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea5.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea5.AxisY2.IsLabelAutoFit = False
-        ChartArea5.AxisY2.LabelStyle.Enabled = False
-        ChartArea5.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
-        ChartArea5.AxisY2.LabelStyle.Format = "N0"
-        ChartArea5.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea5.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea5.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea5.AxisY2.MajorTickMark.Enabled = False
-        ChartArea5.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea5.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea5.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea5.Name = "ChartArea1"
-        ChartArea5.Position.Auto = False
-        ChartArea5.Position.Height = 85.0!
-        ChartArea5.Position.Width = 94.0!
-        ChartArea5.Position.X = 1.0!
-        ChartArea5.Position.Y = 10.0!
-        Me.chtSQLRespTmAVG.ChartAreas.Add(ChartArea5)
+        ChartArea7.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea7.AxisX.IsLabelAutoFit = False
+        ChartArea7.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea7.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea7.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea7.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea7.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea7.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea7.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea7.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea7.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea7.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea7.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea7.AxisX.MajorTickMark.Enabled = False
+        ChartArea7.AxisX.ScaleView.Zoomable = False
+        ChartArea7.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisX.TitleForeColor = System.Drawing.Color.White
+        ChartArea7.AxisX2.IsLabelAutoFit = False
+        ChartArea7.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisY.IsLabelAutoFit = False
+        ChartArea7.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea7.AxisY.LabelStyle.Format = "N0"
+        ChartArea7.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea7.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea7.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea7.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea7.AxisY.MajorTickMark.Enabled = False
+        ChartArea7.AxisY.Title = "SEC"
+        ChartArea7.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea7.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea7.AxisY2.IsLabelAutoFit = False
+        ChartArea7.AxisY2.LabelStyle.Enabled = False
+        ChartArea7.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
+        ChartArea7.AxisY2.LabelStyle.Format = "N0"
+        ChartArea7.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea7.AxisY2.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea7.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea7.AxisY2.MajorTickMark.Enabled = False
+        ChartArea7.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea7.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea7.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea7.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea7.Name = "ChartArea1"
+        ChartArea7.Position.Auto = False
+        ChartArea7.Position.Height = 85.0!
+        ChartArea7.Position.Width = 94.0!
+        ChartArea7.Position.X = 1.0!
+        ChartArea7.Position.Y = 10.0!
+        Me.chtSQLRespTmAVG.ChartAreas.Add(ChartArea7)
         Me.tlpSQLRespTmAVG.SetColumnSpan(Me.chtSQLRespTmAVG, 2)
         Me.chtSQLRespTmAVG.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend5.Alignment = System.Drawing.StringAlignment.Far
-        Legend5.BackColor = System.Drawing.Color.Black
-        Legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend5.Enabled = False
-        Legend5.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend5.ForeColor = System.Drawing.Color.White
-        Legend5.IsTextAutoFit = False
-        Legend5.Name = "Legend1"
-        Me.chtSQLRespTmAVG.Legends.Add(Legend5)
+        Legend7.Alignment = System.Drawing.StringAlignment.Far
+        Legend7.BackColor = System.Drawing.Color.Black
+        Legend7.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend7.Enabled = False
+        Legend7.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend7.ForeColor = System.Drawing.Color.White
+        Legend7.IsTextAutoFit = False
+        Legend7.Name = "Legend1"
+        Me.chtSQLRespTmAVG.Legends.Add(Legend7)
         Me.chtSQLRespTmAVG.Location = New System.Drawing.Point(3, 29)
         Me.chtSQLRespTmAVG.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSQLRespTmAVG.Name = "chtSQLRespTmAVG"
@@ -2150,59 +2468,59 @@ Partial Class frmMonMain
         'chtTPSRollback
         '
         Me.chtTPSRollback.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea6.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea6.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea6.AxisX.IsLabelAutoFit = False
-        ChartArea6.AxisX.IsMarginVisible = False
-        ChartArea6.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea6.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea6.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea6.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea6.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea6.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea6.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea6.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea6.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea6.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea6.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea6.AxisX.MajorTickMark.Enabled = False
-        ChartArea6.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea6.AxisX.ScaleView.Zoomable = False
-        ChartArea6.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisX2.IsLabelAutoFit = False
-        ChartArea6.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisY.Interval = 20.0R
-        ChartArea6.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea6.AxisY.IsLabelAutoFit = False
-        ChartArea6.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea6.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea6.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea6.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea6.AxisY.MajorTickMark.Enabled = False
-        ChartArea6.AxisY.Maximum = 100.0R
-        ChartArea6.AxisY.MaximumAutoSize = 100.0!
-        ChartArea6.AxisY.Minimum = 0.0R
-        ChartArea6.AxisY.Title = "TPS"
-        ChartArea6.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea6.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea6.AxisY2.IsLabelAutoFit = False
-        ChartArea6.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea6.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea6.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea6.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea6.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea6.Name = "ChartArea1"
-        ChartArea6.Position.Auto = False
-        ChartArea6.Position.Height = 85.0!
-        ChartArea6.Position.Width = 94.0!
-        ChartArea6.Position.X = 1.0!
-        ChartArea6.Position.Y = 10.0!
-        Me.chtTPSRollback.ChartAreas.Add(ChartArea6)
+        ChartArea8.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea8.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea8.AxisX.IsLabelAutoFit = False
+        ChartArea8.AxisX.IsMarginVisible = False
+        ChartArea8.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea8.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea8.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea8.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea8.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea8.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea8.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea8.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea8.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea8.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea8.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea8.AxisX.MajorTickMark.Enabled = False
+        ChartArea8.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea8.AxisX.ScaleView.Zoomable = False
+        ChartArea8.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisX2.IsLabelAutoFit = False
+        ChartArea8.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisY.Interval = 20.0R
+        ChartArea8.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea8.AxisY.IsLabelAutoFit = False
+        ChartArea8.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea8.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea8.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea8.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea8.AxisY.MajorTickMark.Enabled = False
+        ChartArea8.AxisY.Maximum = 100.0R
+        ChartArea8.AxisY.MaximumAutoSize = 100.0!
+        ChartArea8.AxisY.Minimum = 0.0R
+        ChartArea8.AxisY.Title = "TPS"
+        ChartArea8.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea8.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea8.AxisY2.IsLabelAutoFit = False
+        ChartArea8.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea8.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea8.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea8.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea8.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea8.Name = "ChartArea1"
+        ChartArea8.Position.Auto = False
+        ChartArea8.Position.Height = 85.0!
+        ChartArea8.Position.Width = 94.0!
+        ChartArea8.Position.X = 1.0!
+        ChartArea8.Position.Y = 10.0!
+        Me.chtTPSRollback.ChartAreas.Add(ChartArea8)
         Me.tlpTPSRollback.SetColumnSpan(Me.chtTPSRollback, 5)
         Me.chtTPSRollback.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtTPSRollback.Location = New System.Drawing.Point(3, 29)
@@ -2261,59 +2579,59 @@ Partial Class frmMonMain
         'chtTPSCommit
         '
         Me.chtTPSCommit.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea7.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea7.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea7.AxisX.IsLabelAutoFit = False
-        ChartArea7.AxisX.IsMarginVisible = False
-        ChartArea7.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea7.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea7.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea7.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea7.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea7.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea7.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea7.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea7.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea7.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea7.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea7.AxisX.MajorTickMark.Enabled = False
-        ChartArea7.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea7.AxisX.ScaleView.Zoomable = False
-        ChartArea7.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisX2.IsLabelAutoFit = False
-        ChartArea7.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisY.Interval = 20.0R
-        ChartArea7.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea7.AxisY.IsLabelAutoFit = False
-        ChartArea7.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea7.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea7.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea7.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea7.AxisY.MajorTickMark.Enabled = False
-        ChartArea7.AxisY.Maximum = 100.0R
-        ChartArea7.AxisY.MaximumAutoSize = 100.0!
-        ChartArea7.AxisY.Minimum = 0.0R
-        ChartArea7.AxisY.Title = "TPS"
-        ChartArea7.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea7.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea7.AxisY2.IsLabelAutoFit = False
-        ChartArea7.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea7.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea7.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea7.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea7.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea7.Name = "ChartArea1"
-        ChartArea7.Position.Auto = False
-        ChartArea7.Position.Height = 85.0!
-        ChartArea7.Position.Width = 94.0!
-        ChartArea7.Position.X = 1.0!
-        ChartArea7.Position.Y = 10.0!
-        Me.chtTPSCommit.ChartAreas.Add(ChartArea7)
+        ChartArea9.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea9.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea9.AxisX.IsLabelAutoFit = False
+        ChartArea9.AxisX.IsMarginVisible = False
+        ChartArea9.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea9.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea9.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea9.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea9.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea9.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea9.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea9.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea9.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea9.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea9.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea9.AxisX.MajorTickMark.Enabled = False
+        ChartArea9.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea9.AxisX.ScaleView.Zoomable = False
+        ChartArea9.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisX2.IsLabelAutoFit = False
+        ChartArea9.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisY.Interval = 20.0R
+        ChartArea9.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea9.AxisY.IsLabelAutoFit = False
+        ChartArea9.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea9.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea9.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea9.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea9.AxisY.MajorTickMark.Enabled = False
+        ChartArea9.AxisY.Maximum = 100.0R
+        ChartArea9.AxisY.MaximumAutoSize = 100.0!
+        ChartArea9.AxisY.Minimum = 0.0R
+        ChartArea9.AxisY.Title = "TPS"
+        ChartArea9.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea9.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea9.AxisY2.IsLabelAutoFit = False
+        ChartArea9.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea9.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea9.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea9.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea9.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea9.Name = "ChartArea1"
+        ChartArea9.Position.Auto = False
+        ChartArea9.Position.Height = 85.0!
+        ChartArea9.Position.Width = 94.0!
+        ChartArea9.Position.X = 1.0!
+        ChartArea9.Position.Y = 10.0!
+        Me.chtTPSCommit.ChartAreas.Add(ChartArea9)
         Me.tlpTPSCommit.SetColumnSpan(Me.chtTPSCommit, 5)
         Me.chtTPSCommit.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtTPSCommit.Location = New System.Drawing.Point(3, 29)
@@ -2372,59 +2690,59 @@ Partial Class frmMonMain
         'chtTPSTotal
         '
         Me.chtTPSTotal.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea8.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea8.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea8.AxisX.IsLabelAutoFit = False
-        ChartArea8.AxisX.IsMarginVisible = False
-        ChartArea8.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea8.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea8.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea8.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea8.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea8.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea8.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea8.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea8.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea8.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea8.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea8.AxisX.MajorTickMark.Enabled = False
-        ChartArea8.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea8.AxisX.ScaleView.Zoomable = False
-        ChartArea8.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisX2.IsLabelAutoFit = False
-        ChartArea8.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisY.Interval = 20.0R
-        ChartArea8.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea8.AxisY.IsLabelAutoFit = False
-        ChartArea8.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea8.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea8.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea8.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea8.AxisY.MajorTickMark.Enabled = False
-        ChartArea8.AxisY.Maximum = 100.0R
-        ChartArea8.AxisY.MaximumAutoSize = 100.0!
-        ChartArea8.AxisY.Minimum = 0.0R
-        ChartArea8.AxisY.Title = "TPS"
-        ChartArea8.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea8.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea8.AxisY2.IsLabelAutoFit = False
-        ChartArea8.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea8.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea8.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea8.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea8.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea8.Name = "ChartArea1"
-        ChartArea8.Position.Auto = False
-        ChartArea8.Position.Height = 85.0!
-        ChartArea8.Position.Width = 94.0!
-        ChartArea8.Position.X = 1.0!
-        ChartArea8.Position.Y = 10.0!
-        Me.chtTPSTotal.ChartAreas.Add(ChartArea8)
+        ChartArea10.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea10.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea10.AxisX.IsLabelAutoFit = False
+        ChartArea10.AxisX.IsMarginVisible = False
+        ChartArea10.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea10.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea10.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea10.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea10.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea10.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea10.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea10.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea10.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea10.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea10.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea10.AxisX.MajorTickMark.Enabled = False
+        ChartArea10.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea10.AxisX.ScaleView.Zoomable = False
+        ChartArea10.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisX2.IsLabelAutoFit = False
+        ChartArea10.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY.Interval = 20.0R
+        ChartArea10.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea10.AxisY.IsLabelAutoFit = False
+        ChartArea10.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea10.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea10.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea10.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea10.AxisY.MajorTickMark.Enabled = False
+        ChartArea10.AxisY.Maximum = 100.0R
+        ChartArea10.AxisY.MaximumAutoSize = 100.0!
+        ChartArea10.AxisY.Minimum = 0.0R
+        ChartArea10.AxisY.Title = "TPS"
+        ChartArea10.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea10.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea10.AxisY2.IsLabelAutoFit = False
+        ChartArea10.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea10.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea10.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea10.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea10.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea10.Name = "ChartArea1"
+        ChartArea10.Position.Auto = False
+        ChartArea10.Position.Height = 85.0!
+        ChartArea10.Position.Width = 94.0!
+        ChartArea10.Position.X = 1.0!
+        ChartArea10.Position.Y = 10.0!
+        Me.chtTPSTotal.ChartAreas.Add(ChartArea10)
         Me.tlpTPSTotal.SetColumnSpan(Me.chtTPSTotal, 5)
         Me.chtTPSTotal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtTPSTotal.Location = New System.Drawing.Point(3, 29)
@@ -2483,59 +2801,59 @@ Partial Class frmMonMain
         'chtLockWait
         '
         Me.chtLockWait.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea9.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea9.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea9.AxisX.IsLabelAutoFit = False
-        ChartArea9.AxisX.IsMarginVisible = False
-        ChartArea9.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea9.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea9.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea9.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea9.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea9.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea9.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea9.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea9.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea9.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea9.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea9.AxisX.MajorTickMark.Enabled = False
-        ChartArea9.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea9.AxisX.ScaleView.Zoomable = False
-        ChartArea9.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisX2.IsLabelAutoFit = False
-        ChartArea9.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisY.Interval = 20.0R
-        ChartArea9.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea9.AxisY.IsLabelAutoFit = False
-        ChartArea9.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea9.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea9.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea9.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea9.AxisY.MajorTickMark.Enabled = False
-        ChartArea9.AxisY.Maximum = 100.0R
-        ChartArea9.AxisY.MaximumAutoSize = 100.0!
-        ChartArea9.AxisY.Minimum = 0.0R
-        ChartArea9.AxisY.Title = "Count"
-        ChartArea9.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea9.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea9.AxisY2.IsLabelAutoFit = False
-        ChartArea9.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea9.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea9.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea9.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea9.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea9.Name = "ChartArea1"
-        ChartArea9.Position.Auto = False
-        ChartArea9.Position.Height = 85.0!
-        ChartArea9.Position.Width = 94.0!
-        ChartArea9.Position.X = 1.0!
-        ChartArea9.Position.Y = 10.0!
-        Me.chtLockWait.ChartAreas.Add(ChartArea9)
+        ChartArea11.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea11.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea11.AxisX.IsLabelAutoFit = False
+        ChartArea11.AxisX.IsMarginVisible = False
+        ChartArea11.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea11.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea11.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea11.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea11.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea11.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea11.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea11.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea11.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea11.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea11.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea11.AxisX.MajorTickMark.Enabled = False
+        ChartArea11.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea11.AxisX.ScaleView.Zoomable = False
+        ChartArea11.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisX2.IsLabelAutoFit = False
+        ChartArea11.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisY.Interval = 20.0R
+        ChartArea11.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea11.AxisY.IsLabelAutoFit = False
+        ChartArea11.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea11.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea11.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea11.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea11.AxisY.MajorTickMark.Enabled = False
+        ChartArea11.AxisY.Maximum = 100.0R
+        ChartArea11.AxisY.MaximumAutoSize = 100.0!
+        ChartArea11.AxisY.Minimum = 0.0R
+        ChartArea11.AxisY.Title = "Count"
+        ChartArea11.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea11.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea11.AxisY2.IsLabelAutoFit = False
+        ChartArea11.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea11.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea11.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea11.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea11.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea11.Name = "ChartArea1"
+        ChartArea11.Position.Auto = False
+        ChartArea11.Position.Height = 85.0!
+        ChartArea11.Position.Width = 94.0!
+        ChartArea11.Position.X = 1.0!
+        ChartArea11.Position.Y = 10.0!
+        Me.chtLockWait.ChartAreas.Add(ChartArea11)
         Me.tlpLockWait.SetColumnSpan(Me.chtLockWait, 5)
         Me.chtLockWait.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtLockWait.Location = New System.Drawing.Point(3, 29)
@@ -2594,73 +2912,73 @@ Partial Class frmMonMain
         'chtSessionTotal
         '
         Me.chtSessionTotal.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea10.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea10.AxisX.IsLabelAutoFit = False
-        ChartArea10.AxisX.IsMarginVisible = False
-        ChartArea10.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea10.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea10.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea10.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea10.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea10.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea10.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea10.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea10.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea10.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea10.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea10.AxisX.MajorTickMark.Enabled = False
-        ChartArea10.AxisX.ScaleView.Zoomable = False
-        ChartArea10.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisX.TitleForeColor = System.Drawing.Color.White
-        ChartArea10.AxisX2.IsLabelAutoFit = False
-        ChartArea10.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisY.IsLabelAutoFit = False
-        ChartArea10.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea10.AxisY.LabelStyle.Format = "N0"
-        ChartArea10.AxisY.LabelStyle.TruncatedLabels = True
-        ChartArea10.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea10.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea10.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea10.AxisY.MajorTickMark.Enabled = False
-        ChartArea10.AxisY.Title = "Count"
-        ChartArea10.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea10.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea10.AxisY2.IsLabelAutoFit = False
-        ChartArea10.AxisY2.LabelStyle.Enabled = False
-        ChartArea10.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
-        ChartArea10.AxisY2.LabelStyle.Format = "N0"
-        ChartArea10.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea10.AxisY2.MajorGrid.Enabled = False
-        ChartArea10.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
-        ChartArea10.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea10.AxisY2.MajorTickMark.Enabled = False
-        ChartArea10.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea10.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea10.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea10.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea10.Name = "ChartArea1"
-        ChartArea10.Position.Auto = False
-        ChartArea10.Position.Height = 85.0!
-        ChartArea10.Position.Width = 94.0!
-        ChartArea10.Position.X = 1.0!
-        ChartArea10.Position.Y = 10.0!
-        Me.chtSessionTotal.ChartAreas.Add(ChartArea10)
+        ChartArea12.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea12.AxisX.IsLabelAutoFit = False
+        ChartArea12.AxisX.IsMarginVisible = False
+        ChartArea12.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea12.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea12.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea12.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea12.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea12.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea12.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea12.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea12.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea12.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea12.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea12.AxisX.MajorTickMark.Enabled = False
+        ChartArea12.AxisX.ScaleView.Zoomable = False
+        ChartArea12.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisX.TitleForeColor = System.Drawing.Color.White
+        ChartArea12.AxisX2.IsLabelAutoFit = False
+        ChartArea12.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisY.IsLabelAutoFit = False
+        ChartArea12.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea12.AxisY.LabelStyle.Format = "N0"
+        ChartArea12.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea12.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea12.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea12.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea12.AxisY.MajorTickMark.Enabled = False
+        ChartArea12.AxisY.Title = "Count"
+        ChartArea12.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea12.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea12.AxisY2.IsLabelAutoFit = False
+        ChartArea12.AxisY2.LabelStyle.Enabled = False
+        ChartArea12.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
+        ChartArea12.AxisY2.LabelStyle.Format = "N0"
+        ChartArea12.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea12.AxisY2.MajorGrid.Enabled = False
+        ChartArea12.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
+        ChartArea12.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea12.AxisY2.MajorTickMark.Enabled = False
+        ChartArea12.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea12.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea12.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea12.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea12.Name = "ChartArea1"
+        ChartArea12.Position.Auto = False
+        ChartArea12.Position.Height = 85.0!
+        ChartArea12.Position.Width = 94.0!
+        ChartArea12.Position.X = 1.0!
+        ChartArea12.Position.Y = 10.0!
+        Me.chtSessionTotal.ChartAreas.Add(ChartArea12)
         Me.tlpSessionTotal.SetColumnSpan(Me.chtSessionTotal, 2)
         Me.chtSessionTotal.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend6.Alignment = System.Drawing.StringAlignment.Far
-        Legend6.BackColor = System.Drawing.Color.Black
-        Legend6.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend6.Enabled = False
-        Legend6.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend6.ForeColor = System.Drawing.Color.White
-        Legend6.IsTextAutoFit = False
-        Legend6.Name = "Legend1"
-        Me.chtSessionTotal.Legends.Add(Legend6)
+        Legend8.Alignment = System.Drawing.StringAlignment.Far
+        Legend8.BackColor = System.Drawing.Color.Black
+        Legend8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend8.Enabled = False
+        Legend8.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend8.ForeColor = System.Drawing.Color.White
+        Legend8.IsTextAutoFit = False
+        Legend8.Name = "Legend1"
+        Me.chtSessionTotal.Legends.Add(Legend8)
         Me.chtSessionTotal.Location = New System.Drawing.Point(3, 29)
         Me.chtSessionTotal.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSessionTotal.Name = "chtSessionTotal"
@@ -2717,58 +3035,58 @@ Partial Class frmMonMain
         'chtLogicalWrite
         '
         Me.chtLogicalWrite.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea11.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea11.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea11.AxisX.IsLabelAutoFit = False
-        ChartArea11.AxisX.IsMarginVisible = False
-        ChartArea11.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea11.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea11.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea11.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea11.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea11.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea11.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea11.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea11.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea11.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea11.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea11.AxisX.MajorTickMark.Enabled = False
-        ChartArea11.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea11.AxisX.ScaleView.Zoomable = False
-        ChartArea11.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisX2.IsLabelAutoFit = False
-        ChartArea11.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisY.Interval = 20.0R
-        ChartArea11.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea11.AxisY.IsLabelAutoFit = False
-        ChartArea11.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea11.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea11.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea11.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea11.AxisY.MajorTickMark.Enabled = False
-        ChartArea11.AxisY.Maximum = 100.0R
-        ChartArea11.AxisY.MaximumAutoSize = 100.0!
-        ChartArea11.AxisY.Minimum = 0.0R
-        ChartArea11.AxisY.Title = "Tuples/sec"
-        ChartArea11.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea11.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea11.AxisY2.IsLabelAutoFit = False
-        ChartArea11.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea11.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea11.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea11.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea11.Name = "ChartArea1"
-        ChartArea11.Position.Auto = False
-        ChartArea11.Position.Height = 85.0!
-        ChartArea11.Position.Width = 94.0!
-        ChartArea11.Position.X = 1.0!
-        ChartArea11.Position.Y = 10.0!
-        Me.chtLogicalWrite.ChartAreas.Add(ChartArea11)
+        ChartArea13.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea13.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea13.AxisX.IsLabelAutoFit = False
+        ChartArea13.AxisX.IsMarginVisible = False
+        ChartArea13.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea13.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea13.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea13.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea13.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea13.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea13.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea13.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea13.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea13.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea13.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea13.AxisX.MajorTickMark.Enabled = False
+        ChartArea13.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea13.AxisX.ScaleView.Zoomable = False
+        ChartArea13.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisX2.IsLabelAutoFit = False
+        ChartArea13.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisY.Interval = 20.0R
+        ChartArea13.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea13.AxisY.IsLabelAutoFit = False
+        ChartArea13.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea13.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea13.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea13.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea13.AxisY.MajorTickMark.Enabled = False
+        ChartArea13.AxisY.Maximum = 100.0R
+        ChartArea13.AxisY.MaximumAutoSize = 100.0!
+        ChartArea13.AxisY.Minimum = 0.0R
+        ChartArea13.AxisY.Title = "Tuples/sec"
+        ChartArea13.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea13.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea13.AxisY2.IsLabelAutoFit = False
+        ChartArea13.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea13.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea13.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea13.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea13.Name = "ChartArea1"
+        ChartArea13.Position.Auto = False
+        ChartArea13.Position.Height = 85.0!
+        ChartArea13.Position.Width = 94.0!
+        ChartArea13.Position.X = 1.0!
+        ChartArea13.Position.Y = 10.0!
+        Me.chtLogicalWrite.ChartAreas.Add(ChartArea13)
         Me.tlpLogicalWrite.SetColumnSpan(Me.chtLogicalWrite, 5)
         Me.chtLogicalWrite.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtLogicalWrite.Location = New System.Drawing.Point(3, 29)
@@ -2845,58 +3163,58 @@ Partial Class frmMonMain
         'chtCPUWait
         '
         Me.chtCPUWait.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea12.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea12.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea12.AxisX.IsLabelAutoFit = False
-        ChartArea12.AxisX.IsMarginVisible = False
-        ChartArea12.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea12.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea12.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea12.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea12.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea12.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea12.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea12.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea12.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea12.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea12.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea12.AxisX.MajorTickMark.Enabled = False
-        ChartArea12.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea12.AxisX.ScaleView.Zoomable = False
-        ChartArea12.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisX2.IsLabelAutoFit = False
-        ChartArea12.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisY.Interval = 20.0R
-        ChartArea12.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea12.AxisY.IsLabelAutoFit = False
-        ChartArea12.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea12.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea12.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea12.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea12.AxisY.MajorTickMark.Enabled = False
-        ChartArea12.AxisY.Maximum = 100.0R
-        ChartArea12.AxisY.MaximumAutoSize = 100.0!
-        ChartArea12.AxisY.Minimum = 0.0R
-        ChartArea12.AxisY.Title = "Wait(%)"
-        ChartArea12.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea12.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
-        ChartArea12.AxisY2.IsLabelAutoFit = False
-        ChartArea12.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea12.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea12.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea12.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea12.Name = "ChartArea1"
-        ChartArea12.Position.Auto = False
-        ChartArea12.Position.Height = 85.0!
-        ChartArea12.Position.Width = 94.0!
-        ChartArea12.Position.X = 1.0!
-        ChartArea12.Position.Y = 10.0!
-        Me.chtCPUWait.ChartAreas.Add(ChartArea12)
+        ChartArea14.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea14.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea14.AxisX.IsLabelAutoFit = False
+        ChartArea14.AxisX.IsMarginVisible = False
+        ChartArea14.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea14.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea14.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea14.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea14.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea14.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea14.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea14.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea14.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea14.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea14.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea14.AxisX.MajorTickMark.Enabled = False
+        ChartArea14.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea14.AxisX.ScaleView.Zoomable = False
+        ChartArea14.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisX2.IsLabelAutoFit = False
+        ChartArea14.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisY.Interval = 20.0R
+        ChartArea14.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea14.AxisY.IsLabelAutoFit = False
+        ChartArea14.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea14.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea14.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea14.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea14.AxisY.MajorTickMark.Enabled = False
+        ChartArea14.AxisY.Maximum = 100.0R
+        ChartArea14.AxisY.MaximumAutoSize = 100.0!
+        ChartArea14.AxisY.Minimum = 0.0R
+        ChartArea14.AxisY.Title = "Wait(%)"
+        ChartArea14.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea14.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
+        ChartArea14.AxisY2.IsLabelAutoFit = False
+        ChartArea14.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea14.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea14.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea14.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea14.Name = "ChartArea1"
+        ChartArea14.Position.Auto = False
+        ChartArea14.Position.Height = 85.0!
+        ChartArea14.Position.Width = 94.0!
+        ChartArea14.Position.X = 1.0!
+        ChartArea14.Position.Y = 10.0!
+        Me.chtCPUWait.ChartAreas.Add(ChartArea14)
         Me.tlpCPUWait.SetColumnSpan(Me.chtCPUWait, 5)
         Me.chtCPUWait.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtCPUWait.Location = New System.Drawing.Point(3, 29)
@@ -2942,59 +3260,59 @@ Partial Class frmMonMain
         'chtLogicalRead
         '
         Me.chtLogicalRead.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea13.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea13.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea13.AxisX.IsLabelAutoFit = False
-        ChartArea13.AxisX.IsMarginVisible = False
-        ChartArea13.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea13.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea13.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea13.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea13.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea13.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea13.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea13.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea13.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea13.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea13.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea13.AxisX.MajorTickMark.Enabled = False
-        ChartArea13.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea13.AxisX.ScaleView.Zoomable = False
-        ChartArea13.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisX2.IsLabelAutoFit = False
-        ChartArea13.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisY.Interval = 20.0R
-        ChartArea13.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea13.AxisY.IsLabelAutoFit = False
-        ChartArea13.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea13.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea13.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea13.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea13.AxisY.MajorTickMark.Enabled = False
-        ChartArea13.AxisY.Maximum = 100.0R
-        ChartArea13.AxisY.MaximumAutoSize = 100.0!
-        ChartArea13.AxisY.Minimum = 0.0R
-        ChartArea13.AxisY.Title = "Tuples/sec"
-        ChartArea13.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea13.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
-        ChartArea13.AxisY2.IsLabelAutoFit = False
-        ChartArea13.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea13.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea13.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea13.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea13.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea13.Name = "ChartArea1"
-        ChartArea13.Position.Auto = False
-        ChartArea13.Position.Height = 85.0!
-        ChartArea13.Position.Width = 94.0!
-        ChartArea13.Position.X = 1.0!
-        ChartArea13.Position.Y = 10.0!
-        Me.chtLogicalRead.ChartAreas.Add(ChartArea13)
+        ChartArea15.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea15.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea15.AxisX.IsLabelAutoFit = False
+        ChartArea15.AxisX.IsMarginVisible = False
+        ChartArea15.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea15.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea15.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea15.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea15.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea15.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea15.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea15.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea15.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea15.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea15.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea15.AxisX.MajorTickMark.Enabled = False
+        ChartArea15.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea15.AxisX.ScaleView.Zoomable = False
+        ChartArea15.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisX2.IsLabelAutoFit = False
+        ChartArea15.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisY.Interval = 20.0R
+        ChartArea15.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea15.AxisY.IsLabelAutoFit = False
+        ChartArea15.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea15.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea15.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea15.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea15.AxisY.MajorTickMark.Enabled = False
+        ChartArea15.AxisY.Maximum = 100.0R
+        ChartArea15.AxisY.MaximumAutoSize = 100.0!
+        ChartArea15.AxisY.Minimum = 0.0R
+        ChartArea15.AxisY.Title = "Tuples/sec"
+        ChartArea15.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea15.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
+        ChartArea15.AxisY2.IsLabelAutoFit = False
+        ChartArea15.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea15.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea15.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea15.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea15.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea15.Name = "ChartArea1"
+        ChartArea15.Position.Auto = False
+        ChartArea15.Position.Height = 85.0!
+        ChartArea15.Position.Width = 94.0!
+        ChartArea15.Position.X = 1.0!
+        ChartArea15.Position.Y = 10.0!
+        Me.chtLogicalRead.ChartAreas.Add(ChartArea15)
         Me.tlpLogicalRead.SetColumnSpan(Me.chtLogicalRead, 5)
         Me.chtLogicalRead.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtLogicalRead.Location = New System.Drawing.Point(3, 29)
@@ -3071,65 +3389,65 @@ Partial Class frmMonMain
         'chtCPUUtil
         '
         Me.chtCPUUtil.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea14.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea14.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
-        ChartArea14.AxisX.IsLabelAutoFit = False
-        ChartArea14.AxisX.IsMarginVisible = False
-        ChartArea14.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea14.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea14.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea14.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea14.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea14.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea14.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea14.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea14.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea14.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea14.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea14.AxisX.MajorTickMark.Enabled = False
-        ChartArea14.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
-        ChartArea14.AxisX.ScaleView.Zoomable = False
-        ChartArea14.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisX2.IsLabelAutoFit = False
-        ChartArea14.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisY.Interval = 20.0R
-        ChartArea14.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea14.AxisY.IsLabelAutoFit = False
-        ChartArea14.AxisY.IsMarginVisible = False
-        ChartArea14.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea14.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea14.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea14.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea14.AxisY.MajorTickMark.Enabled = False
-        ChartArea14.AxisY.Maximum = 100.0R
-        ChartArea14.AxisY.MaximumAutoSize = 100.0!
-        ChartArea14.AxisY.Minimum = 0.0R
-        ChartArea14.AxisY.Title = "Util(%)"
-        ChartArea14.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea14.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
-        ChartArea14.AxisY2.Interval = 20.0R
-        ChartArea14.AxisY2.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
-        ChartArea14.AxisY2.IsLabelAutoFit = False
-        ChartArea14.AxisY2.IsMarginVisible = False
-        ChartArea14.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea14.AxisY2.Maximum = 100.0R
-        ChartArea14.AxisY2.MaximumAutoSize = 100.0!
-        ChartArea14.AxisY2.Minimum = 0.0R
-        ChartArea14.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea14.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea14.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea14.Name = "ChartArea1"
-        ChartArea14.Position.Auto = False
-        ChartArea14.Position.Height = 85.0!
-        ChartArea14.Position.Width = 94.0!
-        ChartArea14.Position.X = 1.0!
-        ChartArea14.Position.Y = 10.0!
-        Me.chtCPUUtil.ChartAreas.Add(ChartArea14)
+        ChartArea16.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea16.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount
+        ChartArea16.AxisX.IsLabelAutoFit = False
+        ChartArea16.AxisX.IsMarginVisible = False
+        ChartArea16.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea16.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea16.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea16.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea16.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea16.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea16.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea16.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea16.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea16.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea16.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea16.AxisX.MajorTickMark.Enabled = False
+        ChartArea16.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White
+        ChartArea16.AxisX.ScaleView.Zoomable = False
+        ChartArea16.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisX2.IsLabelAutoFit = False
+        ChartArea16.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisY.Interval = 20.0R
+        ChartArea16.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea16.AxisY.IsLabelAutoFit = False
+        ChartArea16.AxisY.IsMarginVisible = False
+        ChartArea16.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea16.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea16.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea16.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea16.AxisY.MajorTickMark.Enabled = False
+        ChartArea16.AxisY.Maximum = 100.0R
+        ChartArea16.AxisY.MaximumAutoSize = 100.0!
+        ChartArea16.AxisY.Minimum = 0.0R
+        ChartArea16.AxisY.Title = "Util(%)"
+        ChartArea16.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea16.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[False]
+        ChartArea16.AxisY2.Interval = 20.0R
+        ChartArea16.AxisY2.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number
+        ChartArea16.AxisY2.IsLabelAutoFit = False
+        ChartArea16.AxisY2.IsMarginVisible = False
+        ChartArea16.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea16.AxisY2.Maximum = 100.0R
+        ChartArea16.AxisY2.MaximumAutoSize = 100.0!
+        ChartArea16.AxisY2.Minimum = 0.0R
+        ChartArea16.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea16.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea16.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea16.Name = "ChartArea1"
+        ChartArea16.Position.Auto = False
+        ChartArea16.Position.Height = 85.0!
+        ChartArea16.Position.Width = 94.0!
+        ChartArea16.Position.X = 1.0!
+        ChartArea16.Position.Y = 10.0!
+        Me.chtCPUUtil.ChartAreas.Add(ChartArea16)
         Me.tlpCPUUtil.SetColumnSpan(Me.chtCPUUtil, 5)
         Me.chtCPUUtil.Dock = System.Windows.Forms.DockStyle.Fill
         Me.chtCPUUtil.Location = New System.Drawing.Point(3, 29)
@@ -3175,73 +3493,73 @@ Partial Class frmMonMain
         'chtSessionActive
         '
         Me.chtSessionActive.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea15.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
-        ChartArea15.AxisX.IsLabelAutoFit = False
-        ChartArea15.AxisX.IsMarginVisible = False
-        ChartArea15.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
-        ChartArea15.AxisX.LabelStyle.Format = "HH:mm"
-        ChartArea15.AxisX.LabelStyle.Interval = 0.0R
-        ChartArea15.AxisX.LabelStyle.IntervalOffset = 0.0R
-        ChartArea15.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
-        ChartArea15.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea15.AxisX.LabelStyle.IsEndLabelVisible = False
-        ChartArea15.AxisX.LabelStyle.TruncatedLabels = True
-        ChartArea15.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea15.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea15.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea15.AxisX.MajorTickMark.Enabled = False
-        ChartArea15.AxisX.ScaleView.Zoomable = False
-        ChartArea15.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisX.TitleForeColor = System.Drawing.Color.White
-        ChartArea15.AxisX2.IsLabelAutoFit = False
-        ChartArea15.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisY.IsLabelAutoFit = False
-        ChartArea15.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
-        ChartArea15.AxisY.LabelStyle.Format = "N0"
-        ChartArea15.AxisY.LabelStyle.TruncatedLabels = True
-        ChartArea15.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        ChartArea15.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
-        ChartArea15.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea15.AxisY.MajorTickMark.Enabled = False
-        ChartArea15.AxisY.Title = "Count"
-        ChartArea15.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisY.TitleForeColor = System.Drawing.Color.White
-        ChartArea15.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
-        ChartArea15.AxisY2.IsLabelAutoFit = False
-        ChartArea15.AxisY2.LabelStyle.Enabled = False
-        ChartArea15.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
-        ChartArea15.AxisY2.LabelStyle.Format = "N0"
-        ChartArea15.AxisY2.LineColor = System.Drawing.Color.DimGray
-        ChartArea15.AxisY2.MajorGrid.Enabled = False
-        ChartArea15.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
-        ChartArea15.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
-        ChartArea15.AxisY2.MajorTickMark.Enabled = False
-        ChartArea15.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
-        ChartArea15.AxisY2.TitleForeColor = System.Drawing.Color.White
-        ChartArea15.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        ChartArea15.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
-        ChartArea15.Name = "ChartArea1"
-        ChartArea15.Position.Auto = False
-        ChartArea15.Position.Height = 85.0!
-        ChartArea15.Position.Width = 94.0!
-        ChartArea15.Position.X = 1.0!
-        ChartArea15.Position.Y = 10.0!
-        Me.chtSessionActive.ChartAreas.Add(ChartArea15)
+        ChartArea17.AlignmentOrientation = CType((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical Or System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal), System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)
+        ChartArea17.AxisX.IsLabelAutoFit = False
+        ChartArea17.AxisX.IsMarginVisible = False
+        ChartArea17.AxisX.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White
+        ChartArea17.AxisX.LabelStyle.Format = "HH:mm"
+        ChartArea17.AxisX.LabelStyle.Interval = 0.0R
+        ChartArea17.AxisX.LabelStyle.IntervalOffset = 0.0R
+        ChartArea17.AxisX.LabelStyle.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.[Auto]
+        ChartArea17.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea17.AxisX.LabelStyle.IsEndLabelVisible = False
+        ChartArea17.AxisX.LabelStyle.TruncatedLabels = True
+        ChartArea17.AxisX.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea17.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea17.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea17.AxisX.MajorTickMark.Enabled = False
+        ChartArea17.AxisX.ScaleView.Zoomable = False
+        ChartArea17.AxisX.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisX.TitleForeColor = System.Drawing.Color.White
+        ChartArea17.AxisX2.IsLabelAutoFit = False
+        ChartArea17.AxisX2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisX2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisY.IsLabelAutoFit = False
+        ChartArea17.AxisY.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisY.LabelStyle.ForeColor = System.Drawing.Color.WhiteSmoke
+        ChartArea17.AxisY.LabelStyle.Format = "N0"
+        ChartArea17.AxisY.LabelStyle.TruncatedLabels = True
+        ChartArea17.AxisY.LineColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        ChartArea17.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray
+        ChartArea17.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea17.AxisY.MajorTickMark.Enabled = False
+        ChartArea17.AxisY.Title = "Count"
+        ChartArea17.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisY.TitleForeColor = System.Drawing.Color.White
+        ChartArea17.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
+        ChartArea17.AxisY2.IsLabelAutoFit = False
+        ChartArea17.AxisY2.LabelStyle.Enabled = False
+        ChartArea17.AxisY2.LabelStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.YellowGreen
+        ChartArea17.AxisY2.LabelStyle.Format = "N0"
+        ChartArea17.AxisY2.LineColor = System.Drawing.Color.DimGray
+        ChartArea17.AxisY2.MajorGrid.Enabled = False
+        ChartArea17.AxisY2.MajorGrid.LineColor = System.Drawing.Color.YellowGreen
+        ChartArea17.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash
+        ChartArea17.AxisY2.MajorTickMark.Enabled = False
+        ChartArea17.AxisY2.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
+        ChartArea17.AxisY2.TitleForeColor = System.Drawing.Color.White
+        ChartArea17.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        ChartArea17.CursorX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes
+        ChartArea17.Name = "ChartArea1"
+        ChartArea17.Position.Auto = False
+        ChartArea17.Position.Height = 85.0!
+        ChartArea17.Position.Width = 94.0!
+        ChartArea17.Position.X = 1.0!
+        ChartArea17.Position.Y = 10.0!
+        Me.chtSessionActive.ChartAreas.Add(ChartArea17)
         Me.tlpSessionActive.SetColumnSpan(Me.chtSessionActive, 2)
         Me.chtSessionActive.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend7.Alignment = System.Drawing.StringAlignment.Far
-        Legend7.BackColor = System.Drawing.Color.Black
-        Legend7.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend7.Enabled = False
-        Legend7.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Legend7.ForeColor = System.Drawing.Color.White
-        Legend7.IsTextAutoFit = False
-        Legend7.Name = "Legend1"
-        Me.chtSessionActive.Legends.Add(Legend7)
+        Legend9.Alignment = System.Drawing.StringAlignment.Far
+        Legend9.BackColor = System.Drawing.Color.Black
+        Legend9.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend9.Enabled = False
+        Legend9.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend9.ForeColor = System.Drawing.Color.White
+        Legend9.IsTextAutoFit = False
+        Legend9.Name = "Legend1"
+        Me.chtSessionActive.Legends.Add(Legend9)
         Me.chtSessionActive.Location = New System.Drawing.Point(3, 29)
         Me.chtSessionActive.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.chtSessionActive.Name = "chtSessionActive"
@@ -5173,12 +5491,18 @@ Partial Class frmMonMain
         Me.TableLayoutPanel8.ResumeLayout(False)
         Me.TableLayoutPanel8.PerformLayout()
         CType(Me.chrReqInfo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel6.ResumeLayout(False)
-        Me.TableLayoutPanel6.PerformLayout()
+        Me.tlpMEMStatus.ResumeLayout(False)
+        Me.tlpMEMStatus.PerformLayout()
+        CType(Me.chtMEMStatus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlpMem.ResumeLayout(False)
         CType(Me.dgvGrpMemSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel5.ResumeLayout(False)
-        Me.TableLayoutPanel5.PerformLayout()
+        Me.pnlRBMem.ResumeLayout(False)
+        Me.pnlRBMem.PerformLayout()
+        Me.tlpCPUStatus.ResumeLayout(False)
+        Me.tlpCPUStatus.PerformLayout()
+        CType(Me.chtCPUStatus, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlRBCPU.ResumeLayout(False)
+        Me.pnlRBCPU.PerformLayout()
         Me.tlpCPU.ResumeLayout(False)
         CType(Me.dgvGrpCpuSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabTrend.ResumeLayout(False)
@@ -5313,10 +5637,10 @@ Partial Class frmMonMain
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tlpCurrent As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpCPUStatus As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents grpCPU As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents TableLayoutPanel6 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpMEMStatus As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents grpMem As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel8 As System.Windows.Forms.TableLayoutPanel
@@ -5521,5 +5845,13 @@ Partial Class frmMonMain
     Friend WithEvents mnuUserConfig As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuPreferences As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuVersion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents pnlRBMem As eXperDB.BaseControls.Panel
+    Friend WithEvents rbMEMRadar As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbMEMBar As eXperDB.BaseControls.RadioButton
+    Friend WithEvents pnlRBCPU As eXperDB.BaseControls.Panel
+    Friend WithEvents rbCPURadar As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbCPUBar As eXperDB.BaseControls.RadioButton
+    Friend WithEvents chtCPUStatus As System.Windows.Forms.DataVisualization.Charting.Chart
+    Friend WithEvents chtMEMStatus As System.Windows.Forms.DataVisualization.Charting.Chart
 
 End Class

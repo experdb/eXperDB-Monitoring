@@ -23,6 +23,9 @@ ALTER TABLE TB_MON_USER ADD COLUMN	last_login_dt timestamp without time zone def
 ALTER TABLE TB_MON_USER ADD COLUMN	last_logout_dt timestamp without time zone default now();
 ALTER TABLE TB_MON_USER ADD COLUMN	last_mod_user_id character varying(16) not null;
 
+ALTER TABLE TB_QUERY_INFO ADD COLUMN dbid int8 not null;
+ALTER TABLE TB_QUERY_INFO ADD COLUMN userid int8 not null;
+
 create table tb_mon_group (
     group_id serial primary key,
     group_name character varying(100) not NULL,
@@ -194,8 +197,54 @@ alter table tb_config add column last_mod_user_id character varying(16) default 
 alter table tb_hchk_thrd_list add column last_mod_user_id character varying(16) default null;
 alter table tb_instance_info add column last_mod_user_id character varying(16) default null;
 
+
+alter table only tb_actv_collect_info_${TODAY} drop constraint pk_tb_actv_collect_info_${TODAY} primary key (reg_date,actv_reg_seq);
+alter table only tb_replication_info_${TODAY} drop constraint pk_tb_replication_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
+alter table only tb_checkpoint_info_${TODAY} drop constraint pk_tb_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
+alter table only tb_objt_collect_info_${TODAY} drop constraint pk_tb_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
+alter table only tb_table_ext_info_${TODAY} drop constraint pk_tb_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
+alter table only tb_pg_stat_statements_${TODAY} drop constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
+alter table only tb_query_info drop constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
+alter table only tb_actv_collect_info_${TODAY} add constraint pk_tb_actv_collect_info_${TODAY} primary key (reg_date,actv_reg_seq);
+alter table only tb_replication_info_${TODAY} add constraint pk_tb_replication_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
+alter table only tb_checkpoint_info_${TODAY} add constraint pk_tb_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
+alter table only tb_objt_collect_info_${TODAY} add constraint pk_tb_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
+alter table only tb_table_ext_info_${TODAY} add constraint pk_tb_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
+alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
+alter table only tb_query_info add constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
+
+
 update tb_config set version = '${EXPERDB_VERSION}';
 update tb_config set binary_path = '/experdb/app/eXperDB-Monitoring/eXperDB_Server/files';
+
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (0 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (2 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (3 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (4 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (5 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (6 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (7 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (8 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (9 , 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (10, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (11, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (12, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (13, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (14, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (15, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (16, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (17, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (18, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (19, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (20, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (21, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (22, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (23, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+
 
 
 EOF
