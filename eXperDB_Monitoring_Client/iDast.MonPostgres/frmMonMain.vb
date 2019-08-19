@@ -2723,6 +2723,7 @@
                     Dim intLevel As Integer = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
                     Dim strRole As String = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
                     'tmpNode.Image = instanceImgLst.Images(intLevel)
+                    DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).HARoleStatus = strRole
                     If strRole = "P" Then
                         tmpNode.Cells(coldgvClustersRole.Index).Value = "P"
                         tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)

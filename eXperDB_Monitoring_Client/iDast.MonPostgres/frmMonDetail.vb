@@ -1507,7 +1507,7 @@ Public Class frmMonDetail
         Dim dtTable As DataTable = Nothing
         Dim dtRows As DataRow() = Nothing
         Try
-            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARole = "P")
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARoleStatus = "P")
 
             If dtTable.Rows.Count = 0 Then
                 dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), False)
@@ -1636,7 +1636,7 @@ Public Class frmMonDetail
     Private Sub SetDataReplication()
         Dim dtTable As DataTable = Nothing
         Try
-            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARole = "P")
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARoleStatus = "P")
         Catch ex As Exception
             GC.Collect()
         End Try

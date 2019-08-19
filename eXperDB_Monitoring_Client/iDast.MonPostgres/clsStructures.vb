@@ -233,6 +233,22 @@ Public Class GroupInfo
                 Return _HARole
             End Get
         End Property
+
+        Private _HARoleStatus As String = ""
+        ''' <summary>
+        ''' HA Host Name
+        ''' </summary>
+        ''' <value></value>
+        ''' <returns></returns>
+        ''' <remarks></remarks>
+        Property HARoleStatus As String
+            Get
+                Return _HARoleStatus
+            End Get
+            Set(value As String)
+                _HARoleStatus = value
+            End Set
+        End Property
         Private _HAHost As String = ""
         ''' <summary>
         ''' Host Name

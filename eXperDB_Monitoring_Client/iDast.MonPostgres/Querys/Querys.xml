@@ -659,7 +659,7 @@
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="SELECTREPLICATIONMASTER" PARAMS="1">
+  <ROW ID="SELECTREPLICATIONMASTER" PARAMS="2">
     <DESC>PT_05_02_004 (SELECTREPLICATIONSTANDBY)</DESC>
     <DATA>
       <![CDATA[       
@@ -668,7 +668,7 @@
                   INS.SERVICE_PORT PORT
             FROM  TB_INSTANCE_INFO INS, TB_REPLICATION_INFO REPL
            WHERE  INS.INSTANCE_ID = REPL.INSTANCE_ID
-             AND  INS.HA_GROUP = {0}
+             AND  INS.HA_GROUP = (SELECT HA_GROUP FROM TB_INSTANCE_INFO WHERE INSTANCE_ID = {0})
              AND  INS.INSTANCE_ID <> {0}
              AND  REPL.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
              AND  REPL.REPL_REG_SEQ = (SELECT MAX(A.REPL_REG_SEQ) MAX_REG_SEQ 
@@ -679,7 +679,7 @@
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="SELECTREPLICATIONSTANDBY" PARAMS="1">
+  <ROW ID="SELECTREPLICATIONSTANDBY" PARAMS="2">
     <DESC>PT_05_02_004 (SELECTREPLICATIONSTANDBY)</DESC>
     <DATA>
       <![CDATA[       
@@ -692,7 +692,7 @@
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="SELECTCHECKPOINT" PARAMS="1">
+  <ROW ID="SELECTCHECKPOINT" PARAMS="2">
     <DESC>PT_05_02_005 (Checkpoint)</DESC>
     <DATA>
       <![CDATA[       
@@ -2767,7 +2767,7 @@
       SELECT slot_name, plugin, slot_type, datoid, TEMPORARY::varchar AS istemporary, active::varchar AS isactive, oldxmin, restart_lsn, confirmed_flush_lsn FROM TB_REPLICATION_SLOTS
        WHERE INSTANCE_ID = {0}
          AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
-         AND repl_reg_seq = (SELECT max(repl_reg_seq) REPL_REG_SEQ FROM TB_REPLICATION_SLOTS WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = {0})
+         AND repl_reg_seq = (SELECT max(repl_reg_seq) REPL_REG_SEQ FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = {0})
     ]]>
     </DATA>
     </ROW>
