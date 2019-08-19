@@ -23,8 +23,10 @@ ALTER TABLE TB_MON_USER ADD COLUMN	last_login_dt timestamp without time zone def
 ALTER TABLE TB_MON_USER ADD COLUMN	last_logout_dt timestamp without time zone default now();
 ALTER TABLE TB_MON_USER ADD COLUMN	last_mod_user_id character varying(16) not null;
 
-ALTER TABLE TB_QUERY_INFO ADD COLUMN dbid int8 not null;
-ALTER TABLE TB_QUERY_INFO ADD COLUMN userid int8 not null;
+ALTER TABLE TB_QUERY_INFO ADD COLUMN dbid int8;
+ALTER TABLE TB_QUERY_INFO ADD COLUMN userid int8;
+--ALTER TABLE TB_QUERY_INFO ADD COLUMN dbid int8 not null;
+--ALTER TABLE TB_QUERY_INFO ADD COLUMN userid int8 not null;
 
 create table tb_mon_group (
     group_id serial primary key,
@@ -162,6 +164,24 @@ create table tb_replication_lag_info_${TODAY} partition of tb_replication_lag_in
 
 alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
 
+create table tb_replication_slots (
+    reg_date character varying(8) not null,
+    repl_reg_seq integer not null,
+    instance_id integer not null,
+    slot_name character varying(100),
+    plugin character varying(100),
+    slot_type character varying(10),
+    datoid oid,
+    temporary bool,
+    active bool,
+    oldxmin xid,
+    restart_lsn pg_lsn,
+    confirmed_flush_lsn  pg_lsn,
+    collect_dt timestamp without time zone
+);
+
+alter table only tb_replication_slots add constraint pk_tb_replication_slots primary key (reg_date, repl_reg_seq, instance_id, slot_name);
+
 -----------------------<User Managements>--------------------------------------------------
 insert into tb_mon_user (user_id, user_name, user_password, last_mod_user_id, is_admin_tf, set_pw_dt) values('admin', 'admin', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=', 'admin', true, now());
 insert into tb_mon_user_policy (last_mod_user_id,	last_mod_dt) values('admin', now());
@@ -198,20 +218,21 @@ alter table tb_hchk_thrd_list add column last_mod_user_id character varying(16) 
 alter table tb_instance_info add column last_mod_user_id character varying(16) default null;
 
 
-alter table only tb_actv_collect_info_${TODAY} drop constraint pk_tb_actv_collect_info_${TODAY} primary key (reg_date,actv_reg_seq);
-alter table only tb_replication_info_${TODAY} drop constraint pk_tb_replication_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
-alter table only tb_checkpoint_info_${TODAY} drop constraint pk_tb_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
-alter table only tb_objt_collect_info_${TODAY} drop constraint pk_tb_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
-alter table only tb_table_ext_info_${TODAY} drop constraint pk_tb_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
-alter table only tb_pg_stat_statements_${TODAY} drop constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
-alter table only tb_query_info drop constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
+alter table only tb_actv_collect_info_${TODAY} drop constraint pk_actv_collect_info_${TODAY};
+alter table only tb_replication_info_${TODAY} drop constraint pk_ha_info_${TODAY};
+alter table only tb_checkpoint_info_${TODAY} drop constraint pk_checkpoint_info_${TODAY};
+alter table only tb_objt_collect_info_${TODAY} drop constraint pk_objt_collect_info_${TODAY};
+alter table only tb_table_ext_info_${TODAY} drop constraint pk_table_ext_info_${TODAY};
+alter table only tb_pg_stat_statements_${TODAY} drop constraint pk_pg_stat_statements_${TODAY};
+alter table only tb_query_info drop constraint pk_query_info;
+alter table only tb_query_info add constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
 alter table only tb_actv_collect_info_${TODAY} add constraint pk_tb_actv_collect_info_${TODAY} primary key (reg_date,actv_reg_seq);
 alter table only tb_replication_info_${TODAY} add constraint pk_tb_replication_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
 alter table only tb_checkpoint_info_${TODAY} add constraint pk_tb_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
 alter table only tb_objt_collect_info_${TODAY} add constraint pk_tb_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
 alter table only tb_table_ext_info_${TODAY} add constraint pk_tb_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
 alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
-alter table only tb_query_info add constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
+
 
 
 update tb_config set version = '${EXPERDB_VERSION}';

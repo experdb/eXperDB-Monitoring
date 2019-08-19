@@ -46,7 +46,7 @@ boot()
 		    PRINT_LOGO
 		    echo "   [`date`] Server Starting..."
 		    cd ${eXperDBMA_HOME}/bin
-		    java -Djava.rmi.server.hostname=${SERVER_HOSTNAME} -Dcom.sun.management.jmxremote.port=${JMXREMOTE_PORT} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -D${DNAME} -Xmx2048m -DeXperDBMA.config=eXperDBMA.config -DeXperDBMA_HOME=${eXperDBMA_HOME}/ -DCONFIG_DIR=config -classpath ../:../lib/commons-collections-3.1.jar:../lib/commons-dbcp-1.4.jar:../lib/commons-pool-1.6.jar:../lib/log4j-1.2.17.jar:../lib/mybatis-3.2.5.jar:../lib/postgresql-42.2.2.jre7.jar:../lib/commons-codec-1.9.jar:../lib/json-simple-1.1.1.jar:../lib/sqljdbc41-1.jar experdb.mnt.Server &
+		    java -Djava.rmi.server.hostname=${SERVER_HOSTNAME} -Dcom.sun.management.jmxremote.port=${JMXREMOTE_PORT} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -D${DNAME} -Xmx2048m -DeXperDBMA.config=eXperDBMA.config -DeXperDBMA_HOME=${eXperDBMA_HOME}/ -DCONFIG_DIR=config -classpath ../:../lib/commons-collections-3.1.jar:../lib/commons-dbcp-1.4.jar:../lib/commons-pool-1.6.jar:../lib/log4j-1.2.17.jar:../lib/mybatis-3.2.5.jar:../lib/postgresql-42.2.2.jre7.jar:../lib/commons-codec-1.9.jar:../lib/json-simple-1.1.1.jar:../lib/sqljdbc41-1.jar:../lib/ojdbc-6.jar:../lib/orai18n-1.jar experdb.mnt.Server &
 		    sleep 1
 		    IS_eXperDBMA_PID
 		    echo "   [`date`] Booting SUCCESS!!! (PID : $PID)"
