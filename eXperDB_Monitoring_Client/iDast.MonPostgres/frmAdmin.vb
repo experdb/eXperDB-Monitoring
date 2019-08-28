@@ -213,8 +213,9 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, tmpRow.Item("HA_PORT"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAREPLHost.Index, tmpRow.Item("HA_REPL_HOST"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colVirtualIP.Index, tmpRow.Item("VIRTUAL_IP"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colVirtualIP2.Index, tmpRow.Item("VIRTUAL_IP2"))
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, IIf(tmpRow.Item("LOG_KEEP_DAYS") < Me.nudLogSaveDly.Minimum, Me.nudLogSaveDly.Minimum, tmpRow.Item("LOG_KEEP_DAYS")))
-
             Next
 
 
@@ -296,27 +297,6 @@
 
 
 
-
-
-
-
-    ''' <summary>
-    ''' 삭제를 하였을 경우 
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-
-
-    Private Sub dgvSvrLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSvrLst.CellContentClick
-
-
-
-    End Sub
-
-
-
-
     ''' <summary>
     ''' 테스트 접속 후 데이터를 변경 하였을 경우  추가 버튼 Enabled을 비활성화 
     ''' </summary>
@@ -365,7 +345,7 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
 
-    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
+    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
 
 
 
@@ -392,6 +372,8 @@
             tmpRow.Cells(colHAHost.Index).Value = strHAHost
             tmpRow.Cells(colHAPort.Index).Value = CInt(strHAPort)
             tmpRow.Cells(colHAREPLHost.Index).Value = strHAREPLHost
+            tmpRow.Cells(colVirtualIP.Index).Value = strVirtualIP
+            tmpRow.Cells(colVirtualIP2.Index).Value = strVirtualIP2
 
             'dgvSvrLst.fn_DataCellADD(tmpRow.Index, colLogSave.Index, nudLogSaveDly.Value)
 
@@ -421,6 +403,8 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, strHAHost)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAPort.Index, CInt(strHAPort))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAREPLHost.Index, strHAREPLHost)
+                dgvSvrLst.fn_DataCellADD(idxRow, colVirtualIP.Index, strVirtualIP)
+                dgvSvrLst.fn_DataCellADD(idxRow, colVirtualIP2.Index, strVirtualIP2)
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, nudLogSaveDly.Value)
                 ' 신규 삽입된 코드의 경우 -1로 처리하여 신규 추기인지 확인한다. 
                 ' 기존에 있던 데이터들은 Row Tag 가 Instance ID로 되어있음. 
@@ -527,7 +511,7 @@
         Next
 
         Dim strkey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, 0, "", intCnt + 1, strkey)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, 0, "", intCnt + 1, strkey, "", "")
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim struct As structConnection = Nothing
             Dim strSchema As String = ""
@@ -538,9 +522,11 @@
             Dim strHAHost As String = ""
             Dim intHAPort As Integer = 0
             Dim strHAREPLHost As String = ""
-            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            Dim strVirtualIP As String = ""
+            Dim strVirtualIP2 As String = ""
+            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
-            AddData(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            AddData(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
         End If
 
@@ -584,6 +570,8 @@
         Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
         Dim intHAPort As Integer = tmpRow.Cells(colHAPort.Index).Value
         Dim strHAREPLHost As String = tmpRow.Cells(colHAREPLHost.Index).Value
+        Dim strVirtualIP As String = IIf(IsDBNull(tmpRow.Cells(colVirtualIP.Index).Value), "", tmpRow.Cells(colVirtualIP.Index).Value)
+        Dim strVirtualIP2 As String = IIf(IsDBNull(tmpRow.Cells(colVirtualIP2.Index).Value), "", tmpRow.Cells(colVirtualIP2.Index).Value)
 
         Dim intCnt As Integer = 0
         For Each cntRow As DataGridViewRow In Me.dgvSvrLst.Rows
@@ -593,7 +581,7 @@
         Next
 
         Dim strKey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, intStmtPeriod, strAliasNm, intCnt, strKey, strHARole, strHAHost, intHAPort, strHAREPLHost)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, intStmtPeriod, strAliasNm, intCnt, strKey, strVirtualIP, strVirtualIP2, strHARole, strHAHost, intHAPort, strHAREPLHost)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnStruct As structConnection = Nothing
             Dim rtnSchema As String = ""
@@ -601,9 +589,9 @@
             Dim rtnStmtCollect As Integer = 0
             Dim strAlias As String = ""
 
-            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
-            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost)
+            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
         End If
 
 
@@ -648,6 +636,8 @@
                 Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
                 Dim intHAPort As Integer = tmpRow.Cells(colHAPort.Index).Value
                 Dim strHAREPLHost As String = tmpRow.Cells(colHAREPLHost.Index).Value
+                Dim strVirtualIP As String = IIf(IsDBNull(tmpRow.Cells(colVirtualIP.Index).Value), "", tmpRow.Cells(colVirtualIP.Index).Value)
+                Dim strVirtualIP2 As String = IIf(IsDBNull(tmpRow.Cells(colVirtualIP2.Index).Value), "", tmpRow.Cells(colVirtualIP2.Index).Value)
                 ' Dim intLogDay As Integer = tmpRow.Cells(colLogSave.Index).Value
 
                 Try
@@ -674,7 +664,7 @@
                         tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     Else
                         tmpRow.Tag = tmpInst
-                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
+                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
                     End If
 
                 ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
@@ -684,7 +674,7 @@
                 Else
                     ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
                     If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
-                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
+                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
                     End If
 
                 End If

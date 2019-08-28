@@ -61,9 +61,16 @@
                          System.Drawing.Color.PowderBlue,
                          System.Drawing.Color.SkyBlue,
                          System.Drawing.Color.SpringGreen,
-                         System.Drawing.Color.GreenYellow,
-                         System.Drawing.Color.Violet,
-                         System.Drawing.Color.Salmon}
+                         System.Drawing.Color.GreenYellow, System.Drawing.Color.Violet,
+                         System.Drawing.Color.Salmon,
+                         System.Drawing.Color.AliceBlue,
+                         System.Drawing.Color.Bisque,
+                         System.Drawing.Color.BlueViolet,
+                         System.Drawing.Color.BurlyWood,
+                         System.Drawing.Color.Coral,
+                         System.Drawing.Color.Crimson,
+                         System.Drawing.Color.DarkOliveGreen,
+                         System.Drawing.Color.Fuchsia}
 
     Private _GrpListServerinfo As List(Of GroupInfo.ServerInfo)
     ''' <summary>
@@ -842,32 +849,47 @@
                     topNode.Tag = svrLst.Item(i)
                     topNode.Image = instanceImgLst.Images(i)
                     topNode.Height = 48
-                    topNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(0)
+                    topNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
+                    topNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
+                    topNode.Cells(coldgvClustersServerName.Index).Style.ForeColor = Color.FromArgb(24, 192, 128)
+                    topNode.Cells(coldgvClustersServerName.Index).Style.SelectionForeColor = Color.FromArgb(24, 192, 128)
                     topNode.Cells(coldgvClustersServerName.Index).Value = svrLst.Item(i).ShowNm
                     topNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
+                    topNode.Cells(coldgvClusterPrimaryHostNm.Index).Tag = svrLst.Item(i).IP
                     topNode.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
+                    topNode.Cells(coldgvClustersVip2.Index).ToolTipText = toolTipText
                     topNode.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
-                    topNode.Cells(coldgvClustersRole.Index).Value = ""
+                    topNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
 
                     topNode.Expand()
                 Else
                     For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
                         Dim tmpNode As AdvancedDataGridView.TreeGridNode = tmpRow
-                        If tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HAHost Then
+                        If tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HAHost Or _
+                           tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Tag = svrLst.Item(i).HAHost Then
                             Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
                             cNOde.Tag = svrLst.Item(i)
                             cNOde.Image = instanceImgLst.Images(i)
                             cNOde.Height = 48
-                            cNOde.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(0)
+                            cNOde.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
+                            cNOde.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
+                            cNOde.Cells(coldgvClustersServerName.Index).Style.ForeColor = Color.FromArgb(24, 192, 128)
+                            cNOde.Cells(coldgvClustersServerName.Index).Style.SelectionForeColor = Color.FromArgb(24, 192, 128)
                             cNOde.Cells(coldgvClustersServerName.Index).Value = svrLst.Item(i).ShowNm
                             cNOde.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HostNm
+                            cNOde.Cells(coldgvClusterPrimaryHostNm.Index).Tag = svrLst.Item(i).IP
                             cNOde.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
+                            cNOde.Cells(coldgvClustersVip2.Index).ToolTipText = toolTipText
                             cNOde.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
-                            cNOde.Cells(coldgvClustersRole.Index).Value = ""
+                            cNOde.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
                             cNOde.Expand()
                             Exit For
                         End If
                     Next
+
+                    'svrLst.Item(i).HAHost
+
+                    
 
                     'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
                     '    If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value Then
@@ -2617,6 +2639,8 @@
                 Function(r) New With {Key .InstanceID = r.Field(Of Integer)("INSTANCE_ID"), _
                               Key .IP = r.Field(Of String)("SERVER_IP"), _
                               Key .Port = r.Field(Of String)("SERVICE_PORT"), _
+                              Key .Vip = r.Field(Of String)("VIRTUAL_IP"), _
+                              Key .Vip2 = r.Field(Of String)("VIRTUAL_IP2"), _
                               Key .Name = r.Field(Of String)("HOST_NAME"), _
                               Key .HARole = r.Field(Of String)("HA_ROLE"), _
                               Key .HAHost = r.Field(Of String)("HA_HOST"), _
@@ -2627,6 +2651,8 @@
                              New With {Key .InstanceID = grp.Key.InstanceID, _
                                        Key .IP = grp.Key.IP, _
                                        Key .Port = grp.Key.Port, _
+                                       Key .Vip = grp.Key.Vip, _
+                                       Key .Vip2 = grp.Key.Vip2, _
                                        Key .Name = grp.Key.Name, _
                                        Key .HARole = grp.Key.HARole, _
                                        Key .HAHost = grp.Key.HAHost, _
@@ -2722,21 +2748,55 @@
                     Dim intInstID As Integer = DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID
                     Dim intLevel As Integer = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
                     Dim strRole As String = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
+                    Dim strVip As String = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Vip
+                    Dim strVip2 As String = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Vip2
                     'tmpNode.Image = instanceImgLst.Images(intLevel)
                     DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).HARoleStatus = strRole
                     If strRole = "P" Then
-                        tmpNode.Cells(coldgvClustersRole.Index).Value = "P"
-                        tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)
+                        'tmpNode.Cells(coldgvClustersRole.Index).Value = "P"
+                        'tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)
+                        If tmpNode.Cells(coldgvClustersRole.Index).Tag <> "P" Then
+                            tmpNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(1)
+                        End If
+                        tmpNode.Cells(coldgvClustersRole.Index).Tag = "P"
                     ElseIf strRole = "S" Then
-                        tmpNode.Cells(coldgvClustersRole.Index).Value = "S"
-                        tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 255, 192, 203)
+                        'tmpNode.Cells(coldgvClustersRole.Index).Value = "S"
+                        'tmpNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 255, 192, 203)
+                        If tmpNode.Cells(coldgvClustersRole.Index).Tag <> "S" Then
+                            tmpNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(2)
+                        End If
+                        tmpNode.Cells(coldgvClustersRole.Index).Tag = "S"
                     Else
-                        tmpNode.Cells(coldgvClustersRole.Index).Value = ""
+                        If tmpNode.Cells(coldgvClustersRole.Index).Tag <> "A" Then
+                            tmpNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
+                        End If
+                        tmpNode.Cells(coldgvClustersRole.Index).Tag = "A"
                     End If
-                    If tmpNode.Cells(coldgvClustersLegend.Index).Tag <> intLevel Then
-                        tmpNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(intLevel)
+
+                    If tmpNode.Cells(coldgvClustersLegend.Index).Tag <> strVip Then
+                        If strVip IsNot Nothing Then
+                            tmpNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(3)
+                        Else
+                            tmpNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
+                        End If
                     End If
-                    tmpNode.Cells(coldgvClustersLegend.Index).Tag = intLevel
+                    tmpNode.Cells(coldgvClustersLegend.Index).Tag = strVip
+
+                    If tmpNode.Cells(coldgvClustersVip2.Index).Tag <> strVip2 Then
+                        If strVip2 IsNot Nothing Then
+                            tmpNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(4)
+                        Else
+                            tmpNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
+                        End If
+                    End If
+                    tmpNode.Cells(coldgvClustersVip2.Index).Tag = strVip2
+
+                    If tmpNode.Cells(coldgvClustersServerName.Index).Tag <> intLevel Then
+                        tmpNode.Cells(coldgvClustersServerName.Index).Style.ForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                        tmpNode.Cells(coldgvClustersServerName.Index).Style.SelectionForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                    End If
+                    tmpNode.Cells(coldgvClustersServerName.Index).Tag = intLevel
+
                     If intLevel > 1 Then
                         _isCriticalInstance = True
                     End If
@@ -2745,20 +2805,54 @@
                             intInstID = DirectCast(cNode.Tag, GroupInfo.ServerInfo).InstanceID
                             intLevel = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).MaxVal / 100 - 1
                             strRole = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).HARoleS
+                            strVip = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Vip
+                            strVip2 = InstanceMaxVals.Where(Function(e) e.InstanceID = intInstID)(0).Vip2
+
                             If strRole = "P" Then
-                                cNode.Cells(coldgvClustersRole.Index).Value = "P"
-                                cNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)
+                                'cNode.Cells(coldgvClustersRole.Index).Value = "P"
+                                'cNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 91, 155, 213)
+                                If cNode.Cells(coldgvClustersRole.Index).Tag <> "P" Then
+                                    cNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(1)
+                                End If
+                                cNode.Cells(coldgvClustersRole.Index).Tag = "P"
                             ElseIf strRole = "S" Then
-                                cNode.Cells(coldgvClustersRole.Index).Value = "S"
-                                cNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 255, 192, 203)
+                                'cNode.Cells(coldgvClustersRole.Index).Value = "S"
+                                'cNode.Cells(coldgvClustersRole.Index).Style.ForeColor = Color.FromArgb(255, 255, 192, 203)
+                                If cNode.Cells(coldgvClustersRole.Index).Tag <> "S" Then
+                                    cNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(2)
+                                End If
+                                cNode.Cells(coldgvClustersRole.Index).Tag = "S"
                             Else
-                                cNode.Cells(coldgvClustersRole.Index).Value = ""
+                                If cNode.Cells(coldgvClustersRole.Index).Tag <> "A" Then
+                                    cNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
+                                End If
+                                cNode.Cells(coldgvClustersRole.Index).Tag = "A"
                             End If
                             'cNode.Image = instanceImgLst.Images(intLevel)
-                            If cNode.Cells(coldgvClustersLegend.Index).Tag <> intLevel Then
-                                cNode.Cells(coldgvClustersLegend.Index).Value = statusImgLst.Images(intLevel)
+                            If cNode.Cells(coldgvClustersServerName.Index).Tag <> intLevel Then
+                                cNode.Cells(coldgvClustersServerName.Index).Style.ForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                                cNode.Cells(coldgvClustersServerName.Index).Style.SelectionForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
                             End If
-                            cNode.Cells(coldgvClustersLegend.Index).Tag = intLevel
+                            cNode.Cells(coldgvClustersServerName.Index).Tag = intLevel
+
+                            If cNode.Cells(coldgvClustersVip2.Index).Tag <> strVip Then
+                                If strVip IsNot Nothing Then
+                                    cNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(3)
+                                Else
+                                    cNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
+                                End If
+                            End If
+                            cNode.Cells(coldgvClustersLegend.Index).Tag = strVip
+
+                            If cNode.Cells(coldgvClustersVip2.Index).Tag <> strVip2 Then
+                                If strVip2 IsNot Nothing Then
+                                    cNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(4)
+                                Else
+                                    cNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
+                                End If
+                            End If
+                            cNode.Cells(coldgvClustersVip2.Index).Tag = strVip2
+
                             If intLevel > 1 Then
                                 _isCriticalInstance = True
                             End If

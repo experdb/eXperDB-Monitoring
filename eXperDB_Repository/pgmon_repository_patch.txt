@@ -266,6 +266,37 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
 
+--version 329 to 330
+alter table tb_replication_info add column slot_name varchar(32);
+
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (2 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (3 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (4 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (5 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (6 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (7 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (8 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (9 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (10, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (11, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (12, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (13, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (14, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (15, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (16, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (17, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (18, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (19, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (20, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (21, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (22, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (23, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
+
+
 
 
 EOF

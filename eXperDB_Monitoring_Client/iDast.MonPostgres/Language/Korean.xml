@@ -2370,7 +2370,7 @@
   </ROW>
   <ROW ID="F291" PARAMS="0">
     <DESC>HA Repl Host</DESC>
-    <DATA><![CDATA[복제 호스트명]]></DATA>
+    <DATA><![CDATA[주서버 복제 호스트명]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2378,7 +2378,7 @@
   </ROW>
   <ROW ID="F292" PARAMS="0">
     <DESC>HA Repl Host</DESC>
-    <DATA><![CDATA[프라이머리 서버 정보]]></DATA>
+    <DATA><![CDATA[주서버 서버 호스트명]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2745,6 +2745,14 @@
     <DESC>Notification history</DESC>
     <DATA><![CDATA[Notification history ({0})]]></DATA>
   </ROW>
+  <ROW ID="F359" PARAMS="1">
+    <DESC>가상IP</DESC>
+    <DATA><![CDATA[가상IP]]></DATA>
+  </ROW>
+  <ROW ID="F360" PARAMS="1">
+    <DESC>가상IP</DESC>
+    <DATA><![CDATA[가상IP(복제)]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -2962,11 +2970,20 @@
     <VALUECAST />
   </ROW>
   <ROW ID="REPLICATION_SLOT" PARAMS="0">
-    <DESC>프라이머리와 복제 슬롯 상태를 조회합니다.</DESC>
+    <DESC>복제 슬롯 상태를 조회합니다.</DESC>
     <DATA><![CDATA[복제 슬롯]]></DATA>
-    <COMMENTS>파라미터추가</COMMENTS>
+    <COMMENTS>check "select * from pg_replication_slots"</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
-    <COLUMNS>SLOT_NAME|Slot name|TEXT||150|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABASE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||150|;ISACTIVE|Active|TEXT||100|;OLDXMIN|Oldest Txid|TEXT||150|;RESTART_LSN|Restart LSN|TEXT||150|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>    <VALUECAST />
+    <COLUMNS>SLOT_NAME|Slot name|TEXT||160|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABA6SE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||80|;ISACTIVE|Active|TEXT||80|;OLDXMIN|Oldest Txid|TEXT||130|;RESTART_LSN|Restart LSN|TEXT||130|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>
+    <VALUECAST />
+    <VALUECAST />  </ROW>
+  <ROW ID="VIRTUAL_IP" PARAMS="0">
+    <DESC>가상 IP 상태를 조회합니다.</DESC>
+    <DATA><![CDATA[가상 IP]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>HOST_NAME|Host name|TEXT||150|;SERVER_IP|Server IP|TEXT||150|;SERVICE_PORT|Server port|TEXT||100|;HA_ROLE|HA Role|TEXT||100|;VIRTUAL_IP|VIP(Service)|TEXT||200|;VIRTUAL_IP2|VIP(Replication)|TEXT||200|</COLUMNS>
+    <VALUECAST />
   </ROW>
   <ROW ID="M019" PARAMS="1">
     <DESC>라이선스 만료일 체크</DESC>
@@ -3545,7 +3562,15 @@
   </ROW>
   <ROW ID="M091" PARAMS="0">
     <DESC>등록</DESC>
-    <DATA><![CDATA[사용자가 등록되었습니다..]]></DATA>
+    <DATA><![CDATA[사용자가 등록되었습니다.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M092" PARAMS="0">
+    <DESC>복제슬롯존재</DESC>
+    <DATA><![CDATA[복제 원본의 슬롯이 존재하지 않습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

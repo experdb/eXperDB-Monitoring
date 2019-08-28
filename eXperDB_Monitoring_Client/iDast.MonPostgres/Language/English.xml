@@ -2378,7 +2378,7 @@
   </ROW>
   <ROW ID="F292" PARAMS="0">
     <DESC>HA Repl Host</DESC>
-    <DATA><![CDATA[Primary Server info]]></DATA>
+    <DATA><![CDATA[Primary Hostname ]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2745,6 +2745,14 @@
     <DESC>Notification history</DESC>
     <DATA><![CDATA[Notification history ({0})]]></DATA>
   </ROW>
+  <ROW ID="F359" PARAMS="1">
+    <DESC>VirtualIP</DESC>
+    <DATA><![CDATA[Virtual IP]]></DATA>
+  </ROW>
+  <ROW ID="F360" PARAMS="1">
+    <DESC>VirtualIP</DESC>
+    <DATA><![CDATA[Virtual IP(Repl)]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -2966,8 +2974,16 @@
     <DATA><![CDATA[Replication slots]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
-    <COLUMNS>SLOT_NAME|Slot name|TEXT||150|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABASE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||150|;ISACTIVE|Active|TEXT||100|;OLDXMIN|Oldest Txid|TEXT||150|;RESTART_LSN|Restart LSN|TEXT||150|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>
+    <COLUMNS>SLOT_NAME|Slot name|TEXT||160|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABA6SE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||80|;ISACTIVE|Active|TEXT||80|;OLDXMIN|Oldest Txid|TEXT||130|;RESTART_LSN|Restart LSN|TEXT||130|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>
     <VALUECAST />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="VIRTUAL_IP" PARAMS="0">
+    <DESC>Check th status of virtual IP.</DESC>
+    <DATA><![CDATA[Virtual IP]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>HOST_NAME|Host name|TEXT||150|;SERVER_IP|Server IP|TEXT||150|;SERVICE_PORT|Server port|TEXT||100|;HA_ROLE|HA Role|TEXT||100|;VIRTUAL_IP|VIP(Service)|TEXT||200|;VIRTUAL_IP2|VIP(Replication)|TEXT||200|</COLUMNS>
     <VALUECAST />
   </ROW>
   <ROW ID="M019" PARAMS="1">
@@ -3538,6 +3554,22 @@
   <ROW ID="M090" PARAMS="0">
     <DESC>사용자 그룹</DESC>
     <DATA><![CDATA[Please choice user group first.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M091" PARAMS="0">
+    <DESC>등록</DESC>
+    <DATA><![CDATA[The user is successfully registered.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M092" PARAMS="0">
+    <DESC>복제슬롯존재</DESC>
+    <DATA><![CDATA[The replication slot does not exist from upstream server.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

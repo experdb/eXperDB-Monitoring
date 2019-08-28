@@ -1,0 +1,186 @@
+CREATE TABLE tb_mon_user (
+  user_seq integer DEFAULT nextval('user_seq') NOT NULL PRIMARY KEY ,
+  user_id character varying(16) unique not null,
+  user_name character varying(100) not null,
+  user_password character varying(64) not null,
+  user_phone character varying(30) default '',
+	user_phone2 varchar(30) default '',
+	user_noti_phone int2 default 0,
+	user_email varchar(100) default '',
+	user_dept_name varchar(30) default '',
+	set_pw_dt timestamp without time zone default now(),
+	is_admin_tf bool DEFAULT false,
+	is_locked_tf bool DEFAULT false,
+	current_login_cnt int2 default 0,
+	login_fail_cnt int2 NULL DEFAULT 0,
+	login_fail_dt timestamp without time zone,
+	last_login_dt timestamp without time zone default now(),
+	last_logout_dt timestamp without time zone default now(),
+	is_deleted bool NOT NULL DEFAULT false,
+	last_mod_user_id character varying(16) not null,
+	last_mod_ip varchar(15) NULL,
+	last_mod_dt timestamp without time zone default now()
+);
+
+
+create table tb_mon_group (
+    group_id serial primary key,
+    group_name character varying(100) not NULL,
+    last_mod_user_id character varying(16),
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
+);
+
+create table tb_mon_user_by_group (
+    group_id integer not null,
+    user_id character varying(16) not null,
+    last_mod_user_id character varying(16),
+    last_mod_ip character varying(15),
+    last_mod_dt timestamp without time zone
+);
+
+alter table only tb_mon_user_by_group add constraint pk_tb_mon_user_by_group primary key (group_id, user_id);
+
+CREATE TABLE tb_mon_user_policy
+(
+	login_fail_cnt int2 DEFAULT 5,
+	lock_timeout int2 DEFAULT 1,
+	lock_inact_period int2 DEFAULT 60,
+	nonalphanumeric_tf bool DEFAULT true,
+	allow_dup_login_tf bool default true,
+	pw_min_length int2  DEFAULT 8,
+	pw_expr_days int4 DEFAULT 60,
+	pw_expr_noti_days int4  DEFAULT 7, 
+	last_mod_user_id character varying(16),
+	last_mod_ip character varying(15),
+	last_mod_dt timestamp without time zone
+);
+
+CREATE TABLE tb_mon_user_allow_ip
+(
+	user_id character varying(16) not null,
+	allow_ip character varying(20) not null
+);
+
+alter table only tb_mon_user_allow_ip add constraint pk_tb_mon_user_allow_ip primary key (user_id,allow_ip);
+
+create unlogged table tb_mon_login_attempts (
+    allow_ip character varying(20) not null primary key,
+    attempt_cnt integer default 0,
+    attempt_dt timestamp without time zone default now()
+);
+
+
+CREATE TYPE access_type AS ENUM (
+  'login', 
+  'logout', 
+  'upgrade', 
+  'change_user_info', 
+  'change_user_conf', 
+  'change_user_pwd', 
+  'cluster_detail', 
+  'sql_plan',
+  'cancel_query'
+  'cancel_session'
+);
+
+CREATE TABLE tb_mon_user_audit
+(
+	user_id character varying(16) not null,
+	access_dt timestamp without time zone,
+	access_type access_type,
+	instance_id int4,
+	access_status int2,  -- normal, error
+	access_log varchar(200),
+	access_ip character varying(15)
+);
+
+alter table only tb_mon_user_audit add constraint pk_tb_mon_user_audit primary key (user_id,access_dt);
+
+CREATE TABLE tb_mon_perm
+(
+	perm_id int4 PRIMARY KEY NOT null,
+	perm_name character varying(30)
+);
+
+CREATE TABLE tb_mon_perm_by_user
+(
+	user_id character varying(16) not null,
+	perm_id int4 not null,
+	group_id int4 NOT NULL
+	last_mod_user_id character varying(16),
+	last_mod_ip character varying(15),
+	last_mod_dt timestamp without time zone
+);
+
+CREATE TABLE tb_mon_user_config
+(
+	user_id character varying(16) primary key,
+	language int2 default 0,
+	refresh_period int2 default 3000,
+	sound_path character varying(500) default 'Siren.wav',
+	show_alias_tf bool default false,
+	reg_account_sqlplan_tf bool default false,
+	style_cpu int2 default 2,
+	style_cpu_direction_tf bool default false,
+	style_mem int2 default 2,
+	style_mem_direction_tf bool default false
+);
+
+create EXTENSION IF NOT EXISTS tablefunc;
+
+
+alter table only tb_mon_perm_by_user add constraint pk_tb_mon_perm_by_user primary key (user_id,group_id,perm_id);
+
+-----------------------<User Managements>--------------------------------------------------
+insert into tb_mon_user (user_id, user_name, user_password, last_mod_user_id, is_admin_tf, set_pw_dt) values('admin', 'admin', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=', 'admin', true, now());
+insert into tb_mon_user_policy (last_mod_user_id,	last_mod_dt) values('admin', now());
+insert into tb_mon_user_config (user_id) values ('admin'); 
+insert into tb_mon_perm select 1, 'detailed_monitoring';
+insert into tb_mon_perm select 2, 'sql_plan';
+insert into tb_mon_perm select 3, 'cancel_query';
+insert into tb_mon_perm select 4, 'kill_session';
+
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 4, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 4, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 4, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 1, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 2, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 3, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 4, 'admin', '', now());
+
+-----------------------<User Managements>--------------------------------------------------
+
+
+alter table tb_config add column last_mod_user_id character varying(16) default null;
+alter table tb_hchk_thrd_list add column last_mod_user_id character varying(16) default null;
+alter table tb_instance_info add column last_mod_user_id character varying(16) default null;
+
+
+
+type				 status   detail
+login
+	normal/error    /auth fail/another user/locked/password expired
+logout
+	normal/error		 db error
+cancel
+	normal/error		 권한부족/db error 내용
+kill
+	normal/error		 권한부족/db error 내용
+monitoring
+	normal/error    권한부족 
+사용자 등록/수정/삭제
+권한 등록/수정/삭제
+
+
+
+

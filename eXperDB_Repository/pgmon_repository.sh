@@ -441,6 +441,8 @@ create table tb_hchk_alert_info
 
 create table tb_query_info (
 		instance_id integer not null,
+		dbid int8 not null,
+		userid int8 not null,
     queryid character varying(41) not null,
     stmt_queryid int8,
     query text,
@@ -593,7 +595,7 @@ CREATE TABLE tb_mon_user_allow_ip
 );
 
 create unlogged table tb_mon_login_attempts (
-    allow_ip character varying(20) not null primary key,
+    attempt_ip character varying(20) not null primary key,
     attempt_cnt integer default 0,
     attempt_dt timestamp without time zone default now()
 );
@@ -651,6 +653,23 @@ CREATE TABLE tb_mon_user_config
 	style_mem int2 default 2,
 	style_mem_direction_tf bool default false
 );
+
+create table tb_replication_slots (
+    reg_date character varying(8) not null,
+    repl_reg_seq integer not null,
+    instance_id integer not null,
+    slot_name character varying(100),
+    plugin character varying(100),
+    slot_type character varying(10),
+    datoid oid,
+    temporary bool,
+    active bool,
+    oldxmin xid,
+    restart_lsn pg_lsn,
+    confirmed_flush_lsn  pg_lsn,
+    collect_dt timestamp without time zone
+);
+
 ------------------------------------------------------------------------------------------
 -----------------------<create partition tables>------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -678,23 +697,23 @@ create table tb_realtime_statements_${NEXTHOUR} partition of tb_realtime_stateme
 -----------------------<create create constraint>-----------------------------------------
 ------------------------------------------------------------------------------------------
 alter table only tb_access_info_${TODAY} add constraint pk_tb_access_info_${TODAY} primary key (reg_date,actv_reg_seq,db_name);
-alter table only tb_actv_collect_info_${TODAY} add constraint pk_actv_collect_info_${TODAY} primary key (reg_date,actv_reg_seq);
+alter table only tb_actv_collect_info_${TODAY} add constraint pk_tb_actv_collect_info_${TODAY} primary key (reg_date,actv_reg_seq);
 alter table only tb_backend_rsc_${TODAY} add constraint pk_tb_backend_rsc_${TODAY} primary key (reg_date,actv_reg_seq,process_id);
 alter table only tb_cpu_stat_detail_${TODAY} add constraint pk_tb_cpu_stat_detail_${TODAY} primary key (reg_date,rsc_reg_seq,cpu_logical_id);
 alter table only tb_cpu_stat_master_${TODAY} add constraint pk_tb_cpu_stat_master_${TODAY} primary key (reg_date,rsc_reg_seq);
 alter table only tb_disk_io_${TODAY} add constraint pk_tb_disk_io_${TODAY} primary key (reg_date,rsc_reg_seq,disk_name);
 alter table only tb_disk_usage_${TODAY} add constraint pk_tb_disk_usage_${TODAY} primary key (reg_date,rsc_reg_seq,mount_point_dir);
 alter table only tb_hchk_collect_info_${TODAY} add constraint pk_tb_hchk_collect_info_${TODAY} primary key (reg_date,hchk_reg_seq,instance_id,hchk_name);
-alter table only tb_replication_info_${TODAY} add constraint pk_ha_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
+alter table only tb_replication_info_${TODAY} add constraint pk_tb_replication_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
 alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
-alter table only tb_checkpoint_info_${TODAY} add constraint pk_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
+alter table only tb_checkpoint_info_${TODAY} add constraint pk_tb_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
 alter table only tb_memory_stat_${TODAY} add constraint pk_tb_memory_stat_${TODAY} primary key (reg_date,rsc_reg_seq);
-alter table only tb_objt_collect_info_${TODAY} add constraint pk_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
+alter table only tb_objt_collect_info_${TODAY} add constraint pk_tb_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
 alter table only tb_rsc_collect_info_${TODAY} add constraint pk_tb_rsc_collect_info_${TODAY} primary key (reg_date,rsc_reg_seq);
-alter table only tb_table_ext_info_${TODAY} add constraint pk_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
+alter table only tb_table_ext_info_${TODAY} add constraint pk_tb_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
 alter table only tb_hchk_alert_info_${TODAY} add constraint pk_tb_hchk_alert_info_${TODAY} primary key (reg_date,hchk_reg_seq, instance_id, hchk_name);
-alter table only tb_pg_stat_statements_${TODAY} add constraint pk_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
-alter table only tb_query_info add constraint pk_query_info primary key (instance_id, queryid);
+alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
+alter table only tb_query_info add constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
 alter table only tb_sys_log	add constraint pk_batch_log primary key (reg_date,task_cd, start_dt);
 alter table only tb_hchk_thrd_list add constraint pk_hchk_thrd_list primary key (instance_id,hchk_name);
 alter table only tb_index_info add constraint pk_index_info primary key (reg_date,objt_reg_seq,db_name,schema_name,index_name);
@@ -730,6 +749,7 @@ alter table only tb_mon_user_by_group add constraint pk_tb_mon_user_by_group pri
 alter table only tb_mon_user_allow_ip add constraint pk_tb_mon_user_allow_ip primary key (user_id,allow_ip);
 alter table only tb_mon_user_audit add constraint pk_tb_mon_user_audit primary key (user_id,access_dt);
 alter table only tb_mon_perm_by_user add constraint pk_tb_mon_perm_by_user primary key (user_id,group_id,perm_id);
+alter table only tb_replication_slots add constraint pk_tb_replication_slots primary key (reg_date, repl_reg_seq, instance_id, slot_name);
 ------------------------------------------------------------------------------------------
 -----------------------<create function>--------------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -862,6 +882,7 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'ACTIVECONNECTION', '%', '0', 80.00, 90.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HASTATUS', 'LVL', '0', 1.00, 2.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_DELAY', 'MB', '0', 100, 1000, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
 
 insert into tb_config(
 						daily_batch_start_time
@@ -878,7 +899,7 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.325', '$BINPATH');
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.329', '$BINPATH');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');

@@ -1909,8 +1909,9 @@ Public Class frmMonDetail
                 Dim HealthItem As String = dgvRow.Cells(colDgvHealthItm.Index).Value
                 Dim HealthSeq As String = dgvRow.Cells(colDgvHealthSeq.Index).Value
                 Dim strValue As String = String.Format("{0} {1}[{2}]", dgvRow.Cells(colDgvHealthIVal.Index).Value, dgvRow.Cells(colDgvHealthUnit.Index).Value, dgvRow.Cells(colDgvHealthStatus.Index).Value)
+                Dim intValue As Integer = dgvRow.Cells(colDgvHealthIVal.Index).Value
                 Dim intLevel As Integer = dgvRow.Cells(colDgvHealthStatusVal.Index).Value
-                Dim frmHealthDtl As New frmHealthDetail(AgentCn, InstanceID, RegDt, HealthItem, HealthSeq, strValue, _AgentInfo, intLevel)
+                Dim frmHealthDtl As New frmHealthDetail(AgentCn, InstanceID, RegDt, HealthItem, HealthSeq, strValue, _AgentInfo, intLevel, intValue)
                 frmHealthDtl.Show(Me)
             End If
 

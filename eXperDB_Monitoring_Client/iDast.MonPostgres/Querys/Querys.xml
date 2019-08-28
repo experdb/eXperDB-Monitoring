@@ -283,6 +283,8 @@
         ,HA_HOST
         ,HA_PORT
         ,HA_REPL_HOST
+        ,VIRTUAL_IP
+        ,VIRTUAL_IP2
       FROM TB_INSTANCE_INFO 
       WHERE DELETE_YN = 'N' 
    ORDER BY INSTANCE_ID
@@ -290,7 +292,7 @@
 		</DATA>
 		<COMMENTS />
 	</ROW>
-  <ROW ID="UPDATESERVERLIST" PARAMS="12">
+  <ROW ID="UPDATESERVERLIST" PARAMS="20">
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
@@ -313,6 +315,8 @@
         ,HA_HOST = '{14}'
         ,HA_PORT = '{15}'
         ,HA_REPL_HOST = '{16}'
+        ,VIRTUAL_IP = CASE WHEN LENGTH('{17}') = 0 THEN NULL ELSE '{17}' END
+        ,VIRTUAL_IP2 = CASE WHEN LENGTH('{18}') = 0 THEN NULL ELSE '{18}' END
       WHERE INSTANCE_ID = {0}
     ]]>
     </DATA>
@@ -1367,6 +1371,8 @@
       , B.COLLECT_REG_SEQ AS REG_SEQ      
       , A.SERVER_IP AS SERVER_IP          --PT_03_08_001(ip)
       , A.SERVICE_PORT AS SERVICE_PORT    --PT_03_08_001(port)
+      , A.VIRTUAL_IP   
+      , A.VIRTUAL_IP2
       , C.HCHK_NAME AS HCHK_NAME    
       , CASE WHEN B.VALUE IS NULL THEN 0 ELSE ROUND(B.VALUE,2) END AS VALUE
       , C.UNIT AS UNIT
@@ -1397,10 +1403,12 @@
              WHEN B.VALUE IS NULL THEN 100
              ELSE 999      
          END) HCHK_VALUE
-     ,  CASE WHEN C.hchk_name = 'REPLICATION_SLOT' 
-       		   THEN (SELECT count(1) FROM TB_REPLICATION_SLOTS 
-       		   		  WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') 
-       		   		    AND REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_REPLICATION_INFO WHERE INSTANCE_ID = C.INSTANCE_ID AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))) 
+     ,   CASE WHEN C.hchk_name = 'REPLICATION_SLOT' 
+       		   THEN (CASE WHEN collect_group = '5' AND B.VALUE = 1 THEN -1 
+       		   		 ELSE (SELECT count(1) FROM TB_REPLICATION_SLOTS 
+       		   		  	   WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') 
+       		   		    	 AND REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_REPLICATION_INFO WHERE INSTANCE_ID = C.INSTANCE_ID AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')))
+       		   		      END) 
        		   ELSE 0 END SUB_VALUE 
                , '' AS COMMENTS
                , NOW() AS COLLECT_TIME
@@ -2764,10 +2772,37 @@
     <DESC>HEALTH CHECK Replication Slots</DESC>
     <DATA>
       <![CDATA[
-      SELECT slot_name, plugin, slot_type, datoid, TEMPORARY::varchar AS istemporary, active::varchar AS isactive, oldxmin, restart_lsn, confirmed_flush_lsn FROM TB_REPLICATION_SLOTS
+      SELECT SLOT_NAME, PLUGIN, SLOT_TYPE, DATOID, 
+             TEMPORARY::VARCHAR AS ISTEMPORARY, 
+             ACTIVE::VARCHAR AS ISACTIVE, OLDXMIN, 
+             RESTART_LSN, CONFIRMED_FLUSH_LSN, COLLECT_DT 
+        FROM TB_REPLICATION_SLOTS
        WHERE INSTANCE_ID = {0}
          AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
-         AND repl_reg_seq = (SELECT max(repl_reg_seq) REPL_REG_SEQ FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = {0})
+         AND REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) REPL_REG_SEQ FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = {0})
+    ]]>
+    </DATA>
+    </ROW>
+
+    <ROW ID="VIRTUAL_IP" PARAMS="1">
+    <DESC>HEALTH CHECK Virtual IP</DESC>
+    <DATA>
+      <![CDATA[
+      WITH  TEMP_MAX_SEQ AS ( 
+	        SELECT A.INSTANCE_ID, MAX(A.REPL_REG_SEQ) MAX_REG_SEQ, ha_role, MAX(COLLECT_DT) COLLECT_DT 
+	        FROM   TB_REPLICATION_INFO A 
+	        WHERE  A.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+          AND REPL_REG_SEQ >= (SELECT (LAST_VALUE - (SELECT COUNT(*) * 2 + 5 FROM TB_INSTANCE_INFO)) + 1 AS LAST_VALUE FROM REPL_REG_SEQ)
+	        GROUP BY A.INSTANCE_ID, ha_role
+      )
+      SELECT HOST_NAME, SERVER_IP, SERVICE_PORT, 
+      		 CASE WHEN REP.HA_ROLE = 'P' THEN 'Primary'
+      		 	  WHEN REP.HA_ROLE = 'S' THEN 'Slave'
+      		 	  ELSE '' END AS HA_ROLE, 
+      		 VIRTUAL_IP, VIRTUAL_IP2, COLLECT_DT 
+        FROM TB_INSTANCE_INFO INS, TEMP_MAX_SEQ REP
+       WHERE ha_group IN (SELECT ha_group FROM TB_INSTANCE_INFO WHERE INSTANCE_ID = {0})
+         AND INS.INSTANCE_ID = REP.INSTANCE_ID
     ]]>
     </DATA>
     </ROW>

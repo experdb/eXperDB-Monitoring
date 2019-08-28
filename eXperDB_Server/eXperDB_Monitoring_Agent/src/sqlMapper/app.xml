@@ -1849,24 +1849,75 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="EXPERDBMA_BT_HCHK_REPLICATIONSLOT_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-   		SELECT /* EXPERDBMA_BT_HCHK_REPLICATIONSLOT_001 */
-             B.INSTANCE_ID,
-             CASE WHEN min(B.ACTIVE::integer) = 1 THEN 0
-             	  ELSE 1 END REPLICATION_SLOT,
-             '4' AS COLLECT_GROUP,
-             MAX(B.REG_DATE) AS COLLECT_REG_DATE,
-			 MAX(B.REPL_REG_SEQ)::VARCHAR AS COLLECT_REG_SEQ,
-             CURRENT_TIME AS REG_TIME
-          FROM TB_INSTANCE_INFO A, TB_REPLICATION_SLOTS B
-          WHERE B.REG_DATE = TO_char(now(), 'YYYYMMDD')
-            AND B.REPL_REG_SEQ = (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=A.INSTANCE_ID )
-            AND A.INSTANCE_ID = B.INSTANCE_ID
-            AND A.COLLECT_YN = 'Y'
-            AND A.DELETE_YN = 'N'
-            AND B.RESTART_LSN IS NOT NULL
-		  GROUP BY B.INSTANCE_ID
+  SELECT /* EXPERDBMA_BT_HCHK_REPLICATIONSLOT_001 */
+         INSTANCE_ID,
+         MAX(REPLICATION_SLOT) REPLICATION_SLOT,
+         MAX(COLLECT_GROUP) COLLECT_GROUP,
+         MAX(COLLECT_REG_DATE) COLLECT_REG_DATE,
+		 MAX(COLLECT_REG_SEQ) COLLECT_REG_SEQ,
+         MAX(REG_TIME) REG_TIME
+	FROM (
+		    SELECT   B.INSTANCE_ID,
+		             CASE WHEN min(B.ACTIVE::integer) = 1 THEN 0
+		             	  ELSE 1 END REPLICATION_SLOT,
+		             '4' AS COLLECT_GROUP,
+		             MAX(B.REG_DATE) AS COLLECT_REG_DATE,
+					 MAX(B.REPL_REG_SEQ)::VARCHAR AS COLLECT_REG_SEQ,
+		             CURRENT_TIME AS REG_TIME
+		          FROM TB_INSTANCE_INFO A, TB_REPLICATION_SLOTS B
+		          WHERE B.REG_DATE = TO_char(now(), 'YYYYMMDD')
+		            AND B.REPL_REG_SEQ = (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=A.INSTANCE_ID )
+		            AND A.INSTANCE_ID = B.INSTANCE_ID
+		            AND A.COLLECT_YN = 'Y'
+		            AND A.DELETE_YN = 'N'
+		            AND B.RESTART_LSN IS NOT NULL
+				  GROUP BY B.INSTANCE_ID
+			UNION 
+				(
+					WITH 
+					VH AS (SELECT instance_id, host_name, ha_group FROM TB_INSTANCE_INFO WHERE VIRTUAL_IP2 IS NOT NULL),
+				    VS AS (
+						  SELECT A.instance_id, A.ha_group, B.slot_name FROM VH A, TB_replication_slots B  
+						   WHERE A.instance_id = B.INSTANCE_ID
+							 AND B.REG_DATE = TO_char(CURRENT_TIMESTAMP, 'YYYYMMDD')
+							 AND REPL_REG_SEQ in (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ FROM TB_REPLICATION_slots X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY instance_id)
+						 )
+					SELECT B.INSTANCE_ID,
+						   CASE WHEN B.SLOT_NAME IS NULL THEN 1 ELSE 0 END REPLICATION_SLOT,
+			               '5' AS COLLECT_GROUP,
+			               B.REG_DATE AS COLLECT_REG_DATE,
+						   B.REPL_REG_SEQ::varchar COLLECT_REG_SEQ,
+						   CURRENT_TIME AS REG_TIME
+						   --VS.instance_id
+			          FROM TB_INSTANCE_INFO A JOIN TB_REPLICATION_INFO B ON A.INSTANCE_ID = B.INSTANCE_ID LEFT OUTER JOIN VS ON A.HA_GROUP = VS.HA_group AND b.SLOT_NAME = vs.slot_name
+			          WHERE A.COLLECT_YN = 'Y'
+			            AND A.DELETE_YN = 'N'
+			            AND B.REG_DATE = TO_char(now(), 'YYYYMMDD')
+			            AND A.HA_ROLE = 'S'
+			            AND B.REPL_REG_SEQ IN (SELECT MAX(REPL_REG_SEQ) REPL FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID)
+		            )
+		    ) AS HSOT     
+    GROUP BY INSTANCE_ID
         ]]>  
 	</select>
+	<select id="EXPERDBMA_BT_HCHK_VIRTUALIP_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT /* EXPERDBMA_BT_HCHK_VIRTUALIP_001 */
+			   INSTANCE_ID,
+		  	   CASE WHEN ha_role = 'P' AND VIRTUAL_IP IS NULL THEN 1
+		  		 	WHEN ha_role = 'S' AND VIRTUAL_IP IS NOT NULL THEN 1 
+		  		 	ELSE 0 END AS VIRTUAL_IP,
+		  	   '4' AS COLLECT_GROUP,
+	           TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') AS COLLECT_REG_DATE,
+			   -1 AS COLLECT_REG_SEQ,
+	           CURRENT_TIME AS REG_TIME
+		    FROM TB_INSTANCE_INFO
+		   WHERE COLLECT_YN = 'Y'
+             AND DELETE_YN = 'N'
+             AND HA_GROUP IN ((SELECT HA_GROUP FROM TB_INSTANCE_INFO WHERE VIRTUAL_IP IS NOT NULL))
+		]]>  
+	</select>
+	
 <!-- ********************************************************** -->
 <!-- HchkCollect END -->
 <!-- ********************************************************** -->
@@ -1910,6 +1961,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 								   		FROM pg_stat_wal_receiver) ARR2 
 							  	  WHERE ARR_COL LIKE 'port=%' 
 							  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
+						    CASE WHEN pg_is_in_recovery() THEN 
+									(SELECT slot_name FROM pg_stat_wal_receiver)									
+						  	     ELSE '-' END AS SLOT_NAME,						    
 							CASE WHEN pg_is_in_recovery() THEN 
 								CASE WHEN pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn() THEN 0
 								     ELSE EXTRACT (EPOCH FROM now() - #{start_delay}::timestamp) END
@@ -1943,6 +1997,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 								   		FROM pg_stat_wal_receiver) ARR2 
 							  	  WHERE ARR_COL LIKE 'port=%' 
 							  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
+						    CASE WHEN pg_is_in_recovery() THEN 
+									(SELECT slot_name FROM pg_stat_wal_receiver)									
+						  	     ELSE '-' END AS SLOT_NAME,						    
 							CASE WHEN pg_is_in_recovery() THEN 
 								CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
 								     ELSE EXTRACT (EPOCH FROM now() - #{start_delay}::timestamp) END
@@ -1966,12 +2023,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					  		CASE WHEN pg_is_in_recovery() THEN 'S' ELSE (CASE WHEN (SELECT COUNT(*) FROM PG_STAT_REPLICATION) <= 0 THEN 'A' ELSE 'P' END) END AS HA_ROLE, 
 							CASE WHEN pg_is_in_recovery() THEN 
 								TRIM(BOTH FROM COALESCE((SELECT SUBSTRING(ARR_COL, length('host=')+1) FROM 
-									(SELECT regexp_split_to_table(pg_file_read('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR
+									(SELECT regexp_split_to_table(pg_read_file('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR
 								      WHERE ARR_COL LIKE 'host=%' 
 								      ORDER BY arr_col), '-'), '''') ELSE '-' END AS HA_HOST,  
 							CASE WHEN pg_is_in_recovery() THEN 
 								COALESCE((SELECT substring(ARR_COL, length('port=')+1) FROM 
-									(SELECT regexp_split_to_table(pg_file_read('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR2
+									(SELECT regexp_split_to_table(pg_read_file('recovery.conf', 0, 1000), E'\\s+') ARR_COL) ARR2
 								  	  WHERE ARR_COL LIKE 'port=%' 
 								  	  ORDER BY arr_col), '-') ELSE '0' END AS HA_PORT,
 							CASE WHEN pg_is_in_recovery() THEN 
@@ -1987,6 +2044,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					]]>
 			</otherwise>
 		</choose>
+	</select>
+	<select id="EXPERDBMA_BT_CHECK_VIP_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+		 SELECT /* EXPERDBMA_BT_CHECK_VIP_001 24e9ab7301ff1966da4fb30dc1538882 */
+		        GET_HOSTNAME() AS HOST_NAME
 	</select>
 	<select id="EXPERDBMA_BT_REPLICATION_LAG" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		<choose>
@@ -2056,11 +2117,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   EXTENSIONS = #{extensions}
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
-
+	<update id="TB_INSTANCE_INFO_U003" parameterType="hashmap" >
+		UPDATE TB_INSTANCE_INFO 
+		   SET VIRTUAL_IP = (CASE WHEN host_name = #{host_name} THEN #{virtual_ip} ELSE NULL END) 
+		 WHERE ha_group = #{ha_group} ;
+	</update>
+	<update id="TB_INSTANCE_INFO_U004" parameterType="hashmap" >
+		UPDATE TB_INSTANCE_INFO 
+		   SET VIRTUAL_IP2 = (CASE WHEN host_name = #{host_name} THEN #{virtual_ip2} ELSE NULL END) 
+		 WHERE ha_group = #{ha_group} ;
+	</update>
 	<select id="EXPERDBMA_BT_GET_PGUSER_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
-		       SELECT /* EXPERDBMA_BT_GET_PGUSER_001 24e9ab7301ff1966da4fb30dc1538882 */ 
-		       		  USENAME AS USER_NAME, USESYSID AS USER_ID FROM PG_USER;
-	</select>	
+       SELECT /* EXPERDBMA_BT_GET_PGUSER_001 24e9ab7301ff1966da4fb30dc1538882 */ 
+       		  USENAME AS USER_NAME, USESYSID AS USER_ID FROM PG_USER;
+	</select>
 	<insert id="TB_PGUSER_I001" parameterType="hashmap" >
 		INSERT INTO TB_USER_INFO
 		(	
@@ -2549,7 +2619,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
 				DIR||'/'||FL AS filename, 
 		       (pg_stat_file(DIR||'/'||FL)).modification::TIMESTAMP WITHOUT TIME ZONE::TEXT AS filetime,
-		       pg_file_length(DIR||'/'||FL) AS len
+		       --pg_file_length(DIR||'/'||FL) AS len
+		       (pg_stat_file(DIR||'/'||FL)).size As len
 		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
 		       (SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
 		 WHERE FL like '%.log'
@@ -2558,14 +2629,14 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="PG_GET_LOGFILE_LEN_001" parameterType="hashmap" resultType="String">
 		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
-				pg_file_length(DIR||'/'||FL) AS len
+				(pg_stat_file(DIR||'/'||FL)).size AS len
 		FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
 		   	(SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
 		WHERE FL = SPLIT_PART(#{filename}, (SELECT setting FROM pg_settings WHERE  name = 'log_directory') || '/', 2)
 	</select>
 	<select id="PG_GET_LOGFILE_LEN_001_PREV" parameterType="hashmap" resultType="String">
 		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
-				pg_file_length(DIR||'/'||FL) AS len
+				(pg_stat_file(DIR||'/'||FL)).size AS len
 		FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
 		   	(SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
 		WHERE FL = SPLIT_PART(#{filename}, '/', 2)
@@ -2575,7 +2646,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
  		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
  				DIR||'/'||FL AS filename, 
 		       (pg_stat_file(DIR||'/'||FL)).modification::TIMESTAMP WITHOUT TIME ZONE::TEXT AS filetime,
-		       pg_file_length(DIR||'/'||FL) AS len
+		       (pg_stat_file(DIR||'/'||FL)).size AS len
 		  FROM pg_ls_dir((SELECT setting FROM pg_settings WHERE  name = 'log_directory')) AS FL,
 		       (SELECT setting AS DIR FROM pg_settings WHERE  name = 'log_directory') D
 		 WHERE FL like '%.csv'
@@ -2584,7 +2655,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="PG_GET_LOGFILES_004" parameterType="hashmap" resultType="String">
 		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */ 
-				pg_file_length(PGCSV.filename) AS len 
+				(pg_stat_file(PGCSV.filename)).size AS len 
 		FROM
 		(SELECT filename FROM pg_logdir_ls() AS A(filetime timestamp, filename text)) AS PGLOG
 		JOIN
@@ -2595,7 +2666,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 
 	<select id="PG_READ_LOGFILE_001" parameterType="hashmap" resultType="String">
-		SELECT * from pg_file_read(#{filename}, #{logoffset}, #{length})
+		SELECT * from pg_read_file(#{filename}, #{logoffset}, #{length})
 	</select>	
 	
 	<select id="PG_CANCEL_QUERY_001" parameterType="hashmap" resultType="hashmap">
@@ -2665,7 +2736,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="EXPERDBMA_BT_SELECT_HA_GROUP_001" parameterType="hashmap" resultType="hashmap">
 		SELECT /* EXPERDBMA_BT_SELECT_HA_GROUP_001 */
 		   CASE WHEN A.HA_ROLE = 'P' THEN A.INSTANCE_ID ELSE 
-		   			(SELECT B.HA_GROUP FROM TB_INSTANCE_INFO B WHERE B.HOST_NAME = A.HA_HOST OR B.HOST_NAME = A.HA_REPL_HOST) 
+		   			(SELECT B.HA_GROUP FROM TB_INSTANCE_INFO B WHERE B.HOST_NAME = A.HA_HOST OR B.HOST_NAME = A.HA_REPL_HOST OR B.SERVER_IP = A.HA_HOST) 
 		   	END AS HA_GROUP
 		FROM TB_INSTANCE_INFO A
 		WHERE INSTANCE_ID = #{instance_id}
@@ -2682,6 +2753,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			HA_ROLE,
 			HA_HOST,
 			HA_PORT,
+			SLOT_NAME,
 			HA_GROUP,
 			REPLAY_LAG,
 			REPLAY_LAG_SIZE,
@@ -2696,7 +2768,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			#{failed_collect_type},
 			#{ha_role},
   			#{ha_host},
-  			#{ha_port},  
+  			#{ha_port},
+  			#{slot_name},  
   			(select ha_group from TB_INSTANCE_INFO where INSTANCE_ID = #{instance_id}),
   			#{replay_lag},
   			#{replay_lag_size},
@@ -3651,8 +3724,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	            ALERT.state export_level,
 	            '['
 			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
-			    || '] Business name : '
-			    || TH.BUSINESS_NAME 
+			    || (CASE WHEN BUSINESS_NAME IS NULL OR length(BUSINESS_NAME) = 0 THEN '' ELSE '] Business name : ' || BUSINESS_NAME END)
 			    || ', hostname : '
 			    || INS.HOST_NAME 
 			    || ', Alert : ' 
@@ -3745,5 +3817,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!-- ReplCollect End -->
 <!-- ********************************************************** -->
 <!--	add to update ha_info by robin 201712  end -->
-
+<!-- Check Virtual IP Start -->
+	<select id="TB_INSTANCE_INFO_R004" parameterType="hashmap" resultType="hashmap"  >
+		SELECT instance_id, server_ip, host_name, ha_group, virtual_ip, service_port, conn_db_name, conn_user_id, conn_user_pwd
+		  FROM tb_instance_info
+		 WHERE virtual_ip is not null
+		   AND COLLECT_YN = 'Y'
+           AND DELETE_YN = 'N'
+	</select>	
+	<select id="TB_INSTANCE_INFO_R005" parameterType="hashmap" resultType="hashmap"  >
+		SELECT instance_id, server_ip, host_name, ha_group, virtual_ip2, service_port, conn_db_name, conn_user_id, conn_user_pwd
+		  FROM tb_instance_info
+		 WHERE virtual_ip2 is not null
+		   AND COLLECT_YN = 'Y'
+           AND DELETE_YN = 'N'
+	</select>	
+<!-- Check Virtual IP ENd -->
 </mapper>

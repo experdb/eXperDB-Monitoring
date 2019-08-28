@@ -28,6 +28,7 @@ public class HourlyBatchTask {
 	private String reg_date = ""; // 오늘날짜
 	
 	public HourlyBatchTask() {
+		log.info("The batch task started(hourly)");
 		execute();
 		check_partiton();
 	}

@@ -10,6 +10,7 @@
     Private _WMargin As Integer = 50
     Private _HMargin As Integer = 50
     Private _HealthLevel As Integer = 0
+    Private _intValue As Integer = 0
     Private Class SQLInfo
         Dim _SQL As Integer
         ReadOnly Property SQL As Integer
@@ -38,7 +39,7 @@
 
 
 
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal intInstance As Integer, ByVal RegDate As String, ByVal HealthItem As String, ByVal HealthSeq As String, ByVal ShowValue As String, ByVal AgentInfo As structAgent, ByVal intLevel As Integer)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal intInstance As Integer, ByVal RegDate As String, ByVal HealthItem As String, ByVal HealthSeq As String, ByVal ShowValue As String, ByVal AgentInfo As structAgent, ByVal intLevel As Integer, ByVal intValue As Integer)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -51,6 +52,7 @@
         _AgentCn = New eXperDBODBC(AgentCn.ODBCConninfo, 30)
         _AgentInfo = AgentInfo
         _HealthLevel = intLevel
+        _intValue = intValue
         dgvinfo.AutoGenerateColumns = False
 
         lblitmNm.Text = p_clsMsgData.fn_GetData("F201", p_clsMsgData.fn_GetData(_HealthItem))
@@ -184,6 +186,8 @@
                                   dtTable = clsQuery.SelectHCHKHAStatus(_IntInstanceID, _RegDate)
                               Case "REPLICATION_SLOT"
                                   dtTable = clsQuery.SelectHCHKReplicationSlots(_IntInstanceID)
+                              Case "VIRTUAL_IP"
+                                  dtTable = clsQuery.SelectHCHKVirtualIP(_IntInstanceID)
                               Case Else
                                   lblitmNm.Text += " - ERROR"
 
@@ -194,6 +198,11 @@
                           End If
 
                           lblCurTime.Text = p_clsMsgData.fn_GetData("F206", strCurDate)
+                          If _intValue < 0 Then
+                              lblinfo.Text = lblinfo.Text + " : " + p_clsMsgData.fn_GetData("M092")
+                              lblinfo.ForeColor = Color.OrangeRed
+                              Return
+                          End If
                           Me.dgvinfo.DataSource = dtTable
 
                           If _HealthItem.ToUpper = "HASTATUS" Then

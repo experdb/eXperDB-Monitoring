@@ -235,6 +235,7 @@ public class ReplCollect extends TaskApplication {
 				parameObjt.put("ha_role", replSel.get("ha_role"));
 				parameObjt.put("ha_host", replSel.get("ha_host"));
 				parameObjt.put("ha_port", replSel.get("ha_port"));
+				parameObjt.put("slot_name", replSel.get("slot_name"));
 				parameObjt.put("replay_lag", replSel.get("replay_lag"));
 				parameObjt.put("replay_lag_size", replSel.get("replay_lag_size"));
 				

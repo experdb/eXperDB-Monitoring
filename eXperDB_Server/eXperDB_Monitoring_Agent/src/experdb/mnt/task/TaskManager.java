@@ -88,29 +88,36 @@ class ExceptionLeakingTask implements Runnable {
 
 				boolean isStart = true;
 				//Instance 정보 변경 여부를 확인한다.
+				long lLastHourlyBatchTime = System.currentTimeMillis ();
 				while(true) {
-					Thread.sleep(5* 1000);
+					Thread.sleep(10 * 1000);
 					
 					MonitoringInfoManager.getInstance().changeInfo();
-
+					
+					//Check vip
+					Class.forName("experdb.mnt.task."+ "VIPCollect").getConstructor().newInstance();
+					
 					//Hourly batch------------- Start
-					SimpleDateFormat transFormat = new SimpleDateFormat("mm:ss");
-					Date now = new Date();
-					String strCurrentTime = transFormat.format(now);
-					Date batchStartHourlyTime = transFormat.parse(MonitoringInfoManager.getInstance().getConfig("daily_batch_start_time").toString().substring(3));
-					Date batchEndHourlyTime = new Date(batchStartHourlyTime.getTime() + 1000 * 10);
-					String strBatchTimeStart = transFormat.format(batchStartHourlyTime);
-					String strBatchTimeEnd = transFormat.format(batchEndHourlyTime);
+//					SimpleDateFormat transFormat = new SimpleDateFormat("mm:ss");
+//					Date now = new Date();
+//					String strCurrentTime = transFormat.format(now);
+//					Date batchStartHourlyTime = transFormat.parse(MonitoringInfoManager.getInstance().getConfig("daily_batch_start_time").toString().substring(3));
+//					Date batchEndHourlyTime = new Date(batchStartHourlyTime.getTime() + 1000 * 20);
+//					String strBatchTimeStart = transFormat.format(batchStartHourlyTime);
+//					String strBatchTimeEnd = transFormat.format(batchEndHourlyTime);
 
 					if (isStart == true){
 						log.info("Start batch hourly (init)");
 						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
+						lLastHourlyBatchTime = System.currentTimeMillis ();
 						isStart = false;
 					}
 					
-					if(strCurrentTime.compareTo(strBatchTimeStart) > 0 && strCurrentTime.compareTo(strBatchTimeEnd) < 0){
+					//if(strCurrentTime.compareTo(strBatchTimeStart) > 0 && strCurrentTime.compareTo(strBatchTimeEnd) < 0){
+					if((System.currentTimeMillis () / 1000) - (lLastHourlyBatchTime / 1000) > 3600 ) {
 						log.info("Start batch hourly");
 						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
+						lLastHourlyBatchTime = System.currentTimeMillis ();
 					}
 					//Hourly batch------------- End
 

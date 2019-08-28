@@ -12,7 +12,7 @@ Public Class frmConnection
     Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, _
                    ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, _
                    ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal intStmtCollectSec As Integer, ByVal strAliasNm As String, _
-                   ByVal InstanceCnt As Integer, ByVal strSerial As String, _
+                   ByVal InstanceCnt As Integer, ByVal strSerial As String, ByVal strVirtualIP As String, ByVal strVirtualIP2 As String, _
                    Optional ByVal strHARole As String = "A", Optional ByVal strHAHost As String = "-", Optional ByVal intHAPort As Integer = 0, Optional ByVal strHAREPLHost As String = "-")
 
         ' 이 호출은 디자이너에 필요합니다.
@@ -40,10 +40,11 @@ Public Class frmConnection
 
         lblStmtSDly.Text = p_clsMsgData.fn_GetData("F342")
         lblHARole.Text = p_clsMsgData.fn_GetData("F288")
-        lblHAHost.Text = p_clsMsgData.fn_GetData("F289")
+        lblHAHost.Text = p_clsMsgData.fn_GetData("F292")
         lblHAPort.Text = p_clsMsgData.fn_GetData("F290")
         lblHAREPLHost.Text = p_clsMsgData.fn_GetData("F291")
-        lblPrimary.Text = p_clsMsgData.fn_GetData("F292")
+        lblVIP.Text = p_clsMsgData.fn_GetData("F359")
+        lblVIP2.Text = p_clsMsgData.fn_GetData("F360")
 
         txtUsr.Text = strUser
         txtPW.Text = strPw
@@ -54,6 +55,8 @@ Public Class frmConnection
         cmbSchema.Text = strSchema
         nudCollectSecond.Value = intCollectSec
         txtAlias.Text = strAliasNm
+        txtVIP.Text = strVirtualIP
+        txtVIP2.Text = strVirtualIP2
         'nudLogSaveDly.Value = DirectCast(sender, BaseControls.DataGridView).Item(colLogSave.Index, e.RowIndex).Value
 
 
@@ -233,6 +236,8 @@ Public Class frmConnection
         txtHAHost.Enabled = False
         txtHAPort.Enabled = False
         txtHAREPLHost.Enabled = False
+        txtVIP.Enabled = False
+        txtVIP2.Enabled = False
         cmbSchema.Items.Clear()
         If txtUsr.Text.Trim <> "" _
             AndAlso txtPW.Text.Trim <> "" _
@@ -275,7 +280,7 @@ Public Class frmConnection
 
 
 
-    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String)
+    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
         intRow = _idxROw
         ODBCConnect = btnTest.Tag
 
@@ -295,6 +300,8 @@ Public Class frmConnection
         strHAHost = txtHAHost.Text
         strHAPort = txtHAPort.Text
         strHAREPLHost = txtHAREPLHost.Text
+        strVirtualIP = txtVIP.Text
+        strVirtualIP2 = txtVIP2.Text
     End Sub
 
 
@@ -404,6 +411,8 @@ Public Class frmConnection
         txtHAHost.Enabled = False
         txtHAPort.Enabled = False
         txtHAREPLHost.Enabled = False
+        txtVIP.Enabled = False
+        txtVIP2.Enabled = False
         If txtUsr.Text.Trim <> "" _
             AndAlso txtPW.Text.Trim <> "" _
             AndAlso txtIP.Text.Trim <> "" _
@@ -503,6 +512,8 @@ Public Class frmConnection
 
                                                 ' HA info 201804
                                                 cmbHARole.Enabled = True
+                                                txtVIP.Enabled = True
+                                                txtVIP2.Enabled = True
                                                 'txtHAHost.Enabled = True
                                                 'txtHAPort.Enabled = True
                                                 'txtHAREPLHost.Enabled = True
@@ -522,6 +533,8 @@ Public Class frmConnection
                                                 btnAct.Enabled = False
                                                 ' HA info 201804
                                                 cmbHARole.Enabled = False
+                                                txtVIP.Enabled = False
+                                                txtVIP2.Enabled = False
                                                 txtHAHost.Enabled = False
                                                 txtHAPort.Enabled = False
                                                 txtHAREPLHost.Enabled = False
@@ -548,6 +561,8 @@ Public Class frmConnection
                                             txtHAHost.Enabled = False
                                             txtHAPort.Enabled = False
                                             txtHAREPLHost.Enabled = False
+                                            txtVIP.Enabled = False
+                                            txtVIP2.Enabled = False
                                             ' 접속 정보Tag도 삭제한다. 
                                             btnTest.Tag = Nothing
                                             ' 접속 실패시 
@@ -569,6 +584,8 @@ Public Class frmConnection
                                             txtHAHost.Enabled = False
                                             txtHAPort.Enabled = False
                                             txtHAREPLHost.Enabled = False
+                                            txtVIP.Enabled = False
+                                            txtVIP2.Enabled = False
                                             ' 접속 정보Tag도 삭제한다. 
                                             btnTest.Tag = Nothing
                                             ' 접속 실패시 
@@ -609,16 +626,12 @@ Public Class frmConnection
         txtHAHost.Enabled = False
         txtHAPort.Enabled = False
         txtHAREPLHost.Enabled = False
-        Me.Size = New Size(387, 515)
-        Me.splSlave.FixedPanel = FixedPanel.Panel1
-        Me.splSlave.Panel1Collapsed = False
-        Me.splSlave.Panel2Collapsed = True
-        Me.splSlave.Panel2.Enabled = False
-
+        txtVIP.Enabled = False
+        txtVIP.Enabled = False
+        'Me.Size = New Size(387, 515)
         Dim cmbIndex As Integer = cmbHARole.SelectedIndex
         cmbHARole.SelectedIndex = -1
         cmbHARole.SelectedIndex = cmbIndex
-        
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
@@ -635,23 +648,20 @@ Public Class frmConnection
             txtHAHost.Enabled = True
             txtHAPort.Enabled = True
             txtHAREPLHost.Enabled = True
-            Me.Size = New Size(387, 669)
-            Me.splSlave.SplitterDistance = 375
-            Me.splSlave.Panel1Collapsed = False
-            Me.splSlave.Panel2Collapsed = False
-            Me.splSlave.FixedPanel = FixedPanel.Panel1
-            Me.splSlave.Panel2.Enabled = True
+            'Me.Size = New Size(387, 669)
+            'Me.splSlave.SplitterDistance = txtVIP2.Location.Y + 100
             GetPrimaryInfo()
+            txtVIP.Enabled = False
+            txtVIP2.Enabled = False
         Else
             txtHAHost.Enabled = False
             txtHAPort.Enabled = False
             txtHAREPLHost.Enabled = False
-            Me.Size = New Size(387, 515)
-            Me.splSlave.FixedPanel = FixedPanel.Panel1
-            Me.splSlave.Panel1Collapsed = False
-            Me.splSlave.Panel2Collapsed = True
-            Me.splSlave.Panel2.Enabled = False
+            'Me.Size = New Size(387, 515)
+            txtVIP.Enabled = True
+            txtVIP2.Enabled = True
         End If
+
 
     End Sub
 
