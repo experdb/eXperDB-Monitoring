@@ -274,6 +274,7 @@ create table tb_replication_info (
     ha_role character varying(1),
     ha_host character varying(100),
     ha_port character varying(10),
+    slot_name character varying(32),
     ha_group integer,
     replay_lag integer,
     replay_lag_size numeric(20,0),
@@ -883,6 +884,7 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HASTATUS', 'LVL', '0', 1.00, 2.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_DELAY', 'MB', '0', 100, 1000, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'VIRTUAL_IP', ' ', '0', 0,   1,    '0', NULL, NULL);
 
 insert into tb_config(
 						daily_batch_start_time
@@ -899,7 +901,7 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.329', '$BINPATH');
+) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '11.5.0.330', '$BINPATH');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');

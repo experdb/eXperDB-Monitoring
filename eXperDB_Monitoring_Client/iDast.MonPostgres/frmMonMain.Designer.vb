@@ -291,6 +291,12 @@ Partial Class frmMonMain
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.tlpInstanceList = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvClusters = New AdvancedDataGridView.TreeGridView()
+        Me.coldgvClustersServerName = New AdvancedDataGridView.TreeGridColumn()
+        Me.coldgvClustersRole = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvClustersLegend = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvClustersVip2 = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvClusterPrimaryHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvClusterIsOpenSingle = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.instanceImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.btnSort = New eXperDB.BaseControls.Button()
         Me.flpInstance = New eXperDB.BaseControls.FlowLayoutPanel()
@@ -399,12 +405,6 @@ Partial Class frmMonMain
         Me.mnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuVersion = New System.Windows.Forms.ToolStripMenuItem()
         Me.haStatusLst = New System.Windows.Forms.ImageList(Me.components)
-        Me.coldgvClustersServerName = New AdvancedDataGridView.TreeGridColumn()
-        Me.coldgvClustersRole = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvClustersLegend = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvClustersVip2 = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvClusterPrimaryHostNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvClusterIsOpenSingle = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -1312,7 +1312,7 @@ Partial Class frmMonMain
         ChartArea3.AxisY.MajorTickMark.Enabled = False
         ChartArea3.AxisY.Maximum = 100.0R
         ChartArea3.AxisY.MaximumAutoSize = 100.0!
-        ChartArea3.AxisY.Title = "CPU, %"
+        ChartArea3.AxisY.Title = "MEM %"
         ChartArea3.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea3.AxisY.TitleForeColor = System.Drawing.Color.White
         ChartArea3.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
@@ -1694,7 +1694,7 @@ Partial Class frmMonMain
         ChartArea4.AxisY.MajorTickMark.Enabled = False
         ChartArea4.AxisY.Maximum = 100.0R
         ChartArea4.AxisY.MaximumAutoSize = 100.0!
-        ChartArea4.AxisY.Title = "CPU, %"
+        ChartArea4.AxisY.Title = "CPU %"
         ChartArea4.AxisY.TitleFont = New System.Drawing.Font("Microsoft Sans Serif", 9.687912!)
         ChartArea4.AxisY.TitleForeColor = System.Drawing.Color.White
         ChartArea4.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.[True]
@@ -4287,6 +4287,60 @@ Partial Class frmMonMain
         Me.dgvClusters.TabIndex = 16
         Me.dgvClusters.TabStop = False
         '
+        'coldgvClustersServerName
+        '
+        Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvClustersServerName.DefaultNodeImage = Nothing
+        Me.coldgvClustersServerName.FillWeight = 80.0!
+        Me.coldgvClustersServerName.HeaderText = "Cluster name"
+        Me.coldgvClustersServerName.MinimumWidth = 100
+        Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
+        Me.coldgvClustersServerName.ReadOnly = True
+        Me.coldgvClustersServerName.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersServerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'coldgvClustersRole
+        '
+        Me.coldgvClustersRole.HeaderText = ""
+        Me.coldgvClustersRole.MinimumWidth = 15
+        Me.coldgvClustersRole.Name = "coldgvClustersRole"
+        Me.coldgvClustersRole.ReadOnly = True
+        Me.coldgvClustersRole.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersRole.Width = 15
+        '
+        'coldgvClustersLegend
+        '
+        Me.coldgvClustersLegend.HeaderText = ""
+        Me.coldgvClustersLegend.MinimumWidth = 15
+        Me.coldgvClustersLegend.Name = "coldgvClustersLegend"
+        Me.coldgvClustersLegend.ReadOnly = True
+        Me.coldgvClustersLegend.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersLegend.Width = 15
+        '
+        'coldgvClustersVip2
+        '
+        Me.coldgvClustersVip2.HeaderText = ""
+        Me.coldgvClustersVip2.MinimumWidth = 15
+        Me.coldgvClustersVip2.Name = "coldgvClustersVip2"
+        Me.coldgvClustersVip2.ReadOnly = True
+        Me.coldgvClustersVip2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvClustersVip2.Width = 15
+        '
+        'coldgvClusterPrimaryHostNm
+        '
+        Me.coldgvClusterPrimaryHostNm.FillWeight = 1.0!
+        Me.coldgvClusterPrimaryHostNm.HeaderText = "PrimaryHostNm"
+        Me.coldgvClusterPrimaryHostNm.Name = "coldgvClusterPrimaryHostNm"
+        Me.coldgvClusterPrimaryHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClusterPrimaryHostNm.Visible = False
+        '
+        'coldgvClusterIsOpenSingle
+        '
+        Me.coldgvClusterIsOpenSingle.HeaderText = "IsOpenSingle"
+        Me.coldgvClusterIsOpenSingle.Name = "coldgvClusterIsOpenSingle"
+        Me.coldgvClusterIsOpenSingle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvClusterIsOpenSingle.Visible = False
+        '
         'instanceImgLst
         '
         Me.instanceImgLst.ImageStream = CType(resources.GetObject("instanceImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
@@ -5431,60 +5485,6 @@ Partial Class frmMonMain
         Me.haStatusLst.Images.SetKeyName(6, "s.png")
         Me.haStatusLst.Images.SetKeyName(7, "vs.png")
         Me.haStatusLst.Images.SetKeyName(8, "vr.png")
-        '
-        'coldgvClustersServerName
-        '
-        Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvClustersServerName.DefaultNodeImage = Nothing
-        Me.coldgvClustersServerName.FillWeight = 80.0!
-        Me.coldgvClustersServerName.HeaderText = "Cluster name"
-        Me.coldgvClustersServerName.MinimumWidth = 100
-        Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
-        Me.coldgvClustersServerName.ReadOnly = True
-        Me.coldgvClustersServerName.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersServerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'coldgvClustersRole
-        '
-        Me.coldgvClustersRole.HeaderText = ""
-        Me.coldgvClustersRole.MinimumWidth = 15
-        Me.coldgvClustersRole.Name = "coldgvClustersRole"
-        Me.coldgvClustersRole.ReadOnly = True
-        Me.coldgvClustersRole.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersRole.Width = 15
-        '
-        'coldgvClustersLegend
-        '
-        Me.coldgvClustersLegend.HeaderText = ""
-        Me.coldgvClustersLegend.MinimumWidth = 15
-        Me.coldgvClustersLegend.Name = "coldgvClustersLegend"
-        Me.coldgvClustersLegend.ReadOnly = True
-        Me.coldgvClustersLegend.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersLegend.Width = 15
-        '
-        'coldgvClustersVip2
-        '
-        Me.coldgvClustersVip2.HeaderText = ""
-        Me.coldgvClustersVip2.MinimumWidth = 15
-        Me.coldgvClustersVip2.Name = "coldgvClustersVip2"
-        Me.coldgvClustersVip2.ReadOnly = True
-        Me.coldgvClustersVip2.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvClustersVip2.Width = 15
-        '
-        'coldgvClusterPrimaryHostNm
-        '
-        Me.coldgvClusterPrimaryHostNm.FillWeight = 1.0!
-        Me.coldgvClusterPrimaryHostNm.HeaderText = "PrimaryHostNm"
-        Me.coldgvClusterPrimaryHostNm.Name = "coldgvClusterPrimaryHostNm"
-        Me.coldgvClusterPrimaryHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClusterPrimaryHostNm.Visible = False
-        '
-        'coldgvClusterIsOpenSingle
-        '
-        Me.coldgvClusterIsOpenSingle.HeaderText = "IsOpenSingle"
-        Me.coldgvClusterIsOpenSingle.Name = "coldgvClusterIsOpenSingle"
-        Me.coldgvClusterIsOpenSingle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvClusterIsOpenSingle.Visible = False
         '
         'frmMonMain
         '

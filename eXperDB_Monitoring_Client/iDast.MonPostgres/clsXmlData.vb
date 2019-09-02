@@ -168,7 +168,7 @@ Public Class clsXmlData
                 Return ""
             End If
         Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            'p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             GC.Collect()
         End Try
         Return ""

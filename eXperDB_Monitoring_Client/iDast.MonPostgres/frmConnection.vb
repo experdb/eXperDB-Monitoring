@@ -651,15 +651,15 @@ Public Class frmConnection
             'Me.Size = New Size(387, 669)
             'Me.splSlave.SplitterDistance = txtVIP2.Location.Y + 100
             GetPrimaryInfo()
-            txtVIP.Enabled = False
-            txtVIP2.Enabled = False
+            'txtVIP.Enabled = False
+            'txtVIP2.Enabled = False
         Else
             txtHAHost.Enabled = False
             txtHAPort.Enabled = False
             txtHAREPLHost.Enabled = False
             'Me.Size = New Size(387, 515)
-            txtVIP.Enabled = True
-            txtVIP2.Enabled = True
+            'txtVIP.Enabled = True
+            'txtVIP2.Enabled = True
         End If
 
 

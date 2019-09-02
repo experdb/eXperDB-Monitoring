@@ -395,12 +395,48 @@
 
     End Sub
 
-    Public Function fn_GetValueCast(ByVal HCHKNM As String, ByVal intValue As Object) As Object
+    'Public Function fn_GetValueCast(ByVal HCHKNM As String, ByVal intValue As Object) As Object
+    '    Try
+
+
+    '        Dim Values As String = p_clsMsgData.fn_GetSpecificData(HCHKNM, "VALUECAST")
+    '        If Values.Trim = "" Then Return intValue
+    '        Dim arrValues As String() = Values.Split(";")
+    '        For Each strVaues As String In arrValues
+    '            Dim arrValue As String() = strVaues.Split("|")
+    '            If arrValue.Count > 1 Then
+
+
+    '                Dim OriValue As Object = arrValue(0)
+    '                Dim CastValue As Object = arrValue(1)
+
+    '                If Integer.TryParse(OriValue, OriValue) Then
+    '                    If CInt(intValue).Equals(CInt(OriValue)) Then
+    '                        Return CastValue
+    '                    End If
+    '                Else
+    '                    Return intValue
+    '                End If
+
+    '            End If
+    '        Next
+
+    '        Return intValue
+
+    '    Catch ex As Exception
+    '        Return intValue
+    '    End Try
+
+    'End Function
+
+    Public Function fn_GetValueCast(ByVal HCHKNM As String, ByVal intValue As Object) As Object 'temporary
         Try
-
-
-            Dim Values As String = p_clsMsgData.fn_GetSpecificData(HCHKNM, "VALUECAST")
-            If Values.Trim = "" Then Return intValue
+            Dim Values As String = ""
+            If HCHKNM.Equals("LASTANALYZE") Or HCHKNM.Equals("LASTVACUUM") Then
+                Values = p_clsMsgData.fn_GetSpecificData(HCHKNM, "VALUECAST")
+            Else
+                Return intValue
+            End If
             Dim arrValues As String() = Values.Split(";")
             For Each strVaues As String In arrValues
                 Dim arrValue As String() = strVaues.Split("|")

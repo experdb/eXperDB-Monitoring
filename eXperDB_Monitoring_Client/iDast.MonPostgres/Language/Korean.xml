@@ -2975,8 +2975,8 @@
     <COMMENTS>check "select * from pg_replication_slots"</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS>SLOT_NAME|Slot name|TEXT||160|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABA6SE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||80|;ISACTIVE|Active|TEXT||80|;OLDXMIN|Oldest Txid|TEXT||130|;RESTART_LSN|Restart LSN|TEXT||130|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>
-    <VALUECAST />
-    <VALUECAST />  </ROW>
+    <VALUECAST />  
+  </ROW>
   <ROW ID="VIRTUAL_IP" PARAMS="0">
     <DESC>가상 IP 상태를 조회합니다.</DESC>
     <DATA><![CDATA[가상 IP]]></DATA>

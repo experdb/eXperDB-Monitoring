@@ -260,6 +260,8 @@ create table tb_instance_info (
     ha_port character varying(10),
     ha_repl_host character varying(100),
     ha_group integer,
+    virtual_ip character varying(15),
+    virtual_ip2 character varying(15),
     last_mod_user_id character varying(16) default null,
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone

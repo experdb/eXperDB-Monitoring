@@ -2242,7 +2242,7 @@ Public Class frmMonDetail
                 SetDataDisk(p_clsAgentCollect.infoDataDisk)
                 SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO)
                 SetDataHealth(p_clsAgentCollect.infoDataHealth)
-                _clsQuery.CancelCommand()
+                
             Catch ex As Exception
                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             End Try

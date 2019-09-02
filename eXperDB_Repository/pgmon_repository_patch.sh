@@ -235,7 +235,7 @@ alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_sta
 
 
 
-update tb_config set version = '${EXPERDB_VERSION}';
+update tb_config set version = '11.5.0.330';
 update tb_config set binary_path = '/experdb/app/eXperDB-Monitoring/eXperDB_Server/files';
 
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
@@ -268,8 +268,6 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 
 --version 329 to 330
 alter table tb_replication_info add column slot_name varchar(32);
-alter table tb_instance_info add column virtual_ip varchar(15);
-alter table tb_instance_info add column virtual_ip2 varchar(15);
 
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1 , 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
