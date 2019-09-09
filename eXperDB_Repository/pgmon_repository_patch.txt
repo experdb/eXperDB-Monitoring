@@ -298,7 +298,7 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
 
-
-
+--version 330 to 332
+update TB_HCHK_THRD_LIST SET fixed_threshold = 2 WHERE hchk_name in ('VIRTUAL_IP', 'REPLICATION_SLOT') 
 
 EOF

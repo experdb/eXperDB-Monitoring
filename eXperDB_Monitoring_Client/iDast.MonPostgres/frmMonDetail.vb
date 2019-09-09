@@ -1658,7 +1658,8 @@ Public Class frmMonDetail
                           For Each instRow As DataRow In dtRows
                               If dtTable IsNot Nothing Then
                                   'Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
-                                  Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID IN (" & InstanceIDs & ")")
+                                  Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID=" & instRow.Item("INSTANCE_ID"))
+                                  'Dim dtRowsReplication As DataRow() = dtTable.Select("INSTANCE_ID IN (" & InstanceIDs & ")")
                                   If dtRowsReplication.Count = 0 Then
                                       Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
                                       sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, 0)

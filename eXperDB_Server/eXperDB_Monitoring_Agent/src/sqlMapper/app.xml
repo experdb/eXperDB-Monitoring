@@ -395,26 +395,18 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 							    tblpages, fillfactor, bs, tblid, schema_name, table_name, heappages, toastpages, is_na,
 							    reltoastrelid, AGG_SEQ_SCAN_CNT, AGG_SEQ_TUPLES, AGG_INDEX_SCAN_CNT, AGG_INDEX_TUPLES, LIVE_TUPLE_CNT,
 							    DEAD_TUPLE_CNT, LAST_VACUUM,LAST_ANALYZE,tot_index_size_kb,index_cnt,relid,autovacuum_count,autoanalyze_count,n_mod_since_analyze,
-								(SELECT opt_val autovacuum_vacuum_scale_factor FROM 
-									(SELECT split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2)::numeric(20,2) OPT_VAL 
-									   FROM pg_class WHERE relname = table_name
-									) AS RELOPT
-								 WHERE opt_nm = 'autovacuum_vacuum_scale_factor') AVS,
-								(SELECT opt_val autovacuum_vacuum_threshold FROM 
-									(SELECT split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2)::numeric(20,2) OPT_VAL 
-									   FROM pg_class WHERE relname = table_name
-									) AS RELOPT
-								 WHERE opt_nm = 'autovacuum_vacuum_threshold') AVT,
-								(SELECT opt_val autovacuum_analyze_scale_factor FROM 
-									(SELECT split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2)::numeric(20,2) OPT_VAL 
-									   FROM pg_class WHERE relname = table_name
-									) AS RELOPT
-								 WHERE opt_nm = 'autovacuum_analyze_scale_factor') AAS,
-								(SELECT opt_val autovacuum_analyze_threshold FROM 
-									(SELECT split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2)::numeric(20,2) OPT_VAL 
-									   FROM pg_class WHERE relname = table_name
-									) AS RELOPT
-								 WHERE opt_nm = 'autovacuum_analyze_threshold') AAT,
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_vacuum_scale_factor') AVS, 
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_vacuum_threshold') AVT, 
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_analyze_scale_factor') AAS, 
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_analyze_threshold') AAT,
 								 (SELECT setting FROM pg_settings WHERE name = 'autovacuum') autovacuum
 				     FROM (
 						       SELECT ( 4 + tpl_hdr_size + tpl_data_size + (2*ma)
@@ -1903,20 +1895,27 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="EXPERDBMA_BT_HCHK_VIRTUALIP_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 		SELECT /* EXPERDBMA_BT_HCHK_VIRTUALIP_001 */
-			   INSTANCE_ID,
-		  	   CASE WHEN ha_role = 'P' AND VIRTUAL_IP IS NULL THEN 1
-		  		 	WHEN ha_role = 'S' AND VIRTUAL_IP IS NOT NULL THEN 1 
+			   I.INSTANCE_ID,
+		  	   CASE WHEN R.HA_ROLE = 'P' AND VIRTUAL_IP IS NULL THEN 1
+		  		 	WHEN R.HA_ROLE = 'S' AND VIRTUAL_IP IS NOT NULL THEN 1 
 		  		 	ELSE 0 END AS VIRTUAL_IP,
 		  	   '4' AS COLLECT_GROUP,
 	           TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') AS COLLECT_REG_DATE,
-			   -1 AS COLLECT_REG_SEQ,
-	           CURRENT_TIME AS REG_TIME
-		    FROM TB_INSTANCE_INFO
+			   -1 AS COLLECT_REG_SEQ,	
+	           CURRENT_TIME AS REG_TIME	
+		    FROM TB_INSTANCE_INFO I, TB_REPLICATION_INFO R
 		   WHERE COLLECT_YN = 'Y'
              AND DELETE_YN = 'N'
-             AND HA_GROUP IN ((SELECT HA_GROUP FROM TB_INSTANCE_INFO WHERE VIRTUAL_IP IS NOT NULL))
+             AND I.HA_GROUP IN (SELECT HA_GROUP FROM TB_INSTANCE_INFO WHERE VIRTUAL_IP IS NOT NULL)
+             AND I.INSTANCE_ID = R.INSTANCE_ID
+             AND R.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+             AND R.REPL_REG_SEQ IN (SELECT MAX(REPL_REG_SEQ) AS MAX_REG_SEQ 
+								 	  FROM TB_REPLICATION_INFO  
+								 	 WHERE REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+								 	 GROUP BY INSTANCE_ID )
 		]]>  
 	</select>
+	
 	
 <!-- ********************************************************** -->
 <!-- HchkCollect END -->
@@ -2054,12 +2053,15 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			<when test="instance_db_version >= 10.0">
 				<![CDATA[
 					 SELECT /* EXPERDBMA_BT_REPLICATION_LAG 24e9ab7301ff1966da4fb30dc1538882 */
-					 		COALESCE(client_hostname, application_name) AS HOST_NAME,
-							CASE WHEN pg_is_in_recovery() = FALSE THEN  
+					 		--COALESCE(client_hostname, application_name) AS HOST_NAME,
+					 		APPLICATION_NAME AS HOST_NAME,
+							--CASE WHEN pg_is_in_recovery() = FALSE THEN  
+							CASE WHEN true THEN
 								      EXTRACT(epoch FROM replay_lag) 
 								      --EXTRACT(epoch FROM COALESCE(replay_lag, '0'::interval)) 
 								 ELSE -1 END AS REPLAY_LAG,
-							CASE WHEN pg_is_in_recovery() = FALSE THEN  
+							--CASE WHEN pg_is_in_recovery() = FALSE THEN  
+							CASE WHEN true THEN  
 									  sent_lsn - replay_lsn
 								 ELSE -1 END AS REPLAY_LAG_SIZE
 					   FROM PG_STAT_REPLICATION;
@@ -2791,7 +2793,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
 			CURRVAL('REPL_REG_SEQ'),
-  			(select instance_id from TB_INSTANCE_INFO where host_name = #{host_name}),
+  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name}) IS NOT NULL 
+				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name}) 
+	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name}) END),
   			#{replay_lag},
   			#{replay_lag_size},
 			NOW()
