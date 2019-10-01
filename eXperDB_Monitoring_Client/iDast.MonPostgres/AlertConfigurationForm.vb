@@ -238,7 +238,7 @@
                     cbxHAStatus.Checked = Check
                     If retentionTime > 0 Then
                         Dim alertCondition As Integer = retentionTime / _hchkPeriod
-                        cmbHAStatus.SelectedIndex = IIf(alertCondition > 0 AndAlso alertCondition < 4, alertCondition, 1)
+                        cmbHAStatus.SelectedIndex = IIf(alertCondition > 0 AndAlso alertCondition < 4, alertCondition, 0)
                     Else
                         cmbHAStatus.SelectedIndex = 0
                     End If
@@ -246,7 +246,7 @@
                     cbxReplSlot.Checked = Check
                     If retentionTime > 0 Then
                         Dim alertCondition As Integer = retentionTime / _hchkPeriod
-                        cmbReplSlot.SelectedIndex = IIf(alertCondition > 0 AndAlso alertCondition < 4, alertCondition, 1)
+                        cmbReplSlot.SelectedIndex = IIf(alertCondition > 0 AndAlso alertCondition < 4, alertCondition, 0)
                     Else
                         cmbReplSlot.SelectedIndex = 0
                     End If
@@ -254,7 +254,7 @@
                     cbxVirtualIP.Checked = Check
                     If retentionTime > 0 Then
                         Dim alertCondition As Integer = retentionTime / _hchkPeriod
-                        cmbVIP.SelectedIndex = IIf(alertCondition > 0 AndAlso alertCondition < 4, alertCondition, 1)
+                        cmbVIP.SelectedIndex = IIf(alertCondition > 0 AndAlso alertCondition < 4, alertCondition, 0)
                     Else
                         cmbVIP.SelectedIndex = 0
                     End If
