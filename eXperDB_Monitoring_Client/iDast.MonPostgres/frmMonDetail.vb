@@ -1130,11 +1130,15 @@ Public Class frmMonDetail
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthItm.Index).Value = strItm
                     dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthitmNm.Index).Value = p_clsMsgData.fn_GetData(strItm)
                     If strItm = "REPLICATION_SLOT" Then
-                        If VarType(modCommon.fn_GetValueCast(strItm, intSubValue)) = vbLong Then
-                            dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intSubValue))
-                        Else
-                            dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = modCommon.fn_GetValueCast(strItm, intSubValue)
-                        End If
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = intSubValue
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Tag = intValue
+                        'If VarType(modCommon.fn_GetValueCast(strItm, intSubValue)) = vbLong Then
+                        '    dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intSubValue))
+                        'Else
+                        '    dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = modCommon.fn_GetValueCast(strItm, intSubValue)
+                        'End If
+                    ElseIf strItm = "VIRTUAL_IP" Or strItm = "HASTATUS" Then
+                        dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = intValue
                     Else
                         If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
                             dgvGrpHealth.Rows(intIDx).Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
@@ -1164,11 +1168,15 @@ Public Class frmMonDetail
                     End If
                 Else
                     If strItm = "REPLICATION_SLOT" Then
-                        If VarType(modCommon.fn_GetValueCast(strItm, intSubValue)) = vbLong Then
-                            dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intSubValue))
-                        Else
-                            dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = fn_GetValueCast(strItm, intSubValue)
-                        End If
+                        dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = intSubValue
+                        dgvHealthRow.Cells(colDgvHealthIVal.Index).Tag = intValue
+                        'If VarType(modCommon.fn_GetValueCast(strItm, intSubValue)) = vbLong Then
+                        '    dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intSubValue))
+                        'Else
+                        '    dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = fn_GetValueCast(strItm, intSubValue)
+                        'End If
+                    ElseIf strItm = "VIRTUAL_IP" Or strItm = "HASTATUS" Then
+                        dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = intValue
                     Else
                         If VarType(modCommon.fn_GetValueCast(strItm, intValue)) = vbLong Then
                             dgvHealthRow.Cells(colDgvHealthIVal.Index).Value = CStr(modCommon.fn_GetValueCast(strItm, intValue))
@@ -1508,7 +1516,9 @@ Public Class frmMonDetail
         Dim dtRows As DataRow() = Nothing
         Try
             dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARoleStatus = "P")
-
+            If dtTable Is Nothing Then
+                Return
+            End If
             If dtTable.Rows.Count = 0 Then
                 dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), False)
             End If
@@ -1910,6 +1920,16 @@ Public Class frmMonDetail
                 Dim HealthItem As String = dgvRow.Cells(colDgvHealthItm.Index).Value
                 Dim HealthSeq As String = dgvRow.Cells(colDgvHealthSeq.Index).Value
                 Dim strValue As String = String.Format("{0} {1}[{2}]", dgvRow.Cells(colDgvHealthIVal.Index).Value, dgvRow.Cells(colDgvHealthUnit.Index).Value, dgvRow.Cells(colDgvHealthStatus.Index).Value)
+                If HealthItem.Equals("REPLICATION_SLOT") Then
+                    strValue = String.Format("{0} {1}[{2}]", fn_GetValueCast(HealthItem, dgvRow.Cells(colDgvHealthIVal.Index).Tag), _
+                                             " ", dgvRow.Cells(colDgvHealthStatus.Index).Value)
+                ElseIf HealthItem.Equals("HASTATUS") Then
+                    strValue = String.Format("{0} {1}[{2}]", fn_GetValueCast(HealthItem, dgvRow.Cells(colDgvHealthIVal.Index).Value), _
+                                             " ", dgvRow.Cells(colDgvHealthStatus.Index).Value)
+                ElseIf HealthItem.Equals("VIRTUAL_IP") Then
+                    strValue = String.Format("{0} {1}[{2}]", fn_GetValueCast(HealthItem, dgvRow.Cells(colDgvHealthIVal.Index).Value), _
+                                             " ", dgvRow.Cells(colDgvHealthStatus.Index).Value)
+                End If
                 Dim intValue As Integer = dgvRow.Cells(colDgvHealthIVal.Index).Value
                 Dim intLevel As Integer = dgvRow.Cells(colDgvHealthStatusVal.Index).Value
                 Dim frmHealthDtl As New frmHealthDetail(AgentCn, InstanceID, RegDt, HealthItem, HealthSeq, strValue, _AgentInfo, intLevel, intValue)

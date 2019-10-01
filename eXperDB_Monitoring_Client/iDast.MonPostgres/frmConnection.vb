@@ -543,6 +543,8 @@ Public Class frmConnection
                                                 ' 접속 실패시 
                                                 If rtnValue._tran_res_data(0)._error_cd.Equals("DX003_E03") = True Then
                                                     MsgBox(p_clsMsgData.fn_GetData("M004"))
+                                                ElseIf rtnValue._tran_res_data(0)._error_cd.Equals("DX003_E02") = True Then
+                                                    MsgBox(p_clsMsgData.fn_GetData("M094"))
                                                 Else
                                                     MsgBox(p_clsMsgData.fn_GetData("M073"))
                                                 End If

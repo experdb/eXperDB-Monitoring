@@ -437,6 +437,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 									 	       ,utb.autovacuum_count autovacuum_count
 									 	       ,utb.autoanalyze_count autoanalyze_count
 									 	       ,utb.n_mod_since_analyze n_mod_since_analyze
+									 	       ,reloptions
 							       FROM (
 										         SELECT  tbl.oid AS tblid, ns.nspname AS schemaname, tbl.relname AS tblname, tbl.reltuples,
 													           tbl.relpages AS heappages, coalesce(toast.relpages, 0) AS toastpages,
@@ -452,7 +453,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 													           sum( (1-coalesce(s.null_frac, 0)) * coalesce(s.avg_width, 1024) ) AS tpl_data_size,
 													           bool_or(att.atttypid = 'pg_catalog.name'::regtype)
 													                OR count(att.attname) <> count(s.attname) AS is_na,
-													           tbl.reltoastrelid AS reltoastrelid
+													           tbl.reltoastrelid AS reltoastrelid,
+													           tbl.reloptions
 										           FROM pg_attribute AS att
 												            JOIN pg_class AS tbl ON att.attrelid = tbl.oid
 												            JOIN pg_namespace AS ns ON ns.oid = tbl.relnamespace
@@ -463,7 +465,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 												            LEFT JOIN pg_class AS toast ON tbl.reltoastrelid = toast.oid
 										          WHERE att.attnum > 0 AND NOT att.attisdropped
 										            AND tbl.relkind = 'r'
-										          GROUP BY 1,2,3,4,5,6,7,8,9,10, tbl.relhasoids,15
+										          GROUP BY 1,2,3,4,5,6,7,8,9,10, tbl.relhasoids,15,16
 										          ORDER BY 2,3
 				       ) AS s 
 				       JOIN PG_STAT_USER_TABLES UTB ON UTB.relname=s.tblname AND UTB.schemaname = s.schemaname
@@ -1783,6 +1785,26 @@ GROUP BY DUS.REG_DATE,DUS.RSC_REG_SEQ,RCM.INSTANCE_ID;
 		]]>
 	</select>
 	
+	<select id="EXPERDBMA_BT_HCHK_CPUUTIL_001" parameterType="hashmap" resultType="hashmap">
+SELECT /* EXPERDBMA_BT_HCHK_CPUUTIL_001 */
+         RCM.INSTANCE_ID,
+         CASE WHEN CPU.USER_UTIL_RATE + CPU.NICE_UTIL_RATE + CPU.SYS_UTIL_RATE + CPU.WAIT_UTIL_RATE > 100 THEN 100 ELSE CPU.USER_UTIL_RATE + CPU.NICE_UTIL_RATE + CPU.SYS_UTIL_RATE + CPU.WAIT_UTIL_RATE END AS CPUUTIL,
+         '3' AS COLLECT_GROUP,
+         CPU.REG_DATE AS COLLECT_REG_DATE,
+         CPU.RSC_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_RSC_COLLECT_INFO AS RCM,
+          TB_INSTANCE_INFO  AS IST,
+          TB_CPU_STAT_MASTER CPU
+WHERE CPU.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND CPU.REG_DATE = RCM.REG_DATE
+   AND CPU.RSC_REG_SEQ = (SELECT MAX(X.RSC_REG_SEQ) FROM TB_RSC_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND CPU.RSC_REG_SEQ = RCM.RSC_REG_SEQ  
+   AND IST.INSTANCE_ID = RCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N';
+	</select>
+	
 	<select id="EXPERDBMA_BT_HCHK_CPUWAIT_001" parameterType="hashmap" resultType="hashmap">
 SELECT /* EXPERDBMA_BT_HCHK_CPUWAIT_001 */
          RCM.INSTANCE_ID,
@@ -1802,7 +1824,26 @@ WHERE CPU.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	AND IST.COLLECT_YN = 'Y'             
    AND IST.DELETE_YN='N';
 	</select>
-	
+	<select id="EXPERDBMA_BT_HCHK_MEMUSAGE_001" parameterType="hashmap" resultType="hashmap">
+   SELECT /* EXPERDBMA_BT_HCHK_SWAPUSAGE_001 */
+         RCM.INSTANCE_ID,
+         /*ROUND((MEM.SWP_USED_KB - MEM.SWP_CACHED_KB) / SWP_TOTAL_KB * 100, 2) AS SWAPUSAGE,*/
+         CASE WHEN MEM.MEM_TOTAL_KB != 0 THEN (((MEM.MEM_TOTAL_KB - (MEM.MEM_FREE_KB +MEM.MEM_BUFFERED_KB + MEM.MEM_CACHED_KB)) / MEM.MEM_TOTAL_KB ) * 100)::int ELSE MEM.MEM_TOTAL_KB END AS MEMUSAGE,
+         '3' AS COLLECT_GROUP,
+         MEM.REG_DATE AS COLLECT_REG_DATE,
+         MEM.RSC_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+         CURRENT_TIME AS REG_TIME 	
+  FROM TB_RSC_COLLECT_INFO AS RCM,
+          TB_INSTANCE_INFO  AS IST,
+          TB_MEMORY_STAT MEM
+WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+   AND MEM.REG_DATE = RCM.REG_DATE
+   AND MEM.RSC_REG_SEQ = (SELECT MAX(X.RSC_REG_SEQ) FROM TB_RSC_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+   AND MEM.RSC_REG_SEQ = RCM.RSC_REG_SEQ  
+   AND IST.INSTANCE_ID = RCM.INSTANCE_ID   
+	AND IST.COLLECT_YN = 'Y'             
+   AND IST.DELETE_YN='N';
+	</select>
 	<select id="EXPERDBMA_BT_HCHK_SWAPUSAGE_001" parameterType="hashmap" resultType="hashmap">
    SELECT /* EXPERDBMA_BT_HCHK_SWAPUSAGE_001 */
          RCM.INSTANCE_ID,
@@ -1849,6 +1890,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 MAX(COLLECT_REG_SEQ) COLLECT_REG_SEQ,
          MAX(REG_TIME) REG_TIME
 	FROM (
+			WITH MAX_SEQ AS (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ, INSTANCE_ID FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY X.INSTANCE_ID )
 		    SELECT   B.INSTANCE_ID,
 		             CASE WHEN min(B.ACTIVE::integer) = 1 THEN 0
 		             	  ELSE 1 END REPLICATION_SLOT,
@@ -1858,7 +1900,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		             CURRENT_TIME AS REG_TIME
 		          FROM TB_INSTANCE_INFO A, TB_REPLICATION_SLOTS B
 		          WHERE B.REG_DATE = TO_char(now(), 'YYYYMMDD')
-		            AND B.REPL_REG_SEQ = (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=A.INSTANCE_ID )
+		            AND B.REPL_REG_SEQ = (SELECT RSC_REG_SEQ FROM MAX_SEQ X WHERE X.INSTANCE_ID=A.INSTANCE_ID )
 		            AND A.INSTANCE_ID = B.INSTANCE_ID
 		            AND A.COLLECT_YN = 'Y'
 		            AND A.DELETE_YN = 'N'
@@ -1867,26 +1909,25 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			UNION 
 				(
 					WITH 
-					VH AS (SELECT instance_id, host_name, ha_group FROM TB_INSTANCE_INFO WHERE VIRTUAL_IP2 IS NOT NULL),
 				    VS AS (
-						  SELECT A.instance_id, A.ha_group, B.slot_name FROM VH A, TB_replication_slots B  
-						   WHERE A.instance_id = B.INSTANCE_ID
-							 AND B.REG_DATE = TO_char(CURRENT_TIMESTAMP, 'YYYYMMDD')
+						  SELECT instance_id, slot_name FROM TB_replication_slots  
+						   WHERE REG_DATE = TO_char(CURRENT_TIMESTAMP, 'YYYYMMDD')
 							 AND REPL_REG_SEQ in (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ FROM TB_REPLICATION_slots X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY instance_id)
 						 )
 					SELECT B.INSTANCE_ID,
-						   CASE WHEN B.SLOT_NAME IS NULL THEN 1 ELSE 0 END REPLICATION_SLOT,
+						   CASE WHEN B.SLOT_NAME IS NULL THEN 2 ELSE 0 END REPLICATION_SLOT,
 			               '5' AS COLLECT_GROUP,
 			               B.REG_DATE AS COLLECT_REG_DATE,
 						   B.REPL_REG_SEQ::varchar COLLECT_REG_SEQ,
 						   CURRENT_TIME AS REG_TIME
 						   --VS.instance_id
-			          FROM TB_INSTANCE_INFO A JOIN TB_REPLICATION_INFO B ON A.INSTANCE_ID = B.INSTANCE_ID LEFT OUTER JOIN VS ON A.HA_GROUP = VS.HA_group AND b.SLOT_NAME = vs.slot_name
+			          FROM TB_INSTANCE_INFO A JOIN TB_REPLICATION_INFO B ON A.INSTANCE_ID = B.INSTANCE_ID LEFT OUTER JOIN VS ON A.HA_GROUP = VS.instance_id AND b.SLOT_NAME = vs.slot_name
 			          WHERE A.COLLECT_YN = 'Y'
+			            AND B.IS_COLLECT_OK = 'Y'
 			            AND A.DELETE_YN = 'N'
 			            AND B.REG_DATE = TO_char(now(), 'YYYYMMDD')
 			            AND A.HA_ROLE = 'S'
-			            AND B.REPL_REG_SEQ IN (SELECT MAX(REPL_REG_SEQ) REPL FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID)
+			            AND B.REPL_REG_SEQ IN (SELECT MAX(REPL_REG_SEQ) REPL FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND IS_COLLECT_OK = 'Y' GROUP BY INSTANCE_ID)
 		            )
 		    ) AS HSOT     
     GROUP BY INSTANCE_ID
@@ -2706,6 +2747,27 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<insert id="TB_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_HCHK_ALERT_INFO	
+		SELECT 
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('HCHK_REG_SEQ'),
+			#{instance_id},
+			#{hchk_name},
+			#{state},
+			NULL,
+			NULL,
+			NULL,
+			NULL
+		WHERE NOT EXISTS
+		(
+			SELECT 1 FROM TB_HCHK_ALERT_INFO
+			 WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+			 AND HCHK_REG_SEQ = CURRVAL('HCHK_REG_SEQ')
+			 AND INSTANCE_ID = #{instance_id}
+			 AND HCHK_NAME = #{hchk_name}
+		)
+	</insert>
+	<insert id="TB_HCHK_ALERT_INFO_I001_OLD" parameterType="hashmap" >
+		INSERT INTO TB_HCHK_ALERT_INFO	
 		VALUES 
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -2779,6 +2841,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		)
 	</insert>
 	
+	<select id="TB_REPL_LAG_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		SELECT INSTANCE_ID 
+		  FROM TB_INSTANCE_INFO 
+		 WHERE HOST_NAME = #{host_name} OR SERVER_IP = #{host_name} 
+	</select>
+		 
 	<insert id="TB_REPL_LAG_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_REPLICATION_LAG_INFO
 		(	
@@ -2921,14 +2989,15 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	
 	<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-				  SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 24E9AB7301FF1966DA4FB30DC1538882*/
+				  SELECT /* EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001 24E9AB7301FF1966DA4FB30DC1538882*/
 			            REPL.INSTANCE_ID,
 			          CASE WHEN MM.MC > 1 THEN 2  
 			               --when MM.MC = 0 then 2 ELSE
-			               WHEN MM.MC = 0 THEN CASE WHEN IST.HA_ROLE = 'A' THEN 0 ELSE 2 END ELSE  
-			          (CASE WHEN IST.HA_ROLE = REPL.HA_ROLE THEN 0 ELSE 1 END |
-			           CASE WHEN IST.HA_REPL_HOST = REPL.HA_HOST THEN 0 ELSE 1 END |
-			           CASE WHEN IST.HA_PORT = REPL.HA_PORT THEN 0 ELSE 1 END) END AS HASTATUS,        
+			               WHEN MM.MC = 0 THEN CASE WHEN IST.HA_ROLE = 'A' THEN 0 ELSE 3 END ELSE  
+			               0 END AS HASTATUS,
+			          --(CASE WHEN IST.HA_ROLE = REPL.HA_ROLE THEN 0 ELSE 1 END |
+			          -- CASE WHEN IST.HA_REPL_HOST = REPL.HA_HOST THEN 0 ELSE 1 END |
+			          -- CASE WHEN IST.HA_PORT = REPL.HA_PORT THEN 0 ELSE 1 END) END AS HASTATUS,        
 			           '4' AS COLLECT_GROUP,
 			          REPL.REG_DATE AS COLLECT_REG_DATE,
 			          REPL.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
@@ -3278,6 +3347,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 		        ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_actv_collect_info${regdate};
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
+			EXCEPTION   
+			WHEN others THEN    
+			END;    
 		END$$; 
 		]]>			
 </update>
@@ -3294,6 +3373,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 		        ALTER TABLE ONLY tb_access_info${regdate} ADD CONSTRAINT pk_tb_access_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq,db_name);		
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_access_info${regdate};
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_access_info${regdate} ADD CONSTRAINT pk_tb_access_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq,db_name);		
+			EXCEPTION   
+			WHEN others THEN    
+			END; 
 		END$$; 
 		]]>			
 </update>
@@ -3310,6 +3399,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 		        ALTER TABLE ONLY tb_backend_rsc${regdate} ADD CONSTRAINT pk_tb_backend_rsc${regdate} PRIMARY KEY (reg_date,actv_reg_seq,process_id);		
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_backend_rsc${regdate};
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_backend_rsc${regdate} ADD CONSTRAINT pk_tb_backend_rsc${regdate} PRIMARY KEY (reg_date,actv_reg_seq,process_id);		
+			EXCEPTION   
+			WHEN others THEN    
+			END; 
 		END$$; 
 		]]>			
 </update>
@@ -3326,6 +3425,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 		        ALTER TABLE ONLY tb_cpu_stat_detail${regdate} ADD CONSTRAINT pk_tb_cpu_stat_detail${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,cpu_logical_id);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_cpu_stat_detail${regdate};
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_cpu_stat_detail${regdate} ADD CONSTRAINT pk_tb_cpu_stat_detail${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,cpu_logical_id);
+			EXCEPTION   
+			WHEN others THEN    
+			END;     
 		END$$; 
 		]]>			
 </update>
@@ -3342,6 +3451,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 		        ALTER TABLE ONLY tb_cpu_stat_master${regdate} ADD CONSTRAINT pk_tb_cpu_stat_master${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);		
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_cpu_stat_master${regdate};
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_cpu_stat_master${regdate} ADD CONSTRAINT pk_tb_cpu_stat_master${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);		
+			EXCEPTION   
+			WHEN others THEN    
+			END;     
 		END$$;		
 		]]>			
 </update>
@@ -3358,6 +3477,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_disk_io${regdate} ADD CONSTRAINT pk_tb_disk_io${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,disk_name);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_disk_io${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_disk_io${regdate} ADD CONSTRAINT pk_tb_disk_io${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,disk_name);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;
 		]]>			
 </update>
@@ -3374,6 +3503,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_disk_usage${regdate}	ADD CONSTRAINT pk_tb_disk_usage${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,mount_point_dir);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_disk_usage${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_disk_usage${regdate}	ADD CONSTRAINT pk_tb_disk_usage${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,mount_point_dir);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3390,6 +3529,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_hchk_collect_info${regdate} ADD CONSTRAINT pk_tb_hchk_collect_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq,instance_id,hchk_name);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_hchk_collect_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_hchk_collect_info${regdate} ADD CONSTRAINT pk_tb_hchk_collect_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq,instance_id,hchk_name);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3406,6 +3555,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_replication_info${regdate} ADD CONSTRAINT pk_tb_replication_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_replication_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_replication_info${regdate} ADD CONSTRAINT pk_tb_replication_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3422,6 +3581,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_replication_lag_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3438,6 +3607,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_checkpoint_info${regdate} ADD CONSTRAINT pk_tb_checkpoint_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_checkpoint_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_checkpoint_info${regdate} ADD CONSTRAINT pk_tb_checkpoint_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;	
 		]]>			
 </update>
@@ -3454,6 +3633,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_memory_stat${regdate} ADD CONSTRAINT pk_tb_memory_stat${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_memory_stat${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_memory_stat${regdate} ADD CONSTRAINT pk_tb_memory_stat${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;
 		]]>			
 </update>
@@ -3470,6 +3659,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_objt_collect_info${regdate} ADD CONSTRAINT pk_tb_objt_collect_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_objt_collect_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_objt_collect_info${regdate} ADD CONSTRAINT pk_tb_objt_collect_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3486,6 +3685,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_rsc_collect_info${regdate}  ADD CONSTRAINT pk_tb_rsc_collect_info${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_rsc_collect_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_rsc_collect_info${regdate}  ADD CONSTRAINT pk_tb_rsc_collect_info${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3502,6 +3711,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_table_ext_info${regdate} ADD CONSTRAINT pk_tb_table_ext_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_table_ext_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_table_ext_info${regdate} ADD CONSTRAINT pk_tb_table_ext_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3518,6 +3737,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_hchk_alert_info${regdate} ADD CONSTRAINT pk_tb_hchk_alert_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_hchk_alert_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_hchk_alert_info${regdate} ADD CONSTRAINT pk_tb_hchk_alert_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3534,6 +3763,16 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		    THEN
 				ALTER TABLE ONLY tb_pg_stat_statements${regdate} ADD CONSTRAINT pk_tb_pg_stat_statements${regdate} PRIMARY KEY (reg_date, collect_dt, instance_id);
 		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_pg_stat_statements${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_pg_stat_statements${regdate} ADD CONSTRAINT pk_tb_pg_stat_statements${regdate} PRIMARY KEY (reg_date, collect_dt, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
 		END$$;		
 		]]>			
 </update>
@@ -3729,12 +3968,17 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	            '['
 			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
 			    || (CASE WHEN BUSINESS_NAME IS NULL OR length(BUSINESS_NAME) = 0 THEN '' ELSE '] Business name : ' || BUSINESS_NAME END)
-			    || ', hostname : '
+			    || ', Host : '
 			    || INS.HOST_NAME 
 			    || ', Alert : ' 
 			    || ALERT.hchk_name
 			    || ':'
-			    || CASE WHEN COL.VALUE = 99999.00 THEN '-' ELSE COL.VALUE::varchar END 
+			    || CASE WHEN COL.VALUE = 99999.00 THEN '-' 
+			    	    ELSE CASE WHEN COL.HCHK_NAME = 'HASTATUS' THEN CASE WHEN COL.VALUE = 2 THEN 'Multi Primary' WHEN COL.VALUE = 3 THEN 'No Primary' ELSE '-' END
+			    	    		  WHEN COL.HCHK_NAME = 'REPLICATION_SLOT' THEN CASE WHEN COL.VALUE = 1 THEN 'Inactive slot' WHEN COL.VALUE = 2 THEN 'No slot' ELSE '-' END
+			    	    		  WHEN COL.HCHK_NAME = 'VIRTUAL_IP' THEN CASE WHEN COL.VALUE = 1 THEN 'Not Primary' ELSE '-' END
+			    	              ELSE COL.VALUE::varchar END 
+			    	    END
 			    || ' '
 			    || TH.UNIT AS messages,
 			    DATE(ALERT.REG_DATE) + COL.REG_TIME collect_dt,

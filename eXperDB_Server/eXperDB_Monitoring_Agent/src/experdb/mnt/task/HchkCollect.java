@@ -73,7 +73,9 @@ public class HchkCollect extends TaskApplication {
 				queryList.add("EXPERDBMA_BT_HCHK_UNUSEDINDEX_001");
 				queryList.add("EXPERDBMA_BT_HCHK_LASTANALYZE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_DISKUSAGE_001");
+				queryList.add("EXPERDBMA_BT_HCHK_CPUUTIL_001");
 				queryList.add("EXPERDBMA_BT_HCHK_CPUWAIT_001");
+				queryList.add("EXPERDBMA_BT_HCHK_MEMUSAGE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_SWAPUSAGE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001");
 				queryList.add("EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001");
@@ -166,7 +168,7 @@ public class HchkCollect extends TaskApplication {
 							            	} else {							            		
 							            		/* check that the alert state is retained for the duration of the alert. */
 							            		if (tempMap.get("critical_start_time") != null){
-								            		long retention_time = Integer.parseInt(tholdMap.get("retention_time").toString()) * 60 * 1000;
+								            		long retention_time = Integer.parseInt(tholdMap.get("retention_time").toString()) * 1000;
 								            		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 								            		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 									            	Date criticalTime = sdf.parse(tempMap.get("critical_start_time").toString());

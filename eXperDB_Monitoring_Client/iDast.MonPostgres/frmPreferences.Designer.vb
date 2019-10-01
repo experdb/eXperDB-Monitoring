@@ -109,6 +109,7 @@ Partial Class frmPreferences
         Me.mnuImgLst.Images.SetKeyName(0, "bullet.png")
         Me.mnuImgLst.Images.SetKeyName(1, "user32.png")
         Me.mnuImgLst.Images.SetKeyName(2, "user24.png")
+        Me.mnuImgLst.Images.SetKeyName(3, "btnAlertConfig.png")
         '
         'spPreference
         '
@@ -214,8 +215,10 @@ Partial Class frmPreferences
         Me.pnlSpace.BackColor = System.Drawing.Color.DarkBlue
         Me.tlpMenu.SetColumnSpan(Me.pnlSpace, 5)
         Me.pnlSpace.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSpace.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlSpace.Location = New System.Drawing.Point(3, 3)
         Me.pnlSpace.Name = "pnlSpace"
+        Me.pnlSpace.Radius = 10
         Me.pnlSpace.Size = New System.Drawing.Size(194, 1)
         Me.pnlSpace.TabIndex = 21
         '
@@ -243,8 +246,10 @@ Partial Class frmPreferences
         Me.pnlSpace2.BackColor = System.Drawing.Color.DarkBlue
         Me.tlpMain.SetColumnSpan(Me.pnlSpace2, 5)
         Me.pnlSpace2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSpace2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlSpace2.Location = New System.Drawing.Point(3, 3)
         Me.pnlSpace2.Name = "pnlSpace2"
+        Me.pnlSpace2.Radius = 10
         Me.pnlSpace2.Size = New System.Drawing.Size(1055, 1)
         Me.pnlSpace2.TabIndex = 22
         '

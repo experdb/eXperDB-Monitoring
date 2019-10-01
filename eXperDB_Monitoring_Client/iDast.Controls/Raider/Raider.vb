@@ -32,6 +32,23 @@ Public Class Raider
     End Property
 #End Region
 
+#Region "DisplayID"
+    Private _DisplayID As Integer = 0
+
+    <Category("DisplayID")> _
+    Property DisplayID As Integer
+        Get
+            Return _DisplayID
+        End Get
+        Set(value As Integer)
+            If Not _DisplayID.Equals(value) Then
+                _DisplayID = value
+                Me.Invalidate()
+            End If
+        End Set
+    End Property
+#End Region
+
 #Region "Initialize"
 
     Public Sub New()
@@ -482,13 +499,14 @@ Public Class Raider
 
             'Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 5)
             'Dim txtPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 9)
+            Dim imgPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height / 24)
             Dim txtPt As Point
             If i = 0 Then
-                txtPt = New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 24)
+                txtPt = New Point(BaseRect.Left + BaseRect.Width / 3, BaseRect.Top + BaseRect.Height * 1 / 24)
             ElseIf i = (RaiderItems.Count / 2 - 1) Then
-                txtPt = New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 8)
+                txtPt = New Point(BaseRect.Left + BaseRect.Width / 3, BaseRect.Top + BaseRect.Height * 1 / 8)
             Else
-                txtPt = New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height * 1 / 12)
+                txtPt = New Point(BaseRect.Left + BaseRect.Width / 3, BaseRect.Top + BaseRect.Height * 1 / 12)
             End If
             Dim CentPt As New Point(BaseRect.Left + BaseRect.Width / 2, BaseRect.Top + BaseRect.Height / 2)
             pGr.DrawRectangle(New Pen(Brushes.Green), New Rectangle(CentPt.X, CentPt.Y, 2, 2))
@@ -497,8 +515,19 @@ Public Class Raider
             txtPt = New Point(dblCos * (txtPt.X - CentPt.X) - dblSin * (txtPt.Y - CentPt.Y) + CentPt.X, _
                                     dblSin * (txtPt.X - CentPt.X) + dblCos * (txtPt.Y - CentPt.Y) + CentPt.Y)
             txtPt.Offset(-1 * (pGr.MeasureString(ptItm.Text, MyBase.Font).Width) / 2, 0)
+            imgPt = New Point(dblCos * (imgPt.X - CentPt.X) - dblSin * (imgPt.Y - CentPt.Y) + CentPt.X - ptItm.Image.Width / 2, _
+                                    dblSin * (imgPt.X - CentPt.X) + dblCos * (imgPt.Y - CentPt.Y) + CentPt.Y - ptItm.Image.Height / 2)
 
-            pGr.DrawString(ptItm.Text, MyBase.Font, New SolidBrush(MyBase.ForeColor), txtPt)
+            'pGr.DrawString(ptItm.Text, MyBase.Font, New SolidBrush(MyBase.ForeColor), txtPt)
+            If DisplayID Then
+                If ptItm.Image IsNot Nothing Then
+                    pGr.DrawImage(ptItm.Image, imgPt)
+                Else
+                    pGr.DrawString(ptItm.Text, MyBase.Font, New SolidBrush(MyBase.ForeColor), txtPt)
+                End If
+            Else
+                pGr.DrawString(ptItm.Text, MyBase.Font, New SolidBrush(MyBase.ForeColor), txtPt)
+            End If
         Next
     End Sub
 
