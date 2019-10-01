@@ -73,6 +73,11 @@ Partial Class frmConfig
         Me.lblRaider = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1 = New eXperDB.BaseControls.Panel()
+        Me.Panel2 = New eXperDB.BaseControls.Panel()
+        Me.rbCPUHostnm = New eXperDB.BaseControls.RadioButton()
+        Me.rbCPUIcon = New eXperDB.BaseControls.RadioButton()
+        Me.rbMEMHostnm = New eXperDB.BaseControls.RadioButton()
+        Me.rbMEMIcon = New eXperDB.BaseControls.RadioButton()
         Me.chkMemItemReverse = New eXperDB.BaseControls.CheckBox()
         Me.chkCpuItemReverse = New eXperDB.BaseControls.CheckBox()
         Me.lblMemStyle = New eXperDB.BaseControls.Label()
@@ -98,6 +103,7 @@ Partial Class frmConfig
         Me.TableLayoutPanel3.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -958,6 +964,9 @@ Partial Class frmConfig
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Transparent
+        Me.Panel1.Controls.Add(Me.Panel2)
+        Me.Panel1.Controls.Add(Me.rbMEMHostnm)
+        Me.Panel1.Controls.Add(Me.rbMEMIcon)
         Me.Panel1.Controls.Add(Me.chkMemItemReverse)
         Me.Panel1.Controls.Add(Me.chkCpuItemReverse)
         Me.Panel1.Controls.Add(Me.lblMemStyle)
@@ -972,13 +981,96 @@ Partial Class frmConfig
         Me.Panel1.Size = New System.Drawing.Size(574, 75)
         Me.Panel1.TabIndex = 16
         '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.rbCPUHostnm)
+        Me.Panel2.Controls.Add(Me.rbCPUIcon)
+        Me.Panel2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.Panel2.Location = New System.Drawing.Point(108, 43)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Radius = 10
+        Me.Panel2.Size = New System.Drawing.Size(196, 25)
+        Me.Panel2.TabIndex = 17
+        '
+        'rbCPUHostnm
+        '
+        Me.rbCPUHostnm.AutoSize = True
+        Me.rbCPUHostnm.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbCPUHostnm.LineColor = System.Drawing.Color.Gray
+        Me.rbCPUHostnm.Location = New System.Drawing.Point(2, 5)
+        Me.rbCPUHostnm.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
+        Me.rbCPUHostnm.Name = "rbCPUHostnm"
+        Me.rbCPUHostnm.Radius = 10
+        Me.rbCPUHostnm.Size = New System.Drawing.Size(48, 16)
+        Me.rbCPUHostnm.TabIndex = 14
+        Me.rbCPUHostnm.TabStop = True
+        Me.rbCPUHostnm.Text = "F230"
+        Me.rbCPUHostnm.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbCPUHostnm.UseVisualStyleBackColor = True
+        Me.rbCPUHostnm.Warning = False
+        Me.rbCPUHostnm.WarningColor = System.Drawing.Color.Red
+        '
+        'rbCPUIcon
+        '
+        Me.rbCPUIcon.AutoSize = True
+        Me.rbCPUIcon.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbCPUIcon.LineColor = System.Drawing.Color.Gray
+        Me.rbCPUIcon.Location = New System.Drawing.Point(105, 5)
+        Me.rbCPUIcon.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
+        Me.rbCPUIcon.Name = "rbCPUIcon"
+        Me.rbCPUIcon.Radius = 10
+        Me.rbCPUIcon.Size = New System.Drawing.Size(48, 16)
+        Me.rbCPUIcon.TabIndex = 13
+        Me.rbCPUIcon.TabStop = True
+        Me.rbCPUIcon.Text = "F229"
+        Me.rbCPUIcon.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbCPUIcon.UseVisualStyleBackColor = True
+        Me.rbCPUIcon.Warning = False
+        Me.rbCPUIcon.WarningColor = System.Drawing.Color.Red
+        '
+        'rbMEMHostnm
+        '
+        Me.rbMEMHostnm.AutoSize = True
+        Me.rbMEMHostnm.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbMEMHostnm.LineColor = System.Drawing.Color.Gray
+        Me.rbMEMHostnm.Location = New System.Drawing.Point(374, 49)
+        Me.rbMEMHostnm.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
+        Me.rbMEMHostnm.Name = "rbMEMHostnm"
+        Me.rbMEMHostnm.Radius = 10
+        Me.rbMEMHostnm.Size = New System.Drawing.Size(48, 16)
+        Me.rbMEMHostnm.TabIndex = 16
+        Me.rbMEMHostnm.TabStop = True
+        Me.rbMEMHostnm.Text = "F230"
+        Me.rbMEMHostnm.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbMEMHostnm.UseVisualStyleBackColor = True
+        Me.rbMEMHostnm.Warning = False
+        Me.rbMEMHostnm.WarningColor = System.Drawing.Color.Red
+        '
+        'rbMEMIcon
+        '
+        Me.rbMEMIcon.AutoSize = True
+        Me.rbMEMIcon.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.rbMEMIcon.LineColor = System.Drawing.Color.Gray
+        Me.rbMEMIcon.Location = New System.Drawing.Point(476, 49)
+        Me.rbMEMIcon.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
+        Me.rbMEMIcon.Name = "rbMEMIcon"
+        Me.rbMEMIcon.Radius = 10
+        Me.rbMEMIcon.Size = New System.Drawing.Size(48, 16)
+        Me.rbMEMIcon.TabIndex = 15
+        Me.rbMEMIcon.TabStop = True
+        Me.rbMEMIcon.Text = "F229"
+        Me.rbMEMIcon.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbMEMIcon.UseVisualStyleBackColor = True
+        Me.rbMEMIcon.Warning = False
+        Me.rbMEMIcon.WarningColor = System.Drawing.Color.Red
+        '
         'chkMemItemReverse
         '
         Me.chkMemItemReverse.AutoSize = True
         Me.chkMemItemReverse.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkMemItemReverse.ForeColor = System.Drawing.Color.White
         Me.chkMemItemReverse.LineColor = System.Drawing.Color.Gray
-        Me.chkMemItemReverse.Location = New System.Drawing.Point(374, 45)
+        Me.chkMemItemReverse.Location = New System.Drawing.Point(374, 31)
         Me.chkMemItemReverse.Name = "chkMemItemReverse"
         Me.chkMemItemReverse.Radius = 10
         Me.chkMemItemReverse.Size = New System.Drawing.Size(49, 16)
@@ -993,7 +1085,7 @@ Partial Class frmConfig
         Me.chkCpuItemReverse.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.chkCpuItemReverse.ForeColor = System.Drawing.Color.White
         Me.chkCpuItemReverse.LineColor = System.Drawing.Color.Gray
-        Me.chkCpuItemReverse.Location = New System.Drawing.Point(110, 44)
+        Me.chkCpuItemReverse.Location = New System.Drawing.Point(110, 30)
         Me.chkCpuItemReverse.Name = "chkCpuItemReverse"
         Me.chkCpuItemReverse.Radius = 10
         Me.chkCpuItemReverse.Size = New System.Drawing.Size(49, 16)
@@ -1006,7 +1098,7 @@ Partial Class frmConfig
         '
         Me.lblMemStyle.ForeColor = System.Drawing.Color.White
         Me.lblMemStyle.LineSpacing = 0.0!
-        Me.lblMemStyle.Location = New System.Drawing.Point(268, 19)
+        Me.lblMemStyle.Location = New System.Drawing.Point(268, 5)
         Me.lblMemStyle.Name = "lblMemStyle"
         Me.lblMemStyle.Size = New System.Drawing.Size(100, 21)
         Me.lblMemStyle.TabIndex = 5
@@ -1017,7 +1109,7 @@ Partial Class frmConfig
         '
         Me.lblCpuStyle.ForeColor = System.Drawing.Color.White
         Me.lblCpuStyle.LineSpacing = 0.0!
-        Me.lblCpuStyle.Location = New System.Drawing.Point(4, 19)
+        Me.lblCpuStyle.Location = New System.Drawing.Point(4, 5)
         Me.lblCpuStyle.Name = "lblCpuStyle"
         Me.lblCpuStyle.Size = New System.Drawing.Size(100, 21)
         Me.lblCpuStyle.TabIndex = 6
@@ -1031,7 +1123,7 @@ Partial Class frmConfig
         Me.cmbMemStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbMemStyle.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cmbMemStyle.FormattingEnabled = True
-        Me.cmbMemStyle.Location = New System.Drawing.Point(374, 19)
+        Me.cmbMemStyle.Location = New System.Drawing.Point(374, 5)
         Me.cmbMemStyle.Name = "cmbMemStyle"
         Me.cmbMemStyle.Necessary = False
         Me.cmbMemStyle.Size = New System.Drawing.Size(150, 20)
@@ -1046,7 +1138,7 @@ Partial Class frmConfig
         Me.cmbCpuStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbCpuStyle.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cmbCpuStyle.FormattingEnabled = True
-        Me.cmbCpuStyle.Location = New System.Drawing.Point(110, 19)
+        Me.cmbCpuStyle.Location = New System.Drawing.Point(110, 5)
         Me.cmbCpuStyle.Name = "cmbCpuStyle"
         Me.cmbCpuStyle.Necessary = False
         Me.cmbCpuStyle.Size = New System.Drawing.Size(150, 20)
@@ -1183,6 +1275,8 @@ Partial Class frmConfig
         Me.TableLayoutPanel4.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
@@ -1250,4 +1344,9 @@ Partial Class frmConfig
     Friend WithEvents rbUseNoti1 As eXperDB.BaseControls.RadioButton
     Friend WithEvents rbUseNoti2 As eXperDB.BaseControls.RadioButton
     Friend WithEvents lblSound As eXperDB.BaseControls.Label
+    Friend WithEvents rbMEMHostnm As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbMEMIcon As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbCPUHostnm As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbCPUIcon As eXperDB.BaseControls.RadioButton
+    Friend WithEvents Panel2 As eXperDB.BaseControls.Panel
 End Class

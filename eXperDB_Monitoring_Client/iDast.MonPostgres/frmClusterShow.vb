@@ -2,6 +2,7 @@
 
     Private _SvrpList As List(Of GroupInfo.ServerInfo)
     Private _instanceColors() As Color
+    Private _checkToApply As Boolean
     ''' <summary>
     ''' Group List Items 안에 서버 리스트가 있음. 
     ''' </summary>
@@ -16,7 +17,7 @@
 
     Private _cbCheckAll As New eXperDB.BaseControls.CheckBox()
 
-    Public Sub New(ByVal GrpLst As List(Of GroupInfo.ServerInfo), ByVal instanceColors() As Color)
+    Public Sub New(ByVal GrpLst As List(Of GroupInfo.ServerInfo), ByVal instanceColors() As Color, Optional checkToApply As Boolean = False)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -25,6 +26,7 @@
 
         _SvrpList = GrpLst
         _instanceColors = instanceColors
+        _checkToApply = checkToApply
     End Sub
     ''' <summary>
     ''' 화면 초기화 
@@ -71,8 +73,11 @@
                     topNode.Height = 30
                     topNode.Cells(coldgvClusterListShowName.Index).Value = svrLst.Item(i).ShowNm
                     topNode.Cells(coldgvClusterListHostName.Index).Value = svrLst.Item(i).HostNm
-                    topNode.DefaultCellStyle.ForeColor = _instanceColors(i)
-                    topNode.DefaultCellStyle.SelectionForeColor = _instanceColors(i)
+                    topNode.Cells(coldgvClusterListHostName.Index).Tag = svrLst.Item(i).IP
+                    If _instanceColors IsNot Nothing Then
+                        topNode.DefaultCellStyle.ForeColor = _instanceColors(i)
+                        topNode.DefaultCellStyle.SelectionForeColor = _instanceColors(i)
+                    End If
                     Dim checkBox As DataGridViewCheckBoxCell = (TryCast(dgvClusterList.Rows(i).Cells(coldgvClusterListSel.Index), DataGridViewCheckBoxCell))
                     checkBox.ReadOnly = True
                     checkBox.Value = svrLst.Item(i).Reserved
@@ -85,14 +90,18 @@
                 Else
                     For Each tmpRow In Me.dgvClusterList.Rows
                         Dim tmpNode As AdvancedDataGridView.TreeGridNode = tmpRow
-                        If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterListHostName.Index).Value Then
+                        If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterListHostName.Index).Value Or _
+                           svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterListHostName.Index).Tag Then
                             Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
                             cNOde.Tag = svrLst.Item(i)
                             cNOde.Height = 30
                             cNOde.Cells(coldgvClusterListShowName.Index).Value = svrLst.Item(i).ShowNm
                             cNOde.Cells(coldgvClusterListHostName.Index).Value = svrLst.Item(i).HostNm
-                            cNOde.DefaultCellStyle.ForeColor = _instanceColors(i)
-                            cNOde.DefaultCellStyle.SelectionForeColor = _instanceColors(i)
+                            cNOde.Cells(coldgvClusterListHostName.Index).Tag = svrLst.Item(i).IP
+                            If _instanceColors IsNot Nothing Then
+                                cNOde.DefaultCellStyle.ForeColor = _instanceColors(i)
+                                cNOde.DefaultCellStyle.SelectionForeColor = _instanceColors(i)
+                            End If
                             Dim checkBox As DataGridViewCheckBoxCell = (TryCast(dgvClusterList.Rows(i).Cells(coldgvClusterListSel.Index), DataGridViewCheckBoxCell))
                             checkBox.ReadOnly = True
                             checkBox.Value = svrLst.Item(i).Reserved
@@ -188,6 +197,9 @@
 
     Private Sub btnApply_Click(sender As Object, e As EventArgs) Handles btnApply.Click
         Dim idxRow As Integer = 0
+        If _checkToApply Then
+            If MsgBox(p_clsMsgData.fn_GetData("M093"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) <> frmMsgbox.MsgBoxResult.Yes Then Return
+        End If
         Try
             For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
                 Dim checkBox As DataGridViewCheckBoxCell = (TryCast(dgvClusterList.Rows(idxRow).Cells(coldgvClusterListSel.Index), DataGridViewCheckBoxCell))

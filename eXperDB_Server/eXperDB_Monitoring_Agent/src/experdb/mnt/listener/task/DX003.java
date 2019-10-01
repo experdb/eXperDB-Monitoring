@@ -63,7 +63,7 @@ public class DX003 implements SocketApplication{
 				String INSTANCE     = serialKey.substring(57, 62);; //INSTANCE 개수(00000)
 				
 				if(!INSTANCE.equals("00000")){
-					if(Integer.valueOf(INSTANCE) < Integer.valueOf((String) jReqDataObj.get("instance_cnt"))){
+					if(Integer.valueOf(INSTANCE) < intInstanceCount){
 						resDataObj.put("_error_cd", "DX003_E02");
 						resDataObj.put("_error_msg", "등록된 라이센스보다 인스턴스 갯수가 초과되었습니다.");
 						resDataArray.add(resDataObj);

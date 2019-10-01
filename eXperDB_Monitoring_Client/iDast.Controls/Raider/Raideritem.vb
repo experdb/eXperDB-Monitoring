@@ -131,6 +131,20 @@ Public Class RaiderItem
         End Set
     End Property
 
+    Private _Image As Image = Nothing
+    Property Image As Image
+        Get
+            Return _Image
+        End Get
+        Set(value As Image)
+            If _Image Is Nothing Then
+                _Image = value
+                If Me._parent IsNot Nothing Then Me._parent.Invalidate()
+            End If
+
+        End Set
+    End Property
+
     Private _Name As String = Nothing
 
     Property Name As String

@@ -132,7 +132,9 @@ public class ReplCollect extends TaskApplication {
 			sessionAgent = sqlSessionFactory.openSession();
 			
 			HashMap<String, Object> replSel = new HashMap<String,Object>();// Replicaiton 정보 수집
+			HashMap<String, Object> replExistSel = new HashMap<String,Object>();// Replicaiton 정보 수집
 			List<HashMap<String, Object>> replLagSel = new ArrayList<HashMap<String,Object>>();// Replicaiton lag 정보 수집
+			List<HashMap<String, Object>> replLagSelFiltered = new ArrayList<HashMap<String,Object>>();// Replicaiton lag 정보 수집
 			List<HashMap<String, Object>> replSlotSel = new ArrayList<HashMap<String,Object>>();// Replicaiton slot 정보 수집
 					
 			//////////////////////////////////////////////////////////////////////////////////
@@ -242,9 +244,13 @@ public class ReplCollect extends TaskApplication {
 				sessionAgent.insert("app.TB_REPL_COLLECT_INFO_I001", parameObjt);
 				
 				// replication lag 정보등록
+				
 				for (HashMap<String, Object> map : replLagSel) {
-					if(map.get("replay_lag") != null && Double.parseDouble(map.get("replay_lag").toString()) >= 0)
-						sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
+					if(map.get("replay_lag") != null && Double.parseDouble(map.get("replay_lag").toString()) >= 0){
+						 replExistSel = sessionAgent.selectOne("app.TB_REPL_LAG_INFO_S001", map);
+						 if(replExistSel != null )
+							 sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
+					}
 				}
 				
 				for (HashMap<String, Object> map : replSlotSel) {
@@ -307,11 +313,11 @@ public class ReplCollect extends TaskApplication {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
+				log.error("instanceId=" + "[" + instanceId + "]" , e);
 			}			
 			
 		} catch (Exception e) {
-			log.error("", e);
+			log.error("instanceId=" + "[" + instanceId + "]" , e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();

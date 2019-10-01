@@ -3183,12 +3183,13 @@
 
     Public Function InsertMonUserConfig(ByVal strUserID As String, ByVal nLanguage As Integer, ByVal nCollectPeriod As Integer, ByVal strSoundPath As String, _
                                        ByVal bShowHostName As Boolean, ByVal bUseAccountSQLPlan As Boolean, ByVal nCPUStyle As Integer, _
-                                       ByVal bCPUDirection As Boolean, ByVal nMEMStyle As Integer, ByVal bMEMDirection As Boolean) As Boolean
+                                       ByVal bCPUDirection As Boolean, ByVal nMEMStyle As Integer, ByVal bMEMDirection As Boolean, _
+                                       ByVal bCPUStyleDSP As Boolean, ByVal bMEMStyleDSP As Boolean) As Boolean
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTMONUSERCONFIG")
                 strQuery = String.Format(strQuery, strUserID, nLanguage, nCollectPeriod, strSoundPath, bShowHostName, bUseAccountSQLPlan, _
-                                         nCPUStyle, bCPUDirection, nMEMStyle, bMEMDirection)
+                                         nCPUStyle, bCPUDirection, nMEMStyle, bMEMDirection, bCPUStyleDSP, bMEMStyleDSP)
                 Return _ODBC.dbExecuteNonQuery(strQuery)
             Else
                 Return False

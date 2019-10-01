@@ -138,22 +138,16 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlertConfigurationForm.Designer.vb">
+      <DependentUpon>AlertConfigurationForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AlertConfigurationForm.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="frmAllowIP.Designer.vb">
       <DependentUpon>frmAllowIP.vb</DependentUpon>
     </Compile>
     <Compile Include="frmAllowIP.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLoginA.Designer.vb">
-      <DependentUpon>frmLoginA.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmLoginA.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLoginB.Designer.vb">
-      <DependentUpon>frmLoginB.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmLoginB.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmLogin.Designer.vb">
@@ -168,17 +162,17 @@
     <Compile Include="frmAgentInfo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSvrListCopy.Designer.vb">
-      <DependentUpon>frmSvrListCopy.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmSvrListCopy.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmGroup.Designer.vb">
       <DependentUpon>frmGroup.vb</DependentUpon>
     </Compile>
     <Compile Include="frmGroup.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlertNotiHistory.Designer.vb">
+      <DependentUpon>AlertNotiHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AlertNotiHistory.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="frmVersion.Designer.vb">
       <DependentUpon>frmVersion.vb</DependentUpon>
@@ -195,6 +189,12 @@
     <Compile Include="UserAccessHistory.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="AlertConfig.Designer.vb">
+      <DependentUpon>AlertConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AlertConfig.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserAlertGroup.Designer.vb">
       <DependentUpon>UserAlertGroup.vb</DependentUpon>
     </Compile>
@@ -207,16 +207,16 @@
     <Compile Include="UserManagement.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="AlertNotiConfig.Designer.vb">
+      <DependentUpon>AlertNotiConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AlertNotiConfig.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserSecurity.Designer.vb">
       <DependentUpon>UserSecurity.vb</DependentUpon>
     </Compile>
     <Compile Include="UserSecurity.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="AlertConfigList.Designer.vb">
-      <DependentUpon>AlertConfigList.vb</DependentUpon>
-    </Compile>
-    <Compile Include="AlertConfigList.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AlertConfiguration.Designer.vb">
@@ -507,14 +507,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AlertConfigurationForm.resx">
+      <DependentUpon>AlertConfigurationForm.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAllowIP.resx">
       <DependentUpon>frmAllowIP.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLoginA.resx">
-      <DependentUpon>frmLoginA.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLoginB.resx">
-      <DependentUpon>frmLoginB.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
@@ -522,12 +520,12 @@
     <EmbeddedResource Include="frmAgentInfo.resx">
       <DependentUpon>frmAgentInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSvrListCopy.resx">
-      <DependentUpon>frmSvrListCopy.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmGroup.resx">
       <DependentUpon>frmGroup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertNotiHistory.resx">
+      <DependentUpon>AlertNotiHistory.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVersion.resx">
       <DependentUpon>frmVersion.vb</DependentUpon>
@@ -535,17 +533,20 @@
     <EmbeddedResource Include="UserAccessHistory.resx">
       <DependentUpon>UserAccessHistory.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AlertConfig.resx">
+      <DependentUpon>AlertConfig.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserAlertGroup.resx">
       <DependentUpon>UserAlertGroup.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserManagement.resx">
       <DependentUpon>UserManagement.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AlertNotiConfig.resx">
+      <DependentUpon>AlertNotiConfig.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserSecurity.resx">
       <DependentUpon>UserSecurity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AlertConfigList.resx">
-      <DependentUpon>AlertConfigList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AlertConfiguration.resx">
       <DependentUpon>AlertConfiguration.vb</DependentUpon>
@@ -706,6 +707,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

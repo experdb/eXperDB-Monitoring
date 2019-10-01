@@ -8,6 +8,8 @@
     Private _CFG_MEMStyle As Integer
     Private _CFG_CPUReverse As Integer
     Private _CFG_MEMReverse As Integer
+    Private _CFG_CPUStyleDSP As Integer
+    Private _CFG_MEMStyleDSP As Integer
     ReadOnly Property CFG_CollectPeriod As Integer
         Get
             Return _CFG_CollectPeriod
@@ -48,9 +50,20 @@
             Return _CFG_MEMReverse
         End Get
     End Property
+    ReadOnly Property CFG_CPUStyleDSP As Integer
+        Get
+            Return _CFG_CPUStyleDSP
+        End Get
+    End Property
+    ReadOnly Property CFG_MEMStyleDSP As Integer
+        Get
+            Return _CFG_MEMStyleDSP
+        End Get
+    End Property
 
     Public Sub New(ByVal UserID As String, ByVal CollectPeriod As Integer, ByVal SirenName As String, ByVal ServerName As Integer, _
-                   ByVal UseDefaultAccount As Integer, ByVal CPUStyle As Integer, ByVal MEMStyle As Integer, ByVal CPUReverse As Integer, ByVal MEMReverse As Integer)
+                   ByVal UseDefaultAccount As Integer, ByVal CPUStyle As Integer, ByVal MEMStyle As Integer, ByVal CPUReverse As Integer, ByVal MEMReverse As Integer, _
+                   ByVal CPUStyleDSP As Integer, ByVal MEMStyleDSP As Integer)
         Try
             _UserID = UserID
             _CFG_CollectPeriod = CollectPeriod
@@ -61,6 +74,8 @@
             _CFG_MEMStyle = MEMStyle
             _CFG_CPUReverse = CPUReverse
             _CFG_MEMReverse = MEMReverse
+            _CFG_CPUStyleDSP = CPUStyleDSP
+            _CFG_MEMStyleDSP = MEMStyleDSP
         Catch ex As Exception
             GC.Collect()
         End Try

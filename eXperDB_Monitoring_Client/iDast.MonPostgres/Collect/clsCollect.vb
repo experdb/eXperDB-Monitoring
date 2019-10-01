@@ -2,6 +2,7 @@
     Private _ThreadMsgQueue As New Queue(Of String)
     Private _InstanceIDs As String = ""
     Private _isRunning As Boolean = False
+    Private _isStart As Boolean = False
 
 
     Private _AgentInfo As structAgent
@@ -95,6 +96,7 @@
                 threadTimer.AutoReset = False
             End If
 
+            _isStart = True
 
             threadTimer.Start()
 
@@ -131,6 +133,7 @@
         Try
             If threadTimer IsNot Nothing Then
                 threadTimer.Stop()
+                _isStart = False
                 'threadTimer.Dispose()
                 'threadTimer.Change(-1, 0)
                 'threadTimer.Dispose()
@@ -1198,6 +1201,10 @@
     ''' <remarks></remarks>
     Private Sub threadTimer1_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles threadTimer.Elapsed
         threadTimer.Stop()
+        If _isStart = False Then
+            threadTimer.Dispose()
+            Return
+        End If
         If _isRunning = True Then
             Return
         Else

@@ -219,6 +219,10 @@
         btnQueryInit.Text = p_clsMsgData.fn_GetData("F226")
         lblRegex.Text = p_clsMsgData.fn_GetData("F209")
 
+        rbCPUHostnm.Text = p_clsMsgData.fn_GetData("F229")
+        rbCPUIcon.Text = p_clsMsgData.fn_GetData("F953")
+        rbMEMHostnm.Text = p_clsMsgData.fn_GetData("F229")
+        rbMEMIcon.Text = p_clsMsgData.fn_GetData("F953")
 
     End Sub
 
@@ -269,6 +273,9 @@
 
         ConfigIni.WriteValue("STYLE", "CPUREVERSE", chkCpuItemReverse.Checked)
         ConfigIni.WriteValue("STYLE", "MEMREVERSE", chkCpuItemReverse.Checked)
+
+        ConfigIni.WriteValue("STYLE", "CPUID", rbCPUIcon.Checked)
+        ConfigIni.WriteValue("STYLE", "MEMID", rbMEMIcon.Checked)
 
     End Sub
     Private Sub sb_SaveGeneral()
@@ -335,7 +342,8 @@
 
         If _clsQuery.InsertMonUserConfig(p_cSession.UserID, tmplang, nudCollect.Value * 1000, System.IO.Path.GetFileName(txtSound.Text), _
                                        IIf(rbHostnm.Checked, 0, 1), chkUseDefaultAccount.Checked, _
-                                       cmbCpuStyle.SelectedValue, chkCpuItemReverse.Checked, cmbMemStyle.SelectedValue, chkCpuItemReverse.Checked) = False Then
+                                       cmbCpuStyle.SelectedValue, chkCpuItemReverse.Checked, cmbMemStyle.SelectedValue, chkCpuItemReverse.Checked, _
+                                       IIf(rbCPUHostnm.Checked, 0, 1), IIf(rbMEMHostnm.Checked, 0, 1)) = False Then
             MsgBox(p_clsMsgData.fn_GetData("M029"))
             Return False
         End If
@@ -405,6 +413,19 @@
         chkCpuItemReverse.Checked = Integer.Parse(dtRow.Item("STYLE_CPU_DIRECTION_TF").ToString())
         cmbMemStyle.SelectedValue = Integer.Parse(dtRow.Item("STYLE_MEM").ToString())
         chkMemItemReverse.Checked = Integer.Parse(dtRow.Item("STYLE_MEM_DIRECTION_TF").ToString())
+
+        If Integer.Parse(dtRow.Item("STYLE_CPU_DSP").ToString()) = 0 Then
+            rbCPUHostnm.Checked = True
+        Else
+            rbCPUIcon.Checked = True
+        End If
+
+        If Integer.Parse(dtRow.Item("STYLE_MEM_DSP").ToString()) = 0 Then
+            rbMEMHostnm.Checked = True
+        Else
+            rbMEMIcon.Checked = True
+        End If
+
     End Sub
 
     Private Sub LoadDefaultValue()
@@ -421,6 +442,8 @@
         nudCollect.Value = 3
         txtSound.Text = "Siren.wav"
         rbHostnm.Checked = True
+        rbCPUHostnm.Checked = True
+        rbMEMHostnm.Checked = True
         
         chkUseDefaultAccount.Checked = False
 

@@ -298,7 +298,100 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'VIRTUAL_IP',   ' ', '0', 0,   1,    '0', NULL, NULL);
 
+
+
 --version 330 to 332
 update TB_HCHK_THRD_LIST SET fixed_threshold = 2 WHERE hchk_name in ('VIRTUAL_IP', 'REPLICATION_SLOT') 
+
+
+--version 333
+alter table tb_mon_user_config add column style_cpu_dsp bool default false;
+alter table tb_mon_user_config add column style_mem_dsp bool default false;
+
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (2 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (3 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (4 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (5 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (6 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (7 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (8 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (9 , 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (10, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (11, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (12, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (13, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (14, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (15, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (16, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (17, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (18, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (19, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (20, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (21, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (22, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (23, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (26, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (27, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (28, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (29, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (30, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (31, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (32, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (33, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (34, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (35, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (36, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (37, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (38, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (39, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (40, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+
+
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (2 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (3 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (4 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (5 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (6 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (7 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (8 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (9 , 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (10, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (11, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (12, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (13, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (14, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (15, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (16, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (17, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (18, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (19, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (20, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (21, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (22, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (23, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (24, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (25, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (26, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (27, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (28, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (29, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (30, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (31, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (32, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (33, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (34, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (35, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (36, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (37, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (38, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (39, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (40, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+
 
 EOF

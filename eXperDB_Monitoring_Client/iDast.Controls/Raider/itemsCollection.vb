@@ -35,6 +35,17 @@
         Return NewRaideritem
     End Function
 
+    Public Function Add(ByVal Name As String, ByVal Text As String, ByVal Image As Image) As RaiderItem
+        Dim NewRaideritem As New RaiderItem
+        NewRaideritem.Name = Name
+        NewRaideritem.Text = Text
+        NewRaideritem.Image = Image
+        SyncLock Me.List.SyncRoot
+            Me.List.Add(NewRaideritem)
+        End SyncLock
+        Return NewRaideritem
+    End Function
+
     Public Sub AddRange(ByVal items() As RaiderItem)
         If items IsNot Nothing Then
             SyncLock Me.List.SyncRoot

@@ -49,9 +49,8 @@
     Private _isDrawInitialData As Integer = 3
 
     Private _instanceColors() As Color = {System.Drawing.Color.YellowGreen,
-                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
                          System.Drawing.Color.Orange,
-                         System.Drawing.Color.Red,
+                         System.Drawing.Color.LightSeaGreen,
                          System.Drawing.Color.Blue,
                          System.Drawing.Color.Brown,
                          System.Drawing.Color.Green,
@@ -61,7 +60,8 @@
                          System.Drawing.Color.PowderBlue,
                          System.Drawing.Color.SkyBlue,
                          System.Drawing.Color.SpringGreen,
-                         System.Drawing.Color.GreenYellow, System.Drawing.Color.Violet,
+                         System.Drawing.Color.GreenYellow,
+                         System.Drawing.Color.Violet,
                          System.Drawing.Color.Salmon,
                          System.Drawing.Color.AliceBlue,
                          System.Drawing.Color.Bisque,
@@ -70,7 +70,67 @@
                          System.Drawing.Color.Coral,
                          System.Drawing.Color.Crimson,
                          System.Drawing.Color.DarkOliveGreen,
-                         System.Drawing.Color.Fuchsia}
+                         System.Drawing.Color.Fuchsia,
+                         System.Drawing.Color.DarkKhaki,
+                         System.Drawing.Color.Khaki,
+                         System.Drawing.Color.Magenta,
+                         System.Drawing.Color.LightSalmon,
+                         System.Drawing.Color.Lime,
+                         System.Drawing.Color.MediumVioletRed,
+                         System.Drawing.Color.LightCoral,
+                         System.Drawing.Color.Aquamarine,
+                         System.Drawing.Color.MediumSeaGreen,
+                         System.Drawing.Color.IndianRed,
+                         System.Drawing.Color.LawnGreen,
+                         System.Drawing.Color.DarkOrange,
+                         System.Drawing.Color.DarkBlue,
+                         System.Drawing.Color.Olive,
+                         System.Drawing.Color.Plum,
+                         System.Drawing.Color.Cyan,
+                         System.Drawing.Color.Teal}
+
+
+    'Private _instanceColors() As Color = {System.Drawing.Color.MidnightBlue,
+    '                     System.Drawing.Color.DarkBlue,
+    '                     System.Drawing.Color.MediumBlue,
+    '                     System.Drawing.Color.Blue,
+    '                     System.Drawing.Color.RoyalBlue,
+    '                     System.Drawing.Color.DodgerBlue,
+    '                     System.Drawing.Color.DeepSkyBlue,
+    '                     System.Drawing.Color.SkyBlue,
+    '                     System.Drawing.Color.FromArgb(CType(CType(182, Byte), Integer), CType(CType(225, Byte), Integer), CType(CType(252, Byte), Integer)),
+    '                     System.Drawing.Color.AliceBlue,
+    '                     System.Drawing.Color.Indigo,
+    '                     System.Drawing.Color.DarkOrchid,
+    '                     System.Drawing.Color.MediumOrchid,
+    '                     System.Drawing.Color.Plum,
+    '                     System.Drawing.Color.Violet,
+    '                     System.Drawing.Color.DarkGreen,
+    '                     System.Drawing.Color.SeaGreen,
+    '                     System.Drawing.Color.MediumSeaGreen,
+    '                     System.Drawing.Color.LimeGreen,
+    '                     System.Drawing.Color.PaleGreen,
+    '                     System.Drawing.Color.DarkGoldenrod,
+    '                     System.Drawing.Color.Goldenrod,
+    '                     System.Drawing.Color.Gold,
+    '                     System.Drawing.Color.Khaki,
+    '                     System.Drawing.Color.LemonChiffon,
+    '                     System.Drawing.Color.Maroon,
+    '                     System.Drawing.Color.Brown,
+    '                     System.Drawing.Color.Firebrick,
+    '                     System.Drawing.Color.IndianRed,
+    '                     System.Drawing.Color.LightCoral,
+    '                     System.Drawing.Color.OrangeRed,
+    '                     System.Drawing.Color.Tomato,
+    '                     System.Drawing.Color.Coral,
+    '                     System.Drawing.Color.LightSalmon,
+    '                     System.Drawing.Color.MistyRose,
+    '                     System.Drawing.Color.MediumVioletRed,
+    '                     System.Drawing.Color.DeepPink,
+    '                     System.Drawing.Color.HotPink,
+    '                     System.Drawing.Color.LightPink,
+    '                     System.Drawing.Color.Pink}
+
 
     Private _GrpListServerinfo As List(Of GroupInfo.ServerInfo)
     ''' <summary>
@@ -325,6 +385,7 @@
         'radCpu.ItemReverse = iniConfig.ReadValue("STYLE", "CPUREVERSE", False)
         radCpu.Style = p_UserENv.CFG_CPUStyle
         radCpu.ItemReverse = p_UserENv.CFG_CPUReverse
+        radCpu.DisplayID = p_UserENv.CFG_CPUStyleDSP
 
         ' Memory 정보 
         grpMem.Text = p_clsMsgData.fn_GetData("F036")
@@ -334,15 +395,16 @@
         'radMem.ItemReverse = iniConfig.ReadValue("STYLE", "MEMREVERSE", False)
         radMem.Style = p_UserENv.CFG_MEMStyle
         radMem.ItemReverse = p_UserENv.CFG_MEMReverse
+        radMem.DisplayID = p_UserENv.CFG_MEMStyleDSP
 
         ''Remove 0202
         '' Request Information
-        grpReqInfo.Text = p_clsMsgData.fn_GetData("F040")
+        flpCPUStatus.Text = p_clsMsgData.fn_GetData("F040")
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        lblLogicalRead.Text = grpReqInfo.Text + " Read"
-        lblLogicalWrite.Text = grpReqInfo.Text + " Write"
+        lblLogicalRead.Text = flpCPUStatus.Text + " Read"
+        lblLogicalWrite.Text = flpCPUStatus.Text + " Write"
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -527,6 +589,10 @@
 
         ' 컨트롤의 Tag에서 인스턴스 정보를 가져온다 
         Dim grpInfo As GroupInfo = _GrpList.Item(0)
+
+        '서버 Alert ServerInfo
+        _GrpListServerinfo = grpInfo.Items
+
         ' 인스턴스에 따른 인스턴스 컨트롤 변경 시작 
         ' 인스턴스 상태 정보를 변경한다. 
         sb_SetInstanceStatus(grpInfo.Items)
@@ -546,14 +612,17 @@
         sb_SetGrpSQLRespInfo(grpInfo.Items)
         ' Session Stats
         sb_SetSessionStatus(grpInfo.Items)
-        If bckmanual.IsBusy = True Then
-            bckmanual.CancelAsync()
-            Return
-        End If
-        bckmanual.RunWorkerAsync()
 
-        '서버 Alert ServerInfo
-        _GrpListServerinfo = grpInfo.Items
+        If _GrpListServerinfo.Count < 16 Then
+            If bckmanual.IsBusy = True Then
+                bckmanual.CancelAsync()
+                Return
+            End If
+            bckmanual.RunWorkerAsync()
+        Else
+            _isDrawInitialData = 0
+        End If
+
     End Sub
     Private Sub sb_SetGrpReqinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
@@ -704,15 +773,17 @@
         dgvGrpCpuSvrLst.Rows.Clear()
 
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+        Dim idx As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm)
+            'radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, instanceImgLst.Images(idx))
+            radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx))
             Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
             dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
             dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
             dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrUsage.Index).Value = 0.0
             dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrProg.Index).Value = 0.0
+            idx += 1
         Next
-
 
         DgvRowHeightFill(dgvGrpCpuSvrLst)
         AddHandler dgvGrpCpuSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
@@ -772,13 +843,15 @@
         dgvGrpMemSvrLst.DataSource = Nothing
         dgvGrpMemSvrLst.Rows.Clear()
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+        Dim idx As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm)
+            radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx))
             Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
             dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
             dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
             dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrUsage.Index).Value = 0.0
             dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrprog.Index).Value = 0
+            idx += 1
         Next
         DgvRowHeightFill(dgvGrpMemSvrLst)
         AddHandler dgvGrpMemSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
@@ -848,7 +921,11 @@
                     topNode = dgvClusters.Nodes.Add(svrLst.Item(i).ShowNm)
                     topNode.Tag = svrLst.Item(i)
                     topNode.Image = instanceImgLst.Images(i)
-                    topNode.Height = 48
+                    If _GrpListServerinfo.Count > 16 Then
+                        topNode.Height = (dgvClusters.Height - 50) / _GrpListServerinfo.Count
+                    Else
+                        topNode.Height = 48
+                    End If
                     topNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
                     topNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
                     topNode.Cells(coldgvClustersServerName.Index).Style.ForeColor = Color.FromArgb(24, 192, 128)
@@ -870,7 +947,11 @@
                             Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
                             cNOde.Tag = svrLst.Item(i)
                             cNOde.Image = instanceImgLst.Images(i)
-                            cNOde.Height = 48
+                            If _GrpListServerinfo.Count > 16 Then
+                                cNOde.Height = (dgvClusters.Height - 50) / _GrpListServerinfo.Count
+                            Else
+                                cNOde.Height = 48
+                            End If
                             cNOde.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
                             cNOde.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
                             cNOde.Cells(coldgvClustersServerName.Index).Style.ForeColor = Color.FromArgb(24, 192, 128)
@@ -1240,7 +1321,6 @@
             tmCollect.Dispose()
 
 
-
             initControls(p_clsAgentCollect.AgentState)
 
             If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
@@ -1252,7 +1332,6 @@
                     clsAgentCollect_GetDataLockCount(p_clsAgentCollect.infoDatalockCount)
                     clsAgentCollect_GetDataSQLRespTmInfo(p_clsAgentCollect.infoDataSQLRespTm)
                     clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                    'clsAgentCollect_GetDataPhysicaliOinfo(p_clsAgentCollect.infoDataPhysicaliO)
                     clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
                     clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
                     clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
@@ -1446,11 +1525,20 @@
                 radCpu.items(cpuidx).Value = dblCpu '  datainfo.C02_CPU_MAIN
                 radCpu.items(cpuidx).Text = strInstNm
 
-                Using tmpRow As DataGridViewRow = dgvGrpCpuSvrLst.FindFirstRow(intInstID, colGrpCpuSvrID.Index)
-                    tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
-                    tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
-                    tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
-                End Using
+                For Each tmpRow As DataGridViewRow In dgvGrpCpuSvrLst.Rows
+                    If tmpRow.Cells(colGrpCpuSvrID.Index).Value = intInstID Then
+                        tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                        tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
+                        tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
+                    End If
+                Next
+
+                'Using tmpRow As DataGridViewRow = dgvGrpCpuSvrLst.FindFirstRow(intInstID, colGrpCpuSvrID.Index)
+                '    tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                '    tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
+                '    tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
+                'End Using
+
                 ' Bar type 20190806 start
                 For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                     If tmpSvr.InstanceID = intInstID Then
@@ -1479,11 +1567,20 @@
                 radMem.items(memidx).Value = dblMem
                 radMem.items(memidx).Text = strInstNm
 
-                Using tmpRow As DataGridViewRow = dgvGrpMemSvrLst.FindFirstRow(intInstID, colGrpMemSvrID.Index)
-                    tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
-                    tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
-                    tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
-                End Using
+                For Each tmpRow As DataGridViewRow In dgvGrpMemSvrLst.Rows
+                    If tmpRow.Cells(colGrpMemSvrID.Index).Value = intInstID Then
+                        tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                        tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
+                        tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
+                    End If
+
+                Next
+
+                'Using tmpRow As DataGridViewRow = dgvGrpMemSvrLst.FindFirstRow(intInstID, colGrpMemSvrID.Index)
+                '    tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                '    tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
+                '    tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
+                'End Using
             End If
 
         Next
@@ -1493,6 +1590,8 @@
         sb_GridSortChg(dgvGrpCpuSvrLst, colGrpCpuSvrUsage.Index)
         modCommon.sb_GridProgClrChg(dgvGrpMemSvrLst)
         sb_GridSortChg(dgvGrpMemSvrLst, colGrpMemSvrUsage.Index)
+        DgvRowHeightFill(dgvGrpCpuSvrLst)
+        DgvRowHeightFill(dgvGrpMemSvrLst)
 
 
         '''''''< Bar 20180806 Start>'''''''''''''''''''''''''''''''''''''''''''''
@@ -2628,8 +2727,151 @@
 
     'End Sub
 
-
     Private Sub clsAgentCollect_GetDataHealthCheck(ByVal dtTable As DataTable)
+        If dtTable Is Nothing Then Return
+
+        Dim CntNormal As Integer = 0  'InstanceMaxVals.Count(Function(r) r.MaxVal = intNormalVal)
+        Dim CntWarning As Integer = 0  'InstanceMaxVals.Count(Function(r) r.MaxVal = intWarningVal)
+        Dim CntCritical As Integer = 0  'InstanceMaxVals.Count(Function(r) r.MaxVal = intCriticalVal)
+
+        Dim arrSvrIds As New SortedList
+
+        If dtTable.Rows.Count <= 0 Then Return
+        Dim stopwatch As Stopwatch = New Stopwatch()
+        stopwatch.Start()
+
+        Dim dgvClusterRow As DataGridViewRow = Nothing
+        Dim currInstanceID As Integer = 0
+        Dim currHostName As String = ""
+        Dim prevInstanceID As Integer = 0
+        Dim prevHostName As String = ""
+        Dim strRole As String = ""
+        Dim intLevel As Integer = 0
+        Dim strVip As String = ""
+        Dim strVip2 As String = ""
+        Try
+            For Each dtRow As DataRow In dtTable.Rows
+                currInstanceID = CInt(dtRow.Item("INSTANCE_ID"))
+                currHostName = dtRow.Item("HOST_NAME").ToString
+                If prevInstanceID <> currInstanceID Then
+                    If prevInstanceID > 0 Then
+                        Select Case intLevel
+                            Case 0 : CntNormal += 1
+                            Case 1 : CntWarning += 1
+                            Case 2 : CntCritical += 1 : arrSvrIds.Add(prevInstanceID, prevHostName)
+                        End Select
+                        If dgvClusterRow.Cells(coldgvClustersServerName.Index).Tag <> intLevel Then
+                            dgvClusterRow.Cells(coldgvClustersServerName.Index).Tag = intLevel
+                            dgvClusterRow.Cells(coldgvClustersServerName.Index).Style.ForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                            dgvClusterRow.Cells(coldgvClustersServerName.Index).Style.SelectionForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                        End If
+                        intLevel = 0
+                    End If
+                    For Each tmpRow In Me.dgvClusters.Rows
+                        If currInstanceID = DirectCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID Then
+                            dgvClusterRow = tmpRow
+                            strRole = dtRow.Item("HA_ROLE_S").ToString
+                            strVip = dtRow.Item("VIRTUAL_IP").ToString
+                            strVip2 = dtRow.Item("VIRTUAL_IP2").ToString
+                            DirectCast(dgvClusterRow.Tag, GroupInfo.ServerInfo).HARoleStatus = strRole
+                            Exit For
+                        End If
+                    Next
+                    prevInstanceID = currInstanceID
+                    prevHostName = currHostName
+                End If
+
+                If intLevel < (CInt(dtRow.Item("HCHK_VALUE")) / 100 - 1) Then
+                    intLevel = (CInt(dtRow.Item("HCHK_VALUE")) / 100 - 1)
+                End If
+
+                If strRole = "P" Then
+                    If dgvClusterRow.Cells(coldgvClustersRole.Index).Tag <> "P" Then
+                        dgvClusterRow.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(1)
+                    End If
+                    dgvClusterRow.Cells(coldgvClustersRole.Index).Tag = "P"
+                ElseIf strRole = "S" Then
+                    If dgvClusterRow.Cells(coldgvClustersRole.Index).Tag <> "S" Then
+                        dgvClusterRow.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(2)
+                    End If
+                    dgvClusterRow.Cells(coldgvClustersRole.Index).Tag = "S"
+                Else
+                    If dgvClusterRow.Cells(coldgvClustersRole.Index).Tag <> "A" Then
+                        dgvClusterRow.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
+                    End If
+                    dgvClusterRow.Cells(coldgvClustersRole.Index).Tag = "A"
+                End If
+
+                If dgvClusterRow.Cells(coldgvClustersLegend.Index).Tag <> strVip Then
+                    If strVip IsNot Nothing Then
+                        dgvClusterRow.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(3)
+                    Else
+                        dgvClusterRow.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
+                    End If
+                End If
+
+                dgvClusterRow.Cells(coldgvClustersLegend.Index).Tag = strVip
+
+                If dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag <> strVip2 Then
+                    If strVip2 IsNot Nothing Then
+                        dgvClusterRow.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(4)
+                    Else
+                        dgvClusterRow.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
+                    End If
+                End If
+                dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag = strVip2
+            Next
+
+            If prevInstanceID > 0 Then
+                Select Case intLevel
+                    Case 0 : CntNormal += 1
+                    Case 1 : CntWarning += 1
+                    Case 2 : CntCritical += 1 : arrSvrIds.Add(prevInstanceID, prevHostName)
+                End Select
+                If dgvClusterRow.Cells(coldgvClustersServerName.Index).Tag <> intLevel Then
+                    dgvClusterRow.Cells(coldgvClustersServerName.Index).Tag = intLevel
+                    dgvClusterRow.Cells(coldgvClustersServerName.Index).Style.ForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                    dgvClusterRow.Cells(coldgvClustersServerName.Index).Style.SelectionForeColor = IIf(intLevel = 0, Color.FromArgb(24, 192, 128), IIf(intLevel = 1, Color.Gold, Color.OrangeRed))
+                End If
+                dgvClusterRow.Cells(coldgvClustersServerName.Index).Tag = intLevel
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+        stopwatch.Stop()
+        Console.WriteLine("Time elapsed1: {0}", stopwatch.Elapsed)
+        ' Instance 컨트롤에 Tag에 InstanceID 를 넣어 둫었음.]
+        ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
+
+        dgtNumN.Value = CntNormal.ToString().PadLeft(2, "0")
+        dgtNumW.Value = CntWarning.ToString.PadLeft(2, "0")
+        dgtNumC.Value = CntCritical.ToString.PadLeft(2, "0")
+
+        If CntCritical > 0 Then
+            Me.radCpu.AniColorin = Color.Red
+            Me.radMem.AniColorin = Color.Red
+
+            If Me.UseCriticalTime = True Then
+                If Me.CriticalTime > Now Then
+                    Me.ShowCritical = False
+                Else
+                    Me.ShowCritical = True
+                    Me.UseCriticalTime = False
+                End If
+            End If
+
+            If Me.ShowCritical = True Then
+                sb_CriticalShow(arrSvrIds)
+            End If
+        Else
+            Me.radCpu.AniColorin = Color.LimeGreen
+            Me.radMem.AniColorin = Color.LimeGreen
+            sb_CriticalClose()
+        End If
+
+    End Sub
+
+    Private Sub clsAgentCollect_GetDataHealthCheck_old(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
         ''Dim tmpDtTable As DataTable = dtTable.DefaultView.ToTable(True, "INSTANCE_ID , MAX(HCHK_VALUE)")
 
@@ -3078,6 +3320,9 @@
                     tmpRow.Item("HCHK_NAME").Equals("CONNECTIONFAIL") Or _
                     tmpRow.Item("HCHK_NAME").Equals("LASTANALYZE") Or _
                     tmpRow.Item("HCHK_NAME").Equals("LASTVACUUM") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("HASTATUS") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("REPLICATION_SLOT") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("VIRTUAL_IP") Or _
                     tmpRow.Item("HCHK_NAME").Equals("LOCKCNT") Or tmpRow.Item("HCHK_NAME").Equals("TRAXIDLECNT") Or _
                     tmpRow.Item("HCHK_NAME").Equals("UNUSEDINDEX") Then
                     Dim tmpValue As Long = tmpRow.Item("VALUE")
@@ -3085,7 +3330,10 @@
                 End If
 
                 Dim strValueUnit As String = ""
-                If tmpRow.Item("VALUE") <> 99999 Then
+                If tmpRow.Item("VALUE") <> 99999 Or _
+                   tmpRow.Item("HCHK_NAME").Equals("HASTATUS") = False Or _
+                   tmpRow.Item("HCHK_NAME").Equals("REPLICATION_SLOT") = False Or _
+                   tmpRow.Item("HCHK_NAME").Equals("VIRTUAL_IP") = False Then
                     strValueUnit = tmpRow.Item("UNIT")
                 End If
                 Dim strShowValue As String = "{0}" + Environment.NewLine + "{1}" + Environment.NewLine + "{2}{3}" + Environment.NewLine
@@ -3310,7 +3558,7 @@
 
     End Sub
 
-    Public Sub DgvRowHeightFill(ByVal ctlDgv As BaseControls.DataGridView)
+    Public Sub DgvRowHeightFill_old(ByVal ctlDgv As BaseControls.DataGridView)
 
         Dim height As Integer = Math.Ceiling((ctlDgv.Height - ctlDgv.ColumnHeadersHeight - 2) / ctlDgv.Rows.Count) - 1
 
@@ -3318,6 +3566,40 @@
         For Each tmpRow As DataGridViewRow In ctlDgv.Rows
             tmpRow.Height = height
         Next
+    End Sub
+
+
+    Public Sub DgvRowHeightFill(ByVal ctlDgv As BaseControls.DataGridView)
+        Dim height As Integer = 0
+        If _GrpListServerinfo.Count <= 20 Then
+            height = Math.Ceiling((ctlDgv.Height - ctlDgv.ColumnHeadersHeight - 2) / ctlDgv.Rows.Count) - 1
+        Else
+            height = 16
+        End If
+        Dim index As Integer = 0
+        For Each tmpRow As DataGridViewRow In ctlDgv.Rows
+            If index < 20 Then
+                tmpRow.Height = height
+                tmpRow.Visible = True
+            Else
+                tmpRow.Height = 0
+                tmpRow.Visible = False
+            End If
+            index += 1
+        Next
+
+        'Dim height As Integer = Math.Ceiling((ctlDgv.Height - 2) / displayCnt) - 1
+
+        'Dim index As Integer = 0
+        'For Each tmpRow As DataGridViewRow In ctlDgv.Rows
+        '    If index < displayCnt Then
+        '        tmpRow.Height = height
+        '    Else
+        '        tmpRow.Height = 1
+        '        tmpRow.Visible = False
+        '    End If
+        '    index += 1
+        'Next
     End Sub
 
     Private Sub DataGridView_SizeChanged(sender As Object, e As EventArgs)
@@ -4701,7 +4983,7 @@
         Dim ps As System.Drawing.Point = Cursor.Position
         mnuLogout.Text = p_clsMsgData.fn_GetData("F939")
         mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
-        mnuPreferences.Text = p_clsMsgData.fn_GetData("F916")
+        mnuPreferences.Text = p_clsMsgData.fn_GetData("F952")
         mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
         ps.X -= mnuMenu.Width
         If p_cSession.isAdmin = False Then

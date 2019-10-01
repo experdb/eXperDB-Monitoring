@@ -654,7 +654,9 @@ CREATE TABLE tb_mon_user_config
 	style_cpu int2 default 2,
 	style_cpu_direction_tf bool default false,
 	style_mem int2 default 2,
-	style_mem_direction_tf bool default false
+	style_mem_direction_tf bool default false,
+	style_cpu_dsp bool default false,
+	style_mem_dsp bool default false
 );
 
 create table tb_replication_slots (
@@ -883,10 +885,12 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'LASTVACUUM', 'DAY', '0', 7.00, 0.00, '1', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'LASTANALYZE', 'DAY', '0', 7.00, 0.00, '1', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'ACTIVECONNECTION', '%', '0', 80.00, 90.00, '0', NULL, NULL);
-insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HASTATUS', 'LVL', '0', 1.00, 2.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HASTATUS', ' ', '0', 1.00, 2.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_DELAY', 'MB', '0', 100, 1000, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '2', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'VIRTUAL_IP', ' ', '0', 0,   1,    '2', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
 
 insert into tb_config(
 						daily_batch_start_time

@@ -185,6 +185,8 @@
         ,LAST_MOD_DT
         ,CONN_SCHEMA_NAME
         ,HOST_NAME
+        ,HA_ROLE
+        ,HA_HOST
         ,INSTANCE_UPTIME::TIMESTAMP(0) AS INSTANCE_UPTIME
       FROM TB_INSTANCE_INFO 
       WHERE DELETE_YN = 'N' AND COLLECT_YN = 'Y'
@@ -429,6 +431,18 @@
     <DESC>PT_03_03_001 (cpu/mem정보)</DESC>
     <DATA>
       <![CDATA[
+WITH COL AS (
+        SELECT B.REG_DATE, B.RSC_REG_SEQ 
+        FROM TB_INSTANCE_INFO A
+        , TB_RSC_COLLECT_INFO B
+        WHERE A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'  
+          AND A.INSTANCE_ID IN ({0})
+          AND B.REG_DATE=TO_CHAR(NOW(),'YYYYMMDD')
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          --AND C.COLLECT_DT > now() - interval '3 minute'
+         AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > now() - interval '3 minute'
+        )
         SELECT /* SELECTCPUMEMINFOPREV */ A.INSTANCE_ID        
         , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM C.COLLECT_DT) / {2} )) * {2} ) AT TIME ZONE 'UTC' AS COLLECT_DATE
         , CASE WHEN MAX(C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE) > 100 THEN 100 ELSE MAX(C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE) END AS CPU_MAIN
@@ -436,7 +450,7 @@
         , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
         , CASE WHEN MAX(E.MEM_TOTAL_KB) != 0 THEN (MAX((E.MEM_TOTAL_KB - (E.MEM_FREE_KB +E.MEM_BUFFERED_KB + E.MEM_CACHED_KB)) / E.MEM_TOTAL_KB ) * 100)::int ELSE MAX(E.MEM_TOTAL_KB) END AS MEM_USED_RATE
         FROM TB_INSTANCE_INFO A
-        , TB_RSC_COLLECT_INFO B LEFT OUTER JOIN TB_CPU_STAT_MASTER C
+        , COL B LEFT OUTER JOIN TB_CPU_STAT_MASTER C
           ON B.REG_DATE = C.REG_DATE
          AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
           JOIN TB_MEMORY_STAT E
@@ -445,12 +459,7 @@
         WHERE A.COLLECT_YN = 'Y'
           AND A.DELETE_YN = 'N'  
           AND A.INSTANCE_ID IN ({0})
-          AND B.REG_DATE=TO_CHAR(NOW(),'YYYYMMDD')
-          AND B.REG_DATE = C.REG_DATE
-          AND A.INSTANCE_ID = B.INSTANCE_ID
-          --AND C.COLLECT_DT > now() - interval '3 minute'
-          AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > now() - interval '3 minute'
-        GROUP BY COLLECT_DATE, A.INSTANCE_ID 
+         GROUP BY COLLECT_DATE, A.INSTANCE_ID 
         ORDER BY COLLECT_DATE, INSTANCE_ID;
       ]]>
     </DATA>
@@ -663,8 +672,8 @@
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="SELECTREPLICATIONMASTER" PARAMS="2">
-    <DESC>PT_05_02_004 (SELECTREPLICATIONSTANDBY)</DESC>
+  <ROW ID="SELECTREPLICATIONMASTER_OLD" PARAMS="2">
+    <DESC>PT_05_02_004 (SELECTREPLICATIONMASTER)</DESC>
     <DATA>
       <![CDATA[       
           SELECT  INS.INSTANCE_ID, 
@@ -679,6 +688,25 @@
 				                                 FROM TB_REPLICATION_INFO A 
 				                                WHERE A.REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
 				                                  AND A.INSTANCE_ID = INS.INSTANCE_ID)
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTREPLICATIONMASTER" PARAMS="2">
+    <DESC>PT_05_02_004 (SELECTREPLICATIONMASTER)</DESC>
+    <DATA>
+      <![CDATA[       
+      WITH SLAVES AS
+	      (SELECT INSTANCE_ID FROM TB_REPLICATION_INFO 
+		      WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+		       AND ha_group = {0}
+		       AND ha_role = 'S'
+		       GROUP BY INSTANCE_ID)
+	      SELECT INS.INSTANCE_ID, 
+                 CASE WHEN 0=0 THEN INS.HOST_NAME ELSE INS.CONN_NAME END AS SHOWNM, 
+                 INS.SERVICE_PORT PORT
+            FROM TB_INSTANCE_INFO INS
+           WHERE INS.INSTANCE_ID IN (SELECT * FROM SLAVES)
       ]]>
     </DATA>
     <COMMENTS />
@@ -1226,7 +1254,7 @@
        , CRITICAL_THRESHOLD= {3}
        , FIXED_THRESHOLD = '{4}'
        , LAST_MOD_IP='{5}'
-       , RETENTION_TIME='{6}'
+       , RETENTION_TIME={6}
        , LAST_MOD_DT= NOW()
       WHERE 
           INSTANCE_ID = {0}
@@ -1423,7 +1451,9 @@
       WHERE A.COLLECT_YN = 'Y' 
       AND A.DELETE_YN = 'N'      
       AND A.INSTANCE_ID = C.INSTANCE_ID
-      AND A.INSTANCE_ID = D.INSTANCE_ID; 
+      AND A.INSTANCE_ID = D.INSTANCE_ID
+      AND a.INSTANCE_ID IN ({0})
+      ORDER BY A.INSTANCE_ID; 
       ]]>
     </DATA>
   </ROW>
@@ -1671,6 +1701,53 @@
     </DATA>
   </ROW>
   <ROW ID="SELECTSESSIONINFOPREV" PARAMS="0">
+    <DESC>SESSEIONINFO</DESC>
+    <DATA>
+      <![CDATA[         
+      SELECT /* SELECTSESSIONINFOPREV */ 
+            INSTANCE_ID, 
+      		  TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {2} )) * {2} ) AT TIME ZONE 'UTC' AS COLLECT_DATE,
+      		  MAX(CUR_ACTV_BACKEND_CNT) AS CUR_ACTV_BACKEND_CNT,
+      		  MAX(TOT_BACKEND_CNT) AS TOT_BACKEND_CNT
+        FROM (
+	            WITH COL AS (
+        			SELECT B.INSTANCE_ID,
+        				   B.REG_DATE,
+		                   B.ACTV_REG_SEQ,
+		                   B.REG_DATE::DATE + B.REG_TIME AS COLLECT_DT
+		               FROM TB_INSTANCE_INFO I
+		                   , TB_ACTV_COLLECT_INFO B
+		               WHERE B.REG_DATE {1}
+		                 AND I.INSTANCE_ID IN ({0})
+			             AND B.INSTANCE_ID=I.INSTANCE_ID
+                    	 AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > now() - interval '3 minute'
+		                 AND I.COLLECT_YN = 'Y'
+		                 AND I.DELETE_YN = 'N'
+        			)
+		            SELECT /* SELECTSESSIONINFOPREV */ 
+		                   IST.INSTANCE_ID,
+		                   COL.COLLECT_DT AS COLLECT_DT
+		                   --, BAK.COLLECT_DT AS COLLECT_DT
+			               --, ROUND(SUM(CASE WHEN (BAK.SQL <> '<IDLE>') THEN 1 ELSE 0 END)::NUMERIC) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
+			               , ROUND(SUM(CASE WHEN (BAK.STATE = 'active') THEN 1 ELSE 0 END)::NUMERIC) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
+			               , ROUND(COUNT(BAK.STATE)::NUMERIC) AS TOT_BACKEND_CNT 
+		               FROM TB_INSTANCE_INFO IST
+		                   , COL LEFT OUTER JOIN TB_BACKEND_RSC BAK 
+		                   ON COL.REG_DATE  = BAK.REG_DATE
+		                   AND COL.ACTV_REG_SEQ = BAK.ACTV_REG_SEQ
+		               WHERE IST.INSTANCE_ID IN ({0})
+			             AND COL.INSTANCE_ID=IST.INSTANCE_ID
+		                 AND IST.COLLECT_YN = 'Y'
+		                 AND IST.DELETE_YN = 'N'
+		             GROUP BY COL.REG_DATE, COL.COLLECT_DT, IST.INSTANCE_ID
+		             ORDER BY COL.COLLECT_DT,IST.INSTANCE_ID
+	  		     ) AA
+	     GROUP BY COLLECT_DATE, INSTANCE_ID
+	     ORDER BY COLLECT_DATE, INSTANCE_ID
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTSESSIONINFOPREV_OLD" PARAMS="0">
     <DESC>SESSEIONINFO</DESC>
     <DATA>
       <![CDATA[         
@@ -2371,10 +2448,10 @@
     <DESC>헬스체크 고정값 가져오기</DESC>
     <DATA>
       <![CDATA[
-            SELECT HCHK_NAME, FIXED_THRESHOLD 
+            SELECT HCHK_NAME, FIXED_THRESHOLD, (SELECT HCHK_PERIOD_SEC FROM TB_CONFIG) HCHK_PERIOD_SEC
             FROM TB_HCHK_THRD_LIST 
             WHERE INSTANCE_ID = -1
-            AND HCHK_NAME IN ('UNUSEDINDEX','TRAXIDLECNT','LOCKCNT','CONNECTIONFAIL','LASTANALYZE','LASTVACUUM','LONGRUNSQL')
+            --AND HCHK_NAME IN ('UNUSEDINDEX','TRAXIDLECNT','LOCKCNT','CONNECTIONFAIL','LASTANALYZE','LASTVACUUM','LONGRUNSQL')
     ]]>
     </DATA>
     <COMMENTS />
@@ -4239,7 +4316,9 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
         STYLE_CPU,
         STYLE_CPU_DIRECTION_TF,
         STYLE_MEM,
-        STYLE_MEM_DIRECTION_TF
+        STYLE_MEM_DIRECTION_TF,
+        STYLE_CPU_DSP,
+        STYLE_MEM_DSP
       )
       VALUES 
       (
@@ -4252,7 +4331,9 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 	      {6},
 	      {7}::BOOL,
 	      {8},
-	      {9}::BOOL
+	      {9}::BOOL,
+	      {10}::BOOL,
+	      {11}::BOOL
       ) ON CONFLICT(USER_ID) DO UPDATE SET
         LANGUAGE = {1},
         REFRESH_PERIOD = {2},
@@ -4262,7 +4343,9 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
         STYLE_CPU = {6},
         STYLE_CPU_DIRECTION_TF = {7}::BOOL,
         STYLE_MEM = {8},
-        STYLE_MEM_DIRECTION_TF = {9}::BOOL
+        STYLE_MEM_DIRECTION_TF = {9}::BOOL,
+        STYLE_CPU_DSP = {10}::BOOL,
+        STYLE_MEM_DSP = {11}::BOOL
       ]]>
     </DATA>
   </ROW>

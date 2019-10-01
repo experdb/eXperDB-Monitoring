@@ -32,6 +32,14 @@
     <COLUMNS>IS_OK|RESULT|TEXT||100;REG_TIME|CHECK TIME|TEXT||100;LAST_OK_DT|LAST CONNECT DATETIME|TEXT||200</COLUMNS>
     <VALUECAST />
   </ROW>
+  <ROW ID="CPUUTIL" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[CPU Util]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="CPUWAIT" PARAMS="0">
     <DESC>Checks CPU rate of I/O wait.</DESC>
     <DATA><![CDATA[CPU Wait]]></DATA>
@@ -54,7 +62,7 @@
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS>ALERT_NAME|ALERT NAME|TEXT||130;CURRENT_STATUS|Status|TEXT||350;CONFIGURATION|Configured|TEXT||350;DESCRIPTION|Description|TEXT||200</COLUMNS>
-    <VALUECAST />
+    <VALUECAST>2|MultiPrimary;3|NoPrimary</VALUECAST>
   </ROW>
   <ROW ID="F001" PARAMS="0">
     <DESC>수집서버설정 표시내용</DESC>
@@ -2913,9 +2921,9 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
-  <ROW ID="M017" PARAMS="0">
+  <ROW ID="M017" PARAMS="1">
     <DESC>그룹당 제한은 8개로 됩니다.</DESC>
-    <DATA><![CDATA[Can not be over than eight per each group]]></DATA>
+    <DATA><![CDATA[Can not be over than {0} per each group]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2934,6 +2942,14 @@
     <DATA><![CDATA[Try to connect to server.]]></DATA>
     <COMMENTS />
     <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="MEMUSAGE" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[Memory Usage]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS />
     <VALUECAST />
   </ROW>
@@ -2975,7 +2991,7 @@
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS>SLOT_NAME|Slot name|TEXT||160|;PLUGIN|Plugin|TEXT||150|;SLOT_TYPE|Slot type|TEXT||100|;DATABA6SE|Database|TEXT||200|;ISTEMPORARY|Temporary|TEXT||80|;ISACTIVE|Active|TEXT||80|;OLDXMIN|Oldest Txid|TEXT||130|;RESTART_LSN|Restart LSN|TEXT||130|;CONFIRMED_FLUSH_LSN|Confirmed flush LSN|TEXT||150|</COLUMNS>
-    <VALUECAST />
+    <VALUECAST>1|InActSlot;2|NoSlot</VALUECAST>
   </ROW>
   <ROW ID="VIRTUAL_IP" PARAMS="0">
     <DESC>Check th status of virtual IP.</DESC>
@@ -2983,7 +2999,7 @@
     <COMMENTS>파라미터추가</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS>HOST_NAME|Host name|TEXT||150|;SERVER_IP|Server IP|TEXT||150|;SERVICE_PORT|Server port|TEXT||100|;HA_ROLE|HA Role|TEXT||100|;VIRTUAL_IP|VIP(Service)|TEXT||200|;VIRTUAL_IP2|VIP(Replication)|TEXT||200|</COLUMNS>
-    <VALUECAST />
+    <VALUECAST>1|Not Primary</VALUECAST>
   </ROW>
   <ROW ID="M019" PARAMS="1">
     <DESC>라이선스 만료일 체크</DESC>
@@ -3315,7 +3331,7 @@
   </ROW>
   <ROW ID="M060" PARAMS="0">
     <DESC>Select Cluster</DESC>
-    <DATA><![CDATA[You can select the cluster you want to observe.]]></DATA>
+    <DATA><![CDATA[Select clusters.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3531,7 +3547,7 @@
   </ROW>
   <ROW ID="M087" PARAMS="0">
     <DESC>접속허용IP</DESC>
-    <DATA><![CDATA[Manage user account properties and account policy.]]></DATA>
+    <DATA><![CDATA[Manage user and alert properties.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3569,6 +3585,22 @@
   <ROW ID="M092" PARAMS="0">
     <DESC>복제슬롯존재</DESC>
     <DATA><![CDATA[The replication slot does not exist from upstream server.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M093" PARAMS="0">
+    <DESC>일괄적용메시지</DESC>
+    <DATA><![CDATA[Do you want to save changes to selected clusters?]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M094" PARAMS="0">
+    <DESC>라이선스 </DESC>
+    <DATA><![CDATA[Cluster registration license exceeded.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3835,6 +3867,41 @@
   <ROW ID="F946" PARAMS="0">
     <DESC>클러스터선택</DESC>
     <DATA><![CDATA[Select Clusters]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F947" PARAMS="0">
+    <DESC>알럿관리</DESC>
+    <DATA><![CDATA[Alert Management]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F948" PARAMS="0">
+    <DESC>알럿설정</DESC>
+    <DATA><![CDATA[Alert Configuration]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F949" PARAMS="0">
+    <DESC>SMS 연동</DESC>
+    <DATA><![CDATA[SMS Interface]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F950" PARAMS="0">
+    <DESC>접속 정보</DESC>
+    <DATA><![CDATA[Connection info]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F951" PARAMS="0">
+    <DESC>일괄적용</DESC>
+    <DATA><![CDATA[Apply All]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F952" PARAMS="0">
+    <DESC>사용자 및 알럿 관리</DESC>
+    <DATA><![CDATA[User&Alert Management]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F953" PARAMS="0">
+    <DESC>아이콘</DESC>
+    <DATA><![CDATA[Icon]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

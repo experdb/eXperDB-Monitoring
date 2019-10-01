@@ -432,7 +432,9 @@
     Public Function fn_GetValueCast(ByVal HCHKNM As String, ByVal intValue As Object) As Object 'temporary
         Try
             Dim Values As String = ""
-            If HCHKNM.Equals("LASTANALYZE") Or HCHKNM.Equals("LASTVACUUM") Then
+            If HCHKNM.Equals("LASTANALYZE") Or HCHKNM.Equals("LASTVACUUM") Or _
+               HCHKNM.Equals("REPLICATION_SLOT") Or HCHKNM.Equals("VIRTUAL_IP") Or _
+               HCHKNM.Equals("HASTATUS") Then
                 Values = p_clsMsgData.fn_GetSpecificData(HCHKNM, "VALUECAST")
             Else
                 Return intValue

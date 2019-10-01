@@ -575,8 +575,8 @@
             Return
         Else
             For Each tmpGrp As GroupInfo In rtnSrt
-                If tmpGrp.Items.Count > 16 Then
-                    MsgBox(p_clsMsgData.fn_GetData("M017"))
+                If tmpGrp.Items.Count > 40 Then
+                    MsgBox(p_clsMsgData.fn_GetData("M017"), 40)
                     Return
                 End If
             Next
@@ -844,7 +844,7 @@
         Dim ps As System.Drawing.Point = Cursor.Position
         mnuLogout.Text = p_clsMsgData.fn_GetData("F939")
         mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
-        mnuPreferences.Text = p_clsMsgData.fn_GetData("F916")
+        mnuPreferences.Text = p_clsMsgData.fn_GetData("F952")
         mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
         ps.X -= mnuMenu.Width
         If p_cSession.isAdmin = False Then
@@ -918,98 +918,41 @@
 
         Dim index As Integer = searchKeyColumnIndex(dgv, "colHARole")
         Try
-
+            Dim idx As Integer = 0
+            Dim HashTbl As New Hashtable
+            For Each tmpCol As DataGridViewColumn In dgvMonLst.Columns
+                If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) And _
+                   Not tmpCol.GetType.Equals(GetType(DataGridViewImageColumn)) Then
+                    HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
+                End If
+            Next
             For Each tmpNode As AdvancedDataGridView.TreeGridNode In dgv.Nodes
-                Dim HashTbl As New Hashtable
-                For Each tmpCol As DataGridViewColumn In dgvMonLst.Columns
-                    If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) And _
-                       Not tmpCol.GetType.Equals(GetType(DataGridViewImageColumn)) Then
-                        HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-                    End If
-                Next
-
                 If tmpNode.Selected = True Then
                     Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpNode.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
                     sb_AddTreeGridDatas(topNode, HashTbl, tmpNode)
                     topNode.Image = dbmsImgLst.Images(0)
                     topNode.Tag = tmpNode.Tag
                     topNode.Expand()
-                    Dim parentNode As AdvancedDataGridView.TreeGridNode = Nothing
-                    Dim newNode As AdvancedDataGridView.TreeGridNode = Nothing
-                    Dim prevNode As AdvancedDataGridView.TreeGridNode = Nothing
-                    For Each tmpRow As DataGridViewRow In dgv.Rows
-                        If tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value = "S" Then
-                            For Each groupRow As DataGridViewRow In dgvMonLst.Rows
-                                If tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonHostNm.Index).Value _
-                                    Or tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonIP.Index).Value Then
-                                    parentNode = groupRow
-                                    newNode = parentNode.Nodes.Add(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
-                                    newNode.Tag = tmpRow.Tag
-                                    newNode.Image = dbmsImgLst.Images(1)
-                                    sb_AddTreeGridDatas(newNode, HashTbl, tmpRow)
-                                    newNode.Expand()
-                                End If
-                            Next
+                End If
+            Next
+            Dim parentNode As AdvancedDataGridView.TreeGridNode = Nothing
+            Dim newNode As AdvancedDataGridView.TreeGridNode = Nothing
+            Dim prevNode As AdvancedDataGridView.TreeGridNode = Nothing
+            For Each tmpRow As DataGridViewRow In dgv.Rows
+                If tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value = "S" Then
+                    For Each groupRow As DataGridViewRow In dgvMonLst.Rows
+                        If tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonHostNm.Index).Value _
+                            Or tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonIP.Index).Value Then
+                            parentNode = groupRow
+                            newNode = parentNode.Nodes.Add(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
+                            newNode.Tag = tmpRow.Tag
+                            newNode.Image = dbmsImgLst.Images(1)
+                            sb_AddTreeGridDatas(newNode, HashTbl, tmpRow)
+                            newNode.Expand()
                         End If
                     Next
-                    'If tmpNode.HasChildren = True Then
-                    '    For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
-                    '        Dim childNode As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(cNode.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
-                    '        childNode.Tag = cNode.Tag
-                    '        childNode.Image = dbmsImgLst.Images(1)
-                    '        sb_AddTreeGridDatas(childNode, HashTbl, cNode)
-                    '    Next
-                    'End If
-                    topNode.Expand()
                 End If
-
-
-                'Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpNode)
-                'topNode.Cells(0).Value = tmpNode. .ColumnHeadersDefaultCellStyle(  tmpNode.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value
-                'topNode.Expand()
             Next
-
-
-            'Master node를 먼저 add
-            'For Each tmpRow As DataGridViewRow In dgv.Rows
-            '    If IsDBNull(tmpRow.Cells(index).Value) Then
-            '        Continue For
-            '    End If
-            '    If tmpRow.Selected = False Then
-            '        Continue For
-            '    End If
-
-            '    Dim HashTbl As New Hashtable
-            '    For Each tmpCol As DataGridViewColumn In dgvMonLst.Columns
-            '        If Not tmpCol.GetType.Equals(GetType(AdvancedDataGridView.TreeGridColumn)) And _
-            '           Not tmpCol.GetType.Equals(GetType(DataGridViewImageColumn)) Then
-            '            HashTbl.Add(tmpCol.Index, tmpCol.DataPropertyName)
-            '        End If
-            '    Next
-
-            '    ' Tag에는 Instance ID를 넣은다. 
-            '    ' Add시에는 Instance ID = -1 
-            '    ' Delete 시에는 Visible를 꺼서 삭제 목록을 가져온다. 
-            '    Dim strHARole = tmpRow.Cells(index).Value
-            '    If strHARole = "M" Then
-            '        ' 데이터 비교를 위해서 반드시 Controls.iDastDataGridView의 fn_DataCellADD를 사용한다. => Check 같은것을 수행하기 위함. 
-
-            '        Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpRow.Cells(searchKeyColumnIndex(dgv, "colMonHostNm")).Value)
-            '        topNode.Tag = tmpRow.Tag
-            '        sb_AddTreeGridDatas(topNode, HashTbl, tmpRow)
-            '        'For Each tmpChild As DataRow In dtView.Table.Select("HA_ROLE = 'S'")
-            '        For Each tmpChild As DataGridViewRow In dgv.Rows
-            '            If tmpChild.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value = "S" Then
-            '                Dim cNOde As AdvancedDataGridView.TreeGridNode = topNode.Nodes.Add(tmpChild.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
-            '                cNOde.Tag = tmpChild.Tag
-            '                sb_AddTreeGridDatas(cNOde, HashTbl, tmpChild)
-            '            End If
-            '        Next
-            '        topNode.Expand()
-            '        'topNode.Cells(0).Value = tmpRow.Item("HOST_NAME") & " (" & topNode.Nodes.Count & ")"
-            '        topNode.Cells(0).Value = tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value
-            '    End If
-            'Next
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
@@ -1071,6 +1014,8 @@
         Dim CPUReverse As Integer = 0
         Dim MEMStyle As Integer = 2
         Dim MEMReverse As Integer = 0
+        Dim CPUStyleDSP As Integer = 0
+        Dim MEMStyleDSP As Integer = 0
 
         Dim ClsQuery As New clsQuerys(_odbcConn)
         Dim dtTable As DataTable = ClsQuery.SelectMonUserConfig(p_cSession.UserID)
@@ -1090,8 +1035,10 @@
             CPUReverse = Integer.Parse(dtRow.Item("STYLE_CPU_DIRECTION_TF").ToString())
             MEMStyle = Integer.Parse(dtRow.Item("STYLE_MEM").ToString())
             MEMReverse = Integer.Parse(dtRow.Item("STYLE_MEM_DIRECTION_TF").ToString())
+            CPUStyleDSP = Integer.Parse(dtRow.Item("STYLE_CPU_DSP").ToString())
+            MEMStyleDSP = Integer.Parse(dtRow.Item("STYLE_MEM_DSP").ToString())
         End If
-        p_UserENv = New clsUserEnv(p_cSession.UserID, CollectPeriod, SirenName, ServerName, UseDefaultAccount, CPUStyle, MEMStyle, CPUReverse, MEMReverse)
+        p_UserENv = New clsUserEnv(p_cSession.UserID, CollectPeriod, SirenName, ServerName, UseDefaultAccount, CPUStyle, MEMStyle, CPUReverse, MEMReverse, CPUStyleDSP, MEMStyleDSP)
         p_ShowName = p_UserENv.CFG_ServerName
     End Sub
 
