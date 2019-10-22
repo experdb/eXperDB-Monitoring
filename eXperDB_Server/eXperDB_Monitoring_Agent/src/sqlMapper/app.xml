@@ -3692,7 +3692,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		                  AND   constraint_name = 'pk_tb_replication_lag_info${regdate}'
 		              )
 		    THEN
-				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id, repl_instance_id);
 		    END IF;
 		EXCEPTION   
 		WHEN others THEN
@@ -3700,7 +3700,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    DELETE FROM tb_replication_lag_info${regdate};       
 		    END;
 			BEGIN
-				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id, repl_instance_id);
 			EXCEPTION
 			WHEN others THEN
 	    	END;

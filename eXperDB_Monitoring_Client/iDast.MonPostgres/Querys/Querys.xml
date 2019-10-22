@@ -254,6 +254,7 @@
         ,HA_ROLE
         ,HA_HOST
         ,HA_PORT
+        ,HA_GROUP
         ,SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 2) AS PG_VERSION
       FROM TB_INSTANCE_INFO 
       WHERE DELETE_YN = 'N' AND COLLECT_YN = 'Y'

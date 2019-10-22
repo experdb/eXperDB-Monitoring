@@ -329,6 +329,10 @@
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
+
+        dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible = clsIni.ReadValue("FORM", "MAINMENUCOLUMNADDR", "True")
+        dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible = clsIni.ReadValue("FORM", "MAINMENUCOLUMNAPP", "True")
+        dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible = clsIni.ReadValue("FORM", "MAINMENUCOLUMNWAITEVENT", "True")
     End Sub
     Private Sub frmMonMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         TmAni.Stop()
@@ -1065,6 +1069,7 @@
         Catch ex As Exception
             GC.Collect()
         End Try
+        setInstanceColors()
         ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
     End Sub
 
@@ -2089,32 +2094,34 @@
                     'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
                     For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                         If tmpSvr.InstanceID = intInstID Then
-                            'If chtSessionActive.Series(0).Points.Count > 0 Then'Avoid the problem of not displaying real-time information 
-                            sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
-                            sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
-                            'End If
-                            'Else
-                            '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
-                            '    If lastYPoint > 0 Then
-                            '        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
-                            '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
-                            '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
-                            '    End If
-                            Dim lngActiveSessions As Long = ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))
-                            Dim lngTotalSessions As Long = ConvULong(dtRow.Item("TOT_BACKEND_CNT"))
+                            If tmpSvr.Reserved = True Then
+                                'If chtSessionActive.Series(0).Points.Count > 0 Then'Avoid the problem of not displaying real-time information 
+                                sb_ChartAddPoint(Me.chtSessionActive, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))) 'Active 세션만
+                                sb_ChartAddPoint(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, dblRegDt, ConvULong(dtRow.Item("TOT_BACKEND_CNT")))
+                                'End If
+                                'Else
+                                '    Dim lastYPoint = Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points.Count - 1
+                                '    If lastYPoint > 0 Then
+                                '        sb_ChartAddPoint(Me.chtSessionStatus, tmpSvr.ShowSeriesNm, dblRegDt, Me.chtSessionStatus.Series(tmpSvr.ShowSeriesNm).Points(lastYPoint).YValues(0))
+                                '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points(4).YValues(0)
+                                '        'Me.chtSessionStatus.Series(tmpSvr.ShowNm).Points.Count
+                                '    End If
+                                Dim lngActiveSessions As Long = ConvULong(dtRow.Item("CUR_ACTV_BACKEND_CNT"))
+                                Dim lngTotalSessions As Long = ConvULong(dtRow.Item("TOT_BACKEND_CNT"))
 
-                            Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
-                            'Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
-                            'Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
-                            'Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
-                            'Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
-                            drawAnimation(Me.chtSessionStatus.Series("Active"), idx, lngActiveSessions)
-                            drawAnimation(Me.chtSessionStatus.Series("Total"), idx, lngTotalSessions)
-                            Dim HARole As String = Me.chtSessionStatus.Series("Active").Points(idx).Tag.HARoleStatus
-                            If HARole = "P" Then
-                                Me.chtSessionStatus.Series("Total").Points(idx).Label = "P"
+                                Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
+                                'Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
+                                'Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
+                                'Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
+                                'Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
+                                drawAnimation(Me.chtSessionStatus.Series("Active"), idx, lngActiveSessions)
+                                drawAnimation(Me.chtSessionStatus.Series("Total"), idx, lngTotalSessions)
+                                Dim HARole As String = Me.chtSessionStatus.Series("Active").Points(idx).Tag.HARoleStatus
+                                If HARole = "P" Then
+                                    Me.chtSessionStatus.Series("Total").Points(idx).Label = "P"
+                                End If
+                                MaxPri = Math.Max(lngTotalSessions, MaxPri)
                             End If
-                            MaxPri = Math.Max(lngTotalSessions, MaxPri)
                         End If
                     Next
                 Next
@@ -5112,13 +5119,13 @@
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         If sender.Name = "mnuBackendCPU" Then
             dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible = Not dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible
-            clsIni.WriteValue("FORM", "MENUCOLUMNADDR", dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible)
+            clsIni.WriteValue("FORM", "MAINMENUCOLUMNADDR", dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible)
         ElseIf sender.Name = "mnuBackendStartTime" Then
             dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible = Not dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible
-            clsIni.WriteValue("FORM", "MENUCOLUMNAPP", dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible)
+            clsIni.WriteValue("FORM", "MAINMENUCOLUMNAPP", dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible)
         ElseIf sender.Name = "mnuBackendElapsedTime" Then
             dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible = Not dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible
-            clsIni.WriteValue("FORM", "MENUCOLUMNWAITEVENT", dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible)
+            clsIni.WriteValue("FORM", "MAINMENUCOLUMNWAITEVENT", dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible)
         End If
     End Sub
 #Region "menu"
@@ -5242,7 +5249,7 @@
     Private Sub ReinitCharts()
         _tmSeriesList.Clear()
         ' Cluster list backcolor
-        ResetInstanceStatus()
+        setInstanceColors()
         ' CPU 관련 목록을 변경한다. 
         ResetCPUStatusChart()
         '' 메모리 관련 목록을 변경한다. 
@@ -5253,14 +5260,14 @@
         ResetSessionStatusCharts()
     End Sub
 
-    Private Sub ResetInstanceStatus()
+    Private Sub setInstanceColors()
         For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
             If tmpRow.Tag.Reserved = True Then
-                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(36, Byte), Integer), CType(CType(44, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(36, Byte), Integer), CType(CType(44, Byte), Integer))
             Else
-                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(16, Byte), Integer), CType(CType(16, Byte), Integer), CType(CType(20, Byte), Integer))
-                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(16, Byte), Integer), CType(CType(16, Byte), Integer), CType(CType(20, Byte), Integer))
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(32, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(28, Byte), Integer), CType(CType(28, Byte), Integer), CType(CType(32, Byte), Integer))
             End If
         Next
 
@@ -5481,7 +5488,4 @@
     End Sub
 #End Region
 
-    Private Sub chtSessionStatus_Click(sender As Object, e As EventArgs) Handles chtSessionStatus.Click, chtMEMStatus.Click, chtCPUStatus.Click, chrReqInfo.Click
-
-    End Sub
 End Class
