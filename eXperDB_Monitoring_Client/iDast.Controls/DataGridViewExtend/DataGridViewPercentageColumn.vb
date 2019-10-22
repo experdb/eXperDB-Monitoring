@@ -88,7 +88,7 @@ Public Class DataGridViewPercentageCell
                 End If
 
                 Dim tmCallBack As New Threading.TimerCallback(AddressOf ThTmAnimationMethod)
-                ThTmAnimation = New Threading.Timer(tmCallBack, Nothing, 0, CInt(2000 / intInterval))
+                ThTmAnimation = New Threading.Timer(tmCallBack, Nothing, 0, CInt(3000 / intInterval))
 
             End If
 

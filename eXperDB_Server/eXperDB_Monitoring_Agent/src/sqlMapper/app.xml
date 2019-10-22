@@ -1195,7 +1195,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
 				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
-				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL
+				    --AND (application_name <> 'postgres_fdw' and datname not in ('pgmon','psgmondb'))
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
 			</when>
@@ -1864,7 +1865,23 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	AND IST.COLLECT_YN = 'Y'             
    AND IST.DELETE_YN='N';
 	</select>
+	
 <select id="EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001" parameterType="hashmap" resultType="hashmap">
+   	SELECT /* EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001 */
+             B.REPL_INSTANCE_ID INSTANCE_ID,
+             (B.REPLAY_LAG_SIZE / 1024 / 1024) AS REPLICATION_DELAY,
+             '4' AS COLLECT_GROUP,
+             B.REG_DATE AS COLLECT_REG_DATE,
+			 B.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+             CURRENT_TIME AS REG_TIME
+          FROM TB_INSTANCE_INFO A, TB_REPLICATION_LAG_INFO B
+          WHERE B.REG_DATE = TO_char(now(), 'YYYYMMDD')
+            AND B.REPL_REG_SEQ = (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ FROM TB_REPLICATION_LAG_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.REPL_INSTANCE_ID=A.INSTANCE_ID )
+            AND A.INSTANCE_ID = B.REPL_INSTANCE_ID
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+</select>
+<select id="EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001_20191021" parameterType="hashmap" resultType="hashmap">
    	SELECT /* EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001 */
              B.INSTANCE_ID,
              (B.REPLAY_LAG_SIZE / 1024 / 1024) AS REPLICATION_DELAY,
@@ -1957,7 +1974,29 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>  
 	</select>
 	
-	
+	<select id="EXPERDBMA_BT_HCHK_WALCNT_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		WITH MAXSEQ AS (
+			SELECT INSTANCE_ID, MAX(REPL_REG_SEQ) REPL_REG_SEQ FROM TB_WAL_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID
+		)
+		 SELECT /* EXPERDBMA_BT_HCHK_WALCNT_001 */
+		         W.INSTANCE_ID,
+		         MAX(WAL_COUNT) AS WALCNT,
+		         '2' AS COLLECT_GROUP,
+		         W.REG_DATE AS COLLECT_REG_DATE,
+		         W.REPL_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+		         CURRENT_TIME AS REG_TIME
+		  FROM TB_WAL_INFO AS W,
+		       TB_INSTANCE_INFO AS I       
+		WHERE W.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+		   AND W.REPL_REG_SEQ = (SELECT REPL_REG_SEQ FROM MAXSEQ WHERE INSTANCE_ID=I.INSTANCE_ID)
+		   AND I.INSTANCE_ID = W.INSTANCE_ID   
+		   AND I.COLLECT_YN = 'Y'             
+		   AND I.DELETE_YN='N'
+		   AND W.COLLECT_DT > now() - ((SELECT HCHK_PERIOD_SEC FROM TB_CONFIG)::varchar || ' sec')::interval
+		GROUP BY W.REG_DATE,W.REPL_REG_SEQ,W.INSTANCE_ID
+		]]>  
+	</select>
 <!-- ********************************************************** -->
 <!-- HchkCollect END -->
 <!-- ********************************************************** -->
@@ -2543,6 +2582,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<update id="VACUUM_ANALYZE_U033" parameterType="hashmap" >		
 		vacuum analyze TB_REPLICATION_LAG_INFO ;
 	</update>
+	<update id="VACUUM_ANALYZE_U034" parameterType="hashmap" >		
+		vacuum analyze TB_WAL_INFO ;
+	</update>
 	<update id="VACUUM_ANALYZE_REPL_SLOTS_U001" parameterType="hashmap" >
 		vacuum analyze TB_REPLICATION_SLOTS   ;
 	</update>
@@ -2844,7 +2886,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="TB_REPL_LAG_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		SELECT INSTANCE_ID 
 		  FROM TB_INSTANCE_INFO 
-		 WHERE HOST_NAME = #{host_name} OR SERVER_IP = #{host_name} 
+		 WHERE HOST_NAME = #{host_name} OR SERVER_IP = #{host_name} limit 1; 
 	</select>
 		 
 	<insert id="TB_REPL_LAG_INFO_I001" parameterType="hashmap" >
@@ -2853,6 +2895,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			REG_DATE,
 			REPL_REG_SEQ,
 			INSTANCE_ID,
+			REPL_INSTANCE_ID,
 			REPLAY_LAG,
 			REPLAY_LAG_SIZE,
 			COLLECT_DT
@@ -2861,9 +2904,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
 			CURRVAL('REPL_REG_SEQ'),
-  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name}) IS NOT NULL 
-				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name}) 
-	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name}) END),
+			#{instance_id},
+  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y') IS NOT NULL 
+				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y') 
+	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name} AND COLLECT_YN = 'Y') END),
   			#{replay_lag},
   			#{replay_lag_size},
 			NOW()
@@ -3118,6 +3162,21 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
             </otherwise>
 		</choose>		  
 	</select>
+	
+	<select id="EXPERDBMA_BT_WALS_001" parameterType="hashmap" resultType="hashmap">
+		<choose>
+			<when test="instance_db_version > 9.6">
+				<![CDATA[
+					SELECT /* EXPERDBMA_BT_WALS_001 24e9ab7301ff1966da4fb30dc1538882 */
+						   COUNT(*) AS WAL_COUNT FROM pg_ls_dir('pg_wal') WHERE pg_ls_dir ~ '^[0-9A-F]{24}';
+				  ]]>
+			</when>
+            <otherwise>
+					SELECT /* EXPERDBMA_BT_WALS_001 24e9ab7301ff1966da4fb30dc1538882 */
+						   COUNT(*) AS WAL_COUNT FROM pg_ls_dir('pg_xlog') WHERE pg_ls_dir ~ '^[0-9A-F]{24}';
+            </otherwise>
+		</choose>		  
+	</select>
 	<insert id="TB_CHECKPOINT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_CHECKPOINT_INFO
 		VALUES 
@@ -3135,7 +3194,17 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			NOW()
 		)
 	</insert>	
-	
+	<insert id="TB_WAL_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_WAL_INFO
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('REPL_REG_SEQ'),
+			#{instance_id},
+			#{wal_count},
+			NOW()
+		)
+	</insert>	
 	<select id="TB_QUERY_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT /* EXPERDBMA_TB_QUERY_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
@@ -3331,6 +3400,50 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
 		        END IF;
 			 END $$
+		]]>	
+	</update>
+	
+	<update id="PG_ATTACH_PARTITIONS_002" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_partition BOOL;
+			    var_tablename varchar;
+			    cdate varchar;
+			    ndate varchar;   
+			BEGIN    
+				var_tablename = '${tablename}';
+			    cdate = '${new_date}';
+			    ndate = '${now_date}';
+			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || ndate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || ndate || ')');     
+			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
+			END $$
+		]]>	
+	</update>
+	
+	<update id="PG_DETACH_PARTITIONS_002" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_partition BOOL;
+			    var_tablename varchar;
+				var_partition_tablename varchar;
+			    ddate varchar;
+			BEGIN    
+				var_tablename = '${tablename}';
+				var_partition_tablename = NULL;
+				ddate = '${old_date}';
+			    FOR i IN 1..3 LOOP
+			        var_partition_tablename = (SELECT table_name FROM information_schema.tables WHERE table_schema = current_schema()
+										   AND table_name LIKE var_tablename || '_' || '%'
+										   AND table_name < var_tablename || '_' || ddate LIMIT 1);
+					RAISE NOTICE 'tablename: %', var_tablename;
+					IF var_partition_tablename IS NOT NULL THEN  
+			        	EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_partition_tablename) ;     
+				    	EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_partition_tablename || ' CASCADE');     
+					END IF;
+			    END LOOP;
+ 			END $$
 		]]>	
 	</update>
 	
@@ -3777,6 +3890,33 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>			
 </update>
 
+<update id="PG_CONSTRAINT_TB_WAL_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_wal_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_wal_info${regdate} ADD CONSTRAINT pk_tb_wal_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_wal_info${regdate};       
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_wal_info${regdate} ADD CONSTRAINT pk_tb_wal_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+
 <update id="PG_CREATE_FUNCTION_FOR_INDEX_001" parameterType="hashmap">
 		<![CDATA[
 		CREATE OR REPLACE FUNCTION to_date_imm(text, text) 
@@ -3851,6 +3991,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_${now_date} ON tb_realtime_statements_${now_date} USING btree (collect_dt DESC)');   
 			EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_${new_date} ON tb_realtime_statements_${new_date} USING btree (collect_dt DESC)');   
 		END $$
+		]]>			
+</update>
+
+<update id="PG_INDEX_TB_REPLICATION_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_replication_info${regdate} ON tb_replication_info${regdate} USING btree (collect_dt DESC);
 		]]>			
 </update>
 		
@@ -3973,11 +4119,17 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    || ', Alert : ' 
 			    || ALERT.hchk_name
 			    || ':'
-			    || CASE WHEN COL.VALUE = 99999.00 THEN '-' 
+			    || CASE WHEN COL.VALUE = 99999.00 THEN '-'
+			    		WHEN COL.VALUE IS NULL THEN 0::varchar
 			    	    ELSE CASE WHEN COL.HCHK_NAME = 'HASTATUS' THEN CASE WHEN COL.VALUE = 2 THEN 'Multi Primary' WHEN COL.VALUE = 3 THEN 'No Primary' ELSE '-' END
 			    	    		  WHEN COL.HCHK_NAME = 'REPLICATION_SLOT' THEN CASE WHEN COL.VALUE = 1 THEN 'Inactive slot' WHEN COL.VALUE = 2 THEN 'No slot' ELSE '-' END
 			    	    		  WHEN COL.HCHK_NAME = 'VIRTUAL_IP' THEN CASE WHEN COL.VALUE = 1 THEN 'Not Primary' ELSE '-' END
-			    	              ELSE COL.VALUE::varchar END 
+			    	              ELSE 
+			    	              	CASE WHEN TH.UNIT <> '%'
+			    	              		 THEN (COL.VALUE::integer)::varchar
+			    	              	 ELSE COL.VALUE::varchar
+			    	                 END
+			    	              END 
 			    	    END
 			    || ' '
 			    || TH.UNIT AS messages,

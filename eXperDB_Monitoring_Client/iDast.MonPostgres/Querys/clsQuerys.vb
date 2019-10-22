@@ -341,11 +341,11 @@
         End Try
 
     End Function
-    Public Function InsertMonGroup(ByVal InstanceID As Integer, ByVal groupId As Integer, ByVal LstIp As String) As Boolean
+    Public Function InsertMonGroup(ByVal InstanceSEQ As Integer, ByVal InstanceID As Integer, ByVal groupId As Integer, ByVal LstIp As String) As Boolean
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTMONLIST")
-            strQuery = String.Format(strQuery, groupId, InstanceID, LstIp)
+            strQuery = String.Format(strQuery, groupId, InstanceSEQ, InstanceID, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
 
@@ -2307,6 +2307,30 @@
                 End If
 
                 strQuery = String.Format(strQuery, InstanceID, subQuery)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectSessionTopInfo(ByVal InstanceID As String) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = ""
+
+                strQuery = p_clsQueryData.fn_GetData("SELECTSESSIONTOPINFO")
+                strQuery = String.Format(strQuery, InstanceID)
 
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

@@ -58,7 +58,7 @@
 
 
 
-        Timer1.Interval = 100
+        Timer1.Interval = 200
         Timer1.Enabled = True
 
         Dim Snd As String = ""
@@ -76,7 +76,7 @@
 
 
 
-    Private _FontSize As Single = 72
+    Private _FontSize As Single = 50
 
     'Protected Overrides Sub OnPaint(e As PaintEventArgs)
     '    MyBase.OnPaint(e)
@@ -86,10 +86,10 @@
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
-        If _FontSize >= 120 Then
-            _FontSize = 72
+        If _FontSize >= 90 Then
+            _FontSize = 50
         Else
-            _FontSize += 5
+            _FontSize += 2
         End If
 
 

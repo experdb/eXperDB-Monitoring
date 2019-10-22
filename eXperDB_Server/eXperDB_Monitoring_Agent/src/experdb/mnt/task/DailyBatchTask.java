@@ -200,6 +200,8 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);				
 				partitionTableMap.put("tablename", "tb_table_ext_info");
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);	
+				partitionTableMap.put("tablename", "tb_wal_info");
+				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
 				
 				sessionAgent.commit();
 				log.info("End to Create partitions");
@@ -239,6 +241,8 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_CONSTRAINT_TB_TABLE_EXT_INFO_001"    , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_HCHK_ALERT_INFO_001"   , partitionTableMap);
 				sessionAgent.update("app.PG_CONSTRAINT_TB_PG_STAT_STATEMENTS_001", partitionTableMap);
+				sessionAgent.update("app.PG_CONSTRAINT_TB_WAL_INFO_001"			 , partitionTableMap);
+
 				// Create index of partition tables
 				
 				sessionAgent.update("app.PG_CREATE_FUNCTION_FOR_INDEX_001"  , partitionTableMap);
@@ -253,6 +257,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_INDEX_TB_TABLE_EXT_INFO_001"    , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_ACTV_COLLECT_INFO_001"    , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"    , partitionTableMap);
+				sessionAgent.update("app.PG_INDEX_TB_REPLICATION_INFO_001"       , partitionTableMap);
 				//Commit
 				sessionAgent.commit();
 				log.info("End to make constraints and indexes");
@@ -299,6 +304,8 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U030");
 				sessionAgent.update("app.VACUUM_ANALYZE_U031");
 				sessionAgent.update("app.VACUUM_ANALYZE_U032");
+				sessionAgent.update("app.VACUUM_ANALYZE_U033");
+				sessionAgent.update("app.VACUUM_ANALYZE_U034");
 			} catch (Exception e) {
 				log.error("", e);
 				

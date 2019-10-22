@@ -29,6 +29,10 @@
         _dtUG = dtUserGroup
         _hchkPeriod = CInt(_dtFT.Rows(0)("HCHK_PERIOD_SEC"))
         btnUserGroup.Text = p_clsMsgData.fn_GetData("F352")
+
+        lblDelayAlert1.Text = p_clsMsgData.fn_GetData("F954")
+        lblDelayAlert2.Text = p_clsMsgData.fn_GetData("F954")
+        lblDelayAlert3.Text = p_clsMsgData.fn_GetData("F954")
     End Sub
 
     Public Sub Setvalue(ByVal DT As DataTable, ByVal intInstanceID As Integer)
@@ -258,6 +262,9 @@
                     Else
                         cmbVIP.SelectedIndex = 0
                     End If
+                Case "WALCNT"
+                    cbxWALcnt.Checked = Check
+                    nudWALcnt.Value = nudValue_
             End Select
         Next
     End Sub
@@ -320,6 +327,7 @@
         tmpClass.LastVacuumDay = nudLastvacuumDay.Value
         tmpClass.LastAnalyzeDay = nudLastAnalyzeday.Value
         tmpClass.ConFailedCnt = nudConfailedcnt.Value
+        tmpClass.WALCnt = nudWALcnt.Value
 
         For index = 0 To _dtFT.Rows.Count - 1
 
@@ -348,6 +356,9 @@
                 Case "HASTATUS"
                     tmpClass.HAStatusBool = IIf(cbxHAStatus.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
                     tmpClass.HAStatusRTime = cmbHAStatus.SelectedIndex * _hchkPeriod + 1
+                Case "WALCNT"
+                    tmpClass.WALcntBool = IIf(cbxWALcnt.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
+                    'tmpClass.WALCountRTime = cmbVIP.SelectedIndex * _hchkPeriod + 1
             End Select
         Next
 
@@ -417,6 +428,7 @@
         Public ConFailedCnt As Integer
         Public ReplSlotLevel As Integer
         Public VirtualIPLevel As Integer
+        Public WALCnt As Integer
 
         Public LockedtranccntBool As String
         Public IdletranscntBool As String
@@ -425,6 +437,7 @@
         Public LastvacuumDayBool As String
         Public LastAnalyzedayBool As String
         Public ConfailedcntBool As String
+        Public WALcntBool As String
 
         Public ReplSlotBool As String
         Public ReplSlotRTime As Integer
@@ -468,6 +481,9 @@
         nudLastAnalyzeday.Enabled = cbxLastAnalyzeday.Checked
     End Sub
 
+    Private Sub cbxWALcnt_CheckedChanged(sender As Object, e As EventArgs) Handles cbxWALcnt.CheckedChanged
+        nudWALcnt.Enabled = cbxWALcnt.Checked
+    End Sub
 
 
     Private Sub cbxBufferHitRatio_CheckedChanged(sender As Object, e As EventArgs) Handles cbxBufferHitRatio.CheckedChanged, _

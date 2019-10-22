@@ -201,6 +201,7 @@
       <![CDATA[ 
       SELECT
          A.INSTANCE_ID
+        ,B.INSTANCE_SEQ
         ,SERVER_IP
         ,SERVICE_PORT
         ,DBMS_TYPE
@@ -219,11 +220,12 @@
         ,HA_ROLE
         ,HA_HOST
         ,HA_PORT
+        ,HA_GROUP
         ,SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(PG_VERSION, ' ', 2), '.', 2) AS PG_VERSION
       FROM TB_INSTANCE_INFO A JOIN TB_GROUP_INSTANCE_INFO B ON A.INSTANCE_ID = B.INSTANCE_ID
       WHERE DELETE_YN = 'N' AND COLLECT_YN = 'Y' 
       AND B.GROUP_ID = {0}
-      ORDER BY A.INSTANCE_ID
+      ORDER BY B.INSTANCE_SEQ, A.INSTANCE_ID
     ]]>
     </DATA>
     <COMMENTS />
@@ -376,7 +378,7 @@
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
-      INSERT INTO TB_GROUP_INSTANCE_INFO VALUES ({0}, {1}, '{2}')
+      INSERT INTO TB_GROUP_INSTANCE_INFO (GROUP_ID, INSTANCE_SEQ, INSTANCE_ID, LAST_MOD_IP) VALUES ({0}, {1}, {2},'{3}')
     ]]>
     </DATA>
     <COMMENTS />
@@ -650,7 +652,7 @@ WITH COL AS (
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="SELECTREPLICATION" PARAMS="1">
+  <ROW ID="SELECTREPLICATION" PARAMS="2">
     <DESC>PT_05_02_004 (Replication)</DESC>
     <DATA>
       <![CDATA[       
@@ -672,6 +674,49 @@ WITH COL AS (
     </DATA>
     <COMMENTS />
   </ROW>
+
+  
+  <ROW ID="SELECTREPLICATIONCURR" PARAMS="3">
+    <DESC>PT_05_02_004 (Replication)</DESC>
+    <DATA>
+      <![CDATA[       
+    		WITH MAXS AS (
+		      SELECT INSTANCE_ID, MAX(REPL_REG_SEQ) REPL_REG_SEQ, MAX(COLLECT_DT) COLLECT_DT  FROM TB_REPLICATION_INFO 
+		       WHERE REG_DATE = TO_CHAR(NOW(),'YYYYMMDD')
+		         AND INSTANCE_ID IN ({0})
+		         AND COLLECT_DT >= (now() - (({2}/500)::varchar)::INTERVAL) 
+		       GROUP BY INSTANCE_ID
+		    ),
+		    MAXR AS
+		    (
+		      SELECT /* SELECTREPLICATIONCURR */ 
+                   B.INSTANCE_ID,
+                   C.REPL_INSTANCE_ID,
+                   B.COLLECT_DT COLLECT_DT,
+                   C.REPLAY_LAG REPLAY_LAG,
+                   B.REPL_REG_SEQ REPL_REG_SEQ,
+                   --C.REPL_REG_SEQ,
+                   (C.REPLAY_LAG_SIZE / 1024 / 1024) AS REPLAY_LAG_SIZE
+            FROM TB_INSTANCE_INFO A, MAXS B JOIN TB_REPLICATION_LAG_INFO C 
+          								          ON B.INSTANCE_ID = C.INSTANCE_ID  
+          								         AND B.REPL_REG_SEQ = C.REPL_REG_SEQ
+           WHERE A.INSTANCE_ID = B.INSTANCE_ID
+             AND A.COLLECT_YN = 'Y'
+             AND A.DELETE_YN = 'N'
+           ORDER BY B.INSTANCE_ID, REPL_REG_SEQ
+        )
+        SELECT A.INSTANCE_ID INSTANCE_ID,
+             A.COLLECT_DT COLLECT_DT,
+             B.REPLAY_LAG REPLAY_LAG,
+             A.REPL_REG_SEQ REPL_REG_SEQ,
+             B.REPLAY_LAG_SIZE
+         FROM MAXS A LEFT OUTER JOIN MAXR B
+           ON A.INSTANCE_ID = B.REPL_INSTANCE_ID
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  
   <ROW ID="SELECTREPLICATIONMASTER_OLD" PARAMS="2">
     <DESC>PT_05_02_004 (SELECTREPLICATIONMASTER)</DESC>
     <DATA>
@@ -1104,7 +1149,7 @@ WITH COL AS (
           AND E.SQL IS NOT NULL
           AND E.WAIT_EVENT = CD.CODE
           ORDER BY E.ELAPSED_TIME DESC, E.PROC_CPU_UTIL DESC)  BACKEND
-        WHERE BACKEND.RNUM <= 30   
+        WHERE BACKEND.RNUM <= 100   
 		  AND ELAPSED_TIME >= 0;     
       ]]>
     </DATA>
@@ -1159,7 +1204,7 @@ WITH COL AS (
           AND Q.QUERYID = E.QUERYID 
           AND COALESCE(E.WAIT_EVENT, 200) = CD.CODE
           ORDER BY E.ELAPSED_TIME DESC, E.PROC_CPU_UTIL DESC)  BACKEND
-        WHERE BACKEND.RNUM <= 30   
+        WHERE BACKEND.RNUM <= 100   
 		  AND ELAPSED_TIME >= 0;     
       ]]>
     </DATA>
@@ -1437,6 +1482,10 @@ WITH COL AS (
        		   		  	   WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') 
        		   		    	 AND REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_REPLICATION_INFO WHERE INSTANCE_ID = C.INSTANCE_ID AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')))
        		   		      END) 
+       		    WHEN C.hchk_name = 'WALCNT' 
+       		    THEN (SELECT wal_count FROM TB_WAL_INFO
+       		   		     WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') 
+       		   		       AND REPL_REG_SEQ = (SELECT MAX(REPL_REG_SEQ) FROM TB_WAL_INFO WHERE INSTANCE_ID = C.INSTANCE_ID AND REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))) 
        		   ELSE 0 END SUB_VALUE 
                , '' AS COMMENTS
                , NOW() AS COLLECT_TIME
@@ -1462,8 +1511,12 @@ WITH COL AS (
     <DATA>
       <![CDATA[
         WITH TAC AS (         
-            SELECT max(ACTV_REG_SEQ) ACTV_REG_SEQ, INSTANCE_ID, REG_DATE FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(),'YYYYMMDD') GROUP BY REG_DATE, INSTANCE_ID 
-		    ),
+            SELECT max(ACTV_REG_SEQ) ACTV_REG_SEQ, INSTANCE_ID, REG_DATE 
+              FROM TB_ACTV_COLLECT_INFO 
+             WHERE REG_DATE = TO_CHAR(NOW(),'YYYYMMDD') 
+			   AND TO_DATE_IMM(REG_DATE, 'yyyymmdd') + REG_TIME > now() - interval '10 minute' 
+             GROUP BY REG_DATE, INSTANCE_ID 
+        ),
 		    TAI AS (
 			    SELECT TAII.*, TAC.INSTANCE_ID FROM TB_ACCESS_INFO TAII JOIN TAC ON TAII.REG_DATE = TAC.REG_DATE AND  TAII.ACTV_REG_SEQ = TAC.ACTV_REG_SEQ
 			           WHERE TAII.REG_DATE = TO_CHAR(NOW(),'YYYYMMDD')
@@ -1881,6 +1934,43 @@ WITH COL AS (
 	      AND IST.INSTANCE_ID IN ({0})
 	      AND IST.COLLECT_YN = 'Y'
 	      AND IST.DELETE_YN = 'N'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTSESSIONTOPINFO" PARAMS="0">
+    <DESC>SELECTSESSIONTOPINFO</DESC>
+    <DATA>
+      <![CDATA[
+      SELECT /* SELECTSESSIONTOPINFO */
+		      INSTANCE_ID, COLLECT_DT, TOT_BACKEND_CNT, CLIENT_ADDR
+        FROM (
+	           SELECT /* SELECTSESSIONTOPINFO */ 
+                   INSTANCE_ID
+                   , MAX(BAK.COLLECT_DT) AS COLLECT_DT
+	               , ROUND(SUM(CASE WHEN (BAK.STATE = 'active') THEN 1 ELSE 0 END)::numeric) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
+	               , ROUND(COUNT(BAK.STATE)::numeric) AS TOT_BACKEND_CNT
+	               , BAK.CLIENT_ADDR
+               FROM TB_INSTANCE_INFO IST
+                   , TB_BACKEND_RSC BAK
+               WHERE BAK.REG_DATE=TO_CHAR(NOW(),'YYYYMMDD')
+               AND IST.INSTANCE_ID = {0}
+	             AND BAK.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') AND INSTANCE_ID=IST.INSTANCE_ID)
+	             GROUP BY INSTANCE_ID, BAK.CLIENT_ADDR
+		      UNION
+               SELECT  
+                   INSTANCE_ID
+                   , MAX(BAK.COLLECT_DT) AS COLLECT_DT
+	               , ROUND(SUM(CASE WHEN (BAK.STATE = 'active') THEN 1 ELSE 0 END)::numeric) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
+	               , ROUND(COUNT(BAK.STATE)::numeric) AS TOT_BACKEND_CNT
+	               , 'Total' AS CLIENT_ADDR
+               FROM TB_INSTANCE_INFO IST
+                   , TB_BACKEND_RSC BAK
+               WHERE BAK.REG_DATE=TO_CHAR(NOW(),'YYYYMMDD')
+               AND IST.INSTANCE_ID = {0}
+	             AND BAK.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) AS ACTV_REG_SEQ FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') AND INSTANCE_ID=IST.INSTANCE_ID)
+	             GROUP BY INSTANCE_ID
+	             ORDER BY TOT_BACKEND_CNT DESC, CLIENT_ADDR
+	          ) AS STAT
       ]]>
     </DATA>
   </ROW>
@@ -3024,7 +3114,8 @@ WITH COL AS (
 		        ALERT.hchk_reg_seq HCHK_REG_SEQ,
 		        ALERT.hchk_name HCHK_NAME,
             ALERT.state STATE,		
-		        COL.VALUE ,
+		        --COL.VALUE ,
+            CASE WHEN TH.UNIT <> '%' THEN COL.VALUE::integer ELSE COL.VALUE END AS VALUE,
             TH.unit UNIT,
 		        DATE(ALERT.reg_date) + COL.reg_time COLLECT_TIME
         FROM TB_HCHK_ALERT_INFO ALERT, 
