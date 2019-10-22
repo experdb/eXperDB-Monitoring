@@ -26,6 +26,14 @@ Partial Class frmSvrList
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -42,15 +50,24 @@ Partial Class frmSvrList
         Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSvrList))
         Me.dgvMonLst = New AdvancedDataGridView.TreeGridView()
+        Me.colMonHostNm = New AdvancedDataGridView.TreeGridColumn()
+        Me.colMonAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
+        Me.colMonLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonGrp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonHAGroup = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonPGV = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colMonCollectPeriod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -110,23 +127,6 @@ Partial Class frmSvrList
         Me.lblGroupName = New eXperDB.BaseControls.Label()
         Me.txtGrp1 = New eXperDB.BaseControls.TextBox()
         Me.tbServer = New FlatTabControl.FlatTabControl()
-        Me.colMonHostNm = New AdvancedDataGridView.TreeGridColumn()
-        Me.colMonAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonUser = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonPW = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
-        Me.colMonLstIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonGrp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonStartTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonHAGroup = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonPGV = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMonCollectPeriod = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDelete = New System.Windows.Forms.DataGridViewImageColumn()
         CType(Me.dgvMonLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuMenu.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -192,6 +192,184 @@ Partial Class frmSvrList
         Me.dgvMonLst.ShowLines = False
         Me.dgvMonLst.Size = New System.Drawing.Size(846, 138)
         Me.dgvMonLst.TabIndex = 15
+        '
+        'colMonHostNm
+        '
+        Me.colMonHostNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMonHostNm.DataPropertyName = "HOST_NAME"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.colMonHostNm.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colMonHostNm.DefaultNodeImage = Nothing
+        Me.colMonHostNm.FillWeight = 250.0!
+        Me.colMonHostNm.HeaderText = "HOST_NAME"
+        Me.colMonHostNm.MinimumWidth = 100
+        Me.colMonHostNm.Name = "colMonHostNm"
+        Me.colMonHostNm.ReadOnly = True
+        Me.colMonHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colMonAliasNm
+        '
+        Me.colMonAliasNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMonAliasNm.DataPropertyName = "CONN_NAME"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.colMonAliasNm.DefaultCellStyle = DataGridViewCellStyle3
+        Me.colMonAliasNm.FillWeight = 22.32855!
+        Me.colMonAliasNm.HeaderText = "F019"
+        Me.colMonAliasNm.MinimumWidth = 150
+        Me.colMonAliasNm.Name = "colMonAliasNm"
+        Me.colMonAliasNm.ReadOnly = True
+        Me.colMonAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colMonDBNm
+        '
+        Me.colMonDBNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMonDBNm.DataPropertyName = "CONN_DB_NAME"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.colMonDBNm.DefaultCellStyle = DataGridViewCellStyle4
+        Me.colMonDBNm.FillWeight = 36.36364!
+        Me.colMonDBNm.HeaderText = "F010"
+        Me.colMonDBNm.MinimumWidth = 100
+        Me.colMonDBNm.Name = "colMonDBNm"
+        Me.colMonDBNm.ReadOnly = True
+        Me.colMonDBNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colMonUser
+        '
+        Me.colMonUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMonUser.DataPropertyName = "CONN_USER_ID"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.colMonUser.DefaultCellStyle = DataGridViewCellStyle5
+        Me.colMonUser.HeaderText = "F008"
+        Me.colMonUser.MinimumWidth = 100
+        Me.colMonUser.Name = "colMonUser"
+        Me.colMonUser.ReadOnly = True
+        Me.colMonUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colMonIP
+        '
+        Me.colMonIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMonIP.DataPropertyName = "SERVER_IP"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.colMonIP.DefaultCellStyle = DataGridViewCellStyle6
+        Me.colMonIP.HeaderText = "F006"
+        Me.colMonIP.MinimumWidth = 100
+        Me.colMonIP.Name = "colMonIP"
+        Me.colMonIP.ReadOnly = True
+        Me.colMonIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colMonPort
+        '
+        Me.colMonPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colMonPort.DataPropertyName = "SERVICE_PORT"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colMonPort.DefaultCellStyle = DataGridViewCellStyle7
+        Me.colMonPort.FillWeight = 80.0!
+        Me.colMonPort.HeaderText = "F007"
+        Me.colMonPort.MinimumWidth = 80
+        Me.colMonPort.Name = "colMonPort"
+        Me.colMonPort.ReadOnly = True
+        Me.colMonPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colMonPW
+        '
+        Me.colMonPW.DataPropertyName = "CONN_USER_PWD"
+        Me.colMonPW.HeaderText = "F009"
+        Me.colMonPW.Name = "colMonPW"
+        Me.colMonPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.colMonPW.ReadOnly = True
+        Me.colMonPW.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.colMonPW.UseSystemPasswordChar = True
+        Me.colMonPW.Visible = False
+        Me.colMonPW.Width = 5
+        '
+        'colMonLstIP
+        '
+        Me.colMonLstIP.DataPropertyName = "LAST_MOD_IP"
+        Me.colMonLstIP.HeaderText = "F020"
+        Me.colMonLstIP.Name = "colMonLstIP"
+        Me.colMonLstIP.ReadOnly = True
+        Me.colMonLstIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonLstIP.Visible = False
+        '
+        'colMonGrp
+        '
+        Me.colMonGrp.DataPropertyName = "GROUP_ID"
+        Me.colMonGrp.HeaderText = "GROUP"
+        Me.colMonGrp.Name = "colMonGrp"
+        Me.colMonGrp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonGrp.Visible = False
+        '
+        'colMonStartTime
+        '
+        Me.colMonStartTime.DataPropertyName = "INSTANCE_UPTIME"
+        Me.colMonStartTime.HeaderText = "STARTTIME"
+        Me.colMonStartTime.Name = "colMonStartTime"
+        Me.colMonStartTime.ReadOnly = True
+        Me.colMonStartTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonStartTime.Visible = False
+        '
+        'colMonHARole
+        '
+        Me.colMonHARole.DataPropertyName = "HA_ROLE"
+        Me.colMonHARole.HeaderText = "HAROLE"
+        Me.colMonHARole.Name = "colMonHARole"
+        Me.colMonHARole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonHARole.Visible = False
+        '
+        'colMonHAHost
+        '
+        Me.colMonHAHost.DataPropertyName = "HA_HOST"
+        Me.colMonHAHost.HeaderText = "HAHOST"
+        Me.colMonHAHost.Name = "colMonHAHost"
+        Me.colMonHAHost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonHAHost.Visible = False
+        '
+        'colMonHAPort
+        '
+        Me.colMonHAPort.DataPropertyName = "HA_PORT"
+        Me.colMonHAPort.HeaderText = "HAPORT"
+        Me.colMonHAPort.Name = "colMonHAPort"
+        Me.colMonHAPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonHAPort.Visible = False
+        '
+        'colMonHAGroup
+        '
+        Me.colMonHAGroup.DataPropertyName = "HA_GROUP"
+        Me.colMonHAGroup.HeaderText = "HAGroup"
+        Me.colMonHAGroup.Name = "colMonHAGroup"
+        Me.colMonHAGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonHAGroup.Visible = False
+        '
+        'colMonPGV
+        '
+        Me.colMonPGV.DataPropertyName = "PG_VERSION"
+        Me.colMonPGV.HeaderText = "PGV"
+        Me.colMonPGV.Name = "colMonPGV"
+        Me.colMonPGV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonPGV.Visible = False
+        '
+        'colMonCollectPeriod
+        '
+        Me.colMonCollectPeriod.DataPropertyName = "COLLECT_PERIOD_SEC"
+        Me.colMonCollectPeriod.HeaderText = "PERIOD"
+        Me.colMonCollectPeriod.Name = "colMonCollectPeriod"
+        Me.colMonCollectPeriod.ReadOnly = True
+        Me.colMonCollectPeriod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colMonCollectPeriod.Visible = False
+        '
+        'colDelete
+        '
+        Me.colDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.NullValue = CType(resources.GetObject("DataGridViewCellStyle8.NullValue"), Object)
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle8
+        Me.colDelete.HeaderText = ""
+        Me.colDelete.Image = CType(resources.GetObject("colDelete.Image"), System.Drawing.Image)
+        Me.colDelete.MinimumWidth = 40
+        Me.colDelete.Name = "colDelete"
+        Me.colDelete.Width = 40
         '
         'DataGridViewTextBoxColumn1
         '
@@ -1017,184 +1195,6 @@ Partial Class frmSvrList
         Me.tbServer.SelectedIndex = 0
         Me.tbServer.Size = New System.Drawing.Size(860, 550)
         Me.tbServer.TabIndex = 23
-        '
-        'colMonHostNm
-        '
-        Me.colMonHostNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMonHostNm.DataPropertyName = "HOST_NAME"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.colMonHostNm.DefaultCellStyle = DataGridViewCellStyle2
-        Me.colMonHostNm.DefaultNodeImage = Nothing
-        Me.colMonHostNm.FillWeight = 250.0!
-        Me.colMonHostNm.HeaderText = "HOST_NAME"
-        Me.colMonHostNm.MinimumWidth = 100
-        Me.colMonHostNm.Name = "colMonHostNm"
-        Me.colMonHostNm.ReadOnly = True
-        Me.colMonHostNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colMonAliasNm
-        '
-        Me.colMonAliasNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMonAliasNm.DataPropertyName = "CONN_NAME"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        Me.colMonAliasNm.DefaultCellStyle = DataGridViewCellStyle3
-        Me.colMonAliasNm.FillWeight = 22.32855!
-        Me.colMonAliasNm.HeaderText = "F019"
-        Me.colMonAliasNm.MinimumWidth = 150
-        Me.colMonAliasNm.Name = "colMonAliasNm"
-        Me.colMonAliasNm.ReadOnly = True
-        Me.colMonAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colMonDBNm
-        '
-        Me.colMonDBNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMonDBNm.DataPropertyName = "CONN_DB_NAME"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.colMonDBNm.DefaultCellStyle = DataGridViewCellStyle4
-        Me.colMonDBNm.FillWeight = 36.36364!
-        Me.colMonDBNm.HeaderText = "F010"
-        Me.colMonDBNm.MinimumWidth = 100
-        Me.colMonDBNm.Name = "colMonDBNm"
-        Me.colMonDBNm.ReadOnly = True
-        Me.colMonDBNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colMonUser
-        '
-        Me.colMonUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMonUser.DataPropertyName = "CONN_USER_ID"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.colMonUser.DefaultCellStyle = DataGridViewCellStyle5
-        Me.colMonUser.HeaderText = "F008"
-        Me.colMonUser.MinimumWidth = 100
-        Me.colMonUser.Name = "colMonUser"
-        Me.colMonUser.ReadOnly = True
-        Me.colMonUser.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colMonIP
-        '
-        Me.colMonIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMonIP.DataPropertyName = "SERVER_IP"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.colMonIP.DefaultCellStyle = DataGridViewCellStyle6
-        Me.colMonIP.HeaderText = "F006"
-        Me.colMonIP.MinimumWidth = 100
-        Me.colMonIP.Name = "colMonIP"
-        Me.colMonIP.ReadOnly = True
-        Me.colMonIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colMonPort
-        '
-        Me.colMonPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colMonPort.DataPropertyName = "SERVICE_PORT"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colMonPort.DefaultCellStyle = DataGridViewCellStyle7
-        Me.colMonPort.FillWeight = 80.0!
-        Me.colMonPort.HeaderText = "F007"
-        Me.colMonPort.MinimumWidth = 80
-        Me.colMonPort.Name = "colMonPort"
-        Me.colMonPort.ReadOnly = True
-        Me.colMonPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colMonPW
-        '
-        Me.colMonPW.DataPropertyName = "CONN_USER_PWD"
-        Me.colMonPW.HeaderText = "F009"
-        Me.colMonPW.Name = "colMonPW"
-        Me.colMonPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.colMonPW.ReadOnly = True
-        Me.colMonPW.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.colMonPW.UseSystemPasswordChar = True
-        Me.colMonPW.Visible = False
-        Me.colMonPW.Width = 5
-        '
-        'colMonLstIP
-        '
-        Me.colMonLstIP.DataPropertyName = "LAST_MOD_IP"
-        Me.colMonLstIP.HeaderText = "F020"
-        Me.colMonLstIP.Name = "colMonLstIP"
-        Me.colMonLstIP.ReadOnly = True
-        Me.colMonLstIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonLstIP.Visible = False
-        '
-        'colMonGrp
-        '
-        Me.colMonGrp.DataPropertyName = "GROUP_ID"
-        Me.colMonGrp.HeaderText = "GROUP"
-        Me.colMonGrp.Name = "colMonGrp"
-        Me.colMonGrp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonGrp.Visible = False
-        '
-        'colMonStartTime
-        '
-        Me.colMonStartTime.DataPropertyName = "INSTANCE_UPTIME"
-        Me.colMonStartTime.HeaderText = "STARTTIME"
-        Me.colMonStartTime.Name = "colMonStartTime"
-        Me.colMonStartTime.ReadOnly = True
-        Me.colMonStartTime.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonStartTime.Visible = False
-        '
-        'colMonHARole
-        '
-        Me.colMonHARole.DataPropertyName = "HA_ROLE"
-        Me.colMonHARole.HeaderText = "HAROLE"
-        Me.colMonHARole.Name = "colMonHARole"
-        Me.colMonHARole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonHARole.Visible = False
-        '
-        'colMonHAHost
-        '
-        Me.colMonHAHost.DataPropertyName = "HA_HOST"
-        Me.colMonHAHost.HeaderText = "HAHOST"
-        Me.colMonHAHost.Name = "colMonHAHost"
-        Me.colMonHAHost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonHAHost.Visible = False
-        '
-        'colMonHAPort
-        '
-        Me.colMonHAPort.DataPropertyName = "HA_PORT"
-        Me.colMonHAPort.HeaderText = "HAPORT"
-        Me.colMonHAPort.Name = "colMonHAPort"
-        Me.colMonHAPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonHAPort.Visible = False
-        '
-        'colMonHAGroup
-        '
-        Me.colMonHAGroup.DataPropertyName = "HA_GROUP"
-        Me.colMonHAGroup.HeaderText = "HAGroup"
-        Me.colMonHAGroup.Name = "colMonHAGroup"
-        Me.colMonHAGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonHAGroup.Visible = False
-        '
-        'colMonPGV
-        '
-        Me.colMonPGV.DataPropertyName = "PG_VERSION"
-        Me.colMonPGV.HeaderText = "PGV"
-        Me.colMonPGV.Name = "colMonPGV"
-        Me.colMonPGV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonPGV.Visible = False
-        '
-        'colMonCollectPeriod
-        '
-        Me.colMonCollectPeriod.DataPropertyName = "COLLECT_PERIOD_SEC"
-        Me.colMonCollectPeriod.HeaderText = "PERIOD"
-        Me.colMonCollectPeriod.Name = "colMonCollectPeriod"
-        Me.colMonCollectPeriod.ReadOnly = True
-        Me.colMonCollectPeriod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colMonCollectPeriod.Visible = False
-        '
-        'colDelete
-        '
-        Me.colDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.NullValue = CType(resources.GetObject("DataGridViewCellStyle8.NullValue"), Object)
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle8
-        Me.colDelete.HeaderText = ""
-        Me.colDelete.Image = CType(resources.GetObject("colDelete.Image"), System.Drawing.Image)
-        Me.colDelete.MinimumWidth = 40
-        Me.colDelete.Name = "colDelete"
-        Me.colDelete.Width = 40
         '
         'frmSvrList
         '

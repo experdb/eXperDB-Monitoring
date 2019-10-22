@@ -56,6 +56,7 @@ Partial Class frmAddSvrList
         Me.btnAdd = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel7 = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgvSvrLst = New AdvancedDataGridView.TreeGridView()
+        Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.colHostNm = New AdvancedDataGridView.TreeGridColumn()
         Me.colAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -69,9 +70,9 @@ Partial Class frmAddSvrList
         Me.colHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHAPort = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colHAGroup = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colPGV = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colCollectPeriod = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.TableLayoutPanel6.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel8.SuspendLayout()
@@ -347,7 +348,7 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.dgvSvrLst.ColumnHeadersHeight = 24
         Me.dgvSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colHostNm, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colPGV, Me.colCollectPeriod})
+        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colHostNm, Me.colAliasNm, Me.colDBNm, Me.colUser, Me.colIP, Me.colPort, Me.colPW, Me.colLstIP, Me.colGrp, Me.colStartTime, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colHAGroup, Me.colPGV, Me.colCollectPeriod})
         DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle13.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -377,6 +378,13 @@ Partial Class frmAddSvrList
         Me.dgvSvrLst.ShowLines = False
         Me.dgvSvrLst.Size = New System.Drawing.Size(768, 342)
         Me.dgvSvrLst.TabIndex = 19
+        '
+        'dbmsImgLst
+        '
+        Me.dbmsImgLst.ImageStream = CType(resources.GetObject("dbmsImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.dbmsImgLst.TransparentColor = System.Drawing.Color.Transparent
+        Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
+        Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
         '
         'colHostNm
         '
@@ -511,6 +519,15 @@ Partial Class frmAddSvrList
         Me.colHAPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colHAPort.Visible = False
         '
+        'colHAGroup
+        '
+        Me.colHAGroup.DataPropertyName = "HA_GROUP"
+        Me.colHAGroup.HeaderText = "HAGroup"
+        Me.colHAGroup.Name = "colHAGroup"
+        Me.colHAGroup.ReadOnly = True
+        Me.colHAGroup.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colHAGroup.Visible = False
+        '
         'colPGV
         '
         Me.colPGV.DataPropertyName = "PG_VERSION"
@@ -527,13 +544,6 @@ Partial Class frmAddSvrList
         Me.colCollectPeriod.ReadOnly = True
         Me.colCollectPeriod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colCollectPeriod.Visible = False
-        '
-        'dbmsImgLst
-        '
-        Me.dbmsImgLst.ImageStream = CType(resources.GetObject("dbmsImgLst.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.dbmsImgLst.TransparentColor = System.Drawing.Color.Transparent
-        Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
-        Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
         '
         'frmAddSvrList
         '
@@ -593,6 +603,7 @@ Partial Class frmAddSvrList
     Friend WithEvents colHARole As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colHAPort As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colHAGroup As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPGV As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colCollectPeriod As System.Windows.Forms.DataGridViewTextBoxColumn
 
