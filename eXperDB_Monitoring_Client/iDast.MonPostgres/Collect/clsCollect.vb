@@ -908,6 +908,53 @@
     End Property
 
 
+
+    Private _infoDataRepl As DataTable
+    ''' <summary>
+    ''' BackEnd Information 수집데이터 정보 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property infoDataRepl As DataTable
+        Get
+            Dim Rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            Rw.AcquireReaderLock(-1)
+
+            Try
+                If _infoDataRepl IsNot Nothing Then
+                    Return _infoDataRepl.Copy
+                Else
+                    Return Nothing
+                End If
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Thread Replication information Read prop Exception Error" & ex.ToString)
+                GC.Collect()
+                Return Nothing
+            Finally
+                Rw.ReleaseReaderLock()
+
+            End Try
+        End Get
+        Set(value As DataTable)
+            Dim rw As Threading.ReaderWriterLock = New Threading.ReaderWriterLock
+            rw.AcquireWriterLock(-1)
+            Try
+                _infoDataRepl = value
+            Catch ex As Threading.ThreadAbortException
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Replication information Write Prop Thread Error" & ex.ToString)
+                GC.Collect()
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, "Replication information Write Prop Exception Error" & ex.ToString)
+                GC.Collect()
+            Finally
+                rw.ReleaseWriterLock()
+            End Try
+
+        End Set
+    End Property
+
+
     Private _infoDataPhysicaliO As DataTable
     ''' <summary>
     ''' BackEnd Information 수집데이터 정보 
@@ -1300,6 +1347,9 @@
                         ' Current Statements
                         infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod)
 
+                        ' Current Statements
+                        infoDataRepl = StartThread("SELECTREPLICATIONCURR", _intPeriod, _enmSvrNm)
+
                         ''DB Information
                         'startDBinfo(_intPeriod)
                         ''tablespace Information
@@ -1491,7 +1541,7 @@
         Dim tmpThread As New Threading.Thread(Sub()
 
                                                   Try
-                                                      rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs, enumSvrNm.ToString("d"), _intPeriod)
+                                                      rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs, enumSvrNm.ToString("d"), intPeriod)
                                                   Catch ex As Threading.ThreadAbortException
                                                       p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Request Thread Time Out", QueryXmlID))
                                                       AddMsgQueue(String.Format("{0} Data Request Thread Time Out", QueryXmlID))

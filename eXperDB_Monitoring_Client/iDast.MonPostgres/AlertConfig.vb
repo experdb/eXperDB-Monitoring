@@ -216,7 +216,7 @@
             Dim strHARole As String = tmpRow.Cells(coldgvHARole.Index).Value
             Dim strHAHost As String = tmpRow.Cells(coldgvHAHost.Index).Value
 
-            GrpListServerinfo.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, "", 0, "", strAliasNm, strHostNm, Nothing, strHARole, strHAHost, 0, ""))
+            GrpListServerinfo.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, "", 0, "", strAliasNm, strHostNm, Nothing, strHARole, strHAHost, 0, 0, ""))
         Next
 
         Dim frmCS As New frmClusterShow(GrpListServerinfo, Nothing, True)
@@ -277,6 +277,7 @@
             _clsQuery.UpdateHealthLimited(InstanceID, "REPLICATION_SLOT", 0, 1, HealtLimited.ReplSlotBool, LastIp, HealtLimited.ReplSlotRTime)
             _clsQuery.UpdateHealthLimited(InstanceID, "VIRTUAL_IP", 0, 1, HealtLimited.VirtualIPBool, LastIp, HealtLimited.VirtualIPRTime)
             _clsQuery.UpdateHealthLimited(InstanceID, "HASTATUS", 1, 2, HealtLimited.HAStatusBool, LastIp, HealtLimited.HAStatusRTime)
+            _clsQuery.UpdateHealthLimited(InstanceID, "WALCNT", 0, HealtLimited.WALCnt, HealtLimited.WALcntBool, LastIp)
             _clsQuery.UpdateHealthLimitedExt(InstanceID, HealtLimited.NotificationLevel, HealtLimited.NotificationGroup, HealtLimited.NotificationCycle, HealtLimited.BusinessName, LastIp)
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)

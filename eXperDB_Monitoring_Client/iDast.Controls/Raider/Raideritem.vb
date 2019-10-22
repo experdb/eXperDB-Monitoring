@@ -145,6 +145,20 @@ Public Class RaiderItem
         End Set
     End Property
 
+    Private _Seq As String = String.Empty
+    Property Seq As String
+        Get
+            Return _Seq
+        End Get
+        Set(value As String)
+            If Not _Seq.Equals(value) Then
+                _Seq = value
+                If Me._parent IsNot Nothing Then Me._parent.Invalidate()
+            End If
+
+        End Set
+    End Property
+
     Private _Name As String = Nothing
 
     Property Name As String

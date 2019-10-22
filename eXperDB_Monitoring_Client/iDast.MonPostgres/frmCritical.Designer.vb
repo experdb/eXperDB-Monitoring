@@ -54,7 +54,7 @@ Partial Class frmCritical
         'Label1
         '
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Gulim", 50.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.Color.Red
         Me.Label1.Location = New System.Drawing.Point(0, 10)
         Me.Label1.Name = "Label1"
@@ -65,7 +65,7 @@ Partial Class frmCritical
         'Label2
         '
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label2.Font = New System.Drawing.Font("Gulim", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Gulim", 30.0!, System.Drawing.FontStyle.Bold)
         Me.Label2.ForeColor = System.Drawing.Color.Red
         Me.Label2.Location = New System.Drawing.Point(0, 119)
         Me.Label2.Name = "Label2"
@@ -94,13 +94,23 @@ Partial Class frmCritical
         'FormControlBox1
         '
         Me.FormControlBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FormControlBox1.CloseBox = New System.Drawing.Rectangle(1, 1, 20, 20)
+        Me.FormControlBox1.ConfigBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox1.CriticalBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox1.DualBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.ForeColor = System.Drawing.Color.Red
         Me.FormControlBox1.isCritical = False
         Me.FormControlBox1.isLock = False
         Me.FormControlBox1.isPower = True
+        Me.FormControlBox1.isRotation = True
         Me.FormControlBox1.LEDColor = System.Drawing.Color.Lime
         Me.FormControlBox1.Location = New System.Drawing.Point(1159, 152)
+        Me.FormControlBox1.LockBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox1.MaxBox = New System.Drawing.Rectangle(0, 0, 0, 0)
+        Me.FormControlBox1.MinBox = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.FormControlBox1.Name = "FormControlBox1"
+        Me.FormControlBox1.PowerBox = New System.Drawing.Rectangle(-43, 1, 20, 20)
+        Me.FormControlBox1.RotationBox = New System.Drawing.Rectangle(-21, 1, 20, 20)
         Me.FormControlBox1.ShowRectCnt = 1
         Me.FormControlBox1.Size = New System.Drawing.Size(23, 22)
         Me.FormControlBox1.TabIndex = 1
@@ -111,6 +121,7 @@ Partial Class frmCritical
         Me.FormControlBox1.UseMaxBox = False
         Me.FormControlBox1.UseMinBox = False
         Me.FormControlBox1.UsePowerBox = True
+        Me.FormControlBox1.UseRotationBox = True
         '
         'frmCritical
         '

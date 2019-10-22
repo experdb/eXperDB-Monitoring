@@ -35,11 +35,12 @@
         Return NewRaideritem
     End Function
 
-    Public Function Add(ByVal Name As String, ByVal Text As String, ByVal Image As Image) As RaiderItem
+    Public Function Add(ByVal Name As String, ByVal Text As String, ByVal Image As Image, ByVal Seq As String) As RaiderItem
         Dim NewRaideritem As New RaiderItem
         NewRaideritem.Name = Name
         NewRaideritem.Text = Text
         NewRaideritem.Image = Image
+        NewRaideritem.Seq = Seq
         SyncLock Me.List.SyncRoot
             Me.List.Add(NewRaideritem)
         End SyncLock

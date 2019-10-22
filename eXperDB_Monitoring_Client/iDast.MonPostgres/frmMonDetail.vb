@@ -30,6 +30,7 @@ Public Class frmMonDetail
                         SetDataLockCount(p_clsAgentCollect.infoDatalockCount) 'accumulate
                         SetDataPhysicaliO(p_clsAgentCollect.infoDataPhysicaliO) 'accumulate
                         'SetDataReplication() 'accumulate
+                        SetDataReplication(p_clsAgentCollect.infoDataRepl) 'accumulate
                         'SetDataCheckpoint() 'accumulate
                         SetDataHealth(p_clsAgentCollect.infoDataHealth)
                         SetDataStmt(p_clsAgentCollect.infoDataStmt)
@@ -207,10 +208,12 @@ Public Class frmMonDetail
         tlpCheckpoint.Tag = clsIni.ReadValue("CHARTDETAIL", "CHECKPOINT", "11")
         tlpCPUCore.Tag = clsIni.ReadValue("CHARTDETAIL", "CPUCORE", "0")
         tlpDiskIO.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIO", "0")
+        tlpSessionTopinfo.Tag = clsIni.ReadValue("CHARTDETAIL", "SESSIONTOPINFO", "0")
 
         mnuLogicalIO.Tag = tlpLogicalIO
         mnuPhyRead.Tag = tlpPhyRead
         mnuSessioninfo.Tag = tlpSessioninfo
+        mnuSessionTopinfo.Tag = tlpSessionTopinfo
         mnuLock.Tag = tlpLock
         mnuSQLResposeTime.Tag = tlpSQLResp
         mnuTPS.Tag = tlpTPS
@@ -235,6 +238,7 @@ Public Class frmMonDetail
         setTLPPosition(tlpCheckpoint)
         setTLPPosition(tlpCPUCore)
         setTLPPosition(tlpDiskIO)
+        setTLPPosition(tlpSessionTopinfo)
 
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
@@ -348,6 +352,7 @@ Public Class frmMonDetail
         '20140307 다국어적용 HYY
         'Session infomation
         grpSessioninfo.Text = p_clsMsgData.fn_GetData("F047")
+        grpSessionTopinfo.Text = p_clsMsgData.fn_GetData("F955")
 
 
         'Resource Util Per Backend Process
@@ -461,6 +466,7 @@ Public Class frmMonDetail
         Me.ttChart.SetToolTip(Me.lblLogicalIO, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblPhyRead, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblSessioninfo, p_clsMsgData.fn_GetData("F321"))
+        Me.ttChart.SetToolTip(Me.lblSessionTopinfo, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblLock, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblSQLResposeTime, p_clsMsgData.fn_GetData("F321"))
         Me.ttChart.SetToolTip(Me.lblTPS, p_clsMsgData.fn_GetData("F321"))
@@ -1530,6 +1536,8 @@ Public Class frmMonDetail
             GC.Collect()
         End Try
 
+        Return
+
         Dim InstanceIDs As String = ""
         Dim arrValue As New ArrayList
         For Each instRow As DataRow In dtRows
@@ -1643,7 +1651,7 @@ Public Class frmMonDetail
     ''' Replication 등록 
     ''' </summary>
     ''' <remarks></remarks>
-    Private Sub SetDataReplication()
+    Private Sub SetDataReplication_old()
         Dim dtTable As DataTable = Nothing
         Try
             dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARoleStatus = "P")
@@ -1695,6 +1703,46 @@ Public Class frmMonDetail
                       End Try
                   End Sub)
     End Sub
+
+    Private Sub SetDataReplication(ByVal dtReplTable As DataTable)
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTable = _clsQuery.SelectReplicationSlave(InstanceID, p_ShowName.ToString("d"), _ServerInfo.HARoleStatus = "P")
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        Dim dtRows As DataRow() = dtTable.Select()
+        If dtRows.Count <= 0 Then Return
+
+        Dim InstanceIDs As String = ""
+        Dim arrValue As New ArrayList
+        For Each instRow As DataRow In dtRows
+            arrValue.Add(instRow.Item("INSTANCE_ID").ToString())
+        Next
+        InstanceIDs = String.Join(",", arrValue.ToArray)
+
+        Me.Invoke(Sub()
+                      'dtTable = Nothing
+                      Try
+                          'dtTable = _clsQuery.SelectReplication(InstanceIDs, True)
+                          For Each instRow As DataRow In dtRows
+                              For Each tmpRow As DataRow In dtReplTable.Rows
+                                  If tmpRow.Item("INSTANCE_ID").Equals(instRow.Item("INSTANCE_ID")) Then
+                                      Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+                                      sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG")))
+                                      sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG_SIZE")))
+                                  End If
+                              Next
+                          Next
+                          sb_ChartAlignYAxies(Me.chtReplication)
+                          sb_ChartAlignYAxies(Me.chtReplicationSize)
+
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
     ''' <summary>
     ''' Checkpoint 등록 
     ''' </summary>
@@ -1725,6 +1773,46 @@ Public Class frmMonDetail
                           End If
 
                           sb_ChartAlignYAxies(Me.chtCheckpoint)
+
+                      Catch ex As Exception
+                          GC.Collect()
+                      End Try
+                  End Sub)
+    End Sub
+
+    ''' <summary>
+    ''' SessionTop 등록 
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub SetSessionTopInfo()
+        Me.Invoke(Sub()
+                      Dim dtTable As DataTable = Nothing
+                      Try
+
+                          For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionTop.Series
+                              tmpSeries.Points.Clear()
+                          Next
+
+                          dtTable = _clsQuery.SelectSessionTopInfo(InstanceID)
+
+                          If dtTable.Rows.Count <= 6 Then
+                              Me.chtSessionTop.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                              Me.chtSessionTop.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                          Else
+                              Me.chtSessionTop.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                              Me.chtSessionTop.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                          End If
+
+                          If dtTable.Rows.Count > 0 Then
+                              For Each tmpRow As DataRow In dtTable.Rows
+                                  Dim tmpSeries As DataVisualization.Charting.Series = Me.chtSessionTop.Series(0)
+                                  Dim tmpInt As Integer = tmpSeries.Points.AddY(ConvULong(tmpRow.Item("TOT_BACKEND_CNT")))
+                                  tmpSeries.Points(tmpInt).AxisLabel = tmpRow.Item("CLIENT_ADDR")
+                                  tmpSeries.Points(tmpInt).ToolTip = tmpRow.Item("CLIENT_ADDR")
+                              Next
+                          End If
+
+                          sb_ChartAlignYAxies(Me.chtSessionTop)
 
                       Catch ex As Exception
                           GC.Collect()
@@ -2303,8 +2391,9 @@ Public Class frmMonDetail
     End Sub
 
     Private Sub bckquerymanual_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bckquerymanual.DoWork
-        SetDataReplication()
+        'SetDataReplication()
         SetDataCheckpoint()
+        SetSessionTopInfo()
     End Sub
 
     Private Sub btnSessionLockS_Click(sender As Object, e As EventArgs) Handles btnSessionLockS.Click
@@ -2371,6 +2460,7 @@ Public Class frmMonDetail
                                                                                     lblTPS.MouseClick, _
                                                                                     lblReplicationDelaySize.MouseClick, _
                                                                                     lblSessioninfo.MouseClick, _
+                                                                                    lblSessionTopinfo.MouseClick, _
                                                                                     lblLogicalIO.MouseClick, _
                                                                                     lblLock.MouseClick, _
                                                                                     lblPhyRead.MouseClick, _
@@ -2436,7 +2526,7 @@ Public Class frmMonDetail
         'mnuChart.Tag = lblTemp.Parent
     End Sub
 
-    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click, mnuCPUCore.Click, mnuDiskIO.Click
+    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click, mnuCPUCore.Click, mnuDiskIO.Click, mnuSessionTopinfo.Click
         'Dim tlpCurrTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
         'Dim tlpChangeTemp As System.Windows.Forms.TableLayoutPanel = Nothing
         'Dim intTlpOldrow = tlpCharts.GetRow(tlpCurrTemp)
@@ -2496,6 +2586,8 @@ Public Class frmMonDetail
 
         If sender.Name = "mnuSessioninfo" Then
             tlpSwap = tlpSessioninfo
+        ElseIf sender.Name = "mnuSessionTopinfo" Then
+            tlpSwap = tlpSessionTopinfo
         ElseIf sender.Name = "mnuLogicalIO" Then
             tlpSwap = tlpLogicalIO
         ElseIf sender.Name = "mnuLock" Then
@@ -2529,6 +2621,7 @@ Public Class frmMonDetail
 
 
         If tlpSessioninfo.Tag <> 0 Then mnuSessioninfo.Image = statusImgLst.Images(4)
+        If tlpSessionTopinfo.Tag <> 0 Then mnuSessionTopinfo.Image = statusImgLst.Images(4)
         If tlpLogicalIO.Tag <> 0 Then mnuLogicalIO.Image = statusImgLst.Images(4)
         If tlpLock.Tag <> 0 Then mnuLock.Image = statusImgLst.Images(4)
         If tlpPhyRead.Tag <> 0 Then mnuPhyRead.Image = statusImgLst.Images(4)
@@ -2549,6 +2642,7 @@ Public Class frmMonDetail
     Private Sub WriteChartPosition()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         clsIni.WriteValue("CHARTDETAIL", "SESSIONINFO", tlpSessioninfo.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "SESSIONTOPINFO", tlpSessionTopinfo.Tag)
         clsIni.WriteValue("CHARTDETAIL", "LOGICALIO", tlpLogicalIO.Tag)
         clsIni.WriteValue("CHARTDETAIL", "LOCK", tlpLock.Tag)
         clsIni.WriteValue("CHARTDETAIL", "PHYREAD", tlpPhyRead.Tag)

@@ -287,6 +287,7 @@ create table tb_replication_lag_info (
     reg_date character varying(8) not null,
     repl_reg_seq integer not null,
     instance_id integer not null,
+    repl_instance_id integer not null,
     replay_lag integer,
     replay_lag_size numeric(20,0),
     collect_dt timestamp without time zone
@@ -306,6 +307,14 @@ create table tb_checkpoint_info (
     collect_dt timestamp without time zone
 )partition by list (reg_date);
 
+create table tb_wal_info (
+    reg_date character varying(8) not null,
+    repl_reg_seq integer not null,
+    instance_id integer not null,
+    wal_count integer,
+    collect_dt timestamp without time zone
+)partition by list (reg_date);
+
 create table tb_group_info (
     group_id integer not null,
     group_name character varying(30),
@@ -316,6 +325,7 @@ create table tb_group_info (
 create table tb_group_instance_info
 (
   group_id integer not null,
+  instance_seq integer not null,
   instance_id integer not null,
   last_mod_ip character varying(15),
   last_mod_dt timestamp without time zone
@@ -690,6 +700,7 @@ create table tb_hchk_collect_info_${TODAY} partition of tb_hchk_collect_info for
 create table tb_replication_info_${TODAY} partition of tb_replication_info for values in ('${TODAY}');
 create table tb_replication_lag_info_${TODAY} partition of tb_replication_lag_info for values in ('${TODAY}');
 create table tb_checkpoint_info_${TODAY} partition of tb_checkpoint_info for values in ('${TODAY}');
+create table tb_wal_info_${TODAY} partition of tb_wal_info for values in ('${TODAY}');
 create table tb_memory_stat_${TODAY} partition of tb_memory_stat for values in ('${TODAY}');
 create table tb_objt_collect_info_${TODAY} partition of tb_objt_collect_info  for values in ('${TODAY}');
 create table tb_rsc_collect_info_${TODAY} partition of tb_rsc_collect_info for values in ('${TODAY}');
@@ -710,8 +721,9 @@ alter table only tb_disk_io_${TODAY} add constraint pk_tb_disk_io_${TODAY} prima
 alter table only tb_disk_usage_${TODAY} add constraint pk_tb_disk_usage_${TODAY} primary key (reg_date,rsc_reg_seq,mount_point_dir);
 alter table only tb_hchk_collect_info_${TODAY} add constraint pk_tb_hchk_collect_info_${TODAY} primary key (reg_date,hchk_reg_seq,instance_id,hchk_name);
 alter table only tb_replication_info_${TODAY} add constraint pk_tb_replication_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
-alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id);
+alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id, repl_instance_id);
 alter table only tb_checkpoint_info_${TODAY} add constraint pk_tb_checkpoint_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
+alter table only tb_wal_info_${TODAY} add constraint pk_tb_wal_info_${TODAY} primary key (reg_date,repl_reg_seq,instance_id);
 alter table only tb_memory_stat_${TODAY} add constraint pk_tb_memory_stat_${TODAY} primary key (reg_date,rsc_reg_seq);
 alter table only tb_objt_collect_info_${TODAY} add constraint pk_tb_objt_collect_info_${TODAY} primary key (reg_date,objt_reg_seq);
 alter table only tb_rsc_collect_info_${TODAY} add constraint pk_tb_rsc_collect_info_${TODAY} primary key (reg_date,rsc_reg_seq);
@@ -782,6 +794,7 @@ create index if not exists idx01_tb_sys_log on tb_sys_log using btree (reg_date 
 create index if not exists idx01_tb_table_info on tb_table_info using btree (collect_dt desc);
 create index if not exists idx01_tb_tablespace_info on tb_tablespace_info using btree (collect_dt desc);
 create index if not exists idx01_tb_alert_export_info on tb_alert_export_info using btree (collect_dt desc);
+create index if not exists idx01_tb_replication_info_${TODAY} on tb_replication_info_${TODAY} using btree (collect_dt desc);
 --create index idx01_access_info on tb_access_info using btree (collect_dt desc);
 --create index idx01_backend_rsc on tb_backend_rsc using btree (collect_dt desc);
 --create index idx01_cpu_stat_master on tb_cpu_stat_master using btree (collect_dt desc);
@@ -891,6 +904,7 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'VIRTUAL_IP', ' ', '0', 0,   1,    '2', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'WALCNT', 'CNT', '0', 0, 1024, '2', NULL, NULL);
 
 insert into tb_config(
 						daily_batch_start_time

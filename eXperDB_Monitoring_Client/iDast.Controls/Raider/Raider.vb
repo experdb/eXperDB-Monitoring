@@ -520,8 +520,10 @@ Public Class Raider
 
             'pGr.DrawString(ptItm.Text, MyBase.Font, New SolidBrush(MyBase.ForeColor), txtPt)
             If DisplayID Then
-                If ptItm.Image IsNot Nothing Then
-                    pGr.DrawImage(ptItm.Image, imgPt)
+                'If ptItm.Image IsNot Nothing Then
+                '    pGr.DrawImage(ptItm.Image, imgPt)
+                If ptItm.Seq IsNot String.Empty Then
+                    pGr.DrawString(ptItm.Seq, MyBase.Font, New SolidBrush(MyBase.ForeColor), imgPt)
                 Else
                     pGr.DrawString(ptItm.Text, MyBase.Font, New SolidBrush(MyBase.ForeColor), txtPt)
                 End If

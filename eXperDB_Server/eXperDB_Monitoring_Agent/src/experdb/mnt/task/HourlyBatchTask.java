@@ -33,9 +33,9 @@ public class HourlyBatchTask {
 		check_partiton();
 	}
 	
-	private void execute() {
+	private int execute() {
 		SqlSession sessionAgent  = null;
-		
+		int ret = 0;
 		//Manage real time statements 
 		try {
 			//Check whether collect real time statements.
@@ -48,7 +48,7 @@ public class HourlyBatchTask {
 			}
 			
 			if (period == 0)
-				return ;
+				return period;
 			
 			Date currentHour = new Date();
 			Date nextHour = new Date(currentHour.getTime() + (1000 * 60 * 60));
@@ -64,15 +64,37 @@ public class HourlyBatchTask {
 			partitionTableMap.put("tablename", "tb_realtime_statements");
 			
 			// DB Connection을 가져온다
-			sessionAgent = SqlSessionManager.getInstance().openSession();		
-			try {
-				// Create new partition tables and Truncate old partition
-				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
-				sessionAgent.commit();
-			} catch (Exception e) {
-				sessionAgent.rollback();
-				log.error("", e);
+			sessionAgent = SqlSessionManager.getInstance().openSession();
+			for (int tryCount=0; tryCount < 3; tryCount++)
+			{
+				try {
+					// Create new partition tables and Truncate old partition
+					sessionAgent.update("app.PG_ATTACH_PARTITIONS_002", partitionTableMap);
+					sessionAgent.commit();
+					break;
+				} catch (Exception e) {
+					sessionAgent.rollback();
+					log.error("", e);
+					ret = -1;
+		            try {Thread.sleep(100);} catch (Exception ex) {}
+				}
 			}
+			
+			for (int tryCount=0; tryCount < 3; tryCount++)
+			{
+			    try {
+					sessionAgent.update("app.PG_DETACH_PARTITIONS_002", partitionTableMap);
+					sessionAgent.commit();
+			        break;
+			    }
+			    catch (Exception e) {
+			    	sessionAgent.rollback();
+					log.error("", e);
+					ret = -1;
+		            try {Thread.sleep(100);} catch (Exception ex) {}
+			    }
+			}
+						
 			sessionAgent.close();
 			
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
@@ -83,9 +105,9 @@ public class HourlyBatchTask {
 			} catch (Exception e) {
 				sessionAgent.rollback();
 				log.error("", e);
-				
 				status = "3";
 				comments = "2";
+				ret = -1;
 			}
 			
 			sessionAgent.close();
@@ -93,8 +115,10 @@ public class HourlyBatchTask {
 
 		} catch (Exception e) {
 			log.error("", e);
+			ret = -1;
 		} finally {
 			if(sessionAgent != null) sessionAgent.close();
+			return ret;
 		}
 	}
 	
@@ -147,6 +171,8 @@ public class HourlyBatchTask {
 			checkMap.put("tablename", "tb_rsc_collect_info");
 			checkReturnMap = sessionAgent.selectOne("app.TB_CHECK_PARTITION_R001", checkMap);
 			checkMap.put("tablename", "tb_table_ext_info");
+			checkReturnMap = sessionAgent.selectOne("app.TB_CHECK_PARTITION_R001", checkMap);
+			checkMap.put("tablename", "tb_wal_info");
 			checkReturnMap = sessionAgent.selectOne("app.TB_CHECK_PARTITION_R001", checkMap);
 			isExists = true;
 		} catch (Exception e) {
@@ -209,6 +235,8 @@ public class HourlyBatchTask {
 					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);				
 					partitionTableMap.put("tablename", "tb_table_ext_info");
 					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
+					partitionTableMap.put("tablename", "tb_wal_info");
+					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
 					
 					sessionAgent.commit();
 					isExists = true;
@@ -242,6 +270,8 @@ public class HourlyBatchTask {
 					sessionAgent.update("app.PG_CONSTRAINT_TB_TABLE_EXT_INFO_001"    , partitionTableMap);
 					sessionAgent.update("app.PG_CONSTRAINT_TB_HCHK_ALERT_INFO_001"   , partitionTableMap);
 					sessionAgent.update("app.PG_CONSTRAINT_TB_PG_STAT_STATEMENTS_001", partitionTableMap);
+					sessionAgent.update("app.PG_CONSTRAINT_TB_WAL_INFO_001"			 , partitionTableMap);
+
 					// Create index of partition tables
 					
 					sessionAgent.update("app.PG_CREATE_FUNCTION_FOR_INDEX_001"  , partitionTableMap);
@@ -256,6 +286,7 @@ public class HourlyBatchTask {
 					sessionAgent.update("app.PG_INDEX_TB_TABLE_EXT_INFO_001"    , partitionTableMap);
 					sessionAgent.update("app.PG_INDEX_TB_ACTV_COLLECT_INFO_001" , partitionTableMap);
 					sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"  , partitionTableMap);
+					sessionAgent.update("app.PG_INDEX_TB_REPLICATION_INFO_001"  , partitionTableMap);
 					
 					/* delete replication slots*/
 					sessionAgent.update("app.PGMONBT_BATCH_REPL_SLOTS_001");

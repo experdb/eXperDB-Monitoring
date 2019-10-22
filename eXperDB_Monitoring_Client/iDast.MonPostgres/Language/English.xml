@@ -2994,12 +2994,20 @@
     <VALUECAST>1|InActSlot;2|NoSlot</VALUECAST>
   </ROW>
   <ROW ID="VIRTUAL_IP" PARAMS="0">
-    <DESC>Check th status of virtual IP.</DESC>
+    <DESC>Check the status of virtual IP.</DESC>
     <DATA><![CDATA[Virtual IP]]></DATA>
     <COMMENTS>파라미터추가</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
     <COLUMNS>HOST_NAME|Host name|TEXT||150|;SERVER_IP|Server IP|TEXT||150|;SERVICE_PORT|Server port|TEXT||100|;HA_ROLE|HA Role|TEXT||100|;VIRTUAL_IP|VIP(Service)|TEXT||200|;VIRTUAL_IP2|VIP(Replication)|TEXT||200|</COLUMNS>
     <VALUECAST>1|Not Primary</VALUECAST>
+  </ROW>
+  <ROW ID="WALCNT" PARAMS="0">
+    <DESC>Check the WAL files</DESC>
+    <DATA><![CDATA[WAL Files]]></DATA>
+    <COMMENTS>N/A</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
   </ROW>
   <ROW ID="M019" PARAMS="1">
     <DESC>라이선스 만료일 체크</DESC>
@@ -3901,7 +3909,17 @@
   </ROW>
   <ROW ID="F953" PARAMS="0">
     <DESC>아이콘</DESC>
-    <DATA><![CDATA[Icon]]></DATA>
+    <DATA><![CDATA[Sequence]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F954" PARAMS="0">
+    <DESC>지연알럿</DESC>
+    <DATA><![CDATA[Delay alert count]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F955" PARAMS="0">
+    <DESC>SessionTopInfo</DESC>
+    <DATA><![CDATA[Sessions(per Client)]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

@@ -85,7 +85,7 @@
             dtTable = ClsQuery.SelectMonListByGroup(groupIndex)
             If dtTable IsNot Nothing Then
                 Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
-                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'P' OR HA_ROLE = 'A'")
+                For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'P' OR HA_ROLE = 'A'", "INSTANCE_SEQ ASC")
                     Dim topNode As AdvancedDataGridView.TreeGridNode = dgvMonLst.Nodes.Add(tmpRow.Item("HOST_NAME"))
                     topNode.Tag = tmpRow.Item("INSTANCE_ID")
                     topNode.Image = dbmsImgLst.Images(0)
@@ -475,7 +475,7 @@
                 ' Instance 별 조회 그룹을 업데이트 한다. 
                 For Each tmpRow As DataGridViewRow In dgvMonLst.Rows
                     Dim intInstID As Integer = IIf(tmpRow.Tag Is Nothing, -1, tmpRow.Tag)
-                    ClsQuery.InsertMonGroup(intInstID, groupId, strLocIP)
+                    ClsQuery.InsertMonGroup(tmpRow.Index, intInstID, groupId, strLocIP)
                 Next
                 Return True
             Else
@@ -551,12 +551,15 @@
         rtnSrt.Add(New GroupInfo(cmbGrp.SelectedIndex, txtGrp1.Text))
         grpIdx = rtnSrt.Count - 1
 
+        Dim intHAGroup As Integer = 0
+        Dim intHAGroupSave As Integer = 0
+        Dim intHAGroupIndex As Integer = -1
         For Each tmpRow As DataGridViewRow In Me.dgvMonLst.Rows
             ' 그룹이 선택되어 있을 경우 
             Dim intInstanceID As Integer = tmpRow.Tag
             arrInstanceIDs.Add(intInstanceID)
             Dim strIP As String = tmpRow.Cells(colMonIP.Index).Value
-            Dim strPort As Integer = tmpRow.Cells(colMonPort.Index).Value
+            Dim intPort As Integer = tmpRow.Cells(colMonPort.Index).Value
             Dim strID As String = tmpRow.Cells(colMonUser.Index).Value
             Dim strDBNm As String = tmpRow.Cells(colMonDBNm.Index).Value
             Dim strAliasNm As String = tmpRow.Cells(colMonAliasNm.Index).Value
@@ -564,10 +567,14 @@
             Dim stTime As DateTime = tmpRow.Cells(colMonStartTime.Index).Value
             Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
             Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
-            Dim strHAPort As String = tmpRow.Cells(colMonHAPort.Index).Value
+            Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
             Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
-
-            rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, strPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, strHAPort, strPGV))
+            intHAGroup = tmpRow.Cells(colMonHAGroup.Index).Value
+            If intHAGroup <> intHAGroupSave Then
+                intHAGroupIndex += 1
+                intHAGroupSave = intHAGroup
+            End If
+            rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, intPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, intHAPort, intHAGroupIndex, strPGV))
         Next
 
         If rtnSrt.Count = 0 Then

@@ -171,6 +171,8 @@ public class ReplCollect extends TaskApplication {
 			///////////////////////////////////////////////////////////////////////////////////		
 			// checkpoint 정보 수집
 			HashMap<String, Object> checkpointSel = new HashMap<String,Object>();// Replicaiton 정보 수집
+			// wal_count 정보 수집
+			HashMap<String, Object> walCountSel = new HashMap<String,Object>();// Wal 정보 수집
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 			
 			long checktime = System.currentTimeMillis();
@@ -197,7 +199,19 @@ public class ReplCollect extends TaskApplication {
 						failed_collect_type = "1";
 						is_collect_ok = "N";
 						log.error("", e);
-					}					
+					}
+
+					// wal count				
+					try {
+						////////////////////////////////////////////////////////////////////////////
+						HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
+						dbVerMap.put("instance_db_version", instance_db_version);
+						walCountSel = sessionCollect.selectOne("app.EXPERDBMA_BT_WALS_001", dbVerMap);
+					} catch (Exception e) {
+						failed_collect_type = "1";
+						is_collect_ok = "N";
+						log.error("", e);
+					}
 				}
 				gatherCheckpointTime = collectPeriodCheckpoint * 1000  + checktime ;
 				bInsertCheckpoint = true;
@@ -248,8 +262,10 @@ public class ReplCollect extends TaskApplication {
 				for (HashMap<String, Object> map : replLagSel) {
 					if(map.get("replay_lag") != null && Double.parseDouble(map.get("replay_lag").toString()) >= 0){
 						 replExistSel = sessionAgent.selectOne("app.TB_REPL_LAG_INFO_S001", map);
-						 if(replExistSel != null )
+						 if(replExistSel != null ){
+							 map.put("instance_id", Integer.valueOf(instanceId));
 							 sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
+						 }
 					}
 				}
 				
@@ -307,7 +323,14 @@ public class ReplCollect extends TaskApplication {
 					if(checkpointSel.size() > 0) 
 						ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_CHECKPOINT, checkpointSel);
 					bInsertCheckpoint = false;
-				///////////////////////////////////////////////////////////////////////////////	
+				///////////////////////////////////////////////////////////////////////////////
+					
+					if(walCountSel != null && walCountSel.size() > 0){
+						parameObjt.clear();				
+						parameObjt.put("instance_id", Integer.valueOf(instanceId));		
+						parameObjt.put("wal_count", walCountSel.get("wal_count"));
+						sessionAgent.insert("app.TB_WAL_INFO_I001", parameObjt);
+					}
 				}
 				//Commit
 				sessionAgent.commit();

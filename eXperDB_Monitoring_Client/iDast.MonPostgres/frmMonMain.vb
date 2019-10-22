@@ -89,6 +89,8 @@
                          System.Drawing.Color.Cyan,
                          System.Drawing.Color.Teal}
 
+    Private _groupColors() As Color = {System.Drawing.Color.AliceBlue,
+                     System.Drawing.Color.LightSkyBlue}
 
     'Private _instanceColors() As Color = {System.Drawing.Color.MidnightBlue,
     '                     System.Drawing.Color.DarkBlue,
@@ -287,6 +289,8 @@
         tlpCPUWait.Tag = clsIni.ReadValue("CHART", "CPUWAIT", "0")
         tlpTPSCommit.Tag = clsIni.ReadValue("CHART", "TPSCOMMIT", "0")
         tlpSQLRespTmMAX.Tag = clsIni.ReadValue("CHART", "SQLRESPTMMAX", "0")
+        tlpReplicationDelay.Tag = clsIni.ReadValue("CHART", "REPLICATIONDELAY", "0")
+        tlpReplicationDelaySize.Tag = clsIni.ReadValue("CHART", "REPLICATIONDELAYSIZE", "0")
 
         mnuCPUUtil.Tag = tlpCPUUtil
         mnuMEMUsage.Tag = tlpMEMUsage
@@ -301,6 +305,8 @@
         mnuTPSCommit.Tag = tlpTPSCommit
         mnuTPSRollback.Tag = tlpTPSRollback
         mnuSQLRespTmAVG.Tag = tlpSQLRespTmAVG
+        mnuReplicationDelay.Tag = tlpReplicationDelay
+        mnuReplicationDelaySize.Tag = tlpReplicationDelaySize
 
         setTLPPosition(tlpCPUUtil)
         setTLPPosition(tlpCPUWait)
@@ -315,6 +321,8 @@
         setTLPPosition(tlpTPSRollback)
         setTLPPosition(tlpSQLRespTmMAX)
         setTLPPosition(tlpSQLRespTmAVG)
+        setTLPPosition(tlpReplicationDelay)
+        setTLPPosition(tlpReplicationDelaySize)
 
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
@@ -325,8 +333,6 @@
     Private Sub frmMonMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         TmAni.Stop()
         TmAni.Dispose()
-        TmAniInstance.Stop()
-        TmAniInstance.Dispose()
     End Sub
 
     ''' <summary>
@@ -463,6 +469,8 @@
         lblSQLRespTmMAX.Text = p_clsMsgData.fn_GetData("F103") + " Max"
         lblSQLRespTmAVG.Text = p_clsMsgData.fn_GetData("F103") + " Avg"
         lblRetention.Text = p_clsMsgData.fn_GetData("F326")
+        lblReplicationDelay.Text = p_clsMsgData.fn_GetData("F294") + "(Sec)"
+        lblReplicationDelaySize.Text = p_clsMsgData.fn_GetData("F294") + "(MB)"
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
         '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -612,6 +620,8 @@
         sb_SetGrpSQLRespInfo(grpInfo.Items)
         ' Session Stats
         sb_SetSessionStatus(grpInfo.Items)
+        ' Replication Delay
+        sb_SetGrpReplicationInfo(grpInfo.Items)
 
         If _GrpListServerinfo.Count < 16 Then
             If bckmanual.IsBusy = True Then
@@ -635,22 +645,28 @@
             For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
                 Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
                 tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
             Next
         Next
 
         If svrLst.Count <= 6 Then
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
         ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
         Else
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 65
         End If
 
         Me.chrReqInfo.Tag = srtLSt
 
+        ' group color
+        sb_setGroupColorChart(chrReqInfo)
 
         chrReqInfo.Invalidate()
 
@@ -700,9 +716,38 @@
             index += 1
         Next
     End Sub
+    Private Sub sb_SetGrpReplicationInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+            index += 1
+        Next
+    End Sub
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    Private Sub sb_setGroupColorChart(ByRef chart As DataVisualization.Charting.Chart)
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        chart.ChartAreas(0).AxisX.CustomLabels.Clear()
+        Dim intHAGroupindex As Integer = -1
+        Dim intSvrCount As Integer = -1
+        Dim vIndex As Integer = 0
+        Dim colorIndex As Integer = 0
+        For i As Integer = 0 To svrLst.Count - 1
+            If svrLst.Item(i).Reserved = True Then
+                chart.ChartAreas(0).AxisX.CustomLabels.Add(New DataVisualization.Charting.CustomLabel( _
+                                                                          vIndex + 0.5, vIndex + 1.5, svrLst.Item(i).ShowNm, 0, DataVisualization.Charting.LabelMarkStyle.None))
+                If intHAGroupindex <> svrLst.Item(i).HAGroupIndex Then
+                    colorIndex += 1
+                    intHAGroupindex = svrLst.Item(i).HAGroupIndex
+                End If
+                chart.ChartAreas(0).AxisX.CustomLabels(vIndex).ForeColor = _groupColors(colorIndex Mod 2)
+                vIndex += 1
+            End If
+        Next
+    End Sub
 
     Private Sub sb_SetSessionStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
 
@@ -717,21 +762,30 @@
                 Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
                 tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
                 tmpSeries.Points(tmpInt).ToolTip = svrLst.Item(i).ShowNm
+                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                'tmpSeries.Points(tmpInt).BorderColor = _instanceColors(svrLst.Item(i).HAGroupIndex)                
             Next
         Next
 
         If svrLst.Count <= 6 Then
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
         ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
         Else
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 65
         End If
 
         Me.chtSessionStatus.Tag = srtLSt
+
+        ' group color
+        sb_setGroupColorChart(chtSessionStatus)
+
         chtSessionStatus.Invalidate()
 
         Dim index As Integer = 0
@@ -776,7 +830,7 @@
         Dim idx As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
             'radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, instanceImgLst.Images(idx))
-            radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx))
+            radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
             Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
             dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
             dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
@@ -812,19 +866,26 @@
             For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
                 Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
                 tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
             Next
         Next
 
         If svrLst.Count <= 6 Then
             Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
         ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
             Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
             Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
         Else
             Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 69
         End If
+
+        ' group color
+        sb_setGroupColorChart(chtCPUStatus)
 
         Me.chtCPUStatus.Tag = srtLSt
         chtCPUStatus.Invalidate()
@@ -845,7 +906,7 @@
         ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
         Dim idx As Integer = 0
         For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx))
+            radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
             Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
             dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
             dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
@@ -879,19 +940,26 @@
             For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
                 Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
                 tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
             Next
         Next
 
         If svrLst.Count <= 6 Then
             Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
         ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
             Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
             Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
         Else
             Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
             Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 69
         End If
+
+        ' group color
+        sb_setGroupColorChart(chtMEMStatus)
 
         Me.chtMEMStatus.Tag = srtLSt
         chtMEMStatus.Invalidate()
@@ -970,7 +1038,7 @@
 
                     'svrLst.Item(i).HAHost
 
-                    
+
 
                     'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
                     '    If svrLst.Item(i).HAHost = tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value Then
@@ -1336,6 +1404,7 @@
                     clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
                     clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
                     clsAgentCollect_GetDataStatementsInfo(p_clsAgentCollect.infoDataStmt)
+                    clsAgentCollect_GetDataReplicationDelayInfo(p_clsAgentCollect.infoDataRepl)
                     StartChartAnimaition()
                 Else
                     _isDrawInitialData -= 1
@@ -1517,72 +1586,78 @@
         Dim intInstID As Integer
         For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE", "SWP_USED_RATE", "HOST_NAME").Rows
             ' GRP CPU
-            intInstID = dtRow.Item("INSTANCE_ID")
-            Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
-            Dim strInstNm As String = dtRow.Item("HOST_NAME")
-            If cpuidx >= 0 Then
-                Dim dblCpu As Double = ConvDBL(dtRow.Item("CPU_MAIN"))
-                radCpu.items(cpuidx).Value = dblCpu '  datainfo.C02_CPU_MAIN
-                radCpu.items(cpuidx).Text = strInstNm
+            Try
+                intInstID = dtRow.Item("INSTANCE_ID")
+                Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
+                Dim strInstNm As String = dtRow.Item("HOST_NAME")
+                If cpuidx >= 0 Then
+                    Dim dblCpu As Double = ConvDBL(dtRow.Item("CPU_MAIN"))
+                    radCpu.items(cpuidx).Value = dblCpu '  datainfo.C02_CPU_MAIN
+                    radCpu.items(cpuidx).Text = strInstNm
 
-                For Each tmpRow As DataGridViewRow In dgvGrpCpuSvrLst.Rows
-                    If tmpRow.Cells(colGrpCpuSvrID.Index).Value = intInstID Then
-                        tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
-                        tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
-                        tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
-                    End If
-                Next
+                    For Each tmpRow As DataGridViewRow In dgvGrpCpuSvrLst.Rows
+                        If tmpRow.Cells(colGrpCpuSvrID.Index).Value = intInstID Then
+                            tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                            tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
+                            tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
+                        End If
+                    Next
 
-                'Using tmpRow As DataGridViewRow = dgvGrpCpuSvrLst.FindFirstRow(intInstID, colGrpCpuSvrID.Index)
-                '    tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
-                '    tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
-                '    tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
-                'End Using
+                    'Using tmpRow As DataGridViewRow = dgvGrpCpuSvrLst.FindFirstRow(intInstID, colGrpCpuSvrID.Index)
+                    '    tmpRow.Cells(colGrpCpuSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                    '    tmpRow.Cells(colGrpCpuSvrUsage.Index).Value = dblCpu / 100  '  datainfo.C02_CPU_MAIN
+                    '    tmpRow.Cells(colGrpCpuSvrProg.Index).Value = dblCpu ' datainfo.C02_CPU_MAIN
+                    'End Using
 
-                ' Bar type 20190806 start
-                For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
-                    If tmpSvr.InstanceID = intInstID Then
-                        Dim lngUtil As Integer = ConvULong(dtRow.Item("CPU_MAIN"))
-                        Dim lngWait As Integer = ConvULong(dtRow.Item("WAIT_UTIL_RATE"))
-                        Dim idx As Integer = Me.chtCPUStatus.Tag.Item(intInstID)
-                        drawAnimation(Me.chtCPUStatus.Series("Util"), idx, lngUtil)
-                        Me.chtCPUStatus.Series("Util").Points(idx).Label = CInt(lngUtil)
-                        drawAnimation(Me.chtCPUStatus.Series("Wait"), idx, lngWait)
-                        Me.chtCPUStatus.Series("Wait").Points(idx).Label = CInt(lngWait)
+                    ' Bar type 20190806 start
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            If tmpSvr.Reserved = True Then
+                                Dim lngUtil As Integer = ConvULong(dtRow.Item("CPU_MAIN"))
+                                Dim lngWait As Integer = ConvULong(dtRow.Item("WAIT_UTIL_RATE"))
+                                Dim idx As Integer = Me.chtCPUStatus.Tag.Item(intInstID)
+                                drawAnimation(Me.chtCPUStatus.Series("Util"), idx, lngUtil)
+                                drawAnimation(Me.chtCPUStatus.Series("Wait"), idx, lngWait)
 
-                        Dim lngMem As Integer = ConvULong(dtRow.Item("MEM_USED_RATE"))
-                        Dim lngSwap As Integer = ConvULong(dtRow.Item("SWP_USED_RATE"))
-                        idx = Me.chtMEMStatus.Tag.Item(intInstID)
-                        drawAnimation(Me.chtMEMStatus.Series("Mem"), idx, lngMem)
-                        Me.chtMEMStatus.Series("Mem").Points(idx).Label = CInt(lngMem)
-                        drawAnimation(Me.chtMEMStatus.Series("Swap"), idx, lngSwap)
-                        Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
-                    End If
-                Next
-                ' Bar type 20190806 end
+                                Dim lngMem As Integer = ConvULong(dtRow.Item("MEM_USED_RATE"))
+                                Dim lngSwap As Integer = ConvULong(dtRow.Item("SWP_USED_RATE"))
+                                idx = Me.chtMEMStatus.Tag.Item(intInstID)
+                                drawAnimation(Me.chtMEMStatus.Series("Mem"), idx, lngMem)
+                                drawAnimation(Me.chtMEMStatus.Series("Swap"), idx, lngSwap)
+                                'Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
+                                Dim HARole As String = Me.chtCPUStatus.Series(0).Points(idx).Tag.HARoleStatus
+                                If HARole = "P" Then
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).Label = "P"
+                                    Me.chtCPUStatus.Series("Util").Points(idx).Label = "P"
+                                End If
+                            End If
+                        End If
+                    Next
+                    ' Bar type 20190806 end
 
-                ' GRP MEM
-                Dim memidx As Integer = radMem.items.IndexOf(intInstID)
-                Dim dblMem As Double = ConvDBL(dtRow.Item("MEM_USED_RATE"))
-                radMem.items(memidx).Value = dblMem
-                radMem.items(memidx).Text = strInstNm
+                    ' GRP MEM
+                    Dim memidx As Integer = radMem.items.IndexOf(intInstID)
+                    Dim dblMem As Double = ConvDBL(dtRow.Item("MEM_USED_RATE"))
+                    radMem.items(memidx).Value = dblMem
+                    radMem.items(memidx).Text = strInstNm
 
-                For Each tmpRow As DataGridViewRow In dgvGrpMemSvrLst.Rows
-                    If tmpRow.Cells(colGrpMemSvrID.Index).Value = intInstID Then
-                        tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
-                        tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
-                        tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
-                    End If
+                    For Each tmpRow As DataGridViewRow In dgvGrpMemSvrLst.Rows
+                        If tmpRow.Cells(colGrpMemSvrID.Index).Value = intInstID Then
+                            tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                            tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
+                            tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
+                        End If
+                    Next
 
-                Next
-
-                'Using tmpRow As DataGridViewRow = dgvGrpMemSvrLst.FindFirstRow(intInstID, colGrpMemSvrID.Index)
-                '    tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
-                '    tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
-                '    tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
-                'End Using
-            End If
-
+                    'Using tmpRow As DataGridViewRow = dgvGrpMemSvrLst.FindFirstRow(intInstID, colGrpMemSvrID.Index)
+                    '    tmpRow.Cells(colGrpMemSvrNm.Index).Value = strInstNm   'datainfo.C07_SWP_USED_RATE
+                    '    tmpRow.Cells(colGrpMemSvrUsage.Index).Value = dblMem / 100   'datainfo.C07_SWP_USED_RATE
+                    '    tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
+                    'End Using
+                End If
+            Catch
+                GC.Collect()
+            End Try
         Next
 
         ' 컨트롤 색상 변경 
@@ -1590,8 +1665,8 @@
         sb_GridSortChg(dgvGrpCpuSvrLst, colGrpCpuSvrUsage.Index)
         modCommon.sb_GridProgClrChg(dgvGrpMemSvrLst)
         sb_GridSortChg(dgvGrpMemSvrLst, colGrpMemSvrUsage.Index)
-        DgvRowHeightFill(dgvGrpCpuSvrLst)
-        DgvRowHeightFill(dgvGrpMemSvrLst)
+        'DgvRowHeightFill(dgvGrpCpuSvrLst)
+        'DgvRowHeightFill(dgvGrpMemSvrLst)
 
 
         '''''''< Bar 20180806 Start>'''''''''''''''''''''''''''''''''''''''''''''
@@ -1701,6 +1776,8 @@
                             Dim intIdx As Integer = dgvGrpDiskAccess.Rows.Add() ' dgvGrpDiskAccess.InvokeRowsAdd
                             ' 디스크KEY
                             dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Value = strKey
+                            ' Instance ID
+                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Tag = intInstID
                             ' 서버명칭 
                             dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessSvrNm.Index).Value = strInstNm
                             ' 디스크명칭
@@ -1733,6 +1810,7 @@
                             Dim intIDx As Integer = dgvGrpDiskUsage.Rows.Add()
                             ' Key 
                             dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Value = strKey
+                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Tag = intInstID
                             dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageSvrNm.Index).Value = strInstNm
                             dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageDiskNm.Index).Value = strDeviceNm
                             dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
@@ -2030,12 +2108,12 @@
                             'Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
                             'Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
                             'Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
-
                             drawAnimation(Me.chtSessionStatus.Series("Active"), idx, lngActiveSessions)
-                            Me.chtSessionStatus.Series("Active").Points(idx).Label = CInt(lngActiveSessions)
                             drawAnimation(Me.chtSessionStatus.Series("Total"), idx, lngTotalSessions)
-                            Me.chtSessionStatus.Series("Total").Points(idx).Label = CInt(lngTotalSessions)
-
+                            Dim HARole As String = Me.chtSessionStatus.Series("Active").Points(idx).Tag.HARoleStatus
+                            If HARole = "P" Then
+                                Me.chtSessionStatus.Series("Total").Points(idx).Label = "P"
+                            End If
                             MaxPri = Math.Max(lngTotalSessions, MaxPri)
                         End If
                     Next
@@ -2168,8 +2246,80 @@
         Try
             sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTmMAX)
             sb_ChartAlignYAxiesWithUnit(Me.chtSQLRespTmAVG)
+        Catch ex As Exception
+            GC.Collect()
+        End Try
 
-            Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+    End Sub
+
+    Private Sub clsAgentCollect_GetDataReplicationDelayInfo(ByVal dtTableDataReplicationDelay As DataTable)
+
+        '0202 change flow chart
+        Dim dblRegDt As Double
+        Dim intInstID As Integer
+        Dim MaxPri As Double = 0
+        Dim dblMaxScale As Double = 0
+        Dim dblAvgScale As Double = 0
+        If dtTableDataReplicationDelay IsNot Nothing Then
+            If dtTableDataReplicationDelay.Rows.Count > 0 Then
+                dblRegDt = ConvOADate(dtTableDataReplicationDelay.Rows(0).Item("COLLECT_DT"))
+
+                For Each dtRow As DataRow In dtTableDataReplicationDelay.Rows
+                    intInstID = dtRow.Item("INSTANCE_ID")
+                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                        If tmpSvr.InstanceID = intInstID Then
+                            sb_ChartAddPoint(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("REPLAY_LAG"))) 'Active 세션만
+                            sb_ChartAddPoint(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("REPLAY_LAG_SIZE")))
+                        End If
+                    Next
+                Next
+            Else
+                dblRegDt = ConvOADate(Now)
+                For i As Integer = 0 To Me.chtReplicationDelay.Series.Count - 1
+                    Me.chtReplicationDelay.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Next
+                For i As Integer = 0 To Me.chtReplicationDelaySize.Series.Count - 1
+                    Me.chtReplicationDelaySize.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                Next
+            End If
+        Else
+            dblRegDt = ConvOADate(Now)
+            For i As Integer = 0 To Me.chtReplicationDelay.Series.Count - 1
+                Me.chtReplicationDelay.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            Next
+            For i As Integer = 0 To Me.chtReplicationDelaySize.Series.Count - 1
+                Me.chtReplicationDelaySize.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+            Next
+        End If
+
+        Try
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                If Me.chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+                If Me.chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                        Me.chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                        If Me.chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                            Exit Do
+                        End If
+                    Loop
+                End If
+            Next
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+        Try
+            sb_ChartAlignYAxiesWithUnit(Me.chtReplicationDelay)
+            sb_ChartAlignYAxiesWithUnit(Me.chtReplicationDelaySize)
+
+            Me.chtReplicationDelay.ChartAreas(0).RecalculateAxesScale()
         Catch ex As Exception
             GC.Collect()
         End Try
@@ -2582,6 +2732,10 @@
                     MaxPri = Math.Max(lngInsertTuples + lngDeleteTuples + lngUpdatetTuples, MaxPri)
                     MaxSec = Math.Max(lngReadtTuples, MaxSec)
 
+                    Dim HARole As String = Me.chrReqInfo.Series("INSERT").Points(idx).Tag.HARoleStatus
+                    If HARole = "P" Then
+                        Me.chrReqInfo.Series("READ").Points(idx).Label = "P"
+                    End If
 
                     ' Invoke 로 처리함 귀찮 ㅎㅎ
                     'Me.chrReqInfo.Invoke(New MethodInvoker(Sub() Me.chrReqInfo.ChartAreas(0).RecalculateAxesScale()))
@@ -2984,7 +3138,6 @@
             Next
             ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
             Try
-                _isCriticalInstance = False
                 For Each tmpRow In Me.dgvClusters.Rows
                     Dim tmpNode As AdvancedDataGridView.TreeGridNode = tmpRow
                     Dim intInstID As Integer = DirectCast(tmpNode.Tag, GroupInfo.ServerInfo).InstanceID
@@ -3039,9 +3192,6 @@
                     End If
                     tmpNode.Cells(coldgvClustersServerName.Index).Tag = intLevel
 
-                    If intLevel > 1 Then
-                        _isCriticalInstance = True
-                    End If
                     If tmpNode.HasChildren Then
                         For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
                             intInstID = DirectCast(cNode.Tag, GroupInfo.ServerInfo).InstanceID
@@ -3094,18 +3244,9 @@
                                 End If
                             End If
                             cNode.Cells(coldgvClustersVip2.Index).Tag = strVip2
-
-                            If intLevel > 1 Then
-                                _isCriticalInstance = True
-                            End If
                         Next
                     End If
                 Next
-                If _isCriticalInstance = True Then
-                    StartStatusAnimaition()
-                Else
-                    StopStatusAnimaition()
-                End If
             Catch ex As Exception
                 GC.Collect()
             End Try
@@ -3336,8 +3477,8 @@
                    tmpRow.Item("HCHK_NAME").Equals("VIRTUAL_IP") = False Then
                     strValueUnit = tmpRow.Item("UNIT")
                 End If
-                Dim strShowValue As String = "{0}" + Environment.NewLine + "{1}" + Environment.NewLine + "{2}{3}" + Environment.NewLine
-                strShowValue = String.Format(strShowValue, strRegDt.ToString("yyyy-MM-dd HH:mm:ss"), strHchkNm, strValue, strValueUnit)
+                Dim strShowValue As String = "{0}" + Environment.NewLine + "{1}" + Environment.NewLine + "{2}" + Environment.NewLine + "{3}{4}" + Environment.NewLine
+                strShowValue = String.Format(strShowValue, strHost, strRegDt.ToString("yyyy-MM-dd HH:mm:ss"), strHchkNm, strValue, strValueUnit)
 
                 While (dgvAlert.Rows.Count > 200)
                     dgvAlert.Rows.RemoveAt(dgvAlert.Rows.Count - 1)
@@ -3569,9 +3710,13 @@
     End Sub
 
 
-    Public Sub DgvRowHeightFill(ByVal ctlDgv As BaseControls.DataGridView)
+    Public Sub DgvRowHeightFill(ByVal ctlDgv As BaseControls.DataGridView, Optional rowCount As Integer = 0)
         Dim height As Integer = 0
-        If _GrpListServerinfo.Count <= 20 Then
+        Dim intRowCount As Integer = rowCount
+        If intRowCount = 0 Then
+            intRowCount = _GrpListServerinfo.Count
+        End If
+        If intRowCount <= 20 Then
             height = Math.Ceiling((ctlDgv.Height - ctlDgv.ColumnHeadersHeight - 2) / ctlDgv.Rows.Count) - 1
         Else
             height = 16
@@ -3587,19 +3732,6 @@
             End If
             index += 1
         Next
-
-        'Dim height As Integer = Math.Ceiling((ctlDgv.Height - 2) / displayCnt) - 1
-
-        'Dim index As Integer = 0
-        'For Each tmpRow As DataGridViewRow In ctlDgv.Rows
-        '    If index < displayCnt Then
-        '        tmpRow.Height = height
-        '    Else
-        '        tmpRow.Height = 1
-        '        tmpRow.Visible = False
-        '    End If
-        '    index += 1
-        'Next
     End Sub
 
     Private Sub DataGridView_SizeChanged(sender As Object, e As EventArgs)
@@ -3671,11 +3803,6 @@
 
     End Sub
 
-
-
-    Private Sub chrReqInfo_Click(sender As Object, e As EventArgs) Handles chrReqInfo.Click
-
-    End Sub
 
     'Private Sub tm_Serial_Tick(sender As Object, e As EventArgs)
     '    tm_Serial.Stop()
@@ -4326,7 +4453,9 @@
                                                                                      btnTPSCommit.MouseClick, _
                                                                                      btnTPSRollback.MouseClick, _
                                                                                      btnSQLRespTmMAX.MouseClick, _
-                                                                                     btnSQLRespTmAVG.MouseClick
+                                                                                     btnSQLRespTmAVG.MouseClick, _
+                                                                                     btnReplicationDelay.MouseClick, _
+                                                                                     btnReplicationDelaySize.MouseClick
         Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
 
         ' dilplaying menu image
@@ -4350,7 +4479,8 @@
                                                                            mnuLogicalRead.Click, mnuLogicalWrite.Click, _
                                                                            mnuLockWait.Click, mnuTPSTotal.Click, _
                                                                            mnuTPSCommit.Click, mnuTPSRollback.Click, _
-                                                                           mnuSQLRespTmMAX.Click, mnuSQLRespTmAVG.Click
+                                                                           mnuSQLRespTmMAX.Click, mnuSQLRespTmAVG.Click, _
+                                                                           mnuReplicationDelay.Click, mnuReplicationDelaySize.Click
         Dim tlpTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
         Dim tlpSwap = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
         Dim selectmenu = DirectCast(sender, System.Windows.Forms.ToolStripMenuItem)
@@ -4382,6 +4512,10 @@
             tlpSwap = tlpSQLRespTmMAX
         ElseIf sender.Name = "mnuSQLRespTmAVG" Then
             tlpSwap = tlpSQLRespTmAVG
+        ElseIf sender.Name = "mnuReplicationDelay" Then
+            tlpSwap = tlpReplicationDelay
+        ElseIf sender.Name = "mnuReplicationDelaySize" Then
+            tlpSwap = tlpReplicationDelaySize
         End If
 
         tlpTemp.Tag = tlpSwap.Tag 'old
@@ -4401,6 +4535,8 @@
         If tlpTPSRollback.Tag <> 0 Then mnuTPSRollback.Image = monTypeImgLst.Images(2)
         If tlpSQLRespTmMAX.Tag <> 0 Then mnuSQLRespTmMAX.Image = monTypeImgLst.Images(2)
         If tlpSQLRespTmAVG.Tag <> 0 Then mnuSQLRespTmAVG.Image = monTypeImgLst.Images(2)
+        If tlpReplicationDelay.Tag <> 0 Then mnuReplicationDelay.Image = monTypeImgLst.Images(2)
+        If tlpReplicationDelaySize.Tag <> 0 Then mnuReplicationDelaySize.Image = monTypeImgLst.Images(2)
 
         WriteChartPosition()
     End Sub
@@ -4418,8 +4554,10 @@
         clsIni.WriteValue("CHART", "TPSTOTAL", tlpTPSTotal.Tag)
         clsIni.WriteValue("CHART", "TPSCOMMIT", tlpTPSCommit.Tag)
         clsIni.WriteValue("CHART", "TPSROLLBACK", tlpTPSRollback.Tag)
-        clsIni.WriteValue("CHART", "SQLRESPTMMAX ", tlpSQLRespTmMAX.Tag)
+        clsIni.WriteValue("CHART", "SQLRESPTMMAX", tlpSQLRespTmMAX.Tag)
         clsIni.WriteValue("CHART", "SQLRESPTMAVG", tlpSQLRespTmAVG.Tag)
+        clsIni.WriteValue("CHART", "REPLICATIONDELAY", tlpReplicationDelay.Tag)
+        clsIni.WriteValue("CHART", "REPLICATIONDELAYSIZE", tlpReplicationDelaySize.Tag)
     End Sub
 
     Private Sub setTLPPosition(ByRef tlp As System.Windows.Forms.TableLayoutPanel)
@@ -4464,53 +4602,6 @@
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub btnClusterShow_Click(sender As Object, e As EventArgs) Handles btnClusterShow.Click
         ShowChooseClusters()
-    End Sub
-
-    Private Sub ShowChooseClusters()
-        Dim frmCS As New frmClusterShow(_GrpListServerinfo, _instanceColors)
-        If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Dim rtnStruct As structConnection = Nothing
-            Dim rtnSchema As String = ""
-            Dim rtnCollect As Integer = 0
-            Dim strAlias As String = ""
-
-            Dim index As Integer = 0
-            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
-                tmpSvr.Reserved = frmCS.SvrpList(index).Reserved
-                If tmpSvr.Reserved = True Then
-                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
-                Else
-                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
-                End If
-                index += 1
-            Next
-        End If
-
-        frmCS.Dispose()
     End Sub
 
     Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged
@@ -4711,49 +4802,14 @@
     End Class
 
     Private WithEvents TmAni As New Timer
-    Private WithEvents TmAniInstance As New Timer
-    Private _nDivision As Integer = 10
-    Private _isCriticalInstance As Boolean = False
+    Private _nDivision As Integer = 4
     Private _nAlpha As Integer = 0
 
     Private _tmSeriesList As New List(Of seriesDelta)
 
     Private Sub StartChartAnimaition()
-        TmAni.Interval = 50
+        TmAni.Interval = 100
         TmAni.Start()
-    End Sub
-
-    Private Sub StartStatusAnimaition()
-
-        'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
-        '    If tmpNode.Cells(coldgvClustersLegend.Index).Tag <= 1 Then
-        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
-        '            System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
-        '            System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '    End If
-        '    If tmpNode.HasChildren Then
-        '        For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
-        '            If cNode.Cells(coldgvClustersLegend.Index).Tag <= 1 Then
-        '                cNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
-        '                    System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '                cNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
-        '                    System.Drawing.Color.FromArgb(255, CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '            End If
-        '        Next
-        '    End If
-        'Next
-
-        'If TmAniInstance.Enabled = False Then
-        '    TmAniInstance.Interval = 150
-        '    TmAniInstance.Start()
-        'End If
-    End Sub
-
-    Private Sub StopStatusAnimaition()
-        'If TmAniInstance.Enabled = True Then
-        '    TmAniInstance.Stop()
-        'End If
     End Sub
 
     Private Sub drawAnimation(ByRef tmpSeries As DataVisualization.Charting.Series, ByVal index As Integer, ByVal dValue As Double)
@@ -4765,8 +4821,10 @@
     Private Sub TmAni_Tick(sender As Object, e As EventArgs) Handles TmAni.Tick
         If _nDivision > 0 Then
             For Each sd As seriesDelta In _tmSeriesList
-                Dim nValue = sd.diffSeries.Points(sd.diffIndex).YValues.Last + sd.diffValue
-                sd.diffSeries.Points(sd.diffIndex).SetValueY(IIf(nValue < 0, 0, nValue))
+                If sd.diffValue <> 0 Then
+                    Dim nValue = sd.diffSeries.Points(sd.diffIndex).YValues.Last + sd.diffValue
+                    sd.diffSeries.Points(sd.diffIndex).SetValueY(IIf(nValue < 0, 0, nValue))
+                End If
             Next
             _nDivision -= 1
             ' Bar type 20190806
@@ -4777,78 +4835,11 @@
         Else
             TmAni.Stop()
             _tmSeriesList.Clear()
-            _nDivision = 10
+            _nDivision = 4
         End If
-    End Sub
-
-    Private Sub TmAniInstance_Tick(sender As Object, e As EventArgs) Handles TmAniInstance.Tick
-        _nAlpha += 10
-        If _nAlpha > 180 Then
-            _nAlpha = 60
-        End If
-
-        'For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvClusters.Nodes
-        '    If tmpNode.Cells(coldgvClustersLegend.Index).Tag > 1 Then
-        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
-        '            System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '        tmpNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
-        '            System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '    End If
-        '    If tmpNode.HasChildren Then
-        '        For Each cNode As AdvancedDataGridView.TreeGridNode In tmpNode.Nodes
-        '            If cNode.Cells(coldgvClustersLegend.Index).Tag > 1 Then
-        '                cNode.Cells(coldgvClustersLegend.Index).Style.BackColor = _
-        '                    System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '                cNode.Cells(coldgvClustersLegend.Index).Style.SelectionBackColor = _
-        '                    System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '            End If
-        '        Next
-        '    End If
-        'Next
     End Sub
 
     Private Sub dgvClusters_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles dgvClusters.CellPainting
-        'If coldgvClustersLegend.Index = e.ColumnIndex AndAlso e.RowIndex >= 0 AndAlso e.RowIndex < 16 Then
-        'Dim r32 As New Rectangle(e.CellBounds.Left + 7, 7, 72, 72)
-        'Dim r96 As New Rectangle(8, 0, 96, 96)
-        'Dim header As String = dgvClusters.Columns(e.ColumnIndex).HeaderText
-        'e.PaintBackground(e.CellBounds, True)
-        'e.PaintContent(e.CellBounds)
-        'e.Graphics.DrawImage(statusImgLst.Images(0), r96, GraphicsUnit.Pixel)
-        'e.Graphics.DrawImage(statusImgLst.Images(0), e.CellBounds.Left, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom)
-        'e.Handled = True
-
-        'Dim grIcon As New System.Drawing.Drawing2D.GraphicsPath
-        'Dim backColorBrush As SolidBrush
-        'If e.RowIndex = dgvClusters.SelectedRows(0).Index Then
-        '    backColorBrush = New SolidBrush(e.CellStyle.SelectionBackColor)
-        'Else
-        '    backColorBrush = New SolidBrush(e.CellStyle.BackColor)
-        'End If
-        'Dim gridBrush As New SolidBrush(Me.dgvClusters.GridColor)
-        'Dim gridLinePen As New Pen(gridBrush)
-        'Try
-        '    e.Graphics.FillRectangle(backColorBrush, e.CellBounds)
-        '    ' Draw the grid lines (only the right and bottom lines;
-        '    ' DataGridView takes care of the others).
-        '    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, e.CellBounds.Bottom - 1, e.CellBounds.Right - 1, e.CellBounds.Bottom - 1)
-        '    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom)
-        '    Dim AreaRect As New Rectangle(e.CellBounds.X + 12, e.CellBounds.Y + 12, 12, 12)
-        '    grIcon.AddEllipse(AreaRect)
-        '    e.Graphics.FillPath(New SolidBrush(Color.FromArgb(255, _instanceColors(e.RowIndex))), grIcon)
-        '    e.Handled = True
-        'Finally
-        '    gridLinePen.Dispose()
-        '    gridBrush.Dispose()
-        '    backColorBrush.Dispose()
-        'End Try
-        'If dgvClusters.Rows(e.RowIndex).Cells(e.ColumnIndex).Tag > 1 Then
-        '    'e.CellStyle.BackColor = System.Drawing.Color.FromArgb(_nAlpha, CType(CType(255, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(0, Byte), Integer))
-        '    'e.CellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(_nAlpha, CType(CType(255, Byte), Integer), CType(CType(69, Byte), Integer), CType(CType(0, Byte), Integer))
-        '    e.CellStyle.BackColor = System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        '    e.CellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(255, CType(CType(_nAlpha, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        'End If
-        'ElseIf coldgvClustersServerName.Index = e.ColumnIndex AndAlso e.RowIndex = -1 Then
         If coldgvClustersServerName.Index = e.ColumnIndex AndAlso e.RowIndex = -1 Then
             'Draw column header image
             Dim r32 As New Rectangle(e.CellBounds.Left + 7, 4, 72, 72)
@@ -4875,21 +4866,43 @@
         isNodeCollapsingOrExpanding = False
         isClickdgvClusters = True
 
-        Dim clsQu As New clsQuerys(_AgentCn)
-        If p_cSession.loadUserPermission(clsQu) = True Then
-            Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 1)
-            If hasPermission = True Then
-                openMonDetail(e.RowIndex)
-            Else
-                MsgBox(p_clsMsgData.fn_GetData("M088"))
-                Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(e.RowIndex).Tag, GroupInfo.ServerInfo)
-                AccessLog("cluster_detail", 1, "", tmpSvrInfo.InstanceID)
-            End If
-        Else
-            MsgBox(p_clsMsgData.fn_GetData("M088"))
-            Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(e.RowIndex).Tag, GroupInfo.ServerInfo)
-            AccessLog("cluster_detail", 1, "Load permission failed", tmpSvrInfo.InstanceID)
+        checkPermNopenMondetail(e.RowIndex)
+    End Sub
+
+    Private Sub dgvGrpDiskAccess_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpDiskAccess.CellClick
+        If e.RowIndex < 0 Then
+            Return
         End If
+
+        'Dim clsQu As New clsQuerys(_AgentCn)
+        Dim dgvClusterRowIndex As Integer = -1
+
+        For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
+            If DirectCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID.Equals(dgvGrpDiskAccess.Rows(e.RowIndex).Cells(colDgvDiskUsageKey.Index).Tag) Then
+                dgvClusterRowIndex = tmpRow.Index
+                Exit For
+            End If
+        Next
+
+        checkPermNopenMondetail(dgvClusterRowIndex)
+    End Sub
+
+    Private Sub dgvGrpDiskUsage_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGrpDiskUsage.CellClick
+        If e.RowIndex < 0 Then
+            Return
+        End If
+
+        ''Dim clsQu As New clsQuerys(_AgentCn)
+        Dim dgvClusterRowIndex As Integer = -1
+
+        For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
+            If DirectCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID.Equals(dgvGrpDiskUsage.Rows(e.RowIndex).Cells(colDgvDiskUsageKey.Index).Tag) Then
+                dgvClusterRowIndex = tmpRow.Index
+                Exit For
+            End If
+        Next
+
+        checkPermNopenMondetail(dgvClusterRowIndex)
     End Sub
 
     Private Sub openMonDetail(ByVal rowIndex As Integer)
@@ -4907,14 +4920,12 @@
             Return
         End If
 
-
         ' Tag에 값을 넝ㅎ어 두었음. 
         'Dim svrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Nodes(e.RowIndex).Tag, GroupInfo.ServerInfo)
         Dim svrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(rowIndex).Tag, GroupInfo.ServerInfo)
         AccessLog("cluster_detail", 0, "", svrInfo.InstanceID)
         If dgvClusters.Rows(rowIndex).Cells(coldgvClusterIsOpenSingle.Index).Value <> "1" Then
             Dim FrmSub As New frmMonDetail(svrInfo, _ElapseInterval, AgentInfo, AgentCn)
-            'FrmSub.Owner = Me
             FrmSub.OwnerForm = Me
             FrmSub.Show()
         Else
@@ -4928,18 +4939,16 @@
                     Exit For
                 End If
             Next
-            'End If
         End If
-
         dgvClusters.Rows(rowIndex).Cells(coldgvClusterIsOpenSingle.Index).Value = "1"
     End Sub
 
     Private Sub dgvClusters_NodeCollapsing(sender As Object, e As AdvancedDataGridView.CollapsingEventArgs) Handles dgvClusters.NodeCollapsing
-        e.Cancel = True
-        'If e.Node.HasChildren Then
-        '    isNodeCollapsingOrExpanding = True
-        '    Threading.Thread.Sleep(10)
-        'End If
+        'e.Cancel = True
+        If e.Node.HasChildren Then
+            isNodeCollapsingOrExpanding = True
+            Threading.Thread.Sleep(10)
+        End If
     End Sub
 
     Private Sub dgvClusters_NodeExpanding(sender As Object, e As AdvancedDataGridView.ExpandingEventArgs) Handles dgvClusters.NodeExpanding
@@ -4966,18 +4975,6 @@
         End Try
     End Sub
 
-    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
-                  Optional strLog As String = "", Optional intInstanceID As Integer = -1)
-        Try
-            Dim COC As New Common.ClsObjectCtl
-            Dim strLocIP As String = COC.GetLocalIP
-            Dim clsQu As New clsQuerys(_AgentCn)
-            clsQu.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP, intInstanceID)
-        Catch ex As Exception
-            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-        End Try
-    End Sub
-
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
         Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
         Dim ps As System.Drawing.Point = Cursor.Position
@@ -4992,38 +4989,6 @@
         mnuMenu.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
         mnuMenu.Tag = lblTemp.Parent
     End Sub
-#Region "menu"
-    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click
-        Dim BretFrm As Form = Nothing
-        Dim stDt As DateTime = Now.AddMinutes(-10)
-        Dim edDt As DateTime = Now
-
-        If sender.Name = "mnuLogout" Then
-            Me.Owner.Close()
-        ElseIf sender.Name = "mnuUserConfig" Then
-            If CheckPassword() = False Then Return
-            Dim userConfig As New frmConfig(AgentCn)
-            userConfig.ShowDialog()
-        ElseIf sender.Name = "mnuPreferences" Then
-            If CheckPassword() = False Then Return
-            Dim Preferences As New frmPreferences(AgentCn)
-            Preferences.ShowDialog()
-        Else
-            Dim version As New frmVersion(AgentCn)
-            version.ShowDialog()
-        End If
-
-    End Sub
-
-    Private Function CheckPassword() As Boolean
-        Dim frmPw As New frmPassword(AgentCn)
-        If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
-#End Region
 
     Private Sub rbCPURadar_CheckedChanged(sender As Object, e As EventArgs) Handles rbCPURadar.CheckedChanged, rbCPUBar.CheckedChanged
         Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
@@ -5053,5 +5018,470 @@
             tlpMem.Visible = False
             chtMEMStatus.Visible = True
         End If
+    End Sub
+
+    Private Sub dgvGrpDiskAccess_MouseEnter(sender As Object, e As EventArgs) Handles dgvGrpDiskAccess.MouseEnter
+        dgvGrpDiskAccess.ScrollBars = ScrollBars.Vertical
+        dgvGrpDiskAccess.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpDiskAccess_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpDiskAccess.MouseLeave
+        dgvGrpDiskAccess.ScrollBars = ScrollBars.None
+        dgvGrpDiskAccess.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpDiskUsage_MouseEnter(sender As Object, e As EventArgs) Handles dgvGrpDiskUsage.MouseEnter
+        dgvGrpDiskUsage.ScrollBars = ScrollBars.Vertical
+        dgvGrpDiskUsage.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpDiskUsage_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpDiskUsage.MouseLeave
+        dgvGrpDiskUsage.ScrollBars = ScrollBars.None
+        dgvGrpDiskUsage.Invalidate()
+    End Sub
+
+    Private Sub chtSessionStatus_Click(sender As Object, e As MouseEventArgs) Handles chtSessionStatus.Click, chrReqInfo.Click, chtCPUStatus.Click, chtMEMStatus.Click
+        Dim result As DataVisualization.Charting.HitTestResult = Nothing
+        Dim selectedDataPoint As DataVisualization.Charting.DataPoint = Nothing
+        Dim selectedServerName As String = ""
+        Dim dgvClusterRowIndex As Integer = -1
+
+        Dim chartName As String = CType(sender, DataVisualization.Charting.Chart).Name
+        Select Case chartName
+            Case "chtSessionStatus"
+                result = chtSessionStatus.HitTest(e.X, e.Y)
+            Case "chrReqInfo"
+                result = chrReqInfo.HitTest(e.X, e.Y)
+            Case "chtCPUStatus"
+                result = chtCPUStatus.HitTest(e.X, e.Y)
+            Case "chtMEMStatus"
+                result = chtMEMStatus.HitTest(e.X, e.Y)
+        End Select
+
+        Select Case result.ChartElementType
+            Case DataVisualization.Charting.ChartElementType.DataPoint
+                selectedDataPoint = CType(result.Object, DataVisualization.Charting.DataPoint)
+                For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
+                    If DirectCast(tmpRow.Tag, GroupInfo.ServerInfo).InstanceID.Equals(selectedDataPoint.Tag.InstanceID) Then
+                        dgvClusterRowIndex = tmpRow.Index
+                        Exit For
+                    End If
+                Next
+            Case DataVisualization.Charting.ChartElementType.AxisLabels
+                selectedServerName = CType(result.Object, DataVisualization.Charting.CustomLabel).Text
+                For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
+                    If DirectCast(tmpRow.Tag, GroupInfo.ServerInfo).ShowNm.Equals(selectedServerName) Then
+                        dgvClusterRowIndex = tmpRow.Index
+                        Exit For
+                    End If
+                Next
+            Case Else
+                Return
+        End Select
+        checkPermNopenMondetail(dgvClusterRowIndex)
+    End Sub
+
+    Private Sub btnColumns_Click(sender As Object, e As EventArgs) Handles btnColumns.Click
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        Dim ps As System.Drawing.Point = Cursor.Position
+        ps.X -= mnuBackendColumns.Width
+        mnuBackendColumns.Show(lblTemp, lblTemp.PointToClient(Cursor.Position), ToolStripDropDownDirection.Default)
+        mnuBackendCPU.Text = p_clsMsgData.fn_GetData("F049")
+        mnuBackendStartTime.Text = p_clsMsgData.fn_GetData("F050")
+        mnuBackendElapsedTime.Text = p_clsMsgData.fn_GetData("F051")
+
+        If dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible = True Then
+            mnuBackendCPU.Checked = CheckState.Checked
+        Else
+            mnuBackendCPU.Checked = CheckState.Unchecked
+        End If
+        If dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible = True Then
+            mnuBackendStartTime.Checked = CheckState.Checked
+        Else
+            mnuBackendStartTime.Checked = CheckState.Unchecked
+        End If
+
+        If dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible = True Then
+            mnuBackendElapsedTime.Checked = CheckState.Checked
+        Else
+            mnuBackendElapsedTime.Checked = CheckState.Unchecked
+        End If
+    End Sub
+
+    Private Sub mnuBackendColumns_Click(sender As Object, e As EventArgs) Handles mnuBackendCPU.Click, mnuBackendStartTime.Click, mnuBackendElapsedTime.Click
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        If sender.Name = "mnuBackendCPU" Then
+            dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible = Not dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNADDR", dgvSessionInfo.Columns(colDgvSessionInfoCpuUsage.Index).Visible)
+        ElseIf sender.Name = "mnuBackendStartTime" Then
+            dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible = Not dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNAPP", dgvSessionInfo.Columns(colDgvSessionInfoTmStart.Index).Visible)
+        ElseIf sender.Name = "mnuBackendElapsedTime" Then
+            dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible = Not dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible
+            clsIni.WriteValue("FORM", "MENUCOLUMNWAITEVENT", dgvSessionInfo.Columns(colDgvSessionInfoTmElapse.Index).Visible)
+        End If
+    End Sub
+#Region "menu"
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click
+        Dim BretFrm As Form = Nothing
+        Dim stDt As DateTime = Now.AddMinutes(-10)
+        Dim edDt As DateTime = Now
+
+        If sender.Name = "mnuLogout" Then
+            Me.Owner.Close()
+        ElseIf sender.Name = "mnuUserConfig" Then
+            If CheckPassword() = False Then Return
+            Dim userConfig As New frmConfig(AgentCn)
+            userConfig.ShowDialog()
+        ElseIf sender.Name = "mnuPreferences" Then
+            If CheckPassword() = False Then Return
+            Dim Preferences As New frmPreferences(AgentCn)
+            Preferences.ShowDialog()
+        Else
+            Dim version As New frmVersion(AgentCn)
+            version.ShowDialog()
+        End If
+
+    End Sub
+#End Region
+
+#Region "Check permission/password/access log"
+    Private Sub checkPermNopenMondetail(ByVal rowIndex As Integer)
+        Dim clsQu As New clsQuerys(_AgentCn)
+
+        If p_cSession.loadUserPermission(clsQu) = True Then
+            Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 1)
+            If hasPermission = True Then
+                If rowIndex >= 0 Then openMonDetail(rowIndex)
+            Else
+                MsgBox(p_clsMsgData.fn_GetData("M088"))
+                Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(rowIndex).Tag, GroupInfo.ServerInfo)
+                AccessLog("cluster_detail", 1, "", tmpSvrInfo.InstanceID)
+            End If
+        Else
+            MsgBox(p_clsMsgData.fn_GetData("M088"))
+            Dim tmpSvrInfo As GroupInfo.ServerInfo = TryCast(Me.dgvClusters.Rows(rowIndex).Tag, GroupInfo.ServerInfo)
+            AccessLog("cluster_detail", 1, "Load permission failed", tmpSvrInfo.InstanceID)
+        End If
+    End Sub
+
+    Private Function CheckPassword() As Boolean
+        Dim frmPw As New frmPassword(AgentCn)
+        If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+              Optional strLog As String = "", Optional intInstanceID As Integer = -1)
+        Try
+            Dim COC As New Common.ClsObjectCtl
+            Dim strLocIP As String = COC.GetLocalIP
+            Dim clsQu As New clsQuerys(_AgentCn)
+            clsQu.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP, intInstanceID)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+#End Region
+#Region "Selct Instances"
+    Private Sub ShowChooseClusters()
+        Dim frmCS As New frmClusterShow(_GrpListServerinfo, _instanceColors)
+        If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim rtnStruct As structConnection = Nothing
+            Dim rtnSchema As String = ""
+            Dim rtnCollect As Integer = 0
+            Dim strAlias As String = ""
+
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                tmpSvr.Reserved = frmCS.SvrpList(index).Reserved
+                If tmpSvr.Reserved = True Then
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                Else
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    'Status Charts
+                End If
+                index += 1
+            Next
+            ReinitCharts()
+        End If
+        frmCS.Dispose()
+    End Sub
+
+    Private Sub ReinitCharts()
+        _tmSeriesList.Clear()
+        ' Cluster list backcolor
+        ResetInstanceStatus()
+        ' CPU 관련 목록을 변경한다. 
+        ResetCPUStatusChart()
+        '' 메모리 관련 목록을 변경한다. 
+        ResetMEMStatusChart()
+        '' Request Info 
+        ResetLogicalStatusChart()
+        ' Session Stats
+        ResetSessionStatusCharts()
+    End Sub
+
+    Private Sub ResetInstanceStatus()
+        For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
+            If tmpRow.Tag.Reserved = True Then
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+            Else
+                tmpRow.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(16, Byte), Integer), CType(CType(16, Byte), Integer), CType(CType(20, Byte), Integer))
+                tmpRow.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(16, Byte), Integer), CType(CType(16, Byte), Integer), CType(CType(20, Byte), Integer))
+            End If
+        Next
+
+    End Sub
+
+    Private Sub ResetCPUStatusChart()
+        ' 레이더 보이는 아이템을 모두 삭제한다. 
+        radCpu.items.Clear()
+        ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpCpuSvrLst.DataSource = Nothing
+        dgvGrpCpuSvrLst.Rows.Clear()
+
+        ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+        Dim idx As Integer = 0
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrUsage.Index).Value = 0.0
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrProg.Index).Value = 0.0
+                idx += 1
+            End If
+        Next
+
+        'AddHandler dgvGrpCpuSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
+
+        '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+        Dim vIndex As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                    tmpSeries.Points(tmpInt).Tag = tmpSvr
+                Next
+                vIndex += 1
+            End If
+        Next
+
+        If srtLSt.Count <= 6 Then
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        Else
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 69
+        End If
+
+        'Row height
+        DgvRowHeightFill(dgvGrpCpuSvrLst, srtLSt.Count)
+
+        ' group color
+        sb_setGroupColorChart(chtCPUStatus)
+
+        Me.chtCPUStatus.Tag = srtLSt
+        chtCPUStatus.Invalidate()
+        '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+
+    End Sub
+
+    Private Sub ResetMEMStatusChart()
+        ' 레이더 보이는 아이템을 모두 삭제한다. 
+        radMem.items.Clear()
+        ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpMemSvrLst.DataSource = Nothing
+        dgvGrpMemSvrLst.Rows.Clear()
+
+        ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+        Dim idx As Integer = 0
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrUsage.Index).Value = 0.0
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrprog.Index).Value = 0.0
+                idx += 1
+            End If
+        Next
+
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+        Dim vIndex As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                    tmpSeries.Points(tmpInt).Tag = tmpSvr
+                Next
+                vIndex += 1
+            End If
+        Next
+
+        If srtLSt.Count <= 6 Then
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        Else
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 69
+        End If
+
+        'Row height
+        DgvRowHeightFill(dgvGrpMemSvrLst, srtLSt.Count)
+
+        ' group color
+        sb_setGroupColorChart(chtMEMStatus)
+
+        Me.chtMEMStatus.Tag = srtLSt
+        chtMEMStatus.Invalidate()
+
+    End Sub
+
+    Private Sub ResetSessionStatusCharts()
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+        Dim vIndex As Integer = 0
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                    tmpSeries.Points(tmpInt).ToolTip = tmpSvr.ShowNm
+                    tmpSeries.Points(tmpInt).Tag = tmpSvr
+                Next
+                vIndex += 1
+            End If
+        Next
+
+        If srtLSt.Count <= 6 Then
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        Else
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 65
+        End If
+
+        Me.chtSessionStatus.Tag = srtLSt
+
+        ' group color
+        sb_setGroupColorChart(chtSessionStatus)
+        chtSessionStatus.Invalidate()
+    End Sub
+
+    Private Sub ResetLogicalStatusChart()
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        Dim srtLSt As New SortedList
+        Dim vIndex As Integer = 0
+        For i As Integer = 0 To svrLst.Count - 1
+            If svrLst.Item(i).Reserved = True Then
+                srtLSt.Add(svrLst.Item(i).InstanceID, vIndex)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                    tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                Next
+                vIndex += 1
+            End If
+        Next
+
+        If srtLSt.Count <= 6 Then
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
+        ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
+        Else
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 65
+        End If
+
+        Me.chrReqInfo.Tag = srtLSt
+
+        ' group color
+        sb_setGroupColorChart(chrReqInfo)
+
+        chrReqInfo.Invalidate()
+    End Sub
+#End Region
+
+    Private Sub chtSessionStatus_Click(sender As Object, e As EventArgs) Handles chtSessionStatus.Click, chtMEMStatus.Click, chtCPUStatus.Click, chrReqInfo.Click
+
     End Sub
 End Class
