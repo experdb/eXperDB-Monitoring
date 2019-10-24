@@ -141,6 +141,7 @@
         _odbcConn = odbcConn
         _connStruct = connStruct
         InitLanguage()
+        ReadGeneral()
         InitForm()
     End Sub
 
@@ -582,8 +583,8 @@
             Return
         Else
             For Each tmpGrp As GroupInfo In rtnSrt
-                If tmpGrp.Items.Count > 40 Then
-                    MsgBox(p_clsMsgData.fn_GetData("M017"), 40)
+                If tmpGrp.Items.Count > 48 Then
+                    MsgBox(p_clsMsgData.fn_GetData("M017", 48))
                     Return
                 End If
             Next
@@ -1063,6 +1064,7 @@
             If CheckPassword() = False Then Return
             Dim userConfig As New frmConfig(_odbcConn)
             userConfig.ShowDialog()
+            ReadGeneral()
         ElseIf sender.Name = "mnuPreferences" Then
             If CheckPassword() = False Then Return
             Dim Preferences As New frmPreferences(_odbcConn)

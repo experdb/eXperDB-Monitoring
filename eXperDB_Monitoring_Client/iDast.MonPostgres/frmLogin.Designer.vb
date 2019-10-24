@@ -43,6 +43,7 @@ Partial Class frmLogin
         Me.txtServerIP = New eXperDB.BaseControls.TextBox()
         Me.Panel3 = New eXperDB.BaseControls.Panel()
         Me.txtPassword = New eXperDB.BaseControls.TextBox()
+        Me.chkRememberPW = New eXperDB.BaseControls.CheckBox()
         Me.pnlLogin.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -53,6 +54,7 @@ Partial Class frmLogin
         'pnlLogin
         '
         Me.pnlLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(248, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer), CType(CType(56, Byte), Integer))
+        Me.pnlLogin.Controls.Add(Me.chkRememberPW)
         Me.pnlLogin.Controls.Add(Me.lblLoginName)
         Me.pnlLogin.Controls.Add(Me.lblLogo)
         Me.pnlLogin.Controls.Add(Me.lblLogo2)
@@ -351,6 +353,23 @@ Partial Class frmLogin
         Me.txtPassword.Text = "Password"
         Me.txtPassword.Value = ""
         '
+        'chkRememberPW
+        '
+        Me.chkRememberPW.AutoSize = True
+        Me.chkRememberPW.BackColor = System.Drawing.Color.Transparent
+        Me.chkRememberPW.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkRememberPW.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.chkRememberPW.LineColor = System.Drawing.Color.Gray
+        Me.chkRememberPW.Location = New System.Drawing.Point(249, 273)
+        Me.chkRememberPW.Name = "chkRememberPW"
+        Me.chkRememberPW.Radius = 10
+        Me.chkRememberPW.Size = New System.Drawing.Size(108, 16)
+        Me.chkRememberPW.TabIndex = 11
+        Me.chkRememberPW.Text = "Remember PW"
+        Me.chkRememberPW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkRememberPW.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkRememberPW.UseVisualStyleBackColor = False
+        '
         'frmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -397,5 +416,6 @@ Partial Class frmLogin
     Friend WithEvents lblLogo1 As eXperDB.BaseControls.Label
     Friend WithEvents lblLoginName As eXperDB.BaseControls.Label
     Friend WithEvents lblLogo2 As eXperDB.BaseControls.Label
+    Friend WithEvents chkRememberPW As eXperDB.BaseControls.CheckBox
 
 End Class

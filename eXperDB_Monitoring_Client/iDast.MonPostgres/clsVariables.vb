@@ -6,6 +6,7 @@ Module clsVariables
     ''' </summary>
     ''' <remarks></remarks>
     Public p_AppConfigIni As String = System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Config.ini")
+    Public p_AppPWIni As String = System.IO.Path.Combine(My.Application.Info.DirectoryPath, ".Config.ini")
     ''' <summary>
     ''' Language DataTable   
     '''  최초 Read 시에 넣는다. ApplicationEvents.vb 

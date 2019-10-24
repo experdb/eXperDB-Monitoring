@@ -19,6 +19,7 @@ Public Class frmLogin
     Private _connStruct As eXperDB.ODBC.structConnection = Nothing
     Private _odbcConn As eXperDBODBC
     Private _clsQuery As clsQuerys
+    Private _encryptedPassword As String = ""
 
     Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles Me.Load
         'System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
@@ -42,21 +43,49 @@ Public Class frmLogin
         If strUserID.Length > 0 Then
             txtUserID.Text = strUserID
             txtUserID.ForeColor = Color.Black
+            Dim rememberPW As Boolean = clsIni.ReadValue("LOGIN", "REMEMBERPW", 0)
+            If rememberPW = True Then
+                Dim clsPWIni As New Common.IniFile(p_AppPWIni)
+                chkRememberPW.Checked = rememberPW
+                _encryptedPassword = clsPWIni.ReadValue("P", "P", "")
+            End If
         End If
+        Me.ActiveControl = btnLogin
+    End Sub
 
+    Private Sub frmLogin_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        Dim rememberPW As Boolean = clsIni.ReadValue("LOGIN", "REMEMBERPW", 0)
+        If rememberPW = True Then
+            txtPassword.Text = "********"
+        End If
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        If fn_ChkTestBef() = False Then Return
         If makeConnection() = False Then Return
         If DoLogin() = False Then Return
 
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
-        clsIni.WriteValue("LOGIN", "REMEMBERID", IIf(chkRememberID.Checked, 1, 0))
         If chkRememberID.Checked Then
+            clsIni.WriteValue("LOGIN", "REMEMBERID", 1)
             clsIni.WriteValue("LOGIN", "USERID", IIf(txtUserID.Text.Equals("User ID"), "", txtUserID.Text))
         Else
+            clsIni.WriteValue("LOGIN", "REMEMBERID", 0)
             clsIni.WriteValue("LOGIN", "USERID", "")
+        End If
+
+        Dim clsPWIni As New Common.IniFile(p_AppPWIni)
+        If chkRememberPW.Checked Then
+            clsIni.WriteValue("LOGIN", "REMEMBERPW", 1)
+            If _encryptedPassword.Length > 0 Then
+                clsPWIni.WriteValue("P", "P", _encryptedPassword)
+            Else
+                clsPWIni.WriteValue("P", "P", IIf(txtPassword.Text.Equals("Password"), "", p_cSession.UserPassword))
+                _encryptedPassword = IIf(txtPassword.Text.Equals("Password"), "", p_cSession.UserPassword)
+            End If
+        Else
+            clsIni.WriteValue("LOGIN", "REMEMBERPW", 0)
+            clsPWIni.WriteValue("P", "P", "")
         End If
 
         checkVersion()
@@ -226,6 +255,7 @@ Public Class frmLogin
     End Function
 
     Private Function DoLogin() As Boolean
+        If fn_ChkTestBef() = False Then Return False
         Try
             Dim _crypt As New eXperDB.Common.ClsCrypt
             Dim COC As New Common.ClsObjectCtl
@@ -240,7 +270,7 @@ Public Class frmLogin
                 End If
             End If
             '''''''''''''''' check login           ''''''''''''''''''''''''''''''''''''''''''''''''''''
-            Dim strPw = _crypt.EncryptStringSHA256(txtPassword.Text)
+            Dim strPw = IIf(_encryptedPassword.Length > 0, _encryptedPassword, _crypt.EncryptStringSHA256(txtPassword.Text))
             dtTable = _clsQuery.CheckLogin(txtUserID.Text, strPw)
             If dtTable Is Nothing OrElse dtTable.Rows.Count = 0 Then
                 _clsQuery.SetLoginFail(strLocIP)
@@ -334,10 +364,12 @@ Public Class frmLogin
             txtUserID.Focus()
             Return False
         End If
-        If txtPassword.Text = "" Or txtPassword.Text = "Password" Then
-            MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F009")))
-            txtPassword.Focus()
-            Return False
+        If _encryptedPassword.Length <= 0 Then
+            If txtPassword.Text = "" Or txtPassword.Text = "Password" Then
+                MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F009")))
+                txtPassword.Focus()
+                Return False
+            End If
         End If
         Return True
     End Function
@@ -372,5 +404,19 @@ Public Class frmLogin
         End Try
     End Sub
 #End Region
+
+    Private Sub chkRememberPW_CheckedChanged(sender As Object, e As EventArgs) Handles chkRememberPW.CheckedChanged
+        Dim clsIni As New Common.IniFile(p_AppConfigIni)
+        If chkRememberPW.Checked = False Then
+            Dim clsPWIni As New Common.IniFile(p_AppPWIni)
+            _encryptedPassword = ""
+            clsIni.WriteValue("LOGIN", "REMEMBERPW", 0)
+            clsPWIni.WriteValue("P", "P", "")
+            txtPassword.Text = "Password"
+        Else
+            clsIni.WriteValue("LOGIN", "REMEMBERPW", 1)
+        End If
+    End Sub
+
 
 End Class

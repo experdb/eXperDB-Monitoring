@@ -39,11 +39,11 @@ Partial Class AlertConfig
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblServerList = New System.Windows.Forms.Label()
         Me.tlpUserConfigMain = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnSaveAll = New eXperDB.BaseControls.Button()
+        Me.btnInit = New eXperDB.BaseControls.Button()
+        Me.btnSave = New eXperDB.BaseControls.Button()
         Me.tlpAlertConfig = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
-        Me.btnSave = New eXperDB.BaseControls.Button()
-        Me.btnInit = New eXperDB.BaseControls.Button()
-        Me.btnSaveAll = New eXperDB.BaseControls.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -61,7 +61,6 @@ Partial Class AlertConfig
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
         Me.SplitContainer1.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.SplitContainer1.IsSplitterFixed = True
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
@@ -256,6 +255,69 @@ Partial Class AlertConfig
         Me.tlpUserConfigMain.Size = New System.Drawing.Size(878, 690)
         Me.tlpUserConfigMain.TabIndex = 3
         '
+        'btnSaveAll
+        '
+        Me.btnSaveAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnSaveAll.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
+        Me.btnSaveAll.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnSaveAll.FixedHeight = False
+        Me.btnSaveAll.FixedWidth = False
+        Me.btnSaveAll.ForeColor = System.Drawing.Color.White
+        Me.btnSaveAll.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnSaveAll.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnSaveAll.Location = New System.Drawing.Point(489, 650)
+        Me.btnSaveAll.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnSaveAll.Name = "btnSaveAll"
+        Me.btnSaveAll.Radius = 10
+        Me.btnSaveAll.Size = New System.Drawing.Size(100, 35)
+        Me.btnSaveAll.TabIndex = 13
+        Me.btnSaveAll.Text = "F951"
+        Me.btnSaveAll.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnSaveAll.UseRound = True
+        Me.btnSaveAll.UseVisualStyleBackColor = False
+        '
+        'btnInit
+        '
+        Me.btnInit.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnInit.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
+        Me.btnInit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnInit.FixedHeight = False
+        Me.btnInit.FixedWidth = False
+        Me.btnInit.ForeColor = System.Drawing.Color.White
+        Me.btnInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnInit.Location = New System.Drawing.Point(389, 650)
+        Me.btnInit.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnInit.Name = "btnInit"
+        Me.btnInit.Radius = 10
+        Me.btnInit.Size = New System.Drawing.Size(100, 35)
+        Me.btnInit.TabIndex = 12
+        Me.btnInit.Text = "F226"
+        Me.btnInit.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnInit.UseRound = True
+        Me.btnInit.UseVisualStyleBackColor = False
+        '
+        'btnSave
+        '
+        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
+        Me.btnSave.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnSave.FixedHeight = False
+        Me.btnSave.FixedWidth = False
+        Me.btnSave.ForeColor = System.Drawing.Color.White
+        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnSave.Location = New System.Drawing.Point(289, 650)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Radius = 10
+        Me.btnSave.Size = New System.Drawing.Size(100, 35)
+        Me.btnSave.TabIndex = 11
+        Me.btnSave.Text = "F014"
+        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnSave.UseRound = True
+        Me.btnSave.UseVisualStyleBackColor = False
+        '
         'tlpAlertConfig
         '
         Me.tlpAlertConfig.ColumnCount = 1
@@ -279,69 +341,6 @@ Partial Class AlertConfig
         Me.dbmsImgLst.TransparentColor = System.Drawing.Color.Transparent
         Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
         Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
-        '
-        'btnSave
-        '
-        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnSave.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
-        Me.btnSave.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSave.FixedHeight = False
-        Me.btnSave.FixedWidth = False
-        Me.btnSave.ForeColor = System.Drawing.Color.White
-        Me.btnSave.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
-        Me.btnSave.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnSave.Location = New System.Drawing.Point(289, 650)
-        Me.btnSave.Margin = New System.Windows.Forms.Padding(0)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Radius = 10
-        Me.btnSave.Size = New System.Drawing.Size(100, 35)
-        Me.btnSave.TabIndex = 11
-        Me.btnSave.Text = "F014"
-        Me.btnSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnSave.UseRound = True
-        Me.btnSave.UseVisualStyleBackColor = False
-        '
-        'btnInit
-        '
-        Me.btnInit.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnInit.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
-        Me.btnInit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnInit.FixedHeight = False
-        Me.btnInit.FixedWidth = False
-        Me.btnInit.ForeColor = System.Drawing.Color.White
-        Me.btnInit.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
-        Me.btnInit.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnInit.Location = New System.Drawing.Point(389, 650)
-        Me.btnInit.Margin = New System.Windows.Forms.Padding(0)
-        Me.btnInit.Name = "btnInit"
-        Me.btnInit.Radius = 10
-        Me.btnInit.Size = New System.Drawing.Size(100, 35)
-        Me.btnInit.TabIndex = 12
-        Me.btnInit.Text = "F226"
-        Me.btnInit.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnInit.UseRound = True
-        Me.btnInit.UseVisualStyleBackColor = False
-        '
-        'btnSaveAll
-        '
-        Me.btnSaveAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnSaveAll.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
-        Me.btnSaveAll.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnSaveAll.FixedHeight = False
-        Me.btnSaveAll.FixedWidth = False
-        Me.btnSaveAll.ForeColor = System.Drawing.Color.White
-        Me.btnSaveAll.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
-        Me.btnSaveAll.LineColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnSaveAll.Location = New System.Drawing.Point(489, 650)
-        Me.btnSaveAll.Margin = New System.Windows.Forms.Padding(0)
-        Me.btnSaveAll.Name = "btnSaveAll"
-        Me.btnSaveAll.Radius = 10
-        Me.btnSaveAll.Size = New System.Drawing.Size(100, 35)
-        Me.btnSaveAll.TabIndex = 13
-        Me.btnSaveAll.Text = "F951"
-        Me.btnSaveAll.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnSaveAll.UseRound = True
-        Me.btnSaveAll.UseVisualStyleBackColor = False
         '
         'AlertConfig
         '

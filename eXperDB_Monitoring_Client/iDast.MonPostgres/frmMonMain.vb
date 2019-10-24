@@ -87,7 +87,18 @@
                          System.Drawing.Color.Olive,
                          System.Drawing.Color.Plum,
                          System.Drawing.Color.Cyan,
-                         System.Drawing.Color.Teal}
+                         System.Drawing.Color.Teal,
+                         System.Drawing.Color.CadetBlue,
+                         System.Drawing.Color.Chartreuse,
+                         System.Drawing.Color.Chocolate,
+                         System.Drawing.Color.Coral,
+                         System.Drawing.Color.CornflowerBlue,
+                         System.Drawing.Color.Cornsilk,
+                         System.Drawing.Color.DarkGoldenrod,
+                         System.Drawing.Color.FloralWhite,
+                         System.Drawing.Color.MediumAquamarine,
+                         System.Drawing.Color.Gainsboro,
+                         System.Drawing.Color.LightGoldenrodYellow}
 
     Private _groupColors() As Color = {System.Drawing.Color.AliceBlue,
                      System.Drawing.Color.LightSkyBlue}
@@ -1589,6 +1600,8 @@
     Private Sub clsAgentCollect_GetDataCpuMem(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
         Dim intInstID As Integer
+        Dim MaxCPU As Double = 0
+        Dim MaxMEM As Double = 0
         For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE", "SWP_USED_RATE", "HOST_NAME").Rows
             ' GRP CPU
             Try
@@ -1623,18 +1636,38 @@
                                 Dim idx As Integer = Me.chtCPUStatus.Tag.Item(intInstID)
                                 drawAnimation(Me.chtCPUStatus.Series("Util"), idx, lngUtil)
                                 drawAnimation(Me.chtCPUStatus.Series("Wait"), idx, lngWait)
+                                Me.chtCPUStatus.Series("Util").Points(idx).Label = CInt(lngUtil)
+                                'Me.chtCPUStatus.Series("Wait").Points(idx).Label = CInt(lngWait)
 
                                 Dim lngMem As Integer = ConvULong(dtRow.Item("MEM_USED_RATE"))
                                 Dim lngSwap As Integer = ConvULong(dtRow.Item("SWP_USED_RATE"))
                                 idx = Me.chtMEMStatus.Tag.Item(intInstID)
                                 drawAnimation(Me.chtMEMStatus.Series("Mem"), idx, lngMem)
                                 drawAnimation(Me.chtMEMStatus.Series("Swap"), idx, lngSwap)
-                                'Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
+                                Me.chtMEMStatus.Series("Mem").Points(idx).Label = CInt(lngSwap)
+                                Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
                                 Dim HARole As String = Me.chtCPUStatus.Series(0).Points(idx).Tag.HARoleStatus
                                 If HARole = "P" Then
-                                    Me.chtMEMStatus.Series("Mem").Points(idx).Label = "P"
-                                    Me.chtCPUStatus.Series("Util").Points(idx).Label = "P"
+                                    'Me.chtMEMStatus.Series("Mem").Points(idx).BorderColor = Color.WhiteSmoke
+                                    'Me.chtMEMStatus.Series("Swap").Points(idx).BorderColor = Color.WhiteSmoke
+                                    'Me.chtCPUStatus.Series("Util").Points(idx).BorderColor = Color.WhiteSmoke
+                                    'Me.chtCPUStatus.Series("Wait").Points(idx).BorderColor = Color.WhiteSmoke
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerColor = Color.MintCream
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerSize = 10
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerColor = Color.MintCream
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerSize = 10
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                                Else
+                                    'Me.chtMEMStatus.Series("Mem").Points(idx).BorderColor = Nothing
+                                    'Me.chtMEMStatus.Series("Swap").Points(idx).BorderColor = Nothing
+                                    'Me.chtCPUStatus.Series("Util").Points(idx).BorderColor = Nothing
+                                    'Me.chtCPUStatus.Series("Wait").Points(idx).BorderColor = Nothing
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                                 End If
+                                MaxCPU = Math.Max(lngUtil, MaxCPU)
+                                MaxMEM = Math.Max(lngMem, MaxMEM)
                             End If
                         End If
                     Next
@@ -1660,6 +1693,24 @@
                     '    tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
                     'End Using
                 End If
+
+                If MaxCPU > 0 Then
+                    Dim intPri As Integer = MaxCPU \ 5
+                    intPri += 1
+                    Dim MaxValue As Integer = intPri * 5
+                    Me.chtCPUStatus.ChartAreas(0).AxisY.Maximum = IIf(MaxValue > 100, 100, MaxValue)
+                    Me.chtCPUStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+                    Me.chtCPUStatus.ChartAreas(0).AxisY.Interval = Me.chtCPUStatus.ChartAreas(0).AxisY.Maximum / 5
+                End If
+                If MaxMEM > 0 Then
+                    Dim intPri As Integer = MaxMEM \ 5
+                    intPri += 1
+                    Dim MaxValue As Integer = intPri * 5
+                    Me.chtMEMStatus.ChartAreas(0).AxisY.Maximum = IIf(MaxValue > 100, 100, MaxValue)
+                    Me.chtMEMStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+                    Me.chtMEMStatus.ChartAreas(0).AxisY.Interval = Me.chtMEMStatus.ChartAreas(0).AxisY.Maximum / 5
+                End If
+
             Catch
                 GC.Collect()
             End Try
@@ -2111,14 +2162,18 @@
 
                                 Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
                                 'Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
-                                'Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
+                                Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
                                 'Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
-                                'Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
+                                Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
                                 drawAnimation(Me.chtSessionStatus.Series("Active"), idx, lngActiveSessions)
                                 drawAnimation(Me.chtSessionStatus.Series("Total"), idx, lngTotalSessions)
                                 Dim HARole As String = Me.chtSessionStatus.Series("Active").Points(idx).Tag.HARoleStatus
                                 If HARole = "P" Then
-                                    Me.chtSessionStatus.Series("Total").Points(idx).Label = "P"
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerColor = Color.MintCream
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerSize = 10
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                                Else
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                                 End If
                                 MaxPri = Math.Max(lngTotalSessions, MaxPri)
                             End If
@@ -2741,7 +2796,11 @@
 
                     Dim HARole As String = Me.chrReqInfo.Series("INSERT").Points(idx).Tag.HARoleStatus
                     If HARole = "P" Then
-                        Me.chrReqInfo.Series("READ").Points(idx).Label = "P"
+                        Me.chrReqInfo.Series("READ").Points(idx).MarkerColor = Color.MintCream
+                        Me.chrReqInfo.Series("READ").Points(idx).MarkerSize = 10
+                        Me.chrReqInfo.Series("READ").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                    Else
+                        Me.chrReqInfo.Series("READ").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                     End If
 
                     ' Invoke 로 처리함 귀찮 ㅎㅎ
@@ -3730,13 +3789,14 @@
         End If
         Dim index As Integer = 0
         For Each tmpRow As DataGridViewRow In ctlDgv.Rows
-            If index < 20 Then
-                tmpRow.Height = height
-                tmpRow.Visible = True
-            Else
-                tmpRow.Height = 0
-                tmpRow.Visible = False
-            End If
+            tmpRow.Height = height
+            'If index < 20 Then
+            '    tmpRow.Height = height
+            '    tmpRow.Visible = True
+            'Else
+            '    tmpRow.Height = height
+            '    tmpRow.Visible = False
+            'End If
             index += 1
         Next
     End Sub
@@ -5045,6 +5105,36 @@
     Private Sub dgvGrpDiskUsage_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpDiskUsage.MouseLeave
         dgvGrpDiskUsage.ScrollBars = ScrollBars.None
         dgvGrpDiskUsage.Invalidate()
+    End Sub
+
+    Private Sub dgvClusters_MouseEnter(sender As Object, e As EventArgs) Handles dgvClusters.MouseEnter
+        dgvClusters.ScrollBars = ScrollBars.Vertical
+        dgvClusters.Invalidate()
+    End Sub
+
+    Private Sub dgvClusters_MouseLeave(sender As Object, e As EventArgs) Handles dgvClusters.MouseLeave
+        dgvClusters.ScrollBars = ScrollBars.None
+        dgvClusters.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpCpuSvrLst_MouseEnter(sender As Object, e As EventArgs) Handles dgvGrpCpuSvrLst.MouseEnter
+        dgvGrpCpuSvrLst.ScrollBars = ScrollBars.Vertical
+        dgvGrpCpuSvrLst.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpMemSvrLst_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpMemSvrLst.MouseLeave
+        dgvGrpMemSvrLst.ScrollBars = ScrollBars.None
+        dgvGrpMemSvrLst.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpMemSvrLst_MouseEnter(sender As Object, e As EventArgs) Handles dgvGrpMemSvrLst.MouseEnter
+        dgvGrpMemSvrLst.ScrollBars = ScrollBars.Vertical
+        dgvGrpMemSvrLst.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpCpuSvrLst_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpCpuSvrLst.MouseLeave
+        dgvGrpCpuSvrLst.ScrollBars = ScrollBars.None
+        dgvGrpCpuSvrLst.Invalidate()
     End Sub
 
     Private Sub chtSessionStatus_Click(sender As Object, e As MouseEventArgs) Handles chtSessionStatus.Click, chrReqInfo.Click, chtCPUStatus.Click, chtMEMStatus.Click
