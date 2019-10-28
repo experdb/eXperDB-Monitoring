@@ -31,11 +31,6 @@ Partial Class AlertConfig
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpGroup = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgvSvrLst = New AdvancedDataGridView.TreeGridView()
-        Me.coldgvHostName = New AdvancedDataGridView.TreeGridColumn()
-        Me.coldgvAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblServerList = New System.Windows.Forms.Label()
         Me.tlpUserConfigMain = New System.Windows.Forms.TableLayoutPanel()
@@ -44,6 +39,12 @@ Partial Class AlertConfig
         Me.btnSave = New eXperDB.BaseControls.Button()
         Me.tlpAlertConfig = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
+        Me.coldgvHostName = New AdvancedDataGridView.TreeGridColumn()
+        Me.coldgvHostNameKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -118,7 +119,7 @@ Partial Class AlertConfig
         Me.dgvSvrLst.ColumnHeadersHeight = 24
         Me.dgvSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvSvrLst.ColumnHeadersVisible = False
-        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvHostName, Me.coldgvAliasNm, Me.coldgvIP, Me.coldgvHARole, Me.coldgvHAHost})
+        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvHostName, Me.coldgvHostNameKey, Me.coldgvAliasNm, Me.coldgvIP, Me.coldgvHARole, Me.coldgvHAHost})
         Me.tlpGroup.SetColumnSpan(Me.dgvSvrLst, 4)
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
@@ -150,52 +151,6 @@ Partial Class AlertConfig
         Me.dgvSvrLst.ShowLines = False
         Me.dgvSvrLst.Size = New System.Drawing.Size(257, 634)
         Me.dgvSvrLst.TabIndex = 31
-        '
-        'coldgvHostName
-        '
-        Me.coldgvHostName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvHostName.DataPropertyName = "HOST_NAME"
-        Me.coldgvHostName.DefaultNodeImage = Nothing
-        Me.coldgvHostName.HeaderText = "F229"
-        Me.coldgvHostName.Name = "coldgvHostName"
-        Me.coldgvHostName.ReadOnly = True
-        Me.coldgvHostName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'coldgvAliasNm
-        '
-        Me.coldgvAliasNm.DataPropertyName = "CONN_NAME"
-        Me.coldgvAliasNm.HeaderText = "F019"
-        Me.coldgvAliasNm.Name = "coldgvAliasNm"
-        Me.coldgvAliasNm.ReadOnly = True
-        Me.coldgvAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvAliasNm.Visible = False
-        '
-        'coldgvIP
-        '
-        Me.coldgvIP.DataPropertyName = "SERVER_IP"
-        Me.coldgvIP.HeaderText = "F006"
-        Me.coldgvIP.Name = "coldgvIP"
-        Me.coldgvIP.ReadOnly = True
-        Me.coldgvIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvIP.Visible = False
-        '
-        'coldgvHARole
-        '
-        Me.coldgvHARole.DataPropertyName = "HA_ROLE"
-        Me.coldgvHARole.HeaderText = "Column1"
-        Me.coldgvHARole.Name = "coldgvHARole"
-        Me.coldgvHARole.ReadOnly = True
-        Me.coldgvHARole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvHARole.Visible = False
-        '
-        'coldgvHAHost
-        '
-        Me.coldgvHAHost.DataPropertyName = "HA_HOST"
-        Me.coldgvHAHost.HeaderText = "Column1"
-        Me.coldgvHAHost.Name = "coldgvHAHost"
-        Me.coldgvHAHost.ReadOnly = True
-        Me.coldgvHAHost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvHAHost.Visible = False
         '
         'TableLayoutPanel2
         '
@@ -342,6 +297,60 @@ Partial Class AlertConfig
         Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
         Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
         '
+        'coldgvHostName
+        '
+        Me.coldgvHostName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvHostName.DataPropertyName = "HOST_NAME"
+        Me.coldgvHostName.DefaultNodeImage = Nothing
+        Me.coldgvHostName.HeaderText = "F229"
+        Me.coldgvHostName.Name = "coldgvHostName"
+        Me.coldgvHostName.ReadOnly = True
+        Me.coldgvHostName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'coldgvHostNameKey
+        '
+        Me.coldgvHostNameKey.DataPropertyName = "HOST_NAME"
+        Me.coldgvHostNameKey.HeaderText = ""
+        Me.coldgvHostNameKey.Name = "coldgvHostNameKey"
+        Me.coldgvHostNameKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvHostNameKey.Visible = False
+        '
+        'coldgvAliasNm
+        '
+        Me.coldgvAliasNm.DataPropertyName = "CONN_NAME"
+        Me.coldgvAliasNm.HeaderText = "F019"
+        Me.coldgvAliasNm.Name = "coldgvAliasNm"
+        Me.coldgvAliasNm.ReadOnly = True
+        Me.coldgvAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvAliasNm.Visible = False
+        '
+        'coldgvIP
+        '
+        Me.coldgvIP.DataPropertyName = "SERVER_IP"
+        Me.coldgvIP.HeaderText = "F006"
+        Me.coldgvIP.Name = "coldgvIP"
+        Me.coldgvIP.ReadOnly = True
+        Me.coldgvIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvIP.Visible = False
+        '
+        'coldgvHARole
+        '
+        Me.coldgvHARole.DataPropertyName = "HA_ROLE"
+        Me.coldgvHARole.HeaderText = "Column1"
+        Me.coldgvHARole.Name = "coldgvHARole"
+        Me.coldgvHARole.ReadOnly = True
+        Me.coldgvHARole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvHARole.Visible = False
+        '
+        'coldgvHAHost
+        '
+        Me.coldgvHAHost.DataPropertyName = "HA_HOST"
+        Me.coldgvHAHost.HeaderText = "Column1"
+        Me.coldgvHAHost.Name = "coldgvHAHost"
+        Me.coldgvHAHost.ReadOnly = True
+        Me.coldgvHAHost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvHAHost.Visible = False
+        '
         'AlertConfig
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -373,14 +382,15 @@ Partial Class AlertConfig
     Friend WithEvents tlpUserConfigMain As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents dgvSvrLst As AdvancedDataGridView.TreeGridView
     Friend WithEvents dbmsImgLst As System.Windows.Forms.ImageList
-    Friend WithEvents coldgvHostName As AdvancedDataGridView.TreeGridColumn
-    Friend WithEvents coldgvAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvIP As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvHARole As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents coldgvHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents tlpAlertConfig As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents btnSaveAll As eXperDB.BaseControls.Button
     Friend WithEvents btnInit As eXperDB.BaseControls.Button
     Friend WithEvents btnSave As eXperDB.BaseControls.Button
+    Friend WithEvents coldgvHostName As AdvancedDataGridView.TreeGridColumn
+    Friend WithEvents coldgvHostNameKey As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvIP As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvHARole As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

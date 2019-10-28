@@ -146,6 +146,7 @@ Partial Class frmMonMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpTabControl = New System.Windows.Forms.TableLayoutPanel()
         Me.tlpDiskUsage = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnDiskUsage = New eXperDB.BaseControls.Button()
         Me.dgvGrpDiskUsage = New eXperDB.BaseControls.DataGridView()
         Me.colDgvDiskUsageKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvDiskUsageUpdTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -264,6 +265,7 @@ Partial Class frmMonMain
         Me.cmbRetention = New FlatCombobox.FlatCombo()
         Me.monTypeImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.tlpDiskAccess = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnDiskAccess = New eXperDB.BaseControls.Button()
         Me.dgvGrpDiskAccess = New eXperDB.BaseControls.DataGridView()
         Me.colDgvDiskAccessKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvDiskAccessUpdTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -424,6 +426,7 @@ Partial Class frmMonMain
         Me.mnuBackendCPU = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuBackendStartTime = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuBackendElapsedTime = New System.Windows.Forms.ToolStripMenuItem()
+        Me.pinImageList = New System.Windows.Forms.ImageList(Me.components)
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -791,10 +794,12 @@ Partial Class frmMonMain
         'tlpDiskUsage
         '
         Me.tlpDiskUsage.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.tlpDiskUsage.ColumnCount = 2
+        Me.tlpDiskUsage.ColumnCount = 3
         Me.tlpTabControl.SetColumnSpan(Me.tlpDiskUsage, 3)
         Me.tlpDiskUsage.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpDiskUsage.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpDiskUsage.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpDiskUsage.Controls.Add(Me.btnDiskUsage, 2, 0)
         Me.tlpDiskUsage.Controls.Add(Me.dgvGrpDiskUsage, 0, 1)
         Me.tlpDiskUsage.Controls.Add(Me.grpDiskUsage, 1, 0)
         Me.tlpDiskUsage.Controls.Add(Me.Label10, 0, 0)
@@ -804,8 +809,31 @@ Partial Class frmMonMain
         Me.tlpDiskUsage.RowCount = 2
         Me.tlpDiskUsage.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpDiskUsage.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpDiskUsage.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpDiskUsage.Size = New System.Drawing.Size(339, 220)
         Me.tlpDiskUsage.TabIndex = 25
+        '
+        'btnDiskUsage
+        '
+        Me.btnDiskUsage.BackColor = System.Drawing.Color.Transparent
+        Me.btnDiskUsage.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnDiskUsage.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnDiskUsage.FixedHeight = False
+        Me.btnDiskUsage.FixedWidth = False
+        Me.btnDiskUsage.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnDiskUsage.Font = New System.Drawing.Font("Gulim", 12.0!)
+        Me.btnDiskUsage.ForeColor = System.Drawing.Color.Black
+        Me.btnDiskUsage.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnDiskUsage.Image = CType(resources.GetObject("btnDiskUsage.Image"), System.Drawing.Image)
+        Me.btnDiskUsage.LineColor = System.Drawing.Color.LightGray
+        Me.btnDiskUsage.Location = New System.Drawing.Point(309, 0)
+        Me.btnDiskUsage.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnDiskUsage.Name = "btnDiskUsage"
+        Me.btnDiskUsage.Radius = 5
+        Me.btnDiskUsage.Size = New System.Drawing.Size(30, 25)
+        Me.btnDiskUsage.TabIndex = 22
+        Me.btnDiskUsage.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnDiskUsage.UseVisualStyleBackColor = False
         '
         'dgvGrpDiskUsage
         '
@@ -828,7 +856,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.ColumnHeadersHeight = 25
         Me.dgvGrpDiskUsage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvGrpDiskUsage.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvDiskUsageKey, Me.colDgvDiskUsageUpdTime, Me.colDgvDiskUsageSvrNm, Me.colDgvDiskUsageDiskNm, Me.colDgvDiskUsageTot, Me.colDgvDiskUsageProg, Me.colDgvDiskUsageRate})
-        Me.tlpDiskUsage.SetColumnSpan(Me.dgvGrpDiskUsage, 2)
+        Me.tlpDiskUsage.SetColumnSpan(Me.dgvGrpDiskUsage, 3)
         DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
@@ -868,7 +896,9 @@ Partial Class frmMonMain
         '
         'colDgvDiskUsageSvrNm
         '
+        Me.colDgvDiskUsageSvrNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvDiskUsageSvrNm.HeaderText = "F033"
+        Me.colDgvDiskUsageSvrNm.MinimumWidth = 100
         Me.colDgvDiskUsageSvrNm.Name = "colDgvDiskUsageSvrNm"
         Me.colDgvDiskUsageSvrNm.ReadOnly = True
         '
@@ -918,7 +948,7 @@ Partial Class frmMonMain
         Me.grpDiskUsage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpDiskUsage.Location = New System.Drawing.Point(43, 0)
         Me.grpDiskUsage.Name = "grpDiskUsage"
-        Me.grpDiskUsage.Size = New System.Drawing.Size(293, 25)
+        Me.grpDiskUsage.Size = New System.Drawing.Size(263, 25)
         Me.grpDiskUsage.TabIndex = 0
         Me.grpDiskUsage.Text = "F044"
         Me.grpDiskUsage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3953,10 +3983,12 @@ Partial Class frmMonMain
         'tlpDiskAccess
         '
         Me.tlpDiskAccess.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.tlpDiskAccess.ColumnCount = 2
+        Me.tlpDiskAccess.ColumnCount = 3
         Me.tlpTabControl.SetColumnSpan(Me.tlpDiskAccess, 3)
         Me.tlpDiskAccess.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.tlpDiskAccess.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpDiskAccess.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpDiskAccess.Controls.Add(Me.btnDiskAccess, 2, 0)
         Me.tlpDiskAccess.Controls.Add(Me.dgvGrpDiskAccess, 0, 1)
         Me.tlpDiskAccess.Controls.Add(Me.grpDiskAccess, 1, 0)
         Me.tlpDiskAccess.Controls.Add(Me.Label9, 0, 0)
@@ -3966,8 +3998,31 @@ Partial Class frmMonMain
         Me.tlpDiskAccess.RowCount = 2
         Me.tlpDiskAccess.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpDiskAccess.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpDiskAccess.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpDiskAccess.Size = New System.Drawing.Size(327, 220)
         Me.tlpDiskAccess.TabIndex = 24
+        '
+        'btnDiskAccess
+        '
+        Me.btnDiskAccess.BackColor = System.Drawing.Color.Transparent
+        Me.btnDiskAccess.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnDiskAccess.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnDiskAccess.FixedHeight = False
+        Me.btnDiskAccess.FixedWidth = False
+        Me.btnDiskAccess.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnDiskAccess.Font = New System.Drawing.Font("Gulim", 12.0!)
+        Me.btnDiskAccess.ForeColor = System.Drawing.Color.Black
+        Me.btnDiskAccess.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnDiskAccess.Image = CType(resources.GetObject("btnDiskAccess.Image"), System.Drawing.Image)
+        Me.btnDiskAccess.LineColor = System.Drawing.Color.LightGray
+        Me.btnDiskAccess.Location = New System.Drawing.Point(297, 0)
+        Me.btnDiskAccess.Margin = New System.Windows.Forms.Padding(0)
+        Me.btnDiskAccess.Name = "btnDiskAccess"
+        Me.btnDiskAccess.Radius = 5
+        Me.btnDiskAccess.Size = New System.Drawing.Size(30, 25)
+        Me.btnDiskAccess.TabIndex = 21
+        Me.btnDiskAccess.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnDiskAccess.UseVisualStyleBackColor = False
         '
         'dgvGrpDiskAccess
         '
@@ -3989,7 +4044,7 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.ColumnHeadersHeight = 25
         Me.dgvGrpDiskAccess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvGrpDiskAccess.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvDiskAccessKey, Me.colDgvDiskAccessUpdTime, Me.colDgvDiskAccessSvrNm, Me.colDgvDiskAccessDiskNm, Me.colDgvDiskAccessProg, Me.colDgvDiskAccessRate})
-        Me.tlpDiskAccess.SetColumnSpan(Me.dgvGrpDiskAccess, 2)
+        Me.tlpDiskAccess.SetColumnSpan(Me.dgvGrpDiskAccess, 3)
         DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle15.Font = New System.Drawing.Font("Malgun Gothic", 9.0!)
@@ -4029,7 +4084,9 @@ Partial Class frmMonMain
         '
         'colDgvDiskAccessSvrNm
         '
+        Me.colDgvDiskAccessSvrNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.colDgvDiskAccessSvrNm.HeaderText = "F033"
+        Me.colDgvDiskAccessSvrNm.MinimumWidth = 100
         Me.colDgvDiskAccessSvrNm.Name = "colDgvDiskAccessSvrNm"
         Me.colDgvDiskAccessSvrNm.ReadOnly = True
         '
@@ -4065,7 +4122,7 @@ Partial Class frmMonMain
         Me.grpDiskAccess.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.grpDiskAccess.Location = New System.Drawing.Point(43, 0)
         Me.grpDiskAccess.Name = "grpDiskAccess"
-        Me.grpDiskAccess.Size = New System.Drawing.Size(281, 25)
+        Me.grpDiskAccess.Size = New System.Drawing.Size(251, 25)
         Me.grpDiskAccess.TabIndex = 0
         Me.grpDiskAccess.Text = "F041"
         Me.grpDiskAccess.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -5947,6 +6004,13 @@ Partial Class frmMonMain
         Me.mnuBackendElapsedTime.Size = New System.Drawing.Size(101, 22)
         Me.mnuBackendElapsedTime.Text = "F051"
         '
+        'pinImageList
+        '
+        Me.pinImageList.ImageStream = CType(resources.GetObject("pinImageList.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.pinImageList.TransparentColor = System.Drawing.Color.Transparent
+        Me.pinImageList.Images.SetKeyName(0, "pinned.png")
+        Me.pinImageList.Images.SetKeyName(1, "pin.png")
+        '
         'frmMonMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -6090,12 +6154,6 @@ Partial Class frmMonMain
     Friend WithEvents mnuConfig As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents dgvGrpCpuSvrLst As eXperDB.BaseControls.DataGridView
     Friend WithEvents mnuAlertConfig As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents colDgvDiskAccessKey As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessUpdTime As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessSvrNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessDiskNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessProg As eXperDB.Controls.DataGridViewPercentageColumn
-    Friend WithEvents colDgvDiskAccessRate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents tlpCPU As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents tlpMem As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents colGrpCpuSvrID As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -6113,13 +6171,6 @@ Partial Class frmMonMain
     Friend WithEvents dgtNumW As eXperDB.Controls.DigitalNumber
     Friend WithEvents dgtNumN As eXperDB.Controls.DigitalNumber
     Friend WithEvents mnuReports As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents colDgvDiskUsageKey As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskUsageUpdTime As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskUsageSvrNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskUsageDiskNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskUsageTot As eXperDB.Controls.DataGridViewDataSizeColumn
-    Friend WithEvents colDgvDiskUsageProg As eXperDB.Controls.DataGridViewPercentageColumn
-    Friend WithEvents colDgvDiskUsageRate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents flpInstance As eXperDB.BaseControls.FlowLayoutPanel
     Friend WithEvents nudBackendcnt As eXperDB.BaseControls.NumericUpDown
     Friend WithEvents chkIDLE As eXperDB.BaseControls.CheckBox
@@ -6369,5 +6420,21 @@ Partial Class frmMonMain
     Friend WithEvents lblReplicationDelaySize As System.Windows.Forms.Label
     Friend WithEvents mnuReplicationDelay As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuReplicationDelaySize As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnDiskUsage As eXperDB.BaseControls.Button
+    Friend WithEvents colDgvDiskUsageKey As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskUsageUpdTime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskUsageSvrNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskUsageDiskNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskUsageTot As eXperDB.Controls.DataGridViewDataSizeColumn
+    Friend WithEvents colDgvDiskUsageProg As eXperDB.Controls.DataGridViewPercentageColumn
+    Friend WithEvents colDgvDiskUsageRate As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents btnDiskAccess As eXperDB.BaseControls.Button
+    Friend WithEvents colDgvDiskAccessKey As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessUpdTime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessSvrNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessDiskNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessProg As eXperDB.Controls.DataGridViewPercentageColumn
+    Friend WithEvents colDgvDiskAccessRate As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents pinImageList As System.Windows.Forms.ImageList
 
 End Class
