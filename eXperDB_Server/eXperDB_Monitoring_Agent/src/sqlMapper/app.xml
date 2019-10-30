@@ -1195,7 +1195,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
 				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
-				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL
+				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
 				    --AND (application_name <> 'postgres_fdw' and datname not in ('pgmon','psgmondb'))
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
@@ -1402,7 +1402,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	<select id="PG_STAT_DATABASE_INFO_001" parameterType="hashmap" resultType="hashmap">
 		SELECT /* EXPERDBMABT_PG_STAT_DATABASE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			   DATID, DATNAME AS DB_NAME 
-		  FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1');--WHERE DATNAME NOT IN ('template0','template1','postgres')
+		  FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1');
 	</select>
 	
 	
@@ -2167,7 +2167,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	<select id="EXPERDBMA_BT_REPLICATION_SLOT" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		<![CDATA[
-			SELECT CASE WHEN R.client_hostname IS NULL 
+			SELECT /* EXPERDBMA_BT_GET_PGVERSION_001 24e9ab7301ff1966da4fb30dc1538882 */
+					CASE WHEN R.client_hostname IS NULL 
 						THEN R.application_name 
 						ELSE R.client_hostname END slave_hostname, 
 				   S.slot_name, S.plugin, S.slot_type, S.datoid, S.temporary, S.active, S.xmin, S.restart_lsn, S.confirmed_flush_lsn 
@@ -2600,7 +2601,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!-- ********************************************************** -->
 	<select id="DX004_001" parameterType="hashmap" resultType="hashmap" flushCache="true">
 		SELECT /* EXPERDBMADX004_001 24e9ab7301ff1966da4fb30dc1538882 */
-				DATID, DATNAME FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1'); --WHERE DATNAME NOT IN ('template0','template1','postgres');
+				DATID, DATNAME FROM PG_STAT_DATABASE WHERE DATNAME NOT IN ('template0','template1');
 	</select>
 	
 	<select id="DX004_002" parameterType="hashmap" resultType="hashmap" flushCache="true">

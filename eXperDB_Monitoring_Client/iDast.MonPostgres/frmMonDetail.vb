@@ -1126,7 +1126,7 @@ Public Class frmMonDetail
             Dim strItm As String = tmpRow.Item("HCHK_NAME")
             Dim intHchkVal As Integer = tmpRow.Item("HCHK_VALUE")
             Dim intValue As Long = tmpRow.Item("VALUE")
-            Dim intSubValue As Long = tmpRow.Item("SUB_VALUE")
+            Dim intSubValue As Long = IIf(IsDBNull(tmpRow.Item("SUB_VALUE")), 0, tmpRow.Item("SUB_VALUE"))
             Dim strUnit As String = tmpRow.Item("UNIT")
             Dim intSeq As String = IIf(IsDBNull(tmpRow.Item("REG_SEQ")), "", tmpRow.Item("REG_SEQ"))
             Dim strRegDt As String = IIf(IsDBNull(tmpRow.Item("REG_DATE")), Now.ToString("yyyyMMdd"), tmpRow.Item("REG_DATE"))
@@ -1810,6 +1810,11 @@ Public Class frmMonDetail
                                   tmpSeries.Points(tmpInt).AxisLabel = tmpRow.Item("CLIENT_ADDR")
                                   tmpSeries.Points(tmpInt).ToolTip = tmpRow.Item("CLIENT_ADDR")
                               Next
+                          Else
+                              Dim tmpSeries As DataVisualization.Charting.Series = Me.chtSessionTop.Series(0)
+                              Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                              tmpSeries.Points(tmpInt).AxisLabel = "Total"
+                              tmpSeries.Points(tmpInt).ToolTip = "Total"
                           End If
 
                           sb_ChartAlignYAxies(Me.chtSessionTop)
@@ -2333,6 +2338,9 @@ Public Class frmMonDetail
             initDataCheckpoint()
             'stopwatch.Stop()
             'Console.WriteLine("Time elapsed6: {0}", stopwatch.Elapsed)
+
+            SetSessionTopInfo()
+
             _clsQuery.SetOptions("enable_hashjoin", "on")
             _clsQuery.CancelCommand()
         End If

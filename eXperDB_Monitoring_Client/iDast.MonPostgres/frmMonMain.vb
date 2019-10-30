@@ -47,6 +47,8 @@
 
     Private _isPower As Boolean = True
     Private _isDrawInitialData As Integer = 3
+    Private _isDiskAccess As Boolean = True
+    Private _isDiskUsage As Boolean = True
 
     Private _instanceColors() As Color = {System.Drawing.Color.YellowGreen,
                          System.Drawing.Color.Orange,
@@ -87,7 +89,18 @@
                          System.Drawing.Color.Olive,
                          System.Drawing.Color.Plum,
                          System.Drawing.Color.Cyan,
-                         System.Drawing.Color.Teal}
+                         System.Drawing.Color.Teal,
+                         System.Drawing.Color.CadetBlue,
+                         System.Drawing.Color.Chartreuse,
+                         System.Drawing.Color.Chocolate,
+                         System.Drawing.Color.Coral,
+                         System.Drawing.Color.CornflowerBlue,
+                         System.Drawing.Color.Cornsilk,
+                         System.Drawing.Color.DarkGoldenrod,
+                         System.Drawing.Color.FloralWhite,
+                         System.Drawing.Color.MediumAquamarine,
+                         System.Drawing.Color.Gainsboro,
+                         System.Drawing.Color.LightGoldenrodYellow}
 
     Private _groupColors() As Color = {System.Drawing.Color.AliceBlue,
                      System.Drawing.Color.LightSkyBlue}
@@ -1359,15 +1372,6 @@
 
 
 
-
-
-
-
-    Private Sub grpDiskAccess_Enter(sender As Object, e As EventArgs)
-
-    End Sub
-
-
     ''' <summary>
     ''' alert 환경 설정 메뉴 클릭시 
     ''' </summary>
@@ -1589,6 +1593,8 @@
     Private Sub clsAgentCollect_GetDataCpuMem(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
         Dim intInstID As Integer
+        Dim MaxCPU As Double = 0
+        Dim MaxMEM As Double = 0
         For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE", "SWP_USED_RATE", "HOST_NAME").Rows
             ' GRP CPU
             Try
@@ -1623,18 +1629,38 @@
                                 Dim idx As Integer = Me.chtCPUStatus.Tag.Item(intInstID)
                                 drawAnimation(Me.chtCPUStatus.Series("Util"), idx, lngUtil)
                                 drawAnimation(Me.chtCPUStatus.Series("Wait"), idx, lngWait)
+                                Me.chtCPUStatus.Series("Util").Points(idx).Label = CInt(lngUtil)
+                                'Me.chtCPUStatus.Series("Wait").Points(idx).Label = CInt(lngWait)
 
                                 Dim lngMem As Integer = ConvULong(dtRow.Item("MEM_USED_RATE"))
                                 Dim lngSwap As Integer = ConvULong(dtRow.Item("SWP_USED_RATE"))
                                 idx = Me.chtMEMStatus.Tag.Item(intInstID)
                                 drawAnimation(Me.chtMEMStatus.Series("Mem"), idx, lngMem)
                                 drawAnimation(Me.chtMEMStatus.Series("Swap"), idx, lngSwap)
-                                'Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
+                                Me.chtMEMStatus.Series("Mem").Points(idx).Label = CInt(lngMem)
+                                Me.chtMEMStatus.Series("Swap").Points(idx).Label = CInt(lngSwap)
                                 Dim HARole As String = Me.chtCPUStatus.Series(0).Points(idx).Tag.HARoleStatus
                                 If HARole = "P" Then
-                                    Me.chtMEMStatus.Series("Mem").Points(idx).Label = "P"
-                                    Me.chtCPUStatus.Series("Util").Points(idx).Label = "P"
+                                    'Me.chtMEMStatus.Series("Mem").Points(idx).BorderColor = Color.WhiteSmoke
+                                    'Me.chtMEMStatus.Series("Swap").Points(idx).BorderColor = Color.WhiteSmoke
+                                    'Me.chtCPUStatus.Series("Util").Points(idx).BorderColor = Color.WhiteSmoke
+                                    'Me.chtCPUStatus.Series("Wait").Points(idx).BorderColor = Color.WhiteSmoke
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerColor = Color.MintCream
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerSize = 10
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerColor = Color.MintCream
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerSize = 10
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                                Else
+                                    'Me.chtMEMStatus.Series("Mem").Points(idx).BorderColor = Nothing
+                                    'Me.chtMEMStatus.Series("Swap").Points(idx).BorderColor = Nothing
+                                    'Me.chtCPUStatus.Series("Util").Points(idx).BorderColor = Nothing
+                                    'Me.chtCPUStatus.Series("Wait").Points(idx).BorderColor = Nothing
+                                    Me.chtCPUStatus.Series("Util").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
+                                    Me.chtMEMStatus.Series("Mem").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                                 End If
+                                MaxCPU = Math.Max(lngUtil, MaxCPU)
+                                MaxMEM = Math.Max(lngMem, MaxMEM)
                             End If
                         End If
                     Next
@@ -1660,6 +1686,24 @@
                     '    tmpRow.Cells(colGrpMemSvrprog.Index).Value = dblMem  'datainfo.C07_SWP_USED_RATE
                     'End Using
                 End If
+
+                If MaxCPU > 0 Then
+                    Dim intPri As Integer = MaxCPU \ 5
+                    intPri += 1
+                    Dim MaxValue As Integer = intPri * 5
+                    Me.chtCPUStatus.ChartAreas(0).AxisY.Maximum = IIf(MaxValue > 100, 100, MaxValue)
+                    Me.chtCPUStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+                    Me.chtCPUStatus.ChartAreas(0).AxisY.Interval = Me.chtCPUStatus.ChartAreas(0).AxisY.Maximum / 5
+                End If
+                If MaxMEM > 0 Then
+                    Dim intPri As Integer = MaxMEM \ 5
+                    intPri += 1
+                    Dim MaxValue As Integer = intPri * 5
+                    Me.chtMEMStatus.ChartAreas(0).AxisY.Maximum = IIf(MaxValue > 100, 100, MaxValue)
+                    Me.chtMEMStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+                    Me.chtMEMStatus.ChartAreas(0).AxisY.Interval = Me.chtMEMStatus.ChartAreas(0).AxisY.Maximum / 5
+                End If
+
             Catch
                 GC.Collect()
             End Try
@@ -1776,30 +1820,32 @@
                     Dim dblRate As Double = ConvDBL(dtRow.Item("BUSY_RATE"))
 
                     ' 키로 찾기 위하여 Instance  + Disk Name 으로 키를 넣어둠. 
-                    Using tmpRow As DataGridViewRow = dgvGrpDiskAccess.FindFirstRow(strKey, colDgvDiskAccessKey.Index)
-                        If tmpRow Is Nothing Then
-                            Dim intIdx As Integer = dgvGrpDiskAccess.Rows.Add() ' dgvGrpDiskAccess.InvokeRowsAdd
-                            ' 디스크KEY
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Value = strKey
-                            ' Instance ID
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Tag = intInstID
-                            ' 서버명칭 
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessSvrNm.Index).Value = strInstNm
-                            ' 디스크명칭
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessDiskNm.Index).Value = strDiskNm
-                            ' 사용률
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessProg.Index).Value = dblRate
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
-                            ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
-                            dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
-                        Else
-                            ' 사용률
-                            tmpRow.Cells(colDgvDiskAccessProg.Index).Value = dblRate
-                            tmpRow.Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
-                            ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
-                            tmpRow.Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
-                        End If
-                    End Using
+                    If _isDiskAccess = True Then
+                        Using tmpRow As DataGridViewRow = dgvGrpDiskAccess.FindFirstRow(strKey, colDgvDiskAccessKey.Index)
+                            If tmpRow Is Nothing Then
+                                Dim intIdx As Integer = dgvGrpDiskAccess.Rows.Add() ' dgvGrpDiskAccess.InvokeRowsAdd
+                                ' 디스크KEY
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Value = strKey
+                                ' Instance ID
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Tag = intInstID
+                                ' 서버명칭 
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessSvrNm.Index).Value = strInstNm
+                                ' 디스크명칭
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessDiskNm.Index).Value = strDiskNm
+                                ' 사용률
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessProg.Index).Value = dblRate
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
+                                ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
+                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
+                            Else
+                                ' 사용률
+                                tmpRow.Cells(colDgvDiskAccessProg.Index).Value = dblRate
+                                tmpRow.Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
+                                ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
+                                tmpRow.Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
+                            End If
+                        End Using
+                    End If
                 End If
 
                 If dtRow.Item("DEVICE_NAME") <> "-" Then
@@ -1809,43 +1855,49 @@
                     Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
 
                     ' GRP USAGE
-                    Using tmpRow As DataGridViewRow = dgvGrpDiskUsage.FindFirstRow(strKey, colDgvDiskUsageKey.Index)
-                        If tmpRow Is Nothing Then
-                            'Dim intIdx As Integer = dgvGrpDiskUsage.InvokeRowsAdd
-                            Dim intIDx As Integer = dgvGrpDiskUsage.Rows.Add()
-                            ' Key 
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Value = strKey
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Tag = intInstID
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageSvrNm.Index).Value = strInstNm
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageDiskNm.Index).Value = strDeviceNm
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageProg.Index).Value = dblRate
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
-                            dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
-                        Else
-                            tmpRow.Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
-                            tmpRow.Cells(colDgvDiskUsageProg.Index).Value = dblRate
-                            tmpRow.Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
-                            tmpRow.Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
-                        End If
+                    If _isDiskUsage = True Then
+                        Using tmpRow As DataGridViewRow = dgvGrpDiskUsage.FindFirstRow(strKey, colDgvDiskUsageKey.Index)
+                            If tmpRow Is Nothing Then
+                                'Dim intIdx As Integer = dgvGrpDiskUsage.InvokeRowsAdd
+                                Dim intIDx As Integer = dgvGrpDiskUsage.Rows.Add()
+                                ' Key 
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Value = strKey
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Tag = intInstID
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageSvrNm.Index).Value = strInstNm
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageDiskNm.Index).Value = strDeviceNm
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageProg.Index).Value = dblRate
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
+                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
+                            Else
+                                tmpRow.Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
+                                tmpRow.Cells(colDgvDiskUsageProg.Index).Value = dblRate
+                                tmpRow.Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
+                                tmpRow.Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
+                            End If
 
-                    End Using
+                        End Using
+                    End If
                 End If
             End If
         Next
 
         ' 목록에 사라진것 삭제하기 
-        dgvGrpDiskAccess.invokeRowsRemoves(UpdTime, colDgvDiskAccessUpdTime.Index, False)
-        dgvGrpDiskUsage.invokeRowsRemoves(UpdTime, colDgvDiskUsageUpdTime.Index, False)
+        If _isDiskAccess = True Then
+            dgvGrpDiskAccess.invokeRowsRemoves(UpdTime, colDgvDiskAccessUpdTime.Index, False)
+            dgvGrpDiskAccess.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
+            ' 컨트롤 색상 변경 
+            modCommon.sb_GridProgClrChg(dgvGrpDiskAccess)
+            sb_GridSortChg(dgvGrpDiskAccess, colDgvDiskAccessRate.Index)
+        End If
 
-        dgvGrpDiskAccess.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-        dgvGrpDiskUsage.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-
-        ' 컨트롤 색상 변경 
-        modCommon.sb_GridProgClrChg(dgvGrpDiskAccess)
-        sb_GridSortChg(dgvGrpDiskAccess, colDgvDiskAccessRate.Index)
-        modCommon.sb_GridProgClrChg(dgvGrpDiskUsage)
-        sb_GridSortChg(dgvGrpDiskUsage, colDgvDiskUsageRate.Index)
+        If _isDiskUsage = True Then
+            dgvGrpDiskUsage.invokeRowsRemoves(UpdTime, colDgvDiskUsageUpdTime.Index, False)
+            dgvGrpDiskUsage.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
+            ' 컨트롤 색상 변경 
+            modCommon.sb_GridProgClrChg(dgvGrpDiskUsage)
+            sb_GridSortChg(dgvGrpDiskUsage, colDgvDiskUsageRate.Index)
+        End If
 
         'For Each tmpFrm As Form In My.Application.OpenForms
         '    Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
@@ -2111,14 +2163,18 @@
 
                                 Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
                                 'Me.chtSessionStatus.Series("Active").Points(idx).SetValueY(lngActiveSessions)
-                                'Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
+                                Me.chtSessionStatus.Series("Active").Points(idx).Label = lngActiveSessions
                                 'Me.chtSessionStatus.Series("Total").Points(idx).SetValueY(lngTotalSessions)
-                                'Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
+                                Me.chtSessionStatus.Series("Total").Points(idx).Label = lngTotalSessions
                                 drawAnimation(Me.chtSessionStatus.Series("Active"), idx, lngActiveSessions)
                                 drawAnimation(Me.chtSessionStatus.Series("Total"), idx, lngTotalSessions)
                                 Dim HARole As String = Me.chtSessionStatus.Series("Active").Points(idx).Tag.HARoleStatus
                                 If HARole = "P" Then
-                                    Me.chtSessionStatus.Series("Total").Points(idx).Label = "P"
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerColor = Color.MintCream
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerSize = 10
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                                Else
+                                    Me.chtSessionStatus.Series("Total").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                                 End If
                                 MaxPri = Math.Max(lngTotalSessions, MaxPri)
                             End If
@@ -2729,19 +2785,23 @@
                     'Me.chrReqInfo.Series("UPDATE").Points(idx).SetValueY(lngUpdatetTuples)
                     'Me.chrReqInfo.Series("READ").Points(idx).SetValueY(lngReadtTuples)
 
-                    drawAnimation(Me.chrReqInfo.Series("INSERT"), idx, lngInsertTuples)
-                    drawAnimation(Me.chrReqInfo.Series("DELETE"), idx, lngDeleteTuples)
-                    drawAnimation(Me.chrReqInfo.Series("UPDATE"), idx, lngUpdatetTuples)
-                    drawAnimation(Me.chrReqInfo.Series("READ"), idx, lngReadtTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Insert"), idx, lngInsertTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Delete"), idx, lngDeleteTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Update"), idx, lngUpdatetTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Read"), idx, lngReadtTuples)
 
 
 
                     MaxPri = Math.Max(lngInsertTuples + lngDeleteTuples + lngUpdatetTuples, MaxPri)
                     MaxSec = Math.Max(lngReadtTuples, MaxSec)
 
-                    Dim HARole As String = Me.chrReqInfo.Series("INSERT").Points(idx).Tag.HARoleStatus
+                    Dim HARole As String = Me.chrReqInfo.Series("Insert").Points(idx).Tag.HARoleStatus
                     If HARole = "P" Then
-                        Me.chrReqInfo.Series("READ").Points(idx).Label = "P"
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerColor = Color.MintCream
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerSize = 10
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                    Else
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                     End If
 
                     ' Invoke 로 처리함 귀찮 ㅎㅎ
@@ -3730,13 +3790,14 @@
         End If
         Dim index As Integer = 0
         For Each tmpRow As DataGridViewRow In ctlDgv.Rows
-            If index < 20 Then
-                tmpRow.Height = height
-                tmpRow.Visible = True
-            Else
-                tmpRow.Height = 0
-                tmpRow.Visible = False
-            End If
+            tmpRow.Height = height
+            'If index < 20 Then
+            '    tmpRow.Height = height
+            '    tmpRow.Visible = True
+            'Else
+            '    tmpRow.Height = height
+            '    tmpRow.Visible = False
+            'End If
             index += 1
         Next
     End Sub
@@ -3808,6 +3869,24 @@
 
         End Select
 
+    End Sub
+
+
+    Private Sub chtSessionStatus_GetToolTipText(sender As Object, e As DataVisualization.Charting.ToolTipEventArgs) Handles chtSessionStatus.GetToolTipText, chtCPUStatus.GetToolTipText, chtMEMStatus.GetToolTipText
+        Select Case e.HitTestResult.ChartElementType
+            Case DataVisualization.Charting.ChartElementType.Axis, DataVisualization.Charting.ChartElementType.TickMarks
+            Case DataVisualization.Charting.ChartElementType.AxisLabels
+                If e.HitTestResult.Object.GetType.Equals(GetType(DataVisualization.Charting.CustomLabel)) Then
+                    e.Text = DirectCast(e.HitTestResult.Object, DataVisualization.Charting.CustomLabel).Text
+                End If
+            Case DataVisualization.Charting.ChartElementType.DataPoint
+                If e.HitTestResult.Object.GetType.Equals(GetType(DataVisualization.Charting.DataPoint)) Then
+                    Dim tmpDtp As DataVisualization.Charting.DataPoint = DirectCast(e.HitTestResult.Object, DataVisualization.Charting.DataPoint)
+                    ' 메모리 공유 문제 인듯 디버그 시 보이나 ToString 사용하지 않으면 값이 나오지 않음 
+                    Dim strServer As String = tmpDtp.AxisLabel.ToString
+                    e.Text = String.Format("[{0}]{1}{2} : {3}", strServer, vbCrLf, e.HitTestResult.Series.Name, tmpDtp.YValues(0).ToString("N0"))
+                End If
+        End Select
     End Sub
 
 
@@ -5047,6 +5126,36 @@
         dgvGrpDiskUsage.Invalidate()
     End Sub
 
+    Private Sub dgvClusters_MouseEnter(sender As Object, e As EventArgs) Handles dgvClusters.MouseEnter
+        dgvClusters.ScrollBars = ScrollBars.Vertical
+        dgvClusters.Invalidate()
+    End Sub
+
+    Private Sub dgvClusters_MouseLeave(sender As Object, e As EventArgs) Handles dgvClusters.MouseLeave
+        dgvClusters.ScrollBars = ScrollBars.None
+        dgvClusters.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpCpuSvrLst_MouseEnter(sender As Object, e As EventArgs) Handles dgvGrpCpuSvrLst.MouseEnter
+        dgvGrpCpuSvrLst.ScrollBars = ScrollBars.Vertical
+        dgvGrpCpuSvrLst.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpMemSvrLst_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpMemSvrLst.MouseLeave
+        dgvGrpMemSvrLst.ScrollBars = ScrollBars.None
+        dgvGrpMemSvrLst.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpMemSvrLst_MouseEnter(sender As Object, e As EventArgs) Handles dgvGrpMemSvrLst.MouseEnter
+        dgvGrpMemSvrLst.ScrollBars = ScrollBars.Vertical
+        dgvGrpMemSvrLst.Invalidate()
+    End Sub
+
+    Private Sub dgvGrpCpuSvrLst_MouseLeave(sender As Object, e As EventArgs) Handles dgvGrpCpuSvrLst.MouseLeave
+        dgvGrpCpuSvrLst.ScrollBars = ScrollBars.None
+        dgvGrpCpuSvrLst.Invalidate()
+    End Sub
+
     Private Sub chtSessionStatus_Click(sender As Object, e As MouseEventArgs) Handles chtSessionStatus.Click, chrReqInfo.Click, chtCPUStatus.Click, chtMEMStatus.Click
         Dim result As DataVisualization.Charting.HitTestResult = Nothing
         Dim selectedDataPoint As DataVisualization.Charting.DataPoint = Nothing
@@ -5488,4 +5597,21 @@
     End Sub
 #End Region
 
+    Private Sub btnDiskAccess_Click(sender As Object, e As EventArgs) Handles btnDiskAccess.Click, btnDiskUsage.Click
+        If sender.name = "btnDiskAccess" Then
+            Me._isDiskAccess = Not _isDiskAccess
+            If _isDiskAccess = True Then
+                btnDiskAccess.Image = pinImageList.Images(0)
+            Else
+                btnDiskAccess.Image = pinImageList.Images(1)
+            End If
+        ElseIf sender.name = "btnDiskUsage" Then
+            Me._isDiskUsage = Not _isDiskUsage
+            If _isDiskUsage = True Then
+                btnDiskUsage.Image = pinImageList.Images(0)
+            Else
+                btnDiskUsage.Image = pinImageList.Images(1)
+            End If
+        End If
+    End Sub
 End Class

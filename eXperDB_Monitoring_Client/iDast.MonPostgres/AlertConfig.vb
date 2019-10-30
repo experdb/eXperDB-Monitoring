@@ -76,7 +76,7 @@
             If dtTable IsNot Nothing Then
                 Dim dtView As DataView = dtTable.AsEnumerable.AsDataView
                 For Each tmpRow As DataRow In dtView.ToTable.Select("HA_ROLE = 'P' OR HA_ROLE = 'A'")
-                    Dim topNode As AdvancedDataGridView.TreeGridNode = dgvSvrLst.Nodes.Add(tmpRow.Item("HOST_NAME"))
+                    Dim topNode As AdvancedDataGridView.TreeGridNode = dgvSvrLst.Nodes.Add(IIf(p_ShowName = 0, tmpRow.Item("HOST_NAME"), tmpRow.Item("CONN_NAME")))
                     topNode.Tag = tmpRow.Item("INSTANCE_ID")
                     topNode.Image = dbmsImgLst.Images(0)
                     topNode.Height = 45
@@ -106,11 +106,11 @@
 
     Private Function sb_AddChildNode(ByVal pNode As AdvancedDataGridView.TreeGridNode, ByVal ColHashSet As Hashtable, ByVal DtView As System.Data.DataRow()) As AdvancedDataGridView.TreeGridNode
         Dim newNode As AdvancedDataGridView.TreeGridNode = Nothing
-        If pNode.Cells(coldgvHostName.Index).Value.ToString() <> "" Then
+        If pNode.Cells(coldgvHostNameKey.Index).Value.ToString() <> "" Then
             For Each tmpChild As DataRow In DtView
-                If (tmpChild.Item("HA_HOST") Like (pNode.Cells(coldgvHostName.Index).Value + "*")) = True Or _
+                If (tmpChild.Item("HA_HOST") Like (pNode.Cells(coldgvHostNameKey.Index).Value + "*")) = True Or _
                     tmpChild.Item("HA_HOST") = pNode.Cells(coldgvIP.Index).Value Then
-                    newNode = pNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
+                    newNode = pNode.Nodes.Add(IIf(p_ShowName = 0, tmpChild.Item("HOST_NAME"), tmpChild.Item("CONN_NAME")))
                     newNode.Tag = tmpChild.Item("INSTANCE_ID")
                     newNode.Image = dbmsImgLst.Images(1)
                     newNode.Height = 45
@@ -212,7 +212,7 @@
             Dim intInstanceID As Integer = tmpRow.Tag
             Dim strIP As String = tmpRow.Cells(coldgvIP.Index).Value
             Dim strAliasNm As String = tmpRow.Cells(coldgvAliasNm.Index).Value
-            Dim strHostNm As String = tmpRow.Cells(coldgvHostName.Index).Value
+            Dim strHostNm As String = tmpRow.Cells(coldgvHostNameKey.Index).Value
             Dim strHARole As String = tmpRow.Cells(coldgvHARole.Index).Value
             Dim strHAHost As String = tmpRow.Cells(coldgvHAHost.Index).Value
 
