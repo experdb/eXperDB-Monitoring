@@ -1084,25 +1084,24 @@ Partial Class frmMonMain
         ChartArea1.InnerPlotPosition.Y = 2.0!
         ChartArea1.Name = "ChartArea1"
         ChartArea1.Position.Auto = False
-        ChartArea1.Position.Height = 90.0!
+        ChartArea1.Position.Height = 89.0!
         ChartArea1.Position.Width = 99.0!
         ChartArea1.Position.X = 1.0!
-        ChartArea1.Position.Y = 10.0!
+        ChartArea1.Position.Y = 11.0!
         Me.chtSessionStatus.ChartAreas.Add(ChartArea1)
         Me.tlpSessionStatus.SetColumnSpan(Me.chtSessionStatus, 2)
         Me.chtSessionStatus.Dock = System.Windows.Forms.DockStyle.Fill
         Legend1.Alignment = System.Drawing.StringAlignment.Far
         Legend1.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend1.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend1.Font = New System.Drawing.Font("Gulim", 8.0!)
         Legend1.ForeColor = System.Drawing.Color.White
         Legend1.IsTextAutoFit = False
         Legend1.Name = "Legend1"
         Legend1.Position.Auto = False
-        Legend1.Position.Height = 10.0!
+        Legend1.Position.Height = 6.0!
         Legend1.Position.Width = 23.68024!
         Legend1.Position.X = 73.31976!
-        Legend1.Position.Y = 1.0!
         Me.chtSessionStatus.Legends.Add(Legend1)
         Me.chtSessionStatus.Location = New System.Drawing.Point(3, 24)
         Me.chtSessionStatus.Margin = New System.Windows.Forms.Padding(3, 0, 3, 1)
@@ -1234,15 +1233,14 @@ Partial Class frmMonMain
         Legend2.Alignment = System.Drawing.StringAlignment.Far
         Legend2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend2.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend2.Font = New System.Drawing.Font("Gulim", 8.0!)
         Legend2.ForeColor = System.Drawing.Color.White
         Legend2.IsTextAutoFit = False
         Legend2.Name = "Legend1"
         Legend2.Position.Auto = False
-        Legend2.Position.Height = 10.0!
+        Legend2.Position.Height = 6.0!
         Legend2.Position.Width = 52.40964!
         Legend2.Position.X = 38.59036!
-        Legend2.Position.Y = 1.0!
         Legend3.BackColor = System.Drawing.Color.Black
         Legend3.Font = New System.Drawing.Font("Gulim", 9.0!)
         Legend3.ForeColor = System.Drawing.Color.White
@@ -1265,28 +1263,28 @@ Partial Class frmMonMain
         Series3.Color = System.Drawing.Color.CornflowerBlue
         Series3.LabelForeColor = System.Drawing.Color.WhiteSmoke
         Series3.Legend = "Legend1"
-        Series3.Name = "INSERT"
+        Series3.Name = "Insert"
         Series4.BorderWidth = 2
         Series4.ChartArea = "ChartArea1"
         Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
         Series4.Color = System.Drawing.Color.Orange
         Series4.LabelForeColor = System.Drawing.Color.WhiteSmoke
         Series4.Legend = "Legend1"
-        Series4.Name = "UPDATE"
+        Series4.Name = "Update"
         Series5.BorderWidth = 2
         Series5.ChartArea = "ChartArea1"
         Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
         Series5.Color = System.Drawing.Color.OrangeRed
         Series5.LabelForeColor = System.Drawing.Color.WhiteSmoke
         Series5.Legend = "Legend1"
-        Series5.Name = "DELETE"
+        Series5.Name = "Delete"
         Series6.BorderWidth = 2
         Series6.ChartArea = "ChartArea1"
         Series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn
         Series6.Color = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(200, Byte), Integer), CType(CType(116, Byte), Integer))
         Series6.LabelForeColor = System.Drawing.Color.WhiteSmoke
         Series6.Legend = "Legend1"
-        Series6.Name = "READ"
+        Series6.Name = "Read"
         Series6.SmartLabelStyle.Enabled = False
         Series6.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary
         Me.chrReqInfo.Series.Add(Series3)
@@ -1411,10 +1409,14 @@ Partial Class frmMonMain
         Legend4.Alignment = System.Drawing.StringAlignment.Far
         Legend4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend4.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend4.Font = New System.Drawing.Font("Gulim", 8.0!)
         Legend4.ForeColor = System.Drawing.Color.White
         Legend4.IsTextAutoFit = False
         Legend4.Name = "Legend1"
+        Legend4.Position.Auto = False
+        Legend4.Position.Height = 6.0!
+        Legend4.Position.Width = 21.41757!
+        Legend4.Position.X = 75.58244!
         Me.chtMEMStatus.Legends.Add(Legend4)
         Me.chtMEMStatus.Location = New System.Drawing.Point(3, 29)
         Me.chtMEMStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -1802,10 +1804,14 @@ Partial Class frmMonMain
         Legend5.Alignment = System.Drawing.StringAlignment.Far
         Legend5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         Legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend5.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Legend5.Font = New System.Drawing.Font("Gulim", 8.0!)
         Legend5.ForeColor = System.Drawing.Color.White
         Legend5.IsTextAutoFit = False
         Legend5.Name = "Legend1"
+        Legend5.Position.Auto = False
+        Legend5.Position.Height = 6.0!
+        Legend5.Position.Width = 21.0!
+        Legend5.Position.X = 75.0!
         Me.chtCPUStatus.Legends.Add(Legend5)
         Me.chtCPUStatus.Location = New System.Drawing.Point(3, 318)
         Me.chtCPUStatus.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)

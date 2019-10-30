@@ -2785,23 +2785,23 @@
                     'Me.chrReqInfo.Series("UPDATE").Points(idx).SetValueY(lngUpdatetTuples)
                     'Me.chrReqInfo.Series("READ").Points(idx).SetValueY(lngReadtTuples)
 
-                    drawAnimation(Me.chrReqInfo.Series("INSERT"), idx, lngInsertTuples)
-                    drawAnimation(Me.chrReqInfo.Series("DELETE"), idx, lngDeleteTuples)
-                    drawAnimation(Me.chrReqInfo.Series("UPDATE"), idx, lngUpdatetTuples)
-                    drawAnimation(Me.chrReqInfo.Series("READ"), idx, lngReadtTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Insert"), idx, lngInsertTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Delete"), idx, lngDeleteTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Update"), idx, lngUpdatetTuples)
+                    drawAnimation(Me.chrReqInfo.Series("Read"), idx, lngReadtTuples)
 
 
 
                     MaxPri = Math.Max(lngInsertTuples + lngDeleteTuples + lngUpdatetTuples, MaxPri)
                     MaxSec = Math.Max(lngReadtTuples, MaxSec)
 
-                    Dim HARole As String = Me.chrReqInfo.Series("INSERT").Points(idx).Tag.HARoleStatus
+                    Dim HARole As String = Me.chrReqInfo.Series("Insert").Points(idx).Tag.HARoleStatus
                     If HARole = "P" Then
-                        Me.chrReqInfo.Series("READ").Points(idx).MarkerColor = Color.MintCream
-                        Me.chrReqInfo.Series("READ").Points(idx).MarkerSize = 10
-                        Me.chrReqInfo.Series("READ").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerColor = Color.MintCream
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerSize = 10
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.Star5
                     Else
-                        Me.chrReqInfo.Series("READ").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
+                        Me.chrReqInfo.Series("Read").Points(idx).MarkerStyle = DataVisualization.Charting.MarkerStyle.None
                     End If
 
                     ' Invoke 로 처리함 귀찮 ㅎㅎ
