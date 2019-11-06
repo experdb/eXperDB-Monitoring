@@ -1951,7 +1951,7 @@ WITH COL AS (
                    , MAX(BAK.COLLECT_DT) AS COLLECT_DT
 	               , ROUND(SUM(CASE WHEN (BAK.STATE = 'active') THEN 1 ELSE 0 END)::numeric) AS CUR_ACTV_BACKEND_CNT --PT_04_06_001(SESSION INFO : CURRENT_ACTIVE_BACKEND_CNT)
 	               , ROUND(COUNT(BAK.STATE)::numeric) AS TOT_BACKEND_CNT
-	               , BAK.CLIENT_ADDR
+	               , COALESCE(BAK.CLIENT_ADDR, 'Local') CLIENT_ADDR
                FROM TB_INSTANCE_INFO IST
                    , TB_BACKEND_RSC BAK
                WHERE BAK.REG_DATE=TO_CHAR(NOW(),'YYYYMMDD')

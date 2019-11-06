@@ -717,12 +717,14 @@
     End Sub
 
     Private Sub dgvMonLst_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMonLst.CellClick
-        If dgvMonLst.CurrentCell.GetType = GetType(DataGridViewImageCell) Then
-            'dgvMonLst.Rows.Remove(dgvMonLst.CurrentRow)
+        If dgvMonLst.CurrentCell IsNot Nothing Then
+            If dgvMonLst.CurrentCell.GetType = GetType(DataGridViewImageCell) Then
+                'dgvMonLst.Rows.Remove(dgvMonLst.CurrentRow)
 
-            dgvMonLst.RefreshEdit()
-            dgvMonLst.Nodes.Remove(dgvMonLst.CurrentNode)
-            dgvMonLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                dgvMonLst.RefreshEdit()
+                dgvMonLst.Nodes.Remove(dgvMonLst.CurrentNode)
+                dgvMonLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
+            End If
         End If
     End Sub
 

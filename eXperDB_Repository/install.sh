@@ -27,6 +27,7 @@ LICENSE_STR=
 MANAGERPATH=eXperDBMA_MANAGER
 MANAGERCONFIG=$MANAGERPATH/config
 MANAGERSOCK=$MANAGERCONFIG/SocketListenerInfo.config
+MANAGERDBCONF=$MANAGERCONFIG/config/MyBatisConfig.xml
 MANAGERBIN=$MANAGERPATH/bin
 
 SERVERPATH=eXperDBMA
@@ -338,6 +339,13 @@ if [ "a$valid_tb_config" = "a" ]; then
                 sed -i "s/$OLDURL/$NEWURL/g" $SERVERDBCONF
         else
                 die "Couldn't find connection file. $SERVERDBCONF"
+        fi
+        if [ -f $MANAGERDBCONF ] ; then
+                OLDURL=`grep url $MANAGERDBCONF |cut -d'/' -f3`
+                NEWURL=$ORG_DB_HOST":"$ORG_DB_PORT
+                sed -i "s/$OLDURL/$NEWURL/g" $MANAGERDBCONF
+        else
+                die "Couldn't find connection file. $MANAGERDBCONF"
         fi
 else
         die "table(tb_config) can not have more than one row."
