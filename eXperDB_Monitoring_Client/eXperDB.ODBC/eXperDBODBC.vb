@@ -153,6 +153,16 @@ Public Class eXperDBODBC
 
                                                                   _Log.AddMessage(clsLog4Net.enmType.Information, ex.ToString)
                                                                   GC.Collect()
+                                                              Catch ex As Data.Odbc.OdbcException
+                                                                  If DirectCast(ex.Errors(0), Data.Odbc.OdbcError).SQLState = "HY000" Then
+                                                                      If _DBCommand IsNot Nothing Then
+                                                                          _DBCommand.Dispose()
+                                                                          _DBCommand = Nothing
+                                                                      End If
+                                                                      _ODBCConnection.Close()
+                                                                      _ODBCConnection.Dispose()
+                                                                      GC.Collect()
+                                                                  End If
                                                               Catch ex As Exception
 
                                                                   _Log.AddMessage(clsLog4Net.enmType.Information, ex.ToString)
@@ -192,7 +202,7 @@ Public Class eXperDBODBC
                     If _ODBCConnection.State <> ConnectionState.Open Then
                         _Log.AddMessage(clsLog4Net.enmType.Error, Now.ToString("yyyy-MM-dd HH:mm:ss") & "Create Connection")
                         _ODBCConnection.Dispose()
-                        _ODBCConnection = New System.Data.Odbc.OdbcConnection(_ODBCConnInfo.ConnectionString)
+                        _ODBCConnection = New Data.Odbc.OdbcConnection(_ODBCConnInfo.ConnectionString)
                     End If
                     Return False
 
@@ -201,6 +211,9 @@ Public Class eXperDBODBC
                 GC.Collect()
                 Return False
             End Try
+        Else
+            _Log.AddMessage(clsLog4Net.enmType.Error, Now.ToString("yyyy-MM-dd HH:mm:ss") & "Create Connection")
+            _ODBCConnection = New Data.Odbc.OdbcConnection(_ODBCConnInfo.ConnectionString)
         End If
 
         Return False
@@ -238,6 +251,16 @@ Public Class eXperDBODBC
             '    _Log.AddMessage(clsLog4Net.enmType.Information, ex.ToString)
             'End If
             GC.Collect()
+        Catch ex As Data.Odbc.OdbcException
+            If DirectCast(ex.Errors(0), Data.Odbc.OdbcError).SQLState = "HY000" Then
+                If _DBCommand IsNot Nothing Then
+                    _DBCommand.Dispose()
+                    _DBCommand = Nothing
+                End If
+                _ODBCConnection.Close()
+                _ODBCConnection.Dispose()
+                GC.Collect()
+            End If
         Catch ex As Exception
             _Log.AddMessage(clsLog4Net.enmType.Information, ex.ToString)
             If _DBCommand IsNot Nothing Then
