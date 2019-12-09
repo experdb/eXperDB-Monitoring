@@ -2165,16 +2165,30 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			</otherwise>
 		</choose>
 	</select>
-	<select id="EXPERDBMA_BT_REPLICATION_SLOT" parameterType="hashmap" resultType="hashmap"  flushCache="true">
-		<![CDATA[
-			SELECT /* EXPERDBMA_BT_GET_PGVERSION_001 24e9ab7301ff1966da4fb30dc1538882 */
-					CASE WHEN R.client_hostname IS NULL 
-						THEN R.application_name 
-						ELSE R.client_hostname END slave_hostname, 
-				   S.slot_name, S.plugin, S.slot_type, S.datoid, S.temporary, S.active, S.xmin, S.restart_lsn, S.confirmed_flush_lsn 
-			  FROM pg_replication_slots S LEFT OUTER JOIN pg_stat_replication R ON S.active_pid = R.pid;
-		]]>
-	</select>
+    <select id="EXPERDBMA_BT_REPLICATION_SLOT" parameterType="hashmap" resultType="hashmap"  flushCache="true">
+            <choose>
+            <when test="instance_db_version >= 10.0">
+                <![CDATA[
+                    SELECT /* EXPERDBMA_BT_REPLICATION_SLOT 24e9ab7301ff1966da4fb30dc1538882 */
+                        CASE WHEN R.client_hostname IS NULL
+                                THEN R.application_name
+                                ELSE R.client_hostname END slave_hostname,
+                           S.slot_name, S.plugin, S.slot_type, S.datoid, S.temporary, S.active, S.xmin, S.restart_lsn, S.confirmed_flush_lsn
+                      FROM pg_replication_slots S LEFT OUTER JOIN pg_stat_replication R ON S.active_pid = R.pid;
+                  ]]>
+             </when>
+            <otherwise>
+              <![CDATA[
+                    SELECT /* EXPERDBMA_BT_REPLICATION_SLOT 24e9ab7301ff1966da4fb30dc1538882 */
+                        CASE WHEN R.client_hostname IS NULL
+                                THEN R.application_name
+                                ELSE R.client_hostname END slave_hostname,
+                           S.slot_name, S.plugin, S.slot_type, S.datoid, false as temporary, S.active, S.xmin, S.restart_lsn, S.confirmed_flush_lsn
+                      FROM pg_replication_slots S LEFT OUTER JOIN pg_stat_replication R ON S.active_pid = R.pid;
+                  ]]>
+            </otherwise>
+            </choose>
+    </select>
 	<select id="EXPERDBMA_BT_GET_PGVERSION_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		       SELECT /* EXPERDBMA_BT_GET_PGVERSION_001 24e9ab7301ff1966da4fb30dc1538882 */ 
 		       		SPLIT_PART(SPLIT_PART(VERSION(), ' ', 2), '.', 1)  || '.' || SPLIT_PART(SPLIT_PART(VERSION(), ' ', 2), '.', 2) AS pg_version;

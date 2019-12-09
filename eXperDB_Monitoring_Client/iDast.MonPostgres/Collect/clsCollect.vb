@@ -3,6 +3,8 @@
     Private _InstanceIDs As String = ""
     Private _isRunning As Boolean = False
     Private _isStart As Boolean = False
+    Private _ConnectionFailCount As Integer = 0
+
 
 
     Private _AgentInfo As structAgent
@@ -1260,6 +1262,7 @@
         Try
             ' infoAgentSvrState = Nothing
             If _AgentCn.ConnectionCheck() = True Then
+                _ConnectionFailCount = 0
                 If _AgentCn.State.Equals(ConnectionState.Open) Then
 
                     Dim tmpDtTable As DataTable = Nothing
@@ -1373,6 +1376,7 @@
                     AddMsgQueue("Agent connection cann't not opened")
                 End If
             Else
+                _ConnectionFailCount = 5
                 AgentState = AgntState.DeActivate
                 p_Log.AddMessage(clsLog4Net.enmType.Error, "Agent Server Connection Fail!")
                 AddMsgQueue("Agent connection fail!")
@@ -1385,7 +1389,7 @@
         End Try
 
         _isRunning = False
-        threadTimer.Interval = _intPeriod
+        threadTimer.Interval = _intPeriod + _ConnectionFailCount * 1000
         threadTimer.Start()
 
     End Sub

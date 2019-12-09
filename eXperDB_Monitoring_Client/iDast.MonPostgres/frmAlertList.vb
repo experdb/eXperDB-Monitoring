@@ -239,7 +239,7 @@
 
             _cbCheckAll.Location = pt
             _cbCheckAll.Size = New Size(nChkBoxWidth, nChkBoxHeight)
-            _cbCheckAll.BackColor = Color.DimGray
+            _cbCheckAll.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
             'AddHandler _cbCheckAll.CheckedChanged, AddressOf dgvAlertListCheckBox_CheckedChanged
             'DirectCast(sender, BaseControls.DataGridView).Controls.Add(_cbCheckAll)
             AddHandler _cbCheckAll.Click, AddressOf dgvAlertListCheckBox_CheckedChanged

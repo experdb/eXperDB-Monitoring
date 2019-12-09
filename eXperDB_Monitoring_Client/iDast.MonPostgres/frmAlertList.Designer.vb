@@ -21,13 +21,13 @@ Partial Class frmAlertList
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAlertList))
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.tlpHead = New eXperDB.BaseControls.TableLayoutPanel()
         Me.lblServer = New eXperDB.BaseControls.Label()
         Me.cmbServer = New eXperDB.BaseControls.ComboBox()
@@ -45,6 +45,18 @@ Partial Class frmAlertList
         Me.btnCheck = New eXperDB.BaseControls.Button()
         Me.dgvAlertList = New eXperDB.BaseControls.DataGridView()
         Me.coldgvAlertSel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.coldgvAlertHostName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertINSTANCEID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertHCHKREGREQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertType = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertMessage = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertYN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertComment = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAlertDT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.MsgLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -65,18 +77,6 @@ Partial Class frmAlertList
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertHostName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertINSTANCEID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertHCHKREGREQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertRegDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertType = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertMessage = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertYN = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertComment = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAlertDT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tlpHead.SuspendLayout()
         CType(Me.dgvAlertList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -147,7 +147,7 @@ Partial Class frmAlertList
         Me.cmbServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbServer.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
+        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -184,7 +184,7 @@ Partial Class frmAlertList
         Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -221,7 +221,7 @@ Partial Class frmAlertList
         Me.cmbCheck.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbCheck.FormattingEnabled = True
         Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(525, 16)
+        Me.cmbCheck.Location = New System.Drawing.Point(525, 15)
         Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCheck.Name = "cmbCheck"
         Me.cmbCheck.Necessary = False
@@ -443,6 +443,124 @@ Partial Class frmAlertList
         Me.coldgvAlertSel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.coldgvAlertSel.Width = 40
         '
+        'coldgvAlertHostName
+        '
+        Me.coldgvAlertHostName.DataPropertyName = "HOST_NAME"
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = "0"
+        Me.coldgvAlertHostName.DefaultCellStyle = DataGridViewCellStyle2
+        Me.coldgvAlertHostName.FillWeight = 131.1306!
+        Me.coldgvAlertHostName.HeaderText = "F033"
+        Me.coldgvAlertHostName.MinimumWidth = 130
+        Me.coldgvAlertHostName.Name = "coldgvAlertHostName"
+        Me.coldgvAlertHostName.ReadOnly = True
+        Me.coldgvAlertHostName.Width = 130
+        '
+        'coldgvAlertINSTANCEID
+        '
+        Me.coldgvAlertINSTANCEID.DataPropertyName = "INSTANCE_ID"
+        Me.coldgvAlertINSTANCEID.HeaderText = "coldgvAlertINSTANCEID"
+        Me.coldgvAlertINSTANCEID.Name = "coldgvAlertINSTANCEID"
+        Me.coldgvAlertINSTANCEID.ReadOnly = True
+        Me.coldgvAlertINSTANCEID.Visible = False
+        '
+        'coldgvAlertHCHKREGREQ
+        '
+        Me.coldgvAlertHCHKREGREQ.DataPropertyName = "HCHK_REG_SEQ"
+        Me.coldgvAlertHCHKREGREQ.HeaderText = "coldgvAlertHCHKREGREQ"
+        Me.coldgvAlertHCHKREGREQ.Name = "coldgvAlertHCHKREGREQ"
+        Me.coldgvAlertHCHKREGREQ.ReadOnly = True
+        Me.coldgvAlertHCHKREGREQ.Visible = False
+        '
+        'coldgvAlertRegDate
+        '
+        Me.coldgvAlertRegDate.DataPropertyName = "REG_DATE"
+        Me.coldgvAlertRegDate.HeaderText = "colRegDate"
+        Me.coldgvAlertRegDate.Name = "coldgvAlertRegDate"
+        Me.coldgvAlertRegDate.ReadOnly = True
+        Me.coldgvAlertRegDate.Visible = False
+        '
+        'coldgvAlertTime
+        '
+        Me.coldgvAlertTime.DataPropertyName = "COLLECT_TIME"
+        DataGridViewCellStyle3.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.coldgvAlertTime.DefaultCellStyle = DataGridViewCellStyle3
+        Me.coldgvAlertTime.FillWeight = 171.0869!
+        Me.coldgvAlertTime.HeaderText = "F257"
+        Me.coldgvAlertTime.MinimumWidth = 170
+        Me.coldgvAlertTime.Name = "coldgvAlertTime"
+        Me.coldgvAlertTime.ReadOnly = True
+        Me.coldgvAlertTime.Width = 170
+        '
+        'coldgvAlertType
+        '
+        Me.coldgvAlertType.DataPropertyName = "HCHK_NAME"
+        Me.coldgvAlertType.FillWeight = 120.5725!
+        Me.coldgvAlertType.HeaderText = "F258"
+        Me.coldgvAlertType.MinimumWidth = 120
+        Me.coldgvAlertType.Name = "coldgvAlertType"
+        Me.coldgvAlertType.ReadOnly = True
+        Me.coldgvAlertType.Width = 120
+        '
+        'coldgvAlertLevel
+        '
+        Me.coldgvAlertLevel.DataPropertyName = "STATE"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "P"
+        Me.coldgvAlertLevel.DefaultCellStyle = DataGridViewCellStyle4
+        Me.coldgvAlertLevel.HeaderText = "F247"
+        Me.coldgvAlertLevel.MinimumWidth = 100
+        Me.coldgvAlertLevel.Name = "coldgvAlertLevel"
+        Me.coldgvAlertLevel.ReadOnly = True
+        '
+        'coldgvAlertMessage
+        '
+        Me.coldgvAlertMessage.DataPropertyName = "VALUE"
+        Me.coldgvAlertMessage.FillWeight = 200.0!
+        Me.coldgvAlertMessage.HeaderText = "F259"
+        Me.coldgvAlertMessage.MinimumWidth = 200
+        Me.coldgvAlertMessage.Name = "coldgvAlertMessage"
+        Me.coldgvAlertMessage.ReadOnly = True
+        Me.coldgvAlertMessage.Width = 200
+        '
+        'coldgvAlertYN
+        '
+        Me.coldgvAlertYN.DataPropertyName = "CHECK_USER_ID"
+        Me.coldgvAlertYN.HeaderText = "F262"
+        Me.coldgvAlertYN.MinimumWidth = 100
+        Me.coldgvAlertYN.Name = "coldgvAlertYN"
+        Me.coldgvAlertYN.ReadOnly = True
+        '
+        'coldgvAlertComment
+        '
+        Me.coldgvAlertComment.DataPropertyName = "CHECK_COMMENT"
+        Me.coldgvAlertComment.FillWeight = 200.0!
+        Me.coldgvAlertComment.HeaderText = "F260"
+        Me.coldgvAlertComment.MinimumWidth = 200
+        Me.coldgvAlertComment.Name = "coldgvAlertComment"
+        Me.coldgvAlertComment.ReadOnly = True
+        Me.coldgvAlertComment.Width = 200
+        '
+        'coldgvAlertIP
+        '
+        Me.coldgvAlertIP.DataPropertyName = "CHECK_IP"
+        Me.coldgvAlertIP.FillWeight = 150.0!
+        Me.coldgvAlertIP.HeaderText = "F266"
+        Me.coldgvAlertIP.MinimumWidth = 150
+        Me.coldgvAlertIP.Name = "coldgvAlertIP"
+        Me.coldgvAlertIP.ReadOnly = True
+        Me.coldgvAlertIP.Width = 150
+        '
+        'coldgvAlertDT
+        '
+        Me.coldgvAlertDT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvAlertDT.DataPropertyName = "CHECK_DT"
+        Me.coldgvAlertDT.FillWeight = 170.0!
+        Me.coldgvAlertDT.HeaderText = "F261"
+        Me.coldgvAlertDT.MinimumWidth = 170
+        Me.coldgvAlertDT.Name = "coldgvAlertDT"
+        Me.coldgvAlertDT.ReadOnly = True
+        '
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -644,124 +762,6 @@ Partial Class frmAlertList
         Me.DataGridViewTextBoxColumn12.MinimumWidth = 170
         Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
         Me.DataGridViewTextBoxColumn12.ReadOnly = True
-        '
-        'coldgvAlertHostName
-        '
-        Me.coldgvAlertHostName.DataPropertyName = "HOST_NAME"
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = "0"
-        Me.coldgvAlertHostName.DefaultCellStyle = DataGridViewCellStyle2
-        Me.coldgvAlertHostName.FillWeight = 131.1306!
-        Me.coldgvAlertHostName.HeaderText = "F033"
-        Me.coldgvAlertHostName.MinimumWidth = 130
-        Me.coldgvAlertHostName.Name = "coldgvAlertHostName"
-        Me.coldgvAlertHostName.ReadOnly = True
-        Me.coldgvAlertHostName.Width = 130
-        '
-        'coldgvAlertINSTANCEID
-        '
-        Me.coldgvAlertINSTANCEID.DataPropertyName = "INSTANCE_ID"
-        Me.coldgvAlertINSTANCEID.HeaderText = "coldgvAlertINSTANCEID"
-        Me.coldgvAlertINSTANCEID.Name = "coldgvAlertINSTANCEID"
-        Me.coldgvAlertINSTANCEID.ReadOnly = True
-        Me.coldgvAlertINSTANCEID.Visible = False
-        '
-        'coldgvAlertHCHKREGREQ
-        '
-        Me.coldgvAlertHCHKREGREQ.DataPropertyName = "HCHK_REG_SEQ"
-        Me.coldgvAlertHCHKREGREQ.HeaderText = "coldgvAlertHCHKREGREQ"
-        Me.coldgvAlertHCHKREGREQ.Name = "coldgvAlertHCHKREGREQ"
-        Me.coldgvAlertHCHKREGREQ.ReadOnly = True
-        Me.coldgvAlertHCHKREGREQ.Visible = False
-        '
-        'coldgvAlertRegDate
-        '
-        Me.coldgvAlertRegDate.DataPropertyName = "REG_DATE"
-        Me.coldgvAlertRegDate.HeaderText = "colRegDate"
-        Me.coldgvAlertRegDate.Name = "coldgvAlertRegDate"
-        Me.coldgvAlertRegDate.ReadOnly = True
-        Me.coldgvAlertRegDate.Visible = False
-        '
-        'coldgvAlertTime
-        '
-        Me.coldgvAlertTime.DataPropertyName = "COLLECT_TIME"
-        DataGridViewCellStyle3.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.coldgvAlertTime.DefaultCellStyle = DataGridViewCellStyle3
-        Me.coldgvAlertTime.FillWeight = 171.0869!
-        Me.coldgvAlertTime.HeaderText = "F257"
-        Me.coldgvAlertTime.MinimumWidth = 170
-        Me.coldgvAlertTime.Name = "coldgvAlertTime"
-        Me.coldgvAlertTime.ReadOnly = True
-        Me.coldgvAlertTime.Width = 170
-        '
-        'coldgvAlertType
-        '
-        Me.coldgvAlertType.DataPropertyName = "HCHK_NAME"
-        Me.coldgvAlertType.FillWeight = 120.5725!
-        Me.coldgvAlertType.HeaderText = "F258"
-        Me.coldgvAlertType.MinimumWidth = 120
-        Me.coldgvAlertType.Name = "coldgvAlertType"
-        Me.coldgvAlertType.ReadOnly = True
-        Me.coldgvAlertType.Width = 120
-        '
-        'coldgvAlertLevel
-        '
-        Me.coldgvAlertLevel.DataPropertyName = "STATE"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "P"
-        Me.coldgvAlertLevel.DefaultCellStyle = DataGridViewCellStyle4
-        Me.coldgvAlertLevel.HeaderText = "F247"
-        Me.coldgvAlertLevel.MinimumWidth = 100
-        Me.coldgvAlertLevel.Name = "coldgvAlertLevel"
-        Me.coldgvAlertLevel.ReadOnly = True
-        '
-        'coldgvAlertMessage
-        '
-        Me.coldgvAlertMessage.DataPropertyName = "VALUE"
-        Me.coldgvAlertMessage.FillWeight = 200.0!
-        Me.coldgvAlertMessage.HeaderText = "F259"
-        Me.coldgvAlertMessage.MinimumWidth = 200
-        Me.coldgvAlertMessage.Name = "coldgvAlertMessage"
-        Me.coldgvAlertMessage.ReadOnly = True
-        Me.coldgvAlertMessage.Width = 200
-        '
-        'coldgvAlertYN
-        '
-        Me.coldgvAlertYN.DataPropertyName = "CHECK_USER_ID"
-        Me.coldgvAlertYN.HeaderText = "F262"
-        Me.coldgvAlertYN.MinimumWidth = 100
-        Me.coldgvAlertYN.Name = "coldgvAlertYN"
-        Me.coldgvAlertYN.ReadOnly = True
-        '
-        'coldgvAlertComment
-        '
-        Me.coldgvAlertComment.DataPropertyName = "CHECK_COMMENT"
-        Me.coldgvAlertComment.FillWeight = 200.0!
-        Me.coldgvAlertComment.HeaderText = "F260"
-        Me.coldgvAlertComment.MinimumWidth = 200
-        Me.coldgvAlertComment.Name = "coldgvAlertComment"
-        Me.coldgvAlertComment.ReadOnly = True
-        Me.coldgvAlertComment.Width = 200
-        '
-        'coldgvAlertIP
-        '
-        Me.coldgvAlertIP.DataPropertyName = "CHECK_IP"
-        Me.coldgvAlertIP.FillWeight = 150.0!
-        Me.coldgvAlertIP.HeaderText = "F266"
-        Me.coldgvAlertIP.MinimumWidth = 150
-        Me.coldgvAlertIP.Name = "coldgvAlertIP"
-        Me.coldgvAlertIP.ReadOnly = True
-        Me.coldgvAlertIP.Width = 150
-        '
-        'coldgvAlertDT
-        '
-        Me.coldgvAlertDT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvAlertDT.DataPropertyName = "CHECK_DT"
-        Me.coldgvAlertDT.FillWeight = 170.0!
-        Me.coldgvAlertDT.HeaderText = "F261"
-        Me.coldgvAlertDT.MinimumWidth = 170
-        Me.coldgvAlertDT.Name = "coldgvAlertDT"
-        Me.coldgvAlertDT.ReadOnly = True
         '
         'frmAlertList
         '
