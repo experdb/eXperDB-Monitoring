@@ -2023,7 +2023,13 @@ Public Class frmMonDetail
                     strValue = String.Format("{0} {1}[{2}]", fn_GetValueCast(HealthItem, dgvRow.Cells(colDgvHealthIVal.Index).Value), _
                                              " ", dgvRow.Cells(colDgvHealthStatus.Index).Value)
                 End If
-                Dim intValue As Integer = dgvRow.Cells(colDgvHealthIVal.Index).Value
+                Dim intValue As Integer
+                Try
+                    intValue = dgvRow.Cells(colDgvHealthIVal.Index).Value
+                Catch ex As InvalidCastException
+                    intValue = 99999
+                End Try
+
                 Dim intLevel As Integer = dgvRow.Cells(colDgvHealthStatusVal.Index).Value
                 Dim frmHealthDtl As New frmHealthDetail(AgentCn, InstanceID, RegDt, HealthItem, HealthSeq, strValue, _AgentInfo, intLevel, intValue)
                 frmHealthDtl.Show(Me)

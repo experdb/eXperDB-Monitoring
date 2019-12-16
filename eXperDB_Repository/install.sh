@@ -351,6 +351,15 @@ else
         die "table(tb_config) can not have more than one row."
 fi
 
+PGMHOME=`pwd`
+PGMLOG=$PGMHOME/eXperDBMA/log
+
+echo export PGMHOME=$PGMHOME >> ~/.experdbrc
+echo export PGMLOG=$PGMLOG >> ~/.experdbrc
+echo alias cdms='cd $PGMHOME' >> ~/.experdbrc
+echo alias cdml='cd $PGMLOG' >> ~/.experdbrc
+
+
 cat <<-EOF
 ------------------------------------------------------------------------------
   Thank you for installation eXperDB(R).
@@ -361,7 +370,4 @@ cat <<-EOF
 ------------------------------------------------------------------------------
 EOF
 
-
 exit 0
-root@da21 [/home/robin/agent/eXperDB_Server]$
-robin@da21 [~/agent/eXperDB_Server]$
