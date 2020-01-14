@@ -306,6 +306,7 @@ public class DailyBatchTask {
 				sessionAgent.update("app.VACUUM_ANALYZE_U032");
 				sessionAgent.update("app.VACUUM_ANALYZE_U033");
 				sessionAgent.update("app.VACUUM_ANALYZE_U034");
+				log.info("End vacuum, analyze");
 			} catch (Exception e) {
 				log.error("", e);
 				

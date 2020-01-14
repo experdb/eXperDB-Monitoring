@@ -76,4 +76,25 @@
 		) AS ST
 	]]>
 	</select>
+	<select id="TB_SYS_LOG_R003" resultType="hashmap">
+		<![CDATA[
+		SELECT REG_DATE, TASK_CD, STATUS 
+		  FROM TB_SYS_LOG 
+		 WHERE TASK_CD = '2' 
+		   AND STATUS > '1'  
+		   AND COMMENTS = '' 
+		   AND REG_DATE IN (TO_CHAR(now() - INTERVAL '1 day', 'YYYYMMDD'), TO_CHAR(now(), 'YYYYMMDD'))
+		   	]]>
+	</select>
+	<update id="TB_SYS_LOG_U003" parameterType="hashmap">
+		<![CDATA[
+		UPDATE TB_SYS_LOG 
+		   SET COMMENTS = 'Reset Collector'
+		 WHERE REG_DATE = #{reg_date} 
+		   AND TASK_CD = #{task_cd} 
+		   AND STATUS = #{status}
+		   	]]>
+	</update>	
+
+
 </mapper>

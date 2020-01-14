@@ -50,18 +50,33 @@ public class TaskManager implements Runnable{
 				//Instance 정보 변경 여부를 확인한다.
 				while(true) {
 					try {
-						Thread.sleep(60 * 9 * 1000);
+						Thread.sleep( 9 * 60 * 1000);
 						session = sqlSessionFactory.openSession();
+						
 						HashMap<String, Object> config = session.selectOne("system.TB_SYS_STATUS_R001");
 						int nStatus = Integer.parseInt(config.get("status").toString());
 						if (nStatus < 1){
 							log.info("The collector's status is not valid. now resetting the collector");
 							if (perform() < 0)
-								log.info("Failed to reset the collector!");						
+								log.info("Failed to reset the collector!");	
+							else
+								log.info("The collector reseting  complete!");
+						} else {
+							HashMap<String, Object> endbatch = session.selectOne("system.TB_SYS_LOG_R003");
+							if (endbatch != null) {
+								log.info("Daily batch work is complete. now resetting the collector");
+								if (perform() < 0)
+									log.info("Failed to reset the collector!");
+								else
+									log.info("The collector reseting  complete!");
+								session.update("system.TB_SYS_LOG_U003", endbatch);
+								session.commit();
+							}
 						}
 						session.close();
 					} catch (Exception e) {
 						log.error("", e);
+						session.rollback();
 						if (session != null) session.close();
 					}
 				}
