@@ -2,15 +2,15 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "eXperDB Monitoring"
-#define MyAppVersion "11.5.0.327"
-#define MyAppVersionDir "11_5_0_327"
-#define MyAppPublisher "K4M"
-#define MyAppURL "http://www.k4m.com"
+#define MyAppVersion "11.5.5.347"
+#define MyAppVersionDir "11_5_5_347"
+#define MyAppPublisher "Inzent"
+#define MyAppURL "http://www.inzent.com.com"
 #define MyAppExeName "eXperDB.Monitoring.exe"
 #define MyPgName "eXperDB.Monitoring"
 #define MyLauncherName "eXperDB.Launcher"
 #define MyDownloaderName "eXperDB.Downloader"
-;#define SourcePath "D:\01.Project\K4M\DX-Monitoring\dxmon\DX-Monitoring_client"
+;#define SourcePath "D:\01.Project\Inzent\DX-Monitoring\dxmon\DX-Monitoring_client"
 #define SourcePath ".."
 
 [Setup]
@@ -100,7 +100,7 @@ Name: {app}; Permissions: users-full
 Type: files; Name: "{app}\config.ini"
 
 [Registry]
-Root: HKLM; Subkey: Software\Wow6432Node\K4M\eXperDB.Monitoring\Settings; ValueType: string; ValueName: InstallPath; ValueData: {app};
+Root: HKLM; Subkey: Software\Wow6432Node\Inzent\eXperDB.Monitoring\Settings; ValueType: string; ValueName: InstallPath; ValueData: {app};
 
 [Code]
 function IsDotNetDetected(version: string; service: cardinal): boolean;

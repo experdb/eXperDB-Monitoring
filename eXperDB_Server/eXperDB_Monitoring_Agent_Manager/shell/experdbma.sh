@@ -47,7 +47,7 @@ boot()
 		
 		if [ "$PID" = "" ]; then
 		    PRINT_LOGO
-		    echo "   [`date`] Server Starting..."
+		    echo "   [`date`] eXperDBMA_Manager Server Starting..."
 		    cd ${eXperDBMA_HOME}/bin
 		    java -Djava.rmi.server.hostname=${SERVER_HOSTNAME} -Dcom.sun.management.jmxremote.port=${JMXREMOTE_PORT} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -D${DNAME} -Xmx2048m -DeXperDBMA.config=eXperDBMA.config -DeXperDBMA_HOME=${eXperDBMA_HOME}/ -DAGENT_HOME=${AGENT_HOME}/ -DCONFIG_DIR=config -classpath ../:../lib/commons-collections-3.1.jar:../lib/commons-dbcp-1.2.1.jar:../lib/commons-pool-1.2.jar:../lib/log4j-1.2.17.jar:../lib/mybatis-3.2.5.jar:../lib/postgresql-42.2.2.jre7.jar:../lib/commons-codec-1.9.jar:../lib/json-simple-1.1.1.jar experdb.mnt.Server &
 		    sleep 1
@@ -68,11 +68,11 @@ down()
 		if [ $CNT -eq 1 ]; then
 		
 		  echo " "
-		  echo "   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
-		  echo "   ▒                        ▒"
-		  echo "   ▒        STOP eXperDBMA       ▒"
-		  echo "   ▒                        ▒"
-		  echo "   ▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+      echo "   **********************************"
+      echo "   *                                *"
+		  echo "   *    STOP eXperDBMA Manager      *"
+		  echo "   *                                *"
+      echo "   **********************************"
 		  echo "   [`date`] Try shutdown"
 		  ps -ef | grep ${DNAME} | grep -v grep| awk '{print "kill -9 "$2}'|sh
 		  sleep 1

@@ -356,9 +356,8 @@ PGMLOG=$PGMHOME/eXperDBMA/log
 
 echo export PGMHOME=$PGMHOME >> ~/.experdbrc
 echo export PGMLOG=$PGMLOG >> ~/.experdbrc
-echo alias cdms='cd $PGMHOME' >> ~/.experdbrc
-echo alias cdml='cd $PGMLOG' >> ~/.experdbrc
-
+echo "alias cdms='cd \$PGMHOME'" >> ~/.experdbrc
+echo "alias cdml='cd \$PGMLOG'" >> ~/.experdbrc
 
 cat <<-EOF
 ------------------------------------------------------------------------------

@@ -233,9 +233,9 @@ Public Class frmConnection
         btnAct.Enabled = False
         ' HA info 201804
         cmbHARole.Enabled = False
-        txtHAHost.Enabled = False
-        txtHAPort.Enabled = False
-        txtHAREPLHost.Enabled = False
+        'txtHAHost.Enabled = False
+        'txtHAPort.Enabled = False
+        'txtHAREPLHost.Enabled = False
         txtVIP.Enabled = False
         txtVIP2.Enabled = False
         cmbSchema.Items.Clear()
@@ -408,9 +408,9 @@ Public Class frmConnection
         btnAct.Enabled = False
         ' HA info 201804
         cmbHARole.Enabled = False
-        txtHAHost.Enabled = False
-        txtHAPort.Enabled = False
-        txtHAREPLHost.Enabled = False
+        'txtHAHost.Enabled = False
+        'txtHAPort.Enabled = False
+        'txtHAREPLHost.Enabled = False
         txtVIP.Enabled = False
         txtVIP2.Enabled = False
         If txtUsr.Text.Trim <> "" _
@@ -514,9 +514,11 @@ Public Class frmConnection
                                                 cmbHARole.Enabled = True
                                                 txtVIP.Enabled = True
                                                 txtVIP2.Enabled = True
-                                                'txtHAHost.Enabled = True
-                                                'txtHAPort.Enabled = True
-                                                'txtHAREPLHost.Enabled = True
+                                                If cmbHARole.SelectedIndex = 2 Then
+                                                    txtHAHost.Enabled = True
+                                                    txtHAPort.Enabled = True
+                                                    txtHAREPLHost.Enabled = True
+                                                End If
 
                                                 ' 접속 성공시 Tag에 정보를 추가한다. 
                                                 Dim dbType As eXperDBODBC.enumODBCType = IIf(System.Environment.Is64BitProcess, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicodeX64, eXperDB.ODBC.eXperDBODBC.enumODBCType.PostgreUnicode)
@@ -535,9 +537,9 @@ Public Class frmConnection
                                                 cmbHARole.Enabled = False
                                                 txtVIP.Enabled = False
                                                 txtVIP2.Enabled = False
-                                                txtHAHost.Enabled = False
-                                                txtHAPort.Enabled = False
-                                                txtHAREPLHost.Enabled = False
+                                                'txtHAHost.Enabled = False
+                                                'txtHAPort.Enabled = False
+                                                'txtHAREPLHost.Enabled = False
                                                 ' 접속 정보Tag도 삭제한다. 
                                                 btnTest.Tag = Nothing
                                                 ' 접속 실패시 
@@ -560,9 +562,9 @@ Public Class frmConnection
                                             btnAct.Enabled = False
                                             ' HA info 201804
                                             cmbHARole.Enabled = False
-                                            txtHAHost.Enabled = False
-                                            txtHAPort.Enabled = False
-                                            txtHAREPLHost.Enabled = False
+                                            'txtHAHost.Enabled = False
+                                            'txtHAPort.Enabled = False
+                                            'txtHAREPLHost.Enabled = False
                                             txtVIP.Enabled = False
                                             txtVIP2.Enabled = False
                                             ' 접속 정보Tag도 삭제한다. 
@@ -645,7 +647,7 @@ Public Class frmConnection
         Dim comboBox As eXperDB.BaseControls.ComboBox = CType(sender, eXperDB.BaseControls.ComboBox)
 
         Dim role As Integer = comboBox.SelectedIndex
-
+        If cmbHARole.Enabled = False Then Return
         If role = 2 Then
             txtHAHost.Enabled = True
             txtHAPort.Enabled = True
