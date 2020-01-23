@@ -1450,6 +1450,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	</select>
 	
 	<insert id="TB_ACCESS_INFO_I001" parameterType="hashmap" >
+	<![CDATA[
 		INSERT INTO TB_ACCESS_INFO	
 		(
 			REG_DATE,
@@ -1506,22 +1507,23 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{agg_commit},
 			#{agg_rollback},
 			#{agg_phy_read},
-			#{current_heap_blks_read_kb},
-			#{current_heap_blks_hit_kb},
-			#{current_seq_read_tuples},
-			#{current_idx_fetch_tuples},
-			#{current_insert_tuples},
-			#{current_update_tuples},
-			#{current_delete_tuples},
-			#{current_seq_scan_cnt},
-			#{current_idx_scan_cnt},			
-			#{current_phy_read},			
-			#{current_commit},
-			#{current_rollback},
+			CASE WHEN (#{current_heap_blks_read_kb}) < 0 THEN 0 ELSE #{current_heap_blks_read_kb} END,
+			CASE WHEN (#{current_heap_blks_hit_kb} ) < 0 THEN 0 ELSE #{current_heap_blks_hit_kb}  END,
+			CASE WHEN (#{current_seq_read_tuples}  ) < 0 THEN 0 ELSE #{current_seq_read_tuples}   END,
+			CASE WHEN (#{current_idx_fetch_tuples} ) < 0 THEN 0 ELSE #{current_idx_fetch_tuples}  END,
+			CASE WHEN (#{current_insert_tuples}    ) < 0 THEN 0 ELSE #{current_insert_tuples}     END,
+			CASE WHEN (#{current_update_tuples}    ) < 0 THEN 0 ELSE #{current_update_tuples}     END,
+			CASE WHEN (#{current_delete_tuples}    ) < 0 THEN 0 ELSE #{current_delete_tuples}     END,
+			CASE WHEN (#{current_seq_scan_cnt}     ) < 0 THEN 0 ELSE #{current_seq_scan_cnt}      END,
+			CASE WHEN (#{current_idx_scan_cnt}	   ) < 0 THEN 0 ELSE #{current_idx_scan_cnt}	  END,
+			CASE WHEN (#{current_phy_read}		   ) < 0 THEN 0 ELSE #{current_phy_read}	      END,
+			CASE WHEN (#{current_commit}           ) < 0 THEN 0 ELSE #{current_commit}            END,
+			CASE WHEN (#{current_rollback}         ) < 0 THEN 0 ELSE #{current_rollback}          END,
 			#{buffer_hit_ratio},
 			#{collect_dt},
 			#{delta_time}
 		)
+		]]>
 	</insert>
 <!-- ********************************************************** -->
 <!-- ActvCollect END -->
