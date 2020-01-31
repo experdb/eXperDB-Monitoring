@@ -74,7 +74,8 @@ public class ActvCollect extends TaskApplication {
 				Thread.sleep(sleepTime);
 
 			} catch (Exception e) {
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]" + " execute fail]", e);
 			}
 		}
 		
@@ -217,7 +218,8 @@ public class ActvCollect extends TaskApplication {
 //					}
 				} catch (Exception e1) {
 					is_collect_ok = "N";
-					log.error("", e1);
+					//log.error("", e1);
+					log.error("[instanceId ==>> " + instanceId + "]", e1);
 				}
 			}
 				
@@ -258,7 +260,7 @@ public class ActvCollect extends TaskApplication {
 								(String)instanceMap.get("conn_user_id"),
 								(String)instanceMap.get("conn_user_pwd"),
 								poolName,
-								10
+								20
 						);					
 					}
 					/////////////////////////////////////////////////////////
@@ -313,7 +315,8 @@ public class ActvCollect extends TaskApplication {
 				
 					} catch (Exception e1) {
 						is_collect_ok = "N";
-						log.error("", e1);
+						//log.error("", e1);
+						log.error("[instanceId ==>> " + instanceId + "]", e1);
 						break;
 					} finally {
 						sessDB.close();
@@ -491,11 +494,13 @@ public class ActvCollect extends TaskApplication {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}
 			
 		} catch (Exception e) {
-			log.error("", e);
+			//log.error("", e);
+			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();

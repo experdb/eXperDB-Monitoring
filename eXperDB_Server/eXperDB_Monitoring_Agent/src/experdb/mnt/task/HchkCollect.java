@@ -524,7 +524,7 @@ public class HchkCollect extends TaskApplication {
 								(String)instanceMap.get("conn_user_id"),
 								(String)instanceMap.get("conn_user_pwd"),
 								poolName,
-								10
+								15
 						);					
 					}
 					/////////////////////////////////////////////////////////

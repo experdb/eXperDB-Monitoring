@@ -63,7 +63,8 @@ public class RscCollect extends TaskApplication {
 				Thread.sleep(sleepTime);
 
 			} catch (Exception e) {
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]" + " execute fail]", e);
 			}
 		}
 		
@@ -87,7 +88,6 @@ public class RscCollect extends TaskApplication {
 				is_collect_ok = "N";
 				//log.error("", e);	
 				log.error("[instanceId ==>> " + instanceId + "]" + " Connection failed]");		
-
 			}
 			
 			sessionAgent = sqlSessionFactory.openSession();
@@ -189,7 +189,8 @@ public class RscCollect extends TaskApplication {
 					
 				} catch (Exception e1) {
 					is_collect_ok = "N";
-					log.error("", e1);
+					//log.error("", e1);
+					log.error("[instanceId ==>> " + instanceId + "]", e1);
 				}						 	
 			}
 			 
@@ -384,11 +385,13 @@ public class RscCollect extends TaskApplication {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}
 
 		} catch (Exception e) {
-			log.error("", e);
+			//log.error("", e);
+			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();
