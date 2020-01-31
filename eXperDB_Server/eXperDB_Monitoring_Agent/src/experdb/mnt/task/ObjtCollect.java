@@ -95,7 +95,8 @@ public class ObjtCollect extends TaskApplication {
 //				Thread.sleep(sleepTime);
 				
 			} catch (Exception e) {
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}
 		}
 		
@@ -125,7 +126,8 @@ public class ObjtCollect extends TaskApplication {
 			} catch (Exception e) {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}
 			
 			sessionAgent = sqlSessionFactory.openSession();
@@ -198,7 +200,7 @@ public class ObjtCollect extends TaskApplication {
 								(String)instanceMap.get("conn_user_id"),
 								(String)instanceMap.get("conn_user_pwd"),
 								poolName,
-								10
+								20
 						);					
 					}
 					/////////////////////////////////////////////////////////
@@ -368,7 +370,8 @@ public class ObjtCollect extends TaskApplication {
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 					} catch (Exception e1) {
 						is_collect_ok = "N";
-						log.error("", e1);
+						//log.error("", e1);
+						log.error("[instanceId ==>> " + instanceId + "]", e1);
 						break;
 					} finally {
 						sessDB.close();
@@ -388,7 +391,8 @@ public class ObjtCollect extends TaskApplication {
 					} catch (Exception e) {
 						failed_collect_type = "2";
 						is_collect_ok = "N";
-						log.error("", e);
+						//log.error("", e);
+						log.error("[instanceId ==>> " + instanceId + "]", e);
 					}					
 				}
 				///////////////////////////////////////////////////////////////////////////////			
@@ -466,11 +470,13 @@ public class ObjtCollect extends TaskApplication {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}			
 			
 		} catch (Exception e) {
-			log.error("", e);
+			//log.error("", e);
+			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();
@@ -510,11 +516,13 @@ public class ObjtCollect extends TaskApplication {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}			
 			
 		} catch (Exception e) {
-			log.error("", e);
+			//log.error("", e);
+			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();
@@ -544,7 +552,8 @@ public class ObjtCollect extends TaskApplication {
 			} catch (Exception e) {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}
 			
 			sessionAgent = sqlSessionFactory.openSession();
@@ -568,11 +577,13 @@ public class ObjtCollect extends TaskApplication {
 					sessionAgent.commit();
 				} catch (Exception e) {
 					sessionAgent.rollback();
-					log.error("", e);
+					//log.error("", e);
+					log.error("[instanceId ==>> " + instanceId + "]", e);
 				}			
 			}
 		} catch (Exception e) {
-			log.error("", e);
+			//log.error("", e);
+			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();

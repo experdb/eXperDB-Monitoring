@@ -42,7 +42,7 @@ public class TaskExecutor implements Runnable{
 						(String)instanceMap.get("conn_user_id"),
 						(String)instanceMap.get("conn_user_pwd"),
 						instanceId,
-						30
+						40
 				);
 			}
 			

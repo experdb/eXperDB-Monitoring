@@ -27,11 +27,14 @@ public class DBCPPoolManager {
 			
 	        // DB URI
 	        String connectURI = url;
+	        String validationQuary = "select 1";
 	        
 	        // ID and Password
 	        Properties props = new Properties();
 	        props.put("user", user);
-	        props.put("password", password);	        
+	        props.put("password", password);
+	        //props.put("socketTimeout", "1");
+	        props.put("tcpKeepAlive", "true");
 	        
 	        // 커넥션 풀로 사용할 commons-collections의 genericOjbectPool을 생성 
 	        GenericObjectPool connectionPool = new GenericObjectPool(null);
@@ -52,7 +55,7 @@ public class DBCPPoolManager {
 	        
 	        // ConnectionFactory의 래퍼 클래스인 PoolableConnectionFactory를 생성
             PoolableConnectionFactory poolableConnectionFactory =
-                    new PoolableConnectionFactory(connectionFactory, connectionPool, null, null, false, true);	        
+                    new PoolableConnectionFactory(connectionFactory, connectionPool, null, validationQuary, false, true);	        
 	        
             //PoolingDriver 자신을 로딩
             Class.forName("org.apache.commons.dbcp.PoolingDriver");

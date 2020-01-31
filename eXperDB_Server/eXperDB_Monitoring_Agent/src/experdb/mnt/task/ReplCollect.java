@@ -72,7 +72,8 @@ public class ReplCollect extends TaskApplication {
 		
 		long sleepTime;
 		long startTime;
-		long endTime;		
+		long endTime;
+		int checkAlive = 0;
 		
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
@@ -85,7 +86,13 @@ public class ReplCollect extends TaskApplication {
 				startTime =  System.currentTimeMillis();
 				
 				execute(); //수집 실행
-
+				
+				//check whether the thread is running or not.
+				if (checkAlive++ % 30 == 0){
+					log.info("[ReplCollect ==>> " + instanceId + "]");
+					checkAlive = 1;
+				}
+				
 				endTime =  System.currentTimeMillis();
 				
 				if((endTime - startTime) > (collectPeriod * 1000) )
@@ -99,7 +106,7 @@ public class ReplCollect extends TaskApplication {
 				Thread.sleep(sleepTime);
 
 			} catch (Exception e) {
-				log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}
 		}
 
@@ -114,7 +121,7 @@ public class ReplCollect extends TaskApplication {
 		Date from = null;
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String startDelay = "";
-						
+		
 		try {
 			// DB Connection을 가져온다
 			sqlSessionFactory = SqlSessionManager.getInstance();
@@ -126,7 +133,7 @@ public class ReplCollect extends TaskApplication {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
 				//log.error("", e);	
-				log.error("[reqInstanceId ==>> " + instanceId + "]" + " Connection failed]");
+				log.error("[reqInstanceId ==>> " + instanceId + "]" + " Connection failed]", e);
 			}
 			
 			sessionAgent = sqlSessionFactory.openSession();
@@ -165,7 +172,8 @@ public class ReplCollect extends TaskApplication {
 				} catch (Exception e) {
 					failed_collect_type = "1";
 					is_collect_ok = "N";
-					log.error("", e);
+					//log.error("", e);
+					log.error("[instanceId ==>> " + instanceId + "]" , e);
 				}					
 			}
 			///////////////////////////////////////////////////////////////////////////////////		
@@ -198,7 +206,8 @@ public class ReplCollect extends TaskApplication {
 					} catch (Exception e) {
 						failed_collect_type = "1";
 						is_collect_ok = "N";
-						log.error("", e);
+						//log.error("", e);
+						log.error("[instanceId ==>> " + instanceId + "]", e);
 					}
 
 					// wal count				
@@ -210,7 +219,8 @@ public class ReplCollect extends TaskApplication {
 					} catch (Exception e) {
 						failed_collect_type = "1";
 						is_collect_ok = "N";
-						log.error("", e);
+						//log.error("", e);
+						log.error("[instanceId ==>> " + instanceId + "]", e);
 					}
 				}
 				gatherCheckpointTime = collectPeriodCheckpoint * 1000  + checktime ;

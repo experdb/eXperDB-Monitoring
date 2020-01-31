@@ -66,7 +66,8 @@ public class StmtCollect extends TaskApplication {
 				Thread.sleep(sleepTime < 0 ? 0 : sleepTime);
 								
 			} catch (Exception e) {
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]" + " execute fail]", e);
 			}
 		}
 	}	
@@ -101,7 +102,8 @@ public class StmtCollect extends TaskApplication {
 			} catch (Exception e) {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]" + " Connection fail]", e);
 			}
 			
 			sessionAgent = sqlSessionFactory.openSession();
@@ -154,7 +156,8 @@ public class StmtCollect extends TaskApplication {
 								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
 							}
 						} catch (Exception e) {
-							log.error("", e);
+							//log.error("", e);
+							log.error("[instanceId ==>> " + instanceId + "]", e);
 						} 
 						
 					}
@@ -201,11 +204,13 @@ public class StmtCollect extends TaskApplication {
 				sessionAgent.commit();
 			} catch (Exception e) {
 				sessionAgent.rollback();
-				log.error("", e);
+				//log.error("", e);
+				log.error("[instanceId ==>> " + instanceId + "]", e);
 			}			
 			
 		} catch (Exception e) {
-			log.error("", e);
+			//log.error("", e);
+			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 			if(sessionCollect != null)	sessionCollect.close();
