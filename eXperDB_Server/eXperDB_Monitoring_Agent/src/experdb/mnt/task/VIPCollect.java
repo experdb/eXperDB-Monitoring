@@ -75,7 +75,7 @@ public class VIPCollect{
 							groupMap.put("host_name", null);
 							if(conn != null) conn.close();
 							if(session != null)	session.close();
-							log.error("[Connection timeout!]");		
+							log.error("[Connection timeout! :" + groupMap.get("virtual_ip") + groupMap.get("virtual_ip2"));		
 						}
 										
 						try {				

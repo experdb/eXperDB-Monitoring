@@ -102,16 +102,18 @@ public class TaskExecutor implements Runnable{
 			}
 			
 			executorService.shutdown();
+			log.info("shutdown executorService instanceID = [" + instanceId + "]");
 			
 			try {
 				if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
 					if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
 						executorService.shutdownNow();
+						log.info("awaitTermination");
 					}
 				}
 			} catch (InterruptedException e) {
 				executorService.shutdownNow();
-				log.debug(e);
+				log.error("InterruptedException", e);
 			}
 			
 		} catch (Exception e) {
