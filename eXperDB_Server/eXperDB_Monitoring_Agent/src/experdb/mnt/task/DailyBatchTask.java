@@ -327,7 +327,7 @@ public class DailyBatchTask {
 			updateMap.put("reg_date", reg_date);
 				
 			sessionAgent.update("app.TB_SYS_LOG_U001", updateMap);
-				
+			sessionAgent.commit();
 		} catch (Exception e) {
 			log.error("", e);
 		} finally {

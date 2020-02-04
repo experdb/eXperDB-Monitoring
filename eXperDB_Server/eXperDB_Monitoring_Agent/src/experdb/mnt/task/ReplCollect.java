@@ -154,7 +154,7 @@ public class ReplCollect extends TaskApplication {
 						from = new Date();
 						startDelay = transFormat.format(from);
 						preList.put("start_delay", startDelay);
-						ResourceInfo.getInstance().put(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY, preList);
+						ResourceInfo.getInstance().put(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY, preList);						
 					}
 
 					HashMap<String, Object> dbVerMap = new HashMap<String, Object>();
@@ -163,7 +163,13 @@ public class ReplCollect extends TaskApplication {
 					Map<String, Object> preValue = new HashMap<String, Object>();
 					preValue = (Map<String, Object>) ResourceInfo.getInstance().get(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY);
 					
-					startDelay = preValue.get("start_delay").toString();
+					if (preValue == null){
+						from = new Date();
+						startDelay = transFormat.format(from);
+						preList.put("start_delay", startDelay);
+						ResourceInfo.getInstance().put(instanceId, taskId+"REPL", RESOURCE_KEY_REPLICATIONDELAY, preList);
+					} else
+						startDelay = preValue.get("start_delay").toString();
 					dbVerMap.put("start_delay", startDelay);
 					
 					replSel = sessionCollect.selectOne("app.EXPERDBMA_BT_UPTIME_MAXCONN_002", dbVerMap);

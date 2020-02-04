@@ -68,7 +68,11 @@ class ExceptionLeakingTask implements Runnable {
 				
 				//Update Driver of instances status
 				updateDriverStatus();
-				
+								
+				log.info("Start batch hourly (init)");
+				Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
+
+				log.info("Running TaskExecutoer!");
 				//전체 작업 Task를 가져온다
 				if(isstandAloneStart)
 				{
@@ -85,7 +89,7 @@ class ExceptionLeakingTask implements Runnable {
 						}
 					}
 				}
-
+				log.info("The batch job checking is working properly!");
 				boolean isStart = true;
 				//Instance 정보 변경 여부를 확인한다.
 				long lLastHourlyBatchTime = System.currentTimeMillis ();
@@ -106,12 +110,12 @@ class ExceptionLeakingTask implements Runnable {
 //					String strBatchTimeStart = transFormat.format(batchStartHourlyTime);
 //					String strBatchTimeEnd = transFormat.format(batchEndHourlyTime);
 
-					if (isStart == true){
-						log.info("Start batch hourly (init)");
-						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
-						lLastHourlyBatchTime = System.currentTimeMillis ();
-						isStart = false;
-					}
+//					if (isStart == true){
+//						log.info("Start batch hourly (init)");
+//						Class.forName("experdb.mnt.task."+ "HourlyBatchTask").getConstructor().newInstance();
+//						lLastHourlyBatchTime = System.currentTimeMillis ();
+//						isStart = false;
+//					}
 					
 					//if(strCurrentTime.compareTo(strBatchTimeStart) > 0 && strCurrentTime.compareTo(strBatchTimeEnd) < 0){
 					if((System.currentTimeMillis () / 1000) - (lLastHourlyBatchTime / 1000) > 3600 ) {
