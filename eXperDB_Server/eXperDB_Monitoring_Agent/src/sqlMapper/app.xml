@@ -3430,6 +3430,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				nhour varchar;
 			BEGIN    
 				var_tablename = '${tablename}';
+			    ndate = to_char(now(), 'YYYYMMDD');
+			    FOR i IN 0..23 LOOP
+					--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+					nhour = to_char(i, 'fm00');
+			    	EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || ndate || nhour || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || ndate || nhour || ')');     
+			    END LOOP;
 			    ndate = to_char(now() + interval '1 day', 'YYYYMMDD');
 			    FOR i IN 0..23 LOOP
 					--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
@@ -4012,6 +4018,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			nhour varchar;
 		BEGIN    
 			var_tablename = 'tb_realtime_statements';
+			ndate = to_char(now(), 'YYYYMMDD');
+			FOR i IN 0..23 LOOP
+				--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+				nhour = to_char(i, 'fm00');
+				EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_' || ndate || nhour || ' ON tb_realtime_statements_' || ndate || nhour || ' USING btree (collect_dt DESC)');
+		    END LOOP;
 			ndate = to_char(now() + interval '1 day', 'YYYYMMDD');
 			FOR i IN 0..23 LOOP
 				--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
