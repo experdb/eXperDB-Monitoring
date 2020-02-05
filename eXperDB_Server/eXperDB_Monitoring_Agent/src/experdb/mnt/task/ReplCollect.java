@@ -88,7 +88,7 @@ public class ReplCollect extends TaskApplication {
 				execute(); //수집 실행
 				
 				//check whether the thread is running or not.
-				if (checkAlive++ % 30 == 0){
+				if (checkAlive++ % 100 == 0){
 					log.info("[ReplCollect ==>> " + instanceId + "]");
 					checkAlive = 1;
 				}

@@ -27,10 +27,14 @@ public class HourlyBatchTask {
 	private String comments = ""; // 오류세부 정보 : 0:데몬기동 / 1:접속종료 / 2:데이터삭제 / 3: VACUUM&ANALYZE /  4: 시퀀스초기화/ 5:인스턴스정보 UPDATE / 6: 접속수립 / 9:데몬종료
 	private String reg_date = ""; // 오늘날짜
 	
-	public HourlyBatchTask() {
-		log.info("The batch task started(hourly)");
-		execute();
-		check_partiton();
+	public HourlyBatchTask(boolean isHoulypartition) {
+		if(isHoulypartition){
+			log.info("The batch task started(hourly)");
+			execute();
+		} else{
+			log.info("The batch task started(check whole partitions)");
+			check_partiton();
+		}
 	}
 	
 	private int execute() {

@@ -202,7 +202,11 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);	
 				partitionTableMap.put("tablename", "tb_wal_info");
 				sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_001", partitionTableMap);
-				
+				sessionAgent.commit();
+				//real time partition table
+				partitionTableMap.put("tablename", "tb_realtime_statements");
+				sessionAgent.update("app.PG_ATTACH_PARTITIONS_002", partitionTableMap);	
+				sessionAgent.update("app.PG_DETACH_PARTITIONS_002", partitionTableMap);
 				sessionAgent.commit();
 				log.info("End to Create partitions");
 			} catch (Exception e) {
@@ -259,6 +263,9 @@ public class DailyBatchTask {
 				sessionAgent.update("app.PG_INDEX_TB_RSC_COLLECT_INFO_001"    , partitionTableMap);
 				sessionAgent.update("app.PG_INDEX_TB_REPLICATION_INFO_001"       , partitionTableMap);
 				//Commit
+				sessionAgent.commit();
+				//real time partition table
+				sessionAgent.update("app.PG_INDEX_TB_REALTIME_STATEMENTS_PARTITIONS_001", partitionTableMap);			
 				sessionAgent.commit();
 				log.info("End to make constraints and indexes");
 			} catch (Exception e) {
