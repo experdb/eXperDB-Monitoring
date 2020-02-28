@@ -318,6 +318,8 @@ create table tb_wal_info (
 create table tb_group_info (
     group_id integer not null,
     group_name character varying(30),
+    cloud_group bool,
+    need_apply bool,
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
 );

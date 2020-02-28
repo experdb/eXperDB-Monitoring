@@ -69,6 +69,7 @@ public class HourlyBatchTask {
 			
 			// DB Connection을 가져온다
 			sessionAgent = SqlSessionManager.getInstance().openSession();
+			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");			
 			for (int tryCount=0; tryCount < 3; tryCount++)
 			{
 				try {
@@ -102,6 +103,7 @@ public class HourlyBatchTask {
 			sessionAgent.close();
 			
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
+			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			try {
 				// Create index of partition tables
 				sessionAgent.update("app.PG_INDEX_TB_REALTIME_STATEMENTS_PARTITIONS_001", partitionTableMap);//CREATE INDEX idx01_realtime_statements ON tb_realtime_statements USING btree (collect_dt DESC);

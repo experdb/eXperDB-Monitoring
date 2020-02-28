@@ -4,6 +4,8 @@
     Private Const APPNAME As String = "eXperDB.Downloader.exe"
     Private _odbcConn As eXperDBODBC
     Private _connStruct As eXperDB.ODBC.structConnection
+    Private rtnSrt As New List(Of GroupInfo)
+
 #Region "Agent"
 
     ''' <summary>
@@ -71,6 +73,7 @@
         Dim dtTable As DataTable = ClsQuery.SelectGroupName(groupIndex)
         If dtTable IsNot Nothing Then
             txtGrp1.Text = IIf(IsDBNull(dtTable.Rows(0).Item("GROUP_NAME")), "", dtTable.Rows(0).Item("GROUP_NAME"))
+            chkCloudGroup.Checked = IIf(IsDBNull(dtTable.Rows(0).Item("CLOUD_GROUP")), False, dtTable.Rows(0).Item("CLOUD_GROUP"))
         End If
 
         Dim HashTbl As New Hashtable
@@ -200,6 +203,7 @@
 
         lblSvrList.Text = p_clsMsgData.fn_GetData("F013")
         lblMonList.Text = p_clsMsgData.fn_GetData("F311")
+        chkCloudGroup.Text = p_clsMsgData.fn_GetData("F361")
         colMonAliasNm.HeaderText = p_clsMsgData.fn_GetData("F019")
         colMonIP.HeaderText = p_clsMsgData.fn_GetData("F006")
         colMonPort.HeaderText = p_clsMsgData.fn_GetData("F007")
@@ -465,7 +469,7 @@
                 Next
 
                 ' Instance 별 조회 그룹을 업데이트 한다. 
-                If ClsQuery.UpdateGroup(groupId, groupName, strLocIP) < 0 Then
+                If ClsQuery.UpdateGroup(groupId, groupName, chkCloudGroup.Checked, strLocIP) < 0 Then
                     'MsgBox(p_clsMsgData.fn_GetData("M057"))
                     Return False
                 End If
@@ -537,7 +541,7 @@
         ' 반환 Group Server 목록 반들기 
         ' 체크 목록에서 데이터를 모두 거증 하였으므로 그냥 넣기만 한다. 
 
-        Dim rtnSrt As New List(Of GroupInfo)
+        'Dim rtnSrt As New List(Of GroupInfo)
 
 
 
@@ -548,8 +552,8 @@
 
         Dim grpIdx As Integer = 0
 
-
-        rtnSrt.Add(New GroupInfo(cmbGrp.SelectedIndex, txtGrp1.Text))
+        rtnSrt.Clear()
+        rtnSrt.Add(New GroupInfo(cmbGrp.SelectedIndex, txtGrp1.Text, chkCloudGroup.Checked))
         grpIdx = rtnSrt.Count - 1
 
         Dim intHAGroup As Integer = 0
@@ -632,6 +636,57 @@
 
         Me.Hide()
 
+    End Sub
+
+
+    Public Sub reloadGroupInfo(ByVal groupIndex As Integer)
+        Try
+            Dim AgentCn As eXperDB.ODBC.eXperDBODBC = _odbcConn
+            ' 붙어 있는 서버 정보가 없을 경우 종료 
+            If AgentCn Is Nothing Then Return
+
+            ReadSvrListbyGroup(_odbcConn, groupIndex + 1)
+
+            Dim arrInstanceIDs As New ArrayList
+            Dim grpIdx As Integer = 0
+            Dim intHAGroup As Integer = 0
+            Dim intHAGroupSave As Integer = 0
+            Dim intHAGroupIndex As Integer = -1
+
+            rtnSrt.Clear()
+            rtnSrt.Add(New GroupInfo(groupIndex, txtGrp1.Text, chkCloudGroup.Checked))
+            For Each tmpRow As DataGridViewRow In Me.dgvMonLst.Rows
+                ' 그룹이 선택되어 있을 경우 
+                Dim intInstanceID As Integer = tmpRow.Tag
+                arrInstanceIDs.Add(intInstanceID)
+                Dim strIP As String = tmpRow.Cells(colMonIP.Index).Value
+                Dim intPort As Integer = tmpRow.Cells(colMonPort.Index).Value
+                Dim strID As String = tmpRow.Cells(colMonUser.Index).Value
+                Dim strDBNm As String = tmpRow.Cells(colMonDBNm.Index).Value
+                Dim strAliasNm As String = tmpRow.Cells(colMonAliasNm.Index).Value
+                Dim strHostNm As String = tmpRow.Cells(colMonHostNm.Index).Value
+                Dim stTime As DateTime = tmpRow.Cells(colMonStartTime.Index).Value
+                Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
+                Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
+                Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
+                Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
+                intHAGroup = tmpRow.Cells(colMonHAGroup.Index).Value
+                If intHAGroup <> intHAGroupSave Then
+                    intHAGroupIndex += 1
+                    intHAGroupSave = intHAGroup
+                End If
+                rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, intPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, intHAPort, intHAGroupIndex, strPGV))
+            Next
+
+            ' Server Configuration  Start 
+            Dim clsQuery As New clsQuerys(AgentCn)
+            Dim tmpElapseInterval As Integer = p_UserENv.CFG_CollectPeriod * 1000
+            p_clsAgentCollect.Stop()
+            p_clsAgentCollect.setInstanceIDs(arrInstanceIDs.ToArray(GetType(Integer)))
+            p_clsAgentCollect.Start(AgentCn, tmpElapseInterval, p_ShowName)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
     ''' <summary>
     ''' 서버 정보 입력시 활성화 비활성화 이벤트 

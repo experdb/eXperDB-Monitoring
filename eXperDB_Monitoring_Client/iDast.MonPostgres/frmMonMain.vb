@@ -160,6 +160,8 @@
         End Get
     End Property
 
+    Private _frmSvrList As frmSvrList
+
 
     Private _AgentInfo As structAgent
     ReadOnly Property AgentInfo As structAgent
@@ -227,7 +229,7 @@
     ''' 초기화 
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByVal GrpLst As List(Of GroupInfo), ByVal Elapseinterval As Integer, ByVal GroupRotateinterval As Integer, ByVal clsAgentInfo As structAgent)
+    Public Sub New(ByVal AgentCn As eXperDB.ODBC.eXperDBODBC, ByRef GrpLst As List(Of GroupInfo), ByVal Elapseinterval As Integer, ByVal GroupRotateinterval As Integer, ByVal clsAgentInfo As structAgent)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -250,6 +252,11 @@
         Me.ShowCritical = True
         'Noh -> Me.ShowCritical = True
 
+        For Each tmpFrm As Form In Application.OpenForms
+            If TryCast(tmpFrm, frmSvrList) IsNot Nothing Then
+                _frmSvrList = TryCast(tmpFrm, frmSvrList)
+            End If
+        Next
 
 
     End Sub
@@ -585,7 +592,6 @@
         '    tmpCtl.ForeColor = System.Drawing.Color.Gray
         '    tmpCtl.BackColor = System.Drawing.Color.Black
         'Next
-
         Dim selCtl As BaseControls.RadioButton = TryCast(sender, BaseControls.RadioButton)
         If selCtl IsNot Nothing AndAlso selCtl.Checked = True Then
             selCtl.ForeColor = System.Drawing.Color.Yellow
@@ -652,56 +658,59 @@
 
     End Sub
     Private Sub sb_SetGrpReqinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
-            tmpSeries.Points.Clear()
-        Next
-        Dim srtLSt As New SortedList
-
-        For i As Integer = 0 To svrLst.Count - 1
-            srtLSt.Add(svrLst.Item(i).InstanceID, i)
+        Try
             For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
-                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
-                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
-                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                tmpSeries.Points.Clear()
             Next
-        Next
+            Dim srtLSt As New SortedList
 
-        If svrLst.Count <= 6 Then
-            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
-        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
-            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
-            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
-        Else
-            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 45
-            Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 65
-        End If
+            For i As Integer = 0 To svrLst.Count - 1
+                srtLSt.Add(svrLst.Item(i).InstanceID, i)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                    tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                Next
+            Next
 
-        Me.chrReqInfo.Tag = srtLSt
+            If svrLst.Count <= 6 Then
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
+            ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
+            Else
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 65
+            End If
 
-        ' group color
-        sb_setGroupColorChart(chrReqInfo)
+            Me.chrReqInfo.Tag = srtLSt
 
-        chrReqInfo.Invalidate()
+            ' group color
+            sb_setGroupColorChart(chrReqInfo)
 
-        'dgvReqInfo.Rows.Clear() '0202
+            chrReqInfo.Invalidate()
 
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            'dgvReqInfo.Rows.Clear() '0202
 
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
 
@@ -709,37 +718,53 @@
     '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub sb_SetGrpLockinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
+        Try
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
     Private Sub sb_SetGrpTPSinfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
+        Try
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
     Private Sub sb_SetGrpSQLRespInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
+        Try
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
     Private Sub sb_SetGrpReplicationInfo(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
+        Try
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
@@ -767,50 +792,54 @@
     End Sub
 
     Private Sub sb_SetSessionStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
+        Try
 
-        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
-            tmpSeries.Points.Clear()
-        Next
-        Dim srtLSt As New SortedList
-
-        For i As Integer = 0 To svrLst.Count - 1
-            srtLSt.Add(svrLst.Item(i).InstanceID, i)
             For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
-                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
-                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
-                tmpSeries.Points(tmpInt).ToolTip = svrLst.Item(i).ShowNm
-                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
-                'tmpSeries.Points(tmpInt).BorderColor = _instanceColors(svrLst.Item(i).HAGroupIndex)                
+                tmpSeries.Points.Clear()
             Next
-        Next
+            Dim srtLSt As New SortedList
 
-        If svrLst.Count <= 6 Then
-            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
-        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
-            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
-            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
-        Else
-            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
-            Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 65
-        End If
+            For i As Integer = 0 To svrLst.Count - 1
+                srtLSt.Add(svrLst.Item(i).InstanceID, i)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                    tmpSeries.Points(tmpInt).ToolTip = svrLst.Item(i).ShowNm
+                    tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                    'tmpSeries.Points(tmpInt).BorderColor = _instanceColors(svrLst.Item(i).HAGroupIndex)                
+                Next
+            Next
 
-        Me.chtSessionStatus.Tag = srtLSt
+            If svrLst.Count <= 6 Then
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            Else
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 65
+            End If
 
-        ' group color
-        sb_setGroupColorChart(chtSessionStatus)
+            Me.chtSessionStatus.Tag = srtLSt
 
-        chtSessionStatus.Invalidate()
+            ' group color
+            sb_setGroupColorChart(chtSessionStatus)
 
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
+            chtSessionStatus.Invalidate()
+
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
 
         ' init_DataSessionStatsInfo(svrLst)
     End Sub
@@ -820,10 +849,15 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub sb_setGrpDiskInfos()
-        dgvGrpDiskAccess.DataSource = Nothing
-        dgvGrpDiskAccess.Rows.Clear()
-        dgvGrpDiskUsage.DataSource = Nothing
-        dgvGrpDiskUsage.Rows.Clear()
+        Try
+            dgvGrpDiskAccess.DataSource = Nothing
+            dgvGrpDiskAccess.Rows.Clear()
+            dgvGrpDiskUsage.DataSource = Nothing
+            dgvGrpDiskUsage.Rows.Clear()
+        Catch ex As Exception
+            GC.Collect()
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
 
@@ -837,77 +871,81 @@
     ''' <param name="svrLst"></param>
     ''' <remarks></remarks>
     Private Sub sb_SetGrpCPU(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        ' 레이더 보이는 아이템을 모두 삭제한다. 
-        radCpu.items.Clear()
-        ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
-        dgvGrpCpuSvrLst.DataSource = Nothing
-        dgvGrpCpuSvrLst.Rows.Clear()
+        Try
+            ' 레이더 보이는 아이템을 모두 삭제한다. 
+            radCpu.items.Clear()
+            ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+            dgvGrpCpuSvrLst.DataSource = Nothing
+            dgvGrpCpuSvrLst.Rows.Clear()
 
-        ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
-        Dim idx As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            'radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, instanceImgLst.Images(idx))
-            radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
-            Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
-            dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
-            dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
-            dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrUsage.Index).Value = 0.0
-            dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrProg.Index).Value = 0.0
-            idx += 1
-        Next
-
-        DgvRowHeightFill(dgvGrpCpuSvrLst)
-        AddHandler dgvGrpCpuSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
-
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-        '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
-        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
-            tmpSeries.Points.Clear()
-        Next
-        Dim srtLSt As New SortedList
-
-        For i As Integer = 0 To svrLst.Count - 1
-            srtLSt.Add(svrLst.Item(i).InstanceID, i)
-            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
-                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
-                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
-                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+            ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+            Dim idx As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                'radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, instanceImgLst.Images(idx))
+                radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrUsage.Index).Value = 0.0
+                dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrProg.Index).Value = 0.0
+                idx += 1
             Next
-        Next
 
-        If svrLst.Count <= 6 Then
-            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
-        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
-            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
-            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
-        Else
-            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
-            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 69
-        End If
+            DgvRowHeightFill(dgvGrpCpuSvrLst)
+            AddHandler dgvGrpCpuSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
 
-        ' group color
-        sb_setGroupColorChart(chtCPUStatus)
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Trend 20180918 Start>'''''''''''''''''''''''''''''''''''''''''''
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''''
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        Me.chtCPUStatus.Tag = srtLSt
-        chtCPUStatus.Invalidate()
-        '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+                tmpSeries.Points.Clear()
+            Next
+            Dim srtLSt As New SortedList
 
+            For i As Integer = 0 To svrLst.Count - 1
+                srtLSt.Add(svrLst.Item(i).InstanceID, i)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                    tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                Next
+            Next
+
+            If svrLst.Count <= 6 Then
+                Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
+                Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            Else
+                Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 69
+            End If
+
+            ' group color
+            sb_setGroupColorChart(chtCPUStatus)
+
+            Me.chtCPUStatus.Tag = srtLSt
+            chtCPUStatus.Invalidate()
+            '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+        Catch ex As Exception
+            GC.Collect()
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
     ''' <summary>
     ''' GrpMem 컨트롤 초기화 
@@ -915,72 +953,77 @@
     ''' <param name="svrLst"></param>
     ''' <remarks></remarks>
     Private Sub sb_SetGrpMem(ByVal svrLst As List(Of GroupInfo.ServerInfo))
-        ' 레이더 보이는 아이템을 모두 삭제한다. 
-        radMem.items.Clear()
-        ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
-        dgvGrpMemSvrLst.DataSource = Nothing
-        dgvGrpMemSvrLst.Rows.Clear()
-        ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
-        Dim idx As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
-            Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
-            dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
-            dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
-            dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrUsage.Index).Value = 0.0
-            dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrprog.Index).Value = 0
-            idx += 1
-        Next
-        DgvRowHeightFill(dgvGrpMemSvrLst)
-        AddHandler dgvGrpMemSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
-
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''''''< Trend 20181119 Start>'''''''''''''''''''''''''''''''''''''''''''
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        Dim index As Integer = 0
-        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-            AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-            index += 1
-        Next
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        '''''''< Trend 20181119 End>'''''''''''''''''''''''''''''''''''''''''''''
-        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-        '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
-        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
-            tmpSeries.Points.Clear()
-        Next
-        Dim srtLSt As New SortedList
-
-        For i As Integer = 0 To svrLst.Count - 1
-            srtLSt.Add(svrLst.Item(i).InstanceID, i)
-            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
-                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
-                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
-                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+        Try
+            ' 레이더 보이는 아이템을 모두 삭제한다. 
+            radMem.items.Clear()
+            ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+            dgvGrpMemSvrLst.DataSource = Nothing
+            dgvGrpMemSvrLst.Rows.Clear()
+            ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+            Dim idx As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrUsage.Index).Value = 0.0
+                dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrprog.Index).Value = 0
+                idx += 1
             Next
-        Next
+            DgvRowHeightFill(dgvGrpMemSvrLst)
+            AddHandler dgvGrpMemSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
 
-        If svrLst.Count <= 6 Then
-            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
-        ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
-            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
-            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
-            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
-        Else
-            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
-            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
-            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 69
-        End If
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Trend 20181119 Start>'''''''''''''''''''''''''''''''''''''''''''
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            Dim index As Integer = 0
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                index += 1
+            Next
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            '''''''< Trend 20181119 End>'''''''''''''''''''''''''''''''''''''''''''''
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        ' group color
-        sb_setGroupColorChart(chtMEMStatus)
+            '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+                tmpSeries.Points.Clear()
+            Next
+            Dim srtLSt As New SortedList
 
-        Me.chtMEMStatus.Tag = srtLSt
-        chtMEMStatus.Invalidate()
-        '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+            For i As Integer = 0 To svrLst.Count - 1
+                srtLSt.Add(svrLst.Item(i).InstanceID, i)
+                For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+                    Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                    tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                    tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                Next
+            Next
+
+            If svrLst.Count <= 6 Then
+                Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            ElseIf svrLst.Count > 6 AndAlso svrLst.Count < 12 Then
+                Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            Else
+                Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 69
+            End If
+
+            ' group color
+            sb_setGroupColorChart(chtMEMStatus)
+
+            Me.chtMEMStatus.Tag = srtLSt
+            chtMEMStatus.Invalidate()
+            '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+        Catch ex As Exception
+            GC.Collect()
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
 
@@ -1081,6 +1124,7 @@
             Me.dgvClusters.Columns(0).SortMode = DataGridViewColumnSortMode.Automatic
         Catch ex As Exception
             GC.Collect()
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
         setInstanceColors()
         ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
@@ -1402,6 +1446,7 @@
 
             If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
                 If _isDrawInitialData = 0 Then
+                    clsAgentCollect_reloadClusters()
                     clsAgentCollect_GetDataBackendinfo(p_clsAgentCollect.infoDataBackend)
                     clsAgentCollect_GetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
                     clsAgentCollect_GetDataDiskInfo(p_clsAgentCollect.infoDataDisk)
@@ -2385,6 +2430,27 @@
             Me.chtReplicationDelay.ChartAreas(0).RecalculateAxesScale()
         Catch ex As Exception
             GC.Collect()
+        End Try
+
+    End Sub
+
+    ''' <summary>
+    ''' Reload cluster list
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub clsAgentCollect_reloadClusters()
+        Try
+            If _GrpList.Item(0).isCloudGroup = False Then
+                Return
+            End If
+            Dim intCurrentClusters As Integer = _GrpList.Item(0).Items.Count
+            _frmSvrList.reloadGroupInfo(_GrpList.Item(0).ID)
+            If _GrpList.Item(0).Items.Count <> intCurrentClusters Then
+                dgvClusters.Nodes.Clear()
+                sb_SetInstanceStatus(_GrpList.Item(0).Items)
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
 
     End Sub

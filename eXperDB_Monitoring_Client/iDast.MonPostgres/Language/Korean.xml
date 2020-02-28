@@ -2761,6 +2761,10 @@
     <DESC>가상IP</DESC>
     <DATA><![CDATA[가상IP(복제)]]></DATA>
   </ROW>
+  <ROW ID="F361" PARAMS="1">
+    <DESC>The cloud group</DESC>
+    <DATA><![CDATA[클라우드 그룹]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>

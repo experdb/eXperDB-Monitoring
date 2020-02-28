@@ -355,11 +355,11 @@
         End Try
 
     End Function
-    Public Function UpdateGroup(ByVal groupID As Integer, ByVal groupName As String, ByVal LstIp As String) As Integer
+    Public Function UpdateGroup(ByVal groupID As Integer, ByVal groupName As String, ByVal isCoudGroup As Boolean, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEGROUP")
-            strQuery = String.Format(strQuery, groupID, groupName, LstIp)
+            strQuery = String.Format(strQuery, groupID, groupName, isCoudGroup, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
         Catch ex As Exception

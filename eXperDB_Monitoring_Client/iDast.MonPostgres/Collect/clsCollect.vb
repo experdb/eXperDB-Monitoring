@@ -20,6 +20,10 @@
         _AgentInfo = clsAgentInfo
     End Sub
 
+    Public Sub setInstanceIDs(ByVal Instance As Integer())
+        _InstanceIDs = String.Join(",", Instance)
+    End Sub
+
 
     ReadOnly Property ThreadMsgQueue As Queue(Of String)
 
