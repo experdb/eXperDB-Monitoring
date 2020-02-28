@@ -1,9 +1,10 @@
 ﻿
 Public Class GroupInfo
 
-    Public Sub New(ByVal GrpID As Integer, ByVal strGroupName As String)
+    Public Sub New(ByVal GrpID As Integer, ByVal strGroupName As String, ByVal isCloudGroup As Boolean)
         _GroupName = strGroupName
         _ID = GrpID
+        _isCloudGroup = isCloudGroup
     End Sub
 
     Private _ID As Integer = -1
@@ -28,6 +29,18 @@ Public Class GroupInfo
     ReadOnly Property GroupName As String
         Get
             Return _GroupName
+        End Get
+    End Property
+    Private _isCloudGroup As Boolean
+    ''' <summary>
+    ''' 그룹명
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    ReadOnly Property isCloudGroup As Boolean
+        Get
+            Return _isCloudGroup
         End Get
     End Property
     Private _Items As New List(Of ServerInfo)

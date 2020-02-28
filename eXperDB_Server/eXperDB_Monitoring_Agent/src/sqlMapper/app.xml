@@ -4273,4 +4273,13 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
            AND DELETE_YN = 'N'
 	</select>	
 <!-- Check Virtual IP ENd -->
+
+<!-- ********************************************************** -->
+<!-- ReplCollect End -->
+<!-- ********************************************************** -->
+	<update id="TB_SET_LOCK_TIMEOUT_U001" parameterType="hashmap" >
+		<![CDATA[
+			set lock_timeout = 120000;
+		]]>
+    </update>
 </mapper>

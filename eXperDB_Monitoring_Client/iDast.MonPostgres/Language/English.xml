@@ -2761,6 +2761,10 @@
     <DESC>VirtualIP</DESC>
     <DATA><![CDATA[Virtual IP(Repl)]]></DATA>
   </ROW>
+  <ROW ID="F361" PARAMS="1">
+    <DESC>Cloud group</DESC>
+    <DATA><![CDATA[Check the cloud group]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>

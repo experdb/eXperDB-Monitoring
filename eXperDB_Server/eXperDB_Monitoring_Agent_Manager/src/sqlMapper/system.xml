@@ -95,6 +95,18 @@
 		   AND STATUS = #{status}
 		   	]]>
 	</update>	
-
-
+	<select id="TB_CHECK_SCALING_001" resultType="hashmap">
+		<![CDATA[
+		SELECT 1 AS NEED_APPLY FROM TB_GROUP_INFO
+		 WHERE CLOUD_GROUP = TRUE 
+		   AND NEED_APPLY = TRUE
+		   	]]>
+	</select>
+		<update id="TB_CHECK_SCALING_U001" parameterType="hashmap">
+		<![CDATA[
+		UPDATE TB_GROUP_INFO 
+		   SET NEED_APPLY = false
+		 WHERE CLOUD_GROUP = TRUE;
+		   	]]>
+	</update>	
 </mapper>

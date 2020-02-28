@@ -106,7 +106,7 @@
     <DESC>SELECTGROUPNAME</DESC>
     <DATA>
       <![CDATA[
-      SELECT GROUP_NAME FROM TB_GROUP_INFO WHERE GROUP_ID = {0} ORDER BY GROUP_ID
+      SELECT GROUP_NAME, CLOUD_GROUP FROM TB_GROUP_INFO WHERE GROUP_ID = {0} ORDER BY GROUP_ID
     ]]>
     </DATA>
   </ROW>
@@ -357,12 +357,17 @@
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
-      UPDATE TB_GROUP_INFO 
-      SET GROUP_NAME = '{1}' 
-        ,LAST_MOD_IP = '{2}' 
-        ,LAST_MOD_DT = NOW()
-      WHERE GROUP_ID = '{0}' 
-    ]]>
+      DO $$
+      DECLARE       
+	      is_cloud_group BOOL;
+      BEGIN
+        is_cloud_group = {2};
+        UPDATE TB_GROUP_INFO SET GROUP_NAME = '{1}', CLOUD_GROUP = is_cloud_group, LAST_MOD_IP = '{3}', LAST_MOD_DT = NOW() WHERE GROUP_ID = {0};
+	      IF is_cloud_group = TRUE THEN  
+	        UPDATE TB_GROUP_INFO SET CLOUD_GROUP = FALSE, LAST_MOD_IP = '{3}', LAST_MOD_DT = NOW() WHERE GROUP_ID <> {0};
+	      END IF;
+      END $$
+      ]]>
     </DATA>
     <COMMENTS />
   </ROW>

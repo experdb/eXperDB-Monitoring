@@ -162,6 +162,7 @@ public class DailyBatchTask {
 			
 			try {
 				log.info("Start to Create partitions");
+				sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 				// Create partition tables
 				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
 				partitionTableMap.put("tablename", "tb_actv_collect_info");
@@ -218,7 +219,7 @@ public class DailyBatchTask {
 			}
 			sessionAgent.close();
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
-			
+			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			try {
 				log.info("Start to make constraints and indexes");
 				// Add constraint of partition tables
