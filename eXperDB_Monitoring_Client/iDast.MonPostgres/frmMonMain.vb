@@ -397,6 +397,7 @@
 
         ' 인스턴스 요약정보 
         grpInstSumInfo.Text = p_clsMsgData.fn_GetData("F032")
+        colGrpCpuSvrUsage.HeaderText = p_clsMsgData.fn_GetData("F034")
 
         ' CPU 정보 
         grpCPU.Text = p_clsMsgData.fn_GetData("F035")
@@ -701,8 +702,10 @@
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtLogicalRead, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -721,7 +724,9 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtLockWait, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
         Catch ex As Exception
@@ -733,9 +738,11 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtTPSTotal, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
         Catch ex As Exception
@@ -746,8 +753,10 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtSQLRespTmMAX, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
         Catch ex As Exception
@@ -758,8 +767,10 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtReplicationDelay, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
         Catch ex As Exception
@@ -833,8 +844,10 @@
 
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtSessionActive, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
         Catch ex As Exception
@@ -899,8 +912,10 @@
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtCPUUtil, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                    AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -978,7 +993,9 @@
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                If FindSeries(chtMEMUsage, tmpSvr.ShowSeriesNm) = False Then
+                    AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                End If
                 index += 1
             Next
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1591,7 +1608,9 @@
         'Next
         ' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
         Dim tmpGrp As GroupInfo = _GrpList.Item(0)
-        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
+        'strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
+        '선택된 클러스터의 세션 리스트만 보여준다.
+        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Where(Function(w) w.Reserved = True).Select(Function(e) e.InstanceID))
 
         Dim subQuery As String = ""
         If chkIDLE.Checked = False Then
@@ -1640,6 +1659,40 @@
         Dim intInstID As Integer
         Dim MaxCPU As Double = 0
         Dim MaxMEM As Double = 0
+
+        If chkHAGroup.Checked = True Then
+            Dim return_dt = dtTable.AsEnumerable.GroupBy(
+                    Function(l) New With {
+                       Key .HA_GROUP = l.Field(Of Integer)("HA_GROUP")}).Select(
+                    Function(g)
+                        Dim row = dtTable.NewRow
+                        row("INSTANCE_ID") = g.Key.HA_GROUP
+                        row("REG_DATE") = g.Max(Function(r) r.Field(Of DateTime)("REG_DATE"))
+                        row("CPU_MAIN") = g.Average(Function(r) r.Field(Of Decimal)("CPU_MAIN"))
+                        row("CPU_LOGICAL_ID") = g.Max(Function(r) r.Field(Of Integer)("CPU_LOGICAL_ID"))
+                        row("CORE_CPU_RATE") = g.Average(Function(r) r.Field(Of Decimal)("CORE_CPU_RATE"))
+                        row("WAIT_UTIL_RATE") = g.Average(Function(r) r.Field(Of Decimal)("WAIT_UTIL_RATE"))
+                        row("MEM_USED_RATE") = g.Average(Function(r) r.Field(Of Decimal)("MEM_USED_RATE"))
+                        row("SWP_USED_RATE") = g.Average(Function(r) r.Field(Of Decimal)("SWP_USED_RATE"))
+                        row("MEM_TOTAL_MB") = g.Sum(Function(r) r.Field(Of Integer)("MEM_TOTAL_MB"))
+                        row("MEM_USED_MB") = g.Sum(Function(r) r.Field(Of Integer)("MEM_USED_MB"))
+                        row("MEM_FREE_MB") = g.Sum(Function(r) r.Field(Of Integer)("MEM_FREE_MB"))
+                        row("SHM_MB") = g.Sum(Function(r) r.Field(Of Integer)("SHM_MB"))
+                        row("MEM_BUFFERED_MB") = g.Sum(Function(r) r.Field(Of Integer)("MEM_BUFFERED_MB"))
+                        row("MEM_CACHED_MB") = g.Sum(Function(r) r.Field(Of Integer)("MEM_CACHED_MB"))
+                        row("SWP_TOTAL_MB") = g.Sum(Function(r) r.Field(Of Integer)("SWP_TOTAL_MB"))
+                        row("SWP_USED_MB") = g.Sum(Function(r) r.Field(Of Integer)("SWP_USED_MB"))
+                        row("SWP_FREE_MB") = g.Sum(Function(r) r.Field(Of Integer)("SWP_FREE_MB"))
+                        row("SWP_CACHED_MB") = g.Sum(Function(r) r.Field(Of Integer)("SWP_CACHED_MB"))
+                        row("BUFFER_RATE") = g.Average(Function(r) r.Field(Of Decimal)("BUFFER_RATE"))
+                        row("SORTED_HOST_NAME") = g.Min(Function(r) r.Field(Of String)("SORTED_HOST_NAME"))
+                        row("HOST_NAME") = row("SORTED_HOST_NAME").ToString().Substring(3)
+                        Return row
+                    End Function
+                  ).CopyToDataTable
+            dtTable = return_dt
+        End If
+
         For Each dtRow As DataRow In dtTable.DefaultView.ToTable(True, "INSTANCE_ID", "CPU_MAIN", "WAIT_UTIL_RATE", "MEM_USED_RATE", "SWP_USED_RATE", "HOST_NAME").Rows
             ' GRP CPU
             Try
@@ -1843,13 +1896,14 @@
     Private Sub clsAgentCollect_GetDataDiskInfo(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
 
-
-
-
-
         Dim UpdTime As Double = Now.ToOADate
 
-
+        Dim tmpGrp As GroupInfo = _GrpList.Item(0)
+        '선택된 클러스터의 세션 리스트만 보여준다.
+        Dim strSvrIDInQuery As String = ""
+        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Where(Function(w) w.Reserved = True).Select(Function(e) e.InstanceID))
+        Dim returnDT = dtTable.AsEnumerable().Where(Function(w) strSvrIDInQuery.Contains(w.Field(Of Integer)("INSTANCE_ID"))).CopyToDataTable
+        dtTable = returnDT
 
         For Each dtRow As DataRow In dtTable.Rows
             ' GRP ACCESS
@@ -2178,13 +2232,27 @@
 
 
     Private Sub clsAgentCollect_GetDataSessionStatsInfo(ByVal dtTableSessionStatus As DataTable)
-
         '0202 change flow chart
         Dim dblRegDt As Double
         Dim intInstID As Integer
         Dim MaxPri As Double = 0
         If dtTableSessionStatus IsNot Nothing Then
             If dtTableSessionStatus.Rows.Count > 0 Then
+                If chkHAGroup.Checked = True Then
+                    Dim return_dt = dtTableSessionStatus.AsEnumerable.GroupBy(
+                            Function(l) New With {
+                               Key .HA_GROUP = l.Field(Of Integer)("HA_GROUP")}).Select(
+                            Function(g)
+                                Dim row = dtTableSessionStatus.NewRow
+                                row("INSTANCE_ID") = g.Key.HA_GROUP
+                                row("COLLECT_DT") = g.Max(Function(r) r.Field(Of DateTime)("COLLECT_DT"))
+                                row("CUR_ACTV_BACKEND_CNT") = g.Sum(Function(r) r.Field(Of Integer)("CUR_ACTV_BACKEND_CNT"))
+                                row("TOT_BACKEND_CNT") = g.Sum(Function(r) r.Field(Of Integer)("TOT_BACKEND_CNT"))
+                                Return row
+                            End Function
+                        ).CopyToDataTable
+                    dtTableSessionStatus = return_dt
+                End If
                 dblRegDt = ConvOADate(dtTableSessionStatus.Rows(0).Item("COLLECT_DT"))
                 For Each dtRow As DataRow In dtTableSessionStatus.Rows
                     intInstID = dtRow.Item("INSTANCE_ID")
@@ -2446,8 +2514,15 @@
             Dim intCurrentClusters As Integer = _GrpList.Item(0).Items.Count
             _frmSvrList.reloadGroupInfo(_GrpList.Item(0).ID)
             If _GrpList.Item(0).Items.Count <> intCurrentClusters Then
+                _frmSvrList.reloadAgentCollect()
                 dgvClusters.Nodes.Clear()
-                sb_SetInstanceStatus(_GrpList.Item(0).Items)
+                If chkHAGroup.Checked = True Then
+                    sb_SetInstanceStatus(_GrpList.Item(0).Items)
+                    _GrpListServerinfo = _GrpList.Item(0).Items
+                Else
+                    sb_InitControl()
+                End If
+
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -2796,8 +2871,32 @@
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Private Sub clsAgentCollect_GetDataObjectInfo(ByVal dtTableObject As DataTable, ByVal dtTableSession As DataTable)
 
-
         If dtTableObject Is Nothing Then Return
+        If chkHAGroup.Checked = True Then
+            Dim return_dt = dtTableObject.AsEnumerable.GroupBy(
+                    Function(l) New With {
+                       Key .HA_GROUP = l.Field(Of Integer)("HA_GROUP")}).Select(
+                    Function(g)
+                        Dim row = dtTableObject.NewRow
+                        row("INSTANCE_ID") = g.Key.HA_GROUP
+                        row("COLLECT_DT") = g.Max(Function(r) r.Field(Of DateTime)("COLLECT_DT"))
+                        row("SEQ_SCAN_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("SEQ_SCAN_TUPLES_PER_SEC"))
+                        row("INDEX_SCAN_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("INDEX_SCAN_TUPLES_PER_SEC"))
+                        row("INSERT_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("INSERT_TUPLES_PER_SEC"))
+                        row("UPDATE_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("UPDATE_TUPLES_PER_SEC"))
+                        row("DELETE_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("DELETE_TUPLES_PER_SEC"))
+                        row("SELECT_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("SELECT_TUPLES_PER_SEC"))
+                        row("PHY_READ_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("PHY_READ_PER_SEC"))
+                        row("COMMIT_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("COMMIT_TUPLES_PER_SEC"))
+                        row("ROLLBACK_TUPLES_PER_SEC") = g.Average(Function(r) r.Field(Of Integer)("ROLLBACK_TUPLES_PER_SEC"))
+                        row("SORTED_HOST_NAME") = g.Min(Function(r) r.Field(Of String)("SORTED_HOST_NAME"))
+                        row("HOST_NAME") = row("SORTED_HOST_NAME").ToString().Substring(3)
+                        Return row
+                    End Function
+                  ).CopyToDataTable
+            dtTableObject = return_dt
+        End If
+
         Dim tmpSrtLst As SortedList = TryCast(Me.chrReqInfo.Tag, SortedList)
         Dim intInstID As Integer = 0
         Dim MaxPri As Double = 0 ' lngInsertTuples + lngDeleteTuples + lngUpdatetTuples
@@ -4236,6 +4335,17 @@
         'Series.Name = "UPDATE"
         'Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
     End Sub
+
+    Public Function FindSeries(ByVal chtName As System.Windows.Forms.DataVisualization.Charting.Chart,
+                         ByVal SeriesName As String) As Boolean
+        For i As Integer = 0 To chtName.Series.Count - 1
+            If chtName.Series(i).Name = SeriesName Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
 #End Region
 
     Private Sub dgvAlert_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlert.CellClick
@@ -4752,8 +4862,24 @@
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''< Trend 20180918 End>'''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Private Sub btnClusterShow_Click(sender As Object, e As EventArgs) Handles btnClusterShow.Click
+    Private Sub btnClusterShow_Click(sender As Object, e As EventArgs) Handles btnClusterFilter.Click
         ShowChooseClusters()
+    End Sub
+
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles chkHAGroup.CheckedChanged
+        Dim CheckBox As BaseControls.CheckBox = DirectCast(sender, BaseControls.CheckBox)
+        If CheckBox.Checked = True Then
+            CheckBox.Image = monTypeImgLst.Images(6)
+            For index = 0 To dgvClusters.Nodes.Count - 1
+                dgvClusters.Nodes([index]).Collapse()
+            Next
+        Else
+            CheckBox.Image = monTypeImgLst.Images(7)
+            For index = 0 To dgvClusters.Nodes.Count - 1
+                dgvClusters.Nodes([index]).Expand()
+            Next
+        End If
+        ShowHAGroupClusters()
     End Sub
 
     Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged
@@ -4971,24 +5097,28 @@
     End Sub
 
     Private Sub TmAni_Tick(sender As Object, e As EventArgs) Handles TmAni.Tick
-        If _nDivision > 0 Then
-            For Each sd As seriesDelta In _tmSeriesList
-                If sd.diffValue <> 0 Then
-                    Dim nValue = sd.diffSeries.Points(sd.diffIndex).YValues.Last + sd.diffValue
-                    sd.diffSeries.Points(sd.diffIndex).SetValueY(IIf(nValue < 0, 0, nValue))
-                End If
-            Next
-            _nDivision -= 1
-            ' Bar type 20190806
-            Me.chtCPUStatus.ChartAreas(0).RecalculateAxesScale()
-            Me.chtMEMStatus.ChartAreas(0).RecalculateAxesScale()
-            Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
-            Me.chrReqInfo.ChartAreas(0).RecalculateAxesScale()
-        Else
-            TmAni.Stop()
-            _tmSeriesList.Clear()
-            _nDivision = 4
-        End If
+        Try
+            If _nDivision > 0 Then
+                For Each sd As seriesDelta In _tmSeriesList
+                    If sd.diffValue <> 0 Then
+                        Dim nValue = sd.diffSeries.Points(sd.diffIndex).YValues.Last + sd.diffValue
+                        sd.diffSeries.Points(sd.diffIndex).SetValueY(IIf(nValue < 0, 0, nValue))
+                    End If
+                Next
+                _nDivision -= 1
+                ' Bar type 20190806
+                Me.chtCPUStatus.ChartAreas(0).RecalculateAxesScale()
+                Me.chtMEMStatus.ChartAreas(0).RecalculateAxesScale()
+                Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
+                Me.chrReqInfo.ChartAreas(0).RecalculateAxesScale()
+            Else
+                TmAni.Stop()
+                _tmSeriesList.Clear()
+                _nDivision = 4
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
     Private Sub dgvClusters_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles dgvClusters.CellPainting
@@ -5104,6 +5234,11 @@
     End Sub
 
     Private Sub dgvClusters_NodeExpanding(sender As Object, e As AdvancedDataGridView.ExpandingEventArgs) Handles dgvClusters.NodeExpanding
+        If chkHAGroup.Checked = True Then
+            e.Cancel = True
+            'Return
+        End If
+
         If e.Node.HasChildren Then
             isNodeCollapsingOrExpanding = True
             Threading.Thread.Sleep(10)
@@ -5368,6 +5503,383 @@
         End Try
     End Sub
 #End Region
+#Region "HA Group mon"
+    Private Sub ShowHAGroupClusters()
+        Dim index As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+            If tmpSvr.HARole = "S" Then
+                If chkHAGroup.Checked = True Then
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                    chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Enabled = False
+                Else
+                    chtCPUUtil.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtCPUWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtMEMUsage.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLockWait.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLogicalRead.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtLogicalWrite.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSessionActive.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSessionTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSQLRespTmAVG.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtSQLRespTmMAX.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSCommit.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSRollback.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtTPSTotal.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtReplicationDelay.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                    chtReplicationDelaySize.Series(tmpSvr.ShowSeriesNm).Enabled = True
+                End If
+            End If
+            index += 1
+        Next
+        ResetSessionStatusChartsForHAGroup()
+        ResetLogicalStatusChartForHAGroup()
+        ResetCPUStatusChartForHAGroup()
+        ResetMEMStatusChartForHAGroup()
+    End Sub
+
+    Private Sub ResetSessionStatusChartsForHAGroup()
+        Try
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+                tmpSeries.Points.Clear()
+            Next
+            Dim srtLSt As New SortedList
+            Dim vIndex As Integer = 0
+            Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+            For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+                If tmpSvr.Reserved = True Then
+                    If chkHAGroup.Checked = True Then
+                        If tmpSvr.HARole = "A" Or tmpSvr.HARole = "P" Then
+                            srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                            For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+                                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                                tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                                tmpSeries.Points(tmpInt).ToolTip = tmpSvr.ShowNm
+                                tmpSeries.Points(tmpInt).Tag = tmpSvr
+                            Next
+                            vIndex += 1
+                        End If
+                    Else
+                        srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtSessionStatus.Series
+                            Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                            tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                            tmpSeries.Points(tmpInt).ToolTip = tmpSvr.ShowNm
+                            tmpSeries.Points(tmpInt).Tag = tmpSvr
+                        Next
+                        vIndex += 1
+                    End If
+                End If
+            Next
+
+            If srtLSt.Count <= 6 Then
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+            Else
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chtSessionStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                Me.chtSessionStatus.ChartAreas(0).InnerPlotPosition.Height = 65
+            End If
+
+            Me.chtSessionStatus.Tag = srtLSt
+
+            ' group color
+            sb_setGroupColorChartHAGroup(chtSessionStatus)
+            chtSessionStatus.Invalidate()
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+
+    Private Sub ResetLogicalStatusChartForHAGroup()
+        Try
+            For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
+                tmpSeries.Points.Clear()
+            Next
+            Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+            Dim srtLSt As New SortedList
+            Dim vIndex As Integer = 0
+            For i As Integer = 0 To svrLst.Count - 1
+                If svrLst.Item(i).Reserved = True Then
+                    If chkHAGroup.Checked = True Then
+                        If svrLst.Item(i).HARole = "A" Or svrLst.Item(i).HARole = "P" Then
+                            srtLSt.Add(svrLst.Item(i).InstanceID, vIndex)
+                            For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
+                                Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                                tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                                tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                            Next
+                            vIndex += 1
+                        End If
+                    Else
+                        srtLSt.Add(svrLst.Item(i).InstanceID, vIndex)
+                        For Each tmpSeries As DataVisualization.Charting.Series In Me.chrReqInfo.Series
+                            Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                            tmpSeries.Points(tmpInt).AxisLabel = svrLst.Item(i).ShowNm
+                            tmpSeries.Points(tmpInt).Tag = svrLst.Item(i)
+                        Next
+                        vIndex += 1
+                    End If
+                End If
+            Next
+
+            If srtLSt.Count <= 6 Then
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
+            ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+                Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 80
+            Else
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+                Me.chrReqInfo.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+                Me.chrReqInfo.ChartAreas(0).InnerPlotPosition.Height = 65
+            End If
+
+            Me.chrReqInfo.Tag = srtLSt
+
+            ' group color
+            sb_setGroupColorChartHAGroup(chrReqInfo)
+
+            chrReqInfo.Invalidate()
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub ResetCPUStatusChartForHAGroup()
+        ' 레이더 보이는 아이템을 모두 삭제한다. 
+        radCpu.items.Clear()
+        ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpCpuSvrLst.DataSource = Nothing
+        dgvGrpCpuSvrLst.Rows.Clear()
+
+        ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+        Dim idx As Integer = 0
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                If chkHAGroup.Checked = True Then
+                    If tmpSvr.HARole = "A" Or tmpSvr.HARole = "P" Then
+                        radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                        Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
+                        dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
+                        dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
+                        dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrUsage.Index).Value = 0.0
+                        dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrProg.Index).Value = 0.0
+                        idx += 1
+                    End If
+                Else
+                    radCpu.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                    Dim idxRow As Integer = dgvGrpCpuSvrLst.Rows.Add()
+                    dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrID.Index).Value = tmpSvr.InstanceID
+                    dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrNm.Index).Value = tmpSvr.ShowNm
+                    dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrUsage.Index).Value = 0.0
+                    dgvGrpCpuSvrLst.Rows(idxRow).Cells(colGrpCpuSvrProg.Index).Value = 0.0
+                    idx += 1
+                End If
+            End If
+        Next
+
+        'AddHandler dgvGrpCpuSvrLst.SizeChanged, AddressOf DataGridView_SizeChanged
+
+        '''''''< Bar 20190807 Start>'''''''''''''''''''''''''''''''''''''''''''
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+        Dim vIndex As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                If chkHAGroup.Checked = True Then
+                    If tmpSvr.HARole = "A" Or tmpSvr.HARole = "P" Then
+                        srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+                            Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                            tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                            tmpSeries.Points(tmpInt).Tag = tmpSvr
+                        Next
+                        vIndex += 1
+                    End If
+                Else
+                    srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                    For Each tmpSeries As DataVisualization.Charting.Series In Me.chtCPUStatus.Series
+                        Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                        tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                        tmpSeries.Points(tmpInt).Tag = tmpSvr
+                    Next
+                    vIndex += 1
+                End If
+            End If
+        Next
+
+        If srtLSt.Count <= 6 Then
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        Else
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtCPUStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtCPUStatus.ChartAreas(0).InnerPlotPosition.Height = 69
+        End If
+
+        'Row height
+        DgvRowHeightFill(dgvGrpCpuSvrLst, srtLSt.Count)
+
+        ' group color
+        sb_setGroupColorChartHAGroup(chtCPUStatus)
+
+        Me.chtCPUStatus.Tag = srtLSt
+        chtCPUStatus.Invalidate()
+        '''''''< Bar 20190807 Stop>'''''''''''''''''''''''''''''''''''''''''''
+
+    End Sub
+
+    Private Sub ResetMEMStatusChartForHAGroup()
+        ' 레이더 보이는 아이템을 모두 삭제한다. 
+        radMem.items.Clear()
+        ' 레이더 컨트롤 옆의 Grid도 모두 삭제한다. 
+        dgvGrpMemSvrLst.DataSource = Nothing
+        dgvGrpMemSvrLst.Rows.Clear()
+
+        ' Raider 및 DataGridview의 목록을 초기화로 넣는다. 
+        Dim idx As Integer = 0
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                If chkHAGroup.Checked = True Then
+                    If tmpSvr.HARole = "A" Or tmpSvr.HARole = "P" Then
+                        radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                        Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
+                        dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
+                        dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
+                        dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrUsage.Index).Value = 0.0
+                        dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrprog.Index).Value = 0.0
+                        idx += 1
+                    End If
+                Else
+                    radMem.items.Add(tmpSvr.InstanceID, tmpSvr.ShowNm, CPUImgLst.Images(idx), idx + 1)
+                    Dim idxRow As Integer = dgvGrpMemSvrLst.Rows.Add()
+                    dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrID.Index).Value = tmpSvr.InstanceID
+                    dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrNm.Index).Value = tmpSvr.ShowNm
+                    dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrUsage.Index).Value = 0.0
+                    dgvGrpMemSvrLst.Rows(idxRow).Cells(colGrpMemSvrprog.Index).Value = 0.0
+                    idx += 1
+                End If
+            End If
+        Next
+
+        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+            tmpSeries.Points.Clear()
+        Next
+        Dim srtLSt As New SortedList
+        Dim vIndex As Integer = 0
+        For Each tmpSvr As GroupInfo.ServerInfo In svrLst
+            If tmpSvr.Reserved = True Then
+                If chkHAGroup.Checked = True Then
+                    If tmpSvr.HARole = "A" Or tmpSvr.HARole = "P" Then
+                        srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                        For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+                            Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                            tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                            tmpSeries.Points(tmpInt).Tag = tmpSvr
+                        Next
+                        vIndex += 1
+                    End If
+                Else
+                    srtLSt.Add(tmpSvr.InstanceID, vIndex)
+                    For Each tmpSeries As DataVisualization.Charting.Series In Me.chtMEMStatus.Series
+                        Dim tmpInt As Integer = tmpSeries.Points.AddY(0)
+                        tmpSeries.Points(tmpInt).AxisLabel = tmpSvr.ShowNm
+                        tmpSeries.Points(tmpInt).Tag = tmpSvr
+                    Next
+                    vIndex += 1
+                End If
+            End If
+        Next
+
+        If srtLSt.Count <= 6 Then
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        ElseIf srtLSt.Count > 6 AndAlso srtLSt.Count < 12 Then
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = True
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 0
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 80
+        Else
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.IsStaggered = False
+            Me.chtMEMStatus.ChartAreas(0).AxisX.LabelStyle.Angle = 45
+            Me.chtMEMStatus.ChartAreas(0).InnerPlotPosition.Height = 69
+        End If
+
+        'Row height
+        DgvRowHeightFill(dgvGrpMemSvrLst, srtLSt.Count)
+
+        ' group color
+        sb_setGroupColorChartHAGroup(chtMEMStatus)
+
+        Me.chtMEMStatus.Tag = srtLSt
+        chtMEMStatus.Invalidate()
+
+    End Sub
+
+    Private Sub sb_setGroupColorChartHAGroup(ByRef chart As DataVisualization.Charting.Chart)
+        Dim svrLst As List(Of GroupInfo.ServerInfo) = _GrpListServerinfo
+        chart.ChartAreas(0).AxisX.CustomLabels.Clear()
+        Dim intHAGroupindex As Integer = -1
+        Dim intSvrCount As Integer = -1
+        Dim vIndex As Integer = 0
+        Dim colorIndex As Integer = 0
+        For i As Integer = 0 To svrLst.Count - 1
+            If svrLst.Item(i).Reserved = True Then
+                If chkHAGroup.Checked = True Then
+                    If svrLst.Item(i).HARole = "A" Or svrLst.Item(i).HARole = "P" Then
+                        chart.ChartAreas(0).AxisX.CustomLabels.Add(New DataVisualization.Charting.CustomLabel( _
+                                                                                  vIndex + 0.5, vIndex + 1.5, svrLst.Item(i).ShowNm, 0, DataVisualization.Charting.LabelMarkStyle.None))
+                        If intHAGroupindex <> svrLst.Item(i).HAGroupIndex Then
+                            colorIndex += 1
+                            intHAGroupindex = svrLst.Item(i).HAGroupIndex
+                        End If
+                        chart.ChartAreas(0).AxisX.CustomLabels(vIndex).ForeColor = _groupColors(colorIndex Mod 2)
+                        vIndex += 1
+                    End If
+                Else
+                    chart.ChartAreas(0).AxisX.CustomLabels.Add(New DataVisualization.Charting.CustomLabel( _
+                                                          vIndex + 0.5, vIndex + 1.5, svrLst.Item(i).ShowNm, 0, DataVisualization.Charting.LabelMarkStyle.None))
+                    If intHAGroupindex <> svrLst.Item(i).HAGroupIndex Then
+                        colorIndex += 1
+                        intHAGroupindex = svrLst.Item(i).HAGroupIndex
+                    End If
+                    chart.ChartAreas(0).AxisX.CustomLabels(vIndex).ForeColor = _groupColors(colorIndex Mod 2)
+                    vIndex += 1
+                End If
+            End If
+        Next
+    End Sub
+#End Region
 #Region "Selct Instances"
     Private Sub ShowChooseClusters()
         Dim frmCS As New frmClusterShow(_GrpListServerinfo, _instanceColors)
@@ -5420,6 +5932,8 @@
         End If
         frmCS.Dispose()
     End Sub
+
+
 
     Private Sub ReinitCharts()
         _tmSeriesList.Clear()

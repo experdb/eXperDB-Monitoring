@@ -292,8 +292,7 @@ Partial Class frmMonMain
         Me.colDgvSessionInfoTmElapse = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.colDgvSessionInfoSQL = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.chkIDLE = New eXperDB.BaseControls.CheckBox()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.btnClusterShow = New eXperDB.BaseControls.Button()
+        Me.tlpClusterList = New System.Windows.Forms.TableLayoutPanel()
         Me.tlpHealth = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgtNumC = New eXperDB.Controls.DigitalNumber()
         Me.dgtNumW = New eXperDB.Controls.DigitalNumber()
@@ -315,6 +314,9 @@ Partial Class frmMonMain
         Me.flpInstance = New eXperDB.BaseControls.FlowLayoutPanel()
         Me.grpInstSumInfo = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.tlpClusterBtnGrp = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.chkHAGroup = New eXperDB.BaseControls.CheckBox()
+        Me.btnClusterFilter = New eXperDB.BaseControls.Button()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel13 = New System.Windows.Forms.TableLayoutPanel()
         Me.cmbLevel = New FlatCombobox.FlatCombo()
@@ -491,11 +493,12 @@ Partial Class frmMonMain
         Me.tlpSessionlist.SuspendLayout()
         CType(Me.nudBackendcnt, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSessionInfo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
+        Me.tlpClusterList.SuspendLayout()
         Me.tlpHealth.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tlpInstanceList.SuspendLayout()
         CType(Me.dgvClusters, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tlpClusterBtnGrp.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.TableLayoutPanel13.SuspendLayout()
         Me.pnlRb.SuspendLayout()
@@ -753,7 +756,7 @@ Partial Class frmMonMain
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.tlpTabControl)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.tlpClusterList)
         '
         'SplitContainer1.Panel2
         '
@@ -3985,6 +3988,8 @@ Partial Class frmMonMain
         Me.monTypeImgLst.Images.SetKeyName(3, "if_12_SEO_Benchmark_1688863.png")
         Me.monTypeImgLst.Images.SetKeyName(4, "Trends.png")
         Me.monTypeImgLst.Images.SetKeyName(5, "Trends2.png")
+        Me.monTypeImgLst.Images.SetKeyName(6, "completion.ico")
+        Me.monTypeImgLst.Images.SetKeyName(7, "completion_off.ico")
         '
         'tlpDiskAccess
         '
@@ -4405,47 +4410,23 @@ Partial Class frmMonMain
         Me.chkIDLE.UseVisualStyleBackColor = False
         Me.chkIDLE.Visible = False
         '
-        'TableLayoutPanel1
+        'tlpClusterList
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.btnClusterShow, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.tlpHealth, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.TableLayoutPanel3, 0, 2)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(248, 868)
-        Me.TableLayoutPanel1.TabIndex = 0
-        '
-        'btnClusterShow
-        '
-        Me.btnClusterShow.AutoSize = True
-        Me.btnClusterShow.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnClusterShow.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.btnClusterShow.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnClusterShow.FixedHeight = False
-        Me.btnClusterShow.FixedWidth = False
-        Me.btnClusterShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.btnClusterShow.Font = New System.Drawing.Font("Gulim", 9.0!)
-        Me.btnClusterShow.ForeColor = System.Drawing.Color.LightGray
-        Me.btnClusterShow.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
-        Me.btnClusterShow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnClusterShow.LineColor = System.Drawing.Color.Gray
-        Me.btnClusterShow.Location = New System.Drawing.Point(3, 83)
-        Me.btnClusterShow.Name = "btnClusterShow"
-        Me.btnClusterShow.Radius = 10
-        Me.btnClusterShow.Size = New System.Drawing.Size(242, 19)
-        Me.btnClusterShow.TabIndex = 15
-        Me.btnClusterShow.Text = "Clusters"
-        Me.btnClusterShow.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.btnClusterShow.UseVisualStyleBackColor = False
+        Me.tlpClusterList.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.tlpClusterList.ColumnCount = 1
+        Me.tlpClusterList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpClusterList.Controls.Add(Me.tlpHealth, 0, 0)
+        Me.tlpClusterList.Controls.Add(Me.TableLayoutPanel3, 0, 2)
+        Me.tlpClusterList.Controls.Add(Me.tlpClusterBtnGrp, 0, 1)
+        Me.tlpClusterList.Dock = System.Windows.Forms.DockStyle.Left
+        Me.tlpClusterList.Location = New System.Drawing.Point(0, 0)
+        Me.tlpClusterList.Name = "tlpClusterList"
+        Me.tlpClusterList.RowCount = 3
+        Me.tlpClusterList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 73.0!))
+        Me.tlpClusterList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32.0!))
+        Me.tlpClusterList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpClusterList.Size = New System.Drawing.Size(248, 868)
+        Me.tlpClusterList.TabIndex = 0
         '
         'tlpHealth
         '
@@ -4466,7 +4447,7 @@ Partial Class frmMonMain
         Me.tlpHealth.RowCount = 2
         Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.0!))
         Me.tlpHealth.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.0!))
-        Me.tlpHealth.Size = New System.Drawing.Size(242, 74)
+        Me.tlpHealth.Size = New System.Drawing.Size(242, 67)
         Me.tlpHealth.TabIndex = 13
         '
         'dgtNumC
@@ -4475,9 +4456,9 @@ Partial Class frmMonMain
         Me.dgtNumC.DigitBlankOpacity = 30
         Me.dgtNumC.DigitColor = System.Drawing.Color.OrangeRed
         Me.dgtNumC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumC.Location = New System.Drawing.Point(163, 17)
+        Me.dgtNumC.Location = New System.Drawing.Point(163, 15)
         Me.dgtNumC.Name = "dgtNumC"
-        Me.dgtNumC.Size = New System.Drawing.Size(76, 54)
+        Me.dgtNumC.Size = New System.Drawing.Size(76, 49)
         Me.dgtNumC.TabIndex = 8
         Me.dgtNumC.Value = "00"
         '
@@ -4487,9 +4468,9 @@ Partial Class frmMonMain
         Me.dgtNumW.DigitBlankOpacity = 30
         Me.dgtNumW.DigitColor = System.Drawing.Color.Gold
         Me.dgtNumW.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumW.Location = New System.Drawing.Point(83, 17)
+        Me.dgtNumW.Location = New System.Drawing.Point(83, 15)
         Me.dgtNumW.Name = "dgtNumW"
-        Me.dgtNumW.Size = New System.Drawing.Size(74, 54)
+        Me.dgtNumW.Size = New System.Drawing.Size(74, 49)
         Me.dgtNumW.TabIndex = 8
         Me.dgtNumW.Value = "00"
         '
@@ -4499,9 +4480,9 @@ Partial Class frmMonMain
         Me.dgtNumN.DigitBlankOpacity = 30
         Me.dgtNumN.DigitColor = System.Drawing.Color.FromArgb(CType(CType(24, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.dgtNumN.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgtNumN.Location = New System.Drawing.Point(3, 17)
+        Me.dgtNumN.Location = New System.Drawing.Point(3, 15)
         Me.dgtNumN.Name = "dgtNumN"
-        Me.dgtNumN.Size = New System.Drawing.Size(74, 54)
+        Me.dgtNumN.Size = New System.Drawing.Size(74, 49)
         Me.dgtNumN.TabIndex = 7
         Me.dgtNumN.Value = "00"
         '
@@ -4516,7 +4497,7 @@ Partial Class frmMonMain
         Me.lblNormal.LineSpacing = 0.0!
         Me.lblNormal.Location = New System.Drawing.Point(3, 0)
         Me.lblNormal.Name = "lblNormal"
-        Me.lblNormal.Size = New System.Drawing.Size(74, 14)
+        Me.lblNormal.Size = New System.Drawing.Size(74, 12)
         Me.lblNormal.TabIndex = 5
         Me.lblNormal.Text = "F029"
         Me.lblNormal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4532,7 +4513,7 @@ Partial Class frmMonMain
         Me.lblWarning.LineSpacing = 0.0!
         Me.lblWarning.Location = New System.Drawing.Point(83, 0)
         Me.lblWarning.Name = "lblWarning"
-        Me.lblWarning.Size = New System.Drawing.Size(74, 14)
+        Me.lblWarning.Size = New System.Drawing.Size(74, 12)
         Me.lblWarning.TabIndex = 8
         Me.lblWarning.Text = "F030"
         Me.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4548,7 +4529,7 @@ Partial Class frmMonMain
         Me.lblCritical.LineSpacing = 0.0!
         Me.lblCritical.Location = New System.Drawing.Point(163, 0)
         Me.lblCritical.Name = "lblCritical"
-        Me.lblCritical.Size = New System.Drawing.Size(76, 14)
+        Me.lblCritical.Size = New System.Drawing.Size(76, 12)
         Me.lblCritical.TabIndex = 9
         Me.lblCritical.Text = "F031"
         Me.lblCritical.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -4648,7 +4629,7 @@ Partial Class frmMonMain
         Me.coldgvClustersServerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.coldgvClustersServerName.DefaultNodeImage = Nothing
         Me.coldgvClustersServerName.FillWeight = 80.0!
-        Me.coldgvClustersServerName.HeaderText = "Cluster name"
+        Me.coldgvClustersServerName.HeaderText = "Cluster list"
         Me.coldgvClustersServerName.MinimumWidth = 100
         Me.coldgvClustersServerName.Name = "coldgvClustersServerName"
         Me.coldgvClustersServerName.ReadOnly = True
@@ -4817,6 +4798,70 @@ Partial Class frmMonMain
         Me.Label7.TabIndex = 1
         Me.Label7.Text = "      "
         Me.Label7.Visible = False
+        '
+        'tlpClusterBtnGrp
+        '
+        Me.tlpClusterBtnGrp.ColumnCount = 2
+        Me.tlpClusterBtnGrp.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tlpClusterBtnGrp.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tlpClusterBtnGrp.Controls.Add(Me.chkHAGroup, 0, 0)
+        Me.tlpClusterBtnGrp.Controls.Add(Me.btnClusterFilter, 0, 0)
+        Me.tlpClusterBtnGrp.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpClusterBtnGrp.Location = New System.Drawing.Point(1, 74)
+        Me.tlpClusterBtnGrp.Margin = New System.Windows.Forms.Padding(1)
+        Me.tlpClusterBtnGrp.Name = "tlpClusterBtnGrp"
+        Me.tlpClusterBtnGrp.RowCount = 1
+        Me.tlpClusterBtnGrp.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tlpClusterBtnGrp.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tlpClusterBtnGrp.Size = New System.Drawing.Size(246, 30)
+        Me.tlpClusterBtnGrp.TabIndex = 15
+        '
+        'chkHAGroup
+        '
+        Me.chkHAGroup.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkHAGroup.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkHAGroup.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(112, Byte), Integer), CType(CType(116, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.chkHAGroup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.chkHAGroup.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.chkHAGroup.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.chkHAGroup.ForeColor = System.Drawing.Color.LightGray
+        Me.chkHAGroup.Image = CType(resources.GetObject("chkHAGroup.Image"), System.Drawing.Image)
+        Me.chkHAGroup.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.chkHAGroup.LineColor = System.Drawing.Color.Gray
+        Me.chkHAGroup.Location = New System.Drawing.Point(124, 1)
+        Me.chkHAGroup.Margin = New System.Windows.Forms.Padding(1)
+        Me.chkHAGroup.Name = "chkHAGroup"
+        Me.chkHAGroup.Radius = 10
+        Me.chkHAGroup.Size = New System.Drawing.Size(121, 28)
+        Me.chkHAGroup.TabIndex = 26
+        Me.chkHAGroup.Text = " by HA Group"
+        Me.chkHAGroup.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkHAGroup.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.chkHAGroup.UseVisualStyleBackColor = False
+        '
+        'btnClusterFilter
+        '
+        Me.btnClusterFilter.AutoSize = True
+        Me.btnClusterFilter.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClusterFilter.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.btnClusterFilter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnClusterFilter.FixedHeight = False
+        Me.btnClusterFilter.FixedWidth = False
+        Me.btnClusterFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.btnClusterFilter.Font = New System.Drawing.Font("Gulim", 9.0!)
+        Me.btnClusterFilter.ForeColor = System.Drawing.Color.LightGray
+        Me.btnClusterFilter.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnClusterFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnClusterFilter.LineColor = System.Drawing.Color.Gray
+        Me.btnClusterFilter.Location = New System.Drawing.Point(1, 1)
+        Me.btnClusterFilter.Margin = New System.Windows.Forms.Padding(1)
+        Me.btnClusterFilter.Name = "btnClusterFilter"
+        Me.btnClusterFilter.Radius = 10
+        Me.btnClusterFilter.Size = New System.Drawing.Size(121, 28)
+        Me.btnClusterFilter.TabIndex = 16
+        Me.btnClusterFilter.Text = "Cluster Filter"
+        Me.btnClusterFilter.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.btnClusterFilter.UseVisualStyleBackColor = False
         '
         'TableLayoutPanel4
         '
@@ -6121,13 +6166,14 @@ Partial Class frmMonMain
         Me.tlpSessionlist.PerformLayout()
         CType(Me.nudBackendcnt, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvSessionInfo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
+        Me.tlpClusterList.ResumeLayout(False)
         Me.tlpHealth.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.tlpInstanceList.ResumeLayout(False)
         Me.tlpInstanceList.PerformLayout()
         CType(Me.dgvClusters, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tlpClusterBtnGrp.ResumeLayout(False)
+        Me.tlpClusterBtnGrp.PerformLayout()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel13.ResumeLayout(False)
         Me.TableLayoutPanel13.PerformLayout()
@@ -6185,7 +6231,7 @@ Partial Class frmMonMain
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents ServerName_lv As System.Windows.Forms.Label
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpClusterList As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tlpInstanceList As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents grpInstSumInfo As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
@@ -6409,7 +6455,6 @@ Partial Class frmMonMain
     Friend WithEvents mnuBackendCPU As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuBackendStartTime As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuBackendElapsedTime As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnClusterShow As eXperDB.BaseControls.Button
     Friend WithEvents coldgvClustersServerName As AdvancedDataGridView.TreeGridColumn
     Friend WithEvents coldgvClustersRole As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents coldgvClustersLegend As System.Windows.Forms.DataGridViewImageColumn
@@ -6442,5 +6487,8 @@ Partial Class frmMonMain
     Friend WithEvents colDgvDiskAccessProg As eXperDB.Controls.DataGridViewPercentageColumn
     Friend WithEvents colDgvDiskAccessRate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents pinImageList As System.Windows.Forms.ImageList
+    Friend WithEvents tlpClusterBtnGrp As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents btnClusterFilter As eXperDB.BaseControls.Button
+    Friend WithEvents chkHAGroup As eXperDB.BaseControls.CheckBox
 
 End Class
