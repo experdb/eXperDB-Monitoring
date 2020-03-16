@@ -269,7 +269,7 @@ public class RscCollect extends TaskApplication {
 					double wait_util_rate = 0;
 					
 					
-					if(sum_current_util != 0)
+					if(sum_current_util > 4)
 					{
 						user_util_rate = Math.round((current_user_util / sum_current_util * 100) * Math.pow(10, 2)) / Math.pow(10, 2);
 						nice_util_rate = Math.round((current_nice_util / sum_current_util * 100) * Math.pow(10, 2)) / Math.pow(10, 2);

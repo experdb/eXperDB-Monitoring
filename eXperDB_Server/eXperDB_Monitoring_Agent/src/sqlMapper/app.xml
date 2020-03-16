@@ -1208,28 +1208,30 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	
 	<select id="BT_BACKEND_RSC_002" parameterType="hashmap" resultType="hashmap" flushCache="true">
 				<![CDATA[
-				  SELECT /* EXPERDBMABT_BACKEND_RSC_001 (10.0) 24e9ab7301ff1966da4fb30dc1538882 */
-				          A.PROC_ID AS PROCESS_ID,
-				          B.DATNAME AS DB_NAME,
-				          HOST(B.CLIENT_ADDR::inet) AS CLIENT_ADDR, -- 2014-04-28 추가          
-				          B.USENAME AS USER_NAME,-- 2014-04-28 추가
-				          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가
-				          A.CPU_UTIME AS AGG_PROC_UTIME,
-				          A.CPU_STIME AS AGG_PROC_STIME,
-				          A.DISK_READ AS AGG_PROC_READ_KB,
-				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
-				          CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
-				          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
-				          C.QUERYID AS STMT_QUERYID,
-				          CASE WHEN C.QUERYID IS NULL THEN B.QUERY ELSE D.QUERY END AS SQL, 
-				          B.STATE AS STATE,
-				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
-				          NOW() AS COLLECT_DT
-				  FROM GET_BACKEND_RSC A 
-				  	   JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID 
-				  	   LEFT OUTER JOIN (select * from PG_ACTIVE_SESSION_HISTORY where ash_time = (select max(ash_time) from PG_ACTIVE_SESSION_HISTORY)) C ON B.PID=C.PID
-				  	   left outer join pg_stat_statements D on C.queryid = d.queryid
-				  WHERE B.state is not null AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';		
+                  SELECT /* EXPERDBMABT_BACKEND_RSC_001 (10.0) 24e9ab7301ff1966da4fb30dc1538882 */
+                          A.PROC_ID AS PROCESS_ID,
+                          B.DATNAME AS DB_NAME,
+                          COALESCE(B.DATID, 0) DATID,
+                          COALESCE(B.USESYSID, 0) USESYSID,
+                          HOST(B.CLIENT_ADDR::inet) AS CLIENT_ADDR, -- 2014-04-28 ▒~T▒~@
+                          B.USENAME AS USER_NAME,-- 2014-04-28 ▒~T▒~@~T
+                          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 ▒~T▒~@~T
+                          A.CPU_UTIME AS AGG_PROC_UTIME,
+                          A.CPU_STIME AS AGG_PROC_STIME,
+                          A.DISK_READ AS AGG_PROC_READ_KB,
+                          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
+                          CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
+                          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
+                          C.QUERY AS SQL,
+                          B.STATE AS STATE,
+                          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+                          COALESCE(B.WAIT_EVENT, '') AS WAIT_EVENT,
+                          NOW() AS COLLECT_DT
+                  FROM GET_BACKEND_RSC A
+                       JOIN PG_ACTIVE_SESSION_HISTORY B ON A.PROC_ID=B.PID
+                       join pg_stat_statements C on B.queryid = C.queryid AND b.usesysid = C.userid AND B.datid = C.dbid
+                  WHERE B.state is not null AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+                    ORDER BY process_id;
 				]]>
 	</select>
 	

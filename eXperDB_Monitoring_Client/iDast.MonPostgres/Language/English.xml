@@ -2765,6 +2765,14 @@
     <DESC>Cloud group</DESC>
     <DATA><![CDATA[Check the cloud group]]></DATA>
   </ROW>
+  <ROW ID="F362" PARAMS="0">
+    <DESC>by Cluster</DESC>
+    <DATA><![CDATA[by Cluster]]></DATA>
+  </ROW>
+  <ROW ID="F363" PARAMS="0">
+    <DESC>by HA group</DESC>
+    <DATA><![CDATA[by HA group]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
