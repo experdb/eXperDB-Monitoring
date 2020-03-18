@@ -81,7 +81,12 @@ public class HchkCollect extends TaskApplication {
 				queryList.add("EXPERDBMA_BT_HCHK_REPLICATIONDELAY_001");
 				queryList.add("EXPERDBMA_BT_HCHK_REPLICATIONSLOT_001");	
 				queryList.add("EXPERDBMA_BT_HCHK_VIRTUALIP_001");				
-				queryList.add("EXPERDBMA_BT_HCHK_WALCNT_001");				
+				queryList.add("EXPERDBMA_BT_HCHK_WALCNT_001");
+				queryList.add("EXPERDBMA_BT_HCHK_HGCPUUTIL_001");
+				queryList.add("EXPERDBMA_BT_HCHK_HGCPUWAIT_001");
+				queryList.add("EXPERDBMA_BT_HCHK_HAMEMUSAGE_001");
+				queryList.add("EXPERDBMA_BT_HCHK_HGSWAPUSAGE_001");
+				queryList.add("EXPERDBMA_BT_HCHK_HGCONNECTION_001");
 				
 				for (String s : queryList) {
 					selectList.clear();
@@ -122,6 +127,11 @@ public class HchkCollect extends TaskApplication {
 						            	double dWarnThold = Double.parseDouble(tholdMap.get("warning_threshold").toString());
 						            	double dCritThold = Double.parseDouble(tholdMap.get("critical_threshold").toString());
 						            	double dValue = Double.parseDouble(tempMap.get("value").toString());
+						            	
+						            	if (key.toUpperCase().equals("HGCPUUTIL")){
+						            		log.error("hhhhhhhhhhhgggggg(" + dCritThold + ")(" +  dValue);
+						            		System.out.println("hhhhhhhhhhhgggggg(" + dCritThold + ")(" +  dValue + ")");
+						            	}
 						            	tempMap.put("critical_start_time", 		tholdMap.get("critical_start_time"));
 						            	if(nPause == 1) break;
 						            	if(nThreshold == 0) {

@@ -2,7 +2,9 @@
 
     Private _clsQuery As clsQuerys
     Private _alertConfig As AlertConfigurationForm
+    Private _alertConfigHAGroup As AlertConfigurationHAGroupForm
     Private _dtInitThreshold As DataTable
+    Private _dtThreshold As DataTable
     Public Sub New(ByRef odbcConn As eXperDBODBC)
         ' 이 호출은 디자이너에 필요합니다
         InitializeComponent()
@@ -22,6 +24,10 @@
         btnInit.Text = p_clsMsgData.fn_GetData("F226")
         btnSaveAll.Text = p_clsMsgData.fn_GetData("F951")
 
+        rbGrpCluster.Text = p_clsMsgData.fn_GetData("F362")
+        rbGrpHAGroup.Text = p_clsMsgData.fn_GetData("F363")
+        rbGrpCluster.Checked = True
+
         'Me.ttChart.SetToolTip(Me.btnAddUserGroup, p_clsMsgData.fn_GetData("F016"))
         'Me.ttChart.SetToolTip(Me.btnDeleteUserGroup, p_clsMsgData.fn_GetData("F015"))
         'Me.ttChart.SetToolTip(Me.btnAddGroup, p_clsMsgData.fn_GetData("F942"))
@@ -33,6 +39,7 @@
         Try
             ReadServerList()
             LoadAlertConfiguration(0)
+            LoadAlertConfigurationHAGroup(0)
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
@@ -46,8 +53,9 @@
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim HealtLimited As AlertConfigurationForm.GetServerAlertConfig = _alertConfig.GetValue()
+        Dim HealtLimitedHG As AlertConfigurationHAGroupForm.GetServerAlertConfig = _alertConfigHAGroup.GetValue()
         Dim InstanceID As Integer = HealtLimited.InstanceID
-        SaveAlertConfiguration(HealtLimited, InstanceID)
+        SaveAlertConfiguration(HealtLimited, HealtLimitedHG, InstanceID)
         MsgBox(p_clsMsgData.fn_GetData("M028"))
     End Sub
 
@@ -57,6 +65,52 @@
 
     Private Sub btnSaveAll_Click(sender As Object, e As EventArgs) Handles btnSaveAll.Click
         ShowChooseClusters()
+    End Sub
+
+    Private Sub rbGrp_CheckedChanged(sender As Object, e As EventArgs) Handles rbGrpCluster.CheckedChanged, rbGrpHAGroup.CheckedChanged
+        Dim RadioButton As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        If RadioButton.Checked = False Then Return
+        Try
+            If dgvSvrLst.CurrentNode.Parent IsNot Nothing Then
+
+            End If
+
+            If rbGrpCluster.Checked = True Then
+                For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvSvrLst.Nodes
+                    tmpNode.Expand()
+                Next
+                _alertConfig.Visible = True
+                _alertConfigHAGroup.Visible = False
+            Else
+                Dim pNode As AdvancedDataGridView.TreeGridNode = dgvSvrLst.CurrentNode
+                Dim cNode As AdvancedDataGridView.TreeGridNode
+                Do
+                    cNode = pNode
+                    pNode = cNode.Parent
+                Loop While pNode.Parent IsNot Nothing
+                'dgvSvrLst.CurrentCell = dgvSvrLst.Item(0, cNode.RowIndex)
+
+                For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvSvrLst.Nodes
+                    tmpNode.Collapse()
+                Next
+                _alertConfig.Visible = False
+                _alertConfigHAGroup.Visible = True
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub dgvSvrLst_NodeCollapsing(sender As Object, e As AdvancedDataGridView.CollapsingEventArgs) Handles dgvSvrLst.NodeCollapsing
+        If rbGrpCluster.Checked = True Then
+            e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub dgvSvrLst_NodeExpanding(sender As Object, e As AdvancedDataGridView.ExpandingEventArgs) Handles dgvSvrLst.NodeExpanding
+        If rbGrpCluster.Checked = False Then
+            e.Cancel = True
+        End If
     End Sub
 
     Private Sub ReadServerList()
@@ -135,9 +189,9 @@
             _alertConfig.Padding = New Padding(0)
             tlpAlertConfig.Controls.Add(_alertConfig, 0, 0)
 
-            Dim dtTable As DataTable = _clsQuery.SelectHealthLimited(dgvSvrLst.Rows(nRow).Tag)
-            If dtTable IsNot Nothing Then
-                _alertConfig.Setvalue(dtTable, dgvSvrLst.Rows(nRow).Tag)
+            _dtThreshold = _clsQuery.SelectHealthLimited(dgvSvrLst.Rows(nRow).Tag)
+            If _dtThreshold IsNot Nothing Then
+                _alertConfig.Setvalue(_dtThreshold, dgvSvrLst.Rows(nRow).Tag)
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -149,6 +203,28 @@
             Dim dtTable As DataTable = _clsQuery.SelectHealthLimited(intInstanceID)
             If dtTable IsNot Nothing Then
                 _alertConfig.Setvalue(dtTable, intInstanceID)
+                _alertConfigHAGroup.Setvalue(dtTable, intInstanceID)
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub LoadAlertConfigurationHAGroup(ByVal nRow As Integer)
+        Try
+            _alertConfigHAGroup = New AlertConfigurationHAGroupForm(_clsQuery, _dtInitThreshold)
+            _alertConfigHAGroup.Dock = DockStyle.Fill
+            _alertConfigHAGroup.BorderStyle = BorderStyle.FixedSingle
+            _alertConfigHAGroup.Name = "AlertConfigurationHAGroup"
+            _alertConfigHAGroup.Width = tlpAlertConfig.Width
+            _alertConfigHAGroup.Height = tlpAlertConfig.Height
+            _alertConfigHAGroup.Margin = New Padding(0)
+            _alertConfigHAGroup.Padding = New Padding(0)
+            _alertConfigHAGroup.Visible = False
+            tlpAlertConfig.Controls.Add(_alertConfigHAGroup, 0, 0)
+
+            If _dtThreshold IsNot Nothing Then
+                _alertConfigHAGroup.Setvalue(_dtThreshold, dgvSvrLst.Rows(nRow).Tag)
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -228,10 +304,11 @@
 
             Dim index As Integer = 0
             Dim HealtLimited As AlertConfigurationForm.GetServerAlertConfig = _alertConfig.GetValue()
+            Dim HealtLimitedHG As AlertConfigurationHAGroupForm.GetServerAlertConfig = _alertConfigHAGroup.GetValue()
             For Each tmpSvr As GroupInfo.ServerInfo In GrpListServerinfo
                 tmpSvr.Reserved = frmCS.SvrpList(index).Reserved
                 If tmpSvr.Reserved = True Then
-                    SaveAlertConfiguration(HealtLimited, tmpSvr.InstanceID)
+                    SaveAlertConfiguration(HealtLimited, HealtLimitedHG, tmpSvr.InstanceID)
                 End If
                 index += 1
             Next
@@ -241,7 +318,8 @@
         frmCS.Dispose()
     End Sub
 
-    Private Sub SaveAlertConfiguration(ByRef HealtLimited As AlertConfigurationForm.GetServerAlertConfig, ByVal InstanceID As Integer)
+    Private Sub SaveAlertConfiguration(ByRef HealtLimited As AlertConfigurationForm.GetServerAlertConfig, ByRef HealtLimitedHG As AlertConfigurationHAGroupForm.GetServerAlertConfig, _
+                                       ByVal InstanceID As Integer)
 
         Dim COC As New Common.ClsObjectCtl
         Dim LastIp As String = COC.GetLocalIP()
@@ -279,6 +357,20 @@
             _clsQuery.UpdateHealthLimited(InstanceID, "HASTATUS", 1, 2, HealtLimited.HAStatusBool, LastIp, HealtLimited.HAStatusRTime)
             _clsQuery.UpdateHealthLimited(InstanceID, "WALCNT", 0, HealtLimited.WALCnt, HealtLimited.WALcntBool, LastIp)
             _clsQuery.UpdateHealthLimitedExt(InstanceID, HealtLimited.NotificationLevel, HealtLimited.NotificationGroup, HealtLimited.NotificationCycle, HealtLimited.BusinessName, LastIp)
+
+            _clsQuery.UpdateHealthLimited(InstanceID, "HGCPUUTIL", HealtLimitedHG.CPUutilRatioNormal, HealtLimitedHG.CPUutilRatioWarning, _
+                                          IIf(HealtLimitedHG.CPUutilRatioCheck, GetCriticalThreshold_1(HealtLimitedHG.CPUutilRatioNormal, HealtLimitedHG.CPUutilRatioWarning), 9), LastIp, HealtLimitedHG.CPUutilRatioRTime)
+            _clsQuery.UpdateHealthLimited(InstanceID, "HGCPUWAIT", HealtLimitedHG.CPUwaitRatioNormal, HealtLimitedHG.CPUwaitRatioWarning, _
+                                          IIf(HealtLimitedHG.CPUwaitRatioCheck, GetCriticalThreshold_1(HealtLimitedHG.CPUwaitRatioNormal, HealtLimitedHG.CPUwaitRatioWarning), 9), LastIp, HealtLimitedHG.CPUwaitRatioRTime)
+            _clsQuery.UpdateHealthLimited(InstanceID, "HGMEMUSAGE", HealtLimitedHG.MEMusedRatioNormal, HealtLimitedHG.MEMusedRatioWarning, _
+                                          IIf(HealtLimitedHG.MEMusedRatioCheck, GetCriticalThreshold_1(HealtLimitedHG.MEMusedRatioNormal, HealtLimitedHG.MEMusedRatioWarning), 9), LastIp, HealtLimitedHG.MEMusedRatioRTime)
+            _clsQuery.UpdateHealthLimited(InstanceID, "HGSWAPUSAGE", HealtLimitedHG.SWAPusedRatioNormal, HealtLimitedHG.SWAPusedRatioWarning, _
+                                          IIf(HealtLimitedHG.SWAPusedRatioCheck, GetCriticalThreshold_1(HealtLimitedHG.SWAPusedRatioNormal, HealtLimitedHG.SWAPusedRatioWarning), 9), LastIp, HealtLimitedHG.SWAPusedRatioRTime)
+            _clsQuery.UpdateHealthLimited(InstanceID, "HGACTIVECONNECTION", HealtLimitedHG.ConnectionsNormal, HealtLimitedHG.ConnectionsWarning, _
+                                          IIf(HealtLimitedHG.ConnectionsCheck, GetCriticalThreshold_1(HealtLimitedHG.ConnectionsNormal, HealtLimitedHG.ConnectionsWarning), 9), LastIp, HealtLimitedHG.ConnectionsRTime)
+            _clsQuery.UpdateHealthLimited(InstanceID, "HGDISKUSAGE", HealtLimitedHG.DiskusedRatioNormal, HealtLimitedHG.DiskusedRatioWarning, _
+                                          IIf(HealtLimitedHG.DiskusedRatioCheck, GetCriticalThreshold_1(HealtLimitedHG.DiskusedRatioNormal, HealtLimitedHG.DiskusedRatioWarning), 9), LastIp, HealtLimitedHG.DiskusedRatioRTime)
+
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try

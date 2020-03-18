@@ -3984,8 +3984,8 @@ Partial Class frmMonMain
         Me.monTypeImgLst.TransparentColor = System.Drawing.Color.Transparent
         Me.monTypeImgLst.Images.SetKeyName(0, "Watching16.ico")
         Me.monTypeImgLst.Images.SetKeyName(1, "Trends3.png")
-        Me.monTypeImgLst.Images.SetKeyName(2, "if_view-01_186381.png")
-        Me.monTypeImgLst.Images.SetKeyName(3, "if_12_SEO_Benchmark_1688863.png")
+        Me.monTypeImgLst.Images.SetKeyName(2, "if_12_SEO_Benchmark_1688863.png")
+        Me.monTypeImgLst.Images.SetKeyName(3, "if_view-01_186381.png")
         Me.monTypeImgLst.Images.SetKeyName(4, "Trends.png")
         Me.monTypeImgLst.Images.SetKeyName(5, "Trends2.png")
         Me.monTypeImgLst.Images.SetKeyName(6, "completion.ico")
@@ -4834,7 +4834,7 @@ Partial Class frmMonMain
         Me.chkHAGroup.Radius = 10
         Me.chkHAGroup.Size = New System.Drawing.Size(121, 28)
         Me.chkHAGroup.TabIndex = 26
-        Me.chkHAGroup.Text = " by HA Group"
+        Me.chkHAGroup.Text = "F363"
         Me.chkHAGroup.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.chkHAGroup.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(68, Byte), Integer), CType(CType(68, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.chkHAGroup.UseVisualStyleBackColor = False
@@ -4859,7 +4859,7 @@ Partial Class frmMonMain
         Me.btnClusterFilter.Radius = 10
         Me.btnClusterFilter.Size = New System.Drawing.Size(121, 28)
         Me.btnClusterFilter.TabIndex = 16
-        Me.btnClusterFilter.Text = "Cluster Filter"
+        Me.btnClusterFilter.Text = "F362"
         Me.btnClusterFilter.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.btnClusterFilter.UseVisualStyleBackColor = False
         '
@@ -6059,8 +6059,8 @@ Partial Class frmMonMain
         '
         Me.pinImageList.ImageStream = CType(resources.GetObject("pinImageList.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.pinImageList.TransparentColor = System.Drawing.Color.Transparent
-        Me.pinImageList.Images.SetKeyName(0, "pinned.png")
-        Me.pinImageList.Images.SetKeyName(1, "pin.png")
+        Me.pinImageList.Images.SetKeyName(0, "pin.png")
+        Me.pinImageList.Images.SetKeyName(1, "pinned.png")
         '
         'frmMonMain
         '
