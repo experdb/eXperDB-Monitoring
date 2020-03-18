@@ -907,6 +907,13 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'CPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'MEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'WALCNT', 'CNT', '0', 0, 1024, '2', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGCPUUTIL', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGCPUWAIT', '%', '0', 50.00, 90.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGMEMUSAGE', '%', '0', 90.00, 100.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGSWAPUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGACTIVECONNECTION', '%', '0', 80.00, 90.00, '0', NULL, NULL);
+insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGDISKUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);
+
 
 insert into tb_config(
 						daily_batch_start_time

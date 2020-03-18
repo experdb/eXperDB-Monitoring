@@ -388,8 +388,7 @@
         Dim iniConfig As New Common.IniFile(p_AppConfigIni)
 
 
-        btnClusterFilter.Text = p_clsMsgData.fn_GetData("F362")
-        chkHAGroup.Text = p_clsMsgData.fn_GetData("F363")
+
         ' 상태 이상 정보 
         'grpStausSuminfo.Text = p_clsMsgData.fn_GetData("F028")
         lblNormal.Text = p_clsMsgData.fn_GetData("F029")
@@ -703,10 +702,8 @@
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtLogicalRead, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtLogicalRead, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtLogicalWrite, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -725,9 +722,7 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtLockWait, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtLockWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
         Catch ex As Exception
@@ -739,11 +734,9 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtTPSTotal, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtTPSTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtTPSCommit, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtTPSRollback, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
         Catch ex As Exception
@@ -754,10 +747,8 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtSQLRespTmMAX, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtSQLRespTmMAX, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtSQLRespTmAVG, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
         Catch ex As Exception
@@ -768,10 +759,8 @@
         Try
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtReplicationDelay, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtReplicationDelay, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtReplicationDelaySize, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
         Catch ex As Exception
@@ -845,10 +834,8 @@
 
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtSessionActive, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtSessionActive, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtSessionTotal, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
         Catch ex As Exception
@@ -913,10 +900,8 @@
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtCPUUtil, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                    AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtCPUUtil, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
+                AddSeries(Me.chtCPUWait, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -994,9 +979,7 @@
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In svrLst
-                If FindSeries(chtMEMUsage, tmpSvr.ShowSeriesNm) = False Then
-                    AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
-                End If
+                AddSeries(Me.chtMEMUsage, tmpSvr.ShowSeriesNm, tmpSvr.ShowNm, _instanceColors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline)
                 index += 1
             Next
             '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1609,9 +1592,7 @@
         'Next
         ' 그룹정보를 라이오버튼이 아닌 private variable에서 얻음
         Dim tmpGrp As GroupInfo = _GrpList.Item(0)
-        'strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
-        '선택된 클러스터의 세션 리스트만 보여준다.
-        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Where(Function(w) w.Reserved = True).Select(Function(e) e.InstanceID))
+        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Select(Function(e) e.InstanceID))
 
         Dim subQuery As String = ""
         If chkIDLE.Checked = False Then
@@ -1897,14 +1878,13 @@
     Private Sub clsAgentCollect_GetDataDiskInfo(ByVal dtTable As DataTable)
         If dtTable Is Nothing Then Return
 
+
+
+
+
         Dim UpdTime As Double = Now.ToOADate
 
-        Dim tmpGrp As GroupInfo = _GrpList.Item(0)
-        '선택된 클러스터의 세션 리스트만 보여준다.
-        Dim strSvrIDInQuery As String = ""
-        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Where(Function(w) w.Reserved = True).Select(Function(e) e.InstanceID))
-        Dim returnDT = dtTable.AsEnumerable().Where(Function(w) strSvrIDInQuery.Contains(w.Field(Of Integer)("INSTANCE_ID"))).CopyToDataTable
-        dtTable = returnDT
+
 
         For Each dtRow As DataRow In dtTable.Rows
             ' GRP ACCESS
@@ -2517,13 +2497,7 @@
             If _GrpList.Item(0).Items.Count <> intCurrentClusters Then
                 _frmSvrList.reloadAgentCollect()
                 dgvClusters.Nodes.Clear()
-                If chkHAGroup.Checked = True Then
-                    sb_SetInstanceStatus(_GrpList.Item(0).Items)
-                    _GrpListServerinfo = _GrpList.Item(0).Items
-                Else
-                    sb_InitControl()
-                End If
-
+                sb_SetInstanceStatus(_GrpList.Item(0).Items)
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -4336,17 +4310,6 @@
         'Series.Name = "UPDATE"
         'Series.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime
     End Sub
-
-    Public Function FindSeries(ByVal chtName As System.Windows.Forms.DataVisualization.Charting.Chart,
-                         ByVal SeriesName As String) As Boolean
-        For i As Integer = 0 To chtName.Series.Count - 1
-            If chtName.Series(i).Name = SeriesName Then
-                Return True
-            End If
-        Next
-        Return False
-    End Function
-
 #End Region
 
     Private Sub dgvAlert_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlert.CellClick
@@ -5881,7 +5844,6 @@
         Next
     End Sub
 #End Region
-
 #Region "Selct Instances"
     Private Sub ShowChooseClusters()
         Dim frmCS As New frmClusterShow(_GrpListServerinfo, _instanceColors)
@@ -5890,11 +5852,8 @@
             Dim rtnSchema As String = ""
             Dim rtnCollect As Integer = 0
             Dim strAlias As String = ""
-            Dim index As Integer = 0
 
-            If chkHAGroup.Checked = True Then
-                chkHAGroup.Checked = False
-            End If
+            Dim index As Integer = 0
             For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
                 tmpSvr.Reserved = frmCS.SvrpList(index).Reserved
                 If tmpSvr.Reserved = True Then

@@ -64,6 +64,46 @@
     <COLUMNS>ALERT_NAME|ALERT NAME|TEXT||130;CURRENT_STATUS|Status|TEXT||350;CONFIGURATION|Configured|TEXT||350;DESCRIPTION|Description|TEXT||200</COLUMNS>
     <VALUECAST>2|다중주서버;3|주서버미존재</VALUECAST>
   </ROW>
+  <ROW ID="HGCPUUTIL" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[HA그룹 CPU 사용률]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="HGCPUWAIT" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[HA그룹 CPU 대기율]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="HGMEMUSAGE" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[HA그룹 Memory 사용률]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="HGSWAPUSAGE" PARAMS="0">
+    <DESC>설명추가</DESC>
+    <DATA><![CDATA[HA그룹 Swap 사용률]]></DATA>
+    <COMMENTS>파라미터추가</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="HGACTIVECONNECTION" PARAMS="0">
+    <DESC>현재 생성된 backend process 갯수를 점검합니다. max_connections 파라메터로 동시접속 제한수를 늘릴 수 있습니다.</DESC>
+    <DATA><![CDATA[HA그룹 Backend]]></DATA>
+    <COMMENTS>max_connections,work_mem,superuser_reserved_connections</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;BACKEND|BACKEND|NUMBER|N0|100;IDLE_RATE|IDLE RATE|NUMBER|P2|100;ACTIVE_RATE|ACTIVE RATE|NUMBER|P2|100;TOTAL_RATE|TOTAL|NUMBER|P2|50</COLUMNS>
+    <VALUECAST />
+  </ROW>
   <ROW ID="F001" PARAMS="0">
     <DESC>수집서버설정 표시내용</DESC>
     <DATA><![CDATA[수집서버정보설정]]></DATA>
@@ -2767,7 +2807,7 @@
   </ROW>
   <ROW ID="F362" PARAMS="0">
     <DESC>by Cluster</DESC>
-    <DATA><![CDATA[클러스터별]]></DATA>
+    <DATA><![CDATA[클러스터선택]]></DATA>
   </ROW>
   <ROW ID="F363" PARAMS="0">
     <DESC>by HA group</DESC>

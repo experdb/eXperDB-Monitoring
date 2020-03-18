@@ -31,7 +31,13 @@ Partial Class AlertConfig
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpGroup = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dgvSvrLst = New AdvancedDataGridView.TreeGridView()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.coldgvHostName = New AdvancedDataGridView.TreeGridColumn()
+        Me.coldgvHostNameKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tblHead = New System.Windows.Forms.TableLayoutPanel()
         Me.lblServerList = New System.Windows.Forms.Label()
         Me.tlpUserConfigMain = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSaveAll = New eXperDB.BaseControls.Button()
@@ -39,19 +45,15 @@ Partial Class AlertConfig
         Me.btnSave = New eXperDB.BaseControls.Button()
         Me.tlpAlertConfig = New eXperDB.BaseControls.TableLayoutPanel()
         Me.dbmsImgLst = New System.Windows.Forms.ImageList(Me.components)
-        Me.coldgvHostName = New AdvancedDataGridView.TreeGridColumn()
-        Me.coldgvHostNameKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvHARole = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvHAHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.rbGrpHAGroup = New eXperDB.BaseControls.RadioButton()
+        Me.rbGrpCluster = New eXperDB.BaseControls.RadioButton()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.tlpGroup.SuspendLayout()
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel2.SuspendLayout()
+        Me.tblHead.SuspendLayout()
         Me.tlpUserConfigMain.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -88,16 +90,15 @@ Partial Class AlertConfig
         Me.tlpGroup.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.tlpGroup.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.tlpGroup.Controls.Add(Me.dgvSvrLst, 1, 2)
-        Me.tlpGroup.Controls.Add(Me.TableLayoutPanel2, 0, 1)
+        Me.tlpGroup.Controls.Add(Me.tblHead, 0, 1)
         Me.tlpGroup.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpGroup.Location = New System.Drawing.Point(0, 0)
         Me.tlpGroup.Name = "tlpGroup"
         Me.tlpGroup.RowCount = 4
-        Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
+        Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66.0!))
         Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.tlpGroup.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpGroup.Size = New System.Drawing.Size(278, 690)
         Me.tlpGroup.TabIndex = 13
         '
@@ -135,7 +136,7 @@ Partial Class AlertConfig
         Me.dgvSvrLst.GridColor = System.Drawing.Color.Black
         Me.dgvSvrLst.HideExpandeIcon = False
         Me.dgvSvrLst.ImageList = Nothing
-        Me.dgvSvrLst.Location = New System.Drawing.Point(13, 43)
+        Me.dgvSvrLst.Location = New System.Drawing.Point(13, 74)
         Me.dgvSvrLst.MultiSelect = False
         Me.dgvSvrLst.Name = "dgvSvrLst"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -149,35 +150,92 @@ Partial Class AlertConfig
         Me.dgvSvrLst.RowHeadersVisible = False
         Me.dgvSvrLst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvSvrLst.ShowLines = False
-        Me.dgvSvrLst.Size = New System.Drawing.Size(257, 634)
+        Me.dgvSvrLst.Size = New System.Drawing.Size(257, 603)
         Me.dgvSvrLst.TabIndex = 31
         '
-        'TableLayoutPanel2
+        'coldgvHostName
         '
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.tlpGroup.SetColumnSpan(Me.TableLayoutPanel2, 6)
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.Controls.Add(Me.lblServerList, 0, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 13)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(272, 24)
-        Me.TableLayoutPanel2.TabIndex = 11
+        Me.coldgvHostName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvHostName.DataPropertyName = "HOST_NAME"
+        Me.coldgvHostName.DefaultNodeImage = Nothing
+        Me.coldgvHostName.HeaderText = "F229"
+        Me.coldgvHostName.Name = "coldgvHostName"
+        Me.coldgvHostName.ReadOnly = True
+        Me.coldgvHostName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'coldgvHostNameKey
+        '
+        Me.coldgvHostNameKey.DataPropertyName = "HOST_NAME"
+        Me.coldgvHostNameKey.HeaderText = ""
+        Me.coldgvHostNameKey.Name = "coldgvHostNameKey"
+        Me.coldgvHostNameKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvHostNameKey.Visible = False
+        '
+        'coldgvAliasNm
+        '
+        Me.coldgvAliasNm.DataPropertyName = "CONN_NAME"
+        Me.coldgvAliasNm.HeaderText = "F019"
+        Me.coldgvAliasNm.Name = "coldgvAliasNm"
+        Me.coldgvAliasNm.ReadOnly = True
+        Me.coldgvAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvAliasNm.Visible = False
+        '
+        'coldgvIP
+        '
+        Me.coldgvIP.DataPropertyName = "SERVER_IP"
+        Me.coldgvIP.HeaderText = "F006"
+        Me.coldgvIP.Name = "coldgvIP"
+        Me.coldgvIP.ReadOnly = True
+        Me.coldgvIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvIP.Visible = False
+        '
+        'coldgvHARole
+        '
+        Me.coldgvHARole.DataPropertyName = "HA_ROLE"
+        Me.coldgvHARole.HeaderText = "Column1"
+        Me.coldgvHARole.Name = "coldgvHARole"
+        Me.coldgvHARole.ReadOnly = True
+        Me.coldgvHARole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvHARole.Visible = False
+        '
+        'coldgvHAHost
+        '
+        Me.coldgvHAHost.DataPropertyName = "HA_HOST"
+        Me.coldgvHAHost.HeaderText = "Column1"
+        Me.coldgvHAHost.Name = "coldgvHAHost"
+        Me.coldgvHAHost.ReadOnly = True
+        Me.coldgvHAHost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvHAHost.Visible = False
+        '
+        'tblHead
+        '
+        Me.tblHead.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.tblHead.ColumnCount = 2
+        Me.tlpGroup.SetColumnSpan(Me.tblHead, 6)
+        Me.tblHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tblHead.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.tblHead.Controls.Add(Me.rbGrpCluster, 0, 2)
+        Me.tblHead.Controls.Add(Me.rbGrpHAGroup, 0, 2)
+        Me.tblHead.Controls.Add(Me.lblServerList, 0, 0)
+        Me.tblHead.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tblHead.Location = New System.Drawing.Point(3, 8)
+        Me.tblHead.Name = "tblHead"
+        Me.tblHead.RowCount = 3
+        Me.tblHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.0!))
+        Me.tblHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3.0!))
+        Me.tblHead.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.0!))
+        Me.tblHead.Size = New System.Drawing.Size(272, 60)
+        Me.tblHead.TabIndex = 11
         '
         'lblServerList
         '
-        Me.lblServerList.AutoSize = True
         Me.lblServerList.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(60, Byte), Integer))
-        Me.TableLayoutPanel2.SetColumnSpan(Me.lblServerList, 4)
+        Me.tblHead.SetColumnSpan(Me.lblServerList, 2)
         Me.lblServerList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblServerList.ForeColor = System.Drawing.Color.White
         Me.lblServerList.Location = New System.Drawing.Point(3, 0)
         Me.lblServerList.Name = "lblServerList"
-        Me.lblServerList.Size = New System.Drawing.Size(266, 24)
+        Me.lblServerList.Size = New System.Drawing.Size(266, 27)
         Me.lblServerList.TabIndex = 3
         Me.lblServerList.Text = "F941"
         Me.lblServerList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -297,59 +355,51 @@ Partial Class AlertConfig
         Me.dbmsImgLst.Images.SetKeyName(0, "if_database_green_92629.ico")
         Me.dbmsImgLst.Images.SetKeyName(1, "if_database_link_35958.ico")
         '
-        'coldgvHostName
+        'rbGrpHAGroup
         '
-        Me.coldgvHostName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvHostName.DataPropertyName = "HOST_NAME"
-        Me.coldgvHostName.DefaultNodeImage = Nothing
-        Me.coldgvHostName.HeaderText = "F229"
-        Me.coldgvHostName.Name = "coldgvHostName"
-        Me.coldgvHostName.ReadOnly = True
-        Me.coldgvHostName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.rbGrpHAGroup.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rbGrpHAGroup.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rbGrpHAGroup.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(112, Byte), Integer))
+        Me.rbGrpHAGroup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rbGrpHAGroup.ForeColor = System.Drawing.Color.White
+        Me.rbGrpHAGroup.LineColor = System.Drawing.Color.Transparent
+        Me.rbGrpHAGroup.Location = New System.Drawing.Point(137, 31)
+        Me.rbGrpHAGroup.Margin = New System.Windows.Forms.Padding(1)
+        Me.rbGrpHAGroup.Name = "rbGrpHAGroup"
+        Me.rbGrpHAGroup.Radius = 7
+        Me.rbGrpHAGroup.Size = New System.Drawing.Size(134, 28)
+        Me.rbGrpHAGroup.TabIndex = 13
+        Me.rbGrpHAGroup.TabStop = True
+        Me.rbGrpHAGroup.Text = "F363"
+        Me.rbGrpHAGroup.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbGrpHAGroup.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(60, Byte), Integer))
+        Me.rbGrpHAGroup.UseRound = True
+        Me.rbGrpHAGroup.UseVisualStyleBackColor = False
+        Me.rbGrpHAGroup.Warning = False
+        Me.rbGrpHAGroup.WarningColor = System.Drawing.Color.Red
         '
-        'coldgvHostNameKey
+        'rbGrpCluster
         '
-        Me.coldgvHostNameKey.DataPropertyName = "HOST_NAME"
-        Me.coldgvHostNameKey.HeaderText = ""
-        Me.coldgvHostNameKey.Name = "coldgvHostNameKey"
-        Me.coldgvHostNameKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvHostNameKey.Visible = False
-        '
-        'coldgvAliasNm
-        '
-        Me.coldgvAliasNm.DataPropertyName = "CONN_NAME"
-        Me.coldgvAliasNm.HeaderText = "F019"
-        Me.coldgvAliasNm.Name = "coldgvAliasNm"
-        Me.coldgvAliasNm.ReadOnly = True
-        Me.coldgvAliasNm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvAliasNm.Visible = False
-        '
-        'coldgvIP
-        '
-        Me.coldgvIP.DataPropertyName = "SERVER_IP"
-        Me.coldgvIP.HeaderText = "F006"
-        Me.coldgvIP.Name = "coldgvIP"
-        Me.coldgvIP.ReadOnly = True
-        Me.coldgvIP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvIP.Visible = False
-        '
-        'coldgvHARole
-        '
-        Me.coldgvHARole.DataPropertyName = "HA_ROLE"
-        Me.coldgvHARole.HeaderText = "Column1"
-        Me.coldgvHARole.Name = "coldgvHARole"
-        Me.coldgvHARole.ReadOnly = True
-        Me.coldgvHARole.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvHARole.Visible = False
-        '
-        'coldgvHAHost
-        '
-        Me.coldgvHAHost.DataPropertyName = "HA_HOST"
-        Me.coldgvHAHost.HeaderText = "Column1"
-        Me.coldgvHAHost.Name = "coldgvHAHost"
-        Me.coldgvHAHost.ReadOnly = True
-        Me.coldgvHAHost.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvHAHost.Visible = False
+        Me.rbGrpCluster.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rbGrpCluster.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.rbGrpCluster.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(100, Byte), Integer), CType(CType(112, Byte), Integer))
+        Me.rbGrpCluster.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rbGrpCluster.ForeColor = System.Drawing.Color.White
+        Me.rbGrpCluster.LineColor = System.Drawing.Color.Transparent
+        Me.rbGrpCluster.Location = New System.Drawing.Point(1, 31)
+        Me.rbGrpCluster.Margin = New System.Windows.Forms.Padding(1)
+        Me.rbGrpCluster.Name = "rbGrpCluster"
+        Me.rbGrpCluster.Radius = 7
+        Me.rbGrpCluster.Size = New System.Drawing.Size(134, 28)
+        Me.rbGrpCluster.TabIndex = 14
+        Me.rbGrpCluster.TabStop = True
+        Me.rbGrpCluster.Text = "F362"
+        Me.rbGrpCluster.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rbGrpCluster.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(52, Byte), Integer), CType(CType(60, Byte), Integer))
+        Me.rbGrpCluster.UseRound = True
+        Me.rbGrpCluster.UseVisualStyleBackColor = False
+        Me.rbGrpCluster.Warning = False
+        Me.rbGrpCluster.WarningColor = System.Drawing.Color.Red
         '
         'AlertConfig
         '
@@ -368,15 +418,14 @@ Partial Class AlertConfig
         Me.SplitContainer1.ResumeLayout(False)
         Me.tlpGroup.ResumeLayout(False)
         CType(Me.dgvSvrLst, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
+        Me.tblHead.ResumeLayout(False)
         Me.tlpUserConfigMain.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents ttChart As System.Windows.Forms.ToolTip
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
-    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tblHead As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents lblServerList As System.Windows.Forms.Label
     Friend WithEvents tlpGroup As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents tlpUserConfigMain As System.Windows.Forms.TableLayoutPanel
@@ -392,5 +441,7 @@ Partial Class AlertConfig
     Friend WithEvents coldgvIP As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvHARole As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvHAHost As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents rbGrpHAGroup As eXperDB.BaseControls.RadioButton
+    Friend WithEvents rbGrpCluster As eXperDB.BaseControls.RadioButton
 
 End Class
