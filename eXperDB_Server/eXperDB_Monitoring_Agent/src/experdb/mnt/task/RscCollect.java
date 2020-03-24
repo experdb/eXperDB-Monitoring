@@ -276,6 +276,12 @@ public class RscCollect extends TaskApplication {
 						sys_util_rate = Math.round((current_sys_util / sum_current_util * 100) * Math.pow(10, 2)) / Math.pow(10, 2);
 						idle_util_rate = Math.round((current_idle_util / sum_current_util * 100) * Math.pow(10, 2)) / Math.pow(10, 2);
 						wait_util_rate = Math.round((current_wait_util / sum_current_util * 100) * Math.pow(10, 2)) / Math.pow(10, 2);
+					}else{
+						user_util_rate = 0;
+						nice_util_rate = 0;
+						sys_util_rate = 0;
+						idle_util_rate = 0;
+						wait_util_rate = 0;
 					}
 					
 					map.put("current_user_util", current_user_util);

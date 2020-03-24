@@ -124,8 +124,8 @@ public class HourlyBatchTask {
 			ret = -1;
 		} finally {
 			if(sessionAgent != null) sessionAgent.close();
-			return ret;
 		}
+		return ret;
 	}
 	
 	private void check_partiton() {

@@ -2900,12 +2900,19 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
   			#{replay_lag_size},
 			NOW()
 		)
-	</insert>
+	</insert>	
 	
+	<select id="TB_INSTANCE_INFO_S001" parameterType="hashmap" resultType="hashmap">
+			SELECT INSTANCE_ID
+			  FROM TB_INSTANCE_INFO
+			 WHERE (HA_ROLE = 'P' OR HA_ROLE = 'A') AND COLLECT_YN = 'Y' AND DELETE_YN = 'N'
+	</select>
+
+
 	<select id="TB_REPL_LAG_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		SELECT INSTANCE_ID 
 		  FROM TB_INSTANCE_INFO 
-		 WHERE HOST_NAME = #{host_name} OR SERVER_IP = #{host_name} limit 1; 
+		 WHERE (HOST_NAME = #{host_name} OR SERVER_IP = #{host_name}) and COLLECT_YN = 'Y' AND DELETE_YN = 'N' LIMIT 1; 
 	</select>
 		 
 	<insert id="TB_REPL_LAG_INFO_I001" parameterType="hashmap" >
@@ -3491,6 +3498,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN    
 			BEGIN
 	 			delete from tb_actv_collect_info${regdate};
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
@@ -3517,6 +3526,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN    
 			BEGIN
 	 			delete from tb_access_info${regdate};
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 		        ALTER TABLE ONLY tb_access_info${regdate} ADD CONSTRAINT pk_tb_access_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq,db_name);		
@@ -3543,6 +3554,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN    
 			BEGIN
 	 			delete from tb_backend_rsc${regdate};
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 		        ALTER TABLE ONLY tb_backend_rsc${regdate} ADD CONSTRAINT pk_tb_backend_rsc${regdate} PRIMARY KEY (reg_date,actv_reg_seq,process_id);		
@@ -3569,6 +3582,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN    
 			BEGIN
 	 			delete from tb_cpu_stat_detail${regdate};
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 		        ALTER TABLE ONLY tb_cpu_stat_detail${regdate} ADD CONSTRAINT pk_tb_cpu_stat_detail${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,cpu_logical_id);
@@ -3595,6 +3610,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN    
 			BEGIN
 	 			delete from tb_cpu_stat_master${regdate};
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 		        ALTER TABLE ONLY tb_cpu_stat_master${regdate} ADD CONSTRAINT pk_tb_cpu_stat_master${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);		
@@ -3621,6 +3638,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_disk_io${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_disk_io${regdate} ADD CONSTRAINT pk_tb_disk_io${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,disk_name);
@@ -3647,6 +3666,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_disk_usage${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_disk_usage${regdate}	ADD CONSTRAINT pk_tb_disk_usage${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,mount_point_dir);
@@ -3673,6 +3694,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_hchk_collect_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_hchk_collect_info${regdate} ADD CONSTRAINT pk_tb_hchk_collect_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq,instance_id,hchk_name);
@@ -3699,6 +3722,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_replication_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_replication_info${regdate} ADD CONSTRAINT pk_tb_replication_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
@@ -3725,6 +3750,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_replication_lag_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id, repl_instance_id);
@@ -3751,6 +3778,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_checkpoint_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_checkpoint_info${regdate} ADD CONSTRAINT pk_tb_checkpoint_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
@@ -3777,6 +3806,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_memory_stat${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_memory_stat${regdate} ADD CONSTRAINT pk_tb_memory_stat${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
@@ -3803,6 +3834,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_objt_collect_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_objt_collect_info${regdate} ADD CONSTRAINT pk_tb_objt_collect_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq);
@@ -3829,6 +3862,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_rsc_collect_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_rsc_collect_info${regdate}  ADD CONSTRAINT pk_tb_rsc_collect_info${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
@@ -3855,6 +3890,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_table_ext_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_table_ext_info${regdate} ADD CONSTRAINT pk_tb_table_ext_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
@@ -3881,6 +3918,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_hchk_alert_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_hchk_alert_info${regdate} ADD CONSTRAINT pk_tb_hchk_alert_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
@@ -3907,6 +3946,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_pg_stat_statements${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_pg_stat_statements${regdate} ADD CONSTRAINT pk_tb_pg_stat_statements${regdate} PRIMARY KEY (reg_date, collect_dt, instance_id);
@@ -3934,6 +3975,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		WHEN others THEN
 			BEGIN
 			    DELETE FROM tb_wal_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
 		    END;
 			BEGIN
 				ALTER TABLE ONLY tb_wal_info${regdate} ADD CONSTRAINT pk_tb_wal_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
@@ -4281,7 +4324,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!-- ********************************************************** -->
 	<update id="TB_SET_LOCK_TIMEOUT_U001" parameterType="hashmap" >
 		<![CDATA[
-			set lock_timeout = 120000;
+			set lock_timeout = 10000;
 		]]>
     </update>
     

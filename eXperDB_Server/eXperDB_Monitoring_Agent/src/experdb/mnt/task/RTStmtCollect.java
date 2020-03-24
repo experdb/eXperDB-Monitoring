@@ -96,6 +96,7 @@ public class RTStmtCollect extends TaskApplication {
 			}
 				
 			sessionAgent = sqlSessionFactory.openSession();
+			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			List<HashMap<String, Object>> rtStmtSel = new ArrayList<HashMap<String,Object>>(); // STMT 정보 수집
 			
 			if(is_collect_ok.equals("Y"))

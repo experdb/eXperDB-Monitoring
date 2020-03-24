@@ -821,7 +821,6 @@
     <Content Include="ico-source4.ico" />
     <Content Include="Image\alert_off.png" />
     <Content Include="Image\alert_on.png" />
-    <Content Include="Image\DXMonforPGSQL.png" />
     <Content Include="Image\eXperDBMonitoring.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

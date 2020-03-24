@@ -102,8 +102,8 @@ public class ActvCollect extends TaskApplication {
 			}
 				
 			sessionAgent = sqlSessionFactory.openSession();
-	
-			
+			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
+				
 			List<HashMap<String, Object>> currentLockSel = new ArrayList<HashMap<String,Object>>(); // CURRENT_LOCK 정보 수집
 			List<HashMap<String, Object>> backendRscSel = new ArrayList<HashMap<String,Object>>(); // BACKEND_RSC 정보 수집
 			List<HashMap<String, Object>> accessSel = new ArrayList<HashMap<String,Object>>(); //Access 수집

@@ -32,7 +32,6 @@ public class VIPCollect{
 
 	private void execute(int index) {
 		SqlSessionFactory sqlSessionFactory = null;
-		SqlSession sessionCollect = null;
 		SqlSession sessionAgent  = null;
 						
 		try {
@@ -75,9 +74,10 @@ public class VIPCollect{
 							groupMap.put("host_name", null);
 							if(conn != null) conn.close();
 							if(session != null)	session.close();
-							log.error("[Connection timeout! :" + groupMap.get("virtual_ip") + groupMap.get("virtual_ip2"));		
+							log.error("[Connection timeout! : vip1:" + groupMap.get("virtual_ip") + ", vip2:"+  groupMap.get("virtual_ip2"));		
 						}
 										
+			
 						try {				
 							if(groupMap != null){
 								if(groupMap.get("host_name") != null){
@@ -102,7 +102,6 @@ public class VIPCollect{
 			log.error("", e);		
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
-			if(sessionCollect != null)	sessionCollect.close();
 		}
 	}
 }

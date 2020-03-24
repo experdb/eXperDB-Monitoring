@@ -24,7 +24,7 @@ public class DailyBatchTask {
 	protected static Logger log = Logger.getLogger(DailyBatchTask.class);	
 	
 	private String status = "2"; // 1:진행중 / 2:정상종료 / 3:오류
-	private String comments = ""; // 오류세부 정보 : 0:데몬기동 / 1:접속종료 / 2:데이터삭제 / 3: VACUUM&ANALYZE /  4: 시퀀스초기화/ 5:인스턴스정보 UPDATE / 6: 접속수립 / 9:데몬종료
+	private String comments = "0"; // 오류세부 정보 : 0:데몬기동 / 1:접속종료 / 2:데이터삭제 / 3: VACUUM&ANALYZE /  4: 시퀀스초기화/ 5:인스턴스정보 UPDATE / 6: 접속수립 / 9:데몬종료
 	private String reg_date = ""; // 오늘날짜
 	
 	public DailyBatchTask() {
@@ -158,11 +158,11 @@ public class DailyBatchTask {
 			}
 			
 			sessionAgent.close();
+/*
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
 			
 			try {
 				log.info("Start to Create partitions");
-				sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 				// Create partition tables
 				HashMap<String, Object> partitionTableMap = new HashMap<String, Object>();
 				partitionTableMap.put("tablename", "tb_actv_collect_info");
@@ -219,7 +219,6 @@ public class DailyBatchTask {
 			}
 			sessionAgent.close();
 			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
-			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			try {
 				log.info("Start to make constraints and indexes");
 				// Add constraint of partition tables
@@ -326,7 +325,8 @@ public class DailyBatchTask {
 					comments = comments + "|3";
 				}
 			}			
-
+*/
+			sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
 			
 			//TB_SYS_LOG 정보 UPDATE
 			HashMap<String, Object> updateMap = new HashMap<String, Object>();
