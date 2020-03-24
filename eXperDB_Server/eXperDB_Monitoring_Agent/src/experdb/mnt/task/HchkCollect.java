@@ -128,10 +128,6 @@ public class HchkCollect extends TaskApplication {
 						            	double dCritThold = Double.parseDouble(tholdMap.get("critical_threshold").toString());
 						            	double dValue = Double.parseDouble(tempMap.get("value").toString());
 						            	
-						            	if (key.toUpperCase().equals("HGCPUUTIL")){
-						            		log.error("hhhhhhhhhhhgggggg(" + dCritThold + ")(" +  dValue);
-						            		System.out.println("hhhhhhhhhhhgggggg(" + dCritThold + ")(" +  dValue + ")");
-						            	}
 						            	tempMap.put("critical_start_time", 		tholdMap.get("critical_start_time"));
 						            	if(nPause == 1) break;
 						            	if(nThreshold == 0) {

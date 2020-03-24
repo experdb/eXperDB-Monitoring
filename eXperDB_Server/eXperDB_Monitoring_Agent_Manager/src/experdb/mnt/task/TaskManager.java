@@ -3,6 +3,8 @@ package experdb.mnt.task;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +41,7 @@ public class TaskManager implements Runnable{
 	public void run() {
 		SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
 		SqlSession session = null ;
+		boolean isReset = false;
 
 		try {
 			while(true)
@@ -51,49 +54,75 @@ public class TaskManager implements Runnable{
 				//Instance 정보 변경 여부를 확인한다.
 				while(true) {
 					try {
-						//Thread.sleep( 9 * 60 * 1000);
 						Thread.sleep( 10 * 1000);
 						session = sqlSessionFactory.openSession();
-						
-						HashMap<String, Object> checkReset = session.selectOne("system.TB_CHECK_SCALING_001");
-						if (checkReset != null){
-							int nCheckReset = Integer.parseInt(checkReset.get("need_apply").toString());
-							if (nCheckReset > 0)
-								log.info("The collector's status is not valid. now resetting the collector");
-								if (perform() < 0)
-									log.info("Failed to reset the collector!");	
-								else
-									log.info("The collector reseting  complete!");
-								session.update("system.TB_CHECK_SCALING_U001");
-								session.commit();
-						}
-						
-						if((System.currentTimeMillis () / 1000) - (lcheckResetTime / 1000) > 600 ) {
-							HashMap<String, Object> config = session.selectOne("system.TB_SYS_STATUS_R001");
-							int nStatus = Integer.parseInt(config.get("status").toString());
-							if (nStatus < 1){
-								log.info("The collector's status is not valid. now resetting the collector");
-								if (perform() < 0)
-									log.info("Failed to reset the collector!");	
-								else
-									log.info("The collector reseting  complete!");
-							} else {
-								HashMap<String, Object> endbatch = session.selectOne("system.TB_SYS_LOG_R003");
-								if (endbatch != null) {
-									log.info("Daily batch work is complete. now resetting the collector");
-									if (perform() < 0)
-										log.info("Failed to reset the collector!");
+						//Check the new cluster has been added. 
+						try {
+							HashMap<String, Object> checkReset = session.selectOne("system.TB_CHECK_SCALING_001");
+							if (checkReset != null){
+								int nCheckReset = Integer.parseInt(checkReset.get("need_apply").toString());
+								if (nCheckReset > 0)
+									log.info("The collector's status is not valid. now resetting the collector");
+									if (perform("restart") < 0)
+										log.info("Failed to reset the collector!");	
 									else
 										log.info("The collector reseting  complete!");
-									session.update("system.TB_SYS_LOG_U003", endbatch);
+									session.update("system.TB_CHECK_SCALING_U001");
 									session.commit();
-								}
 							}
+						} catch (Exception e) {
+							log.error("", e);
+							session.rollback();
 						}
+						
+						//Check if the collection thread status is working normally and then reset the collector if it is not valid. 
+						try {	
+							if((System.currentTimeMillis () / 1000) - (lcheckResetTime / 1000) > 600 ) {
+								HashMap<String, Object> config = session.selectOne("system.TB_SYS_STATUS_R001");
+								int nStatus = Integer.parseInt(config.get("status").toString());
+								if (nStatus < 1){
+									log.info("The collector's status is not valid. now resetting the collector");
+									if (perform("restart") < 0)
+										log.info("Failed to reset the collector!");	
+									else
+										log.info("The collector reseting  complete!");
+								} 
+							}
+						} catch (Exception e) {
+							log.error("", e);
+							session.rollback();
+						}
+						
+						// Stop the collector > Create Partition > Start the collector daily with "Time.reset" property
+						try {
+							String configResetTime = eXperDBMAConfig.getInstance().getProperty("Time.reset");
+							SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm");
+							Date now = new Date();
+							String strCurrentTime = transFormat.format(now);
+							if (strCurrentTime.compareTo(configResetTime) == 0) {
+								if (isReset == false) {
+									log.info("Start daily batch to resset connection.");
+									if (perform("stop") < 0)
+										log.error("Failed to control the collector!");	
+									Class.forName("experdb.mnt.task."+ "DailyBatchTask").getConstructor().newInstance();
+									if (perform("start") < 0)
+										log.error("Failed to control the collector!");	
+									log.info("The collector reset!");
+									isReset = true;
+								}									
+							} else
+								isReset = false;
+						} catch (Exception e) {
+							log.error("", e);
+							session.rollback();
+						}
+											
 						session.close();
 					} catch (Exception e) {
 						log.error("", e);
 						session.rollback();
+						if (session != null) session.close();
+					}finally{
 						if (session != null) session.close();
 					}
 				}
@@ -188,10 +217,10 @@ public class TaskManager implements Runnable{
 //	}
 
 	}
-	public int perform() throws Exception{
+	public int perform(String subcommand) throws Exception{
 		String command = "";
 		String cmd1 = System.getProperty("AGENT_HOME") + "bin/experdbma.sh ";
-		String cmd2 = "restart";
+		String cmd2 = subcommand;
 		
 		command = cmd1 + cmd2;
 		if ((System.getProperty("AGENT_HOME") == null) || (cmd1 == null) || (cmd2 == null))

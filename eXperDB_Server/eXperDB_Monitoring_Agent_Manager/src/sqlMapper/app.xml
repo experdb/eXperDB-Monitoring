@@ -1088,7 +1088,700 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		${query}
 		]]>
 	</select>
+	
+	
 <!-- ********************************************************** -->
 <!-- SocketTask END -->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!-- Maintain partition tables -->
+<!-- ********************************************************** -->
+	<update id="PG_MAINTAIN_PARTITIONS_001" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_partition BOOL;
+			    var_tablename varchar;
+			    ddate varchar;
+			    cdate varchar;   
+			BEGIN    
+				var_tablename = '${tablename}';
+				ddate = to_char((now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, 'YYYYMMDD') ;
+			    cdate = to_char((now() + INTERVAL '1 day')::date, 'YYYYMMDD');
+			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
+			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = (var_tablename || '_' || ddate)));       
+			    IF is_exists_partition = TRUE THEN           
+				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
+				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
+		        END IF;       
+			 END $$
+		]]>	
+	</update>
+		<update id="PG_ATTACH_PARTITIONS_002" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    var_tablename varchar;
+			    ndate varchar;
+				nhour varchar;
+			BEGIN    
+				var_tablename = '${tablename}';
+			    ndate = to_char(now(), 'YYYYMMDD');
+			    FOR i IN 0..23 LOOP
+					--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+					nhour = to_char(i, 'fm00');
+			    	EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || ndate || nhour || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || ndate || nhour || ')');     
+			    END LOOP;
+			    ndate = to_char(now() + interval '1 day', 'YYYYMMDD');
+			    FOR i IN 0..23 LOOP
+					--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+					nhour = to_char(i, 'fm00');
+			    	EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || ndate || nhour || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || ndate || nhour || ')');     
+			    END LOOP;
+			END $$
+		]]>	
+	</update>
+	
+	<update id="PG_DETACH_PARTITIONS_002" parameterType="hashmap">
+		<![CDATA[
+ 			DO $$
+			DECLARE       
+			    var_tablename varchar;
+				var_partition_tablename varchar;
+			    ddate varchar;
+				_tablename varchar;
+			BEGIN    
+				var_tablename = '${tablename}';
+				var_partition_tablename = NULL;
+				ddate = to_char (now(), 'YYYYMMDD');
+				--RAISE NOTICE 'tablename: %', var_partition_tablename;
+			    FOR var_partition_tablename IN
+			       SELECT table_name FROM information_schema.tables WHERE table_schema = current_schema()
+									   AND table_name LIKE var_tablename || '_' || '%'
+									   AND table_name < var_tablename || '_' || ddate ORDER BY table_name
+			    LOOP
+					RAISE NOTICE 'tablename: %', var_partition_tablename;
+			        EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_partition_tablename) ;     
+				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_partition_tablename || ' CASCADE');
+			    END LOOP;
+ 			END $$
+		]]>	
+	</update>
+	<update id="PG_CONSTRAINT_TB_ACTV_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_actv_collect_info${regdate}'
+		              )
+		    THEN
+		        ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_actv_collect_info${regdate};
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_actv_collect_info${regdate} ADD CONSTRAINT pk_tb_actv_collect_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq);
+			EXCEPTION   
+			WHEN others THEN    
+			END;    
+		END$$; 
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_ACCESS_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_access_info${regdate}'
+		              )
+		    THEN
+		        ALTER TABLE ONLY tb_access_info${regdate} ADD CONSTRAINT pk_tb_access_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq,db_name);		
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_access_info${regdate};
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_access_info${regdate} ADD CONSTRAINT pk_tb_access_info${regdate} PRIMARY KEY (reg_date,actv_reg_seq,db_name);		
+			EXCEPTION   
+			WHEN others THEN    
+			END; 
+		END$$; 
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_BACKEND_RSC_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_backend_rsc${regdate}'
+		              )
+		    THEN
+		        ALTER TABLE ONLY tb_backend_rsc${regdate} ADD CONSTRAINT pk_tb_backend_rsc${regdate} PRIMARY KEY (reg_date,actv_reg_seq,process_id);		
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_backend_rsc${regdate};
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_backend_rsc${regdate} ADD CONSTRAINT pk_tb_backend_rsc${regdate} PRIMARY KEY (reg_date,actv_reg_seq,process_id);		
+			EXCEPTION   
+			WHEN others THEN    
+			END; 
+		END$$; 
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_CPU_STAT_DETAIL_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_cpu_stat_detail${regdate}'
+		              )
+		    THEN
+		        ALTER TABLE ONLY tb_cpu_stat_detail${regdate} ADD CONSTRAINT pk_tb_cpu_stat_detail${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,cpu_logical_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_cpu_stat_detail${regdate};
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_cpu_stat_detail${regdate} ADD CONSTRAINT pk_tb_cpu_stat_detail${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,cpu_logical_id);
+			EXCEPTION   
+			WHEN others THEN    
+			END;     
+		END$$; 
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_CPU_STAT_MASTER_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_cpu_stat_master${regdate}'
+		              )
+		    THEN
+		        ALTER TABLE ONLY tb_cpu_stat_master${regdate} ADD CONSTRAINT pk_tb_cpu_stat_master${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);		
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN    
+			BEGIN
+	 			delete from tb_cpu_stat_master${regdate};
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+		        ALTER TABLE ONLY tb_cpu_stat_master${regdate} ADD CONSTRAINT pk_tb_cpu_stat_master${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);		
+			EXCEPTION   
+			WHEN others THEN    
+			END;     
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_DISK_IO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_disk_io${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_disk_io${regdate} ADD CONSTRAINT pk_tb_disk_io${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,disk_name);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_disk_io${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_disk_io${regdate} ADD CONSTRAINT pk_tb_disk_io${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,disk_name);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_DISK_USAGE_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_disk_usage${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_disk_usage${regdate}	ADD CONSTRAINT pk_tb_disk_usage${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,mount_point_dir);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_disk_usage${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_disk_usage${regdate}	ADD CONSTRAINT pk_tb_disk_usage${regdate} PRIMARY KEY (reg_date,rsc_reg_seq,mount_point_dir);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_HCHK_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_hchk_collect_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_hchk_collect_info${regdate} ADD CONSTRAINT pk_tb_hchk_collect_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq,instance_id,hchk_name);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_hchk_collect_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_hchk_collect_info${regdate} ADD CONSTRAINT pk_tb_hchk_collect_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq,instance_id,hchk_name);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_REPLICATION_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_replication_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_replication_info${regdate} ADD CONSTRAINT pk_tb_replication_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_replication_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_replication_info${regdate} ADD CONSTRAINT pk_tb_replication_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_REPLICATION_LAG_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_replication_lag_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id, repl_instance_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_replication_lag_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_replication_lag_info${regdate} ADD CONSTRAINT pk_tb_replication_lag_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id, repl_instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_CHECKPOINT_INFO_001" parameterType="hashmap">
+		<![CDATA[		
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_checkpoint_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_checkpoint_info${regdate} ADD CONSTRAINT pk_tb_checkpoint_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_checkpoint_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_checkpoint_info${regdate} ADD CONSTRAINT pk_tb_checkpoint_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;	
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_MEMORY_STAT_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_memory_stat${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_memory_stat${regdate} ADD CONSTRAINT pk_tb_memory_stat${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_memory_stat${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_memory_stat${regdate} ADD CONSTRAINT pk_tb_memory_stat${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_OBJT_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_objt_collect_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_objt_collect_info${regdate} ADD CONSTRAINT pk_tb_objt_collect_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_objt_collect_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_objt_collect_info${regdate} ADD CONSTRAINT pk_tb_objt_collect_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_RSC_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_rsc_collect_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_rsc_collect_info${regdate}  ADD CONSTRAINT pk_tb_rsc_collect_info${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_rsc_collect_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_rsc_collect_info${regdate}  ADD CONSTRAINT pk_tb_rsc_collect_info${regdate} PRIMARY KEY (reg_date,rsc_reg_seq);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_TABLE_EXT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_table_ext_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_table_ext_info${regdate} ADD CONSTRAINT pk_tb_table_ext_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_table_ext_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_table_ext_info${regdate} ADD CONSTRAINT pk_tb_table_ext_info${regdate} PRIMARY KEY (reg_date,objt_reg_seq,instance_id,relid);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_HCHK_ALERT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_hchk_alert_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_hchk_alert_info${regdate} ADD CONSTRAINT pk_tb_hchk_alert_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_hchk_alert_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_hchk_alert_info${regdate} ADD CONSTRAINT pk_tb_hchk_alert_info${regdate} PRIMARY KEY (reg_date,hchk_reg_seq, instance_id, hchk_name);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+<update id="PG_CONSTRAINT_TB_PG_STAT_STATEMENTS_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_tb_pg_stat_statements${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_pg_stat_statements${regdate} ADD CONSTRAINT pk_tb_pg_stat_statements${regdate} PRIMARY KEY (reg_date, collect_dt, instance_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_pg_stat_statements${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_pg_stat_statements${regdate} ADD CONSTRAINT pk_tb_pg_stat_statements${regdate} PRIMARY KEY (reg_date, collect_dt, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+
+<update id="PG_CONSTRAINT_TB_WAL_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_wal_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_wal_info${regdate} ADD CONSTRAINT pk_tb_wal_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_wal_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_wal_info${regdate} ADD CONSTRAINT pk_tb_wal_info${regdate} PRIMARY KEY (reg_date, repl_reg_seq, instance_id);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;		
+		]]>			
+</update>
+
+<update id="PG_CREATE_FUNCTION_FOR_INDEX_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE OR REPLACE FUNCTION to_date_imm(text, text) 
+		RETURNS date
+		AS 'to_date'
+		LANGUAGE internal immutable STRICT
+		COST 1;
+		]]>	
+</update>
+
+<update id="PG_INDEX_TB_ACTV_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_tb_actv_collect_info${regdate} ON tb_actv_collect_info${regdate} USING btree((TO_DATE_IMM(reg_date, 'yyyymmdd') + reg_time), instance_id);
+		]]>			
+</update>
+
+<update id="PG_INDEX_TB_RSC_COLLECT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_tb_rsc_collect_info${regdate} ON tb_rsc_collect_info${regdate} USING btree((TO_DATE_IMM(reg_date, 'yyyymmdd') + reg_time), instance_id);
+		]]>			
+</update>
+
+<update id="PG_INDEX_TB_CURRENT_LOCK_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_current_lock${regdate} ON tb_current_lock${regdate} USING btree (reg_date,actv_reg_seq);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_CURRENT_LOCK_002" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx02_current_lock${regdate} ON tb_current_lock${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_BACKEND_RSC_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_backend_rsc${regdate} ON tb_backend_rsc${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_ACCESS_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_access_info${regdate} ON tb_access_info${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_MEMORY_STAT_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_memory_stat${regdate} ON tb_memory_stat${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_CPU_STAT_MASTER_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_cpu_stat_master${regdate} ON tb_cpu_stat_master${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_DISK_IO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_disk_io${regdate} ON tb_disk_io${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_DISK_USAGE_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_disk_usage${regdate} ON tb_disk_usage${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+<update id="PG_INDEX_TB_TABLE_EXT_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_table_ext_info${regdate} ON tb_table_ext_info${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+
+<update id="PG_INDEX_TB_REPLICATION_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE INDEX IF NOT EXISTS idx01_replication_info${regdate} ON tb_replication_info${regdate} USING btree (collect_dt DESC);
+		]]>			
+</update>
+
+<update id="PG_INDEX_TB_REALTIME_STATEMENTS_PARTITIONS_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		DECLARE       
+			var_tablename varchar;
+			ndate varchar;
+			nhour varchar;
+		BEGIN    
+			var_tablename = 'tb_realtime_statements';
+			ndate = to_char(now(), 'YYYYMMDD');
+			FOR i IN 0..23 LOOP
+				--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+				nhour = to_char(i, 'fm00');
+				EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_' || ndate || nhour || ' ON tb_realtime_statements_' || ndate || nhour || ' USING btree (collect_dt DESC)');
+		    END LOOP;
+			ndate = to_char(now() + interval '1 day', 'YYYYMMDD');
+			FOR i IN 0..23 LOOP
+				--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+				nhour = to_char(i, 'fm00');
+				EXECUTE FORMAT('CREATE INDEX IF NOT EXISTS idx01_realtime_statements_' || ndate || nhour || ' ON tb_realtime_statements_' || ndate || nhour || ' USING btree (collect_dt DESC)');
+		    END LOOP;
+		END $$
+		]]>			
+</update>
+
+<select id="TB_TERMINATE_OTHER_SESSIONS_001" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+		SELECT pg_terminate_backend(pid)
+		  FROM pg_stat_activity
+		 WHERE pid <> pg_backend_pid()
+		   AND datname = current_database()
+	]]>			
+</select>
+<!-- ********************************************************** -->
+<!-- Maintain partition tables -->
 <!-- ********************************************************** -->
 </mapper>

@@ -107,6 +107,7 @@ public class StmtCollect extends TaskApplication {
 			}
 			
 			sessionAgent = sqlSessionFactory.openSession();
+			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			List<HashMap<String, Object>> pgssSel = new ArrayList<HashMap<String,Object>>();
 			HashMap<String, Object> pgssCollect = new HashMap<String,Object>();
 
