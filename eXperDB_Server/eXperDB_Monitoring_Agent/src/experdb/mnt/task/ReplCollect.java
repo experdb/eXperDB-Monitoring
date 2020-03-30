@@ -370,8 +370,6 @@ public class ReplCollect extends TaskApplication {
 		} catch (Exception e) {
 			sessionAgent.rollback();
 			log.error("", e);
-		} finally {
-			sessionAgent.close();
 		}
 	}
 }

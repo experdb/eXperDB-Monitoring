@@ -569,7 +569,7 @@
             Dim strDBNm As String = tmpRow.Cells(colMonDBNm.Index).Value
             Dim strAliasNm As String = tmpRow.Cells(colMonAliasNm.Index).Value
             Dim strHostNm As String = tmpRow.Cells(colMonHostNm.Index).Value
-            Dim stTime As DateTime = tmpRow.Cells(colMonStartTime.Index).Value
+            Dim stTime As DateTime = IIf(IsDBNull(tmpRow.Cells(colMonStartTime.Index).Value), Now, tmpRow.Cells(colMonStartTime.Index).Value)
             Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
             Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
             Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
