@@ -434,7 +434,8 @@
             Dim Values As String = ""
             If HCHKNM.Equals("LASTANALYZE") Or HCHKNM.Equals("LASTVACUUM") Or _
                HCHKNM.Equals("REPLICATION_SLOT") Or HCHKNM.Equals("VIRTUAL_IP") Or _
-               HCHKNM.Equals("HASTATUS") Then
+               HCHKNM.Equals("HASTATUS") Or _
+               HCHKNM.Equals("SOLUTIONSTATUS") Then
                 Values = p_clsMsgData.fn_GetSpecificData(HCHKNM, "VALUECAST")
             Else
                 Return intValue

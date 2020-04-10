@@ -3110,7 +3110,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			  ]]>
 	</select>
 			  
-	
+	<select id="EXPERDBMA_BT_HCHK_SO_STATUS_CHANGED_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT /* EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001 24E9AB7301FF1966DA4FB30DC1538882*/ 
+				INSTANCE_ID, 
+			   ((CASE WHEN WITHSOLUTIONS ISNULL THEN 0 ELSE WITHSOLUTIONS END) # (CASE WHEN STATSOLUTIONS ISNULL THEN 0 ELSE STATSOLUTIONS END)) SOLUTIONSTATUS,  
+			   '4' AS COLLECT_GROUP,
+			   TO_CHAR(NOW(), 'YYYYMMDD') AS COLLECT_REG_DATE,
+			   0 AS COLLECT_REG_SEQ,
+			   TO_CHAR(NOW(), 'HH24:MM:SS')::time AS REG_TIME
+		  FROM TB_INSTANCE_INFO 
+		 WHERE COLLECT_YN = 'Y' 
+		   AND DELETE_YN = 'N'
+			  ]]>
+	</select>
 		<select id="EXPERDBMA_BT_HCHK_HA_STATUS_CHANGED_001_PREV" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT /* EXPERDBMA_BT_SELECT_HA_STATUS_CHANGED_001 24e9ab7301ff1966da4fb30dc1538882*/
@@ -4466,4 +4479,51 @@ GROUP BY HA_GROUP
 	]]>
 </select>
 <!-- HG Group Alert ENd -->
+<!-- Check solution Start -->
+	<select id="TB_INSTANCE_INFO_S002" parameterType="hashmap" resultType="hashmap">
+			SELECT INSTANCE_ID, WITHSOLUTIONS, STATSOLUTIONS
+			  FROM TB_INSTANCE_INFO
+			 WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND WITHSOLUTIONS is not null and WITHSOLUTIONS > 0
+	</select>
+	
+	<update id="EXPERDBMA_BT_BT_CREATE_EXTENSION_001" parameterType="hashmap">
+		/* EXPERDBMA_BT_BT_CREATE_EXTENSION_001 24E9AB7301FF1966DA4FB30DC1538882*/
+		CREATE EXTENSION IF NOT EXISTS plperlu;
+	</update>
+	
+	<update id="EXPERDBMA_BT_CREATE_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+		/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
+		CREATE OR REPLACE FUNCTION PSS() RETURNS text AS $BODY$
+		    use warnings;
+		    use strict;
+			my $res;
+			my $man = `ps -ef|grep eXperDB-Management-Agent|grep -v grep |wc -l`;
+		    my $enc = `ps -ef|grep eXperDB-Encrypt-Agent|grep -v grep|wc -l`;
+			if ($man > 0) {$man = 1}
+			else {$man = 0}
+			if ($enc > 0){ $enc = 2}
+			else{$enc = 0	}
+			$res = $enc + $man;
+		    return($res);
+		$BODY$ LANGUAGE plperlu;
+		]]>	
+	</update>
+	
+	<select id="EXPERDBMA_BT_CHECK_SOLUTION_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT PSS()::int8 STATSOLUTIONS;
+		]]>
+	</select>
+	
+	<update id="TB_INSTANCE_INFO_U005" parameterType="hashmap" >
+		<![CDATA[
+		UPDATE TB_INSTANCE_INFO 
+		   SET STATSOLUTIONS = #{statsolutions} 
+		 WHERE instance_id = #{instance_id} ;
+		]]>
+	</update>
+	
+	
+<!-- Check solution End -->
 </mapper>

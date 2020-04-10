@@ -574,7 +574,7 @@
             Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
             Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
             Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
-            intHAGroup = tmpRow.Cells(colMonHAGroup.Index).Value
+            intHAGroup = IIf(IsDBNull(tmpRow.Cells(colMonHAGroup.Index).Value), 0, tmpRow.Cells(colMonHAGroup.Index).Value)
             If intHAGroup <> intHAGroupSave Then
                 intHAGroupIndex += 1
                 intHAGroupSave = intHAGroup

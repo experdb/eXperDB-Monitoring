@@ -27,6 +27,8 @@ public class VIPCollect{
 		//log.("Check Secodary VIP");
 		execute(2);
 		//log.info("Check VIP");
+		
+		checkSolution();
 	}
 
 
@@ -100,6 +102,74 @@ public class VIPCollect{
 			
 		} catch (Exception e) {
 			log.error("", e);		
+		} finally {
+			if(sessionAgent != null)	sessionAgent.close();
+		}
+	}
+	
+	
+	private void checkSolution() {
+		SqlSession sessionCollect = null;
+		SqlSession sessionAgent  = null;
+		try {
+			Connection connection = null;
+			SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
+			List<HashMap<String, Object>> selectWithSol = new ArrayList<HashMap<String,Object>>();
+			HashMap<String, Object> selectStatSol = new HashMap<String,Object>();
+			HashMap<String, Object> solMap;
+			sessionAgent = sqlSessionFactory.openSession();
+			int withSol = 0, statSol = 0, statSolCollect = 0;
+			//check solution all clusters
+			selectWithSol = sessionAgent.selectList("TB_INSTANCE_INFO_S002");
+			if(selectWithSol != null){
+				for (HashMap<String, Object> map : selectWithSol) {
+					int instanceId =  Integer.valueOf(map.get("instance_id").toString());
+					//check the solution is installed or not.
+					
+					if (map.get("withsolutions") == null)
+						continue;
+
+					withSol = Integer.valueOf(map.get("withsolutions").toString());
+					if (withSol <= 0)
+						continue;
+					
+					//get the previous status of solution.
+					if (map.get("statsolutions") == null)
+						statSol = 0;
+					else
+						statSol = Integer.valueOf(map.get("statsolutions").toString());
+					try{
+						//get the current status of solution.
+						connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
+						sessionCollect = sqlSessionFactory.openSession(connection);
+						sessionCollect.update("EXPERDBMA_BT_BT_CREATE_EXTENSION_001");
+						sessionCollect.update("EXPERDBMA_BT_CREATE_FUNCTION_001");
+						selectStatSol = sessionCollect.selectOne("app.EXPERDBMA_BT_CHECK_SOLUTION_001");
+						statSolCollect = Integer.valueOf(selectStatSol.get("statsolutions").toString());
+					} catch (Exception e) {
+						sessionCollect.rollback();
+					}
+					
+					if(sessionCollect != null)	sessionCollect.close();
+
+					//compare the status of solution with previous.
+					if (statSol == statSolCollect)
+						continue;
+
+					solMap = new HashMap<String,Object>();
+					solMap.put("instance_id", instanceId);
+					solMap.put("statsolutions", statSolCollect);
+					
+					//update the status of solution.
+					sessionAgent.update("app.TB_INSTANCE_INFO_U005", solMap);
+					//Commit
+					sessionAgent.commit();
+				}
+			}
+				
+		} catch (Exception e) {
+			sessionAgent.rollback();
+			log.error("", e);				
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
 		}
