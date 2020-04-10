@@ -87,6 +87,7 @@ public class HchkCollect extends TaskApplication {
 				queryList.add("EXPERDBMA_BT_HCHK_HAMEMUSAGE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_HGSWAPUSAGE_001");
 				queryList.add("EXPERDBMA_BT_HCHK_HGCONNECTION_001");
+				queryList.add("EXPERDBMA_BT_HCHK_SO_STATUS_CHANGED_001");				
 				
 				for (String s : queryList) {
 					selectList.clear();

@@ -3698,7 +3698,8 @@
                     tmpRow.Item("HCHK_NAME").Equals("REPLICATION_SLOT") Or _
                     tmpRow.Item("HCHK_NAME").Equals("VIRTUAL_IP") Or _
                     tmpRow.Item("HCHK_NAME").Equals("LOCKCNT") Or tmpRow.Item("HCHK_NAME").Equals("TRAXIDLECNT") Or _
-                    tmpRow.Item("HCHK_NAME").Equals("UNUSEDINDEX") Then
+                    tmpRow.Item("HCHK_NAME").Equals("UNUSEDINDEX") Or _
+                    tmpRow.Item("HCHK_NAME").Equals("SOLUTIONSTATUS") Then
                     Dim tmpValue As Long = tmpRow.Item("VALUE")
                     strValue = fn_GetValueCast(tmpRow.Item("HCHK_NAME"), tmpValue)
                 End If
