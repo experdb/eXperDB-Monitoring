@@ -86,6 +86,7 @@ public class TaskManager implements Runnable{
 										log.info("Failed to reset the collector!");	
 									else
 										log.info("The collector reseting  complete!");
+									lcheckResetTime = System.currentTimeMillis ();
 								} 
 							}
 						} catch (Exception e) {
