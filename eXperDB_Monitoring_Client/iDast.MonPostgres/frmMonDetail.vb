@@ -660,7 +660,9 @@ Public Class frmMonDetail
     Private Sub SetDataCpuMem(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-
+        If dtTable Is Nothing Then
+            Return
+        End If
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
 
@@ -851,6 +853,9 @@ Public Class frmMonDetail
     Private Sub SetDataSQLRespTm(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
+        If dtTable Is Nothing Then
+            Return
+        End If
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
         Dim dblMaxPri As Double = 0
 
@@ -880,6 +885,9 @@ Public Class frmMonDetail
     ''' <param name="dtTable"></param>
     ''' <remarks></remarks>
     Private Sub SetDataObject(ByVal dtTable As DataTable)
+        If dtTable Is Nothing Then
+            Return
+        End If
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
@@ -909,6 +917,9 @@ Public Class frmMonDetail
     ''' <remarks></remarks>
     Private Sub SetDataTPS(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
+        If dtTable Is Nothing Then
+            Return
+        End If
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
@@ -938,6 +949,9 @@ Public Class frmMonDetail
     ''' <remarks></remarks>
     Private Sub SetDataLockCount(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
+        If dtTable Is Nothing Then
+            Return
+        End If
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
         Dim dtRows As DataRow() = dtTable.Select("INSTANCE_ID=" & Me.InstanceID)
 
@@ -968,8 +982,9 @@ Public Class frmMonDetail
     Private Sub SetDataBackEnd(ByVal dtTable As DataTable)
         ' 전체 목록중 내것만 추출 
         ' Me.InstanceID => Form New에서 초기에 정보를 가지고 있음. 
-
-
+        If dtTable Is Nothing Then
+            Return
+        End If
         '        Me.dgvResUtilPerBackProc.InvokeRowsClear()
 
         dgvResUtilPerBackProc.Font = _TextFont
@@ -1099,6 +1114,9 @@ Public Class frmMonDetail
     End Function
 
     Private Sub SetDataHealth(ByVal dtTable As DataTable)
+        If dtTable Is Nothing Then
+            Return
+        End If
         'Dim InstanceMaxVals = _
         '  dtTable.AsEnumerable().GroupBy( _
         '      Function(r) New With {Key .InstanceID = r.Field(Of Integer)("INSTANCE_ID"), _
@@ -2890,7 +2908,9 @@ Public Class frmMonDetail
     ''' <param name="dtTable"></param>
     ''' <remarks></remarks>
     Public Sub SetDataStmt(ByVal dtTable As DataTable)
-
+        If dtTable Is Nothing Then
+            Return
+        End If
         Dim strQuery As String = ""
         strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
         Dim strOrder As String = "CALLS DESC"
