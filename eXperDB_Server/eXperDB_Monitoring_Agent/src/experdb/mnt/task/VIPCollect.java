@@ -120,7 +120,7 @@ public class VIPCollect{
 			sessionAgent = sqlSessionFactory.openSession();
 			int withSol = 0, statSol = 0, statSolCollect = 0;
 			//check solution all clusters
-			selectWithSol = sessionAgent.selectList("TB_INSTANCE_INFO_S002");
+			selectWithSol = sessionAgent.selectList("app.TB_INSTANCE_INFO_S002");
 			if(selectWithSol != null){
 				for (HashMap<String, Object> map : selectWithSol) {
 					int instanceId =  Integer.valueOf(map.get("instance_id").toString());
@@ -142,7 +142,6 @@ public class VIPCollect{
 						//get the current status of solution.
 						connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
 						sessionCollect = sqlSessionFactory.openSession(connection);
-						sessionCollect.update("EXPERDBMA_BT_BT_CREATE_EXTENSION_001");
 						sessionCollect.update("EXPERDBMA_BT_CREATE_FUNCTION_001");
 						selectStatSol = sessionCollect.selectOne("app.EXPERDBMA_BT_CHECK_SOLUTION_001");
 						statSolCollect = Integer.valueOf(selectStatSol.get("statsolutions").toString());

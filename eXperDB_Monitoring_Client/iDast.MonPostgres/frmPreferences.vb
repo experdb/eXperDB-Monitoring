@@ -14,6 +14,16 @@ Public Class frmPreferences
         _odbcConn = odbcConn
     End Sub
 
+    Public Sub New(ByRef odbcConn As eXperDBODBC, ByVal index As Integer)
+
+        ' 이 호출은 디자이너에 필요합니다.
+        InitializeComponent()
+        initform()
+
+        _odbcConn = odbcConn
+        _menuIndex = index
+    End Sub
+
     Public Sub initform()
 
         ' 일반설정 탭 
@@ -67,8 +77,7 @@ Public Class frmPreferences
 
     Private Sub frmPreferences_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         initMenu()
-
-        Dim arg = New DataGridViewCellEventArgs(0, 1)
+        Dim arg = New DataGridViewCellEventArgs(0, IIf(_menuIndex >= 0, _menuIndex, 1))
         dgvMenu.Rows(0).Selected = False
         dgvMenu.Rows(1).Selected = True
         dgvMenu_CellClick(dgvMenu, arg)
@@ -143,6 +152,8 @@ Public Class frmPreferences
         ElseIf e.RowIndex = 4 Then
             dgvMenu.Rows(e.RowIndex).Selected = False
             dgvMenu.Rows(5).Selected = True
+        Else
+            dgvMenu.Rows(e.RowIndex).Selected = True
         End If
         ' Check Whether expanding/collapsing by user clicking or by logic
         openForms(e.RowIndex)

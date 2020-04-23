@@ -3226,7 +3226,7 @@
             GC.Collect()
         End Try
         stopwatch.Stop()
-        Console.WriteLine("Time elapsed1: {0}", stopwatch.Elapsed)
+        'Console.WriteLine("Time elapsed1: {0}", stopwatch.Elapsed)
         ' Instance 컨트롤에 Tag에 InstanceID 를 넣어 둫었음.]
         ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
 

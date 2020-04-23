@@ -4484,29 +4484,34 @@ GROUP BY HA_GROUP
 			SELECT INSTANCE_ID, WITHSOLUTIONS, STATSOLUTIONS
 			  FROM TB_INSTANCE_INFO
 			 WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND WITHSOLUTIONS is not null and WITHSOLUTIONS > 0
+			 ORDER BY INSTANCE_ID
 	</select>
-	
-	<update id="EXPERDBMA_BT_BT_CREATE_EXTENSION_001" parameterType="hashmap">
-		/* EXPERDBMA_BT_BT_CREATE_EXTENSION_001 24E9AB7301FF1966DA4FB30DC1538882*/
-		CREATE EXTENSION IF NOT EXISTS plperlu;
-	</update>
 	
 	<update id="EXPERDBMA_BT_CREATE_FUNCTION_001" parameterType="hashmap">
 		<![CDATA[
 		/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
-		CREATE OR REPLACE FUNCTION PSS() RETURNS text AS $BODY$
-		    use warnings;
-		    use strict;
-			my $res;
-			my $man = `ps -ef|grep eXperDB-Management-Agent|grep -v grep |wc -l`;
-		    my $enc = `ps -ef|grep eXperDB-Encrypt-Agent|grep -v grep|wc -l`;
-			if ($man > 0) {$man = 1}
-			else {$man = 0}
-			if ($enc > 0){ $enc = 2}
-			else{$enc = 0	}
-			$res = $enc + $man;
-		    return($res);
-		$BODY$ LANGUAGE plperlu;
+		DO $$
+		DECLARE       
+		    is_in_recovery BOOL;
+		BEGIN    
+		    is_in_recovery := (SELECT PG_IS_IN_RECOVERY());       
+		    IF is_in_recovery = FALSE THEN           
+			    EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS plperlu') ;     
+			    EXECUTE FORMAT('		CREATE OR REPLACE FUNCTION PSS() RETURNS text AS $BODY$
+				    use warnings;
+				    use strict;
+					my $res;
+					my $man = `ps -ef|grep eXperDB-Management-Agent|grep -v grep |wc -l`;
+				    my $enc = `ps -ef|grep eXperDB-Encrypt-Agent|grep -v grep|wc -l`;
+					if ($man > 0) {$man = 1}
+					else {$man = 0}
+					if ($enc > 0){ $enc = 2}
+					else{$enc = 0	}
+					$res = $enc + $man;
+				    return($res);
+				$BODY$ LANGUAGE plperlu;');     
+		    END IF;       
+		 END $$
 		]]>	
 	</update>
 	
