@@ -1,5 +1,6 @@
 ﻿Public Class frmAlertList
 
+    Private _odbcConn As eXperDBODBC
     Private _clsQuery As clsQuerys  ' Main Thread용
     Private _intInstanceID As Integer = -1
     Private _strCollectDt As String = ""
@@ -48,6 +49,7 @@
         _intAlertLevel = intAlertLevel
         _AgentInfo = clsAgentInfo
         _clsQuery = New clsQuerys(AgentCn)
+        _odbcConn = AgentCn
     End Sub
 
     Private Sub frmAlertList_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -357,9 +359,21 @@
 
 
     Private Sub btnConfig_Click(sender As Object, e As EventArgs) Handles btnConfig.Click
-        Dim AlertConfig As New frmAlertConfig(_SvrpList, cmbServer.SelectedIndex - 1)
-        AlertConfig.ShowDialog()
+        'Dim AlertConfig As New frmAlertConfig(_SvrpList, cmbServer.SelectedIndex - 1)
+        'AlertConfig.ShowDialog()
+        If CheckPassword() = False Then Return
+        Dim Preferences As New frmPreferences(_odbcConn, 6)
+        Preferences.ShowDialog()
     End Sub
+
+    Private Function CheckPassword() As Boolean
+        Dim frmPw As New frmPassword(_odbcConn)
+        If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
 
     Private Sub dgvAlertList_CellMouseDown(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvAlertList.CellMouseDown

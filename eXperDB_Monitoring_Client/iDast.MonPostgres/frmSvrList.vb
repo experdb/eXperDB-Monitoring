@@ -868,6 +868,7 @@
 
 
     Private Sub frmSvrList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         MsgLabel2.Text = p_clsMsgData.fn_GetData("M051")
         tbServer.TabPages(0).Enabled = True
         'tbServer.TabPages(0).BackColor = System.Drawing.Color.DimGray
