@@ -188,6 +188,8 @@
                                   dtTable = clsQuery.SelectHCHKReplicationSlots(_IntInstanceID)
                               Case "VIRTUAL_IP"
                                   dtTable = clsQuery.SelectHCHKVirtualIP(_IntInstanceID)
+                              Case "FROZENMAXAGE"
+                                  dtTable = clsQuery.SelectHCHKFrozenMaxAge(_IntInstanceID, _RegDate)
                               Case Else
                                   lblitmNm.Text += " - ERROR"
 

@@ -31,43 +31,52 @@ public class RscCollect extends TaskApplication {
 
 	@Override
 	public void run() {
-		
-		long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("collect_period_sec");
-		
-		long sleepTime;
-		long startTime;
-		long endTime;
-		
-		while (!MonitoringInfoManager.getInstance().isReLoad())
-		{
-			log.debug(System.currentTimeMillis());
+		try {
+			long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("collect_period_sec");
 			
-			try {
-				is_collect_ok = "Y";
-				failed_collect_type = "";
+			long sleepTime;
+			long startTime;
+			long endTime;
+			int checkAlive = 0;
+			
+			while (!MonitoringInfoManager.getInstance().isReLoad())
+			{
+				log.debug(System.currentTimeMillis());
 				
-				startTime =  System.currentTimeMillis();
+				try {
+					is_collect_ok = "Y";
+					failed_collect_type = "";
+					
+					startTime =  System.currentTimeMillis();
+					
+					execute(); //수집 실행
+	
+					//check whether the thread is running or not.
+					if (checkAlive++ % 100 == 0){
+						log.info("[RscCollect ==>> " + instanceId + "]");
+						checkAlive = 1;
+					}
+					
+					endTime =  System.currentTimeMillis();
+					
+					if((endTime - startTime) > (collectPeriod * 1000) )
+					{
+						//처리 시간이 수집주기보다 크면 바로처리
+						continue;
+					} else {
+						sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+					}
 				
-				execute(); //수집 실행
-
-				endTime =  System.currentTimeMillis();
-				
-				if((endTime - startTime) > (collectPeriod * 1000) )
-				{
-					//처리 시간이 수집주기보다 크면 바로처리
-					continue;
-				} else {
-					sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+					Thread.sleep(sleepTime);
+	
+				} catch (Exception e) {
+					log.error("[RscCollect:instanceId ==>> " + instanceId + "]" + " execute fail]", e);
 				}
-			
-				Thread.sleep(sleepTime);
-
-			} catch (Exception e) {
-				//log.error("", e);
-				log.error("[instanceId ==>> " + instanceId + "]" + " execute fail]", e);
 			}
-		}
-		
+		} catch (Exception e) {
+			//log.error("", e);
+			log.error("[RscCollect:instanceId ==>> " + instanceId + "]" + " escaped loop]", e);
+		}		
 	}
 
 	private void execute() {
@@ -120,7 +129,7 @@ public class RscCollect extends TaskApplication {
 					
 					ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_CPU, tempCpu);
 					
-					log.debug("cpu 최초 이전값  ==>>" + ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU));
+					//log.debug("cpu 최초 이전값  ==>>" + ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU));
 				}
 				///////////////////////////////////////////////////////////////////////////////
 	
@@ -310,8 +319,8 @@ public class RscCollect extends TaskApplication {
 					
 					preSaveCpu.put(String.valueOf(map.get("cpu_logical_id")), map);
 					
-					log.debug("cpu 이전값 map   ==>>" + tempMap);
-					log.debug("cpu 정보등록 map ==>>" + map);
+					//log.debug("cpu 이전값 map   ==>>" + tempMap);
+					//log.debug("cpu 정보등록 map ==>>" + map);
 				}
 				
 				ResourceInfo.getInstance().put(instanceId, taskId, RESOURCE_KEY_CPU, preSaveCpu);
@@ -367,8 +376,8 @@ public class RscCollect extends TaskApplication {
 					
 					sessionAgent.insert("app.TB_DISK_IO_I001", map);
 					
-					log.debug("DISK_IO__ 이전값 map ==>>" + tempMap);
-					log.debug("DISK_IO__ 등록값 map ==>>" + map);					
+					//log.debug("DISK_IO__ 이전값 map ==>>" + tempMap);
+					//log.debug("DISK_IO__ 등록값 map ==>>" + map);					
 					
 					preSaveDiskIo.put(String.valueOf(map.get("disk_name")), map);
 					preSaveDiskIo.put("collect_dt", map.get("collect_dt"));
@@ -384,8 +393,8 @@ public class RscCollect extends TaskApplication {
 				}
 				///////////////////////////////////////////////////////////////////////////////				
 				
-				log.debug(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU));
-				log.debug(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_DISK_IO));
+				//log.debug(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU));
+				//log.debug(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_DISK_IO));
 				
 				//Commit
 				sessionAgent.commit();

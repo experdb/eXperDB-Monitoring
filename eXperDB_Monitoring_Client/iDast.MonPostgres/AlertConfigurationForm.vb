@@ -204,6 +204,9 @@
                 Case "UNUSEDINDEX"
                     cbxUnusedindexcnt.Checked = Check
                     nudUnusedindexcnt.Value = nudValue
+                Case "FROZENMAXAGE"
+                    cbxFrozenAge.Checked = Check
+                    nudFrozenMaxAge.Value = nudValue_
                 Case "LASTVACUUM"
                     cbxLastvacuumDay.Checked = Check
                     nudLastvacuumDay.Value = nudValue
@@ -324,6 +327,7 @@
         tmpClass.IdleTransCnt = nudIdletranscnt.Value
         tmpClass.LongRunSqlSec = nudLongrunsqlsec.Value
         tmpClass.UnusedIndexCnt = nudUnusedindexcnt.Value
+        tmpClass.FrozenMaxAge = nudFrozenMaxAge.Value
         tmpClass.LastVacuumDay = nudLastvacuumDay.Value
         tmpClass.LastAnalyzeDay = nudLastAnalyzeday.Value
         tmpClass.ConFailedCnt = nudConfailedcnt.Value
@@ -340,6 +344,8 @@
                     tmpClass.LongrunsqlsecBool = IIf(cbxLongrunsqlsec.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
                 Case "UNUSEDINDEX"
                     tmpClass.UnusedindexcntBool = IIf(cbxUnusedindexcnt.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
+                Case "FROZENMAXAGE"
+                    tmpClass.FrozenMaxAgeBool = IIf(cbxFrozenAge.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "2")
                 Case "LASTVACUUM"
                     tmpClass.LastvacuumDayBool = IIf(cbxLastvacuumDay.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
                 Case "LASTANALYZE"
@@ -423,6 +429,7 @@
         Public IdleTransCnt As Integer
         Public LongRunSqlSec As Integer
         Public UnusedIndexCnt As Integer
+        Public FrozenMaxAge As Integer
         Public LastVacuumDay As Integer
         Public LastAnalyzeDay As Integer
         Public ConFailedCnt As Integer
@@ -434,6 +441,7 @@
         Public IdletranscntBool As String
         Public LongrunsqlsecBool As String
         Public UnusedindexcntBool As String
+        Public FrozenMaxAgeBool As String
         Public LastvacuumDayBool As String
         Public LastAnalyzedayBool As String
         Public ConfailedcntBool As String
@@ -475,6 +483,10 @@
 
     Private Sub cbxUnusedindexcnt_CheckedChanged(sender As Object, e As EventArgs) Handles cbxUnusedindexcnt.CheckedChanged
         nudUnusedindexcnt.Enabled = cbxUnusedindexcnt.Checked
+    End Sub
+
+    Private Sub cbxFrozenAge_CheckedChanged(sender As Object, e As EventArgs) Handles cbxFrozenAge.CheckedChanged
+        nudFrozenMaxAge.Enabled = cbxFrozenAge.Checked
     End Sub
 
     Private Sub cbxLastAnalyzeday_CheckedChanged(sender As Object, e As EventArgs) Handles cbxLastAnalyzeday.CheckedChanged

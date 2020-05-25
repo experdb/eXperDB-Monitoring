@@ -1064,6 +1064,7 @@ WITH COL AS (
 				             WHEN C.table_size_kb/1024 > 20 
 				             THEN CASE WHEN round(C.bloat_size_kb/C.table_size_kb * 100,2) > 50 THEN 1 ELSE 0 END   
 				        ELSE 0 END AS bloat_table
+              , RELAGE
             FROM (SELECT INSTANCE_ID FROM TB_INSTANCE_INFO WHERE DELETE_YN='N' AND COLLECT_YN='Y' AND INSTANCE_ID IN ({0})) A,
                (SELECT MAX(REG_DATE) AS REG_DATE, MAX(OBJT_REG_SEQ) AS OBJT_REG_SEQ, INSTANCE_ID FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B,
                TB_TABLE_INFO C
@@ -2987,7 +2988,32 @@ WITH COL AS (
     ]]>
     </DATA>
     </ROW>
-    
+  <ROW ID="FROZENMAXAGE" PARAMS="2">
+    <DESC>HEALTH CHECK FROZENMAXAGE</DESC>
+    <DATA>
+      <![CDATA[
+			WITH IST AS (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN='N' AND INSTANCE_ID = {0}),
+				 TTE AS (
+					SELECT O.INSTANCE_ID, O.REG_DATE, O.OBJT_REG_SEQ, CAST(MAX(T.MAXAGE) AS REAL) M1
+					  FROM IST,
+					  	   TB_OBJT_COLLECT_INFO O,
+					  	   TB_TABLE_EXT_INFO T
+					 WHERE O.REG_DATE='{1}'
+					   AND O.OBJT_REG_SEQ = (SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=O.INSTANCE_ID )
+					   AND O.OBJT_REG_SEQ = T.OBJT_REG_SEQ
+					   AND O.INSTANCE_ID = IST.INSTANCE_ID
+					 GROUP BY O.REG_DATE,O.OBJT_REG_SEQ,O.INSTANCE_ID
+					 )
+				SELECT DB_NAME, M1::NUMERIC(12,0) FROZENMAXAGE
+				 FROM TTE, TB_TABLE_INFO TTI
+				 WHERE TTE.REG_DATE = TTI.REG_DATE
+				   AND TTE.OBJT_REG_SEQ = TTI.OBJT_REG_SEQ LIMIT 1
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  
+  
   <ROW ID="SELECTSERIALKEY" PARAMS="0">
     <DESC>SELECT SERIAL KEY</DESC>
     <DATA>
@@ -3431,7 +3457,8 @@ WITH COL AS (
 								   SELECT 	elem->>'userid' AS USERID 
 											,elem->>'dbid'AS DBID 
 											,(elem->>'queryid')::int8 AS QUERYID
-											,(elem->>'calls')::int8 AS CALLS
+											,(elem->>'cqueryid')::varchar AS CQUERYID
+                      ,(elem->>'calls')::int8 AS CALLS
 											,(elem->>'total_time')::float8 AS TOTAL_TIME 
 											,(elem->>'min_time')::float8 AS MIN_TIME 
 											,(elem->>'max_time')::float8 AS MAX_TIME 
@@ -3510,9 +3537,8 @@ WITH COL AS (
 					,(100*(MAX(ROWS)-MIN(ROWS))/(SELECT GREATEST(MAX(SUM_ROWS)-MIN(SUM_ROWS),1) FROM STATS))::numeric(20, 2) AS ROW_PERCENT
 	      	 ,MAX(QI.QUERY) AS QUERY
 	     FROM MAXD
-	          LEFT OUTER JOIN TB_QUERY_INFO QI
-	           ON QI.STMT_QUERYID = MAXD.QUERYID
-	           AND QI.INSTANCE_ID = MAXD.INSTANCE_ID
+	          LEFT OUTER JOIN TB_PGSS_QUERY_INFO QI
+	           ON QI.QUERYID = MAXD.CQUERYID
 --	      GROUP BY MAXD.INSTANCE_ID, MAXD.REG_DATE,MAXD.DBID, MAXD.USERID,MAXD.QUERYID 
 	      GROUP BY MAXD.INSTANCE_ID, MAXD.DBID, MAXD.USERID,MAXD.QUERYID 
 		  ORDER BY CALLS DESC, TOTAL_TIME DESC;
@@ -3756,64 +3782,69 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DESC>PT_04_10_001(SELECTAUTOVACUUMTOP)</DESC>
     <DATA>
       <![CDATA[               
-        WITH OLDEST AS (
-        SELECT OBJT_REG_SEQ, COLLECT_DT, RELID, AUTOVACUUM_COUNT, AUTOANALYZE_COUNT
-	        FROM tb_table_ext_info
-					WHERE objt_reg_seq = (
-							                  SELECT min(C.objt_reg_seq) objt_reg_seq
-							                            FROM TB_INSTANCE_INFO A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
-											            WHERE A.INSTANCE_ID = B.INSTANCE_ID
-                                  	AND A.INSTANCE_ID = C.INSTANCE_ID
-											              AND A.INSTANCE_ID IN ({0})
-											              AND A.COLLECT_YN = 'Y'
-											              AND A.DELETE_YN = 'N'
-											              AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
-											              AND B.REG_DATE::date = '{1}'::date
-											              AND B.REG_TIME >= '{1}'::time
-										          )
-            AND COLLECT_DT::date = '{1}'::date
-				),
-				RECENT AS (
+	    WITH 
+	    INS AS (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N' ),
+	    STARTSEQ AS (				                  
+	    		SELECT min(C.objt_reg_seq) objt_reg_seq
+                  FROM INS A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
+	             WHERE A.INSTANCE_ID = B.INSTANCE_ID
+				   AND A.INSTANCE_ID = C.INSTANCE_ID
+	               AND A.INSTANCE_ID IN ({0})
+	               AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+	               AND B.REG_DATE = to_char('{1}'::date, 'YYYYMMDD')
+	               AND B.REG_DATE = C.REG_DATE
+				   AND B.REG_TIME >= '{1}'::time
+		),
+		ENDSEQ AS (
+	            SELECT max(C.objt_reg_seq) objt_reg_seq
+                  FROM INS A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
+			     WHERE A.INSTANCE_ID = B.INSTANCE_ID
+   				   AND A.INSTANCE_ID = C.INSTANCE_ID
+			       AND A.INSTANCE_ID IN ({0})
+		           AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+		           AND B.REG_DATE = to_char('{2}'::date, 'YYYYMMDD')
+		           AND B.REG_DATE = C.REG_DATE
+		           AND B.REG_TIME <= '{2}'::time
+		),
+		TBLSEQ AS (
+          SELECT max(C.objt_reg_seq) objt_reg_seq
+            FROM INS A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
+			             WHERE A.INSTANCE_ID = B.INSTANCE_ID
+			               AND A.INSTANCE_ID = C.INSTANCE_ID
+			               AND A.INSTANCE_ID IN ({0})
+			               AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
+			               AND B.REG_DATE = to_char('{1}'::date, 'YYYYMMDD')
+			               AND B.REG_DATE = C.REG_DATE
+			               AND B.REG_TIME >= '{1}'::time
+			             GROUP BY A.INSTANCE_ID
+		),
+		OLDEST AS (
+		        SELECT OBJT_REG_SEQ, COLLECT_DT, RELID, AUTOVACUUM_COUNT, AUTOANALYZE_COUNT
+			      FROM tb_table_ext_info
+				 WHERE REG_DATE = to_char('{1}'::date, 'YYYYMMDD')
+				   AND objt_reg_seq = (SELECT * FROM STARTSEQ)
+            	   AND COLLECT_DT::date = '{1}'::date
+		),
+		RECENT AS (
 				SELECT OBJT_REG_SEQ, COLLECT_DT, RELID, AUTOVACUUM_COUNT, AUTOANALYZE_COUNT
-	                FROM tb_table_ext_info
-					WHERE objt_reg_seq = (
-							                  SELECT max(C.objt_reg_seq) objt_reg_seq
-							                    FROM TB_INSTANCE_INFO A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
-											           WHERE A.INSTANCE_ID = B.INSTANCE_ID
-                                   AND A.INSTANCE_ID = C.INSTANCE_ID
-											             AND A.INSTANCE_ID IN ({0})
-											             AND A.COLLECT_YN = 'Y'
-											             AND A.DELETE_YN = 'N'
-											             AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
-											             AND B.REG_DATE::date = '{2}'::date
-											             AND B.REG_TIME <= '{2}'::time
-										           )
-            AND COLLECT_DT::date = '{2}'::date
+	              FROM tb_table_ext_info
+				 WHERE REG_DATE = to_char('{2}'::date, 'YYYYMMDD')
+				   AND objt_reg_seq = (SELECT * FROM ENDSEQ)
+				   AND COLLECT_DT::date = '{2}'::date
 				),
-				TBI AS (
+		TBI AS (
 				SELECT DB_NAME, SCHEMA_NAME, TABLE_NAME, RELID
-	        FROM TB_TABLE_INFO
-				 WHERE objt_reg_seq in (
-				                          SELECT max(C.objt_reg_seq) objt_reg_seq
-				                            FROM TB_INSTANCE_INFO A, TB_OBJT_COLLECT_INFO B, TB_TABLE_EXT_INFO C
-											             WHERE A.INSTANCE_ID = B.INSTANCE_ID
-											               AND A.INSTANCE_ID IN ({0})
-											               AND A.COLLECT_YN = 'Y'
-											               AND A.DELETE_YN = 'N'
-											               AND B.OBJT_REG_SEQ = C.OBJT_REG_SEQ
-											               AND B.REG_DATE::date = '{1}'::date
-											               AND B.REG_TIME >= '{1}'::time
-											             GROUP BY A.INSTANCE_ID
-										           )
-				)
-			  SELECT /*SELECTAUTOVACUUMTOP*/ 
+			        FROM TB_TABLE_INFO
+			       WHERE objt_reg_seq in (SELECT * FROM TBLSEQ)
+			    )
+		SELECT /*SELECTAUTOVACUUMTOP*/ 
                DB_NAME, SCHEMA_NAME, TABLE_NAME, R.RELID,
-			    	   (COALESCE(R.autovacuum_count,0) - COALESCE(O.autovacuum_count,0)) ROV,
-			         (COALESCE(R.autovacuum_count,0) - COALESCE(O.autovacuum_count,0)) ROA
+			   (COALESCE(R.autovacuum_count,0) - COALESCE(O.autovacuum_count,0)) ROV,
+			   (COALESCE(R.autovacuum_count,0) - COALESCE(O.autovacuum_count,0)) ROA
           FROM RECENT R LEFT OUTER JOIN OLDEST O ON R.relid = O.relid, TBI TI
          WHERE TI.RELID = R.RELID
          ORDER BY ROV DESC, R.autovacuum_count DESC, ROA DESC, RELID
-	       LIMIT {3}
+	     LIMIT {3}
      ]]>
     </DATA>
   </ROW>
@@ -3825,6 +3856,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 			    SELECT RELID, db_name || '.' || schema_name || '.' || table_name AS table_name
 			      FROM TB_TABLE_INFO
 			     WHERE RELID IN ({3})
+             AND REG_DATE = '{1}'
 			     ORDER BY OBJT_REG_SEQ DESC
 			     LIMIT (SELECT count(*)+1 FROM regexp_matches('{3}', ',', 'g'))
 		    )
@@ -3915,7 +3947,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
                 TOTAL_TIME  / CALLS AS AVG_TIME, 
                 R.COLLECT_DT 
         FROM R
-        JOIN TB_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.QUERYID = Q.STMT_QUERYID AND R.USERID = Q.USERID AND R.DBID = Q.DBID
+        JOIN TB_PGSS_QUERY_INFO Q ON R.CQUERYID = Q.QUERYID
         JOIN TB_USER_INFO U ON R.INSTANCE_ID = U.INSTANCE_ID AND R.USERID = U.USER_ID
         JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID   
       ]]>
@@ -3941,7 +3973,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 			GROUP BY instance_id, dbid, userid, QUERYID, CQUERYID
          ) AS R
         --JOIN TB_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.CQUERYID = Q.QUERYID
-        JOIN TB_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.QUERYID = Q.STMT_QUERYID AND R.USERID = Q.USERID AND R.DBID = Q.DBID
+        JOIN TB_PGSS_QUERY_INFO Q ON R.CQUERYID = Q.QUERYID
         JOIN TB_USER_INFO U ON R.INSTANCE_ID = U.INSTANCE_ID AND R.USERID = U.USER_ID
         JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID
         ORDER BY CALLS DESC

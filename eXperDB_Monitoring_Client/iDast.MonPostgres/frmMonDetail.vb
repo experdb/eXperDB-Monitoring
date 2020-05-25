@@ -2924,7 +2924,7 @@ Public Class frmMonDetail
         End If
 
         If ShowDT Is Nothing Then
-            dgvStmtList.DataSource = Nothing
+            'dgvStmtList.DataSource = Nothing
             Return
         End If
 

@@ -104,6 +104,14 @@
     <COLUMNS />
     <VALUECAST>1|Management;2|Encrypt;3|Both</VALUECAST>
   </ROW>
+  <ROW ID="FROZENMAXAGE" PARAMS="0">
+    <DESC>FROZENMAXAGE를 점검합니다..</DESC>
+    <DATA><![CDATA[FROZENMAXAGE]]></DATA>
+    <COMMENTS>pg_class.relfrozenxid, pg_database.datfrozenxid, autovacuum_frozen_max_age</COMMENTS>
+    <CATEGORY>HEALTH</CATEGORY>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||200;FROZENMAXAGE|FROZENMAXAGE|NUMBER|N0|50</COLUMNS>
+    <VALUECAST />
+  </ROW>
   <ROW ID="F001" PARAMS="0">
     <DESC>수집서버설정 표시내용</DESC>
     <DATA><![CDATA[Agent Server Information]]></DATA>
