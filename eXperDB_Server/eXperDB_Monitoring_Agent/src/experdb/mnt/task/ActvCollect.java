@@ -20,6 +20,7 @@ import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
 import experdb.mnt.db.dbcp.DBCPPoolManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
+import experdb.mnt.util.MD5Gen;
 
 public class ActvCollect extends TaskApplication {
 
@@ -40,45 +41,55 @@ public class ActvCollect extends TaskApplication {
 
 	@Override
 	public void run() {
-		
-		instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version_min");
-		
-		long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("collect_period_sec");
-		
-		long sleepTime;
-		long startTime;
-		long endTime;
-		
-		while (!MonitoringInfoManager.getInstance().isReLoad())
-		{
-			log.debug(System.currentTimeMillis());
+		try {
+			instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version_min");
 			
-			try {
-				is_collect_ok = "Y";
-				failed_collect_type = "";
+			long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("collect_period_sec");
+			
+			long sleepTime;
+			long startTime;
+			long endTime;
+			int checkAlive = 0;
+			
+			while (!MonitoringInfoManager.getInstance().isReLoad())
+			{
+				//log.debug(System.currentTimeMillis());
 				
-				startTime =  System.currentTimeMillis();
+				try {
+					is_collect_ok = "Y";
+					failed_collect_type = "";
+					
+					startTime =  System.currentTimeMillis();
+					
+					execute(); //수집 실행
+	
+					//check whether the thread is running or not.
+					if (checkAlive++ % 100 == 0){
+						log.info("[ActvCollect ==>> " + instanceId + "]");
+						checkAlive = 1;
+					}
+					
+					endTime =  System.currentTimeMillis();
+					
+					if((endTime - startTime) > (collectPeriod * 1000) )
+					{
+						//처리 시간이 수집주기보다 크면 바로처리
+						continue;
+					} else {
+						sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+					}
 				
-				execute(); //수집 실행
-
-				endTime =  System.currentTimeMillis();
-				
-				if((endTime - startTime) > (collectPeriod * 1000) )
-				{
-					//처리 시간이 수집주기보다 크면 바로처리
-					continue;
-				} else {
-					sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+					Thread.sleep(sleepTime);
+	
+				} catch (Exception e) {
+					//log.error("", e);
+					log.error("[ActvCollect:instanceId ==>> " + instanceId + "]" + " execute fail]", e);
 				}
-			
-				Thread.sleep(sleepTime);
-
-			} catch (Exception e) {
-				//log.error("", e);
-				log.error("[instanceId ==>> " + instanceId + "]" + " execute fail]", e);
-			}
-		}
-		
+			}		
+		} catch (Exception e) {
+			//log.error("", e);
+			log.error("[ActvCollect:instanceId ==>> " + instanceId + "]" + " escaped loop]", e);
+		}		
 	}	
 	
 	private void execute() {
@@ -90,7 +101,7 @@ public class ActvCollect extends TaskApplication {
 		try {
 			// DB Connection을 가져온다
 			sqlSessionFactory = SqlSessionManager.getInstance();
-			
+			log.debug("[instanceId ==>> " + instanceId + "]" + " Collect]");
 			try {
 				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
 				sessionCollect = sqlSessionFactory.openSession(connection);
@@ -234,9 +245,6 @@ public class ActvCollect extends TaskApplication {
 				PoolingDriver driver = (PoolingDriver) DriverManager.getDriver("jdbc:apache:commons:dbcp:");
 				String[] poolNames = driver.getPoolNames();
 				
-				log.debug("이전 pool ==>> " + Arrays.toString(poolNames));
-				
-		
 				for (HashMap<String, Object> mapDB : dbConnList) {
 					String poolName = instanceId + "." + taskId + "." + mapDB.get("db_name");
 					
@@ -333,6 +341,7 @@ public class ActvCollect extends TaskApplication {
 				
 				///////////////////////////////////////////////////////////////////////////////
 				// TB_ACTV_COLLECT_INFO 정보 등록
+				log.debug("[instanceId ==>> " + instanceId + "]" + " Debug Insert ACTV]");
 				
 				//금일자 최초 거래인지 확인
 				HashMap<String, Object> regDateMap = sessionAgent.selectOne("app.TB_ACTV_COLLECT_INFO_S001");
@@ -354,6 +363,7 @@ public class ActvCollect extends TaskApplication {
 				
 				if(is_collect_ok.equals("N"))
 				{
+					log.debug("[instanceId ==>> " + instanceId + "]" + " Debug Insert ACTV only commit]");
 					sessionAgent.commit();
 					return;
 				}
@@ -448,7 +458,7 @@ public class ActvCollect extends TaskApplication {
 					{
 						HashMap<String, Object> inputParam = new HashMap<String, Object>();
 						inputParam.put("instance_id", 				Integer.parseInt(instanceId));
-						inputParam.put("queryid", 					map.get("sql"));
+						inputParam.put("queryid", 					MD5Gen.getMd5(map.get("sql").toString()));
 						inputParam.put("query", 					map.get("sql"));
 						inputParam.put("dbid", 						map.get("datid"));
 						inputParam.put("userid", 					map.get("usesysid"));
@@ -460,7 +470,8 @@ public class ActvCollect extends TaskApplication {
 						sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
 						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
 						if (queryIdMap == null){
-							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+							if(inputParam.get("queryid") != null)
+								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
 						}
 
 //						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
@@ -490,6 +501,7 @@ public class ActvCollect extends TaskApplication {
 				}
 				///////////////////////////////////////////////////////////////////////////////			
 				
+				log.debug("[instanceId ==>> " + instanceId + "]" + " Debug Insert ACTV commit]");
 				//Commit
 				sessionAgent.commit();
 			} catch (Exception e) {

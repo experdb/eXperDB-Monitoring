@@ -33,7 +33,7 @@ public class DailyBatchTask {
 	
 	private void execute() {
 		SqlSession sessionAgent  = null;
-		
+		log.info("DailyBatchTask Start");
 		try {
 			// 라이센스 검증
 			try {
@@ -340,6 +340,7 @@ public class DailyBatchTask {
 			log.error("", e);
 		} finally {
 			if(sessionAgent != null) sessionAgent.close();
+			log.info("DailyBatchTask End");
 		}
 	}
 }

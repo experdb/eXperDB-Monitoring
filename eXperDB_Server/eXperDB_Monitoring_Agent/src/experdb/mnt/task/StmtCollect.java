@@ -19,6 +19,7 @@ import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
 import experdb.mnt.db.dbcp.DBCPPoolManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
+import experdb.mnt.util.MD5Gen;
 
 public class StmtCollect extends TaskApplication {
 
@@ -45,7 +46,7 @@ public class StmtCollect extends TaskApplication {
 		
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
-			log.debug(System.currentTimeMillis());
+			//log.debug(System.currentTimeMillis());
 			
 			try {
 				startTime =  System.currentTimeMillis();				
@@ -134,37 +135,37 @@ public class StmtCollect extends TaskApplication {
 				
 				JSONArray stmtArray = new JSONArray();
 				for (HashMap<String, Object> map : pgssSel) {
-					HashMap<String, Object> inputParam = new HashMap<String, Object>();
-					inputParam.put("instance_id", 				Integer.parseInt(reqInstanceId));
-					//inputParam.put("db_name", 					map.get("db_name"));
-					//inputParam.put("queryid", 					map.get("query"));
-					//inputParam.put("query", 						map.get("query"));									
-					inputParam.put("dbid", 			map.get("dbid"));
-					inputParam.put("userid", 		map.get("userid"));
-					inputParam.put("query", 		map.get("queryid"));			
-					HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S002", inputParam);
-					if (queryIdMap == null){
-//						inputParam.put("stmt_queryid", 				map.get("queryid"));
-//						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
-						try{							
-							HashMap<String, Object> fullQueryMap = null;
-							inputParam.put("queryid", 	map.get("queryid"));
-							fullQueryMap = sessionCollect.selectOne("app.BT_RTSTMT_INFO_QUERY_001", inputParam);
-							if (fullQueryMap != null){
-								inputParam.put("stmt_queryid", 			map.get("queryid"));
-								inputParam.put("query", 			    fullQueryMap.get("query"));
-								inputParam.put("queryid", 			    fullQueryMap.get("query"));
-								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
-							}
-						} catch (Exception e) {
-							//log.error("", e);
-							log.error("[instanceId ==>> " + instanceId + "]", e);
-						} 
-						
-					}
-					
-					inputParam.put("stmt_queryid", 				map.get("queryid"));
-					sessionAgent.insert("app.TB_QUERY_INFO_I002", inputParam);
+//					HashMap<String, Object> inputParam = new HashMap<String, Object>();
+//					inputParam.put("instance_id", 				Integer.parseInt(reqInstanceId));
+//					//inputParam.put("db_name", 					map.get("db_name"));
+//					//inputParam.put("queryid", 					map.get("query"));
+//					//inputParam.put("query", 						map.get("query"));									
+//					inputParam.put("dbid", 			map.get("dbid"));
+//					inputParam.put("userid", 		map.get("userid"));
+//					inputParam.put("query", 		map.get("queryid"));			
+//					HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S002", inputParam);
+//					if (queryIdMap == null){
+////						inputParam.put("stmt_queryid", 				map.get("queryid"));
+////						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+//						try{							
+//							HashMap<String, Object> fullQueryMap = null;
+//							inputParam.put("queryid", 	map.get("queryid"));
+//							fullQueryMap = sessionCollect.selectOne("app.BT_RTSTMT_INFO_QUERY_001", inputParam);
+//							if (fullQueryMap != null){
+//								inputParam.put("stmt_queryid", 			map.get("queryid"));
+//								inputParam.put("query", 			    fullQueryMap.get("query"));
+//								inputParam.put("queryid", 			    fullQueryMap.get("queryid"));
+//								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+//							}
+//						} catch (Exception e) {
+//							//log.error("", e);
+//							log.error("[instanceId ==>> " + instanceId + "]", e);
+//						} 
+//						
+//					}
+// temporary out					
+//					inputParam.put("stmt_queryid", 				map.get("queryid"));
+//					sessionAgent.insert("app.TB_QUERY_INFO_I002", inputParam);
 					
 					JSONObject stmtObj = new JSONObject();
 					//stmtObj.put("userid"			 ,map.get("userid"));
@@ -172,6 +173,7 @@ public class StmtCollect extends TaskApplication {
 					stmtObj.put("userid"			 ,map.get("username"));
 					stmtObj.put("dbid"               ,map.get("db_name"));
 					stmtObj.put("queryid"		     ,map.get("queryid"));
+					stmtObj.put("cqueryid"		     ,MD5Gen.getMd5((map.get("query").toString())));
 					stmtObj.put("calls"		         ,map.get("calls"));
 					stmtObj.put("total_time"         ,map.get("total_time"));
 					stmtObj.put("min_time"           ,map.get("min_time"));

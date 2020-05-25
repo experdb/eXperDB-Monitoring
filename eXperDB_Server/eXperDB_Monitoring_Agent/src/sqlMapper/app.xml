@@ -388,7 +388,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 					 	  WHEN autovacuum = 'off' AND dead_tuple_cnt > 0
 					 	  THEN TRUE
 					 	  ELSE FALSE
-					 	  END AS need_analyze
+					 	  END AS need_analyze,
+					 age(relfrozenxid) relage
 		 FROM (
 				   SELECT ceil( reltuples / ( (bs-page_hdr)/tpl_size ) ) + ceil( toasttuples / 4 ) AS est_tblpages,reltuples,
 							    ceil( reltuples / ( (bs-page_hdr)*fillfactor/(tpl_size*100) ) ) + ceil( toasttuples / 4 ) AS est_tblpages_ff,
@@ -407,7 +408,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
 				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
 				 				  WHERE OPT_NM = 'autovacuum_analyze_threshold') AAT,
-								 (SELECT setting FROM pg_settings WHERE name = 'autovacuum') autovacuum
+								 (SELECT setting FROM pg_settings WHERE name = 'autovacuum') autovacuum,
+								 relfrozenxid
 				     FROM (
 						       SELECT ( 4 + tpl_hdr_size + tpl_data_size + (2*ma)
 									           - CASE WHEN tpl_hdr_size%ma = 0 THEN ma ELSE tpl_hdr_size%ma END
@@ -438,6 +440,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 									 	       ,utb.autoanalyze_count autoanalyze_count
 									 	       ,utb.n_mod_since_analyze n_mod_since_analyze
 									 	       ,reloptions
+									 	       ,relfrozenxid
 							       FROM (
 										         SELECT  tbl.oid AS tblid, ns.nspname AS schemaname, tbl.relname AS tblname, tbl.reltuples,
 													           tbl.relpages AS heappages, coalesce(toast.relpages, 0) AS toastpages,
@@ -454,7 +457,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 													           bool_or(att.atttypid = 'pg_catalog.name'::regtype)
 													                OR count(att.attname) <> count(s.attname) AS is_na,
 													           tbl.reltoastrelid AS reltoastrelid,
-													           tbl.reloptions
+													           tbl.reloptions,
+													           tbl.relfrozenxid
 										           FROM pg_attribute AS att
 												            JOIN pg_class AS tbl ON att.attrelid = tbl.oid
 												            JOIN pg_namespace AS ns ON ns.oid = tbl.relnamespace
@@ -465,7 +469,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 												            LEFT JOIN pg_class AS toast ON tbl.reltoastrelid = toast.oid
 										          WHERE att.attnum > 0 AND NOT att.attisdropped
 										            AND tbl.relkind = 'r'
-										          GROUP BY 1,2,3,4,5,6,7,8,9,10, tbl.relhasoids,15,16
+										          GROUP BY 1,2,3,4,5,6,7,8,9,10, tbl.relhasoids,15,16,17
 										          ORDER BY 2,3
 				       ) AS s 
 				       JOIN PG_STAT_USER_TABLES UTB ON UTB.relname=s.tblname AND UTB.schemaname = s.schemaname
@@ -508,7 +512,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		    need_vacuum,
 		    need_analyze,
 		    collect_dt,
-		    relid
+		    relid,
+		    relage
 	    )
 		VALUES 
 		(
@@ -537,7 +542,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{need_vacuum},
 		    #{need_analyze},
 			#{collect_dt},		
-		    #{relid}
+		    #{relid},
+		    #{relage}
 		)
 	</insert>
 	
@@ -1620,6 +1626,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	
 	<select id="EXPERDBMA_BT_HCHK_CONNECTION_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
+		WITH IST AS (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN='N')
 		SELECT /* EXPERDBMA_BT_HCHK_CONNECTION_001 */
 		         ACM.INSTANCE_ID,
 		         --ROUND(SUM(CASE WHEN BAK.SQL <> '<IDLE>' THEN 0 ELSE 1 END)::NUMERIC/MAX(IST.MAX_CONN_CNT) * 100, 2) AS ACTIVECONNECTION,
@@ -1632,16 +1639,14 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		         BAK.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
 		         CURRENT_TIME AS REG_TIME
 		         --'ACTIVECONNECTION,TRAXIDLECNT,LONGRUNSQL' AS ITEM
-		 FROM TB_ACTV_COLLECT_INFO AS ACM,
-		         TB_INSTANCE_INFO AS IST,
-		         TB_BACKEND_RSC AS BAK
+		 FROM IST,
+		 	  TB_ACTV_COLLECT_INFO AS ACM,
+		      TB_BACKEND_RSC AS BAK
 		WHERE BAK.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		   AND BAK.REG_DATE = ACM.REG_DATE
 		   AND BAK.ACTV_REG_SEQ = (SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
 		   AND BAK.ACTV_REG_SEQ = ACM.ACTV_REG_SEQ
 		   AND IST.INSTANCE_ID = ACM.INSTANCE_ID
-			AND IST.COLLECT_YN = 'Y'
-		   AND IST.DELETE_YN='N'
 		GROUP BY BAK.REG_DATE,BAK.ACTV_REG_SEQ,ACM.INSTANCE_ID;
 		]]>
 	</select>
@@ -1682,25 +1687,43 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	</select>
 	
 	<select id="EXPERDBMA_BT_HCHK_UNUSEDINDEX_001" parameterType="hashmap" resultType="hashmap">
-		SELECT /* EXPERDBMA_BT_HCHK_UNUSEDINDEX_001 */
-		         OCM.INSTANCE_ID,
-		         SUM(CASE WHEN AGG_INDEX_SCAN_CNT = 0 THEN 1 ELSE 0 END)  AS UNUSEDINDEX,
-		         --IDX.AGG_INDEX_SCAN_CNT AS VALUE,
-		         '1' AS COLLECT_GROUP,
-		         IDX.REG_DATE AS COLLECT_REG_DATE,
-		         IDX.OBJT_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
-		         CURRENT_TIME AS REG_TIME 	
-		  FROM TB_OBJT_COLLECT_INFO AS OCM,
-		          TB_INSTANCE_INFO AS IST,
-		          TB_INDEX_INFO IDX
-		WHERE IDX.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
-		   AND IDX.REG_DATE = OCM.REG_DATE
-		   AND IDX.OBJT_REG_SEQ = (SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
-		   AND IDX.OBJT_REG_SEQ = OCM.OBJT_REG_SEQ  
-		   AND IST.INSTANCE_ID = OCM.INSTANCE_ID   
-			AND IST.COLLECT_YN = 'Y'             
-		   AND IST.DELETE_YN='N' 
-		GROUP BY IDX.REG_DATE,IDX.OBJT_REG_SEQ,OCM.INSTANCE_ID;
+		WITH IST AS (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN='N'),
+		IDX AS (
+			SELECT /* EXPERDBMA_BT_HCHK_UNUSEDINDEX_001 */
+			         OCM.INSTANCE_ID,
+			         SUM(CASE WHEN AGG_INDEX_SCAN_CNT = 0 THEN 1 ELSE 0 END)  AS UNUSEDINDEX,
+			         --IDX.AGG_INDEX_SCAN_CNT AS VALUE,
+			         '1' AS COLLECT_GROUP,
+			         IDX.REG_DATE AS COLLECT_REG_DATE,
+			         IDX.OBJT_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+			         CURRENT_TIME AS REG_TIME 	
+			  FROM TB_OBJT_COLLECT_INFO AS OCM,
+			          TB_INSTANCE_INFO AS IST,
+			          TB_INDEX_INFO IDX
+			WHERE IDX.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+			   AND IDX.REG_DATE = OCM.REG_DATE
+			   AND IDX.OBJT_REG_SEQ = (SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+			   AND IDX.OBJT_REG_SEQ = OCM.OBJT_REG_SEQ  
+			   AND IST.INSTANCE_ID = OCM.INSTANCE_ID   
+				AND IST.COLLECT_YN = 'Y'             
+			   AND IST.DELETE_YN='N' 
+			GROUP BY IDX.REG_DATE,IDX.OBJT_REG_SEQ,OCM.INSTANCE_ID
+		),
+		TTE AS (
+			SELECT O.INSTANCE_ID, CAST(MAX(T.MAXAGE) AS REAL) / CAST(trunc(((2^32)/2)-1-1000000) AS REAL) M1, CAST(MAX(T.MAXAGE) AS REAL) * 100 M2
+			  FROM IST, 
+			  	   TB_OBJT_COLLECT_INFO O,
+			  	   TB_TABLE_EXT_INFO T
+			 WHERE O.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
+			   AND IST.INSTANCE_ID = O.INSTANCE_ID
+			   AND O.OBJT_REG_SEQ = (SELECT MAX(X.OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND X.INSTANCE_ID=IST.INSTANCE_ID )
+			   AND O.OBJT_REG_SEQ = T.OBJT_REG_SEQ
+			 GROUP BY O.REG_DATE,O.OBJT_REG_SEQ,O.INSTANCE_ID
+		)
+--		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, TTE.M1::NUMERIC(5,2) FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
+		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, M1 FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
+		  FROM IDX, TTE
+		 WHERE IDX.INSTANCE_ID = TTE.INSTANCE_ID
 	</select>
 	
 	<select id="EXPERDBMA_BT_HCHK_LASTANALYZE_002" parameterType="hashmap" resultType="hashmap">
@@ -2016,7 +2039,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		        SETTING AS MAX_CONN_CNT, 
 		        GET_CPU_CLOCKS() AS CPU_CLOCKS, 
 		        GET_HOSTNAME() AS HOST_NAME,
-		        VERSION() AS PG_VERSION 
+		        VERSION() AS PG_VERSION,
+		        (SELECT setting::int4 FROM pg_settings WHERE name = 'autovacuum_freeze_max_age' ) AS AFMA
 		  FROM PG_SETTINGS 
 		  WHERE NAME='max_connections'
 	</select>
@@ -2054,7 +2078,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							CASE WHEN pg_is_in_recovery() THEN 
 								CASE WHEN pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn() THEN 0
 								     ELSE pg_last_wal_receive_lsn() - pg_last_wal_replay_lsn() END
-							ELSE '0' END AS REPLAY_LAG_SIZE
+							ELSE '0' END AS REPLAY_LAG_SIZE,
+							(SELECT setting::int4 FROM pg_settings WHERE name = 'autovacuum_freeze_max_age' ) AS AFMA
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
 					 ]]>
@@ -2090,7 +2115,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							CASE WHEN pg_is_in_recovery() THEN 
 								CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
 								     ELSE pg_last_xlog_receive_location() - pg_last_xlog_replay_location() END
-							 ELSE '0' END AS REPLAY_LAG_SIZE		
+							 ELSE '0' END AS REPLAY_LAG_SIZE,
+							(SELECT setting::int4 FROM pg_settings WHERE name = 'autovacuum_freeze_max_age' ) AS AFMA		
 					  FROM PG_SETTINGS 
 					 WHERE NAME='max_connections'
 					 ]]>
@@ -2121,7 +2147,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							CASE WHEN pg_is_in_recovery() THEN 
 									  CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0
 									     ELSE pg_last_xlog_receive_location() - pg_last_xlog_replay_location() END
-								 ELSE '0' END AS REPLAY_LAG_SIZE
+								 ELSE '0' END AS REPLAY_LAG_SIZE,
+							(SELECT setting::int4 FROM pg_settings WHERE name = 'autovacuum_freeze_max_age' ) AS AFMA
 					   FROM PG_SETTINGS 
 					   WHERE NAME='max_connections'					   
 					]]>
@@ -2204,7 +2231,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   MAX_CONN_CNT = #{max_conn_cnt},
 			   CPU_CLOCKS = #{cpu_clocks},
 			   HOST_NAME = #{host_name},
-			   PG_VERSION = #{pg_version}  
+			   PG_VERSION = #{pg_version},
+			   AFMA = #{afma}
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 	<update id="TB_INSTANCE_INFO_U002" parameterType="hashmap" >
@@ -2215,7 +2243,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   HOST_NAME = #{host_name},
 			   PG_VERSION = #{pg_version},
 			   HA_GROUP = #{ha_group},
-			   EXTENSIONS = #{extensions}
+			   EXTENSIONS = #{extensions},
+			   AFMA = #{afma}
 		 WHERE INSTANCE_ID=#{instance_id}
 	</update>
 	<update id="TB_INSTANCE_INFO_U003" parameterType="hashmap" >
@@ -2267,7 +2296,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		
 	<select id="EXPERDBMA_BT_GET_PGDATABASE_001" parameterType="hashmap" resultType="hashmap"  flushCache="true">
 		       SELECT /* EXPERDBMA_BT_GET_PGDATABASE_001 24e9ab7301ff1966da4fb30dc1538882 */ 
-		       		  DATNAME AS DATABASE_NAME, DATID FROM pg_stat_database;
+		       		  DATNAME AS DATABASE_NAME, DATID
+		         FROM pg_stat_database
+				WHERE datname NOT IN ('template0', 'template1');
 	</select>	
 	<insert id="TB_PGDATABASE_I001" parameterType="hashmap" >
 		INSERT INTO TB_DATABASE_INFO
@@ -3118,7 +3149,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			   '4' AS COLLECT_GROUP,
 			   TO_CHAR(NOW(), 'YYYYMMDD') AS COLLECT_REG_DATE,
 			   0 AS COLLECT_REG_SEQ,
-			   TO_CHAR(NOW(), 'HH24:MM:SS')::time AS REG_TIME
+			   TO_CHAR(NOW(), 'HH24:MI:SS')::time AS REG_TIME
 		  FROM TB_INSTANCE_INFO 
 		 WHERE COLLECT_YN = 'Y' 
 		   AND DELETE_YN = 'N'
@@ -3249,7 +3280,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			SELECT /* EXPERDBMA_TB_QUERY_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
 					QUERYID 
-			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = MD5(#{query})
+			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
 			 ORDER BY STMT_QUERYID ASC LIMIT 1
 		  ]]>	  
 	</select>
@@ -3279,7 +3310,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			#{instance_id},
 			#{dbid},
 			#{userid},
-			MD5(coalesce(#{queryid}, '')),
+			#{queryid},
 			#{stmt_queryid},
 			#{query}
 			, NOW()
@@ -3349,8 +3380,56 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		)
 		]]>	  
 	</insert>	
-	
-	
+	<select id="EXPERDBMA_BT_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
+			    use strict;
+			    use warnings;
+			    use Encode;
+			    my $del = $_[0];
+			    my $sth = spi_exec_query("select setting || '/pg_stat_tmp/' || 'pgss_query_texts.stat' curr from pg_settings where name = 'data_directory'");
+			    my $org = $sth->{rows}[0]->{curr};
+			    my $prev = $org . '.prev';
+			    my $curr = $org . '.curr';
+			    my $copycmd = '/bin/cp ' . $org . ' ' . $curr;
+			    my $checkcmd = '[ ! -f /experdata/data/pg_stat_tmp/pgss_query_texts.stat.prev ] && touch ' . $prev;
+			    my $movecmd = '/bin/mv ' . $curr . ' ' . $prev;
+			    my $diffcmd = '/bin/diff -a --unchanged-line-format= --old-line-format= --new-line-format=\'%L\' ' . $prev . ' ' . $curr . '|sed \'s/\\x0/' . $del . '/g\'';
+			    my $res = `$checkcmd`; 
+			    $res = `$copycmd`; 
+			    my $newqueries = `$diffcmd`;
+			    #elog(NOTICE, "dpath is $dpath");
+			    my @arr = split $del, $newqueries;
+			    shift @arr;
+			    foreach( @arr ){
+			        return_next decode('utf-8', $_);
+			    }
+			    $res = `$movecmd`;
+			    return undef;
+			$BODY$ LANGUAGE plperlu;
+		  ]]>	  
+	</select>
+	<select id="BT_PGSS_QUERY_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT GET_PGSS_TEXT(#{delimeter}) AS QUERY;
+		  ]]>	  
+	</select>
+	<insert id="TB_PGSS_QUERY_INFO_I001" parameterType="hashmap" >
+		<![CDATA[
+			INSERT INTO TB_PGSS_QUERY_INFO
+			(
+				QUERYID,
+				QUERY,
+			    COLLECT_DT
+		    )
+			VALUES 
+			(
+				#{queryid},
+				#{query},
+				now()
+			) ON CONFLICT DO NOTHING;
+		]]>	  
+	</insert>
 	
 <!-- **************************************************************************************************************** -->	
 <!-- Delete partitions -->
@@ -4138,7 +4217,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					) DIFF
 				WHERE CALLS >  0
 			)
-			SELECT RTST.* FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
+			SELECT RTST.*, md5(fdw${instance_id}.query) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
 			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>
 	</select>
@@ -4177,7 +4256,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			#{queryid},
 			#{calls},
 			#{total_time},
-			MD5(#{query}),
+			#{cqueryid},
 			now()
 		)
 	</insert>
@@ -4185,7 +4264,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="BT_RTSTMT_INFO_QUERY_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT /* EXPERDBMABT_RTSTMT_INFO_QUERY_001 24e9ab7301ff1966da4fb30dc1538882 */
-			 		query FROM pg_stat_statements WHERE userid = #{userid} AND dbid = #{dbid} AND queryid = #{queryid};
+			 		query, md5(query) queryid FROM pg_stat_statements WHERE userid = #{userid} AND dbid = #{dbid} AND queryid = #{queryid};
 		  ]]>
 	</select>
 	
@@ -4452,7 +4531,7 @@ GROUP BY HA_GROUP
 <select id="EXPERDBMA_BT_HCHK_HGCONNECTION_001" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
 	SELECT /* EXPERDBMA_BT_HCHK_HGCONNECTION_001 */
-			HA_GROUP INSTANCE_ID, SUM(ACTIVECONNECTION) HGACTIVECONNECTION, MAX(COLLECT_GROUP) COLLECT_GROUP, MAX(COLLECT_REG_DATE) COLLECT_REG_DATE, MIN(COLLECT_REG_SEQ) COLLECT_REG_SEQ,  CURRENT_TIME AS REG_TIME
+			HA_GROUP INSTANCE_ID, AVG(ACTIVECONNECTION) HGACTIVECONNECTION, MAX(COLLECT_GROUP) COLLECT_GROUP, MAX(COLLECT_REG_DATE) COLLECT_REG_DATE, MIN(COLLECT_REG_SEQ) COLLECT_REG_SEQ,  CURRENT_TIME AS REG_TIME
 	  FROM (
 			SELECT   ACM.INSTANCE_ID,
 			         ROUND(SUM(1)::NUMERIC/MAX(IST.MAX_CONN_CNT) * 100, 2) AS ACTIVECONNECTION,
@@ -4487,6 +4566,26 @@ GROUP BY HA_GROUP
 			 ORDER BY INSTANCE_ID
 	</select>
 	
+	<select id="EXPERDBMA_BT_CHECK_READONLY_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT pg_is_in_recovery() ISRECOVERY;
+		 ]]>	
+	</select>
+	<update id="EXPERDBMA_BT_CREATE_PLPERL_001" parameterType="hashmap">
+		<![CDATA[
+			/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
+				DO $$
+				DECLARE       
+				    is_in_recovery BOOL;
+				BEGIN    
+				    is_in_recovery := (SELECT PG_IS_IN_RECOVERY());       
+				    IF is_in_recovery = FALSE THEN           
+					    EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS plperlu') ;     
+				    END IF;       
+				END $$
+				]]>	
+	</update>
+		
 	<update id="EXPERDBMA_BT_CREATE_FUNCTION_001" parameterType="hashmap">
 		<![CDATA[
 		/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/

@@ -1101,21 +1101,24 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			DO $$
 			DECLARE       
-			    is_exists_partition BOOL;
 			    var_tablename varchar;
 			    ddate varchar;
-			    cdate varchar;   
+			    cdate varchar;
+				dtablename varchar;
+ 				vrow record;
+				vtablename varchar;
 			BEGIN    
 				var_tablename = '${tablename}';
 				ddate = to_char((now()::date - (SELECT LOG_KEEP_DAYS FROM TB_CONFIG LIMIT 1))::date, 'YYYYMMDD') ;
 			    cdate = to_char((now() + INTERVAL '1 day')::date, 'YYYYMMDD');
 			    EXECUTE FORMAT('CREATE TABLE IF NOT EXISTS ' || var_tablename || '_' || cdate || '  PARTITION OF ' || var_tablename || ' FOR VALUES IN (' || cdate || ')');     
-			    is_exists_partition := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = (var_tablename || '_' || ddate)));       
-			    IF is_exists_partition = TRUE THEN           
-				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || var_tablename || '_' || ddate) ;     
-				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || var_tablename || '_' || ddate || ' CASCADE');     
-		        END IF;       
-			 END $$
+			    dtablename = (var_tablename || '_' || ddate);
+				FOR vrow IN (SELECT * FROM information_schema.tables WHERE table_schema = current_schema() AND table_name like  var_tablename || '%' AND table_name <> var_tablename and table_name < dtablename) LOOP
+					vtablename = vrow.table_name;
+				    EXECUTE FORMAT('ALTER TABLE ' || var_tablename || ' DETACH PARTITION ' || vtablename) ;     
+				    EXECUTE FORMAT('DROP TABLE IF EXISTS ' || vtablename || ' CASCADE'); 
+				END LOOP;
+			END $$
 		]]>	
 	</update>
 		<update id="PG_ATTACH_PARTITIONS_002" parameterType="hashmap">

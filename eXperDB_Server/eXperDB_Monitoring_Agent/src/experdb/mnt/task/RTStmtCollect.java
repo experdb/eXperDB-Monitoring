@@ -47,7 +47,7 @@ public class RTStmtCollect extends TaskApplication {
 		if (collectPeriod <= 0) return;
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
-			log.debug(System.currentTimeMillis());
+			//log.debug(System.currentTimeMillis());
 			
 			try {
 				is_collect_ok = "Y";
@@ -96,7 +96,7 @@ public class RTStmtCollect extends TaskApplication {
 			}
 				
 			sessionAgent = sqlSessionFactory.openSession();
-			sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
+			//sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			List<HashMap<String, Object>> rtStmtSel = new ArrayList<HashMap<String,Object>>(); // STMT 정보 수집
 			
 			if(is_collect_ok.equals("Y"))
@@ -114,25 +114,25 @@ public class RTStmtCollect extends TaskApplication {
 					for (HashMap<String, Object> map : RTStmtSel) {
 						map.put("instance_id", 				Integer.parseInt(instanceId));
 						sessionAgent.insert("app.BT_RTSTMT_INFO_I001", map);
-						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S002", map);		
-						HashMap<String, Object> fullQueryMap = null;
-						if (queryIdMap == null){
-							try{							
-								inputParam.put("instance_id", Integer.parseInt(instanceId));
-								inputParam.put("dbid", 		map.get("dbid"));
-								inputParam.put("userid", 	map.get("userid"));
-								inputParam.put("queryid", 	map.get("queryid"));
-								fullQueryMap = sessionCollect.selectOne("app.BT_RTSTMT_INFO_QUERY_001", inputParam);
-								if (fullQueryMap != null){
-									inputParam.put("stmt_queryid", 			map.get("queryid"));
-									inputParam.put("query", 			    fullQueryMap.get("query"));
-									inputParam.put("queryid", 			    fullQueryMap.get("query"));
-									sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
-								}
-							} catch (Exception e) {
-								log.error("", e);
-							} 
-						}
+//						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S002", map);		
+//						HashMap<String, Object> fullQueryMap = null;
+//						if (queryIdMap == null){
+//							try{							
+//								inputParam.put("instance_id", Integer.parseInt(instanceId));
+//								inputParam.put("dbid", 		map.get("dbid"));
+//								inputParam.put("userid", 	map.get("userid"));
+//								inputParam.put("queryid", 	map.get("queryid"));
+//								fullQueryMap = sessionCollect.selectOne("app.BT_RTSTMT_INFO_QUERY_001", inputParam);
+//								if (fullQueryMap != null){
+//									inputParam.put("stmt_queryid", 			map.get("queryid"));
+//									inputParam.put("query", 			    fullQueryMap.get("query"));
+//									inputParam.put("queryid", 			    fullQueryMap.get("queryid"));
+//									sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+//								}
+//							} catch (Exception e) {
+//								log.error("", e);
+//							} 
+//						}
 					}
 					
 					//Sequence

@@ -41,7 +41,7 @@ public class ReplCollect extends TaskApplication {
 
 	@Override
 	public void run() {
-	
+		try{
 		instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version_min");
 		
 		collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("collect_period_sec");
@@ -84,10 +84,16 @@ public class ReplCollect extends TaskApplication {
 				Thread.sleep(sleepTime);
 
 			} catch (Exception e) {
-				log.error("[instanceId ==>> " + instanceId + "]", e);
+				log.error("[ReplCollect:instanceId ==>> " + instanceId + "]", e);
 			}
 		}
-		log.error("[Suspend the thread for instanceId ==>> " + instanceId + "]");
+		
+		} catch (Exception e) {
+			//log.error("", e);
+			log.error("[ReplCollect:instanceId ==>> " + instanceId + "]" + " escaped loop]", e);
+		} finally {
+			log.error("[ReplCollect:Suspend the thread for instanceId ==>> " + instanceId + "]");
+		}
 	}
 	
 	private void execute() {

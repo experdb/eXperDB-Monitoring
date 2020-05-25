@@ -106,6 +106,7 @@ public class TaskManager implements Runnable{
 									if (perform("stop") < 0)
 										log.error("Failed to control the collector!");	
 									Class.forName("experdb.mnt.task."+ "DailyBatchTask").getConstructor().newInstance();
+									Thread.sleep(2* 1000);
 									if (perform("start") < 0)
 										log.error("Failed to control the collector!");	
 									log.info("The collector reset!");

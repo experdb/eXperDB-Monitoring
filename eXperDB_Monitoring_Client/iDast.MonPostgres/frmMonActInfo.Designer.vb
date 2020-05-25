@@ -38,28 +38,15 @@ Partial Class frmMonActInfo
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -82,6 +69,20 @@ Partial Class frmMonActInfo
         Dim DataGridViewCellStyle59 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle60 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle61 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle62 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.bckmanual = New System.ComponentModel.BackgroundWorker()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnExcel = New eXperDB.BaseControls.Button()
@@ -115,21 +116,6 @@ Partial Class frmMonActInfo
         Me.lblTblSpaceInfo = New System.Windows.Forms.Label()
         Me.SplitContainer3 = New eXperDB.BaseControls.SplitContainer()
         Me.dgvTblinfo = New eXperDB.BaseControls.DataGridView()
-        Me.coldgvTblinfoDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoTABLE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoTABLESIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvTblinfoINDEXSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvTblinfoINDEXCNT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoISTOAST = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoSEQSCAN = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoINDEXSCAN = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoLIVETUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoDEADTUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoDEADTUPLERATE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoBloatsize = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.coldgvTblinfoBloatrate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoLASTVACUUM = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvTblinfoBloatTable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.cbxCheckTableBloat = New eXperDB.BaseControls.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -182,6 +168,22 @@ Partial Class frmMonActInfo
         Me.DataGridViewTextBoxColumn23 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn25 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoDB = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoTABLE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoTABLESIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvTblinfoINDEXSIZE = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvTblinfoINDEXCNT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoISTOAST = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoSEQSCAN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoINDEXSCAN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoLIVETUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoDEADTUPLES = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoDEADTUPLERATE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoBloatsize = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.coldgvTblinfoBloatrate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoLASTVACUUM = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoRELAGE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvTblinfoBloatTable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -777,15 +779,15 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle17
         Me.dgvTblinfo.ColumnHeadersHeight = 24
         Me.dgvTblinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvTblinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvTblinfoDB, Me.coldgvTblinfoTABLE, Me.coldgvTblinfoTABLESIZE, Me.coldgvTblinfoINDEXSIZE, Me.coldgvTblinfoINDEXCNT, Me.coldgvTblinfoISTOAST, Me.coldgvTblinfoSEQSCAN, Me.coldgvTblinfoINDEXSCAN, Me.coldgvTblinfoLIVETUPLES, Me.coldgvTblinfoDEADTUPLES, Me.coldgvTblinfoDEADTUPLERATE, Me.coldgvTblinfoBloatsize, Me.coldgvTblinfoBloatrate, Me.coldgvTblinfoLASTVACUUM, Me.coldgvTblinfoBloatTable})
-        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle30.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle30.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.LightSteelBlue
-        DataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvTblinfo.DefaultCellStyle = DataGridViewCellStyle30
+        Me.dgvTblinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvTblinfoDB, Me.coldgvTblinfoTABLE, Me.coldgvTblinfoTABLESIZE, Me.coldgvTblinfoINDEXSIZE, Me.coldgvTblinfoINDEXCNT, Me.coldgvTblinfoISTOAST, Me.coldgvTblinfoSEQSCAN, Me.coldgvTblinfoINDEXSCAN, Me.coldgvTblinfoLIVETUPLES, Me.coldgvTblinfoDEADTUPLES, Me.coldgvTblinfoDEADTUPLERATE, Me.coldgvTblinfoBloatsize, Me.coldgvTblinfoBloatrate, Me.coldgvTblinfoLASTVACUUM, Me.coldgvTblinfoRELAGE, Me.coldgvTblinfoBloatTable})
+        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle31.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle31.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle31.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle31.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle31.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvTblinfo.DefaultCellStyle = DataGridViewCellStyle31
         Me.dgvTblinfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvTblinfo.EnableHeadersVisualStyles = False
         Me.dgvTblinfo.Font = New System.Drawing.Font("Gulim", 10.0!)
@@ -794,14 +796,14 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvTblinfo.MultiSelect = False
         Me.dgvTblinfo.Name = "dgvTblinfo"
-        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle31.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvTblinfo.RowHeadersDefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvTblinfo.RowHeadersDefaultCellStyle = DataGridViewCellStyle32
         Me.dgvTblinfo.RowHeadersVisible = False
         Me.dgvTblinfo.RowTemplate.Height = 23
         Me.dgvTblinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -809,6 +811,673 @@ Partial Class frmMonActInfo
         Me.dgvTblinfo.TabIndex = 13
         Me.dgvTblinfo.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvTblinfo.UseTagValueMatchColor = False
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel4.ColumnCount = 4
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Controls.Add(Me.cbxCheckTableBloat, 2, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.Label5, 0, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.lblTblinfo, 1, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.RowCount = 1
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(638, 40)
+        Me.TableLayoutPanel4.TabIndex = 2
+        '
+        'cbxCheckTableBloat
+        '
+        Me.cbxCheckTableBloat.AutoSize = True
+        Me.cbxCheckTableBloat.BackColor = System.Drawing.Color.Transparent
+        Me.cbxCheckTableBloat.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.cbxCheckTableBloat.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cbxCheckTableBloat.ForeColor = System.Drawing.Color.White
+        Me.cbxCheckTableBloat.LineColor = System.Drawing.Color.Gray
+        Me.cbxCheckTableBloat.Location = New System.Drawing.Point(203, 3)
+        Me.cbxCheckTableBloat.Name = "cbxCheckTableBloat"
+        Me.cbxCheckTableBloat.Radius = 10
+        Me.cbxCheckTableBloat.Size = New System.Drawing.Size(149, 34)
+        Me.cbxCheckTableBloat.TabIndex = 19
+        Me.cbxCheckTableBloat.Text = "Check Table bloat"
+        Me.cbxCheckTableBloat.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cbxCheckTableBloat.UseVisualStyleBackColor = False
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.Transparent
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label5.Image = CType(resources.GetObject("Label5.Image"), System.Drawing.Image)
+        Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label5.Location = New System.Drawing.Point(3, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(34, 40)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "      "
+        '
+        'lblTblinfo
+        '
+        Me.lblTblinfo.AutoSize = True
+        Me.lblTblinfo.BackColor = System.Drawing.Color.Transparent
+        Me.lblTblinfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblTblinfo.ForeColor = System.Drawing.Color.White
+        Me.lblTblinfo.Location = New System.Drawing.Point(43, 0)
+        Me.lblTblinfo.Name = "lblTblinfo"
+        Me.lblTblinfo.Size = New System.Drawing.Size(154, 40)
+        Me.lblTblinfo.TabIndex = 3
+        Me.lblTblinfo.Text = "F313"
+        Me.lblTblinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'dgvIdxinfo
+        '
+        Me.dgvIdxinfo.AllowUserToAddRows = False
+        Me.dgvIdxinfo.AllowUserToDeleteRows = False
+        Me.dgvIdxinfo.AllowUserToOrderColumns = True
+        Me.dgvIdxinfo.AllowUserToResizeRows = False
+        Me.dgvIdxinfo.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvIdxinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle33.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvIdxinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle33
+        Me.dgvIdxinfo.ColumnHeadersHeight = 24
+        Me.dgvIdxinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvIdxinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvIdxinfoDB, Me.coldgvIdxinfoINDEX, Me.coldgvIdxinfoTABLE, Me.coldgvIdxinfoINDEXSIZE, Me.coldgvIdxinfoINDEXSCANCOUNT, Me.coldgvIdxinfoINDEXFETCHEDTUPLES, Me.coldgvIdxinfoUPDATEDTUPLES, Me.coldgvIdxinfoDELETEDTUPLES, Me.coldgvIdxinfoLiveTuples, Me.coldgvIdxinfoDeadTuples})
+        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle39.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle39.Font = New System.Drawing.Font("Gulim", 10.0!)
+        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvIdxinfo.DefaultCellStyle = DataGridViewCellStyle39
+        Me.dgvIdxinfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvIdxinfo.EnableHeadersVisualStyles = False
+        Me.dgvIdxinfo.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.dgvIdxinfo.GridColor = System.Drawing.Color.Black
+        Me.dgvIdxinfo.Location = New System.Drawing.Point(0, 40)
+        Me.dgvIdxinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dgvIdxinfo.MultiSelect = False
+        Me.dgvIdxinfo.Name = "dgvIdxinfo"
+        Me.dgvIdxinfo.RowHeadersVisible = False
+        Me.dgvIdxinfo.RowTemplate.Height = 23
+        Me.dgvIdxinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvIdxinfo.Size = New System.Drawing.Size(642, 342)
+        Me.dgvIdxinfo.TabIndex = 14
+        Me.dgvIdxinfo.TagValueMatchColor = System.Drawing.Color.Red
+        Me.dgvIdxinfo.UseTagValueMatchColor = False
+        '
+        'coldgvIdxinfoDB
+        '
+        Me.coldgvIdxinfoDB.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoDB.DataPropertyName = "DB"
+        Me.coldgvIdxinfoDB.HeaderText = "F126"
+        Me.coldgvIdxinfoDB.MinimumWidth = 85
+        Me.coldgvIdxinfoDB.Name = "coldgvIdxinfoDB"
+        Me.coldgvIdxinfoDB.ReadOnly = True
+        Me.coldgvIdxinfoDB.Width = 85
+        '
+        'coldgvIdxinfoINDEX
+        '
+        Me.coldgvIdxinfoINDEX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoINDEX.DataPropertyName = "INDEX"
+        Me.coldgvIdxinfoINDEX.HeaderText = "F127"
+        Me.coldgvIdxinfoINDEX.MinimumWidth = 85
+        Me.coldgvIdxinfoINDEX.Name = "coldgvIdxinfoINDEX"
+        Me.coldgvIdxinfoINDEX.ReadOnly = True
+        Me.coldgvIdxinfoINDEX.Width = 85
+        '
+        'coldgvIdxinfoTABLE
+        '
+        Me.coldgvIdxinfoTABLE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoTABLE.DataPropertyName = "TABLE"
+        Me.coldgvIdxinfoTABLE.HeaderText = "F128"
+        Me.coldgvIdxinfoTABLE.MinimumWidth = 85
+        Me.coldgvIdxinfoTABLE.Name = "coldgvIdxinfoTABLE"
+        Me.coldgvIdxinfoTABLE.ReadOnly = True
+        Me.coldgvIdxinfoTABLE.Width = 85
+        '
+        'coldgvIdxinfoINDEXSIZE
+        '
+        Me.coldgvIdxinfoINDEXSIZE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoINDEXSIZE.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.coldgvIdxinfoINDEXSIZE.DataPropertyName = "SIZE"
+        Me.coldgvIdxinfoINDEXSIZE.HeaderText = "F129"
+        Me.coldgvIdxinfoINDEXSIZE.HeaderWord = ""
+        Me.coldgvIdxinfoINDEXSIZE.MinimumWidth = 85
+        Me.coldgvIdxinfoINDEXSIZE.Name = "coldgvIdxinfoINDEXSIZE"
+        Me.coldgvIdxinfoINDEXSIZE.ReadOnly = True
+        Me.coldgvIdxinfoINDEXSIZE.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvIdxinfoINDEXSIZE.ShowUnit = True
+        Me.coldgvIdxinfoINDEXSIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.coldgvIdxinfoINDEXSIZE.TailWord = ""
+        Me.coldgvIdxinfoINDEXSIZE.Width = 85
+        '
+        'coldgvIdxinfoINDEXSCANCOUNT
+        '
+        Me.coldgvIdxinfoINDEXSCANCOUNT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoINDEXSCANCOUNT.DataPropertyName = "INDEX SCAN COUNT"
+        DataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle34.Format = "N0"
+        Me.coldgvIdxinfoINDEXSCANCOUNT.DefaultCellStyle = DataGridViewCellStyle34
+        Me.coldgvIdxinfoINDEXSCANCOUNT.HeaderText = "F130"
+        Me.coldgvIdxinfoINDEXSCANCOUNT.MinimumWidth = 85
+        Me.coldgvIdxinfoINDEXSCANCOUNT.Name = "coldgvIdxinfoINDEXSCANCOUNT"
+        Me.coldgvIdxinfoINDEXSCANCOUNT.ReadOnly = True
+        Me.coldgvIdxinfoINDEXSCANCOUNT.Width = 85
+        '
+        'coldgvIdxinfoINDEXFETCHEDTUPLES
+        '
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.DataPropertyName = "INDEX FETCHED TUPLES"
+        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle35.Format = "N0"
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.DefaultCellStyle = DataGridViewCellStyle35
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.HeaderText = "F131"
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.MinimumWidth = 85
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.Name = "coldgvIdxinfoINDEXFETCHEDTUPLES"
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.ReadOnly = True
+        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.Width = 85
+        '
+        'coldgvIdxinfoUPDATEDTUPLES
+        '
+        Me.coldgvIdxinfoUPDATEDTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoUPDATEDTUPLES.DataPropertyName = "UPDATED TUPLES"
+        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle36.Format = "N0"
+        Me.coldgvIdxinfoUPDATEDTUPLES.DefaultCellStyle = DataGridViewCellStyle36
+        Me.coldgvIdxinfoUPDATEDTUPLES.HeaderText = "F132"
+        Me.coldgvIdxinfoUPDATEDTUPLES.MinimumWidth = 85
+        Me.coldgvIdxinfoUPDATEDTUPLES.Name = "coldgvIdxinfoUPDATEDTUPLES"
+        Me.coldgvIdxinfoUPDATEDTUPLES.ReadOnly = True
+        Me.coldgvIdxinfoUPDATEDTUPLES.Width = 85
+        '
+        'coldgvIdxinfoDELETEDTUPLES
+        '
+        Me.coldgvIdxinfoDELETEDTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoDELETEDTUPLES.DataPropertyName = "DELETED TUPLES"
+        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle37.Format = "N0"
+        Me.coldgvIdxinfoDELETEDTUPLES.DefaultCellStyle = DataGridViewCellStyle37
+        Me.coldgvIdxinfoDELETEDTUPLES.HeaderText = "F133"
+        Me.coldgvIdxinfoDELETEDTUPLES.MinimumWidth = 85
+        Me.coldgvIdxinfoDELETEDTUPLES.Name = "coldgvIdxinfoDELETEDTUPLES"
+        Me.coldgvIdxinfoDELETEDTUPLES.ReadOnly = True
+        Me.coldgvIdxinfoDELETEDTUPLES.Width = 85
+        '
+        'coldgvIdxinfoLiveTuples
+        '
+        Me.coldgvIdxinfoLiveTuples.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoLiveTuples.DataPropertyName = "LIVE TUPLES"
+        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle38.Format = "N0"
+        Me.coldgvIdxinfoLiveTuples.DefaultCellStyle = DataGridViewCellStyle38
+        Me.coldgvIdxinfoLiveTuples.HeaderText = "F124"
+        Me.coldgvIdxinfoLiveTuples.MinimumWidth = 85
+        Me.coldgvIdxinfoLiveTuples.Name = "coldgvIdxinfoLiveTuples"
+        Me.coldgvIdxinfoLiveTuples.ReadOnly = True
+        Me.coldgvIdxinfoLiveTuples.Width = 85
+        '
+        'coldgvIdxinfoDeadTuples
+        '
+        Me.coldgvIdxinfoDeadTuples.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvIdxinfoDeadTuples.DataPropertyName = "DEAD TUPLES"
+        Me.coldgvIdxinfoDeadTuples.DefaultCellStyle = DataGridViewCellStyle38
+        Me.coldgvIdxinfoDeadTuples.HeaderText = "F124"
+        Me.coldgvIdxinfoDeadTuples.MinimumWidth = 85
+        Me.coldgvIdxinfoDeadTuples.Name = "coldgvIdxinfoDeadTuples"
+        Me.coldgvIdxinfoDeadTuples.ReadOnly = True
+        Me.coldgvIdxinfoDeadTuples.Width = 85
+        '
+        'TableLayoutPanel5
+        '
+        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        Me.TableLayoutPanel5.ColumnCount = 2
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
+        Me.TableLayoutPanel5.Controls.Add(Me.Label7, 0, 0)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblidxinfo, 1, 0)
+        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
+        Me.TableLayoutPanel5.RowCount = 1
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.Size = New System.Drawing.Size(642, 40)
+        Me.TableLayoutPanel5.TabIndex = 2
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.Transparent
+        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
+        Me.Label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label7.Location = New System.Drawing.Point(3, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(34, 40)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "      "
+        '
+        'lblidxinfo
+        '
+        Me.lblidxinfo.AutoSize = True
+        Me.lblidxinfo.BackColor = System.Drawing.Color.Transparent
+        Me.lblidxinfo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblidxinfo.ForeColor = System.Drawing.Color.White
+        Me.lblidxinfo.Location = New System.Drawing.Point(43, 0)
+        Me.lblidxinfo.Name = "lblidxinfo"
+        Me.lblidxinfo.Size = New System.Drawing.Size(596, 40)
+        Me.lblidxinfo.TabIndex = 3
+        Me.lblidxinfo.Text = "F313"
+        Me.lblidxinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "DB"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "F104"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 76
+        '
+        'DataGridViewDataSizeColumn1
+        '
+        Me.DataGridViewDataSizeColumn1.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn1.DataPropertyName = "SIZE"
+        DataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle40.Format = "N1"
+        Me.DataGridViewDataSizeColumn1.DefaultCellStyle = DataGridViewCellStyle40
+        Me.DataGridViewDataSizeColumn1.HeaderText = "F105"
+        Me.DataGridViewDataSizeColumn1.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn1.Name = "DataGridViewDataSizeColumn1"
+        Me.DataGridViewDataSizeColumn1.ReadOnly = True
+        Me.DataGridViewDataSizeColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn1.ShowUnit = True
+        Me.DataGridViewDataSizeColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn1.TailWord = ""
+        Me.DataGridViewDataSizeColumn1.Width = 76
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "TABLE COUNT"
+        DataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle41.Format = "N0"
+        DataGridViewCellStyle41.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle41
+        Me.DataGridViewTextBoxColumn2.HeaderText = "F106"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 76
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "INDEX COUNT"
+        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle42.Format = "N0"
+        DataGridViewCellStyle42.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle42
+        Me.DataGridViewTextBoxColumn3.HeaderText = "F107"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 76
+        '
+        'DataGridViewDataSizeColumn2
+        '
+        Me.DataGridViewDataSizeColumn2.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn2.DataPropertyName = "DISK READ"
+        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle43.Format = "N1"
+        Me.DataGridViewDataSizeColumn2.DefaultCellStyle = DataGridViewCellStyle43
+        Me.DataGridViewDataSizeColumn2.HeaderText = "F108"
+        Me.DataGridViewDataSizeColumn2.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn2.Name = "DataGridViewDataSizeColumn2"
+        Me.DataGridViewDataSizeColumn2.ReadOnly = True
+        Me.DataGridViewDataSizeColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn2.ShowUnit = True
+        Me.DataGridViewDataSizeColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn2.TailWord = ""
+        Me.DataGridViewDataSizeColumn2.Width = 76
+        '
+        'DataGridViewDataSizeColumn3
+        '
+        Me.DataGridViewDataSizeColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewDataSizeColumn3.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn3.DataPropertyName = "BUFFER READ"
+        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle44.Format = "N1"
+        Me.DataGridViewDataSizeColumn3.DefaultCellStyle = DataGridViewCellStyle44
+        Me.DataGridViewDataSizeColumn3.HeaderText = "F109"
+        Me.DataGridViewDataSizeColumn3.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn3.Name = "DataGridViewDataSizeColumn3"
+        Me.DataGridViewDataSizeColumn3.ReadOnly = True
+        Me.DataGridViewDataSizeColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn3.ShowUnit = True
+        Me.DataGridViewDataSizeColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn3.TailWord = ""
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.DataPropertyName = "HIT RATIO"
+        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle45.Format = "N0"
+        DataGridViewCellStyle45.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle45
+        Me.DataGridViewTextBoxColumn4.HeaderText = "F110"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 76
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.DataPropertyName = "DISK_NAME"
+        Me.DataGridViewTextBoxColumn5.HeaderText = "F271"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        '
+        'DataGridViewDataSizeColumn4
+        '
+        Me.DataGridViewDataSizeColumn4.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn4.DataPropertyName = "DISK SIZE"
+        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle46.Format = "N1"
+        Me.DataGridViewDataSizeColumn4.DefaultCellStyle = DataGridViewCellStyle46
+        Me.DataGridViewDataSizeColumn4.HeaderText = "F114"
+        Me.DataGridViewDataSizeColumn4.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn4.Name = "DataGridViewDataSizeColumn4"
+        Me.DataGridViewDataSizeColumn4.ReadOnly = True
+        Me.DataGridViewDataSizeColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn4.ShowUnit = True
+        Me.DataGridViewDataSizeColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn4.TailWord = ""
+        Me.DataGridViewDataSizeColumn4.Width = 76
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.DataPropertyName = "DISK USED"
+        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle47.Format = "P"
+        DataGridViewCellStyle47.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn6.DefaultCellStyle = DataGridViewCellStyle47
+        Me.DataGridViewTextBoxColumn6.HeaderText = "F115"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 76
+        '
+        'DataGridViewDataSizeColumn5
+        '
+        Me.DataGridViewDataSizeColumn5.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle48.Format = "N1"
+        Me.DataGridViewDataSizeColumn5.DefaultCellStyle = DataGridViewCellStyle48
+        Me.DataGridViewDataSizeColumn5.HeaderText = "F272"
+        Me.DataGridViewDataSizeColumn5.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn5.Name = "DataGridViewDataSizeColumn5"
+        Me.DataGridViewDataSizeColumn5.ReadOnly = True
+        Me.DataGridViewDataSizeColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn5.ShowUnit = True
+        Me.DataGridViewDataSizeColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn5.TailWord = ""
+        Me.DataGridViewDataSizeColumn5.Width = 76
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.DataPropertyName = "DEVICE_NAME"
+        Me.DataGridViewTextBoxColumn7.HeaderText = "F273"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.DataPropertyName = "TABLESPACE"
+        Me.DataGridViewTextBoxColumn8.HeaderText = "F111"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.Width = 76
+        '
+        'DataGridViewDataSizeColumn6
+        '
+        Me.DataGridViewDataSizeColumn6.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn6.DataPropertyName = "SIZE"
+        DataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle49.Format = "N1"
+        Me.DataGridViewDataSizeColumn6.DefaultCellStyle = DataGridViewCellStyle49
+        Me.DataGridViewDataSizeColumn6.HeaderText = "F112"
+        Me.DataGridViewDataSizeColumn6.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn6.Name = "DataGridViewDataSizeColumn6"
+        Me.DataGridViewDataSizeColumn6.ReadOnly = True
+        Me.DataGridViewDataSizeColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn6.ShowUnit = True
+        Me.DataGridViewDataSizeColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn6.TailWord = ""
+        Me.DataGridViewDataSizeColumn6.Width = 76
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.DataPropertyName = "LOCATION"
+        Me.DataGridViewTextBoxColumn9.HeaderText = "F113"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        Me.DataGridViewTextBoxColumn9.Width = 76
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.DataPropertyName = "DB"
+        Me.DataGridViewTextBoxColumn10.HeaderText = "F116"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        Me.DataGridViewTextBoxColumn10.Width = 76
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.DataPropertyName = "TABLE"
+        Me.DataGridViewTextBoxColumn11.HeaderText = "F117"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Width = 76
+        '
+        'DataGridViewDataSizeColumn7
+        '
+        Me.DataGridViewDataSizeColumn7.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn7.DataPropertyName = "SIZE"
+        DataGridViewCellStyle50.Format = "N1"
+        Me.DataGridViewDataSizeColumn7.DefaultCellStyle = DataGridViewCellStyle50
+        Me.DataGridViewDataSizeColumn7.HeaderText = "F118"
+        Me.DataGridViewDataSizeColumn7.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn7.Name = "DataGridViewDataSizeColumn7"
+        Me.DataGridViewDataSizeColumn7.ReadOnly = True
+        Me.DataGridViewDataSizeColumn7.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn7.ShowUnit = True
+        Me.DataGridViewDataSizeColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn7.TailWord = ""
+        Me.DataGridViewDataSizeColumn7.Width = 76
+        '
+        'DataGridViewDataSizeColumn8
+        '
+        Me.DataGridViewDataSizeColumn8.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn8.DataPropertyName = "INDEX SIZE"
+        DataGridViewCellStyle51.Format = "N"
+        Me.DataGridViewDataSizeColumn8.DefaultCellStyle = DataGridViewCellStyle51
+        Me.DataGridViewDataSizeColumn8.HeaderText = "F119"
+        Me.DataGridViewDataSizeColumn8.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn8.Name = "DataGridViewDataSizeColumn8"
+        Me.DataGridViewDataSizeColumn8.ReadOnly = True
+        Me.DataGridViewDataSizeColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn8.ShowUnit = True
+        Me.DataGridViewDataSizeColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn8.TailWord = ""
+        Me.DataGridViewDataSizeColumn8.Width = 76
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.DataPropertyName = "INDEX CNT"
+        DataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle52.Format = "N0"
+        DataGridViewCellStyle52.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn12.DefaultCellStyle = DataGridViewCellStyle52
+        Me.DataGridViewTextBoxColumn12.HeaderText = "F120"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        Me.DataGridViewTextBoxColumn12.Width = 76
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.DataPropertyName = "IS_TOAST"
+        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle53.Format = "N0"
+        Me.DataGridViewTextBoxColumn13.DefaultCellStyle = DataGridViewCellStyle53
+        Me.DataGridViewTextBoxColumn13.HeaderText = "F121"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        Me.DataGridViewTextBoxColumn13.Width = 76
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.DataPropertyName = "SEQ SCAN COUNT"
+        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle54.Format = "N0"
+        DataGridViewCellStyle54.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn14.DefaultCellStyle = DataGridViewCellStyle54
+        Me.DataGridViewTextBoxColumn14.HeaderText = "F122"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        Me.DataGridViewTextBoxColumn14.Width = 76
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.DataPropertyName = "INDEX SCAN COUNT"
+        DataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle55.Format = "N0"
+        DataGridViewCellStyle55.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn15.DefaultCellStyle = DataGridViewCellStyle55
+        Me.DataGridViewTextBoxColumn15.HeaderText = "F123"
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        Me.DataGridViewTextBoxColumn15.Width = 76
+        '
+        'DataGridViewTextBoxColumn16
+        '
+        Me.DataGridViewTextBoxColumn16.DataPropertyName = "LIVE TUPLES"
+        DataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle56.Format = "N0"
+        DataGridViewCellStyle56.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn16.DefaultCellStyle = DataGridViewCellStyle56
+        Me.DataGridViewTextBoxColumn16.HeaderText = "F124"
+        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
+        Me.DataGridViewTextBoxColumn16.ReadOnly = True
+        Me.DataGridViewTextBoxColumn16.Width = 76
+        '
+        'DataGridViewTextBoxColumn17
+        '
+        Me.DataGridViewTextBoxColumn17.DataPropertyName = "LAST VACUUM"
+        DataGridViewCellStyle57.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.DataGridViewTextBoxColumn17.DefaultCellStyle = DataGridViewCellStyle57
+        Me.DataGridViewTextBoxColumn17.HeaderText = "F125"
+        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
+        Me.DataGridViewTextBoxColumn17.ReadOnly = True
+        Me.DataGridViewTextBoxColumn17.Width = 76
+        '
+        'DataGridViewTextBoxColumn18
+        '
+        Me.DataGridViewTextBoxColumn18.DataPropertyName = "DB"
+        Me.DataGridViewTextBoxColumn18.HeaderText = "F126"
+        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
+        Me.DataGridViewTextBoxColumn18.ReadOnly = True
+        Me.DataGridViewTextBoxColumn18.Width = 76
+        '
+        'DataGridViewTextBoxColumn19
+        '
+        Me.DataGridViewTextBoxColumn19.DataPropertyName = "INDEX"
+        Me.DataGridViewTextBoxColumn19.HeaderText = "F127"
+        Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
+        Me.DataGridViewTextBoxColumn19.ReadOnly = True
+        Me.DataGridViewTextBoxColumn19.Width = 76
+        '
+        'DataGridViewTextBoxColumn20
+        '
+        Me.DataGridViewTextBoxColumn20.DataPropertyName = "TABLE"
+        Me.DataGridViewTextBoxColumn20.HeaderText = "F128"
+        Me.DataGridViewTextBoxColumn20.Name = "DataGridViewTextBoxColumn20"
+        Me.DataGridViewTextBoxColumn20.ReadOnly = True
+        Me.DataGridViewTextBoxColumn20.Width = 76
+        '
+        'DataGridViewDataSizeColumn9
+        '
+        Me.DataGridViewDataSizeColumn9.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        Me.DataGridViewDataSizeColumn9.DataPropertyName = "SIZE"
+        Me.DataGridViewDataSizeColumn9.HeaderText = "F129"
+        Me.DataGridViewDataSizeColumn9.HeaderWord = ""
+        Me.DataGridViewDataSizeColumn9.Name = "DataGridViewDataSizeColumn9"
+        Me.DataGridViewDataSizeColumn9.ReadOnly = True
+        Me.DataGridViewDataSizeColumn9.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridViewDataSizeColumn9.ShowUnit = True
+        Me.DataGridViewDataSizeColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewDataSizeColumn9.TailWord = ""
+        Me.DataGridViewDataSizeColumn9.Width = 76
+        '
+        'DataGridViewTextBoxColumn21
+        '
+        Me.DataGridViewTextBoxColumn21.DataPropertyName = "INDEX SCAN COUNT"
+        DataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle58.Format = "N0"
+        Me.DataGridViewTextBoxColumn21.DefaultCellStyle = DataGridViewCellStyle58
+        Me.DataGridViewTextBoxColumn21.HeaderText = "F130"
+        Me.DataGridViewTextBoxColumn21.Name = "DataGridViewTextBoxColumn21"
+        Me.DataGridViewTextBoxColumn21.ReadOnly = True
+        Me.DataGridViewTextBoxColumn21.Width = 76
+        '
+        'DataGridViewTextBoxColumn22
+        '
+        Me.DataGridViewTextBoxColumn22.DataPropertyName = "INDEX FETCHED TUPLES"
+        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle59.Format = "N0"
+        Me.DataGridViewTextBoxColumn22.DefaultCellStyle = DataGridViewCellStyle59
+        Me.DataGridViewTextBoxColumn22.HeaderText = "F131"
+        Me.DataGridViewTextBoxColumn22.Name = "DataGridViewTextBoxColumn22"
+        Me.DataGridViewTextBoxColumn22.ReadOnly = True
+        Me.DataGridViewTextBoxColumn22.Width = 76
+        '
+        'DataGridViewTextBoxColumn23
+        '
+        Me.DataGridViewTextBoxColumn23.DataPropertyName = "UPDATED TUPLES"
+        DataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle60.Format = "N0"
+        Me.DataGridViewTextBoxColumn23.DefaultCellStyle = DataGridViewCellStyle60
+        Me.DataGridViewTextBoxColumn23.HeaderText = "F132"
+        Me.DataGridViewTextBoxColumn23.Name = "DataGridViewTextBoxColumn23"
+        Me.DataGridViewTextBoxColumn23.ReadOnly = True
+        Me.DataGridViewTextBoxColumn23.Width = 76
+        '
+        'DataGridViewTextBoxColumn24
+        '
+        Me.DataGridViewTextBoxColumn24.DataPropertyName = "DELETED TUPLES"
+        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle61.Format = "N0"
+        Me.DataGridViewTextBoxColumn24.DefaultCellStyle = DataGridViewCellStyle61
+        Me.DataGridViewTextBoxColumn24.HeaderText = "F133"
+        Me.DataGridViewTextBoxColumn24.Name = "DataGridViewTextBoxColumn24"
+        Me.DataGridViewTextBoxColumn24.ReadOnly = True
+        Me.DataGridViewTextBoxColumn24.Width = 76
+        '
+        'DataGridViewTextBoxColumn25
+        '
+        Me.DataGridViewTextBoxColumn25.DataPropertyName = "LIVE TUPLES"
+        DataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle62.Format = "N0"
+        Me.DataGridViewTextBoxColumn25.DefaultCellStyle = DataGridViewCellStyle62
+        Me.DataGridViewTextBoxColumn25.HeaderText = "F124"
+        Me.DataGridViewTextBoxColumn25.Name = "DataGridViewTextBoxColumn25"
+        Me.DataGridViewTextBoxColumn25.ReadOnly = True
+        Me.DataGridViewTextBoxColumn25.Width = 76
         '
         'coldgvTblinfoDB
         '
@@ -1007,6 +1676,19 @@ Partial Class frmMonActInfo
         Me.coldgvTblinfoLASTVACUUM.ReadOnly = True
         Me.coldgvTblinfoLASTVACUUM.Width = 85
         '
+        'coldgvTblinfoRELAGE
+        '
+        Me.coldgvTblinfoRELAGE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.coldgvTblinfoRELAGE.DataPropertyName = "RELAGE"
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle30.Format = "N0"
+        Me.coldgvTblinfoRELAGE.DefaultCellStyle = DataGridViewCellStyle30
+        Me.coldgvTblinfoRELAGE.HeaderText = "RelAge"
+        Me.coldgvTblinfoRELAGE.MinimumWidth = 85
+        Me.coldgvTblinfoRELAGE.Name = "coldgvTblinfoRELAGE"
+        Me.coldgvTblinfoRELAGE.ReadOnly = True
+        Me.coldgvTblinfoRELAGE.Width = 85
+        '
         'coldgvTblinfoBloatTable
         '
         Me.coldgvTblinfoBloatTable.DataPropertyName = "bloat_table"
@@ -1014,673 +1696,6 @@ Partial Class frmMonActInfo
         Me.coldgvTblinfoBloatTable.Name = "coldgvTblinfoBloatTable"
         Me.coldgvTblinfoBloatTable.ReadOnly = True
         Me.coldgvTblinfoBloatTable.Visible = False
-        '
-        'TableLayoutPanel4
-        '
-        Me.TableLayoutPanel4.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel4.ColumnCount = 4
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Controls.Add(Me.cbxCheckTableBloat, 2, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.Label5, 0, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.lblTblinfo, 1, 0)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.RowCount = 1
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(638, 40)
-        Me.TableLayoutPanel4.TabIndex = 2
-        '
-        'cbxCheckTableBloat
-        '
-        Me.cbxCheckTableBloat.AutoSize = True
-        Me.cbxCheckTableBloat.BackColor = System.Drawing.Color.Transparent
-        Me.cbxCheckTableBloat.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.cbxCheckTableBloat.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cbxCheckTableBloat.ForeColor = System.Drawing.Color.White
-        Me.cbxCheckTableBloat.LineColor = System.Drawing.Color.Gray
-        Me.cbxCheckTableBloat.Location = New System.Drawing.Point(203, 3)
-        Me.cbxCheckTableBloat.Name = "cbxCheckTableBloat"
-        Me.cbxCheckTableBloat.Radius = 10
-        Me.cbxCheckTableBloat.Size = New System.Drawing.Size(149, 34)
-        Me.cbxCheckTableBloat.TabIndex = 19
-        Me.cbxCheckTableBloat.Text = "Check Table bloat"
-        Me.cbxCheckTableBloat.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.cbxCheckTableBloat.UseVisualStyleBackColor = False
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.BackColor = System.Drawing.Color.Transparent
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label5.Image = CType(resources.GetObject("Label5.Image"), System.Drawing.Image)
-        Me.Label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label5.Location = New System.Drawing.Point(3, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(34, 40)
-        Me.Label5.TabIndex = 2
-        Me.Label5.Text = "      "
-        '
-        'lblTblinfo
-        '
-        Me.lblTblinfo.AutoSize = True
-        Me.lblTblinfo.BackColor = System.Drawing.Color.Transparent
-        Me.lblTblinfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblTblinfo.ForeColor = System.Drawing.Color.White
-        Me.lblTblinfo.Location = New System.Drawing.Point(43, 0)
-        Me.lblTblinfo.Name = "lblTblinfo"
-        Me.lblTblinfo.Size = New System.Drawing.Size(154, 40)
-        Me.lblTblinfo.TabIndex = 3
-        Me.lblTblinfo.Text = "F313"
-        Me.lblTblinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'dgvIdxinfo
-        '
-        Me.dgvIdxinfo.AllowUserToAddRows = False
-        Me.dgvIdxinfo.AllowUserToDeleteRows = False
-        Me.dgvIdxinfo.AllowUserToOrderColumns = True
-        Me.dgvIdxinfo.AllowUserToResizeRows = False
-        Me.dgvIdxinfo.BackgroundColor = System.Drawing.Color.Black
-        Me.dgvIdxinfo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvIdxinfo.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle32
-        Me.dgvIdxinfo.ColumnHeadersHeight = 24
-        Me.dgvIdxinfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvIdxinfo.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvIdxinfoDB, Me.coldgvIdxinfoINDEX, Me.coldgvIdxinfoTABLE, Me.coldgvIdxinfoINDEXSIZE, Me.coldgvIdxinfoINDEXSCANCOUNT, Me.coldgvIdxinfoINDEXFETCHEDTUPLES, Me.coldgvIdxinfoUPDATEDTUPLES, Me.coldgvIdxinfoDELETEDTUPLES, Me.coldgvIdxinfoLiveTuples, Me.coldgvIdxinfoDeadTuples})
-        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle38.Font = New System.Drawing.Font("Gulim", 10.0!)
-        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.LightSteelBlue
-        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvIdxinfo.DefaultCellStyle = DataGridViewCellStyle38
-        Me.dgvIdxinfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvIdxinfo.EnableHeadersVisualStyles = False
-        Me.dgvIdxinfo.Font = New System.Drawing.Font("Gulim", 10.0!)
-        Me.dgvIdxinfo.GridColor = System.Drawing.Color.Black
-        Me.dgvIdxinfo.Location = New System.Drawing.Point(0, 40)
-        Me.dgvIdxinfo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dgvIdxinfo.MultiSelect = False
-        Me.dgvIdxinfo.Name = "dgvIdxinfo"
-        Me.dgvIdxinfo.RowHeadersVisible = False
-        Me.dgvIdxinfo.RowTemplate.Height = 23
-        Me.dgvIdxinfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvIdxinfo.Size = New System.Drawing.Size(642, 342)
-        Me.dgvIdxinfo.TabIndex = 14
-        Me.dgvIdxinfo.TagValueMatchColor = System.Drawing.Color.Red
-        Me.dgvIdxinfo.UseTagValueMatchColor = False
-        '
-        'coldgvIdxinfoDB
-        '
-        Me.coldgvIdxinfoDB.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoDB.DataPropertyName = "DB"
-        Me.coldgvIdxinfoDB.HeaderText = "F126"
-        Me.coldgvIdxinfoDB.MinimumWidth = 85
-        Me.coldgvIdxinfoDB.Name = "coldgvIdxinfoDB"
-        Me.coldgvIdxinfoDB.ReadOnly = True
-        Me.coldgvIdxinfoDB.Width = 85
-        '
-        'coldgvIdxinfoINDEX
-        '
-        Me.coldgvIdxinfoINDEX.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoINDEX.DataPropertyName = "INDEX"
-        Me.coldgvIdxinfoINDEX.HeaderText = "F127"
-        Me.coldgvIdxinfoINDEX.MinimumWidth = 85
-        Me.coldgvIdxinfoINDEX.Name = "coldgvIdxinfoINDEX"
-        Me.coldgvIdxinfoINDEX.ReadOnly = True
-        Me.coldgvIdxinfoINDEX.Width = 85
-        '
-        'coldgvIdxinfoTABLE
-        '
-        Me.coldgvIdxinfoTABLE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoTABLE.DataPropertyName = "TABLE"
-        Me.coldgvIdxinfoTABLE.HeaderText = "F128"
-        Me.coldgvIdxinfoTABLE.MinimumWidth = 85
-        Me.coldgvIdxinfoTABLE.Name = "coldgvIdxinfoTABLE"
-        Me.coldgvIdxinfoTABLE.ReadOnly = True
-        Me.coldgvIdxinfoTABLE.Width = 85
-        '
-        'coldgvIdxinfoINDEXSIZE
-        '
-        Me.coldgvIdxinfoINDEXSIZE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoINDEXSIZE.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.coldgvIdxinfoINDEXSIZE.DataPropertyName = "SIZE"
-        Me.coldgvIdxinfoINDEXSIZE.HeaderText = "F129"
-        Me.coldgvIdxinfoINDEXSIZE.HeaderWord = ""
-        Me.coldgvIdxinfoINDEXSIZE.MinimumWidth = 85
-        Me.coldgvIdxinfoINDEXSIZE.Name = "coldgvIdxinfoINDEXSIZE"
-        Me.coldgvIdxinfoINDEXSIZE.ReadOnly = True
-        Me.coldgvIdxinfoINDEXSIZE.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvIdxinfoINDEXSIZE.ShowUnit = True
-        Me.coldgvIdxinfoINDEXSIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.coldgvIdxinfoINDEXSIZE.TailWord = ""
-        Me.coldgvIdxinfoINDEXSIZE.Width = 85
-        '
-        'coldgvIdxinfoINDEXSCANCOUNT
-        '
-        Me.coldgvIdxinfoINDEXSCANCOUNT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoINDEXSCANCOUNT.DataPropertyName = "INDEX SCAN COUNT"
-        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle33.Format = "N0"
-        Me.coldgvIdxinfoINDEXSCANCOUNT.DefaultCellStyle = DataGridViewCellStyle33
-        Me.coldgvIdxinfoINDEXSCANCOUNT.HeaderText = "F130"
-        Me.coldgvIdxinfoINDEXSCANCOUNT.MinimumWidth = 85
-        Me.coldgvIdxinfoINDEXSCANCOUNT.Name = "coldgvIdxinfoINDEXSCANCOUNT"
-        Me.coldgvIdxinfoINDEXSCANCOUNT.ReadOnly = True
-        Me.coldgvIdxinfoINDEXSCANCOUNT.Width = 85
-        '
-        'coldgvIdxinfoINDEXFETCHEDTUPLES
-        '
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.DataPropertyName = "INDEX FETCHED TUPLES"
-        DataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle34.Format = "N0"
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.DefaultCellStyle = DataGridViewCellStyle34
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.HeaderText = "F131"
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.MinimumWidth = 85
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.Name = "coldgvIdxinfoINDEXFETCHEDTUPLES"
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.ReadOnly = True
-        Me.coldgvIdxinfoINDEXFETCHEDTUPLES.Width = 85
-        '
-        'coldgvIdxinfoUPDATEDTUPLES
-        '
-        Me.coldgvIdxinfoUPDATEDTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoUPDATEDTUPLES.DataPropertyName = "UPDATED TUPLES"
-        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle35.Format = "N0"
-        Me.coldgvIdxinfoUPDATEDTUPLES.DefaultCellStyle = DataGridViewCellStyle35
-        Me.coldgvIdxinfoUPDATEDTUPLES.HeaderText = "F132"
-        Me.coldgvIdxinfoUPDATEDTUPLES.MinimumWidth = 85
-        Me.coldgvIdxinfoUPDATEDTUPLES.Name = "coldgvIdxinfoUPDATEDTUPLES"
-        Me.coldgvIdxinfoUPDATEDTUPLES.ReadOnly = True
-        Me.coldgvIdxinfoUPDATEDTUPLES.Width = 85
-        '
-        'coldgvIdxinfoDELETEDTUPLES
-        '
-        Me.coldgvIdxinfoDELETEDTUPLES.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoDELETEDTUPLES.DataPropertyName = "DELETED TUPLES"
-        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle36.Format = "N0"
-        Me.coldgvIdxinfoDELETEDTUPLES.DefaultCellStyle = DataGridViewCellStyle36
-        Me.coldgvIdxinfoDELETEDTUPLES.HeaderText = "F133"
-        Me.coldgvIdxinfoDELETEDTUPLES.MinimumWidth = 85
-        Me.coldgvIdxinfoDELETEDTUPLES.Name = "coldgvIdxinfoDELETEDTUPLES"
-        Me.coldgvIdxinfoDELETEDTUPLES.ReadOnly = True
-        Me.coldgvIdxinfoDELETEDTUPLES.Width = 85
-        '
-        'coldgvIdxinfoLiveTuples
-        '
-        Me.coldgvIdxinfoLiveTuples.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoLiveTuples.DataPropertyName = "LIVE TUPLES"
-        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle37.Format = "N0"
-        Me.coldgvIdxinfoLiveTuples.DefaultCellStyle = DataGridViewCellStyle37
-        Me.coldgvIdxinfoLiveTuples.HeaderText = "F124"
-        Me.coldgvIdxinfoLiveTuples.MinimumWidth = 85
-        Me.coldgvIdxinfoLiveTuples.Name = "coldgvIdxinfoLiveTuples"
-        Me.coldgvIdxinfoLiveTuples.ReadOnly = True
-        Me.coldgvIdxinfoLiveTuples.Width = 85
-        '
-        'coldgvIdxinfoDeadTuples
-        '
-        Me.coldgvIdxinfoDeadTuples.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.coldgvIdxinfoDeadTuples.DataPropertyName = "DEAD TUPLES"
-        Me.coldgvIdxinfoDeadTuples.DefaultCellStyle = DataGridViewCellStyle37
-        Me.coldgvIdxinfoDeadTuples.HeaderText = "F124"
-        Me.coldgvIdxinfoDeadTuples.MinimumWidth = 85
-        Me.coldgvIdxinfoDeadTuples.Name = "coldgvIdxinfoDeadTuples"
-        Me.coldgvIdxinfoDeadTuples.ReadOnly = True
-        Me.coldgvIdxinfoDeadTuples.Width = 85
-        '
-        'TableLayoutPanel5
-        '
-        Me.TableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        Me.TableLayoutPanel5.ColumnCount = 2
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.Label7, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblidxinfo, 1, 0)
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 1
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(642, 40)
-        Me.TableLayoutPanel5.TabIndex = 2
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label7.Image = CType(resources.GetObject("Label7.Image"), System.Drawing.Image)
-        Me.Label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label7.Location = New System.Drawing.Point(3, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(34, 40)
-        Me.Label7.TabIndex = 2
-        Me.Label7.Text = "      "
-        '
-        'lblidxinfo
-        '
-        Me.lblidxinfo.AutoSize = True
-        Me.lblidxinfo.BackColor = System.Drawing.Color.Transparent
-        Me.lblidxinfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblidxinfo.ForeColor = System.Drawing.Color.White
-        Me.lblidxinfo.Location = New System.Drawing.Point(43, 0)
-        Me.lblidxinfo.Name = "lblidxinfo"
-        Me.lblidxinfo.Size = New System.Drawing.Size(596, 40)
-        Me.lblidxinfo.TabIndex = 3
-        Me.lblidxinfo.Text = "F313"
-        Me.lblidxinfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "DB"
-        Me.DataGridViewTextBoxColumn1.HeaderText = "F104"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 76
-        '
-        'DataGridViewDataSizeColumn1
-        '
-        Me.DataGridViewDataSizeColumn1.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn1.DataPropertyName = "SIZE"
-        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle39.Format = "N1"
-        Me.DataGridViewDataSizeColumn1.DefaultCellStyle = DataGridViewCellStyle39
-        Me.DataGridViewDataSizeColumn1.HeaderText = "F105"
-        Me.DataGridViewDataSizeColumn1.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn1.Name = "DataGridViewDataSizeColumn1"
-        Me.DataGridViewDataSizeColumn1.ReadOnly = True
-        Me.DataGridViewDataSizeColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn1.ShowUnit = True
-        Me.DataGridViewDataSizeColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn1.TailWord = ""
-        Me.DataGridViewDataSizeColumn1.Width = 76
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "TABLE COUNT"
-        DataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle40.Format = "N0"
-        DataGridViewCellStyle40.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle40
-        Me.DataGridViewTextBoxColumn2.HeaderText = "F106"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 76
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "INDEX COUNT"
-        DataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle41.Format = "N0"
-        DataGridViewCellStyle41.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle41
-        Me.DataGridViewTextBoxColumn3.HeaderText = "F107"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Width = 76
-        '
-        'DataGridViewDataSizeColumn2
-        '
-        Me.DataGridViewDataSizeColumn2.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn2.DataPropertyName = "DISK READ"
-        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle42.Format = "N1"
-        Me.DataGridViewDataSizeColumn2.DefaultCellStyle = DataGridViewCellStyle42
-        Me.DataGridViewDataSizeColumn2.HeaderText = "F108"
-        Me.DataGridViewDataSizeColumn2.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn2.Name = "DataGridViewDataSizeColumn2"
-        Me.DataGridViewDataSizeColumn2.ReadOnly = True
-        Me.DataGridViewDataSizeColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn2.ShowUnit = True
-        Me.DataGridViewDataSizeColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn2.TailWord = ""
-        Me.DataGridViewDataSizeColumn2.Width = 76
-        '
-        'DataGridViewDataSizeColumn3
-        '
-        Me.DataGridViewDataSizeColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewDataSizeColumn3.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn3.DataPropertyName = "BUFFER READ"
-        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle43.Format = "N1"
-        Me.DataGridViewDataSizeColumn3.DefaultCellStyle = DataGridViewCellStyle43
-        Me.DataGridViewDataSizeColumn3.HeaderText = "F109"
-        Me.DataGridViewDataSizeColumn3.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn3.Name = "DataGridViewDataSizeColumn3"
-        Me.DataGridViewDataSizeColumn3.ReadOnly = True
-        Me.DataGridViewDataSizeColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn3.ShowUnit = True
-        Me.DataGridViewDataSizeColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn3.TailWord = ""
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.DataPropertyName = "HIT RATIO"
-        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle44.Format = "N0"
-        DataGridViewCellStyle44.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle44
-        Me.DataGridViewTextBoxColumn4.HeaderText = "F110"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 76
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.DataPropertyName = "DISK_NAME"
-        Me.DataGridViewTextBoxColumn5.HeaderText = "F271"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        '
-        'DataGridViewDataSizeColumn4
-        '
-        Me.DataGridViewDataSizeColumn4.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn4.DataPropertyName = "DISK SIZE"
-        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle45.Format = "N1"
-        Me.DataGridViewDataSizeColumn4.DefaultCellStyle = DataGridViewCellStyle45
-        Me.DataGridViewDataSizeColumn4.HeaderText = "F114"
-        Me.DataGridViewDataSizeColumn4.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn4.Name = "DataGridViewDataSizeColumn4"
-        Me.DataGridViewDataSizeColumn4.ReadOnly = True
-        Me.DataGridViewDataSizeColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn4.ShowUnit = True
-        Me.DataGridViewDataSizeColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn4.TailWord = ""
-        Me.DataGridViewDataSizeColumn4.Width = 76
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.DataPropertyName = "DISK USED"
-        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle46.Format = "P"
-        DataGridViewCellStyle46.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn6.DefaultCellStyle = DataGridViewCellStyle46
-        Me.DataGridViewTextBoxColumn6.HeaderText = "F115"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.Width = 76
-        '
-        'DataGridViewDataSizeColumn5
-        '
-        Me.DataGridViewDataSizeColumn5.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle47.Format = "N1"
-        Me.DataGridViewDataSizeColumn5.DefaultCellStyle = DataGridViewCellStyle47
-        Me.DataGridViewDataSizeColumn5.HeaderText = "F272"
-        Me.DataGridViewDataSizeColumn5.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn5.Name = "DataGridViewDataSizeColumn5"
-        Me.DataGridViewDataSizeColumn5.ReadOnly = True
-        Me.DataGridViewDataSizeColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn5.ShowUnit = True
-        Me.DataGridViewDataSizeColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn5.TailWord = ""
-        Me.DataGridViewDataSizeColumn5.Width = 76
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.DataPropertyName = "DEVICE_NAME"
-        Me.DataGridViewTextBoxColumn7.HeaderText = "F273"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.DataPropertyName = "TABLESPACE"
-        Me.DataGridViewTextBoxColumn8.HeaderText = "F111"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
-        Me.DataGridViewTextBoxColumn8.Width = 76
-        '
-        'DataGridViewDataSizeColumn6
-        '
-        Me.DataGridViewDataSizeColumn6.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn6.DataPropertyName = "SIZE"
-        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle48.Format = "N1"
-        Me.DataGridViewDataSizeColumn6.DefaultCellStyle = DataGridViewCellStyle48
-        Me.DataGridViewDataSizeColumn6.HeaderText = "F112"
-        Me.DataGridViewDataSizeColumn6.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn6.Name = "DataGridViewDataSizeColumn6"
-        Me.DataGridViewDataSizeColumn6.ReadOnly = True
-        Me.DataGridViewDataSizeColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn6.ShowUnit = True
-        Me.DataGridViewDataSizeColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn6.TailWord = ""
-        Me.DataGridViewDataSizeColumn6.Width = 76
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.DataPropertyName = "LOCATION"
-        Me.DataGridViewTextBoxColumn9.HeaderText = "F113"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.ReadOnly = True
-        Me.DataGridViewTextBoxColumn9.Width = 76
-        '
-        'DataGridViewTextBoxColumn10
-        '
-        Me.DataGridViewTextBoxColumn10.DataPropertyName = "DB"
-        Me.DataGridViewTextBoxColumn10.HeaderText = "F116"
-        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
-        Me.DataGridViewTextBoxColumn10.ReadOnly = True
-        Me.DataGridViewTextBoxColumn10.Width = 76
-        '
-        'DataGridViewTextBoxColumn11
-        '
-        Me.DataGridViewTextBoxColumn11.DataPropertyName = "TABLE"
-        Me.DataGridViewTextBoxColumn11.HeaderText = "F117"
-        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
-        Me.DataGridViewTextBoxColumn11.ReadOnly = True
-        Me.DataGridViewTextBoxColumn11.Width = 76
-        '
-        'DataGridViewDataSizeColumn7
-        '
-        Me.DataGridViewDataSizeColumn7.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn7.DataPropertyName = "SIZE"
-        DataGridViewCellStyle49.Format = "N1"
-        Me.DataGridViewDataSizeColumn7.DefaultCellStyle = DataGridViewCellStyle49
-        Me.DataGridViewDataSizeColumn7.HeaderText = "F118"
-        Me.DataGridViewDataSizeColumn7.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn7.Name = "DataGridViewDataSizeColumn7"
-        Me.DataGridViewDataSizeColumn7.ReadOnly = True
-        Me.DataGridViewDataSizeColumn7.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn7.ShowUnit = True
-        Me.DataGridViewDataSizeColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn7.TailWord = ""
-        Me.DataGridViewDataSizeColumn7.Width = 76
-        '
-        'DataGridViewDataSizeColumn8
-        '
-        Me.DataGridViewDataSizeColumn8.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn8.DataPropertyName = "INDEX SIZE"
-        DataGridViewCellStyle50.Format = "N"
-        Me.DataGridViewDataSizeColumn8.DefaultCellStyle = DataGridViewCellStyle50
-        Me.DataGridViewDataSizeColumn8.HeaderText = "F119"
-        Me.DataGridViewDataSizeColumn8.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn8.Name = "DataGridViewDataSizeColumn8"
-        Me.DataGridViewDataSizeColumn8.ReadOnly = True
-        Me.DataGridViewDataSizeColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn8.ShowUnit = True
-        Me.DataGridViewDataSizeColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn8.TailWord = ""
-        Me.DataGridViewDataSizeColumn8.Width = 76
-        '
-        'DataGridViewTextBoxColumn12
-        '
-        Me.DataGridViewTextBoxColumn12.DataPropertyName = "INDEX CNT"
-        DataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle51.Format = "N0"
-        DataGridViewCellStyle51.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn12.DefaultCellStyle = DataGridViewCellStyle51
-        Me.DataGridViewTextBoxColumn12.HeaderText = "F120"
-        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
-        Me.DataGridViewTextBoxColumn12.ReadOnly = True
-        Me.DataGridViewTextBoxColumn12.Width = 76
-        '
-        'DataGridViewTextBoxColumn13
-        '
-        Me.DataGridViewTextBoxColumn13.DataPropertyName = "IS_TOAST"
-        DataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle52.Format = "N0"
-        Me.DataGridViewTextBoxColumn13.DefaultCellStyle = DataGridViewCellStyle52
-        Me.DataGridViewTextBoxColumn13.HeaderText = "F121"
-        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
-        Me.DataGridViewTextBoxColumn13.ReadOnly = True
-        Me.DataGridViewTextBoxColumn13.Width = 76
-        '
-        'DataGridViewTextBoxColumn14
-        '
-        Me.DataGridViewTextBoxColumn14.DataPropertyName = "SEQ SCAN COUNT"
-        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle53.Format = "N0"
-        DataGridViewCellStyle53.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn14.DefaultCellStyle = DataGridViewCellStyle53
-        Me.DataGridViewTextBoxColumn14.HeaderText = "F122"
-        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
-        Me.DataGridViewTextBoxColumn14.ReadOnly = True
-        Me.DataGridViewTextBoxColumn14.Width = 76
-        '
-        'DataGridViewTextBoxColumn15
-        '
-        Me.DataGridViewTextBoxColumn15.DataPropertyName = "INDEX SCAN COUNT"
-        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle54.Format = "N0"
-        DataGridViewCellStyle54.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn15.DefaultCellStyle = DataGridViewCellStyle54
-        Me.DataGridViewTextBoxColumn15.HeaderText = "F123"
-        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
-        Me.DataGridViewTextBoxColumn15.ReadOnly = True
-        Me.DataGridViewTextBoxColumn15.Width = 76
-        '
-        'DataGridViewTextBoxColumn16
-        '
-        Me.DataGridViewTextBoxColumn16.DataPropertyName = "LIVE TUPLES"
-        DataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle55.Format = "N0"
-        DataGridViewCellStyle55.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn16.DefaultCellStyle = DataGridViewCellStyle55
-        Me.DataGridViewTextBoxColumn16.HeaderText = "F124"
-        Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
-        Me.DataGridViewTextBoxColumn16.ReadOnly = True
-        Me.DataGridViewTextBoxColumn16.Width = 76
-        '
-        'DataGridViewTextBoxColumn17
-        '
-        Me.DataGridViewTextBoxColumn17.DataPropertyName = "LAST VACUUM"
-        DataGridViewCellStyle56.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.DataGridViewTextBoxColumn17.DefaultCellStyle = DataGridViewCellStyle56
-        Me.DataGridViewTextBoxColumn17.HeaderText = "F125"
-        Me.DataGridViewTextBoxColumn17.Name = "DataGridViewTextBoxColumn17"
-        Me.DataGridViewTextBoxColumn17.ReadOnly = True
-        Me.DataGridViewTextBoxColumn17.Width = 76
-        '
-        'DataGridViewTextBoxColumn18
-        '
-        Me.DataGridViewTextBoxColumn18.DataPropertyName = "DB"
-        Me.DataGridViewTextBoxColumn18.HeaderText = "F126"
-        Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
-        Me.DataGridViewTextBoxColumn18.ReadOnly = True
-        Me.DataGridViewTextBoxColumn18.Width = 76
-        '
-        'DataGridViewTextBoxColumn19
-        '
-        Me.DataGridViewTextBoxColumn19.DataPropertyName = "INDEX"
-        Me.DataGridViewTextBoxColumn19.HeaderText = "F127"
-        Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
-        Me.DataGridViewTextBoxColumn19.ReadOnly = True
-        Me.DataGridViewTextBoxColumn19.Width = 76
-        '
-        'DataGridViewTextBoxColumn20
-        '
-        Me.DataGridViewTextBoxColumn20.DataPropertyName = "TABLE"
-        Me.DataGridViewTextBoxColumn20.HeaderText = "F128"
-        Me.DataGridViewTextBoxColumn20.Name = "DataGridViewTextBoxColumn20"
-        Me.DataGridViewTextBoxColumn20.ReadOnly = True
-        Me.DataGridViewTextBoxColumn20.Width = 76
-        '
-        'DataGridViewDataSizeColumn9
-        '
-        Me.DataGridViewDataSizeColumn9.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        Me.DataGridViewDataSizeColumn9.DataPropertyName = "SIZE"
-        Me.DataGridViewDataSizeColumn9.HeaderText = "F129"
-        Me.DataGridViewDataSizeColumn9.HeaderWord = ""
-        Me.DataGridViewDataSizeColumn9.Name = "DataGridViewDataSizeColumn9"
-        Me.DataGridViewDataSizeColumn9.ReadOnly = True
-        Me.DataGridViewDataSizeColumn9.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridViewDataSizeColumn9.ShowUnit = True
-        Me.DataGridViewDataSizeColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewDataSizeColumn9.TailWord = ""
-        Me.DataGridViewDataSizeColumn9.Width = 76
-        '
-        'DataGridViewTextBoxColumn21
-        '
-        Me.DataGridViewTextBoxColumn21.DataPropertyName = "INDEX SCAN COUNT"
-        DataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle57.Format = "N0"
-        Me.DataGridViewTextBoxColumn21.DefaultCellStyle = DataGridViewCellStyle57
-        Me.DataGridViewTextBoxColumn21.HeaderText = "F130"
-        Me.DataGridViewTextBoxColumn21.Name = "DataGridViewTextBoxColumn21"
-        Me.DataGridViewTextBoxColumn21.ReadOnly = True
-        Me.DataGridViewTextBoxColumn21.Width = 76
-        '
-        'DataGridViewTextBoxColumn22
-        '
-        Me.DataGridViewTextBoxColumn22.DataPropertyName = "INDEX FETCHED TUPLES"
-        DataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle58.Format = "N0"
-        Me.DataGridViewTextBoxColumn22.DefaultCellStyle = DataGridViewCellStyle58
-        Me.DataGridViewTextBoxColumn22.HeaderText = "F131"
-        Me.DataGridViewTextBoxColumn22.Name = "DataGridViewTextBoxColumn22"
-        Me.DataGridViewTextBoxColumn22.ReadOnly = True
-        Me.DataGridViewTextBoxColumn22.Width = 76
-        '
-        'DataGridViewTextBoxColumn23
-        '
-        Me.DataGridViewTextBoxColumn23.DataPropertyName = "UPDATED TUPLES"
-        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle59.Format = "N0"
-        Me.DataGridViewTextBoxColumn23.DefaultCellStyle = DataGridViewCellStyle59
-        Me.DataGridViewTextBoxColumn23.HeaderText = "F132"
-        Me.DataGridViewTextBoxColumn23.Name = "DataGridViewTextBoxColumn23"
-        Me.DataGridViewTextBoxColumn23.ReadOnly = True
-        Me.DataGridViewTextBoxColumn23.Width = 76
-        '
-        'DataGridViewTextBoxColumn24
-        '
-        Me.DataGridViewTextBoxColumn24.DataPropertyName = "DELETED TUPLES"
-        DataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle60.Format = "N0"
-        Me.DataGridViewTextBoxColumn24.DefaultCellStyle = DataGridViewCellStyle60
-        Me.DataGridViewTextBoxColumn24.HeaderText = "F133"
-        Me.DataGridViewTextBoxColumn24.Name = "DataGridViewTextBoxColumn24"
-        Me.DataGridViewTextBoxColumn24.ReadOnly = True
-        Me.DataGridViewTextBoxColumn24.Width = 76
-        '
-        'DataGridViewTextBoxColumn25
-        '
-        Me.DataGridViewTextBoxColumn25.DataPropertyName = "LIVE TUPLES"
-        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle61.Format = "N0"
-        Me.DataGridViewTextBoxColumn25.DefaultCellStyle = DataGridViewCellStyle61
-        Me.DataGridViewTextBoxColumn25.HeaderText = "F124"
-        Me.DataGridViewTextBoxColumn25.Name = "DataGridViewTextBoxColumn25"
-        Me.DataGridViewTextBoxColumn25.ReadOnly = True
-        Me.DataGridViewTextBoxColumn25.Width = 76
         '
         'frmMonActInfo
         '
@@ -1821,6 +1836,7 @@ Partial Class frmMonActInfo
     Friend WithEvents coldgvTblinfoBloatsize As eXperDB.Controls.DataGridViewDataSizeColumn
     Friend WithEvents coldgvTblinfoBloatrate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoLASTVACUUM As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvTblinfoRELAGE As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvTblinfoBloatTable As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class
