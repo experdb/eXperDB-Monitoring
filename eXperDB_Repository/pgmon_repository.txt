@@ -407,7 +407,8 @@ create table tb_table_info (
     need_vacuum BOOL,
     need_analyze bool,
     collect_dt timestamp without time zone,
-    relid oid
+    relid oid,
+    relage int4
 );
 
 create table tb_table_ext_info (

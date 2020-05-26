@@ -7,6 +7,7 @@ create table tb_pgss_query_info (
     collect_dt timestamp without time zone
 );
 alter table only tb_pgss_query_info add constraint pk_pgss_query_info primary key (queryid);
+alter table tb_table_info add column int4;
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'FROZENMAXAGE', '%', '0', 00.00, 90.00, '2', NULL, NULL);
 
 DO $$
@@ -15,6 +16,6 @@ DECLARE
 BEGIN
 		FOR v_row in (SELECT instance_id from tb_instance_info order by instance_id) LOOP
 			--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
-			insert into tb_hchk_thrd_list2 (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold) select v_row.instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold from tb_hchk_thrd_list where instance_id = -1 and hchk_name = 'FROZENMAXAGE';
+			insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold) select v_row.instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold from tb_hchk_thrd_list where instance_id = -1 and hchk_name = 'FROZENMAXAGE';
 		END LOOP;
 END $$ 
