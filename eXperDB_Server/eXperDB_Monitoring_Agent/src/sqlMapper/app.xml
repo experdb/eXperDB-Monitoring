@@ -1042,6 +1042,23 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	
 	<insert id="TB_CURRENT_LOCK_I001" parameterType="hashmap" >
 		INSERT INTO TB_CURRENT_LOCK	
+		(    
+			reg_date,
+		    actv_reg_seq,
+		    db_name,
+		    blocking_user,
+		    blocking_pid,
+		    blocking_query,
+		    blocked_user,
+		    blocked_pid,
+		    blocked_query,
+		    blocked_duration,
+		    lock_mode,
+		    query_start,
+		    xact_start,
+		    order_no,
+		    collect_dt
+    	)
 		VALUES 
 		(
 			TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -1049,7 +1066,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{db_name},
 			#{blocking_user},
 			#{blocking_pid},
-			MD5(#{blocking_query}),
+			#{blocking_query},
 			#{blocked_user},
 			#{blocked_pid},
 			MD5(#{blocked_query}),

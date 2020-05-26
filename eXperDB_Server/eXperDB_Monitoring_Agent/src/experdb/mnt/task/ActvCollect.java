@@ -374,7 +374,7 @@ public class ActvCollect extends TaskApplication {
 				for (HashMap<String, Object> map : currentLockSel) {
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
 					inputParam.put("instance_id", 				Integer.parseInt(instanceId));
-					inputParam.put("queryid", 					map.get("blocking_query"));
+					inputParam.put("queryid", 					MD5Gen.getMd5(map.get("blocking_query").toString()));
 					inputParam.put("query", 					map.get("blocking_query"));
 					inputParam.put("dbid", 						map.get("blocking_datid"));
 					inputParam.put("userid", 					map.get("blocking_usesysid"));
