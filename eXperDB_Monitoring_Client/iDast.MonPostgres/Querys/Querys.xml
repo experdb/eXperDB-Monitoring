@@ -3357,11 +3357,11 @@ WITH COL AS (
           AND B.ACTV_REG_SEQ = E.ACTV_REG_SEQ
           AND A.COLLECT_YN = 'Y' 
           AND A.DELETE_YN = 'N'
-          AND E.ELAPSED_TIME > 0
+          --AND E.ELAPSED_TIME > 0
           --AND E.PROC_CPU_UTIL > 0
           AND E.SQL IS NOT NULL
-          AND E.SQL != 'BACKGROUND PROC'
-          AND E.SQL != 'COMMIT'
+          --AND E.SQL != 'BACKGROUND PROC'
+          --AND E.SQL != 'COMMIT'
           --AND E.SQL NOT LIKE 'SELECT /* EXPERDBMA%'
           --AND E.COLLECT_DT BETWEEN {3} AND {4}
           --AND B.REG_TIME BETWEEN {3} AND {4}

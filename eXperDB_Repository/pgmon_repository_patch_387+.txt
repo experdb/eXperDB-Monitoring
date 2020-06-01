@@ -2,11 +2,12 @@
 
 alter table tb_instance_info add column afma int4;
 create table tb_pgss_query_info (
+    instance_id integer not null,
     queryid character varying(32) not null,
     query text,
     collect_dt timestamp without time zone
 );
-alter table only tb_pgss_query_info add constraint pk_pgss_query_info primary key (queryid);
+alter table only tb_pgss_query_info add constraint pk_pgss_query_info primary key (instance_id, queryid);
 alter table tb_table_info add column int4;
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'FROZENMAXAGE', '%', '0', 00.00, 90.00, '2', NULL, NULL);
 
@@ -19,3 +20,33 @@ BEGIN
 			insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold) select v_row.instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold from tb_hchk_thrd_list where instance_id = -1 and hchk_name = 'FROZENMAXAGE';
 		END LOOP;
 END $$ 
+
+alter table tb_sys_code ADD COLUMN code_desc character varying(50);
+
+insert into tb_sys_code select 201, 'BUFFERHITRATIO'     , 'Buffer Hit ratio'    ;    
+insert into tb_sys_code select 202, 'COMMITRATIO'        , 'Commit ratio'        ;   
+insert into tb_sys_code select 203, 'CONNECTIONFAIL'     , 'Connection fail'     ;  
+insert into tb_sys_code select 204, 'CPUUTIL'            , 'CPU util'            ; 
+insert into tb_sys_code select 205, 'CPUWAIT'            , 'CPU wait'            ;
+insert into tb_sys_code select 206, 'DISKUSAGE'          , 'Disk usage'          ;
+insert into tb_sys_code select 207, 'FROZENMAXAGE'       , 'Frozen Maxage'       ;
+insert into tb_sys_code select 208, 'HASTATUS'           , 'HA status'           ;
+insert into tb_sys_code select 209, 'HGACTIVECONNECTION' , 'HG Active Connection';
+insert into tb_sys_code select 210, 'HGCPUUTIL'          , 'HG CPU util'         ;
+insert into tb_sys_code select 211, 'HGCPUWAIT'          , 'HG CPU wait'         ;
+insert into tb_sys_code select 212, 'HGDISKUSAGE'        , 'HG Disk usage'       ;
+insert into tb_sys_code select 213, 'HGMEMUSAGE'         , 'HG Mem usage'        ;
+insert into tb_sys_code select 214, 'HGSWAPUSAGE'        , 'HG Swap usage'       ;
+insert into tb_sys_code select 215, 'LASTANALYZE'        , 'Last analyze'        ;
+insert into tb_sys_code select 216, 'LASTVACUUM'         , 'Last vacuum'         ;
+insert into tb_sys_code select 217, 'LOCKCNT'            , 'Lock cnt'            ;
+insert into tb_sys_code select 218, 'LONGRUNSQL'         , 'Longrun sql'         ;
+insert into tb_sys_code select 219, 'MEMUSAGE'           , 'Mem usage'           ;
+insert into tb_sys_code select 220, 'REPLICATION_DELAY'  , 'Replication delay'   ;
+insert into tb_sys_code select 221, 'REPLICATION_SLOT'   , 'Replication slot'    ;
+insert into tb_sys_code select 222, 'SWAPUSAGE'          , 'Swap usage'          ;
+insert into tb_sys_code select 223, 'TRAXIDLECNT'        , 'Trax idle cnt'       ;
+insert into tb_sys_code select 224, 'UNUSEDINDEX'        , 'Unused index'        ;
+insert into tb_sys_code select 225, 'VIRTUAL_IP'         , 'Virtual IP'          ;
+insert into tb_sys_code select 226, 'WALCNT'             , 'Wal count'           ;
+insert into tb_sys_code select 226, 'FROZENMAXAGE'       , 'Frozen maxage'       ;

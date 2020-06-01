@@ -20,6 +20,7 @@ do_packing()
 	echo $VERSION
   cp -a ${EXPERDB_AGENT_HOME}/${EMA}/build/${EMA_DIR_NAME} ${EXPERDB_INSTALL_DIR}
   cp -a ${EXPERDB_AGENT_HOME}/${EMAM}/build/${EMAM_DIR_NAME} ${EXPERDB_INSTALL_DIR}
+  echo lWpOnrrKPTarwaLwLrrvHDNhoZPbUGEqzK4efnta0Gck0DHZBrfXj/W1zFukeymLOKbS9H2dBDodflqduQ2jmShoxabKU50Zt4zS2ltl+ob4JPXdtUK3q6cjGN9RdgOr > ${EXPERDB_INSTALL_DIR}/license.dat
   dos2unix ${EXPERDB_INSTALL_DIR}/${EMA_DIR_NAME}/bin/*
   dos2unix ${EXPERDB_INSTALL_DIR}/${EMAM_DIR_NAME}/bin/*
   dos2unix ${EXPERDB_INSTALL_DIR}/*.sh

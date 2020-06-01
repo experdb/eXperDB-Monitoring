@@ -469,6 +469,7 @@ create table tb_query_info (
 );
 
 create table tb_pgss_query_info (
+    instance_id integer not null,
     queryid character varying(32) not null,
     query text,
     collect_dt timestamp without time zone
@@ -499,9 +500,10 @@ create table tb_database_info (
 
 create table tb_sys_code (
 		code int2 not null,
-		code_name character varying(50) not null
+		code_name character varying(50) not null,
+		code_desc character varying(50)
 );
-        
+      
 create table tb_realtime_statements (
     reg_time character varying(14) not null,
     instance_id integer not null,
@@ -743,7 +745,7 @@ alter table only tb_table_ext_info_${TODAY} add constraint pk_tb_table_ext_info_
 alter table only tb_hchk_alert_info_${TODAY} add constraint pk_tb_hchk_alert_info_${TODAY} primary key (reg_date,hchk_reg_seq, instance_id, hchk_name);
 alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
 alter table only tb_query_info add constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
-alter table only tb_pgss_query_info add constraint pk_pgss_query_info primary key (queryid);
+alter table only tb_pgss_query_info add constraint pk_pgss_query_info primary key (instance_id, queryid);
 alter table only tb_sys_log	add constraint pk_batch_log primary key (reg_date,task_cd, start_dt);
 alter table only tb_hchk_thrd_list add constraint pk_hchk_thrd_list primary key (instance_id,hchk_name);
 alter table only tb_index_info add constraint pk_index_info primary key (reg_date,objt_reg_seq,db_name,schema_name,index_name);
@@ -925,6 +927,7 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGACTIVECONNECTION', '%', '0', 80.00, 90.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'HGDISKUSAGE', '%', '0', 80.00, 90.00, '0', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'FROZENMAXAGE', '%', '0', 00.00, 90.00, '2', NULL, NULL);
+#insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1, 'SOLUTIONSTATUS', ' ', '0', 0.00, 1.00, '2', NULL, NULL);
 
 
 insert into tb_config(
@@ -1161,6 +1164,39 @@ insert into tb_sys_code select 181 ,'WALSenderTimelineHistoryRead';
 insert into tb_sys_code select 182 ,'WALSyncMethodAssign';             
 insert into tb_sys_code select 183 ,'WALWrite';                        
 insert into tb_sys_code select 200 ,'';   
+insert into tb_sys_code select 201, 'BUFFERHITRATIO'     , 'Buffer Hit ratio'    ;    
+insert into tb_sys_code select 202, 'COMMITRATIO'        , 'Commit ratio'        ;   
+insert into tb_sys_code select 203, 'CONNECTIONFAIL'     , 'Connection fail'     ;  
+insert into tb_sys_code select 204, 'CPUUTIL'            , 'CPU util'            ; 
+insert into tb_sys_code select 205, 'CPUWAIT'            , 'CPU wait'            ;
+insert into tb_sys_code select 206, 'DISKUSAGE'          , 'Disk usage'          ;
+insert into tb_sys_code select 207, 'FROZENMAXAGE'       , 'Frozen Maxage'       ;
+insert into tb_sys_code select 208, 'HASTATUS'           , 'HA status'           ;
+insert into tb_sys_code select 209, 'HGACTIVECONNECTION' , 'HG Active Connection';
+insert into tb_sys_code select 210, 'HGCPUUTIL'          , 'HG CPU util'         ;
+insert into tb_sys_code select 211, 'HGCPUWAIT'          , 'HG CPU wait'         ;
+insert into tb_sys_code select 212, 'HGDISKUSAGE'        , 'HG Disk usage'       ;
+insert into tb_sys_code select 213, 'HGMEMUSAGE'         , 'HG Mem usage'        ;
+insert into tb_sys_code select 214, 'HGSWAPUSAGE'        , 'HG Swap usage'       ;
+insert into tb_sys_code select 215, 'LASTANALYZE'        , 'Last analyze'        ;
+insert into tb_sys_code select 216, 'LASTVACUUM'         , 'Last vacuum'         ;
+insert into tb_sys_code select 217, 'LOCKCNT'            , 'Lock cnt'            ;
+insert into tb_sys_code select 218, 'LONGRUNSQL'         , 'Longrun sql'         ;
+insert into tb_sys_code select 219, 'MEMUSAGE'           , 'Mem usage'           ;
+insert into tb_sys_code select 220, 'REPLICATION_DELAY'  , 'Replication delay'   ;
+insert into tb_sys_code select 221, 'REPLICATION_SLOT'   , 'Replication slot'    ;
+insert into tb_sys_code select 222, 'SWAPUSAGE'          , 'Swap usage'          ;
+insert into tb_sys_code select 223, 'TRAXIDLECNT'        , 'Trax idle cnt'       ;
+insert into tb_sys_code select 224, 'UNUSEDINDEX'        , 'Unused index'        ;
+insert into tb_sys_code select 225, 'VIRTUAL_IP'         , 'Virtual IP'          ;
+insert into tb_sys_code select 226, 'WALCNT'             , 'Wal count'           ;
+insert into tb_sys_code select 226, 'FROZENMAXAGE'       , 'Frozen maxage'       ;
+
+
+
+
+
+
 
 INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (0, 'user_group_0', '192.168.56.1', now());
 INSERT INTO TB_USER_GROUP (group_id, group_name, last_mod_ip, last_mod_dt) VALUES (1, 'user_group_1', '192.168.56.1', now());
