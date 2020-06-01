@@ -6,7 +6,7 @@
 #-------------------------------------------------------------------------------
 DB_ENCODING="UTF8"
 DB_SCHEMA="pgmon"
-DB_NAME="pgmon"
+DB_NAME="experdb"
 DB_OWNER="pgmon"
 LOCAL_HOST=" -h localhost"
 DB_PASSWORD=""
@@ -146,7 +146,7 @@ while getopts "d:h:U:p:L:W:Dy?"  opt; do
                    ORG_DB_PORT="$OPTARG"
                    ;;
             d) CONN_DB_NAME=" -d $OPTARG";;
-            L) LICENSE_FILE=" -l $OPTARG";;
+            L) LICENSE_FILE=$OPTARG;;
             W) DB_PASSWORD="$OPTARG";;
         D) DEBUG=1;;
         y) AUTORUN=1;;
@@ -212,6 +212,13 @@ fi
 echo " "
 echo " "
 echo -e "${GREEN}Step.2 Create the databse.${NC}"
+
+#Database Name
+read -r -p "Input Database name(Default : $DB_NAME) : " response
+if [ ! -z "$response" ]; then
+        DB_NAME="$response"
+fi
+
 DB_ENCODING=`PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select ' -E ' || pg_encoding_to_char(encoding) || ' --lc-collate=' || datcollate || ' --lc-ctype=' || datctype from pg_database where datname like 'template%' and datallowconn='t';;"`
 db_exists=`PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select datname from pg_database where datname='$DB_NAME';"`
 if [ "a$db_exists" = "a" ]; then
@@ -249,8 +256,8 @@ echo " "
 echo " "
 echo -e "${GREEN}Step.3 Create the schema and tables.${NC}"
 schema_exists=`PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "select nspname from pg_namespace where nspname='$DB_SCHEMA';"`
-echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
 if [ "a$schema_exists" = "a" ]; then
+        echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
         if confirm "Would you like to create schema $DB_SCHEMA in database $DB_NAME?" ; then
                 if [ $DEBUG -eq 0 ]; then
                         PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c "CREATE SCHEMA $DB_SCHEMA;"
@@ -261,6 +268,25 @@ if [ "a$schema_exists" = "a" ]; then
         else
                 die "you must create schema $DB_SCHEMA."
         fi
+else
+    if confirm "$DB_SCHEMA schema exists. To proceed with the installation, you have to drop the existing schema!" ; then
+        echo "Running: psql $LOCAL_HOST$DB_PORT$DB_USER -d $DB_NAME -c 'drop schema $DB_SCHEMA cascade'"
+        if [ $DEBUG -eq 0 ]; then
+            PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER -d $DB_NAME -c "drop schema $DB_SCHEMA cascade"  > ./install.log 2>&1
+            if [ $? -ne 0 ]; then
+                die "can not drop database $DB_NAME."
+            fi
+        fi
+        echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
+        if [ $DEBUG -eq 0 ]; then
+            PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c "CREATE SCHEMA $DB_SCHEMA;"
+            if [ $? -ne 0 ]; then
+                die "can not create schema $DB_SCHEMA."
+            fi
+        fi
+    else
+        die "Stop the installation."
+    fi
 fi
 
 if [ -f "$REPOGEN_FILE" ]; then
@@ -270,7 +296,7 @@ fi
 
 if [ -r "$REPOCREATE_FILE" ]; then
     echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f $REPOCREATE_FILE"
-        if [ ! -f $LICENSE_FILE ]; then
+        if [ ! -f ${LICENSE_FILE} ]; then
                 echo "License is not found!!"
                 exit 1
         fi
@@ -279,14 +305,15 @@ if [ -r "$REPOCREATE_FILE" ]; then
         sed -i "s|LICENSEDAT|$LICENSE_STR|g" ./pgmon_repository.tmp.sql
 
     if [ $DEBUG -eq 0 ]; then
-        PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f ./pgmon_repository.tmp.sql > ./install.log 2>&1
+        PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f ./pgmon_repository.tmp.sql >> ./install.log 2>&1
         if [ $? -ne 0 ]; then
             die "can not import repository data."
         fi
     fi
-        rm -f ./install.log
-        rm -f ./pgmon_repository.tmp.sql
 fi
+
+rm -f ./install.log
+rm -f ./pgmon_repository.tmp.sql
 
 echo " "
 echo " "
@@ -333,16 +360,17 @@ if [ "a$valid_tb_config" = "a" ]; then
                 die "Couldn't find config file. $MANAGERSOCK"
         fi
 
+        URLPREFIX="jdbc:postgresql:\/\/"
         if [ -f $SERVERDBCONF ] ; then
-                OLDURL=`grep url $SERVERDBCONF |cut -d'/' -f3`
-                NEWURL=$ORG_DB_HOST":"$ORG_DB_PORT
+                OLDURL=`grep url $SERVERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
+                NEWURL=$URLPREFIX$ORG_DB_HOST":"$ORG_DB_PORT"\/"$DB_NAME
                 sed -i "s/$OLDURL/$NEWURL/g" $SERVERDBCONF
         else
                 die "Couldn't find connection file. $SERVERDBCONF"
         fi
         if [ -f $MANAGERDBCONF ] ; then
-                OLDURL=`grep url $MANAGERDBCONF |cut -d'/' -f3`
-                NEWURL=$ORG_DB_HOST":"$ORG_DB_PORT
+                OLDURL=`grep url $MANAGERDBCONF  |cut -d '"' -f4|sed 's/\//\\\\\//g'`
+                NEWURL=$URLPREFIX$ORG_DB_HOST":"$ORG_DB_PORT"\/"$DB_NAME
                 sed -i "s/$OLDURL/$NEWURL/g" $MANAGERDBCONF
         else
                 die "Couldn't find connection file. $MANAGERDBCONF"

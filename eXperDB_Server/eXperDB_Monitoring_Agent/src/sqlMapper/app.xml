@@ -3435,12 +3435,14 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			INSERT INTO TB_PGSS_QUERY_INFO
 			(
+				INSTANCE_ID,
 				QUERYID,
 				QUERY,
 			    COLLECT_DT
 		    )
 			VALUES 
 			(
+				#{instance_id},
 				#{queryid},
 				#{query},
 				now()
@@ -4311,7 +4313,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    || ', Host : '
 			    || INS.HOST_NAME 
 			    || ', Alert : ' 
-			    || ALERT.hchk_name
+			    || SC.code_desc
 			    || ':'
 			    || CASE WHEN COL.VALUE = 99999.00 THEN '-'
 			    		WHEN COL.VALUE IS NULL THEN 0::varchar
@@ -4335,7 +4337,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	            TB_HCHK_COLLECT_INFO COL,
 	            TB_HCHK_THRD_LIST TH,
 	            TB_MON_USER_BY_GROUP UG,
-	            TB_MON_USER MU
+	            TB_MON_USER MU,
+	            TB_SYS_CODE SC
 	        WHERE ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO WHERE reg_date = TO_CHAR(NOW(), 'YYYYMMDD'))
 	        AND ALERT.INSTANCE_ID = INS.INSTANCE_ID
 	        AND ALERT.INSTANCE_ID = COL.INSTANCE_ID
@@ -4350,6 +4353,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	        AND EXTRACT(EPOCH FROM ((DATE(ALERT.REG_DATE) + COL.REG_TIME) - TH.NOTIFICATION_LASTSENT))::NUMERIC >= (TH.NOTIFICATION_CYCLE * 60 - 1)
 	        AND TH.USER_GROUP = UG.GROUP_ID
 	        AND UG.USER_ID = MU.USER_ID
+	        AND ALERT.hchk_name = SC.code_name
 	        ORDER BY INSTANCE_ID;
 		  ]]>
 	</select>

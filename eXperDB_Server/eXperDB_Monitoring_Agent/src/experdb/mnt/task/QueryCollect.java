@@ -140,6 +140,7 @@ public class QueryCollect extends TaskApplication {
 			try {
 				// PGSS_QUERY 정보 등록
 				for (HashMap<String, Object> map : pgssSel) {
+					map.put("instance_id", Integer.valueOf(instanceId));
 					map.put("queryid", MD5Gen.getMd5((map.get("query").toString())));
 					sessionAgent.insert("app.TB_PGSS_QUERY_INFO_I001", map);
 				}
