@@ -1069,7 +1069,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{blocking_query},
 			#{blocked_user},
 			#{blocked_pid},
-			MD5(#{blocked_query}),
+			#{blocked_query},
 			#{blocked_duration},
 			#{lock_mode},
 			#{query_start},
