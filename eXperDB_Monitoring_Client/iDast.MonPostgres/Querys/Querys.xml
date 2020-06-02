@@ -3856,7 +3856,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 			    SELECT RELID, db_name || '.' || schema_name || '.' || table_name AS table_name
 			      FROM TB_TABLE_INFO
 			     WHERE RELID IN ({3})
-             AND REG_DATE = '{1}'
+             AND REG_DATE {1}
 			     ORDER BY OBJT_REG_SEQ DESC
 			     LIMIT (SELECT count(*)+1 FROM regexp_matches('{3}', ',', 'g'))
 		    )

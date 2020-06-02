@@ -373,12 +373,19 @@ public class ActvCollect extends TaskApplication {
 				// CURRENT_LOCK 정보 등록
 				for (HashMap<String, Object> map : currentLockSel) {
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
+					String blocking_query = map.get("blocking_query") != null ? map.get("blocking_query").toString() : null;
+					String blocked_query = map.get("blocked_query") != null ? map.get("blocked_query").toString() : null;
+					String blocking_queryid = map.get("blocking_query") != null ? MD5Gen.getMd5(map.get("blocking_query").toString()) : null;
+					String blocked_queryid = map.get("blocked_query") != null ? MD5Gen.getMd5(map.get("blocked_query").toString()) : null;
+					map.put("blocking_query", 					blocking_queryid);
+					map.put("blocked_query", 					blocked_queryid);
+					sessionAgent.insert("app.TB_CURRENT_LOCK_I001", map);
+
+					inputParam.put("queryid", 					blocking_queryid);
 					inputParam.put("instance_id", 				Integer.parseInt(instanceId));
-					inputParam.put("queryid", 					MD5Gen.getMd5(map.get("blocking_query").toString()));
-					inputParam.put("query", 					map.get("blocking_query"));
+					inputParam.put("query", 					blocking_query);
 					inputParam.put("dbid", 						map.get("blocking_datid"));
 					inputParam.put("userid", 					map.get("blocking_usesysid"));
-					sessionAgent.insert("app.TB_CURRENT_LOCK_I001", map);
 					HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
 					if (queryIdMap == null){
 						sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
