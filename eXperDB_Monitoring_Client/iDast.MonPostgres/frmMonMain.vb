@@ -1465,6 +1465,7 @@
             If p_clsAgentCollect.AgentState = clsCollect.AgntState.Activate Then
                 If _isDrawInitialData = 0 Then
                     clsAgentCollect_reloadClusters()
+                    clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
                     clsAgentCollect_GetDataBackendinfo(p_clsAgentCollect.infoDataBackend)
                     clsAgentCollect_GetDataCpuMem(p_clsAgentCollect.infoDataCpuMem)
                     clsAgentCollect_GetDataDiskInfo(p_clsAgentCollect.infoDataDisk)
@@ -1472,7 +1473,6 @@
                     clsAgentCollect_GetDataLockCount(p_clsAgentCollect.infoDatalockCount)
                     clsAgentCollect_GetDataSQLRespTmInfo(p_clsAgentCollect.infoDataSQLRespTm)
                     clsAgentCollect_GetDataObjectInfo(p_clsAgentCollect.infoDataObject, p_clsAgentCollect.infoDataSessioninfo)
-                    clsAgentCollect_GetDataHealthCheck(p_clsAgentCollect.infoDataHealth)
                     clsAgentCollect_GetDataSessionStatsInfo(p_clsAgentCollect.infoDataSessioninfo)
                     clsAgentCollect_GetDataAlert(p_clsAgentCollect.infoDataAlert)
                     clsAgentCollect_GetDataStatementsInfo(p_clsAgentCollect.infoDataStmt)
@@ -1902,111 +1902,113 @@
         Dim tmpGrp As GroupInfo = _GrpList.Item(0)
         '선택된 클러스터의 세션 리스트만 보여준다.
         Dim strSvrIDInQuery As String = ""
-        strSvrIDInQuery = String.Join(",", tmpGrp.Items.Where(Function(w) w.Reserved = True).Select(Function(e) e.InstanceID))
-        Dim returnDT = dtTable.AsEnumerable().Where(Function(w) strSvrIDInQuery.Contains(w.Field(Of Integer)("INSTANCE_ID"))).CopyToDataTable
-        dtTable = returnDT
+        Try
+            strSvrIDInQuery = String.Join(",", tmpGrp.Items.Where(Function(w) w.Reserved = True).Select(Function(e) e.InstanceID))
+            Dim returnDT = dtTable.AsEnumerable().Where(Function(w) strSvrIDInQuery.Contains(w.Field(Of Integer)("INSTANCE_ID"))).CopyToDataTable
+            dtTable = returnDT
 
-        For Each dtRow As DataRow In dtTable.Rows
-            ' GRP ACCESS
-            Dim intInstID As Integer = dtRow.Item("INSTANCE_ID") ' datainfo.C00_INSTANCE_ID
-            Dim strInstNm As String = dtRow.Item("HOST_NAME")
-            ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
-            ' 추후 개선할 것 
-            Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
-            If cpuidx >= 0 Then
-                If dtRow.Item("DISK_NAME") <> "-" Then
-                    Dim strDiskNm As String = dtRow.Item("DISK_NAME")
-                    Dim strKey As String = intInstID & strDiskNm
-                    Dim dblRate As Double = ConvDBL(dtRow.Item("BUSY_RATE"))
+            For Each dtRow As DataRow In dtTable.Rows
+                ' GRP ACCESS
+                Dim intInstID As Integer = dtRow.Item("INSTANCE_ID") ' datainfo.C00_INSTANCE_ID
+                Dim strInstNm As String = dtRow.Item("HOST_NAME")
+                ' 현재 활성화 목록을 CPU RAIDER 에서 검색한다. 있으면 뿌리고 없으면 뿌리지 않음. 
+                ' 추후 개선할 것 
+                Dim cpuidx As Integer = radCpu.items.IndexOf(intInstID)
+                If cpuidx >= 0 Then
+                    If dtRow.Item("DISK_NAME") <> "-" Then
+                        Dim strDiskNm As String = dtRow.Item("DISK_NAME")
+                        Dim strKey As String = intInstID & strDiskNm
+                        Dim dblRate As Double = ConvDBL(dtRow.Item("BUSY_RATE"))
 
-                    ' 키로 찾기 위하여 Instance  + Disk Name 으로 키를 넣어둠. 
-                    If _isDiskAccess = True Then
-                        Using tmpRow As DataGridViewRow = dgvGrpDiskAccess.FindFirstRow(strKey, colDgvDiskAccessKey.Index)
-                            If tmpRow Is Nothing Then
-                                Dim intIdx As Integer = dgvGrpDiskAccess.Rows.Add() ' dgvGrpDiskAccess.InvokeRowsAdd
-                                ' 디스크KEY
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Value = strKey
-                                ' Instance ID
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Tag = intInstID
-                                ' 서버명칭 
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessSvrNm.Index).Value = strInstNm
-                                ' 디스크명칭
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessDiskNm.Index).Value = strDiskNm
-                                ' 사용률
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessProg.Index).Value = dblRate
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
-                                ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
-                                dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
-                            Else
-                                ' 사용률
-                                tmpRow.Cells(colDgvDiskAccessProg.Index).Value = dblRate
-                                tmpRow.Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
-                                ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
-                                tmpRow.Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
-                            End If
-                        End Using
+                        ' 키로 찾기 위하여 Instance  + Disk Name 으로 키를 넣어둠. 
+                        If _isDiskAccess = True Then
+                            Using tmpRow As DataGridViewRow = dgvGrpDiskAccess.FindFirstRow(strKey, colDgvDiskAccessKey.Index)
+                                If tmpRow Is Nothing Then
+                                    Dim intIdx As Integer = dgvGrpDiskAccess.Rows.Add() ' dgvGrpDiskAccess.InvokeRowsAdd
+                                    ' 디스크KEY
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Value = strKey
+                                    ' Instance ID
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessKey.Index).Tag = intInstID
+                                    ' 서버명칭 
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessSvrNm.Index).Value = strInstNm
+                                    ' 디스크명칭
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessDiskNm.Index).Value = strDiskNm
+                                    ' 사용률
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessProg.Index).Value = dblRate
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
+                                    ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
+                                    dgvGrpDiskAccess.Rows(intIdx).Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
+                                Else
+                                    ' 사용률
+                                    tmpRow.Cells(colDgvDiskAccessProg.Index).Value = dblRate
+                                    tmpRow.Cells(colDgvDiskAccessRate.Index).Value = dblRate / 100
+                                    ' 마지막 갱신 시간 다 돌고 시간이 다른넘은 삭제한다. -- 기존 데이터를 계속 갱신하게 때문에 삭제에 대한 로직도 필요함. 
+                                    tmpRow.Cells(colDgvDiskAccessUpdTime.Index).Value = UpdTime
+                                End If
+                            End Using
+                        End If
+                    End If
+
+                    If dtRow.Item("DEVICE_NAME") <> "-" Then
+                        Dim strDeviceNm As String = dtRow.Item("DEVICE_NAME")
+                        Dim strKey As String = intInstID & strDeviceNm
+                        Dim dblTotKb As Double = ConvDBL(dtRow.Item("TOTAL_KB"))
+                        Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
+
+                        ' GRP USAGE
+                        If _isDiskUsage = True Then
+                            Using tmpRow As DataGridViewRow = dgvGrpDiskUsage.FindFirstRow(strKey, colDgvDiskUsageKey.Index)
+                                If tmpRow Is Nothing Then
+                                    'Dim intIdx As Integer = dgvGrpDiskUsage.InvokeRowsAdd
+                                    Dim intIDx As Integer = dgvGrpDiskUsage.Rows.Add()
+                                    ' Key 
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Value = strKey
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Tag = intInstID
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageSvrNm.Index).Value = strInstNm
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageDiskNm.Index).Value = strDeviceNm
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageProg.Index).Value = dblRate
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
+                                Else
+                                    tmpRow.Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
+                                    tmpRow.Cells(colDgvDiskUsageProg.Index).Value = dblRate
+                                    tmpRow.Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
+                                    tmpRow.Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
+                                End If
+
+                            End Using
+                        End If
                     End If
                 End If
+            Next
 
-                If dtRow.Item("DEVICE_NAME") <> "-" Then
-                    Dim strDeviceNm As String = dtRow.Item("DEVICE_NAME")
-                    Dim strKey As String = intInstID & strDeviceNm
-                    Dim dblTotKb As Double = ConvDBL(dtRow.Item("TOTAL_KB"))
-                    Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
-
-                    ' GRP USAGE
-                    If _isDiskUsage = True Then
-                        Using tmpRow As DataGridViewRow = dgvGrpDiskUsage.FindFirstRow(strKey, colDgvDiskUsageKey.Index)
-                            If tmpRow Is Nothing Then
-                                'Dim intIdx As Integer = dgvGrpDiskUsage.InvokeRowsAdd
-                                Dim intIDx As Integer = dgvGrpDiskUsage.Rows.Add()
-                                ' Key 
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Value = strKey
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageKey.Index).Tag = intInstID
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageSvrNm.Index).Value = strInstNm
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageDiskNm.Index).Value = strDeviceNm
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageProg.Index).Value = dblRate
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
-                                dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
-                            Else
-                                tmpRow.Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
-                                tmpRow.Cells(colDgvDiskUsageProg.Index).Value = dblRate
-                                tmpRow.Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
-                                tmpRow.Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
-                            End If
-
-                        End Using
-                    End If
-                End If
+            ' 목록에 사라진것 삭제하기 
+            If _isDiskAccess = True Then
+                dgvGrpDiskAccess.invokeRowsRemoves(UpdTime, colDgvDiskAccessUpdTime.Index, False)
+                dgvGrpDiskAccess.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
+                ' 컨트롤 색상 변경 
+                modCommon.sb_GridProgClrChg(dgvGrpDiskAccess)
+                sb_GridSortChg(dgvGrpDiskAccess, colDgvDiskAccessRate.Index)
             End If
-        Next
 
-        ' 목록에 사라진것 삭제하기 
-        If _isDiskAccess = True Then
-            dgvGrpDiskAccess.invokeRowsRemoves(UpdTime, colDgvDiskAccessUpdTime.Index, False)
-            dgvGrpDiskAccess.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-            ' 컨트롤 색상 변경 
-            modCommon.sb_GridProgClrChg(dgvGrpDiskAccess)
-            sb_GridSortChg(dgvGrpDiskAccess, colDgvDiskAccessRate.Index)
-        End If
+            If _isDiskUsage = True Then
+                dgvGrpDiskUsage.invokeRowsRemoves(UpdTime, colDgvDiskUsageUpdTime.Index, False)
+                dgvGrpDiskUsage.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
+                ' 컨트롤 색상 변경 
+                modCommon.sb_GridProgClrChg(dgvGrpDiskUsage)
+                sb_GridSortChg(dgvGrpDiskUsage, colDgvDiskUsageRate.Index)
+            End If
 
-        If _isDiskUsage = True Then
-            dgvGrpDiskUsage.invokeRowsRemoves(UpdTime, colDgvDiskUsageUpdTime.Index, False)
-            dgvGrpDiskUsage.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
-            ' 컨트롤 색상 변경 
-            modCommon.sb_GridProgClrChg(dgvGrpDiskUsage)
-            sb_GridSortChg(dgvGrpDiskUsage, colDgvDiskUsageRate.Index)
-        End If
-
-        'For Each tmpFrm As Form In My.Application.OpenForms
-        '    Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
-        '    If subFrm IsNot Nothing Then
-        '        subFrm.SetDataDisk(dtTable)
-        '    End If
-        'Next
-
-
+            'For Each tmpFrm As Form In My.Application.OpenForms
+            '    Dim subFrm As frmMonDetail = TryCast(tmpFrm, frmMonDetail)
+            '    If subFrm IsNot Nothing Then
+            '        subFrm.SetDataDisk(dtTable)
+            '    End If
+            'Next
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
     'Private Delegate Sub delegateChartClear(ByVal Chart As DataVisualization.Charting.Chart)
