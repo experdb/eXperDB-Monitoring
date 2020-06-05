@@ -104,7 +104,7 @@ Partial Class frmVersion
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(394, 36)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Copyright(C) 2011-2019 k4m.com, All rights reserved."
+        Me.Label2.Text = "Copyright(C) 2011-2019 inzent.com, All rights reserved."
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblServerVersionValue

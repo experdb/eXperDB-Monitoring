@@ -3399,7 +3399,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</insert>	
 	<select id="EXPERDBMA_BT_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
+            CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
 			    use strict;
 			    use warnings;
 			    use Encode;
@@ -3409,13 +3409,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    my $prev = $org . '.prev';
 			    my $curr = $org . '.curr';
 			    my $copycmd = '/bin/cp ' . $org . ' ' . $curr;
-			    my $checkcmd = '[ ! -f /experdata/data/pg_stat_tmp/pgss_query_texts.stat.prev ] && touch ' . $prev;
+			    my $checkcmd = '[ ! -f $PGDATA/pg_stat_tmp/pgss_query_texts.stat.prev ] && echo -n "F"';
+				my $res = `$checkcmd`;
+				if ($res eq "F"){
+					my $firstcmd = '/bin/head -200 ' . $org . '|sed \'s/\\x0/' . $del . '/g\'';
+					my $firstqueries = `$firstcmd`;
+					my $firstquery = (split($del, $firstqueries))[0];
+					return_next decode('utf-8', $firstquery);
+					$checkcmd = '/bin/touch ' . $prev;
+				}	
 			    my $movecmd = '/bin/mv ' . $curr . ' ' . $prev;
 			    my $diffcmd = '/bin/diff -a --unchanged-line-format= --old-line-format= --new-line-format=\'%L\' ' . $prev . ' ' . $curr . '|sed \'s/\\x0/' . $del . '/g\'';
-			    my $res = `$checkcmd`; 
-			    $res = `$copycmd`; 
+			    $res = `$checkcmd`; 
+			    $res = `$copycmd`;
 			    my $newqueries = `$diffcmd`;
-			    #elog(NOTICE, "dpath is $dpath");
 			    my @arr = split $del, $newqueries;
 			    shift @arr;
 			    foreach( @arr ){
