@@ -34,6 +34,8 @@ SERVERPATH=eXperDBMA
 SERVERDBCONF=$SERVERPATH/config/MyBatisConfig.xml
 SERVERBIN=$SERVERPATH/bin
 
+SERVERLOGDAYS=7
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -386,6 +388,12 @@ echo export PGMHOME=$PGMHOME >> ~/.experdbrc
 echo export PGMLOG=$PGMLOG >> ~/.experdbrc
 echo "alias cdms='cd \$PGMHOME'" >> ~/.experdbrc
 echo "alias cdml='cd \$PGMLOG'" >> ~/.experdbrc
+
+crontab -l|grep -v eXperDBMA | crontab -
+(crontab -l 2>/dev/null; echo "59 23 * * * /bin/find $PGMHOME/eXperDBMA/log/ -maxdepth 1 -ctime +$SERVERLOGDAYS -delete") | crontab -
+(crontab -l 2>/dev/null; echo "59 23 * * * /bin/find $PGMHOME/eXperDBMA_MANAGER/log/ -maxdepth 1 -ctime +$SERVERLOGDAYS -delete") | crontab -
+(crontab -l 2>/dev/null; echo "59 23 * * * /bin/find $PGMHOME/eXperDBMA/log/ -maxdepth 1 -mtime +$SERVERLOGDAYS -delete") | crontab -
+(crontab -l 2>/dev/null; echo "59 23 * * * /bin/find $PGMHOME/eXperDBMA_MANAGER/log/ -maxdepth 1 -mtime +$SERVERLOGDAYS -delete") | crontab -
 
 cat <<-EOF
 ------------------------------------------------------------------------------
