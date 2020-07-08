@@ -391,11 +391,17 @@
         End Try
 
         Threading.Thread.Sleep(10)
-        _ProgresForm = New frmProgres()
-        _ProgresForm.Owner = Me
-        _ProgresForm.Location = Me.Location
-        _ProgresForm.Size = Me.Size
+        If _ProgresForm Is Nothing Then
+            _ProgresForm = New frmProgres()
+            _ProgresForm.Owner = Me
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
         _ProgresForm.Show()
+        Me.BringToFront()
+        Me.Activate()
 
         If bgmanual.IsBusy = True Then
             bgmanual.CancelAsync()
@@ -717,5 +723,14 @@
             Me.bgmanual.CancelAsync()
         End If
         _ProgresForm = Nothing
+    End Sub
+
+    Private Sub frmAutovacuum_Move(sender As Object, e As EventArgs) Handles Me.Move
+        If _ProgresForm IsNot Nothing Then
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
     End Sub
 End Class

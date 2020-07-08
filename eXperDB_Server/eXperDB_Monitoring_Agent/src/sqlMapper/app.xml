@@ -987,9 +987,11 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			          BLOCKING_USESYSID AS BLOCKING_USESYSID,
 			          BLOCKING_PID AS BLOCKING_PID, 
 			          BLOCKING_QUERY AS BLOCKING_QUERY,
+			          MD5(BLOCKING_QUERY) AS BLOCKING_QUERYID,
 			          BLOCKED_USER AS BLOCKED_USER,
 			          BLOCKED_PID AS BLOCKED_PID, 
 			          BLOCKED_QUERY AS BLOCKED_QUERY,
+			          MD5(BLOCKED_QUERY) AS BLOCKED_QUERYID,
 			          BLOCKED_DURATION AS BLOCKED_DURATION,
 			          LOCK_MODE AS LOCK_MODE, 
 			          QUERY_START AS QUERY_START,
@@ -1213,7 +1215,9 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				          --CASE WHEN B.CURRENT_QUERY IS NULL THEN 'BACKGROUND PROC' ELSE B.CURRENT_QUERY END AS SQL,				          
 				          B.STATE AS STATE,
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+				          B.BACKEND_XID::text::bigint AS BACKEND_XID,
 				           COALESCE(B.WAIT_EVENT, '') AS WAIT_EVENT,
+				           MD5(B.QUERY) AS QUERYID,
 				          NOW() AS COLLECT_DT
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
@@ -1231,29 +1235,31 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	
 	<select id="BT_BACKEND_RSC_002" parameterType="hashmap" resultType="hashmap" flushCache="true">
 				<![CDATA[
-                  SELECT /* EXPERDBMABT_BACKEND_RSC_001 (10.0) 24e9ab7301ff1966da4fb30dc1538882 */
+                  SELECT /* EXPERDBMABT_BACKEND_RSC_002 (10.0) 24e9ab7301ff1966da4fb30dc1538882 */
                           A.PROC_ID AS PROCESS_ID,
                           B.DATNAME AS DB_NAME,
                           COALESCE(B.DATID, 0) DATID,
                           COALESCE(B.USESYSID, 0) USESYSID,
-                          HOST(B.CLIENT_ADDR::inet) AS CLIENT_ADDR, -- 2014-04-28 ▒~T▒~@
-                          B.USENAME AS USER_NAME,-- 2014-04-28 ▒~T▒~@~T
-                          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 ▒~T▒~@~T
+                          HOST(B.CLIENT_ADDR::inet) AS CLIENT_ADDR,
+                          B.USENAME AS USER_NAME,
+                          B.APPLICATION_NAME AS APPLICATION_NAME,
                           A.CPU_UTIME AS AGG_PROC_UTIME,
                           A.CPU_STIME AS AGG_PROC_STIME,
                           A.DISK_READ AS AGG_PROC_READ_KB,
                           A.DISK_WRITE AS AGG_PROC_WRITE_KB,
                           CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
                           CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-B.QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
-                          C.QUERY AS SQL,
+                          MD5(C.QUERY) AS QUERYID,
+                          '' AS SQL,
                           B.STATE AS STATE,
                           A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
+				          B.BACKEND_XID::text::bigint AS BACKEND_XID,
                           COALESCE(B.WAIT_EVENT, '') AS WAIT_EVENT,
                           NOW() AS COLLECT_DT
                   FROM GET_BACKEND_RSC A
-                       JOIN PG_ACTIVE_SESSION_HISTORY B ON A.PROC_ID=B.PID
-                       join pg_stat_statements C on B.queryid = C.queryid AND b.usesysid = C.userid AND B.datid = C.dbid
-                  WHERE B.state is not null AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
+                       JOIN PG_ACTIVE_STATEMENTS B ON A.PROC_ID=B.PID
+                       join PG_STAT_STATEMENTS C on B.queryid = C.queryid AND b.usesysid = C.userid AND B.datid = C.dbid
+                  WHERE state IS NOT NULL AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'  AND B.APPLICATION_NAME <> 'postgres_fdw'
                     ORDER BY process_id;
 				]]>
 	</select>
@@ -1338,6 +1344,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		    WAIT_EVENT,
 		    QUERYID,
 		    SQL,
+		    BACKEND_XID,
 		    COLLECT_DT
 		)
 		VALUES 
@@ -1365,6 +1372,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{queryid},
 --			sharp{sql},
 			'',
+			#{backend_xid},
 			#{collect_dt}
 		)
 	</insert>
@@ -1393,6 +1401,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		    WAIT_EVENT,
 		    QUERYID,
 		    SQL,
+		    BACKEND_XID,
 		    COLLECT_DT
 		)
 		VALUES 
@@ -1417,9 +1426,10 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{elapsed_time},
 			#{state},
 			(SELECT CODE FROM TB_SYS_CODE WHERE CODE_NAME = #{wait_event}),
-			MD5(#{sql}),
+			#{queryid},
 			--sharp{sql},
 			'',
+			#{backend_xid},
 			#{collect_dt}
 		)
 	</insert>
@@ -2746,10 +2756,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="PG_CHECK_EXTENSION_003" parameterType="hashmap" resultType="hashmap">
 		SELECT /* 24e9ab7301ff1966da4fb30dc1538882 */
 				SUM(CASE WHEN EXTNAME = 'experdb_pgmon' THEN 1
-		            WHEN EXTNAME = 'pg_stat_statements' THEN 2
-					WHEN EXTNAME = 'pgsentinel' THEN 4
-					WHEN EXTNAME = 'adminpack' THEN 8
-					ELSE 0 END) AS EXTENSIONS 
+		            WHEN EXTNAME = 'pg_stat_statements' THEN CASE WHEN EXTVERSION = '1.6e' THEN 10 ELSE 2 END
+					WHEN EXTNAME = 'pg_actstatement' THEN 4
+					ELSE 0 END) AS EXTENSIONS
 		FROM PG_EXTENSION;
 	</select>	
 	<update id="PG_CREATE_EXTENSION_001" parameterType="hashmap">
@@ -3312,7 +3321,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			 ORDER BY STMT_QUERYID ASC LIMIT 1
 		  ]]>	  
 	</select>
-	<insert id="TB_QUERY_INFO_I001" parameterType="hashmap" >
+	<insert id="TB_QUERY_INFO_I001_OLD" parameterType="hashmap" >
 		INSERT INTO TB_QUERY_INFO 
 		(
 			INSTANCE_ID,
@@ -3332,6 +3341,25 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			#{query}
 			, NOW()
 		) ON CONFLICT DO NOTHING;
+	</insert>
+	
+	<insert id="TB_QUERY_INFO_I001" parameterType="hashmap" >
+		<![CDATA[
+			INSERT INTO TB_QUERY_INFO
+			(
+				INSTANCE_ID,
+				DBID,
+				USERID,
+				QUERYID,
+				STMT_QUERYID,
+				QUERY,
+				COLLECT_DT
+			) 
+		    SELECT #{instance_id}, #{dbid}, #{userid}, #{queryid}, #{stmt_queryid}, #{query}, NOW()
+		    WHERE NOT EXISTS (
+		        SELECT 1 FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
+		    );
+	    ]]>
 	</insert>
 	<insert id="TB_QUERY_INFO_I002" parameterType="hashmap" >
 		WITH UPSERT AS (
@@ -3353,7 +3381,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
      		   MAX(USERID) USERID,	
      		   MAX(DBID) DBID,	
      		   MAX(PGS.QUERYID) QUERYID, 
-     		   MAX(PGS.QUERY ) QUERY,
+     		   MAX(MD5(PGS.QUERY)) QUERY,
      		   SUM(CALLS) CALLS,
      		   SUM(TOTAL_TIME) TOTAL_TIME,
      		   MIN(MIN_TIME) MIN_TIME,
@@ -3435,7 +3463,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	<select id="BT_PGSS_QUERY_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT GET_PGSS_TEXT(#{delimeter}) AS QUERY;
+			SELECT MD5(GET_PGSS_TEXT(#{delimeter})) AS QUERYID, GET_PGSS_TEXT(#{delimeter}) AS QUERY;
 		  ]]>	  
 	</select>
 	<insert id="TB_PGSS_QUERY_INFO_I001" parameterType="hashmap" >
@@ -4245,6 +4273,13 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			)
 			SELECT RTST.*, md5(fdw${instance_id}.query) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
 			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  ]]>
+	</select>
+	
+	<select id="BT_RTSTMT_INFO_002" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT userid, dbid, queryid, calls, total_time, md5(query) cqueryid  FROM pg_stat_statements WHERE update_time > #{update_time}::timestamp
+			   AND query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>
 	</select>
 	

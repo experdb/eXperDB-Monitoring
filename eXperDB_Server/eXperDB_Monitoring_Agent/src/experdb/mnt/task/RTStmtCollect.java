@@ -3,8 +3,11 @@ package experdb.mnt.task;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,7 @@ public class RTStmtCollect extends TaskApplication {
 	
 	private String instance_db_version = "";
 	private long sequenceValue = 0;
+	long collectPeriod = 0;
 	
 	public RTStmtCollect(String instanceId, String taskId) {
 		super(instanceId, taskId);
@@ -39,7 +43,7 @@ public class RTStmtCollect extends TaskApplication {
 	public void run() {
 		
 		instance_db_version = (String) MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("pg_version_min");
-		long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("rtstmt_period_sec");
+		collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("rtstmt_period_sec");
 		long sleepTime;
 		long startTime;
 		long endTime;
@@ -99,6 +103,11 @@ public class RTStmtCollect extends TaskApplication {
 			//sessionAgent.update("app.TB_SET_LOCK_TIMEOUT_U001");
 			List<HashMap<String, Object>> rtStmtSel = new ArrayList<HashMap<String,Object>>(); // STMT 정보 수집
 			
+			int extensions = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("extensions");
+			extensions &= 0x08;
+			extensions = 0;
+			
+			
 			if(is_collect_ok.equals("Y"))
 			{			
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////			
@@ -109,7 +118,16 @@ public class RTStmtCollect extends TaskApplication {
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
 					inputParam.put("instance_id", Integer.parseInt(instanceId));
 
-					RTStmtSel = sessionAgent.selectList("app.BT_RTSTMT_INFO_001", inputParam);
+					if (extensions > 0 ){
+						Calendar cal = Calendar.getInstance();
+						cal.setTime( new Date(System.currentTimeMillis()));
+						cal.add(Calendar.SECOND, -1 * (int)collectPeriod);
+						String updateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( cal.getTime());
+						inputParam.put("update_time", updateTime);
+						RTStmtSel = sessionCollect.selectList("app.BT_RTSTMT_INFO_002", inputParam);
+					}
+					else
+						RTStmtSel = sessionAgent.selectList("app.BT_RTSTMT_INFO_001", inputParam);
 
 					for (HashMap<String, Object> map : RTStmtSel) {
 						map.put("instance_id", 				Integer.parseInt(instanceId));
@@ -138,14 +156,15 @@ public class RTStmtCollect extends TaskApplication {
 					//Sequence
 					//HashMap<String, Object> SeqMap = sessionAgent.selectOne("app.SEQ_GET_NEXT_STMT");
 					//int sequence = Integer.parseInt(SeqMap.get("nextval").toString());
-					
-					HashMap<String, Object> paramMap = new HashMap<String, Object>();
-					paramMap.put("instance_id", Integer.parseInt(instanceId));
-					paramMap.put("table_order", sequenceValue % 2);
-					sessionAgent.delete("app.BT_RTSTMT_CALL_INFO_T001", paramMap);
-					sessionAgent.insert("app.BT_RTSTMT_CALL_INFO_I001", paramMap);	
+					if (extensions <= 0 ){
+						HashMap<String, Object> paramMap = new HashMap<String, Object>();
+						paramMap.put("instance_id", Integer.parseInt(instanceId));
+						paramMap.put("table_order", sequenceValue % 2);
+						sessionAgent.delete("app.BT_RTSTMT_CALL_INFO_T001", paramMap);
+						sessionAgent.insert("app.BT_RTSTMT_CALL_INFO_I001", paramMap);
+						sequenceValue++;
+					}
 					sessionAgent.commit();
-					sequenceValue++;
 				} catch (Exception e) {					
 					is_collect_ok = "N";
 					log.error("", e);

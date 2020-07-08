@@ -695,4 +695,9 @@ Public Class frmConnection
     Private Sub frmConnection_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         txtIP.Focus()
     End Sub
+
+    Private Function IsTextAValidIPAddress(ByVal text As String) As Boolean
+        Dim test As System.Net.IPAddress = Nothing
+        Return System.Net.IPAddress.TryParse(text, test)
+    End Function
 End Class

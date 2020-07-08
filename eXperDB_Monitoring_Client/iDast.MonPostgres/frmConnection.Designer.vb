@@ -31,7 +31,13 @@ Partial Class frmConnection
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.btnTest = New eXperDB.BaseControls.Button()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblHAREPLHost = New eXperDB.BaseControls.Label()
+        Me.txtHAREPLHost = New eXperDB.BaseControls.TextBox()
+        Me.txtHAPort = New eXperDB.BaseControls.TextBox()
+        Me.lblHAPort = New eXperDB.BaseControls.Label()
+        Me.txtHAHost = New eXperDB.BaseControls.TextBox()
         Me.lblVIP2 = New eXperDB.BaseControls.Label()
+        Me.lblHAHost = New eXperDB.BaseControls.Label()
         Me.lblVIP = New eXperDB.BaseControls.Label()
         Me.txtVIP2 = New eXperDB.BaseControls.TextBox()
         Me.txtVIP = New eXperDB.BaseControls.TextBox()
@@ -55,12 +61,6 @@ Partial Class frmConnection
         Me.lblPort = New eXperDB.BaseControls.Label()
         Me.txtIP = New eXperDB.BaseControls.TextBox()
         Me.txtPort = New eXperDB.BaseControls.TextBox()
-        Me.txtHAREPLHost = New eXperDB.BaseControls.TextBox()
-        Me.txtHAPort = New eXperDB.BaseControls.TextBox()
-        Me.txtHAHost = New eXperDB.BaseControls.TextBox()
-        Me.lblHAREPLHost = New eXperDB.BaseControls.Label()
-        Me.lblHAPort = New eXperDB.BaseControls.Label()
-        Me.lblHAHost = New eXperDB.BaseControls.Label()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
@@ -249,6 +249,92 @@ Partial Class frmConnection
         Me.tlpSvrChk.Size = New System.Drawing.Size(365, 591)
         Me.tlpSvrChk.TabIndex = 20
         '
+        'lblHAREPLHost
+        '
+        Me.lblHAREPLHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHAREPLHost.FixedHeight = False
+        Me.lblHAREPLHost.FixedWidth = False
+        Me.lblHAREPLHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHAREPLHost.ForeColor = System.Drawing.Color.White
+        Me.lblHAREPLHost.LineSpacing = 0.0!
+        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 560)
+        Me.lblHAREPLHost.Name = "lblHAREPLHost"
+        Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 20)
+        Me.lblHAREPLHost.TabIndex = 23
+        Me.lblHAREPLHost.Text = "F291"
+        Me.lblHAREPLHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblHAREPLHost.Visible = False
+        '
+        'txtHAREPLHost
+        '
+        Me.txtHAREPLHost.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHAREPLHost.code = False
+        Me.txtHAREPLHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtHAREPLHost.FixedWidth = False
+        Me.txtHAREPLHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtHAREPLHost.impossibleinput = ""
+        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 556)
+        Me.txtHAREPLHost.Name = "txtHAREPLHost"
+        Me.txtHAREPLHost.Necessary = False
+        Me.txtHAREPLHost.PossibleInput = ""
+        Me.txtHAREPLHost.Prefix = ""
+        Me.txtHAREPLHost.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAREPLHost.StatusTip = ""
+        Me.txtHAREPLHost.TabIndex = 2
+        Me.txtHAREPLHost.Value = ""
+        Me.txtHAREPLHost.Visible = False
+        '
+        'txtHAPort
+        '
+        Me.txtHAPort.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHAPort.code = False
+        Me.txtHAPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtHAPort.FixedWidth = False
+        Me.txtHAPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtHAPort.impossibleinput = ""
+        Me.txtHAPort.Location = New System.Drawing.Point(136, 521)
+        Me.txtHAPort.Name = "txtHAPort"
+        Me.txtHAPort.Necessary = False
+        Me.txtHAPort.PossibleInput = "0123456789"
+        Me.txtHAPort.Prefix = ""
+        Me.txtHAPort.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAPort.StatusTip = ""
+        Me.txtHAPort.TabIndex = 1
+        Me.txtHAPort.Value = ""
+        '
+        'lblHAPort
+        '
+        Me.lblHAPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHAPort.FixedHeight = False
+        Me.lblHAPort.FixedWidth = False
+        Me.lblHAPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHAPort.ForeColor = System.Drawing.Color.White
+        Me.lblHAPort.LineSpacing = 0.0!
+        Me.lblHAPort.Location = New System.Drawing.Point(3, 525)
+        Me.lblHAPort.Name = "lblHAPort"
+        Me.lblHAPort.Size = New System.Drawing.Size(127, 20)
+        Me.lblHAPort.TabIndex = 21
+        Me.lblHAPort.Text = "F290"
+        Me.lblHAPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtHAHost
+        '
+        Me.txtHAHost.BackColor = System.Drawing.SystemColors.Window
+        Me.txtHAHost.code = False
+        Me.txtHAHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtHAHost.FixedWidth = False
+        Me.txtHAHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtHAHost.impossibleinput = ""
+        Me.txtHAHost.Location = New System.Drawing.Point(136, 486)
+        Me.txtHAHost.Name = "txtHAHost"
+        Me.txtHAHost.Necessary = False
+        Me.txtHAHost.PossibleInput = ""
+        Me.txtHAHost.Prefix = ""
+        Me.txtHAHost.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAHost.StatusTip = ""
+        Me.txtHAHost.TabIndex = 0
+        Me.txtHAHost.Value = ""
+        '
         'lblVIP2
         '
         Me.lblVIP2.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -263,6 +349,21 @@ Partial Class frmConnection
         Me.lblVIP2.TabIndex = 23
         Me.lblVIP2.Text = "F360"
         Me.lblVIP2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblHAHost
+        '
+        Me.lblHAHost.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblHAHost.FixedHeight = False
+        Me.lblHAHost.FixedWidth = False
+        Me.lblHAHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblHAHost.ForeColor = System.Drawing.Color.White
+        Me.lblHAHost.LineSpacing = 0.0!
+        Me.lblHAHost.Location = New System.Drawing.Point(3, 490)
+        Me.lblHAHost.Name = "lblHAHost"
+        Me.lblHAHost.Size = New System.Drawing.Size(127, 20)
+        Me.lblHAHost.TabIndex = 19
+        Me.lblHAHost.Text = "F289"
+        Me.lblHAHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblVIP
         '
@@ -601,6 +702,7 @@ Partial Class frmConnection
         '
         'txtIP
         '
+        Me.txtIP.AllowDrop = True
         Me.txtIP.BackColor = System.Drawing.SystemColors.Window
         Me.txtIP.code = False
         Me.txtIP.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -610,7 +712,7 @@ Partial Class frmConnection
         Me.txtIP.Location = New System.Drawing.Point(136, 26)
         Me.txtIP.Name = "txtIP"
         Me.txtIP.Necessary = False
-        Me.txtIP.PossibleInput = "0123456789."
+        Me.txtIP.PossibleInput = ""
         Me.txtIP.Prefix = ""
         Me.txtIP.Size = New System.Drawing.Size(193, 21)
         Me.txtIP.StatusTip = ""
@@ -634,107 +736,6 @@ Partial Class frmConnection
         Me.txtPort.StatusTip = ""
         Me.txtPort.TabIndex = 1
         Me.txtPort.Value = "0"
-        '
-        'txtHAREPLHost
-        '
-        Me.txtHAREPLHost.BackColor = System.Drawing.SystemColors.Window
-        Me.txtHAREPLHost.code = False
-        Me.txtHAREPLHost.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtHAREPLHost.FixedWidth = False
-        Me.txtHAREPLHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtHAREPLHost.impossibleinput = ""
-        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 556)
-        Me.txtHAREPLHost.Name = "txtHAREPLHost"
-        Me.txtHAREPLHost.Necessary = False
-        Me.txtHAREPLHost.PossibleInput = ""
-        Me.txtHAREPLHost.Prefix = ""
-        Me.txtHAREPLHost.Size = New System.Drawing.Size(193, 21)
-        Me.txtHAREPLHost.StatusTip = ""
-        Me.txtHAREPLHost.TabIndex = 2
-        Me.txtHAREPLHost.Value = ""
-        Me.txtHAREPLHost.Visible = False
-        '
-        'txtHAPort
-        '
-        Me.txtHAPort.BackColor = System.Drawing.SystemColors.Window
-        Me.txtHAPort.code = False
-        Me.txtHAPort.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtHAPort.FixedWidth = False
-        Me.txtHAPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtHAPort.impossibleinput = ""
-        Me.txtHAPort.Location = New System.Drawing.Point(136, 521)
-        Me.txtHAPort.Name = "txtHAPort"
-        Me.txtHAPort.Necessary = False
-        Me.txtHAPort.PossibleInput = "0123456789"
-        Me.txtHAPort.Prefix = ""
-        Me.txtHAPort.Size = New System.Drawing.Size(193, 21)
-        Me.txtHAPort.StatusTip = ""
-        Me.txtHAPort.TabIndex = 1
-        Me.txtHAPort.Value = ""
-        '
-        'txtHAHost
-        '
-        Me.txtHAHost.BackColor = System.Drawing.SystemColors.Window
-        Me.txtHAHost.code = False
-        Me.txtHAHost.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.txtHAHost.FixedWidth = False
-        Me.txtHAHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtHAHost.impossibleinput = ""
-        Me.txtHAHost.Location = New System.Drawing.Point(136, 486)
-        Me.txtHAHost.Name = "txtHAHost"
-        Me.txtHAHost.Necessary = False
-        Me.txtHAHost.PossibleInput = ""
-        Me.txtHAHost.Prefix = ""
-        Me.txtHAHost.Size = New System.Drawing.Size(193, 21)
-        Me.txtHAHost.StatusTip = ""
-        Me.txtHAHost.TabIndex = 0
-        Me.txtHAHost.Value = ""
-        '
-        'lblHAREPLHost
-        '
-        Me.lblHAREPLHost.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblHAREPLHost.FixedHeight = False
-        Me.lblHAREPLHost.FixedWidth = False
-        Me.lblHAREPLHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblHAREPLHost.ForeColor = System.Drawing.Color.White
-        Me.lblHAREPLHost.LineSpacing = 0.0!
-        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 560)
-        Me.lblHAREPLHost.Name = "lblHAREPLHost"
-        Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 20)
-        Me.lblHAREPLHost.TabIndex = 23
-        Me.lblHAREPLHost.Text = "F291"
-        Me.lblHAREPLHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblHAREPLHost.Visible = False
-        '
-        'lblHAPort
-        '
-        Me.lblHAPort.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblHAPort.FixedHeight = False
-        Me.lblHAPort.FixedWidth = False
-        Me.lblHAPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblHAPort.ForeColor = System.Drawing.Color.White
-        Me.lblHAPort.LineSpacing = 0.0!
-        Me.lblHAPort.Location = New System.Drawing.Point(3, 525)
-        Me.lblHAPort.Name = "lblHAPort"
-        Me.lblHAPort.Size = New System.Drawing.Size(127, 20)
-        Me.lblHAPort.TabIndex = 21
-        Me.lblHAPort.Text = "F290"
-        Me.lblHAPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblHAHost
-        '
-        Me.lblHAHost.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblHAHost.FixedHeight = False
-        Me.lblHAHost.FixedWidth = False
-        Me.lblHAHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblHAHost.ForeColor = System.Drawing.Color.White
-        Me.lblHAHost.LineSpacing = 0.0!
-        Me.lblHAHost.Location = New System.Drawing.Point(3, 490)
-        Me.lblHAHost.Name = "lblHAHost"
-        Me.lblHAHost.Size = New System.Drawing.Size(127, 20)
-        Me.lblHAHost.TabIndex = 19
-        Me.lblHAHost.Text = "F289"
-        Me.lblHAHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frmConnection
         '

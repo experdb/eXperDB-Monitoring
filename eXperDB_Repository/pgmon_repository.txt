@@ -74,6 +74,7 @@ create table tb_backend_rsc (
     wait_event int2 null,
     queryid character varying(41),
     sql text,
+		backend_xid bigint,
     collect_dt timestamp without time zone
 ) partition by list (reg_date);
 

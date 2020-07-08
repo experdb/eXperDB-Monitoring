@@ -99,18 +99,18 @@ public class DX006 implements SocketApplication{
 				/////////////////////////////////////////////////////
 				// Get log files
 			   } else if(subCommand.equals("5")){
-					ResultList = sessionCollect.selectList("app.PG_CHECK_EXTENSION_001");
-					if (ResultList.isEmpty()){
-						resDataObj.put("_error_cd", "DX006_E01");
-						resDataObj.put("_error_msg", "Admin pack이 설치되지 않았습니다..");
-						resDataArray.add(resDataObj);
-						return resDataArray;
-					}
-					
-					ResultList = sessionCollect.selectList("app.PG_CHECK_EXTENSION_002");
-					if (ResultList.isEmpty()){
-						sessionCollect.update("app.PG_CREATE_EXTENSION_001");
-					}	
+//					ResultList = sessionCollect.selectList("app.PG_CHECK_EXTENSION_001");
+//					if (ResultList.isEmpty()){
+//						resDataObj.put("_error_cd", "DX006_E01");
+//						resDataObj.put("_error_msg", "Admin pack이 설치되지 않았습니다..");
+//						resDataArray.add(resDataObj);
+//						return resDataArray;
+//					}
+//					
+//					ResultList = sessionCollect.selectList("app.PG_CHECK_EXTENSION_002");
+//					if (ResultList.isEmpty()){
+//						sessionCollect.update("app.PG_CREATE_EXTENSION_001");
+//					}	
 					
 /*						ResultList = sessionCollect.selectList("app.PG_SHOW_LOGLINE_001");
 						if (ResultList.isEmpty()){
