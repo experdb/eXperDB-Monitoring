@@ -336,7 +336,7 @@ Public Class frmMonItemDetail
 
                                                             Dim ShowDT As DataTable = Nothing
                                                             If dtView.Count > 0 Then
-                                                                ShowDT = dtView.ToTable.AsEnumerable.Take(500).CopyToDataTable
+                                                                ShowDT = dtView.ToTable.AsEnumerable.Take(1000).CopyToDataTable
                                                             End If
 
                                                             If ShowDT Is Nothing Then
@@ -382,7 +382,7 @@ Public Class frmMonItemDetail
 
                                                        Dim ShowDT As DataTable = Nothing
                                                        If dtView.Count > 0 Then
-                                                           ShowDT = dtView.ToTable.AsEnumerable.Take(500).CopyToDataTable
+                                                           ShowDT = dtView.ToTable.AsEnumerable.Take(1000).CopyToDataTable
                                                        End If
 
                                                        If ShowDT Is Nothing Then
@@ -702,11 +702,17 @@ Public Class frmMonItemDetail
         Dim checkIndex = CheckBox.Tag + 1
         Dim isCheck = CheckBox.Checked
 
-        _ProgresForm = New frmProgres()
-        _ProgresForm.Owner = Me
-        _ProgresForm.Location = Me.Location
-        _ProgresForm.Size = Me.Size
+        If _ProgresForm Is Nothing Then
+            _ProgresForm = New frmProgres()
+            _ProgresForm.Owner = Me
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
         _ProgresForm.Show()
+        Me.BringToFront()
+        Me.Activate()
 
         If _ThreadDetail IsNot Nothing AndAlso _ThreadDetail.IsAlive = True Then Return
         _ThreadDetail = New Threading.Thread(Sub()
@@ -1191,12 +1197,17 @@ Public Class frmMonItemDetail
     Private Sub btnQuery_Click(sender As Object, e As EventArgs) Handles btnQuery.Click
         'check duration
         If fn_SearchBefCheck() = False Then Return
-
-        _ProgresForm = New frmProgres()
-        _ProgresForm.Owner = Me
-        _ProgresForm.Location = Me.Location
-        _ProgresForm.Size = Me.Size
+        If _ProgresForm Is Nothing Then
+            _ProgresForm = New frmProgres()
+            _ProgresForm.Owner = Me
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
         _ProgresForm.Show()
+        Me.BringToFront()
+        Me.Activate()
 
         For i As Integer = 1 To _AreaCount
             chtCPU.MainChart.ChartAreas(i).CursorX.SetSelectionPosition(-1, -1)
@@ -1515,5 +1526,14 @@ Public Class frmMonItemDetail
             GC.Collect()
         End Try
 
+    End Sub
+
+    Private Sub frmMonItemDetail_Move(sender As Object, e As EventArgs) Handles Me.Move
+        If _ProgresForm IsNot Nothing Then
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
     End Sub
 End Class

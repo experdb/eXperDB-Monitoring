@@ -375,8 +375,8 @@ public class ActvCollect extends TaskApplication {
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
 					String blocking_query = map.get("blocking_query") != null ? map.get("blocking_query").toString() : null;
 					String blocked_query = map.get("blocked_query") != null ? map.get("blocked_query").toString() : null;
-					String blocking_queryid = map.get("blocking_query") != null ? MD5Gen.getMd5(map.get("blocking_query").toString()) : null;
-					String blocked_queryid = map.get("blocked_query") != null ? MD5Gen.getMd5(map.get("blocked_query").toString()) : null;
+					String blocking_queryid = map.get("blocking_query") != null ? map.get("blocking_queryid").toString() : null;
+					String blocked_queryid = map.get("blocked_query") != null ? map.get("blocked_queryid").toString() : null;
 					map.put("blocking_query", 					blocking_queryid);
 					map.put("blocked_query", 					blocked_queryid);
 					sessionAgent.insert("app.TB_CURRENT_LOCK_I001", map);
@@ -465,7 +465,7 @@ public class ActvCollect extends TaskApplication {
 					{
 						HashMap<String, Object> inputParam = new HashMap<String, Object>();
 						inputParam.put("instance_id", 				Integer.parseInt(instanceId));
-						inputParam.put("queryid", 					MD5Gen.getMd5(map.get("sql").toString()));
+						inputParam.put("queryid", 					map.get("queryid"));
 						inputParam.put("query", 					map.get("sql"));
 						inputParam.put("dbid", 						map.get("datid"));
 						inputParam.put("userid", 					map.get("usesysid"));
@@ -474,11 +474,15 @@ public class ActvCollect extends TaskApplication {
 //						if (map.get("db_name") != null)
 //							sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
 						
-						sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
-						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
-						if (queryIdMap == null){
-							if(inputParam.get("queryid") != null)
-								sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+						if(extensions > 0)
+							sessionAgent.insert("app.TB_BACKEND_RSC_I002", map);
+						else{
+							sessionAgent.insert("app.TB_BACKEND_RSC_I003", map);
+							HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						
+							if (queryIdMap == null){
+								if(inputParam.get("queryid") != null)
+									sessionAgent.insert("app.TB_QUERY_INFO_I001", inputParam);
+							}
 						}
 
 //						HashMap<String, Object> queryIdMap = sessionAgent.selectOne("app.TB_QUERY_INFO_S001", inputParam);						

@@ -561,25 +561,30 @@
         Dim intHAGroupIndex As Integer = -1
         For Each tmpRow As DataGridViewRow In Me.dgvMonLst.Rows
             ' 그룹이 선택되어 있을 경우 
-            Dim intInstanceID As Integer = tmpRow.Tag
-            arrInstanceIDs.Add(intInstanceID)
-            Dim strIP As String = tmpRow.Cells(colMonIP.Index).Value
-            Dim intPort As Integer = tmpRow.Cells(colMonPort.Index).Value
-            Dim strID As String = tmpRow.Cells(colMonUser.Index).Value
-            Dim strDBNm As String = tmpRow.Cells(colMonDBNm.Index).Value
-            Dim strAliasNm As String = tmpRow.Cells(colMonAliasNm.Index).Value
-            Dim strHostNm As String = tmpRow.Cells(colMonHostNm.Index).Value
-            Dim stTime As DateTime = IIf(IsDBNull(tmpRow.Cells(colMonStartTime.Index).Value), Now, tmpRow.Cells(colMonStartTime.Index).Value)
-            Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
-            Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
-            Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
-            Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
-            intHAGroup = IIf(IsDBNull(tmpRow.Cells(colMonHAGroup.Index).Value), 0, tmpRow.Cells(colMonHAGroup.Index).Value)
-            If intHAGroup <> intHAGroupSave Then
-                intHAGroupIndex += 1
-                intHAGroupSave = intHAGroup
-            End If
-            rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, intPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, intHAPort, intHAGroupIndex, strPGV))
+            Try
+                Dim intInstanceID As Integer = tmpRow.Tag
+                arrInstanceIDs.Add(intInstanceID)
+                Dim strIP As String = tmpRow.Cells(colMonIP.Index).Value
+                Dim intPort As Integer = tmpRow.Cells(colMonPort.Index).Value
+                Dim strID As String = tmpRow.Cells(colMonUser.Index).Value
+                Dim strDBNm As String = tmpRow.Cells(colMonDBNm.Index).Value
+                Dim strAliasNm As String = tmpRow.Cells(colMonAliasNm.Index).Value
+                Dim strHostNm As String = tmpRow.Cells(colMonHostNm.Index).Value
+                Dim stTime As DateTime = IIf(IsDBNull(tmpRow.Cells(colMonStartTime.Index).Value), Now, tmpRow.Cells(colMonStartTime.Index).Value)
+                Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
+                Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
+                Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
+                Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
+                intHAGroup = IIf(IsDBNull(tmpRow.Cells(colMonHAGroup.Index).Value), 0, tmpRow.Cells(colMonHAGroup.Index).Value)
+                If intHAGroup <> intHAGroupSave Then
+                    intHAGroupIndex += 1
+                    intHAGroupSave = intHAGroup
+                End If
+                rtnSrt.Item(grpIdx).Items.Add(New GroupInfo.ServerInfo(intInstanceID, strIP, strID, intPort, strDBNm, strAliasNm, strHostNm, stTime, strHARole, strHAHost, intHAPort, intHAGroupIndex, strPGV))
+            Catch ex As Exception
+                MsgBox(p_clsMsgData.fn_GetData("M095", tmpRow.Cells(colMonIP.Index).Value))
+                Return
+            End Try
         Next
 
         If rtnSrt.Count = 0 Then

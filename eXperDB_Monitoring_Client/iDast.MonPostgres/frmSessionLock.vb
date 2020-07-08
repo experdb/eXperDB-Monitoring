@@ -246,7 +246,7 @@
 
         Dim ShowDT As DataTable = Nothing
         If dtView.Count > 0 Then
-            ShowDT = dtView.ToTable.AsEnumerable.Take(100).CopyToDataTable
+            ShowDT = dtView.ToTable.AsEnumerable.Take(1000).CopyToDataTable
         End If
 
         If ShowDT Is Nothing Then

@@ -62,6 +62,7 @@ Partial Class frmProgres
         Me.lblProgresText.FixedWidth = False
         Me.lblProgresText.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblProgresText.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.lblProgresText.LineSpacing = 0.0!
         Me.lblProgresText.Location = New System.Drawing.Point(301, 281)
         Me.lblProgresText.Name = "lblProgresText"
         Me.lblProgresText.Size = New System.Drawing.Size(554, 21)
@@ -81,7 +82,6 @@ Partial Class frmProgres
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.Text = "frmWarning"
-        Me.TopMost = True
         Me.TransparencyKey = System.Drawing.Color.White
         Me.pnlProgres.ResumeLayout(False)
         Me.ResumeLayout(False)

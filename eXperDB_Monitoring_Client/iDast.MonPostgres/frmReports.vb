@@ -789,11 +789,17 @@ Public Class frmReports
         '_frmW.TopMost = True
         '_frmW.Show(Me)
 
-        _ProgresForm = New frmProgres()
-        _ProgresForm.Owner = Me
-        _ProgresForm.Location = Me.Location
-        _ProgresForm.Size = Me.Size
+        If _ProgresForm Is Nothing Then
+            _ProgresForm = New frmProgres()
+            _ProgresForm.Owner = Me
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
         _ProgresForm.Show()
+        Me.BringToFront()
+        Me.Activate()
 
         Dim intInstance As Integer = cmbInst.SelectedValue
         Dim stDate As DateTime = dtpSt.Value
@@ -850,8 +856,13 @@ Public Class frmReports
         If _ProgresForm Is Nothing Then
             _ProgresForm = New frmProgres()
             _ProgresForm.Owner = Me
-            _ProgresForm.Location = Me.Location
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
             _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
+            _ProgresForm.Show()
+            Me.BringToFront()
+            Me.Activate()
 
             Me.Invoke(New MethodInvoker(Sub()
                                             _ProgresForm.Show(Me)
@@ -1378,6 +1389,15 @@ Public Class frmReports
             rb4H.Checked = False
             rb12H.Checked = False
             rb1D.Checked = False
+        End If
+    End Sub
+
+    Private Sub frmReports_Move(sender As Object, e As EventArgs) Handles Me.Move
+        If _ProgresForm IsNot Nothing Then
+            Dim titleHeight As Integer = Me.Height - Me.ClientRectangle.Height
+            _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
+            _ProgresForm.Size = Me.Size
+            _ProgresForm.Height = _ProgresForm.Height - titleHeight
         End If
     End Sub
 End Class

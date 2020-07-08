@@ -284,7 +284,7 @@ Partial Class frmAgentInfo
         Me.txtSvrIP.Location = New System.Drawing.Point(148, 31)
         Me.txtSvrIP.Name = "txtSvrIP"
         Me.txtSvrIP.Necessary = False
-        Me.txtSvrIP.PossibleInput = "1234567890."
+        Me.txtSvrIP.PossibleInput = ""
         Me.txtSvrIP.Prefix = ""
         Me.txtSvrIP.Size = New System.Drawing.Size(154, 21)
         Me.txtSvrIP.StatusTip = ""
@@ -298,6 +298,7 @@ Partial Class frmAgentInfo
         Me.lblSvrPort.FixedWidth = False
         Me.lblSvrPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPort.ForeColor = System.Drawing.Color.White
+        Me.lblSvrPort.LineSpacing = 0.0!
         Me.lblSvrPort.Location = New System.Drawing.Point(13, 70)
         Me.lblSvrPort.Name = "lblSvrPort"
         Me.lblSvrPort.Size = New System.Drawing.Size(129, 20)
@@ -312,6 +313,7 @@ Partial Class frmAgentInfo
         Me.lblSvrDBNm.FixedWidth = False
         Me.lblSvrDBNm.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrDBNm.ForeColor = System.Drawing.Color.White
+        Me.lblSvrDBNm.LineSpacing = 0.0!
         Me.lblSvrDBNm.Location = New System.Drawing.Point(13, 105)
         Me.lblSvrDBNm.Name = "lblSvrDBNm"
         Me.lblSvrDBNm.Size = New System.Drawing.Size(129, 20)
@@ -326,6 +328,7 @@ Partial Class frmAgentInfo
         Me.lblSvrPwd.FixedWidth = False
         Me.lblSvrPwd.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPwd.ForeColor = System.Drawing.Color.White
+        Me.lblSvrPwd.LineSpacing = 0.0!
         Me.lblSvrPwd.Location = New System.Drawing.Point(13, 175)
         Me.lblSvrPwd.Name = "lblSvrPwd"
         Me.lblSvrPwd.Size = New System.Drawing.Size(129, 20)
@@ -340,6 +343,7 @@ Partial Class frmAgentInfo
         Me.lblSvrIP.FixedWidth = False
         Me.lblSvrIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrIP.ForeColor = System.Drawing.Color.White
+        Me.lblSvrIP.LineSpacing = 0.0!
         Me.lblSvrIP.Location = New System.Drawing.Point(13, 35)
         Me.lblSvrIP.Name = "lblSvrIP"
         Me.lblSvrIP.Size = New System.Drawing.Size(129, 20)
@@ -354,6 +358,7 @@ Partial Class frmAgentInfo
         Me.lblSvrUsr.FixedWidth = False
         Me.lblSvrUsr.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrUsr.ForeColor = System.Drawing.Color.White
+        Me.lblSvrUsr.LineSpacing = 0.0!
         Me.lblSvrUsr.Location = New System.Drawing.Point(13, 140)
         Me.lblSvrUsr.Name = "lblSvrUsr"
         Me.lblSvrUsr.Size = New System.Drawing.Size(129, 20)

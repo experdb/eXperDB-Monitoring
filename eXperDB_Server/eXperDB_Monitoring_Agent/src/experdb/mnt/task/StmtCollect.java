@@ -173,7 +173,7 @@ public class StmtCollect extends TaskApplication {
 					stmtObj.put("userid"			 ,map.get("username"));
 					stmtObj.put("dbid"               ,map.get("db_name"));
 					stmtObj.put("queryid"		     ,map.get("queryid"));
-					stmtObj.put("cqueryid"		     ,MD5Gen.getMd5((map.get("query").toString())));
+					stmtObj.put("cqueryid"		     ,map.get("query"));
 					stmtObj.put("calls"		         ,map.get("calls"));
 					stmtObj.put("total_time"         ,map.get("total_time"));
 					stmtObj.put("min_time"           ,map.get("min_time"));

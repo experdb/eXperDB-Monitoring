@@ -34,10 +34,14 @@
 
         MyBase.SetStyle(ControlStyles.AllPaintingInWmPaint, True)
         MyBase.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+        MyBase.SetStyle(ControlStyles.ContainerControl, False)
 
         MyBase.SetStyle(DoubleBuffered, True)
+        Dim titleHeight = Me.Owner.Height - Me.Owner.ClientRectangle.Height
         Me.Location = Me.Owner.Location
+        Me.Location = New Point(Me.Owner.Location.X, Me.Owner.Location.Y + titleHeight)
         Me.Size = Me.Owner.Size
+        Me.Height = Me.Owner.Height - titleHeight
         CircularProgressControl1.Location = New Point(Me.Owner.Size.Width / 2 - CircularProgressControl1.Size.Width / 2, Me.Owner.Size.Height / 2 - CircularProgressControl1.Size.Height / 2 + 30)
         CircularProgressControl1.Visible = True
         lblProgresText.Location = New Point(Me.Owner.Size.Width / 2 - lblProgresText.Size.Width / 2, Me.Owner.Size.Height / 2 + CircularProgressControl1.Size.Height / 2 + 30)

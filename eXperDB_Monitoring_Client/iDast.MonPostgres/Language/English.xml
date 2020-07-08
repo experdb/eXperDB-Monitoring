@@ -2863,7 +2863,7 @@
   </ROW>
   <ROW ID="M002" PARAMS="0">
     <DESC>입력한 IP가 형식이 다를경우</DESC>
-    <DATA><![CDATA[Inbvalid IP]]></DATA>
+    <DATA><![CDATA[Invalid IP address type]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3673,6 +3673,10 @@
     <CATEGORY />
     <COLUMNS />
     <VALUECAST />
+  </ROW>
+  <ROW ID="M095" PARAMS="1">
+    <DESC>서버확인</DESC>
+    <DATA><![CDATA[Cannot get {0} server information. ]]></DATA>
   </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
