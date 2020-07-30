@@ -3678,6 +3678,46 @@
     <DESC>서버확인</DESC>
     <DATA><![CDATA[Cannot get {0} server information. ]]></DATA>
   </ROW>
+  <ROW ID="M096" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[Generate The Report.]]></DATA>
+  </ROW>
+  <ROW ID="M097" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Cannot generate the snapshot.]]></DATA>
+  </ROW>
+  <ROW ID="M098" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Generate baseline]]></DATA>
+  </ROW>
+  <ROW ID="M099" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Baseline name already exists.]]></DATA>
+  </ROW>
+  <ROW ID="M100" PARAMS="0">
+    <DESC>Baseline Name</DESC>
+    <DATA><![CDATA[Please input Baseline name.]]></DATA>
+  </ROW>
+  <ROW ID="M101" PARAMS="0">
+    <DESC>Baseline Name</DESC>
+    <DATA><![CDATA[Please select the snapshot.]]></DATA>
+  </ROW>
+  <ROW ID="M102" PARAMS="0">
+    <DESC>Snapshot management</DESC>
+    <DATA><![CDATA[Sanpshot management.]]></DATA>
+  </ROW>
+  <ROW ID="M103" PARAMS="1">
+    <DESC>삭제</DESC>
+    <DATA><![CDATA[Do you want remove "{0}"?]]></DATA>
+  </ROW>
+  <ROW ID="M104" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Could not generate the report.]]></DATA>
+  </ROW>
+  <ROW ID="M105" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Finished generating the report.]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
@@ -3984,6 +4024,56 @@
   <ROW ID="F955" PARAMS="0">
     <DESC>SessionTopInfo</DESC>
     <DATA><![CDATA[Sessions(per Client)]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F956" PARAMS="0">
+    <DESC>Generate Snapshot Report</DESC>
+    <DATA><![CDATA[Generate]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F957" PARAMS="0">
+    <DESC>TopN</DESC>
+    <DATA><![CDATA[Snapshot TopN]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F958" PARAMS="0">
+    <DESC>Snapshot Retention</DESC>
+    <DATA><![CDATA[Snapshot Retention day]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F959" PARAMS="0">
+    <DESC>Snapshot management</DESC>
+    <DATA><![CDATA[Snapshot management]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F960" PARAMS="1">
+    <DESC>Snapshot period</DESC>
+    <DATA><![CDATA[Snapshot period{0}]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F961" PARAMS="0">
+    <DESC>Update Snapshot Report</DESC>
+    <DATA><![CDATA[Update]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F962" PARAMS="0">
+    <DESC>Baseline name</DESC>
+    <DATA><![CDATA[Baseline name]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F963" PARAMS="0">
+    <DESC>Snapshot period</DESC>
+    <DATA><![CDATA[Select Snapshot]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F964" PARAMS="0">
+    <DESC>TopN</DESC>
+    <DATA><![CDATA[5|5;10|10;20|20;30|30;50|50;80|80;100|100;120|120;150|150]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F965" PARAMS="0">
+    <DESC>CURR STMT PERIOD LIST</DESC>
+    <DATA><![CDATA[Disable|-1;30 m|0;1 h|1;2 h|2;3 h|3;4 h|4;6 h|6;12 h|12;24 h|24]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

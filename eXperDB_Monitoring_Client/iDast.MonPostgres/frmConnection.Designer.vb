@@ -31,6 +31,8 @@ Partial Class frmConnection
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.btnTest = New eXperDB.BaseControls.Button()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.cmbSnapPeriod = New eXperDB.BaseControls.ComboBox()
+        Me.lblSnapPeriod = New eXperDB.BaseControls.Label()
         Me.lblHAREPLHost = New eXperDB.BaseControls.Label()
         Me.txtHAREPLHost = New eXperDB.BaseControls.TextBox()
         Me.txtHAPort = New eXperDB.BaseControls.TextBox()
@@ -192,23 +194,25 @@ Partial Class frmConnection
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
-        Me.tlpSvrChk.Controls.Add(Me.lblHAREPLHost, 0, 17)
-        Me.tlpSvrChk.Controls.Add(Me.txtHAREPLHost, 1, 17)
-        Me.tlpSvrChk.Controls.Add(Me.txtHAPort, 1, 16)
-        Me.tlpSvrChk.Controls.Add(Me.lblHAPort, 0, 16)
-        Me.tlpSvrChk.Controls.Add(Me.txtHAHost, 1, 15)
-        Me.tlpSvrChk.Controls.Add(Me.lblVIP2, 0, 13)
-        Me.tlpSvrChk.Controls.Add(Me.lblHAHost, 0, 15)
-        Me.tlpSvrChk.Controls.Add(Me.lblVIP, 0, 12)
-        Me.tlpSvrChk.Controls.Add(Me.txtVIP2, 1, 13)
-        Me.tlpSvrChk.Controls.Add(Me.txtVIP, 1, 12)
+        Me.tlpSvrChk.Controls.Add(Me.cmbSnapPeriod, 1, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblSnapPeriod, 0, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblHAREPLHost, 0, 18)
+        Me.tlpSvrChk.Controls.Add(Me.txtHAREPLHost, 1, 18)
+        Me.tlpSvrChk.Controls.Add(Me.txtHAPort, 1, 17)
+        Me.tlpSvrChk.Controls.Add(Me.lblHAPort, 0, 17)
+        Me.tlpSvrChk.Controls.Add(Me.txtHAHost, 1, 16)
+        Me.tlpSvrChk.Controls.Add(Me.lblVIP2, 0, 14)
+        Me.tlpSvrChk.Controls.Add(Me.lblHAHost, 0, 16)
+        Me.tlpSvrChk.Controls.Add(Me.lblVIP, 0, 13)
+        Me.tlpSvrChk.Controls.Add(Me.txtVIP2, 1, 14)
+        Me.tlpSvrChk.Controls.Add(Me.txtVIP, 1, 13)
         Me.tlpSvrChk.Controls.Add(Me.lblStmtSDly, 0, 8)
         Me.tlpSvrChk.Controls.Add(Me.cmbStmtCollectPeriod, 1, 8)
-        Me.tlpSvrChk.Controls.Add(Me.cmbHARole, 1, 10)
-        Me.tlpSvrChk.Controls.Add(Me.lblHARole, 0, 10)
+        Me.tlpSvrChk.Controls.Add(Me.cmbHARole, 1, 11)
+        Me.tlpSvrChk.Controls.Add(Me.lblHARole, 0, 11)
         Me.tlpSvrChk.Controls.Add(Me.nudCollectSecond, 1, 7)
-        Me.tlpSvrChk.Controls.Add(Me.txtAlias, 1, 9)
-        Me.tlpSvrChk.Controls.Add(Me.lblAlias, 0, 9)
+        Me.tlpSvrChk.Controls.Add(Me.txtAlias, 1, 10)
+        Me.tlpSvrChk.Controls.Add(Me.lblAlias, 0, 10)
         Me.tlpSvrChk.Controls.Add(Me.lblUser, 0, 3)
         Me.tlpSvrChk.Controls.Add(Me.lblSvrGatSDly, 0, 7)
         Me.tlpSvrChk.Controls.Add(Me.lblPW, 0, 4)
@@ -225,7 +229,7 @@ Partial Class frmConnection
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpSvrChk.Location = New System.Drawing.Point(3, 53)
         Me.tlpSvrChk.Name = "tlpSvrChk"
-        Me.tlpSvrChk.RowCount = 19
+        Me.tlpSvrChk.RowCount = 20
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
@@ -237,17 +241,47 @@ Partial Class frmConnection
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
-        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.Size = New System.Drawing.Size(365, 591)
         Me.tlpSvrChk.TabIndex = 20
+        '
+        'cmbSnapPeriod
+        '
+        Me.cmbSnapPeriod.BackColor = System.Drawing.SystemColors.Window
+        Me.cmbSnapPeriod.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.cmbSnapPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbSnapPeriod.FixedWidth = False
+        Me.cmbSnapPeriod.FormattingEnabled = True
+        Me.cmbSnapPeriod.Location = New System.Drawing.Point(136, 307)
+        Me.cmbSnapPeriod.Name = "cmbSnapPeriod"
+        Me.cmbSnapPeriod.Necessary = False
+        Me.cmbSnapPeriod.Size = New System.Drawing.Size(193, 20)
+        Me.cmbSnapPeriod.StatusTip = ""
+        Me.cmbSnapPeriod.TabIndex = 8
+        Me.cmbSnapPeriod.ValueText = ""
+        '
+        'lblSnapPeriod
+        '
+        Me.lblSnapPeriod.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSnapPeriod.FixedHeight = False
+        Me.lblSnapPeriod.FixedWidth = False
+        Me.lblSnapPeriod.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblSnapPeriod.ForeColor = System.Drawing.Color.White
+        Me.lblSnapPeriod.LineSpacing = 0.0!
+        Me.lblSnapPeriod.Location = New System.Drawing.Point(3, 310)
+        Me.lblSnapPeriod.Name = "lblSnapPeriod"
+        Me.lblSnapPeriod.Size = New System.Drawing.Size(127, 20)
+        Me.lblSnapPeriod.TabIndex = 25
+        Me.lblSnapPeriod.Text = "F960"
+        Me.lblSnapPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblHAREPLHost
         '
@@ -257,7 +291,7 @@ Partial Class frmConnection
         Me.lblHAREPLHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAREPLHost.ForeColor = System.Drawing.Color.White
         Me.lblHAREPLHost.LineSpacing = 0.0!
-        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 560)
+        Me.lblHAREPLHost.Location = New System.Drawing.Point(3, 595)
         Me.lblHAREPLHost.Name = "lblHAREPLHost"
         Me.lblHAREPLHost.Size = New System.Drawing.Size(127, 20)
         Me.lblHAREPLHost.TabIndex = 23
@@ -273,7 +307,7 @@ Partial Class frmConnection
         Me.txtHAREPLHost.FixedWidth = False
         Me.txtHAREPLHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtHAREPLHost.impossibleinput = ""
-        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 556)
+        Me.txtHAREPLHost.Location = New System.Drawing.Point(136, 591)
         Me.txtHAREPLHost.Name = "txtHAREPLHost"
         Me.txtHAREPLHost.Necessary = False
         Me.txtHAREPLHost.PossibleInput = ""
@@ -292,7 +326,7 @@ Partial Class frmConnection
         Me.txtHAPort.FixedWidth = False
         Me.txtHAPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtHAPort.impossibleinput = ""
-        Me.txtHAPort.Location = New System.Drawing.Point(136, 521)
+        Me.txtHAPort.Location = New System.Drawing.Point(136, 556)
         Me.txtHAPort.Name = "txtHAPort"
         Me.txtHAPort.Necessary = False
         Me.txtHAPort.PossibleInput = "0123456789"
@@ -310,7 +344,7 @@ Partial Class frmConnection
         Me.lblHAPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAPort.ForeColor = System.Drawing.Color.White
         Me.lblHAPort.LineSpacing = 0.0!
-        Me.lblHAPort.Location = New System.Drawing.Point(3, 525)
+        Me.lblHAPort.Location = New System.Drawing.Point(3, 560)
         Me.lblHAPort.Name = "lblHAPort"
         Me.lblHAPort.Size = New System.Drawing.Size(127, 20)
         Me.lblHAPort.TabIndex = 21
@@ -325,7 +359,7 @@ Partial Class frmConnection
         Me.txtHAHost.FixedWidth = False
         Me.txtHAHost.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtHAHost.impossibleinput = ""
-        Me.txtHAHost.Location = New System.Drawing.Point(136, 486)
+        Me.txtHAHost.Location = New System.Drawing.Point(136, 521)
         Me.txtHAHost.Name = "txtHAHost"
         Me.txtHAHost.Necessary = False
         Me.txtHAHost.PossibleInput = ""
@@ -343,7 +377,7 @@ Partial Class frmConnection
         Me.lblVIP2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblVIP2.ForeColor = System.Drawing.Color.White
         Me.lblVIP2.LineSpacing = 0.0!
-        Me.lblVIP2.Location = New System.Drawing.Point(3, 435)
+        Me.lblVIP2.Location = New System.Drawing.Point(3, 470)
         Me.lblVIP2.Name = "lblVIP2"
         Me.lblVIP2.Size = New System.Drawing.Size(127, 20)
         Me.lblVIP2.TabIndex = 23
@@ -358,7 +392,7 @@ Partial Class frmConnection
         Me.lblHAHost.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHAHost.ForeColor = System.Drawing.Color.White
         Me.lblHAHost.LineSpacing = 0.0!
-        Me.lblHAHost.Location = New System.Drawing.Point(3, 490)
+        Me.lblHAHost.Location = New System.Drawing.Point(3, 525)
         Me.lblHAHost.Name = "lblHAHost"
         Me.lblHAHost.Size = New System.Drawing.Size(127, 20)
         Me.lblHAHost.TabIndex = 19
@@ -373,7 +407,7 @@ Partial Class frmConnection
         Me.lblVIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblVIP.ForeColor = System.Drawing.Color.White
         Me.lblVIP.LineSpacing = 0.0!
-        Me.lblVIP.Location = New System.Drawing.Point(3, 400)
+        Me.lblVIP.Location = New System.Drawing.Point(3, 435)
         Me.lblVIP.Name = "lblVIP"
         Me.lblVIP.Size = New System.Drawing.Size(127, 20)
         Me.lblVIP.TabIndex = 22
@@ -389,7 +423,7 @@ Partial Class frmConnection
         Me.txtVIP2.FixedWidth = False
         Me.txtVIP2.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtVIP2.impossibleinput = ""
-        Me.txtVIP2.Location = New System.Drawing.Point(136, 431)
+        Me.txtVIP2.Location = New System.Drawing.Point(136, 466)
         Me.txtVIP2.Name = "txtVIP2"
         Me.txtVIP2.Necessary = False
         Me.txtVIP2.PossibleInput = "0123456789."
@@ -408,7 +442,7 @@ Partial Class frmConnection
         Me.txtVIP.FixedWidth = False
         Me.txtVIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtVIP.impossibleinput = ""
-        Me.txtVIP.Location = New System.Drawing.Point(136, 396)
+        Me.txtVIP.Location = New System.Drawing.Point(136, 431)
         Me.txtVIP.Name = "txtVIP"
         Me.txtVIP.Necessary = False
         Me.txtVIP.PossibleInput = "0123456789."
@@ -456,12 +490,12 @@ Partial Class frmConnection
         Me.cmbHARole.FixedWidth = False
         Me.cmbHARole.FormattingEnabled = True
         Me.cmbHARole.Items.AddRange(New Object() {"Single", "Primary", "Stand by"})
-        Me.cmbHARole.Location = New System.Drawing.Point(136, 342)
+        Me.cmbHARole.Location = New System.Drawing.Point(136, 377)
         Me.cmbHARole.Name = "cmbHARole"
         Me.cmbHARole.Necessary = False
         Me.cmbHARole.Size = New System.Drawing.Size(193, 20)
         Me.cmbHARole.StatusTip = ""
-        Me.cmbHARole.TabIndex = 9
+        Me.cmbHARole.TabIndex = 10
         Me.cmbHARole.ValueText = ""
         '
         'lblHARole
@@ -472,7 +506,7 @@ Partial Class frmConnection
         Me.lblHARole.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblHARole.ForeColor = System.Drawing.Color.White
         Me.lblHARole.LineSpacing = 0.0!
-        Me.lblHARole.Location = New System.Drawing.Point(3, 345)
+        Me.lblHARole.Location = New System.Drawing.Point(3, 380)
         Me.lblHARole.Name = "lblHARole"
         Me.lblHARole.Size = New System.Drawing.Size(127, 20)
         Me.lblHARole.TabIndex = 16
@@ -505,14 +539,14 @@ Partial Class frmConnection
         Me.txtAlias.FixedWidth = False
         Me.txtAlias.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtAlias.impossibleinput = ""
-        Me.txtAlias.Location = New System.Drawing.Point(136, 306)
+        Me.txtAlias.Location = New System.Drawing.Point(136, 341)
         Me.txtAlias.Name = "txtAlias"
         Me.txtAlias.Necessary = False
         Me.txtAlias.PossibleInput = ""
         Me.txtAlias.Prefix = ""
         Me.txtAlias.Size = New System.Drawing.Size(193, 21)
         Me.txtAlias.StatusTip = ""
-        Me.txtAlias.TabIndex = 8
+        Me.txtAlias.TabIndex = 9
         Me.txtAlias.Value = ""
         '
         'lblAlias
@@ -523,7 +557,7 @@ Partial Class frmConnection
         Me.lblAlias.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAlias.ForeColor = System.Drawing.Color.White
         Me.lblAlias.LineSpacing = 0.0!
-        Me.lblAlias.Location = New System.Drawing.Point(3, 310)
+        Me.lblAlias.Location = New System.Drawing.Point(3, 345)
         Me.lblAlias.Name = "lblAlias"
         Me.lblAlias.Size = New System.Drawing.Size(127, 20)
         Me.lblAlias.TabIndex = 14
@@ -800,4 +834,6 @@ Partial Class frmConnection
     Friend WithEvents lblPort As eXperDB.BaseControls.Label
     Friend WithEvents txtIP As eXperDB.BaseControls.TextBox
     Friend WithEvents txtPort As eXperDB.BaseControls.TextBox
+    Friend WithEvents cmbSnapPeriod As eXperDB.BaseControls.ComboBox
+    Friend WithEvents lblSnapPeriod As eXperDB.BaseControls.Label
 End Class

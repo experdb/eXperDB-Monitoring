@@ -248,6 +248,7 @@ create table tb_instance_info (
     collect_period_sec integer,
     rtstmt_period_sec integer default 0,
     hchk_period_sec integer,
+    snap_period_min integer,
     conn_db_name character varying(100),
     conn_schema_name character varying(100),
     conn_name character varying(100),

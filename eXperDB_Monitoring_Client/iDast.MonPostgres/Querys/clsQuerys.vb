@@ -128,7 +128,7 @@
     ''' <param name="LstIp"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function insertServerList(ByVal IP As String, ByVal Port As String, ByVal DBType As String, ByVal User As String, ByVal Pw As String, ByVal Collect As String, ByVal PeriodSec As Integer, ByVal StmtPeriodSec As Integer, ByVal DBNm As String, ByVal AliasNm As String, ByVal LstIp As String, ByVal Schema As String, ByVal HARole As String, ByVal HAHost As String, ByVal HAPort As Integer, ByVal HAREPLHost As String) As Integer
+    Public Function insertServerList(ByVal IP As String, ByVal Port As String, ByVal DBType As String, ByVal User As String, ByVal Pw As String, ByVal Collect As String, ByVal PeriodSec As Integer, ByVal StmtPeriodSec As Integer, ByVal SnapPeriodMin As Integer, ByVal DBNm As String, ByVal AliasNm As String, ByVal LstIp As String, ByVal Schema As String, ByVal HARole As String, ByVal HAHost As String, ByVal HAPort As Integer, ByVal HAREPLHost As String) As Integer
         Try
             If _ODBC Is Nothing Then Return -1
             Dim strQuery As String = p_clsQueryData.fn_GetData("NEXTVAL")
@@ -142,7 +142,7 @@
             End If
             If intInstance <> -1 Then
                 strQuery = p_clsQueryData.fn_GetData("INSERTSERVERLIST")
-                strQuery = String.Format(strQuery, intInstance, IP, Port, DBType, User, Pw, Collect, PeriodSec, StmtPeriodSec, DBNm, AliasNm, LstIp, Schema, HARole, HAHost, HAPort, HAREPLHost)
+                strQuery = String.Format(strQuery, intInstance, IP, Port, DBType, User, Pw, Collect, PeriodSec, StmtPeriodSec, SnapPeriodMin, DBNm, AliasNm, LstIp, Schema, HARole, HAHost, HAPort, HAREPLHost)
                 If _ODBC.dbExecuteNonQuery(strQuery) > 0 Then
                     insertHealthLimitedList(intInstance, LstIp)
                     Return intInstance
@@ -297,11 +297,11 @@
     End Function
 
 
-    Public Function UpdateServerList(ByVal InstanceID As Integer, ByVal IP As String, ByVal Port As String, ByVal DBType As String, ByVal User As String, ByVal Pw As String, ByVal Collect As String, ByVal PeriodSec As Integer, ByVal StmtPeriodSec As Integer, ByVal DBNm As String, ByVal AliasNm As String, ByVal LstIp As String, ByVal Schema As String, ByVal HARole As String, ByVal HAHost As String, ByVal HAPort As Integer, ByVal HAREPLHost As String, ByVal VirtualIP As String, ByVal VirtualIP2 As String) As Boolean
+    Public Function UpdateServerList(ByVal InstanceID As Integer, ByVal IP As String, ByVal Port As String, ByVal DBType As String, ByVal User As String, ByVal Pw As String, ByVal Collect As String, ByVal PeriodSec As Integer, ByVal StmtPeriodSec As Integer, ByVal SnapPriodMin As Integer, ByVal DBNm As String, ByVal AliasNm As String, ByVal LstIp As String, ByVal Schema As String, ByVal HARole As String, ByVal HAHost As String, ByVal HAPort As Integer, ByVal HAREPLHost As String, ByVal VirtualIP As String, ByVal VirtualIP2 As String) As Boolean
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATESERVERLIST")
-            strQuery = String.Format(strQuery, InstanceID, IP, Port, DBType, User, Pw, Collect, PeriodSec, StmtPeriodSec, DBNm, AliasNm, LstIp, Schema, HARole, HAHost, HAPort, HAREPLHost, VirtualIP, VirtualIP2)
+            strQuery = String.Format(strQuery, InstanceID, IP, Port, DBType, User, Pw, Collect, PeriodSec, StmtPeriodSec, SnapPriodMin, DBNm, AliasNm, LstIp, Schema, HARole, HAHost, HAPort, HAREPLHost, VirtualIP, VirtualIP2)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             insertHealthLimitedList(InstanceID, LstIp)
             Return rtnValue
@@ -837,6 +837,33 @@
                 Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATECONFIG")
                 strQuery = String.Format(strQuery, intLogSaveDays, LstIP, BatchTime, Hchk_Period_sec, Objt_Period_sec, Stmt_Period_sec)
                 Return _ODBC.dbExecuteNonQuery(strQuery)
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+    End Function
+
+    Public Function UpdateSnapshotConfig(ByVal intSnapshotSaveDays As Integer, ByVal intSnapshotTopN As Integer) As Integer
+        Try
+            Dim nReturn As Integer = 0
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATESNAPSHOTCONFIGTOPN")
+                strQuery = String.Format(strQuery, intSnapshotTopN)
+                nReturn = _ODBC.dbExecuteNonQuery(strQuery)
+                If nReturn >= 0 Then
+                    strQuery = p_clsQueryData.fn_GetData("UPDATESNAPSHOTCONFIGRETENTION")
+                    strQuery = String.Format(strQuery, intSnapshotSaveDays)
+                    nReturn = _ODBC.dbExecuteNonQuery(strQuery)
+                    If nReturn >= 0 Then
+                        strQuery = p_clsQueryData.fn_GetData("SELECTAPPLYCONF")
+                        strQuery = String.Format(strQuery)
+                        _ODBC.dbSelect(strQuery)
+                    End If
+                End If
+                Return nReturn
             Else
                 Return -1
             End If
@@ -3318,6 +3345,238 @@
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             Return -1
+        End Try
+    End Function
+
+#End Region
+#Region "Snapshot"
+
+    Public Function SelectSnapshotPeriod(ByVal InstanceID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTPERIOD")
+            strQuery = String.Format(strQuery, InstanceID)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectSnapshotList(ByVal InstanceID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTLIST")
+            strQuery = String.Format(strQuery, InstanceID)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectBaselineList(ByVal InstanceID As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTBASELINELIST")
+            strQuery = String.Format(strQuery, InstanceID)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+    Public Function InsertSnapshot(ByVal InstanceID As Integer) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTSNAPSHOT")
+            strQuery = String.Format(strQuery, InstanceID)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return IIf(rtnValue > 0, True, False)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+    End Function
+    Public Function InsertBaseline(ByVal InstanceID As Integer, ByVal baselineName As String, ByVal minSnapshot As Integer, ByVal maxSnapshot As Integer, ByVal keepDays As Integer) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTBASELINE")
+            strQuery = String.Format(strQuery, InstanceID, baselineName, minSnapshot, maxSnapshot, keepDays)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return IIf(rtnValue > 0, True, False)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+    End Function
+
+    Public Function SelectCheckBaseline(ByVal InstanceID As Integer, ByVal BaselineName As String) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTCHECKBASELINE")
+            strQuery = String.Format(strQuery, InstanceID, BaselineName)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function DeleteBaseline(ByVal InstanceID As Integer, ByVal BaselineName As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("DELETEBASELINE")
+            strQuery = String.Format(strQuery, InstanceID, BaselineName)
+            Return _ODBC.dbExecuteNonQuery(strQuery)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return 0
+        End Try
+    End Function
+
+    Public Function UpdateBaseline(ByVal InstanceID As Integer, ByVal baselineName As String, ByVal keepDays As Integer) As Boolean
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATEBASELINE")
+            strQuery = String.Format(strQuery, InstanceID, baselineName, keepDays)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return IIf(rtnValue > 0, True, False)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
+        End Try
+    End Function
+
+    Public Function selectSnapshotReportSingleSnap(ByVal InstanceID As Integer, ByVal snapFrom As Integer, ByVal snapTo As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTSINGLESNAP")
+            strQuery = String.Format(strQuery, InstanceID, snapFrom, snapTo)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectSnapshotReportSingleBL(ByVal InstanceID As Integer, ByVal baseline As String) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTSINGLEBL")
+            strQuery = String.Format(strQuery, InstanceID, baseline)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectSnapshotReportCompSnapSnap(ByVal InstanceID As Integer, ByVal snapFrom As Integer, ByVal snapTo As Integer, ByVal snapCompFrom As Integer, ByVal snapCompTo As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTCOMPSNAPSNAP")
+            strQuery = String.Format(strQuery, InstanceID, snapFrom, snapTo, snapCompFrom, snapCompTo)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectSnapshotReportCompSnapBL(ByVal InstanceID As Integer, ByVal snapFrom As Integer, ByVal snapTo As Integer, ByVal baselineComp As String) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTCOMPSNAPBL")
+            strQuery = String.Format(strQuery, InstanceID, snapFrom, snapTo, baselineComp)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectSnapshotReportCompBLSnap(ByVal InstanceID As Integer, ByVal baseline As String, ByVal snapFrom As Integer, ByVal snapTo As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTCOMPBLSNAP")
+            strQuery = String.Format(strQuery, InstanceID, baseline, snapFrom, snapTo)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectSnapshotReportCompBLBL(ByVal InstanceID As Integer, ByVal baseline As String, ByVal baselineComp As String) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTCOMPBLBL")
+            strQuery = String.Format(strQuery, InstanceID, baseline, baselineComp)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
         End Try
     End Function
 #End Region

@@ -50,6 +50,7 @@
         colSchema.HeaderText = p_clsMsgData.fn_GetData("F074")
         colCollectSecond.HeaderText = p_clsMsgData.fn_GetData("F011")
         colStmtCollectSecond.HeaderText = p_clsMsgData.fn_GetData("F342")
+        colSnapshotHour.HeaderText = p_clsMsgData.fn_GetData("F960", "(Min)")
 
         btnApply.Text = p_clsMsgData.fn_GetData("F014")
         btnDelete.Text = p_clsMsgData.fn_GetData("F015")
@@ -78,6 +79,9 @@
         lblLogBatch.Text = p_clsMsgData.fn_GetData("F143")
         lblLogBatchH.Text = p_clsMsgData.fn_GetData("F144")
         lblLogBatchM.Text = p_clsMsgData.fn_GetData("F145")
+
+        lblSnapshotTopN.Text = p_clsMsgData.fn_GetData("F957")
+        lblSnapshotSaveDly.Text = p_clsMsgData.fn_GetData("F958")
 
 
         For i As Integer = 0 To 23
@@ -121,6 +125,18 @@
                 Dim strDesc As String = subArr(0)
                 Dim intSec As Integer = subArr(1)
                 cmbStmtTime.AddValue(intSec, strDesc)
+            End If
+
+        Next
+
+        strValue = p_clsMsgData.fn_GetData("F964")
+        tmpArr = strValue.Split(";")
+        For Each tmpStr As String In tmpArr
+            If tmpStr.Trim <> "" Then
+                Dim subArr As String() = tmpStr.Split("|")
+                Dim strDesc As String = subArr(0)
+                Dim intSec As Integer = subArr(1)
+                cmbSnapshotTopN.AddValue(intSec, strDesc)
             End If
 
         Next
@@ -208,6 +224,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, tmpRow.Item("CONN_SCHEMA_NAME"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, tmpRow.Item("COLLECT_PERIOD_SEC"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colStmtCollectSecond.Index, tmpRow.Item("RTSTMT_PERIOD_SEC"))
+                dgvSvrLst.fn_DataCellADD(idxRow, colSnapshotHour.Index, Integer.Parse(tmpRow.Item("SNAP_PERIOD_MIN")))
                 dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, tmpRow.Item("HA_ROLE"))
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, tmpRow.Item("HA_HOST"))
@@ -226,6 +243,10 @@
         nudLogSaveDly.Value = IIf(intLogDays = -1, 7, intLogDays)
         nudLogSaveDly.Tag = intLogDays
 
+        Dim intSnapDays As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("RETENTION")), 7, dtConfig.Rows(0).Item("RETENTION"))
+        nudSnapshotSaveDly.Value = IIf(intSnapDays = -1, 7, intSnapDays)
+        nudSnapshotSaveDly.Tag = intSnapDays
+
         Dim strBatchTime As TimeSpan = IIf(IsDBNull(dtConfig.Rows(0).Item("DAILY_BATCH_START_TIME")), New TimeSpan(0, 0, 0), dtConfig.Rows(0).Item("DAILY_BATCH_START_TIME"))
 
         cmbLogBatchH.Text = strBatchTime.Hours '  CInt(strBatchTime.Substring(0, strBatchTime.IndexOf(":")))
@@ -240,7 +261,7 @@
         Dim intHchkPeriodSec As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("HCHK_PERIOD_SEC")), 3, dtConfig.Rows(0).Item("HCHK_PERIOD_SEC"))
         Dim intObjtPeriodSec As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("OBJT_PERIOD_SEC")), 3, dtConfig.Rows(0).Item("OBJT_PERIOD_SEC"))
         Dim intStmpPeriodSec As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("STMT_PERIOD_SEC")), 3, dtConfig.Rows(0).Item("STMT_PERIOD_SEC"))
-
+        Dim intSnapTopN As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("TOPN")), 3, dtConfig.Rows(0).Item("TOPN"))
 
         cmbHealthTime.SelectedValue = intHchkPeriodSec
         cmbHealthTime.Tag = intHchkPeriodSec
@@ -250,6 +271,9 @@
 
         cmbStmtTime.SelectedValue = intStmpPeriodSec
         cmbStmtTime.Tag = intStmpPeriodSec
+
+        cmbSnapshotTopN.SelectedValue = intSnapTopN
+        cmbSnapshotTopN.Tag = intSnapTopN
 
         If cmbHealthTime.SelectedIndex < 0 Then
             cmbHealthTime.SelectedIndex = 0
@@ -261,6 +285,10 @@
 
         If cmbStmtTime.SelectedIndex < 0 Then
             cmbStmtTime.SelectedIndex = 0
+        End If
+
+        If cmbSnapshotTopN.SelectedIndex < 0 Then
+            cmbSnapshotTopN.SelectedIndex = 0
         End If
 
         If _AgentIP.Trim = "" Or _AgentPort = 0 Then
@@ -345,7 +373,7 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
 
-    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
+    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal intSnapshotCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
 
 
 
@@ -368,6 +396,7 @@
             tmpRow.Cells(colSchema.Index).Value = strSChema
             tmpRow.Cells(colCollectSecond.Index).Value = intCollect
             tmpRow.Cells(colStmtCollectSecond.Index).Value = intStmtCollect
+            tmpRow.Cells(colSnapshotHour.Index).Value = intSnapshotCollect
             tmpRow.Cells(colHARole.Index).Value = strHARole
             tmpRow.Cells(colHAHost.Index).Value = strHAHost
             tmpRow.Cells(colHAPort.Index).Value = CInt(strHAPort)
@@ -398,6 +427,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colSchema.Index, strSChema)
                 dgvSvrLst.fn_DataCellADD(idxRow, colCollectSecond.Index, intCollect)
                 dgvSvrLst.fn_DataCellADD(idxRow, colStmtCollectSecond.Index, intStmtCollect)
+                dgvSvrLst.fn_DataCellADD(idxRow, colSnapshotHour.Index, intSnapshotCollect)
                 dgvSvrLst.fn_DataCellADD(idxRow, colPWCH.Index, 0)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHARole.Index, strHARole)
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAHost.Index, strHAHost)
@@ -511,12 +541,13 @@
         Next
 
         Dim strkey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, 0, "", intCnt + 1, strkey, "", "")
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, -1, "", "", "", 5432, "", "", 3, 0, 0, "", intCnt + 1, strkey, "", "")
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim struct As structConnection = Nothing
             Dim strSchema As String = ""
             Dim intCollect As Integer = 0
             Dim intStmtCollect As Integer = 0
+            Dim intSnapshot As Integer = 0
             Dim strAlias As String = ""
             Dim strHARole As String = ""
             Dim strHAHost As String = ""
@@ -524,9 +555,9 @@
             Dim strHAREPLHost As String = ""
             Dim strVirtualIP As String = ""
             Dim strVirtualIP2 As String = ""
-            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, intSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
-            AddData(-1, struct, strSchema, intCollect, intStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            AddData(-1, struct, strSchema, intCollect, intStmtCollect, intSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
         End If
 
@@ -566,6 +597,7 @@
         Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
         Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
         Dim intStmtPeriod As Integer = tmpRow.Cells(colStmtCollectSecond.Index).Value
+        Dim intSnapshotPeriod As Integer = tmpRow.Cells(colSnapshotHour.Index).Value
         Dim strHARole As String = tmpRow.Cells(colHARole.Index).Value
         Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
         Dim intHAPort As Integer = tmpRow.Cells(colHAPort.Index).Value
@@ -581,17 +613,18 @@
         Next
 
         Dim strKey = fn_GetSerial()
-        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, intStmtPeriod, strAliasNm, intCnt, strKey, strVirtualIP, strVirtualIP2, strHARole, strHAHost, intHAPort, strHAREPLHost)
+        Dim frmConn As New frmConnection(_AgentIP, _AgentPort, intSelRow, strUser, strPw, strIP, strPort, strDBNM, strSchema, intPeriod, intStmtPeriod, intSnapshotPeriod, strAliasNm, intCnt, strKey, strVirtualIP, strVirtualIP2, strHARole, strHAHost, intHAPort, strHAREPLHost)
         If frmConn.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim rtnStruct As structConnection = Nothing
             Dim rtnSchema As String = ""
             Dim rtnCollect As Integer = 0
             Dim rtnStmtCollect As Integer = 0
+            Dim rtnSnapshot As Integer = 0
             Dim strAlias As String = ""
 
-            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, rtnSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
-            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, rtnSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
         End If
 
 
@@ -631,6 +664,7 @@
                 Dim strSchema As String = tmpRow.Cells(colSchema.Index).Value
                 Dim intPeriod As Integer = tmpRow.Cells(colCollectSecond.Index).Value
                 Dim intStmtPeriod As Integer = tmpRow.Cells(colStmtCollectSecond.Index).Value
+                Dim intSnapshotPeriod As Integer = tmpRow.Cells(colSnapshotHour.Index).Value
                 Dim intPwch As Integer = tmpRow.Cells(colPWCH.Index).Value
                 Dim strHARole As String = tmpRow.Cells(colHARole.Index).Value
                 Dim strHAHost As String = tmpRow.Cells(colHAHost.Index).Value
@@ -661,10 +695,10 @@
                     ' 기존 데이터가 아닐경우 
                     Dim tmpInst As Integer = ClsQuery.ExistsServer(strIP, strPort)
                     If tmpInst < 0 Then
-                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
+                        tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     Else
                         tmpRow.Tag = tmpInst
-                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
                     End If
 
                 ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
@@ -674,7 +708,7 @@
                 Else
                     ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
                     If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
-                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
                     End If
 
                 End If
@@ -687,6 +721,11 @@
                 Or Not cmbObjectTime.SelectedValue.Equals(cmbObjectTime.Tag) _
                 Or Not cmbStmtTime.SelectedValue.Equals(cmbStmtTime.Tag) Then
                 ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue, cmbObjectTime.SelectedValue, cmbStmtTime.SelectedValue)
+            End If
+
+            If Not nudSnapshotSaveDly.Value.Equals(nudSnapshotSaveDly.Tag) _
+                Or Not cmbSnapshotTopN.SelectedValue.Equals(cmbSnapshotTopN.Tag) Then
+                ClsQuery.UpdateSnapshotConfig(nudSnapshotSaveDly.Value, cmbSnapshotTopN.SelectedValue)
             End If
 
         End If

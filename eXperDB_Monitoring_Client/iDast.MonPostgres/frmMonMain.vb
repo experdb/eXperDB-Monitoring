@@ -4503,8 +4503,13 @@
     End Sub
 
     Private Sub btnReport_Click(sender As Object, e As EventArgs) Handles btnReport.Click
-        Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
-        frmReport.Show(Me)
+        Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
+        Dim ps As System.Drawing.Point = Cursor.Position
+        'mnuSnapshotR.Text = p_clsMsgData.fn_GetData("M047")
+        'mnuTrendR.Text = p_clsMsgData.fn_GetData("F952")
+        ps.X -= mnuReports.Width
+        mnuReport.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
+        mnuReport.Tag = lblTemp.Parent
     End Sub
 
 #Region "Warning"
@@ -5461,6 +5466,21 @@
         Else
             Dim version As New frmVersion(AgentCn)
             version.ShowDialog()
+        End If
+
+    End Sub
+
+    Private Sub mnuMenuReport_Click(sender As Object, e As EventArgs) Handles mnuSnapshotR.Click, mnuTrendR.Click
+        Dim BretFrm As Form = Nothing
+        Dim stDt As DateTime = Now.AddMinutes(-10)
+        Dim edDt As DateTime = Now
+
+        If sender.Name = "mnuSnapshotR" Then
+            Dim frmReport As New frmSnapshotR(_AgentCn, _GrpList)
+            frmReport.ShowDialog()
+        ElseIf sender.Name = "mnuTrendR" Then
+            Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
+            frmReport.Show(Me)
         End If
 
     End Sub

@@ -201,7 +201,7 @@
 
                           lblCurTime.Text = p_clsMsgData.fn_GetData("F206", strCurDate)
                           If _intValue < 0 Then
-                              lblinfo.Text = lblinfo.Text + " : " + p_clsMsgData.fn_GetData("M092")
+                              lblinfo.Text = lblinfo.Text + " : " '+ p_clsMsgData.fn_GetData("M092") 'temporaly comment out, need to check the slot conditoin
                               lblinfo.ForeColor = Color.OrangeRed
                               Return
                           End If

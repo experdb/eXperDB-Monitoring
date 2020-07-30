@@ -429,6 +429,9 @@ Partial Class frmMonMain
         Me.mnuBackendStartTime = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuBackendElapsedTime = New System.Windows.Forms.ToolStripMenuItem()
         Me.pinImageList = New System.Windows.Forms.ImageList(Me.components)
+        Me.mnuReport = New eXperDB.BaseControls.ContextMenuStrip()
+        Me.mnuSnapshotR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTrendR = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -511,6 +514,7 @@ Partial Class frmMonMain
         Me.mnuSort.SuspendLayout()
         Me.mnuMenu.SuspendLayout()
         Me.mnuBackendColumns.SuspendLayout()
+        Me.mnuReport.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel2
@@ -6025,10 +6029,9 @@ Partial Class frmMonMain
         Me.CPUImgLst.Images.SetKeyName(41, "c02.png")
         Me.CPUImgLst.Images.SetKeyName(42, "c03.png")
         Me.CPUImgLst.Images.SetKeyName(43, "c04.png")
-        Me.CPUImgLst.Images.SetKeyName(44, "c05.png")
-        Me.CPUImgLst.Images.SetKeyName(45, "c06.png")
-        Me.CPUImgLst.Images.SetKeyName(46, "c07.png")
-        Me.CPUImgLst.Images.SetKeyName(47, "c08.png")
+        Me.CPUImgLst.Images.SetKeyName(44, "c06.png")
+        Me.CPUImgLst.Images.SetKeyName(45, "c07.png")
+        Me.CPUImgLst.Images.SetKeyName(46, "c08.png")
         '
         'mnuBackendColumns
         '
@@ -6061,6 +6064,28 @@ Partial Class frmMonMain
         Me.pinImageList.TransparentColor = System.Drawing.Color.Transparent
         Me.pinImageList.Images.SetKeyName(0, "pin.png")
         Me.pinImageList.Images.SetKeyName(1, "pinned.png")
+        '
+        'mnuReport
+        '
+        Me.mnuReport.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.mnuReport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSnapshotR, Me.mnuTrendR})
+        Me.mnuReport.Name = "mnuPopup"
+        Me.mnuReport.Size = New System.Drawing.Size(168, 56)
+        '
+        'mnuSnapshotR
+        '
+        Me.mnuSnapshotR.BackColor = System.Drawing.SystemColors.Control
+        Me.mnuSnapshotR.Image = CType(resources.GetObject("mnuSnapshotR.Image"), System.Drawing.Image)
+        Me.mnuSnapshotR.Name = "mnuSnapshotR"
+        Me.mnuSnapshotR.Size = New System.Drawing.Size(167, 26)
+        Me.mnuSnapshotR.Text = "Snapshot Report"
+        '
+        'mnuTrendR
+        '
+        Me.mnuTrendR.Image = CType(resources.GetObject("mnuTrendR.Image"), System.Drawing.Image)
+        Me.mnuTrendR.Name = "mnuTrendR"
+        Me.mnuTrendR.Size = New System.Drawing.Size(167, 26)
+        Me.mnuTrendR.Text = "Trend Report"
         '
         'frmMonMain
         '
@@ -6188,6 +6213,7 @@ Partial Class frmMonMain
         Me.mnuSort.ResumeLayout(False)
         Me.mnuMenu.ResumeLayout(False)
         Me.mnuBackendColumns.ResumeLayout(False)
+        Me.mnuReport.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -6490,5 +6516,8 @@ Partial Class frmMonMain
     Friend WithEvents tlpClusterBtnGrp As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents btnClusterFilter As eXperDB.BaseControls.Button
     Friend WithEvents chkHAGroup As eXperDB.BaseControls.CheckBox
+    Friend WithEvents mnuReport As eXperDB.BaseControls.ContextMenuStrip
+    Friend WithEvents mnuSnapshotR As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuTrendR As System.Windows.Forms.ToolStripMenuItem
 
 End Class

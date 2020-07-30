@@ -381,6 +381,19 @@ else
         die "table(tb_config) can not have more than one row."
 fi
 
+#install experdb_profile
+INSTANN_PROFILE="/bin/install -c -m 644  pg_profile--0.1.1.sql pg_profile.control '${PGHOME}/share/extension/'"
+eval $INSTANN_PROFILE
+
+#add parameter into postgresql.auto.conf
+CHECKPROFILECONF="(cd $PGDATA && grep pg_profile postgresql.auto.conf)"
+eval $CHECKPROFILECONF
+ISNOT_EXISTS_PROFILE_CONF=$?
+if [ $ISNOT_EXISTS_PROFILE_CONF -eq 1 ]; then
+        echo "pg_profile.topn = 20" >> $PGDATA/postgresql.auto.conf
+        echo "pg_profile.retention = 7" >> $PGDATA/postgresql.auto.conf
+fi
+
 PGMHOME=`pwd`
 PGMLOG=$PGMHOME/eXperDBMA/log
 

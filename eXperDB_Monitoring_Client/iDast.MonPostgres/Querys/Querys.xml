@@ -73,6 +73,8 @@
            ,OBJT_PERIOD_SEC
            ,STMT_PERIOD_SEC
            ,VERSION
+           ,current_setting('pg_profile.topn') TOPN
+           ,current_setting('pg_profile.retention') RETENTION
         FROM TB_CONFIG 
         WHERE ADMIN_USER_ID='ADMIN'
       ]]>
@@ -132,6 +134,7 @@
       ,COLLECT_YN
       ,COLLECT_PERIOD_SEC
       ,RTSTMT_PERIOD_SEC
+      ,SNAP_PERIOD_MIN
       ,CONN_DB_NAME
       ,CONN_NAME
       ,LAST_MOD_IP
@@ -155,13 +158,14 @@
       ,'{9}'
       ,'{10}'
       ,'{11}'
+      ,'{12}'
       ,NOW()
-      ,'{12}'      
+      ,'{13}'      
       ,'N'
-      ,'{13}'
       ,'{14}'
       ,'{15}'
-      ,'{16}')
+      ,'{16}'
+      ,'{17}')
     ]]>
     </DATA>
     <COMMENTS />
@@ -277,6 +281,7 @@
         ,COLLECT_YN
         ,COLLECT_PERIOD_SEC
         ,RTSTMT_PERIOD_SEC
+        ,SNAP_PERIOD_MIN
         ,CONN_DB_NAME
         ,CONN_NAME
         ,LAST_MOD_IP
@@ -310,18 +315,19 @@
         ,COLLECT_YN = '{6}' 
         ,COLLECT_PERIOD_SEC = '{7}' 
         ,RTSTMT_PERIOD_SEC = '{8}' 
-        ,CONN_DB_NAME = '{9}' 
-        ,CONN_NAME = '{10}' 
-        ,LAST_MOD_IP = '{11}' 
+        ,SNAP_PERIOD_MIN = '{9}' 
+        ,CONN_DB_NAME = '{10}' 
+        ,CONN_NAME = '{11}' 
+        ,LAST_MOD_IP = '{12}' 
         ,LAST_MOD_DT = NOW()
-        ,CONN_SCHEMA_NAME = '{12}'
+        ,CONN_SCHEMA_NAME = '{13}'
         ,DELETE_YN='N'
-        ,HA_ROLE = '{13}'
-        ,HA_HOST = '{14}'
-        ,HA_PORT = '{15}'
-        ,HA_REPL_HOST = '{16}'
-        ,VIRTUAL_IP = CASE WHEN LENGTH('{17}') = 0 THEN NULL ELSE '{17}' END
-        ,VIRTUAL_IP2 = CASE WHEN LENGTH('{18}') = 0 THEN NULL ELSE '{18}' END
+        ,HA_ROLE = '{14}'
+        ,HA_HOST = '{15}'
+        ,HA_PORT = '{16}'
+        ,HA_REPL_HOST = '{17}'
+        ,VIRTUAL_IP = CASE WHEN LENGTH('{18}') = 0 THEN NULL ELSE '{18}' END
+        ,VIRTUAL_IP2 = CASE WHEN LENGTH('{19}') = 0 THEN NULL ELSE '{19}' END
       WHERE INSTANCE_ID = {0}
     ]]>
     </DATA>
@@ -4750,6 +4756,159 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DATA>
       <![CDATA[
         set {0} to {1};
+      ]]>
+    </DATA>
+  </ROW>  
+  <ROW ID="SELECTSNAPSHOTPERIOD" PARAMS="1">
+    <DESC>(SELECTSNAPSHOTPERIOD)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT SNAP_PERIOD_MIN FROM TB_INSTANCE_INFO WHERE INSTANCE_ID = {0}
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTSNAPSHOTLIST" PARAMS="1">
+    <DESC>(SELECTSNAPSHOTLIST)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT snapshot, snapshot_time as date_time FROM SNAPSHOT_SHOW('{0}');
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTBASELINELIST" PARAMS="1">
+    <DESC>(SELECTBASELINELIST)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT BASELINE, 
+              MIN_SNAP,
+		      (SELECT SNAPSHOT_TIME FROM SNAPSHOT_SHOW('{0}') WHERE SNAPSHOT = MIN_SNAP) MIN_SNAP_TIME,
+              MAX_SNAP,
+		      (SELECT SNAPSHOT_TIME FROM SNAPSHOT_SHOW('{0}') WHERE SNAPSHOT = MAX_SNAP) MAX_SNAP_TIME,
+          KEEP_UNTIL_TIME
+		      --MIN_SNAP, MAX_SNAP,  
+        FROM BASELINE_SHOW('{0}')
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTSNAPSHOT" PARAMS="1">
+    <DESC>INSERTSNAPSHOT</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT 1 FROM snapshot('{0}');
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTBASELINE" PARAMS="5">
+    <DESC>INSERTBASELINE</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT 1 FROM BASELINE_NEW('{0}','{1}',{2},{3},{4});
+      ]]>
+    </DATA>
+  </ROW>  
+  <ROW ID="UPDATEBASELINE" PARAMS="3">
+    <DESC>UPDATEBASELINE</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT 1 FROM BASELINE_KEEP('{0}','{1}', {2}) ;
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTCHECKBASELINE" PARAMS="2">
+    <DESC>(SELECTCHECKBASELINE)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT 1 FROM BASELINE_SHOW('{0}')  WHERE BASELINE = '{1}' 
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="DELETEBASELINE" PARAMS="2">
+    <DESC>DELETEBASELINE</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT BASELINE_DROP('{0}', '{1}');
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTSNAPSHOTREPORTSINGLESNAP" PARAMS="3">
+    <DESC>(SELECTSNAPSHOTREPORTSINGLESNAP)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT REPORT FROM REPORT('{0}',{1},{2});
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTSNAPSHOTREPORTSINGLEBL" PARAMS="2">
+    <DESC>(SELECTSNAPSHOTREPORTSINGLEBL)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT REPORT FROM REPORT('{0}','{1}', '');
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTSNAPSHOTREPORTCOMPSNAPSNAP" PARAMS="5">
+    <DESC>(SELECTSNAPSHOTREPORTCOMPSNAPSNAP)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT REPORT_DIFF AS REPORT FROM REPORT_DIFF('{0}',{1},{2},{3},{4});
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTSNAPSHOTREPORTCOMPSNAPBL" PARAMS="4">
+    <DESC>(SELECTSNAPSHOTREPORTCOMPSNAPBL)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT REPORT_DIFF AS REPORT FROM REPORT_DIFF('{0}',{1},{2},'{3}', '');
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTSNAPSHOTREPORTCOMPBLSNAP" PARAMS="4">
+    <DESC>(SELECTSNAPSHOTREPORTCOMPBLSNAP)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT REPORT_DIFF AS REPORT FROM REPORT_DIFF('{0}','{1}',{2},{3}, '');
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTSNAPSHOTREPORTCOMPBLBL" PARAMS="3">
+    <DESC>(SELECTSNAPSHOTREPORTCOMPBLBL)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT REPORT_DIFF AS REPORT FROM REPORT_DIFF('{0}','{1}','{2}', '');
+      ]]>
+    </DATA>
+  </ROW>
+  
+  <ROW ID="UPDATESNAPSHOTCONFIGTOPN" PARAMS="1">
+    <DESC>Snap config</DESC>
+    <DATA>
+      <![CDATA[
+        ALTER SYSTEM SET pg_profile.topn = {0};
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="UPDATESNAPSHOTCONFIGRETENTION" PARAMS="1">
+    <DESC>Snap config</DESC>
+    <DATA>
+      <![CDATA[
+        ALTER SYSTEM SET pg_profile.retention = {0};
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTAPPLYCONF" PARAMS="1">
+    <DESC>Snap config</DESC>
+    <DATA>
+      <![CDATA[
+         SELECT PG_RELOAD_CONF();
       ]]>
     </DATA>
   </ROW>

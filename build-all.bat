@@ -6,8 +6,8 @@ SET "PATH=%PATH%;%PROGRAMFILES%\Git\bin;C:\apache-ant-1.9.9-bin;C:\Program Files
 
 For /F %%g in ('git rev-parse HEAD ^| cut -b 1-7') Do (Set GIT_COMMIT_HASH=%%g)
 
-set BASE_VER=11.5.7
-set BASE_VER_UDERSCORE=11_5_7
+set BASE_VER=11.6.1
+set BASE_VER_UDERSCORE=11_6_1
 For /F %%i in ('git rev-list HEAD ^| find /c /v ""') Do Set GIT_COMMIT_CNT=%%i
 
 
@@ -44,6 +44,8 @@ IF "%CLI%"=="t" (
 	sh -e eXperDB_Monitoring_Client\build_client.sh %BASE_VER%.%GIT_COMMIT_CNT% %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%  
 )
 IF "%SVR%"=="t" (
+	ECHO "Build Profile"
+	sh -e eXperDB_Profile\build-profile.sh
 	ECHO "Build Server"
 	sh -e eXperDB_Server\build-agent.sh %BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%
 )
