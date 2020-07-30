@@ -10,6 +10,7 @@
 		       CONN_USER_PWD, 
 		       COLLECT_PERIOD_SEC, 
 		       RTSTMT_PERIOD_SEC, 
+		       SNAP_PERIOD_MIN, 
 		       CONN_DB_NAME,
 		       PG_VERSION, 
 		       EXTENSIONS,

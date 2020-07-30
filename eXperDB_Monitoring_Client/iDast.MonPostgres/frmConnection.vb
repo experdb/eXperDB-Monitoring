@@ -11,7 +11,7 @@ Public Class frmConnection
     Private _strSvrQuery = p_clsQueryData.fn_GetData("SELECTREPLICATIONSTATE")
     Public Sub New(ByVal strAgentIp As String, ByVal intAgentPort As Integer, ByVal idxRow As Integer, _
                    ByVal strUser As String, ByVal strPw As String, ByVal strIP As String, ByVal intPort As Integer, _
-                   ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal intStmtCollectSec As Integer, ByVal strAliasNm As String, _
+                   ByVal DBNm As String, ByVal strSchema As String, ByVal intCollectSec As Integer, ByVal intStmtCollectSec As Integer, ByVal intSnapshotHour As Integer, ByVal strAliasNm As String, _
                    ByVal InstanceCnt As Integer, ByVal strSerial As String, ByVal strVirtualIP As String, ByVal strVirtualIP2 As String, _
                    Optional ByVal strHARole As String = "A", Optional ByVal strHAHost As String = "-", Optional ByVal intHAPort As Integer = 0, Optional ByVal strHAREPLHost As String = "-")
 
@@ -39,6 +39,7 @@ Public Class frmConnection
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
 
         lblStmtSDly.Text = p_clsMsgData.fn_GetData("F342")
+        lblSnapPeriod.Text = p_clsMsgData.fn_GetData("F960", "")
         lblHARole.Text = p_clsMsgData.fn_GetData("F288")
         lblHAHost.Text = p_clsMsgData.fn_GetData("F292")
         lblHAPort.Text = p_clsMsgData.fn_GetData("F290")
@@ -71,6 +72,19 @@ Public Class frmConnection
             End If
         Next
         cmbStmtCollectPeriod.SelectedValue = intStmtCollectSec
+        strValue = p_clsMsgData.fn_GetData("F965")
+        tmpArr = strValue.Split(";")
+        For Each tmpStr As String In tmpArr
+            If tmpStr.Trim <> "" Then
+                Dim subArr As String() = tmpStr.Split("|")
+                Dim strDesc As String = subArr(0)
+                Dim intSec As Integer = subArr(1)
+                cmbSnapPeriod.AddValue(intSec, strDesc)
+            End If
+        Next
+
+        cmbSnapPeriod.SelectedValue = intSnapshotHour
+
         _idxROw = idxRow
         If idxRow >= 0 Then
             btnAct.Text = p_clsMsgData.fn_GetData("F141")
@@ -280,13 +294,14 @@ Public Class frmConnection
 
 
 
-    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
+    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef intSnapshotHour As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
         intRow = _idxROw
         ODBCConnect = btnTest.Tag
 
         StrSchema = cmbSchema.Text
         intCollect = nudCollectSecond.Value
         intStmtCollectSec = cmbStmtCollectPeriod.SelectedValue
+        intSnapshotHour = cmbSnapPeriod.SelectedValue
         strAliasNm = txtAlias.Text
 
         Select Case CInt(cmbHARole.SelectedIndex)

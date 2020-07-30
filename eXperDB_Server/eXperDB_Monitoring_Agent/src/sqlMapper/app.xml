@@ -4690,7 +4690,50 @@ GROUP BY HA_GROUP
 		 WHERE instance_id = #{instance_id} ;
 		]]>
 	</update>
+
+	<update id="TB_SNAPSHOT_INFO_C001" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_fs BOOL;
+			    instance_id TEXT;
+			BEGIN
+				instance_id = '${instance_id}';
+			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM node_show() WHERE node_name = instance_id));       
+			    IF is_exists_fs = FALSE THEN
+			    	PERFORM NODE_NEW(instance_id, 'host=' || '${server_ip}' || ' port=' || '${service_port}' ||' dbname=' || '${conn_db_name}' || ' user=' || '${conn_user_id}' || ' password=' || '${conn_user_pwd}');
+			    END IF;
+			END $$
+		  ]]>	  
+	</update>
+	<select id="TB_SNAPSHOT_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT enabled FROM node_show() WHERE node_name = CAST(#{instance_id} AS VARCHAR);
+		]]>
+	</select>
+	<update id="TB_SNAPSHOT_INFO_U001" parameterType="hashmap" >
+		<![CDATA[
+		SELECT snapshot(CAST(#{instance_id} AS VARCHAR));
+		]]>
+	</update>
 	
-	
+	<update id="TB_CREATE_PROFILE_001" parameterType="hashmap">
+		<![CDATA[
+        /* TB_CREATE_PROFILE_001 24E9AB7301FF1966DA4FB30DC1538882*/
+         DO $$
+         DECLARE
+                 is_exist BOOL;
+         BEGIN
+                 is_exist := (SELECT EXISTS(SELECT 1 FROM PG_EXTENSION WHERE EXTNAME = 'pg_profile'));
+                 IF is_exist = FALSE THEN
+                         EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS pg_profile cascade') ;
+                 END IF;
+                 PERFORM PG_RELOAD_CONF();
+         EXCEPTION
+                 WHEN others THEN
+         END $$
+				]]>	
+	</update>
+		
 <!-- Check solution End -->
 </mapper>

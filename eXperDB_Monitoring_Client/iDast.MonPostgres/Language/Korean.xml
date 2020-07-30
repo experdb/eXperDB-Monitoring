@@ -202,7 +202,7 @@
   </ROW>
   <ROW ID="F011" PARAMS="0">
     <DESC>수집주기</DESC>
-    <DATA><![CDATA[수집주기(초)]]></DATA>
+    <DATA><![CDATA[수집주기(Sec)]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2739,7 +2739,7 @@
   </ROW>
   <ROW ID="F342" PARAMS="0">
     <DESC>Collect Period(Sec)</DESC>
-    <DATA><![CDATA[구문수집주기(초)]]></DATA>
+    <DATA><![CDATA[구문수집주기(Sec)]]></DATA>
   </ROW>
   <ROW ID="F343" PARAMS="0">
     <DESC>CPU Core</DESC>
@@ -3688,6 +3688,46 @@
     <DESC>서버확인</DESC>
     <DATA><![CDATA[{0} 서버 정보를 수집할 수 없습니다.]]></DATA>
   </ROW>
+  <ROW ID="M096" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[리포트를 생성합니다.]]></DATA>
+  </ROW>
+  <ROW ID="M097" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Snapshot을 생성할 수 없습니다.]]></DATA>
+  </ROW>
+  <ROW ID="M098" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[Baseline을 생성합니다.]]></DATA>
+  </ROW>
+  <ROW ID="M099" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[이미 존재하는 Baseline명입니다.]]></DATA>
+  </ROW>
+  <ROW ID="M100" PARAMS="0">
+    <DESC>Baseline Name</DESC>
+    <DATA><![CDATA[Baseline명을 입력하세요.]]></DATA>
+  </ROW>
+  <ROW ID="M101" PARAMS="0">
+    <DESC>Baseline Name</DESC>
+    <DATA><![CDATA[Snapshot을 입력하세요.]]></DATA>
+  </ROW>
+  <ROW ID="M102" PARAMS="0">
+    <DESC>Snapshot management</DESC>
+    <DATA><![CDATA[Sanpshot 관리.]]></DATA>
+  </ROW>
+  <ROW ID="M103" PARAMS="1">
+    <DESC>삭제</DESC>
+    <DATA><![CDATA["{0}"를 삭제하시겠습니까?]]></DATA>
+  </ROW>
+  <ROW ID="M104" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[리포트를 생성할 수 없습니다.]]></DATA>
+  </ROW>
+  <ROW ID="M105" PARAMS="0">
+    <DESC>Snapshot</DESC>
+    <DATA><![CDATA[리포트를 생성을 완료하였습니다.]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[파일건수]]></DATA>
@@ -3986,6 +4026,56 @@
   <ROW ID="F955" PARAMS="0">
     <DESC>SessionTopInfo</DESC>
     <DATA><![CDATA[Sessions(per Client)]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F956" PARAMS="1">
+    <DESC>Generate Snapshot Report</DESC>
+    <DATA><![CDATA[{0} 생성]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F957" PARAMS="0">
+    <DESC>TopN</DESC>
+    <DATA><![CDATA[스냅샷 TopN]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F958" PARAMS="0">
+    <DESC>Snapshot Retention</DESC>
+    <DATA><![CDATA[스냅샷보관주기(일)]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F959" PARAMS="0">
+    <DESC>Snapshot management</DESC>
+    <DATA><![CDATA[Snapshot 관리]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F960" PARAMS="1">
+    <DESC>Snapshot period</DESC>
+    <DATA><![CDATA[Snapshot 주기{0}]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F961" PARAMS="0">
+    <DESC>Update Snapshot Report</DESC>
+    <DATA><![CDATA[변경]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F962" PARAMS="0">
+    <DESC>Baseline name</DESC>
+    <DATA><![CDATA[Baseline명]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F963" PARAMS="0">
+    <DESC>Snapshot period</DESC>
+    <DATA><![CDATA[Snapshot 선택]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F964" PARAMS="0">
+    <DESC>TopN</DESC>
+    <DATA><![CDATA[5|5;10|10;20|20;30|30;50|50;80|80;100|100;120|120;150|150]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F965" PARAMS="0">
+    <DESC>CURR STMT PERIOD LIST</DESC>
+    <DATA><![CDATA[Disable|0;30 m|30;1 h|60;2 h|120;3 h|180;4 h|240;6 h|360;12 h|720;24 h|1440]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

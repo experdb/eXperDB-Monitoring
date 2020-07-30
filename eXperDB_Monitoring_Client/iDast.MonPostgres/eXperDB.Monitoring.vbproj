@@ -159,6 +159,24 @@
     <Compile Include="frmAllowIP.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSnapshot.Designer.vb">
+      <DependentUpon>frmSnapshot.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSnapshot.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSnapAddBL.Designer.vb">
+      <DependentUpon>frmSnapAddBL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSnapAddBL.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSnapshotR.Designer.vb">
+      <DependentUpon>frmSnapshotR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSnapshotR.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmLogin.Designer.vb">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </Compile>
@@ -182,6 +200,12 @@
     </Compile>
     <Compile Include="AlertNotiHistory.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="frmSnapShotList.Designer.vb">
+      <DependentUpon>frmSnapShotList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSnapShotList.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmVersion.Designer.vb">
       <DependentUpon>frmVersion.vb</DependentUpon>
@@ -527,6 +551,18 @@
     <EmbeddedResource Include="frmAllowIP.resx">
       <DependentUpon>frmAllowIP.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSnapshot.resx">
+      <DependentUpon>frmSnapshot.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSnapAddBL.resx">
+      <DependentUpon>frmSnapAddBL.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSnapshotR.resx">
+      <DependentUpon>frmSnapshotR.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </EmbeddedResource>
@@ -539,6 +575,9 @@
     <EmbeddedResource Include="AlertNotiHistory.resx">
       <DependentUpon>AlertNotiHistory.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSnapShotList.resx">
+      <DependentUpon>frmSnapShotList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmVersion.resx">
       <DependentUpon>frmVersion.vb</DependentUpon>

@@ -76,7 +76,10 @@ public class MonitoringInfoManager {
 //			System.out.println(LicenseInfoManager.encryptTDES(cryptokey, "Hello World"));
 //			System.out.println(LicenseInfoManager.decryptTDES(cryptokey, LicenseInfoManager.encryptTDES(cryptokey, "Hello World")));
 			/* *******************************<Crypto>********************************** */
-					
+			
+			// create extension pg_profile
+			session.update("app.TB_CREATE_PROFILE_001");
+			session.commit();
 			
 			SqlSession sessionCollect = null;
 			Connection connection = null;
@@ -137,6 +140,9 @@ public class MonitoringInfoManager {
 					session.update("app.TB_RTSTATEMENTS_INFO_C001", map);
 					//session.selectList("app.SEQ_SETVAL_STMT");
 					/*add to create fdw and temp table by robin 201902 end*/
+					/*add to create snapshot by robin 202007 start*/
+					session.update("app.TB_SNAPSHOT_INFO_C001", map);
+					/*add to create snapshot by robin 202007 end*/
 					
 					
 					session.commit();
