@@ -67,6 +67,7 @@ eXperDB-Monitoring for postgreSQL consists of a server for collecting database i
 
 # TODO
 * Auto Scale-Out/In cluster auto detection
+* On-Premise Area, Public Cloud(AWS) Area Integrated Monitoring
 
 # License
 [![LICENSE](https://img.shields.io/badge/LICENSE-GPLv3-ff69b4.svg)](https://github.com/experdb/eXperDB-Management/blob/master/LICENSE)
