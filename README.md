@@ -64,6 +64,10 @@ eXperDB-Monitoring for postgreSQL consists of a server for collecting database i
 
 11) HA Status and Streaming Replication monitoring
 
+
+# TODO
+* Auto Scale-Out/In cluster auto detection
+
 # License
 [![LICENSE](https://img.shields.io/badge/LICENSE-GPLv3-ff69b4.svg)](https://github.com/experdb/eXperDB-Management/blob/master/LICENSE)
 
@@ -124,7 +128,16 @@ postgres=# create extension experdb_mon;
 1. Run eXperDB.Monitoring_XXX.exe
 
 
-# Copyright
-Copyright (c) 2016-2019, eXperDB Development Team
+## Contribution
+If you find a bug, please report to us by posting issues on Github.  
+Source code modifications via pull requests are welcome.  
+Also, if you would like to contact us directly, please send an email to experdb@inzent.com.
+
+
+## Copyright
+Copyright (c) 2016-2020, eXperDB Development Team
 All rights reserved.
 
+## Community
+* https://www.facebook.com/experdb
+* http://cafe.naver.com/psqlmaster 
