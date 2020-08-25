@@ -21,18 +21,12 @@ Partial Class frmReports
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim Edges1 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim Edges3 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim BorderSkin1 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin2 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin3 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin4 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin5 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim BorderSkin6 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin7 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin8 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
@@ -40,13 +34,24 @@ Partial Class frmReports
         Dim BorderSkin10 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin11 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
         Dim BorderSkin12 As System.Windows.Forms.DataVisualization.Charting.BorderSkin = New System.Windows.Forms.DataVisualization.Charting.BorderSkin()
+        Dim Edges3 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReports))
         Me.grpRptCpu = New eXperDB.BaseControls.GroupBox()
         Me.pnlSystem = New eXperDB.BaseControls.Panel()
+        Me.chtRptDiskRate = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptDisk = New eXperDB.Monitoring.ctlChart()
         Me.flpDisk = New eXperDB.BaseControls.FlowLayoutPanel()
+        Me.chtRptDiskUsage = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptMem = New eXperDB.Monitoring.ctlChart()
+        Me.chtRptCpu = New eXperDB.Monitoring.ctlChart()
         Me.btnSearch = New eXperDB.BaseControls.Button()
         Me.pnlSearch = New eXperDB.BaseControls.Panel()
         Me.tlpDuration = New eXperDB.BaseControls.TableLayoutPanel()
@@ -66,22 +71,6 @@ Partial Class frmReports
         Me.btnPrint = New eXperDB.BaseControls.Button()
         Me.grpRptTimeLine = New eXperDB.BaseControls.GroupBox()
         Me.pnlTimeline = New eXperDB.BaseControls.Panel()
-        Me.flpDB = New eXperDB.BaseControls.FlowLayoutPanel()
-        Me.SplitContainer1 = New eXperDB.BaseControls.SplitContainer()
-        Me.pnlMain = New eXperDB.BaseControls.Panel()
-        Me.SplitContainer2 = New eXperDB.BaseControls.SplitContainer()
-        Me.grpRptSQL = New eXperDB.BaseControls.GroupBox()
-        Me.dgvRptSQL = New eXperDB.BaseControls.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTimespanColumn1 = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.DataGridViewTimespanColumn2 = New eXperDB.Controls.DataGridViewTimespanColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.chtRptDiskRate = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptDisk = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptDiskUsage = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptMem = New eXperDB.Monitoring.ctlChart()
-        Me.chtRptCpu = New eXperDB.Monitoring.ctlChart()
         Me.chtBufferrate = New eXperDB.Monitoring.ctlChart()
         Me.chtBuffer = New eXperDB.Monitoring.ctlChart()
         Me.chtObjectRate = New eXperDB.Monitoring.ctlChart()
@@ -89,11 +78,22 @@ Partial Class frmReports
         Me.chtPhysicalIO = New eXperDB.Monitoring.ctlChart()
         Me.chtLogical = New eXperDB.Monitoring.ctlChart()
         Me.chtSession = New eXperDB.Monitoring.ctlChart()
+        Me.flpDB = New eXperDB.BaseControls.FlowLayoutPanel()
+        Me.SplitContainer1 = New eXperDB.BaseControls.SplitContainer()
+        Me.pnlMain = New eXperDB.BaseControls.Panel()
+        Me.SplitContainer2 = New eXperDB.BaseControls.SplitContainer()
+        Me.grpRptSQL = New eXperDB.BaseControls.GroupBox()
+        Me.dgvRptSQL = New eXperDB.BaseControls.DataGridView()
         Me.colDgvRptSqlDBNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlElapsedMax = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.colDgvRptSqlCpuTime = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.colDgvRptSqlCount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlSql = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTimespanColumn1 = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.DataGridViewTimespanColumn2 = New eXperDB.Controls.DataGridViewTimespanColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlInstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colDgvRptSqlStart = New eXperDB.Controls.DataGridViewTimespanColumn()
         Me.colDgvRptSqlCpuMax = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -161,10 +161,44 @@ Partial Class frmReports
         Me.pnlSystem.Controls.Add(Me.chtRptMem)
         Me.pnlSystem.Controls.Add(Me.chtRptCpu)
         Me.pnlSystem.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlSystem.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlSystem.Location = New System.Drawing.Point(3, 28)
         Me.pnlSystem.Name = "pnlSystem"
+        Me.pnlSystem.Radius = 10
         Me.pnlSystem.Size = New System.Drawing.Size(1820, 340)
         Me.pnlSystem.TabIndex = 24
+        '
+        'chtRptDiskRate
+        '
+        Me.chtRptDiskRate.BorderSkin = BorderSkin1
+        Me.chtRptDiskRate.DataSource = Nothing
+        Me.chtRptDiskRate.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDiskRate.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDiskRate.Location = New System.Drawing.Point(0, 1305)
+        Me.chtRptDiskRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDiskRate.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptDiskRate.MenuVisible = True
+        Me.chtRptDiskRate.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDiskRate.Name = "chtRptDiskRate"
+        Me.chtRptDiskRate.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDiskRate.TabIndex = 23
+        Me.chtRptDiskRate.Title = ""
+        '
+        'chtRptDisk
+        '
+        Me.chtRptDisk.BorderSkin = BorderSkin2
+        Me.chtRptDisk.DataSource = Nothing
+        Me.chtRptDisk.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDisk.Location = New System.Drawing.Point(0, 985)
+        Me.chtRptDisk.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDisk.MaximumSize = New System.Drawing.Size(0, 350)
+        Me.chtRptDisk.MenuVisible = True
+        Me.chtRptDisk.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDisk.Name = "chtRptDisk"
+        Me.chtRptDisk.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDisk.TabIndex = 22
+        Me.chtRptDisk.Title = ""
         '
         'flpDisk
         '
@@ -178,6 +212,56 @@ Partial Class frmReports
         Me.flpDisk.Name = "flpDisk"
         Me.flpDisk.Size = New System.Drawing.Size(1803, 25)
         Me.flpDisk.TabIndex = 21
+        '
+        'chtRptDiskUsage
+        '
+        Me.chtRptDiskUsage.BorderSkin = BorderSkin3
+        Me.chtRptDiskUsage.DataSource = Nothing
+        Me.chtRptDiskUsage.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptDiskUsage.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptDiskUsage.Location = New System.Drawing.Point(0, 640)
+        Me.chtRptDiskUsage.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptDiskUsage.MaximumSize = New System.Drawing.Size(0, 350)
+        Me.chtRptDiskUsage.MenuVisible = True
+        Me.chtRptDiskUsage.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptDiskUsage.Name = "chtRptDiskUsage"
+        Me.chtRptDiskUsage.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptDiskUsage.TabIndex = 25
+        Me.chtRptDiskUsage.Title = ""
+        '
+        'chtRptMem
+        '
+        Me.chtRptMem.AutoScroll = True
+        Me.chtRptMem.BorderSkin = BorderSkin4
+        Me.chtRptMem.DataSource = Nothing
+        Me.chtRptMem.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptMem.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptMem.Location = New System.Drawing.Point(0, 320)
+        Me.chtRptMem.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptMem.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptMem.MenuVisible = True
+        Me.chtRptMem.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptMem.Name = "chtRptMem"
+        Me.chtRptMem.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptMem.TabIndex = 26
+        Me.chtRptMem.Title = ""
+        '
+        'chtRptCpu
+        '
+        Me.chtRptCpu.AutoScroll = True
+        Me.chtRptCpu.BorderSkin = BorderSkin5
+        Me.chtRptCpu.DataSource = Nothing
+        Me.chtRptCpu.Dock = System.Windows.Forms.DockStyle.Top
+        Me.chtRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.chtRptCpu.Location = New System.Drawing.Point(0, 0)
+        Me.chtRptCpu.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.chtRptCpu.MaximumSize = New System.Drawing.Size(0, 375)
+        Me.chtRptCpu.MenuVisible = True
+        Me.chtRptCpu.MinimumSize = New System.Drawing.Size(0, 320)
+        Me.chtRptCpu.Name = "chtRptCpu"
+        Me.chtRptCpu.Size = New System.Drawing.Size(1803, 320)
+        Me.chtRptCpu.TabIndex = 15
+        Me.chtRptCpu.Title = ""
         '
         'btnSearch
         '
@@ -209,10 +293,12 @@ Partial Class frmReports
         Me.pnlSearch.Controls.Add(Me.btnSearch)
         Me.pnlSearch.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlSearch.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.pnlSearch.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlSearch.Location = New System.Drawing.Point(0, 0)
         Me.pnlSearch.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlSearch.Name = "pnlSearch"
         Me.pnlSearch.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.pnlSearch.Radius = 10
         Me.pnlSearch.Size = New System.Drawing.Size(1826, 39)
         Me.pnlSearch.TabIndex = 8
         '
@@ -556,289 +642,13 @@ Partial Class frmReports
         Me.pnlTimeline.Controls.Add(Me.chtSession)
         Me.pnlTimeline.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlTimeline.Font = New System.Drawing.Font("Gulim", 13.49338!)
+        Me.pnlTimeline.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.pnlTimeline.Location = New System.Drawing.Point(3, 53)
         Me.pnlTimeline.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pnlTimeline.Name = "pnlTimeline"
+        Me.pnlTimeline.Radius = 10
         Me.pnlTimeline.Size = New System.Drawing.Size(1820, 345)
         Me.pnlTimeline.TabIndex = 31
-        '
-        'flpDB
-        '
-        Me.flpDB.AutoSize = True
-        Me.flpDB.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpDB.Dock = System.Windows.Forms.DockStyle.Top
-        Me.flpDB.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.flpDB.Location = New System.Drawing.Point(3, 28)
-        Me.flpDB.Margin = New System.Windows.Forms.Padding(1)
-        Me.flpDB.MinimumSize = New System.Drawing.Size(0, 25)
-        Me.flpDB.Name = "flpDB"
-        Me.flpDB.Size = New System.Drawing.Size(1820, 25)
-        Me.flpDB.TabIndex = 21
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 39)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.pnlMain)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.AutoScroll = True
-        Me.SplitContainer1.Panel2.Controls.Add(Me.grpRptSQL)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1826, 1015)
-        Me.SplitContainer1.SplitterDistance = 776
-        Me.SplitContainer1.TabIndex = 18
-        '
-        'pnlMain
-        '
-        Me.pnlMain.AutoScroll = True
-        Me.pnlMain.Controls.Add(Me.SplitContainer2)
-        Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlMain.Location = New System.Drawing.Point(0, 0)
-        Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1826, 776)
-        Me.pnlMain.TabIndex = 18
-        '
-        'SplitContainer2
-        '
-        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer2.Name = "SplitContainer2"
-        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer2.Panel1
-        '
-        Me.SplitContainer2.Panel1.Controls.Add(Me.grpRptCpu)
-        '
-        'SplitContainer2.Panel2
-        '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.grpRptTimeLine)
-        Me.SplitContainer2.Size = New System.Drawing.Size(1826, 776)
-        Me.SplitContainer2.SplitterDistance = 371
-        Me.SplitContainer2.TabIndex = 18
-        '
-        'grpRptSQL
-        '
-        Me.grpRptSQL.AlignLine = System.Drawing.StringAlignment.Center
-        Me.grpRptSQL.AlignString = System.Drawing.StringAlignment.Near
-        Me.grpRptSQL.AutoSize = True
-        Me.grpRptSQL.Controls.Add(Me.dgvRptSQL)
-        Me.grpRptSQL.Dock = System.Windows.Forms.DockStyle.Fill
-        Edges3.LeftBottom = 0
-        Edges3.LeftTop = 0
-        Edges3.RightBottom = 0
-        Edges3.RightTop = 0
-        Me.grpRptSQL.EdgeRound = Edges3
-        Me.grpRptSQL.FillColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.grpRptSQL.Font = New System.Drawing.Font("Gulim", 11.0!)
-        Me.grpRptSQL.Icon = Nothing
-        Me.grpRptSQL.LineColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(184, Byte), Integer), CType(CType(208, Byte), Integer))
-        Me.grpRptSQL.LineWidth = 1
-        Me.grpRptSQL.Location = New System.Drawing.Point(0, 0)
-        Me.grpRptSQL.Name = "grpRptSQL"
-        Me.grpRptSQL.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
-        Me.grpRptSQL.Size = New System.Drawing.Size(1826, 235)
-        Me.grpRptSQL.TabIndex = 33
-        Me.grpRptSQL.TabStop = False
-        Me.grpRptSQL.Text = "SQL list"
-        Me.grpRptSQL.TitleFont = New System.Drawing.Font("Gulim", 11.0!)
-        Me.grpRptSQL.TitleGraColor = System.Drawing.Color.CornflowerBlue
-        Me.grpRptSQL.UseGraColor = False
-        Me.grpRptSQL.UseRound = True
-        Me.grpRptSQL.UseTitle = True
-        '
-        'dgvRptSQL
-        '
-        Me.dgvRptSQL.AllowUserToAddRows = False
-        Me.dgvRptSQL.AllowUserToDeleteRows = False
-        Me.dgvRptSQL.AllowUserToOrderColumns = True
-        Me.dgvRptSQL.AllowUserToResizeColumns = False
-        Me.dgvRptSQL.AllowUserToResizeRows = False
-        Me.dgvRptSQL.BackgroundColor = System.Drawing.Color.Black
-        Me.dgvRptSQL.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvRptSQL.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 11.02!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRptSQL.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvRptSQL.ColumnHeadersHeight = 24
-        Me.dgvRptSQL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvRptSQL.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvRptSqlDBNm, Me.colDgvRptSqlElapsedMax, Me.colDgvRptSqlCpuTime, Me.colDgvRptSqlCount, Me.colDgvRptSqlSql})
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 11.02!)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.LightSteelBlue
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvRptSQL.DefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvRptSQL.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvRptSQL.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
-        Me.dgvRptSQL.EnableHeadersVisualStyles = False
-        Me.dgvRptSQL.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.dgvRptSQL.GridColor = System.Drawing.Color.Black
-        Me.dgvRptSQL.Location = New System.Drawing.Point(3, 28)
-        Me.dgvRptSQL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dgvRptSQL.MultiSelect = False
-        Me.dgvRptSQL.Name = "dgvRptSQL"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.2!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvRptSQL.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvRptSQL.RowHeadersVisible = False
-        Me.dgvRptSQL.RowTemplate.Height = 23
-        Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvRptSQL.Size = New System.Drawing.Size(1820, 204)
-        Me.dgvRptSQL.TabIndex = 32
-        Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Red
-        Me.dgvRptSQL.UseTagValueMatchColor = False
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "DB_NAME"
-        Me.DataGridViewTextBoxColumn1.HeaderText = "F172"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'DataGridViewTimespanColumn1
-        '
-        Me.DataGridViewTimespanColumn1.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.DataGridViewTimespanColumn1.DataPropertyName = "ELAPSED_TIME"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N2"
-        Me.DataGridViewTimespanColumn1.DefaultCellStyle = DataGridViewCellStyle6
-        Me.DataGridViewTimespanColumn1.FormatString = "hh\:mm\:ss"
-        Me.DataGridViewTimespanColumn1.HeaderText = "F183"
-        Me.DataGridViewTimespanColumn1.Name = "DataGridViewTimespanColumn1"
-        Me.DataGridViewTimespanColumn1.ReadOnly = True
-        Me.DataGridViewTimespanColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewTimespanColumn1.Width = 190
-        '
-        'DataGridViewTimespanColumn2
-        '
-        Me.DataGridViewTimespanColumn2.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
-        Me.DataGridViewTimespanColumn2.DataPropertyName = "OCCUPIED_TIME"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        Me.DataGridViewTimespanColumn2.DefaultCellStyle = DataGridViewCellStyle7
-        Me.DataGridViewTimespanColumn2.FormatString = "hh\:mm\:ss\.ff"
-        Me.DataGridViewTimespanColumn2.HeaderText = "F231"
-        Me.DataGridViewTimespanColumn2.Name = "DataGridViewTimespanColumn2"
-        Me.DataGridViewTimespanColumn2.ReadOnly = True
-        Me.DataGridViewTimespanColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.DataGridViewTimespanColumn2.Visible = False
-        Me.DataGridViewTimespanColumn2.Width = 76
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "SQL_COUNT"
-        Me.DataGridViewTextBoxColumn2.HeaderText = "F232"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 190
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn3.DataPropertyName = "SQL"
-        Me.DataGridViewTextBoxColumn3.HeaderText = "F185"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'chtRptDiskRate
-        '
-        Me.chtRptDiskRate.BorderSkin = BorderSkin1
-        Me.chtRptDiskRate.DataSource = Nothing
-        Me.chtRptDiskRate.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptDiskRate.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDiskRate.Location = New System.Drawing.Point(0, 1305)
-        Me.chtRptDiskRate.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptDiskRate.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtRptDiskRate.MenuVisible = True
-        Me.chtRptDiskRate.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptDiskRate.Name = "chtRptDiskRate"
-        Me.chtRptDiskRate.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptDiskRate.TabIndex = 23
-        Me.chtRptDiskRate.Title = ""
-        '
-        'chtRptDisk
-        '
-        Me.chtRptDisk.BorderSkin = BorderSkin2
-        Me.chtRptDisk.DataSource = Nothing
-        Me.chtRptDisk.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptDisk.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDisk.Location = New System.Drawing.Point(0, 985)
-        Me.chtRptDisk.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptDisk.MaximumSize = New System.Drawing.Size(0, 350)
-        Me.chtRptDisk.MenuVisible = True
-        Me.chtRptDisk.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptDisk.Name = "chtRptDisk"
-        Me.chtRptDisk.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptDisk.TabIndex = 22
-        Me.chtRptDisk.Title = ""
-        '
-        'chtRptDiskUsage
-        '
-        Me.chtRptDiskUsage.BorderSkin = BorderSkin3
-        Me.chtRptDiskUsage.DataSource = Nothing
-        Me.chtRptDiskUsage.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptDiskUsage.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptDiskUsage.Location = New System.Drawing.Point(0, 640)
-        Me.chtRptDiskUsage.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptDiskUsage.MaximumSize = New System.Drawing.Size(0, 350)
-        Me.chtRptDiskUsage.MenuVisible = True
-        Me.chtRptDiskUsage.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptDiskUsage.Name = "chtRptDiskUsage"
-        Me.chtRptDiskUsage.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptDiskUsage.TabIndex = 25
-        Me.chtRptDiskUsage.Title = ""
-        '
-        'chtRptMem
-        '
-        Me.chtRptMem.AutoScroll = True
-        Me.chtRptMem.BorderSkin = BorderSkin4
-        Me.chtRptMem.DataSource = Nothing
-        Me.chtRptMem.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptMem.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptMem.Location = New System.Drawing.Point(0, 320)
-        Me.chtRptMem.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptMem.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtRptMem.MenuVisible = True
-        Me.chtRptMem.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptMem.Name = "chtRptMem"
-        Me.chtRptMem.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptMem.TabIndex = 26
-        Me.chtRptMem.Title = ""
-        '
-        'chtRptCpu
-        '
-        Me.chtRptCpu.AutoScroll = True
-        Me.chtRptCpu.BorderSkin = BorderSkin5
-        Me.chtRptCpu.DataSource = Nothing
-        Me.chtRptCpu.Dock = System.Windows.Forms.DockStyle.Top
-        Me.chtRptCpu.Font = New System.Drawing.Font("Gulim", 11.02!)
-        Me.chtRptCpu.Location = New System.Drawing.Point(0, 0)
-        Me.chtRptCpu.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
-        Me.chtRptCpu.MaximumSize = New System.Drawing.Size(0, 375)
-        Me.chtRptCpu.MenuVisible = True
-        Me.chtRptCpu.MinimumSize = New System.Drawing.Size(0, 320)
-        Me.chtRptCpu.Name = "chtRptCpu"
-        Me.chtRptCpu.Size = New System.Drawing.Size(1803, 320)
-        Me.chtRptCpu.TabIndex = 15
-        Me.chtRptCpu.Title = ""
         '
         'chtBufferrate
         '
@@ -952,6 +762,152 @@ Partial Class frmReports
         Me.chtSession.TabIndex = 20
         Me.chtSession.Title = ""
         '
+        'flpDB
+        '
+        Me.flpDB.AutoSize = True
+        Me.flpDB.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpDB.Dock = System.Windows.Forms.DockStyle.Top
+        Me.flpDB.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.flpDB.Location = New System.Drawing.Point(3, 28)
+        Me.flpDB.Margin = New System.Windows.Forms.Padding(1)
+        Me.flpDB.MinimumSize = New System.Drawing.Size(0, 25)
+        Me.flpDB.Name = "flpDB"
+        Me.flpDB.Size = New System.Drawing.Size(1820, 25)
+        Me.flpDB.TabIndex = 21
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 39)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.pnlMain)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.AutoScroll = True
+        Me.SplitContainer1.Panel2.Controls.Add(Me.grpRptSQL)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1826, 1015)
+        Me.SplitContainer1.SplitterDistance = 776
+        Me.SplitContainer1.TabIndex = 18
+        '
+        'pnlMain
+        '
+        Me.pnlMain.AutoScroll = True
+        Me.pnlMain.Controls.Add(Me.SplitContainer2)
+        Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlMain.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.pnlMain.Location = New System.Drawing.Point(0, 0)
+        Me.pnlMain.Name = "pnlMain"
+        Me.pnlMain.Radius = 10
+        Me.pnlMain.Size = New System.Drawing.Size(1826, 776)
+        Me.pnlMain.TabIndex = 18
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        Me.SplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.grpRptCpu)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.grpRptTimeLine)
+        Me.SplitContainer2.Size = New System.Drawing.Size(1826, 776)
+        Me.SplitContainer2.SplitterDistance = 371
+        Me.SplitContainer2.TabIndex = 18
+        '
+        'grpRptSQL
+        '
+        Me.grpRptSQL.AlignLine = System.Drawing.StringAlignment.Center
+        Me.grpRptSQL.AlignString = System.Drawing.StringAlignment.Near
+        Me.grpRptSQL.AutoSize = True
+        Me.grpRptSQL.Controls.Add(Me.dgvRptSQL)
+        Me.grpRptSQL.Dock = System.Windows.Forms.DockStyle.Fill
+        Edges3.LeftBottom = 0
+        Edges3.LeftTop = 0
+        Edges3.RightBottom = 0
+        Edges3.RightTop = 0
+        Me.grpRptSQL.EdgeRound = Edges3
+        Me.grpRptSQL.FillColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.grpRptSQL.Font = New System.Drawing.Font("Gulim", 11.0!)
+        Me.grpRptSQL.Icon = Nothing
+        Me.grpRptSQL.LineColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(184, Byte), Integer), CType(CType(208, Byte), Integer))
+        Me.grpRptSQL.LineWidth = 1
+        Me.grpRptSQL.Location = New System.Drawing.Point(0, 0)
+        Me.grpRptSQL.Name = "grpRptSQL"
+        Me.grpRptSQL.Padding = New System.Windows.Forms.Padding(3, 11, 3, 3)
+        Me.grpRptSQL.Size = New System.Drawing.Size(1826, 235)
+        Me.grpRptSQL.TabIndex = 33
+        Me.grpRptSQL.TabStop = False
+        Me.grpRptSQL.Text = "SQL list"
+        Me.grpRptSQL.TitleFont = New System.Drawing.Font("Gulim", 11.0!)
+        Me.grpRptSQL.TitleGraColor = System.Drawing.Color.CornflowerBlue
+        Me.grpRptSQL.UseGraColor = False
+        Me.grpRptSQL.UseRound = True
+        Me.grpRptSQL.UseTitle = True
+        '
+        'dgvRptSQL
+        '
+        Me.dgvRptSQL.AllowUserToAddRows = False
+        Me.dgvRptSQL.AllowUserToDeleteRows = False
+        Me.dgvRptSQL.AllowUserToOrderColumns = True
+        Me.dgvRptSQL.AllowUserToResizeColumns = False
+        Me.dgvRptSQL.AllowUserToResizeRows = False
+        Me.dgvRptSQL.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvRptSQL.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvRptSQL.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 11.02!)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRptSQL.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvRptSQL.ColumnHeadersHeight = 24
+        Me.dgvRptSQL.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+        Me.dgvRptSQL.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDgvRptSqlDBNm, Me.colDgvRptSqlElapsedMax, Me.colDgvRptSqlCpuTime, Me.colDgvRptSqlCount, Me.colDgvRptSqlSql})
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 11.02!)
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvRptSQL.DefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvRptSQL.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvRptSQL.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
+        Me.dgvRptSQL.EnableHeadersVisualStyles = False
+        Me.dgvRptSQL.Font = New System.Drawing.Font("Gulim", 11.02!)
+        Me.dgvRptSQL.GridColor = System.Drawing.Color.Black
+        Me.dgvRptSQL.Location = New System.Drawing.Point(3, 28)
+        Me.dgvRptSQL.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dgvRptSQL.MultiSelect = False
+        Me.dgvRptSQL.Name = "dgvRptSQL"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.2!)
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvRptSQL.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvRptSQL.RowHeadersVisible = False
+        Me.dgvRptSQL.RowTemplate.Height = 23
+        Me.dgvRptSQL.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvRptSQL.Size = New System.Drawing.Size(1820, 204)
+        Me.dgvRptSQL.TabIndex = 32
+        Me.dgvRptSQL.TagValueMatchColor = System.Drawing.Color.Red
+        Me.dgvRptSQL.UseTagValueMatchColor = False
+        '
         'colDgvRptSqlDBNm
         '
         Me.colDgvRptSqlDBNm.DataPropertyName = "DB_NAME"
@@ -1003,6 +959,58 @@ Partial Class frmReports
         Me.colDgvRptSqlSql.HeaderText = "F185"
         Me.colDgvRptSqlSql.Name = "colDgvRptSqlSql"
         Me.colDgvRptSqlSql.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "DB_NAME"
+        Me.DataGridViewTextBoxColumn1.HeaderText = "F172"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        '
+        'DataGridViewTimespanColumn1
+        '
+        Me.DataGridViewTimespanColumn1.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.DataGridViewTimespanColumn1.DataPropertyName = "ELAPSED_TIME"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "N2"
+        Me.DataGridViewTimespanColumn1.DefaultCellStyle = DataGridViewCellStyle6
+        Me.DataGridViewTimespanColumn1.FormatString = "hh\:mm\:ss"
+        Me.DataGridViewTimespanColumn1.HeaderText = "F183"
+        Me.DataGridViewTimespanColumn1.Name = "DataGridViewTimespanColumn1"
+        Me.DataGridViewTimespanColumn1.ReadOnly = True
+        Me.DataGridViewTimespanColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewTimespanColumn1.Width = 190
+        '
+        'DataGridViewTimespanColumn2
+        '
+        Me.DataGridViewTimespanColumn2.BaseUnit = eXperDB.Controls.DataGridViewTimespanCell.SizeUnit.Seconds
+        Me.DataGridViewTimespanColumn2.DataPropertyName = "OCCUPIED_TIME"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "N2"
+        Me.DataGridViewTimespanColumn2.DefaultCellStyle = DataGridViewCellStyle7
+        Me.DataGridViewTimespanColumn2.FormatString = "hh\:mm\:ss\.ff"
+        Me.DataGridViewTimespanColumn2.HeaderText = "F231"
+        Me.DataGridViewTimespanColumn2.Name = "DataGridViewTimespanColumn2"
+        Me.DataGridViewTimespanColumn2.ReadOnly = True
+        Me.DataGridViewTimespanColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.DataGridViewTimespanColumn2.Visible = False
+        Me.DataGridViewTimespanColumn2.Width = 76
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "SQL_COUNT"
+        Me.DataGridViewTextBoxColumn2.HeaderText = "F232"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 190
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn3.DataPropertyName = "SQL"
+        Me.DataGridViewTextBoxColumn3.HeaderText = "F185"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
         '
         'colDgvRptSqlInstID
         '

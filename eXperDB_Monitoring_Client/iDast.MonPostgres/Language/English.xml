@@ -3718,6 +3718,14 @@
     <DESC>Snapshot</DESC>
     <DATA><![CDATA[Finished generating the report.]]></DATA>
   </ROW>
+  <ROW ID="M106" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[Please select the report items]]></DATA>
+  </ROW>
+  <ROW ID="M107" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[No data found in period]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
@@ -4073,7 +4081,52 @@
   </ROW>
   <ROW ID="F965" PARAMS="0">
     <DESC>CURR STMT PERIOD LIST</DESC>
-    <DATA><![CDATA[Disable|-1;30 m|0;1 h|1;2 h|2;3 h|3;4 h|4;6 h|6;12 h|12;24 h|24]]></DATA>
+    <DATA><![CDATA[Disable|0;15 m|15;30 m|30;1 h|60;2 h|120;3 h|180;4 h|240;6 h|360;12 h|720;24 h|1440]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F966" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Set Report item]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F967" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Collection]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F968" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Report item ]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F969" PARAMS="0">
+    <DESC>Today</DESC>
+    <DATA><![CDATA[Today]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F970" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Tomorrrow]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F971" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Last Week]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F972" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Last Month]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F973" PARAMS="0">
+    <DESC>Report Item</DESC>
+    <DATA><![CDATA[Period]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F974" PARAMS="0">
+    <DESC>Report Config</DESC>
+    <DATA><![CDATA[Trend Log Keep day]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

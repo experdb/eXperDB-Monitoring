@@ -590,6 +590,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	</insert>
 	
 	<select id="BT_INDEX_INFO_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
 		SELECT /* EXPERDBMABT_INDEX_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
 		          --? AS OBJT_REG_SEQ, -- @NEXTVAL('OBJT_REG_SEQ'),
@@ -603,7 +604,9 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		          IDX_TUP_READ AS AGG_INDEX_SCAN_TUPLES,
 		          IDX_TUP_FETCH AS AGG_INDEX_SCAN_FETCH_TUPLES,
 		          NOW() AS COLLECT_DT
-		 FROM  PG_STAT_USER_INDEXES A
+		 FROM  PG_STAT_USER_INDEXES A 
+		 WHERE INDEXRELNAME <> 'voting_term_restrict'
+		]]>	
 	</select>
 	
 	
@@ -4701,7 +4704,7 @@ GROUP BY HA_GROUP
 				instance_id = '${instance_id}';
 			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM node_show() WHERE node_name = instance_id));       
 			    IF is_exists_fs = FALSE THEN
-			    	PERFORM NODE_NEW(instance_id, 'host=' || '${server_ip}' || ' port=' || '${service_port}' ||' dbname=' || '${conn_db_name}' || ' user=' || '${conn_user_id}' || ' password=' || '${conn_user_pwd}');
+			    	PERFORM NODE_NEW(instance_id::varchar, 'host=' || '${server_ip}' || ' port=' || '${service_port}' ||' dbname=' || '${conn_db_name}' || ' user=' || '${conn_user_id}' || ' password=' || '${conn_user_pwd}');
 			    END IF;
 			END $$
 		  ]]>	  

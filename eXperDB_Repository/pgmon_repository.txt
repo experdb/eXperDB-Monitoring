@@ -84,6 +84,7 @@ create table tb_config (
     objt_period_sec integer,
     stmt_period_sec integer,
     log_keep_days integer,
+    treport_keep_days integer,
     admin_user_id character varying(100),
     admin_password character varying(100),
     agent_ip character varying(15),
@@ -701,6 +702,37 @@ create table tb_replication_slots (
     collect_dt timestamp without time zone
 );
 
+create table tb_rpt_trend (
+    reg_date character varying(8) not null,
+    instance_id integer not null,
+    trend_type integer not null,
+    dbname varchar(255),
+    max_value numeric(20,2),
+    avg_value numeric(20,2),
+    reserve numeric(20,2),
+    collect_dt timestamp without time zone
+);
+
+create table tb_rpt_list (
+    reg_date character varying(8) not null,
+    instance_id integer not null,
+    trend_type integer not null,
+    list_data jsonb not NULL,
+    collect_dt timestamp without time zone
+);
+
+
+CREATE TABLE tb_rpt_history
+(
+	user_id character varying(16) not null,
+	report_dt timestamp without time zone,
+	report_type int2, --0:snapshot report 1:Trend report
+	instance_id int4,
+	report_action int2, --0:Report, 1:Snapshot, 2:Gen Baseline, 3:Del Baseline, 4:Mod Baseline
+	report_log varchar(200),
+	report_ip character varying(15)
+);
+
 ------------------------------------------------------------------------------------------
 -----------------------<create partition tables>------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -760,6 +792,8 @@ alter table only tb_tablespace_info add constraint pk_tablespace_info primary ke
 alter table only tb_config add constraint pk_tb_config primary key (admin_user_id);
 alter table only tb_control_process_hist add constraint pk_control_process_hist primary key (reg_date,actv_reg_seq, instance_id, process_id);
 alter table only tb_user_info add constraint pk_user_info primary key (reg_date, collect_dt, instance_id, user_id);
+alter table only tb_rpt_trend add constraint pk_tb_rpt_trend primary key (reg_date,instance_id,trend_type,dbname,collect_dt);
+alter table only tb_rpt_list add constraint pk_tb_rpt_list primary key (reg_date,instance_id,trend_type,collect_dt);
 --alter table only tb_access_info add constraint pk_access_info primary key (reg_date,actv_reg_seq,db_name);
 --alter table only tb_actv_collect_info add constraint pk_actv_collect_info primary key (reg_date,actv_reg_seq);
 --alter table only tb_backend_rsc add constraint pk_backend_rsc primary key (reg_date,actv_reg_seq,process_id);
@@ -784,6 +818,10 @@ alter table only tb_mon_user_allow_ip add constraint pk_tb_mon_user_allow_ip pri
 alter table only tb_mon_user_audit add constraint pk_tb_mon_user_audit primary key (user_id,access_dt);
 alter table only tb_mon_perm_by_user add constraint pk_tb_mon_perm_by_user primary key (user_id,group_id,perm_id);
 alter table only tb_replication_slots add constraint pk_tb_replication_slots primary key (reg_date, repl_reg_seq, instance_id, slot_name);
+-----------------------<sys code>--------------------------------------------------
+alter table only tb_sys_code add constraint pk_tb_sys_code primary key (code);
+-----------------------<report history>---------------------------------------------------
+alter table only tb_rpt_history add constraint pk_tb_rpt_history primary key (user_id,instance_id,report_dt);
 ------------------------------------------------------------------------------------------
 -----------------------<create function>--------------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -938,6 +976,7 @@ insert into tb_config(
 						,objt_period_sec
 						,stmt_period_sec
 						,log_keep_days
+						,treport_keep_days
 						,admin_user_id
 						,admin_password
 						,agent_ip
@@ -947,7 +986,7 @@ insert into tb_config(
 						,serial_key
 						,version
 						,binary_path
-) values ('23:30:00', 30, 300, 1200, 7, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '${EXPERDB_VERSION}', '$BINPATH');
+) values ('23:30:00', 30, 300, 1200, 7, 30, 'ADMIN', 'k4m', '127.0.0.1', '5960', now(), '127.0.0.1', 'LICENSEDAT', '${EXPERDB_VERSION}', '$BINPATH');
 
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (1, 'Group1', now(), '127.0.0.1');
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (2, 'Group2', now(), '127.0.0.1');
@@ -1192,10 +1231,30 @@ insert into tb_sys_code select 223, 'TRAXIDLECNT'        , 'Trax idle cnt'      
 insert into tb_sys_code select 224, 'UNUSEDINDEX'        , 'Unused index'        ;
 insert into tb_sys_code select 225, 'VIRTUAL_IP'         , 'Virtual IP'          ;
 insert into tb_sys_code select 226, 'WALCNT'             , 'Wal count'           ;
-insert into tb_sys_code select 226, 'FROZENMAXAGE'       , 'Frozen maxage'       ;
-
-
-
+insert into tb_sys_code select 301, 'CPU util'					 , 'Report';
+insert into tb_sys_code select 302, 'CPU wait'           , 'Report';
+insert into tb_sys_code select 303, 'Memory usage'       , 'Report';
+insert into tb_sys_code select 304, 'SWAP usage'         , 'Report';
+insert into tb_sys_code select 305, 'Active session'     , 'Report';
+insert into tb_sys_code select 306, 'Logical read'       , 'Report';
+insert into tb_sys_code select 307, 'Logical write'      , 'Report';
+insert into tb_sys_code select 308, 'Physical read'      , 'Report';
+insert into tb_sys_code select 309, 'Sequence scan'      , 'Report';
+insert into tb_sys_code select 310, 'Index scan'         , 'Report';
+insert into tb_sys_code select 311, 'TPS'                , 'Report';
+insert into tb_sys_code select 312, 'Buffer hit ratio'   , 'Report';
+insert into tb_sys_code select 313, 'Commit ratio'       , 'Report';
+insert into tb_sys_code select 314, 'R'        					 , 'Report';
+insert into tb_sys_code select 315, 'Lock count'         , 'Report';
+insert into tb_sys_code select 316, 'R'            			 , 'Report';
+insert into tb_sys_code select 317, 'R'            			 , 'Report';
+insert into tb_sys_code select 318, 'R'            			 , 'Report';
+insert into tb_sys_code select 319, 'R'            			 , 'Report';
+insert into tb_sys_code select 320, 'Lock sessions'      , 'Report';
+insert into tb_sys_code select 321, 'Statements Report'  , 'Report';
+insert into tb_sys_code select 322, 'R'         				 , 'Report';
+insert into tb_sys_code select 323, 'R'  								 , 'Report';
+insert into tb_sys_code select 324, 'R'    							 , 'Report';
 
 
 

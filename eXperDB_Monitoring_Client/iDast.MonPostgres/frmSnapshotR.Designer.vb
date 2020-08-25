@@ -59,6 +59,7 @@ Partial Class frmSnapshotR
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnConfig = New eXperDB.BaseControls.Button()
         Me.bgmanual = New System.ComponentModel.BackgroundWorker()
+        Me.btnHistory = New eXperDB.BaseControls.Button()
         Me.tlpSnapShot.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tlpCluster.SuspendLayout()
@@ -639,7 +640,7 @@ Partial Class frmSnapshotR
         Me.StatusLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatusLabel.Location = New System.Drawing.Point(43, 0)
         Me.StatusLabel.Name = "StatusLabel"
-        Me.StatusLabel.Size = New System.Drawing.Size(540, 44)
+        Me.StatusLabel.Size = New System.Drawing.Size(500, 44)
         Me.StatusLabel.TabIndex = 0
         Me.StatusLabel.Text = "Text"
         Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -660,11 +661,13 @@ Partial Class frmSnapshotR
         'TableLayoutPanel2
         '
         Me.TableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel2.ColumnCount = 3
+        Me.TableLayoutPanel2.ColumnCount = 4
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 3, 0)
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.btnHistory, 2, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.btnConfig, 4, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label1, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.StatusLabel, 1, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -672,6 +675,7 @@ Partial Class frmSnapshotR
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(626, 44)
         Me.TableLayoutPanel2.TabIndex = 15
         '
@@ -700,6 +704,27 @@ Partial Class frmSnapshotR
         '
         Me.bgmanual.WorkerReportsProgress = True
         Me.bgmanual.WorkerSupportsCancellation = True
+        '
+        'btnHistory
+        '
+        Me.btnHistory.BackColor = System.Drawing.Color.Silver
+        Me.btnHistory.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnHistory.FixedHeight = False
+        Me.btnHistory.FixedWidth = False
+        Me.btnHistory.Font = New System.Drawing.Font("Gulim", 10.0!)
+        Me.btnHistory.ForeColor = System.Drawing.Color.Yellow
+        Me.btnHistory.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
+        Me.btnHistory.Image = CType(resources.GetObject("btnHistory.Image"), System.Drawing.Image)
+        Me.btnHistory.LineColor = System.Drawing.Color.LightGray
+        Me.btnHistory.Location = New System.Drawing.Point(549, 5)
+        Me.btnHistory.Margin = New System.Windows.Forms.Padding(3, 5, 3, 5)
+        Me.btnHistory.Name = "btnHistory"
+        Me.btnHistory.Radius = 5
+        Me.btnHistory.Size = New System.Drawing.Size(34, 34)
+        Me.btnHistory.TabIndex = 2
+        Me.btnHistory.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnHistory.UseVisualStyleBackColor = True
         '
         'frmSnapshotR
         '
@@ -768,4 +793,5 @@ Partial Class frmSnapshotR
     Friend WithEvents btnConfig As eXperDB.BaseControls.Button
     Friend WithEvents lblSnapFrom As eXperDB.BaseControls.Label
     Friend WithEvents bgmanual As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btnHistory As eXperDB.BaseControls.Button
 End Class

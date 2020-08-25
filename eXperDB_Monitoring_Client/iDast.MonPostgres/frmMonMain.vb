@@ -2072,62 +2072,67 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub clsAgentCollect_GetDataLockCount(ByVal dtTable As DataTable)
-
-        '0202 change flow chart
-        Dim dblRegDt As Double
-        Dim intInstID As Integer
-        Dim MaxPri As Double = 0
-        If dtTable IsNot Nothing Then
-            If dtTable.Rows.Count > 0 Then
-                dblRegDt = ConvOADate(dtTable.Rows(0).Item("COLLECT_DT"))
-                For Each dtRow As DataRow In dtTable.Rows
-                    intInstID = dtRow.Item("INSTANCE_ID")
-                    'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
-                    For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
-                        If tmpSvr.InstanceID = intInstID Then
-                            Dim lngActiveSessions As Long = ConvULong(dtRow.Item("LOCK_WAIT"))
-                            sb_ChartAddPoint(Me.chtLockWait, tmpSvr.ShowSeriesNm, dblRegDt, lngActiveSessions)
-                            Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
-                            Me.chtLockWait.Series(0).Points(idx).SetValueY(lngActiveSessions)
-                            MaxPri = Math.Max(lngActiveSessions, MaxPri)
-                        End If
-                    Next
-                Next
-            Else
-                dblRegDt = ConvOADate(Now)
-                For i As Integer = 0 To Me.chtLockWait.Series.Count - 1
-                    Me.chtLockWait.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
-                Next
-            End If
-            sb_ChartAlignYAxies(Me.chtLockWait)
-        End If
-
         Try
-            For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
-                Dim NowCnt As Integer = 3
-                If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
-                    Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
-                        Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
-                        If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
-                            Exit Do
-                        End If
-                    Loop
+
+
+            '0202 change flow chart
+            Dim dblRegDt As Double
+            Dim intInstID As Integer
+            Dim MaxPri As Double = 0
+            If dtTable IsNot Nothing Then
+                If dtTable.Rows.Count > 0 Then
+                    dblRegDt = ConvOADate(dtTable.Rows(0).Item("COLLECT_DT"))
+                    For Each dtRow As DataRow In dtTable.Rows
+                        intInstID = dtRow.Item("INSTANCE_ID")
+                        'dblRegDt = ConvOADate(dtRow.Item("COLLECT_DT"))
+                        For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                            If tmpSvr.InstanceID = intInstID Then
+                                Dim lngActiveSessions As Long = ConvULong(dtRow.Item("LOCK_WAIT"))
+                                sb_ChartAddPoint(Me.chtLockWait, tmpSvr.ShowSeriesNm, dblRegDt, lngActiveSessions)
+                                'Dim idx As Integer = Me.chtSessionStatus.Tag.Item(intInstID)
+                                'Me.chtLockWait.Series(0).Points(idx).SetValueY(lngActiveSessions)
+                                MaxPri = Math.Max(lngActiveSessions, MaxPri)
+                            End If
+                        Next
+                    Next
+                Else
+                    dblRegDt = ConvOADate(Now)
+                    For i As Integer = 0 To Me.chtLockWait.Series.Count - 1
+                        Me.chtLockWait.Series(i).Points.AddXY(Date.FromOADate(dblRegDt), 0.0)
+                    Next
                 End If
-            Next
+                sb_ChartAlignYAxies(Me.chtLockWait)
+            End If
+
+            Try
+                For Each tmpSvr As GroupInfo.ServerInfo In _GrpListServerinfo
+                    Dim NowCnt As Integer = 3
+                    If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count > 0 Then
+                        Do While CDate(Now.AddMinutes(retainTime)).ToOADate > Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.First.XValue
+                            Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.RemoveAt(0)
+                            If Me.chtLockWait.Series(tmpSvr.ShowSeriesNm).Points.Count <= 0 Then
+                                Exit Do
+                            End If
+                        Loop
+                    End If
+                Next
+            Catch ex As Exception
+                GC.Collect()
+            End Try
+
+            If MaxPri > 0 Then
+
+                Dim intPri As Integer = MaxPri \ 5
+                intPri += 1
+                Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum = intPri * 5
+                Me.chtSessionStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
+                Me.chtSessionStatus.ChartAreas(0).AxisY.Interval = Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum / 5
+            End If
+
+            Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
         Catch ex As Exception
             GC.Collect()
         End Try
-
-        If MaxPri > 0 Then
-
-            Dim intPri As Integer = MaxPri \ 5
-            intPri += 1
-            Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum = intPri * 5
-            Me.chtSessionStatus.ChartAreas(0).AxisY.IntervalAutoMode = DataVisualization.Charting.IntervalAutoMode.FixedCount
-            Me.chtSessionStatus.ChartAreas(0).AxisY.Interval = Me.chtSessionStatus.ChartAreas(0).AxisY.Maximum / 5
-        End If
-
-        Me.chtSessionStatus.ChartAreas(0).RecalculateAxesScale()
     End Sub
 
     ' ''' <summary>
@@ -2801,7 +2806,7 @@
                     intInstID = dtRow.Item("INSTANCE_ID")
                     For Each tmpSvr As GroupInfo.ServerInfo In svrLst
                         If tmpSvr.InstanceID = intInstID Then
-                            sb_ChartAddPoint(Me.chtLockWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("LOCK_WAIT")))
+                            'sb_ChartAddPoint(Me.chtLockWait, tmpSvr.ShowSeriesNm, dblRegDt, ConvDBL(dtRow.Item("LOCK_WAIT")))
                         End If
                     Next
                 Next
@@ -5479,8 +5484,8 @@
             Dim frmReport As New frmSnapshotR(_AgentCn, _GrpList)
             frmReport.ShowDialog()
         ElseIf sender.Name = "mnuTrendR" Then
-            Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
-            frmReport.Show(Me)
+            Dim frmReport As New frmTrendReport(_AgentCn, _GrpList)
+            frmReport.ShowDialog(Me)
         End If
 
     End Sub

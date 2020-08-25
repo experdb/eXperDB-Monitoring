@@ -223,12 +223,12 @@
 
 #Region "Internal functions"
 
-    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+    Private Sub ReportLog(ByVal intAccessType As Integer, ByVal intStatus As Integer, _
                       Optional strLog As String = "", Optional intInstanceID As Integer = -1)
         Try
             Dim COC As New Common.ClsObjectCtl
             Dim strLocIP As String = COC.GetLocalIP
-            _clsQuery.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP)
+            _clsQuery.InsertReportInfo(p_cSession.UserID, intAccessType, intStatus, strLog, strLocIP, intInstanceID)
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
@@ -343,36 +343,13 @@
         frmSnapshot.ShowDialog()
     End Sub
 
+    Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
+        Dim frmReportHistory As New frmReportHistory(_clsQuery, _GrpLst, cmbClusters.SelectedValue)
+        frmReportHistory.ShowDialog()
+    End Sub
+
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
-
         makeProgress()
-        'check empty
-        'If txtSnapFrom.Text = "" Then
-        '    MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F347")))
-        '    txtSnapFrom.Focus()
-        '    Return
-        'End If
-        'If txtSnapTo.Text = "" Then
-        '    MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F348")))
-        '    txtSnapTo.Focus()
-        '    Return
-        'End If
-
-        'Dim COC As New Common.ClsObjectCtl
-        'Dim strLocIP As String = COC.GetLocalIP
-        'Dim nReturn As Integer = 0
-        'nReturn = _clsQuery.UpdateUser(txtUserID.Text, txtUserName.Text, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, strLocIP)
-        'Select Case nReturn
-        '    Case -23505
-        '        MsgBox(p_clsMsgData.fn_GetData("M070"))
-        '        txtSnapFrom.Select()
-        '        Return
-        '    Case -1
-        '        MsgBox(p_clsMsgData.fn_GetData("M029"))
-        '        Return
-        'End Select
-        'MsgBox(p_clsMsgData.fn_GetData("M082"))
-        'AccessLog("change_user_info", 0, "")
     End Sub
 
 
@@ -448,10 +425,13 @@
     Private Sub bgmanual_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgmanual.RunWorkerCompleted
         If _dtTable Is Nothing Then
             MsgBox(p_clsMsgData.fn_GetData("M104"))
-            _ProgresForm.Close()
+            If _ProgresForm IsNot Nothing Then
+                _ProgresForm.Close()
+            End If
             Return
         End If
         _ProgresForm.Close()
+
         Dim fsd As New SaveFileDialog
         fsd.AddExtension = True
         fsd.DefaultExt = "*.html"
@@ -469,6 +449,10 @@
             Case 6
                 fsd.FileName = cmbClusters.SelectedItem(0) + "_" + txtSnapFrom.Text + "_&_" + txtComSnapFrom.Text
         End Select
+
+        Dim logStr As String = fsd.FileName
+        ReportLog(0, 0, logStr, _instanceID)
+        
         fsd.FileName = fsd.FileName.Replace(":", String.Empty).Replace("-", String.Empty).Replace(" ", String.Empty)
         fsd.Filter = "HTML Files|*.html"
         If fsd.ShowDialog() = Windows.Forms.DialogResult.OK Then

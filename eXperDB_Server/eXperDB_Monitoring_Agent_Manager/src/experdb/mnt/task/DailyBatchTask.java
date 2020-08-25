@@ -27,6 +27,7 @@ public class DailyBatchTask {
 		try {
 			create_partitions();
 			create_partitions_indexs();
+			delete_trend_logs();
 		} catch (Exception e) {
 			log.error("", e);
 		}
@@ -156,4 +157,28 @@ public class DailyBatchTask {
 			sessionAgent.close();
 		}
 	}	
+	
+	private void delete_trend_logs()
+	{
+		SqlSession sessionAgent  = null;
+		sessionAgent = SqlSessionManager.getInstance().openSession(ExecutorType.SIMPLE, true);
+		
+		try {
+			log.info("Start to delete trend logs");
+			sessionAgent.selectList("app.TB_TERMINATE_OTHER_SESSIONS_001");
+			log.info("Blocked other sessions to delete trend logs");
+			// delete trend logs
+			sessionAgent.delete("app.PG_MAINTAIN_TRENDLOG_D001");
+			sessionAgent.delete("app.PG_MAINTAIN_TRENDLOG_D002");
+			sessionAgent.update("app.VACUUM_ANALYZE_TRENDLOG_U001");
+			sessionAgent.update("app.VACUUM_ANALYZE_TRENDLOG_U002");
+			sessionAgent.commit();
+			log.info("End to delete trend logs");
+		} catch (Exception e) {
+			sessionAgent.rollback();
+			log.error("", e);			
+		} finally {
+			sessionAgent.close();
+		}
+	}
 }

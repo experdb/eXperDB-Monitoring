@@ -24,9 +24,28 @@ import experdb.mnt.Server;
 import experdb.mnt.eXperDBMAConfig;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
+//import static org.quartz.DateBuilder.futureDate;
+import static org.quartz.JobBuilder.newJob;
+//import static org.quartz.JobKey.jobKey;
+//import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
+import static org.quartz.CronScheduleBuilder.cronSchedule;
+
+import org.quartz.CronTrigger;
+//import org.quartz.DateBuilder;
+//import org.quartz.DateBuilder.IntervalUnit;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SchedulerFactory;
+import org.quartz.SchedulerMetaData;
+import org.quartz.SimpleTrigger;
+import org.quartz.impl.StdSchedulerFactory;
 
 public class TaskManager implements Runnable{
 	private static Logger log = Logger.getLogger(TaskManager.class);
+	private StdSchedulerFactory schedFact = null;
+	private Scheduler sched = null;
 	
 	public void startUp() {
 		log.info("************************************************************");
@@ -44,6 +63,9 @@ public class TaskManager implements Runnable{
 		boolean isReset = false;
 
 		try {
+			//run scheduler
+			runScheduler();
+			
 			while(true)
 			{
 				log.info("모니터링 START!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -51,6 +73,7 @@ public class TaskManager implements Runnable{
 				boolean isstandAloneStart = false;
 				
 				long lcheckResetTime = System.currentTimeMillis ();
+				long lRPTcollectTime = lcheckResetTime;
 				//Instance 정보 변경 여부를 확인한다.
 				while(true) {
 					try {
@@ -217,8 +240,13 @@ public class TaskManager implements Runnable{
 //	} catch (Exception e) {
 //		log.error("", e);
 //	}
-
+		try {
+			stopScheduler();
+		} catch (Exception e) {
+			log.error("", e);
+		}
 	}
+	
 	public int perform(String subcommand) throws Exception{
 		String command = "";
 		String cmd1 = System.getProperty("AGENT_HOME") + "bin/experdbma.sh ";
@@ -256,5 +284,45 @@ public class TaskManager implements Runnable{
 		    br.close();    
 		}
 		return 0;
+	}
+	// scheduler 0805
+	private void runScheduler() throws Exception {
+		try 
+		{
+			schedFact = new StdSchedulerFactory();
+		    sched = schedFact.getScheduler();
+		    String schedFormat = eXperDBMAConfig.getInstance().getProperty("Time.report_period");
+			
+			if (schedFormat.equalsIgnoreCase("m")){
+				schedFormat = "0 * * * * ?";
+			} else if (schedFormat.equalsIgnoreCase("2m")){
+				schedFormat = "0 0/2 * * * ?";
+			} else if (schedFormat.equalsIgnoreCase("h")){
+				schedFormat = "0 0 * * * ?";
+			} else if (schedFormat.equalsIgnoreCase("2h")){
+				schedFormat = "0 0 0/2 * * ?";
+			} else{
+				schedFormat = "0 0 * * * ?";
+			}		
+			
+	  	    JobDetail job = newJob(ReportJob.class).withIdentity("ReportCollector", "group1").build();
+	  	    CronTrigger trigger = newTrigger().withIdentity("ReportTrigger", "group1").withSchedule(cronSchedule(schedFormat)).build();
+	  	    sched.scheduleJob(job, trigger);
+			sched.start();
+		} catch (SchedulerException es) {
+			log.error("", es);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	private void stopScheduler() throws Exception {
+		try 
+		{
+		    sched.shutdown(true);
+		    log.info("------- Shutdown Complete -----------------");
+		} catch (SchedulerException e) {
+			log.error("", e);
+		}
 	}
 }

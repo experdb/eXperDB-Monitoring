@@ -468,9 +468,12 @@
                     End If
                 Next
 
-                ' Instance 별 조회 그룹을 업데이트 한다. 
+                ' Instance 별 조회 그룹을 업데이트 한다.
+                If ClsQuery.ResetCloudGroup(groupId, strLocIP) < 0 Then
+                    Return False
+                End If
+
                 If ClsQuery.UpdateGroup(groupId, groupName, chkCloudGroup.Checked, strLocIP) < 0 Then
-                    'MsgBox(p_clsMsgData.fn_GetData("M057"))
                     Return False
                 End If
 
