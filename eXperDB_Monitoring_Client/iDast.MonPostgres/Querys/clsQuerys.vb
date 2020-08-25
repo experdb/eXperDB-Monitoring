@@ -368,6 +368,20 @@
         End Try
 
     End Function
+
+    Public Function ResetCloudGroup(ByVal groupID As Integer, ByVal LstIp As String) As Integer
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = p_clsQueryData.fn_GetData("RESETCLOUDGROUP")
+            strQuery = String.Format(strQuery, groupID, LstIp)
+            Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
+            Return rtnValue
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+
+    End Function
      'Robin-end 
 
     Public Function DeleteServerList(ByVal InstanceID As Integer, ByVal LocIP As String) As Boolean
@@ -831,11 +845,11 @@
         End Try
     End Function
 
-    Public Function UpdateConfig(ByVal intLogSaveDays As Integer, ByVal LstIP As String, ByVal BatchTime As String, ByVal Hchk_Period_sec As String, ByVal Objt_Period_sec As String, ByVal Stmt_Period_sec As String) As Integer
+    Public Function UpdateConfig(ByVal intLogSaveDays As Integer, ByVal LstIP As String, ByVal BatchTime As String, ByVal Hchk_Period_sec As String, ByVal Objt_Period_sec As String, ByVal Stmt_Period_sec As String, ByVal intTReportSaveDays As Integer) As Integer
         Try
             If _ODBC IsNot Nothing Then
                 Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATECONFIG")
-                strQuery = String.Format(strQuery, intLogSaveDays, LstIP, BatchTime, Hchk_Period_sec, Objt_Period_sec, Stmt_Period_sec)
+                strQuery = String.Format(strQuery, intLogSaveDays, LstIP, BatchTime, Hchk_Period_sec, Objt_Period_sec, Stmt_Period_sec, intTReportSaveDays)
                 Return _ODBC.dbExecuteNonQuery(strQuery)
             Else
                 Return -1
@@ -3567,6 +3581,148 @@
             If _ODBC Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSNAPSHOTREPORTCOMPBLBL")
             strQuery = String.Format(strQuery, InstanceID, baseline, baselineComp)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectReportItems() As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTITEMS")
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectTrendReport(ByVal InstanceID As Integer, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal isHour As Boolean, ByVal arrItems As ArrayList) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim trendType As Integer() = arrItems.ToArray(GetType(Integer))
+            Dim strTrends = String.Join(",", trendType)
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORT")
+            Dim period As String = IIf(isHour = True, "3600", "86400")
+            strQuery = String.Format(strQuery, InstanceID, startDt.ToString("yyyy-MM-dd HH:mm:ss"), endDt.ToString("yyyy-MM-dd HH:mm:ss"), strTrends, period)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectTrendReportStmtStat(ByVal InstanceID As Integer, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal reportType As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORTSTMTSTAT")
+            strQuery = String.Format(strQuery, InstanceID, startDt.ToString("yyyy-MM-dd HH:mm:ss"), endDt.ToString("yyyy-MM-dd HH:mm:ss"), reportType)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectTrendReportLock(ByVal InstanceID As Integer, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal reportType As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORTLOCK")
+            strQuery = String.Format(strQuery, InstanceID, startDt.ToString("yyyy-MM-dd HH:mm:ss"), endDt.ToString("yyyy-MM-dd HH:mm:ss"), reportType)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function selectTrendReportQuery(ByVal InstanceID As Integer, ByVal arrItems As ArrayList) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim trendType As String() = arrItems.ToArray(GetType(String))
+            Dim strTrends = "'" + String.Join("','", trendType) + "'"
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORTQUERY")
+            strQuery = String.Format(strQuery, InstanceID, strTrends)
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function InsertReportInfo(ByVal strUserID As String, ByVal strAccessType As Integer, ByVal intAccessStatus As Integer, ByVal strAccessLog As String, _
+                               ByVal strLocalIP As String, Optional intInstanceID As Integer = -1) As Boolean
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTREPORTINFO")
+                strQuery = String.Format(strQuery, strUserID, strAccessType, intInstanceID, intAccessStatus, strAccessLog, strLocalIP)
+                Return _ODBC.dbExecuteNonQuery(strQuery)
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+    End Function
+
+
+    Public Function SelectReportInfo(ByVal instanceID As Integer, ByVal StDate As DateTime, ByVal EdDate As DateTime, ByVal UserID As String, _
+                                         ByVal UserName As String, ByVal ReportType As Integer) As DataTable
+        Try
+            If _ODBC Is Nothing Then Return Nothing
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTREPORTINFO")
+            Dim strSubQuery As String = ""
+
+            If UserID <> "All" Then
+                strSubQuery += " AND A.user_id = '" + UserID + "'"
+            End If
+
+            If UserName <> "All" Then
+                strSubQuery += " AND U.user_name = '" + UserName + "'"
+            End If
+
+            If ReportType <> 0 Then
+                strSubQuery += " AND A.report_type = " + (ReportType - 1).ToString
+            End If
+
+            strQuery = String.Format(strQuery, instanceID, StDate.ToString("yyyy-MM-dd HH:mm:00"), EdDate.ToString("yyyy-MM-dd HH:mm:59"), strSubQuery)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
 
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then

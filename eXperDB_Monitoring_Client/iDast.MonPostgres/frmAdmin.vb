@@ -247,6 +247,10 @@
         nudSnapshotSaveDly.Value = IIf(intSnapDays = -1, 7, intSnapDays)
         nudSnapshotSaveDly.Tag = intSnapDays
 
+        Dim intTrendLogDays As Integer = IIf(IsDBNull(dtConfig.Rows(0).Item("TREPORT_KEEP_DAYS")), 7, dtConfig.Rows(0).Item("TREPORT_KEEP_DAYS"))
+        nudTReportSaveDly.Value = IIf(intTrendLogDays = -1, 7, intTrendLogDays)
+        nudTReportSaveDly.Tag = intTrendLogDays
+
         Dim strBatchTime As TimeSpan = IIf(IsDBNull(dtConfig.Rows(0).Item("DAILY_BATCH_START_TIME")), New TimeSpan(0, 0, 0), dtConfig.Rows(0).Item("DAILY_BATCH_START_TIME"))
 
         cmbLogBatchH.Text = strBatchTime.Hours '  CInt(strBatchTime.Substring(0, strBatchTime.IndexOf(":")))
@@ -719,8 +723,9 @@
                 Or Not cmbLogBatchM.SelectedIndex.Equals(cmbLogBatchM.Tag) _
                 Or Not cmbHealthTime.SelectedValue.Equals(cmbHealthTime.Tag) _
                 Or Not cmbObjectTime.SelectedValue.Equals(cmbObjectTime.Tag) _
-                Or Not cmbStmtTime.SelectedValue.Equals(cmbStmtTime.Tag) Then
-                ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue, cmbObjectTime.SelectedValue, cmbStmtTime.SelectedValue)
+                Or Not cmbStmtTime.SelectedValue.Equals(cmbStmtTime.Tag) _
+                Or Not nudTReportSaveDly.Value.Equals(nudTReportSaveDly.Tag) Then
+                ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue, cmbObjectTime.SelectedValue, cmbStmtTime.SelectedValue, nudTReportSaveDly.Value)
             End If
 
             If Not nudSnapshotSaveDly.Value.Equals(nudSnapshotSaveDly.Tag) _

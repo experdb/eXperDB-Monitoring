@@ -418,5 +418,8 @@ Public Class frmLogin
         End If
     End Sub
 
-
+    Private Sub txtPassword_GotFocus(sender As Object, e As EventArgs) Handles txtPassword.GotFocus
+        _encryptedPassword = ""
+        txtPassword.Text = ""
+    End Sub
 End Class

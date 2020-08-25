@@ -52,12 +52,12 @@
 
 #Region "Internal functions"
 
-    Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
+    Private Sub ReportLog(ByVal intAccessType As Integer, ByVal intStatus As Integer, _
                       Optional strLog As String = "", Optional intInstanceID As Integer = -1)
         Try
             Dim COC As New Common.ClsObjectCtl
             Dim strLocIP As String = COC.GetLocalIP
-            _clsQuery.InsertUserAccessInfo(p_cSession.UserID, strAccessType, intStatus, strLog, strLocIP)
+            _clsQuery.InsertReportInfo(p_cSession.UserID, intAccessType, intStatus, strLog, strLocIP, intInstanceID)
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
@@ -150,8 +150,10 @@
         bgmanual.ReportProgress(0)
         If _isSnapshot Then
             _Result = Snapshot()
+            ReportLog(0, 1, IIf(_Result, "Success", "Failure"), _instanceID)
         Else
             _Result = Baseline()
+            ReportLog(0, 2, IIf(_Result, "Success", "Failure"), _instanceID)
         End If
         bgmanual.ReportProgress(100)
     End Sub
@@ -208,8 +210,10 @@
                     frmAddBaseline.rtnValue(_baselineName, _baselineStartSnapshot, _baselineEndSnapshot, _baselineKeepDays)
                     Dim nReturn As Boolean = _clsQuery.UpdateBaseline(_instanceID, _baselineName, _baselineKeepDays)
                     If nReturn = False Then
+                        ReportLog(0, 4, "Failure", _instanceID)
                         MsgBox(p_clsMsgData.fn_GetData("M029"))
                     Else
+                        ReportLog(0, 4, "Success", _instanceID)
                         ReadBaseline()
                     End If
                 End If
@@ -222,8 +226,10 @@
                 Try
                     Dim nReturn As Integer = _clsQuery.DeleteBaseline(_instanceID, dgvBaselineList.Rows(e.RowIndex).Cells(colDGVBLBaseline.Index + 2).Value)
                     If nReturn <= 0 Then
+                        ReportLog(0, 3, "Failure", _instanceID)
                         MsgBox(p_clsMsgData.fn_GetData("M029"))
                     Else
+                        ReportLog(0, 3, "Success", _instanceID)
                         ReadBaseline()
                     End If
                 Catch ex As Exception

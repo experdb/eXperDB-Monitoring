@@ -24,7 +24,7 @@
     ]]>
     </DATA>
   </ROW>
-  <ROW ID="UPDATECONFIG" PARAMS="5">
+  <ROW ID="UPDATECONFIG" PARAMS="6">
     <DESC>Server Batch Log Keep Days</DESC>
     <DATA>
       <![CDATA[
@@ -36,6 +36,7 @@
             , HCHK_PERIOD_SEC = '{3}'
             , OBJT_PERIOD_SEC = '{4}'
             , STMT_PERIOD_SEC = '{5}'
+            , TREPORT_KEEP_DAYS = {6} 
         WHERE ADMIN_USER_ID='ADMIN'
       ]]>
     </DATA>
@@ -66,6 +67,7 @@
     <DATA>
       <![CDATA[
         SELECT COALESCE(LOG_KEEP_DAYS,-1) AS LOG_KEEP_DAYS
+           ,COALESCE(TREPORT_KEEP_DAYS,-1) AS TREPORT_KEEP_DAYS
            ,DAILY_BATCH_START_TIME 
            ,AGENT_IP
            ,AGENT_PORT
@@ -359,20 +361,20 @@
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="UPDATEGROUP" PARAMS="12">
+  <ROW ID="RESETCLOUDGROUP" PARAMS="2">
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
-      DO $$
-      DECLARE       
-	      is_cloud_group BOOL;
-      BEGIN
-        is_cloud_group = {2};
-        UPDATE TB_GROUP_INFO SET GROUP_NAME = '{1}', CLOUD_GROUP = is_cloud_group, LAST_MOD_IP = '{3}', LAST_MOD_DT = NOW() WHERE GROUP_ID = {0};
-	      IF is_cloud_group = TRUE THEN  
-	        UPDATE TB_GROUP_INFO SET CLOUD_GROUP = FALSE, LAST_MOD_IP = '{3}', LAST_MOD_DT = NOW() WHERE GROUP_ID <> {0};
-	      END IF;
-      END $$
+	        UPDATE TB_GROUP_INFO SET CLOUD_GROUP = FALSE, LAST_MOD_IP = '{1}', LAST_MOD_DT = NOW();
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="UPDATEGROUP" PARAMS="4">
+    <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
+    <DATA>
+      <![CDATA[
+        UPDATE TB_GROUP_INFO SET GROUP_NAME = '{1}', CLOUD_GROUP = {2}, LAST_MOD_IP = '{3}', LAST_MOD_DT = NOW() WHERE GROUP_ID = {0};
       ]]>
     </DATA>
     <COMMENTS />
@@ -4909,6 +4911,284 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DATA>
       <![CDATA[
          SELECT PG_RELOAD_CONF();
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTREPORTITEMS" PARAMS="0">
+    <DESC>trend report config</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT CODE, CODE_NAME FROM TB_SYS_CODE WHERE CODE > 300 AND CODE_NAME <> 'R' ORDER BY CODE
+      ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTTRENDREPORT_BAK" PARAMS="4">
+    <DESC>trend report config</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT TREND_TYPE, reg_date, A.INSTANCE_ID, A.HOST_NAME, CODE_NAME, ROUND(MAX_VALUE, 2) MAX_VALUE, ROUND(AVG_VALUE, 2) AVG_VALUE, to_char(COLLECT_DT, 'yyMMDDhh24') AS COLLECT_DT
+          FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A JOIN TB_RPT_TREND B ON A.INSTANCE_ID = B.INSTANCE_ID JOIN TB_SYS_CODE C ON B.TREND_TYPE = C.CODE
+         WHERE REG_DATE BETWEEN to_char('{1}'::TIMESTAMP, 'YYYYMMDD') AND to_char('{2}'::TIMESTAMP, 'YYYYMMDD')
+           AND A.INSTANCE_ID = {0}
+           AND TREND_TYPE IN ({3})
+           AND COLLECT_DT BETWEEN '{1}'::TIMESTAMP AND '{2}'::TIMESTAMP
+         ORDER BY TREND_TYPE, COLLECT_DT
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTTRENDREPORT" PARAMS="5">
+    <DESC>trend report config</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT TREND_TYPE, REG_DATE, A.INSTANCE_ID, A.HOST_NAME, CODE_NAME, ROUND(MAX(MAX_VALUE), 2) MAX_VALUE, ROUND(AVG(AVG_VALUE), 2) AVG_VALUE
+        , TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {4} )) * {4} ) AT TIME ZONE 'UTC' AS COLLECT_DATE
+       , TO_CHAR(TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {4} )) * {4} ) AT TIME ZONE 'UTC', 'YYYYMMDDHH24') COLLECT_DATETIME
+          FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A JOIN TB_RPT_TREND B ON A.INSTANCE_ID = B.INSTANCE_ID JOIN TB_SYS_CODE C ON B.TREND_TYPE = C.CODE
+         WHERE REG_DATE BETWEEN to_char('{1}'::TIMESTAMP, 'YYYYMMDD') AND to_char('{2}'::TIMESTAMP, 'YYYYMMDD')
+           AND A.INSTANCE_ID = {0}
+           AND TREND_TYPE IN ({3})
+           AND COLLECT_DT BETWEEN '{1}'::TIMESTAMP AND '{2}'::TIMESTAMP
+         GROUP BY COLLECT_DATE, TREND_TYPE, REG_DATE, A.INSTANCE_ID, A.HOST_NAME, CODE_NAME
+         ORDER BY TREND_TYPE, COLLECT_DATE
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTTRENDREPORTSTMTSTAT" PARAMS="4">
+    <DESC>trend report config</DESC>
+    <DATA>
+      <![CDATA[
+        WITH R AS (
+            --SELECT instance_id, MAX(COLLECT_DT) COLLECT_DT FROM TB_RPT_LIST WHERE COLLECT_DT > CURRENT_TIMESTAMP - INTERVAL '10 hour' AND INSTANCE_ID IN (1,2) GROUP BY INSTANCE_ID
+            SELECT INSTANCE_ID, MAX(COLLECT_DT) COLLECT_DT FROM TB_RPT_LIST 
+             WHERE REG_DATE BETWEEN to_char('{1}'::TIMESTAMP, 'YYYYMMDD') AND to_char('{2}'::TIMESTAMP, 'YYYYMMDD')
+               AND INSTANCE_ID = {0} 
+               AND TREND_TYPE = {3}
+               AND COLLECT_DT BETWEEN '{1}'::TIMESTAMP AND '{2}'::TIMESTAMP 
+               GROUP BY INSTANCE_ID
+        ),
+        O AS (
+            --SELECT instance_id, MIN(COLLECT_DT) COLLECT_DT FROM TB_RPT_LIST WHERE COLLECT_DT > CURRENT_TIMESTAMP - INTERVAL '10 hour' AND INSTANCE_ID IN (1,2) GROUP BY INSTANCE_ID
+            SELECT INSTANCE_ID, MIN(COLLECT_DT) COLLECT_DT FROM TB_RPT_LIST 
+             WHERE REG_DATE BETWEEN to_char('{1}'::TIMESTAMP, 'YYYYMMDD') AND to_char('{2}'::TIMESTAMP, 'YYYYMMDD')
+               AND TREND_TYPE = {3}
+               AND COLLECT_DT BETWEEN '{1}'::TIMESTAMP AND '{2}'::TIMESTAMP 
+               GROUP BY INSTANCE_ID
+        )
+        ,OLDEST AS (
+            SELECT T.INSTANCE_ID, T.REG_DATE, T.COLLECT_DT,AA.*
+              FROM TB_RPT_LIST T
+              LEFT JOIN LATERAL (
+                  SELECT 	elem->>'userid' AS USERID
+                  ,elem->>'dbid'AS DBID
+                  ,(elem->>'queryid')::int8 AS QUERYID
+                  ,(elem->>'cqueryid')::varchar AS CQUERYID
+                  ,(elem->>'calls')::int8 AS CALLS
+                  ,(elem->>'total_time')::float8 AS TOTAL_TIME
+                  ,(elem->>'min_time')::float8 AS MIN_TIME
+                  ,(elem->>'max_time')::float8 AS MAX_TIME
+                  ,(elem->>'mean_time')::float8 AS MEAN_TIME
+                  ,(elem->>'stddev_time')::float8 AS STDDEV_TIME
+                  ,(elem->>'rows')::int8 AS ROWS
+                  ,(elem->>'shared_blks_hit')::int8 AS SHARED_BLKS_HIT
+                  ,(elem->>'shared_blks_read')::int8 AS SHARED_BLKS_READ
+                  ,(elem->>'shared_blks_dirtied')::int8 AS SHARED_BLKS_DIRTIED
+                  ,(elem->>'shared_blks_written')::int8 AS SHARED_BLKS_WRITTEN
+                  ,(elem->>'local_blks_hit')::int8 AS LOCAL_BLKS_HIT
+                  ,(elem->>'local_blks_read')::int8 AS LOCAL_BLKS_READ
+                  ,(elem->>'local_blks_dirtied')::int8 AS LOCAL_BLKS_DIRTIED
+                  ,(elem->>'local_blks_written')::int8 AS LOCAL_BLKS_WRITTEN
+                  ,(elem->>'temp_blks_read')::int8 AS TEMP_BLKS_READ
+                  ,(elem->>'temp_blks_written')::int8 AS TEMP_BLKS_WRITTEN
+                  ,(elem->>'blk_read_time')::float8 AS BLK_READ_TIME
+                  ,(elem->>'blk_write_time')::float8 AS BLK_WRITE_TIME
+              FROM   JSONB_ARRAY_ELEMENTS(T.LIST_DATA) A(ELEM)
+              ) AA ON TRUE                              -- PRESERVE ALL ROWS FROM T
+            JOIN O ON T.COLLECT_DT = O.COLLECT_DT AND T.INSTANCE_ID = O.INSTANCE_ID
+           WHERE REG_DATE = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD')
+        )
+        ,RECENT AS (
+            SELECT T.INSTANCE_ID, T.REG_DATE, T.COLLECT_DT,AA.*
+              FROM TB_RPT_LIST T
+              LEFT   JOIN LATERAL (
+              SELECT 	elem->>'userid' AS USERID
+                  ,elem->>'dbid'AS DBID
+                  ,(elem->>'queryid')::int8 AS QUERYID
+                  ,(elem->>'cqueryid')::varchar AS CQUERYID
+                  ,(elem->>'calls')::int8 AS CALLS
+                  ,(elem->>'total_time')::float8 AS TOTAL_TIME
+                  ,(elem->>'min_time')::float8 AS MIN_TIME
+                  ,(elem->>'max_time')::float8 AS MAX_TIME
+                  ,(elem->>'mean_time')::float8 AS MEAN_TIME
+                  ,(elem->>'stddev_time')::float8 AS STDDEV_TIME
+                  ,(elem->>'rows')::int8 AS ROWS
+                  ,(elem->>'shared_blks_hit')::int8 AS SHARED_BLKS_HIT
+                  ,(elem->>'shared_blks_read')::int8 AS SHARED_BLKS_READ
+                  ,(elem->>'shared_blks_dirtied')::int8 AS SHARED_BLKS_DIRTIED
+                  ,(elem->>'shared_blks_written')::int8 AS SHARED_BLKS_WRITTEN
+                  ,(elem->>'local_blks_hit')::int8 AS LOCAL_BLKS_HIT
+                  ,(elem->>'local_blks_read')::int8 AS LOCAL_BLKS_READ
+                  ,(elem->>'local_blks_dirtied')::int8 AS LOCAL_BLKS_DIRTIED
+                  ,(elem->>'local_blks_written')::int8 AS LOCAL_BLKS_WRITTEN
+                  ,(elem->>'temp_blks_read')::int8 AS TEMP_BLKS_READ
+                  ,(elem->>'temp_blks_written')::int8 AS TEMP_BLKS_WRITTEN
+                  ,(elem->>'blk_read_time')::float8 AS BLK_READ_TIME
+                  ,(elem->>'blk_write_time')::float8 AS BLK_WRITE_TIME
+              FROM   JSONB_ARRAY_ELEMENTS(T.LIST_DATA) A(ELEM)
+            ) AA ON TRUE                              -- PRESERVE ALL ROWS FROM T
+            JOIN R ON T.COLLECT_DT = R.COLLECT_DT AND T.INSTANCE_ID = R.INSTANCE_ID
+            WHERE REG_DATE = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD')
+        )
+        ,STATS AS (
+            SELECT
+                    RECENT.INSTANCE_ID,
+                    RECENT.REG_DATE,
+                    RECENT.COLLECT_DT,
+                    SUM(RECENT.CALLS-OLDEST.CALLS) AS SUM_CALLS,
+                    SUM(RECENT.TOTAL_TIME-OLDEST.TOTAL_TIME) AS SUM_TOTAL_TIME,
+                    SUM(RECENT.BLK_READ_TIME-OLDEST.BLK_READ_TIME+RECENT.BLK_WRITE_TIME-OLDEST.BLK_WRITE_TIME) AS IO_TIME,
+                    SUM((RECENT.TOTAL_TIME-OLDEST.TOTAL_TIME)-(RECENT.BLK_READ_TIME-OLDEST.BLK_READ_TIME)-(RECENT.BLK_WRITE_TIME-OLDEST.BLK_WRITE_TIME)) AS CPU_TIME,
+                    SUM(RECENT.ROWS-OLDEST.ROWS)  AS SUM_ROWS
+              FROM  RECENT FULL JOIN OLDEST ON RECENT.INSTANCE_ID = OLDEST.INSTANCE_ID
+             GROUP BY RECENT.INSTANCE_ID, RECENT.REG_DATE, RECENT.COLLECT_DT
+        )
+        SELECT (SELECT CODE_NAME FROM TB_SYS_CODE WHERE CODE = 321) AS TREND_TYPE
+              ,TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE
+              ,RECENT.INSTANCE_ID
+              ,(SELECT CODE_NAME FROM TB_SYS_CODE WHERE CODE = 321) CODE_NAME
+              ,RECENT.USERID
+              ,RECENT.DBID
+              ,RECENT.QUERYID
+              ,(RECENT.CALLS - OLDEST.CALLS) AS "calls"
+              ,ROUND((RECENT.TOTAL_TIME - OLDEST.TOTAL_TIME)::numeric, 6) AS "TOTAL_TIME" --ROUND(RECENT.TOTAL_TIME - OLDEST.TOTAL_TIME)::numeric, 4) AS "total_time"
+              ,(RECENT.ROWS - OLDEST.ROWS) AS "rows"
+              ,(RECENT.SHARED_BLKS_HIT - OLDEST.SHARED_BLKS_HIT)     AS SHARED_BLKS_HIT
+              ,(RECENT.SHARED_BLKS_READ - OLDEST.SHARED_BLKS_READ)    AS SHARED_BLKS_READ
+              ,(RECENT.SHARED_BLKS_DIRTIED - OLDEST.SHARED_BLKS_DIRTIED) AS SHARED_BLKS_DIRTIED
+              ,(RECENT.SHARED_BLKS_WRITTEN - OLDEST.SHARED_BLKS_WRITTEN) AS SHARED_BLKS_WRITTEN
+              ,(RECENT.LOCAL_BLKS_HIT      - OLDEST.LOCAL_BLKS_HIT)      AS LOCAL_BLKS_HIT
+              ,(RECENT.LOCAL_BLKS_READ     - OLDEST.LOCAL_BLKS_READ)     AS LOCAL_BLKS_READ
+              ,(RECENT.LOCAL_BLKS_DIRTIED  - OLDEST.LOCAL_BLKS_DIRTIED)  AS LOCAL_BLKS_DIRTIED
+              ,(RECENT.LOCAL_BLKS_WRITTEN  - OLDEST.LOCAL_BLKS_WRITTEN)  AS LOCAL_BLKS_WRITTEN
+              ,(RECENT.TEMP_BLKS_READ      - OLDEST.TEMP_BLKS_READ)      AS TEMP_BLKS_READ
+              ,(RECENT.TEMP_BLKS_WRITTEN   - OLDEST.TEMP_BLKS_WRITTEN)   AS TEMP_BLKS_WRITTEN
+              ,(RECENT.BLK_READ_TIME       - OLDEST.BLK_READ_TIME)       AS BLK_READ_TIME
+              ,(RECENT.BLK_WRITE_TIME      - OLDEST.BLK_WRITE_TIME)       AS BLK_WRITE_TIME
+              ,ROUND((100*(RECENT.TOTAL_TIME-OLDEST.TOTAL_TIME)/(select GREATEST(SUM_TOTAL_TIME,1) FROM STATS WHERE STATS.INSTANCE_ID = RECENT.INSTANCE_ID))::numeric,2) AS "total_time(%)"
+              ,ROUND((100*(RECENT.BLK_READ_TIME-OLDEST.BLK_READ_TIME+RECENT.BLK_WRITE_TIME-OLDEST.BLK_WRITE_TIME)/(SELECT GREATEST(IO_TIME,1) FROM STATS WHERE STATS.INSTANCE_ID = RECENT.INSTANCE_ID))::numeric,2) AS IO_TIME_PERCENT
+              ,ROUND((100*(RECENT.TOTAL_TIME-OLDEST.TOTAL_TIME-RECENT.BLK_READ_TIME-OLDEST.BLK_READ_TIME-RECENT.BLK_WRITE_TIME-OLDEST.BLK_WRITE_TIME)/(SELECT GREATEST(CPU_TIME,1) FROM STATS WHERE STATS.INSTANCE_ID = RECENT.INSTANCE_ID))::numeric,2) AS "cpu(%)"
+              ,(100*(RECENT.CALLS-OLDEST.CALLS)/(SELECT GREATEST(SUM_CALLS,1) FROM STATS WHERE STATS.INSTANCE_ID = RECENT.INSTANCE_ID))::numeric(20, 2) AS "calls(%)"
+              ,(100*(RECENT.ROWS-OLDEST.ROWS)/(SELECT GREATEST(SUM_ROWS,1) FROM STATS WHERE STATS.INSTANCE_ID = RECENT.INSTANCE_ID))::numeric(20, 2) AS "rows(%)"
+              ,LEFT(RECENT.CQUERYID,10) AS queryid_md5
+          FROM RECENT LEFT OUTER JOIN OLDEST ON RECENT.INSTANCE_ID = OLDEST.INSTANCE_ID  AND RECENT.CQUERYID = OLDEST.CQUERYID AND RECENT.USERID = OLDEST.USERID AND RECENT.DBID = OLDEST.DBID
+          ORDER BY RECENT.INSTANCE_ID, RECENT.DBID, RECENT.USERID, RECENT.QUERYID, RECENT.CQUERYID
+  ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTTRENDREPORTLOCK" PARAMS="3">
+    <DESC>trend report config</DESC>
+    <DATA>
+      <![CDATA[
+           SELECT (SELECT CODE_NAME FROM TB_SYS_CODE WHERE CODE = 320) AS TREND_TYPE
+                  ,INSTANCE_ID
+            	    ,DB_NAME DB
+                  ,BLOCKING_USER "USER"
+                  ,BLOCKING_PID PID
+                  ,CASE WHEN BLOCKING THEN 'True' Else 'False' END BLOCKING
+                  ,BLOCKED_USER "LOCK USER"
+                  ,BLOCKED_PID "LOCK PID"
+                  ,LOCK_MODE "MODE"
+                  ,QUERYID
+                  ,MAX(DURATION) DURATION
+                  ,TO_CHAR(MIN(XACT_START), 'yyyy-MM-dd HH24:mm:ss') "TRANSACTION START"
+                  ,ORDER_NO
+              FROM TB_RPT_LIST T
+              LEFT   JOIN LATERAL (
+              SELECT
+                   elem->>'DB_NAME'AS DB_NAME
+                  ,(elem->>'BLOCKING_USER')::varchar AS BLOCKING_USER
+                  ,(elem->>'BLOCKING_PID')::int8 AS BLOCKING_PID
+                  ,(elem->>'BLOCKING')::BOOL AS BLOCKING
+                  ,(elem->>'BLOCKED_USER')::varchar AS BLOCKED_USER
+                  ,(elem->>'BLOCKED_PID')::int8 AS BLOCKED_PID
+                  ,(elem->>'LOCK_MODE')::varchar AS LOCK_MODE
+                  ,(elem->>'QUERYID')::varchar AS QUERYID
+                  ,(elem->>'DURATION')::float8 AS DURATION
+                  ,(elem->>'XACT_START')::timestamp AS XACT_START
+                  ,(elem->>'ORDER_NO')::int8 AS ORDER_NO
+              FROM   JSONB_ARRAY_ELEMENTS(T.LIST_DATA) A(ELEM)
+            ) AA ON TRUE
+            WHERE INSTANCE_ID = {0}
+               AND REG_DATE BETWEEN to_char('{1}'::TIMESTAMP, 'YYYYMMDD') AND to_char('{2}'::TIMESTAMP, 'YYYYMMDD')
+               AND TREND_TYPE = 320
+               AND COLLECT_DT BETWEEN '{1}'::TIMESTAMP AND '{2}'::TIMESTAMP
+            GROUP BY INSTANCE_ID, DB_NAME, BLOCKING_USER, BLOCKING_PID, BLOCKED_USER, BLOCKED_PID, QUERYID, BLOCKING, LOCK_MODE, ORDER_NO
+            ORDER BY INSTANCE_ID, ORDER_NO
+  ]]>
+    </DATA>
+  </ROW>
+
+  <ROW ID="SELECTTRENDREPORTQUERY" PARAMS="2">
+    <DESC>trend report config</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT LEFT(QUERYID, 10) QUERYID, QUERY
+          FROM tb_pgss_query_info
+         WHERE INSTANCE_ID = {0}
+           AND LEFT(QUERYID, 10) IN ({1})
+       UNION ALL
+        SELECT DISTINCT LEFT(QUERYID, 10) QUERYID, QUERY
+          FROM TB_QUERY_INFO
+         WHERE INSTANCE_ID = {0}
+           AND LEFT(QUERYID, 10) IN ({1})
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="INSERTREPORTINFO" PARAMS="6">
+    <DESC>INSERTREPORTINFO</DESC>
+    <DATA>
+      <![CDATA[
+      INSERT INTO TB_RPT_HISTORY 
+      (
+	      USER_ID,
+	      REPORT_DT,
+	      REPORT_TYPE,
+	      INSTANCE_ID,
+	      REPORT_ACTION,
+	      REPORT_LOG,
+	      REPORT_IP
+      ) VALUES (
+	      '{0}',
+	       NOW(),
+	       {1},
+	       {2},
+	       {3},
+	      '{4}',
+	      '{5}'
+      );
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTREPORTINFO" PARAMS="4">
+    <DESC>PT_05_03_001(SELECTREPORTINFO)</DESC>
+    <DATA>
+      <![CDATA[
+         SELECT CASE WHEN {0}=0 THEN I.HOST_NAME ELSE I.CONN_NAME END AS HOST_NAME,
+               A.USER_ID, U.USER_NAME, 
+               A.REPORT_DT, CASE WHEN REPORT_TYPE = 0 THEN 'Snapshot' ELSE 'Trend' END REPORT_TYPE,
+               A.REPORT_IP, I.HOST_NAME,
+               CASE WHEN A.REPORT_ACTION = 0 THEN 'Report' 
+               		WHEN A.REPORT_ACTION = 1 THEN 'Snapshot'
+               		WHEN A.REPORT_ACTION = 2 THEN 'Gen Baseline'
+               		WHEN A.REPORT_ACTION = 3 THEN 'Del Baseline'
+               		WHEN A.REPORT_ACTION = 4 THEN 'Mod Baseline'
+               END REPORT_ACTION,
+               A.REPORT_LOG
+          FROM TB_RPT_HISTORY A JOIN TB_MON_USER U ON U.USER_ID = A.USER_ID LEFT OUTER JOIN TB_INSTANCE_INFO I ON A.INSTANCE_ID = I.INSTANCE_ID
+        WHERE A.INSTANCE_ID = {0}
+          AND A.REPORT_DT BETWEEN '{1}' AND '{2}'
+        {3} ORDER BY A.REPORT_DT DESC
       ]]>
     </DATA>
   </ROW>

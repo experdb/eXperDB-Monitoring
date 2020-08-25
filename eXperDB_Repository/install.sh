@@ -392,6 +392,7 @@ ISNOT_EXISTS_PROFILE_CONF=$?
 if [ $ISNOT_EXISTS_PROFILE_CONF -eq 1 ]; then
         echo "pg_profile.topn = 20" >> $PGDATA/postgresql.auto.conf
         echo "pg_profile.retention = 7" >> $PGDATA/postgresql.auto.conf
+        $PGBIN/pg_ctl reload
 fi
 
 PGMHOME=`pwd`

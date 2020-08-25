@@ -1148,7 +1148,7 @@ Partial Class AlertConfiguration
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.85159!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.14842!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.nudLockedtranccnt, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.nudLongrunsqlsec, 2, 2)
         Me.TableLayoutPanel3.Controls.Add(Me.nudLastvacuumDay, 2, 3)
@@ -1184,7 +1184,7 @@ Partial Class AlertConfiguration
         Me.nudLockedtranccnt.BackColor = System.Drawing.Color.White
         Me.nudLockedtranccnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudLockedtranccnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLockedtranccnt.Location = New System.Drawing.Point(200, 23)
+        Me.nudLockedtranccnt.Location = New System.Drawing.Point(199, 23)
         Me.nudLockedtranccnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLockedtranccnt.Name = "nudLockedtranccnt"
         Me.nudLockedtranccnt.Size = New System.Drawing.Size(48, 21)
@@ -1195,7 +1195,7 @@ Partial Class AlertConfiguration
         '
         Me.nudLongrunsqlsec.BackColor = System.Drawing.Color.White
         Me.nudLongrunsqlsec.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLongrunsqlsec.Location = New System.Drawing.Point(200, 65)
+        Me.nudLongrunsqlsec.Location = New System.Drawing.Point(199, 65)
         Me.nudLongrunsqlsec.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLongrunsqlsec.Name = "nudLongrunsqlsec"
         Me.nudLongrunsqlsec.Size = New System.Drawing.Size(48, 21)
@@ -1206,7 +1206,7 @@ Partial Class AlertConfiguration
         '
         Me.nudLastvacuumDay.BackColor = System.Drawing.Color.White
         Me.nudLastvacuumDay.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLastvacuumDay.Location = New System.Drawing.Point(200, 107)
+        Me.nudLastvacuumDay.Location = New System.Drawing.Point(199, 107)
         Me.nudLastvacuumDay.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLastvacuumDay.Name = "nudLastvacuumDay"
         Me.nudLastvacuumDay.Size = New System.Drawing.Size(48, 21)
@@ -1217,7 +1217,7 @@ Partial Class AlertConfiguration
         '
         Me.nudConfailedcnt.BackColor = System.Drawing.Color.White
         Me.nudConfailedcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudConfailedcnt.Location = New System.Drawing.Point(200, 149)
+        Me.nudConfailedcnt.Location = New System.Drawing.Point(199, 149)
         Me.nudConfailedcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudConfailedcnt.Name = "nudConfailedcnt"
         Me.nudConfailedcnt.Size = New System.Drawing.Size(48, 21)
@@ -1228,7 +1228,7 @@ Partial Class AlertConfiguration
         '
         Me.nudIdletranscnt.BackColor = System.Drawing.Color.White
         Me.nudIdletranscnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudIdletranscnt.Location = New System.Drawing.Point(200, 191)
+        Me.nudIdletranscnt.Location = New System.Drawing.Point(199, 191)
         Me.nudIdletranscnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudIdletranscnt.Name = "nudIdletranscnt"
         Me.nudIdletranscnt.Size = New System.Drawing.Size(48, 21)
@@ -1239,7 +1239,7 @@ Partial Class AlertConfiguration
         '
         Me.nudUnusedindexcnt.BackColor = System.Drawing.Color.White
         Me.nudUnusedindexcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudUnusedindexcnt.Location = New System.Drawing.Point(200, 275)
+        Me.nudUnusedindexcnt.Location = New System.Drawing.Point(199, 275)
         Me.nudUnusedindexcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudUnusedindexcnt.Name = "nudUnusedindexcnt"
         Me.nudUnusedindexcnt.Size = New System.Drawing.Size(48, 21)
@@ -1250,7 +1250,7 @@ Partial Class AlertConfiguration
         '
         Me.nudLastAnalyzeday.BackColor = System.Drawing.Color.White
         Me.nudLastAnalyzeday.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLastAnalyzeday.Location = New System.Drawing.Point(200, 233)
+        Me.nudLastAnalyzeday.Location = New System.Drawing.Point(199, 233)
         Me.nudLastAnalyzeday.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLastAnalyzeday.Name = "nudLastAnalyzeday"
         Me.nudLastAnalyzeday.Size = New System.Drawing.Size(48, 21)
@@ -1267,7 +1267,7 @@ Partial Class AlertConfiguration
         Me.cbxLockedtranccnt.Location = New System.Drawing.Point(39, 23)
         Me.cbxLockedtranccnt.Name = "cbxLockedtranccnt"
         Me.cbxLockedtranccnt.Radius = 10
-        Me.cbxLockedtranccnt.Size = New System.Drawing.Size(155, 16)
+        Me.cbxLockedtranccnt.Size = New System.Drawing.Size(154, 16)
         Me.cbxLockedtranccnt.TabIndex = 16
         Me.cbxLockedtranccnt.Text = "Locked transaction count"
         Me.cbxLockedtranccnt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1282,7 +1282,7 @@ Partial Class AlertConfiguration
         Me.cbxLongrunsqlsec.Location = New System.Drawing.Point(39, 65)
         Me.cbxLongrunsqlsec.Name = "cbxLongrunsqlsec"
         Me.cbxLongrunsqlsec.Radius = 10
-        Me.cbxLongrunsqlsec.Size = New System.Drawing.Size(155, 16)
+        Me.cbxLongrunsqlsec.Size = New System.Drawing.Size(154, 16)
         Me.cbxLongrunsqlsec.TabIndex = 17
         Me.cbxLongrunsqlsec.Text = "Long running sql second"
         Me.cbxLongrunsqlsec.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1312,7 +1312,7 @@ Partial Class AlertConfiguration
         Me.cbxConfailedcnt.Location = New System.Drawing.Point(39, 149)
         Me.cbxConfailedcnt.Name = "cbxConfailedcnt"
         Me.cbxConfailedcnt.Radius = 10
-        Me.cbxConfailedcnt.Size = New System.Drawing.Size(155, 16)
+        Me.cbxConfailedcnt.Size = New System.Drawing.Size(154, 16)
         Me.cbxConfailedcnt.TabIndex = 19
         Me.cbxConfailedcnt.Text = "Connection failed count"
         Me.cbxConfailedcnt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -1327,7 +1327,7 @@ Partial Class AlertConfiguration
         Me.cbxIdletranscnt.Location = New System.Drawing.Point(39, 191)
         Me.cbxIdletranscnt.Name = "cbxIdletranscnt"
         Me.cbxIdletranscnt.Radius = 10
-        Me.cbxIdletranscnt.Size = New System.Drawing.Size(155, 16)
+        Me.cbxIdletranscnt.Size = New System.Drawing.Size(154, 16)
         Me.cbxIdletranscnt.TabIndex = 20
         Me.cbxIdletranscnt.Text = "Idle in transaction count"
         Me.cbxIdletranscnt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))

@@ -1784,7 +1784,329 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		   AND datname = current_database()
 	]]>			
 </select>
+
 <!-- ********************************************************** -->
 <!-- Maintain partition tables -->
 <!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!-- Report												 -->
+<!-- ********************************************************** -->
+<select id="TB_COLLECT_REPORT_DATA_I001" parameterType="hashmap">
+	<![CDATA[
+		INSERT INTO TB_RPT_TREND
+	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+	    		A.INSTANCE_ID INSTANCE_ID
+	          , 301 TREND_TYPE
+	          , ''
+	          , CASE WHEN MAX(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE) > 100 THEN 100.00 ELSE ROUND((MAX(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE)),2) END AS MAX
+	          , CASE WHEN AVG(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE) > 100 THEN 100.00 ELSE ROUND((AVG(C.USER_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE + C.NICE_UTIL_RATE)),2) END AS AVG
+          	  , 0
+          	  , CURRENT_TIMESTAMP
+	        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+	          , TB_RSC_COLLECT_INFO B
+	          , TB_CPU_STAT_MASTER C
+	        WHERE B.REG_DATE = C.REG_DATE
+	          AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+		      AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP- (#{timeperiod} || #{timeunit})::INTERVAL)
+	          AND A.INSTANCE_ID = B.INSTANCE_ID
+	          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+	          GROUP BY A.INSTANCE_ID          
+		UNION ALL	
+	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+	    		A.INSTANCE_ID INSTANCE_ID
+	          , 302 TREND_TYPE
+	          , ''
+	          , ROUND((MAX(C.WAIT_UTIL_RATE)),2) AS MAX
+	          , ROUND((AVG(C.WAIT_UTIL_RATE)),2) AS AVG
+          	  , 0
+          	  , CURRENT_TIMESTAMP
+	        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+	          , TB_RSC_COLLECT_INFO B
+	          , TB_CPU_STAT_MASTER C
+	        WHERE B.REG_DATE = C.REG_DATE
+	          AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+		      AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP- (#{timeperiod} || #{timeunit})::INTERVAL)
+	          AND A.INSTANCE_ID = B.INSTANCE_ID
+	          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+	          GROUP BY A.INSTANCE_ID
+	    UNION ALL
+	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+	    		A.INSTANCE_ID INSTANCE_ID
+	          , 303 TREND_TYPE
+	          , ''
+	          , (MAX((C.MEM_TOTAL_KB - (C.MEM_FREE_KB + C.MEM_BUFFERED_KB + C.MEM_CACHED_KB)) / C.MEM_TOTAL_KB ) * 100)::NUMERIC(20,2) AS MEM_USED_RATE
+	          , (AVG((C.MEM_TOTAL_KB - (C.MEM_FREE_KB + C.MEM_BUFFERED_KB + C.MEM_CACHED_KB)) / C.MEM_TOTAL_KB ) * 100)::NUMERIC(20,2) AS MEM_USED_RATE
+          	  , 0
+          	  , CURRENT_TIMESTAMP
+	        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+	          , TB_RSC_COLLECT_INFO B
+	          , TB_MEMORY_STAT C
+	        WHERE B.REG_DATE = C.REG_DATE
+	          AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+		      AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP- (#{timeperiod} || #{timeunit})::INTERVAL)
+	          AND A.INSTANCE_ID = B.INSTANCE_ID
+	          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+	          GROUP BY A.INSTANCE_ID
+	    UNION ALL    -- SWAP
+	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+	    		A.INSTANCE_ID INSTANCE_ID
+	          , 304 TREND_TYPE
+	          , ''
+	          , (MAX((C.SWP_TOTAL_KB - (C.SWP_FREE_KB + C.SWP_CACHED_KB)) / C.SWP_TOTAL_KB) * 100)::NUMERIC(20,2)  AS SWP_USED_RATE
+	          , (AVG((C.SWP_TOTAL_KB - (C.SWP_FREE_KB + C.SWP_CACHED_KB)) / C.SWP_TOTAL_KB) * 100)::NUMERIC(20,2)  AS SWP_USED_RATE
+          	  , 0
+          	  , CURRENT_TIMESTAMP
+	        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+	          , TB_RSC_COLLECT_INFO B
+	          , TB_MEMORY_STAT C
+	        WHERE B.REG_DATE = C.REG_DATE
+	          AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+		      AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP- (#{timeperiod} || #{timeunit})::INTERVAL)
+	          AND A.INSTANCE_ID = B.INSTANCE_ID
+	          AND C.RSC_REG_SEQ = B.RSC_REG_SEQ
+	          GROUP BY A.INSTANCE_ID
+	    UNION ALL   -- session
+	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+    			S.INSTANCE_ID INSTANCE_ID
+          	  , 305 TREND_TYPE
+	          , ''
+          	  , MAX(S.ACTIVE_SESSIONS)::NUMERIC(20,2) AS MAX
+          	  , AVG(S.ACTIVE_SESSIONS)::NUMERIC(20,2) AS AVG
+          	  , 0
+          	  , CURRENT_TIMESTAMP
+          FROM (
+	        	  SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE, COLLECT_DT,
+			    		A.INSTANCE_ID INSTANCE_ID
+			          , '305' TREND_TYPE
+			          , SUM(CASE WHEN (C.STATE = 'active') THEN 1 ELSE 0 END)::NUMERIC(20,0)  AS ACTIVE_SESSIONS
+			        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+			          , TB_ACTV_COLLECT_INFO B
+			          , TB_BACKEND_RSC C
+			        WHERE B.REG_DATE = C.REG_DATE
+			          AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+				      AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP-(#{timeperiod} || #{timeunit})::INTERVAL)
+			          AND A.INSTANCE_ID = B.INSTANCE_ID
+			          AND C.ACTV_REG_SEQ = B.ACTV_REG_SEQ
+			          GROUP BY A.INSTANCE_ID, COLLECT_DT
+        	) AS S
+          GROUP BY S.INSTANCE_ID 
+        UNION ALL -- Logical read, write, physical read, sequence scan, index scan, bufferhitratio, tps
+              SELECT TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE, INSTANCE_ID
+      	  , CASE WHEN TREND_MAX = 'A_R_MAX' THEN 306 
+      	  		 WHEN TREND_MAX = 'B_W_MAX' THEN 307
+      	  		 WHEN TREND_MAX = 'C_P_MAX' THEN 308
+      	  		 WHEN TREND_MAX = 'D_S_MAX' THEN 309
+      	  		 WHEN TREND_MAX = 'E_I_MAX' THEN 310
+      	  		 WHEN TREND_MAX = 'F_H_MIN' THEN 311
+      	  		 WHEN TREND_MAX = 'G_T_MAX' THEN 312
+      	  		 WHEN TREND_MAX = 'H_C_MAX' THEN 313
+      	  	END AS TREND_TYPE
+      	  , ''
+      	  , MAX
+      	  , AVG
+      	  , 0
+      	  , CURRENT_TIMESTAMP
+      	  --, TREND_MAX
+      	  --, TREND_AVG
+      	  FROM
+      	  (
+		      SELECT INSTANCE_ID, 
+					UNNEST(ARRAY[A_R_MAX,B_W_MAX,C_P_MAX,D_S_MAX,E_I_MAX,F_H_MIN,G_T_MAX,H_C_MAX]) AS MAX,
+					UNNEST(ARRAY[A_R_AVG,B_W_AVG,C_P_AVG,D_S_AVG,E_I_AVG,F_H_AVG,G_T_AVG,H_C_AVG]) AS AVG,
+					unnest(array['A_R_MAX','B_W_MAX','C_P_MAX','D_S_MAX','E_I_MAX','F_H_MIN','G_T_MAX','H_C_MAX']) TREND_MAX,
+					unnest(array['A_R_AVG','B_W_AVG','C_P_AVG','D_S_AVG','E_I_AVG','F_H_AVG','G_T_AVG','H_C_AVG']) TREND_AVG
+		      FROM
+		      (
+				     SELECT S.INSTANCE_ID INSTANCE_ID
+			          	  , MAX(S.READ_TUPLES_PER_SEC)::NUMERIC(20,2) AS A_R_MAX
+			          	  , AVG(S.READ_TUPLES_PER_SEC)::NUMERIC(20,2) AS A_R_AVG
+			          	  , MAX(S.WRITE_TUPLES_PER_SEC)::NUMERIC(20,2) AS B_W_MAX
+			          	  , AVG(S.WRITE_TUPLES_PER_SEC)::NUMERIC(20,2) AS B_W_AVG
+			          	  , MAX(S.PHY_READ_PER_SEC)::NUMERIC(20,2) AS C_P_MAX
+			          	  , AVG(S.PHY_READ_PER_SEC)::NUMERIC(20,2) AS C_P_AVG
+			          	  , MAX(S.SEQ_SCAN_TUPLES_PER_SEC)::NUMERIC(20,2) AS D_S_MAX
+			          	  , AVG(S.SEQ_SCAN_TUPLES_PER_SEC)::NUMERIC(20,2) AS D_S_AVG
+			          	  , MAX(S.INDEX_SCAN_TUPLES_PER_SEC)::NUMERIC(20,2) AS E_I_MAX
+			          	  , AVG(S.INDEX_SCAN_TUPLES_PER_SEC)::NUMERIC(20,2) AS E_I_AVG
+			          	  , MIN(S.BUFFER_HIT_RATIO)::NUMERIC(20,2) AS F_H_MIN
+			          	  , AVG(S.BUFFER_HIT_RATIO)::NUMERIC(20,2) AS F_H_AVG
+			          	  , MIN(S.TPS)::NUMERIC(20,2) AS G_T_MAX
+			          	  , AVG(S.TPS)::NUMERIC(20,2) AS G_T_AVG
+			          	  , MIN(S.COMMIT_RATIO)::NUMERIC(20,2) AS H_C_MAX
+			          	  , AVG(S.COMMIT_RATIO)::NUMERIC(20,2) AS H_C_AVG
+			          FROM (			          
+				        	  SELECT A.INSTANCE_ID INSTANCE_ID
+			            		   , ROUND((SUM(C.CURRENT_SEQ_READ_TUPLES) + SUM(C.CURRENT_IDX_FETCH_TUPLES) - SUM(C.CURRENT_UPDATE_TUPLES) - SUM(C.CURRENT_DELETE_TUPLES)) / (AVG(DELTA_TIME)), 2)::Integer AS READ_TUPLES_PER_SEC
+			    	               , ROUND(SUM(C.CURRENT_INSERT_TUPLES+C.CURRENT_UPDATE_TUPLES+C.CURRENT_DELETE_TUPLES)/(AVG(DELTA_TIME)), 2)::Integer AS WRITE_TUPLES_PER_SEC
+			    	               , ROUND(SUM(C.CURRENT_PHY_READ)/(AVG(DELTA_TIME)), 2)::Integer AS PHY_READ_PER_SEC
+			    	               , ROUND(SUM(C.CURRENT_SEQ_READ_TUPLES)/(AVG(DELTA_TIME)), 2)::Integer AS SEQ_SCAN_TUPLES_PER_SEC
+            					   , ROUND(SUM(C.CURRENT_IDX_FETCH_TUPLES)/(AVG(DELTA_TIME)), 2)::Integer AS INDEX_SCAN_TUPLES_PER_SEC
+            					   , MIN(C.BUFFER_HIT_RATIO) AS BUFFER_HIT_RATIO
+            					   , ROUND(SUM(C.CURRENT_COMMIT)/AVG(DELTA_TIME),2)::NUMERIC AS TPS
+            					   , SUM(CURRENT_COMMIT/(CURRENT_COMMIT+CURRENT_ROLLBACK+1)*100) AS COMMIT_RATIO
+						        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+						          , TB_ACTV_COLLECT_INFO B
+						          , TB_ACCESS_INFO C
+						        WHERE B.REG_DATE = C.REG_DATE
+						          AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+							      AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP-(#{timeperiod} || #{timeunit})::INTERVAL)
+						          AND A.INSTANCE_ID = B.INSTANCE_ID
+						          AND C.ACTV_REG_SEQ = B.ACTV_REG_SEQ
+						          GROUP BY A.INSTANCE_ID, COLLECT_DT						          
+			        	) AS S
+			        	GROUP BY INSTANCE_ID
+		      ) AS T
+		      ORDER BY TREND_MAX, INSTANCE_ID
+	      ) AS LOGICAL
+	      UNION ALL -- maxage
+   	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+    		INSTANCE_ID INSTANCE_ID
+          , 314 TREND_TYPE
+          , db_name
+          , MAXAGE
+          , 0
+      	  , 0
+      	  , CURRENT_TIMESTAMP
+      	  FROM 
+      	  (
+	       SELECT A.INSTANCE_ID INSTANCE_ID
+		          , db_name
+		          , MAX(MAXAGE) MAXAGE
+	          	  , row_number() over (PARTITION BY A.INSTANCE_ID ORDER BY MAX(MAXAGE) DESC) AS rank_MAXAGE
+	        FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+	          , TB_TABLE_EXT_INFO C
+	          ,(	
+		          	SELECT instance_id, db_name, max(relid) relid
+				        FROM TB_OBJT_COLLECT_INFO O JOIN TB_TABLE_INFO T ON T.reg_date = O.reg_date AND T.objt_reg_seq = O.objt_reg_seq
+				       WHERE T.OBJT_REG_SEQ in (SELECT max(OBJT_REG_SEQ) OBJT_REG_SEQ FROM TB_OBJT_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY INSTANCE_ID)
+				         AND O.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+				       GROUP BY instance_id, db_name
+				       ORDER BY instance_id, db_name
+			  ) TTI
+	        WHERE C.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+		      AND collect_dt > (CURRENT_TIMESTAMP-('10' || #{timeunit})::INTERVAL)
+	          AND A.INSTANCE_ID = C.INSTANCE_ID
+         	  AND C.RELID = TTI.RELID
+	          GROUP BY A.INSTANCE_ID, db_name
+	       ) AS MA
+	       WHERE RANK_MAXAGE < 2
+	      UNION ALL -- lock sessions
+	      	    SELECT  TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,
+    			S.INSTANCE_ID INSTANCE_ID
+          	  , 315 TREND_TYPE
+	          , ''
+          	  , MAX(S.LOCK_TOTAL)::NUMERIC(20,0) AS MAX
+          	  , AVG(S.LOCK_TOTAL)::NUMERIC(20,0) AS AVG
+          	  , 0
+          	  , CURRENT_TIMESTAMP
+          FROM (
+			      SELECT /* SELECTLOCKCURRENT */ 
+			         B.INSTANCE_ID,
+			         SUM(CASE WHEN C.ACTV_REG_SEQ IS NOT NULL then 1 ELSE 0 END) AS LOCK_TOTAL
+			      FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
+			           , TB_ACTV_COLLECT_INFO B
+			           , TB_CURRENT_LOCK C
+			      WHERE B.REG_DATE = C.REG_DATE
+					AND B.REG_DATE in (TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD'), TO_CHAR(CURRENT_TIMESTAMP - INTERVAL '23 hour', 'YYYYMMDD')) -- In case the date changes in the period.
+			        AND TO_DATE_IMM(B.REG_DATE, 'yyyymmdd') + B.REG_TIME > (CURRENT_TIMESTAMP-(#{timeperiod} || #{timeunit})::INTERVAL)
+			        AND A.INSTANCE_ID = B.INSTANCE_ID
+			        AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+			      GROUP BY B.INSTANCE_ID, C.COLLECT_DT
+        	) AS S
+          GROUP BY S.INSTANCE_ID 
+	    ORDER BY INSTANCE_ID, TREND_TYPE
+          	]]>			
+</select>
+
+<select id="TB_COLLECT_REPORT_DATA_I002" parameterType="hashmap">
+	<![CDATA[
+		INSERT INTO TB_RPT_LIST
+		SELECT TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE, INSTANCE_ID, 321 AS TREND_TYPE, PGSS AS LIST_DATA, CURRENT_TIMESTAMP AS COLLECT_DT  
+		  FROM TB_PG_STAT_STATEMENTS 
+		 WHERE COLLECT_DT IN (SELECT MAX(COLLECT_DT) COLLECT_DT FROM TB_PG_STAT_STATEMENTS GROUP BY INSTANCE_ID)
+		 ORDER BY INSTANCE_ID
+          	]]>			
+</select>
+
+<select id="TB_COLLECT_REPORT_DATA_I003" parameterType="hashmap">
+	<![CDATA[
+	  INSERT INTO TB_RPT_LIST
+	  SELECT TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') REG_DATE,  INSTANCE_ID, 320 AS trend_type 
+      		,json_agg(
+	      		json_build_object(
+					'DB_NAME'         ,DB_NAME          
+					,'BLOCKING_USER'   ,BLOCKING_USER    
+					,'BLOCKING_PID'    ,BLOCKING_PID 
+					,'BLOCKING'		   ,BLOCKING
+					,'BLOCKED_USER'    ,BLOCKED_USER     
+					,'BLOCKED_PID'     ,BLOCKED_PID      
+					,'LOCK_MODE'       ,LOCK_MODE        
+					,'QUERYID'  	   ,QUERYID   
+					,'DURATION'		   ,DURATION 
+					,'XACT_START'      ,XACT_START       
+					,'ORDER_NO'        ,ORDER_NO   
+				)
+			),
+			CURRENT_TIMESTAMP COLLECT_DT
+		FROM                    
+        (        
+	        SELECT A.INSTANCE_ID
+				   ,DB_NAME          
+				   ,BLOCKING_USER    
+				   ,BLOCKING_PID
+				   ,CASE WHEN blocked_query IS NULL THEN TRUE ELSE FALSE END BLOCKING
+				   ,BLOCKED_USER     
+				   ,BLOCKED_PID      
+				   ,RTRIM(LOCK_MODE, 'Lock') LOCK_MODE      
+				   ,CASE WHEN blocked_query IS NULL THEN LEFT(BLOCKING_QUERY, 10) ELSE LEFT(BLOCKED_QUERY,10) END QUERYID
+				   ,ROUND(extract ('epoch' from BLOCKED_DURATION)::NUMERIC,1) duration
+				   ,XACT_START     
+				   ,ORDER_NO
+	        FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_CURRENT_LOCK C
+	        WHERE B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+	          AND B.ACTV_REG_SEQ = (SELECT MAX(ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = A.INSTANCE_ID  )
+	          AND A.INSTANCE_ID = B.INSTANCE_ID
+	          AND B.REG_DATE = C.REG_DATE
+	          AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+	          AND A.COLLECT_YN = 'Y'
+	          AND A.DELETE_YN = 'N'
+	       ORDER BY ORDER_NO	       
+       ) AS LOCKLIST
+       GROUP BY INSTANCE_ID
+       ORDER BY INSTANCE_ID
+          	]]>			
+</select>
+
+<delete id="PG_MAINTAIN_TRENDLOG_D001" parameterType="hashmap">
+		<![CDATA[
+		DELETE /* PG_MAINTAIN_TRENDLOG_001 */  
+		  FROM TB_RPT_TREND
+		 WHERE REG_DATE < (SELECT TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_RPT_TREND)-(TREPORT_KEEP_DAYS), 'YYYYMMDD') KEEP_DAYS FROM TB_CONFIG)
+		]]>			
+</delete>
+
+<delete id="PG_MAINTAIN_TRENDLOG_D002" parameterType="hashmap">
+		<![CDATA[
+		DELETE /* PG_MAINTAIN_TRENDLOG_002 */  
+		  FROM TB_RPT_LIST
+		 WHERE REG_DATE < (SELECT TO_CHAR((SELECT MAX(REG_DATE)::DATE FROM TB_RPT_LIST)-(TREPORT_KEEP_DAYS), 'YYYYMMDD') KEEP_DAYS FROM TB_CONFIG)
+		]]>			
+</delete>
+
+<update id="VACUUM_ANALYZE_TRENDLOG_U001" parameterType="hashmap" >
+	vacuum analyze TB_INSTANCE_INFO    ;
+</update>
+
+<update id="VACUUM_ANALYZE_TRENDLOG_U002" parameterType="hashmap" >
+	vacuum analyze TB_INSTANCE_INFO    ;
+</update>
+
+<!-- ********************************************************** -->
+<!-- Report												 -->
+<!-- ********************************************************** -->
+
+
+
+
 </mapper>

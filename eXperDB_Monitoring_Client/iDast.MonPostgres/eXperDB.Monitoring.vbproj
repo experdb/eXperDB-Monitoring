@@ -86,6 +86,10 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.6\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="CalendarColumn">
       <HintPath>..\IDAST\Shared\lib\CalendarColumn.dll</HintPath>
     </Reference>
@@ -94,6 +98,10 @@
     </Reference>
     <Reference Include="gudusoft.gsqlparser">
       <HintPath>..\IDAST\Shared\lib\gudusoft.gsqlparser.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="MdiTabControl">
       <HintPath>..\IDAST\Shared\lib\MdiTabControl.dll</HintPath>
@@ -105,6 +113,22 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -153,6 +177,12 @@
     <Compile Include="AlertConfigurationForm.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="frmReportHistory.Designer.vb">
+      <DependentUpon>frmReportHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmReportHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAllowIP.Designer.vb">
       <DependentUpon>frmAllowIP.vb</DependentUpon>
     </Compile>
@@ -169,6 +199,12 @@
       <DependentUpon>frmSnapAddBL.vb</DependentUpon>
     </Compile>
     <Compile Include="frmSnapAddBL.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTrendReport.Designer.vb">
+      <DependentUpon>frmTrendReport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTrendReport.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSnapshotR.Designer.vb">
@@ -548,6 +584,10 @@
       <DependentUpon>AlertConfigurationForm.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmReportHistory.resx">
+      <DependentUpon>frmReportHistory.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAllowIP.resx">
       <DependentUpon>frmAllowIP.vb</DependentUpon>
     </EmbeddedResource>
@@ -557,6 +597,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSnapAddBL.resx">
       <DependentUpon>frmSnapAddBL.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTrendReport.resx">
+      <DependentUpon>frmTrendReport.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSnapshotR.resx">

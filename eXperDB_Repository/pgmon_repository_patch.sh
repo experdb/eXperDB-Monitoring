@@ -235,7 +235,7 @@ alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_sta
 
 
 
-update tb_config set version = '11.5.7.394';
+update tb_config set version = '11.6.1.397';
 update tb_config set binary_path = '/experdb/app/eXperDB-Monitoring/eXperDB_Server/files';
 
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'REPLICATION_SLOT',   ' ', '0', 0,   1,    '0', NULL, NULL);
@@ -416,7 +416,7 @@ alter table only tb_replication_lag_info_${TODAY} drop constraint pk_tb_replicat
 truncate tb_replication_lag_info_${TODAY};
 alter table only tb_replication_lag_info_${TODAY} add constraint pk_tb_replication_lag_info_${TODAY} primary key (reg_date, repl_reg_seq, instance_id, repl_instance_id);
 
-update tb_config set version = '11.5.7.394';
+update tb_config set version = '11.6.1.397';
 
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'WALCNT', 'CNT', '0', 0, 1024, '2', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (1, 'WALCNT', 'CNT', '0', 0, 1024, '2', NULL, NULL);
