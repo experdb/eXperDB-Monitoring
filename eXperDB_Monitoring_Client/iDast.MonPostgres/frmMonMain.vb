@@ -5475,7 +5475,7 @@
 
     End Sub
 
-    Private Sub mnuMenuReport_Click(sender As Object, e As EventArgs) Handles mnuSnapshotR.Click, mnuTrendR.Click
+    Private Sub mnuMenuReport_Click(sender As Object, e As EventArgs) Handles mnuSnapshotR.Click, mnuTrendR.Click, mnuActivityR.Click
         Dim BretFrm As Form = Nothing
         Dim stDt As DateTime = Now.AddMinutes(-10)
         Dim edDt As DateTime = Now
@@ -5486,6 +5486,9 @@
         ElseIf sender.Name = "mnuTrendR" Then
             Dim frmReport As New frmTrendReport(_AgentCn, _GrpList)
             frmReport.ShowDialog(Me)
+        ElseIf sender.name = "mnuActivityR" Then
+            Dim frmReport As New frmReports(_AgentCn, _GrpList, _AgentInfo)
+            frmReport.Show(Me)
         End If
 
     End Sub
