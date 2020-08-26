@@ -4128,7 +4128,7 @@
   </ROW>
   <ROW ID="F974" PARAMS="0">
     <DESC>Report Config</DESC>
-    <DATA><![CDATA[트렌드로그수집주기(일)]]></DATA>
+    <DATA><![CDATA[트렌드저장주기(일)]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

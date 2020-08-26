@@ -82,6 +82,7 @@
 
         lblSnapshotTopN.Text = p_clsMsgData.fn_GetData("F957")
         lblSnapshotSaveDly.Text = p_clsMsgData.fn_GetData("F958")
+        lblTReportSaveDly.Text = p_clsMsgData.fn_GetData("F974")
 
 
         For i As Integer = 0 To 23

@@ -4126,7 +4126,7 @@
   </ROW>
   <ROW ID="F974" PARAMS="0">
     <DESC>Report Config</DESC>
-    <DATA><![CDATA[Trend Log Keep day]]></DATA>
+    <DATA><![CDATA[Trend Keep day]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>
