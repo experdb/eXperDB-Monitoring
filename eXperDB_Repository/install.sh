@@ -386,6 +386,7 @@ INSTANN_PROFILE="/bin/install -c -m 644  pg_profile--0.1.1.sql pg_profile.contro
 eval $INSTANN_PROFILE
 
 #add parameter into postgresql.auto.conf
+[ ! -f $PGDATA/postgresql.auto.conf ] && /bin/touch $PGDATA/postgresql.auto.conf
 CHECKPROFILECONF="(cd $PGDATA && grep pg_profile postgresql.auto.conf)"
 eval $CHECKPROFILECONF
 ISNOT_EXISTS_PROFILE_CONF=$?
