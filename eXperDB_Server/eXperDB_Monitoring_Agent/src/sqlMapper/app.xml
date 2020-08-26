@@ -3483,8 +3483,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				#{instance_id},
 				#{queryid},
 				#{query},
-				now()
-			) ON CONFLICT DO NOTHING;
+				CURRENT_TIMESTAMP
+            ) ON CONFLICT (INSTANCE_ID, QUERYID)
+            DO UPDATE
+            SET (QUERY, COLLECT_DT) = (#{query}, CURRENT_TIMESTAMP)
 		]]>	  
 	</insert>
 	

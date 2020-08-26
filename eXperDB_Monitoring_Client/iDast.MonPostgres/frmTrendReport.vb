@@ -1035,6 +1035,7 @@ Public Class frmTrendReport
                         If _dtTrendLockTable Is Nothing Or _dtTrendLockTable.Rows.Count <= 0 Then
                             title = title + "-" + "No Data"
                             WriteSectionHeader(sheetR, title)
+                            _rowNumber += 1
                             Continue For
                         End If
                         title = _dtTrendLockTable.Rows(0).Item("TREND_TYPE")
