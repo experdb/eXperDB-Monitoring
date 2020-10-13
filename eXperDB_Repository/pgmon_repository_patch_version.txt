@@ -1,4 +1,8 @@
-387+
+--387-
+alter table tb_instance_info add column withsolutions int4;
+alter table tb_instance_info add column statsolutions int4;
+
+--387+
 
 alter table tb_instance_info add column afma int4;
 create table tb_pgss_query_info (
@@ -52,9 +56,10 @@ insert into tb_sys_code select 226, 'WALCNT'             , 'Wal count'          
 
 -------------------------------------------------------------------------------------
 alter table tb_backend_rsc add column backend_xid bigint;
+------------------------------------------------------------------------------------405
 alter table tb_instance_info add column snap_period_min integer;
 
-update tb_instance_info set snap_period_min = 60 where snap_period_min is null
+update tb_instance_info set snap_period_min = 60 where snap_period_min is null;
 
 
 insert into tb_sys_code select 301, 'CPU util'					 , 'Report';
