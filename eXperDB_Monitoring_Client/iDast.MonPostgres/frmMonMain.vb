@@ -3143,6 +3143,7 @@
         Dim intLevel As Integer = 0
         Dim strVip As String = ""
         Dim strVip2 As String = ""
+        Dim intVip2Status As Integer = 0
         Try
             For Each dtRow As DataRow In dtTable.Rows
                 currInstanceID = CInt(dtRow.Item("INSTANCE_ID"))
@@ -3167,6 +3168,7 @@
                             strRole = dtRow.Item("HA_ROLE_S").ToString
                             strVip = dtRow.Item("VIRTUAL_IP").ToString
                             strVip2 = dtRow.Item("VIRTUAL_IP2").ToString
+                            intVip2Status = IIf(IsDBNull(dtRow.Item("RESERVED")), 0, dtRow.Item("RESERVED"))
                             DirectCast(dgvClusterRow.Tag, GroupInfo.ServerInfo).HARoleStatus = strRole
                             Exit For
                         End If
@@ -3206,14 +3208,18 @@
 
                 dgvClusterRow.Cells(coldgvClustersLegend.Index).Tag = strVip
 
-                If dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag <> strVip2 Then
-                    If strVip2 IsNot Nothing Then
+                '                If dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag <> strVip2 Then
+                If strVip2 IsNot Nothing AndAlso strVip2.Length > 0 Then
+                    If intVip2Status = 0 Then
                         dgvClusterRow.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(4)
                     Else
                         dgvClusterRow.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
                     End If
+                Else
+                    dgvClusterRow.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
                 End If
-                dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag = strVip2
+                    '                End If
+                    dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag = strVip2
             Next
 
             If prevInstanceID > 0 Then
@@ -4513,6 +4519,8 @@
         'mnuSnapshotR.Text = p_clsMsgData.fn_GetData("M047")
         'mnuTrendR.Text = p_clsMsgData.fn_GetData("F952")
         ps.X -= mnuReports.Width
+        mnuReport.Items(0).Visible = False
+        mnuReport.Items(1).Visible = False
         mnuReport.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
         mnuReport.Tag = lblTemp.Parent
     End Sub

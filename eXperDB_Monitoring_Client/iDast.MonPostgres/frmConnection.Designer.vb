@@ -416,6 +416,7 @@ Partial Class frmConnection
         '
         'txtVIP2
         '
+        Me.txtVIP2.AllowDrop = True
         Me.txtVIP2.BackColor = System.Drawing.SystemColors.Window
         Me.txtVIP2.code = False
         Me.txtVIP2.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -426,7 +427,7 @@ Partial Class frmConnection
         Me.txtVIP2.Location = New System.Drawing.Point(136, 466)
         Me.txtVIP2.Name = "txtVIP2"
         Me.txtVIP2.Necessary = False
-        Me.txtVIP2.PossibleInput = "0123456789."
+        Me.txtVIP2.PossibleInput = ""
         Me.txtVIP2.Prefix = ""
         Me.txtVIP2.Size = New System.Drawing.Size(193, 21)
         Me.txtVIP2.StatusTip = ""
@@ -435,6 +436,7 @@ Partial Class frmConnection
         '
         'txtVIP
         '
+        Me.txtVIP.AllowDrop = True
         Me.txtVIP.BackColor = System.Drawing.SystemColors.Window
         Me.txtVIP.code = False
         Me.txtVIP.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -445,7 +447,7 @@ Partial Class frmConnection
         Me.txtVIP.Location = New System.Drawing.Point(136, 431)
         Me.txtVIP.Name = "txtVIP"
         Me.txtVIP.Necessary = False
-        Me.txtVIP.PossibleInput = "0123456789."
+        Me.txtVIP.PossibleInput = ""
         Me.txtVIP.Prefix = ""
         Me.txtVIP.Size = New System.Drawing.Size(193, 21)
         Me.txtVIP.StatusTip = ""

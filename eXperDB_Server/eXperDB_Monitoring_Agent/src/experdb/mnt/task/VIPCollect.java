@@ -25,7 +25,7 @@ public class VIPCollect{
 		} catch (Exception e) {
 		}
 		//log.("Check Secodary VIP");
-		execute(2);
+		//execute(2);
 		//log.info("Check VIP");
 		
 		checkSolution();

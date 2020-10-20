@@ -24,6 +24,8 @@ public class RscCollect extends TaskApplication {
 
 	private String is_collect_ok = "Y";
 	private String failed_collect_type = "";
+	boolean isFirst = true;
+	int virtualIP2Status = 0;
 	
 	public RscCollect(String instanceId, String taskId) {
 		super(instanceId, taskId);
@@ -107,6 +109,8 @@ public class RscCollect extends TaskApplication {
 			List<HashMap<String, Object>> cpuSel = new ArrayList<HashMap<String,Object>>(); // CPU 정보 수집			
 			List<HashMap<String, Object>> diskIoSel = new ArrayList<HashMap<String,Object>>(); //DISK_IO 정보 수집
 			List<HashMap<String, Object>> diskUsageSel = new ArrayList<HashMap<String,Object>>();// DISK_USAGE 정보 수집			
+			Map<String, Object> LVIPStatusSel = new HashMap<String, Object>();// LVIP 정보 수집
+			String virtualIP2 = "";
 			
 			if(is_collect_ok.equals("Y"))
 			{
@@ -194,8 +198,40 @@ public class RscCollect extends TaskApplication {
 						failed_collect_type = "4";
 						throw e;
 					}
-	
+										
+					// LVIPStatusSel 정보 수집
+					Map<String, Object> param = new HashMap<String, Object>();
+					param.put("instance_id", Integer.valueOf(instanceId));
+					HashMap<String, Object> checkVIP2ConfMap = sessionAgent.selectOne("EXPERDBMA_TB_CHECK_VIP2_CONF_001", param);
+					if(!checkVIP2ConfMap.get("ha_role").toString().equals("S")){ // check the target cluster's role is not slave 
+						if(isFirst == true){
+							sessionCollect.update("app.BT_CHECK_VIP_FUNCTION_001");
+							isFirst = false;
+						}
+					}
 					
+					virtualIP2 = (String)checkVIP2ConfMap.get("virtual_ip2");
+					if(checkVIP2ConfMap.get("reserved") != null)
+						virtualIP2Status = Integer.parseInt(checkVIP2ConfMap.get("reserved").toString());
+					if(virtualIP2 != null && !virtualIP2.equals("")){
+						try {
+							int reserved = 0;
+							param.clear();
+							param.put("virtual_ip2", virtualIP2);
+							LVIPStatusSel = sessionCollect.selectOne("app.BT_CHECK_VIP_001", param);
+							if (LVIPStatusSel.get("virtual_ip2").toString().equals(virtualIP2))
+								reserved = 0;
+							else
+								reserved = 1;
+							if(virtualIP2Status == reserved)
+								LVIPStatusSel.clear();
+							else
+								virtualIP2Status = reserved;
+						} catch (Exception e) {
+							failed_collect_type = "4";
+							throw e;
+						}
+					}
 				} catch (Exception e1) {
 					is_collect_ok = "N";
 					//log.error("", e1);
@@ -393,6 +429,14 @@ public class RscCollect extends TaskApplication {
 				}
 				///////////////////////////////////////////////////////////////////////////////				
 				
+				///////////////////////////////////////////////////////////////////////////////
+				// Virtual IP2 정보 업데이트
+				if (LVIPStatusSel != null && LVIPStatusSel.size() > 0){
+					LVIPStatusSel.put("instance_id", Integer.valueOf(instanceId));
+					LVIPStatusSel.put("reserved", virtualIP2Status);
+					sessionAgent.update("app.TB_INSTANCE_INFO_U006", LVIPStatusSel);
+				}
+				///////////////////////////////////////////////////////////////////////////////		
 				//log.debug(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_CPU));
 				//log.debug(ResourceInfo.getInstance().get(instanceId, taskId, RESOURCE_KEY_DISK_IO));
 				

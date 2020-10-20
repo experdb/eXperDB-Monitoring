@@ -4476,7 +4476,46 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		 WHERE virtual_ip2 is not null
 		   AND COLLECT_YN = 'Y'
            AND DELETE_YN = 'N'
-	</select>	
+	</select>
+	<update id="BT_CHECK_VIP_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+			/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
+			DO $$
+			DECLARE       
+			    is_in_recovery BOOL;
+			BEGIN    
+			    is_in_recovery := (SELECT PG_IS_IN_RECOVERY());       
+			    IF is_in_recovery = FALSE THEN           
+				    EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS plperlu') ;     
+				    EXECUTE FORMAT('CREATE OR REPLACE FUNCTION CHECKVIP(CHARACTER VARYING) RETURNS text AS $BODY$
+								    use warnings;
+								    use strict;
+									my $vip = $_[0];
+									my $res;
+									my $cmd = ''/usr/sbin/ip addr |grep '' . $vip . ''|awk \''{print $2}\''|awk -F\''/\'' \''{print $1}\''|tr -d \''\n\'''';
+							$res = `$cmd`;
+						    return($res);
+						$BODY$ LANGUAGE plperlu;');     
+			    END IF;       
+			 END $$
+		  ]]>	  
+	</update>
+	<select id="BT_CHECK_VIP_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT /* BT_CHECK_VIP_002 24e9ab7301ff1966da4fb30dc1538882 */
+				CHECKVIP(#{virtual_ip2}) AS virtual_ip2; 
+		  ]]>	  
+	</select>
+	<update id="TB_INSTANCE_INFO_U006" parameterType="hashmap" >
+		UPDATE TB_INSTANCE_INFO 
+		   SET reserved = #{reserved} 
+		 WHERE instance_id = #{instance_id} ;
+	</update>
+	<select id="EXPERDBMA_TB_CHECK_VIP2_CONF_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT HA_ROLE, VIRTUAL_IP2, RESERVED FROM TB_INSTANCE_INFO WHERE INSTANCE_ID = #{instance_id} ;
+		 ]]>	
+	</select>
 <!-- Check Virtual IP ENd -->
 
 <!-- ********************************************************** -->
@@ -4641,7 +4680,7 @@ GROUP BY HA_GROUP
 	</select>
 	<update id="EXPERDBMA_BT_CREATE_PLPERL_001" parameterType="hashmap">
 		<![CDATA[
-			/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
+			/* EXPERDBMA_BT_CREATE_PLPERL_001 24E9AB7301FF1966DA4FB30DC1538882*/
 				DO $$
 				DECLARE       
 				    is_in_recovery BOOL;
