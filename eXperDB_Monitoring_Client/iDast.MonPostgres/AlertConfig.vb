@@ -345,11 +345,11 @@
                                           IIf(HealtLimited.ReplicationDelayCheck, GetCriticalThreshold_1(HealtLimited.ReplicationDelayNormal, HealtLimited.ReplicationDelayWarning), 9), LastIp, HealtLimited.ReplicationDelayRTime)
 
             'Dim Fixed As Integer = 1
-            _clsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, 0, HealtLimited.LockedtranccntBool, LastIp)
-            _clsQuery.UpdateHealthLimited(InstanceID, "TRAXIDLECNT", HealtLimited.IdleTransCnt, 0, HealtLimited.IdletranscntBool, LastIp)
-            _clsQuery.UpdateHealthLimited(InstanceID, "LONGRUNSQL", HealtLimited.LongRunSqlSec, 0, HealtLimited.LongrunsqlsecBool, LastIp)
+            _clsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, HealtLimited.LockedTrancCntCritical, HealtLimited.LockedtranccntBool, LastIp)
+            _clsQuery.UpdateHealthLimited(InstanceID, "TRAXIDLECNT", HealtLimited.IdleTransCnt, HealtLimited.IdleTransCntCritical, HealtLimited.IdletranscntBool, LastIp)
+            _clsQuery.UpdateHealthLimited(InstanceID, "LONGRUNSQL", HealtLimited.LongRunSqlSec, HealtLimited.LongRunSqlSecCritical, HealtLimited.LongrunsqlsecBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "UNUSEDINDEX", HealtLimited.UnusedIndexCnt, 0, HealtLimited.UnusedindexcntBool, LastIp)
-            _clsQuery.UpdateHealthLimited(InstanceID, "FROZENMAXAGE", 0, HealtLimited.FrozenMaxAge, HealtLimited.FrozenMaxAgeBool, LastIp)
+            _clsQuery.UpdateHealthLimited(InstanceID, "FROZENMAXAGE", HealtLimited.FrozenMaxAge, HealtLimited.FrozenMaxAgeCritical, HealtLimited.FrozenMaxAgeBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "LASTVACUUM", HealtLimited.LastVacuumDay, 0, HealtLimited.LastvacuumDayBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "LASTANALYZE", HealtLimited.LastAnalyzeDay, 0, HealtLimited.LastAnalyzedayBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "CONNECTIONFAIL", 0, HealtLimited.ConFailedCnt, HealtLimited.ConfailedcntBool, LastIp)

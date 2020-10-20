@@ -1557,6 +1557,7 @@ UNION
       , A.SERVICE_PORT AS SERVICE_PORT    --PT_03_08_001(port)
       , A.VIRTUAL_IP   
       , A.VIRTUAL_IP2
+      , A.RESERVED -- to check the status of virtual_ip2
       , C.HCHK_NAME AS HCHK_NAME    
       , CASE WHEN B.VALUE IS NULL THEN 0 ELSE ROUND(B.VALUE,2) END AS VALUE
       , C.UNIT AS UNIT

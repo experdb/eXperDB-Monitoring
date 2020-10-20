@@ -195,18 +195,22 @@
                 Case "LOCKCNT"
                     cbxLockedtranccnt.Checked = Check
                     nudLockedtranccnt.Value = nudValue
+                    nudLockedtranccntCritical.Value = nudValue_
                 Case "TRAXIDLECNT"
                     cbxIdletranscnt.Checked = Check
                     nudIdletranscnt.Value = nudValue
+                    nudIdletranscntCritical.Value = nudValue_
                 Case "LONGRUNSQL"
                     cbxLongrunsqlsec.Checked = Check
                     nudLongrunsqlsec.Value = nudValue
+                    nudLongrunsqlsecCritical.Value = nudValue_
                 Case "UNUSEDINDEX"
                     cbxUnusedindexcnt.Checked = Check
                     nudUnusedindexcnt.Value = nudValue
                 Case "FROZENMAXAGE"
                     cbxFrozenAge.Checked = Check
-                    nudFrozenMaxAge.Value = nudValue_
+                    nudFrozenMaxAge.Value = nudValue
+                    nudFrozenMaxAgeCritical.Value = nudValue_
                 Case "LASTVACUUM"
                     cbxLastvacuumDay.Checked = Check
                     nudLastvacuumDay.Value = nudValue
@@ -332,6 +336,11 @@
         tmpClass.LastAnalyzeDay = nudLastAnalyzeday.Value
         tmpClass.ConFailedCnt = nudConfailedcnt.Value
         tmpClass.WALCnt = nudWALcnt.Value
+
+        tmpClass.LockedTrancCntCritical = nudLockedtranccntCritical.Value
+        tmpClass.IdleTransCntCritical = nudIdletranscntCritical.Value
+        tmpClass.LongRunSqlSecCritical = nudLongrunsqlsecCritical.Value
+        tmpClass.FrozenMaxAgeCritical = nudFrozenMaxAgeCritical.Value
 
         For index = 0 To _dtFT.Rows.Count - 1
 
@@ -459,6 +468,11 @@
         Public NotificationCycle As Integer
         Public BusinessName As String
 
+        Public LockedTrancCntCritical As Integer
+        Public IdleTransCntCritical As Integer
+        Public LongRunSqlSecCritical As Integer
+        Public FrozenMaxAgeCritical As Integer
+
     End Class
 
     Private Sub cbxLockedtranccnt_CheckedChanged(sender As Object, e As EventArgs) Handles cbxLockedtranccnt.CheckedChanged
@@ -567,6 +581,24 @@
         End If
     End Sub
 
+    Private Sub nudLockedtranccntCritical_ValueChanged(sender As Object, e As EventArgs) Handles nudLockedtranccntCritical.ValueChanged, _
+                                                                                                 nudLongrunsqlsecCritical.ValueChanged, _
+                                                                                                 nudIdletranscntCritical.ValueChanged, _
+                                                                                                 nudFrozenMaxAgeCritical.ValueChanged
+        Dim nudTemp As System.Windows.Forms.NumericUpDown = DirectCast(sender, System.Windows.Forms.NumericUpDown)
+        Select Case nudTemp.Name
+            Case "nudLockedtranccntCritical"
+                If nudTemp.Value < nudLockedtranccnt.Value Then nudTemp.Value = nudLockedtranccnt.Value
+            Case "nudLongrunsqlsecCritical"
+                If nudTemp.Value < nudLongrunsqlsec.Value Then nudTemp.Value = nudLongrunsqlsec.Value
+            Case "nudIdletranscntCritical"
+                If nudTemp.Value < nudIdletranscnt.Value Then nudTemp.Value = nudIdletranscnt.Value
+            Case "nudFrozenMaxAgeCritical"
+                If nudTemp.Value < nudFrozenMaxAge.Value Then nudTemp.Value = nudFrozenMaxAge.Value
+        End Select
+
+    End Sub
+
     Private Sub AlertConfigurationForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             LoadComboItems()
@@ -632,4 +664,6 @@
                 'nudReplicationDelay.Enabled = checkBox.Checked
         End Select
     End Sub
+
+
 End Class
