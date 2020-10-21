@@ -67,6 +67,23 @@
     <DATA>
       <![CDATA[
         SELECT COALESCE(LOG_KEEP_DAYS,-1) AS LOG_KEEP_DAYS
+           ,DAILY_BATCH_START_TIME 
+           ,AGENT_IP
+           ,AGENT_PORT
+           ,HCHK_PERIOD_SEC
+           ,OBJT_PERIOD_SEC
+           ,STMT_PERIOD_SEC
+           ,VERSION
+        FROM TB_CONFIG 
+        WHERE ADMIN_USER_ID='ADMIN'
+      ]]>
+    </DATA>
+  </ROW>
+  <ROW ID="SELECTCONFIG_temp_for_ssg" PARAMS="0">
+    <DESC>Server Batch Log Keep Days</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT COALESCE(LOG_KEEP_DAYS,-1) AS LOG_KEEP_DAYS
            ,COALESCE(TREPORT_KEEP_DAYS,-1) AS TREPORT_KEEP_DAYS
            ,DAILY_BATCH_START_TIME 
            ,AGENT_IP

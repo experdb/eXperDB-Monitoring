@@ -21,7 +21,6 @@
 		 where COLLECT_YN = 'Y'
 		   and DELETE_YN = 'N'
 		order by instance_id
-		--order by LAST_MOD_DT DESC
 	</select>
 	
 	<select id="TB_INSTANCE_INFO_R002" resultType="hashmap">
