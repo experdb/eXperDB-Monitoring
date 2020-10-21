@@ -64,7 +64,7 @@ public class TaskManager implements Runnable{
 
 		try {
 			//run scheduler
-			runScheduler();
+			//runScheduler(); temporary for ssg
 			
 			while(true)
 			{
