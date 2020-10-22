@@ -67,6 +67,7 @@
     <DATA>
       <![CDATA[
         SELECT COALESCE(LOG_KEEP_DAYS,-1) AS LOG_KEEP_DAYS
+           ,-1 AS TREPORT_KEEP_DAYS
            ,DAILY_BATCH_START_TIME 
            ,AGENT_IP
            ,AGENT_PORT
@@ -74,6 +75,8 @@
            ,OBJT_PERIOD_SEC
            ,STMT_PERIOD_SEC
            ,VERSION
+           ,20 TOPN
+           ,10 RETENTION
         FROM TB_CONFIG 
         WHERE ADMIN_USER_ID='ADMIN'
       ]]>
@@ -300,7 +303,7 @@
         ,COLLECT_YN
         ,COLLECT_PERIOD_SEC
         ,RTSTMT_PERIOD_SEC
-        ,SNAP_PERIOD_MIN
+        ,COALESCE(SNAP_PERIOD_MIN, 0) AS SNAP_PERIOD_MIN
         ,CONN_DB_NAME
         ,CONN_NAME
         ,LAST_MOD_IP
