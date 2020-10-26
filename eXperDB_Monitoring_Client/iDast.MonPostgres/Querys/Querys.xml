@@ -424,8 +424,57 @@
         SELECT /* SELECTCPUMEMINFO */ A.INSTANCE_ID
         , C.COLLECT_DT AS REG_DATE
         , CASE WHEN C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE > 100 THEN 100 ELSE C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE END AS CPU_MAIN                                          --PT_03_03_001, PT_04_02_001(AVG)
-        , D.CPU_LOGICAL_ID                                                                                                                --PT_04_02_001
-        , CASE WHEN D.USER_UTIL_RATE + D.NICE_UTIL_RATE + D.SYS_UTIL_RATE + D.WAIT_UTIL_RATE > 100 THEN 100 ELSE D.USER_UTIL_RATE + D.NICE_UTIL_RATE + D.SYS_UTIL_RATE + D.WAIT_UTIL_RATE END AS CORE_CPU_RATE                                     --PT_04_02_001
+        , 0 as CPU_LOGICAL_ID                                                                                                                --PT_04_02_001
+        , 0 AS CORE_CPU_RATE
+        --, (SELECT SUM(PROC_CPU_UTIL) FROM TB_BACKEND_RSC RSC WHERE RSC.REG_DATE = B.REG_DATE AND RSC.RSC_REG_SEQ = B.RSC_REG_SEQ) AS PGSQL_UTIL_RATE   --PT_04_05_001(CPU_PG)
+        , C.WAIT_UTIL_RATE                                                                                                                --PT_04_05_001(CPU_WAIT)
+        , CASE WHEN E.MEM_TOTAL_KB != 0 THEN (((E.MEM_TOTAL_KB - (E.MEM_FREE_KB +E.MEM_BUFFERED_KB + E.MEM_CACHED_KB)) / E.MEM_TOTAL_KB ) * 100)::int ELSE E.MEM_TOTAL_KB END AS MEM_USED_RATE       --PT_03_03_001, PT_04_02_001(MEM_AVG)
+        , CASE WHEN E.SWP_TOTAL_KB != 0 THEN (((E.SWP_TOTAL_KB - (E.SWP_FREE_KB + E.SWP_CACHED_KB)) / E.SWP_TOTAL_KB) * 100)::int ELSE E.SWP_TOTAL_KB END AS SWP_USED_RATE                         --PT_03_03_001(MEM SWAP_RATE), PT_04_05_001(PG_MEMORY)
+        , (E.MEM_TOTAL_KB / 1024)::int AS MEM_TOTAL_MB                                                                                    --PT_04_05_001(TOTAL MEM)
+        , (E.MEM_USED_KB / 1024)::int AS MEM_USED_MB                                                                                      --PT_04_05_001(USED MEM)
+        , (E.MEM_FREE_KB / 1024)::int AS MEM_FREE_MB                                                                                      --PT_04_05_001(FREE MEM)
+        , (E.SHM_KB / 1024)::int  AS SHM_MB                                                                                               --PT_04_05_001(SHARED MEM)
+        , (E.MEM_BUFFERED_KB / 1024)::int AS MEM_BUFFERED_MB                                                                              --PT_04_05_001(BUFFERS MEM)
+        , (E.MEM_CACHED_KB / 1024)::int AS MEM_CACHED_MB                                                                                  --PT_04_05_001(CACHED MEM)
+        , (E.SWP_TOTAL_KB / 1024)::int AS SWP_TOTAL_MB                                                                                    --PT_04_05_001(SWAP_TOTAL MEM)
+        , (E.SWP_USED_KB / 1024)::int AS SWP_USED_MB                                                                                      --PT_04_05_001(SWAP_USED MEM)
+        , (E.SWP_FREE_KB / 1024)::int AS SWP_FREE_MB                                                                                      --PT_04_05_001(SWAP_FREE MEM)
+		    , (E.SWP_CACHED_KB / 1024)::int AS SWP_CACHED_MB                                                                                      --PT_04_05_001(SWAP_CACHED MEM)  
+        , (((E.MEM_TOTAL_KB - (E.MEM_FREE_KB )) / E.MEM_TOTAL_KB ) * 100) AS BUFFER_RATE                                           --PT_03_03_001, PT_04_02_001(MEM_AVG)
+        , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+        , A.HA_GROUP
+        , CASE WHEN {1}=0 THEN TO_CHAR(A.INSTANCE_ID, '00')||A.HOST_NAME ELSE TO_CHAR(A.INSTANCE_ID, '00')||A.CONN_NAME END AS SORTED_HOST_NAME
+        FROM TB_INSTANCE_INFO A
+             , (SELECT MAX(REG_DATE) AS REG_DATE, MAX(REG_TIME) AS REG_TIME, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID 
+                 FROM TB_RSC_COLLECT_INFO 
+                WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') 
+                  AND RSC_REG_SEQ >= (SELECT (LAST_VALUE - (SELECT COUNT(*) * 2 + 1 FROM TB_INSTANCE_INFO)) + 1 AS LAST_VALUE FROM RSC_REG_SEQ)
+                GROUP BY INSTANCE_ID) B
+             --, TB_CPU_STAT_MASTER C, TB_MEMORY_STAT E
+             , TB_CPU_STAT_MASTER C, TB_MEMORY_STAT E
+        WHERE A.COLLECT_YN = 'Y'
+          AND A.DELETE_YN = 'N'  
+          AND A.INSTANCE_ID IN ({0})
+          AND B.REG_DATE = C.REG_DATE
+          AND C.REG_DATE = E.REG_DATE
+          AND A.INSTANCE_ID = B.INSTANCE_ID
+          AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+          AND C.RSC_REG_SEQ = E.RSC_REG_SEQ
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="SELECTCPUMEMINFO_20201026" PARAMS="0">
+    <DESC>PT_03_03_001 (cpu/mem정보)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT /* SELECTCPUMEMINFO */ A.INSTANCE_ID
+        , C.COLLECT_DT AS REG_DATE
+        , CASE WHEN C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE > 100 THEN 100 ELSE C.USER_UTIL_RATE + C.NICE_UTIL_RATE + C.SYS_UTIL_RATE + C.WAIT_UTIL_RATE END AS CPU_MAIN                                          --PT_03_03_001, PT_04_02_001(AVG)
+        , 0 as CPU_LOGICAL_ID                                                                                                                --PT_04_02_001
+        , 0 AS CORE_CPU_RATE
+        --, D.CPU_LOGICAL_ID                                                                                                                --PT_04_02_001
+        --, CASE WHEN D.USER_UTIL_RATE + D.NICE_UTIL_RATE + D.SYS_UTIL_RATE + D.WAIT_UTIL_RATE > 100 THEN 100 ELSE D.USER_UTIL_RATE + D.NICE_UTIL_RATE + D.SYS_UTIL_RATE + D.WAIT_UTIL_RATE END AS CORE_CPU_RATE                                     --PT_04_02_001
         --, (SELECT SUM(PROC_CPU_UTIL) FROM TB_BACKEND_RSC RSC WHERE RSC.REG_DATE = B.REG_DATE AND RSC.RSC_REG_SEQ = B.RSC_REG_SEQ) AS PGSQL_UTIL_RATE   --PT_04_05_001(CPU_PG)
         , C.WAIT_UTIL_RATE                                                                                                                --PT_04_05_001(CPU_WAIT)
         , CASE WHEN E.MEM_TOTAL_KB != 0 THEN (((E.MEM_TOTAL_KB - (E.MEM_FREE_KB +E.MEM_BUFFERED_KB + E.MEM_CACHED_KB)) / E.MEM_TOTAL_KB ) * 100)::int ELSE E.MEM_TOTAL_KB END AS MEM_USED_RATE       --PT_03_03_001, PT_04_02_001(MEM_AVG)
