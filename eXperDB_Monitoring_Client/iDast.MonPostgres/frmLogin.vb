@@ -278,8 +278,9 @@ Public Class frmLogin
                 Return False
             Else
                 If dtTable.Rows(0).Item("MATCHED").ToString() <> "1" Then
-                    MsgBox(p_clsMsgData.fn_GetData("M077"))
+                    _clsQuery.SetLoginFail(strLocIP)
                     AccessLog("login", 1, "Wrong password")
+                    MsgBox(p_clsMsgData.fn_GetData("M077"))
                     Return False
                 End If
             End If

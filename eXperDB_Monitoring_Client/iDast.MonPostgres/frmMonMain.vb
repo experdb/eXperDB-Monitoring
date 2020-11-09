@@ -1671,7 +1671,7 @@
                         row("REG_DATE") = g.Max(Function(r) r.Field(Of DateTime)("REG_DATE"))
                         row("CPU_MAIN") = g.Average(Function(r) r.Field(Of Decimal)("CPU_MAIN"))
                         row("CPU_LOGICAL_ID") = g.Max(Function(r) r.Field(Of Integer)("CPU_LOGICAL_ID"))
-                        row("CORE_CPU_RATE") = g.Average(Function(r) r.Field(Of Decimal)("CORE_CPU_RATE"))
+                        'row("CORE_CPU_RATE") = g.Average(Function(r) r.Field(Of Decimal)("CORE_CPU_RATE"))
                         row("WAIT_UTIL_RATE") = g.Average(Function(r) r.Field(Of Decimal)("WAIT_UTIL_RATE"))
                         row("MEM_USED_RATE") = g.Average(Function(r) r.Field(Of Decimal)("MEM_USED_RATE"))
                         row("SWP_USED_RATE") = g.Average(Function(r) r.Field(Of Decimal)("SWP_USED_RATE"))
