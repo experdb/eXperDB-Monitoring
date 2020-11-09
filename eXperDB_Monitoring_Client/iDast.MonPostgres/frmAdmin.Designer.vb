@@ -274,6 +274,7 @@ Partial Class frmAdmin
         Me.nudTReportSaveDly.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.nudTReportSaveDly.ThousandsSeparator = True
         Me.nudTReportSaveDly.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudTReportSaveDly.Visible = False
         '
         'lblTReportSaveDly
         '
@@ -289,6 +290,7 @@ Partial Class frmAdmin
         Me.lblTReportSaveDly.TabIndex = 24
         Me.lblTReportSaveDly.Text = "F974"
         Me.lblTReportSaveDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblTReportSaveDly.Visible = False
         '
         'lblSnapshotTopN
         '
@@ -304,6 +306,7 @@ Partial Class frmAdmin
         Me.lblSnapshotTopN.TabIndex = 23
         Me.lblSnapshotTopN.Text = "F957"
         Me.lblSnapshotTopN.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblSnapshotTopN.Visible = False
         '
         'cmbSnapshotTopN
         '
@@ -320,6 +323,7 @@ Partial Class frmAdmin
         Me.cmbSnapshotTopN.StatusTip = ""
         Me.cmbSnapshotTopN.TabIndex = 22
         Me.cmbSnapshotTopN.ValueText = ""
+        Me.cmbSnapshotTopN.Visible = False
         '
         'lblSnapshotSaveDly
         '
@@ -335,6 +339,7 @@ Partial Class frmAdmin
         Me.lblSnapshotSaveDly.TabIndex = 21
         Me.lblSnapshotSaveDly.Text = "F958"
         Me.lblSnapshotSaveDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblSnapshotSaveDly.Visible = False
         '
         'nudSnapshotSaveDly
         '
@@ -354,6 +359,7 @@ Partial Class frmAdmin
         Me.nudSnapshotSaveDly.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.nudSnapshotSaveDly.ThousandsSeparator = True
         Me.nudSnapshotSaveDly.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nudSnapshotSaveDly.Visible = False
         '
         'cmbStmtTime
         '

@@ -130,6 +130,7 @@ public class DailyBatchTask {
 				//sessionAgent.delete("app.PGMONBT_BATCH_TABLE_EXT_INFO_001");//robin 1031 delete table ext
 				sessionAgent.delete("app.PGMONBT_BATCH_TB_USER_INFO_001");//robin 190122 delete user info
 				sessionAgent.delete("app.PGMONBT_BATCH_TB_ALERT_EXPORT_INFO_001");//robin 190122 delete user info
+				sessionAgent.delete("app.PGMONBT_BATCH_TB_MON_USER_AUDIT_001");//robin 202011 delete user info
 				
 				//Commit
 				sessionAgent.commit();

@@ -3883,12 +3883,12 @@
   </ROW>
   <ROW ID="F925" PARAMS="0">
     <DESC>계정잠금설정(로그인 실패 횟수)</DESC>
-    <DATA><![CDATA[계정잠금 설정(로그인 실패 횟수)]]></DATA>
+    <DATA><![CDATA[로그인 잠금 설정(로그인 실패 횟수)]]></DATA>
     <VALUECAST />
   </ROW>
   <ROW ID="F926" PARAMS="0">
     <DESC>계정잠금만료시간</DESC>
-    <DATA><![CDATA[계정잠금 만료시간]]></DATA>
+    <DATA><![CDATA[로그인 잠금 만료시간]]></DATA>
     <VALUECAST />
   </ROW>
   <ROW ID="F927" PARAMS="0">

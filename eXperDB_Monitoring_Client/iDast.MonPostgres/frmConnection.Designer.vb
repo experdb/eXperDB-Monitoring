@@ -267,6 +267,7 @@ Partial Class frmConnection
         Me.cmbSnapPeriod.StatusTip = ""
         Me.cmbSnapPeriod.TabIndex = 8
         Me.cmbSnapPeriod.ValueText = ""
+        Me.cmbSnapPeriod.Visible = False
         '
         'lblSnapPeriod
         '
@@ -282,6 +283,7 @@ Partial Class frmConnection
         Me.lblSnapPeriod.TabIndex = 25
         Me.lblSnapPeriod.Text = "F960"
         Me.lblSnapPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblSnapPeriod.Visible = False
         '
         'lblHAREPLHost
         '
