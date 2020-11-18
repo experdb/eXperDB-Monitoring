@@ -25,6 +25,7 @@ Partial Class frmLogin
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmLogin))
         Me.pnlLogin = New eXperDB.BaseControls.Panel()
+        Me.chkRememberPW = New eXperDB.BaseControls.CheckBox()
         Me.lblLoginName = New eXperDB.BaseControls.Label()
         Me.lblLogo = New eXperDB.BaseControls.Label()
         Me.lblLogo2 = New eXperDB.BaseControls.Label()
@@ -43,7 +44,6 @@ Partial Class frmLogin
         Me.txtServerIP = New eXperDB.BaseControls.TextBox()
         Me.Panel3 = New eXperDB.BaseControls.Panel()
         Me.txtPassword = New eXperDB.BaseControls.TextBox()
-        Me.chkRememberPW = New eXperDB.BaseControls.CheckBox()
         Me.pnlLogin.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -75,6 +75,23 @@ Partial Class frmLogin
         Me.pnlLogin.Radius = 10
         Me.pnlLogin.Size = New System.Drawing.Size(379, 410)
         Me.pnlLogin.TabIndex = 7
+        '
+        'chkRememberPW
+        '
+        Me.chkRememberPW.AutoSize = True
+        Me.chkRememberPW.BackColor = System.Drawing.Color.Transparent
+        Me.chkRememberPW.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkRememberPW.ForeColor = System.Drawing.Color.LightSteelBlue
+        Me.chkRememberPW.LineColor = System.Drawing.Color.Gray
+        Me.chkRememberPW.Location = New System.Drawing.Point(249, 273)
+        Me.chkRememberPW.Name = "chkRememberPW"
+        Me.chkRememberPW.Radius = 10
+        Me.chkRememberPW.Size = New System.Drawing.Size(108, 16)
+        Me.chkRememberPW.TabIndex = 11
+        Me.chkRememberPW.Text = "Remember PW"
+        Me.chkRememberPW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkRememberPW.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkRememberPW.UseVisualStyleBackColor = False
         '
         'lblLoginName
         '
@@ -353,23 +370,6 @@ Partial Class frmLogin
         Me.txtPassword.Text = "Password"
         Me.txtPassword.Value = ""
         '
-        'chkRememberPW
-        '
-        Me.chkRememberPW.AutoSize = True
-        Me.chkRememberPW.BackColor = System.Drawing.Color.Transparent
-        Me.chkRememberPW.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.chkRememberPW.ForeColor = System.Drawing.Color.LightSteelBlue
-        Me.chkRememberPW.LineColor = System.Drawing.Color.Gray
-        Me.chkRememberPW.Location = New System.Drawing.Point(249, 273)
-        Me.chkRememberPW.Name = "chkRememberPW"
-        Me.chkRememberPW.Radius = 10
-        Me.chkRememberPW.Size = New System.Drawing.Size(108, 16)
-        Me.chkRememberPW.TabIndex = 11
-        Me.chkRememberPW.Text = "Remember PW"
-        Me.chkRememberPW.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkRememberPW.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.chkRememberPW.UseVisualStyleBackColor = False
-        '
         'frmLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -384,7 +384,7 @@ Partial Class frmLogin
         Me.Name = "frmLogin"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "1"
+        Me.Text = "Login"
         Me.pnlLogin.ResumeLayout(False)
         Me.pnlLogin.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
