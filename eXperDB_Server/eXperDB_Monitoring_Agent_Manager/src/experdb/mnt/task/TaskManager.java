@@ -77,22 +77,25 @@ public class TaskManager implements Runnable{
 				//Instance 정보 변경 여부를 확인한다.
 				while(true) {
 					try {
-						Thread.sleep( 10 * 1000);
+						Thread.sleep( 1 * 1000);
 						session = sqlSessionFactory.openSession();
 						//Check the new cluster has been added. 
 						try {
-							HashMap<String, Object> checkReset = session.selectOne("system.TB_CHECK_SCALING_001");
-							if (checkReset != null){
-								int nCheckReset = Integer.parseInt(checkReset.get("need_apply").toString());
-								if (nCheckReset > 0)
-									log.info("The collector's status is not valid. now resetting the collector");
-									if (perform("restart") < 0)
-										log.info("Failed to reset the collector!");	
-									else
-										log.info("The collector reseting  complete!");
-									session.update("system.TB_CHECK_SCALING_U001");
-									session.commit();
-							}
+					        for(int i = 0 ; i < 9; i++){
+								HashMap<String, Object> checkReset = session.selectOne("system.TB_CHECK_SCALING_001");
+								if (checkReset != null){
+									int nCheckReset = Integer.parseInt(checkReset.get("need_apply").toString());
+									if (nCheckReset > 0)
+										log.info("The collector's status is not valid. now resetting the collector");
+										if (perform("restart") < 0)
+											log.info("Failed to reset the collector!");	
+										else
+											log.info("The collector reseting  complete!");
+										session.update("system.TB_CHECK_SCALING_U001");
+										session.commit();
+								}
+								Thread.sleep(1000);
+					        }	
 						} catch (Exception e) {
 							log.error("", e);
 							session.rollback();
