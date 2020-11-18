@@ -84,7 +84,7 @@ Partial Class frmPrint
         Me.WebBrowser1.Name = "WebBrowser1"
         Me.WebBrowser1.Size = New System.Drawing.Size(722, 578)
         Me.WebBrowser1.TabIndex = 4
-        Me.WebBrowser1.Url = New System.Uri("http://www.k4m.com", System.UriKind.Absolute)
+        Me.WebBrowser1.Url = New System.Uri("http://www.experdb.com", System.UriKind.Absolute)
         '
         'frmPrint
         '

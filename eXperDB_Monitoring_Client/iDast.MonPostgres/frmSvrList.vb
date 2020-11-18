@@ -718,17 +718,17 @@
                 ' 그룹이 선택되어 있을 경우 
                 Dim intInstanceID As Integer = tmpRow.Tag
                 arrInstanceIDs.Add(intInstanceID)
-                Dim strIP As String = tmpRow.Cells(colMonIP.Index).Value
-                Dim intPort As Integer = tmpRow.Cells(colMonPort.Index).Value
-                Dim strID As String = tmpRow.Cells(colMonUser.Index).Value
-                Dim strDBNm As String = tmpRow.Cells(colMonDBNm.Index).Value
-                Dim strAliasNm As String = tmpRow.Cells(colMonAliasNm.Index).Value
-                Dim strHostNm As String = tmpRow.Cells(colMonHostNm.Index).Value
-                Dim stTime As DateTime = tmpRow.Cells(colMonStartTime.Index).Value
-                Dim strHARole As String = tmpRow.Cells(colMonHARole.Index).Value
-                Dim strHAHost As String = tmpRow.Cells(colMonHAHost.Index).Value
-                Dim intHAPort As Integer = tmpRow.Cells(colMonHAPort.Index).Value
-                Dim strPGV As String = tmpRow.Cells(colMonPGV.Index).Value
+                Dim strIP As String = IIf(IsDBNull(tmpRow.Cells(colMonIP.Index).Value), "", tmpRow.Cells(colMonIP.Index).Value)
+                Dim intPort As Integer = IIf(IsDBNull(tmpRow.Cells(colMonPort.Index).Value), 0, tmpRow.Cells(colMonPort.Index).Value)
+                Dim strID As String = IIf(IsDBNull(tmpRow.Cells(colMonUser.Index).Value), "", tmpRow.Cells(colMonUser.Index).Value)
+                Dim strDBNm As String = IIf(IsDBNull(tmpRow.Cells(colMonDBNm.Index).Value), "", tmpRow.Cells(colMonDBNm.Index).Value)
+                Dim strAliasNm As String = IIf(IsDBNull(tmpRow.Cells(colMonAliasNm.Index).Value), "", tmpRow.Cells(colMonAliasNm.Index).Value)
+                Dim strHostNm As String = IIf(IsDBNull(tmpRow.Cells(colMonHostNm.Index).Value), "", tmpRow.Cells(colMonHostNm.Index).Value)
+                Dim stTime As DateTime = IIf(IsDBNull(tmpRow.Cells(colMonStartTime.Index).Value), Now, tmpRow.Cells(colMonStartTime.Index).Value)
+                Dim strHARole As String = IIf(IsDBNull(tmpRow.Cells(colMonHARole.Index).Value), "", tmpRow.Cells(colMonHARole.Index).Value)
+                Dim strHAHost As String = IIf(IsDBNull(tmpRow.Cells(colMonHAHost.Index).Value), "", tmpRow.Cells(colMonHAHost.Index).Value)
+                Dim intHAPort As Integer = IIf(IsDBNull(tmpRow.Cells(colMonHAPort.Index).Value), "", tmpRow.Cells(colMonHAPort.Index).Value)
+                Dim strPGV As String = IIf(IsDBNull(tmpRow.Cells(colMonPGV.Index).Value), "", tmpRow.Cells(colMonPGV.Index).Value)
                 intHAGroup = tmpRow.Cells(colMonHAGroup.Index).Value
                 If intHAGroup <> intHAGroupSave Then
                     intHAGroupIndex += 1
