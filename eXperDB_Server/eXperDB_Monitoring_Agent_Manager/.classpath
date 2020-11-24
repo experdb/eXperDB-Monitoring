@@ -10,5 +10,9 @@
 	<classpathentry kind="lib" path="lib/mybatis-3.2.5.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
 	<classpathentry kind="lib" path="lib/postgresql-42.2.2.jre7.jar"/>
+	<classpathentry kind="lib" path="D:/01.Project/K4M/DX-Monitoring/eXper-Monitoring/experdbmon_for_github/eXperDB_Server/eXperDB_Monitoring_Agent_Manager/lib/quartz-2.3.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="D:/01.Project/K4M/DX-Monitoring/eXper-Monitoring/experdbmon_for_github/eXperDB_Server/eXperDB_Monitoring_Agent_Manager/lib/quartz-jobs-2.3.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="D:/01.Project/K4M/DX-Monitoring/eXper-Monitoring/experdbmon_for_github/eXperDB_Server/eXperDB_Monitoring_Agent_Manager/lib/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="D:/01.Project/K4M/DX-Monitoring/eXper-Monitoring/experdbmon_for_github/eXperDB_Server/eXperDB_Monitoring_Agent_Manager/lib/slf4j-log4j12-1.7.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
