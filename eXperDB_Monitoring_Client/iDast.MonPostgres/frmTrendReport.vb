@@ -67,6 +67,8 @@ Public Class frmTrendReport
     Private _chartNumber As Integer = 0
     Private _rowNumber As Integer = 0
 
+    Private Const _preMakeReportRows = 10000
+
     Public Class CellInfo
         Public Sub New(ByVal queryID As String, ByVal linkAddress As String)
             _queryID = queryID
@@ -290,8 +292,8 @@ Public Class frmTrendReport
             Next
 
             _dtTrendTable = _clsQuery.selectTrendReport(_instanceID, _startDt, _endDt, _isHour, _arrItems)
-            _dtTrendStmtStatTable = _clsQuery.selectTrendReportStmtStat(1, _startDt, _endDt, 321)
-            _dtTrendLockTable = _clsQuery.selectTrendReportLock(1, _startDt, _endDt, 320)
+            _dtTrendStmtStatTable = _clsQuery.selectTrendReportStmtStat(_instanceID, _startDt, _endDt, 321)
+            _dtTrendLockTable = _clsQuery.selectTrendReportLock(_instanceID, _startDt, _endDt, 320)
             'If _dtTrendTable Is Nothing Or _dtTrendTable.Rows.Count = 0 Then
             '    Return
             'End If
@@ -579,6 +581,11 @@ Public Class frmTrendReport
 
             cell = GetCell(sheet.GetRow(rowIndex + 1), 0)
             cell.SetCellValue("MAX")
+            If (trendType = 311 Or trendType = 312 Or trendType = 313) Then
+                cell.SetCellValue("MIN")
+            Else
+                cell.SetCellValue("MAX")
+            End If
             cell.CellStyle = _defaultStyle
 
             cell = GetCell(sheet.GetRow(rowIndex + 2), 0)
@@ -604,12 +611,12 @@ Public Class frmTrendReport
         rowIndex += 1
     End Function
 
-    Private Function DrawChartFromData(ByRef sheetReport As ISheet, ByRef sheetData As ISheet, ByVal title As String, ByVal colCount As Integer, ByVal charIndex As Integer) As Boolean
+    Private Function DrawChartFromData(ByRef sheetReport As ISheet, ByRef sheetData As ISheet, ByVal title As String, ByVal colCount As Integer, ByVal charIndex As Integer, ByVal trendType As Integer) As Boolean
         Try
             Dim drawing As IDrawing = sheetReport.CreateDrawingPatriarch()
             Dim chartTop As Integer = _rowNumber
             Dim anchor1 As IClientAnchor = drawing.CreateAnchor(0, 0, 0, 0, 0, chartTop, 13, chartTop + _chartHeight)
-            CreateChart(drawing, sheetReport, sheetData, anchor1, "MAX", "AVG", charIndex * 3, charIndex * 3, 1, colCount)
+            CreateChart(drawing, sheetReport, sheetData, anchor1, IIf((trendType = 311 Or trendType = 312 Or trendType = 313), "MIN", "MAX"), "AVG", charIndex * 3, charIndex * 3, 1, colCount)
             _rowNumber += _chartHeight
             Return True
         Catch ex As Exception
@@ -991,7 +998,7 @@ Public Class frmTrendReport
             sheetR.PrintSetup.PaperSize = PaperSize.A4
 
             reportRows += _arrItems.Count * (_chartHeight + 2)
-            MakeRows(sheetR, 500) 'ReportSheet
+            MakeRows(sheetR, _preMakeReportRows) 'ReportSheet
 
             If WriteSubject(sheetR, _cluster, _startDt.ToString("yyyy-MM-dd HH"), _endDt.ToString("yyyy-MM-dd HH")) = False Then
                 Return False
@@ -1016,7 +1023,7 @@ Public Class frmTrendReport
                     _rowNumber += 1
 
                     If WriteTrendData(sheetD, dtView, i, _arrItems(i)) = True Then
-                        DrawChartFromData(sheetR, sheetD, title, dtView.Count, i)
+                        DrawChartFromData(sheetR, sheetD, title, dtView.Count, i, _arrItems(i))
                     End If
                 Next
                 _rowNumber += 1

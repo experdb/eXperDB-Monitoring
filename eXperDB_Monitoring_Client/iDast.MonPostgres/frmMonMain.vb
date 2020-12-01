@@ -4519,8 +4519,8 @@
         'mnuSnapshotR.Text = p_clsMsgData.fn_GetData("M047")
         'mnuTrendR.Text = p_clsMsgData.fn_GetData("F952")
         ps.X -= mnuReports.Width
-        mnuReport.Items(0).Visible = False
-        mnuReport.Items(1).Visible = False
+        'mnuReport.Items(0).Visible = False
+        'mnuReport.Items(1).Visible = False
         mnuReport.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
         mnuReport.Tag = lblTemp.Parent
     End Sub
@@ -5291,6 +5291,7 @@
         mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
         mnuPreferences.Text = p_clsMsgData.fn_GetData("F952")
         mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
+        mnuManual.Text = p_clsMsgData.fn_GetData("F975")
         ps.X -= mnuMenu.Width
         If p_cSession.isAdmin = False Then
             mnuMenu.Items(2).Visible = False
@@ -5461,7 +5462,7 @@
         End If
     End Sub
 #Region "menu"
-    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click, mnuManual.Click
         Dim BretFrm As Form = Nothing
         Dim stDt As DateTime = Now.AddMinutes(-10)
         Dim edDt As DateTime = Now
@@ -5476,6 +5477,13 @@
             If CheckPassword() = False Then Return
             Dim Preferences As New frmPreferences(AgentCn)
             Preferences.ShowDialog()
+        ElseIf sender.Name = "mnuManual" Then
+            Try
+                Process.Start(Application.StartupPath & "\Doc\eXperDB.Monitoring_Manual.pdf")
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                MsgBox(p_clsMsgData.fn_GetData("M023"))
+            End Try
         Else
             Dim version As New frmVersion(AgentCn)
             version.ShowDialog()

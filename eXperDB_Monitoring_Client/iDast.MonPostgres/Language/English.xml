@@ -3726,6 +3726,10 @@
     <DESC>Report</DESC>
     <DATA><![CDATA[No data found in period]]></DATA>
   </ROW>
+  <ROW ID="M108" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[File not found]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
@@ -4127,6 +4131,11 @@
   <ROW ID="F974" PARAMS="0">
     <DESC>Report Config</DESC>
     <DATA><![CDATA[Trend Keep day]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F975" PARAMS="0">
+    <DESC>User Guide</DESC>
+    <DATA><![CDATA[User Guide]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

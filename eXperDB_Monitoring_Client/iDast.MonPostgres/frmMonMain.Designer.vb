@@ -421,6 +421,7 @@ Partial Class frmMonMain
         Me.mnuUserConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuVersion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuManual = New System.Windows.Forms.ToolStripMenuItem()
         Me.haStatusLst = New System.Windows.Forms.ImageList(Me.components)
         Me.CPUImgLst = New System.Windows.Forms.ImageList(Me.components)
         Me.mnuBackendColumns = New eXperDB.BaseControls.ContextMenuStrip()
@@ -5892,7 +5893,7 @@ Partial Class frmMonMain
         'mnuMenu
         '
         Me.mnuMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLogout, Me.mnuUserConfig, Me.mnuPreferences, Me.mnuVersion})
+        Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLogout, Me.mnuUserConfig, Me.mnuPreferences, Me.mnuVersion, Me.mnuManual})
         Me.mnuMenu.Name = "mnuPopup"
         Me.mnuMenu.Size = New System.Drawing.Size(142, 108)
         '
@@ -5924,6 +5925,13 @@ Partial Class frmMonMain
         Me.mnuVersion.Name = "mnuVersion"
         Me.mnuVersion.Size = New System.Drawing.Size(141, 26)
         Me.mnuVersion.Text = "Version"
+        '
+        'mnuManual
+        '
+        Me.mnuManual.Image = CType(resources.GetObject("mnuVersion.Image"), System.Drawing.Image)
+        Me.mnuManual.Name = "mnuManual"
+        Me.mnuManual.Size = New System.Drawing.Size(141, 26)
+        Me.mnuManual.Text = "Manual"
         '
         'haStatusLst
         '
@@ -6413,6 +6421,7 @@ Partial Class frmMonMain
     Friend WithEvents mnuUserConfig As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuPreferences As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuVersion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuManual As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents pnlRBMem As eXperDB.BaseControls.Panel
     Friend WithEvents rbMEMRadar As eXperDB.BaseControls.RadioButton
     Friend WithEvents rbMEMBar As eXperDB.BaseControls.RadioButton

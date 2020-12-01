@@ -4763,7 +4763,8 @@ GROUP BY HA_GROUP
 	</select>
 	<update id="TB_SNAPSHOT_INFO_U001" parameterType="hashmap" >
 		<![CDATA[
-		SELECT snapshot(CAST(#{instance_id} AS VARCHAR));
+		SELECT /* TB_SNAPSHOT_INFO_U001 24E9AB7301FF1966DA4FB30DC1538882*/
+		 		snapshot(CAST(#{instance_id} AS VARCHAR));
 		]]>
 	</update>
 	

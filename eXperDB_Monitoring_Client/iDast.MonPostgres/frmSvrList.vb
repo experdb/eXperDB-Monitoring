@@ -986,6 +986,7 @@
         mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
         mnuPreferences.Text = p_clsMsgData.fn_GetData("F952")
         mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
+        mnuManual.Text = p_clsMsgData.fn_GetData("F975")
         ps.X -= mnuMenu.Width
         If p_cSession.isAdmin = False Then
             mnuMenu.Items(2).Visible = False
@@ -1185,7 +1186,7 @@
 #End Region
 
 #Region "menu"
-    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click, mnuManual.Click
         Dim BretFrm As Form = Nothing
         Dim stDt As DateTime = Now.AddMinutes(-10)
         Dim edDt As DateTime = Now
@@ -1201,6 +1202,13 @@
             If CheckPassword() = False Then Return
             Dim Preferences As New frmPreferences(_odbcConn)
             Preferences.ShowDialog()
+        ElseIf sender.Name = "mnuManual" Then
+            Try
+                Process.Start(Application.StartupPath & "\Doc\eXperDB.Monitoring_Manual.pdf")
+            Catch ex As Exception
+                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                MsgBox(p_clsMsgData.fn_GetData("M023"))
+            End Try
         Else
             Dim version As New frmVersion(_odbcConn)
             version.ShowDialog()

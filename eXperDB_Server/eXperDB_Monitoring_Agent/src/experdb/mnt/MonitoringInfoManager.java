@@ -141,7 +141,7 @@ public class MonitoringInfoManager {
 					//session.selectList("app.SEQ_SETVAL_STMT");
 					/*add to create fdw and temp table by robin 201902 end*/
 					/*add to create snapshot by robin 202007 start*/
-					//session.update("app.TB_SNAPSHOT_INFO_C001", map); //temporal out for ssg patching
+					session.update("app.TB_SNAPSHOT_INFO_C001", map);
 					/*add to create snapshot by robin 202007 end*/
 					
 					
