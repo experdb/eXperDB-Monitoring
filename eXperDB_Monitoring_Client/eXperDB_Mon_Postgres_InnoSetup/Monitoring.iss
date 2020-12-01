@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "eXperDB Monitoring"
-#define MyAppVersion "11.5.5.347"
-#define MyAppVersionDir "11_5_5_347"
+#define MyAppVersion "11.7.1.412"
+#define MyAppVersionDir "11_7_1_412"
 #define MyAppPublisher "Inzent"
 #define MyAppURL "http://www.inzent.com.com"
 #define MyAppExeName "eXperDB.Monitoring.exe"
@@ -76,6 +76,9 @@ Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\stage\ODBC Drivers\Postgre
 
 ;Framework 
 Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\stage\Framework\dotNetFx45_Full_x86_X64.exe"; DestDir: "{tmp}"; Check : not IsRequiredDotNetDetected; 
+
+; Manual
+Source: "{#SourcePath}\eXperDB_Mon_Postgres_InnoSetup\{#MyPgName}_Manual.pdf"; DestDir: "{app}\Doc"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -162,11 +165,48 @@ begin
     result := IsDotNetDetected('v4\Full', 0);
 end;
 
+function IsAppRunning(const FileName: string): Boolean;
+var
+  FWMIService: Variant;
+  FSWbemLocator: Variant;
+  FWbemObjectSet: Variant;
+begin
+  Result := false;
+  FSWbemLocator := CreateOleObject('WBEMScripting.SWBEMLocator');
+  FWMIService := FSWbemLocator.ConnectServer('', 'root\CIMV2', '', '');
+  FWbemObjectSet := FWMIService.ExecQuery(Format('SELECT Name FROM Win32_Process Where Name="%s"',[FileName]));
+  Result := (FWbemObjectSet.Count > 0);
+  FWbemObjectSet := Unassigned;
+  FWMIService := Unassigned;
+  FSWbemLocator := Unassigned;
+end;
+
 function InitializeSetup(): Boolean;
 begin
     if not IsDotNetDetected('v4.5', 0) then begin
-        MsgBox('{#MyAppName} 은 Mivrosoft .NET Framework 4.5 Client Profile의 설치를 필요합니다.'#13#13'본 프로그램은 Microsoft .NET Framework 4.5 Client Profile의 설치를 포함하고 있습니다', mbInformation, MB_OK);        
+        MsgBox('{#MyAppName} 은 Microsoft .NET Framework 4.5 Client Profile의 설치를 필요합니다.'#13#13'본 프로그램은 Microsoft .NET Framework 4.5 Client Profile의 설치를 포함하고 있습니다', mbInformation, MB_OK);        
     end;
-    
-    result := true;
+
+    Result := not IsAppRunning('{#MyPgName}.exe');
+    if not Result then
+      begin
+        //MsgBox('{#MyPgName}.exe is running. Please close the application before running the installer ', mbError, MB_OK);
+        MsgBox('{#MyPgName}.exe 가 구동 중입니다. {#MyPgName}.exe를 먼저 종료하십시오 ', mbError, MB_OK);
+        result := false;
+      end
+    else
+      result := true;
 end; 
+
+function InitializeUninstall(): Boolean;
+begin
+    Result := not IsAppRunning('{#MyPgName}.exe');
+    if not Result then
+      begin
+        //MsgBox('{#MyPgName}.exe is running. Please close the application before running the uninstaller ', mbError, MB_OK);
+        MsgBox('{#MyPgName}.exe 가 구동 중입니다. {#MyPgName}.exe를 먼저 종료하십시오 ', mbError, MB_OK);
+        result := false;
+      end
+    else
+      result := true;
+end;

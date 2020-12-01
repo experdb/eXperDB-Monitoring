@@ -377,10 +377,22 @@
         _snapshotTo = txtSnapTo.Tag
         _baseline = txtSnapFrom.Tag
 
+        If _snapshotFrom > _snapshotTo Then
+            Dim swap = _snapshotFrom
+            _snapshotFrom = _snapshotTo
+            _snapshotTo = swap
+        End If
+
         'Compare
         _snapshotComFrom = txtComSnapFrom.Tag
         _snapshotComTo = txtComSnapTo.Tag
         _baselineCom = txtComSnapFrom.Tag
+
+        If _snapshotComFrom > _snapshotComTo Then
+            Dim swap = _snapshotComFrom
+            _snapshotComFrom = _snapshotComTo
+            _snapshotComTo = swap
+        End If
 
         If chkCompare.Checked Then
             If radReportType1.Checked = True And radComReportType1.Checked = True Then

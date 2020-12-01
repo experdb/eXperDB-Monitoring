@@ -3109,4 +3109,35 @@ Public Class frmMonDetail
             End If
         End If
     End Sub
+
+    ' add scroll bar whenever the mouse over the grid
+    Private Sub dgvResUtilPerBackProc_MouseEnter(sender As Object, e As EventArgs) Handles dgvResUtilPerBackProc.MouseEnter
+        dgvResUtilPerBackProc.ScrollBars = ScrollBars.Vertical
+        dgvResUtilPerBackProc.Invalidate()
+    End Sub
+
+    Private Sub dgvResUtilPerBackProc_MouseLeave(sender As Object, e As EventArgs) Handles dgvResUtilPerBackProc.MouseLeave
+        dgvResUtilPerBackProc.ScrollBars = ScrollBars.None
+        dgvResUtilPerBackProc.Invalidate()
+    End Sub
+
+    Private Sub dgvStmtList_MouseEnter(sender As Object, e As EventArgs) Handles dgvStmtList.MouseEnter
+        dgvStmtList.ScrollBars = ScrollBars.Vertical
+        dgvStmtList.Invalidate()
+    End Sub
+
+    Private Sub dgvStmtList_MouseLeave(sender As Object, e As EventArgs) Handles dgvStmtList.MouseLeave
+        dgvStmtList.ScrollBars = ScrollBars.None
+        dgvStmtList.Invalidate()
+    End Sub
+
+    Private Sub dgvLock_MouseEnter(sender As Object, e As EventArgs) Handles dgvLock.MouseEnter
+        dgvLock.ScrollBars = ScrollBars.Vertical
+        dgvLock.Invalidate()
+    End Sub
+
+    Private Sub dgvLock_MouseLeave(sender As Object, e As EventArgs) Handles dgvLock.MouseLeave
+        dgvLock.ScrollBars = ScrollBars.None
+        dgvLock.Invalidate()
+    End Sub
 End Class

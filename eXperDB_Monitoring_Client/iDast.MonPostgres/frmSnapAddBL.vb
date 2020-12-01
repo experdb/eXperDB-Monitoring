@@ -14,6 +14,8 @@
         initForm()
         _clsQuery = clsQuery
         _instanceID = instanceID
+        'dtpKeepTime.Value = Now.AddDays(7)
+        nudKeepTime.Value = 7
     End Sub
 
     Public Sub New(ByRef clsQuery As clsQuerys, ByVal instanceID As Integer, ByRef baselineName As String, _
@@ -35,7 +37,8 @@
         txtSnapTo.Text = snapshotEndTime
         txtSnapTo.Tag = snapshotEnd
         txtBaselineName.Enabled = False
-        dtpKeepTime.Value = keepUntilTime
+        'dtpKeepTime.Value = keepUntilTime
+        nudKeepTime.Value = DateDiff(DateInterval.Day, Now, keepUntilTime) + 1
         btnFrom.Enabled = False
         btnTo.Enabled = False
     End Sub
@@ -137,6 +140,7 @@
         rtnBaselineName = txtBaselineName.Text
         rtnBaselineFrom = txtSnapFrom.Tag
         rtnBaselineTo = txtSnapTo.Tag
-        rtnKeepUntilTime = IIf(DateDiff(DateInterval.Day, Date.Today, dtpKeepTime.Value) < 0, 0, DateDiff(DateInterval.Day, Date.Today, dtpKeepTime.Value))
+        'rtnKeepUntilTime = IIf(DateDiff(DateInterval.Day, Date.Today, dtpKeepTime.Value) < 0, 0, DateDiff(DateInterval.Day, Date.Today, dtpKeepTime.Value))
+        rtnKeepUntilTime = nudKeepTime.Value
     End Sub
 End Class

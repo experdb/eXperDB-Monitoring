@@ -3736,6 +3736,10 @@
     <DESC>Report</DESC>
     <DATA><![CDATA[기간내의 수집된 데이터가 없습니다.]]></DATA>
   </ROW>
+  <ROW ID="M108" PARAMS="0">
+    <DESC>Report</DESC>
+    <DATA><![CDATA[파일을 찾을 수 없습니다.]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[파일건수]]></DATA>
@@ -4129,6 +4133,11 @@
   <ROW ID="F974" PARAMS="0">
     <DESC>Report Config</DESC>
     <DATA><![CDATA[트렌드저장주기(일)]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F975" PARAMS="0">
+    <DESC>User Guide</DESC>
+    <DATA><![CDATA[사용자 가이드]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

@@ -28,14 +28,14 @@ Partial Class frmSnapshot
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim Edges2 As eXperDB.BaseControls.GroupBox.Edges = New eXperDB.BaseControls.GroupBox.Edges()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TitleLabel = New System.Windows.Forms.Label()
@@ -43,14 +43,6 @@ Partial Class frmSnapshot
         Me.GroupBox2 = New eXperDB.BaseControls.GroupBox()
         Me.tlpBaseline = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvBaselineList = New eXperDB.BaseControls.DataGridView()
-        Me.colDGVBLBaseline = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDGVBLMinSnap = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDGVBLFrom = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDGVBLMaxSnap = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDGVBLTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDGVBLKeepTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDGVBLEdit = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.colDGVBLDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.tlpBaselineHead = New System.Windows.Forms.TableLayoutPanel()
         Me.btnAddBaseline = New eXperDB.BaseControls.Button()
         Me.lblBaselineIcon = New System.Windows.Forms.Label()
@@ -58,6 +50,8 @@ Partial Class frmSnapshot
         Me.GroupBox1 = New eXperDB.BaseControls.GroupBox()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvSnapshotList = New eXperDB.BaseControls.DataGridView()
+        Me.colDgvSnapshotListSnapshotQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvSnapshotListTimeQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnSnapshot = New eXperDB.BaseControls.Button()
         Me.lblSnapshotIcon = New System.Windows.Forms.Label()
@@ -68,8 +62,14 @@ Partial Class frmSnapshot
         Me.tlpSnapShot = New eXperDB.BaseControls.TableLayoutPanel()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
         Me.bgmanual = New System.ComponentModel.BackgroundWorker()
-        Me.colDgvSnapshotListSnapshotQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvSnapshotListTimeQ = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLBaseline = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLMinSnap = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLFrom = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLMaxSnap = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLKeepTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDGVBLEdit = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.colDGVBLDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.tlpSnapshot2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -243,80 +243,6 @@ Partial Class frmSnapshot
         Me.dgvBaselineList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvBaselineList.UseTagValueMatchColor = False
         '
-        'colDGVBLBaseline
-        '
-        Me.colDGVBLBaseline.DataPropertyName = "BASELINE"
-        Me.colDGVBLBaseline.Frozen = True
-        Me.colDGVBLBaseline.HeaderText = "Baseline"
-        Me.colDGVBLBaseline.Name = "colDGVBLBaseline"
-        Me.colDGVBLBaseline.ReadOnly = True
-        Me.colDGVBLBaseline.Width = 70
-        '
-        'colDGVBLMinSnap
-        '
-        Me.colDGVBLMinSnap.DataPropertyName = "MIN_SNAP"
-        Me.colDGVBLMinSnap.HeaderText = "Min_snap"
-        Me.colDGVBLMinSnap.Name = "colDGVBLMinSnap"
-        Me.colDGVBLMinSnap.ReadOnly = True
-        Me.colDGVBLMinSnap.Width = 65
-        '
-        'colDGVBLFrom
-        '
-        Me.colDGVBLFrom.DataPropertyName = "MIN_SNAP_TIME"
-        DataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.colDGVBLFrom.DefaultCellStyle = DataGridViewCellStyle2
-        Me.colDGVBLFrom.HeaderText = "From"
-        Me.colDGVBLFrom.Name = "colDGVBLFrom"
-        Me.colDGVBLFrom.ReadOnly = True
-        Me.colDGVBLFrom.Width = 115
-        '
-        'colDGVBLMaxSnap
-        '
-        Me.colDGVBLMaxSnap.DataPropertyName = "MAX_SNAP"
-        Me.colDGVBLMaxSnap.HeaderText = "Max_snap"
-        Me.colDGVBLMaxSnap.Name = "colDGVBLMaxSnap"
-        Me.colDGVBLMaxSnap.ReadOnly = True
-        Me.colDGVBLMaxSnap.Width = 65
-        '
-        'colDGVBLTo
-        '
-        Me.colDGVBLTo.DataPropertyName = "MAX_SNAP_TIME"
-        DataGridViewCellStyle3.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.colDGVBLTo.DefaultCellStyle = DataGridViewCellStyle3
-        Me.colDGVBLTo.HeaderText = "To"
-        Me.colDGVBLTo.Name = "colDGVBLTo"
-        Me.colDGVBLTo.ReadOnly = True
-        Me.colDGVBLTo.Width = 115
-        '
-        'colDGVBLKeepTime
-        '
-        Me.colDGVBLKeepTime.DataPropertyName = "KEEP_UNTIL_TIME"
-        DataGridViewCellStyle4.Format = "yyyy-MM-dd HH:mm:ss"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.colDGVBLKeepTime.DefaultCellStyle = DataGridViewCellStyle4
-        Me.colDGVBLKeepTime.HeaderText = "KeepUntilTime"
-        Me.colDGVBLKeepTime.Name = "colDGVBLKeepTime"
-        Me.colDGVBLKeepTime.ReadOnly = True
-        Me.colDGVBLKeepTime.Width = 115
-        '
-        'colDGVBLEdit
-        '
-        Me.colDGVBLEdit.HeaderText = ""
-        Me.colDGVBLEdit.Image = CType(resources.GetObject("colDGVBLEdit.Image"), System.Drawing.Image)
-        Me.colDGVBLEdit.Name = "colDGVBLEdit"
-        Me.colDGVBLEdit.ReadOnly = True
-        Me.colDGVBLEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.colDGVBLEdit.Width = 30
-        '
-        'colDGVBLDelete
-        '
-        Me.colDGVBLDelete.HeaderText = ""
-        Me.colDGVBLDelete.Image = CType(resources.GetObject("colDGVBLDelete.Image"), System.Drawing.Image)
-        Me.colDGVBLDelete.Name = "colDGVBLDelete"
-        Me.colDGVBLDelete.ReadOnly = True
-        Me.colDGVBLDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.colDGVBLDelete.Width = 30
-        '
         'tlpBaselineHead
         '
         Me.tlpBaselineHead.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
@@ -476,6 +402,25 @@ Partial Class frmSnapshot
         Me.dgvSnapshotList.TagValueMatchColor = System.Drawing.Color.Black
         Me.dgvSnapshotList.UseTagValueMatchColor = False
         '
+        'colDgvSnapshotListSnapshotQ
+        '
+        Me.colDgvSnapshotListSnapshotQ.DataPropertyName = "SNAPSHOT"
+        Me.colDgvSnapshotListSnapshotQ.HeaderText = "Snapshot"
+        Me.colDgvSnapshotListSnapshotQ.Name = "colDgvSnapshotListSnapshotQ"
+        Me.colDgvSnapshotListSnapshotQ.ReadOnly = True
+        Me.colDgvSnapshotListSnapshotQ.Width = 70
+        '
+        'colDgvSnapshotListTimeQ
+        '
+        Me.colDgvSnapshotListTimeQ.DataPropertyName = "DATE_TIME"
+        DataGridViewCellStyle8.Format = "yyyy-MM-dd HH:mm:ss"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.colDgvSnapshotListTimeQ.DefaultCellStyle = DataGridViewCellStyle8
+        Me.colDgvSnapshotListTimeQ.HeaderText = "SnapshotTime"
+        Me.colDgvSnapshotListTimeQ.Name = "colDgvSnapshotListTimeQ"
+        Me.colDgvSnapshotListTimeQ.ReadOnly = True
+        Me.colDgvSnapshotListTimeQ.Width = 130
+        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
@@ -614,24 +559,79 @@ Partial Class frmSnapshot
         Me.bgmanual.WorkerReportsProgress = True
         Me.bgmanual.WorkerSupportsCancellation = True
         '
-        'colDgvSnapshotListSnapshotQ
+        'colDGVBLBaseline
         '
-        Me.colDgvSnapshotListSnapshotQ.DataPropertyName = "SNAPSHOT"
-        Me.colDgvSnapshotListSnapshotQ.HeaderText = "Snapshot"
-        Me.colDgvSnapshotListSnapshotQ.Name = "colDgvSnapshotListSnapshotQ"
-        Me.colDgvSnapshotListSnapshotQ.ReadOnly = True
-        Me.colDgvSnapshotListSnapshotQ.Width = 70
+        Me.colDGVBLBaseline.DataPropertyName = "BASELINE"
+        Me.colDGVBLBaseline.Frozen = True
+        Me.colDGVBLBaseline.HeaderText = "Baseline"
+        Me.colDGVBLBaseline.Name = "colDGVBLBaseline"
+        Me.colDGVBLBaseline.ReadOnly = True
+        Me.colDGVBLBaseline.Width = 70
         '
-        'colDgvSnapshotListTimeQ
+        'colDGVBLMinSnap
         '
-        Me.colDgvSnapshotListTimeQ.DataPropertyName = "DATE_TIME"
-        DataGridViewCellStyle8.Format = "yyyy-MM-dd HH:mm:ss"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.colDgvSnapshotListTimeQ.DefaultCellStyle = DataGridViewCellStyle8
-        Me.colDgvSnapshotListTimeQ.HeaderText = "SnapshotTime"
-        Me.colDgvSnapshotListTimeQ.Name = "colDgvSnapshotListTimeQ"
-        Me.colDgvSnapshotListTimeQ.ReadOnly = True
-        Me.colDgvSnapshotListTimeQ.Width = 130
+        Me.colDGVBLMinSnap.DataPropertyName = "MIN_SNAP"
+        Me.colDGVBLMinSnap.HeaderText = "Min_snap"
+        Me.colDGVBLMinSnap.Name = "colDGVBLMinSnap"
+        Me.colDGVBLMinSnap.ReadOnly = True
+        Me.colDGVBLMinSnap.Width = 65
+        '
+        'colDGVBLFrom
+        '
+        Me.colDGVBLFrom.DataPropertyName = "MIN_SNAP_TIME"
+        DataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.colDGVBLFrom.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colDGVBLFrom.HeaderText = "From"
+        Me.colDGVBLFrom.Name = "colDGVBLFrom"
+        Me.colDGVBLFrom.ReadOnly = True
+        Me.colDGVBLFrom.Width = 115
+        '
+        'colDGVBLMaxSnap
+        '
+        Me.colDGVBLMaxSnap.DataPropertyName = "MAX_SNAP"
+        Me.colDGVBLMaxSnap.HeaderText = "Max_snap"
+        Me.colDGVBLMaxSnap.Name = "colDGVBLMaxSnap"
+        Me.colDGVBLMaxSnap.ReadOnly = True
+        Me.colDGVBLMaxSnap.Width = 65
+        '
+        'colDGVBLTo
+        '
+        Me.colDGVBLTo.DataPropertyName = "MAX_SNAP_TIME"
+        DataGridViewCellStyle3.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.colDGVBLTo.DefaultCellStyle = DataGridViewCellStyle3
+        Me.colDGVBLTo.HeaderText = "To"
+        Me.colDGVBLTo.Name = "colDGVBLTo"
+        Me.colDGVBLTo.ReadOnly = True
+        Me.colDGVBLTo.Width = 115
+        '
+        'colDGVBLKeepTime
+        '
+        Me.colDGVBLKeepTime.DataPropertyName = "KEEP_UNTIL_TIME"
+        DataGridViewCellStyle4.Format = "yyyy-MM-dd"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.colDGVBLKeepTime.DefaultCellStyle = DataGridViewCellStyle4
+        Me.colDGVBLKeepTime.HeaderText = "KeepUntilTime"
+        Me.colDGVBLKeepTime.Name = "colDGVBLKeepTime"
+        Me.colDGVBLKeepTime.ReadOnly = True
+        Me.colDGVBLKeepTime.Width = 115
+        '
+        'colDGVBLEdit
+        '
+        Me.colDGVBLEdit.HeaderText = ""
+        Me.colDGVBLEdit.Image = CType(resources.GetObject("colDGVBLEdit.Image"), System.Drawing.Image)
+        Me.colDGVBLEdit.Name = "colDGVBLEdit"
+        Me.colDGVBLEdit.ReadOnly = True
+        Me.colDGVBLEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.colDGVBLEdit.Width = 30
+        '
+        'colDGVBLDelete
+        '
+        Me.colDGVBLDelete.HeaderText = ""
+        Me.colDGVBLDelete.Image = CType(resources.GetObject("colDGVBLDelete.Image"), System.Drawing.Image)
+        Me.colDGVBLDelete.Name = "colDGVBLDelete"
+        Me.colDGVBLDelete.ReadOnly = True
+        Me.colDGVBLDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.colDGVBLDelete.Width = 30
         '
         'frmSnapshot
         '
@@ -693,6 +693,8 @@ Partial Class frmSnapshot
     Friend WithEvents lblBaseline As System.Windows.Forms.Label
     Friend WithEvents bgmanual As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvBaselineList As eXperDB.BaseControls.DataGridView
+    Friend WithEvents colDgvSnapshotListSnapshotQ As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvSnapshotListTimeQ As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDGVBLBaseline As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDGVBLMinSnap As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDGVBLFrom As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -701,6 +703,4 @@ Partial Class frmSnapshot
     Friend WithEvents colDGVBLKeepTime As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDGVBLEdit As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents colDGVBLDelete As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents colDgvSnapshotListSnapshotQ As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvSnapshotListTimeQ As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
