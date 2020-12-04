@@ -626,6 +626,7 @@
     End Sub
 
     Private Sub cbxCheckTableBloat_CheckedChanged(sender As Object, e As EventArgs) Handles cbxCheckTableBloat.CheckedChanged
+        If dgvTblinfo.DataSource Is Nothing Then Return
         If cbxCheckTableBloat.Checked = True Then
             DirectCast(dgvTblinfo.DataSource, DataView).RowFilter = String.Format("bloat_table = '1'")
         Else
