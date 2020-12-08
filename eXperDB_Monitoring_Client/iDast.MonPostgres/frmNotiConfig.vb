@@ -78,6 +78,14 @@ Public Class frmNotiConfig
             MsgBox(p_clsMsgData.fn_GetData("M001", "Server port"))
             Return
         End If
+
+        Dim intPort As Integer = txtPort.Text
+        If intPort < 1 Or intPort > 65535 Then
+            MsgBox(p_clsMsgData.fn_GetData("M109"))
+            txtPort.Focus()
+            Return
+        End If
+
         If txtDbnm.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", "Server database"))
             Return

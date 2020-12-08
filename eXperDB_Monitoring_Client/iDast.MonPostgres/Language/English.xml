@@ -3730,6 +3730,10 @@
     <DESC>Report</DESC>
     <DATA><![CDATA[File not found]]></DATA>
   </ROW>
+  <ROW ID="M109" PARAMS="0">
+    <DESC>입력체크</DESC>
+    <DATA><![CDATA[Check the input]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>

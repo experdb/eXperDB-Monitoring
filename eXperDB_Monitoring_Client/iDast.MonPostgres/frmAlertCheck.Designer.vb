@@ -153,6 +153,7 @@ Partial Class frmAlertCheck
         Me.txtAlertComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtAlertComment.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtAlertComment.Location = New System.Drawing.Point(103, 72)
+        Me.txtAlertComment.MaxLength = 500
         Me.txtAlertComment.Multiline = True
         Me.txtAlertComment.Name = "txtAlertComment"
         Me.txtAlertComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical

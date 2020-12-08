@@ -35,6 +35,7 @@ Partial Class frmVersion
         Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlB = New System.Windows.Forms.TableLayoutPanel()
         Me.btnClose = New eXperDB.BaseControls.Button()
+        Me.Label3 = New eXperDB.BaseControls.Label()
         Me.tlpSvrChk.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.pnlB.SuspendLayout()
@@ -48,6 +49,7 @@ Partial Class frmVersion
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128.0!))
+        Me.tlpSvrChk.Controls.Add(Me.Label3, 1, 4)
         Me.tlpSvrChk.Controls.Add(Me.btnAct, 3, 2)
         Me.tlpSvrChk.Controls.Add(Me.Label2, 1, 5)
         Me.tlpSvrChk.Controls.Add(Me.lblServerVersionValue, 2, 1)
@@ -65,7 +67,7 @@ Partial Class frmVersion
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(408, 155)
+        Me.tlpSvrChk.Size = New System.Drawing.Size(408, 174)
         Me.tlpSvrChk.TabIndex = 11
         '
         'btnAct
@@ -100,11 +102,11 @@ Partial Class frmVersion
         Me.Label2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.LineSpacing = 0.0!
-        Me.Label2.Location = New System.Drawing.Point(11, 109)
+        Me.Label2.Location = New System.Drawing.Point(11, 128)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(394, 36)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = "Copyright(C) 2011-2019 inzent.com, All rights reserved."
+        Me.Label2.Text = "Copyright(C) 2011-2020 inzent.com, All rights reserved."
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblServerVersionValue
@@ -216,7 +218,7 @@ Partial Class frmVersion
         Me.pnlB.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.pnlB.Controls.Add(Me.btnClose, 1, 0)
         Me.pnlB.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlB.Location = New System.Drawing.Point(3, 202)
+        Me.pnlB.Location = New System.Drawing.Point(3, 221)
         Me.pnlB.Name = "pnlB"
         Me.pnlB.RowCount = 1
         Me.pnlB.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
@@ -245,12 +247,28 @@ Partial Class frmVersion
         Me.btnClose.UseRound = True
         Me.btnClose.UseVisualStyleBackColor = False
         '
+        'Label3
+        '
+        Me.tlpSvrChk.SetColumnSpan(Me.Label3, 3)
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.FixedHeight = False
+        Me.Label3.FixedWidth = False
+        Me.Label3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.LineSpacing = 0.0!
+        Me.Label3.Location = New System.Drawing.Point(11, 102)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(394, 26)
+        Me.Label3.TabIndex = 7
+        Me.Label3.Text = "Hompage : http://www.experdb.com"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frmVersion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(414, 250)
+        Me.ClientSize = New System.Drawing.Size(414, 269)
         Me.Controls.Add(Me.tlpSvrChk)
         Me.Controls.Add(Me.pnlB)
         Me.Controls.Add(Me.TableLayoutPanel2)
@@ -281,4 +299,5 @@ Partial Class frmVersion
     Friend WithEvents lblServerVersionValue As eXperDB.BaseControls.Label
     Friend WithEvents lblClientVersionValue As eXperDB.BaseControls.Label
     Friend WithEvents btnAct As eXperDB.BaseControls.Button
+    Friend WithEvents Label3 As eXperDB.BaseControls.Label
 End Class
