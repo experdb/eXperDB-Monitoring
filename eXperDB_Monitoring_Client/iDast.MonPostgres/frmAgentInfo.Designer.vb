@@ -209,6 +209,7 @@ Partial Class frmAgentInfo
         Me.txtSvrPwd.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrPwd.impossibleinput = ""
         Me.txtSvrPwd.Location = New System.Drawing.Point(148, 171)
+        Me.txtSvrPwd.MaxLength = 50
         Me.txtSvrPwd.Name = "txtSvrPwd"
         Me.txtSvrPwd.Necessary = False
         Me.txtSvrPwd.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -228,6 +229,7 @@ Partial Class frmAgentInfo
         Me.txtSvrPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrPort.impossibleinput = ""
         Me.txtSvrPort.Location = New System.Drawing.Point(148, 66)
+        Me.txtSvrPort.MaxLength = 5
         Me.txtSvrPort.Name = "txtSvrPort"
         Me.txtSvrPort.Necessary = False
         Me.txtSvrPort.PossibleInput = "0123456789"
@@ -246,6 +248,7 @@ Partial Class frmAgentInfo
         Me.txtSvrDBNm.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrDBNm.impossibleinput = ""
         Me.txtSvrDBNm.Location = New System.Drawing.Point(148, 101)
+        Me.txtSvrDBNm.MaxLength = 50
         Me.txtSvrDBNm.Name = "txtSvrDBNm"
         Me.txtSvrDBNm.Necessary = False
         Me.txtSvrDBNm.PossibleInput = ""
@@ -264,6 +267,7 @@ Partial Class frmAgentInfo
         Me.txtSvrUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrUsr.impossibleinput = ""
         Me.txtSvrUsr.Location = New System.Drawing.Point(148, 136)
+        Me.txtSvrUsr.MaxLength = 50
         Me.txtSvrUsr.Name = "txtSvrUsr"
         Me.txtSvrUsr.Necessary = False
         Me.txtSvrUsr.PossibleInput = ""
@@ -282,6 +286,7 @@ Partial Class frmAgentInfo
         Me.txtSvrIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrIP.impossibleinput = ""
         Me.txtSvrIP.Location = New System.Drawing.Point(148, 31)
+        Me.txtSvrIP.MaxLength = 15
         Me.txtSvrIP.Name = "txtSvrIP"
         Me.txtSvrIP.Necessary = False
         Me.txtSvrIP.PossibleInput = ""

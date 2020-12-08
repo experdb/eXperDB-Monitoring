@@ -3740,6 +3740,10 @@
     <DESC>Report</DESC>
     <DATA><![CDATA[파일을 찾을 수 없습니다.]]></DATA>
   </ROW>
+  <ROW ID="M109" PARAMS="0">
+    <DESC>입력체크</DESC>
+    <DATA><![CDATA[입력 범위 오류입니다.]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[파일건수]]></DATA>

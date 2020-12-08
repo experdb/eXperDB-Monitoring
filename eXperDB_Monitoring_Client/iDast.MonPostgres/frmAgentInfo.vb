@@ -106,6 +106,14 @@ Public Class frmAgentInfo
             txtSvrPort.Focus()
             Return False
         End If
+
+        Dim intPort As Integer = txtSvrPort.Text
+        If intPort < 1 Or intPort > 65535 Then
+            MsgBox(p_clsMsgData.fn_GetData("M109"))
+            txtSvrPort.Focus()
+            Return False
+        End If
+
         If txtSvrDBNm.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F010")))
             txtSvrDBNm.Focus()

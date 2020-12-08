@@ -30,6 +30,8 @@ Partial Class frmUser
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.chkLock = New eXperDB.BaseControls.CheckBox()
+        Me.lblLock = New eXperDB.BaseControls.Label()
         Me.btnPassword = New eXperDB.BaseControls.Button()
         Me.rbUseNoti2 = New eXperDB.BaseControls.RadioButton()
         Me.rbUseNoti1 = New eXperDB.BaseControls.RadioButton()
@@ -51,8 +53,6 @@ Partial Class frmUser
         Me.lblUserName = New eXperDB.BaseControls.Label()
         Me.txtUserID = New eXperDB.BaseControls.TextBox()
         Me.txtUserName = New eXperDB.BaseControls.TextBox()
-        Me.lblLock = New eXperDB.BaseControls.Label()
-        Me.chkLock = New eXperDB.BaseControls.CheckBox()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
@@ -210,6 +210,36 @@ Partial Class frmUser
         Me.tlpSvrChk.Size = New System.Drawing.Size(442, 395)
         Me.tlpSvrChk.TabIndex = 20
         '
+        'chkLock
+        '
+        Me.chkLock.AutoSize = True
+        Me.chkLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkLock.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.chkLock.ForeColor = System.Drawing.Color.White
+        Me.chkLock.LineColor = System.Drawing.Color.Gray
+        Me.chkLock.Location = New System.Drawing.Point(163, 343)
+        Me.chkLock.Name = "chkLock"
+        Me.chkLock.Radius = 10
+        Me.chkLock.Size = New System.Drawing.Size(134, 14)
+        Me.chkLock.TabIndex = 24
+        Me.chkLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkLock.UseVisualStyleBackColor = True
+        '
+        'lblLock
+        '
+        Me.lblLock.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblLock.FixedHeight = False
+        Me.lblLock.FixedWidth = False
+        Me.lblLock.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblLock.ForeColor = System.Drawing.Color.White
+        Me.lblLock.LineSpacing = 0.0!
+        Me.lblLock.Location = New System.Drawing.Point(23, 340)
+        Me.lblLock.Name = "lblLock"
+        Me.lblLock.Size = New System.Drawing.Size(134, 20)
+        Me.lblLock.TabIndex = 23
+        Me.lblLock.Text = "M084"
+        Me.lblLock.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'btnPassword
         '
         Me.btnPassword.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
@@ -313,6 +343,8 @@ Partial Class frmUser
         Me.txtPasswordConfirm.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPasswordConfirm.impossibleinput = ""
         Me.txtPasswordConfirm.Location = New System.Drawing.Point(163, 126)
+        Me.txtPasswordConfirm.MaxByteLength = 30
+        Me.txtPasswordConfirm.MaxLength = 30
         Me.txtPasswordConfirm.Name = "txtPasswordConfirm"
         Me.txtPasswordConfirm.Necessary = True
         Me.txtPasswordConfirm.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -332,6 +364,8 @@ Partial Class frmUser
         Me.txtPassword.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPassword.impossibleinput = ""
         Me.txtPassword.Location = New System.Drawing.Point(163, 91)
+        Me.txtPassword.MaxByteLength = 30
+        Me.txtPassword.MaxLength = 30
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.Necessary = True
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -381,7 +415,7 @@ Partial Class frmUser
         Me.txtDept.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtDept.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
         Me.txtDept.Location = New System.Drawing.Point(163, 266)
-        Me.txtDept.MaxByteLength = 100
+        Me.txtDept.MaxLength = 50
         Me.txtDept.Name = "txtDept"
         Me.txtDept.Necessary = False
         Me.txtDept.PossibleInput = ""
@@ -430,6 +464,7 @@ Partial Class frmUser
         Me.txtPhone2.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPhone2.impossibleinput = ""
         Me.txtPhone2.Location = New System.Drawing.Point(163, 196)
+        Me.txtPhone2.MaxLength = 50
         Me.txtPhone2.Name = "txtPhone2"
         Me.txtPhone2.Necessary = False
         Me.txtPhone2.PossibleInput = "0123456789+"
@@ -449,7 +484,7 @@ Partial Class frmUser
         Me.txtEmail.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtEmail.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
         Me.txtEmail.Location = New System.Drawing.Point(163, 231)
-        Me.txtEmail.MaxByteLength = 100
+        Me.txtEmail.MaxLength = 50
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Necessary = False
         Me.txtEmail.PossibleInput = ""
@@ -483,6 +518,7 @@ Partial Class frmUser
         Me.txtPhone.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPhone.impossibleinput = ""
         Me.txtPhone.Location = New System.Drawing.Point(163, 161)
+        Me.txtPhone.MaxLength = 50
         Me.txtPhone.Name = "txtPhone"
         Me.txtPhone.Necessary = False
         Me.txtPhone.PossibleInput = "0123456789+"
@@ -566,6 +602,7 @@ Partial Class frmUser
         Me.txtUserName.impossibleinput = "!@#$%^&*() \/:*?""<>|'`~"
         Me.txtUserName.Location = New System.Drawing.Point(163, 56)
         Me.txtUserName.MaxByteLength = 30
+        Me.txtUserName.MaxLength = 30
         Me.txtUserName.Name = "txtUserName"
         Me.txtUserName.Necessary = True
         Me.txtUserName.PossibleInput = ""
@@ -574,36 +611,6 @@ Partial Class frmUser
         Me.txtUserName.StatusTip = ""
         Me.txtUserName.TabIndex = 1
         Me.txtUserName.Value = ""
-        '
-        'lblLock
-        '
-        Me.lblLock.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblLock.FixedHeight = False
-        Me.lblLock.FixedWidth = False
-        Me.lblLock.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.lblLock.ForeColor = System.Drawing.Color.White
-        Me.lblLock.LineSpacing = 0.0!
-        Me.lblLock.Location = New System.Drawing.Point(23, 340)
-        Me.lblLock.Name = "lblLock"
-        Me.lblLock.Size = New System.Drawing.Size(134, 20)
-        Me.lblLock.TabIndex = 23
-        Me.lblLock.Text = "M084"
-        Me.lblLock.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'chkLock
-        '
-        Me.chkLock.AutoSize = True
-        Me.chkLock.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.chkLock.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.chkLock.ForeColor = System.Drawing.Color.White
-        Me.chkLock.LineColor = System.Drawing.Color.Gray
-        Me.chkLock.Location = New System.Drawing.Point(163, 343)
-        Me.chkLock.Name = "chkLock"
-        Me.chkLock.Radius = 10
-        Me.chkLock.Size = New System.Drawing.Size(134, 14)
-        Me.chkLock.TabIndex = 24
-        Me.chkLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.chkLock.UseVisualStyleBackColor = True
         '
         'frmUser
         '

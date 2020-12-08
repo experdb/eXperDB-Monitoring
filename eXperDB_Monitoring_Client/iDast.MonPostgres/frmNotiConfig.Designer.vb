@@ -264,6 +264,7 @@ Partial Class frmNotiConfig
         Me.txtSender.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSender.impossibleinput = ""
         Me.txtSender.Location = New System.Drawing.Point(136, 26)
+        Me.txtSender.MaxLength = 30
         Me.txtSender.Name = "txtSender"
         Me.txtSender.Necessary = False
         Me.txtSender.PossibleInput = "0123456789."
@@ -352,6 +353,7 @@ Partial Class frmNotiConfig
         Me.RichTextBoxQuery1.HideSelection = False
         Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.Blue
         Me.RichTextBoxQuery1.Location = New System.Drawing.Point(136, 258)
+        Me.RichTextBoxQuery1.MaxLength = 1000
         Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
         Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
         Me.RichTextBoxQuery1.Size = New System.Drawing.Size(324, 84)
@@ -487,6 +489,7 @@ Partial Class frmNotiConfig
         Me.txtDbnm.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtDbnm.impossibleinput = ""
         Me.txtDbnm.Location = New System.Drawing.Point(136, 151)
+        Me.txtDbnm.MaxLength = 50
         Me.txtDbnm.Name = "txtDbnm"
         Me.txtDbnm.Necessary = True
         Me.txtDbnm.PossibleInput = ""
@@ -550,6 +553,7 @@ Partial Class frmNotiConfig
         Me.txtPW.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPW.impossibleinput = ""
         Me.txtPW.Location = New System.Drawing.Point(136, 221)
+        Me.txtPW.MaxLength = 50
         Me.txtPW.Name = "txtPW"
         Me.txtPW.Necessary = True
         Me.txtPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -584,6 +588,7 @@ Partial Class frmNotiConfig
         Me.txtUsr.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtUsr.impossibleinput = ""
         Me.txtUsr.Location = New System.Drawing.Point(136, 186)
+        Me.txtUsr.MaxLength = 50
         Me.txtUsr.Name = "txtUsr"
         Me.txtUsr.Necessary = True
         Me.txtUsr.PossibleInput = ""
@@ -617,6 +622,7 @@ Partial Class frmNotiConfig
         Me.txtIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtIP.impossibleinput = ""
         Me.txtIP.Location = New System.Drawing.Point(136, 81)
+        Me.txtIP.MaxLength = 15
         Me.txtIP.Name = "txtIP"
         Me.txtIP.Necessary = True
         Me.txtIP.PossibleInput = "0123456789."
@@ -635,6 +641,7 @@ Partial Class frmNotiConfig
         Me.txtPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPort.impossibleinput = ""
         Me.txtPort.Location = New System.Drawing.Point(136, 116)
+        Me.txtPort.MaxLength = 5
         Me.txtPort.Name = "txtPort"
         Me.txtPort.Necessary = True
         Me.txtPort.PossibleInput = "0123456789"
