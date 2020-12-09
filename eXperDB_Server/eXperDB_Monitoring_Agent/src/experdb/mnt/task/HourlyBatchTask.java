@@ -180,6 +180,8 @@ public class HourlyBatchTask {
 			checkReturnMap = sessionAgent.selectOne("app.TB_CHECK_PARTITION_R001", checkMap);
 			checkMap.put("tablename", "tb_wal_info");
 			checkReturnMap = sessionAgent.selectOne("app.TB_CHECK_PARTITION_R001", checkMap);
+			checkMap.put("tablename", "tb_query_info");
+			checkReturnMap = sessionAgent.selectOne("app.TB_CHECK_PARTITION_R001", checkMap);
 			isExists = true;
 		} catch (Exception e) {
 			log.error("", e);			
@@ -243,7 +245,8 @@ public class HourlyBatchTask {
 					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
 					partitionTableMap.put("tablename", "tb_wal_info");
 					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
-					
+					partitionTableMap.put("tablename", "tb_query_info");
+					sessionAgent.update("app.PG_MAINTAIN_PARTITIONS_002", partitionTableMap);
 					sessionAgent.commit();
 					isExists = true;
 				} catch (Exception e) {
@@ -277,6 +280,7 @@ public class HourlyBatchTask {
 					sessionAgent.update("app.PG_CONSTRAINT_TB_HCHK_ALERT_INFO_001"   , partitionTableMap);
 					sessionAgent.update("app.PG_CONSTRAINT_TB_PG_STAT_STATEMENTS_001", partitionTableMap);
 					sessionAgent.update("app.PG_CONSTRAINT_TB_WAL_INFO_001"			 , partitionTableMap);
+					sessionAgent.update("app.PG_CONSTRAINT_TB_QUARY_INFO_001"			 , partitionTableMap);
 
 					// Create index of partition tables
 					
