@@ -3315,7 +3315,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			SELECT /* EXPERDBMA_TB_QUERY_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
 					QUERYID 
-			  FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
+			  FROM TB_QUERY_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
 			 ORDER BY STMT_QUERYID ASC LIMIT 1
 		  ]]>	  
 	</select>
@@ -3356,6 +3356,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 			INSERT INTO TB_QUERY_INFO
 			(
+				REG_DATE,
 				INSTANCE_ID,
 				DBID,
 				USERID,
@@ -3364,9 +3365,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				QUERY,
 				COLLECT_DT
 			) 
-		    SELECT #{instance_id}, #{dbid}, #{userid}, #{queryid}, #{stmt_queryid}, #{query}, NOW()
+		    SELECT TO_CHAR(NOW(), 'YYYYMMDD'), #{instance_id}, #{dbid}, #{userid}, #{queryid}, #{stmt_queryid}, #{query}, NOW()
 		    WHERE NOT EXISTS (
-		        SELECT 1 FROM TB_QUERY_INFO WHERE INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
+		        SELECT 1 FROM TB_QUERY_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
 		    );
 	    ]]>
 	</insert>
@@ -4141,6 +4142,35 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			WHEN others THEN
 	    	END;
 		END$$;		
+		]]>			
+</update>
+
+<update id="PG_CONSTRAINT_TB_QUARY_INFO_001" parameterType="hashmap">
+		<![CDATA[
+		DO $$
+		BEGIN
+		    IF NOT EXISTS ( SELECT  constraint_schema
+		                ,       constraint_name 
+		                FROM    information_schema.constraint_column_usage 
+		                WHERE   constraint_schema = current_schema()
+		                  AND   constraint_name = 'pk_query_info${regdate}'
+		              )
+		    THEN
+				ALTER TABLE ONLY tb_query_info${regdate} ADD CONSTRAINT pk_tb_query_info${regdate} PRIMARY KEY (reg_date,instance_id, dbid, userid, queryid);
+		    END IF;
+		EXCEPTION   
+		WHEN others THEN
+			BEGIN
+			    DELETE FROM tb_query_info${regdate};       
+		    EXCEPTION
+				WHEN others THEN  
+		    END;
+			BEGIN
+				ALTER TABLE ONLY tb_query_info${regdate} ADD CONSTRAINT pk_tb_query_info${regdate} PRIMARY KEY (reg_date,instance_id, dbid, userid, queryid);
+			EXCEPTION
+			WHEN others THEN
+	    	END;
+		END$$;	
 		]]>			
 </update>
 

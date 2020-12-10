@@ -463,6 +463,7 @@ create table tb_hchk_alert_info
 ) partition by list (reg_date);
 
 create table tb_query_info (
+  	reg_date character varying(8) not null,
 		instance_id integer not null,
 		dbid int8 not null,
 		userid int8 not null,
@@ -470,7 +471,8 @@ create table tb_query_info (
     stmt_queryid int8,
     query text,
     collect_dt timestamp without time zone
-);
+) partition by list (reg_date);
+
 
 create table tb_pgss_query_info (
     instance_id integer not null,
@@ -755,6 +757,7 @@ create table tb_objt_collect_info_${TODAY} partition of tb_objt_collect_info  fo
 create table tb_rsc_collect_info_${TODAY} partition of tb_rsc_collect_info for values in ('${TODAY}');
 create table tb_table_ext_info_${TODAY} partition of tb_table_ext_info for values in ('${TODAY}');
 create table tb_hchk_alert_info_${TODAY} partition of tb_hchk_alert_info for values in ('${TODAY}');
+create table tb_query_info_${TODAY} partition of tb_query_info for values in ('${TODAY}');
 create table tb_pg_stat_statements_${TODAY} partition of tb_pg_stat_statements for values in ('${TODAY}');
 create table tb_realtime_statements_${CURRHOUR} partition of tb_realtime_statements for values in ('${CURRHOUR}');
 create table tb_realtime_statements_${NEXTHOUR} partition of tb_realtime_statements for values in ('${NEXTHOUR}');
@@ -778,8 +781,8 @@ alter table only tb_objt_collect_info_${TODAY} add constraint pk_tb_objt_collect
 alter table only tb_rsc_collect_info_${TODAY} add constraint pk_tb_rsc_collect_info_${TODAY} primary key (reg_date,rsc_reg_seq);
 alter table only tb_table_ext_info_${TODAY} add constraint pk_tb_table_ext_info_${TODAY} primary key (reg_date,objt_reg_seq,instance_id,relid);
 alter table only tb_hchk_alert_info_${TODAY} add constraint pk_tb_hchk_alert_info_${TODAY} primary key (reg_date,hchk_reg_seq, instance_id, hchk_name);
+alter table only tb_query_info_${TODAY} add constraint pk_tb_query_info_${TODAY} primary key (reg_date,instance_id, dbid, userid, queryid);
 alter table only tb_pg_stat_statements_${TODAY} add constraint pk_tb_pg_stat_statements_${TODAY} primary key (reg_date, collect_dt, instance_id);
-alter table only tb_query_info add constraint pk_query_info primary key (instance_id, dbid, userid, queryid);
 alter table only tb_pgss_query_info add constraint pk_pgss_query_info primary key (instance_id, queryid);
 alter table only tb_sys_log	add constraint pk_batch_log primary key (reg_date,task_cd, start_dt);
 alter table only tb_hchk_thrd_list add constraint pk_hchk_thrd_list primary key (instance_id,hchk_name);
