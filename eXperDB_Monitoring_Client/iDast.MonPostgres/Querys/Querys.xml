@@ -62,7 +62,7 @@
       ]]>
     </DATA>
   </ROW>
-  <ROW ID="SELECTCONFIG_temp_for_ssg" PARAMS="0">
+  <ROW ID="SELECTCONFIG" PARAMS="0">  
     <DESC>Server Batch Log Keep Days</DESC>
     <DATA>
       <![CDATA[
@@ -82,7 +82,7 @@
       ]]>
     </DATA>
   </ROW>
-  <ROW ID="SELECTCONFIG" PARAMS="0">
+  <ROW ID="SELECTCONFIG_20201210_for_ssg" PARAMS="0">
     <DESC>Server Batch Log Keep Days</DESC>
     <DATA>
       <![CDATA[

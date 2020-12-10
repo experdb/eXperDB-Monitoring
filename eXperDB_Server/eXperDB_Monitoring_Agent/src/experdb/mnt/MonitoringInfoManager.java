@@ -78,8 +78,8 @@ public class MonitoringInfoManager {
 			/* *******************************<Crypto>********************************** */
 			
 			// create extension pg_profile
-			session.update("app.TB_CREATE_PROFILE_001");
-			session.commit();
+			//session.update("app.TB_CREATE_PROFILE_001");  //20201210 for SSG
+			//session.commit();                             //20201210 for SSG
 			
 			SqlSession sessionCollect = null;
 			Connection connection = null;
@@ -141,7 +141,7 @@ public class MonitoringInfoManager {
 					//session.selectList("app.SEQ_SETVAL_STMT");
 					/*add to create fdw and temp table by robin 201902 end*/
 					/*add to create snapshot by robin 202007 start*/
-					session.update("app.TB_SNAPSHOT_INFO_C001", map);
+					//session.update("app.TB_SNAPSHOT_INFO_C001", map); //20201210 for SSG
 					/*add to create snapshot by robin 202007 end*/
 					
 					
