@@ -297,11 +297,11 @@
     End Function
 
 
-    Public Function UpdateServerList(ByVal InstanceID As Integer, ByVal IP As String, ByVal Port As String, ByVal DBType As String, ByVal User As String, ByVal Pw As String, ByVal Collect As String, ByVal PeriodSec As Integer, ByVal StmtPeriodSec As Integer, ByVal SnapPriodMin As Integer, ByVal DBNm As String, ByVal AliasNm As String, ByVal LstIp As String, ByVal Schema As String, ByVal HARole As String, ByVal HAHost As String, ByVal HAPort As Integer, ByVal HAREPLHost As String, ByVal VirtualIP As String, ByVal VirtualIP2 As String) As Boolean
+    Public Function UpdateServerList(ByVal InstanceID As Integer, ByVal IP As String, ByVal Port As String, ByVal DBType As String, ByVal User As String, ByVal Pw As String, ByVal Collect As String, ByVal PeriodSec As Integer, ByVal StmtPeriodSec As Integer, ByVal SnapPriodMin As Integer, ByVal DBNm As String, ByVal AliasNm As String, ByVal LstIp As String, ByVal Schema As String, ByVal HARole As String, ByVal HAHost As String, ByVal HAPort As Integer, ByVal HAREPLHost As String, ByVal VirtualIP As String, ByVal VirtualIP2 As String, ByVal ReScanStmt As Integer) As Boolean
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATESERVERLIST")
-            strQuery = String.Format(strQuery, InstanceID, IP, Port, DBType, User, Pw, Collect, PeriodSec, StmtPeriodSec, SnapPriodMin, DBNm, AliasNm, LstIp, Schema, HARole, HAHost, HAPort, HAREPLHost, VirtualIP, VirtualIP2)
+            strQuery = String.Format(strQuery, InstanceID, IP, Port, DBType, User, Pw, Collect, PeriodSec, StmtPeriodSec, SnapPriodMin, DBNm, AliasNm, LstIp, Schema, HARole, HAHost, HAPort, HAREPLHost, VirtualIP, VirtualIP2, ReScanStmt)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             insertHealthLimitedList(InstanceID, LstIp)
             Return rtnValue

@@ -89,9 +89,11 @@ Public Class frmConnection
         If idxRow >= 0 Then
             btnAct.Text = p_clsMsgData.fn_GetData("F141")
             StatusLabel.Text = p_clsMsgData.fn_GetData("M055")
+            chkReScanStmt.Visible = True
         Else
             btnAct.Text = p_clsMsgData.fn_GetData("F140")
             StatusLabel.Text = p_clsMsgData.fn_GetData("M054")
+            chkReScanStmt.Visible = False
         End If
 
         If _idxROw < 0 Then
@@ -294,13 +296,15 @@ Public Class frmConnection
 
 
 
-    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef intSnapshotHour As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
+    Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef intReScanStmp As Integer, ByRef intSnapshotHour As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
         intRow = _idxROw
         ODBCConnect = btnTest.Tag
 
         StrSchema = cmbSchema.Text
         intCollect = nudCollectSecond.Value
         intStmtCollectSec = cmbStmtCollectPeriod.SelectedValue
+        intReScanStmp = IIf(chkReScanStmt.Checked, 1, 0)
+
         intSnapshotHour = cmbSnapPeriod.SelectedValue
         strAliasNm = txtAlias.Text
 

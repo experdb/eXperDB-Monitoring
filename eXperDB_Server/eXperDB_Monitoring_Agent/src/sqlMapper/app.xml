@@ -3435,7 +3435,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		)
 		]]>	  
 	</insert>	
-	<select id="EXPERDBMA_BT_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
             CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
 			    use strict;
@@ -3496,7 +3496,29 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
             SET (QUERY, COLLECT_DT) = (#{query}, CURRENT_TIMESTAMP)
 		]]>	  
 	</insert>
-	
+		<select id="EXPERDBMA_BT_PGSS_QUERY_RESET_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		     CREATE OR REPLACE FUNCTION RESET_PGSS() RETURNS SETOF TEXT AS $BODY$
+			    use strict;
+			    use warnings;
+			    use Encode;
+			    my $del = $_[0];
+				my $reset = $_[1];
+			    my $sth = spi_exec_query("select setting || '/pg_stat_tmp/' || 'pgss_query_texts.stat' curr from pg_settings where name = 'data_directory'");
+			    my $org = $sth->{rows}[0]->{curr};
+			    my $prev = $org . '.prev';
+			    my $rmcmd = '/bin/rm -f '  . $prev;
+				elog(INFO, "181818");
+				my $res = `$rmcmd`; 
+			    return undef;
+			$BODY$ LANGUAGE plperlu;
+		  ]]>	  
+	</select>
+	<select id="BT_PGSS_QUERY_002" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT RESET_PGSS();
+		  ]]>	  
+	</select>
 <!-- **************************************************************************************************************** -->	
 <!-- Delete partitions -->
 <!-- **************************************************************************************************************** -->
@@ -4545,6 +4567,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<update id="TB_INSTANCE_INFO_U006" parameterType="hashmap" >
 		UPDATE TB_INSTANCE_INFO 
 		   SET reserved = #{reserved} 
+		 WHERE instance_id = #{instance_id} ;
+	</update>
+	<update id="TB_INSTANCE_INFO_U007" parameterType="hashmap" >
+		UPDATE TB_INSTANCE_INFO 
+		   SET hchk_period_sec = #{hchk_period_sec} 
 		 WHERE instance_id = #{instance_id} ;
 	</update>
 	<select id="EXPERDBMA_TB_CHECK_VIP2_CONF_001" parameterType="hashmap" resultType="hashmap">

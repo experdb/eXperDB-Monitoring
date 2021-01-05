@@ -1045,7 +1045,11 @@ Public Class frmMonItemDetail
                          System.Drawing.Color.SpringGreen,
                          System.Drawing.Color.YellowGreen,
                          System.Drawing.Color.Violet,
-                         System.Drawing.Color.Salmon}
+                         System.Drawing.Color.Salmon,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.Orange,
+                         System.Drawing.Color.Brown,
+                         System.Drawing.Color.Green}
 
         If ShowChart = False Then
             chtCPU.Invoke(New MethodInvoker(Sub()

@@ -63,6 +63,7 @@ Partial Class frmConnection
         Me.lblPort = New eXperDB.BaseControls.Label()
         Me.txtIP = New eXperDB.BaseControls.TextBox()
         Me.txtPort = New eXperDB.BaseControls.TextBox()
+        Me.chkReScanStmt = New eXperDB.BaseControls.CheckBox()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
@@ -190,10 +191,12 @@ Partial Class frmConnection
         'tlpSvrChk
         '
         Me.tlpSvrChk.BackColor = System.Drawing.Color.Transparent
-        Me.tlpSvrChk.ColumnCount = 3
+        Me.tlpSvrChk.ColumnCount = 4
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
+        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
+        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 6.0!))
+        Me.tlpSvrChk.Controls.Add(Me.chkReScanStmt, 2, 8)
         Me.tlpSvrChk.Controls.Add(Me.cmbSnapPeriod, 1, 9)
         Me.tlpSvrChk.Controls.Add(Me.lblSnapPeriod, 0, 9)
         Me.tlpSvrChk.Controls.Add(Me.lblHAREPLHost, 0, 18)
@@ -263,7 +266,7 @@ Partial Class frmConnection
         Me.cmbSnapPeriod.Location = New System.Drawing.Point(136, 307)
         Me.cmbSnapPeriod.Name = "cmbSnapPeriod"
         Me.cmbSnapPeriod.Necessary = False
-        Me.cmbSnapPeriod.Size = New System.Drawing.Size(193, 20)
+        Me.cmbSnapPeriod.Size = New System.Drawing.Size(140, 20)
         Me.cmbSnapPeriod.StatusTip = ""
         Me.cmbSnapPeriod.TabIndex = 8
         Me.cmbSnapPeriod.ValueText = ""
@@ -314,7 +317,7 @@ Partial Class frmConnection
         Me.txtHAREPLHost.Necessary = False
         Me.txtHAREPLHost.PossibleInput = ""
         Me.txtHAREPLHost.Prefix = ""
-        Me.txtHAREPLHost.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAREPLHost.Size = New System.Drawing.Size(140, 21)
         Me.txtHAREPLHost.StatusTip = ""
         Me.txtHAREPLHost.TabIndex = 2
         Me.txtHAREPLHost.Value = ""
@@ -333,7 +336,7 @@ Partial Class frmConnection
         Me.txtHAPort.Necessary = False
         Me.txtHAPort.PossibleInput = "0123456789"
         Me.txtHAPort.Prefix = ""
-        Me.txtHAPort.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAPort.Size = New System.Drawing.Size(140, 21)
         Me.txtHAPort.StatusTip = ""
         Me.txtHAPort.TabIndex = 1
         Me.txtHAPort.Value = ""
@@ -366,7 +369,7 @@ Partial Class frmConnection
         Me.txtHAHost.Necessary = False
         Me.txtHAHost.PossibleInput = ""
         Me.txtHAHost.Prefix = ""
-        Me.txtHAHost.Size = New System.Drawing.Size(193, 21)
+        Me.txtHAHost.Size = New System.Drawing.Size(140, 21)
         Me.txtHAHost.StatusTip = ""
         Me.txtHAHost.TabIndex = 0
         Me.txtHAHost.Value = ""
@@ -431,7 +434,7 @@ Partial Class frmConnection
         Me.txtVIP2.Necessary = False
         Me.txtVIP2.PossibleInput = ""
         Me.txtVIP2.Prefix = ""
-        Me.txtVIP2.Size = New System.Drawing.Size(193, 21)
+        Me.txtVIP2.Size = New System.Drawing.Size(140, 21)
         Me.txtVIP2.StatusTip = ""
         Me.txtVIP2.TabIndex = 21
         Me.txtVIP2.Value = ""
@@ -451,7 +454,7 @@ Partial Class frmConnection
         Me.txtVIP.Necessary = False
         Me.txtVIP.PossibleInput = ""
         Me.txtVIP.Prefix = ""
-        Me.txtVIP.Size = New System.Drawing.Size(193, 21)
+        Me.txtVIP.Size = New System.Drawing.Size(140, 21)
         Me.txtVIP.StatusTip = ""
         Me.txtVIP.TabIndex = 20
         Me.txtVIP.Value = ""
@@ -481,7 +484,7 @@ Partial Class frmConnection
         Me.cmbStmtCollectPeriod.Location = New System.Drawing.Point(136, 272)
         Me.cmbStmtCollectPeriod.Name = "cmbStmtCollectPeriod"
         Me.cmbStmtCollectPeriod.Necessary = False
-        Me.cmbStmtCollectPeriod.Size = New System.Drawing.Size(193, 20)
+        Me.cmbStmtCollectPeriod.Size = New System.Drawing.Size(140, 20)
         Me.cmbStmtCollectPeriod.StatusTip = ""
         Me.cmbStmtCollectPeriod.TabIndex = 7
         Me.cmbStmtCollectPeriod.ValueText = ""
@@ -497,7 +500,7 @@ Partial Class frmConnection
         Me.cmbHARole.Location = New System.Drawing.Point(136, 377)
         Me.cmbHARole.Name = "cmbHARole"
         Me.cmbHARole.Necessary = False
-        Me.cmbHARole.Size = New System.Drawing.Size(193, 20)
+        Me.cmbHARole.Size = New System.Drawing.Size(140, 20)
         Me.cmbHARole.StatusTip = ""
         Me.cmbHARole.TabIndex = 10
         Me.cmbHARole.ValueText = ""
@@ -528,7 +531,7 @@ Partial Class frmConnection
         Me.nudCollectSecond.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudCollectSecond.Name = "nudCollectSecond"
         Me.nudCollectSecond.Necessary = False
-        Me.nudCollectSecond.Size = New System.Drawing.Size(193, 21)
+        Me.nudCollectSecond.Size = New System.Drawing.Size(140, 21)
         Me.nudCollectSecond.StatusTip = ""
         Me.nudCollectSecond.TabIndex = 6
         Me.nudCollectSecond.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -548,7 +551,7 @@ Partial Class frmConnection
         Me.txtAlias.Necessary = False
         Me.txtAlias.PossibleInput = ""
         Me.txtAlias.Prefix = ""
-        Me.txtAlias.Size = New System.Drawing.Size(193, 21)
+        Me.txtAlias.Size = New System.Drawing.Size(140, 21)
         Me.txtAlias.StatusTip = ""
         Me.txtAlias.TabIndex = 9
         Me.txtAlias.Value = ""
@@ -622,7 +625,7 @@ Partial Class frmConnection
         Me.cmbSchema.Location = New System.Drawing.Point(136, 202)
         Me.cmbSchema.Name = "cmbSchema"
         Me.cmbSchema.Necessary = False
-        Me.cmbSchema.Size = New System.Drawing.Size(193, 20)
+        Me.cmbSchema.Size = New System.Drawing.Size(140, 20)
         Me.cmbSchema.StatusTip = ""
         Me.cmbSchema.TabIndex = 5
         Me.cmbSchema.ValueText = ""
@@ -651,7 +654,7 @@ Partial Class frmConnection
         Me.cmbDbnm.Location = New System.Drawing.Point(136, 167)
         Me.cmbDbnm.Name = "cmbDbnm"
         Me.cmbDbnm.Necessary = False
-        Me.cmbDbnm.Size = New System.Drawing.Size(193, 20)
+        Me.cmbDbnm.Size = New System.Drawing.Size(140, 20)
         Me.cmbDbnm.StatusTip = ""
         Me.cmbDbnm.TabIndex = 4
         Me.cmbDbnm.ValueText = ""
@@ -685,7 +688,7 @@ Partial Class frmConnection
         Me.txtPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPW.PossibleInput = ""
         Me.txtPW.Prefix = ""
-        Me.txtPW.Size = New System.Drawing.Size(193, 21)
+        Me.txtPW.Size = New System.Drawing.Size(140, 21)
         Me.txtPW.StatusTip = ""
         Me.txtPW.TabIndex = 3
         Me.txtPW.Value = ""
@@ -718,7 +721,7 @@ Partial Class frmConnection
         Me.txtUsr.Necessary = False
         Me.txtUsr.PossibleInput = ""
         Me.txtUsr.Prefix = ""
-        Me.txtUsr.Size = New System.Drawing.Size(193, 21)
+        Me.txtUsr.Size = New System.Drawing.Size(140, 21)
         Me.txtUsr.StatusTip = ""
         Me.txtUsr.TabIndex = 2
         Me.txtUsr.Value = ""
@@ -752,7 +755,7 @@ Partial Class frmConnection
         Me.txtIP.Necessary = False
         Me.txtIP.PossibleInput = ""
         Me.txtIP.Prefix = ""
-        Me.txtIP.Size = New System.Drawing.Size(193, 21)
+        Me.txtIP.Size = New System.Drawing.Size(140, 21)
         Me.txtIP.StatusTip = ""
         Me.txtIP.TabIndex = 0
         Me.txtIP.Value = ""
@@ -770,10 +773,28 @@ Partial Class frmConnection
         Me.txtPort.Necessary = False
         Me.txtPort.PossibleInput = "0123456789"
         Me.txtPort.Prefix = ""
-        Me.txtPort.Size = New System.Drawing.Size(193, 21)
+        Me.txtPort.Size = New System.Drawing.Size(140, 21)
         Me.txtPort.StatusTip = ""
         Me.txtPort.TabIndex = 1
         Me.txtPort.Value = "0"
+        '
+        'chkReScanStmt
+        '
+        Me.chkReScanStmt.AutoSize = True
+        Me.chkReScanStmt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkReScanStmt.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.chkReScanStmt.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.chkReScanStmt.ForeColor = System.Drawing.Color.White
+        Me.chkReScanStmt.LineColor = System.Drawing.Color.Gray
+        Me.chkReScanStmt.Location = New System.Drawing.Point(282, 276)
+        Me.chkReScanStmt.Name = "chkReScanStmt"
+        Me.chkReScanStmt.Radius = 10
+        Me.chkReScanStmt.Size = New System.Drawing.Size(74, 16)
+        Me.chkReScanStmt.TabIndex = 27
+        Me.chkReScanStmt.Text = "ReScan"
+        Me.chkReScanStmt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkReScanStmt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkReScanStmt.UseVisualStyleBackColor = True
         '
         'frmConnection
         '
@@ -840,4 +861,5 @@ Partial Class frmConnection
     Friend WithEvents txtPort As eXperDB.BaseControls.TextBox
     Friend WithEvents cmbSnapPeriod As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblSnapPeriod As eXperDB.BaseControls.Label
+    Friend WithEvents chkReScanStmt As eXperDB.BaseControls.CheckBox
 End Class
