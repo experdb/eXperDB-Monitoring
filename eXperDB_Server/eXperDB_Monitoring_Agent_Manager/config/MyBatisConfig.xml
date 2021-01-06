@@ -18,7 +18,7 @@
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
                 <property name="driver" value="org.postgresql.Driver" />
-                <property name="url" value="jdbc:postgresql://192.168.56.185:5432/experdb" />
+                <property name="url" value="jdbc:postgresql://192.168.56.181:5432/experdb" />
                 <property name="username" value="pgmon" />
                 <property name="password" value="pgmon" />
 				<property name="poolMaximumActiveConnections" value="100" />

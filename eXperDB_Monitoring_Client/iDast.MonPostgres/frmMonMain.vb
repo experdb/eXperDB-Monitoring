@@ -4520,7 +4520,7 @@
         'mnuTrendR.Text = p_clsMsgData.fn_GetData("F952")
         ps.X -= mnuReports.Width
         mnuReport.Items(0).Visible = False
-        mnuReport.Items(1).Visible = False
+        'mnuReport.Items(1).Visible = False
         mnuReport.Show(lblTemp, lblTemp.PointToClient(ps), ToolStripDropDownDirection.Default)
         mnuReport.Tag = lblTemp.Parent
     End Sub

@@ -378,7 +378,7 @@
     ''' <param name="e"></param>
     ''' <remarks></remarks>
 
-    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal intSnapshotCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
+    Private Sub AddData(ByVal intRow As Integer, ByVal structConn As structConnection, ByVal strSChema As String, ByVal intCollect As Integer, ByVal intStmtCollect As Integer, ByVal intReScanStmt As Integer, ByVal intSnapshotCollect As Integer, ByVal strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
 
 
 
@@ -408,6 +408,7 @@
             tmpRow.Cells(colHAREPLHost.Index).Value = strHAREPLHost
             tmpRow.Cells(colVirtualIP.Index).Value = strVirtualIP
             tmpRow.Cells(colVirtualIP2.Index).Value = strVirtualIP2
+            tmpRow.Cells(colReScanStmt.Index).Value = intReScanStmt
 
             'dgvSvrLst.fn_DataCellADD(tmpRow.Index, colLogSave.Index, nudLogSaveDly.Value)
 
@@ -440,6 +441,7 @@
                 dgvSvrLst.fn_DataCellADD(idxRow, colHAREPLHost.Index, strHAREPLHost)
                 dgvSvrLst.fn_DataCellADD(idxRow, colVirtualIP.Index, strVirtualIP)
                 dgvSvrLst.fn_DataCellADD(idxRow, colVirtualIP2.Index, strVirtualIP2)
+                dgvSvrLst.fn_DataCellADD(idxRow, colReScanStmt.Index, intReScanStmt)
                 'dgvSvrLst.fn_DataCellADD(idxRow, colLogSave.Index, nudLogSaveDly.Value)
                 ' 신규 삽입된 코드의 경우 -1로 처리하여 신규 추기인지 확인한다. 
                 ' 기존에 있던 데이터들은 Row Tag 가 Instance ID로 되어있음. 
@@ -552,6 +554,7 @@
             Dim strSchema As String = ""
             Dim intCollect As Integer = 0
             Dim intStmtCollect As Integer = 0
+            Dim intReScanStmt As Integer = 0
             Dim intSnapshot As Integer = 0
             Dim strAlias As String = ""
             Dim strHARole As String = ""
@@ -560,9 +563,9 @@
             Dim strHAREPLHost As String = ""
             Dim strVirtualIP As String = ""
             Dim strVirtualIP2 As String = ""
-            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, intSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            frmConn.rtnValue(-1, struct, strSchema, intCollect, intStmtCollect, intReScanStmt, intSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
-            AddData(-1, struct, strSchema, intCollect, intStmtCollect, intSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            AddData(-1, struct, strSchema, intCollect, intStmtCollect, intReScanStmt, intSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
         End If
 
@@ -624,12 +627,13 @@
             Dim rtnSchema As String = ""
             Dim rtnCollect As Integer = 0
             Dim rtnStmtCollect As Integer = 0
+            Dim rtnReScanStmt As Integer = 0
             Dim rtnSnapshot As Integer = 0
             Dim strAlias As String = ""
 
-            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, rtnSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            frmConn.rtnValue(-1, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, rtnReScanStmt, rtnSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
 
-            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, rtnSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+            AddData(tmpRow.Index, rtnStruct, rtnSchema, rtnCollect, rtnStmtCollect, rtnReScanStmt, rtnSnapshot, strAlias, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
         End If
 
 
@@ -677,6 +681,7 @@
                 Dim strHAREPLHost As String = tmpRow.Cells(colHAREPLHost.Index).Value
                 Dim strVirtualIP As String = IIf(IsDBNull(tmpRow.Cells(colVirtualIP.Index).Value), "", tmpRow.Cells(colVirtualIP.Index).Value)
                 Dim strVirtualIP2 As String = IIf(IsDBNull(tmpRow.Cells(colVirtualIP2.Index).Value), "", tmpRow.Cells(colVirtualIP2.Index).Value)
+                Dim intReScanStmt As Integer = tmpRow.Cells(colReScanStmt.Index).Value
                 ' Dim intLogDay As Integer = tmpRow.Cells(colLogSave.Index).Value
 
                 Try
@@ -703,7 +708,7 @@
                         tmpRow.Tag = ClsQuery.insertServerList(strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost)
                     Else
                         tmpRow.Tag = tmpInst
-                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+                        ClsQuery.UpdateServerList(tmpInst, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2, intReScanStmt)
                     End If
 
                 ElseIf tmpRow.Visible = False AndAlso tmpRow.Tag <> -1 Then
@@ -713,7 +718,7 @@
                 Else
                     ' 주기타임을 변경하였거나 혹은 개별 정보를 수정하였을 경우에는 
                     If dgvSvrLst.fn_DataRowChangeCheck(tmpRow.Index) = True Then
-                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2)
+                        ClsQuery.UpdateServerList(intInstID, strIP, strPort, strDBType, strUser, strPw, strCollectYN, intPeriod, intStmtPeriod, intSnapshotPeriod, strDBNM, strAliasNm, strLocIP, strSchema, strHARole, strHAHost, intHAPort, strHAREPLHost, strVirtualIP, strVirtualIP2, intReScanStmt)
                     End If
 
                 End If

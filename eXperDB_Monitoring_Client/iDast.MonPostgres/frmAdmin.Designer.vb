@@ -61,6 +61,23 @@ Partial Class frmAdmin
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblBasicConfig = New System.Windows.Forms.Label()
         Me.dgvSvrLst = New eXperDB.BaseControls.DataGridView()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblSvrLst = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.MsgLabel = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnCreate = New eXperDB.BaseControls.Button()
+        Me.btnModify = New eXperDB.BaseControls.Button()
+        Me.btnApply = New eXperDB.BaseControls.Button()
+        Me.btnDelete = New eXperDB.BaseControls.Button()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewPasswordTextBoxColumn1 = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colCheck = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.colCollectYN = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.colAliasNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -81,23 +98,7 @@ Partial Class frmAdmin
         Me.colHAREPLHost = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colVirtualIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colVirtualIP2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.lblSvrLst = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.MsgLabel = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnCreate = New eXperDB.BaseControls.Button()
-        Me.btnModify = New eXperDB.BaseControls.Button()
-        Me.btnApply = New eXperDB.BaseControls.Button()
-        Me.btnDelete = New eXperDB.BaseControls.Button()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewPasswordTextBoxColumn1 = New eXperDB.Controls.DataGridViewPasswordTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colReScanStmt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.pnlB.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -220,12 +221,12 @@ Partial Class frmAdmin
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.nudTReportSaveDly, 1, 9)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblTReportSaveDly, 0, 9)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblSnapshotTopN, 0, 7)
-        Me.TableLayoutPanel5.Controls.Add(Me.cmbSnapshotTopN, 1, 7)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblSnapshotSaveDly, 0, 8)
-        Me.TableLayoutPanel5.Controls.Add(Me.nudSnapshotSaveDly, 1, 8)
+        Me.TableLayoutPanel5.Controls.Add(Me.nudTReportSaveDly, 1, 7)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblTReportSaveDly, 0, 7)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblSnapshotTopN, 0, 8)
+        Me.TableLayoutPanel5.Controls.Add(Me.cmbSnapshotTopN, 1, 8)
+        Me.TableLayoutPanel5.Controls.Add(Me.lblSnapshotSaveDly, 0, 9)
+        Me.TableLayoutPanel5.Controls.Add(Me.nudSnapshotSaveDly, 1, 9)
         Me.TableLayoutPanel5.Controls.Add(Me.cmbStmtTime, 1, 3)
         Me.TableLayoutPanel5.Controls.Add(Me.lblStmtTime, 0, 3)
         Me.TableLayoutPanel5.Controls.Add(Me.cmbObjectTime, 1, 2)
@@ -253,6 +254,7 @@ Partial Class frmAdmin
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel5.Size = New System.Drawing.Size(233, 445)
         Me.TableLayoutPanel5.TabIndex = 0
         '
@@ -263,7 +265,7 @@ Partial Class frmAdmin
         Me.nudTReportSaveDly.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
         Me.nudTReportSaveDly.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudTReportSaveDly.FixedWidth = False
-        Me.nudTReportSaveDly.Location = New System.Drawing.Point(138, 343)
+        Me.nudTReportSaveDly.Location = New System.Drawing.Point(138, 263)
         Me.nudTReportSaveDly.Maximum = New Decimal(New Integer() {93, 0, 0, 0})
         Me.nudTReportSaveDly.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudTReportSaveDly.Name = "nudTReportSaveDly"
@@ -274,7 +276,6 @@ Partial Class frmAdmin
         Me.nudTReportSaveDly.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.nudTReportSaveDly.ThousandsSeparator = True
         Me.nudTReportSaveDly.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nudTReportSaveDly.Visible = False
         '
         'lblTReportSaveDly
         '
@@ -284,13 +285,12 @@ Partial Class frmAdmin
         Me.lblTReportSaveDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblTReportSaveDly.ForeColor = System.Drawing.Color.White
         Me.lblTReportSaveDly.LineSpacing = 0.0!
-        Me.lblTReportSaveDly.Location = New System.Drawing.Point(3, 340)
+        Me.lblTReportSaveDly.Location = New System.Drawing.Point(3, 260)
         Me.lblTReportSaveDly.Name = "lblTReportSaveDly"
         Me.lblTReportSaveDly.Size = New System.Drawing.Size(129, 28)
         Me.lblTReportSaveDly.TabIndex = 24
         Me.lblTReportSaveDly.Text = "F974"
         Me.lblTReportSaveDly.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.lblTReportSaveDly.Visible = False
         '
         'lblSnapshotTopN
         '
@@ -300,7 +300,7 @@ Partial Class frmAdmin
         Me.lblSnapshotTopN.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSnapshotTopN.ForeColor = System.Drawing.Color.White
         Me.lblSnapshotTopN.LineSpacing = 0.0!
-        Me.lblSnapshotTopN.Location = New System.Drawing.Point(3, 260)
+        Me.lblSnapshotTopN.Location = New System.Drawing.Point(3, 300)
         Me.lblSnapshotTopN.Name = "lblSnapshotTopN"
         Me.lblSnapshotTopN.Size = New System.Drawing.Size(129, 28)
         Me.lblSnapshotTopN.TabIndex = 23
@@ -316,7 +316,7 @@ Partial Class frmAdmin
         Me.cmbSnapshotTopN.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbSnapshotTopN.FixedWidth = False
         Me.cmbSnapshotTopN.FormattingEnabled = True
-        Me.cmbSnapshotTopN.Location = New System.Drawing.Point(138, 263)
+        Me.cmbSnapshotTopN.Location = New System.Drawing.Point(138, 303)
         Me.cmbSnapshotTopN.Name = "cmbSnapshotTopN"
         Me.cmbSnapshotTopN.Necessary = False
         Me.cmbSnapshotTopN.Size = New System.Drawing.Size(92, 20)
@@ -333,7 +333,7 @@ Partial Class frmAdmin
         Me.lblSnapshotSaveDly.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSnapshotSaveDly.ForeColor = System.Drawing.Color.White
         Me.lblSnapshotSaveDly.LineSpacing = 0.0!
-        Me.lblSnapshotSaveDly.Location = New System.Drawing.Point(3, 300)
+        Me.lblSnapshotSaveDly.Location = New System.Drawing.Point(3, 340)
         Me.lblSnapshotSaveDly.Name = "lblSnapshotSaveDly"
         Me.lblSnapshotSaveDly.Size = New System.Drawing.Size(129, 28)
         Me.lblSnapshotSaveDly.TabIndex = 21
@@ -348,7 +348,7 @@ Partial Class frmAdmin
         Me.nudSnapshotSaveDly.ControlLength = eXperDB.BaseControls.NumericUpDown.enmLength.[Short]
         Me.nudSnapshotSaveDly.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudSnapshotSaveDly.FixedWidth = False
-        Me.nudSnapshotSaveDly.Location = New System.Drawing.Point(138, 303)
+        Me.nudSnapshotSaveDly.Location = New System.Drawing.Point(138, 343)
         Me.nudSnapshotSaveDly.Maximum = New Decimal(New Integer() {93, 0, 0, 0})
         Me.nudSnapshotSaveDly.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nudSnapshotSaveDly.Name = "nudSnapshotSaveDly"
@@ -628,7 +628,7 @@ Partial Class frmAdmin
         Me.dgvSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvSvrLst.ColumnHeadersHeight = 24
         Me.dgvSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCheck, Me.colCollectYN, Me.colAliasNm, Me.colCollectSecond, Me.colStmtCollectSecond, Me.colSnapshotHour, Me.colDBNm, Me.colIP, Me.colPort, Me.colSchema, Me.colUser, Me.colPW, Me.colLstIP, Me.colPWCH, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colHAREPLHost, Me.colVirtualIP, Me.colVirtualIP2})
+        Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCheck, Me.colCollectYN, Me.colAliasNm, Me.colCollectSecond, Me.colStmtCollectSecond, Me.colSnapshotHour, Me.colDBNm, Me.colIP, Me.colPort, Me.colSchema, Me.colUser, Me.colPW, Me.colLstIP, Me.colPWCH, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colHAREPLHost, Me.colVirtualIP, Me.colVirtualIP2, Me.colReScanStmt})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -650,180 +650,6 @@ Partial Class frmAdmin
         Me.dgvSvrLst.TabIndex = 8
         Me.dgvSvrLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvSvrLst.UseTagValueMatchColor = True
-        '
-        'colCheck
-        '
-        Me.colCheck.FalseValue = "N"
-        Me.colCheck.HeaderText = "F017"
-        Me.colCheck.Name = "colCheck"
-        Me.colCheck.TrueValue = "Y"
-        Me.colCheck.Visible = False
-        Me.colCheck.Width = 50
-        '
-        'colCollectYN
-        '
-        Me.colCollectYN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.colCollectYN.FalseValue = "N"
-        Me.colCollectYN.HeaderText = "F207"
-        Me.colCollectYN.MinimumWidth = 60
-        Me.colCollectYN.Name = "colCollectYN"
-        Me.colCollectYN.TrueValue = "Y"
-        Me.colCollectYN.Width = 60
-        '
-        'colAliasNm
-        '
-        Me.colAliasNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colAliasNm.FillWeight = 575.6757!
-        Me.colAliasNm.HeaderText = "F019"
-        Me.colAliasNm.MinimumWidth = 100
-        Me.colAliasNm.Name = "colAliasNm"
-        Me.colAliasNm.ReadOnly = True
-        '
-        'colCollectSecond
-        '
-        Me.colCollectSecond.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colCollectSecond.FillWeight = 40.54054!
-        Me.colCollectSecond.HeaderText = "F011"
-        Me.colCollectSecond.MinimumWidth = 100
-        Me.colCollectSecond.Name = "colCollectSecond"
-        Me.colCollectSecond.ReadOnly = True
-        Me.colCollectSecond.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colCollectSecond.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colStmtCollectSecond
-        '
-        Me.colStmtCollectSecond.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colStmtCollectSecond.FillWeight = 45.0!
-        Me.colStmtCollectSecond.HeaderText = "F342"
-        Me.colStmtCollectSecond.MinimumWidth = 115
-        Me.colStmtCollectSecond.Name = "colStmtCollectSecond"
-        Me.colStmtCollectSecond.ReadOnly = True
-        Me.colStmtCollectSecond.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colSnapshotHour
-        '
-        Me.colSnapshotHour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colSnapshotHour.FillWeight = 45.0!
-        Me.colSnapshotHour.HeaderText = "F960"
-        Me.colSnapshotHour.MinimumWidth = 125
-        Me.colSnapshotHour.Name = "colSnapshotHour"
-        Me.colSnapshotHour.ReadOnly = True
-        Me.colSnapshotHour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'colDBNm
-        '
-        Me.colDBNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDBNm.FillWeight = 40.54054!
-        Me.colDBNm.HeaderText = "F010"
-        Me.colDBNm.MinimumWidth = 120
-        Me.colDBNm.Name = "colDBNm"
-        Me.colDBNm.ReadOnly = True
-        '
-        'colIP
-        '
-        Me.colIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colIP.FillWeight = 40.54054!
-        Me.colIP.HeaderText = "F006"
-        Me.colIP.MinimumWidth = 100
-        Me.colIP.Name = "colIP"
-        Me.colIP.ReadOnly = True
-        '
-        'colPort
-        '
-        Me.colPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colPort.FillWeight = 40.54054!
-        Me.colPort.HeaderText = "F007"
-        Me.colPort.MinimumWidth = 100
-        Me.colPort.Name = "colPort"
-        Me.colPort.ReadOnly = True
-        '
-        'colSchema
-        '
-        Me.colSchema.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colSchema.FillWeight = 40.54054!
-        Me.colSchema.HeaderText = "F074"
-        Me.colSchema.MinimumWidth = 100
-        Me.colSchema.Name = "colSchema"
-        Me.colSchema.ReadOnly = True
-        '
-        'colUser
-        '
-        Me.colUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colUser.FillWeight = 40.54054!
-        Me.colUser.HeaderText = "F008"
-        Me.colUser.MinimumWidth = 100
-        Me.colUser.Name = "colUser"
-        Me.colUser.ReadOnly = True
-        '
-        'colPW
-        '
-        Me.colPW.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colPW.FillWeight = 40.54054!
-        Me.colPW.HeaderText = "F009"
-        Me.colPW.MinimumWidth = 100
-        Me.colPW.Name = "colPW"
-        Me.colPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.colPW.ReadOnly = True
-        Me.colPW.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colPW.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colPW.UseSystemPasswordChar = True
-        '
-        'colLstIP
-        '
-        Me.colLstIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colLstIP.FillWeight = 40.54054!
-        Me.colLstIP.HeaderText = "F020"
-        Me.colLstIP.MinimumWidth = 100
-        Me.colLstIP.Name = "colLstIP"
-        Me.colLstIP.ReadOnly = True
-        '
-        'colPWCH
-        '
-        Me.colPWCH.HeaderText = "PWCH"
-        Me.colPWCH.MaxInputLength = 2
-        Me.colPWCH.MinimumWidth = 100
-        Me.colPWCH.Name = "colPWCH"
-        Me.colPWCH.Visible = False
-        '
-        'colHARole
-        '
-        Me.colHARole.HeaderText = "HARole"
-        Me.colHARole.Name = "colHARole"
-        Me.colHARole.ReadOnly = True
-        Me.colHARole.Visible = False
-        '
-        'colHAHost
-        '
-        Me.colHAHost.HeaderText = "HAHost"
-        Me.colHAHost.Name = "colHAHost"
-        Me.colHAHost.ReadOnly = True
-        Me.colHAHost.Visible = False
-        '
-        'colHAPort
-        '
-        Me.colHAPort.HeaderText = "HAPort"
-        Me.colHAPort.Name = "colHAPort"
-        Me.colHAPort.ReadOnly = True
-        Me.colHAPort.Visible = False
-        '
-        'colHAREPLHost
-        '
-        Me.colHAREPLHost.HeaderText = "HAREPLHost"
-        Me.colHAREPLHost.Name = "colHAREPLHost"
-        Me.colHAREPLHost.ReadOnly = True
-        Me.colHAREPLHost.Visible = False
-        '
-        'colVirtualIP
-        '
-        Me.colVirtualIP.HeaderText = "VirtualIP"
-        Me.colVirtualIP.Name = "colVirtualIP"
-        Me.colVirtualIP.Visible = False
-        '
-        'colVirtualIP2
-        '
-        Me.colVirtualIP2.HeaderText = "VirtualIP2"
-        Me.colVirtualIP2.Name = "colVirtualIP2"
-        Me.colVirtualIP2.Visible = False
         '
         'TableLayoutPanel1
         '
@@ -1088,6 +914,187 @@ Partial Class frmAdmin
         Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
         Me.DataGridViewTextBoxColumn6.ReadOnly = True
         '
+        'colCheck
+        '
+        Me.colCheck.FalseValue = "N"
+        Me.colCheck.HeaderText = "F017"
+        Me.colCheck.Name = "colCheck"
+        Me.colCheck.TrueValue = "Y"
+        Me.colCheck.Visible = False
+        Me.colCheck.Width = 50
+        '
+        'colCollectYN
+        '
+        Me.colCollectYN.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colCollectYN.FalseValue = "N"
+        Me.colCollectYN.HeaderText = "F207"
+        Me.colCollectYN.MinimumWidth = 60
+        Me.colCollectYN.Name = "colCollectYN"
+        Me.colCollectYN.TrueValue = "Y"
+        Me.colCollectYN.Width = 60
+        '
+        'colAliasNm
+        '
+        Me.colAliasNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colAliasNm.FillWeight = 575.6757!
+        Me.colAliasNm.HeaderText = "F019"
+        Me.colAliasNm.MinimumWidth = 100
+        Me.colAliasNm.Name = "colAliasNm"
+        Me.colAliasNm.ReadOnly = True
+        '
+        'colCollectSecond
+        '
+        Me.colCollectSecond.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colCollectSecond.FillWeight = 40.54054!
+        Me.colCollectSecond.HeaderText = "F011"
+        Me.colCollectSecond.MinimumWidth = 100
+        Me.colCollectSecond.Name = "colCollectSecond"
+        Me.colCollectSecond.ReadOnly = True
+        Me.colCollectSecond.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colCollectSecond.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colStmtCollectSecond
+        '
+        Me.colStmtCollectSecond.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colStmtCollectSecond.FillWeight = 45.0!
+        Me.colStmtCollectSecond.HeaderText = "F342"
+        Me.colStmtCollectSecond.MinimumWidth = 115
+        Me.colStmtCollectSecond.Name = "colStmtCollectSecond"
+        Me.colStmtCollectSecond.ReadOnly = True
+        Me.colStmtCollectSecond.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'colSnapshotHour
+        '
+        Me.colSnapshotHour.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colSnapshotHour.FillWeight = 45.0!
+        Me.colSnapshotHour.HeaderText = "F960"
+        Me.colSnapshotHour.MinimumWidth = 125
+        Me.colSnapshotHour.Name = "colSnapshotHour"
+        Me.colSnapshotHour.ReadOnly = True
+        Me.colSnapshotHour.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colSnapshotHour.Visible = False
+        '
+        'colDBNm
+        '
+        Me.colDBNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDBNm.FillWeight = 40.54054!
+        Me.colDBNm.HeaderText = "F010"
+        Me.colDBNm.MinimumWidth = 120
+        Me.colDBNm.Name = "colDBNm"
+        Me.colDBNm.ReadOnly = True
+        '
+        'colIP
+        '
+        Me.colIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colIP.FillWeight = 40.54054!
+        Me.colIP.HeaderText = "F006"
+        Me.colIP.MinimumWidth = 100
+        Me.colIP.Name = "colIP"
+        Me.colIP.ReadOnly = True
+        '
+        'colPort
+        '
+        Me.colPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colPort.FillWeight = 40.54054!
+        Me.colPort.HeaderText = "F007"
+        Me.colPort.MinimumWidth = 100
+        Me.colPort.Name = "colPort"
+        Me.colPort.ReadOnly = True
+        '
+        'colSchema
+        '
+        Me.colSchema.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colSchema.FillWeight = 40.54054!
+        Me.colSchema.HeaderText = "F074"
+        Me.colSchema.MinimumWidth = 100
+        Me.colSchema.Name = "colSchema"
+        Me.colSchema.ReadOnly = True
+        '
+        'colUser
+        '
+        Me.colUser.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colUser.FillWeight = 40.54054!
+        Me.colUser.HeaderText = "F008"
+        Me.colUser.MinimumWidth = 100
+        Me.colUser.Name = "colUser"
+        Me.colUser.ReadOnly = True
+        '
+        'colPW
+        '
+        Me.colPW.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colPW.FillWeight = 40.54054!
+        Me.colPW.HeaderText = "F009"
+        Me.colPW.MinimumWidth = 100
+        Me.colPW.Name = "colPW"
+        Me.colPW.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.colPW.ReadOnly = True
+        Me.colPW.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colPW.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colPW.UseSystemPasswordChar = True
+        '
+        'colLstIP
+        '
+        Me.colLstIP.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colLstIP.FillWeight = 40.54054!
+        Me.colLstIP.HeaderText = "F020"
+        Me.colLstIP.MinimumWidth = 100
+        Me.colLstIP.Name = "colLstIP"
+        Me.colLstIP.ReadOnly = True
+        '
+        'colPWCH
+        '
+        Me.colPWCH.HeaderText = "PWCH"
+        Me.colPWCH.MaxInputLength = 2
+        Me.colPWCH.MinimumWidth = 100
+        Me.colPWCH.Name = "colPWCH"
+        Me.colPWCH.Visible = False
+        '
+        'colHARole
+        '
+        Me.colHARole.HeaderText = "HARole"
+        Me.colHARole.Name = "colHARole"
+        Me.colHARole.ReadOnly = True
+        Me.colHARole.Visible = False
+        '
+        'colHAHost
+        '
+        Me.colHAHost.HeaderText = "HAHost"
+        Me.colHAHost.Name = "colHAHost"
+        Me.colHAHost.ReadOnly = True
+        Me.colHAHost.Visible = False
+        '
+        'colHAPort
+        '
+        Me.colHAPort.HeaderText = "HAPort"
+        Me.colHAPort.Name = "colHAPort"
+        Me.colHAPort.ReadOnly = True
+        Me.colHAPort.Visible = False
+        '
+        'colHAREPLHost
+        '
+        Me.colHAREPLHost.HeaderText = "HAREPLHost"
+        Me.colHAREPLHost.Name = "colHAREPLHost"
+        Me.colHAREPLHost.ReadOnly = True
+        Me.colHAREPLHost.Visible = False
+        '
+        'colVirtualIP
+        '
+        Me.colVirtualIP.HeaderText = "VirtualIP"
+        Me.colVirtualIP.Name = "colVirtualIP"
+        Me.colVirtualIP.Visible = False
+        '
+        'colVirtualIP2
+        '
+        Me.colVirtualIP2.HeaderText = "VirtualIP2"
+        Me.colVirtualIP2.Name = "colVirtualIP2"
+        Me.colVirtualIP2.Visible = False
+        '
+        'colReScanStmt
+        '
+        Me.colReScanStmt.HeaderText = "ReScanStmt"
+        Me.colReScanStmt.Name = "colReScanStmt"
+        Me.colReScanStmt.Visible = False
+        '
         'frmAdmin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1166,6 +1173,8 @@ End Sub
     Friend WithEvents cmbSnapshotTopN As eXperDB.BaseControls.ComboBox
     Friend WithEvents lblSnapshotSaveDly As eXperDB.BaseControls.Label
     Friend WithEvents nudSnapshotSaveDly As eXperDB.BaseControls.NumericUpDown
+    Friend WithEvents nudTReportSaveDly As eXperDB.BaseControls.NumericUpDown
+    Friend WithEvents lblTReportSaveDly As eXperDB.BaseControls.Label
     Friend WithEvents colCheck As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents colCollectYN As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents colAliasNm As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -1186,6 +1195,5 @@ End Sub
     Friend WithEvents colHAREPLHost As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colVirtualIP As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colVirtualIP2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents nudTReportSaveDly As eXperDB.BaseControls.NumericUpDown
-    Friend WithEvents lblTReportSaveDly As eXperDB.BaseControls.Label
+    Friend WithEvents colReScanStmt As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

@@ -41,11 +41,17 @@ public class QueryCollect extends TaskApplication {
 	public void run() {
 		try {
 			long collectPeriod = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("rtstmt_period_sec");
+			long rescan = 0;
 			
 			long sleepTime;
 			long startTime;
 			long endTime;
 			int checkAlive = 0;
+			
+			if (MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("hchk_period_sec") != null)
+				if ((Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("hchk_period_sec") > 0){
+					resetReScanStmt(); //reset rescan flag
+				}
 			
 			while (!MonitoringInfoManager.getInstance().isReLoad())
 			{
@@ -111,7 +117,7 @@ public class QueryCollect extends TaskApplication {
 			if(checkReadOnlyMap.get("isrecovery").toString().equals("false")){ // check the target cluster's role is slave 
 				if(isFirst == true){
 					sessionCollect.update("EXPERDBMA_BT_CREATE_PLPERL_001");
-					sessionCollect.update("EXPERDBMA_BT_BT_PGSS_QUERY_CREATE_001");
+					sessionCollect.update("EXPERDBMA_BT_PGSS_QUERY_CREATE_001");
 					isFirst = false;
 				}
 			}
@@ -157,5 +163,64 @@ public class QueryCollect extends TaskApplication {
 			if(sessionCollect != null)	sessionCollect.close();
 		}
 	}
+	
+	private void resetReScanStmt() {
+		SqlSessionFactory sqlSessionFactory = null;
+		Connection connection = null;
+		SqlSession sessionAgent  = null;
+		SqlSession sessionCollect = null;
+		
+		try {
+			// DB Connection을 가져온다
+			sqlSessionFactory = SqlSessionManager.getInstance();
+			
+			// DB Connection을 가져온다
+			sqlSessionFactory = SqlSessionManager.getInstance();
+			log.debug("[instanceId ==>> " + instanceId + "]" + " Collect]");
+			try {			
+				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
+				sessionCollect = sqlSessionFactory.openSession(connection);
+			} catch (Exception e) {
+				failed_collect_type = "0";
+				is_collect_ok = "N";
+				log.error("[instanceId ==>> " + instanceId + "]" + " Connection failed]");
+			}
+						
+			sessionAgent = sqlSessionFactory.openSession();
+			HashMap<String, Object> checkReadOnlyMap = sessionCollect.selectOne("EXPERDBMA_BT_CHECK_READONLY_001");
+			if(checkReadOnlyMap.get("isrecovery").toString().equals("false")){ // check the target cluster's role is slave 
+				if(isFirst == true){
+					sessionCollect.update("EXPERDBMA_BT_CREATE_PLPERL_001");
+					sessionCollect.update("EXPERDBMA_BT_PGSS_QUERY_RESET_001");
+					isFirst = false;
+				}
+			}
+			
+			try {
+				// collect all queries after resetting
+				try {
+					sessionCollect.update("app.BT_PGSS_QUERY_002"); 
+					sessionCollect.commit();
+				} catch (Exception e) {
+					failed_collect_type = "2";
+					throw e;
+				}
+				
+			} catch (Exception e1) {
+				is_collect_ok = "N";
+				log.error("[instanceId ==>> " + instanceId + "]", e1);
+			}	
 
+			sessionAgent = sqlSessionFactory.openSession();
+			HashMap<String, Object> rescanMap = new HashMap<String,Object>(); //Access 수집
+			rescanMap.put("instance_id", Integer.parseInt(instanceId));
+			rescanMap.put("hchk_period_sec", null);
+			sessionAgent.update("app.TB_INSTANCE_INFO_U007", rescanMap);
+			sessionAgent.commit();
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if(sessionAgent != null)	sessionAgent.close();			
+		}
+	}
 }

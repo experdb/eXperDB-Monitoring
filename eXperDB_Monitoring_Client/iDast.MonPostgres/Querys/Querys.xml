@@ -350,6 +350,7 @@
         ,HA_REPL_HOST = '{17}'
         ,VIRTUAL_IP = CASE WHEN LENGTH('{18}') = 0 THEN NULL ELSE '{18}' END
         ,VIRTUAL_IP2 = CASE WHEN LENGTH('{19}') = 0 THEN NULL ELSE '{19}' END
+        ,HCHK_PERIOD_SEC = '{20}' 
       WHERE INSTANCE_ID = {0}
     ]]>
     </DATA>
