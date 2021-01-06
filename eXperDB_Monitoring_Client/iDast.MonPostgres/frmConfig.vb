@@ -172,8 +172,6 @@
 
 
     Private Sub initForm()
-        cmbLang.Visible = False
-        lblLang.Visible = False
         btnSave.Text = p_clsMsgData.fn_GetData("F014")
         btnUserSave.Text = p_clsMsgData.fn_GetData("F014")
         StatusLabel.Text = p_clsMsgData.fn_GetData("M047")
