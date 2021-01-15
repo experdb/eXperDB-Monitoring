@@ -228,6 +228,7 @@ public class RscCollect extends TaskApplication {
 							else
 								virtualIP2Status = reserved;
 						} catch (Exception e) {
+							isFirst = true;
 							failed_collect_type = "4";
 							throw e;
 						}
