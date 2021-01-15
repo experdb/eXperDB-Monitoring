@@ -4177,23 +4177,13 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		                ,       constraint_name 
 		                FROM    information_schema.constraint_column_usage 
 		                WHERE   constraint_schema = current_schema()
-		                  AND   constraint_name = 'pk_query_info${regdate}'
+		                  AND   constraint_name = 'pk_tb_query_info${regdate}'
 		              )
 		    THEN
 				ALTER TABLE ONLY tb_query_info${regdate} ADD CONSTRAINT pk_tb_query_info${regdate} PRIMARY KEY (reg_date,instance_id, dbid, userid, queryid);
 		    END IF;
 		EXCEPTION   
 		WHEN others THEN
-			BEGIN
-			    DELETE FROM tb_query_info${regdate};       
-		    EXCEPTION
-				WHEN others THEN  
-		    END;
-			BEGIN
-				ALTER TABLE ONLY tb_query_info${regdate} ADD CONSTRAINT pk_tb_query_info${regdate} PRIMARY KEY (reg_date,instance_id, dbid, userid, queryid);
-			EXCEPTION
-			WHEN others THEN
-	    	END;
 		END$$;	
 		]]>			
 </update>
