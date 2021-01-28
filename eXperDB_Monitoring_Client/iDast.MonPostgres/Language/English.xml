@@ -2821,6 +2821,10 @@
     <DESC>by HA group</DESC>
     <DATA><![CDATA[by HA group]]></DATA>
   </ROW>
+  <ROW ID="F364" PARAMS="0">
+    <DESC>employee</DESC>
+    <DATA><![CDATA[Employee number]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3733,6 +3737,10 @@
   <ROW ID="M109" PARAMS="0">
     <DESC>입력체크</DESC>
     <DATA><![CDATA[Check the input]]></DATA>
+  </ROW>
+  <ROW ID="M110" PARAMS="0">
+    <DESC>입력체크</DESC>
+    <DATA><![CDATA[Sender information does not match.\n\nIf you enter(unfill) Sender Info, the syntax should include(remove) $src.]]></DATA>
   </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>

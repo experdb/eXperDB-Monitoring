@@ -30,15 +30,15 @@ Partial Class UserManagement
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UserManagement))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UserManagement))
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -48,20 +48,6 @@ Partial Class UserManagement
         Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tlpUserConfigMain = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvUserLst = New eXperDB.BaseControls.DataGridView()
-        Me.coldgvUserLstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstPassword = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstTel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstTel2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstNotiPhone = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstEmail = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstDept = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstAdmin = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstLastLogin = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstLock = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstPWDT = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.coldgvUserLstEdit = New System.Windows.Forms.DataGridViewImageColumn()
-        Me.coldgvUserLstDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnPrivApply = New eXperDB.BaseControls.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -78,6 +64,21 @@ Partial Class UserManagement
         Me.lblUserList = New System.Windows.Forms.Label()
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
+        Me.coldgvUserLstID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstPassword = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstTel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstTel2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstNotiPhone = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstEmail = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstEmpNum = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstDept = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstAdmin = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstLastLogin = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstLock = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstPWDT = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.coldgvUserLstEdit = New System.Windows.Forms.DataGridViewImageColumn()
+        Me.coldgvUserLstDelete = New System.Windows.Forms.DataGridViewImageColumn()
         Me.tlpUserConfigMain.SuspendLayout()
         CType(Me.dgvUserLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -206,7 +207,7 @@ Partial Class UserManagement
         Me.dgvUserLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.dgvUserLst.ColumnHeadersHeight = 24
         Me.dgvUserLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        Me.dgvUserLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvUserLstID, Me.coldgvUserLstName, Me.coldgvUserLstPassword, Me.coldgvUserLstTel, Me.coldgvUserLstTel2, Me.coldgvUserLstNotiPhone, Me.coldgvUserLstEmail, Me.coldgvUserLstDept, Me.coldgvUserLstAdmin, Me.coldgvUserLstLastLogin, Me.coldgvUserLstLock, Me.coldgvUserLstPWDT, Me.coldgvUserLstEdit, Me.coldgvUserLstDelete})
+        Me.dgvUserLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvUserLstID, Me.coldgvUserLstName, Me.coldgvUserLstPassword, Me.coldgvUserLstTel, Me.coldgvUserLstTel2, Me.coldgvUserLstNotiPhone, Me.coldgvUserLstEmail, Me.coldgvUserLstEmpNum, Me.coldgvUserLstDept, Me.coldgvUserLstAdmin, Me.coldgvUserLstLastLogin, Me.coldgvUserLstLock, Me.coldgvUserLstPWDT, Me.coldgvUserLstEdit, Me.coldgvUserLstDelete})
         Me.tlpUserConfigMain.SetColumnSpan(Me.dgvUserLst, 3)
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
@@ -237,146 +238,6 @@ Partial Class UserManagement
         Me.dgvUserLst.TabIndex = 25
         Me.dgvUserLst.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvUserLst.UseTagValueMatchColor = True
-        '
-        'coldgvUserLstID
-        '
-        Me.coldgvUserLstID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.coldgvUserLstID.DataPropertyName = "USER_ID"
-        Me.coldgvUserLstID.HeaderText = "F347"
-        Me.coldgvUserLstID.MinimumWidth = 90
-        Me.coldgvUserLstID.Name = "coldgvUserLstID"
-        Me.coldgvUserLstID.ReadOnly = True
-        Me.coldgvUserLstID.Width = 90
-        '
-        'coldgvUserLstName
-        '
-        Me.coldgvUserLstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.coldgvUserLstName.DataPropertyName = "USER_NAME"
-        Me.coldgvUserLstName.HeaderText = "F348"
-        Me.coldgvUserLstName.MinimumWidth = 100
-        Me.coldgvUserLstName.Name = "coldgvUserLstName"
-        Me.coldgvUserLstName.ReadOnly = True
-        Me.coldgvUserLstName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'coldgvUserLstPassword
-        '
-        Me.coldgvUserLstPassword.DataPropertyName = "USER_PASSWORD"
-        Me.coldgvUserLstPassword.FillWeight = 45.0!
-        Me.coldgvUserLstPassword.HeaderText = "F342"
-        Me.coldgvUserLstPassword.MinimumWidth = 100
-        Me.coldgvUserLstPassword.Name = "coldgvUserLstPassword"
-        Me.coldgvUserLstPassword.ReadOnly = True
-        Me.coldgvUserLstPassword.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvUserLstPassword.Visible = False
-        '
-        'coldgvUserLstTel
-        '
-        Me.coldgvUserLstTel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.coldgvUserLstTel.DataPropertyName = "USER_PHONE"
-        Me.coldgvUserLstTel.HeaderText = "F349"
-        Me.coldgvUserLstTel.MinimumWidth = 108
-        Me.coldgvUserLstTel.Name = "coldgvUserLstTel"
-        Me.coldgvUserLstTel.ReadOnly = True
-        Me.coldgvUserLstTel.Width = 108
-        '
-        'coldgvUserLstTel2
-        '
-        Me.coldgvUserLstTel2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.coldgvUserLstTel2.DataPropertyName = "USER_PHONE2"
-        Me.coldgvUserLstTel2.HeaderText = "F349"
-        Me.coldgvUserLstTel2.MinimumWidth = 108
-        Me.coldgvUserLstTel2.Name = "coldgvUserLstTel2"
-        Me.coldgvUserLstTel2.ReadOnly = True
-        Me.coldgvUserLstTel2.Width = 108
-        '
-        'coldgvUserLstNotiPhone
-        '
-        Me.coldgvUserLstNotiPhone.DataPropertyName = "USER_NOTI_PHONE"
-        Me.coldgvUserLstNotiPhone.HeaderText = "Noti Phone"
-        Me.coldgvUserLstNotiPhone.Name = "coldgvUserLstNotiPhone"
-        Me.coldgvUserLstNotiPhone.ReadOnly = True
-        Me.coldgvUserLstNotiPhone.Visible = False
-        Me.coldgvUserLstNotiPhone.Width = 80
-        '
-        'coldgvUserLstEmail
-        '
-        Me.coldgvUserLstEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvUserLstEmail.DataPropertyName = "USER_EMAIL"
-        Me.coldgvUserLstEmail.HeaderText = "F350"
-        Me.coldgvUserLstEmail.MinimumWidth = 140
-        Me.coldgvUserLstEmail.Name = "coldgvUserLstEmail"
-        Me.coldgvUserLstEmail.ReadOnly = True
-        '
-        'coldgvUserLstDept
-        '
-        Me.coldgvUserLstDept.DataPropertyName = "USER_DEPT_NAME"
-        Me.coldgvUserLstDept.HeaderText = "F915"
-        Me.coldgvUserLstDept.MinimumWidth = 110
-        Me.coldgvUserLstDept.Name = "coldgvUserLstDept"
-        Me.coldgvUserLstDept.ReadOnly = True
-        Me.coldgvUserLstDept.Visible = False
-        Me.coldgvUserLstDept.Width = 110
-        '
-        'coldgvUserLstAdmin
-        '
-        Me.coldgvUserLstAdmin.DataPropertyName = "USER_ADMIN"
-        Me.coldgvUserLstAdmin.HeaderText = "F920"
-        Me.coldgvUserLstAdmin.MinimumWidth = 70
-        Me.coldgvUserLstAdmin.Name = "coldgvUserLstAdmin"
-        Me.coldgvUserLstAdmin.ReadOnly = True
-        Me.coldgvUserLstAdmin.Width = 70
-        '
-        'coldgvUserLstLastLogin
-        '
-        Me.coldgvUserLstLastLogin.DataPropertyName = "LAST_LOGIN_DT"
-        Me.coldgvUserLstLastLogin.HeaderText = "Last Login"
-        Me.coldgvUserLstLastLogin.MinimumWidth = 130
-        Me.coldgvUserLstLastLogin.Name = "coldgvUserLstLastLogin"
-        Me.coldgvUserLstLastLogin.ReadOnly = True
-        Me.coldgvUserLstLastLogin.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvUserLstLastLogin.Width = 130
-        '
-        'coldgvUserLstLock
-        '
-        Me.coldgvUserLstLock.DataPropertyName = "IS_LOCKED_TF"
-        Me.coldgvUserLstLock.HeaderText = "Locked"
-        Me.coldgvUserLstLock.MinimumWidth = 90
-        Me.coldgvUserLstLock.Name = "coldgvUserLstLock"
-        Me.coldgvUserLstLock.ReadOnly = True
-        Me.coldgvUserLstLock.Width = 90
-        '
-        'coldgvUserLstPWDT
-        '
-        Me.coldgvUserLstPWDT.DataPropertyName = "SET_PW_DT"
-        Me.coldgvUserLstPWDT.HeaderText = "PW Change"
-        Me.coldgvUserLstPWDT.MinimumWidth = 125
-        Me.coldgvUserLstPWDT.Name = "coldgvUserLstPWDT"
-        Me.coldgvUserLstPWDT.ReadOnly = True
-        Me.coldgvUserLstPWDT.Width = 125
-        '
-        'coldgvUserLstEdit
-        '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.coldgvUserLstEdit.DefaultCellStyle = DataGridViewCellStyle6
-        Me.coldgvUserLstEdit.HeaderText = ""
-        Me.coldgvUserLstEdit.Image = CType(resources.GetObject("coldgvUserLstEdit.Image"), System.Drawing.Image)
-        Me.coldgvUserLstEdit.MinimumWidth = 39
-        Me.coldgvUserLstEdit.Name = "coldgvUserLstEdit"
-        Me.coldgvUserLstEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvUserLstEdit.Width = 39
-        '
-        'coldgvUserLstDelete
-        '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.coldgvUserLstDelete.DefaultCellStyle = DataGridViewCellStyle7
-        Me.coldgvUserLstDelete.HeaderText = ""
-        Me.coldgvUserLstDelete.Image = CType(resources.GetObject("coldgvUserLstDelete.Image"), System.Drawing.Image)
-        Me.coldgvUserLstDelete.MinimumWidth = 39
-        Me.coldgvUserLstDelete.Name = "coldgvUserLstDelete"
-        Me.coldgvUserLstDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.coldgvUserLstDelete.Width = 39
         '
         'TableLayoutPanel1
         '
@@ -637,6 +498,152 @@ Partial Class UserManagement
         Me.Panel1.Size = New System.Drawing.Size(194, 4)
         Me.Panel1.TabIndex = 26
         '
+        'coldgvUserLstID
+        '
+        Me.coldgvUserLstID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.coldgvUserLstID.DataPropertyName = "USER_ID"
+        Me.coldgvUserLstID.HeaderText = "F347"
+        Me.coldgvUserLstID.MinimumWidth = 90
+        Me.coldgvUserLstID.Name = "coldgvUserLstID"
+        Me.coldgvUserLstID.ReadOnly = True
+        Me.coldgvUserLstID.Width = 90
+        '
+        'coldgvUserLstName
+        '
+        Me.coldgvUserLstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.coldgvUserLstName.DataPropertyName = "USER_NAME"
+        Me.coldgvUserLstName.HeaderText = "F348"
+        Me.coldgvUserLstName.MinimumWidth = 100
+        Me.coldgvUserLstName.Name = "coldgvUserLstName"
+        Me.coldgvUserLstName.ReadOnly = True
+        Me.coldgvUserLstName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'coldgvUserLstPassword
+        '
+        Me.coldgvUserLstPassword.DataPropertyName = "USER_PASSWORD"
+        Me.coldgvUserLstPassword.FillWeight = 45.0!
+        Me.coldgvUserLstPassword.HeaderText = "F342"
+        Me.coldgvUserLstPassword.MinimumWidth = 100
+        Me.coldgvUserLstPassword.Name = "coldgvUserLstPassword"
+        Me.coldgvUserLstPassword.ReadOnly = True
+        Me.coldgvUserLstPassword.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvUserLstPassword.Visible = False
+        '
+        'coldgvUserLstTel
+        '
+        Me.coldgvUserLstTel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.coldgvUserLstTel.DataPropertyName = "USER_PHONE"
+        Me.coldgvUserLstTel.HeaderText = "F349"
+        Me.coldgvUserLstTel.MinimumWidth = 108
+        Me.coldgvUserLstTel.Name = "coldgvUserLstTel"
+        Me.coldgvUserLstTel.ReadOnly = True
+        Me.coldgvUserLstTel.Width = 108
+        '
+        'coldgvUserLstTel2
+        '
+        Me.coldgvUserLstTel2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.coldgvUserLstTel2.DataPropertyName = "USER_PHONE2"
+        Me.coldgvUserLstTel2.HeaderText = "F349"
+        Me.coldgvUserLstTel2.MinimumWidth = 100
+        Me.coldgvUserLstTel2.Name = "coldgvUserLstTel2"
+        Me.coldgvUserLstTel2.ReadOnly = True
+        '
+        'coldgvUserLstNotiPhone
+        '
+        Me.coldgvUserLstNotiPhone.DataPropertyName = "USER_NOTI_PHONE"
+        Me.coldgvUserLstNotiPhone.HeaderText = "Noti Phone"
+        Me.coldgvUserLstNotiPhone.Name = "coldgvUserLstNotiPhone"
+        Me.coldgvUserLstNotiPhone.ReadOnly = True
+        Me.coldgvUserLstNotiPhone.Visible = False
+        Me.coldgvUserLstNotiPhone.Width = 80
+        '
+        'coldgvUserLstEmail
+        '
+        Me.coldgvUserLstEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvUserLstEmail.DataPropertyName = "USER_EMAIL"
+        Me.coldgvUserLstEmail.HeaderText = "F350"
+        Me.coldgvUserLstEmail.MinimumWidth = 140
+        Me.coldgvUserLstEmail.Name = "coldgvUserLstEmail"
+        Me.coldgvUserLstEmail.ReadOnly = True
+        '
+        'coldgvUserLstEmpNum
+        '
+        Me.coldgvUserLstEmpNum.DataPropertyName = "USER_EMPNUM"
+        Me.coldgvUserLstEmpNum.HeaderText = "F364"
+        Me.coldgvUserLstEmpNum.Name = "coldgvUserLstEmpNum"
+        Me.coldgvUserLstEmpNum.ReadOnly = True
+        Me.coldgvUserLstEmpNum.Width = 65
+        '
+        'coldgvUserLstDept
+        '
+        Me.coldgvUserLstDept.DataPropertyName = "USER_DEPT_NAME"
+        Me.coldgvUserLstDept.HeaderText = "F915"
+        Me.coldgvUserLstDept.MinimumWidth = 100
+        Me.coldgvUserLstDept.Name = "coldgvUserLstDept"
+        Me.coldgvUserLstDept.ReadOnly = True
+        Me.coldgvUserLstDept.Visible = False
+        '
+        'coldgvUserLstAdmin
+        '
+        Me.coldgvUserLstAdmin.DataPropertyName = "USER_ADMIN"
+        Me.coldgvUserLstAdmin.HeaderText = "F920"
+        Me.coldgvUserLstAdmin.MinimumWidth = 55
+        Me.coldgvUserLstAdmin.Name = "coldgvUserLstAdmin"
+        Me.coldgvUserLstAdmin.ReadOnly = True
+        Me.coldgvUserLstAdmin.Width = 55
+        '
+        'coldgvUserLstLastLogin
+        '
+        Me.coldgvUserLstLastLogin.DataPropertyName = "LAST_LOGIN_DT"
+        Me.coldgvUserLstLastLogin.HeaderText = "Last Login"
+        Me.coldgvUserLstLastLogin.MinimumWidth = 130
+        Me.coldgvUserLstLastLogin.Name = "coldgvUserLstLastLogin"
+        Me.coldgvUserLstLastLogin.ReadOnly = True
+        Me.coldgvUserLstLastLogin.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvUserLstLastLogin.Width = 130
+        '
+        'coldgvUserLstLock
+        '
+        Me.coldgvUserLstLock.DataPropertyName = "IS_LOCKED_TF"
+        Me.coldgvUserLstLock.HeaderText = "Locked"
+        Me.coldgvUserLstLock.MinimumWidth = 65
+        Me.coldgvUserLstLock.Name = "coldgvUserLstLock"
+        Me.coldgvUserLstLock.ReadOnly = True
+        Me.coldgvUserLstLock.Width = 65
+        '
+        'coldgvUserLstPWDT
+        '
+        Me.coldgvUserLstPWDT.DataPropertyName = "SET_PW_DT"
+        Me.coldgvUserLstPWDT.HeaderText = "PW Change"
+        Me.coldgvUserLstPWDT.MinimumWidth = 125
+        Me.coldgvUserLstPWDT.Name = "coldgvUserLstPWDT"
+        Me.coldgvUserLstPWDT.ReadOnly = True
+        Me.coldgvUserLstPWDT.Width = 125
+        '
+        'coldgvUserLstEdit
+        '
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.coldgvUserLstEdit.DefaultCellStyle = DataGridViewCellStyle6
+        Me.coldgvUserLstEdit.HeaderText = ""
+        Me.coldgvUserLstEdit.Image = CType(resources.GetObject("coldgvUserLstEdit.Image"), System.Drawing.Image)
+        Me.coldgvUserLstEdit.MinimumWidth = 39
+        Me.coldgvUserLstEdit.Name = "coldgvUserLstEdit"
+        Me.coldgvUserLstEdit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvUserLstEdit.Width = 39
+        '
+        'coldgvUserLstDelete
+        '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.coldgvUserLstDelete.DefaultCellStyle = DataGridViewCellStyle7
+        Me.coldgvUserLstDelete.HeaderText = ""
+        Me.coldgvUserLstDelete.Image = CType(resources.GetObject("coldgvUserLstDelete.Image"), System.Drawing.Image)
+        Me.coldgvUserLstDelete.MinimumWidth = 39
+        Me.coldgvUserLstDelete.Name = "coldgvUserLstDelete"
+        Me.coldgvUserLstDelete.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.coldgvUserLstDelete.Width = 39
+        '
         'UserManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7!, 12!)
@@ -681,6 +688,7 @@ End Sub
     Friend WithEvents coldgvPrivilegesGroupName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvPrivilegesEdit As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents coldgvPrivilegesDelete As System.Windows.Forms.DataGridViewImageColumn
+    Friend WithEvents chkAll As eXperDB.BaseControls.CheckBox
     Friend WithEvents coldgvUserLstID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstName As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstPassword As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -688,6 +696,7 @@ End Sub
     Friend WithEvents coldgvUserLstTel2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstNotiPhone As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstEmail As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents coldgvUserLstEmpNum As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstDept As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstAdmin As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstLastLogin As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -695,6 +704,5 @@ End Sub
     Friend WithEvents coldgvUserLstPWDT As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvUserLstEdit As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents coldgvUserLstDelete As System.Windows.Forms.DataGridViewImageColumn
-    Friend WithEvents chkAll As eXperDB.BaseControls.CheckBox
 
 End Class

@@ -4351,6 +4351,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
       user_phone2,
       user_noti_phone,
       user_email,
+      user_empnum,
       user_dept_name,
       is_admin_tf, 
       is_locked_tf, 
@@ -4368,11 +4369,12 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 		   ,{5}
        ,'{6}'
        ,'{7}'
-       ,{8}
+       ,'{8}'
        ,{9}
+       ,{10}
        ,now()
-       ,'{10}'
        ,'{11}'
+       ,'{12}'
 		   ,now()
 		  ) 
     ]]>
@@ -4388,8 +4390,9 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
           USER_PHONE2 = '{3}',
           user_noti_phone = {4},
           USER_EMAIL = '{5}',
-          USER_DEPT_NAME = '{6}',
-          LAST_MOD_IP = '{7}',
+          USER_EMPNUM = '{6}',
+          USER_DEPT_NAME = '{7}',
+          LAST_MOD_IP = '{8}',
           LAST_MOD_DT = now()
       WHERE USER_ID = '{0}'
     ]]>
@@ -4406,10 +4409,11 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
           USER_PHONE2 = '{3}',
           user_noti_phone = {4},
           USER_EMAIL = '{5}',
-          USER_DEPT_NAME = '{6}',
-          IS_ADMIN_TF = {7}::BOOL,
-          IS_LOCKED_TF = {8}::BOOL,
-          LAST_MOD_IP = '{9}',
+          USER_EMPNUM = '{6}',
+          USER_DEPT_NAME = '{7}',
+          IS_ADMIN_TF = {8}::BOOL,
+          IS_LOCKED_TF = {9}::BOOL,
+          LAST_MOD_IP = '{10}',
           LAST_MOD_DT = now()
       WHERE USER_ID = '{0}'
     ]]>
@@ -4440,6 +4444,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
               CASE WHEN USER_NOTI_PHONE = 0 THEN USER_PHONE ELSE USER_PHONE2 END USER_SEL_PHONE,
 	            USER_NOTI_PHONE,
 	            USER_EMAIL,
+	            USER_EMPNUM,
 	            USER_DEPT_NAME,
 	            CASE WHEN IS_ADMIN_TF THEN 'Admin' ELSE '' END AS USER_ADMIN,
 	            LAST_LOGIN_DT,

@@ -96,6 +96,17 @@ Public Class AlertNotiConfig
             MsgBox(p_clsMsgData.fn_GetData("M001", "Statements"))
             Return
         End If
+        If txtSender.Text = "" Then
+            If RichTextBoxQuery1.Text.IndexOf("$src") > 0 Then
+                MsgBox(p_clsMsgData.fn_GetData("M110"))
+                Return
+            End If
+        Else
+            If RichTextBoxQuery1.Text.IndexOf("$src") <= 0 Then
+                MsgBox(p_clsMsgData.fn_GetData("M110"))
+                Return
+            End If
+        End If
 
         If cmbDBMS.SelectedIndex < 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F288")))

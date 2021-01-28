@@ -2885,12 +2885,12 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function insertUser(ByVal UserID As String, ByVal UserName As String, ByVal UserPassword As String, ByVal UserPhone As String, _
-                               ByVal UserPhone2 As String, ByVal PhonIndexForNoti As Integer, ByVal UserEmail As String, ByVal Departments As String, _
+                               ByVal UserPhone2 As String, ByVal PhonIndexForNoti As Integer, ByVal UserEmail As String, ByVal UserEmpNum As String, ByVal Departments As String, _
                                ByVal isAdmin As Boolean, ByVal isLock As Boolean, ByVal ModUser As String, ByVal LstIp As String) As Integer
         Try
             If _ODBC Is Nothing Then Return -1
             Dim strQuery As String = p_clsQueryData.fn_GetData("INSERTUSER")
-            strQuery = String.Format(strQuery, UserID, UserName, UserPassword, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, Departments, IIf(isAdmin, "true", "false"), IIf(isLock, "true", "false"), modUser, LstIp)
+            strQuery = String.Format(strQuery, UserID, UserName, UserPassword, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, UserEmpNum, Departments, IIf(isAdmin, "true", "false"), IIf(isLock, "true", "false"), ModUser, LstIp)
             Dim rtnValue As Integer = _ODBC.dbExecuteNonQuery(strQuery)
             Return rtnValue
         Catch ex As Exception
@@ -2899,17 +2899,17 @@
         End Try
     End Function
     Public Function UpdateUser(ByVal UserID As String, ByVal UserName As String, ByVal UserPhone As String, _
-                               ByVal UserPhone2 As String, ByVal PhonIndexForNoti As Integer, ByVal UserEmail As String, _
+                               ByVal UserPhone2 As String, ByVal PhonIndexForNoti As Integer, ByVal UserEmail As String, ByVal UserEmpNum As String, _
                                ByVal UserDept As String, ByVal LstIp As String, Optional ByVal isAdmin As Integer = -1, Optional ByVal isLock As Integer = 0) As Integer
         Try
             If _ODBC Is Nothing Then Return False
             Dim strQuery As String = ""
             If isAdmin >= 0 Then
                 strQuery = p_clsQueryData.fn_GetData("UPDATEUSERADMIN")
-                strQuery = String.Format(strQuery, UserID, UserName, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, UserDept, isAdmin, isLock, LstIp)
+                strQuery = String.Format(strQuery, UserID, UserName, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, UserEmpNum, UserDept, isAdmin, isLock, LstIp)
             Else
                 strQuery = p_clsQueryData.fn_GetData("UPDATEUSER")
-                strQuery = String.Format(strQuery, UserID, UserName, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, UserDept, LstIp)
+                strQuery = String.Format(strQuery, UserID, UserName, UserPhone, UserPhone2, PhonIndexForNoti, UserEmail, UserEmpNum, UserDept, LstIp)
             End If
             Return _ODBC.dbExecuteNonQuery(strQuery)
         Catch ex As Exception

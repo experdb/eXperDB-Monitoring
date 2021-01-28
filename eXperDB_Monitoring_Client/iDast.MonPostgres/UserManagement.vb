@@ -21,6 +21,7 @@
         coldgvUserLstTel.HeaderText = p_clsMsgData.fn_GetData("F349")
         coldgvUserLstTel2.HeaderText = p_clsMsgData.fn_GetData("F349") + "2"
         coldgvUserLstEmail.HeaderText = p_clsMsgData.fn_GetData("F350")
+        coldgvUserLstEmpNum.HeaderText = p_clsMsgData.fn_GetData("F364")
         coldgvUserLstDept.HeaderText = p_clsMsgData.fn_GetData("F915")
         coldgvUserLstAdmin.HeaderText = p_clsMsgData.fn_GetData("F920")
 
@@ -96,6 +97,7 @@
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstTel2.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstNotiPhone.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstEmail.Index).Value, _
+                                    dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstEmpNum.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstDept.Index).Value, _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstAdmin.Index).Value = "Admin", _
                                     dgvUserLst.Rows(e.RowIndex).Cells(coldgvUserLstLock.Index).Value = "Locked")

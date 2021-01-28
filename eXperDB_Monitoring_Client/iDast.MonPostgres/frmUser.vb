@@ -5,10 +5,11 @@ Public Class frmUser
 
     Private _PasswordLength As Integer
     Private _isCombine As Boolean
+    Private _noticeMethod As Integer
 
     Public Sub New(ByRef clsQuery As clsQuerys, ByVal nRow As Integer, Optional strUserID As String = "", Optional strUserName As String = "", _
                    Optional strPhone As String = "", Optional strPhone2 As String = "", Optional nUserNotiPhone As Integer = 0, _
-                   Optional strEmail As String = "", Optional strDept As String = "", Optional IsAdmin As Boolean = False, Optional IsLock As Boolean = False)
+                   Optional strEmail As String = "", Optional strEmpNum As String = "", Optional strDept As String = "", Optional IsAdmin As Boolean = False, Optional IsLock As Boolean = False)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -21,11 +22,13 @@ Public Class frmUser
         lblPasswordConfirm.Text = p_clsMsgData.fn_GetData("F276")
         lblPhone.Text = p_clsMsgData.fn_GetData("F349")
         lblPhone2.Text = p_clsMsgData.fn_GetData("F349") + "2"
+        lblEmpNum.Text = p_clsMsgData.fn_GetData("F364")
         lblEmail.Text = p_clsMsgData.fn_GetData("F350")
         lblDept.Text = p_clsMsgData.fn_GetData("F915")
         lblAdmin.Text = p_clsMsgData.fn_GetData("F920")
         rbUseNoti1.Text = p_clsMsgData.fn_GetData("F922")
         rbUseNoti2.Text = p_clsMsgData.fn_GetData("F922")
+        rbUseNoti3.Text = p_clsMsgData.fn_GetData("F922")
         btnPassword.Text = p_clsMsgData.fn_GetData("F279")
         lblLock.Text = p_clsMsgData.fn_GetSpecificData("M084", "DESC")
 
@@ -52,6 +55,7 @@ Public Class frmUser
             txtPhone.Text = strPhone
             txtPhone2.Text = strPhone2
             txtEmail.Text = strEmail
+            txtEmpNum.Text = strEmpNum
             txtDept.Text = strDept
             chkAdmin.Checked = IsAdmin
             chkLock.Checked = IsLock
@@ -68,8 +72,13 @@ Public Class frmUser
             lblPasswordConfirm.Visible = False
             If nUserNotiPhone = 0 Then
                 rbUseNoti1.Checked = True
-            Else
+                _noticeMethod = 0
+            ElseIf nUserNotiPhone = 1 Then
                 rbUseNoti2.Checked = True
+                _noticeMethod = 1
+            Else
+                rbUseNoti3.Checked = True
+                _noticeMethod = 2
             End If
 
             txtPhone.Select()
@@ -140,9 +149,9 @@ Public Class frmUser
         Dim strLocIP As String = COC.GetLocalIP
         Dim nReturn As Integer = 0
         If txtUserID.Enabled = True Then
-            nReturn = _clsQuery.insertUser(txtUserID.Text, txtUserName.Text, strPw, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, chkAdmin.Checked, chkLock.Checked, p_cSession.UserID, strLocIP)
+            nReturn = _clsQuery.insertUser(txtUserID.Text, txtUserName.Text, strPw, txtPhone.Text, txtPhone2.Text, _noticeMethod, txtEmail.Text, txtEmpNum.Text, txtDept.Text, chkAdmin.Checked, chkLock.Checked, p_cSession.UserID, strLocIP)
         Else
-            nReturn = _clsQuery.UpdateUser(txtUserID.Text, txtUserName.Text, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, strLocIP, IIf(chkAdmin.Checked, 1, 0), IIf(chkLock.Checked, 1, 0))
+            nReturn = _clsQuery.UpdateUser(txtUserID.Text, txtUserName.Text, txtPhone.Text, txtPhone2.Text, _noticeMethod, txtEmail.Text, txtEmpNum.Text, txtDept.Text, strLocIP, IIf(chkAdmin.Checked, 1, 0), IIf(chkLock.Checked, 1, 0))
         End If
         Select Case nReturn
             Case -23505
@@ -177,6 +186,18 @@ Public Class frmUser
         Dim strkey = fn_GetSerial()
         Dim frmPassword As New frmUserPassword(_clsQuery, txtUserID.Text, False)
         frmPassword.ShowDialog()
+    End Sub
+
+    Private Sub rbUseNoti1_CheckedChanged(sender As Object, e As EventArgs) Handles rbUseNoti1.CheckedChanged, rbUseNoti2.CheckedChanged, rbUseNoti3.CheckedChanged
+        Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        Select Case rbTemp.Name
+            Case "rbUseNoti1"
+                _noticeMethod = 0
+            Case "rbUseNoti2"
+                _noticeMethod = 1
+            Case "rbUseNoti3"
+                _noticeMethod = 2
+        End Select
     End Sub
 
 #Region "Internal functions"
