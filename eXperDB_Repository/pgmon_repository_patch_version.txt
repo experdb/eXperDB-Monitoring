@@ -161,3 +161,9 @@ create table tb_query_info (
 create table tb_query_info_${TODAY} partition of tb_query_info for values in ('${TODAY}');
 
 alter table only tb_query_info_${TODAY} add constraint pk_tb_query_info_${TODAY} primary key (reg_date,instance_id, dbid, userid, queryid);
+
+
+
+-- 469+
+
+alter table tb_mon_user add column user_empnum varchar(30) default '';

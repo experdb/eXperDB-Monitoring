@@ -4402,7 +4402,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	      		0 AS export_type,
 			    ALERT.instance_id INSTANCE_ID,
 			    (select COALESCE(notification_sender, '') from tb_alert_link_config ORDER BY LAST_MOD_DT DESC LIMIT 1) AS sender,
-			    MU.USER_PHONE AS reciever,
+			    CASE WHEN MU.USER_NOTI_PHONE = 0 THEN MU.USER_PHONE WHEN MU.USER_NOTI_PHONE = 1 THEN MU.USER_PHONE2 ELSE MU.USER_EMPNUM END AS reciever,
 	            ALERT.state export_level,
 	            '['
 			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
@@ -4527,16 +4527,27 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		   AND COLLECT_YN = 'Y'
            AND DELETE_YN = 'N'
 	</select>
+	<select id="BT_CHECK_VIP_FUNCTION_000" parameterType="hashmap" resultType="hashmap"  >
+			SELECT 1 EXISTFUNC
+			  FROM pg_proc p
+			  LEFT JOIN pg_namespace n ON p.pronamespace = n.oid
+			  WHERE n.nspname NOT IN ('pg_catalog', 'information_schema')
+			    AND	p.proname = 'checkvip'
+	</select>
 	<update id="BT_CHECK_VIP_FUNCTION_001" parameterType="hashmap">
 		<![CDATA[
 			/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
 			DO $$
 			DECLARE       
 			    is_in_recovery BOOL;
+			    is_plperu BOOL;
 			BEGIN    
 			    is_in_recovery := (SELECT PG_IS_IN_RECOVERY());       
-			    IF is_in_recovery = FALSE THEN           
-				    EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS plperlu') ;     
+			    IF is_in_recovery = FALSE THEN
+			    	is_plperu := (SELECT true FROM pg_extension WHERE extname = 'plperlu');
+				    IF is_plperu = FALSE THEN           
+					    EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS plperlu');
+					END IF;
 				    EXECUTE FORMAT('CREATE OR REPLACE FUNCTION CHECKVIP(CHARACTER VARYING) RETURNS text AS $BODY$
 								    use warnings;
 								    use strict;
@@ -4546,7 +4557,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 							$res = `$cmd`;
 						    return($res);
 						$BODY$ LANGUAGE plperlu;');     
-			    END IF;       
+			    END IF;     
 			 END $$
 		  ]]>	  
 	</update>

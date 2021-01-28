@@ -575,6 +575,7 @@ CREATE TABLE tb_mon_user (
 	user_phone2 varchar(30) default '',
 	user_noti_phone int2 default 0,
 	user_email varchar(100) default '',
+	user_empnum varchar(30) default '',
 	user_dept_name varchar(30) default '',
 	set_pw_dt timestamp without time zone default now(),
 	is_admin_tf bool DEFAULT false,

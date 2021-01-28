@@ -30,6 +30,9 @@ Partial Class frmUser
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.rbUseNoti3 = New eXperDB.BaseControls.RadioButton()
+        Me.txtEmpNum = New eXperDB.BaseControls.TextBox()
+        Me.lblEmpNum = New eXperDB.BaseControls.Label()
         Me.chkLock = New eXperDB.BaseControls.CheckBox()
         Me.lblLock = New eXperDB.BaseControls.Label()
         Me.btnPassword = New eXperDB.BaseControls.Button()
@@ -111,12 +114,12 @@ Partial Class frmUser
         Me.TableLayoutPanel3.Controls.Add(Me.btnClose, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.btnAct, 0, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 448)
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 465)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(442, 45)
-        Me.TableLayoutPanel3.TabIndex = 17
+        Me.TableLayoutPanel3.TabIndex = 1
         '
         'btnClose
         '
@@ -168,23 +171,26 @@ Partial Class frmUser
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72.0!))
-        Me.tlpSvrChk.Controls.Add(Me.chkLock, 2, 10)
-        Me.tlpSvrChk.Controls.Add(Me.lblLock, 1, 10)
+        Me.tlpSvrChk.Controls.Add(Me.rbUseNoti3, 3, 7)
+        Me.tlpSvrChk.Controls.Add(Me.txtEmpNum, 2, 7)
+        Me.tlpSvrChk.Controls.Add(Me.lblEmpNum, 1, 7)
+        Me.tlpSvrChk.Controls.Add(Me.chkLock, 2, 11)
+        Me.tlpSvrChk.Controls.Add(Me.lblLock, 1, 11)
         Me.tlpSvrChk.Controls.Add(Me.btnPassword, 3, 3)
         Me.tlpSvrChk.Controls.Add(Me.rbUseNoti2, 3, 6)
         Me.tlpSvrChk.Controls.Add(Me.rbUseNoti1, 3, 5)
-        Me.tlpSvrChk.Controls.Add(Me.lblAdmin, 1, 9)
-        Me.tlpSvrChk.Controls.Add(Me.chkAdmin, 2, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblAdmin, 1, 10)
+        Me.tlpSvrChk.Controls.Add(Me.chkAdmin, 2, 10)
         Me.tlpSvrChk.Controls.Add(Me.txtPasswordConfirm, 2, 4)
         Me.tlpSvrChk.Controls.Add(Me.txtPassword, 2, 3)
         Me.tlpSvrChk.Controls.Add(Me.lblPasswordConfirm, 1, 4)
         Me.tlpSvrChk.Controls.Add(Me.lblPassword, 1, 3)
-        Me.tlpSvrChk.Controls.Add(Me.txtDept, 2, 8)
-        Me.tlpSvrChk.Controls.Add(Me.lblDept, 1, 8)
+        Me.tlpSvrChk.Controls.Add(Me.txtDept, 2, 9)
+        Me.tlpSvrChk.Controls.Add(Me.lblDept, 1, 9)
         Me.tlpSvrChk.Controls.Add(Me.lblPhone2, 1, 6)
         Me.tlpSvrChk.Controls.Add(Me.txtPhone2, 2, 6)
-        Me.tlpSvrChk.Controls.Add(Me.txtEmail, 2, 7)
-        Me.tlpSvrChk.Controls.Add(Me.lblEmail, 1, 7)
+        Me.tlpSvrChk.Controls.Add(Me.txtEmail, 2, 8)
+        Me.tlpSvrChk.Controls.Add(Me.lblEmail, 1, 8)
         Me.tlpSvrChk.Controls.Add(Me.txtPhone, 2, 5)
         Me.tlpSvrChk.Controls.Add(Me.lblPhone, 1, 5)
         Me.tlpSvrChk.Controls.Add(Me.lblUserID, 1, 1)
@@ -194,7 +200,7 @@ Partial Class frmUser
         Me.tlpSvrChk.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tlpSvrChk.Location = New System.Drawing.Point(3, 53)
         Me.tlpSvrChk.Name = "tlpSvrChk"
-        Me.tlpSvrChk.RowCount = 12
+        Me.tlpSvrChk.RowCount = 13
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
@@ -206,9 +212,65 @@ Partial Class frmUser
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
+        Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSvrChk.Size = New System.Drawing.Size(442, 395)
-        Me.tlpSvrChk.TabIndex = 20
+        Me.tlpSvrChk.Size = New System.Drawing.Size(442, 412)
+        Me.tlpSvrChk.TabIndex = 0
+        '
+        'rbUseNoti3
+        '
+        Me.rbUseNoti3.AutoSize = True
+        Me.rbUseNoti3.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.tlpSvrChk.SetColumnSpan(Me.rbUseNoti3, 3)
+        Me.rbUseNoti3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.rbUseNoti3.ForeColor = System.Drawing.Color.White
+        Me.rbUseNoti3.LineColor = System.Drawing.Color.Gray
+        Me.rbUseNoti3.Location = New System.Drawing.Point(303, 236)
+        Me.rbUseNoti3.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
+        Me.rbUseNoti3.Name = "rbUseNoti3"
+        Me.rbUseNoti3.Radius = 10
+        Me.rbUseNoti3.Size = New System.Drawing.Size(136, 16)
+        Me.rbUseNoti3.TabIndex = 10
+        Me.rbUseNoti3.TabStop = True
+        Me.rbUseNoti3.Text = "F922"
+        Me.rbUseNoti3.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.rbUseNoti3.UseVisualStyleBackColor = True
+        Me.rbUseNoti3.Warning = False
+        Me.rbUseNoti3.WarningColor = System.Drawing.Color.Red
+        '
+        'txtEmpNum
+        '
+        Me.txtEmpNum.BackColor = System.Drawing.SystemColors.Control
+        Me.txtEmpNum.code = False
+        Me.txtEmpNum.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtEmpNum.FixedWidth = False
+        Me.txtEmpNum.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.txtEmpNum.impossibleinput = ""
+        Me.txtEmpNum.Location = New System.Drawing.Point(163, 231)
+        Me.txtEmpNum.MaxLength = 50
+        Me.txtEmpNum.Name = "txtEmpNum"
+        Me.txtEmpNum.Necessary = False
+        Me.txtEmpNum.PossibleInput = ""
+        Me.txtEmpNum.Prefix = ""
+        Me.txtEmpNum.Size = New System.Drawing.Size(134, 21)
+        Me.txtEmpNum.StatusTip = ""
+        Me.txtEmpNum.TabIndex = 6
+        Me.txtEmpNum.Value = ""
+        '
+        'lblEmpNum
+        '
+        Me.lblEmpNum.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblEmpNum.FixedHeight = False
+        Me.lblEmpNum.FixedWidth = False
+        Me.lblEmpNum.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblEmpNum.ForeColor = System.Drawing.Color.White
+        Me.lblEmpNum.LineSpacing = 0.0!
+        Me.lblEmpNum.Location = New System.Drawing.Point(23, 235)
+        Me.lblEmpNum.Name = "lblEmpNum"
+        Me.lblEmpNum.Size = New System.Drawing.Size(134, 20)
+        Me.lblEmpNum.TabIndex = 25
+        Me.lblEmpNum.Text = "F364"
+        Me.lblEmpNum.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'chkLock
         '
@@ -217,11 +279,11 @@ Partial Class frmUser
         Me.chkLock.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.chkLock.ForeColor = System.Drawing.Color.White
         Me.chkLock.LineColor = System.Drawing.Color.Gray
-        Me.chkLock.Location = New System.Drawing.Point(163, 343)
+        Me.chkLock.Location = New System.Drawing.Point(163, 378)
         Me.chkLock.Name = "chkLock"
         Me.chkLock.Radius = 10
         Me.chkLock.Size = New System.Drawing.Size(134, 14)
-        Me.chkLock.TabIndex = 24
+        Me.chkLock.TabIndex = 14
         Me.chkLock.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.chkLock.UseVisualStyleBackColor = True
         '
@@ -233,7 +295,7 @@ Partial Class frmUser
         Me.lblLock.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblLock.ForeColor = System.Drawing.Color.White
         Me.lblLock.LineSpacing = 0.0!
-        Me.lblLock.Location = New System.Drawing.Point(23, 340)
+        Me.lblLock.Location = New System.Drawing.Point(23, 375)
         Me.lblLock.Name = "lblLock"
         Me.lblLock.Size = New System.Drawing.Size(134, 20)
         Me.lblLock.TabIndex = 23
@@ -275,7 +337,7 @@ Partial Class frmUser
         Me.rbUseNoti2.Name = "rbUseNoti2"
         Me.rbUseNoti2.Radius = 10
         Me.rbUseNoti2.Size = New System.Drawing.Size(136, 16)
-        Me.rbUseNoti2.TabIndex = 7
+        Me.rbUseNoti2.TabIndex = 9
         Me.rbUseNoti2.TabStop = True
         Me.rbUseNoti2.Text = "F922"
         Me.rbUseNoti2.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -296,7 +358,7 @@ Partial Class frmUser
         Me.rbUseNoti1.Name = "rbUseNoti1"
         Me.rbUseNoti1.Radius = 10
         Me.rbUseNoti1.Size = New System.Drawing.Size(136, 16)
-        Me.rbUseNoti1.TabIndex = 6
+        Me.rbUseNoti1.TabIndex = 8
         Me.rbUseNoti1.TabStop = True
         Me.rbUseNoti1.Text = "F922"
         Me.rbUseNoti1.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
@@ -312,7 +374,7 @@ Partial Class frmUser
         Me.lblAdmin.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblAdmin.ForeColor = System.Drawing.Color.White
         Me.lblAdmin.LineSpacing = 0.0!
-        Me.lblAdmin.Location = New System.Drawing.Point(23, 305)
+        Me.lblAdmin.Location = New System.Drawing.Point(23, 340)
         Me.lblAdmin.Name = "lblAdmin"
         Me.lblAdmin.Size = New System.Drawing.Size(134, 20)
         Me.lblAdmin.TabIndex = 21
@@ -326,11 +388,11 @@ Partial Class frmUser
         Me.chkAdmin.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.chkAdmin.ForeColor = System.Drawing.Color.White
         Me.chkAdmin.LineColor = System.Drawing.Color.Gray
-        Me.chkAdmin.Location = New System.Drawing.Point(163, 308)
+        Me.chkAdmin.Location = New System.Drawing.Point(163, 343)
         Me.chkAdmin.Name = "chkAdmin"
         Me.chkAdmin.Radius = 10
         Me.chkAdmin.Size = New System.Drawing.Size(134, 14)
-        Me.chkAdmin.TabIndex = 10
+        Me.chkAdmin.TabIndex = 13
         Me.chkAdmin.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.chkAdmin.UseVisualStyleBackColor = True
         '
@@ -414,7 +476,7 @@ Partial Class frmUser
         Me.txtDept.FixedWidth = False
         Me.txtDept.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtDept.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
-        Me.txtDept.Location = New System.Drawing.Point(163, 266)
+        Me.txtDept.Location = New System.Drawing.Point(163, 301)
         Me.txtDept.MaxLength = 50
         Me.txtDept.Name = "txtDept"
         Me.txtDept.Necessary = False
@@ -422,7 +484,7 @@ Partial Class frmUser
         Me.txtDept.Prefix = ""
         Me.txtDept.Size = New System.Drawing.Size(134, 21)
         Me.txtDept.StatusTip = ""
-        Me.txtDept.TabIndex = 9
+        Me.txtDept.TabIndex = 12
         Me.txtDept.Value = ""
         '
         'lblDept
@@ -433,7 +495,7 @@ Partial Class frmUser
         Me.lblDept.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblDept.ForeColor = System.Drawing.Color.White
         Me.lblDept.LineSpacing = 0.0!
-        Me.lblDept.Location = New System.Drawing.Point(23, 270)
+        Me.lblDept.Location = New System.Drawing.Point(23, 305)
         Me.lblDept.Name = "lblDept"
         Me.lblDept.Size = New System.Drawing.Size(134, 20)
         Me.lblDept.TabIndex = 13
@@ -483,7 +545,7 @@ Partial Class frmUser
         Me.txtEmail.FixedWidth = False
         Me.txtEmail.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtEmail.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
-        Me.txtEmail.Location = New System.Drawing.Point(163, 231)
+        Me.txtEmail.Location = New System.Drawing.Point(163, 266)
         Me.txtEmail.MaxLength = 50
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Necessary = False
@@ -491,7 +553,7 @@ Partial Class frmUser
         Me.txtEmail.Prefix = ""
         Me.txtEmail.Size = New System.Drawing.Size(167, 21)
         Me.txtEmail.StatusTip = ""
-        Me.txtEmail.TabIndex = 8
+        Me.txtEmail.TabIndex = 11
         Me.txtEmail.Value = ""
         '
         'lblEmail
@@ -502,7 +564,7 @@ Partial Class frmUser
         Me.lblEmail.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblEmail.ForeColor = System.Drawing.Color.White
         Me.lblEmail.LineSpacing = 0.0!
-        Me.lblEmail.Location = New System.Drawing.Point(23, 235)
+        Me.lblEmail.Location = New System.Drawing.Point(23, 270)
         Me.lblEmail.Name = "lblEmail"
         Me.lblEmail.Size = New System.Drawing.Size(134, 20)
         Me.lblEmail.TabIndex = 10
@@ -614,29 +676,29 @@ Partial Class frmUser
         '
         'frmUser
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7!, 12!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(448, 496)
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(32,Byte),Integer), CType(CType(32,Byte),Integer), CType(CType(36,Byte),Integer))
+        Me.ClientSize = New System.Drawing.Size(448, 513)
         Me.Controls.Add(Me.tlpSvrChk)
         Me.Controls.Add(Me.TableLayoutPanel3)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
+        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.MaximizeBox = false
+        Me.MinimizeBox = false
         Me.Name = "frmUser"
         Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "User Information"
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
-        Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.tlpSvrChk.ResumeLayout(False)
-        Me.tlpSvrChk.PerformLayout()
-        Me.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(false)
+        Me.TableLayoutPanel2.PerformLayout
+        Me.TableLayoutPanel3.ResumeLayout(false)
+        Me.tlpSvrChk.ResumeLayout(false)
+        Me.tlpSvrChk.PerformLayout
+        Me.ResumeLayout(false)
 
-    End Sub
+End Sub
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents StatusLabel As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -667,4 +729,7 @@ Partial Class frmUser
     Friend WithEvents btnPassword As eXperDB.BaseControls.Button
     Friend WithEvents chkLock As eXperDB.BaseControls.CheckBox
     Friend WithEvents lblLock As eXperDB.BaseControls.Label
+    Friend WithEvents lblEmpNum As eXperDB.BaseControls.Label
+    Friend WithEvents txtEmpNum As eXperDB.BaseControls.TextBox
+    Friend WithEvents rbUseNoti3 As eXperDB.BaseControls.RadioButton
 End Class

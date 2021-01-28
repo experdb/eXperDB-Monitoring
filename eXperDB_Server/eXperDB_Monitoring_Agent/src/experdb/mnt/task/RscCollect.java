@@ -24,9 +24,7 @@ public class RscCollect extends TaskApplication {
 
 	private String is_collect_ok = "Y";
 	private String failed_collect_type = "";
-	boolean isFirst = true;
 	int virtualIP2Status = 0;
-	
 	public RscCollect(String instanceId, String taskId) {
 		super(instanceId, taskId);
 	}
@@ -200,37 +198,42 @@ public class RscCollect extends TaskApplication {
 					}
 										
 					// LVIPStatusSel 정보 수집
+					
+					HashMap<String, Object> resultFunc = sessionCollect.selectOne("BT_CHECK_VIP_FUNCTION_000");
+					if(resultFunc == null){
+						try{
+							sessionCollect.update("app.BT_CHECK_VIP_FUNCTION_001");
+							sessionCollect.commit();
+						} catch (Exception e) {
+							throw e;
+						}												
+					}
+					
 					Map<String, Object> param = new HashMap<String, Object>();
 					param.put("instance_id", Integer.valueOf(instanceId));
 					HashMap<String, Object> checkVIP2ConfMap = sessionAgent.selectOne("EXPERDBMA_TB_CHECK_VIP2_CONF_001", param);
-					if(!checkVIP2ConfMap.get("ha_role").toString().equals("S")){ // check the target cluster's role is not slave 
-						if(isFirst == true){
-							sessionCollect.update("app.BT_CHECK_VIP_FUNCTION_001");
-							isFirst = false;
-						}
-					}
-					
-					virtualIP2 = (String)checkVIP2ConfMap.get("virtual_ip2");
-					if(checkVIP2ConfMap.get("reserved") != null)
-						virtualIP2Status = Integer.parseInt(checkVIP2ConfMap.get("reserved").toString());
-					if(virtualIP2 != null && !virtualIP2.equals("")){
-						try {
-							int reserved = 0;
-							param.clear();
-							param.put("virtual_ip2", virtualIP2);
-							LVIPStatusSel = sessionCollect.selectOne("app.BT_CHECK_VIP_001", param);
-							if (LVIPStatusSel.get("virtual_ip2").toString().equals(virtualIP2))
-								reserved = 0;
-							else
-								reserved = 1;
-							if(virtualIP2Status == reserved)
-								LVIPStatusSel.clear();
-							else
-								virtualIP2Status = reserved;
-						} catch (Exception e) {
-							isFirst = true;
-							failed_collect_type = "4";
-							throw e;
+					if(checkVIP2ConfMap != null){
+						virtualIP2 = (String)checkVIP2ConfMap.get("virtual_ip2");
+						if(checkVIP2ConfMap.get("reserved") != null)
+							virtualIP2Status = Integer.parseInt(checkVIP2ConfMap.get("reserved").toString());
+						if(virtualIP2 != null && !virtualIP2.equals("")){
+							try {
+								int reserved = 0;
+								param.clear();
+								param.put("virtual_ip2", virtualIP2);
+								LVIPStatusSel = sessionCollect.selectOne("app.BT_CHECK_VIP_001", param);
+								if (LVIPStatusSel.get("virtual_ip2").toString().equals(virtualIP2))
+									reserved = 0;
+								else
+									reserved = 1;
+								if(virtualIP2Status == reserved)
+									LVIPStatusSel.clear();
+								else
+									virtualIP2Status = reserved;
+							} catch (Exception e) {
+								failed_collect_type = "4";
+								throw e;
+							}
 						}
 					}
 				} catch (Exception e1) {

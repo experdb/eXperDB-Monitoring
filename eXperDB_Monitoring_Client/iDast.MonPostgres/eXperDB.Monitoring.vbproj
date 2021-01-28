@@ -149,11 +149,18 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="AdvancedDataGridView" />
+    <Import Include="CalendarColumn" />
     <Import Include="eXperDB.BaseControls" />
     <Import Include="eXperDB.Controls" />
     <Import Include="eXperDB.LogUtil" />
     <Import Include="eXperDB.ODBC" />
+    <Import Include="FastColoredTextBoxNS" />
+    <Import Include="FlatCombobox" />
+    <Import Include="FlatTabControl" />
+    <Import Include="MdiTabControl" />
     <Import Include="Microsoft.VisualBasic" />
+    <Import Include="ProgressControl" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />

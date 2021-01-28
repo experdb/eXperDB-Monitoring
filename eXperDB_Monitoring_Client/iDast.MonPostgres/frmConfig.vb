@@ -1,6 +1,7 @@
 ﻿Public Class frmConfig
 
     Private _clsQuery As clsQuerys
+    Private _noticeMethod As Integer
     Public Sub New(ByRef odbcConn As eXperDBODBC)
 
         ' 이 호출은 디자이너에 필요합니다.
@@ -182,8 +183,11 @@
         lblPhone2.Text = p_clsMsgData.fn_GetData("F349") + "2"
         rbUseNoti1.Text = p_clsMsgData.fn_GetData("F922")
         rbUseNoti2.Text = p_clsMsgData.fn_GetData("F922")
+        rbUseNoti3.Text = p_clsMsgData.fn_GetData("F922")
         rbUseNoti1.Checked = True
+        _noticeMethod = 0
         lblEmail.Text = p_clsMsgData.fn_GetData("F350")
+        lblEmpNum.Text = p_clsMsgData.fn_GetData("F364")
         lblDept.Text = p_clsMsgData.fn_GetData("F915")
         btnPassword.Text = p_clsMsgData.fn_GetData("F279")
         lblSound.Text = p_clsMsgData.fn_GetData("F938")
@@ -538,7 +542,7 @@
         Dim COC As New Common.ClsObjectCtl
         Dim strLocIP As String = COC.GetLocalIP
         Dim nReturn As Integer = 0
-        nReturn = _clsQuery.UpdateUser(txtUserID.Text, txtUserName.Text, txtPhone.Text, txtPhone2.Text, IIf(rbUseNoti1.Checked, 0, 1), txtEmail.Text, txtDept.Text, strLocIP)
+        nReturn = _clsQuery.UpdateUser(txtUserID.Text, txtUserName.Text, txtPhone.Text, txtPhone2.Text, _noticeMethod, txtEmail.Text, txtEmpNum.Text, txtDept.Text, strLocIP)
         Select Case nReturn
             Case -23505
                 MsgBox(p_clsMsgData.fn_GetData("M070"))
@@ -550,6 +554,18 @@
         End Select
         MsgBox(p_clsMsgData.fn_GetData("M082"))
         AccessLog("change_user_info", 0, "")
+    End Sub
+
+    Private Sub rbUseNoti1_CheckedChanged(sender As Object, e As EventArgs) Handles rbUseNoti1.CheckedChanged, rbUseNoti2.CheckedChanged, rbUseNoti3.CheckedChanged
+        Dim rbTemp As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
+        Select Case rbTemp.Name
+            Case "rbUseNoti1"
+                _noticeMethod = 0
+            Case "rbUseNoti2"
+                _noticeMethod = 1
+            Case "rbUseNoti3"
+                _noticeMethod = 2
+        End Select
     End Sub
 
 #Region "Internal functions"
@@ -586,10 +602,16 @@
         txtPhone2.Text = dtRow.Item("USER_PHONE2")
         If Integer.Parse(dtRow.Item("USER_NOTI_PHONE").ToString()) = 0 Then
             rbUseNoti1.Checked = True
-        Else
+            _noticeMethod = 0
+        ElseIf Integer.Parse(dtRow.Item("USER_NOTI_PHONE").ToString()) = 1 Then
             rbUseNoti2.Checked = True
+            _noticeMethod = 1
+        Else
+            rbUseNoti3.Checked = True
+            _noticeMethod = 2
         End If
         txtEmail.Text = dtRow.Item("USER_EMAIL")
+        txtEmpNum.Text = dtRow.Item("USER_EMPNUM")
         txtDept.Text = dtRow.Item("USER_DEPT_NAME")
     End Sub
 
@@ -604,6 +626,7 @@
         End Try
     End Sub
 #End Region
+
 
 
 End Class

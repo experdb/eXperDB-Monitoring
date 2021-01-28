@@ -321,10 +321,15 @@ public class HchkCollect extends TaskApplication {
 						pstmt = prepareCommand(connExternalDB, selectExportInfo, argIndex);
 						if (pstmt != null){
 							int updateInstanceId = 0;
-							for (HashMap<String, Object> exportMap : exportAlertSel) {	
-								pstmt.setString(argIndex[0], exportMap.get("sender").toString());
-								pstmt.setString(argIndex[1], exportMap.get("reciever").toString());
-								pstmt.setString(argIndex[2], exportMap.get("messages").toString());
+							for (HashMap<String, Object> exportMap : exportAlertSel) {
+								if((exportMap.get("sender") == null) || (exportMap.get("sender").toString().length() > 0)){
+									pstmt.setString(argIndex[0], exportMap.get("sender").toString());
+									pstmt.setString(argIndex[1], exportMap.get("reciever").toString());
+									pstmt.setString(argIndex[2], exportMap.get("messages").toString());
+								} else {
+									pstmt.setString(argIndex[0], exportMap.get("reciever").toString());
+									pstmt.setString(argIndex[1], exportMap.get("messages").toString());
+								}
 								pstmt.executeUpdate();
 							}
 						}
