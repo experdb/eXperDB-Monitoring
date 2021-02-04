@@ -3198,14 +3198,12 @@
                     dgvClusterRow.Cells(coldgvClustersRole.Index).Tag = "A"
                 End If
 
-                If dgvClusterRow.Cells(coldgvClustersLegend.Index).Tag <> strVip Then
-                    If strVip IsNot Nothing Then
-                        dgvClusterRow.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(3)
-                    Else
-                        dgvClusterRow.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
-                    End If
+                If strVip <> "" Then
+                    dgvClusterRow.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(3)
+                Else
+                    dgvClusterRow.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
                 End If
-
+                
                 dgvClusterRow.Cells(coldgvClustersLegend.Index).Tag = strVip
 
                 '                If dgvClusterRow.Cells(coldgvClustersVip2.Index).Tag <> strVip2 Then

@@ -265,6 +265,7 @@ create table tb_instance_info (
     ha_group integer,
     virtual_ip character varying(15),
     virtual_ip2 character varying(15),
+    virtual_ip_stat int4,
     withsolutions int4,
     statsolutions int4,
     afma int4,

@@ -2014,6 +2014,31 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		<![CDATA[
 		SELECT /* EXPERDBMA_BT_HCHK_VIRTUALIP_001 */
 			   I.INSTANCE_ID,
+			   CASE WHEN VIRTUAL_IP_STAT = 0 THEN 1 
+			   ELSE CASE WHEN R.HA_ROLE = 'P' AND VIRTUAL_IP IS NULL THEN 2
+		  		 		 WHEN R.HA_ROLE = 'S' AND VIRTUAL_IP IS NOT NULL THEN 2 
+					ELSE 0 END
+			   END AS VIRTUAL_IP,
+			   '4' AS COLLECT_GROUP,
+	           TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDD') AS COLLECT_REG_DATE,
+			   -1 AS COLLECT_REG_SEQ,	
+	           CURRENT_TIME AS REG_TIME	
+		    FROM TB_INSTANCE_INFO I, TB_REPLICATION_INFO R
+		   WHERE COLLECT_YN = 'Y'
+             AND DELETE_YN = 'N'
+             AND I.HA_GROUP IN (SELECT HA_GROUP FROM TB_INSTANCE_INFO WHERE VIRTUAL_IP IS NOT NULL)
+             AND I.INSTANCE_ID = R.INSTANCE_ID
+             AND R.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+             AND R.REPL_REG_SEQ IN (SELECT MAX(REPL_REG_SEQ) AS MAX_REG_SEQ 
+								 	  FROM TB_REPLICATION_INFO  
+								 	 WHERE REG_DATE    = TO_CHAR(NOW(), 'YYYYMMDD')
+								 	 GROUP BY INSTANCE_ID )
+		]]>  
+	</select>
+		<select id="EXPERDBMA_BT_HCHK_VIRTUALIP_001_PREV" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT /* EXPERDBMA_BT_HCHK_VIRTUALIP_001 */
+			   I.INSTANCE_ID,
 		  	   CASE WHEN R.HA_ROLE = 'P' AND VIRTUAL_IP IS NULL THEN 1
 		  		 	WHEN R.HA_ROLE = 'S' AND VIRTUAL_IP IS NOT NULL THEN 1 
 		  		 	ELSE 0 END AS VIRTUAL_IP,
@@ -2282,7 +2307,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</update>
 	<update id="TB_INSTANCE_INFO_U003" parameterType="hashmap" >
 		UPDATE TB_INSTANCE_INFO 
-		   SET VIRTUAL_IP = (CASE WHEN host_name = #{host_name} THEN #{virtual_ip} ELSE NULL END) 
+		   SET VIRTUAL_IP = (CASE WHEN host_name = #{host_name} THEN #{virtual_ip} ELSE NULL END), 
+		       VIRTUAL_IP_STAT = (CASE WHEN host_name = #{host_name} THEN #{virtual_ip_stat} ELSE NULL END)  
 		 WHERE ha_group = #{ha_group} ;
 	</update>
 	<update id="TB_INSTANCE_INFO_U004" parameterType="hashmap" >
@@ -4416,7 +4442,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    		WHEN COL.VALUE IS NULL THEN 0::varchar
 			    	    ELSE CASE WHEN COL.HCHK_NAME = 'HASTATUS' THEN CASE WHEN COL.VALUE = 2 THEN 'Multi Primary' WHEN COL.VALUE = 3 THEN 'No Primary' ELSE '-' END
 			    	    		  WHEN COL.HCHK_NAME = 'REPLICATION_SLOT' THEN CASE WHEN COL.VALUE = 1 THEN 'Inactive slot' WHEN COL.VALUE = 2 THEN 'No slot' ELSE '-' END
-			    	    		  WHEN COL.HCHK_NAME = 'VIRTUAL_IP' THEN CASE WHEN COL.VALUE = 1 THEN 'Not Primary' ELSE '-' END
+			    	    		  WHEN COL.HCHK_NAME = 'VIRTUAL_IP' THEN CASE WHEN COL.VALUE = 1 THEN 'Connection fail' WHEN COL.VALUE = 2 THEN 'Not Primary' ELSE '-' END
 			    	              ELSE 
 			    	              	CASE WHEN TH.UNIT <> '%'
 			    	              		 THEN (COL.VALUE::integer)::varchar
@@ -4514,7 +4540,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 <!--	add to update ha_info by robin 201712  end -->
 <!-- Check Virtual IP Start -->
 	<select id="TB_INSTANCE_INFO_R004" parameterType="hashmap" resultType="hashmap"  >
-		SELECT instance_id, server_ip, host_name, ha_group, virtual_ip, service_port, conn_db_name, conn_user_id, conn_user_pwd
+		SELECT instance_id, server_ip, host_name, ha_group, virtual_ip, virtual_ip_stat, service_port, conn_db_name, conn_user_id, conn_user_pwd
 		  FROM tb_instance_info
 		 WHERE virtual_ip is not null
 		   AND COLLECT_YN = 'Y'
