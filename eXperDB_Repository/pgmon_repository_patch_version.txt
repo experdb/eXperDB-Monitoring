@@ -167,3 +167,7 @@ alter table only tb_query_info_${TODAY} add constraint pk_tb_query_info_${TODAY}
 -- 469+
 
 alter table tb_mon_user add column user_empnum varchar(30) default '';
+
+--472++
+
+alter table tb_instance_info add column virtual_ip_stat int4;

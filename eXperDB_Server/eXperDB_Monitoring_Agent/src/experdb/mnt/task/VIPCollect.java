@@ -70,10 +70,11 @@ public class VIPCollect{
 							if(virtualStatusSel != null && !groupMap.get("host_name").equals(virtualStatusSel.get("host_name"))){
 								groupMap.put("host_name", virtualStatusSel.get("host_name"));
 							}
+							groupMap.put("virtual_ip_stat", 1);
 							if(conn != null) conn.close();
 							if(session != null)	session.close();
 						} catch (Exception e) {
-							groupMap.put("host_name", null);
+							groupMap.put("virtual_ip_stat", 0);
 							if(conn != null) conn.close();
 							if(session != null)	session.close();
 							log.error("[Connection timeout! : vip1:" + groupMap.get("virtual_ip") + ", vip2:"+  groupMap.get("virtual_ip2"));		
@@ -82,13 +83,11 @@ public class VIPCollect{
 			
 						try {				
 							if(groupMap != null){
-								if(groupMap.get("host_name") != null){
-									if(index == 1)
-										sessionAgent.update("app.TB_INSTANCE_INFO_U003", groupMap);
-									else
-										sessionAgent.update("app.TB_INSTANCE_INFO_U004", groupMap);
-									sessionAgent.commit();
-								}			
+								if(index == 1)
+									sessionAgent.update("app.TB_INSTANCE_INFO_U003", groupMap);
+								else
+									sessionAgent.update("app.TB_INSTANCE_INFO_U004", groupMap);
+								sessionAgent.commit();
 							}				
 						} catch (Exception e) {
 							sessionAgent.rollback();
