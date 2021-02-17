@@ -922,7 +922,7 @@ WITH COL AS (
     </DATA>
     <COMMENTS />
   </ROW>
-  <ROW ID="SELECTDISKINFO" PARAMS="2">
+  <ROW ID="SELECTDISKINFO_202102" PARAMS="2">
     <DESC>PT_03_04_001(인스턴스별 DISK IO/USAGE 정보)</DESC>
     <DATA>
       <![CDATA[
@@ -986,7 +986,77 @@ WITH COL AS (
     </DATA>
     <COMMENTS />
   </ROW>
-
+  <ROW ID="SELECTDISKINFO" PARAMS="2">
+    <DESC>PT_03_04_001(인스턴스별 DISK IO/USAGE 정보)</DESC>
+    <DATA>
+      <![CDATA[
+          WITH TMP_MAX_SEQ AS 
+          (
+             SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME 
+               FROM TB_RSC_COLLECT_INFO 
+              WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') 
+                AND RSC_REG_SEQ >= (SELECT (LAST_VALUE - (SELECT COUNT(*) + 10 FROM TB_INSTANCE_INFO)) + 1 AS LAST_VALUE FROM RSC_REG_SEQ)
+              GROUP BY INSTANCE_ID
+          )
+          SELECT /* SELECTDISKINFO */ A.INSTANCE_ID
+            , C.COLLECT_DT AS REG_DATE
+            , C.DISK_NAME                                                                  --PT_03_04_001
+            , (C.READ_BUSY_RATE + C.WRITE_BUSY_RATE) AS BUSY_RATE                          --PT_03_04_001, PT_04_03_001(DISK IO BUSY)
+            --, C.CURRENT_READ_KB/DELTA_TIME AS READ_KB_PER_SEC                              --PT_04_03_001(DISK IO READ_KB)
+            --, C.CURRENT_WRITE_KB/DELTA_TIME AS WRITE_KB_PER_SEC                            --PT_04_03_001(DISK IO WRITE_KB)
+            , CASE WHEN DELTA_TIME = 0 THEN 0 ELSE C.CURRENT_READ_KB/DELTA_TIME END AS READ_KB_PER_SEC     --PT_04_03_001(DISK IO READ_KB)
+            , CASE WHEN DELTA_TIME = 0 THEN 0 ELSE C.CURRENT_WRITE_KB/DELTA_TIME END AS WRITE_KB_PER_SEC                            --PT_04_03_001(DISK IO WRITE_KB)
+            , '-' AS DEVICE_NAME                                                           --PT_03_05_001(DISK USAGE)
+            , 0 AS TOTAL_KB                                                                --PT_03_05_001(DISK USAGE TOTAL)
+            , 0 AS DISK_USAGE_PER                                                          --PT_03_05_001(DISK USAGE PER)
+            --, A.CONN_NAME 
+            , CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+            , 0 HCHK_VALUE
+          FROM TB_INSTANCE_INFO A
+          --, (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B
+          , TMP_MAX_SEQ B
+          , TB_DISK_IO C
+          WHERE B.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+            AND A.INSTANCE_ID = B.INSTANCE_ID
+            AND B.REG_DATE = C.REG_DATE
+            AND B.RSC_REG_SEQ = C.RSC_REG_SEQ
+            AND A.INSTANCE_ID IN ({0})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+          UNION ALL
+          SELECT A.INSTANCE_ID
+            , D.COLLECT_DT AS REG_DATE
+            , D.DEVICE_NAME AS DISK_NAME                                                            --PT_03_04_001
+            , 0 AS BUSY_RATE                                                              --PT_03_04_001, PT_04_03_001(DISK IO BUSY)
+            , 0 AS CURRENT_READ_KB                                                        --PT_04_03_001(DISK IO READ_KB)
+            , 0 AS CURRENT_WRITE_KB                                                       --PT_04_03_001(DISK IO WRITE_KB)
+            , D.MOUNT_POINT_DIR                                                           --PT_03_05_001(DISK USAGE)
+            , D.TOTAL_KB                                                                  --PT_03_05_001(DISK USAGE TOTAL)
+            --, ROUND((((D.TOTAL_KB-D.avail_kb)/D.TOTAL_KB) * 100),2) AS DISK_USAGE_PER     --PT_03_05_001(DISK USAGE PER)
+            , CASE WHEN D.TOTAL_KB = 0 THEN 1 ELSE ROUND((((D.TOTAL_KB-D.avail_kb)/(D.TOTAL_KB)) * 100),2) END AS DISK_USAGE_PER 
+            --, A.CONN_NAME 
+            ,CASE WHEN {1}=0 THEN A.HOST_NAME ELSE A.CONN_NAME END AS HOST_NAME
+            ,CASE WHEN (CASE WHEN D.TOTAL_KB = 0 THEN 1 ELSE ROUND((((D.TOTAL_KB-D.avail_kb)/(D.TOTAL_KB)) * 100),2) END) >= H.CRITICAL_THRESHOLD THEN 300
+                  WHEN (CASE WHEN D.TOTAL_KB = 0 THEN 1 ELSE ROUND((((D.TOTAL_KB-D.avail_kb)/(D.TOTAL_KB)) * 100),2) END) >= H.WARNING_THRESHOLD THEN 200
+                  ELSE 100 END HCHK_VALUE
+          FROM TB_INSTANCE_INFO A
+          --, (SELECT MAX(REG_DATE) AS REG_DATE, MAX(RSC_REG_SEQ) AS RSC_REG_SEQ, INSTANCE_ID, MAX(REG_TIME) AS REG_TIME FROM TB_RSC_COLLECT_INFO WHERE REG_DATE=TO_CHAR(NOW(),'YYYYMMDD') GROUP BY INSTANCE_ID) B          
+          , TMP_MAX_SEQ B
+          , TB_DISK_USAGE D
+          , TB_HCHK_THRD_LIST H
+          WHERE A.INSTANCE_ID = B.INSTANCE_ID
+            AND A.INSTANCE_ID = H.INSTANCE_ID
+            AND H.HCHK_NAME = 'DISKUSAGE'
+            AND B.REG_DATE = D.REG_DATE
+            AND B.RSC_REG_SEQ = D.RSC_REG_SEQ
+            AND A.INSTANCE_ID IN ({0})
+            AND A.COLLECT_YN = 'Y'
+            AND A.DELETE_YN = 'N'
+          --ORDER BY A.INSTANCE_ID, C.READ_BUSY_RATE + C.WRITE_BUSY_RATE DESC;          
+      ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
   <ROW ID="SELECTDISKUSAGE" PARAMS="2">
     <DESC>PT_03_04_001(인스턴스별 DISK USAGE 정보)</DESC>
     <DATA>
