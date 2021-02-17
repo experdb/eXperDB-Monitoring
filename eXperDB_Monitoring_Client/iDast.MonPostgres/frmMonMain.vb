@@ -1954,6 +1954,7 @@
                         Dim strKey As String = intInstID & strDeviceNm
                         Dim dblTotKb As Double = ConvDBL(dtRow.Item("TOTAL_KB"))
                         Dim dblRate As Double = ConvDBL(dtRow.Item("DISK_USAGE_PER"))
+                        Dim intHealth As Integer = dtRow.Item("HCHK_VALUE")
 
                         ' GRP USAGE
                         If _isDiskUsage = True Then
@@ -1970,11 +1971,13 @@
                                     dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageProg.Index).Value = dblRate
                                     dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
                                     dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
+                                    dgvGrpDiskUsage.Rows(intIDx).Cells(colDgvDiskUsageHealth.Index).Value = intHealth
                                 Else
                                     tmpRow.Cells(colDgvDiskUsageTot.Index).Value = dblTotKb
                                     tmpRow.Cells(colDgvDiskUsageProg.Index).Value = dblRate
                                     tmpRow.Cells(colDgvDiskUsageRate.Index).Value = dblRate / 100
                                     tmpRow.Cells(colDgvDiskUsageUpdTime.Index).Value = UpdTime
+                                    tmpRow.Cells(colDgvDiskUsageHealth.Index).Value = intHealth
                                 End If
 
                             End Using
@@ -1996,7 +1999,8 @@
                 dgvGrpDiskUsage.invokeRowsRemoves(UpdTime, colDgvDiskUsageUpdTime.Index, False)
                 dgvGrpDiskUsage.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells)
                 ' 컨트롤 색상 변경 
-                modCommon.sb_GridProgClrChg(dgvGrpDiskUsage)
+                'modCommon.sb_GridProgClrChg(dgvGrpDiskUsage)
+                modCommon.sb_GridProgClrChg(dgvGrpDiskUsage, colDgvDiskUsageHealth.Index, p_RageHealthClr)
                 sb_GridSortChg(dgvGrpDiskUsage, colDgvDiskUsageRate.Index)
             End If
 
