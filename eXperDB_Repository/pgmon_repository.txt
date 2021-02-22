@@ -514,8 +514,8 @@ create table tb_sys_code (
 create table tb_realtime_statements (
     reg_time character varying(14) not null,
     instance_id integer not null,
-    dbid int4,
-    userid int4,
+    dbid int8,
+    userid int8,
     queryid int8,
     calls int8,
     total_time float8,
