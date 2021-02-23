@@ -4378,13 +4378,12 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
         WHERE group_id = {0}
     ]]>
     </DATA>
-  </ROW>
-  DELETEMONUSERGROUP
+  </ROW>  
   <ROW ID="DELETEMONUSERGROUP" PARAMS="1">
     <DESC>필수입력 사항이 누락 되었을때 사용</DESC>
     <DATA>
       <![CDATA[
-        DELETE TB_MON_GROUP 
+        DELETE FROM TB_MON_GROUP 
         WHERE group_id = {0}
     ]]>
     </DATA>

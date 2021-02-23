@@ -235,7 +235,7 @@ create table tb_index_info (
 
 create table tb_instance_info (
     instance_id integer not null,
-    server_ip character varying(15),
+    server_ip character varying(128),
     service_port character varying(10),
     instance_uptime timestamp without time zone,
     max_conn_cnt numeric(20,0),
