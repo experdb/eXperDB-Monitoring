@@ -286,7 +286,8 @@ Partial Class frmAgentInfo
         Me.txtSvrIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrIP.impossibleinput = ""
         Me.txtSvrIP.Location = New System.Drawing.Point(148, 31)
-        Me.txtSvrIP.MaxLength = 15
+        Me.txtSvrIP.MaxByteLength = 128
+        Me.txtSvrIP.MaxLength = 128
         Me.txtSvrIP.Name = "txtSvrIP"
         Me.txtSvrIP.Necessary = False
         Me.txtSvrIP.PossibleInput = ""

@@ -43,7 +43,11 @@
             _dtAC = dataTable
         End If
 
-        cmbNotiUsers.SelectedItem = CInt(dataTable.Rows(0)("USER_GROUP"))
+        For i As Integer = 0 To cmbNotiUsers.Items.Count - 1
+            If CInt(dataTable.Rows(0)("USER_GROUP")) = DirectCast(cmbNotiUsers.Items(i), KeyValuePair(Of String, String)).Key Then
+                cmbNotiUsers.SelectedIndex = i
+            End If
+        Next
         cmbNotiLevel.SelectedIndex = CInt(dataTable.Rows(0)("NOTIFICATION_LEVEL"))
         nudNotiCycle.Value = CInt(dataTable.Rows(0)("NOTIFICATION_CYCLE"))
         txtBusiness.Text = dataTable.Rows(0)("BUSINESS_NAME")

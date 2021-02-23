@@ -95,11 +95,11 @@ Public Class frmAgentInfo
             Return False
         End If
 
-        If Common.ClsObjectCtl.fn_CheckIPAddress(txtSvrIP.Text) = False Then
-            MsgBox(p_clsMsgData.fn_GetData("M002"))
-            txtSvrIP.Focus()
-            Return False
-        End If
+        'If Common.ClsObjectCtl.fn_CheckIPAddress(txtSvrIP.Text) = False Then
+        '    MsgBox(p_clsMsgData.fn_GetData("M002"))
+        '    txtSvrIP.Focus()
+        '    Return False
+        'End If
 
         If txtSvrPort.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F007")))

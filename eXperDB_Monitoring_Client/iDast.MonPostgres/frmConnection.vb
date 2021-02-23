@@ -126,12 +126,12 @@ Public Class frmConnection
             txtIP.Focus()
             Return False
         Else
-            If Common.ClsObjectCtl.fn_CheckIPAddress(txtIP.Text) = False Then
-                Dim strMsg As String = p_clsMsgData.fn_GetData("M002")
-                MsgBox(strMsg)
-                txtIP.Focus()
-                Return False
-            End If
+            'If Common.ClsObjectCtl.fn_CheckIPAddress(txtIP.Text) = False Then
+            '    Dim strMsg As String = p_clsMsgData.fn_GetData("M002")
+            '    MsgBox(strMsg)
+            '    txtIP.Focus()
+            '    Return False
+            'End If
         End If
 
 

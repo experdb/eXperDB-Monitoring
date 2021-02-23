@@ -114,6 +114,32 @@
         End If
     End Sub
 
+    Private Sub btnDeleteGroup_Click(sender As Object, e As EventArgs) Handles btnDeleteGroup.Click
+        Dim nReturn As Integer = 0
+        If dgvGroupLst.SelectedRows.Count <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M090"))
+            Return
+        End If
+        Dim groupID As Integer = dgvGroupLst.SelectedRows(0).Cells(coldgvGroupLstID.Index).Value
+        Dim arrUesrIDs As New ArrayList
+        For Each tmpRow As DataGridViewRow In Me.dgvGroupUsers.Rows
+            arrUesrIDs.Add(tmpRow.Cells(coldgvGroupLstID.Index).Value)
+        Next
+        Dim Users As String() = arrUesrIDs.ToArray(GetType(String))
+        Dim strUsers = "'" + String.Join("','", Users) + "'"
+        Dim COC As New Common.ClsObjectCtl
+        Dim strLocIP As String = COC.GetLocalIP
+        Try
+            nReturn = _clsQuery.DeleteUserByGroup(strUsers, groupID)
+            nReturn = _clsQuery.DeleteMonUserGroup(groupID)
+            ReadUserListbyGroup()
+            ReadUserList()
+            ReadGroupList()
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
     Private Sub dgvGroupLst_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvGroupLst.CellClick
         If e.RowIndex >= 0 Then
             ReadUserListbyGroup()
