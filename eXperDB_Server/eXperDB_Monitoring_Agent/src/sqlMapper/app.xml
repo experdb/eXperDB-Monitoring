@@ -471,7 +471,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 												            LEFT JOIN pg_class AS toast ON tbl.reltoastrelid = toast.oid
 										          WHERE att.attnum > 0 AND NOT att.attisdropped
 										            AND tbl.relkind = 'r'
-										          GROUP BY 1,2,3,4,5,6,7,8,9,10, tbl.relhasoids,15,16,17
+										          GROUP BY 1,2,3,4,5,6,7,8,9,10,15,16,17
 										          ORDER BY 2,3
 				       ) AS s 
 				       JOIN PG_STAT_USER_TABLES UTB ON UTB.relname=s.tblname AND UTB.schemaname = s.schemaname

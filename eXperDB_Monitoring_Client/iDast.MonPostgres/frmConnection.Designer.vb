@@ -31,6 +31,7 @@ Partial Class frmConnection
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.btnTest = New eXperDB.BaseControls.Button()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.chkReScanStmt = New eXperDB.BaseControls.CheckBox()
         Me.cmbSnapPeriod = New eXperDB.BaseControls.ComboBox()
         Me.lblSnapPeriod = New eXperDB.BaseControls.Label()
         Me.lblHAREPLHost = New eXperDB.BaseControls.Label()
@@ -63,7 +64,6 @@ Partial Class frmConnection
         Me.lblPort = New eXperDB.BaseControls.Label()
         Me.txtIP = New eXperDB.BaseControls.TextBox()
         Me.txtPort = New eXperDB.BaseControls.TextBox()
-        Me.chkReScanStmt = New eXperDB.BaseControls.CheckBox()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         Me.tlpSvrChk.SuspendLayout()
@@ -255,6 +255,24 @@ Partial Class frmConnection
         Me.tlpSvrChk.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tlpSvrChk.Size = New System.Drawing.Size(365, 591)
         Me.tlpSvrChk.TabIndex = 20
+        '
+        'chkReScanStmt
+        '
+        Me.chkReScanStmt.AutoSize = True
+        Me.chkReScanStmt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkReScanStmt.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.chkReScanStmt.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.chkReScanStmt.ForeColor = System.Drawing.Color.White
+        Me.chkReScanStmt.LineColor = System.Drawing.Color.Gray
+        Me.chkReScanStmt.Location = New System.Drawing.Point(282, 276)
+        Me.chkReScanStmt.Name = "chkReScanStmt"
+        Me.chkReScanStmt.Radius = 10
+        Me.chkReScanStmt.Size = New System.Drawing.Size(74, 16)
+        Me.chkReScanStmt.TabIndex = 27
+        Me.chkReScanStmt.Text = "ReScan"
+        Me.chkReScanStmt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.chkReScanStmt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkReScanStmt.UseVisualStyleBackColor = True
         '
         'cmbSnapPeriod
         '
@@ -751,6 +769,7 @@ Partial Class frmConnection
         Me.txtIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtIP.impossibleinput = ""
         Me.txtIP.Location = New System.Drawing.Point(136, 26)
+        Me.txtIP.MaxByteLength = 127
         Me.txtIP.Name = "txtIP"
         Me.txtIP.Necessary = False
         Me.txtIP.PossibleInput = ""
@@ -777,24 +796,6 @@ Partial Class frmConnection
         Me.txtPort.StatusTip = ""
         Me.txtPort.TabIndex = 1
         Me.txtPort.Value = "0"
-        '
-        'chkReScanStmt
-        '
-        Me.chkReScanStmt.AutoSize = True
-        Me.chkReScanStmt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.chkReScanStmt.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.chkReScanStmt.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.chkReScanStmt.ForeColor = System.Drawing.Color.White
-        Me.chkReScanStmt.LineColor = System.Drawing.Color.Gray
-        Me.chkReScanStmt.Location = New System.Drawing.Point(282, 276)
-        Me.chkReScanStmt.Name = "chkReScanStmt"
-        Me.chkReScanStmt.Radius = 10
-        Me.chkReScanStmt.Size = New System.Drawing.Size(74, 16)
-        Me.chkReScanStmt.TabIndex = 27
-        Me.chkReScanStmt.Text = "ReScan"
-        Me.chkReScanStmt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.chkReScanStmt.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.chkReScanStmt.UseVisualStyleBackColor = True
         '
         'frmConnection
         '
