@@ -110,6 +110,7 @@ public class QueryCollect extends TaskApplication {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
 				log.error("[instanceId ==>> " + instanceId + "]" + " Connection failed]");
+				throw e;
 			}
 
 			sessionAgent = sqlSessionFactory.openSession();
@@ -184,6 +185,7 @@ public class QueryCollect extends TaskApplication {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
 				log.error("[instanceId ==>> " + instanceId + "]" + " Connection failed]");
+				throw e;
 			}
 						
 			sessionAgent = sqlSessionFactory.openSession();
