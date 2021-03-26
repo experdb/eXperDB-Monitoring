@@ -171,3 +171,8 @@ alter table tb_mon_user add column user_empnum varchar(30) default '';
 --472++
 
 alter table tb_instance_info add column virtual_ip_stat int4;
+
+-- 473++
+
+ALTER TABLE TB_REALTIME_STATEMENTS ALTER COLUMN dbid TYPE int8
+ALTER TABLE TB_REALTIME_STATEMENTS ALTER COLUMN userid TYPE int8
