@@ -1221,7 +1221,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				          B.STATE AS STATE,
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
 				          B.BACKEND_XID::text::bigint AS BACKEND_XID,
-				           COALESCE(B.WAIT_EVENT, '') AS WAIT_EVENT,
+				           --COALESCE(B.WAIT_EVENT, 'CPU') AS WAIT_EVENT,
+				           CASE WHEN WAIT_EVENT IS NULL THEN 'CPU' ELSE WAIT_EVENT END AS WAIT_EVENT,
 				           MD5(B.QUERY) AS QUERYID,
 				          NOW() AS COLLECT_DT
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
@@ -3063,7 +3064,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
   			#{temporary},
   			#{active},
   			#{oldxmin},
-  			#{restart_lsn},
+  			#{restart_lsn}::pg_lsn,
   			#{confirmed_flush_lsn},
 			NOW()
 		)
@@ -3412,7 +3413,100 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		SELECT #{instance_id}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 	</insert>
-	<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		/* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
+		WITH RTST 
+		AS
+		(		
+		SELECT T.INSTANCE_ID, T.REG_DATE, T.COLLECT_DT
+          		,(select user_id from tb_user_info where user_name = USERID limit 1) as USERID
+          		,(select datid from tb_database_info where database_name = dbid limit 1) as DBID
+				,QUERYID
+				,CQUERYID
+				,CALLS
+				,TOTAL_TIME 
+				,MIN_TIME 
+				,MAX_TIME 
+				,MEAN_TIME
+				,STDDEV_TIME
+				,ROWS 
+				,SHARED_BLKS_HIT
+				,SHARED_BLKS_READ 
+				,SHARED_BLKS_DIRTIED
+				,SHARED_BLKS_WRITTEN
+				,LOCAL_BLKS_HIT 
+				,LOCAL_BLKS_READ
+				,LOCAL_BLKS_DIRTIED 
+				,LOCAL_BLKS_WRITTEN 
+				,TEMP_BLKS_READ 
+				,TEMP_BLKS_WRITTEN
+				,BLK_READ_TIME
+				,BLK_WRITE_TIME  
+							FROM TB_PG_STAT_STATEMENTS T
+							LEFT   JOIN LATERAL (
+								   SELECT 	(elem->>'userid') AS USERID 
+											,elem->>'dbid'AS DBID 
+											,(elem->>'queryid')::int8 AS QUERYID
+											,(elem->>'cqueryid')::varchar AS CQUERYID
+                      						,(elem->>'calls')::int8 AS CALLS
+											,(elem->>'total_time')::float8 AS TOTAL_TIME 
+											,(elem->>'min_time')::float8 AS MIN_TIME 
+											,(elem->>'max_time')::float8 AS MAX_TIME 
+											,(elem->>'mean_time')::float8 AS MEAN_TIME
+											,(elem->>'stddev_time')::float8 AS STDDEV_TIME
+											,(elem->>'rows')::int8 AS ROWS 
+											,(elem->>'shared_blks_hit')::int8 AS SHARED_BLKS_HIT
+											,(elem->>'shared_blks_read')::int8 AS SHARED_BLKS_READ 
+											,(elem->>'shared_blks_dirtied')::int8 AS SHARED_BLKS_DIRTIED
+											,(elem->>'shared_blks_written')::int8 AS SHARED_BLKS_WRITTEN
+											,(elem->>'local_blks_hit')::int8 AS LOCAL_BLKS_HIT 
+											,(elem->>'local_blks_read')::int8 AS LOCAL_BLKS_READ
+											,(elem->>'local_blks_dirtied')::int8 AS LOCAL_BLKS_DIRTIED 
+											,(elem->>'local_blks_written')::int8 AS LOCAL_BLKS_WRITTEN 
+											,(elem->>'temp_blks_read')::int8 AS TEMP_BLKS_READ 
+											,(elem->>'temp_blks_written')::int8 AS TEMP_BLKS_WRITTEN
+											,(elem->>'blk_read_time')::float8 AS BLK_READ_TIME
+											,(elem->>'blk_write_time')::float8 AS BLK_WRITE_TIME 
+								   FROM   JSONB_ARRAY_ELEMENTS(T.PGSS) A(ELEM)   
+							   ) AA ON TRUE                              -- PRESERVE ALL ROWS FROM T
+							 JOIN TB_PGSS_RESET R ON T.INSTANCE_ID = R.INSTANCE_ID AND T.COLLECT_DT = R.COLLECT_DT 
+             WHERE REG_DATE = TO_CHAR(R.COLLECT_DT, 'YYYYMMDD') 
+			 AND T.INSTANCE_ID = ${instance_id}	
+			)
+		   SELECT 
+		        RTST.INSTANCE_ID,
+     		    U.USER_NAME USERNAME, D.database_name AS DB_NAME,
+				F.USERID	          ,
+				F.DBID	              ,
+				F.QUERYID             ,
+				MD5(F.QUERY) QUERY    ,
+				F.CALLS     + coalesce(RTST.CALLS, 0)          CALLS,
+				F.TOTAL_TIME          + coalesce(RTST.TOTAL_TIME         , 0)   TOTAL_TIME         ,
+				F.MIN_TIME            + coalesce(RTST.MIN_TIME           , 0)   MIN_TIME           ,
+				F.MAX_TIME            + coalesce(RTST.MAX_TIME           , 0)   MAX_TIME           ,
+				F.MEAN_TIME           + coalesce(RTST.MEAN_TIME          , 0)   MEAN_TIME          ,
+				F.STDDEV_TIME         + coalesce(RTST.STDDEV_TIME        , 0)   STDDEV_TIME        ,
+				F.ROWS                + coalesce(RTST.ROWS               , 0)   "rows"             ,
+				F.SHARED_BLKS_HIT     + coalesce(RTST.SHARED_BLKS_HIT    , 0)   SHARED_BLKS_HIT    ,
+				F.SHARED_BLKS_READ    + coalesce(RTST.SHARED_BLKS_READ   , 0)   SHARED_BLKS_READ   ,
+				F.SHARED_BLKS_DIRTIED + coalesce(RTST.SHARED_BLKS_DIRTIED, 0)   SHARED_BLKS_DIRTIED,
+				F.SHARED_BLKS_WRITTEN + coalesce(RTST.SHARED_BLKS_WRITTEN, 0)   SHARED_BLKS_WRITTEN,
+				F.LOCAL_BLKS_HIT      + coalesce(RTST.LOCAL_BLKS_HIT     , 0)   LOCAL_BLKS_HIT     ,
+				F.LOCAL_BLKS_READ     + coalesce(RTST.LOCAL_BLKS_READ    , 0)   LOCAL_BLKS_READ    ,
+				F.LOCAL_BLKS_DIRTIED  + coalesce(RTST.LOCAL_BLKS_DIRTIED , 0)   LOCAL_BLKS_DIRTIED ,
+				F.LOCAL_BLKS_WRITTEN  + coalesce(RTST.LOCAL_BLKS_WRITTEN , 0)   LOCAL_BLKS_WRITTEN ,
+				F.TEMP_BLKS_READ      + coalesce(RTST.TEMP_BLKS_READ     , 0)   TEMP_BLKS_READ     ,
+				F.TEMP_BLKS_WRITTEN   + coalesce(RTST.TEMP_BLKS_WRITTEN  , 0)   TEMP_BLKS_WRITTEN  ,
+				F.BLK_READ_TIME       + coalesce(RTST.BLK_READ_TIME      , 0)   BLK_READ_TIME      ,
+				F.BLK_WRITE_TIME      + coalesce(RTST.BLK_WRITE_TIME     , 0)   BLK_WRITE_TIME
+		  FROM fdw1 F 
+		  LEFT OUTER JOIN RTST ON RTST.DBID = F.DBID AND RTST.USERID = F.USERID AND RTST.QUERYID = F.QUERYID 
+		  LEFT OUTER JOIN TB_USER_INFO U ON F.USERID=U.USER_ID and U.INSTANCE_ID = ${instance_id}  JOIN TB_DATABASE_INFO D ON F.DBID = D.DATID and D.INSTANCE_ID = ${instance_id} 
+		  WHERE F.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  ]]>	  
+	</select>
+	<select id="TB_PGSS_INFO_S001_BAK" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
          	SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
      		   U.USENAME USERNAME, D.DATNAME AS DB_NAME,
@@ -3442,7 +3536,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		  FROM PG_STAT_STATEMENTS AS PGS
 		           JOIN PG_USER U ON PGS.USERID=U.USESYSID JOIN PG_DATABASE D ON PGS.DBID = D.OID
 		           WHERE PGS.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
-		           GROUP BY U.USENAME, D.DATNAME , MD5(QUERY);
+		           GROUP BY U.USENAME, D.DATNAME, QUERYID;
 		  ]]>	  
 	</select>
 	<insert id="TB_PGSS_INFO_I001" parameterType="hashmap" >
@@ -3501,7 +3595,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 	<select id="BT_PGSS_QUERY_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT MD5(GET_PGSS_TEXT(#{delimeter})) AS QUERYID, GET_PGSS_TEXT(#{delimeter}) AS QUERY;
+			SELECT /* BT_PGSS_QUERY_001 24e9ab7301ff1966da4fb30dc1538882 */
+			       MD5(GET_PGSS_TEXT(#{delimeter})) AS QUERYID, GET_PGSS_TEXT(#{delimeter}) AS QUERY;
 		  ]]>	  
 	</select>
 	<insert id="TB_PGSS_QUERY_INFO_I001" parameterType="hashmap" >
@@ -3545,6 +3640,11 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="BT_PGSS_QUERY_002" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT RESET_PGSS();
+		  ]]>	  
+	</select>
+	<select id="BT_PGSS_QUERY_003" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT PG_STAT_STATEMENTS_RESET();
 		  ]]>	  
 	</select>
 <!-- **************************************************************************************************************** -->	
@@ -4324,6 +4424,27 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    END IF;
 					EXECUTE FORMAT('CREATE SERVER fdw' || '${instance_id}' || ' FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host ''' || '${server_ip}' || ''', port ''' || '${service_port}' || ''', dbname ''' || '${conn_db_name}' || ''')');
 					EXECUTE FORMAT('CREATE USER MAPPING FOR current_user SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
+					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,MIN_TIME float8 not null,MAX_TIME float8 not null,MEAN_TIME float8 not null,STDDEV_TIME float8 not null,rows int8 not null,SHARED_BLKS_HIT int8 not null,SHARED_BLKS_READ int8 not null,SHARED_BLKS_DIRTIED int8 not null,SHARED_BLKS_WRITTEN int8 not null,LOCAL_BLKS_HIT int8 not null,LOCAL_BLKS_READ int8 not null,LOCAL_BLKS_DIRTIED int8 not null,LOCAL_BLKS_WRITTEN int8 not null,TEMP_BLKS_READ int8 not null,TEMP_BLKS_WRITTEN int8 not null,BLK_READ_TIME float8 not null,BLK_WRITE_TIME float8 not null,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || 'public' || ''', table_name ''pg_stat_statements'')');
+					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0');
+					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1');
+					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;  
+					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;
+			END $$
+		  ]]>	  
+	</update>
+	
+	<update id="TB_RTSTATEMENTS_INFO_C001_BAK" parameterType="hashmap">
+		<![CDATA[
+			DO $$
+			DECLARE       
+			    is_exists_fs BOOL;
+			BEGIN
+			    is_exists_fs := (SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = 'fdw' || '${instance_id}'));       
+			    IF is_exists_fs = TRUE THEN
+			        EXECUTE FORMAT('DROP SERVER fdw' || '${instance_id}' || ' CASCADE');     
+			    END IF;
+					EXECUTE FORMAT('CREATE SERVER fdw' || '${instance_id}' || ' FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host ''' || '${server_ip}' || ''', port ''' || '${service_port}' || ''', dbname ''' || '${conn_db_name}' || ''')');
+					EXECUTE FORMAT('CREATE USER MAPPING FOR current_user SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
 					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || '${conn_schema_name}' || ''', table_name ''pg_stat_statements'')');
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0');
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1');
@@ -4871,6 +4992,20 @@ GROUP BY HA_GROUP
          END $$
 				]]>	
 	</update>
+	
+	<insert id="TB_INSERT_RECENT_PGSS_I001" parameterType="hashmap" >
+		<![CDATA[	
+		WITH UPSERT AS (
+		UPDATE tb_pgss_reset
+		   SET instance_id = #{instance_id},
+		       COLLECT_DT = (select collect_dt from tb_pg_stat_statements where instance_id = #{instance_id} and reg_date = to_char(current_timestamp, 'YYYYMMDD') order by collect_dt desc limit 1)		  
+		 WHERE INSTANCE_ID = #{instance_id}
+		RETURNING *) 
+		INSERT INTO tb_pgss_reset (INSTANCE_ID, COLLECT_DT)
+		SELECT #{instance_id}, current_timestamp 
+		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
+				]]>	
+	</insert>
 		
 <!-- Check solution End -->
 </mapper>

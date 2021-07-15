@@ -5470,7 +5470,9 @@
         Dim edDt As DateTime = Now
 
         If sender.Name = "mnuLogout" Then
-            Me.Owner.Close()
+            'Me.Owner.Close()
+            p_cSession.logout()
+            Me.Close()
         ElseIf sender.Name = "mnuUserConfig" Then
             If CheckPassword() = False Then Return
             Dim userConfig As New frmConfig(AgentCn)

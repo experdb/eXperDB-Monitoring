@@ -2739,7 +2739,7 @@
   </ROW>
   <ROW ID="F342" PARAMS="0">
     <DESC>Collect Period(Sec)</DESC>
-    <DATA><![CDATA[구문수집주기(Sec)]]></DATA>
+    <DATA><![CDATA[Statements 수집주기]]></DATA>
   </ROW>
   <ROW ID="F343" PARAMS="0">
     <DESC>CPU Core</DESC>
@@ -3751,6 +3751,14 @@
   <ROW ID="M110" PARAMS="0">
     <DESC>입력체크</DESC>
     <DATA><![CDATA[송신자 정보가 일치하지 않습니다.\n\nSender Info를 입력(미입력)하면 구문에 $src가 포함(제거)되어야합니다.]]></DATA>
+  </ROW>
+  <ROW ID="M111" PARAMS="0">
+    <DESC>리포트 생성 이력</DESC>
+    <DATA><![CDATA[리포트 생성 이력]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
   </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>

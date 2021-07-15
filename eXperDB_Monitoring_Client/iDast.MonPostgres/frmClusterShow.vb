@@ -3,6 +3,7 @@
     Private _SvrpList As List(Of GroupInfo.ServerInfo)
     Private _instanceColors() As Color
     Private _checkToApply As Boolean
+    Private _checkDefault As Boolean
     ''' <summary>
     ''' Group List Items 안에 서버 리스트가 있음. 
     ''' </summary>
@@ -17,7 +18,7 @@
 
     Private _cbCheckAll As New eXperDB.BaseControls.CheckBox()
 
-    Public Sub New(ByVal GrpLst As List(Of GroupInfo.ServerInfo), ByVal instanceColors() As Color, Optional checkToApply As Boolean = False)
+    Public Sub New(ByVal GrpLst As List(Of GroupInfo.ServerInfo), ByVal instanceColors() As Color, Optional checkToApply As Boolean = False, Optional checkDefault As Boolean = True)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -27,6 +28,7 @@
         _SvrpList = GrpLst
         _instanceColors = instanceColors
         _checkToApply = checkToApply
+        _checkDefault = checkDefault
     End Sub
     ''' <summary>
     ''' 화면 초기화 
@@ -37,22 +39,6 @@
     Private Sub frmClusterShow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         InitForm()
         sb_SetInstanceStatus(_SvrpList)
-
-        'For Each tmpSvr As GroupInfo.ServerInfo In _SvrpList
-        '    Dim idxRow As Integer = dgvClusterList.Rows.Add()
-        '    dgvClusterList.Rows(idxRow).Tag = tmpSvr.InstanceID
-        '    dgvClusterList.fn_DataCellADD(idxRow, coldgvClusterListHostName.Index, tmpSvr.HostNm)
-        '    dgvClusterList.Rows(idxRow).DefaultCellStyle.ForeColor = _instanceColors(idxRow)
-        '    dgvClusterList.Rows(idxRow).DefaultCellStyle.SelectionForeColor = _instanceColors(idxRow)
-        '    Dim checkBox As DataGridViewCheckBoxCell = (TryCast(dgvClusterList.Rows(idxRow).Cells(coldgvClusterListSel.Index), DataGridViewCheckBoxCell))
-        '    checkBox.ReadOnly = True
-        '    checkBox.Value = tmpSvr.Reserved
-        '    checkBox.ReadOnly = False
-        '    If checkBox.Value = False Then
-        '        isAllChecked = False
-        '    End If
-        'Next
-
     End Sub
 
 
@@ -64,7 +50,7 @@
     Private Sub sb_SetInstanceStatus(ByVal svrLst As List(Of GroupInfo.ServerInfo))
         ''''''''''''''''''''''''''''<instance to gridview>'''''''''''''''''''''''''''''''''''
         Try
-            Dim isAllChecked As Boolean = True
+            Dim isAllChecked As Boolean = _checkDefault
             For i As Integer = 0 To svrLst.Count - 1
                 Dim topNode As AdvancedDataGridView.TreeGridNode
                 If svrLst.Item(i).HARole = "P" Or svrLst.Item(i).HARole = "A" Then
@@ -80,7 +66,7 @@
                     End If
                     Dim checkBox As DataGridViewCheckBoxCell = (TryCast(dgvClusterList.Rows(i).Cells(coldgvClusterListSel.Index), DataGridViewCheckBoxCell))
                     checkBox.ReadOnly = True
-                    checkBox.Value = svrLst.Item(i).Reserved
+                    checkBox.Value = IIf(_checkDefault, svrLst.Item(i).Reserved, False)
                     checkBox.ReadOnly = False
                     If checkBox.Value = False Then
                         isAllChecked = False
@@ -104,7 +90,7 @@
                             End If
                             Dim checkBox As DataGridViewCheckBoxCell = (TryCast(dgvClusterList.Rows(i).Cells(coldgvClusterListSel.Index), DataGridViewCheckBoxCell))
                             checkBox.ReadOnly = True
-                            checkBox.Value = svrLst.Item(i).Reserved
+                            checkBox.Value = IIf(_checkDefault, svrLst.Item(i).Reserved, False)
                             'checkBox.Value = tmpNode.Cells(coldgvClusterListSel.Index).Value
                             checkBox.ReadOnly = False
                             If checkBox.Value = False Then

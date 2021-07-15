@@ -176,3 +176,11 @@ alter table tb_instance_info add column virtual_ip_stat int4;
 
 ALTER TABLE TB_REALTIME_STATEMENTS ALTER COLUMN dbid TYPE int8
 ALTER TABLE TB_REALTIME_STATEMENTS ALTER COLUMN userid TYPE int8
+
+
+-- 483++
+
+create table tb_pgss_reset (
+	instance_id integer not null,
+	collect_dt timestamp without time zone
+);

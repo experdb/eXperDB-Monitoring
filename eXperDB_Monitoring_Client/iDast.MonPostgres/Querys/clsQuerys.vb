@@ -2089,6 +2089,30 @@
             Return Nothing
         End Try
     End Function
+    Public Function SelectDetailCallsChart(ByVal InstanceID As String, ByVal strName As String, ByVal StDate As DateTime, ByVal edDate As DateTime, Optional pointCount As Integer = 600) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
+                Dim interval As String = minutes * 60 / pointCount
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILCALLS")
+
+                strQuery = String.Format(strQuery, InstanceID, strName, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:59") + "'", interval)
+
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
     Public Function SelectDetailSQLRespChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, Optional pointCount As Integer = 600) As DataTable
         Try
             If _ODBC IsNot Nothing Then
@@ -2334,6 +2358,28 @@
                 strQuery = String.Format(strQuery, InstanceID, subQuery)
 
 
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    Return dtSet.Tables(0)
+                Else
+                    Return Nothing
+                End If
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            GC.Collect()
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function SelectWaitEvent(ByVal InstanceID As String, ByVal minuteFrom As Integer) As DataTable
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = ""
+                strQuery = p_clsQueryData.fn_GetData("SELECTWAITEVENT")
+                strQuery = String.Format(strQuery, InstanceID, minuteFrom)
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                     Return dtSet.Tables(0)
@@ -3613,13 +3659,13 @@
         End Try
     End Function
 
-    Public Function selectTrendReport(ByVal InstanceID As Integer, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal isHour As Boolean, ByVal arrItems As ArrayList) As DataTable
+    Public Function selectTrendReport(ByVal InstanceID As String, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal period As Integer, ByVal arrItems As ArrayList) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim trendType As Integer() = arrItems.ToArray(GetType(Integer))
             Dim strTrends = String.Join(",", trendType)
             Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORT")
-            Dim period As String = IIf(isHour = True, "3600", "86400")
+            'Dim period As String = IIf(isHour = True, "3600", "86400")
             strQuery = String.Format(strQuery, InstanceID, startDt.ToString("yyyy-MM-dd HH:mm:ss"), endDt.ToString("yyyy-MM-dd HH:mm:ss"), strTrends, period)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
@@ -3633,11 +3679,11 @@
         End Try
     End Function
 
-    Public Function selectTrendReportStmtStat(ByVal InstanceID As Integer, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal reportType As Integer) As DataTable
+    Public Function selectTrendReportStmtStat(ByVal InstanceID As String, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal reportType As Integer, ByVal strName As String) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORTSTMTSTAT")
-            strQuery = String.Format(strQuery, InstanceID, startDt.ToString("yyyy-MM-dd HH:mm:ss"), endDt.ToString("yyyy-MM-dd HH:mm:ss"), reportType)
+            strQuery = String.Format(strQuery, InstanceID, startDt.ToString("yyyy-MM-dd HH:mm:ss"), endDt.ToString("yyyy-MM-dd HH:mm:ss"), reportType, strName)
             Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
             If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                 Return dtSet.Tables(0)
@@ -3650,7 +3696,7 @@
         End Try
     End Function
 
-    Public Function selectTrendReportLock(ByVal InstanceID As Integer, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal reportType As Integer) As DataTable
+    Public Function selectTrendReportLock(ByVal InstanceID As String, ByVal startDt As DateTime, ByVal endDt As DateTime, ByVal reportType As Integer) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTTRENDREPORTLOCK")
@@ -3667,7 +3713,7 @@
         End Try
     End Function
 
-    Public Function selectTrendReportQuery(ByVal InstanceID As Integer, ByVal arrItems As ArrayList) As DataTable
+    Public Function selectTrendReportQuery(ByVal InstanceID As String, ByVal arrItems As ArrayList) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
             Dim trendType As String() = arrItems.ToArray(GetType(String))
@@ -3719,7 +3765,7 @@
             End If
 
             If ReportType <> 0 Then
-                strSubQuery += " AND A.report_type = " + (ReportType - 1).ToString
+                strSubQuery += " AND A.report_type = " + (ReportType).ToString
             End If
 
             strQuery = String.Format(strQuery, instanceID, StDate.ToString("yyyy-MM-dd HH:mm:00"), EdDate.ToString("yyyy-MM-dd HH:mm:59"), strSubQuery)

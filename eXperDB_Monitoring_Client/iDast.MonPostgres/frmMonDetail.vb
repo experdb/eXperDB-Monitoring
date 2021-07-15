@@ -34,6 +34,7 @@ Public Class frmMonDetail
                         'SetDataCheckpoint() 'accumulate
                         SetDataHealth(p_clsAgentCollect.infoDataHealth)
                         SetDataStmt(p_clsAgentCollect.infoDataStmt)
+                        SetDataWaitEvent()
                         If bckquerymanual.IsBusy = True Then
                             bckquerymanual.CancelAsync()
                             Return
@@ -209,6 +210,7 @@ Public Class frmMonDetail
         tlpCPUCore.Tag = clsIni.ReadValue("CHARTDETAIL", "CPUCORE", "0")
         tlpDiskIO.Tag = clsIni.ReadValue("CHARTDETAIL", "DISKIO", "0")
         tlpSessionTopinfo.Tag = clsIni.ReadValue("CHARTDETAIL", "SESSIONTOPINFO", "0")
+        tlpWaitEvent.Tag = clsIni.ReadValue("CHARTDETAIL", "WAITEVENT", "0")
 
         mnuLogicalIO.Tag = tlpLogicalIO
         mnuPhyRead.Tag = tlpPhyRead
@@ -224,6 +226,7 @@ Public Class frmMonDetail
         mnuCheckpoint.Tag = tlpCheckpoint
         mnuCPUCore.Tag = tlpCPUCore
         mnuDiskIO.Tag = tlpDiskIO
+        mnuWaitEvent.Tag = tlpWaitEvent
 
         setTLPPosition(tlpLogicalIO)
         setTLPPosition(tlpPhyRead)
@@ -239,6 +242,7 @@ Public Class frmMonDetail
         setTLPPosition(tlpCPUCore)
         setTLPPosition(tlpDiskIO)
         setTLPPosition(tlpSessionTopinfo)
+        setTLPPosition(tlpWaitEvent)
 
         cmbRetention.SelectedIndex = clsIni.ReadValue("General", "RTIME_DETAIL", "0")
         retainTime = (-1) * Convert.ToInt32(cmbRetention.Text)
@@ -1005,6 +1009,126 @@ Public Class frmMonDetail
         dgvResUtilPerBackProc.DataSource = ShowDT
         dgvResUtilPerBackProc.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
 
+        If ShowDT Is Nothing Then
+            Return
+        End If
+
+    End Sub
+    ''' <summary>
+    ''' WaitEvent Chart
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub SetDataWaitEvent()
+        'wait event chart
+        Dim dtTable As DataTable = Nothing
+        Try
+            dtTable = _clsQuery.SelectWaitEvent(InstanceID, (-1) * retainTime)
+        Catch ex As Exception
+        End Try
+
+        Dim dtRows As DataRow() = dtTable.Select()
+
+        'wait event chart
+        'Dim InstanceMaxVals
+
+
+        Try
+
+            'Dim InstanceMaxVals = _
+            'dtTable.AsEnumerable().GroupBy( _
+            '    Function(r) New With {Key .CodeName = r.Field(Of String)("CODE_NAME")} _
+            '             ).[Select]( _
+            '             Function(grp) _
+            '                 New With {Key .WaitEvent = grp.Key.CodeName, _
+            '                           Key .SECount = grp.Sum(Function(r) r.Field(Of Integer)("ECOUNT"))} _
+            '                       ).OrderByDescending(Function(r) r.SECount)
+
+            Dim dtResult As DataTable = New DataTable
+            dtResult.Columns.Add("WAIT_EVENT", GetType(String))
+            dtResult.Columns.Add("ECOUNT", GetType(Integer))
+
+            If dtRows.Count > 0 Then
+                Dim InstanceMaxVals = _
+                dtTable.AsEnumerable().GroupBy( _
+                    Function(r) New With {Key .CodeName = r.Field(Of String)("CODE_NAME")} _
+                             ).[Select]( _
+                             Function(grp) _
+                                 New With {Key .WaitEvent = grp.Key.CodeName, _
+                                           .SECount = grp.Sum(Function(r) Convert.ToInt32(r("ECOUNT")))} _
+                                       ).OrderByDescending(Function(r) r.SECount)
+
+                For Each grp In InstanceMaxVals
+                    dtResult.Rows.Add(grp.WaitEvent, grp.SECount)
+                Next
+            Else
+                dtResult.Rows.Add("CPU", 0)
+            End If
+
+            Me.Invoke(Sub()
+                          Try
+                              AddWaitEventSeries(dtResult.Select())
+
+                              If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
+                                  For Each instRow As DataRow In dtTable.Rows
+                                      Dim dblRegDt As Double = ConvOADate(instRow.Item("COLLECT_DT"))
+                                      sb_ChartAddPoint(Me.chtWaitEvent, instRow.Item("CODE_NAME"), dblRegDt, ConvULong(instRow.Item("ECOUNT")))
+                                  Next
+                              Else
+                                  Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+                                  For i As Integer = 0 To chtWaitEvent.Series.Count - 1
+                                      sb_ChartAddPoint(Me.chtWaitEvent, chtWaitEvent.Series(i).Name, dblRegDt, 0)
+                                  Next
+                              End If
+                              sb_ChartAlignYAxies(Me.chtWaitEvent)
+                          Catch ex As Exception
+                              GC.Collect()
+                          End Try
+                      End Sub)
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+
+
+
+        'Me.Invoke(Sub()
+        '              'dtTable = Nothing
+        '              Try
+        '                  'dtTable = _clsQuery.SelectReplication(InstanceIDs, True)
+        '                  For Each instRow As DataRow In dtRows
+        '                      For Each tmpRow As DataRow In dtReplTable.Rows
+        '                          If tmpRow.Item("INSTANCE_ID").Equals(instRow.Item("INSTANCE_ID")) Then
+        '                              Dim dblRegDt As Double = ConvOADate(tmpRow.Item("COLLECT_DT"))
+        '                              sb_ChartAddPoint(Me.chtReplication, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG")))
+        '                              sb_ChartAddPoint(Me.chtReplicationSize, instRow.Item("SHOWNM") + ":" + instRow.Item("PORT"), dblRegDt, ConvULong(tmpRow.Item("REPLAY_LAG_SIZE")))
+        '                          End If
+        '                      Next
+        '                  Next
+        '                  sb_ChartAlignYAxies(Me.chtReplication)
+        '                  sb_ChartAlignYAxies(Me.chtReplicationSize)
+
+        '              Catch ex As Exception
+        '                  GC.Collect()
+        '              End Try
+        '          End Sub)
+
+        'Me.Invoke(Sub()
+        '              AddWaitEventSeries(dtResult.Select())
+        '              Try
+        '                  If InstanceMaxVals IsNot Nothing Then
+        '                      Dim dtRows As DataRow() = dtResult.Select()
+        '                      For Each instRow As DataRow In dtRows
+        '                          Dim dblRegDt As Double = ConvOADate(instRow.Item("COLLECT_DT"))
+        '                          sb_ChartAddPoint(Me.chtWaitEvent, instRow.Item("WAIT_EVENT"), dblRegDt, ConvULong(instRow.Item("REPLAY_LAG")))
+        '                      Next
+        '                      sb_ChartAlignYAxies(Me.chtWaitEvent)
+        '                  Else
+        '                      Dim dblRegDt As Double = ConvOADate(Format(Now, "yyyy-MM-dd HH:mm:ss"))
+        '                      sb_ChartAddPoint(Me.chtWaitEvent, "", dblRegDt, 0)
+        '                  End If
+        '              Catch ex As Exception
+        '                  GC.Collect()
+        '              End Try
+        '          End Sub)
 
 
     End Sub
@@ -1630,6 +1754,41 @@ Public Class frmMonDetail
         End If
 
     End Sub
+
+    Private Sub AddWaitEventSeries(ByRef dtRows As DataRow())
+        Dim colors() As Color = {System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                                 System.Drawing.Color.Orange,
+                                 System.Drawing.Color.Brown,
+                                 System.Drawing.Color.Green,
+                                 System.Drawing.Color.Purple,
+                                 System.Drawing.Color.Yellow,
+                                 System.Drawing.Color.Blue,
+                                 System.Drawing.Color.Pink,
+                                 System.Drawing.Color.Lime,
+                                 System.Drawing.Color.Red,
+                                 System.Drawing.Color.PowderBlue,
+                                 System.Drawing.Color.SkyBlue,
+                                 System.Drawing.Color.SpringGreen,
+                                 System.Drawing.Color.YellowGreen,
+                                 System.Drawing.Color.Violet,
+                                 System.Drawing.Color.Salmon}
+        Dim index As Integer = 0
+        Dim series_count = chtWaitEvent.Series.Count - 1
+        For i As Integer = 0 To series_count
+            Me.chtWaitEvent.Series(0).Points.Clear()
+            Me.chtWaitEvent.Series.RemoveAt(0)
+        Next
+
+        If dtRows Is Nothing Then
+            AddSeries(Me.chtWaitEvent, "CPU :", "CPU", colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea)
+        Else
+            For Each tmpRow As DataRow In dtRows
+                AddSeries(Me.chtWaitEvent, tmpRow.Item("WAIT_EVENT"), tmpRow.Item("WAIT_EVENT"), colors(index), System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea)
+                index += 1
+            Next
+        End If
+
+    End Sub
     ''' <summary>
     ''' Checkpoint 등록 
     ''' </summary>
@@ -2110,32 +2269,6 @@ Public Class frmMonDetail
         End If
     End Sub
 
-    'Private Sub dgvResUtilPerBackProc_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvResUtilPerBackProc.CellMouseMove
-    '    If e.RowIndex >= 0 Then
-    '        'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-    '        dgvResUtilPerBackProc.Cursor = Cursors.Hand
-    '        If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False Then
-    '            dgvResUtilPerBackProc.ClearSelection()
-    '            dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True
-    '        End If
-    '        dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 40, 70)
-    '        'End If
-    '    End If
-    'End Sub
-
-    'Private Sub dgvResUtilPerBackProc_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResUtilPerBackProc.CellMouseLeave
-    '    If e.RowIndex >= 0 Then
-    '        'If e.ColumnIndex = coldgvResUtilPerBackProcSQL.Index Then
-    '        dgvResUtilPerBackProc.Cursor = Cursors.Arrow
-    '        If dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = True Then
-    '            dgvResUtilPerBackProc.ClearSelection()
-    '            dgvResUtilPerBackProc.Rows(e.RowIndex).Selected = False
-    '        End If
-    '        dgvResUtilPerBackProc.Rows(e.RowIndex).DefaultCellStyle.SelectionBackColor = dgvResUtilPerBackProc.DefaultCellStyle.SelectionBackColor
-    '        'End If
-    '    End If
-    'End Sub
-
     Private Sub btnSqlPlan_Click(sender As Object, e As EventArgs) Handles btnSqlPlan.Click
         Dim frmQuery As New frmQueryView(_AgentCn, "", "", "", InstanceID, _AgentInfo)
         frmQuery.Show()
@@ -2499,7 +2632,8 @@ Public Class frmMonDetail
                                                                                     lblDiskIOTrend.MouseClick, _
                                                                                     lblSQLResposeTime.MouseClick, _
                                                                                     lblCPUCore.MouseClick, _
-                                                                                    lblDiskIO.MouseClick
+                                                                                    lblDiskIO.MouseClick, _
+                                                                                    lblWaitEvent.MouseClick
         '        mnuChart.Show(New Point(e.X, e.Y), ToolStripDropDownDirection.Default)
         Dim lblTemp = DirectCast(sender, System.Windows.Forms.Button)
 
@@ -2558,7 +2692,7 @@ Public Class frmMonDetail
         'mnuChart.Tag = lblTemp.Parent
     End Sub
 
-    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click, mnuCPUCore.Click, mnuDiskIO.Click, mnuSessionTopinfo.Click
+    Private Sub mnuObject_Click(sender As Object, e As EventArgs) Handles mnuObject.Click, mnuCheckpoint.Click, mnuReplication.Click, mnuTPS.Click, mnuReplicationSize.Click, mnuSessioninfo.Click, mnuLogicalIO.Click, mnuLock.Click, mnuPhyRead.Click, mnuSQLResposeTime.Click, mnuDiskIOTrend.Click, mnuCPUCore.Click, mnuDiskIO.Click, mnuSessionTopinfo.Click, mnuWaitEvent.Click
         'Dim tlpCurrTemp = DirectCast(mnuChart.Tag, System.Windows.Forms.TableLayoutPanel)
         'Dim tlpChangeTemp As System.Windows.Forms.TableLayoutPanel = Nothing
         'Dim intTlpOldrow = tlpCharts.GetRow(tlpCurrTemp)
@@ -2644,6 +2778,8 @@ Public Class frmMonDetail
             tlpSwap = tlpCPUCore
         ElseIf sender.Name = "mnuDiskIO" Then
             tlpSwap = tlpDiskIO
+        ElseIf sender.Name = "mnuWaitEvent" Then
+            tlpSwap = tlpWaitEvent
         End If
 
         tlpTemp.Tag = tlpSwap.Tag 'old
@@ -2666,6 +2802,7 @@ Public Class frmMonDetail
         If tlpDiskIOTrend.Tag <> 0 Then mnuDiskIOTrend.Image = statusImgLst.Images(4)
         If tlpCPUCore.Tag <> 0 Then mnuCPUCore.Image = statusImgLst.Images(4)
         If tlpDiskIO.Tag <> 0 Then mnuDiskIO.Image = statusImgLst.Images(4)
+        If tlpWaitEvent.Tag <> 0 Then mnuWaitEvent.Image = statusImgLst.Images(4)
 
         WriteChartPosition()
 
@@ -2687,6 +2824,7 @@ Public Class frmMonDetail
         clsIni.WriteValue("CHARTDETAIL", "DISKIOTREND", tlpDiskIOTrend.Tag)
         clsIni.WriteValue("CHARTDETAIL", "CPUCORE", tlpCPUCore.Tag)
         clsIni.WriteValue("CHARTDETAIL", "DISKIO", tlpDiskIO.Tag)
+        clsIni.WriteValue("CHARTDETAIL", "WAITEVENT", tlpWaitEvent.Tag)
     End Sub
 
     Private Sub cmbRetention_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRetention.SelectedIndexChanged

@@ -4,6 +4,7 @@
     Private _UserPassword As String
     Private _isAdmin As String
     Private _loginDt As DateTime
+    Private _logoutDt As DateTime
     Private _Status As enumStatus
 
     ReadOnly Property UserID As String
@@ -27,6 +28,11 @@
     ReadOnly Property loginDt As String
         Get
             Return _loginDt
+        End Get
+    End Property
+    ReadOnly Property logoutDt As String
+        Get
+            Return _logoutDt
         End Get
     End Property
     ReadOnly Property Status As String
@@ -67,6 +73,25 @@
             Return False
         End Try
     End Function
+
+    Public Sub logout()
+        Try
+            _logoutDt = Now
+            _Status = enumStatus.Disconnect
+        Catch ex As Exception
+            GC.Collect()
+        End Try
+    End Sub
+
+    ReadOnly Property checkStatus() As Boolean
+        Get
+            If _Status = enumStatus.Normal Then
+                Return True
+            Else
+                Return False
+            End If
+        End Get
+    End Property
 
     Public Enum enumStatus
         Normal
