@@ -48,10 +48,17 @@ public class QueryCollect extends TaskApplication {
 			long endTime;
 			int checkAlive = 0;
 			
-			if (MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("hchk_period_sec") != null)
-				if ((Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("hchk_period_sec") > 0){
+			if (MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("hchk_period_sec") != null) {
+				int stmtFlag = (Integer)MonitoringInfoManager.getInstance().getInstanceMap(instanceId).get("hchk_period_sec");
+				if ((stmtFlag & 2) > 0){
+					resetPGStmt(); //reset PGSS
+				}
+				if ((stmtFlag & 1) > 0){
 					resetReScanStmt(); //reset rescan flag
 				}
+			}
+			if(collectPeriod <= 0)
+				return;
 			
 			while (!MonitoringInfoManager.getInstance().isReLoad())
 			{
@@ -186,7 +193,6 @@ public class QueryCollect extends TaskApplication {
 				log.error("[instanceId ==>> " + instanceId + "]" + " Connection failed]");
 			}
 						
-			sessionAgent = sqlSessionFactory.openSession();
 			HashMap<String, Object> checkReadOnlyMap = sessionCollect.selectOne("EXPERDBMA_BT_CHECK_READONLY_001");
 			if(checkReadOnlyMap.get("isrecovery").toString().equals("false")){ // check the target cluster's role is slave 
 				if(isFirst == true){
@@ -212,6 +218,56 @@ public class QueryCollect extends TaskApplication {
 			}	
 
 			sessionAgent = sqlSessionFactory.openSession();
+			HashMap<String, Object> rescanMap = new HashMap<String,Object>(); //Access 수집
+			rescanMap.put("instance_id", Integer.parseInt(instanceId));
+			rescanMap.put("hchk_period_sec", null);
+			sessionAgent.update("app.TB_INSTANCE_INFO_U007", rescanMap);
+			sessionAgent.commit();
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if(sessionAgent != null)	sessionAgent.close();			
+		}
+	}
+	
+	private void resetPGStmt() {
+		SqlSessionFactory sqlSessionFactory = null;
+		Connection connection = null;
+		SqlSession sessionAgent  = null;
+		SqlSession sessionCollect = null;
+		
+		try {
+			// DB Connection을 가져온다
+			sqlSessionFactory = SqlSessionManager.getInstance();
+			sessionAgent = sqlSessionFactory.openSession();
+			HashMap<String, Object> paramMap = new HashMap<String,Object>(); //Access 수집
+			paramMap.put("instance_id", Integer.parseInt(instanceId));
+			sessionAgent.insert("app.TB_INSERT_RECENT_PGSS_I001", paramMap);
+			log.debug("[instanceId ==>> " + instanceId + "]" + " Record recent pgss]");
+			
+			try {			
+				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + instanceId);
+				sessionCollect = sqlSessionFactory.openSession(connection);
+			} catch (Exception e) {
+				failed_collect_type = "0";
+				is_collect_ok = "N";
+				log.error("[instanceId ==>> " + instanceId + "]" + " Connection failed]");
+			}			
+			
+			HashMap<String, Object> checkReadOnlyMap = sessionCollect.selectOne("EXPERDBMA_BT_CHECK_READONLY_001");
+			try {
+				try {
+					sessionCollect.update("app.BT_PGSS_QUERY_003"); 
+					sessionCollect.commit();
+				} catch (Exception e) {
+					throw e;
+				}
+				
+			} catch (Exception e1) {
+				is_collect_ok = "N";
+				log.error("[instanceId ==>> " + instanceId + "]", e1);
+			}	
+			
 			HashMap<String, Object> rescanMap = new HashMap<String,Object>(); //Access 수집
 			rescanMap.put("instance_id", Integer.parseInt(instanceId));
 			rescanMap.put("hchk_period_sec", null);

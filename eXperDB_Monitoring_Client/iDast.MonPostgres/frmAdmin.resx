@@ -299,10 +299,10 @@
   </data>
   <data name="Label1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAABoSURBVDhPYxhhoOwwx/+Sg6z/C/cz/YcKEQ+QNefvYfyf
-        u4uBeEOwac7eQaQBRGluPmv0v/GM5v+6U4ooEiRrrjkp+b/quDBYAdHORtdccYT3P8l+pkgzDFCkGQYo
-        0gwDFGkeAMDAAAD9EqdCoVX3DwAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAGhJREFUOE9jGGGg7DDH/5KDrP8L9zP9hwoRD5A15+9h/J+7i4F4Q7Bpzt5BpAFE
+        aW4+a/S/8Yzm/7pTiigSJGuuOSn5v+q4MFgB0c5G11xxhPc/yX6mSDMMUKQZBijSDAMUaR4AwMAAAP0S
+        p0KhVfcPAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

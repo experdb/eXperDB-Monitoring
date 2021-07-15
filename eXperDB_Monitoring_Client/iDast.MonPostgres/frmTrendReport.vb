@@ -17,8 +17,7 @@ Public Class frmTrendReport
     Private _collapseHeight As Integer
     Private _GrpLst As List(Of GroupInfo)
     Private WithEvents _ProgresForm As frmProgres
-
-    Private _instanceID As Integer
+    Private _InstanceIDs As Integer()
     Private _startDt As DateTime
     Private _endDt As DateTime
     Private _arrItems As New ArrayList
@@ -30,8 +29,8 @@ Public Class frmTrendReport
     Private _dtTrendQueryTable As DataTable
     Private _dtTrendLockQueryTable As DataTable
     Private _topNSQL As Integer
-    Private _isHour As Boolean
-    Private _cluster As String
+    Private _period As Integer
+    Private _clusters As String()
     Private _arrQueryItems As New ArrayList
     Private _arrLinkItems As New ArrayList
     Private _linkCellRow As New ArrayList
@@ -40,7 +39,7 @@ Public Class frmTrendReport
     ''''''<For Chart>''''''''''''''''''''''''''''''''''
     Private _workbook As IWorkbook = Nothing
     Private Const subjectFontSize As Integer = 18
-    Private Const contentFontSize As Integer = 12
+    Private Const contentFontSize As Integer = 8
 
     Private _titleBackColor = Nothing
     Private _clusterTitleBackColor = Nothing
@@ -53,7 +52,7 @@ Public Class frmTrendReport
 
     Private _defaultStyle As XSSFCellStyle = Nothing
     Private _subjectStyle As XSSFCellStyle = Nothing
-    Private _itmeTitleStyle As XSSFCellStyle = Nothing
+    Private _itemTitleStyle As XSSFCellStyle = Nothing
     Private _itmeSubTitleStyle As XSSFCellStyle = Nothing
     Private _timeSeriesStyle As XSSFCellStyle = Nothing
     Private _infoStyle As XSSFCellStyle = Nothing
@@ -68,6 +67,58 @@ Public Class frmTrendReport
     Private _rowNumber As Integer = 0
 
     Private Const _preMakeReportRows = 10000
+
+    Private _instanceColors() As Color = {System.Drawing.Color.YellowGreen,
+                     System.Drawing.Color.Orange,
+                     System.Drawing.Color.LightSeaGreen,
+                     System.Drawing.Color.Blue,
+                     System.Drawing.Color.Brown,
+                     System.Drawing.Color.Green,
+                     System.Drawing.Color.Purple,
+                     System.Drawing.Color.Yellow,
+                     System.Drawing.Color.Pink,
+                     System.Drawing.Color.PowderBlue,
+                     System.Drawing.Color.SkyBlue,
+                     System.Drawing.Color.SpringGreen,
+                     System.Drawing.Color.GreenYellow,
+                     System.Drawing.Color.Violet,
+                     System.Drawing.Color.Salmon,
+                     System.Drawing.Color.AliceBlue,
+                     System.Drawing.Color.Bisque,
+                     System.Drawing.Color.BlueViolet,
+                     System.Drawing.Color.BurlyWood,
+                     System.Drawing.Color.Coral,
+                     System.Drawing.Color.Crimson,
+                     System.Drawing.Color.DarkOliveGreen,
+                     System.Drawing.Color.Fuchsia,
+                     System.Drawing.Color.DarkKhaki,
+                     System.Drawing.Color.Khaki,
+                     System.Drawing.Color.Magenta,
+                     System.Drawing.Color.LightSalmon,
+                     System.Drawing.Color.Lime,
+                     System.Drawing.Color.MediumVioletRed,
+                     System.Drawing.Color.LightCoral,
+                     System.Drawing.Color.Aquamarine,
+                     System.Drawing.Color.MediumSeaGreen,
+                     System.Drawing.Color.IndianRed,
+                     System.Drawing.Color.LawnGreen,
+                     System.Drawing.Color.DarkOrange,
+                     System.Drawing.Color.DarkBlue,
+                     System.Drawing.Color.Olive,
+                     System.Drawing.Color.Plum,
+                     System.Drawing.Color.Cyan,
+                     System.Drawing.Color.Teal,
+                     System.Drawing.Color.CadetBlue,
+                     System.Drawing.Color.Chartreuse,
+                     System.Drawing.Color.Chocolate,
+                     System.Drawing.Color.Coral,
+                     System.Drawing.Color.CornflowerBlue,
+                     System.Drawing.Color.Cornsilk,
+                     System.Drawing.Color.DarkGoldenrod,
+                     System.Drawing.Color.FloralWhite,
+                     System.Drawing.Color.MediumAquamarine,
+                     System.Drawing.Color.Gainsboro,
+                     System.Drawing.Color.LightGoldenrodYellow}
 
     Public Class CellInfo
         Public Sub New(ByVal queryID As String, ByVal linkAddress As String)
@@ -103,12 +154,6 @@ Public Class frmTrendReport
         _clsQuery = New clsQuerys(odbcConn)
         _GrpLst = GrpLst
 
-        For Each tmpGrp As GroupInfo In GrpLst
-            For Each tmpSvr As GroupInfo.ServerInfo In tmpGrp.Items
-                cmbClusters.AddValue(tmpSvr.InstanceID, tmpSvr.ShowNm)
-            Next
-        Next
-
         lblReportItemConfig.Text = p_clsMsgData.fn_GetData("F966")
         colDgvCollectItemListCodeName.HeaderText = p_clsMsgData.fn_GetData("F967")
         colDgvReportItemListCodeName.HeaderText = p_clsMsgData.fn_GetData("F968")
@@ -126,6 +171,7 @@ Public Class frmTrendReport
         rbLastMonth.Text = p_clsMsgData.fn_GetData("F972")
         btnGenerate.Text = p_clsMsgData.fn_GetData("F956", "Report")
         StatusLabel.Text = p_clsMsgData.fn_GetData("M096")
+        lblClusters.Text = p_clsMsgData.fn_GetData("F946")
     End Sub
 
     Private Sub frmSnapshotR_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -141,6 +187,14 @@ Public Class frmTrendReport
         dtpEd.Value = Now
         cmbTopNSQL.SelectedIndex = 0
         cmbUnit.SelectedIndex = 0
+
+        Dim GrpListServerinfo As List(Of GroupInfo.ServerInfo) = _GrpLst.Item(0).Items
+        For Each tmpSvr As GroupInfo.ServerInfo In GrpListServerinfo
+            Dim idxRow As Integer = dgvClusterList.Rows.Add()
+            dgvClusterList.fn_DataCellADD(idxRow, 0, tmpSvr.InstanceID)
+            dgvClusterList.fn_DataCellADD(idxRow, 1, tmpSvr.ShowNm)
+        Next
+
         _dtCodeTable = _clsQuery.selectReportItems()
         If _dtCodeTable IsNot Nothing Then
             For Each tmpRow As DataRow In _dtCodeTable.Rows
@@ -166,14 +220,32 @@ Public Class frmTrendReport
 #End Region
 
     Private Sub btnHistory_Click(sender As Object, e As EventArgs) Handles btnHistory.Click
-        Dim frmReportHistory As New frmReportHistory(_clsQuery, _GrpLst, cmbClusters.SelectedValue)
+        'Dim frmReportHistory As New frmReportHistory(_clsQuery, _GrpLst, cmbClusters.SelectedValue)
+        Dim frmReportHistory As New frmReportHistory(_clsQuery, _GrpLst, 1)
         frmReportHistory.ShowDialog()
     End Sub
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btnGenerate.Click
+        Dim arrInstanceIDs As New ArrayList
+        Dim arrClusters As New ArrayList
+
+        For Each tmpRow As DataGridViewRow In Me.dgvClusterSelList.Rows
+            arrInstanceIDs.Add(tmpRow.Cells(0).Value)
+            arrClusters.Add(tmpRow.Cells(1).Value)
+        Next
+
+        _InstanceIDs = arrInstanceIDs.ToArray(GetType(Integer))
+        _clusters = arrClusters.ToArray(GetType(String))
         _topNSQL = cmbTopNSQL.SelectedItem
-        _isHour = IIf(cmbUnit.SelectedItem.Equals("Hour"), True, False)
-        _cluster = cmbClusters.SelectedItem(0).ToString
+        Select Case cmbUnit.SelectedIndex
+            Case 0
+                _period = 600
+            Case 1
+                _period = 3600
+            Case 2
+                _period = 86400
+        End Select
+
         If dgvReportItemList.Rows.Count = 0 Then
             MsgBox(p_clsMsgData.fn_GetData("M106"))
             Return
@@ -202,7 +274,7 @@ Public Class frmTrendReport
         '''''''''''''''''''''''''''''''''''''''''''
         'set global variable for background worker'
         '''''''''''''''''''''''''''''''''''''''''''
-        _instanceID = cmbClusters.SelectedValue
+        '_strInstanceIDs = cmbClusters.SelectedValue
         _startDt = dtpSt.Value
         _endDt = dtpEd.Value
         '''''''''''''''''''''''''''''''''''''''''''
@@ -247,7 +319,12 @@ Public Class frmTrendReport
             If logStr.Length > 199 Then
                 logStr = logStr.Substring(0, 199)
             End If
-            ReportLog(1, 0, logStr, _instanceID)
+            Dim strInstanceIDs As String
+            strInstanceIDs = String.Join(",", _InstanceIDs)
+
+            For i As Integer = 0 To _InstanceIDs.Count - 1
+                ReportLog(1, 0, logStr, _InstanceIDs(i))
+            Next
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
@@ -260,8 +337,8 @@ Public Class frmTrendReport
             Dim fsd As New SaveFileDialog
             fsd.AddExtension = True
             fsd.DefaultExt = "*.xlsx"
-
-            fsd.FileName = cmbClusters.SelectedItem(0) + "_" + _startDt.ToString("yyyyMMddHH") + "_" + _endDt.ToString("yyyyMMddHH")
+            Dim strClusters As String = String.Join("_", _clusters)
+            fsd.FileName = strClusters + "_" + _startDt.ToString("yyyyMMddHH") + "_" + _endDt.ToString("yyyyMMddHH")
             fsd.FileName = fsd.FileName.Replace(":", String.Empty).Replace("-", String.Empty).Replace(" ", String.Empty)
             fsd.Filter = "Excel |*.xlsx"
             If fsd.ShowDialog() = Windows.Forms.DialogResult.OK Then
@@ -286,14 +363,17 @@ Public Class frmTrendReport
 
     Private Sub GenerateReport()
         Try
+            Dim strInstanceIDs As String
+            strInstanceIDs = String.Join(",", _InstanceIDs)
+
             _arrItems.Clear()
             For Each tmpRow As DataGridViewRow In Me.dgvReportItemList.Rows
                 _arrItems.Add(Integer.Parse(tmpRow.Cells(0).Value))
             Next
 
-            _dtTrendTable = _clsQuery.selectTrendReport(_instanceID, _startDt, _endDt, _isHour, _arrItems)
-            _dtTrendStmtStatTable = _clsQuery.selectTrendReportStmtStat(_instanceID, _startDt, _endDt, 321)
-            _dtTrendLockTable = _clsQuery.selectTrendReportLock(_instanceID, _startDt, _endDt, 320)
+            _dtTrendTable = _clsQuery.selectTrendReport(strInstanceIDs, _startDt, _endDt, _period, _arrItems)
+            _dtTrendStmtStatTable = _clsQuery.selectTrendReportStmtStat(strInstanceIDs, _startDt, _endDt, 321, p_ShowName.ToString("d"))
+            _dtTrendLockTable = _clsQuery.selectTrendReportLock(strInstanceIDs, _startDt, _endDt, 320)
             'If _dtTrendTable Is Nothing Or _dtTrendTable.Rows.Count = 0 Then
             '    Return
             'End If
@@ -334,6 +414,31 @@ Public Class frmTrendReport
         End If
     End Sub
 
+    Private Sub btnAddCluster_Click(sender As Object, e As EventArgs) Handles btnAddCluster.Click
+        Try
+            For Each tmpRow As DataGridViewRow In Me.dgvClusterList.SelectedRows
+                dgvClusterSelList.Rows.Add(tmpRow.Cells(0).Value, tmpRow.Cells(1).Value)
+                dgvClusterList.Rows.Remove(tmpRow)
+            Next
+            dgvClusterList.Sort(dgvClusterList.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+            dgvClusterSelList.Sort(dgvClusterSelList.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub btnDeleteCluster_Click(sender As Object, e As EventArgs) Handles btnDeleteCluster.Click
+        Try
+            For Each tmpRow As DataGridViewRow In Me.dgvClusterSelList.SelectedRows
+                dgvClusterList.Rows.Add(tmpRow.Cells(0).Value, tmpRow.Cells(1).Value)
+                dgvClusterSelList.Rows.Remove(tmpRow)
+            Next
+            dgvClusterList.Sort(dgvClusterList.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+            dgvClusterSelList.Sort(dgvClusterSelList.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
+    End Sub
     Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
         Try
             For Each tmpRow As DataGridViewRow In Me.dgvCollectItemList.SelectedRows
@@ -372,6 +477,18 @@ Public Class frmTrendReport
                                     End Sub))
     End Sub
 
+    Private Sub dgvClusterList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvClusterList.CellDoubleClick
+        Me.Invoke(New MethodInvoker(Sub()
+                                        btnAddCluster.PerformClick()
+                                    End Sub))
+    End Sub
+
+    Private Sub dgvClusterSelList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvClusterSelList.CellDoubleClick
+        Me.Invoke(New MethodInvoker(Sub()
+                                        btnDeleteCluster.PerformClick()
+                                    End Sub))
+    End Sub
+
 
 #Region "Excel"
 
@@ -390,26 +507,26 @@ Public Class frmTrendReport
         _defaultStyle = workbook.CreateCellStyle()
         _subjectStyle = workbook.CreateCellStyle()
         _infoStyle = workbook.CreateCellStyle()
-        _itmeTitleStyle = workbook.CreateCellStyle()
+        _itemTitleStyle = workbook.CreateCellStyle()
         _timeSeriesStyle = workbook.CreateCellStyle()
         _infoValueStyle = workbook.CreateCellStyle()
         _itmeSubTitleStyle = workbook.CreateCellStyle()
         _queryTextStyle = workbook.CreateCellStyle()
         _queryIDStyle = workbook.CreateCellStyle()
 
-        _defaultFont.Color = IndexedColors.DarkBlue.Index
+        '_defaultFont.Color = IndexedColors.DarkBlue.Index
         _defaultFont.FontName = ("Arial")
-        _defaultFont.FontHeightInPoints = 12
+        _defaultFont.FontHeightInPoints = contentFontSize
         _defaultFont.IsBold = False
 
         _subjectFont.FontHeightInPoints = subjectFontSize
         _subjectFont.IsBold = True
 
-        _infoFont.FontHeightInPoints = contentFontSize
+        _infoFont.FontHeightInPoints = 9
         _infoFont.IsBold = True
 
         _queryIDFont.FontName = ("Arial")
-        _queryIDFont.FontHeightInPoints = 12
+        _queryIDFont.FontHeightInPoints = contentFontSize
         _queryIDFont.Underline = FontUnderlineType.Single
         _queryIDFont.Color = IndexedColors.Blue.Index
 
@@ -426,6 +543,8 @@ Public Class frmTrendReport
         _defaultStyle.RightBorderColor = IndexedColors.Grey50Percent.Index
         _defaultStyle.TopBorderColor = IndexedColors.Grey50Percent.Index
         _defaultStyle.SetDataFormat(workbook.CreateDataFormat().GetFormat("0.00"))
+        _defaultStyle.SetFont(_defaultFont)
+        _defaultStyle.WrapText = True
 
         _subjectStyle.CloneStyleFrom(_defaultStyle)
         _subjectStyle.SetFont(_subjectFont)
@@ -436,11 +555,13 @@ Public Class frmTrendReport
         _infoStyle.SetFillForegroundColor(_clusterTitleBackColor)
 
         _infoValueStyle.CloneStyleFrom(_defaultStyle)
+        _infoValueStyle.SetFont(_defaultFont)
         _infoValueStyle.FillForegroundColor = IndexedColors.White.Index
 
-        _itmeTitleStyle.CloneStyleFrom(_defaultStyle)
-        _itmeTitleStyle.Alignment = HorizontalAlignment.Left
-        _itmeTitleStyle.FillForegroundColor = IndexedColors.Grey25Percent.Index
+        _itemTitleStyle.CloneStyleFrom(_defaultStyle)
+        _itemTitleStyle.Alignment = HorizontalAlignment.Left
+        _itemTitleStyle.FillForegroundColor = IndexedColors.Grey25Percent.Index
+        _itemTitleStyle.SetFont(_infoFont)
 
         _itmeSubTitleStyle.Alignment = HorizontalAlignment.Left
         _itmeSubTitleStyle.VerticalAlignment = VerticalAlignment.Center
@@ -448,8 +569,10 @@ Public Class frmTrendReport
         _itmeSubTitleStyle.BorderBottom = BorderStyle.Thin
         _itmeSubTitleStyle.BorderLeft = BorderStyle.Thin
         _itmeSubTitleStyle.BorderRight = BorderStyle.Thin
+        _itmeSubTitleStyle.SetFont(_infoFont)
 
         _timeSeriesStyle.CloneStyleFrom(_defaultStyle)
+        _timeSeriesStyle.SetFont(_infoFont)
         _timeSeriesStyle.SetFillForegroundColor(_timeValueBackColor)
 
         _queryTextStyle.FillPattern = FillPattern.SolidForeground
@@ -461,6 +584,7 @@ Public Class frmTrendReport
         _queryTextStyle.Alignment = HorizontalAlignment.Left
         _queryTextStyle.VerticalAlignment = VerticalAlignment.Top
         _queryTextStyle.WrapText = True
+        _queryTextStyle.SetFont(_defaultFont)
 
         _queryIDStyle.FillPattern = FillPattern.SolidForeground
         _queryIDStyle.FillForegroundColor = IndexedColors.White.Index
@@ -490,7 +614,7 @@ Public Class frmTrendReport
             For i As Integer = 0 To rows
                 row = sheet.CreateRow(i)
                 row.Height = _defaultRowHeight
-                For j As Integer = 0 To 12
+                For j As Integer = 0 To 13
                     row.CreateCell(j)
                 Next
             Next
@@ -504,30 +628,30 @@ Public Class frmTrendReport
     Private Function WriteSubject(ByRef sheet As ISheet, ByVal Cluster As String, ByVal startTime As String, ByVal endTime As String) As Boolean
         Try
             Dim cell As ICell = Nothing
-            Dim range = New NPOI.SS.Util.CellRangeAddress(0, 2, 0, 12)
+            Dim range = New NPOI.SS.Util.CellRangeAddress(0, 2, 0, 13)
             sheet.AddMergedRegion(range)
             For i As Integer = 0 To 2
-                For j As Integer = 0 To 12
+                For j As Integer = 0 To 13
                     cell = GetCell(sheet.GetRow(i), j)
                     cell.CellStyle = _subjectStyle
                     cell.SetCellValue("Trend Report")
                 Next
             Next
 
-            Dim clusterTitleRange = New NPOI.SS.Util.CellRangeAddress(4, 4, 6, 8)
+            Dim clusterTitleRange = New NPOI.SS.Util.CellRangeAddress(4, 4, 0, 9)
             sheet.AddMergedRegion(clusterTitleRange)
-            Dim startTitleRange = New NPOI.SS.Util.CellRangeAddress(4, 4, 9, 10)
+            Dim startTitleRange = New NPOI.SS.Util.CellRangeAddress(4, 4, 10, 11)
             sheet.AddMergedRegion(startTitleRange)
-            Dim endTitleRange = New NPOI.SS.Util.CellRangeAddress(4, 4, 11, 12)
+            Dim endTitleRange = New NPOI.SS.Util.CellRangeAddress(4, 4, 12, 13)
             sheet.AddMergedRegion(endTitleRange)
-            Dim clusterRange = New NPOI.SS.Util.CellRangeAddress(5, 5, 6, 8)
+            Dim clusterRange = New NPOI.SS.Util.CellRangeAddress(5, 5, 0, 9)
             sheet.AddMergedRegion(clusterRange)
-            Dim startRange = New NPOI.SS.Util.CellRangeAddress(5, 5, 9, 10)
+            Dim startRange = New NPOI.SS.Util.CellRangeAddress(5, 5, 10, 11)
             sheet.AddMergedRegion(startRange)
-            Dim endRange = New NPOI.SS.Util.CellRangeAddress(5, 5, 11, 12)
+            Dim endRange = New NPOI.SS.Util.CellRangeAddress(5, 5, 12, 13)
             sheet.AddMergedRegion(endRange)
 
-            For i = 6 To 8
+            For i = 0 To 9
                 cell = GetCell(sheet.GetRow(4), i)
                 cell.SetCellValue("Cluster name")
                 cell.CellStyle = _infoStyle
@@ -536,7 +660,7 @@ Public Class frmTrendReport
                 cell.SetCellValue(Cluster)
             Next
 
-            For i = 9 To 10
+            For i = 10 To 11
                 cell = GetCell(sheet.GetRow(4), i)
                 cell.CellStyle = _infoStyle
                 cell.SetCellValue("Start time")
@@ -545,7 +669,7 @@ Public Class frmTrendReport
                 cell.SetCellValue(startTime)
             Next
 
-            For i = 11 To 12
+            For i = 12 To 13
                 cell = GetCell(sheet.GetRow(4), i)
                 cell.CellStyle = _infoStyle
                 cell.SetCellValue("End time")
@@ -615,7 +739,7 @@ Public Class frmTrendReport
         Try
             Dim drawing As IDrawing = sheetReport.CreateDrawingPatriarch()
             Dim chartTop As Integer = _rowNumber
-            Dim anchor1 As IClientAnchor = drawing.CreateAnchor(0, 0, 0, 0, 0, chartTop, 13, chartTop + _chartHeight)
+            Dim anchor1 As IClientAnchor = drawing.CreateAnchor(0, 0, 0, 0, 0, chartTop, 14, chartTop + _chartHeight)
             CreateChart(drawing, sheetReport, sheetData, anchor1, IIf((trendType = 311 Or trendType = 312 Or trendType = 313), "MIN", "MAX"), "AVG", charIndex * 3, charIndex * 3, 1, colCount)
             _rowNumber += _chartHeight
             Return True
@@ -629,13 +753,13 @@ Public Class frmTrendReport
         Dim cell As ICell = Nothing
         Dim rowIndex As Integer = _rowNumber + 1
         Try
-            Dim sectionTitleRange = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 0, 12)
+            Dim sectionTitleRange = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 0, 13)
             sheet.AddMergedRegion(sectionTitleRange)
 
-            For i = 0 To 12
+            For i = 0 To 13
                 cell = GetCell(sheet.GetRow(rowIndex), i)
                 cell.SetCellValue(title)
-                cell.CellStyle = _itmeTitleStyle
+                cell.CellStyle = _itemTitleStyle
             Next
 
             _rowNumber += 1
@@ -651,10 +775,10 @@ Public Class frmTrendReport
         Dim cell As ICell = Nothing
         Dim rowIndex As Integer = _rowNumber + 1
         Try
-            Dim sectionTitleRange = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 0, 12)
+            Dim sectionTitleRange = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 0, 13)
             sheet.AddMergedRegion(sectionTitleRange)
 
-            For i = 0 To 12
+            For i = 0 To 13
                 cell = GetCell(sheet.GetRow(rowIndex), i)
                 cell.SetCellValue(title)
                 cell.CellStyle = _itmeSubTitleStyle
@@ -675,7 +799,7 @@ Public Class frmTrendReport
         Dim strOrder As String = IIf(order = 1, "total_time desc", "calls desc")
         Try
             Dim dtView As DataView = New DataView(dtTable, "", strOrder, DataViewRowState.CurrentRows)
-            Dim dtSubTable = dtView.ToTable("Selected", False, "queryid_md5", "userid", "dbid", "calls", "calls(%)", "total_time", "total_time(%)", "rows", "rows(%)", "cpu(%)").AsEnumerable.Take(_topNSQL).CopyToDataTable()
+            Dim dtSubTable = dtView.ToTable("Selected", False, "queryid_md5", "cluster", "userid", "dbid", "calls", "calls(%)", "total_time", "total_time(%)", "rows", "rows(%)", "cpu(%)").AsEnumerable.Take(_topNSQL).CopyToDataTable()
             Dim range As NPOI.SS.Util.CellRangeAddress = Nothing
 
             '''''''''''store queryids'''''''''''''
@@ -684,7 +808,7 @@ Public Class frmTrendReport
                 cell = GetCell(sheet.GetRow(rowIndex), j)
                 cell.SetCellValue(dtSubTable.Columns(i).ColumnName.ToLower)
                 cell.CellStyle = _timeSeriesStyle
-                If i = 0 Or i = 5 Or i = 6 Then
+                If i = 0 Or i = 1 Or i = 6 Then
                     range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, j, j + 1)
                     sheet.AddMergedRegion(range)
                     cell = GetCell(sheet.GetRow(rowIndex), j + 1)
@@ -708,49 +832,53 @@ Public Class frmTrendReport
                 cell.CellStyle = _queryIDStyle
                 _arrQueryItems.Add(dtSubTable.Rows(i).Item("queryid_md5").ToString) 'collect queryid
 
+                range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 2, 3)
+                sheet.AddMergedRegion(range)
                 cell = GetCell(sheet.GetRow(rowIndex), 2)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("userid").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("cluster").ToString)
                 cell.CellStyle = _defaultStyle
-
                 cell = GetCell(sheet.GetRow(rowIndex), 3)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("dbid").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("cluster").ToString)
                 cell.CellStyle = _defaultStyle
 
                 cell = GetCell(sheet.GetRow(rowIndex), 4)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("calls").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("userid").ToString)
                 cell.CellStyle = _defaultStyle
 
                 cell = GetCell(sheet.GetRow(rowIndex), 5)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("calls(%)").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("dbid").ToString)
                 cell.CellStyle = _defaultStyle
 
-                range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 6, 7)
-                sheet.AddMergedRegion(range)
                 cell = GetCell(sheet.GetRow(rowIndex), 6)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("calls").ToString)
                 cell.CellStyle = _defaultStyle
+
                 cell = GetCell(sheet.GetRow(rowIndex), 7)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("calls(%)").ToString)
                 cell.CellStyle = _defaultStyle
 
                 range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 8, 9)
                 sheet.AddMergedRegion(range)
                 cell = GetCell(sheet.GetRow(rowIndex), 8)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time(%)").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time").ToString)
                 cell.CellStyle = _defaultStyle
                 cell = GetCell(sheet.GetRow(rowIndex), 9)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time(%)").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time").ToString)
                 cell.CellStyle = _defaultStyle
 
                 cell = GetCell(sheet.GetRow(rowIndex), 10)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("rows").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("total_time(%)").ToString)
                 cell.CellStyle = _defaultStyle
 
                 cell = GetCell(sheet.GetRow(rowIndex), 11)
-                cell.SetCellValue(dtSubTable.Rows(i).Item("rows(%)").ToString)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("rows").ToString)
                 cell.CellStyle = _defaultStyle
 
                 cell = GetCell(sheet.GetRow(rowIndex), 12)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("rows(%)").ToString)
+                cell.CellStyle = _defaultStyle
+
+                cell = GetCell(sheet.GetRow(rowIndex), 13)
                 cell.SetCellValue(dtSubTable.Rows(i).Item("cpu(%)").ToString)
                 cell.CellStyle = _defaultStyle
 
@@ -787,13 +915,20 @@ Public Class frmTrendReport
                 cell = GetCell(sheet.GetRow(rowIndex), j)
                 cell.SetCellValue(dtSubTable.Columns(i).ColumnName.ToLower)
                 cell.CellStyle = _timeSeriesStyle
-                If i = 6 Or i = 7 Or i = 9 Then
+                If i = 6 Or i = 7 Then
                     range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, j, j + 1)
                     sheet.AddMergedRegion(range)
                     cell = GetCell(sheet.GetRow(rowIndex), j + 1)
                     cell.SetCellValue(dtSubTable.Columns(i).ColumnName)
                     cell.CellStyle = _timeSeriesStyle
                     j += 1
+                ElseIf i = 9 Then
+                    range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, j, j + 2)
+                    sheet.AddMergedRegion(range)
+                    cell = GetCell(sheet.GetRow(rowIndex), j + 2)
+                    cell.SetCellValue(dtSubTable.Columns(i).ColumnName)
+                    cell.CellStyle = _timeSeriesStyle
+                    j += 2
                 End If
                 j += 1
             Next
@@ -847,12 +982,15 @@ Public Class frmTrendReport
                 cell.SetCellValue(dtSubTable.Rows(i).Item("duration").ToString)
                 cell.CellStyle = _defaultStyle
 
-                range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 11, 12)
+                range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 11, 13)
                 sheet.AddMergedRegion(range)
                 cell = GetCell(sheet.GetRow(rowIndex), 11)
                 cell.SetCellValue(dtSubTable.Rows(i).Item("TRANSACTION START").ToString)
                 cell.CellStyle = _defaultStyle
                 cell = GetCell(sheet.GetRow(rowIndex), 12)
+                cell.SetCellValue(dtSubTable.Rows(i).Item("TRANSACTION START").ToString)
+                cell.CellStyle = _defaultStyle
+                cell = GetCell(sheet.GetRow(rowIndex), 13)
                 cell.SetCellValue(dtSubTable.Rows(i).Item("TRANSACTION START").ToString)
                 cell.CellStyle = _defaultStyle
 
@@ -877,9 +1015,9 @@ Public Class frmTrendReport
             '''''''''''store queryids'''''''''''''
             range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 0, 1)
             sheet.AddMergedRegion(range)
-            range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 2, 12)
+            range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 2, 13)
             sheet.AddMergedRegion(range)
-            For i As Integer = 0 To 12
+            For i As Integer = 0 To 13
                 If i < 2 Then
                     cell = GetCell(sheet.GetRow(rowIndex), i)
                     cell.SetCellValue(dtTable.Columns(0).ColumnName.ToLower)
@@ -896,9 +1034,9 @@ Public Class frmTrendReport
             For i As Integer = 0 To dtTable.Rows.Count - 1
                 range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 0, 1)
                 sheet.AddMergedRegion(range)
-                range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 2, 12)
+                range = New NPOI.SS.Util.CellRangeAddress(rowIndex, rowIndex, 2, 13)
                 sheet.AddMergedRegion(range)
-                For j = 0 To 12
+                For j = 0 To 13
                     If j < 2 Then
                         cell = GetCell(sheet.GetRow(rowIndex), j)
                         cell.SetCellValue(dtTable.Rows(i).Item("queryid").ToString)
@@ -995,12 +1133,19 @@ Public Class frmTrendReport
             WriteHeaderFooter(sheetR)
             MakeRows(sheetD, 15 * 3) 'DataSheet
             sheetR.DisplayGridlines = False
-            sheetR.PrintSetup.PaperSize = PaperSize.A4
+            sheetR.Autobreaks = False
+            'sheetR.FitToPage = True
+            'sheetR.SetColumnBreak(5)
+            'sheetR.PrintSetup.PaperSize = PaperSize.A4
+            sheetR.DefaultColumnWidth = 5
+            sheetR.DefaultRowHeight = 100
+            sheetR.SetMargin(MarginType.LeftMargin, 0.5)
+            sheetR.SetMargin(MarginType.RightMargin, 0.5)
 
             reportRows += _arrItems.Count * (_chartHeight + 2)
             MakeRows(sheetR, _preMakeReportRows) 'ReportSheet
-
-            If WriteSubject(sheetR, _cluster, _startDt.ToString("yyyy-MM-dd HH"), _endDt.ToString("yyyy-MM-dd HH")) = False Then
+            Dim clusters As String = String.Join(",", _clusters)
+            If WriteSubject(sheetR, clusters, _startDt.ToString("yyyy-MM-dd HH"), _endDt.ToString("yyyy-MM-dd HH")) = False Then
                 Return False
             End If
 
@@ -1072,7 +1217,9 @@ Public Class frmTrendReport
             Next
 
             '''''''''''''''Get query text
-            _dtTrendQueryTable = _clsQuery.selectTrendReportQuery(_instanceID, _arrQueryItems)
+            Dim strInstanceIDs As String
+            strInstanceIDs = String.Join(",", _InstanceIDs)
+            _dtTrendQueryTable = _clsQuery.selectTrendReportQuery(strInstanceIDs, _arrQueryItems)
 
             If _dtTrendQueryTable IsNot Nothing AndAlso _dtTrendQueryTable.Rows.Count > 0 Then
                 title = "Query text"
@@ -1119,7 +1266,8 @@ Public Class frmTrendReport
                     Next
                 Next
             End If
-            _workbook.SetPrintArea(0, 0, 12, 0, _rowNumber)
+            _workbook.SetPrintArea(0, 0, 13, 0, _rowNumber)
+            'sheetR.PrintSetup.PaperSize = PaperSize.A4
             Return True
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)

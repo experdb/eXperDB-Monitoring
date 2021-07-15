@@ -76,7 +76,7 @@ public class StmtCollect extends TaskApplication {
 	private void execute(String reqInstanceId) {
 		SqlSessionFactory sqlSessionFactory = null;
 		Connection connection = null;
-		SqlSession sessionCollect = null;
+		//SqlSession sessionCollect = null;
 		SqlSession sessionAgent  = null;
 		String instance_db_version = "";
 		
@@ -99,7 +99,7 @@ public class StmtCollect extends TaskApplication {
 			
 			try {
 				connection = DriverManager.getConnection("jdbc:apache:commons:dbcp:" + reqInstanceId);
-				sessionCollect = sqlSessionFactory.openSession(connection);
+				//sessionCollect = sqlSessionFactory.openSession(connection);
 			} catch (Exception e) {
 				failed_collect_type = "0";
 				is_collect_ok = "N";
@@ -117,7 +117,9 @@ public class StmtCollect extends TaskApplication {
 				///////////////////////////////////////////////////////////////////////////////
 				// STATEMENT 정보수집						
 				try {					
-					pgssSel = sessionCollect.selectList("app.TB_PGSS_INFO_S001");
+					HashMap<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("instance_id", Integer.valueOf(reqInstanceId));
+					pgssSel = sessionAgent.selectList("app.TB_PGSS_INFO_S001", paramMap);
 				} catch (Exception e) {
 					failed_collect_type = "3";
 					log.error("instanceid=[" + reqInstanceId + "]", e);
@@ -216,7 +218,7 @@ public class StmtCollect extends TaskApplication {
 			log.error("[instanceId ==>> " + instanceId + "]", e);
 		} finally {
 			if(sessionAgent != null)	sessionAgent.close();
-			if(sessionCollect != null)	sessionCollect.close();
+			//if(sessionCollect != null)	sessionCollect.close();
 		}
 	}
 }

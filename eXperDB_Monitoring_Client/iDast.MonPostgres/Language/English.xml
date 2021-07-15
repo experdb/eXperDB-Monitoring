@@ -2731,7 +2731,7 @@
   </ROW>
   <ROW ID="F342" PARAMS="0">
     <DESC>Collect Period(Sec)</DESC>
-    <DATA><![CDATA[Statements Period(Sec)]]></DATA>
+    <DATA><![CDATA[Statements Collect Period]]></DATA>
   </ROW>
   <ROW ID="F343" PARAMS="0">
     <DESC>CPU Core</DESC>
@@ -3741,6 +3741,14 @@
   <ROW ID="M110" PARAMS="0">
     <DESC>입력체크</DESC>
     <DATA><![CDATA[Sender information does not match.\n\nIf you enter(unfill) Sender Info, the syntax should include(remove) $src.]]></DATA>
+  </ROW>
+  <ROW ID="M111" PARAMS="0">
+    <DESC>리포트 생성 이력</DESC>
+    <DATA><![CDATA[Report history]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
   </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>

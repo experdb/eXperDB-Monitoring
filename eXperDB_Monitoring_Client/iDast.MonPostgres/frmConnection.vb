@@ -303,7 +303,7 @@ Public Class frmConnection
         StrSchema = cmbSchema.Text
         intCollect = nudCollectSecond.Value
         intStmtCollectSec = cmbStmtCollectPeriod.SelectedValue
-        intReScanStmp = IIf(chkReScanStmt.Checked, 1, 0)
+        intReScanStmp = IIf(chkReScanStmt.Checked, 1, 0) + IIf(chkResetStmt.Checked, 2, 0)
 
         intSnapshotHour = cmbSnapPeriod.SelectedValue
         strAliasNm = txtAlias.Text

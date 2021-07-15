@@ -20,12 +20,12 @@ Partial Class frmReportHistory
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReportHistory))
         Me.bgmanual = New System.ComponentModel.BackgroundWorker()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -55,6 +55,11 @@ Partial Class frmReportHistory
         Me.lblAction = New eXperDB.BaseControls.Label()
         Me.lblUserID = New eXperDB.BaseControls.Label()
         Me.dgvReportLog = New eXperDB.BaseControls.DataGridView()
+        Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
+        Me.btnExcel = New eXperDB.BaseControls.Button()
+        Me.btnQuery = New eXperDB.BaseControls.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblReportHistory = New System.Windows.Forms.Label()
         Me.coldgvReportLogCluster = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvReportLogUserID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvReportLogUserName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,11 +68,6 @@ Partial Class frmReportHistory
         Me.coldgvReportLogUserIP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvReportLogStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.coldgvReportLogDetail = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TableLayoutPanel2 = New eXperDB.BaseControls.TableLayoutPanel()
-        Me.btnExcel = New eXperDB.BaseControls.Button()
-        Me.btnQuery = New eXperDB.BaseControls.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblReportHistory = New System.Windows.Forms.Label()
         Me.tlpUserConfigMain.SuspendLayout()
         Me.tlpSearch.SuspendLayout()
         CType(Me.dgvReportLog, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,9 +82,9 @@ Partial Class frmReportHistory
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.DataPropertyName = "HOST_NAME"
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = "0"
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Format = "N2"
+        DataGridViewCellStyle7.NullValue = "0"
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle7
         Me.DataGridViewTextBoxColumn1.FillWeight = 131.1306!
         Me.DataGridViewTextBoxColumn1.HeaderText = "F033"
         Me.DataGridViewTextBoxColumn1.MinimumWidth = 130
@@ -119,8 +119,8 @@ Partial Class frmReportHistory
         'DataGridViewTextBoxColumn5
         '
         Me.DataGridViewTextBoxColumn5.DataPropertyName = "COLLECT_TIME"
-        DataGridViewCellStyle2.Format = "yyyy-MM-dd HH:mm:ss"
-        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Format = "yyyy-MM-dd HH:mm:ss"
+        Me.DataGridViewTextBoxColumn5.DefaultCellStyle = DataGridViewCellStyle8
         Me.DataGridViewTextBoxColumn5.FillWeight = 171.0869!
         Me.DataGridViewTextBoxColumn5.HeaderText = "F257"
         Me.DataGridViewTextBoxColumn5.MinimumWidth = 170
@@ -141,9 +141,9 @@ Partial Class frmReportHistory
         'DataGridViewTextBoxColumn7
         '
         Me.DataGridViewTextBoxColumn7.DataPropertyName = "STATE"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "P"
-        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "P"
+        Me.DataGridViewTextBoxColumn7.DefaultCellStyle = DataGridViewCellStyle9
         Me.DataGridViewTextBoxColumn7.HeaderText = "F247"
         Me.DataGridViewTextBoxColumn7.MinimumWidth = 100
         Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
@@ -450,40 +450,40 @@ Partial Class frmReportHistory
         Me.dgvReportLog.AllowUserToResizeRows = False
         Me.dgvReportLog.BackgroundColor = System.Drawing.Color.Black
         Me.dgvReportLog.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvReportLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvReportLog.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvReportLog.ColumnHeadersHeight = 24
         Me.dgvReportLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvReportLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.coldgvReportLogCluster, Me.coldgvReportLogUserID, Me.coldgvReportLogUserName, Me.coldgvReportLogActionType, Me.coldgvReportLogActionDT, Me.coldgvReportLogUserIP, Me.coldgvReportLogStatus, Me.coldgvReportLogDetail})
         Me.tlpUserConfigMain.SetColumnSpan(Me.dgvReportLog, 3)
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.LightSteelBlue
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvReportLog.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle11.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle11.Padding = New System.Windows.Forms.Padding(2, 0, 0, 0)
+        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
+        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvReportLog.DefaultCellStyle = DataGridViewCellStyle11
         Me.dgvReportLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvReportLog.EnableHeadersVisualStyles = False
         Me.dgvReportLog.GridColor = System.Drawing.Color.Black
         Me.dgvReportLog.Location = New System.Drawing.Point(3, 83)
         Me.dgvReportLog.Name = "dgvReportLog"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvReportLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle12.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvReportLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvReportLog.RowHeadersVisible = False
         Me.dgvReportLog.RowTemplate.Height = 23
         Me.dgvReportLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -491,82 +491,6 @@ Partial Class frmReportHistory
         Me.dgvReportLog.TabIndex = 25
         Me.dgvReportLog.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvReportLog.UseTagValueMatchColor = True
-        '
-        'coldgvReportLogCluster
-        '
-        Me.coldgvReportLogCluster.DataPropertyName = "HOST_NAME"
-        Me.coldgvReportLogCluster.HeaderText = "F229"
-        Me.coldgvReportLogCluster.MinimumWidth = 140
-        Me.coldgvReportLogCluster.Name = "coldgvReportLogCluster"
-        Me.coldgvReportLogCluster.ReadOnly = True
-        Me.coldgvReportLogCluster.Visible = False
-        Me.coldgvReportLogCluster.Width = 140
-        '
-        'coldgvReportLogUserID
-        '
-        Me.coldgvReportLogUserID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.coldgvReportLogUserID.DataPropertyName = "USER_ID"
-        Me.coldgvReportLogUserID.HeaderText = "F347"
-        Me.coldgvReportLogUserID.MinimumWidth = 120
-        Me.coldgvReportLogUserID.Name = "coldgvReportLogUserID"
-        Me.coldgvReportLogUserID.ReadOnly = True
-        Me.coldgvReportLogUserID.Width = 120
-        '
-        'coldgvReportLogUserName
-        '
-        Me.coldgvReportLogUserName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.coldgvReportLogUserName.DataPropertyName = "USER_NAME"
-        Me.coldgvReportLogUserName.HeaderText = "F348"
-        Me.coldgvReportLogUserName.MinimumWidth = 120
-        Me.coldgvReportLogUserName.Name = "coldgvReportLogUserName"
-        Me.coldgvReportLogUserName.ReadOnly = True
-        Me.coldgvReportLogUserName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.coldgvReportLogUserName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.coldgvReportLogUserName.Width = 120
-        '
-        'coldgvReportLogActionType
-        '
-        Me.coldgvReportLogActionType.DataPropertyName = "REPORT_TYPE"
-        Me.coldgvReportLogActionType.HeaderText = "F937"
-        Me.coldgvReportLogActionType.MinimumWidth = 120
-        Me.coldgvReportLogActionType.Name = "coldgvReportLogActionType"
-        Me.coldgvReportLogActionType.ReadOnly = True
-        Me.coldgvReportLogActionType.Width = 120
-        '
-        'coldgvReportLogActionDT
-        '
-        Me.coldgvReportLogActionDT.DataPropertyName = "REPORT_DT"
-        Me.coldgvReportLogActionDT.HeaderText = "F936"
-        Me.coldgvReportLogActionDT.MinimumWidth = 140
-        Me.coldgvReportLogActionDT.Name = "coldgvReportLogActionDT"
-        Me.coldgvReportLogActionDT.ReadOnly = True
-        Me.coldgvReportLogActionDT.Width = 140
-        '
-        'coldgvReportLogUserIP
-        '
-        Me.coldgvReportLogUserIP.DataPropertyName = "REPORT_IP"
-        Me.coldgvReportLogUserIP.HeaderText = "F935"
-        Me.coldgvReportLogUserIP.MinimumWidth = 140
-        Me.coldgvReportLogUserIP.Name = "coldgvReportLogUserIP"
-        Me.coldgvReportLogUserIP.ReadOnly = True
-        Me.coldgvReportLogUserIP.Width = 140
-        '
-        'coldgvReportLogStatus
-        '
-        Me.coldgvReportLogStatus.DataPropertyName = "REPORT_ACTION"
-        Me.coldgvReportLogStatus.HeaderText = "F247"
-        Me.coldgvReportLogStatus.MinimumWidth = 100
-        Me.coldgvReportLogStatus.Name = "coldgvReportLogStatus"
-        Me.coldgvReportLogStatus.ReadOnly = True
-        '
-        'coldgvReportLogDetail
-        '
-        Me.coldgvReportLogDetail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.coldgvReportLogDetail.DataPropertyName = "REPORT_LOG"
-        Me.coldgvReportLogDetail.HeaderText = "F357"
-        Me.coldgvReportLogDetail.MinimumWidth = 150
-        Me.coldgvReportLogDetail.Name = "coldgvReportLogDetail"
-        Me.coldgvReportLogDetail.ReadOnly = True
         '
         'TableLayoutPanel2
         '
@@ -650,8 +574,84 @@ Partial Class frmReportHistory
         Me.lblReportHistory.Name = "lblReportHistory"
         Me.lblReportHistory.Size = New System.Drawing.Size(1016, 34)
         Me.lblReportHistory.TabIndex = 4
-        Me.lblReportHistory.Text = "M075"
+        Me.lblReportHistory.Text = "M111"
         Me.lblReportHistory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'coldgvReportLogCluster
+        '
+        Me.coldgvReportLogCluster.DataPropertyName = "HOST_NAME"
+        Me.coldgvReportLogCluster.HeaderText = "F229"
+        Me.coldgvReportLogCluster.MinimumWidth = 140
+        Me.coldgvReportLogCluster.Name = "coldgvReportLogCluster"
+        Me.coldgvReportLogCluster.ReadOnly = True
+        Me.coldgvReportLogCluster.Visible = False
+        Me.coldgvReportLogCluster.Width = 140
+        '
+        'coldgvReportLogUserID
+        '
+        Me.coldgvReportLogUserID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.coldgvReportLogUserID.DataPropertyName = "USER_ID"
+        Me.coldgvReportLogUserID.HeaderText = "F347"
+        Me.coldgvReportLogUserID.MinimumWidth = 120
+        Me.coldgvReportLogUserID.Name = "coldgvReportLogUserID"
+        Me.coldgvReportLogUserID.ReadOnly = True
+        Me.coldgvReportLogUserID.Width = 120
+        '
+        'coldgvReportLogUserName
+        '
+        Me.coldgvReportLogUserName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.coldgvReportLogUserName.DataPropertyName = "USER_NAME"
+        Me.coldgvReportLogUserName.HeaderText = "F348"
+        Me.coldgvReportLogUserName.MinimumWidth = 120
+        Me.coldgvReportLogUserName.Name = "coldgvReportLogUserName"
+        Me.coldgvReportLogUserName.ReadOnly = True
+        Me.coldgvReportLogUserName.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.coldgvReportLogUserName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.coldgvReportLogUserName.Width = 120
+        '
+        'coldgvReportLogActionType
+        '
+        Me.coldgvReportLogActionType.DataPropertyName = "REPORT_TYPE"
+        Me.coldgvReportLogActionType.HeaderText = "F937"
+        Me.coldgvReportLogActionType.MinimumWidth = 120
+        Me.coldgvReportLogActionType.Name = "coldgvReportLogActionType"
+        Me.coldgvReportLogActionType.ReadOnly = True
+        Me.coldgvReportLogActionType.Width = 120
+        '
+        'coldgvReportLogActionDT
+        '
+        Me.coldgvReportLogActionDT.DataPropertyName = "REPORT_DT"
+        Me.coldgvReportLogActionDT.HeaderText = "F936"
+        Me.coldgvReportLogActionDT.MinimumWidth = 140
+        Me.coldgvReportLogActionDT.Name = "coldgvReportLogActionDT"
+        Me.coldgvReportLogActionDT.ReadOnly = True
+        Me.coldgvReportLogActionDT.Width = 140
+        '
+        'coldgvReportLogUserIP
+        '
+        Me.coldgvReportLogUserIP.DataPropertyName = "REPORT_IP"
+        Me.coldgvReportLogUserIP.HeaderText = "F935"
+        Me.coldgvReportLogUserIP.MinimumWidth = 140
+        Me.coldgvReportLogUserIP.Name = "coldgvReportLogUserIP"
+        Me.coldgvReportLogUserIP.ReadOnly = True
+        Me.coldgvReportLogUserIP.Width = 140
+        '
+        'coldgvReportLogStatus
+        '
+        Me.coldgvReportLogStatus.DataPropertyName = "REPORT_ACTION"
+        Me.coldgvReportLogStatus.HeaderText = "F247"
+        Me.coldgvReportLogStatus.MinimumWidth = 100
+        Me.coldgvReportLogStatus.Name = "coldgvReportLogStatus"
+        Me.coldgvReportLogStatus.ReadOnly = True
+        '
+        'coldgvReportLogDetail
+        '
+        Me.coldgvReportLogDetail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.coldgvReportLogDetail.DataPropertyName = "REPORT_LOG"
+        Me.coldgvReportLogDetail.HeaderText = "F968"
+        Me.coldgvReportLogDetail.MinimumWidth = 150
+        Me.coldgvReportLogDetail.Name = "coldgvReportLogDetail"
+        Me.coldgvReportLogDetail.ReadOnly = True
         '
         'frmReportHistory
         '
@@ -702,6 +702,11 @@ End Sub
     Friend WithEvents dgvReportLog As eXperDB.BaseControls.DataGridView
     Friend WithEvents lblClusters As eXperDB.BaseControls.Label
     Friend WithEvents cmbClusters As eXperDB.BaseControls.ComboBox
+    Friend WithEvents TableLayoutPanel2 As eXperDB.BaseControls.TableLayoutPanel
+    Friend WithEvents btnExcel As eXperDB.BaseControls.Button
+    Friend WithEvents btnQuery As eXperDB.BaseControls.Button
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblReportHistory As System.Windows.Forms.Label
     Friend WithEvents coldgvReportLogCluster As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvReportLogUserID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvReportLogUserName As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -710,10 +715,5 @@ End Sub
     Friend WithEvents coldgvReportLogUserIP As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvReportLogStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents coldgvReportLogDetail As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TableLayoutPanel2 As eXperDB.BaseControls.TableLayoutPanel
-    Friend WithEvents btnExcel As eXperDB.BaseControls.Button
-    Friend WithEvents btnQuery As eXperDB.BaseControls.Button
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents lblReportHistory As System.Windows.Forms.Label
 
 End Class

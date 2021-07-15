@@ -626,7 +626,7 @@ Partial Class frmAdmin
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvSvrLst.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvSvrLst.ColumnHeadersHeight = 24
+        Me.dgvSvrLst.ColumnHeadersHeight = 32
         Me.dgvSvrLst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.dgvSvrLst.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCheck, Me.colCollectYN, Me.colAliasNm, Me.colCollectSecond, Me.colStmtCollectSecond, Me.colSnapshotHour, Me.colDBNm, Me.colIP, Me.colPort, Me.colSchema, Me.colUser, Me.colPW, Me.colLstIP, Me.colPWCH, Me.colHARole, Me.colHAHost, Me.colHAPort, Me.colHAREPLHost, Me.colVirtualIP, Me.colVirtualIP2, Me.colReScanStmt})
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -958,7 +958,7 @@ Partial Class frmAdmin
         Me.colStmtCollectSecond.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.colStmtCollectSecond.FillWeight = 45.0!
         Me.colStmtCollectSecond.HeaderText = "F342"
-        Me.colStmtCollectSecond.MinimumWidth = 115
+        Me.colStmtCollectSecond.MinimumWidth = 85
         Me.colStmtCollectSecond.Name = "colStmtCollectSecond"
         Me.colStmtCollectSecond.ReadOnly = True
         Me.colStmtCollectSecond.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable

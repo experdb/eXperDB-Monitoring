@@ -300,6 +300,8 @@ public class TaskManager implements Runnable{
 				schedFormat = "0 * * * * ?";
 			} else if (schedFormat.equalsIgnoreCase("2m")){
 				schedFormat = "0 0/2 * * * ?";
+			} else if (schedFormat.equalsIgnoreCase("10m")){
+				schedFormat = "0 0/10 * * * ?";
 			} else if (schedFormat.equalsIgnoreCase("h")){
 				schedFormat = "0 0 * * * ?";
 			} else if (schedFormat.equalsIgnoreCase("2h")){

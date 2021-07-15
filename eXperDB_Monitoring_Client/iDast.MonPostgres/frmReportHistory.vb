@@ -48,7 +48,7 @@
     Private Sub initForm()
         'Me.dgvUserLst.AutoGenerateColumns = False
         lblClusters.Text = p_clsMsgData.fn_GetData("F146")
-        lblReportHistory.Text = p_clsMsgData.fn_GetData("M075")
+        lblReportHistory.Text = p_clsMsgData.fn_GetData("M111")
         lblUserID.Text = p_clsMsgData.fn_GetData("F347")
         lblUserName.Text = p_clsMsgData.fn_GetData("F348")
         lblDuration.Text = p_clsMsgData.fn_GetData("F254")
@@ -60,7 +60,7 @@
         coldgvReportLogUserIP.HeaderText = p_clsMsgData.fn_GetData("F935")
         coldgvReportLogCluster.HeaderText = p_clsMsgData.fn_GetData("F229")
         coldgvReportLogStatus.HeaderText = p_clsMsgData.fn_GetData("F247")
-        coldgvReportLogDetail.HeaderText = p_clsMsgData.fn_GetData("F357")
+        coldgvReportLogDetail.HeaderText = p_clsMsgData.fn_GetData("F968")
 
         Me.ttChart.SetToolTip(Me.btnQuery, p_clsMsgData.fn_GetData("F151"))
 
@@ -89,8 +89,7 @@
 
         'Report, 1:Snapshot, 2:Gen Baseline, 3:Del Baseline, 4:Mod Baseline
         cmbAction.AddValue(0, "All")
-        cmbAction.AddValue(1, "Snapshot")
-        cmbAction.AddValue(2, "Trend")
+        cmbAction.AddValue(1, "Trend")
         dtpSt.Value = dtpEd.Value.AddHours(-24)
     End Sub
 

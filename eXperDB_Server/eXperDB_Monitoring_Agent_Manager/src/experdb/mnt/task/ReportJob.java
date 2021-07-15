@@ -60,6 +60,9 @@ public class ReportJob implements Job {
 		} else if (schedFormat.equalsIgnoreCase("2m")){
 			timeperiod = 2;
 			timeunit = "m";
+		} else if (schedFormat.equalsIgnoreCase("10m")){
+			timeperiod = 10;
+			timeunit = "m";
 		} else if (schedFormat.equalsIgnoreCase("h")){
 			timeperiod = 1;
 			timeunit = "h";

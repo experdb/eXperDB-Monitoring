@@ -639,7 +639,7 @@
 
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Dim frmMain As New frmMonMain(AgentCn, rtnSrt, tmpElapseInterval, tmpGroupRatateInterval, AgentInfo)
-        frmMain.Owner = Me
+        'frmMain.Owner = Me
         frmMain.Show()
 
         Me.Hide()
@@ -1219,5 +1219,13 @@
 
     Private Sub dgvMonLst_NodeCollapsing(sender As Object, e As AdvancedDataGridView.CollapsingEventArgs) Handles dgvMonLst.NodeCollapsing
         e.Cancel = True
+    End Sub
+
+    Private Sub frmSvrList_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+        If Me.Visible = True Then
+            If p_cSession.checkStatus = False Then
+                Me.Close()
+            End If
+        End If
     End Sub
 End Class
