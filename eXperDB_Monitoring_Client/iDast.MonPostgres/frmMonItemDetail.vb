@@ -933,7 +933,7 @@ Public Class frmMonItemDetail
                     RaiseEvent WaitMasg("Object Access Information")
                 End If
             Case 10
-                strLegend1 = "calls_avg"
+                strLegend1 = "Calls"
                 strSeriesData1 = "CALLS"
                 LineColor1 = Color.RoyalBlue
                 seriesChartType = DataVisualization.Charting.SeriesChartType.Line

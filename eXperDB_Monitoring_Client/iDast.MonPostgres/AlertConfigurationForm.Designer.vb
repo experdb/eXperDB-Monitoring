@@ -1091,7 +1091,7 @@ Partial Class AlertConfigurationForm
         Me.nudConfailedcnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudConfailedcnt.ForeColor = System.Drawing.SystemColors.WindowText
         Me.nudConfailedcnt.Location = New System.Drawing.Point(178, 103)
-        Me.nudConfailedcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.nudConfailedcnt.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudConfailedcnt.Name = "nudConfailedcnt"
         Me.nudConfailedcnt.Size = New System.Drawing.Size(74, 21)
         Me.nudConfailedcnt.TabIndex = 10
