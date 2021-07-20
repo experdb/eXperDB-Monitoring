@@ -2370,7 +2370,7 @@
   </ROW>
   <ROW ID="F283" PARAMS="0">
     <DESC>상태누적</DESC>
-    <DATA><![CDATA[누적 정보]]></DATA>
+    <DATA><![CDATA[상태 이력]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

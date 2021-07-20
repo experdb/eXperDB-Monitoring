@@ -1895,7 +1895,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub clsAgentCollect_GetDataDiskInfo(ByVal dtTable As DataTable)
-        If dtTable Is Nothing Then Return
+        If dtTable Is Nothing Or dtTable.Rows.Count <= 0 Then Return
 
         Dim UpdTime As Double = Now.ToOADate
 

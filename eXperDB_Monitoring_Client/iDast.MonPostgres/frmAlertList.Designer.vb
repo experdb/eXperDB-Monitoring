@@ -147,7 +147,7 @@ Partial Class frmAlertList
         Me.cmbServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbServer.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(73, 15)
+        Me.cmbServer.Location = New System.Drawing.Point(73, 16)
         Me.cmbServer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbServer.Name = "cmbServer"
         Me.cmbServer.Necessary = False
@@ -184,7 +184,7 @@ Partial Class frmAlertList
         Me.cmbLevel.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbLevel.FormattingEnabled = True
         Me.cmbLevel.Items.AddRange(New Object() {"All", "Critical", "Warning"})
-        Me.cmbLevel.Location = New System.Drawing.Point(299, 15)
+        Me.cmbLevel.Location = New System.Drawing.Point(299, 16)
         Me.cmbLevel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbLevel.Name = "cmbLevel"
         Me.cmbLevel.Necessary = False
@@ -221,7 +221,7 @@ Partial Class frmAlertList
         Me.cmbCheck.Font = New System.Drawing.Font("Gulim", 9.2638!)
         Me.cmbCheck.FormattingEnabled = True
         Me.cmbCheck.Items.AddRange(New Object() {"All", "Checked", "Unchecked"})
-        Me.cmbCheck.Location = New System.Drawing.Point(525, 15)
+        Me.cmbCheck.Location = New System.Drawing.Point(525, 16)
         Me.cmbCheck.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmbCheck.Name = "cmbCheck"
         Me.cmbCheck.Necessary = False
@@ -408,9 +408,9 @@ Partial Class frmAlertList
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
         DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 8.320187!)
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
         DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvAlertList.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvAlertList.Dock = System.Windows.Forms.DockStyle.Fill
