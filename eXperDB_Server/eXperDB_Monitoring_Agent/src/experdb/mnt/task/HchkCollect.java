@@ -226,6 +226,27 @@ public class HchkCollect extends TaskApplication {
 					}
 				}
 				
+				//check that the issue is solved 
+				List<HashMap<String, Object>> prevAlertList = sessionAgent.selectList("app.TB_HCHK_ALERT_PREV_INFO_001");
+				List<HashMap<String, Object>> solveAlertList= new ArrayList<HashMap<String,Object>>();
+				for (HashMap<String, Object> pmap : prevAlertList) {
+					boolean isSolve = true;
+					for (HashMap<String, Object> cmap : insertAlertList) {
+						if(pmap.get("instance_id").equals(cmap.get("instance_id"))
+						&& pmap.get("hchk_name").equals(cmap.get("hchk_name"))) {
+							isSolve = false; break;
+						}
+					}
+					if(isSolve) {
+						pmap.put("state", 400);
+						solveAlertList.add(pmap);
+					}
+				}
+				
+				for (HashMap<String, Object> map : solveAlertList) {
+					insertAlertList.add(map);
+				}
+				
 				//금일자 최초 거래인지 확인
 				HashMap<String, Object> regDateMap = sessionAgent.selectOne("app.TB_HCHK_COLLECT_INFO_S001");
 				

@@ -2901,6 +2901,15 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		     WHERE INSTANCE_ID > 0
 	</select>	
 	
+	<select id="TB_HCHK_ALERT_PREV_INFO_001" resultType="hashmap">
+	<![CDATA[
+		SELECT * FROM PGMON.TB_HCHK_ALERT_INFO
+	     WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+		   AND HCHK_REG_SEQ = (SELECT MAX(HCHK_REG_SEQ) HCHK_REG_SEQ FROM TB_HCHK_ALERT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))
+		   and state <> 400
+		   ]]>
+	</select>	
+	
 	<insert id="TB_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_HCHK_ALERT_INFO	
 		SELECT 
@@ -4594,11 +4603,65 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	        AND ALERT.HCHK_NAME = TH.HCHK_NAME
 	        AND TH.NOTIFICATION_LEVEL > 0
 	        AND STATE > (TH.NOTIFICATION_LEVEL) * 100
+	        AND STATE < 400
 	        AND EXTRACT(EPOCH FROM ((DATE(ALERT.REG_DATE) + COL.REG_TIME) - TH.NOTIFICATION_LASTSENT))::NUMERIC >= (TH.NOTIFICATION_CYCLE * 60 - 1)
 	        AND TH.USER_GROUP = UG.GROUP_ID
 	        AND UG.USER_ID = MU.USER_ID
 	        AND ALERT.hchk_name = SC.code_name
-	        ORDER BY INSTANCE_ID;
+UNION ALL
+	       	SELECT 
+	      		0 AS export_type,
+			    ALERT.instance_id INSTANCE_ID,
+			    (select COALESCE(notification_sender, '') from tb_alert_link_config ORDER BY LAST_MOD_DT DESC LIMIT 1) AS sender,
+			    CASE WHEN MU.USER_NOTI_PHONE = 0 THEN MU.USER_PHONE WHEN MU.USER_NOTI_PHONE = 1 THEN MU.USER_PHONE2 ELSE MU.USER_EMPNUM END AS reciever,
+	            ALERT.state export_level,
+	            '['
+			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
+			    || ', (Resolved)'
+			    || ', Host : '
+			    || INS.HOST_NAME 
+			    || ', Alert : ' 
+			    || SC.code_desc
+			    || ':'
+			    || CASE WHEN COL.VALUE = 99999.00 THEN '-'
+			    		WHEN COL.VALUE IS NULL THEN 0::varchar
+			    	    ELSE CASE WHEN COL.HCHK_NAME = 'HASTATUS' THEN CASE WHEN COL.VALUE = 2 THEN 'Multi Primary' WHEN COL.VALUE = 3 THEN 'No Primary' ELSE '-' END
+			    	    		  WHEN COL.HCHK_NAME = 'REPLICATION_SLOT' THEN CASE WHEN COL.VALUE = 1 THEN 'Inactive slot' WHEN COL.VALUE = 2 THEN 'No slot' ELSE '-' END
+			    	    		  WHEN COL.HCHK_NAME = 'VIRTUAL_IP' THEN CASE WHEN COL.VALUE = 1 THEN 'Connection fail' WHEN COL.VALUE = 2 THEN 'Not Primary' ELSE '-' END
+			    	              ELSE 
+			    	              	CASE WHEN TH.UNIT <> '%'
+			    	              		 THEN (COL.VALUE::integer)::varchar
+			    	              	 ELSE COL.VALUE::varchar
+			    	                 END
+			    	              END 
+			    	    END
+			    || ' '
+			    || TH.UNIT AS messages,
+			    DATE(ALERT.REG_DATE) + COL.REG_TIME collect_dt,
+			    ALERT.hchk_name,
+			    MU.USER_ID
+	         FROM TB_HCHK_ALERT_INFO ALERT, 
+	            TB_INSTANCE_INFO INS ,
+	            TB_HCHK_COLLECT_INFO COL,
+	            TB_HCHK_THRD_LIST TH,
+	            TB_MON_USER_BY_GROUP UG,
+	            TB_MON_USER MU,
+	            TB_SYS_CODE SC
+	        WHERE ALERT.hchk_reg_seq = (SELECT MAX(hchk_reg_seq) FROM TB_HCHK_COLLECT_INFO WHERE reg_date = TO_CHAR(NOW(), 'YYYYMMDD'))
+	        AND ALERT.INSTANCE_ID = INS.INSTANCE_ID
+	        AND ALERT.INSTANCE_ID = COL.INSTANCE_ID
+	        AND ALERT.REG_DATE = COL.REG_DATE 
+	        AND ALERT.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+	        AND ALERT.HCHK_REG_SEQ = COL.HCHK_REG_SEQ
+	        AND ALERT.HCHK_NAME = COL.HCHK_NAME
+	        AND ALERT.INSTANCE_ID = TH.INSTANCE_ID
+	        AND ALERT.HCHK_NAME = TH.HCHK_NAME
+	        AND TH.NOTIFICATION_LEVEL > 0
+	        AND STATE = 400
+	        AND TH.USER_GROUP = UG.GROUP_ID
+	        AND UG.USER_ID = MU.USER_ID
+	        AND ALERT.hchk_name = SC.code_name
+	        ORDER BY INSTANCE_ID;	       
 		  ]]>
 	</select>
 	

@@ -2362,7 +2362,7 @@
   </ROW>
   <ROW ID="F283" PARAMS="0">
     <DESC>상태누적</DESC>
-    <DATA><![CDATA[Cumulative]]></DATA>
+    <DATA><![CDATA[Historical]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
