@@ -832,7 +832,7 @@ Partial Class frmConnection
         Me.Name = "frmConnection"
         Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Registration Cluster"
+        Me.Text = "Cluster Registration"
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         Me.TableLayoutPanel3.ResumeLayout(False)
