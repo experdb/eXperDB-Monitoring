@@ -13,8 +13,10 @@ Public Class frmLogin
     ' Subsequently, My.User will return identity information encapsulated in the CustomPrincipal object
     ' such as the username, display name, etc.
 
-    Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\Software\K4M\eXperDB.Monitoring\Settings"
-    Private Const HKLMPATH As String = "Software\K4M\eXperDB.Monitoring\Settings"
+    ' Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\Software\K4M\eXperDB.Monitoring\Settings"
+    ' Private Const HKLMPATH As String = "Software\K4M\eXperDB.Monitoring\Settings"
+    Private Const REGISTRYPATH As String = "HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Inzent\eXperDB.Monitoring\Settings"
+    Private Const HKLMPATH As String = "SOFTWARE\WOW6432Node\Inzent\eXperDB.Monitoring\Settings"
     Private Const APPNAME As String = "eXperDB.Downloader.exe"
     Private _connStruct As eXperDB.ODBC.structConnection = Nothing
     Private _odbcConn As eXperDBODBC
