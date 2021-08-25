@@ -516,7 +516,7 @@ Partial Class AlertNotiConfig
         Me.cmbDBMS.FixedWidth = False
         Me.cmbDBMS.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbDBMS.FormattingEnabled = True
-        Me.cmbDBMS.Items.AddRange(New Object() {"MSSQL", "ORACLE"})
+        Me.cmbDBMS.Items.AddRange(New Object() {"MSSQL", "ORACLE", "MYSQL"})
         Me.cmbDBMS.Location = New System.Drawing.Point(131, 72)
         Me.cmbDBMS.Name = "cmbDBMS"
         Me.cmbDBMS.Necessary = True

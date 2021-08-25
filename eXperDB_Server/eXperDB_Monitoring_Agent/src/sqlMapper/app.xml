@@ -3403,9 +3403,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				QUERY,
 				COLLECT_DT
 			) 
-		    SELECT TO_CHAR(NOW(), 'YYYYMMDD'), #{instance_id}, #{dbid}, #{userid}, #{queryid}, #{stmt_queryid}, #{query}, NOW()
+		    SELECT TO_CHAR(NOW(), 'YYYYMMDD'), #{instance_id}, #{dbid}, coalesce(#{userid}, 0), #{queryid}, #{stmt_queryid}, #{query}, NOW()
 		    WHERE NOT EXISTS (
-		        SELECT 1 FROM TB_QUERY_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = #{userid} AND QUERYID = #{queryid}
+		        SELECT 1 FROM TB_QUERY_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = coalesce(#{userid}, 0) AND QUERYID = #{queryid}
 		    );
 	    ]]>
 	</insert>
