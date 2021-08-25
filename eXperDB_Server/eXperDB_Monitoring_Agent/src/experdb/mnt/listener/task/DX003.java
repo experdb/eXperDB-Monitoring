@@ -22,8 +22,8 @@ public class DX003 implements SocketApplication{
 	{
 	    public static final int MSS = -1;
 	    public static final int ORA = -2;
-	    public static final int POG = -3;
-	    public static final int MYSQL = -4;
+	    public static final int MYSQL = -3;
+	    public static final int POG = -4;
 	}
 	
 	@Override
@@ -110,6 +110,10 @@ public class DX003 implements SocketApplication{
 					case DB_TYPE.ORA :
 						driver =  "oracle.jdbc.driver.OracleDriver" ;
 						connectURL =  "jdbc:oracle:thin:@"+jReqDataObj.get("targetip")+":"+jReqDataObj.get("targetport")+"/"+jReqDataObj.get("database");
+						break;
+					case DB_TYPE.MYSQL :
+						driver = "com.mysql.cj.jdbc.Driver";
+						connectURL = "jdbc:mysql://"+ jReqDataObj.get("targetip") + ":" + jReqDataObj.get("targetport") + "/" + jReqDataObj.get("database");
 						break;
 					case DB_TYPE.POG :
 						driver = "org.postgresql.Driver";

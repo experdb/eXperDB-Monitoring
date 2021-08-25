@@ -396,6 +396,10 @@ public class HchkCollect extends TaskApplication {
 		String connectUrl = "";
 		Connection connExternalDB = null;
 		try {
+//			driver =  "com.mysql.cj.jdbc.Driver" ;
+//			connectUrl = "jdbc:mysql://"+"192.168.56.222"+":"+3306+"/"+"DB2PG?validationQuery=\"select 1\"";
+
+			
 			switch (Integer.parseInt(selectExportInfo.get("link_type").toString())) {
 				case 0 :
 					driver =  "com.microsoft.sqlserver.jdbc.SQLServerDriver" ;
@@ -403,8 +407,11 @@ public class HchkCollect extends TaskApplication {
 					break;
 				case 1 :
 					driver =  "oracle.jdbc.driver.OracleDriver" ;
-					connectUrl =  "jdbc:oracle:thin:@"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString();
+					connectUrl = "jdbc:oracle:thin:@"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString();
 					break;
+				case 2 :
+					driver =  "com.mysql.cj.jdbc.Driver" ;
+					connectUrl = "jdbc:mysql://"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString() + "?validationQuery=\"select 1\"";
 			}
 			
 			Class.forName(driver);
