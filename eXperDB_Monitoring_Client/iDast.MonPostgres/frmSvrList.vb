@@ -849,7 +849,9 @@
         If dgvMonLst.CurrentCell IsNot Nothing Then
             If dgvMonLst.CurrentCell.GetType = GetType(DataGridViewImageCell) Then
                 'dgvMonLst.Rows.Remove(dgvMonLst.CurrentRow)
-
+                If p_cSession.isAdmin = False Then
+                    Return
+                End If
                 dgvMonLst.RefreshEdit()
                 dgvMonLst.Nodes.Remove(dgvMonLst.CurrentNode)
                 dgvMonLst.CommitEdit(DataGridViewDataErrorContexts.Commit)
@@ -897,6 +899,7 @@
                     tmpCtl = tlpGrp.Controls.Find("rbGrp" & i + 1, True)(0)
                     If tmpCtl.Enabled = True Then
                         tmpCtl.Checked = True
+                        groupIndex = i
                         Exit For
                     End If
                 Next
