@@ -1377,13 +1377,13 @@
                 Else
                     AgentState = AgntState.DeActivate
                     p_Log.AddMessage(clsLog4Net.enmType.Error, "Agent Server Connection is not open! state = " & _AgentCn.State)
-                    AddMsgQueue("Agent connection cann't not opened")
+                    'AddMsgQueue("Agent connection cann't not opened")
                 End If
             Else
                 _ConnectionFailCount = 5
                 AgentState = AgntState.DeActivate
                 p_Log.AddMessage(clsLog4Net.enmType.Error, "Agent Server Connection Fail!")
-                AddMsgQueue("Agent connection fail!")
+                'AddMsgQueue("Agent connection fail!")
             End If
 
         Catch ex As Exception

@@ -591,28 +591,33 @@
     End Function
 
     Private Sub ReadUserInfo()
-        Dim dtTable As DataTable = _clsQuery.SelectMonUserinfo(p_cSession.UserID)
-        If dtTable Is Nothing Or dtTable.Rows.Count = 0 Then
-            MsgBox(p_clsMsgData.fn_GetData("M080"))
-        End If
-        Dim dtRow As DataRow = dtTable.Rows(0)
-        txtUserID.Text = dtRow.Item("USER_ID")
-        txtUserName.Text = dtRow.Item("USER_NAME")
-        txtPhone.Text = dtRow.Item("USER_PHONE")
-        txtPhone2.Text = dtRow.Item("USER_PHONE2")
-        If Integer.Parse(dtRow.Item("USER_NOTI_PHONE").ToString()) = 0 Then
-            rbUseNoti1.Checked = True
-            _noticeMethod = 0
-        ElseIf Integer.Parse(dtRow.Item("USER_NOTI_PHONE").ToString()) = 1 Then
-            rbUseNoti2.Checked = True
-            _noticeMethod = 1
-        Else
-            rbUseNoti3.Checked = True
-            _noticeMethod = 2
-        End If
-        txtEmail.Text = dtRow.Item("USER_EMAIL")
-        txtEmpNum.Text = dtRow.Item("USER_EMPNUM")
-        txtDept.Text = dtRow.Item("USER_DEPT_NAME")
+        Try
+            Dim dtTable As DataTable = _clsQuery.SelectMonUserinfo(p_cSession.UserID)
+            If dtTable Is Nothing Or dtTable.Rows.Count = 0 Then
+                MsgBox(p_clsMsgData.fn_GetData("M080"))
+            End If
+            Dim dtRow As DataRow = dtTable.Rows(0)
+            txtUserID.Text = dtRow.Item("USER_ID")
+            txtUserName.Text = dtRow.Item("USER_NAME")
+            txtPhone.Text = dtRow.Item("USER_PHONE")
+            txtPhone2.Text = dtRow.Item("USER_PHONE2")
+            If Integer.Parse(dtRow.Item("USER_NOTI_PHONE").ToString()) = 0 Then
+                rbUseNoti1.Checked = True
+                _noticeMethod = 0
+            ElseIf Integer.Parse(dtRow.Item("USER_NOTI_PHONE").ToString()) = 1 Then
+                rbUseNoti2.Checked = True
+                _noticeMethod = 1
+            Else
+                rbUseNoti3.Checked = True
+                _noticeMethod = 2
+            End If
+            txtEmail.Text = dtRow.Item("USER_EMAIL")
+            txtEmpNum.Text = dtRow.Item("USER_EMPNUM")
+            txtDept.Text = dtRow.Item("USER_DEPT_NAME")
+        Catch ex As Exception
+            Console.WriteLine(ex.ToString)
+        End Try
+
     End Sub
 
     Private Sub AccessLog(ByVal strAccessType As String, ByVal intStatus As Integer, _
