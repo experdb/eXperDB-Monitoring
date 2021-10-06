@@ -213,6 +213,7 @@ Public Class eXperDBODBC
             End Try
         Else
             _Log.AddMessage(clsLog4Net.enmType.Error, Now.ToString("yyyy-MM-dd HH:mm:ss") & "Create Connection")
+            _ODBCConnection.Dispose()
             _ODBCConnection = New Data.Odbc.OdbcConnection(_ODBCConnInfo.ConnectionString)
         End If
 
