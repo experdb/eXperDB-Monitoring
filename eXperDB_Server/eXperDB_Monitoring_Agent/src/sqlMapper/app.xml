@@ -1228,7 +1228,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
 				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
-				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
+				 -- WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
+				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.DBID IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
 				    --AND (application_name <> 'postgres_fdw' and datname not in ('pgmon','psgmondb'))
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
@@ -3435,7 +3436,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		SELECT #{instance_id}, MD5(coalesce(#{queryid}, '')), #{stmt_queryid}, #{query}, NOW() 
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 	</insert>
-		<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<select id="TB_PGSS_INFO_S001_NEW" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 		/* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
 		WITH RTST 
@@ -3528,7 +3529,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		  WHERE F.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>	  
 	</select>
-	<select id="TB_PGSS_INFO_S001_BAK" parameterType="hashmap" resultType="hashmap">
+	<select id="TB_PGSS_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
          	SELECT /* EXPERDBMA_TB_PGSS_INFO_S001 24e9ab7301ff1966da4fb30dc1538882 */
      		   U.USENAME USERNAME, D.DATNAME AS DB_NAME,
@@ -4446,7 +4447,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    END IF;
 					EXECUTE FORMAT('CREATE SERVER fdw' || '${instance_id}' || ' FOREIGN DATA WRAPPER postgres_fdw OPTIONS (host ''' || '${server_ip}' || ''', port ''' || '${service_port}' || ''', dbname ''' || '${conn_db_name}' || ''')');
 					EXECUTE FORMAT('CREATE USER MAPPING FOR current_user SERVER fdw' || ${instance_id} || ' OPTIONS (user ''' || '${conn_user_id}' || ''', password ''' || '${conn_user_pwd}' || ''')');
-					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,MIN_TIME float8 not null,MAX_TIME float8 not null,MEAN_TIME float8 not null,STDDEV_TIME float8 not null,rows int8 not null,SHARED_BLKS_HIT int8 not null,SHARED_BLKS_READ int8 not null,SHARED_BLKS_DIRTIED int8 not null,SHARED_BLKS_WRITTEN int8 not null,LOCAL_BLKS_HIT int8 not null,LOCAL_BLKS_READ int8 not null,LOCAL_BLKS_DIRTIED int8 not null,LOCAL_BLKS_WRITTEN int8 not null,TEMP_BLKS_READ int8 not null,TEMP_BLKS_WRITTEN int8 not null,BLK_READ_TIME float8 not null,BLK_WRITE_TIME float8 not null,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || 'public' || ''', table_name ''pg_stat_statements'')');
+					EXECUTE FORMAT(' CREATE FOREIGN TABLE fdw' || '${instance_id}' || ' (userid oid NOT NULL,dbid oid NOT NULL,queryid int8 NOT NULL,calls int8 NOT NULL,total_time float8 NOT NULL,MIN_TIME float8 not null,MAX_TIME float8 not null,MEAN_TIME float8 not null,STDDEV_TIME float8 not null,rows int8 not null,SHARED_BLKS_HIT int8 not null,SHARED_BLKS_READ int8 not null,SHARED_BLKS_DIRTIED int8 not null,SHARED_BLKS_WRITTEN int8 not null,LOCAL_BLKS_HIT int8 not null,LOCAL_BLKS_READ int8 not null,LOCAL_BLKS_DIRTIED int8 not null,LOCAL_BLKS_WRITTEN int8 not null,TEMP_BLKS_READ int8 not null,TEMP_BLKS_WRITTEN int8 not null,BLK_READ_TIME float8 not null,BLK_WRITE_TIME float8 not null,query text) SERVER fdw' || '${instance_id}' || ' OPTIONS (schema_name ''' || '${conn_schema_name}' || ''', table_name ''pg_stat_statements'')');
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0');
 					EXECUTE FORMAT('DROP TABLE IF EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_1');
 					EXECUTE FORMAT('CREATE UNLOGGED TABLE IF NOT EXISTS PG_STAT_STATEMENTS_TMP_' || '${instance_id}' || '_0 AS SELECT USERID, DBID, QUERYID, CALLS, TOTAL_TIME, NOW() AS COLLECT_DT FROM PG_STAT_STATEMENTS LIMIT 0') ;  
