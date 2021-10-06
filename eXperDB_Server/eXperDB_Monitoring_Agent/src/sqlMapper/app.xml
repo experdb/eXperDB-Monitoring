@@ -1229,7 +1229,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
 				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
 				 -- WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
-				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.DBID IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
+				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.DATID IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
 				    --AND (application_name <> 'postgres_fdw' and datname not in ('pgmon','psgmondb'))
 				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
 				]]>
