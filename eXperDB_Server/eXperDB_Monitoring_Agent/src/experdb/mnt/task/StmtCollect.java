@@ -116,8 +116,10 @@ public class StmtCollect extends TaskApplication {
 			{						
 				///////////////////////////////////////////////////////////////////////////////
 				// STATEMENT 정보수집						
-				try {					
-					pgssSel = sessionCollect.selectList("app.TB_PGSS_INFO_S001");
+				try {			
+					HashMap<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("instance_db_version", instance_db_version);
+					pgssSel = sessionCollect.selectList("app.TB_PGSS_INFO_S001", paramMap);
 				} catch (Exception e) {
 					failed_collect_type = "3";
 					log.error("instanceid=[" + reqInstanceId + "]", e);
