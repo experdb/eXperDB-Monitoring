@@ -137,6 +137,7 @@ public class MonitoringInfoManager {
 					
 					/*add to create fdw and temp table by robin 201902 start*/
 					map.put("conn_user_pwd", LicenseInfoManager.decryptTDES(cryptokey, (String)map.get("conn_user_pwd")));
+					map.put("instance_db_version", instance_db_version);	
 					session.update("app.TB_RTSTATEMENTS_INFO_C001", map);
 					//session.selectList("app.SEQ_SETVAL_STMT");
 					/*add to create fdw and temp table by robin 201902 end*/

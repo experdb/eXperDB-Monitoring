@@ -117,6 +117,7 @@ public class RTStmtCollect extends TaskApplication {
 					List<HashMap<String, Object>> RTStmtSel = new ArrayList<HashMap<String,Object>>();
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
 					inputParam.put("instance_id", Integer.parseInt(instanceId));
+					inputParam.put("instance_db_version", instance_db_version);
 
 					if (extensions > 0 ){
 						Calendar cal = Calendar.getInstance();
@@ -159,6 +160,7 @@ public class RTStmtCollect extends TaskApplication {
 					if (extensions <= 0 ){
 						HashMap<String, Object> paramMap = new HashMap<String, Object>();
 						paramMap.put("instance_id", Integer.parseInt(instanceId));
+						paramMap.put("instance_db_version", instance_db_version);
 						paramMap.put("table_order", sequenceValue % 2);
 						sessionAgent.delete("app.BT_RTSTMT_CALL_INFO_T001", paramMap);
 						sessionAgent.insert("app.BT_RTSTMT_CALL_INFO_I001", paramMap);
