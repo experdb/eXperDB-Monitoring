@@ -108,6 +108,10 @@
     End Sub
 
     Private Sub btnModifyGroup_Click(sender As Object, e As EventArgs) Handles btnModifyGroup.Click
+        If dgvGroupLst.SelectedRows.Count <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M090"))
+            Return
+        End If
         Dim frmUM As New frmGroup(_clsQuery, dgvGroupLst.SelectedRows(0).Cells(coldgvGroupLstID.Index).Value, dgvGroupLst.SelectedRows(0).Cells(coldgvGroupLstName.Index).Value)
         If frmUM.ShowDialog = Windows.Forms.DialogResult.OK Then
             ReadGroupList()

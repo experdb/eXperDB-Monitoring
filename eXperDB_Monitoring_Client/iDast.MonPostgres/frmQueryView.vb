@@ -59,37 +59,40 @@
             GC.Collect()
         End Try
 
-        lblDB.Text = p_clsMsgData.fn_GetData("F010")
-        lblID.Text = p_clsMsgData.fn_GetData("F008")
-        lblPw.Text = p_clsMsgData.fn_GetData("F009")
-        btnSearch.Text = p_clsMsgData.fn_GetData("F151")
-        If clsAgentInfo Is Nothing Then
-            Panel1.Visible = False
-            Splitter1.Visible = False
-        Else
-            clsEMsg = New clsAgentEMsg(clsAgentInfo.AgentIP, clsAgentInfo.AgentPort)
-        End If
-        txtDB.Text = strDBNm
-        txtID.Text = strUser
-        ' 설정 정보 읽어 오기 
-        Sb_ReadIni()
+        Try
+            lblDB.Text = p_clsMsgData.fn_GetData("F010")
+            lblID.Text = p_clsMsgData.fn_GetData("F008")
+            lblPw.Text = p_clsMsgData.fn_GetData("F009")
+            btnSearch.Text = p_clsMsgData.fn_GetData("F151")
+            If clsAgentInfo Is Nothing Then
+                Panel1.Visible = False
+                Splitter1.Visible = False
+            Else
+                clsEMsg = New clsAgentEMsg(clsAgentInfo.AgentIP, clsAgentInfo.AgentPort)
+            End If
+            txtDB.Text = strDBNm
+            txtID.Text = strUser
+            ' 설정 정보 읽어 오기 
+            Sb_ReadIni()
 
-        Dim rgxVariable As New System.Text.RegularExpressions.Regex(Me.RichTextBoxQuery1.VariableRegex)
-        Dim rgxMatches As System.Text.RegularExpressions.MatchCollection = rgxVariable.Matches(strText)
-        If rgxMatches.Count = 0 Then
-            spnlVariables.Visible = False
-            dgvVariables.Visible = False
-        Else
-            spnlVariables.Visible = True
-            dgvVariables.Visible = True
-            For Each tmpMatch As System.Text.RegularExpressions.Match In rgxMatches
-                Dim intIndex As Integer = Me.RichTextBoxQuery1.Find(tmpMatch.Value, RichTextBoxFinds.MatchCase And RichTextBoxFinds.WholeWord)
-                Dim intLine As Integer = Me.RichTextBoxQuery1.GetLineFromCharIndex(intIndex)
-                Dim intLineIdx As Integer = intIndex - intLine
-                dgvVariables.Rows.Add(tmpMatch.Value, "", intLine)
-            Next
-        End If
-
+            Dim rgxVariable As New System.Text.RegularExpressions.Regex(Me.RichTextBoxQuery1.VariableRegex)
+            Dim rgxMatches As System.Text.RegularExpressions.MatchCollection = rgxVariable.Matches(strText)
+            If rgxMatches.Count = 0 Then
+                spnlVariables.Visible = False
+                dgvVariables.Visible = False
+            Else
+                spnlVariables.Visible = True
+                dgvVariables.Visible = True
+                For Each tmpMatch As System.Text.RegularExpressions.Match In rgxMatches
+                    Dim intIndex As Integer = Me.RichTextBoxQuery1.Find(tmpMatch.Value, RichTextBoxFinds.MatchCase And RichTextBoxFinds.WholeWord)
+                    Dim intLine As Integer = Me.RichTextBoxQuery1.GetLineFromCharIndex(intIndex)
+                    Dim intLineIdx As Integer = intIndex - intLine
+                    dgvVariables.Rows.Add(tmpMatch.Value, "", intLine)
+                Next
+            End If
+        Catch ex As Exception
+            GC.Collect()
+        End Try
         Me.Text = "SQL Plan"
         lblSubject.Text = p_clsMsgData.fn_GetData("M041")
 

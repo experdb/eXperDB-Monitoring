@@ -4300,7 +4300,7 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
                 R.INSTANCE_ID, 
                 U.USER_NAME, 
                 D.DATABASE_NAME, 
-                Q.QUERY, 
+                COALESCE(Q.QUERY, '') QUERY, 
                 CALLS, 
                 TOTAL_TIME AS TOTAL_TIME, 
                 TOTAL_TIME  / CALLS AS AVG_TIME, 
