@@ -11,7 +11,8 @@ import java.util.List;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
@@ -21,7 +22,7 @@ import experdb.mnt.MonitoringInfoManager;
 import java.sql.DriverManager;
 public class DailyBatchTask {
 
-	protected static Logger log = Logger.getLogger(DailyBatchTask.class);	
+	protected static Logger log = LogManager.getLogger(DailyBatchTask.class);	
 	
 	private String status = "2"; // 1:진행중 / 2:정상종료 / 3:오류
 	private String comments = "0"; // 오류세부 정보 : 0:데몬기동 / 1:접속종료 / 2:데이터삭제 / 3: VACUUM&ANALYZE /  4: 시퀀스초기화/ 5:인스턴스정보 UPDATE / 6: 접속수립 / 9:데몬종료

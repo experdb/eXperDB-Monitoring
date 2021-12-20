@@ -16,7 +16,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.dbcp.PoolingDriver;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
@@ -43,7 +44,7 @@ import org.quartz.SimpleTrigger;
 import org.quartz.impl.StdSchedulerFactory;
 
 public class TaskManager implements Runnable{
-	private static Logger log = Logger.getLogger(TaskManager.class);
+	private static Logger log = LogManager.getLogger(TaskManager.class);
 	private StdSchedulerFactory schedFact = null;
 	private Scheduler sched = null;
 	

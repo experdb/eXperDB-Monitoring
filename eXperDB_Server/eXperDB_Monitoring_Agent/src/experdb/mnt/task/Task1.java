@@ -15,7 +15,8 @@ import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;

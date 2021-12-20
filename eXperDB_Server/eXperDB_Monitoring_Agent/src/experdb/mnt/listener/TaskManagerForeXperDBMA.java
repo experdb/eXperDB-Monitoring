@@ -4,13 +4,14 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.task.TaskInfoManager;
 import experdb.mnt.util.Queue;
 
 public class TaskManagerForeXperDBMA implements Runnable {
-	private static Logger log = Logger.getLogger(TaskManagerForeXperDBMA.class);
+	private static Logger log = LogManager.getLogger(TaskManagerForeXperDBMA.class);
 	
 	private Queue		clientSocketQueue = null;
 	private boolean 	toBeShutdown = false;		

@@ -9,10 +9,11 @@ import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.PoolingDriver;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.pool.impl.GenericObjectPool;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class DBCPPoolManager {
-	private static Logger log = Logger.getLogger(DBCPPoolManager.class);
+	private static Logger log = LogManager.getLogger(DBCPPoolManager.class);
 	
 	public static void setupDriver(String driver, String url, String user, String password, String poolName, int maxActive) throws Exception {
 		log.info("************************************************************");

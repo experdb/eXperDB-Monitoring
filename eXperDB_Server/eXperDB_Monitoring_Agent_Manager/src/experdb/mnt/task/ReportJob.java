@@ -13,7 +13,8 @@ import java.util.Map;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
@@ -30,7 +31,7 @@ import org.quartz.JobExecutionException;
 
 public class ReportJob implements Job {
 
-	protected static Logger log = Logger.getLogger(ReportJob.class);	
+	protected static Logger log = LogManager.getLogger(ReportJob.class);	
 	
 	private String status = "2"; // 1:진행중 / 2:정상종료 / 3:오류
 	private String comments = ""; // 오류세부 정보 : 0:데몬기동 / 1:접속종료 / 2:데이터삭제 / 3: VACUUM&ANALYZE /  4: 시퀀스초기화/ 5:인스턴스정보 UPDATE / 6: 접속수립 / 9:데몬종료

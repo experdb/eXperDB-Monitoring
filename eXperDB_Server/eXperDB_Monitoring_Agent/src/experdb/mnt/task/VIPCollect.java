@@ -9,13 +9,14 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 public class VIPCollect{
-	protected static Logger log = Logger.getLogger(VIPCollect.class);	
+	protected static Logger log = LogManager.getLogger(VIPCollect.class);	
 	
 	public VIPCollect() {
 		//log.error("Check Primary VIP");

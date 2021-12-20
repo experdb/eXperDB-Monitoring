@@ -8,13 +8,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.eXperDBMAConfig;
 
 public class SocketListenerInfo {
-	private static Logger log = Logger.getLogger(SocketListenerInfo.class);	
+	private static Logger log = LogManager.getLogger(SocketListenerInfo.class);	
 	
 	private static final String	_SOCKETLISTENER_CONFIG = "SocketListenerInfo.config";
 	

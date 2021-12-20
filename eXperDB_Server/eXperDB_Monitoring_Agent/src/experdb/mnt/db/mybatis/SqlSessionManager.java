@@ -5,12 +5,13 @@ import java.io.Reader;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.eXperDBMAConfig;
 
 public class SqlSessionManager {
-	private static Logger log = Logger.getLogger(SqlSessionManager.class);
+	private static Logger log = LogManager.getLogger(SqlSessionManager.class);
 	
 	private static SqlSessionFactory sqlSession = null;
 	
