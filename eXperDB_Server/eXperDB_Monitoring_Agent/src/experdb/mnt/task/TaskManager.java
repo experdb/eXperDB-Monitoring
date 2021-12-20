@@ -16,7 +16,8 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.dbcp.PoolingDriver;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.ResourceInfo;
@@ -26,7 +27,7 @@ import experdb.mnt.db.mybatis.SqlSessionManager;
 
 
 public class TaskManager{
-	private static Logger log = Logger.getLogger(TaskManager.class);
+	private static Logger log = LogManager.getLogger(TaskManager.class);
 	
 	public void startUp() {
 		log.info("************************************************************");
@@ -43,7 +44,7 @@ public class TaskManager{
 
 class ExceptionLeakingTask implements Runnable {
 
-	private static Logger log = Logger.getLogger(TaskManager.class);
+	private static Logger log = LogManager.getLogger(TaskManager.class);
 	@Override
 	public void run() {
 		try {
@@ -200,7 +201,7 @@ class ExceptionLeakingTask implements Runnable {
 
 class ThreadExceptionHandler implements UncaughtExceptionHandler{
 	private String handlerName;
-	private static Logger log = Logger.getLogger(TaskManager.class);
+	private static Logger log = LogManager.getLogger(TaskManager.class);
 	
 	public ThreadExceptionHandler(String handlerName) {
 		this.handlerName = handlerName;

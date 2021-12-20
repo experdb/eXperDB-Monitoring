@@ -11,12 +11,13 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.listener.SocketExecutorForeXperDBMAManager;
 
 public class ClientConnector {
-	private static Logger log = Logger.getLogger(ClientConnector.class);
+	private static Logger log = LogManager.getLogger(ClientConnector.class);
 	
 	private static int		DEFAULT_TIMEOUT = 30;
 	private static int		DEFAULT_BUFFER_SIZE = 1024;

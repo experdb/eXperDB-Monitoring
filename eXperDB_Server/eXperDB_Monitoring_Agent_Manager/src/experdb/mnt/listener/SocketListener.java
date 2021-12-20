@@ -12,13 +12,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.util.Queue;
 
 public class SocketListener implements Runnable {
-	private static Logger log = Logger.getLogger(SocketListener.class);
+	private static Logger log = LogManager.getLogger(SocketListener.class);
 
 	private String			listenerName = "";
 	private int				listenPort = -1;

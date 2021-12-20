@@ -1,5 +1,6 @@
 package experdb.mnt;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,8 +9,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
 
 import experdb.mnt.db.dbcp.DBCPPoolManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
@@ -21,12 +23,16 @@ import experdb.mnt.task.TaskManager;
 import experdb.mnt.util.Queue;
 
 public class Server {
-	private static Logger log = Logger.getLogger(Server.class);
+	private static Logger log = LogManager.getLogger(Server.class);
 	
 	public static void main(String[] args) {
 
 		//LOG4J 설정 파일 지정
-		PropertyConfigurator.configure(System.getProperty("eXperDBMA_HOME") + System.getProperty("CONFIG_DIR") + "/" + "log4j.properties");			
+		//PropertyConfigurator.configure(System.getProperty("eXperDBMA_HOME") + System.getProperty("CONFIG_DIR") + "/" + "log4j.properties");
+		
+		LoggerContext context = (LoggerContext) LogManager.getContext(false);
+		File log4jXmlFile = new File(System.getProperty("eXperDBMA_HOME") + System.getProperty("CONFIG_DIR") + "/" + "log4j.properties");
+		context.setConfigLocation(log4jXmlFile.toURI());
 		
 		
 		// 환경설정파일 로드

@@ -2,10 +2,11 @@ package experdb.mnt.util;
 
 import java.util.LinkedList;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Queue {
-	private static Logger log = Logger.getLogger(Queue.class);
+	private static Logger log = LogManager.getLogger(Queue.class);
 	
 	/** Queue의 이름 */
 	private String name = null;
