@@ -15,10 +15,11 @@ import java.util.StringTokenizer;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class eXperDBMAConfig implements Serializable {
-	private static Logger log = Logger.getLogger(eXperDBMAConfig.class);
+	private static Logger log = LogManager.getLogger(eXperDBMAConfig.class);
 	
 	private Map listProperties;
 	private Map mapProperties;

@@ -23,14 +23,15 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.postgresql.util.PSQLException;
 
 import experdb.mnt.db.mybatis.SqlSessionManager;
 import experdb.mnt.listener.SocketListenerInfo;
 
 public class LicenseInfoManager {
-	private static Logger log = Logger.getLogger(LicenseInfoManager.class);
+	private static Logger log = LogManager.getLogger(LicenseInfoManager.class);
 	
 /* Test Code*/
  	public static void main(String... args) {
