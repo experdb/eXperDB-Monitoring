@@ -7,7 +7,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.MonitoringInfoManager;
 import experdb.mnt.eXperDBMAConfig;
@@ -15,7 +16,7 @@ import experdb.mnt.db.dbcp.DBCPPoolManager;
 
 
 public class TaskExecutor implements Runnable{
-	private static Logger log = Logger.getLogger(TaskExecutor.class);	
+	private static Logger log = LogManager.getLogger(TaskExecutor.class);	
 	private String instanceId = "";
 	private Boolean isStandAlone = false;
 	private HashMap instanceMap = null;

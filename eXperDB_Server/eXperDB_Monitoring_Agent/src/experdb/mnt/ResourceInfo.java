@@ -9,12 +9,13 @@ import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 public class ResourceInfo {
-	private static Logger log = Logger.getLogger(ResourceInfo.class);
+	private static Logger log = LogManager.getLogger(ResourceInfo.class);
 	
 	private static ResourceInfo thisObj = null;
 	private static Hashtable	resourceInfoHash = new Hashtable<String, Object>();

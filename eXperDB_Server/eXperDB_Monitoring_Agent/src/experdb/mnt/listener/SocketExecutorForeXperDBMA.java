@@ -21,7 +21,8 @@ import java.sql.PreparedStatement;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,7 +30,7 @@ import org.json.simple.parser.JSONParser;
 import experdb.mnt.listener.task.SocketApplication;
 
 public class SocketExecutorForeXperDBMA implements Runnable {
-	private static Logger log = Logger.getLogger(SocketExecutorForeXperDBMA.class);
+	private static Logger log = LogManager.getLogger(SocketExecutorForeXperDBMA.class);
 	
 	private Socket			client = null;
 	private int			localport = 0;

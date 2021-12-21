@@ -12,12 +12,13 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 public class MonitoringInfoManager {
-	private static Logger log = Logger.getLogger(MonitoringInfoManager.class);
+	private static Logger log = LogManager.getLogger(MonitoringInfoManager.class);
 	
 	private static MonitoringInfoManager thisObj = null;
 	private static Hashtable	monitoringInfoHash = new Hashtable();
