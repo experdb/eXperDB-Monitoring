@@ -78,7 +78,7 @@
 	</target>
 	
 	<target name="compile" >
-		<javac target="1.6" destdir="${output.dir}" debug="yes" includeantruntime="true" encoding="utf-8" deprecation="true">
+		<javac target="1.8" destdir="${output.dir}" debug="yes" includeantruntime="true" encoding="utf-8" deprecation="true">
 	  		<classpath refid="classpath" />
 			<src path="${src.dir}"/>
 	  	</javac>
