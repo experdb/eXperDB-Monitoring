@@ -186,14 +186,14 @@ if [ -z "$CONN_DB_NAME" ]; then
 fi
 
 echo -e "${GREEN}Step.1 Create the databse of owner.${NC}"
-user_exists=`PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select usename from pg_user where usename='$DB_OWNER';"`
+user_exists=`PGPASSWORD=$DB_PASSWORD psql$DB_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select usename from pg_user where usename='$DB_OWNER';"`
 if [ "a$user_exists" = "a" ]; then
     if confirm "Would you like to create the owner of the database $DB_OWNER?" ; then
         #echo "Running: createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER"
-        echo "Running: createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER"
+        echo "Running: createuser$DB_HOST$DB_PORT$DB_USER -s -P $DB_OWNER"
         if [ $DEBUG -eq 0 ]; then
             #PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
-            PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
+            PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
             if [ $? -ne 0 ]; then
                 die "can not create user $DB_OWNER."
             fi
@@ -221,13 +221,13 @@ if [ ! -z "$response" ]; then
         DB_NAME="$response"
 fi
 
-DB_ENCODING=`PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select ' -E ' || pg_encoding_to_char(encoding) || ' --lc-collate=' || datcollate || ' --lc-ctype=' || datctype from pg_database where datname like 'template%' and datallowconn='t';;"`
-db_exists=`PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select datname from pg_database where datname='$DB_NAME';"`
+DB_ENCODING=`PGPASSWORD=$DB_PASSWORD psql$DB_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select ' -E ' || pg_encoding_to_char(encoding) || ' --lc-collate=' || datcollate || ' --lc-ctype=' || datctype from pg_database where datname like 'template%' and datallowconn='t';;"`
+db_exists=`PGPASSWORD=$DB_PASSWORD psql$DB_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select datname from pg_database where datname='$DB_NAME';"`
 if [ "a$db_exists" = "a" ]; then
     if confirm "Would you like to create the database $DB_NAME?" ; then
-        echo "Running: createdb$LOCAL_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME"
+        echo "Running: createdb$DB_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME"
         if [ $DEBUG -eq 0 ]; then
-            PGPASSWORD=$DB_PASSWORD createdb$LOCAL_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME
+            PGPASSWORD=$DB_PASSWORD createdb$DB_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME
             if [ $? -ne 0 ]; then
                 die "can not create database $DB_NAME."
             fi
@@ -237,16 +237,16 @@ if [ "a$db_exists" = "a" ]; then
     fi
 else
     if confirm "Would you like to drop the database $DB_NAME before recreate it?" ; then
-        echo "Running: dropdb$LOCAL_HOST$DB_PORT$DB_USER $DB_NAME"
+        echo "Running: dropdb$DB_HOST$DB_PORT$DB_USER $DB_NAME"
         if [ $DEBUG -eq 0 ]; then
-            PGPASSWORD=$DB_PASSWORD dropdb$LOCAL_HOST$DB_PORT$DB_USER $DB_NAME
+            PGPASSWORD=$DB_PASSWORD dropdb$DB_HOST$DB_PORT$DB_USER $DB_NAME
             if [ $? -ne 0 ]; then
                 die "can not drop database $DB_NAME."
             fi
         fi
-        echo "Running: createdb$LOCAL_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME"
+        echo "Running: createdb$DB_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME"
         if [ $DEBUG -eq 0 ]; then
-            PGPASSWORD=$DB_PASSWORD createdb$LOCAL_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME
+            PGPASSWORD=$DB_PASSWORD createdb$DB_HOST$DB_PORT$DB_USER$DB_ENCODING --owner $DB_OWNER $DB_NAME
             if [ $? -ne 0 ]; then
                 die "can not create database $DB_NAME."
             fi
@@ -257,12 +257,12 @@ fi
 echo " "
 echo " "
 echo -e "${GREEN}Step.3 Create the schema and tables.${NC}"
-schema_exists=`PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "select nspname from pg_namespace where nspname='$DB_SCHEMA';"`
+schema_exists=`PGPASSWORD=$OWNER_PASSWORD psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "select nspname from pg_namespace where nspname='$DB_SCHEMA';"`
 if [ "a$schema_exists" = "a" ]; then
-        echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
+        echo "Running: psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
         if confirm "Would you like to create schema $DB_SCHEMA in database $DB_NAME?" ; then
                 if [ $DEBUG -eq 0 ]; then
-                        PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c "CREATE SCHEMA $DB_SCHEMA;"
+                        PGPASSWORD=$OWNER_PASSWORD psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c "CREATE SCHEMA $DB_SCHEMA;"
                         if [ $? -ne 0 ]; then
                                 die "can not create schema $DB_SCHEMA."
                         fi
@@ -272,16 +272,16 @@ if [ "a$schema_exists" = "a" ]; then
         fi
 else
     if confirm "$DB_SCHEMA schema exists. To proceed with the installation, you have to drop the existing schema!" ; then
-        echo "Running: psql $LOCAL_HOST$DB_PORT$DB_USER -d $DB_NAME -c 'drop schema $DB_SCHEMA cascade'"
+        echo "Running: psql $DB_HOST$DB_PORT$DB_USER -d $DB_NAME -c 'drop schema $DB_SCHEMA cascade'"
         if [ $DEBUG -eq 0 ]; then
-            PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER -d $DB_NAME -c "drop schema $DB_SCHEMA cascade"  > ./install.log 2>&1
+            PGPASSWORD=$DB_PASSWORD psql$DB_HOST$DB_PORT$DB_USER -d $DB_NAME -c "drop schema $DB_SCHEMA cascade"  > ./install.log 2>&1
             if [ $? -ne 0 ]; then
                 die "can not drop database $DB_NAME."
             fi
         fi
-        echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
+        echo "Running: psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c \"CREATE SCHEMA $DB_SCHEMA;\""
         if [ $DEBUG -eq 0 ]; then
-            PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c "CREATE SCHEMA $DB_SCHEMA;"
+            PGPASSWORD=$OWNER_PASSWORD psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -c "CREATE SCHEMA $DB_SCHEMA;"
             if [ $? -ne 0 ]; then
                 die "can not create schema $DB_SCHEMA."
             fi
@@ -297,7 +297,7 @@ if [ -f "$REPOGEN_FILE" ]; then
 fi
 
 if [ -r "$REPOCREATE_FILE" ]; then
-    echo "Running: psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f $REPOCREATE_FILE"
+    echo "Running: psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f $REPOCREATE_FILE"
         if [ ! -f ${LICENSE_FILE} ]; then
                 echo "License is not found!!"
                 exit 1
@@ -307,7 +307,7 @@ if [ -r "$REPOCREATE_FILE" ]; then
         sed -i "s|LICENSEDAT|$LICENSE_STR|g" ./pgmon_repository.tmp.sql
 
     if [ $DEBUG -eq 0 ]; then
-        PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f ./pgmon_repository.tmp.sql >> ./install.log 2>&1
+        PGPASSWORD=$OWNER_PASSWORD psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -f ./pgmon_repository.tmp.sql >> ./install.log 2>&1
         if [ $? -ne 0 ]; then
             die "can not import repository data."
         fi
@@ -340,9 +340,9 @@ else
         AGENT_PORT="$response"
 fi
 
-valid_tb_config=`PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "select 't' as result from tb_config where (select count(*) as cnt from tb_config) > 1;"`
+valid_tb_config=`PGPASSWORD=$OWNER_PASSWORD psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "select 't' as result from tb_config where (select count(*) as cnt from tb_config) > 1;"`
 if [ "a$valid_tb_config" = "a" ]; then
-        update_tb_config=`PGPASSWORD=$OWNER_PASSWORD psql$LOCAL_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "update tb_config set agent_ip = trim('$AGENT_HOST'), agent_port = trim('$AGENT_PORT') \
+        update_tb_config=`PGPASSWORD=$OWNER_PASSWORD psql$DB_HOST$DB_PORT -U $DB_OWNER -d $DB_NAME -Atc "update tb_config set agent_ip = trim('$AGENT_HOST'), agent_port = trim('$AGENT_PORT') \
                           where (select sum(case when regexp_split_to_table = '' then 0 else 1 end) from regexp_split_to_table('$AGENT_HOST', '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')) = 0 \
                                           and (select sum(case when regexp_split_to_table = '' then 0 else 1 end) from regexp_split_to_table('$AGENT_PORT','^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$')) = 0;"`
         if [ "$update_tb_config" = "UPDATE 1" ]; then
@@ -379,21 +379,6 @@ if [ "a$valid_tb_config" = "a" ]; then
         fi
 else
         die "table(tb_config) can not have more than one row."
-fi
-
-#install experdb_profile
-INSTANN_PROFILE="/bin/install -c -m 644  pg_profile--0.1.1.sql pg_profile.control '${PGHOME}/share/extension/'"
-eval $INSTANN_PROFILE
-
-#add parameter into postgresql.auto.conf
-[ ! -f $PGDATA/postgresql.auto.conf ] && /bin/touch $PGDATA/postgresql.auto.conf
-CHECKPROFILECONF="(cd $PGDATA && grep pg_profile postgresql.auto.conf)"
-eval $CHECKPROFILECONF
-ISNOT_EXISTS_PROFILE_CONF=$?
-if [ $ISNOT_EXISTS_PROFILE_CONF -eq 1 ]; then
-        echo "pg_profile.topn = 20" >> $PGDATA/postgresql.auto.conf
-        echo "pg_profile.retention = 7" >> $PGDATA/postgresql.auto.conf
-        $PGBIN/pg_ctl reload
 fi
 
 PGMHOME=`pwd`
