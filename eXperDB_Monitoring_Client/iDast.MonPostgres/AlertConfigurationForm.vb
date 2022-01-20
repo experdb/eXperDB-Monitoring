@@ -211,6 +211,8 @@
                 Case "UNUSEDINDEX"
                     cbxUnusedindexcnt.Checked = Check
                     nudUnusedindexcnt.Value = nudValue
+                Case "INVALIDINDEX"
+                    cbxInvalidindex.Checked = Check
                 Case "FROZENMAXAGE"
                     cbxFrozenAge.Checked = Check
                     nudFrozenMaxAge.Value = nudValue
@@ -357,6 +359,8 @@
                     tmpClass.LongrunsqlsecBool = IIf(cbxLongrunsqlsec.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
                 Case "UNUSEDINDEX"
                     tmpClass.UnusedindexcntBool = IIf(cbxUnusedindexcnt.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
+                Case "INVALIDINDEX"
+                    tmpClass.InvalidindexBool = IIf(cbxInvalidindex.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "9")
                 Case "FROZENMAXAGE"
                     tmpClass.FrozenMaxAgeBool = IIf(cbxFrozenAge.Checked = True, _dtFT.Rows(index)("FIXED_THRESHOLD").ToString, "2")
                 Case "LASTVACUUM"
@@ -454,6 +458,7 @@
         Public IdletranscntBool As String
         Public LongrunsqlsecBool As String
         Public UnusedindexcntBool As String
+        Public InvalidindexBool As String
         Public FrozenMaxAgeBool As String
         Public LastvacuumDayBool As String
         Public LastAnalyzedayBool As String

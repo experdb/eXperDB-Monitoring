@@ -15,6 +15,9 @@ import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
 
 
+/* DX003 check the connection to the innstances*/
+/* 1 : check the connection to register instances */
+/* 2 : check the connection to push alert to the repository of SMS servers*/
 
 public class DX003 implements SocketApplication{
 
@@ -23,7 +26,8 @@ public class DX003 implements SocketApplication{
 	    public static final int MSS = -1;
 	    public static final int ORA = -2;
 	    public static final int MYSQL = -3;
-	    public static final int POG = -4;
+	    public static final int TIB = -4;
+	    public static final int POG = -5;
 	}
 	
 	@Override
@@ -114,6 +118,10 @@ public class DX003 implements SocketApplication{
 					case DB_TYPE.MYSQL :
 						driver = "com.mysql.cj.jdbc.Driver";
 						connectURL = "jdbc:mysql://"+ jReqDataObj.get("targetip") + ":" + jReqDataObj.get("targetport") + "/" + jReqDataObj.get("database");
+						break;
+					case DB_TYPE.TIB :
+						driver =  "com.tmax.tibero.jdbc.TbDriver" ;
+						connectURL =  "jdbc:tibero:thin:@"+jReqDataObj.get("targetip")+":"+jReqDataObj.get("targetport")+":"+jReqDataObj.get("database");
 						break;
 					case DB_TYPE.POG :
 						driver = "org.postgresql.Driver";

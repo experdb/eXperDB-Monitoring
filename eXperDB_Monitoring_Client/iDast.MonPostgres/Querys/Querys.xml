@@ -3146,6 +3146,25 @@ UNION
     </DATA>
     <COMMENTS />
   </ROW>
+  <ROW ID="INVALIDINDEX" PARAMS="2">
+    <DESC>HEALTH CHECK Invalid Index</DESC>
+    <DATA>
+      <![CDATA[
+       SELECT DB_NAME,
+         SCHEMA_NAME,
+         INDEX_NAME,
+         TABLE_NAME,
+         INDEX_SIZE_KB /1024 AS INDEX_SIZE_KB,
+         COLUMNS_CNT,
+		 COLLECT_DT
+       FROM TB_INDEX_INFO 
+      WHERE REG_DATE='{1}' 
+         AND OBJT_REG_SEQ=(SELECT MAX(OBJT_REG_SEQ) FROM TB_OBJT_COLLECT_INFO WHERE INSTANCE_ID = {0} AND REG_DATE='{1}' )
+         AND INDEX_IS_VALID = false;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
   <!--ROW ID="HASTATUS" PARAMS="6">
     <DESC>HEALTH CHECK HA Status</DESC>
     <DATA>
