@@ -883,7 +883,7 @@ Partial Class frmMonDetail
         Me.dgvGrpHealth.Name = "dgvGrpHealth"
         Me.dgvGrpHealth.RowHeadersVisible = False
         Me.tlpStatus.SetRowSpan(Me.dgvGrpHealth, 2)
-        Me.dgvGrpHealth.RowTemplate.Height = 28
+        Me.dgvGrpHealth.RowTemplate.Height = 26
         Me.dgvGrpHealth.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvGrpHealth.Size = New System.Drawing.Size(211, 535)
         Me.dgvGrpHealth.TabIndex = 8

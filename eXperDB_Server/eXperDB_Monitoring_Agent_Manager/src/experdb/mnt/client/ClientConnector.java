@@ -19,7 +19,7 @@ import experdb.mnt.listener.SocketExecutorForeXperDBMAManager;
 public class ClientConnector {
 	private static Logger log = LogManager.getLogger(ClientConnector.class);
 	
-	private static int		DEFAULT_TIMEOUT = 30;
+	private static int		DEFAULT_TIMEOUT = 90;
 	private static int		DEFAULT_BUFFER_SIZE = 1024;
 	
 	private String		_caller = "unknown";	

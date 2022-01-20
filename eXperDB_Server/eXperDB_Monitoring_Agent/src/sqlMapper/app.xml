@@ -205,6 +205,7 @@
 		  AND DEV_NAME NOT LIKE '%rootfs%'
 		  AND DEV_NAME NOT LIKE '%/dev/sr%'
 		  AND DEV_NAME NOT LIKE '%/dev/scd%'
+		  AND DEV_NAME NOT LIKE '%swap%'
 		  GROUP BY MT_DIR;
 	</select>
 	<insert id="TB_DISK_USAGE_I001" parameterType="hashmap" >
@@ -476,6 +477,171 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				       ) AS s 
 				       JOIN PG_STAT_USER_TABLES UTB ON UTB.relname=s.tblname AND UTB.schemaname = s.schemaname
 				 	     LEFT OUTER JOIN (
+	                     /* modified to get indexes size by rel*/
+	                              SELECT   RELNAME,   SCHEMANAME,   COUNT(INDEXRELID) AS IDX_CNT,   SUM(RELATION_SIZE) AS TOT_IDX_SIZE
+	                              FROM (
+	                                 SELECT X.FILE_SIZE AS RELATION_SIZE, B.SCHEMANAME, B.RELID, INDEXRELID, B.RELNAME
+	                                 FROM PG_CLASS C
+	                                 JOIN (
+	                                    SELECT REGEXP_REPLACE( FILE_NAME, '[^0-9].*', '') AS FILENODE, SUM( ( PG_STAT_FILE( PATH || '/' || FILE_NAME ) ).SIZE ) AS FILE_SIZE
+	                                    FROM (
+	                                       SELECT PATH || '/' || FILE_NAME AS PATH, PG_LS_DIR( PATH || '/' || FILE_NAME) AS FILE_NAME
+	                                       FROM (
+	                                          SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
+	                                          FROM (
+	                                             SELECT
+	                                                'pg_tblspc/' || T ||
+	                                                CASE
+	                                                   WHEN CURRENT_SETTING('server_version_num')::INT4 >= 90000 THEN '/' || (
+	                                                   SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
+	                                                   WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)).ISDIR = 'true'
+	                                                     AND Q LIKE 'PG_' || REGEXP_REPLACE( CURRENT_SETTING('server_version'), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' )
+	                                                   ELSE ''
+	                                                END AS LOCATION
+	                                             FROM PG_LS_DIR('pg_tblspc') AS T
+	                                             WHERE (PG_STAT_FILE('pg_tblspc/' || T)).ISDIR = 'true'
+	                                          UNION SELECT 'base' ) AS DIRS ) AS DB_DIRS
+	                                       WHERE FILE_NAME = (SELECT OID::TEXT FROM PG_DATABASE WHERE DATNAME = CURRENT_DATABASE() ) ) AS FILE_LIST
+	                                    GROUP BY FILENODE ) AS X ON C.RELFILENODE::TEXT = X.FILENODE
+	                                 JOIN PG_STAT_USER_INDEXES B ON C.RELNAME::TEXT = B.INDEXRELNAME ) CC
+	                              GROUP BY SCHEMANAME, RELNAME, RELID
+	                 /* modified to get indexes size by rel*/
+				 		  				 ) AS UDX
+				 		  			ON UTB.RELNAME=UDX.RELNAME AND UTB.SCHEMANAME = UDX.SCHEMANAME 
+				   ) AS s2
+		 ) AS s3
+		]]>
+	</select>
+	<select id="BT_TABLE_INFO_001_OLD" parameterType="hashmap" resultType="hashmap" flushCache="true">
+		<![CDATA[
+WITH GAVS AS(
+	SELECT name, setting::numeric(3,2) FROM pg_settings WHERE name = 'autovacuum_vacuum_scale_factor'
+),
+GAVT AS(
+	SELECT name, setting::numeric(20) FROM pg_settings WHERE name = 'autovacuum_vacuum_threshold'	
+),
+ GAAS AS(
+	SELECT name, setting::numeric(3,2) FROM pg_settings WHERE name = 'autovacuum_analyze_scale_factor'
+)
+, GAAT AS(
+	SELECT name, setting::numeric(20) FROM pg_settings WHERE name = 'autovacuum_analyze_threshold'
+)
+SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
+				schema_name, table_name, bs*tblpages AS table_size_kb,
+		 			 tot_index_size_kb, index_cnt,
+					 CASE WHEN reltoastrelid=0 THEN 'N' ELSE 'Y' END AS TOAST_YN,
+					 agg_seq_scan_cnt,agg_seq_tuples,agg_index_scan_cnt,agg_index_tuples,live_tuple_cnt,dead_tuple_cnt,last_vacuum,last_analyze,
+					 now() AS collect_dt,  
+					 (tblpages-est_tblpages)*bs AS extra_size,
+					 CASE WHEN tblpages - est_tblpages > 0
+					   		THEN 100 * (tblpages - est_tblpages)/tblpages::float
+					   		ELSE 0
+					 END AS extra_ratio, 
+					 fillfactor, 
+					 CASE WHEN (tblpages-est_tblpages_ff) < 0 THEN 0 ELSE (tblpages-est_tblpages_ff)*bs END AS bloat_size_kb,
+					 CASE WHEN tblpages - est_tblpages_ff > 0
+						    THEN 100 * (tblpages - est_tblpages_ff)/tblpages::float
+						    ELSE 0
+					 END AS bloat_ratio, is_na, relid, autovacuum_count, autoanalyze_count, (SELECT age(datfrozenxid) FROM pg_database WHERE datname = CURRENT_DATABASE()) maxage,
+					 CASE WHEN autovacuum = 'on' AND dead_tuple_cnt > ((reltuples) * COALESCE(AVS,(SELECT setting FROM GAVS)) + COALESCE(AVT,(SELECT setting FROM GAVT)))
+					 	  THEN TRUE 
+					 	  WHEN autovacuum = 'off' AND dead_tuple_cnt > 0
+					 	  THEN TRUE
+					 	  ELSE FALSE
+					 	  END AS need_vacuum,
+					 CASE WHEN autovacuum = 'on' AND n_mod_since_analyze > ((reltuples) * COALESCE(AAS,(SELECT setting FROM GAAS)) + COALESCE(AAT,(SELECT setting FROM GAAT)))
+					 	  THEN TRUE 
+					 	  WHEN autovacuum = 'off' AND dead_tuple_cnt > 0
+					 	  THEN TRUE
+					 	  ELSE FALSE
+					 	  END AS need_analyze,
+					 age(relfrozenxid) relage
+		 FROM (
+				   SELECT ceil( reltuples / ( (bs-page_hdr)/tpl_size ) ) + ceil( toasttuples / 4 ) AS est_tblpages,reltuples,
+							    ceil( reltuples / ( (bs-page_hdr)*fillfactor/(tpl_size*100) ) ) + ceil( toasttuples / 4 ) AS est_tblpages_ff,
+							    tblpages, fillfactor, bs, tblid, schema_name, table_name, heappages, toastpages, is_na,
+							    reltoastrelid, AGG_SEQ_SCAN_CNT, AGG_SEQ_TUPLES, AGG_INDEX_SCAN_CNT, AGG_INDEX_TUPLES, LIVE_TUPLE_CNT,
+							    DEAD_TUPLE_CNT, LAST_VACUUM,LAST_ANALYZE,tot_index_size_kb,index_cnt,relid,autovacuum_count,autoanalyze_count,n_mod_since_analyze,
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_vacuum_scale_factor') AVS, 
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_vacuum_threshold') AVT, 
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_analyze_scale_factor') AAS, 
+				 				(SELECT OPT_VAL::NUMERIC(20,2) FROM
+				  				      (SELECT  split_part(unnest(reloptions),'=',1) OPT_NM, split_part(unnest(reloptions),'=',2) OPT_VAL) AS RELOPT2
+				 				  WHERE OPT_NM = 'autovacuum_analyze_threshold') AAT,
+								 (SELECT setting FROM pg_settings WHERE name = 'autovacuum') autovacuum,
+								 relfrozenxid
+				     FROM (
+						       SELECT ( 4 + tpl_hdr_size + tpl_data_size + (2*ma)
+									           - CASE WHEN tpl_hdr_size%ma = 0 THEN ma ELSE tpl_hdr_size%ma END
+									           - CASE WHEN ceil(tpl_data_size)::int%ma = 0 THEN ma ELSE ceil(tpl_data_size)::int%ma END
+									         ) AS tpl_size, bs - page_hdr AS size_per_block, (heappages + toastpages) AS tblpages, heappages,
+									         toastpages, reltuples, toasttuples, bs, page_hdr, tblid, s.schemaname as schema_name, tblname as table_name, fillfactor, is_na,
+									 	       reltoastrelid 
+									            ,utb.seq_scan AS agg_seq_scan_cnt
+									            ,utb.seq_tup_read AS agg_seq_tuples
+									            ,coalesce(utb.idx_scan, 0) AS agg_index_scan_cnt
+									            ,coalesce(utb.idx_tup_fetch, 0) AS agg_index_tuples
+									            ,utb.n_live_tup AS live_tuple_cnt
+									            ,utb.n_dead_tup AS dead_tuple_cnt
+									 	       ,CASE WHEN last_vacuum is null AND last_autovacuum is null then '1000-01-01 00:00:00'::timestamp 
+									 	             WHEN last_vacuum is null THEN last_autovacuum 
+									 	             WHEN last_autovacuum is null THEN last_vacuum 
+									 	             WHEN last_vacuum>last_autovacuum THEN last_vacuum 
+									 	             ELSE last_autovacuum END AS last_vacuum
+									 	       ,CASE WHEN last_analyze is null AND last_autoanalyze is null THEN '1000-01-01 00:00:00'::timestamp 
+									 	             WHEN last_analyze is null THEN last_autoanalyze 
+									 	             WHEN last_autoanalyze is null THEN last_analyze 
+									 	             WHEN last_analyze>last_autoanalyze THEN last_analyze 
+									 	             ELSE last_autoanalyze END AS last_analyze
+									 	       ,coalesce(UDX.TOT_IDX_SIZE, 0) tot_index_size_kb 
+									 	       ,coalesce(UDX.IDX_CNT, 0) index_cnt
+									 	       ,utb.relid
+									 	       ,utb.autovacuum_count autovacuum_count
+									 	       ,utb.autoanalyze_count autoanalyze_count
+									 	       ,utb.n_mod_since_analyze n_mod_since_analyze
+									 	       ,reloptions
+									 	       ,relfrozenxid
+							       FROM (
+										         SELECT  tbl.oid AS tblid, ns.nspname AS schemaname, tbl.relname AS tblname, tbl.reltuples,
+													           tbl.relpages AS heappages, coalesce(toast.relpages, 0) AS toastpages,
+													           coalesce(toast.reltuples, 0) AS toasttuples,
+													           coalesce(substring(
+													             array_to_string(tbl.reloptions, ' ')
+													             FROM 'fillfactor=([0-9]+)')::smallint, 100) AS fillfactor,
+													           current_setting('block_size')::numeric AS bs,
+													           CASE WHEN version()~'mingw32' OR version()~'64-bit|x86_64|ppc64|ia64|amd64' THEN 8 ELSE 4 END AS ma,
+													           24 AS page_hdr,
+													           --23 + CASE WHEN MAX(coalesce(null_frac,0)) > 0 THEN ( 7 + count(*) ) / 8 ELSE 0::int END
+													           --  + CASE WHEN tbl.relhasoids THEN 4 ELSE 0 END AS tpl_hdr_size, -- support PGver12
+													           23 + CASE WHEN MAX(coalesce(s.null_frac,0)) > 0 THEN ( 7 + count(s.attname) ) / 8 ELSE 0::int END
+           														+ CASE WHEN bool_or(att.attname = 'oid' and att.attnum < 0) THEN 4 ELSE 0 END AS tpl_hdr_size,
+													           sum( (1-coalesce(s.null_frac, 0)) * coalesce(s.avg_width, 1024) ) AS tpl_data_size,
+													           bool_or(att.atttypid = 'pg_catalog.name'::regtype)
+													                OR count(att.attname) <> count(s.attname) AS is_na,
+													           tbl.reltoastrelid AS reltoastrelid,
+													           tbl.reloptions,
+													           tbl.relfrozenxid
+										           FROM pg_attribute AS att
+												            JOIN pg_class AS tbl ON att.attrelid = tbl.oid
+												            JOIN pg_namespace AS ns ON ns.oid = tbl.relnamespace
+												            LEFT JOIN pg_stats AS s ON s.schemaname=ns.nspname
+												                                    AND s.tablename = tbl.relname 
+												                                    AND s.inherited=false 
+												                                    AND s.attname=att.attname
+												            LEFT JOIN pg_class AS toast ON tbl.reltoastrelid = toast.oid
+										          WHERE att.attnum > 0 AND NOT att.attisdropped
+										            AND tbl.relkind = 'r'
+										          GROUP BY 1,2,3,4,5,6,7,8,9,10,15,16,17
+										          ORDER BY 2,3
+				       ) AS s 
+				       JOIN PG_STAT_USER_TABLES UTB ON UTB.relname=s.tblname AND UTB.schemaname = s.schemaname
+				 	     LEFT OUTER JOIN (
 										   SELECT relname, SCHEMANAME, sum(pg_relation_size(indexrelid)) AS tot_idx_size, count(indexrelid) AS idx_cnt
 										     FROM pg_stat_user_indexes
 										    GROUP BY schemaname, relname, relid
@@ -484,8 +650,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				   ) AS s2
 		 ) AS s3
 		]]>
-	</select>
-		
+	</select>		
 	<insert id="TB_TABLE_INFO_I001" parameterType="hashmap" >
 		INSERT INTO TB_TABLE_INFO
 		(
@@ -590,8 +755,49 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		                     AND instance_id = #{instance_id} 
 		                     AND relid = #{relid})
 	</insert>
-	
 	<select id="BT_INDEX_INFO_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT /* EXPERDBMABT_INDEX_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
+		      #{db_name} AS DB_NAME, -- @DATNAME
+			  SCHEMANAME AS SCHEMA_NAME,
+			  INDEXRELNAME AS INDEX_NAME,
+			  B.RELNAME AS TABLE_NAME,
+			  x.file_size AS INDEX_SIZE_KB,
+			  INDISVALID AS INDEX_IS_VALID,
+			  (SELECT ARRAY_LENGTH(INDKEY,1) FROM PG_INDEX PDX WHERE PDX.INDEXRELID = B.INDEXRELID) AS COLUMNS_CNT,
+			  IDX_SCAN AS AGG_INDEX_SCAN_CNT,
+			  IDX_TUP_READ AS AGG_INDEX_SCAN_TUPLES,
+			  IDX_TUP_FETCH AS AGG_INDEX_SCAN_FETCH_TUPLES,
+			  NOW() AS COLLECT_DT
+			FROM PG_CLASS C
+			JOIN (
+			        SELECT REGEXP_REPLACE( FILE_NAME, '[^0-9].*', '') AS FILENODE, SUM( ( PG_STAT_FILE( PATH || '/' || FILE_NAME ) ).SIZE ) AS FILE_SIZE
+			        from (
+			                SELECT PATH || '/' || FILE_NAME AS PATH, PG_LS_DIR( PATH || '/' || FILE_NAME) AS FILE_NAME
+			                FROM (
+			                        SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
+			                        FROM (
+			                                SELECT
+			                                        'pg_tblspc/' || t ||
+			                                        CASE
+			                                                WHEN CURRENT_SETTING('server_version_num')::INT4 >= 90000 THEN '/' || (
+			                                                sELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
+			                                                WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)).ISDIR = 'true'
+			                                                  AND Q LIKE 'PG_' || REGEXP_REPLACE( CURRENT_SETTING('server_version'), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' )
+			                                                ELSE ''
+			                                        END AS LOCATION
+			                                FROM PG_LS_DIR('pg_tblspc') AS T
+			                                WHERE (PG_STAT_FILE('pg_tblspc/' || T)).ISDIR = 'true'
+			                        uNION SELECT 'base' ) AS DIRS ) AS DB_DIRS
+			                        WHERE FILE_NAME = (SELECT OID::TEXT FROM PG_DATABASE WHERE DATNAME = CURRENT_DATABASE() ) ) AS FILE_LIST
+			                GROUP BY FILENODE ) AS X ON C.RELFILENODE::TEXT = X.FILENODE
+			        JOIN PG_STAT_USER_INDEXES B ON C.RELNAME::TEXT = B.INDEXRELNAME
+			        JOIN PG_INDEX D ON B.INDEXRELID = D.INDEXRELID
+			   WHERE INDEXRELNAME <> 'voting_term_restrict'
+			  ORDER BY INDEX_NAME
+		]]>	
+	</select>
+	<select id="BT_INDEX_INFO_001_OLD" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 		SELECT /* EXPERDBMABT_INDEX_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -624,8 +830,41 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			AND OBJT_REG_SEQ < (SELECT MAX(OBJT_REG_SEQ) - (SELECT COUNT(1) FROM TB_INSTANCE_INFO A WHERE A.COLLECT_YN = 'Y' AND DELETE_YN='N') FROM TB_INDEX_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))
 		]]>	
 	</delete>
-	
 	<insert id="TB_INDEX_INFO_I001" parameterType="hashmap" >
+		INSERT INTO TB_INDEX_INFO
+		(
+			reg_date,
+			objt_reg_seq,
+			db_name,
+			schema_name,
+			index_name,
+			table_name,
+			index_size_kb,
+			index_is_valid,
+			columns_cnt,
+			agg_index_scan_cnt,
+			agg_index_scan_tuples,
+			agg_index_scan_fetch_tuples,
+			collect_dt
+		)
+		VALUES 
+		(
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			CURRVAL('OBJT_REG_SEQ'),
+			#{db_name},
+			#{schema_name},
+			#{index_name},
+			#{table_name},
+			#{index_size_kb},
+			#{index_is_valid},
+			#{columns_cnt},
+			#{agg_index_scan_cnt},
+			#{agg_index_scan_tuples},
+			#{agg_index_scan_fetch_tuples},
+			#{collect_dt}
+		)
+	</insert>	
+	<insert id="TB_INDEX_INFO_I001_OLD" parameterType="hashmap" >
 		INSERT INTO TB_INDEX_INFO
 		VALUES 
 		(
@@ -1748,6 +1987,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			SELECT /* EXPERDBMA_BT_HCHK_UNUSEDINDEX_001 */
 			         OCM.INSTANCE_ID,
 			         SUM(CASE WHEN AGG_INDEX_SCAN_CNT = 0 THEN 1 ELSE 0 END)  AS UNUSEDINDEX,
+			         SUM(CASE WHEN INDEX_IS_VALID = false THEN 1 ELSE 0 END)  AS INVALIDINDEX,			         
 			         --IDX.AGG_INDEX_SCAN_CNT AS VALUE,
 			         '1' AS COLLECT_GROUP,
 			         IDX.REG_DATE AS COLLECT_REG_DATE,
@@ -1778,7 +2018,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			 GROUP BY O.REG_DATE,O.OBJT_REG_SEQ,O.INSTANCE_ID
 		)
 --		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, TTE.M1::NUMERIC(5,2) FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
-		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, M1 FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
+		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, IDX.INVALIDINDEX, M1 FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
 		  FROM IDX, TTE
 		 WHERE IDX.INSTANCE_ID = TTE.INSTANCE_ID
 	</select>

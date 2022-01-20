@@ -142,6 +142,7 @@ Partial Class AlertConfigurationForm
         Me.cbxDUReplicationDelay = New eXperDB.BaseControls.CheckBox()
         Me.dtbReplicationDelay = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.cbxInvalidindex = New eXperDB.BaseControls.CheckBox()
         Me.tlpCriticalItem4.SuspendLayout()
         CType(Me.nudDiskUsedRatio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpCriticalItem3.SuspendLayout()
@@ -992,12 +993,12 @@ Partial Class AlertConfigurationForm
         Me.tlpWarningItems.Name = "tlpWarningItems"
         Me.tlpWarningItems.RowCount = 6
         Me.tlpAlertConfigurationMain.SetRowSpan(Me.tlpWarningItems, 9)
-        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.0!))
-        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 32.0!))
-        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.0!))
+        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.0!))
+        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 31.0!))
+        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
+        Me.tlpWarningItems.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.0!))
         Me.tlpWarningItems.Size = New System.Drawing.Size(462, 642)
         Me.tlpWarningItems.TabIndex = 26
         '
@@ -1027,7 +1028,7 @@ Partial Class AlertConfigurationForm
         Me.TableLayoutPanel2.Controls.Add(Me.Label8, 3, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.Label10, 3, 5)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 305)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(3, 315)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 7
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
@@ -1037,7 +1038,7 @@ Partial Class AlertConfigurationForm
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(456, 170)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(456, 166)
         Me.TableLayoutPanel2.TabIndex = 5
         '
         'lblDelayAlert3
@@ -1047,7 +1048,7 @@ Partial Class AlertConfigurationForm
         Me.lblDelayAlert3.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblDelayAlert3.ForeColor = System.Drawing.Color.White
         Me.lblDelayAlert3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblDelayAlert3.Location = New System.Drawing.Point(258, 76)
+        Me.lblDelayAlert3.Location = New System.Drawing.Point(258, 74)
         Me.lblDelayAlert3.Margin = New System.Windows.Forms.Padding(3, 6, 3, 0)
         Me.lblDelayAlert3.Name = "lblDelayAlert3"
         Me.lblDelayAlert3.Size = New System.Drawing.Size(116, 12)
@@ -1062,7 +1063,7 @@ Partial Class AlertConfigurationForm
         Me.lblDelayAlert2.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblDelayAlert2.ForeColor = System.Drawing.Color.White
         Me.lblDelayAlert2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblDelayAlert2.Location = New System.Drawing.Point(258, 46)
+        Me.lblDelayAlert2.Location = New System.Drawing.Point(258, 45)
         Me.lblDelayAlert2.Margin = New System.Windows.Forms.Padding(3, 6, 3, 0)
         Me.lblDelayAlert2.Name = "lblDelayAlert2"
         Me.lblDelayAlert2.Size = New System.Drawing.Size(116, 12)
@@ -1090,7 +1091,7 @@ Partial Class AlertConfigurationForm
         Me.nudConfailedcnt.BackColor = System.Drawing.Color.White
         Me.nudConfailedcnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudConfailedcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudConfailedcnt.Location = New System.Drawing.Point(178, 103)
+        Me.nudConfailedcnt.Location = New System.Drawing.Point(178, 100)
         Me.nudConfailedcnt.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
         Me.nudConfailedcnt.Name = "nudConfailedcnt"
         Me.nudConfailedcnt.Size = New System.Drawing.Size(74, 21)
@@ -1106,7 +1107,7 @@ Partial Class AlertConfigurationForm
         Me.cmbVIP.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbVIP.FormattingEnabled = True
         Me.cmbVIP.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.cmbVIP.Location = New System.Drawing.Point(178, 73)
+        Me.cmbVIP.Location = New System.Drawing.Point(178, 71)
         Me.cmbVIP.Name = "cmbVIP"
         Me.cmbVIP.Necessary = False
         Me.cmbVIP.Size = New System.Drawing.Size(74, 20)
@@ -1123,7 +1124,7 @@ Partial Class AlertConfigurationForm
         Me.cmbReplSlot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbReplSlot.FormattingEnabled = True
         Me.cmbReplSlot.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.cmbReplSlot.Location = New System.Drawing.Point(178, 43)
+        Me.cmbReplSlot.Location = New System.Drawing.Point(178, 42)
         Me.cmbReplSlot.Name = "cmbReplSlot"
         Me.cmbReplSlot.Necessary = False
         Me.cmbReplSlot.Size = New System.Drawing.Size(74, 20)
@@ -1154,7 +1155,7 @@ Partial Class AlertConfigurationForm
         Me.cbxVirtualIP.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxVirtualIP.ForeColor = System.Drawing.Color.White
         Me.cbxVirtualIP.LineColor = System.Drawing.Color.Gray
-        Me.cbxVirtualIP.Location = New System.Drawing.Point(8, 73)
+        Me.cbxVirtualIP.Location = New System.Drawing.Point(8, 71)
         Me.cbxVirtualIP.Name = "cbxVirtualIP"
         Me.cbxVirtualIP.Radius = 10
         Me.cbxVirtualIP.Size = New System.Drawing.Size(102, 16)
@@ -1169,7 +1170,7 @@ Partial Class AlertConfigurationForm
         Me.cbxReplSlot.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxReplSlot.ForeColor = System.Drawing.Color.White
         Me.cbxReplSlot.LineColor = System.Drawing.Color.Gray
-        Me.cbxReplSlot.Location = New System.Drawing.Point(8, 43)
+        Me.cbxReplSlot.Location = New System.Drawing.Point(8, 42)
         Me.cbxReplSlot.Name = "cbxReplSlot"
         Me.cbxReplSlot.Radius = 10
         Me.cbxReplSlot.Size = New System.Drawing.Size(138, 16)
@@ -1199,7 +1200,7 @@ Partial Class AlertConfigurationForm
         Me.cbxConfailedcnt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxConfailedcnt.ForeColor = System.Drawing.Color.White
         Me.cbxConfailedcnt.LineColor = System.Drawing.Color.Gray
-        Me.cbxConfailedcnt.Location = New System.Drawing.Point(8, 103)
+        Me.cbxConfailedcnt.Location = New System.Drawing.Point(8, 100)
         Me.cbxConfailedcnt.Name = "cbxConfailedcnt"
         Me.cbxConfailedcnt.Radius = 10
         Me.cbxConfailedcnt.Size = New System.Drawing.Size(157, 16)
@@ -1214,7 +1215,7 @@ Partial Class AlertConfigurationForm
         Me.cbxWALcnt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxWALcnt.ForeColor = System.Drawing.Color.White
         Me.cbxWALcnt.LineColor = System.Drawing.Color.Gray
-        Me.cbxWALcnt.Location = New System.Drawing.Point(8, 133)
+        Me.cbxWALcnt.Location = New System.Drawing.Point(8, 129)
         Me.cbxWALcnt.Name = "cbxWALcnt"
         Me.cbxWALcnt.Radius = 10
         Me.cbxWALcnt.Size = New System.Drawing.Size(104, 16)
@@ -1228,7 +1229,7 @@ Partial Class AlertConfigurationForm
         Me.nudWALcnt.BackColor = System.Drawing.Color.White
         Me.nudWALcnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudWALcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudWALcnt.Location = New System.Drawing.Point(178, 133)
+        Me.nudWALcnt.Location = New System.Drawing.Point(178, 129)
         Me.nudWALcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudWALcnt.Name = "nudWALcnt"
         Me.nudWALcnt.Size = New System.Drawing.Size(74, 21)
@@ -1242,7 +1243,7 @@ Partial Class AlertConfigurationForm
         Me.Label8.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label8.ForeColor = System.Drawing.Color.White
         Me.Label8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label8.Location = New System.Drawing.Point(258, 106)
+        Me.Label8.Location = New System.Drawing.Point(258, 103)
         Me.Label8.Margin = New System.Windows.Forms.Padding(3, 6, 3, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(116, 12)
@@ -1257,7 +1258,7 @@ Partial Class AlertConfigurationForm
         Me.Label10.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label10.Location = New System.Drawing.Point(258, 136)
+        Me.Label10.Location = New System.Drawing.Point(258, 132)
         Me.Label10.Margin = New System.Windows.Forms.Padding(3, 6, 3, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(116, 12)
@@ -1272,10 +1273,10 @@ Partial Class AlertConfigurationForm
         Me.lblHAClusterAlert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblHAClusterAlert.ForeColor = System.Drawing.Color.White
         Me.lblHAClusterAlert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblHAClusterAlert.Location = New System.Drawing.Point(40, 272)
+        Me.lblHAClusterAlert.Location = New System.Drawing.Point(40, 284)
         Me.lblHAClusterAlert.Margin = New System.Windows.Forms.Padding(0)
         Me.lblHAClusterAlert.Name = "lblHAClusterAlert"
-        Me.lblHAClusterAlert.Size = New System.Drawing.Size(422, 30)
+        Me.lblHAClusterAlert.Size = New System.Drawing.Size(422, 28)
         Me.lblHAClusterAlert.TabIndex = 4
         Me.lblHAClusterAlert.Text = "System alert (Critical Level)"
         Me.lblHAClusterAlert.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1287,10 +1288,10 @@ Partial Class AlertConfigurationForm
         Me.Label24.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label24.Image = CType(resources.GetObject("Label24.Image"), System.Drawing.Image)
         Me.Label24.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label24.Location = New System.Drawing.Point(0, 272)
+        Me.Label24.Location = New System.Drawing.Point(0, 284)
         Me.Label24.Margin = New System.Windows.Forms.Padding(0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(40, 30)
+        Me.Label24.Size = New System.Drawing.Size(40, 28)
         Me.Label24.TabIndex = 3
         Me.Label24.Text = "      "
         '
@@ -1315,7 +1316,7 @@ Partial Class AlertConfigurationForm
         Me.TableLayoutPanel1.Controls.Add(Me.Label19, 1, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.Label18, 1, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 511)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(3, 515)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 6
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
@@ -1324,7 +1325,7 @@ Partial Class AlertConfigurationForm
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(456, 128)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(456, 124)
         Me.TableLayoutPanel1.TabIndex = 8
         '
         'txtBusiness
@@ -1335,7 +1336,7 @@ Partial Class AlertConfigurationForm
         Me.txtBusiness.FixedWidth = False
         Me.txtBusiness.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtBusiness.impossibleinput = "!@#$%^&*() \/:*?""<>|'`~"
-        Me.txtBusiness.Location = New System.Drawing.Point(133, 94)
+        Me.txtBusiness.Location = New System.Drawing.Point(133, 91)
         Me.txtBusiness.MaxByteLength = 16
         Me.txtBusiness.Name = "txtBusiness"
         Me.txtBusiness.Necessary = False
@@ -1353,7 +1354,7 @@ Partial Class AlertConfigurationForm
         Me.Label22.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label22.ForeColor = System.Drawing.Color.White
         Me.Label22.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label22.Location = New System.Drawing.Point(13, 96)
+        Me.Label22.Location = New System.Drawing.Point(13, 93)
         Me.Label22.Margin = New System.Windows.Forms.Padding(3, 5, 3, 0)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(114, 12)
@@ -1371,7 +1372,7 @@ Partial Class AlertConfigurationForm
         Me.btnUserGroup.ForeColor = System.Drawing.Color.White
         Me.btnUserGroup.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
         Me.btnUserGroup.LineColor = System.Drawing.Color.Transparent
-        Me.btnUserGroup.Location = New System.Drawing.Point(223, 37)
+        Me.btnUserGroup.Location = New System.Drawing.Point(223, 36)
         Me.btnUserGroup.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.btnUserGroup.Name = "btnUserGroup"
         Me.btnUserGroup.Radius = 5
@@ -1389,7 +1390,7 @@ Partial Class AlertConfigurationForm
         Me.Label21.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label21.ForeColor = System.Drawing.Color.White
         Me.Label21.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label21.Location = New System.Drawing.Point(223, 69)
+        Me.Label21.Location = New System.Drawing.Point(223, 67)
         Me.Label21.Margin = New System.Windows.Forms.Padding(3, 5, 3, 0)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(94, 12)
@@ -1405,7 +1406,7 @@ Partial Class AlertConfigurationForm
         Me.cmbNotiUsers.FixedWidth = False
         Me.cmbNotiUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbNotiUsers.FormattingEnabled = True
-        Me.cmbNotiUsers.Location = New System.Drawing.Point(133, 40)
+        Me.cmbNotiUsers.Location = New System.Drawing.Point(133, 39)
         Me.cmbNotiUsers.Name = "cmbNotiUsers"
         Me.cmbNotiUsers.Necessary = False
         Me.cmbNotiUsers.Size = New System.Drawing.Size(84, 20)
@@ -1435,7 +1436,7 @@ Partial Class AlertConfigurationForm
         Me.nudNotiCycle.BackColor = System.Drawing.Color.White
         Me.nudNotiCycle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.nudNotiCycle.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudNotiCycle.Location = New System.Drawing.Point(133, 67)
+        Me.nudNotiCycle.Location = New System.Drawing.Point(133, 65)
         Me.nudNotiCycle.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudNotiCycle.Name = "nudNotiCycle"
         Me.nudNotiCycle.Size = New System.Drawing.Size(84, 21)
@@ -1464,7 +1465,7 @@ Partial Class AlertConfigurationForm
         Me.Label19.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label19.ForeColor = System.Drawing.Color.White
         Me.Label19.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label19.Location = New System.Drawing.Point(13, 69)
+        Me.Label19.Location = New System.Drawing.Point(13, 67)
         Me.Label19.Margin = New System.Windows.Forms.Padding(3, 5, 3, 0)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(114, 12)
@@ -1479,7 +1480,7 @@ Partial Class AlertConfigurationForm
         Me.Label18.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label18.ForeColor = System.Drawing.Color.White
         Me.Label18.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Label18.Location = New System.Drawing.Point(13, 42)
+        Me.Label18.Location = New System.Drawing.Point(13, 41)
         Me.Label18.Margin = New System.Windows.Forms.Padding(3, 5, 3, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(114, 12)
@@ -1494,10 +1495,10 @@ Partial Class AlertConfigurationForm
         Me.Label17.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label17.Image = CType(resources.GetObject("Label17.Image"), System.Drawing.Image)
         Me.Label17.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label17.Location = New System.Drawing.Point(0, 478)
+        Me.Label17.Location = New System.Drawing.Point(0, 484)
         Me.Label17.Margin = New System.Windows.Forms.Padding(0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(40, 30)
+        Me.Label17.Size = New System.Drawing.Size(40, 28)
         Me.Label17.TabIndex = 6
         Me.Label17.Text = "      "
         '
@@ -1508,10 +1509,10 @@ Partial Class AlertConfigurationForm
         Me.lblSMSAlert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblSMSAlert.ForeColor = System.Drawing.Color.White
         Me.lblSMSAlert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSMSAlert.Location = New System.Drawing.Point(40, 478)
+        Me.lblSMSAlert.Location = New System.Drawing.Point(40, 484)
         Me.lblSMSAlert.Margin = New System.Windows.Forms.Padding(0)
         Me.lblSMSAlert.Name = "lblSMSAlert"
-        Me.lblSMSAlert.Size = New System.Drawing.Size(422, 30)
+        Me.lblSMSAlert.Size = New System.Drawing.Size(422, 28)
         Me.lblSMSAlert.TabIndex = 7
         Me.lblSMSAlert.Text = "SMS Alert"
         Me.lblSMSAlert.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1526,7 +1527,7 @@ Partial Class AlertConfigurationForm
         Me.lblTxAlert.Location = New System.Drawing.Point(40, 0)
         Me.lblTxAlert.Margin = New System.Windows.Forms.Padding(0)
         Me.lblTxAlert.Name = "lblTxAlert"
-        Me.lblTxAlert.Size = New System.Drawing.Size(422, 30)
+        Me.lblTxAlert.Size = New System.Drawing.Size(422, 28)
         Me.lblTxAlert.TabIndex = 1
         Me.lblTxAlert.Text = "Transaction alert (Warning Level)"
         Me.lblTxAlert.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1541,7 +1542,7 @@ Partial Class AlertConfigurationForm
         Me.Label1.Location = New System.Drawing.Point(0, 0)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(40, 30)
+        Me.Label1.Size = New System.Drawing.Size(40, 28)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "      "
         '
@@ -1555,6 +1556,7 @@ Partial Class AlertConfigurationForm
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tblTransactionAlert.Controls.Add(Me.cbxInvalidindex, 1, 8)
         Me.tblTransactionAlert.Controls.Add(Me.nudFrozenMaxAgeCritical, 3, 4)
         Me.tblTransactionAlert.Controls.Add(Me.nudIdletranscntCritical, 3, 3)
         Me.tblTransactionAlert.Controls.Add(Me.nudLongrunsqlsecCritical, 3, 2)
@@ -1576,20 +1578,20 @@ Partial Class AlertConfigurationForm
         Me.tblTransactionAlert.Controls.Add(Me.cbxLastAnalyzeday, 1, 6)
         Me.tblTransactionAlert.Controls.Add(Me.cbxUnusedindexcnt, 1, 7)
         Me.tblTransactionAlert.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tblTransactionAlert.Location = New System.Drawing.Point(3, 33)
+        Me.tblTransactionAlert.Location = New System.Drawing.Point(3, 31)
         Me.tblTransactionAlert.Name = "tblTransactionAlert"
-        Me.tblTransactionAlert.RowCount = 9
+        Me.tblTransactionAlert.RowCount = 10
         Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28506!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28506!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28506!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28507!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28506!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28506!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.2896!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50006!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50006!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50006!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50006!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50006!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50006!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50403!))
+        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49563!))
         Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
-        Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.tblTransactionAlert.Size = New System.Drawing.Size(456, 236)
+        Me.tblTransactionAlert.Size = New System.Drawing.Size(456, 250)
         Me.tblTransactionAlert.TabIndex = 2
         '
         'nudFrozenMaxAgeCritical
@@ -1597,7 +1599,7 @@ Partial Class AlertConfigurationForm
         Me.nudFrozenMaxAgeCritical.BackColor = System.Drawing.Color.White
         Me.nudFrozenMaxAgeCritical.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudFrozenMaxAgeCritical.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudFrozenMaxAgeCritical.Location = New System.Drawing.Point(258, 115)
+        Me.nudFrozenMaxAgeCritical.Location = New System.Drawing.Point(258, 109)
         Me.nudFrozenMaxAgeCritical.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudFrozenMaxAgeCritical.Name = "nudFrozenMaxAgeCritical"
         Me.nudFrozenMaxAgeCritical.Size = New System.Drawing.Size(74, 21)
@@ -1609,7 +1611,7 @@ Partial Class AlertConfigurationForm
         Me.nudIdletranscntCritical.BackColor = System.Drawing.Color.White
         Me.nudIdletranscntCritical.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudIdletranscntCritical.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudIdletranscntCritical.Location = New System.Drawing.Point(258, 86)
+        Me.nudIdletranscntCritical.Location = New System.Drawing.Point(258, 82)
         Me.nudIdletranscntCritical.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudIdletranscntCritical.Name = "nudIdletranscntCritical"
         Me.nudIdletranscntCritical.Size = New System.Drawing.Size(74, 21)
@@ -1621,7 +1623,7 @@ Partial Class AlertConfigurationForm
         Me.nudLongrunsqlsecCritical.BackColor = System.Drawing.Color.White
         Me.nudLongrunsqlsecCritical.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudLongrunsqlsecCritical.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLongrunsqlsecCritical.Location = New System.Drawing.Point(258, 57)
+        Me.nudLongrunsqlsecCritical.Location = New System.Drawing.Point(258, 55)
         Me.nudLongrunsqlsecCritical.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLongrunsqlsecCritical.Name = "nudLongrunsqlsecCritical"
         Me.nudLongrunsqlsecCritical.Size = New System.Drawing.Size(74, 21)
@@ -1675,7 +1677,7 @@ Partial Class AlertConfigurationForm
         Me.nudFrozenMaxAge.BackColor = System.Drawing.Color.White
         Me.nudFrozenMaxAge.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudFrozenMaxAge.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudFrozenMaxAge.Location = New System.Drawing.Point(178, 115)
+        Me.nudFrozenMaxAge.Location = New System.Drawing.Point(178, 109)
         Me.nudFrozenMaxAge.Name = "nudFrozenMaxAge"
         Me.nudFrozenMaxAge.Size = New System.Drawing.Size(74, 21)
         Me.nudFrozenMaxAge.TabIndex = 12
@@ -1687,7 +1689,7 @@ Partial Class AlertConfigurationForm
         Me.cbxFrozenAge.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxFrozenAge.ForeColor = System.Drawing.Color.White
         Me.cbxFrozenAge.LineColor = System.Drawing.Color.Gray
-        Me.cbxFrozenAge.Location = New System.Drawing.Point(8, 115)
+        Me.cbxFrozenAge.Location = New System.Drawing.Point(8, 109)
         Me.cbxFrozenAge.Name = "cbxFrozenAge"
         Me.cbxFrozenAge.Radius = 10
         Me.cbxFrozenAge.Size = New System.Drawing.Size(131, 16)
@@ -1713,7 +1715,7 @@ Partial Class AlertConfigurationForm
         Me.nudLongrunsqlsec.BackColor = System.Drawing.Color.White
         Me.nudLongrunsqlsec.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudLongrunsqlsec.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLongrunsqlsec.Location = New System.Drawing.Point(178, 57)
+        Me.nudLongrunsqlsec.Location = New System.Drawing.Point(178, 55)
         Me.nudLongrunsqlsec.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLongrunsqlsec.Name = "nudLongrunsqlsec"
         Me.nudLongrunsqlsec.Size = New System.Drawing.Size(74, 21)
@@ -1725,7 +1727,7 @@ Partial Class AlertConfigurationForm
         Me.nudLastvacuumDay.BackColor = System.Drawing.Color.White
         Me.nudLastvacuumDay.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudLastvacuumDay.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLastvacuumDay.Location = New System.Drawing.Point(178, 144)
+        Me.nudLastvacuumDay.Location = New System.Drawing.Point(178, 136)
         Me.nudLastvacuumDay.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLastvacuumDay.Name = "nudLastvacuumDay"
         Me.nudLastvacuumDay.Size = New System.Drawing.Size(74, 21)
@@ -1737,7 +1739,7 @@ Partial Class AlertConfigurationForm
         Me.nudIdletranscnt.BackColor = System.Drawing.Color.White
         Me.nudIdletranscnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudIdletranscnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudIdletranscnt.Location = New System.Drawing.Point(178, 86)
+        Me.nudIdletranscnt.Location = New System.Drawing.Point(178, 82)
         Me.nudIdletranscnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudIdletranscnt.Name = "nudIdletranscnt"
         Me.nudIdletranscnt.Size = New System.Drawing.Size(74, 21)
@@ -1749,7 +1751,7 @@ Partial Class AlertConfigurationForm
         Me.nudUnusedindexcnt.BackColor = System.Drawing.Color.White
         Me.nudUnusedindexcnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudUnusedindexcnt.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudUnusedindexcnt.Location = New System.Drawing.Point(178, 202)
+        Me.nudUnusedindexcnt.Location = New System.Drawing.Point(178, 190)
         Me.nudUnusedindexcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudUnusedindexcnt.Name = "nudUnusedindexcnt"
         Me.nudUnusedindexcnt.Size = New System.Drawing.Size(74, 21)
@@ -1761,7 +1763,7 @@ Partial Class AlertConfigurationForm
         Me.nudLastAnalyzeday.BackColor = System.Drawing.Color.White
         Me.nudLastAnalyzeday.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudLastAnalyzeday.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.nudLastAnalyzeday.Location = New System.Drawing.Point(178, 173)
+        Me.nudLastAnalyzeday.Location = New System.Drawing.Point(178, 163)
         Me.nudLastAnalyzeday.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudLastAnalyzeday.Name = "nudLastAnalyzeday"
         Me.nudLastAnalyzeday.Size = New System.Drawing.Size(74, 21)
@@ -1790,7 +1792,7 @@ Partial Class AlertConfigurationForm
         Me.cbxLongrunsqlsec.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxLongrunsqlsec.ForeColor = System.Drawing.Color.White
         Me.cbxLongrunsqlsec.LineColor = System.Drawing.Color.Gray
-        Me.cbxLongrunsqlsec.Location = New System.Drawing.Point(8, 57)
+        Me.cbxLongrunsqlsec.Location = New System.Drawing.Point(8, 55)
         Me.cbxLongrunsqlsec.Name = "cbxLongrunsqlsec"
         Me.cbxLongrunsqlsec.Radius = 10
         Me.cbxLongrunsqlsec.Size = New System.Drawing.Size(150, 16)
@@ -1805,7 +1807,7 @@ Partial Class AlertConfigurationForm
         Me.cbxLastvacuumDay.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxLastvacuumDay.ForeColor = System.Drawing.Color.White
         Me.cbxLastvacuumDay.LineColor = System.Drawing.Color.Gray
-        Me.cbxLastvacuumDay.Location = New System.Drawing.Point(8, 144)
+        Me.cbxLastvacuumDay.Location = New System.Drawing.Point(8, 136)
         Me.cbxLastvacuumDay.Name = "cbxLastvacuumDay"
         Me.cbxLastvacuumDay.Radius = 10
         Me.cbxLastvacuumDay.Size = New System.Drawing.Size(118, 16)
@@ -1820,7 +1822,7 @@ Partial Class AlertConfigurationForm
         Me.cbxIdletranscnt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxIdletranscnt.ForeColor = System.Drawing.Color.White
         Me.cbxIdletranscnt.LineColor = System.Drawing.Color.Gray
-        Me.cbxIdletranscnt.Location = New System.Drawing.Point(8, 86)
+        Me.cbxIdletranscnt.Location = New System.Drawing.Point(8, 82)
         Me.cbxIdletranscnt.Name = "cbxIdletranscnt"
         Me.cbxIdletranscnt.Radius = 10
         Me.cbxIdletranscnt.Size = New System.Drawing.Size(159, 16)
@@ -1835,7 +1837,7 @@ Partial Class AlertConfigurationForm
         Me.cbxLastAnalyzeday.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxLastAnalyzeday.ForeColor = System.Drawing.Color.White
         Me.cbxLastAnalyzeday.LineColor = System.Drawing.Color.Gray
-        Me.cbxLastAnalyzeday.Location = New System.Drawing.Point(8, 173)
+        Me.cbxLastAnalyzeday.Location = New System.Drawing.Point(8, 163)
         Me.cbxLastAnalyzeday.Name = "cbxLastAnalyzeday"
         Me.cbxLastAnalyzeday.Radius = 10
         Me.cbxLastAnalyzeday.Size = New System.Drawing.Size(118, 16)
@@ -1850,7 +1852,7 @@ Partial Class AlertConfigurationForm
         Me.cbxUnusedindexcnt.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
         Me.cbxUnusedindexcnt.ForeColor = System.Drawing.Color.White
         Me.cbxUnusedindexcnt.LineColor = System.Drawing.Color.Gray
-        Me.cbxUnusedindexcnt.Location = New System.Drawing.Point(8, 202)
+        Me.cbxUnusedindexcnt.Location = New System.Drawing.Point(8, 190)
         Me.cbxUnusedindexcnt.Name = "cbxUnusedindexcnt"
         Me.cbxUnusedindexcnt.Radius = 10
         Me.cbxUnusedindexcnt.Size = New System.Drawing.Size(137, 16)
@@ -2285,6 +2287,21 @@ Partial Class AlertConfigurationForm
         Me.Label16.TabIndex = 0
         Me.Label16.Text = "      "
         '
+        'cbxInvalidindex
+        '
+        Me.cbxInvalidindex.AutoSize = True
+        Me.cbxInvalidindex.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.cbxInvalidindex.ForeColor = System.Drawing.Color.White
+        Me.cbxInvalidindex.LineColor = System.Drawing.Color.Gray
+        Me.cbxInvalidindex.Location = New System.Drawing.Point(8, 217)
+        Me.cbxInvalidindex.Name = "cbxInvalidindex"
+        Me.cbxInvalidindex.Radius = 10
+        Me.cbxInvalidindex.Size = New System.Drawing.Size(95, 16)
+        Me.cbxInvalidindex.TabIndex = 20
+        Me.cbxInvalidindex.Text = "Invalid index"
+        Me.cbxInvalidindex.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.cbxInvalidindex.UseVisualStyleBackColor = True
+        '
         'AlertConfigurationForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -2466,5 +2483,6 @@ Partial Class AlertConfigurationForm
     Friend WithEvents nudLockedtranccntCritical As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents cbxInvalidindex As eXperDB.BaseControls.CheckBox
 
 End Class

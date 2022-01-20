@@ -182,6 +182,8 @@
                                   dtTable = clsQuery.SelectHCHKTranxIDLECnt(_RegDate, _HealthSeq)
                               Case "UNUSEDINDEX"
                                   dtTable = clsQuery.SelectHCHKUnusedIndex(_IntInstanceID, _RegDate)
+                              Case "INVALIDINDEX"
+                                  dtTable = clsQuery.SelectHCHKInvalidIndex(_IntInstanceID, _RegDate)
                               Case "HASTATUS"
                                   dtTable = clsQuery.SelectHCHKHAStatus(_IntInstanceID, _RegDate)
                               Case "REPLICATION_SLOT"

@@ -585,6 +585,14 @@
             '                                        _frmWait.AddText("Unknown Error")
             '                                    End If
             '                                End Sub))
+        Else
+            Me.Invoke(New MethodInvoker(Sub()
+                                            If bckmanual.IsBusy = True Then
+                                                bckmanual.CancelAsync()
+                                                Return
+                                            End If
+                                            bckmanual.RunWorkerAsync()
+                                        End Sub))
         End If
 
 

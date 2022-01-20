@@ -184,3 +184,19 @@ create table tb_pgss_reset (
 	instance_id integer not null,
 	collect_dt timestamp without time zone
 );
+
+-- 549++
+
+alter table tb_index_info add column index_is_valid boolean;
+
+DO $$
+DECLARE       
+    v_row record;
+BEGIN
+		FOR v_row in (SELECT instance_id from tb_instance_info order by instance_id) LOOP
+			--RAISE NOTICE '%', concat(ndate, to_char(i, 'fm00'));
+			insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (-1, 'INVALIDINDEX', 'CNT', '0', 0, 1.00, '2', NULL, NULL);
+		END LOOP;
+END $$ ;
+
+insert into tb_sys_code select 427, 'INVALIDINDEX'        , 'Invalid index'      ;
