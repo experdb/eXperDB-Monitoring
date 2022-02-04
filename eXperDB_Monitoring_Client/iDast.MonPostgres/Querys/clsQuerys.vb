@@ -860,6 +860,21 @@
         End Try
     End Function
 
+    Public Function UpdateServerConnInfo(ByVal LstIP As String, ByVal strAgentIP As String, ByVal intAgentPort As Integer) As Integer
+        Try
+            If _ODBC IsNot Nothing Then
+                Dim strQuery As String = p_clsQueryData.fn_GetData("UPDATESERVERCONNINFO")
+                strQuery = String.Format(strQuery, strAgentIP, intAgentPort, LstIP)
+                Return _ODBC.dbExecuteNonQuery(strQuery)
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return -1
+        End Try
+    End Function
+
     Public Function UpdateSnapshotConfig(ByVal intSnapshotSaveDays As Integer, ByVal intSnapshotTopN As Integer) As Integer
         Try
             Dim nReturn As Integer = 0

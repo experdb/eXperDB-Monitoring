@@ -110,7 +110,7 @@ Public Class frmLogin
     End Sub
 
     Private Sub btnServer_Click(sender As Object, e As EventArgs) Handles btnServer.Click
-        Dim frmAgentServer As New frmAgentInfo(_connStruct)
+        Dim frmAgentServer As New frmRepositoryInfo(_connStruct)
         If frmAgentServer.ShowDialog = Windows.Forms.DialogResult.OK Then
             frmAgentServer.rtnValue(_connStruct)
             txtServerIP.Text = _connStruct.HostIP

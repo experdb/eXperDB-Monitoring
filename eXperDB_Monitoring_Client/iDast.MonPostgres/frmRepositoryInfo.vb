@@ -1,5 +1,5 @@
 ﻿
-Public Class frmAgentInfo
+Public Class frmRepositoryInfo
     Private _crypt As New eXperDB.Common.ClsCrypt
     Private _clsQuery As clsQuerys
     Private _tmpStruct As eXperDB.ODBC.structConnection
@@ -74,7 +74,7 @@ Public Class frmAgentInfo
         Me.Close()
     End Sub
 
-    Private Sub frmAgentInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmRepositoryInfo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 

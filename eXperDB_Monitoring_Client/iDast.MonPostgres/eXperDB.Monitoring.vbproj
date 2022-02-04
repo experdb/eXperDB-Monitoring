@@ -184,6 +184,12 @@
     <Compile Include="AlertConfigurationForm.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="frmServerInfo.Designer.vb">
+      <DependentUpon>frmServerInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmServerInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmReportHistory.Designer.vb">
       <DependentUpon>frmReportHistory.vb</DependentUpon>
     </Compile>
@@ -226,10 +232,10 @@
     <Compile Include="frmLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAgentInfo.Designer.vb">
-      <DependentUpon>frmAgentInfo.vb</DependentUpon>
+    <Compile Include="frmRepositoryInfo.Designer.vb">
+      <DependentUpon>frmRepositoryInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAgentInfo.vb">
+    <Compile Include="frmRepositoryInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGroup.Designer.vb">
@@ -591,6 +597,9 @@
       <DependentUpon>AlertConfigurationForm.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmServerInfo.resx">
+      <DependentUpon>frmServerInfo.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmReportHistory.resx">
       <DependentUpon>frmReportHistory.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -617,8 +626,8 @@
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAgentInfo.resx">
-      <DependentUpon>frmAgentInfo.vb</DependentUpon>
+    <EmbeddedResource Include="frmRepositoryInfo.resx">
+      <DependentUpon>frmRepositoryInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGroup.resx">
       <DependentUpon>frmGroup.vb</DependentUpon>

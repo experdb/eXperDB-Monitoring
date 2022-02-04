@@ -200,3 +200,8 @@ BEGIN
 END $$ ;
 
 insert into tb_sys_code select 427, 'INVALIDINDEX'        , 'Invalid index'      ;
+
+
+-- 554
+
+ALTER TABLE TB_CONFIG ALTER COLUMN AGENT_IP TYPE VARCHAR(100)
