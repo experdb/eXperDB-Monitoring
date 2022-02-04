@@ -82,6 +82,7 @@ Partial Class frmSvrList
         Me.mnuUserConfig = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuPreferences = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuVersion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuManual = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.TableLayoutPanel8 = New System.Windows.Forms.TableLayoutPanel()
@@ -128,7 +129,7 @@ Partial Class frmSvrList
         Me.lblGroupName = New eXperDB.BaseControls.Label()
         Me.txtGrp1 = New eXperDB.BaseControls.TextBox()
         Me.tbServer = New FlatTabControl.FlatTabControl()
-        Me.mnuManual = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCollectorInfo = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvMonLst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.mnuMenu.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -466,38 +467,45 @@ Partial Class frmSvrList
         'mnuMenu
         '
         Me.mnuMenu.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLogout, Me.mnuUserConfig, Me.mnuPreferences, Me.mnuVersion, Me.mnuManual})
+        Me.mnuMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuLogout, Me.mnuUserConfig, Me.mnuPreferences, Me.mnuCollectorInfo, Me.mnuVersion, Me.mnuManual})
         Me.mnuMenu.Name = "mnuPopup"
-        Me.mnuMenu.Size = New System.Drawing.Size(157, 156)
+        Me.mnuMenu.Size = New System.Drawing.Size(179, 182)
         '
         'mnuLogout
         '
         Me.mnuLogout.BackColor = System.Drawing.SystemColors.Control
         Me.mnuLogout.Image = CType(resources.GetObject("mnuLogout.Image"), System.Drawing.Image)
         Me.mnuLogout.Name = "mnuLogout"
-        Me.mnuLogout.Size = New System.Drawing.Size(156, 26)
+        Me.mnuLogout.Size = New System.Drawing.Size(178, 26)
         Me.mnuLogout.Text = "Logout"
         '
         'mnuUserConfig
         '
         Me.mnuUserConfig.Image = CType(resources.GetObject("mnuUserConfig.Image"), System.Drawing.Image)
         Me.mnuUserConfig.Name = "mnuUserConfig"
-        Me.mnuUserConfig.Size = New System.Drawing.Size(156, 26)
+        Me.mnuUserConfig.Size = New System.Drawing.Size(178, 26)
         Me.mnuUserConfig.Text = "User Config"
         '
         'mnuPreferences
         '
         Me.mnuPreferences.Image = CType(resources.GetObject("mnuPreferences.Image"), System.Drawing.Image)
         Me.mnuPreferences.Name = "mnuPreferences"
-        Me.mnuPreferences.Size = New System.Drawing.Size(156, 26)
+        Me.mnuPreferences.Size = New System.Drawing.Size(178, 26)
         Me.mnuPreferences.Text = "Preferences"
         '
         'mnuVersion
         '
         Me.mnuVersion.Image = CType(resources.GetObject("mnuVersion.Image"), System.Drawing.Image)
         Me.mnuVersion.Name = "mnuVersion"
-        Me.mnuVersion.Size = New System.Drawing.Size(156, 26)
+        Me.mnuVersion.Size = New System.Drawing.Size(178, 26)
         Me.mnuVersion.Text = "Version"
+        '
+        'mnuManual
+        '
+        Me.mnuManual.Image = CType(resources.GetObject("mnuManual.Image"), System.Drawing.Image)
+        Me.mnuManual.Name = "mnuManual"
+        Me.mnuManual.Size = New System.Drawing.Size(178, 26)
+        Me.mnuManual.Text = "mnuManual"
         '
         'TabPage2
         '
@@ -1216,12 +1224,12 @@ Partial Class frmSvrList
         Me.tbServer.Size = New System.Drawing.Size(860, 550)
         Me.tbServer.TabIndex = 23
         '
-        'mnuManual
+        'mnuCollectorInfo
         '
-        Me.mnuManual.Image = CType(resources.GetObject("mnuManual.Image"), System.Drawing.Image)
-        Me.mnuManual.Name = "mnuManual"
-        Me.mnuManual.Size = New System.Drawing.Size(156, 26)
-        Me.mnuManual.Text = "mnuManual"
+        Me.mnuCollectorInfo.Image = CType(resources.GetObject("mnuCollectorInfo.Image"), System.Drawing.Image)
+        Me.mnuCollectorInfo.Name = "mnuCollectorInfo"
+        Me.mnuCollectorInfo.Size = New System.Drawing.Size(178, 26)
+        Me.mnuCollectorInfo.Text = "Server information"
         '
         'frmSvrList
         '
@@ -1339,5 +1347,6 @@ End Sub
     Friend WithEvents colDelete As System.Windows.Forms.DataGridViewImageColumn
     Friend WithEvents chkCloudGroup As eXperDB.BaseControls.CheckBox
     Friend WithEvents mnuManual As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuCollectorInfo As System.Windows.Forms.ToolStripMenuItem
 
 End Class

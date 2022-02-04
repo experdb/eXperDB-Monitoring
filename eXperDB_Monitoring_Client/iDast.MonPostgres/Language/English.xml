@@ -3758,6 +3758,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M112" PARAMS="0">
+    <DESC>Collection Server Information)</DESC>
+    <DATA><![CDATA[Collection server connection information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
@@ -4164,6 +4172,21 @@
   <ROW ID="F975" PARAMS="0">
     <DESC>User Guide</DESC>
     <DATA><![CDATA[User Guide]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F976" PARAMS="0">
+    <DESC>Server info</DESC>
+    <DATA><![CDATA[Server Connection info]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F977" PARAMS="0">
+    <DESC>Server info</DESC>
+    <DATA><![CDATA[Collection Server IP]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F978" PARAMS="0">
+    <DESC>Server info</DESC>
+    <DATA><![CDATA[Collection Server Port]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

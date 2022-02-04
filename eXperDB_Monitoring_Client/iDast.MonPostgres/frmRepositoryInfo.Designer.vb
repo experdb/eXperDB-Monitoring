@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmAgentInfo
+Partial Class frmRepositoryInfo
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -22,7 +22,7 @@ Partial Class frmAgentInfo
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAgentInfo))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRepositoryInfo))
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.StatusLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()

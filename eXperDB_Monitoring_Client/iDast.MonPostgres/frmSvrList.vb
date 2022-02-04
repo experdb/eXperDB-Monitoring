@@ -988,6 +988,7 @@
         mnuLogout.Text = p_clsMsgData.fn_GetData("F939")
         mnuUserConfig.Text = p_clsMsgData.fn_GetData("M047")
         mnuPreferences.Text = p_clsMsgData.fn_GetData("F952")
+        mnuCollectorInfo.Text = p_clsMsgData.fn_GetData("F976")
         mnuVersion.Text = p_clsMsgData.fn_GetData("F940")
         mnuManual.Text = p_clsMsgData.fn_GetData("F975")
         ps.X -= mnuMenu.Width
@@ -1189,7 +1190,7 @@
 #End Region
 
 #Region "menu"
-    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click, mnuManual.Click
+    Private Sub mnuMenu_Click(sender As Object, e As EventArgs) Handles mnuLogout.Click, mnuUserConfig.Click, mnuPreferences.Click, mnuVersion.Click, mnuManual.Click, mnuCollectorInfo.Click
         Dim BretFrm As Form = Nothing
         Dim stDt As DateTime = Now.AddMinutes(-10)
         Dim edDt As DateTime = Now
@@ -1212,6 +1213,9 @@
                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
                 MsgBox(p_clsMsgData.fn_GetData("M023"))
             End Try
+        ElseIf sender.Name = "mnuCollectorInfo" Then
+            Dim collectorInfo As New frmServerInfo(_odbcConn)
+            collectorInfo.ShowDialog()
         Else
             Dim version As New frmVersion(_odbcConn)
             version.ShowDialog()

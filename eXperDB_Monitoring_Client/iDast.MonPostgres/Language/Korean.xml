@@ -2987,7 +2987,7 @@
   </ROW>
   <ROW ID="M016" PARAMS="0">
     <DESC>Server Agent Configuration Fail</DESC>
-    <DATA><![CDATA[서버 수집프로그램 정보가 없습니다.]]></DATA>
+    <DATA><![CDATA[수집 서버 정보가 없습니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -3768,6 +3768,14 @@
     <COLUMNS />
     <VALUECAST />
   </ROW>
+  <ROW ID="M112" PARAMS="0">
+    <DESC>Collection Server Information)</DESC>
+    <DATA><![CDATA[eXperDB 수집 서버 접속정보 변경.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[파일건수]]></DATA>
@@ -4166,6 +4174,21 @@
   <ROW ID="F975" PARAMS="0">
     <DESC>User Guide</DESC>
     <DATA><![CDATA[사용자 가이드]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F976" PARAMS="0">
+    <DESC>Server info</DESC>
+    <DATA><![CDATA[수집서버 연결 정보]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F977" PARAMS="0">
+    <DESC>Server info</DESC>
+    <DATA><![CDATA[수집서버 IP]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F978" PARAMS="0">
+    <DESC>Server info</DESC>
+    <DATA><![CDATA[수집서버 Port]]></DATA>
     <VALUECAST />
   </ROW>
 </ROWS>

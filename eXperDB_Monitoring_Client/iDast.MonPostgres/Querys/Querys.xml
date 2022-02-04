@@ -51,6 +51,19 @@
       ]]>
     </DATA>
   </ROW>
+  <ROW ID="UPDATESERVERCONNINFO" PARAMS="3">
+    <DESC>Server connection information</DESC>
+    <DATA>
+      <![CDATA[
+        UPDATE TB_CONFIG 
+          SET AGENT_IP = '{0}' 
+            , AGENT_PORT = {1} 
+            , LAST_MOD_IP = '{2}' 
+            , LAST_MOD_DT = NOW() 
+        WHERE ADMIN_USER_ID='ADMIN'
+      ]]>
+    </DATA>
+  </ROW>
   <ROW ID="UPDATEPASSWORD" PARAMS="2">
     <DESC>Update password</DESC>
     <DATA>
