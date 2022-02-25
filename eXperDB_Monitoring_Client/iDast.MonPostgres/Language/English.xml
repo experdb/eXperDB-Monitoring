@@ -3042,7 +3042,7 @@
     <VALUECAST />
   </ROW>
   <ROW ID="INVALIDINDEX" PARAMS="0">
-    <DESC>생성 후 한번도 참조되지 않은 인덱스 정보를 출력합니다.</DESC>
+    <DESC>Checks the number of invalid indexs.</DESC>
     <DATA><![CDATA[Invalid Index]]></DATA>
     <COMMENTS>N/A</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>

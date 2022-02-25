@@ -194,13 +194,24 @@ if [ "a$user_exists" = "a" ]; then
         #echo "Running: createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER"
         echo "Running: createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER"
         if [ $DEBUG -eq 0 ]; then
+            response_confirm=""
+            while [ 1 ]; do
+                read_passwd "Enter password for new role" response ; echo -e ""
+                read_passwd "Enter it again" response_confirm; echo -e ""
+                if [ "a$response" != "a$response_confirm"  ] ; then
+                    echo "Password and confirm password does not match."
+                else
+                    break;
+                fi
+            done
             #PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
-            PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
+            #PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
+            PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s $DB_OWNER
             if [ $? -ne 0 ]; then
                 die "can not create user $DB_OWNER."
             fi
-            read_passwd     "Please enter password for $DB_OWNER once more" response
-            OWNER_PASSWORD=$response
+            psql$LOCAL_HOST$DB_PORT$DB_USER -c "alter role pgmon with password '$response_confirm'" > /dev/null;
+            OWNER_PASSWORD=$response_confirm
         fi
         else
                 die "you must create user $DB_OWNER."
@@ -321,7 +332,7 @@ rm -f ./pgmon_repository.tmp.sql
 
 echo " "
 echo " "
-echo -e "${GREEN}Step.4 Configure agent connection information.${NC}"
+echo -e "${GREEN}Step.4 Configure the IP and Port of the server for connecting eXperDB-Monitoring-client.${NC}"
 
 #AGENT HOST and PORT
 read -r -p "Input Agent Host(Default : $ORG_DB_HOST) : " response
