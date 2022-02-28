@@ -2825,6 +2825,18 @@
     <DESC>employee</DESC>
     <DATA><![CDATA[Employee number]]></DATA>
   </ROW>
+  <ROW ID="F365" PARAMS="0">
+    <DESC>Repository IP</DESC>
+    <DATA><![CDATA[Repository IP]]></DATA>
+  </ROW>
+  <ROW ID="F366" PARAMS="0">
+    <DESC>Repository Port</DESC>  
+    <DATA><![CDATA[Repository Port]]></DATA>
+  </ROW>
+  <ROW ID="F367" PARAMS="0">
+    <DESC>Apply Repo IP</DESC>
+    <DATA><![CDATA[Apply Repo IP]]></DATA>
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3761,6 +3773,14 @@
   <ROW ID="M112" PARAMS="0">
     <DESC>Collection Server Information)</DESC>
     <DATA><![CDATA[Collection server connection information.]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M113" PARAMS="0">
+    <DESC>Applied</DESC>
+    <DATA><![CDATA[The server information have been applied.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />

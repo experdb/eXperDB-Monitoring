@@ -30,6 +30,7 @@ Partial Class frmServerInfo
         Me.btnAct = New eXperDB.BaseControls.Button()
         Me.btnClose = New eXperDB.BaseControls.Button()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnApplyIP = New eXperDB.BaseControls.Button()
         Me.txtSvrPort = New eXperDB.BaseControls.TextBox()
         Me.txtSvrIP = New eXperDB.BaseControls.TextBox()
         Me.lblSvrPort = New eXperDB.BaseControls.Label()
@@ -52,6 +53,7 @@ Partial Class frmServerInfo
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(442, 50)
         Me.TableLayoutPanel2.TabIndex = 16
         '
@@ -96,6 +98,7 @@ Partial Class frmServerInfo
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 1
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(442, 45)
         Me.TableLayoutPanel3.TabIndex = 17
         '
@@ -147,6 +150,7 @@ Partial Class frmServerInfo
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137.0!))
+        Me.tlpSvrChk.Controls.Add(Me.btnApplyIP, 3, 1)
         Me.tlpSvrChk.Controls.Add(Me.txtSvrPort, 2, 2)
         Me.tlpSvrChk.Controls.Add(Me.txtSvrIP, 2, 1)
         Me.tlpSvrChk.Controls.Add(Me.lblSvrPort, 1, 2)
@@ -165,15 +169,35 @@ Partial Class frmServerInfo
         Me.tlpSvrChk.Size = New System.Drawing.Size(442, 112)
         Me.tlpSvrChk.TabIndex = 20
         '
+        'btnApplyIP
+        '
+        Me.btnApplyIP.BackColor = System.Drawing.Color.Transparent
+        Me.btnApplyIP.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(168, Byte), Integer), CType(CType(168, Byte), Integer), CType(CType(176, Byte), Integer))
+        Me.btnApplyIP.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnApplyIP.FixedHeight = False
+        Me.btnApplyIP.FixedWidth = False
+        Me.btnApplyIP.ForeColor = System.Drawing.Color.White
+        Me.btnApplyIP.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnApplyIP.LineColor = System.Drawing.Color.Transparent
+        Me.btnApplyIP.Location = New System.Drawing.Point(308, 23)
+        Me.btnApplyIP.Name = "btnApplyIP"
+        Me.btnApplyIP.Radius = 10
+        Me.btnApplyIP.Size = New System.Drawing.Size(119, 29)
+        Me.btnApplyIP.TabIndex = 17
+        Me.btnApplyIP.Text = "F003"
+        Me.btnApplyIP.UnCheckFillColor = System.Drawing.Color.Transparent
+        Me.btnApplyIP.UseRound = True
+        Me.btnApplyIP.UseVisualStyleBackColor = False
+        '
         'txtSvrPort
         '
         Me.txtSvrPort.BackColor = System.Drawing.SystemColors.Window
         Me.txtSvrPort.code = False
-        Me.txtSvrPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSvrPort.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSvrPort.FixedWidth = False
         Me.txtSvrPort.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrPort.impossibleinput = ""
-        Me.txtSvrPort.Location = New System.Drawing.Point(148, 66)
+        Me.txtSvrPort.Location = New System.Drawing.Point(148, 58)
         Me.txtSvrPort.MaxLength = 5
         Me.txtSvrPort.Name = "txtSvrPort"
         Me.txtSvrPort.Necessary = False
@@ -188,11 +212,11 @@ Partial Class frmServerInfo
         '
         Me.txtSvrIP.BackColor = System.Drawing.SystemColors.Window
         Me.txtSvrIP.code = False
-        Me.txtSvrIP.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.txtSvrIP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSvrIP.FixedWidth = False
         Me.txtSvrIP.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtSvrIP.impossibleinput = ""
-        Me.txtSvrIP.Location = New System.Drawing.Point(148, 31)
+        Me.txtSvrIP.Location = New System.Drawing.Point(148, 23)
         Me.txtSvrIP.MaxByteLength = 128
         Me.txtSvrIP.MaxLength = 128
         Me.txtSvrIP.Name = "txtSvrIP"
@@ -206,32 +230,32 @@ Partial Class frmServerInfo
         '
         'lblSvrPort
         '
-        Me.lblSvrPort.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrPort.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblSvrPort.FixedHeight = False
         Me.lblSvrPort.FixedWidth = False
         Me.lblSvrPort.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrPort.ForeColor = System.Drawing.Color.White
         Me.lblSvrPort.LineSpacing = 0.0!
-        Me.lblSvrPort.Location = New System.Drawing.Point(13, 67)
+        Me.lblSvrPort.Location = New System.Drawing.Point(13, 55)
         Me.lblSvrPort.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.lblSvrPort.Name = "lblSvrPort"
-        Me.lblSvrPort.Size = New System.Drawing.Size(129, 20)
+        Me.lblSvrPort.Size = New System.Drawing.Size(129, 32)
         Me.lblSvrPort.TabIndex = 16
         Me.lblSvrPort.Text = "F978"
         Me.lblSvrPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblSvrIP
         '
-        Me.lblSvrIP.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblSvrIP.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblSvrIP.FixedHeight = False
         Me.lblSvrIP.FixedWidth = False
         Me.lblSvrIP.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lblSvrIP.ForeColor = System.Drawing.Color.White
         Me.lblSvrIP.LineSpacing = 0.0!
-        Me.lblSvrIP.Location = New System.Drawing.Point(13, 32)
+        Me.lblSvrIP.Location = New System.Drawing.Point(13, 20)
         Me.lblSvrIP.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
         Me.lblSvrIP.Name = "lblSvrIP"
-        Me.lblSvrIP.Size = New System.Drawing.Size(129, 20)
+        Me.lblSvrIP.Size = New System.Drawing.Size(129, 32)
         Me.lblSvrIP.TabIndex = 0
         Me.lblSvrIP.Text = "F977"
         Me.lblSvrIP.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -272,4 +296,5 @@ Partial Class frmServerInfo
     Friend WithEvents txtSvrIP As eXperDB.BaseControls.TextBox
     Friend WithEvents txtSvrPort As eXperDB.BaseControls.TextBox
     Friend WithEvents btnAct As eXperDB.BaseControls.Button
+    Friend WithEvents btnApplyIP As eXperDB.BaseControls.Button
 End Class

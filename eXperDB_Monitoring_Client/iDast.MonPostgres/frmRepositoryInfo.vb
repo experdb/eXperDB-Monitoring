@@ -16,10 +16,10 @@ Public Class frmRepositoryInfo
 
     Private Sub initform()
         StatusLabel.Text = p_clsMsgData.fn_GetData("M050")
-        lblSvrIP.Text = p_clsMsgData.fn_GetData("F006")
+        lblSvrIP.Text = p_clsMsgData.fn_GetData("F365")
         lblSvrUsr.Text = p_clsMsgData.fn_GetData("F008")
         lblSvrDBNm.Text = p_clsMsgData.fn_GetData("F010")
-        lblSvrPort.Text = p_clsMsgData.fn_GetData("F007")
+        lblSvrPort.Text = p_clsMsgData.fn_GetData("F366")
         lblSvrPwd.Text = p_clsMsgData.fn_GetData("F009")
 
         btnTest.Text = p_clsMsgData.fn_GetData("F002")
@@ -59,6 +59,8 @@ Public Class frmRepositoryInfo
                 End If
                 MsgBox(p_clsMsgData.fn_GetData("M003"))
                 sb_Ctlenabled(True)
+                Dim collectorInfo As New frmServerInfo(tmpCn, strIp)
+                collectorInfo.ShowDialog()
             Else
                 MsgBox(p_clsMsgData.fn_GetData("M004"))
                 sb_Ctlenabled(False)

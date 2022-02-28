@@ -3,11 +3,19 @@ Public Class frmServerInfo
     Private _crypt As New eXperDB.Common.ClsCrypt
     Private _clsQuery As clsQuerys
     Private _tmpStruct As eXperDB.ODBC.structConnection
+    Private _strDefaultServerIP As String = ""
 
     Public Sub New(ByRef odbcConn As eXperDBODBC)
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
         _clsQuery = New clsQuerys(odbcConn)
+        initform()
+    End Sub
+    Public Sub New(ByRef odbcConn As eXperDBODBC, ByVal strRepoIP As String)
+        ' 이 호출은 디자이너에 필요합니다.
+        InitializeComponent()
+        _clsQuery = New clsQuerys(odbcConn)
+        _strDefaultServerIP = strRepoIP
         initform()
     End Sub
 
@@ -18,6 +26,7 @@ Public Class frmServerInfo
 
         btnAct.Text = p_clsMsgData.fn_GetData("F141")
         btnClose.Text = p_clsMsgData.fn_GetData("F021")
+        btnApplyIP.Text = p_clsMsgData.fn_GetData("F367")
 
         txtSvrIP.Text = _tmpStruct.HostIP
         txtSvrPort.Text = _tmpStruct.Port
@@ -32,6 +41,7 @@ Public Class frmServerInfo
                 MsgBox(p_clsMsgData.fn_GetData("M016"))
                 Return
             End If
+            'Dim aaa = _tmpStruct.HostIP
             txtSvrIP.Text = strIp
             txtSvrPort.Text = intPort
         Else
@@ -53,7 +63,7 @@ Public Class frmServerInfo
             Return
         End If
         _clsQuery.UpdateServerConnInfo(strLocIP, txtSvrIP.Text, txtSvrPort.Text)
-        MsgBox(p_clsMsgData.fn_GetData("M082"))
+        MsgBox(p_clsMsgData.fn_GetData("M113"))
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
@@ -92,4 +102,8 @@ Public Class frmServerInfo
 
 #End Region
 
+    Private Sub btnApplyIP_Click(sender As Object, e As EventArgs) Handles btnApplyIP.Click
+        _tmpStruct = modCommon.AgentInfoRead()
+        txtSvrIP.Text = _tmpStruct.HostIP
+    End Sub
 End Class
