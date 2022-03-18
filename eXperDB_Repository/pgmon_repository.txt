@@ -1007,7 +1007,7 @@ insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values
 insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (4, 'Group4', now(), '127.0.0.1');
 
 -----------------------<User Managements>--------------------------------------------------
-insert into tb_mon_user (user_id, user_name, user_password, last_mod_user_id, is_admin_tf, set_pw_dt) values('admin', 'admin', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=', 'admin', true, now());
+insert into tb_mon_user (user_id, user_name, user_password, last_mod_user_id, is_admin_tf, set_pw_dt) values('admin', 'admin', 'DR5RAJG03pQzlxcfmh/7lKYboZb8z8o/ztLF1d6zYaQ=', 'admin', true, now());
 insert into tb_mon_user_policy (last_mod_user_id,	last_mod_dt) values('admin', now());
 insert into tb_mon_user_config (user_id) values ('admin'); 
 insert into tb_mon_perm select 1, 'detailed_monitoring';
