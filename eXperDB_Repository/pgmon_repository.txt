@@ -90,7 +90,7 @@ create table tb_config (
     agent_ip character varying(100),
     agent_port character varying(10),
     serial_key character varying(1000),
-    version character varying(10),
+    version character varying(15),
     binary_path character varying(200),
     last_mod_user_id character varying(16) default null,
     last_mod_dt timestamp without time zone,
