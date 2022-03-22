@@ -2839,7 +2839,7 @@
   </ROW>
   <ROW ID="F366" PARAMS="0">
     <DESC>수집저장소Port</DESC>
-    <DATA><![CDATA[수저장소Port]]></DATA>
+    <DATA><![CDATA[수집저장소Port]]></DATA>
   </ROW>
   <ROW ID="F367" PARAMS="0">
     <DESC>수집저장소IP적용</DESC>
