@@ -79,7 +79,7 @@ public class DX004 implements SocketApplication{
 					sessDB = sqlSessionFactory.openSession(connDB);
 					
 					List<HashMap<String, Object>> schemaList = new ArrayList<HashMap<String,Object>>();
-					schemaList = sessionCollect.selectList("app.DX004_002");
+					schemaList = sessDB.selectList("app.DX004_002");
 					
 					String schema = "";
 					
@@ -100,6 +100,7 @@ public class DX004 implements SocketApplication{
 					log.error("", e);
 					return resDataArray;					
 				} finally {
+					if(connDB != null) connDB.close();
 					if(sessDB != null)	sessDB.close();
 				}
 				
