@@ -8,6 +8,7 @@ DB_ENCODING="UTF8"
 DB_SCHEMA="pgmon"
 DB_NAME="experdb"
 DB_OWNER="pgmon"
+DB_OWNER_PASSWORD="pgmon"
 LOCAL_HOST=" -h localhost"
 DB_PASSWORD=""
 OWNER_PASSWORD=""
@@ -143,13 +144,14 @@ while getopts "d:h:U:p:L:W:Dy?"  opt; do
         h) DB_HOST=" -h $OPTARG"
                ORG_DB_HOST="$OPTARG"
                ;;
-        U) DB_USER=" -U $OPTARG";;
+        U) DB_USER=" -U $OPTARG";
+		DB_USER_NAME_ONLY=$OPTARG;;
         p) DB_PORT=" -p $OPTARG"
                    ORG_DB_PORT="$OPTARG"
                    ;;
-            d) CONN_DB_NAME=" -d $OPTARG";;
-            L) LICENSE_FILE=$OPTARG;;
-            W) DB_PASSWORD="$OPTARG";;
+        d) CONN_DB_NAME=" -d $OPTARG";;
+        L) LICENSE_FILE=$OPTARG;;
+        W) DB_PASSWORD="$OPTARG";;
         D) DEBUG=1;;
         y) AUTORUN=1;;
         "?") usage 1;;
@@ -179,10 +181,13 @@ if [ -z "$CONN_DB_NAME" ]; then
         die "you must give the name of the PostgreSQL server to be used as connect to PostgreSQL database (see option)."
 fi
 
-
 # Create owner user
+if [ -z "$DB_PASSWORD" ] ; then
+        read_passwd  "Please enter password for $DB_USER_NAME_ONLY" response
+        DB_PASSWORD=$response
+fi
 
-if [ -z "$CONN_DB_NAME" ]; then
+if [ -z "$CONN_DB_NAME" ] ; then
         read_passwd  "Please enter password for $DB_OWNER once more" response
         DB_PASSWORD=$response
 fi
@@ -206,11 +211,11 @@ if [ "a$user_exists" = "a" ]; then
             done
             #PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
             #PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
-            PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s $DB_OWNER
+            PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s $DB_OWNER 
             if [ $? -ne 0 ]; then
                 die "can not create user $DB_OWNER."
             fi
-            psql$LOCAL_HOST$DB_PORT$DB_USER -c "alter role pgmon with password '$response_confirm'" > /dev/null;
+            PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER -c "alter role pgmon with password '$response_confirm'" > /dev/null;
             OWNER_PASSWORD=$response_confirm
         fi
         else
@@ -380,6 +385,12 @@ if [ "a$valid_tb_config" = "a" ]; then
                 OLDURL=`grep url $SERVERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
                 NEWURL=$URLPREFIX$ORG_DB_HOST":"$ORG_DB_PORT"\/"$DB_NAME
                 sed -i "s/$OLDURL/$NEWURL/g" $SERVERDBCONF
+                OLDUSERNAME=`grep username $SERVERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
+                NEWUSERNAME=$DB_OWNER
+				sed -i "s#<property name=\"password\" value=\"$OLDUSERNAME\"#<property name=\"password\" value=\"$NEWUSERNAME\"#" $SERVERDBCONF
+                OLDPASSWORD=`grep password $SERVERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
+                NEWPASSWORD=$OWNER_PASSWORD
+				sed -i "s#<property name=\"password\" value=\"$OLDPASSWORD\"#<property name=\"password\" value=\"$NEWPASSWORD\"#" $SERVERDBCONF
         else
                 die "Couldn't find connection file. $SERVERDBCONF"
         fi
@@ -387,6 +398,12 @@ if [ "a$valid_tb_config" = "a" ]; then
                 OLDURL=`grep url $MANAGERDBCONF  |cut -d '"' -f4|sed 's/\//\\\\\//g'`
                 NEWURL=$URLPREFIX$ORG_DB_HOST":"$ORG_DB_PORT"\/"$DB_NAME
                 sed -i "s/$OLDURL/$NEWURL/g" $MANAGERDBCONF
+                OLDUSERNAME=`grep username $MANAGERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
+                NEWUSERNAME=$DB_OWNER
+				sed -i "s#<property name=\"password\" value=\"$OLDUSERNAME\"#<property name=\"password\" value=\"$NEWUSERNAME\"#" $MANAGERDBCONF
+                OLDPASSWORD=`grep password $MANAGERDBCONF|cut -d '"' -f4|sed 's/\//\\\\\//g'`
+                NEWPASSWORD=$OWNER_PASSWORD
+				sed -i "s#<property name=\"password\" value=\"$OLDPASSWORD\"#<property name=\"password\" value=\"$NEWPASSWORD\"#" $MANAGERDBCONF
         else
                 die "Couldn't find connection file. $MANAGERDBCONF"
         fi
