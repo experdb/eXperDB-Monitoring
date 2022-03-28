@@ -387,10 +387,10 @@ if [ "a$valid_tb_config" = "a" ]; then
                 sed -i "s/$OLDURL/$NEWURL/g" $SERVERDBCONF
                 OLDUSERNAME=`grep username $SERVERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
                 NEWUSERNAME=$DB_OWNER
-				sed -i "s#<property name=\"password\" value=\"$OLDUSERNAME\"#<property name=\"password\" value=\"$NEWUSERNAME\"#" $SERVERDBCONF
+				sed -i 's|<property name="username" value="'$OLDUSERNAME'"|<property name="username" value="'$NEWUSERNAME'"|' $SERVERDBCONF
                 OLDPASSWORD=`grep password $SERVERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
                 NEWPASSWORD=$OWNER_PASSWORD
-				sed -i "s#<property name=\"password\" value=\"$OLDPASSWORD\"#<property name=\"password\" value=\"$NEWPASSWORD\"#" $SERVERDBCONF
+				sed -i 's|<property name="password" value="'$OLDPASSWORD'"|<property name="password" value="'$NEWPASSWORD'"|' $SERVERDBCONF
         else
                 die "Couldn't find connection file. $SERVERDBCONF"
         fi
@@ -400,10 +400,10 @@ if [ "a$valid_tb_config" = "a" ]; then
                 sed -i "s/$OLDURL/$NEWURL/g" $MANAGERDBCONF
                 OLDUSERNAME=`grep username $MANAGERDBCONF |cut -d '"' -f4|sed 's/\//\\\\\//g'`
                 NEWUSERNAME=$DB_OWNER
-				sed -i "s#<property name=\"password\" value=\"$OLDUSERNAME\"#<property name=\"password\" value=\"$NEWUSERNAME\"#" $MANAGERDBCONF
+				sed -i 's|<property name="username" value="'$OLDUSERNAME'"|<property name="username" value="'$NEWUSERNAME'"|' $MANAGERDBCONF
                 OLDPASSWORD=`grep password $MANAGERDBCONF|cut -d '"' -f4|sed 's/\//\\\\\//g'`
                 NEWPASSWORD=$OWNER_PASSWORD
-				sed -i "s#<property name=\"password\" value=\"$OLDPASSWORD\"#<property name=\"password\" value=\"$NEWPASSWORD\"#" $MANAGERDBCONF
+				sed -i 's|<property name="password" value="'$OLDPASSWORD'"|<property name="password" value="'$NEWPASSWORD'"|' $MANAGERDBCONF
         else
                 die "Couldn't find connection file. $MANAGERDBCONF"
         fi
