@@ -35,6 +35,9 @@ SERVERPATH=eXperDBMA
 SERVERDBCONF=$SERVERPATH/config/MyBatisConfig.xml
 SERVERBIN=$SERVERPATH/bin
 
+PGMHOME=`pwd`
+PGMLOG=$PGMHOME/eXperDBMA/log
+
 SERVERLOGDAYS=7
 
 RED='\033[0;31m'
@@ -194,37 +197,40 @@ fi
 
 echo -e "${GREEN}Step.1 Create the databse of owner.${NC}"
 user_exists=`PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER$CONN_DB_NAME -Atc "select usename from pg_user where usename='$DB_OWNER';"`
-if [ "a$user_exists" = "a" ]; then
-    if confirm "Would you like to create the owner of the database $DB_OWNER?" ; then
-        #echo "Running: createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER"
-        echo "Running: createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER"
-        if [ $DEBUG -eq 0 ]; then
-            response_confirm=""
-            while [ 1 ]; do
-                read_passwd "Enter password for new role" response ; echo -e ""
-                read_passwd "Enter it again" response_confirm; echo -e ""
-                if [ "a$response" != "a$response_confirm"  ] ; then
-                    echo "Password and confirm password does not match."
-                else
-                    break;
+if [ $? -eq 0 ]; then
+    if [ "a$user_exists" = "a" ]; then
+        if confirm "Would you like to create the owner of the database $DB_OWNER?" ; then
+            #echo "Running: createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER"
+            echo "Running: createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER"
+            if [ $DEBUG -eq 0 ]; then
+                response_confirm=""
+                while [ 1 ]; do
+                    read_passwd "Enter password for new role" response ; echo -e ""
+                    read_passwd "Enter it again" response_confirm; echo -e ""
+                    if [ "a$response" != "a$response_confirm"  ] ; then
+                        echo "Password and confirm password does not match."
+                    else
+                        break;
+                    fi
+                done
+                #PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
+                #PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
+                PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s $DB_OWNER 
+                if [ $? -ne 0 ]; then
+                    die "can not create user $DB_OWNER."
                 fi
-            done
-            #PGPASSWORD=$DB_PASSWORD createuser$DB_HOST$DB_PORT$DB_USER --no-superuser --no-createrole --no-createdb -P $DB_OWNER
-            #PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s -P $DB_OWNER
-            PGPASSWORD=$DB_PASSWORD createuser$LOCAL_HOST$DB_PORT$DB_USER -s $DB_OWNER 
-            if [ $? -ne 0 ]; then
-                die "can not create user $DB_OWNER."
+                PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER -c "alter role pgmon with password '$response_confirm'" > /dev/null;
+                OWNER_PASSWORD=$response_confirm
             fi
-            PGPASSWORD=$DB_PASSWORD psql$LOCAL_HOST$DB_PORT$DB_USER -c "alter role pgmon with password '$response_confirm'" > /dev/null;
-            OWNER_PASSWORD=$response_confirm
+            else
+                    die "you must create user $DB_OWNER."
         fi
-        else
-                die "you must create user $DB_OWNER."
+    else
+            echo "Database owner $DB_OWNER already exists, skipping creation."
     fi
 else
-        echo "Database owner $DB_OWNER already exists, skipping creation."
+    exit 1
 fi
-
 if [ -z $OWNER_PASSWORD ] ; then
         read_passwd     "Please enter password for $DB_OWNER" response
         OWNER_PASSWORD=$response
@@ -410,9 +416,6 @@ if [ "a$valid_tb_config" = "a" ]; then
 else
         die "table(tb_config) can not have more than one row."
 fi
-
-PGMHOME=`pwd`
-PGMLOG=$PGMHOME/eXperDBMA/log
 
 echo export PGMHOME=$PGMHOME >> ~/.experdbrc
 echo export PGMLOG=$PGMLOG >> ~/.experdbrc
