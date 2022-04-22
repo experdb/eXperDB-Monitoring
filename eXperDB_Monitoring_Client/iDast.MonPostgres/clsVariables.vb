@@ -70,4 +70,5 @@ Module clsVariables
 
     Public p_NodeLevel As Integer = 5
 
+    Public p_FreePass As Integer = 0
 End Module

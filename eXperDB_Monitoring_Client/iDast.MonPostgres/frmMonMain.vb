@@ -5536,6 +5536,7 @@
 
     Private Function CheckPassword() As Boolean
         Dim frmPw As New frmPassword(AgentCn)
+        If p_FreePass > 2 Then Return True
         If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
             Return True
         Else
