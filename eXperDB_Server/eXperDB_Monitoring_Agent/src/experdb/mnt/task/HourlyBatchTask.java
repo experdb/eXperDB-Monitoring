@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.LicenseInfoManager;
 import experdb.mnt.db.mybatis.SqlSessionManager;
+import experdb.mnt.eXperDBMAConfig;
 
 import java.util.Enumeration;
 import experdb.mnt.MonitoringInfoManager;
@@ -56,8 +57,9 @@ public class HourlyBatchTask {
 				return period;
 			
 			Date currentHour = new Date();
+			int currentStatementsKeepDays = eXperDBMAConfig.getInstance().getInt("currentStmtRetention");
 			Date nextHour = new Date(currentHour.getTime() + (1000 * 60 * 60));
-			Date oldHour = new Date(currentHour.getTime() - (1000 * 60 * 60 * 8));
+			Date oldHour = new Date(currentHour.getTime() - (1000 * 60 * 60 * 24 * (currentStatementsKeepDays > 0 ? currentStatementsKeepDays : 1)));
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMddHH");
 			String new_date = transFormat.format(nextHour);
 			String now_date = transFormat.format(currentHour);

@@ -345,7 +345,7 @@
                                           IIf(HealtLimited.ReplicationDelayCheck, GetCriticalThreshold_1(HealtLimited.ReplicationDelayNormal, HealtLimited.ReplicationDelayWarning), 9), LastIp, HealtLimited.ReplicationDelayRTime)
 
             'Dim Fixed As Integer = 1
-            _clsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, HealtLimited.LockedTrancCntCritical, HealtLimited.LockedtranccntBool, LastIp)
+            _clsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, HealtLimited.LockedTrancCntCritical, HealtLimited.LockedtranccntBool, LastIp, HealtLimited.LockedTrancCntRTime)
             _clsQuery.UpdateHealthLimited(InstanceID, "TRAXIDLECNT", HealtLimited.IdleTransCnt, HealtLimited.IdleTransCntCritical, HealtLimited.IdletranscntBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "LONGRUNSQL", HealtLimited.LongRunSqlSec, HealtLimited.LongRunSqlSecCritical, HealtLimited.LongrunsqlsecBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "UNUSEDINDEX", HealtLimited.UnusedIndexCnt, 0, HealtLimited.UnusedindexcntBool, LastIp)

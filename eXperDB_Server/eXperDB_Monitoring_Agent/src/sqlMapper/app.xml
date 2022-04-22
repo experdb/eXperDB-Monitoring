@@ -3349,7 +3349,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
   			#{active},
   			#{oldxmin},
   			#{restart_lsn}::pg_lsn,
-  			#{confirmed_flush_lsn},
+  			#{confirmed_flush_lsn}::pg_lsn,
 			NOW()
 		)
 	</insert>

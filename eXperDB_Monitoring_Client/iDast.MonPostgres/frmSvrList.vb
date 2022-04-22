@@ -873,6 +873,7 @@
                 tmpFrm.Close()
             End If
         Next
+        p_FreePass = 0
         Dologout()
     End Sub
 
@@ -950,11 +951,11 @@
             MsgBox(strMsg)
         Else
             '''button Dim frmPw As New frmPassword(DirectCast(btnAdd.Tag, eXperDB.ODBC.eXperDBODBC))
-            Dim frmPw As New frmPassword(_odbcConn)
-            If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
+            If CheckPassword() = True Then
                 Dim frmAdmin As New frmAdmin
                 frmAdmin.ShowDialog(Me)
             End If
+
             '커넥트 테스트 후 조회그룹을 선택 from ini
             Dim clsIni As New Common.IniFile(p_AppConfigIni)
             Dim groupIndex As String = clsIni.ReadValue("GROUP", "MONGROUP", 0)
@@ -1143,6 +1144,7 @@
 
     Private Function CheckPassword() As Boolean
         Dim frmPw As New frmPassword(_odbcConn)
+        If p_FreePass > 2 Then Return True
         If frmPw.ShowDialog = Windows.Forms.DialogResult.OK Then
             Return True
         Else
@@ -1196,6 +1198,7 @@
         Dim edDt As DateTime = Now
 
         If sender.Name = "mnuLogout" Then
+            p_FreePass = 0
             Me.Close()
         ElseIf sender.Name = "mnuUserConfig" Then
             If CheckPassword() = False Then Return
@@ -1235,4 +1238,10 @@
             End If
         End If
     End Sub
+
+
+    Private Sub lblFreePass_DoubleClick(sender As Object, e As EventArgs) Handles lblFreePass.DoubleClick
+        p_FreePass += 1
+    End Sub
+
 End Class

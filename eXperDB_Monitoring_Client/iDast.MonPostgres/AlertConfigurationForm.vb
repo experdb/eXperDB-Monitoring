@@ -200,6 +200,7 @@
                     cbxLockedtranccnt.Checked = Check
                     nudLockedtranccnt.Value = nudValue
                     nudLockedtranccntCritical.Value = nudValue_
+                    nudLockTransactionRTime.Value = retentionTime / 60
                 Case "TRAXIDLECNT"
                     cbxIdletranscnt.Checked = Check
                     nudIdletranscnt.Value = nudValue
@@ -334,6 +335,8 @@
         tmpClass.ReplicationDelayCheck = cbxReplicationDelay.Checked
 
         tmpClass.LockedTrancCnt = nudLockedtranccnt.Value
+        tmpClass.LockedTrancCntRTime = nudLockTransactionRTime.Value * 60
+
         tmpClass.IdleTransCnt = nudIdletranscnt.Value
         tmpClass.LongRunSqlSec = nudLongrunsqlsec.Value
         tmpClass.UnusedIndexCnt = nudUnusedindexcnt.Value
@@ -443,6 +446,7 @@
         Public ReplicationDelayCheck As Boolean
 
         Public LockedTrancCnt As Integer
+        Public LockedTrancCntRTime As Integer
         Public IdleTransCnt As Integer
         Public LongRunSqlSec As Integer
         Public UnusedIndexCnt As Integer
