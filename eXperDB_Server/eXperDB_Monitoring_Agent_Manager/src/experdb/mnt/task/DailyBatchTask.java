@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import experdb.mnt.db.mybatis.SqlSessionManager;
+import experdb.mnt.eXperDBMAConfig;
 
 public class DailyBatchTask {
 
@@ -88,7 +89,19 @@ public class DailyBatchTask {
 			sessionAgent.commit();
 			log.info("Created daily partition tables");
 			//real time partition table
+			
+			Date currentHour = new Date();
+			int currentStatementsKeepDays;
+			try {
+				currentStatementsKeepDays = eXperDBMAConfig.getInstance().getInt("currentStmtRetention");
+			} catch (Exception e) {
+				currentStatementsKeepDays = 1;
+			}
+			Date oldHour = new Date(currentHour.getTime() - (1000 * 60 * 60 * 24 * (currentStatementsKeepDays > 0 ? currentStatementsKeepDays : 1)));
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMddHH");
+			String old_date = transFormat.format(oldHour);
 			partitionTableMap.put("tablename", "tb_realtime_statements");
+			partitionTableMap.put("old_date", old_date);
 			sessionAgent.update("app.PG_ATTACH_PARTITIONS_002", partitionTableMap);	
 			sessionAgent.update("app.PG_DETACH_PARTITIONS_002", partitionTableMap);
 			sessionAgent.commit();

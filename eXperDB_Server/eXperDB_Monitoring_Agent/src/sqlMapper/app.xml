@@ -4095,7 +4095,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			BEGIN    
 				var_tablename = '${tablename}';
 				var_partition_tablename = NULL;
-				ddate = to_char (now(), 'YYYYMMDD');
+				ddate = '${old_date}';
 				--RAISE NOTICE 'tablename: %', var_partition_tablename;
 			    FOR var_partition_tablename IN
 			       SELECT table_name FROM information_schema.tables WHERE table_schema = current_schema()

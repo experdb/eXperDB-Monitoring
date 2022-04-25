@@ -57,7 +57,13 @@ public class HourlyBatchTask {
 				return period;
 			
 			Date currentHour = new Date();
-			int currentStatementsKeepDays = eXperDBMAConfig.getInstance().getInt("currentStmtRetention");
+			int currentStatementsKeepDays;
+			try {
+				currentStatementsKeepDays = eXperDBMAConfig.getInstance().getInt("currentStmtRetention");
+			} catch (Exception e) {
+				currentStatementsKeepDays = 1;
+			}
+			
 			Date nextHour = new Date(currentHour.getTime() + (1000 * 60 * 60));
 			Date oldHour = new Date(currentHour.getTime() - (1000 * 60 * 60 * 24 * (currentStatementsKeepDays > 0 ? currentStatementsKeepDays : 1)));
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMddHH");
