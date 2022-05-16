@@ -249,11 +249,15 @@ Public Class frmLogin
     End Function
 
     Private Function checkAllowIP(ByVal IPAddr1 As String, ByVal IPAddr2 As String, ByVal NetMask As String) As Boolean
-        Dim ie As IPAddressExtensions = New IPAddressExtensions
-        Dim ip1 As IPAddress = IPAddress.Parse(IPAddr1)
-        Dim ip2 = IPAddress.Parse(IPAddr2)
-        Dim mask = IPAddress.Parse(NetMask)
-        Return ie.IsInSameSubnet(ip1, ip2, mask)
+        Try
+            Dim ie As IPAddressExtensions = New IPAddressExtensions
+            Dim ip1 As IPAddress = IPAddress.Parse(IPAddr1)
+            Dim ip2 = IPAddress.Parse(IPAddr2)
+            Dim mask = IPAddress.Parse(NetMask)
+            Return ie.IsInSameSubnet(ip1, ip2, mask)
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
     Private Function DoLogin() As Boolean

@@ -1,4 +1,5 @@
-﻿
+﻿Imports System.Net
+
 Public Class frmAllowIP
     Private _clsQuery As clsQuerys
     Private _crypt As New eXperDB.Common.ClsCrypt
@@ -39,6 +40,16 @@ Public Class frmAllowIP
             txtIP.Focus()
             Return
         End If
+
+        Try
+            Dim ie As IPAddressExtensions = New IPAddressExtensions
+            Dim ip1 As IPAddress = IPAddress.Parse(txtIP.Text)
+        Catch ex As Exception
+            MsgBox(p_clsMsgData.fn_GetData("M002", p_clsMsgData.fn_GetData("F935")))
+            txtIP.Focus()
+            Return
+        End Try
+
         If cmbCIDR.Text = "" Then
             MsgBox(p_clsMsgData.fn_GetData("M001", p_clsMsgData.fn_GetData("F935")))
             cmbCIDR.Focus()

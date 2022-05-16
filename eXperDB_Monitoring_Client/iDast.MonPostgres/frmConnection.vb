@@ -335,7 +335,17 @@ Public Class frmConnection
             cmbHARole.Focus()
             Return
         End If
+        If cmbHARole.SelectedIndex = 2 Then
+            If txtHAHost.Text = "" Then
+                MsgBox(p_clsMsgData.fn_GetData("M001", "Upstream Host "))
+                Return
+            End If
 
+            If txtHAPort.Text = "" Then
+                MsgBox(p_clsMsgData.fn_GetData("M001", "Upstream Port "))
+                Return
+            End If
+        End If
 
         ' 접속 테스트 정보가 존재할 경우 
         If btnTest.Tag IsNot Nothing AndAlso btnTest.Tag.GetType Is GetType(eXperDB.ODBC.structConnection) Then
