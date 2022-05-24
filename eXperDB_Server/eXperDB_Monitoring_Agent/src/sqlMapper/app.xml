@@ -368,13 +368,15 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 					 agg_seq_scan_cnt,agg_seq_tuples,agg_index_scan_cnt,agg_index_tuples,live_tuple_cnt,dead_tuple_cnt,last_vacuum,last_analyze,
 					 now() AS collect_dt,  
 					 (tblpages-est_tblpages)*bs AS extra_size,
-					 CASE WHEN tblpages - est_tblpages > 0
+					 CASE WHEN tblpages =  0 THEN 0
+					      WHEN tblpages - est_tblpages > 0
 					   		THEN 100 * (tblpages - est_tblpages)/tblpages::float
 					   		ELSE 0
 					 END AS extra_ratio, 
 					 fillfactor, 
 					 CASE WHEN (tblpages-est_tblpages_ff) < 0 THEN 0 ELSE (tblpages-est_tblpages_ff)*bs END AS bloat_size_kb,
-					 CASE WHEN tblpages - est_tblpages_ff > 0
+					 CASE WHEN tblpages =  0 THEN 0
+					      WHEN tblpages - est_tblpages_ff > 0
 						    THEN 100 * (tblpages - est_tblpages_ff)/tblpages::float
 						    ELSE 0
 					 END AS bloat_ratio, is_na, relid, autovacuum_count, autoanalyze_count, (SELECT age(datfrozenxid) FROM pg_database WHERE datname = CURRENT_DATABASE()) maxage,
