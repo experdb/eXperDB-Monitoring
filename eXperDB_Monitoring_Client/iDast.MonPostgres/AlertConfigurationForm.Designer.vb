@@ -146,6 +146,7 @@ Partial Class AlertConfigurationForm
         Me.cbxDUReplicationDelay = New eXperDB.BaseControls.CheckBox()
         Me.dtbReplicationDelay = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.btnLongSQLFilter = New eXperDB.BaseControls.Button()
         Me.tlpCriticalItem4.SuspendLayout()
         CType(Me.nudDiskUsedRatio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpCriticalItem3.SuspendLayout()
@@ -1547,14 +1548,16 @@ Partial Class AlertConfigurationForm
         'tblTransactionAlert
         '
         Me.tblTransactionAlert.BackColor = System.Drawing.Color.Transparent
-        Me.tblTransactionAlert.ColumnCount = 6
+        Me.tblTransactionAlert.ColumnCount = 7
         Me.tlpWarningItems.SetColumnSpan(Me.tblTransactionAlert, 2)
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55.0!))
+        Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35.0!))
         Me.tblTransactionAlert.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tblTransactionAlert.Controls.Add(Me.btnLongSQLFilter, 4, 2)
         Me.tblTransactionAlert.Controls.Add(Me.lblLockTransaction, 5, 1)
         Me.tblTransactionAlert.Controls.Add(Me.nudLockTransactionRTime, 4, 1)
         Me.tblTransactionAlert.Controls.Add(Me.Label6, 4, 0)
@@ -1605,7 +1608,7 @@ Partial Class AlertConfigurationForm
         Me.lblLockTransaction.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lblLockTransaction.Location = New System.Drawing.Point(343, 25)
         Me.lblLockTransaction.Name = "lblLockTransaction"
-        Me.lblLockTransaction.Size = New System.Drawing.Size(120, 27)
+        Me.lblLockTransaction.Size = New System.Drawing.Size(29, 27)
         Me.lblLockTransaction.TabIndex = 23
         Me.lblLockTransaction.Text = "min"
         Me.lblLockTransaction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -1626,7 +1629,7 @@ Partial Class AlertConfigurationForm
         '
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.tblTransactionAlert.SetColumnSpan(Me.Label6, 2)
+        Me.tblTransactionAlert.SetColumnSpan(Me.Label6, 3)
         Me.Label6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -2343,6 +2346,28 @@ Partial Class AlertConfigurationForm
         Me.Label16.TabIndex = 0
         Me.Label16.Text = "      "
         '
+        'btnLongSQLFilter
+        '
+        Me.btnLongSQLFilter.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnLongSQLFilter.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.tblTransactionAlert.SetColumnSpan(Me.btnLongSQLFilter, 2)
+        Me.btnLongSQLFilter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnLongSQLFilter.FixedWidth = False
+        Me.btnLongSQLFilter.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnLongSQLFilter.ForeColor = System.Drawing.Color.White
+        Me.btnLongSQLFilter.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnLongSQLFilter.LineColor = System.Drawing.Color.Transparent
+        Me.btnLongSQLFilter.Location = New System.Drawing.Point(288, 52)
+        Me.btnLongSQLFilter.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.btnLongSQLFilter.Name = "btnLongSQLFilter"
+        Me.btnLongSQLFilter.Radius = 5
+        Me.btnLongSQLFilter.Size = New System.Drawing.Size(84, 27)
+        Me.btnLongSQLFilter.TabIndex = 24
+        Me.btnLongSQLFilter.Text = "F368"
+        Me.btnLongSQLFilter.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnLongSQLFilter.UseRound = True
+        Me.btnLongSQLFilter.UseVisualStyleBackColor = False
+        '
         'AlertConfigurationForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -2529,5 +2554,6 @@ Partial Class AlertConfigurationForm
     Friend WithEvents lblLockTransaction As System.Windows.Forms.Label
     Friend WithEvents nudLockTransactionRTime As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents btnLongSQLFilter As eXperDB.BaseControls.Button
 
 End Class

@@ -2837,6 +2837,21 @@
     <DESC>Apply Repo IP</DESC>
     <DATA><![CDATA[Apply Repo IP]]></DATA>
   </ROW>
+  <ROW ID="F368" PARAMS="0">
+    <DESC>LongSQLFiltering</DESC>
+    <DATA><![CDATA[Exclude session]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F369" PARAMS="0">
+    <DESC>LongSQLFilteringType</DESC>
+    <DATA><![CDATA[Exclude item]]></DATA>
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F370" PARAMS="0">
+    <DESC>LongSQLFilteringType</DESC>
+    <DATA><![CDATA[Exclude text]]></DATA>
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
@@ -3785,6 +3800,18 @@
     <CATEGORY />
     <COLUMNS />
     <VALUECAST />
+  </ROW>
+  <ROW ID="M114" PARAMS="0">
+    <DESC>Alert condition</DESC>
+    <DATA><![CDATA[Set exclude conditions]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="M115" PARAMS="0">
+    <DESC>check condition</DESC>
+    <DATA><![CDATA[Already exists.]]></DATA>
   </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>

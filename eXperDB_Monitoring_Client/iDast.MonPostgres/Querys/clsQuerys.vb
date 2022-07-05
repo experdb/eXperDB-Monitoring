@@ -720,7 +720,8 @@
                                      ByVal Critical As Integer,
                                      ByVal FixedThreshold As String,
                                      ByVal LastIp As String,
-                                     Optional RetentionTime As Integer = 0) As String
+                                     Optional RetentionTime As Integer = 0,
+                                     Optional Reserved As String = "") As String
         Try
             'If _ODBC Is Nothing Then Return -1
             'Dim strQuery As String = p_clsQueryData.fn_GetData("NEXTVAL")
@@ -735,7 +736,7 @@
             'If intInstance <> -1 Then
             Dim strQuery As String = ""
             strQuery = p_clsQueryData.fn_GetData("UPDATEHEALTHLIMITED")
-            strQuery = String.Format(strQuery, InstanceID, HchkNM, Warning, Critical, FixedThreshold, LastIp, RetentionTime)
+            strQuery = String.Format(strQuery, InstanceID, HchkNM, Warning, Critical, FixedThreshold, LastIp, RetentionTime, Reserved)
             If _ODBC.dbExecuteNonQuery(strQuery) > 0 Then
                 Return 1
             Else

@@ -19,6 +19,7 @@ Public Class frmStatements
     Private _ThreadStmt As Threading.Thread
     Private _ListStatements As New List(Of String)
     Private _UseFilter As Boolean
+    Private _ShowAllStatemetsFilter As Boolean
 
     Private WithEvents _ProgresForm As frmProgres
     Private Event WaitMag(ByVal str As String)
@@ -145,7 +146,7 @@ Public Class frmStatements
 
         '_chtCount = 1
         chtCalls.MainChart.Focus()
-
+        cbxHideSysSQL.Checked = _UseFilter
         'btnQuery.PerformClick()
     End Sub
 
@@ -229,7 +230,7 @@ Public Class frmStatements
     ''' <param name="starDt"></param>
     ''' <param name="endDt"></param>
     ''' <remarks></remarks>
-    Public Sub SetDataSession(ByVal starDt As DateTime, ByVal endDt As DateTime)
+    Public Sub SetDataStatements(ByVal starDt As DateTime, ByVal endDt As DateTime)
 
         Dim dtTable As DataTable = Nothing
         Dim tmpTh As Threading.Thread = New Threading.Thread(Sub()
@@ -255,19 +256,22 @@ Public Class frmStatements
                                                     ShowDT = dtView.ToTable.AsEnumerable.Take(2000).CopyToDataTable
                                                 End If
 
-                                                If ShowDT Is Nothing Then
-                                                    dgvStmtList.DataSource = Nothing
-                                                    Return
-                                                End If
+                                                'If ShowDT Is Nothing Then
+                                                '    dgvStmtList.DataSource = Nothing
+                                                '    Return
+                                                'End If
 
                                                 STMTTableBindingSource.DataSource = ShowDT
+                                                STMTTableBindingSource.ResetBindings(False)
+                                                dgvStmtList.Refresh()
 
                                                 If cbxHideSysSQL.Checked = True Then
                                                     SetRowfilter(cbxHideSysSQL)
                                                 End If
 
+                                                lslSession.Text = p_clsMsgData.fn_GetData("F323", Me.dgvStmtList.RowCount)
                                                 modCommon.sb_GridSortChg(dgvStmtList)
-                                                lslSession.Text = p_clsMsgData.fn_GetData("F323", dtView.Count)
+                                                'lslSession.Text = p_clsMsgData.fn_GetData("F323", dtView.Count)
 
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
@@ -554,8 +558,8 @@ Public Class frmStatements
         '        QueryChartData(i, True)
         '    End If
         'Next
-        'SetDataSession(dtpSt.Value, dtpEd.Value)
-        cbxHideSysSQL.Checked = _UseFilter
+        'SetDataStatements(dtpSt.Value, dtpEd.Value)
+
     End Sub
 
     Private Sub dgvStmtList_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvStmtList.CellDoubleClick
@@ -769,6 +773,7 @@ Public Class frmStatements
     Private Sub ReadConfig()
         Dim clsIni As New Common.IniFile(p_AppConfigIni)
         _UseFilter = clsIni.ReadValue("STATSTATEMENTS", "UseFilter", False)
+        _ShowAllStatemetsFilter = clsIni.ReadValue("STATSTATEMENTS", "ShowAllStatements", False)
 
         Dim StatementFilters As String() = clsIni.ReadValue("STATSTATEMENTS", "StatementFilters", "pg_catalog").Split(New Char() {","c})
 
@@ -782,6 +787,7 @@ Public Class frmStatements
     Private Sub SetRowfilter(ByRef checkBox As BaseControls.CheckBox)
         Try
             Dim dt As DataTable
+            Dim defaultRowFilterList = "CALLS > 0"
             If checkBox.Checked = True Then
                 'Dim rowFilter As String = String.Format("Convert([{0}], System.String) NOT LIKE '%{1}%'", coldgvStmtQuery.HeaderText, "application_name")
                 Dim rowFilter As String = ""
@@ -789,17 +795,25 @@ Public Class frmStatements
                 For Each StatementFilter In _ListStatements
                     rowFilterList += String.Format("AND Convert([{0}], System.String) NOT LIKE '%{1}%' ", coldgvStmtQuery.HeaderText, StatementFilter)
                 Next
-                rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
+                If _ShowAllStatemetsFilter = False Then
+                    rowFilter = defaultRowFilterList
+                    rowFilter += String.Format(" AND Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
+                Else
+                    rowFilter = String.Format("Convert([{0}], System.String) <> '----' {1}", coldgvStmtQuery.HeaderText, rowFilterList)
+                End If
                 'dt = dgvStmtList.DataSource.DataSource
                 'dt.DefaultView.RowFilter = rowFilter
                 Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
-                data.Filter = rowFilter
+                data.Filter = IIf(data.Count > 0, rowFilter, Nothing)
                 btnEditFiltering.Visible = True
             Else
-                dt = dgvStmtList.DataSource
-                dt.DefaultView.RowFilter = Nothing
+                Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
+                If _ShowAllStatemetsFilter = False Then
+                    data.Filter = defaultRowFilterList
+                Else
+                    data.Filter = Nothing
+                End If
                 btnEditFiltering.Visible = False
-                lslSession.Text = p_clsMsgData.fn_GetData("F323", Me.dgvStmtList.RowCount)
             End If
 
             lslSession.Text = p_clsMsgData.fn_GetData("F323", Me.dgvStmtList.RowCount)
@@ -849,7 +863,7 @@ Public Class frmStatements
             End If
         Next
         RaiseEvent WaitMag("Getting statements")
-        SetDataSession(stDate, edDate)
+        SetDataStatements(stDate, edDate)
         RaiseEvent WaitComplete()
     End Sub
 
