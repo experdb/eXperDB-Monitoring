@@ -5,6 +5,7 @@
     Private _dtFT As DataTable
     Private _dtUG As DataTable
     Private _hchkPeriod As Integer = 0
+    Private _longSqlSessions As String = ""
     Public Sub New(ByRef clsQuery As clsQuerys, ByVal FixedThresholdDT As DataTable, ByVal dtUserGroup As DataTable)
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -27,12 +28,14 @@
 
         _dtFT = FixedThresholdDT
         _dtUG = dtUserGroup
+        _longSqlSessions = ""
         _hchkPeriod = CInt(_dtFT.Rows(0)("HCHK_PERIOD_SEC"))
         btnUserGroup.Text = p_clsMsgData.fn_GetData("F352")
 
         lblDelayAlert1.Text = p_clsMsgData.fn_GetData("F954")
         lblDelayAlert2.Text = p_clsMsgData.fn_GetData("F954")
         lblDelayAlert3.Text = p_clsMsgData.fn_GetData("F954")
+        btnLongSQLFilter.Text = p_clsMsgData.fn_GetData("F368")
     End Sub
 
     Public Sub Setvalue(ByVal DT As DataTable, ByVal intInstanceID As Integer)
@@ -209,6 +212,9 @@
                     cbxLongrunsqlsec.Checked = Check
                     nudLongrunsqlsec.Value = nudValue
                     nudLongrunsqlsecCritical.Value = nudValue_
+                    If Not IsDBNull(dataTable.Rows(index)("RESERVED_STR")) Then
+                        _longSqlSessions = dataTable.Rows(index)("RESERVED_STR")
+                    End If
                 Case "UNUSEDINDEX"
                     cbxUnusedindexcnt.Checked = Check
                     nudUnusedindexcnt.Value = nudValue
@@ -392,6 +398,7 @@
         tmpClass.NotificationGroup = cmbNotiUsers.SelectedValue
         tmpClass.NotificationCycle = nudNotiCycle.Value
         tmpClass.BusinessName = txtBusiness.Text
+        tmpClass.LongRunSqlExclude = _longSqlSessions
 
         Return tmpClass
     End Function
@@ -485,6 +492,8 @@
         Public IdleTransCntCritical As Integer
         Public LongRunSqlSecCritical As Integer
         Public FrozenMaxAgeCritical As Integer
+
+        Public LongRunSqlExclude As String
 
     End Class
 
@@ -678,5 +687,10 @@
         End Select
     End Sub
 
-
+    Private Sub btnLongSQLFilter_Click(sender As Object, e As EventArgs) Handles btnLongSQLFilter.Click
+        Dim frmCS As New frmLongrunSQLFilter(_longSqlSessions)
+        If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
+            frmCS.rtnValue(_longSqlSessions)
+        End If
+    End Sub
 End Class

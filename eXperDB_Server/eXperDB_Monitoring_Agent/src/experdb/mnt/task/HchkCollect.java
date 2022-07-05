@@ -54,6 +54,14 @@ public class HchkCollect extends TaskApplication {
 			// Alert 수집 robin 201802
 			List<HashMap<String, Object>> insertAlertList = new ArrayList<HashMap<String,Object>>();
 			List<HashMap<String, Object>> updateList = new ArrayList<HashMap<String,Object>>();
+						
+			try {					
+				sessionAgent.update("app.EXPERDBMA_BT_HCHK_LONGRUNSQL_CREATE_FN_001");
+				sessionAgent.commit();
+			} catch (Exception e) {
+				log.error("", e);
+				throw e;
+			}			
 			
 			// Threshold 정보수집 robin 201802
 			List<HashMap<String, Object>> selectTholdList = new ArrayList<HashMap<String,Object>>();
@@ -69,6 +77,7 @@ public class HchkCollect extends TaskApplication {
 				queryList.add("EXPERDBMA_BT_HCHK_BUFFERHITRATIO_001");
 				queryList.add("EXPERDBMA_BT_HCHK_LOCKCNT_001");
 				queryList.add("EXPERDBMA_BT_HCHK_CONNECTION_001");
+				queryList.add("EXPERDBMA_BT_HCHK_LONGRUNSQL_001");
 				queryList.add("EXPERDBMA_BT_HCHK_CONNECTIONFAIL_001");
 				queryList.add("EXPERDBMA_BT_HCHK_UNUSEDINDEX_001");
 				queryList.add("EXPERDBMA_BT_HCHK_LASTANALYZE_001");
@@ -230,15 +239,21 @@ public class HchkCollect extends TaskApplication {
 				List<HashMap<String, Object>> solveAlertList= new ArrayList<HashMap<String,Object>>();
 				for (HashMap<String, Object> pmap : prevAlertList) {
 					boolean isSolve = true;
+					log.debug("curr size : " + insertAlertList.size());
 					for (HashMap<String, Object> cmap : insertAlertList) {
+						log.debug("prev : " + pmap.get("instance_id") + "," + pmap.get("hchk_name") + "," + pmap.get("state") + ";;");
+						log.debug("curr : " + cmap.get("instance_id") + "," + cmap.get("hchk_name") + "," + cmap.get("state") + ";;");
 						if(pmap.get("instance_id").equals(cmap.get("instance_id"))
-						&& pmap.get("hchk_name").equals(cmap.get("hchk_name"))) {
-							isSolve = false; break;
+						&& pmap.get("hchk_name").equals(cmap.get("hchk_name"))
+						&& (Integer.parseInt(cmap.get("state").toString()) >= Integer.parseInt(pmap.get("state").toString()))) {
+								log.debug("keep status");
+								isSolve = false; break;
 						}
 					}
 					if(isSolve) {
 						pmap.put("state", 400);
 						solveAlertList.add(pmap);
+						log.debug("prev2 : " + pmap.get("instance_id") + "," + pmap.get("hchk_name") + "," + pmap.get("state") + "\n\n");
 					}
 				}
 				
@@ -351,6 +366,7 @@ public class HchkCollect extends TaskApplication {
 									pstmt.setString(argIndex[1], exportMap.get("messages").toString());
 								}
 								pstmt.executeUpdate();
+								log.debug("sent alert : " + exportMap.get("messages").toString() + "\n\n");
 							}
 						}
 						connExternalDB.commit();

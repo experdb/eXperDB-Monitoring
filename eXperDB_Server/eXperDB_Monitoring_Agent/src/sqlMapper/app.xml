@@ -1929,7 +1929,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		         ROUND(SUM(1)::NUMERIC/MAX(IST.MAX_CONN_CNT) * 100, 2) AS ACTIVECONNECTION,
 		         --add state SUM(CASE WHEN SQL = '<IDLE> in transaction' THEN 1 ELSE 0 END)  AS TRAXIDLECNT,
 		         SUM(CASE WHEN STATE = 'idle in transaction' THEN 1 ELSE 0 END)  AS TRAXIDLECNT,
-		         MAX(ELAPSED_TIME) AS LONGRUNSQL,
+		         --MAX(ELAPSED_TIME) AS LONGRUNSQL,
 		         '2' AS COLLECT_GROUP,
 		         BAK.REG_DATE AS COLLECT_REG_DATE,
 		         BAK.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
@@ -1945,6 +1945,82 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		   AND BAK.USER_NAME IS NOT NULL
 		   AND IST.INSTANCE_ID = ACM.INSTANCE_ID
 		GROUP BY BAK.REG_DATE,BAK.ACTV_REG_SEQ,ACM.INSTANCE_ID;
+		]]>
+	</select>
+	
+	<select id="EXPERDBMA_BT_HCHK_LONGRUNSQL_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT INSTANCEID AS INSTANCE_ID,
+			   --ACTIVECONNECTION, TRAXIDLECNT, 
+			   LONGRUNSQL, COLLECT_GROUP, COLLECT_REG_DATE, REG_SEQ COLLECT_REG_SEQ, REG_TIME FROM  GET_SESSION_HEALTH()
+		ORDER BY INSTANCE_ID
+		]]>
+	</select>	
+	
+	<select id="EXPERDBMA_BT_HCHK_LONGRUNSQL_CREATE_FN_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+ 			CREATE OR REPLACE FUNCTION GET_SESSION_HEALTH()
+				RETURNS TABLE (INSTANCEID INT, LONGRUNSQL INT, COLLECT_GROUP VARCHAR, COLLECT_REG_DATE VARCHAR, REG_SEQ VARCHAR, REG_TIME TIME) AS 
+				$$
+			DECLARE    
+			    VAR_INSTANCE_ID INT;
+  			    VAR_COND_LEFT VARCHAR;
+  			    VAR_COND_RIGHT VARCHAR;
+  			    VAR_COND VARCHAR;
+			    TMP_CONDTYPE VARCHAR;
+			    TMP_STR VARCHAR;
+			    VAR_SQL VARCHAR;
+			BEGIN    
+				VAR_INSTANCE_ID = -1;
+				VAR_SQL = '';
+				FOR VAR_INSTANCE_ID IN
+	        		SELECT INSTANCE_ID INSTANCEID FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN='N'	order by instance_id        		
+			    loop
+					VAR_COND_LEFT := '''ZZ'' ';
+					VAR_COND_RIGHT := '''ZZ'' ';
+			    	FOR tmp_condtype, tmp_str IN
+					    SELECT JSONB_ARRAY_ELEMENTS(RESERVED_STR::JSONB)->>'coltype' CONDTYPE,
+					           JSONB_ARRAY_ELEMENTS(RESERVED_STR::JSONB)->>'typestr' STR FROM TB_HCHK_THRD_LIST THTL WHERE INSTANCE_ID = VAR_INSTANCE_ID AND HCHK_NAME = 'LONGRUNSQL' AND RESERVED_STR <> '' ORDER BY CONDTYPE
+					loop
+					RAISE NOTICE 'tmp_condtype,tmp_str: %,%', tmp_condtype, tmp_str;
+						if tmp_condtype = '1' then
+							VAR_COND_LEFT := VAR_COND_LEFT || ' ||BAK.USER_NAME';
+							VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || tmp_str || '''';
+					    elseif tmp_condtype = '2' then 
+							VAR_COND_LEFT := concat(VAR_COND_LEFT, '||BAK.DB_NAME');
+							VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || tmp_str || '''';
+					    elseif tmp_condtype = '3' then
+							VAR_COND_LEFT := concat(VAR_COND_LEFT, '||BAK.CLIENT_ADDR');
+							VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || tmp_str || '''';
+					    end if;
+					end loop;
+					if VAR_COND_RIGHT <> '''ZZ'' ' then
+						VAR_COND := VAR_COND_LEFT || '<>' || VAR_COND_RIGHT;
+					else
+						VAR_COND := ' 1=1';
+					end if;
+			        VAR_SQL := 'WITH IST AS (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = ''Y'' AND DELETE_YN=''N'')
+						SELECT ACM.INSTANCE_ID,
+						       MAX(ELAPSED_TIME) AS LONGRUNSQL,
+						       ''2'' AS COLLECT_GROUP,
+						       BAK.REG_DATE AS COLLECT_REG_DATE,
+						       BAK.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
+						       CURRENT_TIME AS REG_TIME
+						 FROM TB_ACTV_COLLECT_INFO AS ACM FULL OUTER JOIN TB_BACKEND_RSC AS BAK ON ACM.REG_DATE = BAK.REG_DATE AND ACM.ACTV_REG_SEQ = BAK.ACTV_REG_SEQ 
+						WHERE BAK.REG_DATE=TO_CHAR(NOW(), ''YYYYMMDD'')
+						   AND BAK.ACTV_REG_SEQ = (SELECT MAX(X.ACTV_REG_SEQ) FROM TB_ACTV_COLLECT_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), ''YYYYMMDD'') AND X.INSTANCE_ID=' || VAR_INSTANCE_ID || ')
+						   AND BAK.USER_NAME IS NOT NULL
+   						   AND ACM.INSTANCE_ID = ' || VAR_INSTANCE_ID || 
+   						   ' AND' || VAR_COND ||
+						' GROUP BY BAK.REG_DATE,BAK.ACTV_REG_SEQ,ACM.INSTANCE_ID';
+   					--RAISE NOTICE 'VAR_SQL: %', VAR_SQL;
+			    	FOR INSTANCEID, LONGRUNSQL, COLLECT_GROUP, COLLECT_REG_DATE, REG_SEQ, REG_TIME in execute VAR_SQL
+					LOOP
+						RETURN NEXT;
+				    END LOOP;
+			    END LOOP;
+ 			END $$
+ 			LANGUAGE 'plpgsql';
 		]]>
 	</select>
 	
@@ -2020,7 +2096,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			 GROUP BY O.REG_DATE,O.OBJT_REG_SEQ,O.INSTANCE_ID
 		)
 --		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, TTE.M1::NUMERIC(5,2) FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
-		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, IDX.INVALIDINDEX, M1 FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
+		SELECT IDX.INSTANCE_ID, IDX.UNUSEDINDEX, IDX.INVALIDINDEX, M1*100 FROZENMAXAGE, '1' AS COLLECT_GROUP, IDX.COLLECT_REG_DATE, IDX.COLLECT_REG_SEQ, IDX.REG_TIME 	
 		  FROM IDX, TTE
 		 WHERE IDX.INSTANCE_ID = TTE.INSTANCE_ID
 	</select>
@@ -3186,8 +3262,24 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		   ]]>
 	</select>	
 		   		   
-	
 	<insert id="TB_HCHK_ALERT_INFO_I001" parameterType="hashmap" >
+	<![CDATA[	
+		WITH UPSERT AS (
+			UPDATE TB_HCHK_ALERT_INFO QU
+			   SET STATE = #{state}
+			 WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
+				 AND HCHK_REG_SEQ = CURRVAL('HCHK_REG_SEQ')
+				 AND INSTANCE_ID = #{instance_id}
+				 AND HCHK_NAME = #{hchk_name}
+			RETURNING *) 
+		INSERT INTO TB_HCHK_ALERT_INFO (reg_date,hchk_reg_seq,instance_id,hchk_name,state,check_user_id,check_comment,check_ip,check_dt)
+		SELECT TO_CHAR(NOW(), 'YYYYMMDD'), CURRVAL('HCHK_REG_SEQ'), #{instance_id}, #{hchk_name}, #{state}, null,null,null,null 
+		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
+		]]>
+	</insert>
+		 		 
+	<insert id="TB_HCHK_ALERT_INFO_I001_220613" parameterType="hashmap" >
+	<![CDATA[
 		INSERT INTO TB_HCHK_ALERT_INFO	
 		SELECT 
 			TO_CHAR(NOW(), 'YYYYMMDD'),
@@ -3207,6 +3299,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			 AND INSTANCE_ID = #{instance_id}
 			 AND HCHK_NAME = #{hchk_name}
 		)
+		]]>
 	</insert>
 	<insert id="TB_HCHK_ALERT_INFO_I001_OLD" parameterType="hashmap" >
 		INSERT INTO TB_HCHK_ALERT_INFO	
@@ -5014,8 +5107,8 @@ UNION ALL
 			    CASE WHEN MU.USER_NOTI_PHONE = 0 THEN MU.USER_PHONE WHEN MU.USER_NOTI_PHONE = 1 THEN MU.USER_PHONE2 ELSE MU.USER_EMPNUM END AS reciever,
 	            ALERT.state export_level,
 	            '['
-			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
-			    || ', (Resolved)'
+			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' WHEN ALERT.state = 300 THEN 'Critical' ELSE 'Resolved' END)
+			    || ', issue'
 			    || ', Host : '
 			    || INS.HOST_NAME 
 			    || ', Alert : ' 

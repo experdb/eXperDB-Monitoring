@@ -347,7 +347,7 @@
             'Dim Fixed As Integer = 1
             _clsQuery.UpdateHealthLimited(InstanceID, "LOCKCNT", HealtLimited.LockedTrancCnt, HealtLimited.LockedTrancCntCritical, HealtLimited.LockedtranccntBool, LastIp, HealtLimited.LockedTrancCntRTime)
             _clsQuery.UpdateHealthLimited(InstanceID, "TRAXIDLECNT", HealtLimited.IdleTransCnt, HealtLimited.IdleTransCntCritical, HealtLimited.IdletranscntBool, LastIp)
-            _clsQuery.UpdateHealthLimited(InstanceID, "LONGRUNSQL", HealtLimited.LongRunSqlSec, HealtLimited.LongRunSqlSecCritical, HealtLimited.LongrunsqlsecBool, LastIp)
+            _clsQuery.UpdateHealthLimited(InstanceID, "LONGRUNSQL", HealtLimited.LongRunSqlSec, HealtLimited.LongRunSqlSecCritical, HealtLimited.LongrunsqlsecBool, LastIp, 0, HealtLimited.LongRunSqlExclude)
             _clsQuery.UpdateHealthLimited(InstanceID, "UNUSEDINDEX", HealtLimited.UnusedIndexCnt, 0, HealtLimited.UnusedindexcntBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "INVALIDINDEX", 0, 1, HealtLimited.InvalidindexBool, LastIp)
             _clsQuery.UpdateHealthLimited(InstanceID, "FROZENMAXAGE", HealtLimited.FrozenMaxAge, HealtLimited.FrozenMaxAgeCritical, HealtLimited.FrozenMaxAgeBool, LastIp)
