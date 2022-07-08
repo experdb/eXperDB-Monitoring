@@ -213,6 +213,7 @@ create table tb_hchk_thrd_list (
     notification_level integer,
     business_name varchar(30) DEFAULT '',
     notification_lastsent timestamp without time ZONE NOT NULL DEFAULT NOW(),
+    reserved_str character varying(200),
     last_mod_user_id character varying(16) default null,
     last_mod_ip character varying(15),
     last_mod_dt timestamp without time zone
