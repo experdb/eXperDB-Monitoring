@@ -1240,7 +1240,6 @@ insert into tb_sys_code select  201, 'SInvalRead';
 insert into tb_sys_code select  202, 'SInvalWrite';
 insert into tb_sys_code select  203, 'SubtransBuffer';
 insert into tb_sys_code select  204, 'SubtransSLRU';
-insert into tb_sys_code select  205, 'SyncRep';
 insert into tb_sys_code select  206, 'SyncScan';
 insert into tb_sys_code select  207, 'TablespaceCreate';
 insert into tb_sys_code select  208, 'TwoPhaseState';

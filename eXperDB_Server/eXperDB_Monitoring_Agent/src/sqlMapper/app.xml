@@ -864,7 +864,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{agg_index_scan_tuples},
 			#{agg_index_scan_fetch_tuples},
 			#{collect_dt}
-		)
+		) ON CONFLICT DO NOTHING;
 	</insert>	
 	<insert id="TB_INDEX_INFO_I001_OLD" parameterType="hashmap" >
 		INSERT INTO TB_INDEX_INFO
