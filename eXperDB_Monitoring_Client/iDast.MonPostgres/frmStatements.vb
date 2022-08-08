@@ -200,6 +200,7 @@ Public Class frmStatements
         lslSession.Text = p_clsMsgData.fn_GetData("F323", 0)
         lblSort.Text = p_clsMsgData.fn_GetData("F325")
         cbxHideSysSQL.Text = p_clsMsgData.fn_GetData("F331")
+        cbxSkipChart.Text = p_clsMsgData.fn_GetData("F371")
         btnEditFiltering.Text = p_clsMsgData.fn_GetData("F333")
         cmbSort.SelectedIndex = 0
         cmbTop.SelectedIndex = 0
@@ -847,21 +848,23 @@ Public Class frmStatements
     End Sub
 
     Private Sub Thmain(ByVal intInstance As Integer, ByVal stDate As DateTime, ByVal edDate As DateTime, ByVal enmSvrNm As clsEnums.ShowName, ByVal intTopCount As Integer)
-        For i As Integer = 1 To _AreaCount
-            If chtCalls.MainChart.ChartAreas(i).Visible = True Then
-                Select Case i
-                    Case 1
-                        RaiseEvent WaitMag("Getting query calls.")
-                    Case 2
-                        RaiseEvent WaitMag("Getting total time.")
-                    Case 3
-                        RaiseEvent WaitMag("Getting CPU time")
-                    Case 4
-                        RaiseEvent WaitMag("Getting I/O time")
-                End Select
-                QueryChartData(i, True, intTopCount)
-            End If
-        Next
+        If cbxSkipChart.Checked = False Then
+            For i As Integer = 1 To _AreaCount
+                If chtCalls.MainChart.ChartAreas(i).Visible = True Then
+                    Select Case i
+                        Case 1
+                            RaiseEvent WaitMag("Getting query calls.")
+                        Case 2
+                            RaiseEvent WaitMag("Getting total time.")
+                        Case 3
+                            RaiseEvent WaitMag("Getting CPU time")
+                        Case 4
+                            RaiseEvent WaitMag("Getting I/O time")
+                    End Select
+                    QueryChartData(i, True, intTopCount)
+                End If
+            Next
+        End If
         RaiseEvent WaitMag("Getting statements")
         SetDataStatements(stDate, edDate)
         RaiseEvent WaitComplete()
@@ -908,7 +911,7 @@ Public Class frmStatements
 
             Dim tmpDtSet As New DataSet
 
-            tmpDtSet.Tables.Add(dgvStmtList.GetDataTable("SESSION_INFO"))
+            tmpDtSet.Tables.Add(dgvStmtList.GetDataTable("STATEMENTS_STAT"))
             eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
 
             If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then

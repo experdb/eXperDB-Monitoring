@@ -222,6 +222,7 @@ Public Class frmMonItemDetail
 
         ' Button 
         btnQuery.Text = p_clsMsgData.fn_GetData("F151")
+        btnExcel.Text = p_clsMsgData.fn_GetData("F142")
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         ' Talble Information (whole)
@@ -1381,8 +1382,8 @@ Public Class frmMonItemDetail
             MsgBox(p_clsMsgData.fn_GetData("M014"))
             Return False
         Else
-            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 241 Then
-                MsgBox(p_clsMsgData.fn_GetData("M063", 4))
+            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > 721 Then
+                MsgBox(p_clsMsgData.fn_GetData("M063", 12))
                 Return False
             End If
         End If
@@ -1564,6 +1565,28 @@ Public Class frmMonItemDetail
             _ProgresForm.Location = New Point(Me.Location.X, Me.Location.Y + titleHeight)
             _ProgresForm.Size = Me.Size
             _ProgresForm.Height = _ProgresForm.Height - titleHeight
+        End If
+    End Sub
+
+    Private Sub btnExcel_Click(sender As Object, e As EventArgs) Handles btnExcel.Click
+        Dim fsd As New SaveFileDialog
+        fsd.AddExtension = True
+        fsd.DefaultExt = "*.xls"
+        fsd.Filter = "Excel files (*.xls)|*.xls"
+        If fsd.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            Dim strExcelFile As String = fsd.FileName
+
+            Dim tmpDtSet As New DataSet
+
+            tmpDtSet.Tables.Add(dgvSessionList.GetDataTable("SESSION_INFO"))
+            tmpDtSet.Tables.Add(dgvRptSQL.GetDataTable("SESSION_STAT"))
+            tmpDtSet.Tables.Add(dgvLock.GetDataTable("LOCK_INFO"))
+            tmpDtSet.Tables.Add(dgvStmtList.GetDataTable("STATEMENTS_STAT"))
+            eXperDB.ODBC.eXperDBOLEDB.SaveExcelData(strExcelFile, tmpDtSet, True, Nothing)
+
+            If MsgBox(p_clsMsgData.fn_GetData("M013"), Buttons:=frmMsgbox.MsgBoxStyle.YesNo) = frmMsgbox.MsgBoxResult.Yes Then
+                System.Diagnostics.Process.Start(strExcelFile)
+            End If
         End If
     End Sub
 End Class
