@@ -15,6 +15,8 @@ case "$ARGV" in
         if [ ! -z ${EXPERDBREPO} ] ; then
                 sed -i "s/127.0.0.1/${EXPERDBREPO}/g" $SERVERCONF/MyBatisConfig.xml
                 sed -i "s/127.0.0.1/${EXPERDBREPO}/g" $MANAGERCONF/MyBatisConfig.xml
+				sed -i "s/5432/${REPOPORT}/g" $SERVERCONF/MyBatisConfig.xml
+				sed -i "s/5432/${REPOPORT}/g" $MANAGERCONF/MyBatisConfig.xml
         fi
         for ((i=0;i<=5;i++))
         do
