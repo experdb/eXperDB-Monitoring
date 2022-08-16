@@ -229,6 +229,10 @@ Public Class frmTrendReport
         Dim arrInstanceIDs As New ArrayList
         Dim arrClusters As New ArrayList
 
+        If dgvClusterSelList.Rows.Count <= 0 Then
+            MsgBox(p_clsMsgData.fn_GetData("M116"))
+            Return
+        End If
         For Each tmpRow As DataGridViewRow In Me.dgvClusterSelList.Rows
             arrInstanceIDs.Add(tmpRow.Cells(0).Value)
             arrClusters.Add(tmpRow.Cells(1).Value)
@@ -1051,7 +1055,7 @@ Public Class frmTrendReport
                         strQuery.Replace(Chr(13), vbCrLf)
                         cell.SetCellValue(strQuery)
                         lineCount = strQuery.Split(vbCrLf).Length
-                        sheet.GetRow(rowIndex).Height = _defaultRowHeight * lineCount
+                        sheet.GetRow(rowIndex).Height = IIf(_defaultRowHeight * lineCount > 30000, 30000, _defaultRowHeight * lineCount)
                         For k As Integer = 0 To lineCount - 1
                             If strQuery.Split(vbCrLf)(k).Length > 110 Then
                                 Dim newlineCount As Integer = strQuery.Split(vbCrLf)(k).Length \ 110
@@ -1182,7 +1186,7 @@ Public Class frmTrendReport
                 If trendType < 320 Then Continue For
                 Dim dtCodeView As DataView = Nothing
                 Select Case trendType
-                    Case 320
+                    Case 320 'Lock sessions
                         title = GetCodeName(trendType)
                         If _dtTrendLockTable Is Nothing Or _dtTrendLockTable.Rows.Count <= 0 Then
                             title = title + "-" + "No Data"
@@ -1195,7 +1199,7 @@ Public Class frmTrendReport
                         _rowNumber += 1
                         _linkCellRowForLock.Clear()
                         WriteLockSessions(sheetR, _dtTrendLockTable)
-                    Case 321
+                    Case 321 'Statements Report
                         title = GetCodeName(trendType)
                         If _dtTrendStmtStatTable Is Nothing Or _dtTrendStmtStatTable.Rows.Count <= 0 Then
                             title = title + "-" + "No Data"
