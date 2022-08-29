@@ -1053,7 +1053,12 @@ Public Class frmTrendReport
                         cell = GetCell(sheet.GetRow(rowIndex), j)
                         Dim strQuery As String = dtTable.Rows(i).Item("query").ToString
                         strQuery.Replace(Chr(13), vbCrLf)
-                        cell.SetCellValue(strQuery)
+                        'cell.SetCellValue(strQuery)
+                        If strQuery.Length < 32277 Then
+                            cell.SetCellValue(strQuery)
+                        Else
+                            cell.SetCellValue(strQuery.Substring(0, 32766))
+                        End If
                         lineCount = strQuery.Split(vbCrLf).Length
                         sheet.GetRow(rowIndex).Height = IIf(_defaultRowHeight * lineCount > 30000, 30000, _defaultRowHeight * lineCount)
                         For k As Integer = 0 To lineCount - 1
