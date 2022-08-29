@@ -297,30 +297,34 @@ Public Class frmConnection
 
 
     Public Sub rtnValue(ByRef intRow As Integer, ByRef ODBCConnect As structConnection, ByRef StrSchema As String, ByRef intCollect As Integer, ByRef intStmtCollectSec As Integer, ByRef intReScanStmp As Integer, ByRef intSnapshotHour As Integer, ByRef strAliasNm As String, ByRef strHARole As String, ByRef strHAHost As String, ByRef strHAPort As Integer, ByRef strHAREPLHost As String, ByRef strVirtualIP As String, ByRef strVirtualIP2 As String)
-        intRow = _idxROw
-        ODBCConnect = btnTest.Tag
+        Try
+            intRow = _idxROw
+            ODBCConnect = btnTest.Tag
 
-        StrSchema = cmbSchema.Text
-        intCollect = nudCollectSecond.Value
-        intStmtCollectSec = cmbStmtCollectPeriod.SelectedValue
-        intReScanStmp = IIf(chkReScanStmt.Checked, 1, 0) + IIf(chkResetStmt.Checked, 2, 0)
+            StrSchema = cmbSchema.Text
+            intCollect = nudCollectSecond.Value
+            intStmtCollectSec = cmbStmtCollectPeriod.SelectedValue
+            intReScanStmp = IIf(chkReScanStmt.Checked, 1, 0) + IIf(chkResetStmt.Checked, 2, 0)
 
-        intSnapshotHour = cmbSnapPeriod.SelectedValue
-        strAliasNm = txtAlias.Text
+            intSnapshotHour = cmbSnapPeriod.SelectedValue
+            strAliasNm = txtAlias.Text
 
-        Select Case CInt(cmbHARole.SelectedIndex)
-            Case 1
-                strHARole = "P"
-            Case 2
-                strHARole = "S"
-            Case Else
-                strHARole = "A"
-        End Select
-        strHAHost = txtHAHost.Text
-        strHAPort = txtHAPort.Text
-        strHAREPLHost = txtHAREPLHost.Text
-        strVirtualIP = txtVIP.Text
-        strVirtualIP2 = txtVIP2.Text
+            Select Case CInt(cmbHARole.SelectedIndex)
+                Case 1
+                    strHARole = "P"
+                Case 2
+                    strHARole = "S"
+                    strHAHost = txtHAHost.Text
+                    strHAPort = txtHAPort.Text
+                    strHAREPLHost = txtHAREPLHost.Text
+                Case Else
+                    strHARole = "A"
+            End Select
+            strVirtualIP = txtVIP.Text
+            strVirtualIP2 = txtVIP2.Text
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+        End Try
     End Sub
 
 
