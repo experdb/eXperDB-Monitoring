@@ -296,6 +296,7 @@ Public Class frmLogin
             Dim isExpired As Boolean = dtTable.Rows(0).Item("ISEXPIRED")
             Dim isExpiredNear As Boolean = dtTable.Rows(0).Item("ISEXPIREDNEAR")
             Dim UntilExpireDays As Integer = Integer.Parse(dtTable.Rows(0).Item("UntilExpireDays").ToString())
+            Dim isFistLogin As Boolean = IsDBNull(dtTable.Rows(0).Item("last_login_dt"))
 
             _clsQuery.ClearLoginFail(strLocIP)
             '''''''''''''''' check lock           '''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -330,7 +331,7 @@ Public Class frmLogin
 
             AccessLog("login", 0)
             '''''''''''''''' check expiration pw  '''''''''''''''''''''''''''''''''''''''''''''''''''''
-            If isExpired Then
+            If isFistLogin Or isExpired Then
                 Dim frmPassword As New frmUserPassword(_clsQuery, False)
                 If frmPassword.ShowDialog <> Windows.Forms.DialogResult.OK Then
                     Return False
