@@ -1256,6 +1256,7 @@ insert into tb_sys_code select  218, 'PgSleep';
 insert into tb_sys_code select  219, 'RecoveryApplyDelay';
 insert into tb_sys_code select  220, 'RecoveryRetrieveRetryInterval';
 insert into tb_sys_code select  221, 'VacuumDelay';
+insert into tb_sys_code select  221, 'CPU';
 insert into tb_sys_code select 301, 'CPU util'					 , 'Report';
 insert into tb_sys_code select 302, 'CPU wait'           , 'Report';
 insert into tb_sys_code select 303, 'Memory usage'       , 'Report';
@@ -1308,6 +1309,7 @@ insert into tb_sys_code select 424, 'UNUSEDINDEX'        , 'Unused index'       
 insert into tb_sys_code select 425, 'VIRTUAL_IP'         , 'Virtual IP'          ;
 insert into tb_sys_code select 426, 'WALCNT'             , 'Wal count'           ;
 insert into tb_sys_code select 427, 'INVALIDINDEX'        , 'Invalid index'      ;
+insert into tb_sys_code select 428, 'ACTIVECONNECTION'   , 'Max Connections'      ;
 
 
 

@@ -100,6 +100,7 @@ Partial Class AlertConfigurationForm
         Me.lblTxAlert = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tblTransactionAlert = New System.Windows.Forms.TableLayoutPanel()
+        Me.btnLongSQLFilter = New eXperDB.BaseControls.Button()
         Me.lblLockTransaction = New System.Windows.Forms.Label()
         Me.nudLockTransactionRTime = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -146,7 +147,6 @@ Partial Class AlertConfigurationForm
         Me.cbxDUReplicationDelay = New eXperDB.BaseControls.CheckBox()
         Me.dtbReplicationDelay = New eXperDB.Controls.DoubleTrackBarDraw()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.btnLongSQLFilter = New eXperDB.BaseControls.Button()
         Me.tlpCriticalItem4.SuspendLayout()
         CType(Me.nudDiskUsedRatio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpCriticalItem3.SuspendLayout()
@@ -1229,7 +1229,7 @@ Partial Class AlertConfigurationForm
         Me.nudWALcnt.Dock = System.Windows.Forms.DockStyle.Top
         Me.nudWALcnt.ForeColor = System.Drawing.SystemColors.WindowText
         Me.nudWALcnt.Location = New System.Drawing.Point(178, 129)
-        Me.nudWALcnt.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.nudWALcnt.Maximum = New Decimal(New Integer() {204800, 0, 0, 0})
         Me.nudWALcnt.Name = "nudWALcnt"
         Me.nudWALcnt.Size = New System.Drawing.Size(54, 21)
         Me.nudWALcnt.TabIndex = 13
@@ -1598,6 +1598,28 @@ Partial Class AlertConfigurationForm
         Me.tblTransactionAlert.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5.0!))
         Me.tblTransactionAlert.Size = New System.Drawing.Size(466, 250)
         Me.tblTransactionAlert.TabIndex = 2
+        '
+        'btnLongSQLFilter
+        '
+        Me.btnLongSQLFilter.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        Me.btnLongSQLFilter.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.tblTransactionAlert.SetColumnSpan(Me.btnLongSQLFilter, 2)
+        Me.btnLongSQLFilter.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.btnLongSQLFilter.FixedWidth = False
+        Me.btnLongSQLFilter.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.btnLongSQLFilter.ForeColor = System.Drawing.Color.White
+        Me.btnLongSQLFilter.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
+        Me.btnLongSQLFilter.LineColor = System.Drawing.Color.Transparent
+        Me.btnLongSQLFilter.Location = New System.Drawing.Point(288, 52)
+        Me.btnLongSQLFilter.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
+        Me.btnLongSQLFilter.Name = "btnLongSQLFilter"
+        Me.btnLongSQLFilter.Radius = 5
+        Me.btnLongSQLFilter.Size = New System.Drawing.Size(84, 27)
+        Me.btnLongSQLFilter.TabIndex = 24
+        Me.btnLongSQLFilter.Text = "F368"
+        Me.btnLongSQLFilter.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
+        Me.btnLongSQLFilter.UseRound = True
+        Me.btnLongSQLFilter.UseVisualStyleBackColor = False
         '
         'lblLockTransaction
         '
@@ -2345,28 +2367,6 @@ Partial Class AlertConfigurationForm
         Me.Label16.Size = New System.Drawing.Size(34, 18)
         Me.Label16.TabIndex = 0
         Me.Label16.Text = "      "
-        '
-        'btnLongSQLFilter
-        '
-        Me.btnLongSQLFilter.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        Me.btnLongSQLFilter.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
-        Me.tblTransactionAlert.SetColumnSpan(Me.btnLongSQLFilter, 2)
-        Me.btnLongSQLFilter.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.btnLongSQLFilter.FixedWidth = False
-        Me.btnLongSQLFilter.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.btnLongSQLFilter.ForeColor = System.Drawing.Color.White
-        Me.btnLongSQLFilter.GraColor = System.Drawing.Color.FromArgb(CType(CType(152, Byte), Integer), CType(CType(152, Byte), Integer), CType(CType(160, Byte), Integer))
-        Me.btnLongSQLFilter.LineColor = System.Drawing.Color.Transparent
-        Me.btnLongSQLFilter.Location = New System.Drawing.Point(288, 52)
-        Me.btnLongSQLFilter.Margin = New System.Windows.Forms.Padding(3, 0, 3, 3)
-        Me.btnLongSQLFilter.Name = "btnLongSQLFilter"
-        Me.btnLongSQLFilter.Radius = 5
-        Me.btnLongSQLFilter.Size = New System.Drawing.Size(84, 27)
-        Me.btnLongSQLFilter.TabIndex = 24
-        Me.btnLongSQLFilter.Text = "F368"
-        Me.btnLongSQLFilter.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
-        Me.btnLongSQLFilter.UseRound = True
-        Me.btnLongSQLFilter.UseVisualStyleBackColor = False
         '
         'AlertConfigurationForm
         '
