@@ -1087,8 +1087,8 @@
             For Each tmpRow As DataGridViewRow In dgv.Rows
                 If tmpRow.Cells(searchKeyColumnIndex(dgv, "colHARole")).Value = "S" Then
                     For Each groupRow As DataGridViewRow In dgvMonLst.Rows
-                        If tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonHostNm.Index).Value _
-                            Or tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonIP.Index).Value Then
+                        If (tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonHostNm.Index).Value And tmpRow.Cells(searchKeyColumnIndex(dgv, "colPort")).Value = groupRow.Cells(colPort.Index).Value) _
+                            Or (tmpRow.Cells(searchKeyColumnIndex(dgv, "colHAHost")).Value = groupRow.Cells(colMonIP.Index).Value And tmpRow.Cells(searchKeyColumnIndex(dgv, "colPort")).Value = groupRow.Cells(colPort.Index).Value) Then
                             parentNode = groupRow
                             newNode = parentNode.Nodes.Add(tmpRow.Cells(searchKeyColumnIndex(dgv, "colHostNm")).Value)
                             newNode.Tag = tmpRow.Tag
@@ -1121,8 +1121,8 @@
         Dim newNode As AdvancedDataGridView.TreeGridNode = Nothing
         If pNode.Cells(colHostNm.Index).Value.ToString() <> "" Then
             For Each tmpChild As DataRow In DtView
-                If (tmpChild.Item("HA_HOST") Like (pNode.Cells(colMonHostNm.Index).Value + "*")) = True Or _
-                    tmpChild.Item("HA_HOST") = pNode.Cells(colIP.Index).Value Then
+                If ((tmpChild.Item("HA_HOST") Like (pNode.Cells(colMonHostNm.Index).Value + "*")) = True And tmpChild.Item("SERVICE_PORT") = pNode.Cells(colPort.Index).Value) Or _
+                    (tmpChild.Item("HA_HOST") = pNode.Cells(colIP.Index).Value And tmpChild.Item("SERVICE_PORT") = pNode.Cells(colPort.Index).Value) Then
                     newNode = pNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
                     newNode.Tag = tmpChild.Item("INSTANCE_ID")
                     newNode.Image = dbmsImgLst.Images(1)

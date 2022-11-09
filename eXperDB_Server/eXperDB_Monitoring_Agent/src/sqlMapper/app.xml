@@ -3335,7 +3335,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="EXPERDBMA_BT_SELECT_HA_GROUP_001" parameterType="hashmap" resultType="hashmap">
 		SELECT /* EXPERDBMA_BT_SELECT_HA_GROUP_001 */
 		   CASE WHEN A.HA_ROLE = 'P' THEN A.INSTANCE_ID ELSE 
-		   			(SELECT B.HA_GROUP FROM TB_INSTANCE_INFO B WHERE B.HOST_NAME = A.HA_HOST OR B.HOST_NAME = A.HA_REPL_HOST OR B.SERVER_IP = A.HA_HOST) 
+		   			(SELECT B.HA_GROUP FROM TB_INSTANCE_INFO B 
+		   			  WHERE (B.HOST_NAME = A.HA_HOST AND B.SERVICE_PORT = A.SERVICE_PORT) 
+		   			     OR (B.HOST_NAME = A.HA_REPL_HOST AND B.SERVICE_PORT = A.SERVICE_PORT) 
+		   			     OR (B.SERVER_IP = A.HA_HOST AND B.SERVICE_PORT = A.SERVICE_PORT)) 
 		   	END AS HA_GROUP
 		FROM TB_INSTANCE_INFO A
 		WHERE INSTANCE_ID = #{instance_id}
@@ -3382,11 +3385,10 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			 WHERE (HA_ROLE = 'P' OR HA_ROLE = 'A') AND COLLECT_YN = 'Y' AND DELETE_YN = 'N'
 	</select>
 
-
 	<select id="TB_REPL_LAG_INFO_S001" parameterType="hashmap" resultType="hashmap">
 		SELECT INSTANCE_ID 
 		  FROM TB_INSTANCE_INFO 
-		 WHERE (HOST_NAME = #{host_name} OR SERVER_IP = #{host_name}) and COLLECT_YN = 'Y' AND DELETE_YN = 'N' LIMIT 1; 
+		 WHERE (HOST_NAME = #{host_name} OR SERVER_IP = #{host_name}) and COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}; 
 	</select>
 		 
 	<insert id="TB_REPL_LAG_INFO_I001" parameterType="hashmap" >
@@ -3405,9 +3407,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			TO_CHAR(NOW(), 'YYYYMMDD'),
 			CURRVAL('REPL_REG_SEQ'),
 			#{instance_id},
-  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y') IS NOT NULL 
-				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y') 
-	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name} AND COLLECT_YN = 'Y') END),
+  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}) IS NOT NULL 
+				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}) 
+	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}) END),
   			#{replay_lag},
   			#{replay_lag_size},
 			NOW()
