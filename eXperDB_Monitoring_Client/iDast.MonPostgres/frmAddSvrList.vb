@@ -199,8 +199,8 @@
         Dim newNode As AdvancedDataGridView.TreeGridNode = Nothing
         If pNode.Cells(colHostNm.Index).Value.ToString() <> "" Then
             For Each tmpChild As DataRow In DtView
-                If (tmpChild.Item("HA_HOST") Like (pNode.Cells(colHostNm.Index).Value + "*")) = True Or _
-                    tmpChild.Item("HA_HOST") = pNode.Cells(colIP.Index).Value Then
+                If ((tmpChild.Item("HA_HOST") Like (pNode.Cells(colHostNm.Index).Value + "*")) = True And tmpChild.Item("SERVICE_PORT") = pNode.Cells(colPort.Index).Value) Or _
+                    (tmpChild.Item("HA_HOST") = pNode.Cells(colIP.Index).Value And tmpChild.Item("SERVICE_PORT") = pNode.Cells(colPort.Index).Value) Then
                     newNode = pNode.Nodes.Add(tmpChild.Item("HOST_NAME"))
                     newNode.Tag = tmpChild.Item("INSTANCE_ID")
                     newNode.Image = dbmsImgLst.Images(1)

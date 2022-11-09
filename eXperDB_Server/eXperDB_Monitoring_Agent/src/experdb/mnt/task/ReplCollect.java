@@ -262,9 +262,9 @@ public class ReplCollect extends TaskApplication {
 				
 				for (HashMap<String, Object> map : replLagSel) {
 					if(map.get("replay_lag") != null && Double.parseDouble(map.get("replay_lag").toString()) >= 0){
+						 map.put("instance_id", Integer.valueOf(instanceId));
 						 replExistSel = sessionAgent.selectOne("app.TB_REPL_LAG_INFO_S001", map);
 						 if(replExistSel != null ){
-							 map.put("instance_id", Integer.valueOf(instanceId));
 							 sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
 						 }
 					}

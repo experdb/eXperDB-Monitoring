@@ -49,6 +49,8 @@
     Private _isDrawInitialData As Integer = 3
     Private _isDiskAccess As Boolean = True
     Private _isDiskUsage As Boolean = True
+    Private _maxClusters As Integer = 48
+
 
     Private _instanceColors() As Color = {System.Drawing.Color.YellowGreen,
                          System.Drawing.Color.Orange,
@@ -1070,7 +1072,7 @@
                     If _GrpListServerinfo.Count > 16 Then
                         topNode.Height = (dgvClusters.Height - 50) / _GrpListServerinfo.Count
                     Else
-                        topNode.Height = 48
+                        topNode.Height = _maxClusters
                     End If
                     topNode.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
                     topNode.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
@@ -1082,21 +1084,22 @@
                     topNode.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
                     topNode.Cells(coldgvClustersVip2.Index).ToolTipText = toolTipText
                     topNode.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+                    topNode.Cells(coldgvClustersServerName.Index).Tag = svrLst.Item(i).Port
                     topNode.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
 
                     topNode.Expand()
                 Else
                     For Each tmpRow As DataGridViewRow In Me.dgvClusters.Rows
                         Dim tmpNode As AdvancedDataGridView.TreeGridNode = tmpRow
-                        If tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HAHost Or _
-                           tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Tag = svrLst.Item(i).HAHost Then
+                        If (tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Value = svrLst.Item(i).HAHost And tmpNode.Cells(coldgvClustersServerName.Index).Tag = svrLst.Item(i).Port) Or _
+                           (tmpNode.Cells(coldgvClusterPrimaryHostNm.Index).Tag = svrLst.Item(i).HAHost And tmpNode.Cells(coldgvClustersServerName.Index).Tag = svrLst.Item(i).Port) Then
                             Dim cNOde As AdvancedDataGridView.TreeGridNode = tmpNode.Nodes.Add(svrLst.Item(i).ShowNm)
                             cNOde.Tag = svrLst.Item(i)
                             cNOde.Image = instanceImgLst.Images(i)
                             If _GrpListServerinfo.Count > 16 Then
                                 cNOde.Height = (dgvClusters.Height - 50) / _GrpListServerinfo.Count
                             Else
-                                cNOde.Height = 48
+                                cNOde.Height = _maxClusters
                             End If
                             cNOde.Cells(coldgvClustersLegend.Index).Value = haStatusLst.Images(0)
                             cNOde.Cells(coldgvClustersVip2.Index).Value = haStatusLst.Images(0)
@@ -1108,6 +1111,7 @@
                             cNOde.Cells(coldgvClustersLegend.Index).ToolTipText = toolTipText
                             cNOde.Cells(coldgvClustersVip2.Index).ToolTipText = toolTipText
                             cNOde.Cells(coldgvClustersServerName.Index).ToolTipText = toolTipText
+                            cNOde.Cells(coldgvClustersServerName.Index).Tag = svrLst.Item(i).Port
                             cNOde.Cells(coldgvClustersRole.Index).Value = haStatusLst.Images(0)
                             cNOde.Expand()
                             Exit For

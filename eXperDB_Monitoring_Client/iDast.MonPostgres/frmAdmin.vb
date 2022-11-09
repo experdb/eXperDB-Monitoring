@@ -504,7 +504,7 @@
     Private Sub tmCheckAgent_Tick(sender As Object, e As EventArgs) Handles tmCheckAgent.Tick
         tmCheckAgent.Stop()
         tmCheckAgent.Dispose()
-        If _applyCount > 90 Then
+        If _applyCount > 180 Then
             CircularProgressControl1.Stop()
             CircularProgressControl1.Visible = False
             _applyCount = 0
