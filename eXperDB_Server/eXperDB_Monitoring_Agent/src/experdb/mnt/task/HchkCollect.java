@@ -437,14 +437,17 @@ public class HchkCollect extends TaskApplication {
 				case 2 :
 					driver =  "com.mysql.cj.jdbc.Driver" ;
 					connectUrl = "jdbc:mysql://"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString() + "?validationQuery=\"select 1\"";
+					break;
 				case 3 :
 					driver =  "com.tmax.tibero.jdbc.TbDriver" ;
 					connectUrl = "jdbc:tibero:thin:@"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+":"+selectExportInfo.get("link_database").toString();
+					break;
 				case 4 :
 					driver =  "org.postgresql.Driver" ;
 					connectUrl = "jdbc:postgresql://"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString();
+					break;
 			}
-			
+
 			Class.forName(driver);
 			DriverManager.setLoginTimeout(3);
 			String dbPass = selectExportInfo.get("link_password").toString();
