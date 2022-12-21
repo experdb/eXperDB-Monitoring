@@ -750,6 +750,29 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{autovacuum_count},
 			#{autoanalyze_count},
 			#{maxage}
+	</insert>
+	
+	<insert id="TB_TABLE_EXT_INFO_I001_20221214" parameterType="hashmap" >
+		INSERT INTO TB_TABLE_EXT_INFO
+		(
+		    reg_date,
+		    collect_dt,
+		    objt_reg_seq,
+		    instance_id,
+		    relid,
+		    autovacuum_count,
+		    autoanalyze_count,
+		    maxage
+	    )
+	    SELECT 
+			TO_CHAR(NOW(), 'YYYYMMDD'),
+			#{collect_dt},		
+			CURRVAL('OBJT_REG_SEQ'),
+		    #{instance_id},
+		    #{relid},
+			#{autovacuum_count},
+			#{autoanalyze_count},
+			#{maxage}
 		WHERE NOT EXISTS (SELECT 1 
 		                    FROM TB_TABLE_EXT_INFO 
 		                   WHERE reg_date = TO_CHAR(NOW(), 'YYYYMMDD') 
