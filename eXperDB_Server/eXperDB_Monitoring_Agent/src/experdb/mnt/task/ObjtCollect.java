@@ -48,6 +48,7 @@ public class ObjtCollect extends TaskApplication {
 		while (!MonitoringInfoManager.getInstance().isReLoad())
 		{
 			log.debug(System.currentTimeMillis());
+			Date now = new Date();
 			
 			try {
 				is_collect_ok = "Y";
@@ -61,27 +62,32 @@ public class ObjtCollect extends TaskApplication {
 					updateHAstatus((String) en.nextElement());
 				}	
 				
-				if ( startExecuteTime  <= startTime) {
-					//OBJT 정보수집
-					en = MonitoringInfoManager.getInstance().getInstanceId();
-					while (en.hasMoreElements()) {
-						execute((String) en.nextElement());
-					}					
-					startExecuteTime = System.currentTimeMillis() + collectObjectPeriod * 1000;
-				}
+				en = MonitoringInfoManager.getInstance().getInstanceId();
+				long Test_startTime = System.nanoTime();
+				//OBJT 정보수집
+				now = new Date();
+				System.out.println(now.toString());
+				while (en.hasMoreElements()) {
+					String instance_id = (String)en.nextElement();
+					execute(instance_id);
+					now = new Date();
+					System.out.println("instance_id =" + instance_id + " " + now.toString());
+				}					
 				
-				if ( startDeleteTime  <= startTime) {
-					//OBJT 정보수집
-					en = MonitoringInfoManager.getInstance().getInstanceId();
-					while (en.hasMoreElements()) {
-						DeleteObject((String) en.nextElement());
-					}
-					startDeleteTime = System.currentTimeMillis() + collectObjectPeriod * 1000 * DelteTurn ;
+				//OBJT 이전정보삭제
+				en = MonitoringInfoManager.getInstance().getInstanceId();
+				while (en.hasMoreElements()) {
+					DeleteObject((String) en.nextElement());
 				}
+				startDeleteTime = System.currentTimeMillis() + collectObjectPeriod * 1000 * DelteTurn ;
+				long Test_estimatedTime = System.nanoTime() - Test_startTime;
 
 				endTime =  System.currentTimeMillis();
 				
-				sleepTime = (collectPeriod * 1000) - (endTime - startTime);
+				sleepTime = (collectObjectPeriod * 1000) - (endTime - startTime);
+				now = new Date();
+//				System.out.println(now.toString() + "걸린 시간 : " + Test_estimatedTime/1000000000.0 + " milli seconds");
+				System.out.println("id =" + instanceId + " " + now.toString() + "걸린 시간 : " + Test_estimatedTime/1000000000.0 + " milli seconds" + " col:" + collectObjectPeriod + " es:" + (endTime - startTime) + " sl:" + sleepTime);
 				Thread.sleep(sleepTime < 0 ? 0 : sleepTime);
 				
 //				if((endTime - startTime) > (collectPeriod * 1000) )

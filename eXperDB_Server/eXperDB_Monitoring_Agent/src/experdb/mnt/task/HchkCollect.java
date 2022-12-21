@@ -440,6 +440,9 @@ public class HchkCollect extends TaskApplication {
 				case 3 :
 					driver =  "com.tmax.tibero.jdbc.TbDriver" ;
 					connectUrl = "jdbc:tibero:thin:@"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+":"+selectExportInfo.get("link_database").toString();
+				case 4 :
+					driver =  "org.postgresql.Driver" ;
+					connectUrl = "jdbc:postgresql://"+selectExportInfo.get("link_ip").toString()+":"+selectExportInfo.get("link_port").toString()+"/"+selectExportInfo.get("link_database").toString();
 			}
 			
 			Class.forName(driver);
