@@ -119,7 +119,7 @@ cd eXperDB_Server
 - Create the role with super privileges for monitoring
 - Create extension
 <pre>
-postgres=# create extension experdb_mon;
+postgres=# create extension experdb_pgmon;
 </pre>
 
 ## Installing eXperDB-Monitoring-Client
