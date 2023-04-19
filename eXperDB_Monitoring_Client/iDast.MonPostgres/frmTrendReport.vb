@@ -1064,6 +1064,9 @@ Public Class frmTrendReport
                         For k As Integer = 0 To lineCount - 1
                             If strQuery.Split(vbCrLf)(k).Length > 110 Then
                                 Dim newlineCount As Integer = strQuery.Split(vbCrLf)(k).Length \ 110
+                                If sheet.GetRow(rowIndex).Height + _defaultRowHeight > 32276 Then
+                                    Exit For
+                                End If
                                 sheet.GetRow(rowIndex).Height += _defaultRowHeight * newlineCount
                             End If
                         Next

@@ -4755,7 +4755,18 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>			
 </update>
 
+
+
 <update id="PG_CREATE_FUNCTION_FOR_INDEX_001" parameterType="hashmap">
+		<![CDATA[
+		CREATE or replace FUNCTION to_date_imm(text, text) returns date
+		    AS $$ SELECT to_date($1, $2) $$
+		LANGUAGE sql immutable STRICT
+		COST 1;
+		]]>	
+</update>
+
+<update id="PG_CREATE_FUNCTION_FOR_INDEX_001_230110" parameterType="hashmap">
 		<![CDATA[
 		CREATE OR REPLACE FUNCTION to_date_imm(text, text) 
 		RETURNS date
@@ -5133,7 +5144,7 @@ UNION ALL
 	            ALERT.state export_level,
 	            '['
 			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' WHEN ALERT.state = 300 THEN 'Critical' ELSE 'Resolved' END)
-			    || ', issue'
+			    || ' issue'
 			    || ', Host : '
 			    || INS.HOST_NAME 
 			    || ', Alert : ' 
