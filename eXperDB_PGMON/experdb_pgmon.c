@@ -16,6 +16,7 @@
 #define PROC_FULL_NAME_SIZE     1024
 #define PROC_FULL_NAME  "/proc/"
 #define MAX_PG_PROC_CNT 4096
+#define MAX_PROC_CNT 20480
 #define TEMP_BUFFER_LEN 1024
 #define DISK_READ_TITLE "read_bytes"
 #define DISK_WRITE_TITLE "write_bytes"
@@ -246,7 +247,7 @@ int fill_backend_node(void) {
         char ls_io_file_nm[PROC_FULL_NAME_SIZE];
         char ls_temp_string[TEMP_BUFFER_LEN];
         char *lcp_string_cursor = NULL;
-        char ls_proc_pid[10240][16];
+        char ls_proc_pid[MAX_PROC_CNT][16];
         int li_proc_cnt=0;
         int li_proc_idx=0;
         li_temp_pid = 0;
@@ -289,6 +290,10 @@ int fill_backend_node(void) {
                 while((dir_entry = readdir(dir_info))) {
                         if (dir_entry->d_type == DT_DIR && *dir_entry->d_name > '0' && *dir_entry->d_name <= '9') {
                                 sprintf( ls_proc_pid[li_proc_cnt++], "%s", dir_entry->d_name );
+                                if (li_proc_cnt == MAX_PROC_CNT){
+                                        elog(WARNING, "Too many processes on the system")
+                                        break;
+                                }
                         }
                 }
                 closedir(dir_info);
