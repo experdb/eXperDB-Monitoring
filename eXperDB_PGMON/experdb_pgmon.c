@@ -291,7 +291,7 @@ int fill_backend_node(void) {
                         if (dir_entry->d_type == DT_DIR && *dir_entry->d_name > '0' && *dir_entry->d_name <= '9') {
                                 sprintf( ls_proc_pid[li_proc_cnt++], "%s", dir_entry->d_name );
                                 if (li_proc_cnt == MAX_PROC_CNT){
-                                        elog(WARNING, "Too many processes on the system")
+                                        elog(WARNING, "Too many processes on the system");
                                         break;
                                 }
                         }
