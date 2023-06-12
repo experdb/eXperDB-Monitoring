@@ -238,6 +238,7 @@ Public Class frmMonItemDetail
         coldgvSessionListClient.HeaderText = p_clsMsgData.fn_GetData("F248")
         coldgvSessionListApp.HeaderText = p_clsMsgData.fn_GetData("F249")
         coldgvSessionListSQL.HeaderText = p_clsMsgData.fn_GetData("F084")
+        coldgvWaitEvent.HeaderText = p_clsMsgData.fn_GetData("F337")
 
         dgvSessionList.DefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
         dgvSessionList.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Gulim", 9.0!)
