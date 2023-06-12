@@ -82,6 +82,8 @@ public class LicenseInfoManager {
 	public static void licenseVerification() {
 		SqlSessionFactory sqlSessionFactory = SqlSessionManager.getInstance();
 		SqlSession session = sqlSessionFactory.openSession();
+		final int trialInstances = 2;
+		boolean isTrial = false;
 		
 		try {
 			log.info("************************************************************");
@@ -103,8 +105,9 @@ public class LicenseInfoManager {
 			String EXPIRE_DATE  = serialKey.substring(70, 78);; //라이선스 만료일자(00000000) 
 			if(MAC.equals("00:00:00:00:00:00")){
 				log.info("MAC CHECK ==> SUCCESS");
+				isTrial = true;
 			}else {
-				Boolean isMAC = false;				
+				Boolean isMAC = true;				
 				
 				for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
 			    {
@@ -178,8 +181,24 @@ public class LicenseInfoManager {
 					eXperDBMAExit("EXPIRE_DATE");					
 				}
 			}
-			
-			
+						
+			//INSTANCE 개수
+			if(isTrial){
+				Enumeration		e = MonitoringInfoManager.getInstance().getInstanceId();
+				
+				int i = 0;
+				while (e.hasMoreElements()) {
+					i++;
+					e.nextElement();
+				}
+				
+				if(i <= trialInstances){
+					log.info("INSTANCE CHECK ==> SUCCESS");
+				} else{
+					log.info("INSTANCE CHECK ==> FAIL");
+					eXperDBMAExit("INSTANCE");					
+				}
+			}
 			
 			/* 라이선스 */
 			

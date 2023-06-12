@@ -1245,7 +1245,6 @@ insert into tb_sys_code select  207, 'TablespaceCreate';
 insert into tb_sys_code select  208, 'TwoPhaseState';
 insert into tb_sys_code select  209, 'WALBufMapping';
 insert into tb_sys_code select  210, 'WALInsert';
-insert into tb_sys_code select  211, 'WALWrite';
 insert into tb_sys_code select  212, 'WrapLimitsVacuum';
 insert into tb_sys_code select  213, 'XactBuffer';
 insert into tb_sys_code select  214, 'XactSLRU';
