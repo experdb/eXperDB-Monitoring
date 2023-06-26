@@ -4999,7 +4999,15 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
         set {0} to {1};
       ]]>
     </DATA>
-  </ROW>  
+  </ROW>
+  <ROW ID="GETOPTIONS" PARAMS="1">
+    <DESC>PT_05_03_002(GETOPTIONS)</DESC>
+    <DATA>
+      <![CDATA[
+        SELECT current_setting('{0}') as {0};
+      ]]>
+    </DATA>
+  </ROW>
   <ROW ID="SELECTSNAPSHOTPERIOD" PARAMS="1">
     <DESC>(SELECTSNAPSHOTPERIOD)</DESC>
     <DATA>

@@ -265,6 +265,7 @@ public class ReplCollect extends TaskApplication {
 						 map.put("instance_id", Integer.valueOf(instanceId));
 						 replExistSel = sessionAgent.selectOne("app.TB_REPL_LAG_INFO_S001", map);
 						 if(replExistSel != null ){
+							 map.put("ha_group", replExistSel.get("ha_group"));
 							 sessionAgent.insert("app.TB_REPL_LAG_INFO_I001", map);
 						 }
 					}
