@@ -3409,6 +3409,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	</select>
 
 	<select id="TB_REPL_LAG_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		SELECT INSTANCE_ID, HA_GROUP 
+		  FROM TB_INSTANCE_INFO 
+		 WHERE (HOST_NAME = #{host_name} OR SERVER_IP = #{host_name}) and COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = (select HA_GROUP from tb_instance_info where instance_id = #{instance_id}); 
+	</select>
+	
+	<select id="TB_REPL_LAG_INFO_S002" parameterType="hashmap" resultType="hashmap">
 		SELECT INSTANCE_ID 
 		  FROM TB_INSTANCE_INFO 
 		 WHERE (HOST_NAME = #{host_name} OR SERVER_IP = #{host_name}) and COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}; 
@@ -3430,9 +3436,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			TO_CHAR(NOW(), 'YYYYMMDD'),
 			CURRVAL('REPL_REG_SEQ'),
 			#{instance_id},
-  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}) IS NOT NULL 
-				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}) 
-	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{instance_id}) END),
+  			(SELECT CASE WHEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{ha_group}) IS NOT NULL 
+				 		 THEN (select instance_id from TB_INSTANCE_INFO where host_name = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{ha_group}) 
+	                ELSE (select instance_id from TB_INSTANCE_INFO where server_ip = #{host_name} AND COLLECT_YN = 'Y' AND DELETE_YN = 'N' AND HA_GROUP = #{ha_group}) END),
   			#{replay_lag},
   			#{replay_lag_size},
 			NOW()
@@ -3998,7 +4004,58 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		)
 		]]>	  
 	</insert>	
+	
 	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
+			    use strict;
+			    use warnings;
+			    use Encode;
+			    my $del = $_[0];
+			    my $sth = spi_exec_query("select setting || '/pg_stat_tmp/' query_dir from pg_settings where name = 'data_directory'");
+			    $sth = $sth->{rows}[0]->{query_dir};
+			    my $org = $sth . 'pgss_query_texts.stat';
+			    my $prev_size_file = $sth . 'pgssqt_size';
+			    my $prev_size = 0;
+				# read previous pgss_query_texts.stat file size. 
+				if (-e $prev_size_file) {
+					open(my $fh, '<', $prev_size_file) or die "can't open the file: $!";
+					my $first_line = <$fh>;
+				    $first_line =~ s/\R//g;
+					$prev_size = $first_line;
+					if($prev_size > 0){
+						$prev_size -= 1;
+					}
+				    close($fh);
+				}
+			    my $org_size = -s $org;
+			    my $new_size = $org_size - $prev_size;
+				# check if $new_size is less than 0 : maybe pg_stat_statements reset has been performed.
+			    if ($new_size <= 0) {
+			        $org_size = 0;
+			    }			    
+				# write current pgss_query_texts.stat file size. 
+				open(my $fh, '>', $prev_size_file) or die "can't open the file: $!";
+				print $fh $org_size;
+				close($fh);
+			    if ($new_size <= 0) {
+			        return;
+			    }
+				# read attached new queries. 
+			    my $ddcmd = '/bin/dd if=' . $org . ' bs=1 skip=' . $prev_size . ' count=' . $new_size . ' 2>/dev/null' . ' |sed \'s/\\x0/' . $del . '/g\'';
+			    elog(INFO, 'p and n size' . $prev_size . ',' .  $new_size);
+				my $newqueries = qx($ddcmd);
+			    my @arr = split $del, $newqueries;
+			    shift @arr;
+			    foreach( @arr ){
+			            return_next decode('utf-8', $_);
+			    }
+			    return undef;
+			$BODY$ LANGUAGE plperlu;
+		  ]]>	  
+	</select>
+
+	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001_OLD" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
             CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
 			    use strict;
@@ -4060,7 +4117,25 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
             SET (QUERY, COLLECT_DT) = (#{query}, CURRENT_TIMESTAMP)
 		]]>	  
 	</insert>
-		<select id="EXPERDBMA_BT_PGSS_QUERY_RESET_001" parameterType="hashmap" resultType="hashmap">
+	
+	<select id="EXPERDBMA_BT_PGSS_QUERY_RESET_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			     CREATE OR REPLACE FUNCTION RESET_PGSS() RETURNS SETOF TEXT AS $BODY$
+			    use strict;
+			    use warnings;
+			    use Encode;
+			    my $del = $_[0];
+				my $reset = $_[1];
+			    my $sth = spi_exec_query("select setting || '/pg_stat_tmp/' query_dir from pg_settings where name = 'data_directory'");
+			    my $pgssqt_size = $sth->{rows}[0]->{query_dir} . 'pgssqt_size';
+			    my $rmcmd = '/bin/rm -f '  . $pgssqt_size;
+				my $res = `$rmcmd`; 
+			    return undef;
+			$BODY$ LANGUAGE plperlu;
+		  ]]>	  
+	</select>
+			
+	<select id="EXPERDBMA_BT_PGSS_QUERY_RESET_001_OLD" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 		     CREATE OR REPLACE FUNCTION RESET_PGSS() RETURNS SETOF TEXT AS $BODY$
 			    use strict;

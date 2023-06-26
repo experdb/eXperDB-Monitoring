@@ -1352,7 +1352,8 @@
                         'StartHealth(_intPeriod)
 
                         ' Current Statements
-                        infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod)
+                        'infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod) ' for BCCard
+                        infoDataStmt = StartThreadWithDBParam("SELECTCURRENTSTATEMENTS", _intPeriod, "max_parallel_workers_per_gather", "1") ' for BCCard
 
                         ' Current Statements
                         infoDataRepl = StartThread("SELECTREPLICATIONCURR", _intPeriod, _enmSvrNm)
@@ -1550,6 +1551,56 @@
 
                                                   Try
                                                       rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs, enumSvrNm.ToString("d"), intPeriod)
+                                                  Catch ex As Threading.ThreadAbortException
+                                                      p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Request Thread Time Out", QueryXmlID))
+                                                      AddMsgQueue(String.Format("{0} Data Request Thread Time Out", QueryXmlID))
+                                                      GC.Collect()
+                                                  Catch ex As Exception
+
+                                                      p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Request Thread Exception", QueryXmlID))
+                                                      GC.Collect()
+                                                  End Try
+                                              End Sub)
+        Try
+
+            tmpThread.Start()
+            tmpThread.Join(intPeriod)
+            If tmpThread.IsAlive = True Then
+                p_Log.AddMessage(clsLog4Net.enmType.Information, "ABORT" & QueryXmlID)
+                _clsQuery.CancelCommand()
+                tmpThread.Abort()
+                tmpThread.DisableComObjectEagerCleanup()
+
+
+
+            Else
+                If rtnDtTable IsNot Nothing Then
+                    Return rtnDtTable ' MakeDataCpuMem(rtnDtTable)
+                End If
+            End If
+
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Exception", QueryXmlID) & vbCrLf & ex.ToString)
+            GC.Collect()
+        Finally
+            If tmpThread IsNot Nothing Then
+                tmpThread.DisableComObjectEagerCleanup()
+                tmpThread = Nothing
+            End If
+        End Try
+        Return Nothing
+    End Function
+
+    Private Function StartThreadWithDBParam(ByVal QueryXmlID As String, ByVal intPeriod As Integer, ByVal sOption As String, ByVal Value As String) As DataTable
+        Dim rtnDtTable As DataTable = Nothing
+        Dim tmpThread As New Threading.Thread(Sub()
+
+                                                  Try
+                                                      rtnDtTable = _clsQuery.GetOptions(sOption)
+                                                      Dim oldValue = rtnDtTable.Rows(0).Item("max_parallel_workers_per_gather")
+                                                      Dim bResult As Boolean = _clsQuery.SetOptions(sOption, Value)
+                                                      rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs)
+                                                      bResult = _clsQuery.SetOptions(sOption, oldValue)
                                                   Catch ex As Threading.ThreadAbortException
                                                       p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Request Thread Time Out", QueryXmlID))
                                                       AddMsgQueue(String.Format("{0} Data Request Thread Time Out", QueryXmlID))
