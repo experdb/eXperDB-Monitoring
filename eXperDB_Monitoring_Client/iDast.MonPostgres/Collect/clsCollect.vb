@@ -1353,7 +1353,7 @@
 
                         ' Current Statements
                         'infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod) ' for BCCard
-                        infoDataStmt = StartThreadWithDBParam("SELECTCURRENTSTATEMENTS", _intPeriod, "max_parallel_workers_per_gather", "1") ' for BCCard
+                        infoDataStmt = StartThreadWithDBParam("SELECTCURRENTSTATEMENTS", _intPeriod, "max_parallel_workers_per_gather", "0") ' for BCCard
 
                         ' Current Statements
                         infoDataRepl = StartThread("SELECTREPLICATIONCURR", _intPeriod, _enmSvrNm)
