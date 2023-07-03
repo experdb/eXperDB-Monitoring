@@ -4,12 +4,14 @@ Public Class frmLongrunSQLFilter
 
     Private _cbCheckAll As New eXperDB.BaseControls.CheckBox()
     Private _longRunSQLCondition As String
+    Private _isChangedCond As Boolean
     Public Sub New(ByVal longRunSQLCondition As String)
 
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하십시오.
         _longRunSQLCondition = longRunSQLCondition
+        _isChangedCond = False
     End Sub
     ''' <summary>
     ''' 화면 초기화 
@@ -78,6 +80,7 @@ Public Class frmLongrunSQLFilter
             eCons.Add(eCon)
         Next
         _longRunSQLCondition = JsonConvert.SerializeObject(eCons)
+        _isChangedCond = True
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
@@ -105,8 +108,9 @@ Public Class frmLongrunSQLFilter
         End If
     End Sub
 
-    Public Sub rtnValue(ByRef longRunSQLCondition As String)
+    Public Sub rtnValue(ByRef longRunSQLCondition As String, ByRef isChangedLongRunCond As Boolean)
         longRunSQLCondition = _longRunSQLCondition
+        isChangedLongRunCond = _isChangedCond
     End Sub
 
 End Class

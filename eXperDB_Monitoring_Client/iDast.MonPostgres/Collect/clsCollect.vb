@@ -1352,8 +1352,8 @@
                         'StartHealth(_intPeriod)
 
                         ' Current Statements
-                        'infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod) ' for BCCard
-                        infoDataStmt = StartThreadWithDBParam("SELECTCURRENTSTATEMENTS", _intPeriod, "max_parallel_workers_per_gather", "0") ' for BCCard
+                        infoDataStmt = StartThread("SELECTCURRENTSTATEMENTS", _intPeriod)
+                        'infoDataStmt = StartThreadWithDBParam("SELECTCURRENTSTATEMENTS", _intPeriod, "max_parallel_workers_per_gather", "1") ' for BCCard
 
                         ' Current Statements
                         infoDataRepl = StartThread("SELECTREPLICATIONCURR", _intPeriod, _enmSvrNm)
@@ -1504,7 +1504,11 @@
         Dim tmpThread As New Threading.Thread(Sub()
 
                                                   Try
-                                                      rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs)
+                                                      If QueryXmlID = "SELECTSQLRESPTIME" Then
+                                                          rtnDtTable = _clsQuery.SelectDataLongRunFilteringCond(QueryXmlID, _InstanceIDs)
+                                                      Else
+                                                          rtnDtTable = _clsQuery.SelectData(QueryXmlID, _InstanceIDs)
+                                                      End If
                                                   Catch ex As Threading.ThreadAbortException
                                                       p_Log.AddMessage(clsLog4Net.enmType.Error, String.Format("{0} Data Request Thread Time Out", QueryXmlID))
                                                       AddMsgQueue(String.Format("{0} Data Request Thread Time Out", QueryXmlID))
