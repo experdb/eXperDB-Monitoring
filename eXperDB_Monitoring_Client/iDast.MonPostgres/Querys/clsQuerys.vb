@@ -416,6 +416,7 @@
             Return Nothing
         End Try
     End Function
+
     Public Function SelectData(ByVal XMLID As String, ParamArray ParamValue1() As String) As DataTable
         Try
             If _ODBC Is Nothing Then Return Nothing
@@ -434,7 +435,31 @@
         End Try
     End Function
 
+    Public Function SelectDataLongRunFilteringCond(ByVal XMLID As String, ByVal ParamValue1 As String) As DataTable
+        Try
+            Dim filteringCondition = ""
+            If _ODBC Is Nothing Then Return Nothing
+            ' get filtering contition for longrunsql
+            Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLONGSQLFILTERINGCOND")
+            Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                filteringCondition = dtSet.Tables(0).Rows(0).Item("COND")
+            End If
 
+            strQuery = p_clsQueryData.fn_GetData(XMLID)
+            If strQuery.Trim = "" Then Return Nothing
+            strQuery = String.Format(strQuery, ParamValue1, filteringCondition)
+            dtSet = _ODBC.dbSelect(strQuery)
+            If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                Return dtSet.Tables(0)
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, "[" & XMLID & "]" & ex.ToString)
+            Return Nothing
+        End Try
+    End Function
 
     'Public Function SelectCpuMemINFO() As DataTable
     '    Try
@@ -1517,11 +1542,20 @@
     Public Function SelectInitSQLRespTmChart(ByVal strInstanceID As String, ByVal intDuration As Integer) As DataTable
         Try
             If _ODBC IsNot Nothing Then
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTSQLRESPTIMEPREV")
 
-                strQuery = String.Format(strQuery, strInstanceID, "now() - interval '" + intDuration.ToString() + " minute'")
-
+                Dim filteringCondition = ""
+                If _ODBC Is Nothing Then Return Nothing
+                ' get filtering contition for longrunsql
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLONGSQLFILTERINGCOND")
                 Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    filteringCondition = dtSet.Tables(0).Rows(0).Item("COND")
+                End If
+
+                strQuery = p_clsQueryData.fn_GetData("SELECTSQLRESPTIMEPREV")
+                strQuery = String.Format(strQuery, strInstanceID, "now() - interval '" + intDuration.ToString() + " minute'", filteringCondition)
+
+                dtSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                     Return dtSet.Tables(0)
                 Else
@@ -2149,9 +2183,18 @@
     Public Function SelectDetailSQLRespChart(ByVal InstanceID As String, ByVal StDate As DateTime, ByVal edDate As DateTime, Optional pointCount As Integer = 600) As DataTable
         Try
             If _ODBC IsNot Nothing Then
+                Dim filteringCondition = ""
+                If _ODBC Is Nothing Then Return Nothing
+                ' get filtering contition for longrunsql
+                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTLONGSQLFILTERINGCOND")
+                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
+                    filteringCondition = dtSet.Tables(0).Rows(0).Item("COND")
+                End If
+
                 Dim minutes As Long = DateDiff(DateInterval.Minute, StDate, edDate)
                 Dim interval As String = minutes * 60 / pointCount
-                Dim strQuery As String = p_clsQueryData.fn_GetData("SELECTDETAILSQLRESPTIME")
+                strQuery = p_clsQueryData.fn_GetData("SELECTDETAILSQLRESPTIME")
                 Dim subQuery As String = ""
 
                 If DateDiff(DateInterval.Day, StDate.Date, edDate.Date) = 0 Then
@@ -2159,9 +2202,9 @@
                 Else
                     subQuery = String.Format(" IN ('{0}','{1}')", StDate.ToString("yyyyMMdd"), edDate.ToString("yyyyMMdd"))
                 End If
-                strQuery = String.Format(strQuery, InstanceID, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:00") + "'", interval)
+                strQuery = String.Format(strQuery, InstanceID, subQuery, "'" + StDate.ToString("yyyy-MM-dd HH:mm:00") + "'", "'" + edDate.ToString("yyyy-MM-dd HH:mm:00") + "'", interval, filteringCondition)
 
-                Dim dtSet As DataSet = _ODBC.dbSelect(strQuery)
+                dtSet = _ODBC.dbSelect(strQuery)
                 If dtSet IsNot Nothing AndAlso dtSet.Tables.Count > 0 Then
                     Return dtSet.Tables(0)
                 Else
@@ -3829,6 +3872,17 @@
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
             Return Nothing
+        End Try
+    End Function
+    Public Function CreateFunctionLongSQLFilteringCond() As Integer
+        Try
+            If _ODBC Is Nothing Then Return False
+            Dim strQuery As String = ""
+            strQuery = p_clsQueryData.fn_GetData("CREATE_FN_LONGSQL_FILTERING_COND")
+            Return _ODBC.dbExecuteNonQuery(strQuery)
+        Catch ex As Exception
+            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+            Return False
         End Try
     End Function
 #End Region

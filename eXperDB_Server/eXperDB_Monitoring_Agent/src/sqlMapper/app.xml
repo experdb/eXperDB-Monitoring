@@ -2347,6 +2347,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		            AND A.COLLECT_YN = 'Y'
 		            AND A.DELETE_YN = 'N'
 		            AND B.RESTART_LSN IS NOT NULL
+		            AND B.SLOT_NAME <> 'wal_keep_slot' -- except alert to retend wal for replication node
 				  GROUP BY B.INSTANCE_ID
 			UNION 
 				(
@@ -2370,6 +2371,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			            AND B.REG_DATE = TO_char(now(), 'YYYYMMDD')
 			            AND A.HA_ROLE = 'S'
 			            AND B.REPL_REG_SEQ IN (SELECT MAX(REPL_REG_SEQ) REPL FROM TB_REPLICATION_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND IS_COLLECT_OK = 'Y' GROUP BY INSTANCE_ID)
+			            AND B.SLOT_NAME <> 'wal_keep_slot' -- except alert to retend wal for replication node  
 		            )
 		    ) AS HSOT     
     GROUP BY INSTANCE_ID
@@ -5164,9 +5166,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	            ALERT.state export_level,
 	            '['
 			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' ELSE 'Critical' END)
-			    || (CASE WHEN BUSINESS_NAME IS NULL OR length(BUSINESS_NAME) = 0 THEN '' ELSE '] Business name : ' || BUSINESS_NAME END)
-			    || ', Host : '
-			    || INS.HOST_NAME 
+--			    || (CASE WHEN BUSINESS_NAME IS NULL OR length(BUSINESS_NAME) = 0 THEN '' ELSE '] Business : ' || BUSINESS_NAME END)
+				|| (CASE WHEN BUSINESS_NAME IS NULL OR length(BUSINESS_NAME) = 0 THEN '] Host : ' || split_part(INS.HOST_NAME,'.',1)  ELSE '] Business : ' || BUSINESS_NAME END)
 			    || ', Alert : ' 
 			    || SC.code_desc
 			    || ':'
@@ -5219,9 +5220,7 @@ UNION ALL
 	            ALERT.state export_level,
 	            '['
 			    || (CASE WHEN ALERT.state = 200 THEN 'Warning' WHEN ALERT.state = 300 THEN 'Critical' ELSE 'Resolved' END)
-			    || ' issue'
-			    || ', Host : '
-			    || INS.HOST_NAME 
+				|| (CASE WHEN BUSINESS_NAME IS NULL OR length(BUSINESS_NAME) = 0 THEN '] Host : ' || split_part(INS.HOST_NAME,'.',1)  ELSE '] Business : ' || BUSINESS_NAME END)
 			    || ', Alert : ' 
 			    || SC.code_desc
 			    || ':'

@@ -360,6 +360,11 @@
             _clsQuery.UpdateHealthLimited(InstanceID, "WALCNT", 0, HealtLimited.WALCnt, HealtLimited.WALcntBool, LastIp)
             _clsQuery.UpdateHealthLimitedExt(InstanceID, HealtLimited.NotificationLevel, HealtLimited.NotificationGroup, HealtLimited.NotificationCycle, HealtLimited.BusinessName, LastIp)
 
+            If HealtLimited.isChangedLongRunCond = True Then
+                _clsQuery.CreateFunctionLongSQLFilteringCond()
+                _alertConfig.resetValue()
+            End If
+
             _clsQuery.UpdateHealthLimited(InstanceID, "HGCPUUTIL", HealtLimitedHG.CPUutilRatioNormal, HealtLimitedHG.CPUutilRatioWarning, _
                                           IIf(HealtLimitedHG.CPUutilRatioCheck, GetCriticalThreshold_1(HealtLimitedHG.CPUutilRatioNormal, HealtLimitedHG.CPUutilRatioWarning), 9), LastIp, HealtLimitedHG.CPUutilRatioRTime)
             _clsQuery.UpdateHealthLimited(InstanceID, "HGCPUWAIT", HealtLimitedHG.CPUwaitRatioNormal, HealtLimitedHG.CPUwaitRatioWarning, _

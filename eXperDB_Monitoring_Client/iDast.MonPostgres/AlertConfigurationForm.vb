@@ -6,6 +6,7 @@
     Private _dtUG As DataTable
     Private _hchkPeriod As Integer = 0
     Private _longSqlSessions As String = ""
+    Private _isChangedLongRunCond As Boolean = False
     Public Sub New(ByRef clsQuery As clsQuerys, ByVal FixedThresholdDT As DataTable, ByVal dtUserGroup As DataTable)
         ' 이 호출은 디자이너에 필요합니다.
         InitializeComponent()
@@ -38,6 +39,9 @@
         btnLongSQLFilter.Text = p_clsMsgData.fn_GetData("F368")
     End Sub
 
+    Public Sub resetValue()
+        _isChangedLongRunCond = False
+    End Sub
     Public Sub Setvalue(ByVal DT As DataTable, ByVal intInstanceID As Integer)
         Dim dataTable As DataTable = DT
 
@@ -399,6 +403,7 @@
         tmpClass.NotificationCycle = nudNotiCycle.Value
         tmpClass.BusinessName = txtBusiness.Text
         tmpClass.LongRunSqlExclude = _longSqlSessions
+        tmpClass.isChangedLongRunCond = _isChangedLongRunCond
 
         Return tmpClass
     End Function
@@ -494,6 +499,7 @@
         Public FrozenMaxAgeCritical As Integer
 
         Public LongRunSqlExclude As String
+        Public isChangedLongRunCond As Boolean
 
     End Class
 
@@ -690,7 +696,7 @@
     Private Sub btnLongSQLFilter_Click(sender As Object, e As EventArgs) Handles btnLongSQLFilter.Click
         Dim frmCS As New frmLongrunSQLFilter(_longSqlSessions)
         If frmCS.ShowDialog = Windows.Forms.DialogResult.OK Then
-            frmCS.rtnValue(_longSqlSessions)
+            frmCS.rtnValue(_longSqlSessions, _isChangedLongRunCond)
         End If
     End Sub
 End Class
