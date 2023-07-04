@@ -6,8 +6,8 @@ SET "PATH=%PATH%;%PROGRAMFILES%\Git\bin;C:\apache-ant-1.9.9-bin;C:\Program Files
 
 For /F %%g in ('git rev-parse HEAD ^| cut -b 1-7') Do (Set GIT_COMMIT_HASH=%%g)
 
-set BASE_VER=14.0.15
-set BASE_VER_UDERSCORE=14_0_15
+set BASE_VER=14.0.16
+set BASE_VER_UDERSCORE=14_0_16
 For /F %%i in ('git rev-list HEAD ^| find /c /v ""') Do Set GIT_COMMIT_CNT=%%i
 
 
@@ -62,7 +62,7 @@ md install
 
 IF "%CLI%"=="t" (
 	copy "eXperDB_Monitoring_Client\eXperDB_Mon_Postgres_InnoSetup\Output\eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe" install
-	bash -c "md5sum install/eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe | awk '{print toupper($1)}' > install/eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe.md5"
+	bash -c "md5sum install/eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe | awk '{print toupper(\$1)}' > install/eXperDB.Monitoring_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%.exe.md5"
 )
 REM IF "%SVR%"=="t" (
 REM	copy eXperDB_Server\install\eXperDB_Agent_%BASE_VER_UDERSCORE%_%GIT_COMMIT_CNT%_%GIT_COMMIT_HASH%.tar.gz install
