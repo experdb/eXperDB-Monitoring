@@ -4019,6 +4019,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    my $org = $sth . 'pgss_query_texts.stat';
 			    my $prev_size_file = $sth . 'pgssqt_size';
 			    my $prev_size = 0;
+			    my $encoding = spi_exec_query("SELECT current_setting('server_encoding') as current_encoding");
+			    $encoding = $encoding->{rows}[0]->{current_encoding};
+			   elog(INFO, 'encoding : ' . $encoding);
 				# read previous pgss_query_texts.stat file size. 
 				if (-e $prev_size_file) {
 					open(my $fh, '<', $prev_size_file) or die "can't open the file: $!";
@@ -4045,12 +4048,12 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    }
 				# read attached new queries. 
 			    my $ddcmd = '/bin/dd if=' . $org . ' bs=1 skip=' . $prev_size . ' count=' . $new_size . ' 2>/dev/null' . ' |sed \'s/\\x0/' . $del . '/g\'';
-			    elog(INFO, 'p and n size' . $prev_size . ',' .  $new_size);
+			    # elog(INFO, 'p and n size' . $prev_size . ',' .  $new_size);
 				my $newqueries = qx($ddcmd);
 			    my @arr = split $del, $newqueries;
 			    shift @arr;
 			    foreach( @arr ){
-			            return_next decode('utf-8', $_);
+			            return_next decode($encoding, $_);
 			    }
 			    return undef;
 			$BODY$ LANGUAGE plperlu;
