@@ -136,6 +136,10 @@ public class MonitoringInfoManager {
 					session.update("app.PG_CREATE_FUNCTION_FOR_INDEX_001");
 					/*add to create function to make FBI by robin 201902 end*/
 					
+					/*add to create function to make FBI by robin 201902 start*/
+					session.update("app.PG_CREATE_FN_LONGSQL_FILTERING_COND");
+					/*add to create function to make FBI by robin 201902 end*/
+										
 					/*add to create fdw and temp table by robin 201902 start*/
 					map.put("conn_user_pwd", LicenseInfoManager.decryptTDES(cryptokey, (String)map.get("conn_user_pwd")));
 					map.put("instance_db_version", instance_db_version);	
