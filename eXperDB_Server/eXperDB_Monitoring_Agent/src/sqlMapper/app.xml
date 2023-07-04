@@ -5673,6 +5673,59 @@ GROUP BY HA_GROUP
 		 WHERE NOT EXISTS(SELECT 1 FROM UPSERT);
 				]]>	
 	</insert>
-		
+				
+	<update id="PG_CREATE_FN_LONGSQL_FILTERING_COND" parameterType="hashmap">
+		<![CDATA[
+ 		 	  CREATE OR REPLACE FUNCTION GET_LONGSQL_FILTERING_COND()
+				  RETURNS TEXT AS 
+				  $$
+			  DECLARE    
+			      VAR_INSTANCE_ID INT;
+  			      VAR_COND_LEFT VARCHAR;
+  			      VAR_COND_RIGHT VARCHAR;
+  			      VAR_COND VARCHAR;
+			      TMP_CONDTYPE VARCHAR;
+			      TMP_STR VARCHAR;
+			      VAR_RETURN VARCHAR;
+			  BEGIN    
+				  VAR_INSTANCE_ID = -1;
+				  VAR_RETURN = '';
+				  FOR VAR_INSTANCE_ID IN
+	        		  SELECT INSTANCE_ID INSTANCEID FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN='N'	order by instance_id        		
+			      loop
+					  VAR_COND_LEFT := '''ZZ'' ';
+					  VAR_COND_RIGHT := '''ZZ'' ';
+			    	  FOR tmp_condtype, tmp_str IN
+					      SELECT JSONB_ARRAY_ELEMENTS(RESERVED_STR::JSONB)->>'coltype' CONDTYPE,
+					             JSONB_ARRAY_ELEMENTS(RESERVED_STR::JSONB)->>'typestr' STR FROM TB_HCHK_THRD_LIST THTL WHERE INSTANCE_ID = VAR_INSTANCE_ID AND HCHK_NAME = 'LONGRUNSQL' AND RESERVED_STR <> '' ORDER BY CONDTYPE
+					  loop
+						  if tmp_condtype = '1' then
+							  VAR_COND_LEFT := VAR_COND_LEFT || ' ||BAK.USER_NAME';
+							  VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || tmp_str || '''';
+					      elseif tmp_condtype = '2' then 
+							  VAR_COND_LEFT := concat(VAR_COND_LEFT, '||BAK.DB_NAME');
+							  VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || tmp_str || '''';
+					      elseif tmp_condtype = '3' then
+							  VAR_COND_LEFT := concat(VAR_COND_LEFT, '||BAK.CLIENT_ADDR');
+							  VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || tmp_str || '''';
+					      end if;
+					  end loop;
+					  if VAR_COND_RIGHT <> '''ZZ'' ' then
+					      VAR_COND_LEFT := concat(VAR_COND_LEFT, '||TAC.INSTANCE_ID');
+					      VAR_COND_RIGHT := VAR_COND_RIGHT || '||''' || VAR_INSTANCE_ID || '''';
+						  VAR_COND := ' AND ' || VAR_COND_LEFT || '<>' || VAR_COND_RIGHT;
+					  else
+						  VAR_COND := ' ';
+					  end if;
+				      VAR_RETURN := VAR_RETURN || VAR_COND;
+   					  RAISE NOTICE 'VAR_INSTANCE_ID: %', VAR_INSTANCE_ID;
+   					  RAISE NOTICE 'VAR_COND: %', VAR_COND;
+   				      RAISE NOTICE 'VAR_RETURN: %', VAR_RETURN;
+			      END LOOP;
+			      return VAR_RETURN;
+ 			  END $$
+ 			  LANGUAGE 'plpgsql';
+		]]>	
+</update>
 <!-- Check solution End -->
 </mapper>
