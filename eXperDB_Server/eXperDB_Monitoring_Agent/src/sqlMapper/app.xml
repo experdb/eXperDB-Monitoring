@@ -491,16 +491,15 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	                                       FROM (
 	                                          SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
 	                                          FROM (
-	                                             SELECT
-	                                                'pg_tblspc/' || T ||
-	                                                CASE
-	                                                   WHEN CURRENT_SETTING('server_version_num')::INT4 >= 90000 THEN '/' || (
-	                                                   SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
-	                                                   WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)).ISDIR = 'true'
-	                                                     AND Q LIKE 'PG_' || REGEXP_REPLACE( CURRENT_SETTING('server_version'), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' )
-	                                                   ELSE ''
-	                                                END AS LOCATION
-	                                             FROM PG_LS_DIR('pg_tblspc') AS T
+												SELECT
+												        'pg_tblspc/' || t || '/' ||
+												        (SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
+												        WHERE 1=1 
+												          and (select isdir from PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)) = true
+												          AND Q LIKE 'PG_' || REGEXP_REPLACE(split_part(CURRENT_SETTING('server_version'), '.', 1), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' 
+												        )
+												        AS LOCATION
+												FROM PG_LS_DIR('pg_tblspc') AS T
 	                                             WHERE (PG_STAT_FILE('pg_tblspc/' || T)).ISDIR = 'true'
 	                                          UNION SELECT 'base' ) AS DIRS ) AS DB_DIRS
 	                                       WHERE FILE_NAME = (SELECT OID::TEXT FROM PG_DATABASE WHERE DATNAME = CURRENT_DATABASE() ) ) AS FILE_LIST
@@ -802,16 +801,15 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			                FROM (
 			                        SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
 			                        FROM (
-			                                SELECT
-			                                        'pg_tblspc/' || t ||
-			                                        CASE
-			                                                WHEN CURRENT_SETTING('server_version_num')::INT4 >= 90000 THEN '/' || (
-			                                                sELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
-			                                                WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)).ISDIR = 'true'
-			                                                  AND Q LIKE 'PG_' || REGEXP_REPLACE( CURRENT_SETTING('server_version'), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' )
-			                                                ELSE ''
-			                                        END AS LOCATION
-			                                FROM PG_LS_DIR('pg_tblspc') AS T
+											SELECT
+											        'pg_tblspc/' || t || '/' ||
+											        (SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
+											        WHERE 1=1 
+											          and (select isdir from PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)) = true
+											          AND Q LIKE 'PG_' || REGEXP_REPLACE(split_part(CURRENT_SETTING('server_version'), '.', 1), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' 
+											        )
+											        AS LOCATION
+											FROM PG_LS_DIR('pg_tblspc') AS T
 			                                WHERE (PG_STAT_FILE('pg_tblspc/' || T)).ISDIR = 'true'
 			                        uNION SELECT 'base' ) AS DIRS ) AS DB_DIRS
 			                        WHERE FILE_NAME = (SELECT OID::TEXT FROM PG_DATABASE WHERE DATNAME = CURRENT_DATABASE() ) ) AS FILE_LIST
@@ -2445,7 +2443,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		   AND I.INSTANCE_ID = W.INSTANCE_ID   
 		   AND I.COLLECT_YN = 'Y'             
 		   AND I.DELETE_YN='N'
-		   AND W.COLLECT_DT > now() - ((SELECT HCHK_PERIOD_SEC FROM TB_CONFIG)::varchar || ' sec')::interval
+		   AND W.COLLECT_DT > now() - ((SELECT HCHK_PERIOD_SEC * 10 FROM TB_CONFIG)::varchar || ' sec')::interval
 		GROUP BY W.REG_DATE,W.REPL_REG_SEQ,W.INSTANCE_ID
 		]]>  
 	</select>
@@ -5045,6 +5043,57 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					) DIFF
 				WHERE CALLS >  0
 			)
+			SELECT RTST.*, md5(convert_to(fdw${instance_id}.query, #{server_encoding})) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
+			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  ]]>
+	  </when>
+	  <otherwise>
+		<![CDATA[
+			WITH RTST
+			AS
+			(
+				SELECT *
+				FROM (
+					SELECT 
+							CASE WHEN A.USERID IS NULL THEN B.USERID ELSE A.USERID END USERID, 
+							CASE WHEN A.DBID IS NULL THEN B.DBID  ELSE A.DBID END DBID,
+							CASE WHEN A.QUERYID IS NULL THEN B.QUERYID  ELSE A.QUERYID END QUERYID,
+							ABS((COALESCE(B.CALLS,0)-COALESCE(A.CALLS,0))) CALLS,
+							ABS((COALESCE(B.TOTAL_TIME,0)-COALESCE(A.TOTAL_TIME,0))) TOTAL_TIME
+							--B.QUERY QUERY
+					  FROM PG_STAT_STATEMENTS_TMP_${instance_id}_1 AS A FULL JOIN PG_STAT_STATEMENTS_TMP_${instance_id}_0 AS B ON A.USERID = B.USERID AND A.DBID = B.DBID AND A.QUERYID = B.QUERYID
+					 ORDER BY CALLS DESC
+					) DIFF
+				WHERE CALLS >  0
+			)
+			SELECT RTST.*, md5(convert_to(fdw${instance_id}.query, #{server_encoding})) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
+			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
+		  ]]>
+	  </otherwise>
+	 </choose>
+	</select>
+	
+	<select id="BT_RTSTMT_INFO_001_OLD" parameterType="hashmap" resultType="hashmap">
+	 <choose>
+	  <when test="instance_db_version >= 13.0">
+		<![CDATA[
+			WITH RTST
+			AS
+			(
+				SELECT *
+				FROM (
+					SELECT 
+							CASE WHEN A.USERID IS NULL THEN B.USERID ELSE A.USERID END USERID, 
+							CASE WHEN A.DBID IS NULL THEN B.DBID  ELSE A.DBID END DBID,
+							CASE WHEN A.QUERYID IS NULL THEN B.QUERYID  ELSE A.QUERYID END QUERYID,
+							ABS((COALESCE(B.CALLS,0)-COALESCE(A.CALLS,0))) CALLS,
+							ABS((COALESCE(B.TOTAL_TIME,0)-COALESCE(A.TOTAL_TIME,0))) TOTAL_TIME
+							--B.QUERY QUERY
+					  FROM PG_STAT_STATEMENTS_TMP_${instance_id}_1 AS A FULL JOIN PG_STAT_STATEMENTS_TMP_${instance_id}_0 AS B ON A.USERID = B.USERID AND A.DBID = B.DBID AND A.QUERYID = B.QUERYID
+					 ORDER BY CALLS DESC
+					) DIFF
+				WHERE CALLS >  0
+			)
 			SELECT RTST.*, md5(fdw${instance_id}.query) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
 			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>
@@ -5726,6 +5775,11 @@ GROUP BY HA_GROUP
  			  END $$
  			  LANGUAGE 'plpgsql';
 		]]>	
-</update>
+	</update>
+	<select id="BT_SERVER_ENCODING_INFO_S001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT current_setting('server_encoding') as server_encoding
+		]]>
+	</select>
 <!-- Check solution End -->
 </mapper>
