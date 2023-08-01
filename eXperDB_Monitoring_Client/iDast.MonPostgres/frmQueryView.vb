@@ -337,7 +337,9 @@
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
-
+        Dim optionExplain As Integer
+        Dim optionExplainStr As String = ""
+        Dim explainSQL As String
         Dim clsQu As New clsQuerys(_AgentCn)
         If p_cSession.loadUserPermission(clsQu) = True Then
             Dim hasPermission As Boolean = p_cSession.checkPermission(p_currentGroup, 2)
@@ -384,7 +386,32 @@
             Next
         End If
 
-        clsEMsg.SendDX005(_intInstanceID, txtID.Text, txtDB.Text, IIf(useDefaultAccount = True, "useDefaultAccount", txtPW.Text), RichTextBoxQuery1.Text)
+        optionExplain = IIf(chkAnalyze.Checked = True, 1, 0) + IIf(chkVerbose.Checked = True, 2, 0) + IIf(chkBuffers.Checked = True, 4, 0)
+        If optionExplain > 0 Then
+            optionExplainStr = "("
+            If chkAnalyze.Checked Then
+                optionExplainStr &= "Analyze"
+            End If
+
+            If chkVerbose.Checked Then
+                If optionExplainStr.Length > 1 Then
+                    optionExplainStr &= ", "
+                End If
+                optionExplainStr &= "Verbose"
+            End If
+
+            If chkBuffers.Checked Then
+                If optionExplainStr.Length > 1 Then
+                    optionExplainStr &= ", "
+                End If
+                optionExplainStr &= "Buffers"
+            End If
+            optionExplainStr &= ")"
+
+        End If
+
+        explainSQL = optionExplainStr + " " + RichTextBoxQuery1.Text
+        clsEMsg.SendDX005(_intInstanceID, txtID.Text, txtDB.Text, IIf(useDefaultAccount = True, "useDefaultAccount", txtPW.Text), explainSQL)
     End Sub
  
 
@@ -474,4 +501,7 @@
         End Try
     End Sub
 
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles chkAnalyze.CheckedChanged
+
+    End Sub
 End Class
