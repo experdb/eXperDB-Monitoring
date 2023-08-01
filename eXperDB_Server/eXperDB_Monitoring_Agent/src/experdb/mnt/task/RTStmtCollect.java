@@ -113,15 +113,11 @@ public class RTStmtCollect extends TaskApplication {
 				//////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 				//				
 				try {
-					// server encoding 정보 수집
-					HashMap<String, Object> SVREncodingSel = sessionCollect.selectOne("app.BT_SERVER_ENCODING_INFO_S001");		
-					
 					// statements 정보 수집
 					List<HashMap<String, Object>> RTStmtSel = new ArrayList<HashMap<String,Object>>();
 					HashMap<String, Object> inputParam = new HashMap<String, Object>();
 					inputParam.put("instance_id", Integer.parseInt(instanceId));
 					inputParam.put("instance_db_version", instance_db_version);
-					inputParam.put("server_encoding",          SVREncodingSel.get("server_encoding"));
 
 					if (extensions > 0 ){
 						Calendar cal = Calendar.getInstance();

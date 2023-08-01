@@ -4351,25 +4351,30 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
     <DESC>PT_04_09_001(OBJECT 정보)</DESC>
     <DATA>
       <![CDATA[
-        WITH R AS
+  		  WITH L AS
+        (
+         SELECT MAX(COLLECT_DT) COLLECTDT
+	          FROM TB_REALTIME_STATEMENTS 
+	         WHERE COLLECT_DT > NOW() - INTERVAL '120' and reg_time >= TO_CHAR(NOW() - INTERVAL '120', 'YYYYMMDDHH24')
+        ),
+        R AS
         (
          SELECT *
-	          FROM TB_REALTIME_STATEMENTS 
-	         WHERE COLLECT_DT > NOW() - INTERVAL '60' and reg_time >= TO_CHAR(NOW() - INTERVAL '60', 'YYYYMMDDHH24')
+	          FROM TB_REALTIME_STATEMENTS T JOIN L ON T.COLLECT_DT = L.COLLECTDT
         )
         SELECT /*SELECTCURRENTSTATEMENTS*/
-                R.INSTANCE_ID, 
+                R.INSTANCE_ID, R.CQUERYID,
                 U.USER_NAME, 
                 D.DATABASE_NAME, 
                 COALESCE(Q.QUERY, '') QUERY, 
                 CALLS, 
                 TOTAL_TIME AS TOTAL_TIME, 
                 TOTAL_TIME  / CALLS AS AVG_TIME, 
-                R.COLLECT_DT 
+                R.COLLECT_DT
         FROM R
         JOIN TB_PGSS_QUERY_INFO Q ON R.INSTANCE_ID = Q.INSTANCE_ID AND R.CQUERYID = Q.QUERYID
         JOIN TB_USER_INFO U ON R.INSTANCE_ID = U.INSTANCE_ID AND R.USERID = U.USER_ID
-        JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID   
+        JOIN TB_DATABASE_INFO D ON R.INSTANCE_ID = D.INSTANCE_ID AND R.DBID = D.DATID 
       ]]>
     </DATA>
   </ROW>

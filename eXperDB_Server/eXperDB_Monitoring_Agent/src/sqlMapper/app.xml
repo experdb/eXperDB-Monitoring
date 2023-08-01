@@ -1222,7 +1222,10 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			                     SELECT   OTHER_STM.DATNAME          AS BLOCKING_DB,
 			                     		  OTHER_STM.DATID            AS BLOCKING_DATID,
 			                     		  OTHER.PID                  AS BLOCKING_PID,
-			                              OTHER_STM.QUERY            AS BLOCKING_QUERY,
+			                              CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
+								               THEN CONVERT_FROM(CONVERT(DECODE(OTHER_STM.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
+								               ELSE OTHER_STM.QUERY
+								          END AS BLOCKING_QUERY,
 			                              OTHER_STM.USENAME          AS BLOCKING_USER,			                              
 			                              OTHER_STM.USESYSID         AS BLOCKING_USESYSID,			                              
 			                              OTHER.LOCKTYPE             AS BLOCKING_LOCKTYPE,
@@ -1233,7 +1236,10 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			                              OTHER_STM.XACT_START       AS BLOCKING_XACT_START,
 			                              WAITING.PID                AS BLOCKED_PID,
 			                              WAITING_STM.DATID          AS BLOCKED_DBID,
-			                              WAITING_STM.QUERY          AS BLOCKED_QUERY,
+			                              CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
+								               THEN CONVERT_FROM(CONVERT(DECODE(WAITING_STM.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
+								               ELSE WAITING_STM.QUERY
+								          END AS BLOCKED_QUERY,
 			                              WAITING_STM.USENAME        AS BLOCKED_USER,
 			                              WAITING_STM.USESYSID       AS BLOCKED_USESYSID,
 			                              WAITING.LOCKTYPE           AS BLOCKED_LOCKTYPE,
@@ -1245,6 +1251,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			                      FROM PG_CATALOG.PG_LOCKS AS WAITING JOIN PG_CATALOG.PG_STAT_ACTIVITY AS WAITING_STM ON (WAITING_STM.PID = WAITING.PID)
 			                                                                            JOIN PG_CATALOG.PG_LOCKS AS OTHER ON (  (WAITING.DATABASE = OTHER.DATABASE AND WAITING.RELATION  = OTHER.RELATION AND WAITING.LOCKTYPE  = OTHER.LOCKTYPE) OR WAITING.TRANSACTIONID = OTHER.TRANSACTIONID  )
 			                                                                            JOIN PG_CATALOG.PG_STAT_ACTIVITY AS OTHER_STM ON (  OTHER_STM.PID = OTHER.PID )
+			                                                                            JOIN pg_database D on D.oid = WAITING_STM.DATID
 			                    WHERE NOT WAITING.GRANTED
 			                       AND WAITING.PID <> OTHER.PID
 			)
@@ -1454,8 +1461,6 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			<when test="instance_db_version >= 9.2">
 				<![CDATA[
 				SELECT /* EXPERDBMABT_BACKEND_RSC_001 (9.2 to 9.6) 24e9ab7301ff1966da4fb30dc1538882 */
-				          --? AS REG_DATE, -- @ TO_CHAR(NOW(), 'YYYYMMDD'),
-				          --? AS ACTV_REG_SEQ, -- @NEXTVAL('ACTV_REG_SEQ'),
 				          A.PROC_ID AS PROCESS_ID,
 				          B.DATNAME AS DB_NAME,
 				          COALESCE(B.DATID, 0) DATID,
@@ -1465,35 +1470,31 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가
 				          A.CPU_UTIME AS AGG_PROC_UTIME,
 				          A.CPU_STIME AS AGG_PROC_STIME,
-				          --CPU_UTIME - ? AS CURRENT_PROC_UTIME, --@이전값
-				          --CPU_STIME - ? AS CURRENT_PROC_STIME, --@이전값
-				          --ROUND( ((CPU_UTIME-?)+(CPU_STIME-?)) / CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 * 100, 2) AS PROC_CPU_UTIL, --@이전값 , --@이전값, --@이전값
-				          ---- (CPU_UTIME-?)+(CPU_STIME-?) > CPU_CLOCKS*(MSEC_FROM_EPOCH-?)/1000 이면 CPU_CLOCK 연산
 				          A.DISK_READ AS AGG_PROC_READ_KB,
 				          A.DISK_WRITE AS AGG_PROC_WRITE_KB,
-				          --DISK_READ - ? AS CURRENT_PROC_READ_KB,--@이전값
-				          --DISK_WRITE - ? AS CURRENT_PROC_WRITE_KB,--@이전값
 				          CASE WHEN B.STATE='idle' THEN B.BACKEND_START WHEN B.STATE='idle in transaction' THEN b.XACT_START ELSE B.QUERY_START END AS QUERY_START,
-				          --CASE WHEN NOW()-B.QUERY_START< INTERVAL '0' THEN -(NOW()-B.QUERY_START) ELSE NOW()-B.QUERY_START END AS ELAPSED_TIME,
-				          --CASE WHEN B.STATE LIKE '%IDLE%' THEN 0 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
 				          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
-				          --add state CASE WHEN B.STATE = 'idle' THEN '<IDLE>' WHEN B.STATE LIKE 'idle in transaction%' THEN '<IDLE> in transaction' ELSE B.QUERY END AS SQL,
-				          B.QUERY AS SQL,
-				          --CASE WHEN B.CURRENT_QUERY IS NULL THEN 'BACKGROUND PROC' ELSE B.CURRENT_QUERY END AS SQL,				          
+				        --B.QUERY AS SQL,
+				        --convert_from(convert(decode(B.QUERY, 'escape'), 'euc-kr', 'utf8'), 'utf8') SQL,
+				          CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
+				               THEN CONVERT_FROM(CONVERT(DECODE(B.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
+				               ELSE B.QUERY
+				          END AS SQL,
 				          B.STATE AS STATE,
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
 				          B.BACKEND_XID::text::bigint AS BACKEND_XID,
-				           --COALESCE(B.WAIT_EVENT, 'CPU') AS WAIT_EVENT,
 				           CASE WHEN WAIT_EVENT IS NULL THEN 'CPU' ELSE WAIT_EVENT END AS WAIT_EVENT,
-				           MD5(B.QUERY) AS QUERYID,
+				        --MD5(B.QUERY) AS QUERYID,
+				        --MD5(convert_from(convert(decode(B.QUERY, 'escape'), 'euc-kr', 'utf8'), 'utf8')) AS QUERYID,
+				          CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
+				               THEN MD5(CONVERT_FROM(CONVERT(DECODE(B.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8'))
+				               ELSE MD5(B.QUERY)
+				          END AS QUERYID,
 				          NOW() AS COLLECT_DT
-				 -- FROM GET_BACKEND_RSC A LEFT OUTER JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PROCPID;
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
-				 -- WHERE state IN ('active','fastpath function call') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%'
-				 -- WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.QUERY_START IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
-				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.DATID IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'
-				    --AND (application_name <> 'postgres_fdw' and datname not in ('pgmon','psgmondb'))
-				  -- FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID AND B.DATNAME <> 'dxmoni'; --DAUM 적용쿼리				
+				  JOIN pg_database D on D.oid = B.datid
+				  WHERE state NOT IN ('',' ') AND B.QUERY NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%' AND B.DATID IS NOT NULL AND B.APPLICATION_NAME <> 'postgres_fdw'	
+	
 				]]>
 			</when>
 			<otherwise>
@@ -4005,7 +4006,69 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>	  
 	</insert>	
 	
-	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+	
+		<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
+			    use strict;
+			    use warnings;
+			    use Encode;
+			    my $del = $_[0];
+			    my $sth = spi_exec_query("select setting || '/pg_stat_tmp/' query_dir from pg_settings where name = 'data_directory'");
+			    $sth = $sth->{rows}[0]->{query_dir};
+			    my $org = $sth . 'pgss_query_texts.stat';
+			    my $prev_size_file = $sth . 'pgssqt_size';
+			    my $prev_size = 0;
+			    my $encoding = spi_exec_query("SELECT current_setting('server_encoding') as current_encoding");
+			    $encoding = $encoding->{rows}[0]->{current_encoding};
+			   elog(INFO, 'encoding : ' . $encoding);
+				# read previous pgss_query_texts.stat file size. 
+				if (-e $prev_size_file) {
+					open(my $fh, '<', $prev_size_file) or die "can't open the file: $!";
+					my $first_line = <$fh>;
+				    $first_line =~ s/\R//g;
+					$prev_size = $first_line;
+					if($prev_size > 0){
+						$prev_size -= 1;
+					}
+				    close($fh);
+				}
+			    my $org_size = -s $org;
+			    my $new_size = $org_size - $prev_size;
+				# check if $new_size is less than 0 : maybe pg_stat_statements reset has been performed.
+			    if ($new_size <= 0) {
+			        $org_size = 0;
+			    }			    
+				# write current pgss_query_texts.stat file size. 
+				open(my $fh, '>', $prev_size_file) or die "can't open the file: $!";
+				print $fh $org_size;
+				close($fh);
+			    if ($new_size <= 0) {
+			        return;
+			    }
+				# read attached new queries. 
+			    my $ddcmd = '/bin/dd if=' . $org . ' bs=1 skip=' . $prev_size . ' count=' . $new_size . ' 2>/dev/null' . ' |sed \'s/\\x0/' . $del . '/g\'';
+			    # elog(INFO, 'p and n size' . $prev_size . ',' .  $new_size);
+				my $newqueries = qx($ddcmd);
+			    my @arr = split $del, $newqueries;
+			    shift @arr;
+			    foreach( @arr ){
+			            my $euc_kr_text = $_;
+			    		$euc_kr_text =~ s/\r?\n//g;
+			            if ($euc_kr_text =~ /^[ -~\xA1-\xFE]*$/) {
+			                #elog(INFO, 'encoding : euc_kr ' . $euc_kr_text);
+			           		return_next decode('euc_kr', $_);
+			            } else {
+			                #elog(INFO, 'encoding : utf8 ' . $euc_kr_text);
+			           	 	return_next decode('utf8', $_);
+			            }
+			    }
+			    return undef;
+			$BODY$ LANGUAGE plperlu;
+		  ]]>	  
+	</select>
+	
+	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001_OLD2" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
 			    use strict;
@@ -4087,7 +4150,13 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			    my @arr = split $del, $newqueries;
 			    shift @arr;
 			    foreach( @arr ){
-			        return_next decode('utf-8', $_);
+		            if ($_ =~ /^[ -~\xA1-\xFE]*$/) {
+		                elog(INFO, 'encoding : euc_kr');
+		           		return_next decode('euc_kr', $_);
+		            } else {
+		                elog(INFO, 'encoding : utf8');
+		           	 	return_next decode('utf8', $_);
+		            }
 			    }
 			    $res = `$movecmd`;
 			    return undef;
@@ -5043,7 +5112,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					) DIFF
 				WHERE CALLS >  0
 			)
-			SELECT RTST.*, md5(convert_to(fdw${instance_id}.query, #{server_encoding})) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
+			SELECT RTST.*, md5(fdw${instance_id}.query) CQUERYID FROM RTST JOIN fdw${instance_id} ON RTST.userid = fdw${instance_id}.userid AND RTST.dbid = fdw${instance_id}.dbid AND RTST.queryid = fdw${instance_id}.queryid
 			   AND fdw${instance_id}.query NOT LIKE '%24e9ab7301ff1966da4fb30dc1538882%';
 		  ]]>
 	  </when>

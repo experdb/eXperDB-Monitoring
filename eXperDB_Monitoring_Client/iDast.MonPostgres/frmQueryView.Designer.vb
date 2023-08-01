@@ -22,12 +22,21 @@ Partial Class frmQueryView
     '코드 편집기를 사용하여 수정하지 마십시오.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmQueryView))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.spnlVariables = New System.Windows.Forms.Splitter()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblSubject = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.RichTextBoxQuery1 = New eXperDB.Controls.RichTextBoxQuery()
+        Me.dgvVariables = New eXperDB.BaseControls.DataGridView()
+        Me.colVariable = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colLine = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Splitter1 = New eXperDB.BaseControls.Splitter()
         Me.Panel1 = New eXperDB.BaseControls.Panel()
         Me.TreeGridView1 = New AdvancedDataGridView.TreeGridView()
@@ -42,24 +51,161 @@ Partial Class frmQueryView
         Me.lblID = New eXperDB.BaseControls.Label()
         Me.txtDB = New eXperDB.BaseControls.TextBox()
         Me.lblDB = New eXperDB.BaseControls.Label()
-        Me.dgvVariables = New eXperDB.BaseControls.DataGridView()
-        Me.spnlVariables = New System.Windows.Forms.Splitter()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblSubject = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.RichTextBoxQuery1 = New eXperDB.Controls.RichTextBoxQuery()
-        Me.colVariable = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colLine = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.chkVerbose = New eXperDB.BaseControls.CheckBox()
+        Me.chkAnalyze = New eXperDB.BaseControls.CheckBox()
+        Me.chkBuffers = New eXperDB.BaseControls.CheckBox()
+        Me.TableLayoutPanel3.SuspendLayout()
+        CType(Me.dgvVariables, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.TreeGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
-        CType(Me.dgvVariables, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel3.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'spnlVariables
+        '
+        Me.spnlVariables.BackColor = System.Drawing.Color.DimGray
+        Me.spnlVariables.Dock = System.Windows.Forms.DockStyle.Right
+        Me.spnlVariables.Location = New System.Drawing.Point(655, 53)
+        Me.spnlVariables.Name = "spnlVariables"
+        Me.spnlVariables.Size = New System.Drawing.Size(7, 245)
+        Me.spnlVariables.TabIndex = 14
+        Me.spnlVariables.TabStop = False
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.TableLayoutPanel3.ColumnCount = 2
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 1
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(894, 50)
+        Me.TableLayoutPanel3.TabIndex = 20
+        '
+        'lblSubject
+        '
+        Me.lblSubject.AutoSize = True
+        Me.lblSubject.BackColor = System.Drawing.Color.Transparent
+        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSubject.ForeColor = System.Drawing.Color.White
+        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblSubject.Location = New System.Drawing.Point(33, 0)
+        Me.lblSubject.Name = "lblSubject"
+        Me.lblSubject.Size = New System.Drawing.Size(858, 50)
+        Me.lblSubject.TabIndex = 0
+        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.Transparent
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
+        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Label3.Location = New System.Drawing.Point(3, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(24, 50)
+        Me.Label3.TabIndex = 1
+        Me.Label3.Text = "      "
+        '
+        'RichTextBoxQuery1
+        '
+        Me.RichTextBoxQuery1.AutoWordSelection = True
+        Me.RichTextBoxQuery1.BackColor = System.Drawing.Color.Black
+        Me.RichTextBoxQuery1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.RichTextBoxQuery1.Comments = System.Drawing.Color.Green
+        Me.RichTextBoxQuery1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
+        Me.RichTextBoxQuery1.Functions = System.Drawing.Color.Maroon
+        Me.RichTextBoxQuery1.HideSelection = False
+        Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.Blue
+        Me.RichTextBoxQuery1.Location = New System.Drawing.Point(3, 53)
+        Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
+        Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
+        Me.RichTextBoxQuery1.Size = New System.Drawing.Size(652, 245)
+        Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.Blue
+        Me.RichTextBoxQuery1.Strings = System.Drawing.Color.Red
+        Me.RichTextBoxQuery1.TabIndex = 9
+        Me.RichTextBoxQuery1.Text = ""
+        Me.RichTextBoxQuery1.Types = System.Drawing.Color.Brown
+        Me.RichTextBoxQuery1.VariableRegex = "\$[a-zA-Z_\d]*\b"
+        Me.RichTextBoxQuery1.Variables = System.Drawing.Color.Maroon
+        Me.RichTextBoxQuery1.WordWrap = False
+        '
+        'dgvVariables
+        '
+        Me.dgvVariables.AllowUserToAddRows = False
+        Me.dgvVariables.AllowUserToDeleteRows = False
+        Me.dgvVariables.AllowUserToOrderColumns = True
+        Me.dgvVariables.AllowUserToResizeRows = False
+        Me.dgvVariables.BackgroundColor = System.Drawing.Color.Black
+        Me.dgvVariables.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvVariables.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Batang", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvVariables.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvVariables.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colVariable, Me.colValue, Me.colLine})
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Batang", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.LightSteelBlue
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvVariables.DefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvVariables.Dock = System.Windows.Forms.DockStyle.Right
+        Me.dgvVariables.EnableHeadersVisualStyles = False
+        Me.dgvVariables.GridColor = System.Drawing.Color.Gray
+        Me.dgvVariables.Location = New System.Drawing.Point(662, 53)
+        Me.dgvVariables.MultiSelect = False
+        Me.dgvVariables.Name = "dgvVariables"
+        Me.dgvVariables.RowHeadersVisible = False
+        Me.dgvVariables.RowTemplate.Height = 23
+        Me.dgvVariables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvVariables.Size = New System.Drawing.Size(235, 245)
+        Me.dgvVariables.TabIndex = 13
+        Me.dgvVariables.TagValueMatchColor = System.Drawing.Color.Red
+        Me.dgvVariables.UseTagValueMatchColor = False
+        '
+        'colVariable
+        '
+        Me.colVariable.HeaderText = "VARIABLE"
+        Me.colVariable.Name = "colVariable"
+        Me.colVariable.ReadOnly = True
+        '
+        'colValue
+        '
+        Me.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colValue.HeaderText = "VALUES"
+        Me.colValue.Name = "colValue"
+        '
+        'colLine
+        '
+        Me.colLine.HeaderText = "-"
+        Me.colLine.Name = "colLine"
+        Me.colLine.ReadOnly = True
+        Me.colLine.Visible = False
+        Me.colLine.Width = 30
         '
         'Splitter1
         '
@@ -79,8 +225,10 @@ Partial Class frmQueryView
         Me.Panel1.Controls.Add(Me.TreeGridView1)
         Me.Panel1.Controls.Add(Me.Panel2)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(3, 305)
         Me.Panel1.Name = "Panel1"
+        Me.Panel1.Radius = 10
         Me.Panel1.Size = New System.Drawing.Size(894, 292)
         Me.Panel1.TabIndex = 12
         '
@@ -93,40 +241,40 @@ Partial Class frmQueryView
         Me.TreeGridView1.BackgroundColor = System.Drawing.Color.Black
         Me.TreeGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None
         Me.TreeGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.TreeGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.TreeGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPlain})
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(48, Byte), Integer))
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.TreeGridView1.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.DimGray
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.TreeGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.TreeGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPlain})
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Gulim", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.TreeGridView1.DefaultCellStyle = DataGridViewCellStyle5
         Me.TreeGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TreeGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.TreeGridView1.EnableHeadersVisualStyles = False
         Me.TreeGridView1.GridColor = System.Drawing.Color.Black
         Me.TreeGridView1.HideExpandeIcon = False
         Me.TreeGridView1.ImageList = Nothing
-        Me.TreeGridView1.Location = New System.Drawing.Point(0, 28)
+        Me.TreeGridView1.Location = New System.Drawing.Point(0, 58)
         Me.TreeGridView1.Name = "TreeGridView1"
         Me.TreeGridView1.RowHeadersVisible = False
-        Me.TreeGridView1.Size = New System.Drawing.Size(894, 264)
+        Me.TreeGridView1.Size = New System.Drawing.Size(894, 234)
         Me.TreeGridView1.TabIndex = 10
         '
         'colPlain
         '
         Me.colPlain.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colPlain.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colPlain.DefaultCellStyle = DataGridViewCellStyle4
         Me.colPlain.DefaultNodeImage = Nothing
         Me.colPlain.HeaderText = "PLAN"
         Me.colPlain.Name = "colPlain"
@@ -137,6 +285,9 @@ Partial Class frmQueryView
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.Panel2.Controls.Add(Me.chkBuffers)
+        Me.Panel2.Controls.Add(Me.chkAnalyze)
+        Me.Panel2.Controls.Add(Me.chkVerbose)
         Me.Panel2.Controls.Add(Me.cmbUser)
         Me.Panel2.Controls.Add(Me.cmbDb)
         Me.Panel2.Controls.Add(Me.btnSearch)
@@ -147,9 +298,11 @@ Partial Class frmQueryView
         Me.Panel2.Controls.Add(Me.txtDB)
         Me.Panel2.Controls.Add(Me.lblDB)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.GraColor = System.Drawing.Color.FromArgb(CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer), CType(CType(70, Byte), Integer))
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(894, 28)
+        Me.Panel2.Radius = 10
+        Me.Panel2.Size = New System.Drawing.Size(894, 58)
         Me.Panel2.TabIndex = 11
         '
         'cmbUser
@@ -297,105 +450,6 @@ Partial Class frmQueryView
         Me.lblDB.Text = "F010"
         Me.lblDB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'dgvVariables
-        '
-        Me.dgvVariables.AllowUserToAddRows = False
-        Me.dgvVariables.AllowUserToDeleteRows = False
-        Me.dgvVariables.AllowUserToOrderColumns = True
-        Me.dgvVariables.AllowUserToResizeRows = False
-        Me.dgvVariables.BackgroundColor = System.Drawing.Color.Black
-        Me.dgvVariables.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvVariables.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.[Single]
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Batang", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvVariables.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvVariables.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colVariable, Me.colValue, Me.colLine})
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Batang", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer), CType(CType(190, Byte), Integer))
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(36, Byte), Integer))
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.LightSteelBlue
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvVariables.DefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvVariables.Dock = System.Windows.Forms.DockStyle.Right
-        Me.dgvVariables.EnableHeadersVisualStyles = False
-        Me.dgvVariables.GridColor = System.Drawing.Color.Gray
-        Me.dgvVariables.Location = New System.Drawing.Point(662, 53)
-        Me.dgvVariables.MultiSelect = False
-        Me.dgvVariables.Name = "dgvVariables"
-        Me.dgvVariables.RowHeadersVisible = False
-        Me.dgvVariables.RowTemplate.Height = 23
-        Me.dgvVariables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvVariables.Size = New System.Drawing.Size(235, 245)
-        Me.dgvVariables.TabIndex = 13
-        Me.dgvVariables.TagValueMatchColor = System.Drawing.Color.Red
-        Me.dgvVariables.UseTagValueMatchColor = False
-        '
-        'spnlVariables
-        '
-        Me.spnlVariables.BackColor = System.Drawing.Color.DimGray
-        Me.spnlVariables.Dock = System.Windows.Forms.DockStyle.Right
-        Me.spnlVariables.Location = New System.Drawing.Point(655, 53)
-        Me.spnlVariables.Name = "spnlVariables"
-        Me.spnlVariables.Size = New System.Drawing.Size(7, 245)
-        Me.spnlVariables.TabIndex = 14
-        Me.spnlVariables.TabStop = False
-        '
-        'TableLayoutPanel3
-        '
-        Me.TableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(56, Byte), Integer), CType(CType(56, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.TableLayoutPanel3.ColumnCount = 2
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.lblSubject, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label3, 0, 0)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(3, 3)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 1
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(894, 50)
-        Me.TableLayoutPanel3.TabIndex = 20
-        '
-        'lblSubject
-        '
-        Me.lblSubject.AutoSize = True
-        Me.lblSubject.BackColor = System.Drawing.Color.Transparent
-        Me.lblSubject.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSubject.ForeColor = System.Drawing.Color.White
-        Me.lblSubject.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lblSubject.Location = New System.Drawing.Point(33, 0)
-        Me.lblSubject.Name = "lblSubject"
-        Me.lblSubject.Size = New System.Drawing.Size(858, 50)
-        Me.lblSubject.TabIndex = 0
-        Me.lblSubject.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Image = CType(resources.GetObject("Label3.Image"), System.Drawing.Image)
-        Me.Label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Label3.Location = New System.Drawing.Point(3, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(24, 50)
-        Me.Label3.TabIndex = 1
-        Me.Label3.Text = "      "
-        '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.HeaderText = "VARIABLE"
@@ -416,49 +470,47 @@ Partial Class frmQueryView
         Me.DataGridViewTextBoxColumn3.Visible = False
         Me.DataGridViewTextBoxColumn3.Width = 30
         '
-        'RichTextBoxQuery1
+        'chkVerbose
         '
-        Me.RichTextBoxQuery1.AutoWordSelection = True
-        Me.RichTextBoxQuery1.BackColor = System.Drawing.Color.Black
-        Me.RichTextBoxQuery1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.RichTextBoxQuery1.Comments = System.Drawing.Color.Green
-        Me.RichTextBoxQuery1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RichTextBoxQuery1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer), CType(CType(180, Byte), Integer))
-        Me.RichTextBoxQuery1.Functions = System.Drawing.Color.Maroon
-        Me.RichTextBoxQuery1.HideSelection = False
-        Me.RichTextBoxQuery1.KeyWords = System.Drawing.Color.Blue
-        Me.RichTextBoxQuery1.Location = New System.Drawing.Point(3, 53)
-        Me.RichTextBoxQuery1.Name = "RichTextBoxQuery1"
-        Me.RichTextBoxQuery1.Numbers = System.Drawing.Color.Magenta
-        Me.RichTextBoxQuery1.Size = New System.Drawing.Size(652, 245)
-        Me.RichTextBoxQuery1.StateMents = System.Drawing.Color.Blue
-        Me.RichTextBoxQuery1.Strings = System.Drawing.Color.Red
-        Me.RichTextBoxQuery1.TabIndex = 9
-        Me.RichTextBoxQuery1.Text = ""
-        Me.RichTextBoxQuery1.Types = System.Drawing.Color.Brown
-        Me.RichTextBoxQuery1.VariableRegex = "\$[a-zA-Z_\d]*\b"
-        Me.RichTextBoxQuery1.Variables = System.Drawing.Color.Maroon
-        Me.RichTextBoxQuery1.WordWrap = False
+        Me.chkVerbose.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkVerbose.ForeColor = System.Drawing.Color.White
+        Me.chkVerbose.LineColor = System.Drawing.Color.Gray
+        Me.chkVerbose.Location = New System.Drawing.Point(233, 33)
+        Me.chkVerbose.Name = "chkVerbose"
+        Me.chkVerbose.Radius = 10
+        Me.chkVerbose.Size = New System.Drawing.Size(116, 23)
+        Me.chkVerbose.TabIndex = 23
+        Me.chkVerbose.Text = "Verbose"
+        Me.chkVerbose.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkVerbose.UseVisualStyleBackColor = True
         '
-        'colVariable
+        'chkAnalyze
         '
-        Me.colVariable.HeaderText = "VARIABLE"
-        Me.colVariable.Name = "colVariable"
-        Me.colVariable.ReadOnly = True
+        Me.chkAnalyze.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkAnalyze.ForeColor = System.Drawing.Color.White
+        Me.chkAnalyze.LineColor = System.Drawing.Color.Gray
+        Me.chkAnalyze.Location = New System.Drawing.Point(109, 33)
+        Me.chkAnalyze.Name = "chkAnalyze"
+        Me.chkAnalyze.Radius = 10
+        Me.chkAnalyze.Size = New System.Drawing.Size(116, 23)
+        Me.chkAnalyze.TabIndex = 24
+        Me.chkAnalyze.Text = "Analyze"
+        Me.chkAnalyze.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkAnalyze.UseVisualStyleBackColor = True
         '
-        'colValue
+        'chkBuffers
         '
-        Me.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colValue.HeaderText = "VALUES"
-        Me.colValue.Name = "colValue"
-        '
-        'colLine
-        '
-        Me.colLine.HeaderText = "-"
-        Me.colLine.Name = "colLine"
-        Me.colLine.ReadOnly = True
-        Me.colLine.Visible = False
-        Me.colLine.Width = 30
+        Me.chkBuffers.CheckFillColor = System.Drawing.Color.FromArgb(CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer), CType(CType(127, Byte), Integer))
+        Me.chkBuffers.ForeColor = System.Drawing.Color.White
+        Me.chkBuffers.LineColor = System.Drawing.Color.Gray
+        Me.chkBuffers.Location = New System.Drawing.Point(353, 33)
+        Me.chkBuffers.Name = "chkBuffers"
+        Me.chkBuffers.Radius = 10
+        Me.chkBuffers.Size = New System.Drawing.Size(116, 23)
+        Me.chkBuffers.TabIndex = 26
+        Me.chkBuffers.Text = "Buffers"
+        Me.chkBuffers.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.chkBuffers.UseVisualStyleBackColor = True
         '
         'frmQueryView
         '
@@ -477,13 +529,13 @@ Partial Class frmQueryView
         Me.Padding = New System.Windows.Forms.Padding(3)
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frmQueryView"
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
+        CType(Me.dgvVariables, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         CType(Me.TreeGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        CType(Me.dgvVariables, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.TableLayoutPanel3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -513,4 +565,7 @@ Partial Class frmQueryView
     Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents chkBuffers As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chkAnalyze As eXperDB.BaseControls.CheckBox
+    Friend WithEvents chkVerbose As eXperDB.BaseControls.CheckBox
 End Class
