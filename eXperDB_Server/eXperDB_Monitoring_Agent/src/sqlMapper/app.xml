@@ -1476,19 +1476,25 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				          CASE WHEN B.STATE LIKE 'idle%' THEN 0 WHEN ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2)<0 THEN 0.1 ELSE ROUND(EXTRACT(EPOCH FROM NOW()-QUERY_START)::NUMERIC, 2) END AS ELAPSED_TIME,
 				        --B.QUERY AS SQL,
 				        --convert_from(convert(decode(B.QUERY, 'escape'), 'euc-kr', 'utf8'), 'utf8') SQL,
-				          CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
-				               THEN CONVERT_FROM(CONVERT(DECODE(B.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
-				               ELSE B.QUERY
-				          END AS SQL,
+				          CASE WHEN B.QUERY LIKE '%pg_catalog.%' THEN B.QUERY
+                          ELSE
+					          CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
+					               THEN CONVERT_FROM(CONVERT(DECODE(B.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
+					               ELSE B.QUERY
+					          END
+					      END AS SQL,
 				          B.STATE AS STATE,
 				          A.SEC_FROM_EPOCH AS SEC_FROM_EPOCH,
 				          B.BACKEND_XID::text::bigint AS BACKEND_XID,
 				           CASE WHEN WAIT_EVENT IS NULL THEN 'CPU' ELSE WAIT_EVENT END AS WAIT_EVENT,
 				        --MD5(B.QUERY) AS QUERYID,
 				        --MD5(convert_from(convert(decode(B.QUERY, 'escape'), 'euc-kr', 'utf8'), 'utf8')) AS QUERYID,
-				          CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
-				               THEN MD5(CONVERT_FROM(CONVERT(DECODE(B.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8'))
-				               ELSE MD5(B.QUERY)
+				          CASE WHEN B.QUERY LIKE '%pg_catalog.%' THEN MD5(B.QUERY)
+                          ELSE
+					          CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
+					               THEN MD5(CONVERT_FROM(CONVERT(DECODE(B.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8'))
+					               ELSE MD5(B.QUERY)
+					          END
 				          END AS QUERYID,
 				          NOW() AS COLLECT_DT
 				  FROM GET_BACKEND_RSC A JOIN PG_STAT_ACTIVITY B ON A.PROC_ID=B.PID
