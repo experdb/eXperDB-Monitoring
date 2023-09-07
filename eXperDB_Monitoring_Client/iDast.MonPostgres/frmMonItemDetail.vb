@@ -138,6 +138,7 @@ Public Class frmMonItemDetail
                 index += 1
             Next
         End If
+        cmbStatus.SelectedIndex = 0
 
         '_chtCount = 1
         chtCPU.MainChart.Focus()
@@ -334,7 +335,18 @@ Public Class frmMonItemDetail
                                                         Try
                                                             Dim strQuery As String = ""
 
-                                                            strQuery = String.Format("INSTANCE_ID = {0}", Me.InstanceID)
+                                                            Dim subQuery As String = IIf(cmbStatus.SelectedIndex, "", String.Format("AND STATE = '{0}'", "active"))
+                                                            If cmbStatus.SelectedIndex = 0 Then
+                                                                subQuery = ""
+                                                            ElseIf cmbStatus.SelectedIndex = 1 Then
+                                                                subQuery = String.Format("AND STATE = '{0}'", "active")
+                                                            ElseIf cmbStatus.SelectedIndex = 2 Then
+                                                                subQuery = String.Format("AND STATE = '{0}'", "idle in transaction")
+                                                            Else
+                                                                subQuery = String.Format("AND STATE = '{0}'", "idle")
+                                                            End If
+
+                                                            strQuery = String.Format("INSTANCE_ID = {0} {1}", Me.InstanceID, subQuery)
 
                                                             Dim dtView As DataView = New DataView(dtTable, strQuery, "CPU_USAGE DESC, ELAPSED_TIME DESC", DataViewRowState.CurrentRows)
 

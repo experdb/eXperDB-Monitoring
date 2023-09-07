@@ -235,6 +235,8 @@
             subQuery = ""
         ElseIf cmbStatus.SelectedIndex = 1 Then
             subQuery = String.Format("AND STATE = '{0}'", "active")
+        ElseIf cmbStatus.SelectedIndex = 2 Then
+            subQuery = String.Format("AND STATE = '{0}'", "idle in transaction")
         Else
             subQuery = String.Format("AND STATE = '{0}'", "idle")
         End If
