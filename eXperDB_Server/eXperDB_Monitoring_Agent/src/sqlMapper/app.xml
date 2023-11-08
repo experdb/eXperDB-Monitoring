@@ -1465,9 +1465,9 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 				          B.DATNAME AS DB_NAME,
 				          COALESCE(B.DATID, 0) DATID,
 				          COALESCE(B.USESYSID, 0) USESYSID,
-				          HOST(B.CLIENT_ADDR) AS CLIENT_ADDR, -- 2014-04-28 추가
-				          B.USENAME AS USER_NAME,-- 2014-04-28 추가
-				          B.APPLICATION_NAME AS APPLICATION_NAME,-- 2014-04-28 추가
+				          HOST(B.CLIENT_ADDR) AS CLIENT_ADDR,
+				          B.USENAME AS USER_NAME,
+				          B.APPLICATION_NAME AS APPLICATION_NAME,
 				          A.CPU_UTIME AS AGG_PROC_UTIME,
 				          A.CPU_STIME AS AGG_PROC_STIME,
 				          A.DISK_READ AS AGG_PROC_READ_KB,
@@ -1982,6 +1982,12 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			   --ACTIVECONNECTION, TRAXIDLECNT, 
 			   LONGRUNSQL, COLLECT_GROUP, COLLECT_REG_DATE, REG_SEQ COLLECT_REG_SEQ, REG_TIME FROM  GET_SESSION_HEALTH()
 		ORDER BY INSTANCE_ID
+		]]>
+	</select>	
+	
+	<select id="EXPERDBMA_BT_HCHK_LONGRUNSQL_CHK_FN_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+		SELECT EXISTS(SELECT * FROM pg_proc WHERE proname = 'get_session_health') as exists;
 		]]>
 	</select>	
 	
@@ -4012,8 +4018,66 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 		]]>	  
 	</insert>	
 	
+	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
+			    use strict;
+			    use warnings;
+			    use Encode;
+			    my $del = $_[0];
+			    my $sth = spi_exec_query("select setting || '/pg_stat_tmp/' query_dir from pg_settings where name = 'data_directory'");
+			    $sth = $sth->{rows}[0]->{query_dir};
+			    my $org = $sth . 'pgss_query_texts.stat';
+			    my $prev_size_file = $sth . 'pgssqt_size';
+			    my $prev_size = 0;
+			    my $encoding = spi_exec_query("SELECT current_setting('server_encoding') as current_encoding");
+			    $encoding = $encoding->{rows}[0]->{current_encoding};
+			   elog(INFO, 'encoding : ' . $encoding);
+				# read previous pgss_query_texts.stat file size. 
+				if (-e $prev_size_file) {
+					open(my $fh, '<', $prev_size_file) or die "can't open the file: $!";
+					my $first_line = <$fh>;
+				    $first_line =~ s/\R//g;
+					$prev_size = $first_line;
+					if($prev_size > 0){
+						$prev_size -= 1;
+					}
+				    close($fh);
+				}
+			    my $org_size = -s $org;
+			    my $new_size = $org_size - $prev_size;
+				# check if $new_size is less than 0 : maybe pg_stat_statements reset has been performed.
+			    if ($new_size <= 0) {
+			        $org_size = 0;
+			    }			    
+				# write current pgss_query_texts.stat file size. 
+				open(my $fh, '>', $prev_size_file) or die "can't open the file: $!";
+				print $fh $org_size;
+				close($fh);
+			    if ($new_size <= 0) {
+			        return;
+			    }
+				# read attached new queries. 
+			    my $ddcmd = '/bin/dd if=' . $org . ' bs=1 skip=' . $prev_size . ' count=' . $new_size . ' 2>/dev/null' . ' |sed \'s/\\x0/' . $del . '/g\'';
+			    # elog(INFO, 'p and n size' . $prev_size . ',' .  $new_size);
+				my $newqueries = qx($ddcmd);
+			    my @arr = split $del, $newqueries;
+			    shift @arr;
+			    foreach( @arr ){
+			    		my $euc_kr_text = $_;
+			    		eval { decode("euc-kr", $euc_kr_text, Encode::FB_CROAK) };
+						if ($@) {
+						    return_next decode('utf8', $_);
+						} else {
+						    return_next decode('euc_kr', $_);
+						}
+			    }
+			    return undef;
+			$BODY$ LANGUAGE plperlu;
+		  ]]>	  
+	</select>
 	
-		<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001" parameterType="hashmap" resultType="hashmap">
+	<select id="EXPERDBMA_BT_PGSS_QUERY_CREATE_001_202311" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			CREATE OR REPLACE FUNCTION GET_PGSS_TEXT(CHARACTER VARYING) RETURNS SETOF TEXT AS $BODY$
 			    use strict;

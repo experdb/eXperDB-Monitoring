@@ -71,16 +71,16 @@
         Dim RadioButton As BaseControls.RadioButton = DirectCast(sender, BaseControls.RadioButton)
         If RadioButton.Checked = False Then Return
         Try
-            If dgvSvrLst.CurrentNode.Parent IsNot Nothing Then
-
-            End If
-
             If rbGrpCluster.Checked = True Then
                 For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvSvrLst.Nodes
                     tmpNode.Expand()
                 Next
-                _alertConfig.Visible = True
-                _alertConfigHAGroup.Visible = False
+                If _alertConfig IsNot Nothing Then
+                    _alertConfig.Visible = True
+                End If
+                If _alertConfigHAGroup IsNot Nothing Then
+                    _alertConfigHAGroup.Visible = False
+                End If
             Else
                 Dim pNode As AdvancedDataGridView.TreeGridNode = dgvSvrLst.CurrentNode
                 Dim cNode As AdvancedDataGridView.TreeGridNode
@@ -93,8 +93,13 @@
                 For Each tmpNode As AdvancedDataGridView.TreeGridNode In Me.dgvSvrLst.Nodes
                     tmpNode.Collapse()
                 Next
-                _alertConfig.Visible = False
-                _alertConfigHAGroup.Visible = True
+
+                If _alertConfig IsNot Nothing Then
+                    _alertConfig.Visible = False
+                End If
+                If _alertConfigHAGroup IsNot Nothing Then
+                    _alertConfigHAGroup.Visible = True
+                End If
             End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)

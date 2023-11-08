@@ -55,9 +55,12 @@ public class HchkCollect extends TaskApplication {
 			List<HashMap<String, Object>> insertAlertList = new ArrayList<HashMap<String,Object>>();
 			List<HashMap<String, Object>> updateList = new ArrayList<HashMap<String,Object>>();
 						
-			try {					
-				sessionAgent.update("app.EXPERDBMA_BT_HCHK_LONGRUNSQL_CREATE_FN_001");
-				sessionAgent.commit();
+			try {						
+				HashMap<String, Object> checkFnMap = sessionAgent.selectOne("app.EXPERDBMA_BT_HCHK_LONGRUNSQL_CHK_FN_001");
+				if(checkFnMap.get("exists").toString().equals("false")) {
+					sessionAgent.update("app.EXPERDBMA_BT_HCHK_LONGRUNSQL_CREATE_FN_001");
+					sessionAgent.commit();
+				}
 			} catch (Exception e) {
 				log.error("", e);
 				throw e;

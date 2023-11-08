@@ -734,10 +734,10 @@
                 ClsQuery.UpdateConfig(nudLogSaveDly.Value, strLocIP, String.Format("{0}:{1}", cmbLogBatchH.SelectedIndex, cmbLogBatchM.SelectedIndex), cmbHealthTime.SelectedValue, cmbObjectTime.SelectedValue, cmbStmtTime.SelectedValue, nudTReportSaveDly.Value)
             End If
 
-            If Not nudSnapshotSaveDly.Value.Equals(nudSnapshotSaveDly.Tag) _
-                Or Not cmbSnapshotTopN.SelectedValue.Equals(cmbSnapshotTopN.Tag) Then
-                ClsQuery.UpdateSnapshotConfig(nudSnapshotSaveDly.Value, cmbSnapshotTopN.SelectedValue)
-            End If
+            'If Not nudSnapshotSaveDly.Value.Equals(nudSnapshotSaveDly.Tag) _
+            '    Or Not cmbSnapshotTopN.SelectedValue.Equals(cmbSnapshotTopN.Tag) Then
+            '    ClsQuery.UpdateSnapshotConfig(nudSnapshotSaveDly.Value, cmbSnapshotTopN.SelectedValue)
+            'End If
 
         End If
         ' 데이터 삽입 후 서버 Agent 재시작 
