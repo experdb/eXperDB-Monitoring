@@ -501,7 +501,7 @@ Partial Class AlertNotiConfig
         Me.txtIP.Location = New System.Drawing.Point(131, 106)
         Me.txtIP.Name = "txtIP"
         Me.txtIP.Necessary = True
-        Me.txtIP.PossibleInput = "0123456789."
+        Me.txtIP.PossibleInput = ""
         Me.txtIP.Prefix = ""
         Me.txtIP.Size = New System.Drawing.Size(194, 21)
         Me.txtIP.StatusTip = ""

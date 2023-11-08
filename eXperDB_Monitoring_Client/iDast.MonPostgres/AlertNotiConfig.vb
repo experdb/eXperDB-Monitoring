@@ -54,18 +54,20 @@ Public Class AlertNotiConfig
     Private Sub loadAlertLinkConfig()
         Try
             Dim dt As DataTable = _clsQuery.SelectAlertLinkConfig()
-            Dim linkType As Integer = CInt(dt.Rows(0).Item("LINK_TYPE"))
-            cmbDBMS.SelectedIndex = linkType
-            txtIP.Text = dt.Rows(0).Item("LINK_IP")
-            txtPort.Text = CInt(dt.Rows(0).Item("LINK_PORT"))
-            txtDbnm.Text = dt.Rows(0).Item("LINK_DATABASE")
-            txtUsr.Text = dt.Rows(0).Item("LINK_ID")
-            txtPW.Text = dt.Rows(0).Item("LINK_PASSWORD")
-            _OldPWValue = txtPW.Text
-            RichTextBoxQuery1.Text = dt.Rows(0).Item("LINK_STATEMENTS")
-            RichTextBoxQuery1.Tag = dt.Rows(0).Item("LINK_STATEMENTS")
-            txtSender.Text = dt.Rows(0).Item("NOTIFICATION_SENDER")
-            btnSave.Enabled = False
+            If dt.Rows.Count > 0 Then
+                Dim linkType As Integer = CInt(dt.Rows(0).Item("LINK_TYPE"))
+                cmbDBMS.SelectedIndex = linkType
+                txtIP.Text = dt.Rows(0).Item("LINK_IP")
+                txtPort.Text = CInt(dt.Rows(0).Item("LINK_PORT"))
+                txtDbnm.Text = dt.Rows(0).Item("LINK_DATABASE")
+                txtUsr.Text = dt.Rows(0).Item("LINK_ID")
+                txtPW.Text = dt.Rows(0).Item("LINK_PASSWORD")
+                _OldPWValue = txtPW.Text
+                RichTextBoxQuery1.Text = dt.Rows(0).Item("LINK_STATEMENTS")
+                RichTextBoxQuery1.Tag = dt.Rows(0).Item("LINK_STATEMENTS")
+                txtSender.Text = dt.Rows(0).Item("NOTIFICATION_SENDER")
+                btnSave.Enabled = False
+            End If
         Catch ex As Exception
             p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
         End Try
