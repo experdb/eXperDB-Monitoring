@@ -3025,6 +3025,42 @@ UNION
     <DESC>HEALTH CHECK Disk Usage</DESC>
     <DATA>
       <![CDATA[
+        SELECT DEVICE_NAME,
+               MOUNT_POINT_DIR,
+	           CASE 
+	               WHEN TOTAL_KB < 1024 THEN TOTAL_KB || ' KB'
+	               WHEN TOTAL_KB < 1048576 THEN round(TOTAL_KB / 1024.0, 2) || ' MB'
+	               WHEN TOTAL_KB < 1073741824 THEN round(TOTAL_KB / 1048576.0, 2) || ' GB'
+	               ELSE round(TOTAL_KB / 1073741824.0, 4) || ' TB'
+	           END AS TOTAL_KB,
+	           CASE 
+	               WHEN USED < 1024 THEN USED || ' KB'
+	               WHEN USED < 1048576 THEN round(USED / 1024.0, 2) || ' MB'
+	               WHEN USED < 1073741824 THEN round(USED / 1048576.0, 2) || ' GB'
+	               ELSE round(TOTAL_KB / 1073741824.0, 4) || ' TB'
+	           END AS USED,
+               USED_RATE, 
+               COLLECT_DT 
+          FROM	(	
+            SELECT DEVICE_NAME,
+                     MOUNT_POINT_DIR,
+                     TOTAL_KB,
+                     TOTAL_KB - AVAIL_KB AS USED,
+                     1 - (AVAIL_KB / TOTAL_KB) AS USED_RATE, 
+                     COLLECT_DT 
+             FROM TB_DISK_USAGE
+            WHERE REG_DATE='{0}'
+              AND RSC_REG_SEQ={1}
+	        ORDER BY USED_RATE desc
+        ) AS T;
+    ]]>
+    </DATA>
+    <COMMENTS />
+  </ROW>
+  <ROW ID="DISKUSAGE_20231124_ROUNT_ERR" PARAMS="2">
+    <DESC>HEALTH CHECK Disk Usage</DESC>
+    <DATA>
+      <![CDATA[
     SELECT DEVICE_NAME,
              MOUNT_POINT_DIR,
              TOTAL_KB,
