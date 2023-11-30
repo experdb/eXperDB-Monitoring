@@ -6,8 +6,8 @@ SET "PATH=%PATH%;%PROGRAMFILES%\Git\bin;C:\apache-ant-1.9.9-bin;C:\Program Files
 
 For /F %%g in ('git rev-parse HEAD ^| cut -b 1-7') Do (Set GIT_COMMIT_HASH=%%g)
 
-set BASE_VER=15.0.2
-set BASE_VER_UDERSCORE=15_0_2
+set BASE_VER=15.0.3
+set BASE_VER_UDERSCORE=15_0_3
 For /F %%i in ('git rev-list HEAD ^| find /c /v ""') Do Set GIT_COMMIT_CNT=%%i
 
 
