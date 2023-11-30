@@ -3037,7 +3037,7 @@ UNION
 	               WHEN USED < 1024 THEN USED || ' KB'
 	               WHEN USED < 1048576 THEN round(USED / 1024.0, 2) || ' MB'
 	               WHEN USED < 1073741824 THEN round(USED / 1048576.0, 2) || ' GB'
-	               ELSE round(TOTAL_KB / 1073741824.0, 4) || ' TB'
+	               ELSE round(USED / 1073741824.0, 4) || ' TB'
 	           END AS USED,
                USED_RATE, 
                COLLECT_DT 
