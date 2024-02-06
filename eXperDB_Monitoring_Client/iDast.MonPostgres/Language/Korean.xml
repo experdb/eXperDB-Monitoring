@@ -2627,7 +2627,7 @@
   </ROW>
   <ROW ID="F323" PARAMS="1">
     <DESC>Stat_Statements</DESC>
-    <DATA><![CDATA[Statements(Count : {0})]]></DATA>
+    <DATA><![CDATA[Statements list(Count : {0})]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -2786,8 +2786,8 @@
     <DATA><![CDATA[그룹선택]]></DATA>
   </ROW>
   <ROW ID="F353" PARAMS="0">
-    <DESC>알림 연동 이력</DESC>
-    <DATA><![CDATA[알림 연동 이력]]></DATA>
+    <DESC>알럿 연동 이력</DESC>
+    <DATA><![CDATA[알럿 연동 이력]]></DATA>
   </ROW>
   <ROW ID="F354" PARAMS="0">
     <DESC>송신정보</DESC>
@@ -2865,6 +2865,14 @@
     <DATA><![CDATA[List only]]></DATA>
     <VALUECAST />
   </ROW>
+  <ROW ID="F372" PARAMS="0">
+    <DESC>DISK I/O</DESC>
+    <DATA><![CDATA[Disk I/O Status]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>사용자가 지정한 일수이상동안 통계갱신이 실행되지 않은 테이블을 점검합니다. 지속될 경우 비정상적인 실행계획 수립으로 SQL 성능이 급격히 저하될 수 있으므로 AUTOVACUUM 관련 파라메터로 최적화된 통계갱신 주기를 유지해야 합니다.</DESC>
     <DATA><![CDATA[Analyze 미실행]]></DATA>
@@ -2886,7 +2894,7 @@
     <DATA><![CDATA[LOCK]]></DATA>
     <COMMENTS>log_lock_waits</COMMENTS>
     <CATEGORY>HEALTH</CATEGORY>
-    <COLUMNS>DB_NAME|DATABASE|TEXT||200;BLOCKED_PID|BLOCKED PID|NUMBER|N0|100;BLOCKED_USER|BLOCKED USER|TEXT||100;BLOCKED_STATEMENT|BLOCKED STATEMENT|TEXT||300;BLOCKED_DURATION|BLOCKED DURATION|TIMESTAMP|T|100;BLOCKING_PID|BLOCKING PID|NUMBER|N0|100;BLOCKING_USER|BLOCKING USER|TEXT||100;BLOCKING_STATEMENT|BLOCKING STATEMENT|TEXT||300;BLOCKING_DURATION|BLOCKING DURATION|TIMESTAMP|T|100</COLUMNS>
+    <COLUMNS>DB_NAME|DATABASE|TEXT||150;BLOCKED_PID|BLOCKED PID|NUMBER|N0|100;BLOCKED_USER|BLOCKED USER|TEXT||110;BLOCKED_STATEMENT|BLOCKED STATEMENT|TEXT||300;BLOCKED_DURATION|BLOCKED DURATION|TIMESTAMP|T|170;BLOCKING_PID|BLOCKING PID|NUMBER|N0|110;BLOCKING_USER|BLOCKING USER|TEXT||120;BLOCKING_STATEMENT|BLOCKING STATEMENT|TEXT||300;BLOCKING_DURATION|BLOCKING DURATION|TIMESTAMP|T|170</COLUMNS>
     <VALUECAST />
   </ROW>
   <ROW ID="LONGRUNSQL" PARAMS="0">
@@ -3564,8 +3572,8 @@
     <VALUECAST />
   </ROW>
   <ROW ID="M074" PARAMS="0">
-    <DESC>알림 연동 이력을 조회합니다.</DESC>
-    <DATA><![CDATA[알림 연동 이력을 조회합니다.]]></DATA>
+    <DESC>알럿 연동 이력을 조회합니다.</DESC>
+    <DATA><![CDATA[알럿 연동 이력을 조회합니다.]]></DATA>
     <COMMENTS />
     <CATEGORY />
     <COLUMNS />
@@ -4246,5 +4254,21 @@
     <DESC>Server info</DESC>
     <DATA><![CDATA[수집서버 Port]]></DATA>
     <VALUECAST />
+  </ROW>
+  <ROW ID="F991" PARAMS="0">
+    <DESC>Tooltips</DESC>
+    <DATA><![CDATA[(필수입력, 최대 20자)]]></DATA>
+  </ROW>
+  <ROW ID="F992" PARAMS="0">
+    <DESC>Tooltips</DESC>
+    <DATA><![CDATA[('-'를 제외한 최대 11자의 숫자)]]></DATA>
+  </ROW>
+  <ROW ID="F993" PARAMS="0">
+    <DESC>Tooltips</DESC>
+    <DATA><![CDATA[(이메일 형식 최대 40자)]]></DATA>
+  </ROW>
+  <ROW ID="F994" PARAMS="0">
+    <DESC>Tooltips</DESC>
+    <DATA><![CDATA[(최대 20자)]]></DATA>
   </ROW>
 </ROWS>

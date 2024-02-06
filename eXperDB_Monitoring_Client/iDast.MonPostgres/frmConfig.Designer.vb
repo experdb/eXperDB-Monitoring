@@ -26,6 +26,12 @@ Partial Class frmConfig
         Me.tbMain = New FlatTabControl.FlatTabControl()
         Me.tp1 = New System.Windows.Forms.TabPage()
         Me.tlpSvrChk = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblTextLimit = New System.Windows.Forms.Label()
+        Me.lblTextLimit2 = New System.Windows.Forms.Label()
+        Me.lblEmailLimit = New System.Windows.Forms.Label()
+        Me.lblPhoneLimit2 = New System.Windows.Forms.Label()
+        Me.lblPhoneLimit = New System.Windows.Forms.Label()
+        Me.lblUserNameLimit = New System.Windows.Forms.Label()
         Me.rbUseNoti3 = New eXperDB.BaseControls.RadioButton()
         Me.txtEmpNum = New eXperDB.BaseControls.TextBox()
         Me.lblEmpNum = New eXperDB.BaseControls.Label()
@@ -148,8 +154,14 @@ Partial Class frmConfig
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 162.0!))
-        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175.0!))
+        Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72.0!))
         Me.tlpSvrChk.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpSvrChk.Controls.Add(Me.lblTextLimit, 4, 6)
+        Me.tlpSvrChk.Controls.Add(Me.lblTextLimit2, 4, 8)
+        Me.tlpSvrChk.Controls.Add(Me.lblEmailLimit, 4, 7)
+        Me.tlpSvrChk.Controls.Add(Me.lblPhoneLimit2, 4, 5)
+        Me.tlpSvrChk.Controls.Add(Me.lblPhoneLimit, 4, 4)
+        Me.tlpSvrChk.Controls.Add(Me.lblUserNameLimit, 4, 2)
         Me.tlpSvrChk.Controls.Add(Me.rbUseNoti3, 3, 6)
         Me.tlpSvrChk.Controls.Add(Me.txtEmpNum, 2, 6)
         Me.tlpSvrChk.Controls.Add(Me.lblEmpNum, 1, 6)
@@ -187,6 +199,101 @@ Partial Class frmConfig
         Me.tlpSvrChk.Size = New System.Drawing.Size(586, 383)
         Me.tlpSvrChk.TabIndex = 0
         '
+        'lblTextLimit
+        '
+        Me.lblTextLimit.AutoSize = True
+        Me.lblTextLimit.BackColor = System.Drawing.Color.Transparent
+        Me.lblTextLimit.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblTextLimit.ForeColor = System.Drawing.Color.White
+        Me.lblTextLimit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblTextLimit.Location = New System.Drawing.Point(377, 231)
+        Me.lblTextLimit.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
+        Me.lblTextLimit.Name = "lblTextLimit"
+        Me.lblTextLimit.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblTextLimit.Size = New System.Drawing.Size(206, 12)
+        Me.lblTextLimit.TabIndex = 32
+        Me.lblTextLimit.Text = "F994"
+        Me.lblTextLimit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblTextLimit2
+        '
+        Me.lblTextLimit2.AutoSize = True
+        Me.lblTextLimit2.BackColor = System.Drawing.Color.Transparent
+        Me.lblTextLimit2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblTextLimit2.ForeColor = System.Drawing.Color.White
+        Me.lblTextLimit2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblTextLimit2.Location = New System.Drawing.Point(377, 311)
+        Me.lblTextLimit2.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
+        Me.lblTextLimit2.Name = "lblTextLimit2"
+        Me.lblTextLimit2.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblTextLimit2.Size = New System.Drawing.Size(206, 12)
+        Me.lblTextLimit2.TabIndex = 31
+        Me.lblTextLimit2.Text = "F994"
+        Me.lblTextLimit2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblEmailLimit
+        '
+        Me.lblEmailLimit.AutoSize = True
+        Me.lblEmailLimit.BackColor = System.Drawing.Color.Transparent
+        Me.lblEmailLimit.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblEmailLimit.ForeColor = System.Drawing.Color.White
+        Me.lblEmailLimit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblEmailLimit.Location = New System.Drawing.Point(377, 271)
+        Me.lblEmailLimit.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
+        Me.lblEmailLimit.Name = "lblEmailLimit"
+        Me.lblEmailLimit.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblEmailLimit.Size = New System.Drawing.Size(206, 12)
+        Me.lblEmailLimit.TabIndex = 30
+        Me.lblEmailLimit.Text = "F993"
+        Me.lblEmailLimit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblPhoneLimit2
+        '
+        Me.lblPhoneLimit2.AutoSize = True
+        Me.lblPhoneLimit2.BackColor = System.Drawing.Color.Transparent
+        Me.lblPhoneLimit2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblPhoneLimit2.ForeColor = System.Drawing.Color.White
+        Me.lblPhoneLimit2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblPhoneLimit2.Location = New System.Drawing.Point(377, 191)
+        Me.lblPhoneLimit2.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
+        Me.lblPhoneLimit2.Name = "lblPhoneLimit2"
+        Me.lblPhoneLimit2.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblPhoneLimit2.Size = New System.Drawing.Size(206, 12)
+        Me.lblPhoneLimit2.TabIndex = 29
+        Me.lblPhoneLimit2.Text = "F992"
+        Me.lblPhoneLimit2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblPhoneLimit
+        '
+        Me.lblPhoneLimit.AutoSize = True
+        Me.lblPhoneLimit.BackColor = System.Drawing.Color.Transparent
+        Me.lblPhoneLimit.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblPhoneLimit.ForeColor = System.Drawing.Color.White
+        Me.lblPhoneLimit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblPhoneLimit.Location = New System.Drawing.Point(377, 151)
+        Me.lblPhoneLimit.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
+        Me.lblPhoneLimit.Name = "lblPhoneLimit"
+        Me.lblPhoneLimit.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblPhoneLimit.Size = New System.Drawing.Size(206, 12)
+        Me.lblPhoneLimit.TabIndex = 28
+        Me.lblPhoneLimit.Text = "F992"
+        Me.lblPhoneLimit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblUserNameLimit
+        '
+        Me.lblUserNameLimit.AutoSize = True
+        Me.lblUserNameLimit.BackColor = System.Drawing.Color.Transparent
+        Me.lblUserNameLimit.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.lblUserNameLimit.ForeColor = System.Drawing.Color.White
+        Me.lblUserNameLimit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblUserNameLimit.Location = New System.Drawing.Point(377, 71)
+        Me.lblUserNameLimit.Margin = New System.Windows.Forms.Padding(3, 0, 3, 7)
+        Me.lblUserNameLimit.Name = "lblUserNameLimit"
+        Me.lblUserNameLimit.Size = New System.Drawing.Size(206, 12)
+        Me.lblUserNameLimit.TabIndex = 27
+        Me.lblUserNameLimit.Text = "F991"
+        Me.lblUserNameLimit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'rbUseNoti3
         '
         Me.rbUseNoti3.AutoSize = True
@@ -198,7 +305,7 @@ Partial Class frmConfig
         Me.rbUseNoti3.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
         Me.rbUseNoti3.Name = "rbUseNoti3"
         Me.rbUseNoti3.Radius = 10
-        Me.rbUseNoti3.Size = New System.Drawing.Size(169, 16)
+        Me.rbUseNoti3.Size = New System.Drawing.Size(66, 16)
         Me.rbUseNoti3.TabIndex = 9
         Me.rbUseNoti3.TabStop = True
         Me.rbUseNoti3.Text = "F922"
@@ -214,9 +321,10 @@ Partial Class frmConfig
         Me.txtEmpNum.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.txtEmpNum.FixedWidth = False
         Me.txtEmpNum.ImeMode = System.Windows.Forms.ImeMode.NoControl
-        Me.txtEmpNum.impossibleinput = ""
+        Me.txtEmpNum.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
         Me.txtEmpNum.Location = New System.Drawing.Point(143, 226)
-        Me.txtEmpNum.MaxLength = 50
+        Me.txtEmpNum.MaxByteLength = 20
+        Me.txtEmpNum.MaxLength = 20
         Me.txtEmpNum.Name = "txtEmpNum"
         Me.txtEmpNum.Necessary = False
         Me.txtEmpNum.PossibleInput = ""
@@ -252,7 +360,7 @@ Partial Class frmConfig
         Me.rbUseNoti2.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
         Me.rbUseNoti2.Name = "rbUseNoti2"
         Me.rbUseNoti2.Radius = 10
-        Me.rbUseNoti2.Size = New System.Drawing.Size(169, 16)
+        Me.rbUseNoti2.Size = New System.Drawing.Size(66, 16)
         Me.rbUseNoti2.TabIndex = 8
         Me.rbUseNoti2.TabStop = True
         Me.rbUseNoti2.Text = "F922"
@@ -272,7 +380,7 @@ Partial Class frmConfig
         Me.rbUseNoti1.Margin = New System.Windows.Forms.Padding(3, 6, 3, 3)
         Me.rbUseNoti1.Name = "rbUseNoti1"
         Me.rbUseNoti1.Radius = 10
-        Me.rbUseNoti1.Size = New System.Drawing.Size(169, 16)
+        Me.rbUseNoti1.Size = New System.Drawing.Size(66, 16)
         Me.rbUseNoti1.TabIndex = 7
         Me.rbUseNoti1.TabStop = True
         Me.rbUseNoti1.Text = "F922"
@@ -292,12 +400,12 @@ Partial Class frmConfig
         Me.TableLayoutPanel7.Controls.Add(Me.btnUserSave, 1, 0)
         Me.TableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.TableLayoutPanel7.ForeColor = System.Drawing.Color.White
-        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 336)
+        Me.TableLayoutPanel7.Location = New System.Drawing.Point(3, 332)
         Me.TableLayoutPanel7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TableLayoutPanel7.Name = "TableLayoutPanel7"
         Me.TableLayoutPanel7.RowCount = 1
         Me.TableLayoutPanel7.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel7.Size = New System.Drawing.Size(580, 45)
+        Me.TableLayoutPanel7.Size = New System.Drawing.Size(580, 49)
         Me.TableLayoutPanel7.TabIndex = 18
         '
         'btnUserSave
@@ -314,7 +422,7 @@ Partial Class frmConfig
         Me.btnUserSave.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnUserSave.Name = "btnUserSave"
         Me.btnUserSave.Radius = 10
-        Me.btnUserSave.Size = New System.Drawing.Size(90, 37)
+        Me.btnUserSave.Size = New System.Drawing.Size(90, 41)
         Me.btnUserSave.TabIndex = 0
         Me.btnUserSave.Text = "F014"
         Me.btnUserSave.UnCheckFillColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer), CType(CType(40, Byte), Integer))
@@ -363,7 +471,8 @@ Partial Class frmConfig
         Me.txtDept.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtDept.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
         Me.txtDept.Location = New System.Drawing.Point(143, 306)
-        Me.txtDept.MaxByteLength = 100
+        Me.txtDept.MaxByteLength = 20
+        Me.txtDept.MaxLength = 20
         Me.txtDept.Name = "txtDept"
         Me.txtDept.Necessary = False
         Me.txtDept.PossibleInput = ""
@@ -382,6 +491,8 @@ Partial Class frmConfig
         Me.txtPhone2.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPhone2.impossibleinput = ""
         Me.txtPhone2.Location = New System.Drawing.Point(143, 186)
+        Me.txtPhone2.MaxByteLength = 11
+        Me.txtPhone2.MaxLength = 11
         Me.txtPhone2.Name = "txtPhone2"
         Me.txtPhone2.Necessary = False
         Me.txtPhone2.PossibleInput = "0123456789+"
@@ -415,7 +526,8 @@ Partial Class frmConfig
         Me.txtEmail.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtEmail.impossibleinput = "!#$%^&*() \/:*?""<>|'`~"
         Me.txtEmail.Location = New System.Drawing.Point(143, 266)
-        Me.txtEmail.MaxByteLength = 100
+        Me.txtEmail.MaxByteLength = 40
+        Me.txtEmail.MaxLength = 40
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Necessary = False
         Me.txtEmail.PossibleInput = ""
@@ -449,6 +561,8 @@ Partial Class frmConfig
         Me.txtPhone.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.txtPhone.impossibleinput = ""
         Me.txtPhone.Location = New System.Drawing.Point(143, 146)
+        Me.txtPhone.MaxByteLength = 11
+        Me.txtPhone.MaxLength = 11
         Me.txtPhone.Name = "txtPhone"
         Me.txtPhone.Necessary = False
         Me.txtPhone.PossibleInput = "0123456789+"
@@ -533,6 +647,7 @@ Partial Class frmConfig
         Me.txtUserName.impossibleinput = "!@#$%^&*() \/:*?""<>|'`~"
         Me.txtUserName.Location = New System.Drawing.Point(143, 66)
         Me.txtUserName.MaxByteLength = 30
+        Me.txtUserName.MaxLength = 20
         Me.txtUserName.Name = "txtUserName"
         Me.txtUserName.Necessary = True
         Me.txtUserName.PossibleInput = ""
@@ -1413,4 +1528,10 @@ Partial Class frmConfig
     Friend WithEvents lblEmpNum As eXperDB.BaseControls.Label
     Friend WithEvents txtEmpNum As eXperDB.BaseControls.TextBox
     Friend WithEvents rbUseNoti3 As eXperDB.BaseControls.RadioButton
+    Friend WithEvents lblUserNameLimit As System.Windows.Forms.Label
+    Friend WithEvents lblPhoneLimit As System.Windows.Forms.Label
+    Friend WithEvents lblEmailLimit As System.Windows.Forms.Label
+    Friend WithEvents lblPhoneLimit2 As System.Windows.Forms.Label
+    Friend WithEvents lblTextLimit2 As System.Windows.Forms.Label
+    Friend WithEvents lblTextLimit As System.Windows.Forms.Label
 End Class

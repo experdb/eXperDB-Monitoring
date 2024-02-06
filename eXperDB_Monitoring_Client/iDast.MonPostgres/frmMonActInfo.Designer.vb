@@ -1627,7 +1627,7 @@ Partial Class frmMonActInfo
         DataGridViewCellStyle26.NullValue = Nothing
         Me.coldgvTblinfoDEADTUPLERATE.DefaultCellStyle = DataGridViewCellStyle26
         Me.coldgvTblinfoDEADTUPLERATE.HeaderText = "F299"
-        Me.coldgvTblinfoDEADTUPLERATE.MinimumWidth = 80
+        Me.coldgvTblinfoDEADTUPLERATE.MinimumWidth = 120
         Me.coldgvTblinfoDEADTUPLERATE.Name = "coldgvTblinfoDEADTUPLERATE"
         Me.coldgvTblinfoDEADTUPLERATE.ReadOnly = True
         '
