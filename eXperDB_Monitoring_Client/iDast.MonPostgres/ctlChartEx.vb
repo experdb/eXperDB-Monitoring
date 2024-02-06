@@ -2327,8 +2327,8 @@ Public Class ctlChartEx
             MsgBox(p_clsMsgData.fn_GetData("M014"))
             Return
         Else
-            If DateDiff(DateInterval.Minute, stDt, edDt) > 120 Then
-                MsgBox(p_clsMsgData.fn_GetData("M015"))
+            If DateDiff(DateInterval.Minute, stDt, edDt) > 240 Then
+                MsgBox(p_clsMsgData.fn_GetData("M063", "4"))
                 Return
             End If
         End If

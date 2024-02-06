@@ -346,7 +346,7 @@ Public Class frmMonDetail
 
 
         'Disk IO 
-        grpDiskIO.Text = p_clsMsgData.fn_GetData("F086")
+        grpDiskIO.Text = p_clsMsgData.fn_GetData("F372")
         colDgvDiskIODiskNm.HeaderText = p_clsMsgData.fn_GetData("F085")
         colDgvDiskIORead.HeaderText = p_clsMsgData.fn_GetData("F087")
         colDgvDiskIOWrite.HeaderText = p_clsMsgData.fn_GetData("F088")

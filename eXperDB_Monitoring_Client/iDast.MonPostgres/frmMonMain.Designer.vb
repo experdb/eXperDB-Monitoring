@@ -24,8 +24,6 @@ Partial Class frmMonMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMonMain))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
@@ -88,7 +86,6 @@ Partial Class frmMonMain
         Dim Legend9 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -130,6 +127,9 @@ Partial Class frmMonMain
         Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ttChart = New System.Windows.Forms.ToolTip(Me.components)
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.btnConfig = New eXperDB.BaseControls.Button()
@@ -148,14 +148,6 @@ Partial Class frmMonMain
         Me.tlpDiskUsage = New System.Windows.Forms.TableLayoutPanel()
         Me.btnDiskUsage = New eXperDB.BaseControls.Button()
         Me.dgvGrpDiskUsage = New eXperDB.BaseControls.DataGridView()
-        Me.colDgvDiskUsageKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskUsageUpdTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskUsageSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskUsageDiskNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskUsageTot = New eXperDB.Controls.DataGridViewDataSizeColumn()
-        Me.colDgvDiskUsageProg = New eXperDB.Controls.DataGridViewPercentageColumn()
-        Me.colDgvDiskUsageRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskUsageHealth = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grpDiskUsage = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.tabSession = New FlatTabControl.FlatTabControl()
@@ -268,12 +260,6 @@ Partial Class frmMonMain
         Me.tlpDiskAccess = New System.Windows.Forms.TableLayoutPanel()
         Me.btnDiskAccess = New eXperDB.BaseControls.Button()
         Me.dgvGrpDiskAccess = New eXperDB.BaseControls.DataGridView()
-        Me.colDgvDiskAccessKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskAccessUpdTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskAccessSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskAccessDiskNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDgvDiskAccessProg = New eXperDB.Controls.DataGridViewPercentageColumn()
-        Me.colDgvDiskAccessRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.grpDiskAccess = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tlpSessionlist = New System.Windows.Forms.TableLayoutPanel()
@@ -434,6 +420,20 @@ Partial Class frmMonMain
         Me.mnuSnapshotR = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuTrendR = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuActivityR = New System.Windows.Forms.ToolStripMenuItem()
+        Me.colDgvDiskAccessKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskAccessUpdTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskAccessSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskAccessDiskNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskAccessProg = New eXperDB.Controls.DataGridViewPercentageColumn()
+        Me.colDgvDiskAccessRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskUsageKey = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskUsageUpdTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskUsageSvrNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskUsageDiskNm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskUsageTot = New eXperDB.Controls.DataGridViewDataSizeColumn()
+        Me.colDgvDiskUsageProg = New eXperDB.Controls.DataGridViewPercentageColumn()
+        Me.colDgvDiskUsageRate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDgvDiskUsageHealth = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -888,71 +888,6 @@ Partial Class frmMonMain
         Me.dgvGrpDiskUsage.TabIndex = 7
         Me.dgvGrpDiskUsage.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpDiskUsage.UseTagValueMatchColor = False
-        '
-        'colDgvDiskUsageKey
-        '
-        Me.colDgvDiskUsageKey.HeaderText = "KEY"
-        Me.colDgvDiskUsageKey.Name = "colDgvDiskUsageKey"
-        Me.colDgvDiskUsageKey.ReadOnly = True
-        Me.colDgvDiskUsageKey.Visible = False
-        '
-        'colDgvDiskUsageUpdTime
-        '
-        Me.colDgvDiskUsageUpdTime.HeaderText = "UPDTIME"
-        Me.colDgvDiskUsageUpdTime.Name = "colDgvDiskUsageUpdTime"
-        Me.colDgvDiskUsageUpdTime.ReadOnly = True
-        Me.colDgvDiskUsageUpdTime.Visible = False
-        '
-        'colDgvDiskUsageSvrNm
-        '
-        Me.colDgvDiskUsageSvrNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvDiskUsageSvrNm.HeaderText = "F033"
-        Me.colDgvDiskUsageSvrNm.MinimumWidth = 100
-        Me.colDgvDiskUsageSvrNm.Name = "colDgvDiskUsageSvrNm"
-        Me.colDgvDiskUsageSvrNm.ReadOnly = True
-        '
-        'colDgvDiskUsageDiskNm
-        '
-        Me.colDgvDiskUsageDiskNm.HeaderText = "F193"
-        Me.colDgvDiskUsageDiskNm.Name = "colDgvDiskUsageDiskNm"
-        Me.colDgvDiskUsageDiskNm.ReadOnly = True
-        '
-        'colDgvDiskUsageTot
-        '
-        Me.colDgvDiskUsageTot.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N1"
-        Me.colDgvDiskUsageTot.DefaultCellStyle = DataGridViewCellStyle2
-        Me.colDgvDiskUsageTot.HeaderText = "F045"
-        Me.colDgvDiskUsageTot.HeaderWord = ""
-        Me.colDgvDiskUsageTot.Name = "colDgvDiskUsageTot"
-        Me.colDgvDiskUsageTot.ReadOnly = True
-        Me.colDgvDiskUsageTot.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colDgvDiskUsageTot.ShowUnit = True
-        Me.colDgvDiskUsageTot.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDgvDiskUsageTot.TailWord = ""
-        '
-        'colDgvDiskUsageProg
-        '
-        Me.colDgvDiskUsageProg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvDiskUsageProg.HeaderText = ""
-        Me.colDgvDiskUsageProg.Name = "colDgvDiskUsageProg"
-        Me.colDgvDiskUsageProg.ReadOnly = True
-        '
-        'colDgvDiskUsageRate
-        '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "P"
-        Me.colDgvDiskUsageRate.DefaultCellStyle = DataGridViewCellStyle3
-        Me.colDgvDiskUsageRate.HeaderText = "F046"
-        Me.colDgvDiskUsageRate.Name = "colDgvDiskUsageRate"
-        Me.colDgvDiskUsageRate.ReadOnly = True
-        '
-        'colDgvDiskUsageHealth
-        '
-        Me.colDgvDiskUsageHealth.HeaderText = "C1"
-        Me.colDgvDiskUsageHealth.Name = "colDgvDiskUsageHealth"
-        Me.colDgvDiskUsageHealth.Visible = False
         '
         'grpDiskUsage
         '
@@ -4091,51 +4026,6 @@ Partial Class frmMonMain
         Me.dgvGrpDiskAccess.TagValueMatchColor = System.Drawing.Color.Red
         Me.dgvGrpDiskAccess.UseTagValueMatchColor = False
         '
-        'colDgvDiskAccessKey
-        '
-        Me.colDgvDiskAccessKey.HeaderText = "KEY"
-        Me.colDgvDiskAccessKey.Name = "colDgvDiskAccessKey"
-        Me.colDgvDiskAccessKey.ReadOnly = True
-        Me.colDgvDiskAccessKey.Visible = False
-        '
-        'colDgvDiskAccessUpdTime
-        '
-        Me.colDgvDiskAccessUpdTime.HeaderText = "UPDTIME"
-        Me.colDgvDiskAccessUpdTime.Name = "colDgvDiskAccessUpdTime"
-        Me.colDgvDiskAccessUpdTime.ReadOnly = True
-        Me.colDgvDiskAccessUpdTime.Visible = False
-        '
-        'colDgvDiskAccessSvrNm
-        '
-        Me.colDgvDiskAccessSvrNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDgvDiskAccessSvrNm.HeaderText = "F033"
-        Me.colDgvDiskAccessSvrNm.MinimumWidth = 100
-        Me.colDgvDiskAccessSvrNm.Name = "colDgvDiskAccessSvrNm"
-        Me.colDgvDiskAccessSvrNm.ReadOnly = True
-        '
-        'colDgvDiskAccessDiskNm
-        '
-        Me.colDgvDiskAccessDiskNm.HeaderText = "F085"
-        Me.colDgvDiskAccessDiskNm.Name = "colDgvDiskAccessDiskNm"
-        Me.colDgvDiskAccessDiskNm.ReadOnly = True
-        Me.colDgvDiskAccessDiskNm.Width = 50
-        '
-        'colDgvDiskAccessProg
-        '
-        Me.colDgvDiskAccessProg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colDgvDiskAccessProg.HeaderText = ""
-        Me.colDgvDiskAccessProg.Name = "colDgvDiskAccessProg"
-        Me.colDgvDiskAccessProg.ReadOnly = True
-        '
-        'colDgvDiskAccessRate
-        '
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle14.Format = "P"
-        Me.colDgvDiskAccessRate.DefaultCellStyle = DataGridViewCellStyle14
-        Me.colDgvDiskAccessRate.HeaderText = "F043"
-        Me.colDgvDiskAccessRate.Name = "colDgvDiskAccessRate"
-        Me.colDgvDiskAccessRate.ReadOnly = True
-        '
         'grpDiskAccess
         '
         Me.grpDiskAccess.AutoSize = True
@@ -4504,7 +4394,7 @@ Partial Class frmMonMain
         Me.lblNormal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblNormal.FixedHeight = False
         Me.lblNormal.FixedWidth = False
-        Me.lblNormal.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblNormal.Font = New System.Drawing.Font("Malgun Gothic", 8.0!, System.Drawing.FontStyle.Bold)
         Me.lblNormal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblNormal.LineSpacing = 0.0!
         Me.lblNormal.Location = New System.Drawing.Point(3, 0)
@@ -4520,7 +4410,7 @@ Partial Class frmMonMain
         Me.lblWarning.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblWarning.FixedHeight = False
         Me.lblWarning.FixedWidth = False
-        Me.lblWarning.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblWarning.Font = New System.Drawing.Font("Malgun Gothic", 8.0!, System.Drawing.FontStyle.Bold)
         Me.lblWarning.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblWarning.LineSpacing = 0.0!
         Me.lblWarning.Location = New System.Drawing.Point(83, 0)
@@ -4536,7 +4426,7 @@ Partial Class frmMonMain
         Me.lblCritical.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblCritical.FixedHeight = False
         Me.lblCritical.FixedWidth = False
-        Me.lblCritical.Font = New System.Drawing.Font("Malgun Gothic", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.lblCritical.Font = New System.Drawing.Font("Malgun Gothic", 8.0!, System.Drawing.FontStyle.Bold)
         Me.lblCritical.ForeColor = System.Drawing.Color.FromArgb(CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer), CType(CType(170, Byte), Integer))
         Me.lblCritical.LineSpacing = 0.0!
         Me.lblCritical.Location = New System.Drawing.Point(163, 0)
@@ -6064,6 +5954,121 @@ Partial Class frmMonMain
         Me.mnuActivityR.Size = New System.Drawing.Size(167, 26)
         Me.mnuActivityR.Text = "Activity Report"
         '
+        'colDgvDiskAccessKey
+        '
+        Me.colDgvDiskAccessKey.HeaderText = "KEY"
+        Me.colDgvDiskAccessKey.Name = "colDgvDiskAccessKey"
+        Me.colDgvDiskAccessKey.ReadOnly = True
+        Me.colDgvDiskAccessKey.Visible = False
+        '
+        'colDgvDiskAccessUpdTime
+        '
+        Me.colDgvDiskAccessUpdTime.HeaderText = "UPDTIME"
+        Me.colDgvDiskAccessUpdTime.Name = "colDgvDiskAccessUpdTime"
+        Me.colDgvDiskAccessUpdTime.ReadOnly = True
+        Me.colDgvDiskAccessUpdTime.Visible = False
+        '
+        'colDgvDiskAccessSvrNm
+        '
+        Me.colDgvDiskAccessSvrNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colDgvDiskAccessSvrNm.HeaderText = "F033"
+        Me.colDgvDiskAccessSvrNm.MinimumWidth = 110
+        Me.colDgvDiskAccessSvrNm.Name = "colDgvDiskAccessSvrNm"
+        Me.colDgvDiskAccessSvrNm.ReadOnly = True
+        Me.colDgvDiskAccessSvrNm.Width = 110
+        '
+        'colDgvDiskAccessDiskNm
+        '
+        Me.colDgvDiskAccessDiskNm.HeaderText = "F085"
+        Me.colDgvDiskAccessDiskNm.Name = "colDgvDiskAccessDiskNm"
+        Me.colDgvDiskAccessDiskNm.ReadOnly = True
+        Me.colDgvDiskAccessDiskNm.Width = 50
+        '
+        'colDgvDiskAccessProg
+        '
+        Me.colDgvDiskAccessProg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvDiskAccessProg.HeaderText = ""
+        Me.colDgvDiskAccessProg.Name = "colDgvDiskAccessProg"
+        Me.colDgvDiskAccessProg.ReadOnly = True
+        '
+        'colDgvDiskAccessRate
+        '
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle14.Format = "P"
+        Me.colDgvDiskAccessRate.DefaultCellStyle = DataGridViewCellStyle14
+        Me.colDgvDiskAccessRate.HeaderText = "F043"
+        Me.colDgvDiskAccessRate.Name = "colDgvDiskAccessRate"
+        Me.colDgvDiskAccessRate.ReadOnly = True
+        '
+        'colDgvDiskUsageKey
+        '
+        Me.colDgvDiskUsageKey.HeaderText = "KEY"
+        Me.colDgvDiskUsageKey.Name = "colDgvDiskUsageKey"
+        Me.colDgvDiskUsageKey.ReadOnly = True
+        Me.colDgvDiskUsageKey.Visible = False
+        '
+        'colDgvDiskUsageUpdTime
+        '
+        Me.colDgvDiskUsageUpdTime.HeaderText = "UPDTIME"
+        Me.colDgvDiskUsageUpdTime.Name = "colDgvDiskUsageUpdTime"
+        Me.colDgvDiskUsageUpdTime.ReadOnly = True
+        Me.colDgvDiskUsageUpdTime.Visible = False
+        '
+        'colDgvDiskUsageSvrNm
+        '
+        Me.colDgvDiskUsageSvrNm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colDgvDiskUsageSvrNm.HeaderText = "F033"
+        Me.colDgvDiskUsageSvrNm.MinimumWidth = 110
+        Me.colDgvDiskUsageSvrNm.Name = "colDgvDiskUsageSvrNm"
+        Me.colDgvDiskUsageSvrNm.ReadOnly = True
+        Me.colDgvDiskUsageSvrNm.Width = 110
+        '
+        'colDgvDiskUsageDiskNm
+        '
+        Me.colDgvDiskUsageDiskNm.HeaderText = "F193"
+        Me.colDgvDiskUsageDiskNm.Name = "colDgvDiskUsageDiskNm"
+        Me.colDgvDiskUsageDiskNm.ReadOnly = True
+        '
+        'colDgvDiskUsageTot
+        '
+        Me.colDgvDiskUsageTot.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colDgvDiskUsageTot.BaseUnit = eXperDB.Controls.DataGridViewDataSizeCell.SizeUnit.KB
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N1"
+        Me.colDgvDiskUsageTot.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colDgvDiskUsageTot.HeaderText = "F045"
+        Me.colDgvDiskUsageTot.HeaderWord = ""
+        Me.colDgvDiskUsageTot.MinimumWidth = 80
+        Me.colDgvDiskUsageTot.Name = "colDgvDiskUsageTot"
+        Me.colDgvDiskUsageTot.ReadOnly = True
+        Me.colDgvDiskUsageTot.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colDgvDiskUsageTot.ShowUnit = True
+        Me.colDgvDiskUsageTot.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDgvDiskUsageTot.TailWord = ""
+        Me.colDgvDiskUsageTot.Width = 80
+        '
+        'colDgvDiskUsageProg
+        '
+        Me.colDgvDiskUsageProg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colDgvDiskUsageProg.HeaderText = ""
+        Me.colDgvDiskUsageProg.Name = "colDgvDiskUsageProg"
+        Me.colDgvDiskUsageProg.ReadOnly = True
+        '
+        'colDgvDiskUsageRate
+        '
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "P"
+        Me.colDgvDiskUsageRate.DefaultCellStyle = DataGridViewCellStyle3
+        Me.colDgvDiskUsageRate.HeaderText = "F046"
+        Me.colDgvDiskUsageRate.Name = "colDgvDiskUsageRate"
+        Me.colDgvDiskUsageRate.ReadOnly = True
+        '
+        'colDgvDiskUsageHealth
+        '
+        Me.colDgvDiskUsageHealth.HeaderText = "C1"
+        Me.colDgvDiskUsageHealth.Name = "colDgvDiskUsageHealth"
+        Me.colDgvDiskUsageHealth.Visible = False
+        '
         'frmMonMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -6476,12 +6481,6 @@ Partial Class frmMonMain
     Friend WithEvents mnuReplicationDelaySize As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnDiskUsage As eXperDB.BaseControls.Button
     Friend WithEvents btnDiskAccess As eXperDB.BaseControls.Button
-    Friend WithEvents colDgvDiskAccessKey As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessUpdTime As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessSvrNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessDiskNm As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDgvDiskAccessProg As eXperDB.Controls.DataGridViewPercentageColumn
-    Friend WithEvents colDgvDiskAccessRate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents pinImageList As System.Windows.Forms.ImageList
     Friend WithEvents tlpClusterBtnGrp As eXperDB.BaseControls.TableLayoutPanel
     Friend WithEvents btnClusterFilter As eXperDB.BaseControls.Button
@@ -6498,5 +6497,11 @@ Partial Class frmMonMain
     Friend WithEvents colDgvDiskUsageProg As eXperDB.Controls.DataGridViewPercentageColumn
     Friend WithEvents colDgvDiskUsageRate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDgvDiskUsageHealth As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessKey As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessUpdTime As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessSvrNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessDiskNm As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDgvDiskAccessProg As eXperDB.Controls.DataGridViewPercentageColumn
+    Friend WithEvents colDgvDiskAccessRate As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

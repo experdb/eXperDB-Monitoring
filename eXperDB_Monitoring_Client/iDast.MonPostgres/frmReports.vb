@@ -1109,8 +1109,10 @@ Public Class frmReports
 
     Private Sub dgvRptSQL_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRptSQL.CellDoubleClick
         'If e.ColumnIndex = colDgvRptSqlSql.Index Then
-        Dim frmQuery As New frmQueryView(_AgentCn, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlSql.Index).Value, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlDBNm.Index).Value, "", cmbInst.Tag, _AgentInfo)
-        frmQuery.ShowDialog(Me)
+        If e.RowIndex >= 0 Then
+            Dim frmQuery As New frmQueryView(_AgentCn, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlSql.Index).Value, dgvRptSQL.Rows(e.RowIndex).Cells(colDgvRptSqlDBNm.Index).Value, "", cmbInst.Tag, _AgentInfo)
+            frmQuery.ShowDialog(Me)
+        End If
         'End If
     End Sub
 

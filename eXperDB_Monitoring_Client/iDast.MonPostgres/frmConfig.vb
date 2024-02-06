@@ -228,6 +228,14 @@
         rbMEMHostnm.Text = p_clsMsgData.fn_GetData("F229")
         rbMEMIcon.Text = p_clsMsgData.fn_GetData("F953")
 
+        ' 입력제한
+        lblUserNameLimit.Text = p_clsMsgData.fn_GetData("F991")
+        lblPhoneLimit.Text = p_clsMsgData.fn_GetData("F992")
+        lblPhoneLimit2.Text = p_clsMsgData.fn_GetData("F992")
+        lblTextLimit.Text = p_clsMsgData.fn_GetData("F994")
+        lblEmailLimit.Text = p_clsMsgData.fn_GetData("F993")
+        lblTextLimit2.Text = p_clsMsgData.fn_GetData("F994")
+
     End Sub
 
     Private Sub frmConfig_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -631,7 +639,5 @@
         End Try
     End Sub
 #End Region
-
-
 
 End Class
