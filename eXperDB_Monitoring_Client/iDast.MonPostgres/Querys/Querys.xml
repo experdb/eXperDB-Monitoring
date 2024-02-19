@@ -223,7 +223,7 @@
         ,LAST_MOD_IP
         ,LAST_MOD_DT
         ,CONN_SCHEMA_NAME
-        ,HOST_NAME
+        ,CASE WHEN HOST_NAME ISNULL THEN CONN_NAME ELSE COALESCE(HOST_NAME, '') END AS HOST_NAME
         ,HA_ROLE
         ,HA_HOST
         ,INSTANCE_UPTIME::TIMESTAMP(0) AS INSTANCE_UPTIME
@@ -4204,36 +4204,131 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 --              ) AS AVA
 --        GROUP BY COLLECT_DT
 --        ORDER BY COLLECT_DT        
-      SELECT  COLLECT_DATE,
-  	      MAX(COMMON) COMMON,
-  	      MAX(WRAPAROUND) WRAPAROUND
-        FROM (
-                SELECT 
-      		    --COLLECT_DT,
-      		    TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {3} )) * {3}) AT TIME ZONE 'UTC' AS COLLECT_DATE,
-      		    COUNT(AVA.COMMON) AS COMMON, SUM(AVA.WRAPAROUND) AS WRAPAROUND
-                  FROM (
-              		    SELECT	/* SELECTAUTOVACUUMWORKER */ 
-       			             C.COLLECT_DT AS COLLECT_DT,
-        		             C.SQL AS SQL,
-        		             CASE WHEN C.SQL LIKE 'prevent wraparound' THEN 1 ELSE 0 END AS WRAPAROUND,
-        		             C.SQL AS COMMON
-	                     FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C
-	                    WHERE B.REG_DATE {1}
-	                      AND A.INSTANCE_ID = B.INSTANCE_ID       
-	                      AND A.INSTANCE_ID IN ({0})
-	                      AND A.COLLECT_YN = 'Y'
-	                      AND A.DELETE_YN = 'N'
-	                      AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
-	                      AND B.REG_DATE = C.REG_DATE
-	                      AND C.SQL LIKE 'autovacuum:%'
-	                      AND C.COLLECT_DT {2}
-                  ) AS AVA
-                  GROUP BY COLLECT_DT
-	                ORDER BY COLLECT_DT
-            ) ROLL
-      GROUP BY COLLECT_DATE
-      ORDER BY COLLECT_DATE
+--      SELECT  COLLECT_DATE,
+--  	      MAX(COMMON) COMMON,
+--  	      MAX(WRAPAROUND) WRAPAROUND
+--        FROM (
+--                SELECT 
+--      		    --COLLECT_DT,
+--      		    TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {3} )) * {3}) AT TIME ZONE 'UTC' AS COLLECT_DATE,
+--      		    COUNT(AVA.COMMON) AS COMMON, SUM(AVA.WRAPAROUND) AS WRAPAROUND
+--                  FROM (
+--              		    SELECT	/* SELECTAUTOVACUUMWORKER */ 
+--       			             C.COLLECT_DT AS COLLECT_DT,
+--        		             C.SQL AS SQL,
+--        		             CASE WHEN C.SQL LIKE 'prevent wraparound' THEN 1 ELSE 0 END AS WRAPAROUND,
+--        		             C.SQL AS COMMON
+--	                     FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C
+--	                    WHERE B.REG_DATE {1}
+--	                      AND A.INSTANCE_ID = B.INSTANCE_ID       
+--	                      AND A.INSTANCE_ID IN ({0})
+--	                      AND A.COLLECT_YN = 'Y'
+--	                      AND A.DELETE_YN = 'N'
+--	                      AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+--	                      AND B.REG_DATE = C.REG_DATE
+--	                      AND C.SQL LIKE 'autovacuum:%'
+--	                      AND C.COLLECT_DT {2}
+--                  ) AS AVA
+--                  GROUP BY COLLECT_DT
+--	                ORDER BY COLLECT_DT
+--            ) ROLL
+--      GROUP BY COLLECT_DATE
+--      ORDER BY COLLECT_DATE
+
+--	   SELECT  COLLECT_DATE,
+--  	      MAX(COMMON) COMMON,
+--  	      MAX(WRAPAROUND) WRAPAROUND
+--        FROM (
+--                SELECT 
+--      		    --COLLECT_DT,
+--      		    TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {3} )) * {3}) AT TIME ZONE 'UTC' AS COLLECT_DATE,
+--      		    COUNT(AVA.COMMON) AS COMMON, SUM(AVA.WRAPAROUND) AS WRAPAROUND
+--                  FROM (
+--              		    SELECT	/* SELECTAUTOVACUUMWORKER */ 
+--       			             C.COLLECT_DT AS COLLECT_DT,
+--        		             C.SQL AS SQL,
+--        		             CASE WHEN C.SQL LIKE 'prevent wraparound' THEN 1 ELSE 0 END AS WRAPAROUND,
+--        		             C.SQL AS COMMON
+--	                     FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C
+--	                    WHERE B.REG_DATE {1}
+--	                      AND A.INSTANCE_ID = B.INSTANCE_ID       
+--	                      AND A.INSTANCE_ID IN ({0})
+--	                      AND A.COLLECT_YN = 'Y'
+--	                      AND A.DELETE_YN = 'N'
+--	                      AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+--	                      AND B.REG_DATE = C.REG_DATE
+--	                      AND C.SQL LIKE 'autovacuum:%'
+--	                      AND C.COLLECT_DT {2}
+--	                UNION ALL
+--	                    SELECT	 
+--       			            (TO_CHAR(TO_DATE(B.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || B.REG_TIME)::timestamp AS COLLECT_DT,
+--        		             NULL AS SQL,
+--        		             0 AS WRAPAROUND,
+--        		             NULL AS COMMON
+--	                     FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B
+--	                    WHERE B.REG_DATE  {1}
+--	                      AND A.INSTANCE_ID = B.INSTANCE_ID       
+--	                      AND A.INSTANCE_ID IN ({0})
+--	                      AND A.COLLECT_YN = 'Y'
+--	                      AND A.DELETE_YN = 'N'
+--	                      AND TO_CHAR(TO_DATE(B.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || B.REG_TIME {2}
+--                  ) AS AVA
+--                  GROUP BY COLLECT_DT
+--	                ORDER BY COLLECT_DT
+--            ) ROLL
+--      GROUP BY COLLECT_DATE
+--      ORDER BY COLLECT_DATE
+
+SELECT  COLLECT_DATE,
+  MAX(COMMON) COMMON,
+  MAX(WRAPAROUND) WRAPAROUND
+FROM (
+        SELECT 
+	    TO_TIMESTAMP(FLOOR((EXTRACT('epoch' FROM COLLECT_DT) / {3} )) * {3}) AT TIME ZONE 'UTC' AS COLLECT_DATE,
+	    COUNT(AVA.COMMON) AS COMMON, SUM(AVA.WRAPAROUND) AS WRAPAROUND
+          FROM (       
+                 WITH Q AS
+                 (
+                  SELECT QUERYID, QUERY FROM TB_QUERY_INFO 
+                  WHERE REG_DATE {1}
+                    AND INSTANCE_ID IN ({0})
+                    AND QUERY LIKE '%autovacuum:%'
+                 )
+                 SELECT	/* SELECTAUTOVACUUMWORKER */ 
+		             C.COLLECT_DT AS COLLECT_DT,
+		             Q.QUERY AS SQL,
+		             CASE WHEN Q.QUERY LIKE '%prevent wraparound%' THEN 1 ELSE 0 END AS WRAPAROUND,
+		             Q.QUERY AS COMMON        		             
+                 FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B, TB_BACKEND_RSC C, q
+                WHERE B.REG_DATE {1}
+                  and C.REG_DATE {1}
+                  AND B.REG_DATE = C.REG_DATE
+                  AND B.ACTV_REG_SEQ = C.ACTV_REG_SEQ
+                  AND A.INSTANCE_ID = B.INSTANCE_ID       
+                  AND A.INSTANCE_ID IN ({0})
+                  AND A.COLLECT_YN = 'Y'
+                  AND A.DELETE_YN = 'N'
+                  AND (TO_CHAR(TO_DATE(B.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || B.REG_TIME)::timestamp {2}
+                  AND C.QUERYID = Q.QUERYID	                      
+            UNION ALL
+                SELECT	 
+		            (TO_CHAR(TO_DATE(B.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || B.REG_TIME)::timestamp AS COLLECT_DT,
+		             NULL AS SQL,
+		             0 AS WRAPAROUND,
+		             NULL AS COMMON
+                 FROM TB_INSTANCE_INFO A, TB_ACTV_COLLECT_INFO B
+                WHERE B.REG_DATE {1}
+                  AND A.INSTANCE_ID = B.INSTANCE_ID       
+                  AND A.INSTANCE_ID IN ({0})
+                  AND A.COLLECT_YN = 'Y'
+                  AND A.DELETE_YN = 'N'
+                  AND TO_CHAR(TO_DATE(B.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || B.REG_TIME {2}
+              ) AS AVA
+              GROUP BY COLLECT_DT
+                ORDER BY COLLECT_DT
+        ) ROLL
+GROUP BY COLLECT_DATE
+ORDER BY COLLECT_DATE
       ]]>
     </DATA>
   </ROW>  
@@ -4338,7 +4433,17 @@ WITH MAXD AS (   /* SELECTSTATEMENTSTOP */
 			     		                  AND TOC.OBJT_REG_SEQ = TTEI.OBJT_REG_SEQ
 			     		                  AND TTEI.RELID IN ({3})
                                 AND TTEI.RELID = TTI.RELID
-			     		              ORDER BY TTEI.COLLECT_DT, RELID
+                            UNION ALL
+                             SELECT (TO_CHAR(TO_DATE(TOC.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || TOC.REG_TIME)::timestamp as COLLECT_DT, 
+						                        null AS RELID, 0 AS AUTOVACUUM_COUNT, null AS TABLE_NAME
+					                     FROM TB_INSTANCE_INFO TII, TB_OBJT_COLLECT_INFO TOC
+					                    WHERE TII.COLLECT_YN = 'Y'
+					                      AND TII.DELETE_YN = 'N'
+					                      AND TII.INSTANCE_ID IN ({0})
+					                      AND TII.INSTANCE_ID = TOC.INSTANCE_ID
+					                      AND TOC.REG_DATE {1}
+					            		      AND (TO_CHAR(TO_DATE(TOC.REG_DATE, 'YYYYMMDD'), 'YYYY-MM-DD') || ' ' || TOC.REG_TIME)::timestamp {2}
+						                ORDER BY COLLECT_DT, RELID
 					            ) AS COLLECTION
 			              GROUP BY COLLECT_DATE, RELID, TABLE_NAME
 			              ORDER BY COLLECT_DATE, RELID

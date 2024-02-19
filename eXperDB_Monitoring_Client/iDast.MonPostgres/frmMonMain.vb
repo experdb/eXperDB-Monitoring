@@ -3969,6 +3969,11 @@
         If intRowCount = 0 Then
             intRowCount = _GrpListServerinfo.Count
         End If
+
+        If ctlDgv.Rows.Count <= 0 Then
+            Return
+        End If
+
         If intRowCount <= 20 Then
             height = Math.Ceiling((ctlDgv.Height - ctlDgv.ColumnHeadersHeight - 2) / ctlDgv.Rows.Count) - 1
         Else

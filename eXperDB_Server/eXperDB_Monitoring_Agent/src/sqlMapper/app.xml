@@ -4233,10 +4233,20 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			$BODY$ LANGUAGE plperlu;
 		  ]]>	  
 	</select>
-	<select id="BT_PGSS_QUERY_001" parameterType="hashmap" resultType="hashmap">
+	<select id="BT_PGSS_QUERY_001_20240215" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT /* BT_PGSS_QUERY_001 24e9ab7301ff1966da4fb30dc1538882 */
 			       MD5(GET_PGSS_TEXT(#{delimeter})) AS QUERYID, GET_PGSS_TEXT(#{delimeter}) AS QUERY;
+		  ]]>	  
+	</select>
+	<select id="BT_PGSS_QUERY_001" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT /* BT_PGSS_QUERY_001 24e9ab7301ff1966da4fb30dc1538882 */
+			       MD5(QUERY) AS QUERYID, QUERY
+			       FROM 
+			       (
+			       		SELECT GET_PGSS_TEXT(#{delimeter}) AS QUERY
+			       ) as PGSS
 		  ]]>	  
 	</select>
 	<insert id="TB_PGSS_QUERY_INFO_I001" parameterType="hashmap" >

@@ -148,9 +148,9 @@ Public Class frmCurrentStatements
 
         lblCurrentStatements.Text = p_clsMsgData.fn_GetData("F339", dtView.Count)
 
-        If cbxHideSysSQL.Checked = True Then
-            SetRowfilter(cbxHideSysSQL)
-        End If
+        ' If cbxHideSysSQL.Checked = True Then
+        SetRowfilter(cbxHideSysSQL)
+        'End If
 
         lblCurrentStatements.Text = p_clsMsgData.fn_GetData("F339", dgvStmtList.RowCount)
 
@@ -365,8 +365,8 @@ Public Class frmCurrentStatements
                 data.Filter = rowFilter
                 btnEditFiltering.Visible = True
             Else
-                dt = dgvStmtList.DataSource
-                dt.DefaultView.RowFilter = Nothing
+                Dim data As IBindingListView = TryCast(Me.dgvStmtList.DataSource, IBindingListView)
+                data.Filter = Nothing
                 btnEditFiltering.Visible = False
             End If
 
