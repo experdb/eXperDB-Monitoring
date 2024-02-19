@@ -988,7 +988,9 @@ Public Class DataGridView
                 If tmpCol.Visible = True Then
                     Dim strValue As String = IIf(IsDBNull(tmpRow.Cells(tmpCol.Index).Value), "", tmpRow.Cells(tmpCol.Index).Value)
                     If strValue IsNot Nothing Then
-                        dtRow.Item(tmpCol.HeaderText) = strValue
+                        If tmpCol.HeaderText.Length > 0 Then
+                            dtRow.Item(tmpCol.HeaderText) = strValue
+                        End If
                     End If
                     'If UseDataProperty = True Then
                     '    dtRow.Item(tmpCol.DataPropertyName) = strValue
@@ -1002,7 +1004,6 @@ Public Class DataGridView
 
         Return dtTable
     End Function
-
 
     Public Sub sb_Clear()
         Me.Rows.Clear()

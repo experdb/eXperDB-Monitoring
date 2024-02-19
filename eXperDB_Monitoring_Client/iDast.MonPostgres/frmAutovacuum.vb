@@ -254,7 +254,7 @@
                                                         Dim tmpDate As Double = ConvOADate(dtRow.Item("COLLECT_DATE"))
                                                         For i As Integer = 0 To _arrTables.Count - 1
                                                             Dim tmpTable As TableInfo = _arrTables(i)
-                                                            If dtRow.Item("RELID") = tmpTable.relID Then
+                                                            If Not IsDBNull(dtRow.Item("RELID")) AndAlso dtRow.Item("RELID") = tmpTable.relID Then
                                                                 'sb_ChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, dtRow.Item("DIFF"))
                                                                 sb_RangeChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, IIf(dtRow.Item("DIFF") > 0, 1, 0), i)
                                                                 tmpTable.AxisXValue = tmpDate
@@ -417,6 +417,10 @@
         Else
             If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) > (1440 * 7) Then
                 MsgBox(p_clsMsgData.fn_GetData("M015", "7"))
+                Return False
+            End If
+            If DateDiff(DateInterval.Minute, dtpSt.Value, dtpEd.Value) < 10 Then
+                MsgBox(p_clsMsgData.fn_GetData("M117"))
                 Return False
             End If
         End If
@@ -667,8 +671,16 @@
 
     Private _dtTableAutovacuumWraparound As DataTable = Nothing
     Private Sub initAutovacuumWraparound(ByVal stDate As DateTime, ByVal edDate As DateTime)
+        '  Check min duration 20240219
+        Dim timeSpan As TimeSpan = edDate.Subtract(stDate)
+        Dim stDateMin As DateTime
+        If timeSpan.TotalMinutes < 6 Then
+            stDateMin = edDate.AddMinutes(-7)
+        Else
+            stDateMin = stDate
+        End If
         Try
-            _dtTableAutovacuumWraparound = _clsQuery.SelectAutovacuumWraparound(_InstanceID, stDate, edDate)
+            _dtTableAutovacuumWraparound = _clsQuery.SelectAutovacuumWraparound(_InstanceID, stDateMin, edDate)
         Catch ex As Exception
             GC.Collect()
             _dtTableAutovacuumWraparound = Nothing
@@ -677,7 +689,15 @@
     End Sub
     Private _dtTableAutovacuumWorker As DataTable = Nothing
     Private Sub initAutovacuumWorker(ByVal stDate As DateTime, ByVal edDate As DateTime)
-         Try
+        Try
+            '  Check min duration 20240219
+            Dim timeSpan As TimeSpan = edDate.Subtract(stDate)
+            Dim stDateMin As DateTime
+            If timeSpan.TotalMinutes < 6 Then
+                stDateMin = edDate.AddMinutes(-7)
+            Else
+                stDateMin = stDate
+            End If
             _dtTableAutovacuumWorker = _clsQuery.SelectAutovacuumWorker(_InstanceID, stDate, edDate)
         Catch ex As Exception
             GC.Collect()

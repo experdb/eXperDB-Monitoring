@@ -3822,6 +3822,10 @@
     <DESC>Report</DESC>
     <DATA><![CDATA[Please select clusters to generate reports.]]></DATA>
   </ROW>
+  <ROW ID="M117" PARAMS="0">
+    <DESC>Report Check</DESC>
+    <DATA><![CDATA[The minimum query period is 10 minutes.]]></DATA>
+  </ROW>
   <ROW ID="F900" PARAMS="0">
     <DESC>파일 건수</DESC>
     <DATA><![CDATA[File Count]]></DATA>
