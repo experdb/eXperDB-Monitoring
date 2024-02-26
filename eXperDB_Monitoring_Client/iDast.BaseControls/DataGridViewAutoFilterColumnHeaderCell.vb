@@ -541,12 +541,14 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         End If
 
         ' Determine the sort direction and sort by the owning column. 
-        Dim direction As ListSortDirection = ListSortDirection.Ascending
-        If Me.DataGridView.SortedColumn Is OwningColumn AndAlso _
-            Me.DataGridView.SortOrder = SortOrder.Ascending Then
-            direction = ListSortDirection.Descending
+        If Me.DataGridView.RowCount > 0 Then
+            Dim direction As ListSortDirection = ListSortDirection.Ascending
+            If Me.DataGridView.SortedColumn Is OwningColumn AndAlso _
+                Me.DataGridView.SortOrder = SortOrder.Ascending Then
+                direction = ListSortDirection.Descending
+            End If
+            Me.DataGridView.Sort(OwningColumn, direction)
         End If
-        Me.DataGridView.Sort(OwningColumn, direction)
 
     End Sub
 
@@ -862,6 +864,9 @@ Public Class DataGridViewAutoFilterColumnHeaderCell
         ' Cast the data source to a BindingSource. 
         Dim data As BindingSource = _
             TryCast(Me.DataGridView.DataSource, BindingSource)
+
+        ' return no data
+        If data.Count <= 0 Then Return
 
         Debug.Assert(data IsNot Nothing AndAlso _
             data.SupportsFiltering AndAlso OwningColumn IsNot Nothing, _
