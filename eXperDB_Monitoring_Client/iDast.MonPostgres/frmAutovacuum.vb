@@ -354,11 +354,17 @@
                                                         Next
                                                     Next
                                                 Else
+                                                    'Dim tmpDate As Double = ConvOADate(Now())
+                                                    'Dim j As Integer = 0
+                                                    'For i As Integer = 0 To _arrDatabases.Count - 1
+                                                    '    sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(i).ToString, tmpDate, 0.0)
+                                                    'Next
+
                                                     Dim tmpDate As Double = ConvOADate(Now())
-                                                    Dim j As Integer = 0
-                                                    For i As Integer = 0 To _arrDatabases.Count - 1
-                                                        sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(i).ToString, tmpDate, 0.0)
-                                                    Next
+                                                    sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(0).ToString, tmpDate, 0.0)
+                                                    Dim tmpDt = DateAdd("n", -10, Now)
+                                                    tmpDate = ConvOADate(tmpDt)
+                                                    sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(0).ToString, tmpDate, 0.0)
                                                 End If
                                             Catch ex As Exception
                                                 p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)

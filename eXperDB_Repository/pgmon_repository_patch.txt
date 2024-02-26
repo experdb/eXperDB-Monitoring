@@ -459,5 +459,28 @@ insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (38, 'WALCNT', 'CNT', '0', 0, 1024, '2', NULL, NULL);
 insert into tb_hchk_thrd_list (instance_id, hchk_name, unit, is_higher, warning_threshold, critical_threshold, fixed_threshold, last_mod_ip, last_mod_dt) values (39, 'WALCNT', 'CNT', '0', 0, 1024, '2', NULL, NULL);
 
+--version 665
+
+insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (5, 'Group5', now(), '127.0.0.1');
+insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (6, 'Group6', now(), '127.0.0.1');
+insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (7, 'Group7', now(), '127.0.0.1');
+insert into tb_group_info(group_id, group_name, last_mod_dt, last_mod_ip) values (8, 'Group8', now(), '127.0.0.1');
+
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 5, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 6, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 7, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 1, 8, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 5, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 6, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 7, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 2, 8, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 5, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 6, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 7, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 3, 8, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 5, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 6, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 7, 'admin', '', now());
+INSERT INTO tb_mon_perm_by_user (user_id, perm_id, group_id, last_mod_user_id, last_mod_ip, last_mod_dt) values('admin', 4, 8, 'admin', '', now());
 
 EOF
