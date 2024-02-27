@@ -171,8 +171,12 @@
                                                         sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Vacuum", tmpDate, ConvDBL(dtRow.Item("COMMON")))
                                                     Next
                                                 Else
-                                                    Dim tmpDate As Double = ConvOADate(Now())
+                                                    'Dim tmpDate As Double = ConvOADate(Now())
+                                                    'sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Wraparound prevention", tmpDate, 0.0)
+                                                    'sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Vacuum", tmpDate, 0.0)
+                                                    Dim tmpDate As Double = ConvOADate(dtpSt.Value)
                                                     sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Wraparound prevention", tmpDate, 0.0)
+                                                    tmpDate = ConvOADate(dtpEd.Value)
                                                     sb_ChartAddPoint(Me.chtAutovacuumWorkers, "Vacuum", tmpDate, 0.0)
                                                 End If
                                             Catch ex As Exception
@@ -245,38 +249,42 @@
         '                                                     End Sub)
         'tmpTh.Start()
         'tmpTh.Join()
-        If dtTable IsNot Nothing Then
-            Me.Invoke(New MethodInvoker(Sub()
-                                            Try
-                                                Dim sDateCollect As Double = 0.0
-                                                If dtTable.Rows.Count > 0 Then
-                                                    For Each dtRow As DataRow In dtTable.Rows
-                                                        Dim tmpDate As Double = ConvOADate(dtRow.Item("COLLECT_DATE"))
-                                                        For i As Integer = 0 To _arrTables.Count - 1
-                                                            Dim tmpTable As TableInfo = _arrTables(i)
-                                                            If Not IsDBNull(dtRow.Item("RELID")) AndAlso dtRow.Item("RELID") = tmpTable.relID Then
-                                                                'sb_ChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, dtRow.Item("DIFF"))
-                                                                sb_RangeChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, IIf(dtRow.Item("DIFF") > 0, 1, 0), i)
-                                                                tmpTable.AxisXValue = tmpDate
-                                                                _arrTables(i) = tmpTable
-                                                            End If
-                                                        Next
-                                                    Next
-                                                Else
-                                                    Dim tmpDate As Double = ConvOADate(Now())
-                                                    Dim j As Integer = 0
+        Me.Invoke(New MethodInvoker(Sub()
+                                        Try
+                                            Dim sDateCollect As Double = 0.0
+                                            If dtTable IsNot Nothing AndAlso dtTable.Rows.Count > 0 Then
+                                                For Each dtRow As DataRow In dtTable.Rows
+                                                    Dim tmpDate As Double = ConvOADate(dtRow.Item("COLLECT_DATE"))
                                                     For i As Integer = 0 To _arrTables.Count - 1
                                                         Dim tmpTable As TableInfo = _arrTables(i)
-                                                        sb_ChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, 0.0)
+                                                        If Not IsDBNull(dtRow.Item("RELID")) AndAlso dtRow.Item("RELID") = tmpTable.relID Then
+                                                            'sb_ChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, dtRow.Item("DIFF"))
+                                                            sb_RangeChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, IIf(dtRow.Item("DIFF") > 0, 1, 0), i)
+                                                            tmpTable.AxisXValue = tmpDate
+                                                            _arrTables(i) = tmpTable
+                                                        End If
                                                     Next
-                                                End If
-                                            Catch ex As Exception
-                                                p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
-                                                GC.Collect()
-                                            End Try
+                                                Next
+                                            Else
+                                                'Dim tmpDate As Double = ConvOADate(Now())
+                                                'Dim j As Integer = 0
+                                                'For i As Integer = 0 To _arrTables.Count - 1
+                                                '    Dim tmpTable As TableInfo = _arrTables(i)
+                                                '    sb_ChartAddPoint(Me.chtAutovacuumCount, tmpTable.tableName, tmpDate, 0.0)
+                                                'Next
+                                                Dim tmpDate As Double = ConvOADate(dtpSt.Value)
 
-                                        End Sub))
-        End If
+                                                AddSeries(Me.chtAutovacuumCount, "", "", Nothing, System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range)
+                                                sb_ChartAddPoint(Me.chtAutovacuumCount, "", tmpDate, 0.0)
+                                                tmpDate = ConvOADate(dtpEd.Value)
+                                                sb_ChartAddPoint(Me.chtAutovacuumCount, "", tmpDate, 0.0)
+                                            End If
+                                        Catch ex As Exception
+                                            p_Log.AddMessage(clsLog4Net.enmType.Error, ex.ToString)
+                                            GC.Collect()
+                                        End Try
+
+                                    End Sub))
 
         Me.Invoke(New MethodInvoker(Sub()
                                         sb_ChartAlignYAxies(Me.chtAutovacuumCount)
@@ -360,10 +368,10 @@
                                                     '    sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(i).ToString, tmpDate, 0.0)
                                                     'Next
 
-                                                    Dim tmpDate As Double = ConvOADate(Now())
+                                                    Dim tmpDate As Double = ConvOADate(dtpSt.Value)
                                                     sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(0).ToString, tmpDate, 0.0)
                                                     Dim tmpDt = DateAdd("n", -10, Now)
-                                                    tmpDate = ConvOADate(tmpDt)
+                                                    tmpDate = ConvOADate(dtpEd.Value)
                                                     sb_ChartAddPoint(Me.chtAutovacuumWraparound, _arrDatabases(0).ToString, tmpDate, 0.0)
                                                 End If
                                             Catch ex As Exception
@@ -667,9 +675,9 @@
             If _dtTableAutovacuumWorker IsNot Nothing Then
                 drawAutovacuumWorker()
             End If
-            If _dtTableAutovacuumCount IsNot Nothing Then
-                drawAutovacuumCount()
-            End If
+            'If _dtTableAutovacuumCount IsNot Nothing Then
+            drawAutovacuumCount()
+            'End If
         End If
 
         _ProgresForm.Close()
