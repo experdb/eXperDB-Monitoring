@@ -1084,9 +1084,80 @@ Public Class frmMonItemDetail
                          System.Drawing.Color.Violet,
                          System.Drawing.Color.Salmon,
                          System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.OrangeRed,
+                         System.Drawing.Color.AliceBlue,
+                         System.Drawing.Color.LightGreen,
+                         System.Drawing.Color.OldLace,
+                         System.Drawing.Color.Orchid,
+                         System.Drawing.Color.PaleGoldenrod,
+                         System.Drawing.Color.Beige,
+                         System.Drawing.Color.BlueViolet,
+                         System.Drawing.Color.Coral,
+                         System.Drawing.Color.Crimson,
+                         System.Drawing.Color.Cyan,
+                         System.Drawing.Color.DarkGoldenrod,
+                         System.Drawing.Color.DarkOliveGreen,
+                         System.Drawing.Color.LimeGreen,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
                          System.Drawing.Color.Orange,
+                         System.Drawing.Color.Red,
+                         System.Drawing.Color.Blue,
                          System.Drawing.Color.Brown,
-                         System.Drawing.Color.Green}
+                         System.Drawing.Color.Green,
+                         System.Drawing.Color.Purple,
+                         System.Drawing.Color.Yellow,
+                         System.Drawing.Color.Pink,
+                         System.Drawing.Color.PowderBlue,
+                         System.Drawing.Color.SkyBlue,
+                         System.Drawing.Color.SpringGreen,
+                         System.Drawing.Color.YellowGreen,
+                         System.Drawing.Color.Violet,
+                         System.Drawing.Color.Salmon,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.OrangeRed,
+                         System.Drawing.Color.AliceBlue,
+                         System.Drawing.Color.LightGreen,
+                         System.Drawing.Color.OldLace,
+                         System.Drawing.Color.Orchid,
+                         System.Drawing.Color.PaleGoldenrod,
+                         System.Drawing.Color.Beige,
+                         System.Drawing.Color.BlueViolet,
+                         System.Drawing.Color.Coral,
+                         System.Drawing.Color.Crimson,
+                         System.Drawing.Color.Cyan,
+                         System.Drawing.Color.DarkGoldenrod,
+                         System.Drawing.Color.DarkOliveGreen,
+                         System.Drawing.Color.LimeGreen,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.Orange,
+                         System.Drawing.Color.Red,
+                         System.Drawing.Color.Blue,
+                         System.Drawing.Color.Brown,
+                         System.Drawing.Color.Green,
+                         System.Drawing.Color.Purple,
+                         System.Drawing.Color.Yellow,
+                         System.Drawing.Color.Pink,
+                         System.Drawing.Color.PowderBlue,
+                         System.Drawing.Color.SkyBlue,
+                         System.Drawing.Color.SpringGreen,
+                         System.Drawing.Color.YellowGreen,
+                         System.Drawing.Color.Violet,
+                         System.Drawing.Color.Salmon,
+                         System.Drawing.Color.FromArgb(255, CType(CType(0, Byte), Integer), CType(CType(112, Byte), Integer), CType(CType(192, Byte), Integer)),
+                         System.Drawing.Color.OrangeRed,
+                         System.Drawing.Color.AliceBlue,
+                         System.Drawing.Color.LightGreen,
+                         System.Drawing.Color.OldLace,
+                         System.Drawing.Color.Orchid,
+                         System.Drawing.Color.PaleGoldenrod,
+                         System.Drawing.Color.Beige,
+                         System.Drawing.Color.BlueViolet,
+                         System.Drawing.Color.Coral,
+                         System.Drawing.Color.Crimson,
+                         System.Drawing.Color.Cyan,
+                         System.Drawing.Color.DarkGoldenrod,
+                         System.Drawing.Color.DarkOliveGreen
+                        }
 
         If ShowChart = False Then
             chtCPU.Invoke(New MethodInvoker(Sub()
@@ -1136,7 +1207,11 @@ Public Class frmMonItemDetail
                                                 Dim strSeries = arrPartition.Item(i)
                                                 If Not IsDBNull(strSeries) AndAlso strSeries <> "" Then
                                                     If chtCPU.GetSeries(strSeries) = False Then
-                                                        chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strSeries, strSeries, colors(i))
+                                                        If i <= colors.Count - 1 Then
+                                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strSeries, strSeries, colors(i))
+                                                        Else
+                                                            chtCPU.AddSeries(chtCPU.MainChart.ChartAreas(index).Name, strSeries, strSeries, colors(i - (colors.Count - 1)))
+                                                        End If
                                                     End If
                                                 End If
                                             Next

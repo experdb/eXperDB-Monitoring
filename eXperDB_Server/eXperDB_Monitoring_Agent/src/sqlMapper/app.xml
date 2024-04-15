@@ -5753,7 +5753,7 @@ GROUP BY HA_GROUP
 	
 	<select id="EXPERDBMA_BT_CHECK_READONLY_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT pg_is_in_recovery() ISRECOVERY;
+			SELECT (rolsuper AND NOT pg_is_in_recovery()) AS result FROM pg_roles WHERE rolname = CURRENT_USER;
 		 ]]>	
 	</select>
 	<update id="EXPERDBMA_BT_CREATE_PLPERL_001" parameterType="hashmap">
