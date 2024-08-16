@@ -3819,7 +3819,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 			) 
 		    SELECT TO_CHAR(NOW(), 'YYYYMMDD'), #{instance_id}, coalesce(#{dbid}, 0), coalesce(#{userid}, 0), #{queryid}, #{stmt_queryid}, #{query}, NOW()
 		    WHERE NOT EXISTS (
-		        SELECT 1 FROM TB_QUERY_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = #{instance_id} AND DBID = #{dbid} AND USERID = coalesce(#{userid}, 0) AND QUERYID = #{queryid}
+		        SELECT 1 FROM TB_QUERY_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') AND INSTANCE_ID = #{instance_id} AND DBID = coalesce(#{dbid}, 0) AND USERID = coalesce(#{userid}, 0) AND QUERYID = #{queryid}
 		    );
 	    ]]>
 	</insert>
@@ -5753,7 +5753,7 @@ GROUP BY HA_GROUP
 	
 	<select id="EXPERDBMA_BT_CHECK_READONLY_001" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			SELECT (rolsuper AND NOT pg_is_in_recovery()) AS result FROM pg_roles WHERE rolname = CURRENT_USER;
+			SELECT (rolsuper AND NOT pg_is_in_recovery()) AS isrecovery FROM pg_roles WHERE rolname = CURRENT_USER;
 		 ]]>	
 	</select>
 	<update id="EXPERDBMA_BT_CREATE_PLPERL_001" parameterType="hashmap">
