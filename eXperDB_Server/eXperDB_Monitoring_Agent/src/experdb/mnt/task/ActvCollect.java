@@ -229,6 +229,7 @@ public class ActvCollect extends TaskApplication {
 //					}
 				} catch (Exception e1) {
 					is_collect_ok = "N";
+					failed_collect_type = "2";
 					//log.error("", e1);
 					log.error("[instanceId ==>> " + instanceId + "]", e1);
 				}
@@ -323,6 +324,7 @@ public class ActvCollect extends TaskApplication {
 				
 					} catch (Exception e1) {
 						is_collect_ok = "N";
+						failed_collect_type = "2";
 						//log.error("", e1);
 						log.error("[instanceId ==>> " + instanceId + "]", e1);
 						break;
