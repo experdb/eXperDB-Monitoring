@@ -3022,7 +3022,7 @@ Public Class frmMonDetail
             dgvLock.Columns(colDgvLockBlockedPID.Index).Visible = True
         Else
             dtView = dtTable.AsEnumerable.Where(Function(r) r.Item("INSTANCE_ID") = Me.InstanceID AndAlso r.Item("BLOCKED_PID") Is DBNull.Value).AsDataView
-            dgvLock.Columns(colDgvLockBlockedPID.Index).Visible = False
+            dgvLock.Columns(colDgvLockBlockedPID.Index).Visible = True
         End If
 
         Dim ShowDT As DataTable = Nothing
@@ -3031,8 +3031,19 @@ Public Class frmMonDetail
             ShowDT = dtView.ToTable.AsEnumerable.Take(nudLockCnt.Value).CopyToDataTable
         End If
 
+        Dim lockCount = 0
         If ShowDT IsNot Nothing Then
-            lblLockList.Text = p_clsMsgData.fn_GetData("F338", ShowDT.Rows.Count)
+            If chkBlocked.Checked = True Then
+                Dim blockedPIDs = ShowDT.AsEnumerable().
+                    Where(Function(r) Not IsDBNull(r("BLOCKED_PID"))).Select(Function(r) r("BLOCKED_PID").ToString()).Distinct()
+                Dim blockingPIDs = ShowDT.AsEnumerable().Where(Function(r) Not IsDBNull(r("BLOCKING_PID"))).Select(Function(r) r("BLOCKING_PID").ToString()).Distinct()
+                lockCount = blockedPIDs.Union(blockingPIDs).Count()
+            Else
+                ' BLOCKED_PID IS NULL 인 경우만 BLOCKING_PID 중복 제거
+                lockCount = ShowDT.AsEnumerable().Where(Function(r) IsDBNull(r("BLOCKED_PID")) AndAlso Not IsDBNull(r("BLOCKING_PID"))).Select(Function(r) r("BLOCKING_PID").ToString()).Distinct().Count()
+            End If
+
+            lblLockList.Text = p_clsMsgData.fn_GetData("F338", lockCount)
         Else
             lblLockList.Text = p_clsMsgData.fn_GetData("F338", 0)
         End If

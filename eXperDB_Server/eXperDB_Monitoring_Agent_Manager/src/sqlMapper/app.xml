@@ -2030,9 +2030,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
           	  , 0
           	  , CURRENT_TIMESTAMP
           FROM (
-			      SELECT /* SELECTLOCKCURRENT */ 
-			         B.INSTANCE_ID,
-			         SUM(CASE WHEN C.ACTV_REG_SEQ IS NOT NULL then 1 ELSE 0 END) AS LOCK_TOTAL
+                 SELECT /* SELECTLOCKCURRENT */
+                    B.INSTANCE_ID,
+                    COUNT(DISTINCT C.BLOCKED_PID) AS LOCK_TOTAL
 			      FROM (SELECT * FROM TB_INSTANCE_INFO WHERE COLLECT_YN = 'Y' AND DELETE_YN = 'N') A
 			           , TB_ACTV_COLLECT_INFO B
 			           , TB_CURRENT_LOCK C
@@ -2071,6 +2071,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 					,'BLOCKING'		   ,BLOCKING
 					,'BLOCKED_USER'    ,BLOCKED_USER     
 					,'BLOCKED_PID'     ,BLOCKED_PID      
+					,'LOCK_TYPE'       ,LOCK_TYPE        
 					,'LOCK_MODE'       ,LOCK_MODE        
 					,'QUERYID'  	   ,QUERYID   
 					,'DURATION'		   ,DURATION 
@@ -2088,6 +2089,7 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 				   ,CASE WHEN blocked_query IS NULL THEN TRUE ELSE FALSE END BLOCKING
 				   ,BLOCKED_USER     
 				   ,BLOCKED_PID      
+				   ,LOCK_TYPE
 				   ,RTRIM(LOCK_MODE, 'Lock') LOCK_MODE      
 				   ,CASE WHEN blocked_query IS NULL THEN LEFT(BLOCKING_QUERY, 10) ELSE LEFT(BLOCKED_QUERY,10) END QUERYID
 				   ,ROUND(extract ('epoch' from BLOCKED_DURATION)::NUMERIC,1) duration

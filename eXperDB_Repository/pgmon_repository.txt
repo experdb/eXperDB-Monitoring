@@ -150,6 +150,7 @@ create table tb_current_lock (
     blocked_pid integer,
     blocked_query text,
     blocked_duration interval,
+    lock_type character varying(100),
     lock_mode character varying(100),
     query_start timestamp without time zone,
     xact_start timestamp without time zone,

@@ -94,6 +94,7 @@
         colDgvLockMode.HeaderText = p_clsMsgData.fn_GetData("F222")
         colDgvLockQueryStart.HeaderText = p_clsMsgData.fn_GetData("F223")
         colDgvLockXactStart.HeaderText = p_clsMsgData.fn_GetData("F224")
+        colDgvLockType.HeaderText = p_clsMsgData.fn_GetData("F373")
 
 
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -162,7 +163,19 @@
 
         'Dim Dgv As AdvancedDataGridView.TreeGridView = dgvLock
         'Dgv.Nodes.Clear()
-        Dim intLockCount As Integer = dtView.Count
+
+        Dim ShowDT As DataTable = Nothing
+        Dim intLockCount As Integer = 0
+        If dtView.Count > 0 Then
+            ShowDT = dtView.ToTable.AsEnumerable.CopyToDataTable
+            Dim blockedPIDs = ShowDT.AsEnumerable().Where(Function(r) Not IsDBNull(r("BLOCKED_PID"))).Select(Function(r) r("BLOCKED_PID").ToString()).Distinct()
+            Dim blockingPIDs = ShowDT.AsEnumerable().Where(Function(r) Not IsDBNull(r("BLOCKING_PID"))).Select(Function(r) r("BLOCKING_PID").ToString()).Distinct()
+            intLockCount = blockedPIDs.Union(blockingPIDs).Count()
+        Else
+            intLockCount = 0
+        End If
+
+
         dgvLock.DataSource = dtView
         'Dim HashTbl As New Hashtable
         'For Each tmpCol As DataGridViewColumn In Dgv.Columns
