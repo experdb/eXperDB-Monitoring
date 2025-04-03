@@ -797,22 +797,21 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			JOIN (
 			        SELECT REGEXP_REPLACE( FILE_NAME, '[^0-9].*', '') AS FILENODE, SUM( ( PG_STAT_FILE( PATH || '/' || FILE_NAME ) ).SIZE ) AS FILE_SIZE
 			        from (
-			                SELECT PATH || '/' || FILE_NAME AS PATH, PG_LS_DIR( PATH || '/' || FILE_NAME) AS FILE_NAME
-			                FROM (
-			                        SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
-			                        FROM (
-											SELECT
-											        'pg_tblspc/' || t || '/' ||
-											        (SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
-											        WHERE 1=1 
-											          and (select isdir from PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)) = true
-											          AND Q LIKE 'PG_' || REGEXP_REPLACE(split_part(CURRENT_SETTING('server_version'), '.', 1), E'^([0-9]+\\.[0-9]+).*$', E'\\1') || '%' 
-											        )
-											        AS LOCATION
-											FROM PG_LS_DIR('pg_tblspc') AS T
-			                                WHERE (PG_STAT_FILE('pg_tblspc/' || T)).ISDIR = 'true'
-			                        uNION SELECT 'base' ) AS DIRS ) AS DB_DIRS
-			                        WHERE FILE_NAME = (SELECT OID::TEXT FROM PG_DATABASE WHERE DATNAME = CURRENT_DATABASE() ) ) AS FILE_LIST
+	                        SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
+	                        FROM (
+									SELECT
+									        'pg_tblspc/' || t ||
+											CASE
+													WHEN CURRENT_SETTING('server_version_num')::INT4 > 90000 THEN '/' || (
+													SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
+													WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || Q)).ISDIR = 'true'
+													  AND Q LIKE 'PG_' || REGEXP_REPLACE(CURRENT_SETTING('server_version'), '\..*$', '') || '%s' )
+													 ELSE ''
+											END AS LOCATION
+									FROM PG_LS_DIR('pg_tblspc') AS T
+	                                WHERE (PG_STAT_FILE('pg_tblspc/' || T)).ISDIR = 'true'
+	                        UNION SELECT 'base' ) AS DIRS ) AS DB_DIRS
+	                        WHERE FILE_NAME = (SELECT OID::TEXT FROM PG_DATABASE WHERE DATNAME = CURRENT_DATABASE() ) ) AS FILE_LIST
 			                GROUP BY FILENODE ) AS X ON C.RELFILENODE::TEXT = X.FILENODE
 			        JOIN PG_STAT_USER_INDEXES B ON C.RELNAME::TEXT = B.INDEXRELNAME
 			        JOIN PG_INDEX D ON B.INDEXRELID = D.INDEXRELID
@@ -1218,96 +1217,100 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			<when test="instance_db_version >= 9.2">
 			<!-- when test="instance_db_version.equals('19.2')"-->
 			<![CDATA[
-			WITH TEMP AS (   /* EXPERDBMABT_CURRENT_LOCK_001 24e9ab7301ff1966da4fb30dc1538882 */
-			                     SELECT   OTHER_STM.DATNAME          AS BLOCKING_DB,
-			                     		  OTHER_STM.DATID            AS BLOCKING_DATID,
-			                     		  OTHER.PID                  AS BLOCKING_PID,
-			                              CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
-								               THEN CONVERT_FROM(CONVERT(DECODE(OTHER_STM.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
-								               ELSE OTHER_STM.QUERY
-								          END AS BLOCKING_QUERY,
-			                              OTHER_STM.USENAME          AS BLOCKING_USER,			                              
-			                              OTHER_STM.USESYSID         AS BLOCKING_USESYSID,			                              
-			                              OTHER.LOCKTYPE             AS BLOCKING_LOCKTYPE,
-			                              OTHER.RELATION::REGCLASS   AS BLOCKING_TABLE,
-			                              OTHER.MODE                 AS BLOCKING_MODE,
-			                              OTHER.GRANTED              AS BLOCKING_GRANTED,
-			                              OTHER_STM.QUERY_START      AS BLOCKING_QUERY_START,
-			                              OTHER_STM.XACT_START       AS BLOCKING_XACT_START,
-			                              WAITING.PID                AS BLOCKED_PID,
-			                              WAITING_STM.DATID          AS BLOCKED_DBID,
-			                              CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR' 
-								               THEN CONVERT_FROM(CONVERT(DECODE(WAITING_STM.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
-								               ELSE WAITING_STM.QUERY
-								          END AS BLOCKED_QUERY,
-			                              WAITING_STM.USENAME        AS BLOCKED_USER,
-			                              WAITING_STM.USESYSID       AS BLOCKED_USESYSID,
-			                              WAITING.LOCKTYPE           AS BLOCKED_LOCKTYPE,
-			                              WAITING.RELATION::REGCLASS AS BLOCKED_TABLE,
-			                              WAITING.MODE               AS BLOCKED_MODE,
-			                              WAITING_STM.QUERY_START    AS BLOCKED_QUERY_START,
-			                              WAITING_STM.XACT_START     AS BLOCKED_XACT_START, 
-			                              NOW()-WAITING_STM.QUERY_START  AS BLOCKED_DURATION
-			                      FROM PG_CATALOG.PG_LOCKS AS WAITING JOIN PG_CATALOG.PG_STAT_ACTIVITY AS WAITING_STM ON (WAITING_STM.PID = WAITING.PID)
-			                                                                            JOIN PG_CATALOG.PG_LOCKS AS OTHER ON (  (WAITING.DATABASE = OTHER.DATABASE AND WAITING.RELATION  = OTHER.RELATION AND WAITING.LOCKTYPE  = OTHER.LOCKTYPE) OR WAITING.TRANSACTIONID = OTHER.TRANSACTIONID  )
-			                                                                            JOIN PG_CATALOG.PG_STAT_ACTIVITY AS OTHER_STM ON (  OTHER_STM.PID = OTHER.PID )
-			                                                                            JOIN pg_database D on D.oid = WAITING_STM.DATID
-			                    WHERE NOT WAITING.GRANTED
-			                       AND WAITING.PID <> OTHER.PID
-			)
-			SELECT BLOCKING_DB AS DB_NAME,
-			          BLOCKING_USER AS BLOCKING_USER,
-			          BLOCKING_DATID AS BLOCKING_DATID,
-			          BLOCKING_USESYSID AS BLOCKING_USESYSID,
-			          BLOCKING_PID AS BLOCKING_PID, 
-			          BLOCKING_QUERY AS BLOCKING_QUERY,
-			          MD5(BLOCKING_QUERY) AS BLOCKING_QUERYID,
-			          BLOCKED_USER AS BLOCKED_USER,
-			          BLOCKED_PID AS BLOCKED_PID, 
-			          BLOCKED_QUERY AS BLOCKED_QUERY,
-			          MD5(BLOCKED_QUERY) AS BLOCKED_QUERYID,
-			          BLOCKED_DURATION AS BLOCKED_DURATION,
-			          LOCK_MODE AS LOCK_MODE, 
-			          QUERY_START AS QUERY_START,
-			          XACT_START AS XACT_START,
-			          ROW_NUMBER() OVER (ORDER BY BLOCKING_PID, BLOCKED_DURATION DESC NULLS FIRST) AS ORDER_NO,
-			          NOW() AS COLLECT_DT
-			  FROM (
-			          SELECT BLOCKING_DB,
-			                   BLOCKING_DATID,
-			                   BLOCKING_USER,
-			                   BLOCKING_USESYSID,
-			                   BLOCKING_PID, 
-			                   BLOCKING_QUERY,
-			                   BLOCKED_USER,
-			                   BLOCKED_PID, 
-			                   BLOCKED_QUERY,
-			                   BLOCKED_DURATION,
-			                   BLOCKED_MODE AS LOCK_MODE,
-			                   BLOCKED_QUERY_START AS QUERY_START,
-			                   BLOCKED_XACT_START AS XACT_START
-			           FROM TEMP 
-			         -- WHERE BLOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP)
-			          UNION ALL
-			          SELECT BLOCKING_DB,
-			                   BLOCKING_DATID,
-			                   BLOCKING_USER,
-			                   BLOCKING_USESYSID,
-			                   BLOCKING_PID, 
-			                   BLOCKING_QUERY, 
-			                   NULL AS BLOCKED_USER,
-			                   NULL AS BLOCKED_PID, 
-			                   NULL AS BLOCKED_QUERY, 
-			                   NULL AS BLOCKED_DURATION,
-			                   --MAX(BLOCKING_MODE) AS LOCK_MODE,
-			                   --MAX(BLOCKING_QUERY_START) AS QUERY_START,
-			                   --MAX(BLOCKING_XACT_START) AS XACT_START
-			                   BLOCKING_MODE AS LOCK_MODE,
-			                   BLOCKING_QUERY_START AS QUERY_START,
-			                   BLOCKING_XACT_START AS XACT_START
-			           FROM TEMP WHERE BLOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP) 
-			          --GROUP BY BLOCKING_DB,BLOCKING_USER,BLOCKING_PID, BLOCKING_QUERY
-			) AS A ORDER BY blocked_pid ASC NULLS FIRST limit 1000;
+             WITH TEMP AS (   /* EXPERDBMABT_CURRENT_LOCK_001 24e9ab7301ff1966da4fb30dc1538882 */
+                                  SELECT   OTHER_STM.DATNAME          AS BLOCKING_DB,
+                                               OTHER_STM.DATID            AS BLOCKING_DATID,
+                                               OTHER.PID                  AS BLOCKING_PID,
+                                           CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR'
+                                                                    THEN CONVERT_FROM(CONVERT(DECODE(OTHER_STM.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
+                                                                    ELSE OTHER_STM.QUERY
+                                                               END AS BLOCKING_QUERY,
+                                           OTHER_STM.USENAME          AS BLOCKING_USER,
+                                           OTHER_STM.USESYSID         AS BLOCKING_USESYSID,
+                                           OTHER.LOCKTYPE             AS BLOCKING_LOCKTYPE,
+                                           OTHER.RELATION::REGCLASS   AS BLOCKING_TABLE,
+                                           OTHER.MODE                 AS BLOCKING_MODE,
+                                           OTHER.GRANTED              AS BLOCKING_GRANTED,
+                                           OTHER_STM.QUERY_START      AS BLOCKING_QUERY_START,
+                                           OTHER_STM.XACT_START       AS BLOCKING_XACT_START,
+                                           WAITING.PID                AS BLOCKED_PID,
+                                           WAITING_STM.DATID          AS BLOCKED_DBID,
+                                           CASE WHEN PG_ENCODING_TO_CHAR(ENCODING) = 'EUC_KR'
+                                                                    THEN CONVERT_FROM(CONVERT(DECODE(WAITING_STM.QUERY, 'escape'), 'EUC-KR', 'UTF8'), 'UTF8')
+                                                                    ELSE WAITING_STM.QUERY
+                                                               END AS BLOCKED_QUERY,
+                                           WAITING_STM.USENAME        AS BLOCKED_USER,
+                                           WAITING_STM.USESYSID       AS BLOCKED_USESYSID,
+                                           WAITING.RELATION::REGCLASS AS BLOCKED_TABLE,
+                                           WAITING.LOCKTYPE           AS BLOCKED_LOCKTYPE,
+                                           WAITING.MODE               AS BLOCKED_MODE,
+                                           WAITING_STM.QUERY_START    AS BLOCKED_QUERY_START,
+                                           WAITING_STM.XACT_START     AS BLOCKED_XACT_START,
+                                           NOW()-WAITING_STM.QUERY_START  AS BLOCKED_DURATION
+                                   FROM PG_CATALOG.PG_LOCKS AS WAITING JOIN PG_CATALOG.PG_STAT_ACTIVITY AS WAITING_STM ON (WAITING_STM.PID = WAITING.PID)
+                                                                                         JOIN PG_CATALOG.PG_LOCKS AS OTHER ON (  (WAITING.DATABASE = OTHER.DATABASE AND WAITING.RELATION  = OTHER.RELATION) OR WAITING.TRANSACTIONID = OTHER.TRANSACTIONID  )
+                                                                                         JOIN PG_CATALOG.PG_STAT_ACTIVITY AS OTHER_STM ON (  OTHER_STM.PID = OTHER.PID )
+                                                                                         JOIN pg_database D on D.oid = WAITING_STM.DATID
+                                 WHERE NOT WAITING.GRANTED
+                                    AND WAITING.PID <> OTHER.PID
+             )
+             SELECT BLOCKING_DB AS DB_NAME,
+                       BLOCKING_USER AS BLOCKING_USER,
+                       BLOCKING_DATID AS BLOCKING_DATID,
+                       BLOCKING_USESYSID AS BLOCKING_USESYSID,
+                       BLOCKING_PID AS BLOCKING_PID,
+                       BLOCKING_QUERY AS BLOCKING_QUERY,
+                       MD5(BLOCKING_QUERY) AS BLOCKING_QUERYID,
+                       BLOCKED_USER AS BLOCKED_USER,
+                       BLOCKED_PID AS BLOCKED_PID,
+                       BLOCKED_QUERY AS BLOCKED_QUERY,
+                       MD5(BLOCKED_QUERY) AS BLOCKED_QUERYID,
+                       BLOCKED_DURATION AS BLOCKED_DURATION,
+                       LOCK_TYPE AS LOCK_TYPE,
+                       LOCK_MODE AS LOCK_MODE,
+                       QUERY_START AS QUERY_START,
+                       XACT_START AS XACT_START,
+                       ROW_NUMBER() OVER (ORDER BY BLOCKING_PID, BLOCKED_DURATION DESC NULLS FIRST) AS ORDER_NO,
+                       NOW() AS COLLECT_DT
+               FROM (
+                       SELECT BLOCKING_DB,
+                                BLOCKING_DATID,
+                                BLOCKING_USER,
+                                BLOCKING_USESYSID,
+                                BLOCKING_PID,
+                                BLOCKING_QUERY,
+                                BLOCKED_USER,
+                                BLOCKED_PID,
+                                BLOCKED_QUERY,
+                                BLOCKED_DURATION,
+                                BLOCKED_LOCKTYPE AS LOCK_TYPE,
+                                BLOCKED_MODE AS LOCK_MODE,
+                                BLOCKED_QUERY_START AS QUERY_START,
+                                BLOCKED_XACT_START AS XACT_START
+                        FROM TEMP
+                      -- WHERE BLOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP)
+                       UNION ALL
+                       SELECT --DISTINCT ON (BLOCKING_PID)
+                                BLOCKING_DB,
+                                BLOCKING_DATID,
+                                BLOCKING_USER,
+                                BLOCKING_USESYSID,
+                                BLOCKING_PID,
+                                BLOCKING_QUERY,
+                                NULL AS BLOCKED_USER,
+                                NULL AS BLOCKED_PID,
+                                NULL AS BLOCKED_QUERY,
+                                NULL AS BLOCKED_DURATION,
+                                --MAX(BLOCKING_MODE) AS LOCK_MODE,
+                                --MAX(BLOCKING_QUERY_START) AS QUERY_START,
+                                --MAX(BLOCKING_XACT_START) AS XACT_START
+                                BLOCKING_LOCKTYPE AS LOCK_TYPE,
+                                BLOCKING_MODE AS LOCK_MODE,
+                                BLOCKING_QUERY_START AS QUERY_START,
+                                BLOCKING_XACT_START AS XACT_START
+                        FROM TEMP WHERE BLOCKING_PID NOT IN (SELECT BLOCKED_PID FROM TEMP)
+                       --GROUP BY BLOCKING_DB,BLOCKING_USER,BLOCKING_PID, BLOCKING_QUERY
+             ) AS A ORDER BY blocked_pid ASC NULLS FIRST limit 1000;
 			]]>
 			</when>
 			<otherwise>
@@ -1329,6 +1332,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		    blocked_pid,
 		    blocked_query,
 		    blocked_duration,
+		    lock_type,
 		    lock_mode,
 		    query_start,
 		    xact_start,
@@ -1347,6 +1351,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			#{blocked_pid},
 			#{blocked_query},
 			#{blocked_duration},
+			#{lock_type},
 			#{lock_mode},
 			#{query_start},
 			#{xact_start},
@@ -1906,9 +1911,9 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 	</select>
 	
 	<select id="EXPERDBMA_BT_HCHK_LOCKCNT_001" parameterType="hashmap" resultType="hashmap">
-			 SELECT /* EXPERDBMA_BT_HCHK_LOCKCNT_001 */
+		SELECT /* EXPERDBMA_BT_HCHK_LOCKCNT_001 */
 		         ACM.INSTANCE_ID,
-		         SUM(CASE WHEN BLOCKED_PID is null THEN 0 ELSE 1 END) AS LOCKCNT,
+		         COUNT(DISTINCT BLOCKED_PID) AS LOCKCNT,
 		         '2' AS COLLECT_GROUP,
 		         LCK.REG_DATE AS COLLECT_REG_DATE,
 		         LCK.ACTV_REG_SEQ::VARCHAR AS COLLECT_REG_SEQ,
@@ -1922,7 +1927,6 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 		   AND IST.INSTANCE_ID = ACM.INSTANCE_ID   
 		   AND IST.COLLECT_YN = 'Y'             
 		   AND IST.DELETE_YN='N'
-		   --AND LCK.BLOCKED_PID IS NOT NULL 
 		GROUP BY LCK.REG_DATE,LCK.ACTV_REG_SEQ,ACM.INSTANCE_ID;
 	</select>
 	
@@ -2380,8 +2384,9 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	FROM (
 			WITH MAX_SEQ AS (SELECT MAX(X.REPL_REG_SEQ) RSC_REG_SEQ, INSTANCE_ID FROM TB_REPLICATION_INFO X WHERE X.REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD') GROUP BY X.INSTANCE_ID )
 		    SELECT   B.INSTANCE_ID,
-		             CASE WHEN min(B.ACTIVE::integer) = 1 THEN 0
-		             	  ELSE 1 END REPLICATION_SLOT,
+		             --CASE WHEN min(B.ACTIVE::integer) = 1 THEN 0
+		             --	  ELSE 1 END REPLICATION_SLOT,
+		             SUM(CASE WHEN B.ACTIVE = false THEN 1 ELSE 0 END) REPLICATION_SLOT,
 		             '4' AS COLLECT_GROUP,
 		             MAX(B.REG_DATE) AS COLLECT_REG_DATE,
 					 MAX(B.REPL_REG_SEQ)::VARCHAR AS COLLECT_REG_SEQ,

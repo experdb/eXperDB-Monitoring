@@ -2857,6 +2857,22 @@
     <DATA><![CDATA[List only]]></DATA>
     <VALUECAST />
   </ROW>
+  <ROW ID="F372" PARAMS="0">
+    <DESC>DISK I/O</DESC>
+    <DATA><![CDATA[Disk I/O Status]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
+  <ROW ID="F373" PARAMS="0">
+    <DESC>LOCK TYPE</DESC>
+    <DATA><![CDATA[Lock Type]]></DATA>
+    <COMMENTS />
+    <CATEGORY />
+    <COLUMNS />
+    <VALUECAST />
+  </ROW>
   <ROW ID="LASTANALYZE" PARAMS="0">
     <DESC>Checks how long it has been since vacuum was last run on each table.</DESC>
     <DATA><![CDATA[Last Analyze]]></DATA>
