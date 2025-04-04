@@ -797,6 +797,8 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 			JOIN (
 			        SELECT REGEXP_REPLACE( FILE_NAME, '[^0-9].*', '') AS FILENODE, SUM( ( PG_STAT_FILE( PATH || '/' || FILE_NAME ) ).SIZE ) AS FILE_SIZE
 			        from (
+			        	SELECT PATH || '/' || FILE_NAME AS PATH, PG_LS_DIR( PATH || '/' || FILE_NAME) AS FILE_NAME
+			                FROM (
 	                        SELECT LOCATION AS PATH, PG_LS_DIR(LOCATION) AS FILE_NAME
 	                        FROM (
 									SELECT
@@ -804,7 +806,7 @@ SELECT /* EXPERDBMABT_TABLE_INFO_001 24e9ab7301ff1966da4fb30dc1538882 */
 											CASE
 													WHEN CURRENT_SETTING('server_version_num')::INT4 > 90000 THEN '/' || (
 													SELECT Q FROM PG_LS_DIR('pg_tblspc/' || T) AS Q
-													WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || Q)).ISDIR = 'true'
+													WHERE (PG_STAT_FILE( 'pg_tblspc/' || T || '/' || Q)).ISDIR = 'true'
 													  AND Q LIKE 'PG_' || REGEXP_REPLACE(CURRENT_SETTING('server_version'), '\..*$', '') || '%s' )
 													 ELSE ''
 											END AS LOCATION
