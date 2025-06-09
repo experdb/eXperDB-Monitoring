@@ -3325,8 +3325,8 @@ WHERE MEM.REG_DATE=TO_CHAR(NOW(), 'YYYYMMDD')
 	<select id="TB_HCHK_ALERT_PREV_INFO_001" resultType="hashmap">
 	<![CDATA[
 		SELECT A.*, NOTIFICATION_LEVEL FROM TB_HCHK_ALERT_INFO A JOIN TB_HCHK_THRD_LIST B ON A.INSTANCE_ID = B.INSTANCE_ID AND A.HCHK_NAME = B.HCHK_NAME AND A.STATE > NOTIFICATION_LEVEL*100
-	     WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD')
-		   AND HCHK_REG_SEQ = (SELECT MAX(HCHK_REG_SEQ) HCHK_REG_SEQ FROM TB_HCHK_ALERT_INFO WHERE REG_DATE = TO_CHAR(NOW(), 'YYYYMMDD'))
+		 WHERE REG_DATE in (TO_CHAR(NOW(), 'YYYYMMDD'), TO_CHAR(NOW() - interval '1d', 'YYYYMMDD'))
+		   AND HCHK_REG_SEQ = (SELECT HCHK_REG_SEQ FROM TB_HCHK_ALERT_INFO WHERE REG_DATE IN (TO_CHAR(NOW(), 'YYYYMMDD'), TO_CHAR(NOW() - interval '1 day', 'YYYYMMDD')) ORDER BY REG_DATE DESC, HCHK_REG_SEQ DESC LIMIT 1)
 		   AND STATE <> 400 AND STATE >= 200
 		   ]]>
 	</select>	
@@ -5589,6 +5589,33 @@ UNION ALL
 			    AND	p.proname = 'checkvip'
 	</select>
 	<update id="BT_CHECK_VIP_FUNCTION_001" parameterType="hashmap">
+		<![CDATA[
+			/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
+			DO $$
+			DECLARE       
+			    is_in_recovery BOOL;
+			    is_plperu BOOL;
+			BEGIN    
+			    is_in_recovery := (SELECT PG_IS_IN_RECOVERY());       
+			    IF is_in_recovery = FALSE THEN
+			    	is_plperu := (SELECT true FROM pg_extension WHERE extname = 'plperlu');
+				    IF is_plperu = FALSE THEN           
+					    EXECUTE FORMAT('CREATE EXTENSION IF NOT EXISTS plperlu');
+					END IF;
+				    EXECUTE FORMAT('CREATE OR REPLACE FUNCTION CHECKVIP(CHARACTER VARYING) RETURNS text AS $BODY$
+					    use warnings;
+					    use strict;
+					    my $vip = $_[0];
+					    my $res;
+					    my $cmd = ''grep -w "'' . $vip . ''" /proc/net/fib_trie | awk \''{print $2}\'' | head -n 1 | tr -d \''\n\''''; 
+					    $res = `$cmd`;
+					    return($res);
+					$BODY$ LANGUAGE plperlu;');     
+			    END IF;     
+			END $$;
+		  ]]>	  
+	</update>	
+	<update id="BT_CHECK_VIP_FUNCTION_001_OLD_20250609" parameterType="hashmap">
 		<![CDATA[
 			/* EXPERDBMA_BT_CREATE_FUNCTION_001 24E9AB7301FF1966DA4FB30DC1538882*/
 			DO $$
